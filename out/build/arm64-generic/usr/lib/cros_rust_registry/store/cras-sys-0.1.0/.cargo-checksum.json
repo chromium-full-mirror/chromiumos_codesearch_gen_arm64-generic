@@ -3,8 +3,8 @@
 	"files": {
 		"src/lib.rs": "f645c9e1b1c460ca57b3e9a7d4bee46fe28224c86257706594fc8e1b88e8dd06",
 		"src/gen.rs": "bb66333693dddaf3780ed8a67be90f26ffa71230223f401bc8cc5cadab2f8528",
+		"Cargo.toml": "14ef78148f97ab3c4e0a28b17f2f6f71fd8e1b9bae7625818892c0c8b02172a0",
 		"Cargo.toml.orig": "c76acb523823ba84b7fe2a2d3472a93a605bcf4e8ca619f1192256f704ec5824",
-		"build.rs": "fc75f58b7fc3e61313e18eb1a92439fb3d4bb05b63a3d90e73b9b5bdf23a728f",
-		"Cargo.toml": "14ef78148f97ab3c4e0a28b17f2f6f71fd8e1b9bae7625818892c0c8b02172a0"
+		"build.rs": "fc75f58b7fc3e61313e18eb1a92439fb3d4bb05b63a3d90e73b9b5bdf23a728f"
 	}
 }
