@@ -21,8 +21,8 @@ home/chrome-bot/chrome_root/src/third_party/ply/yacc.py
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/public/mojom/shared_image_format.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/public/mojom/shared_image_format__parser.rsp
 home/chrome-bot/chrome_root/src/services/viz/public/mojom/compositing/shared_image_format.mojom
-home/chrome-bot/chrome_root/src/services/viz/public/mojom/compositing/internal/singleplanar_format.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/public/mojom/compositing/internal/singleplanar_format.mojom-module
-home/chrome-bot/chrome_root/src/services/viz/public/mojom/compositing/shared_image_format.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/public/mojom/shared_image_format.build_metadata
+home/chrome-bot/chrome_root/src/services/viz/public/mojom/compositing/internal/singleplanar_format.mojom
+home/chrome-bot/chrome_root/src/services/viz/public/mojom/compositing/shared_image_format.mojom
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/public/mojom/compositing/internal/singleplanar_format.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/viz/public/mojom/singleplanar_format.build_metadata

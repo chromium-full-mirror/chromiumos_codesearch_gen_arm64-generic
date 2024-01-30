@@ -790,6 +790,19 @@ class ControlProxyMock : public ControlProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
+              GetNumberOfArcStreams,
+              (int32_t* /*out_num_arc_streams*/,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              GetNumberOfArcStreamsAsync,
+              (base::OnceCallback<void(int32_t /*num_arc_streams*/)> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               SetForceBtHfpOffloadOnSupport,
               (bool /*in_enabled*/,
                brillo::ErrorPtr* /*error*/,
@@ -995,6 +1008,16 @@ class ControlProxyMock : public ControlProxyInterface {
   MOCK_METHOD(void,
               DoRegisterNumberOfInputStreamsWithPermissionChangedSignalHandler,
               (const base::RepeatingCallback<void(const brillo::VariantDictionary&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
+  void RegisterNumberOfArcStreamsChangedSignalHandler(
+    const base::RepeatingCallback<void(int32_t)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    DoRegisterNumberOfArcStreamsChangedSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD(void,
+              DoRegisterNumberOfArcStreamsChangedSignalHandler,
+              (const base::RepeatingCallback<void(int32_t)>& /*signal_callback*/,
                dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
 
   void RegisterHotwordTriggeredSignalHandler(

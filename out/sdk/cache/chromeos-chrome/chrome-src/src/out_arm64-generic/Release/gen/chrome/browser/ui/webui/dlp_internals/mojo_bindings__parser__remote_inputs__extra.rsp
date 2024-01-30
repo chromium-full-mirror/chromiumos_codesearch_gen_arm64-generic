@@ -23,6 +23,6 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/br
 home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/dlp_internals/dlp_internals.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/dlp_internals/mojo_bindings.build_metadata
 home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/dlp_internals/dlp_internals.mojom
+home/chrome-bot/chrome_root/src/url/mojom/url.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/url/mojom/url.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/url/mojom/url_mojom_gurl.build_metadata
-home/chrome-bot/chrome_root/src/url/mojom/url.mojom

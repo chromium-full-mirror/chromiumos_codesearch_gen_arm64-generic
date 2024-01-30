@@ -941,6 +941,18 @@ class ControlProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  // Returns the number of active streams from ARC.
+  virtual bool GetNumberOfArcStreams(
+      int32_t* out_num_arc_streams,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  // Returns the number of active streams from ARC.
+  virtual void GetNumberOfArcStreamsAsync(
+      base::OnceCallback<void(int32_t /*num_arc_streams*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   // Sets true to always adopt BT HFP offload path while supported.
   // Sets false to defer to the default setting of path selection.
   virtual bool SetForceBtHfpOffloadOnSupport(
@@ -1066,6 +1078,10 @@ class ControlProxyInterface {
 
   virtual void RegisterNumberOfInputStreamsWithPermissionChangedSignalHandler(
       const base::RepeatingCallback<void(const brillo::VariantDictionary&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
+  virtual void RegisterNumberOfArcStreamsChangedSignalHandler(
+      const base::RepeatingCallback<void(int32_t)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
   virtual void RegisterHotwordTriggeredSignalHandler(
@@ -1268,6 +1284,17 @@ class ControlProxy final : public ControlProxyInterface {
         dbus_object_proxy_,
         "org.chromium.cras.Control",
         "NumberOfInputStreamsWithPermissionChanged",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterNumberOfArcStreamsChangedSignalHandler(
+      const base::RepeatingCallback<void(int32_t)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "NumberOfArcStreamsChanged",
         signal_callback,
         std::move(on_connected_callback));
   }
@@ -3266,6 +3293,35 @@ class ControlProxy final : public ControlProxyInterface {
         dbus_object_proxy_,
         "org.chromium.cras.Control",
         "GetNumberOfNonChromeOutputStreams",
+        std::move(success_callback),
+        std::move(error_callback));
+  }
+
+  // Returns the number of active streams from ARC.
+  bool GetNumberOfArcStreams(
+      int32_t* out_num_arc_streams,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "GetNumberOfArcStreams",
+        error);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error, out_num_arc_streams);
+  }
+
+  // Returns the number of active streams from ARC.
+  void GetNumberOfArcStreamsAsync(
+      base::OnceCallback<void(int32_t /*num_arc_streams*/)> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.cras.Control",
+        "GetNumberOfArcStreams",
         std::move(success_callback),
         std::move(error_callback));
   }
