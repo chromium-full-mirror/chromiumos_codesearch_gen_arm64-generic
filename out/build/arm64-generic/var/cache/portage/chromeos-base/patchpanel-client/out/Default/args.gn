@@ -12,7 +12,7 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel-client"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/patchpanel-client-0.0.1-r939/work/patchpanel-client-0.0.1"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/patchpanel-client-0.0.1-r940/work/patchpanel-client-0.0.1"
 libbase_ver = "1252475"
 enable_exceptions = false
 external_cflags = [

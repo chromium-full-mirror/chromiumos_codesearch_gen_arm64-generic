@@ -23,5 +23,5 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/
 home/chrome-bot/chrome_root/src/chromeos/components/sensors/mojom/cros_sensor_service.mojom
 home/chrome-bot/chrome_root/src/chromeos/components/sensors/mojom/sensor.mojom
 home/chrome-bot/chrome_root/src/chromeos/components/sensors/mojom/cros_sensor_service.mojom
-home/chrome-bot/chrome_root/src/chromeos/components/sensors/mojom/sensor.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/components/sensors/mojom/mojom.build_metadata
+home/chrome-bot/chrome_root/src/chromeos/components/sensors/mojom/sensor.mojom
