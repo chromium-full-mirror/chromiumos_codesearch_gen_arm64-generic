@@ -21,8 +21,8 @@ home/chrome-bot/chrome_root/src/third_party/ply/yacc.py
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/event_reporter.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/event_reporter__parser.rsp
 home/chrome-bot/chrome_root/src/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_event_reporters.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/system/diagnostics/mojom/mojom.build_metadata
 home/chrome-bot/chrome_root/src/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_event_reporters.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/system/diagnostics/mojom/input.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/event_reporter.build_metadata
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/system/diagnostics/mojom/input.mojom-module
 home/chrome-bot/chrome_root/src/ash/system/diagnostics/mojom/input.mojom
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/system/diagnostics/mojom/mojom.build_metadata
