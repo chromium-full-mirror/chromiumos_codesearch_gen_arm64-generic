@@ -1,0 +1,112 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build libhwsec: phony ./lib/libhwsec.so
+build _libhwsec-install_config: phony obj/libhwsec/_libhwsec-install_config.stamp
+build _libhwsec_client-install_config: phony obj/libhwsec/_libhwsec_client-install_config.stamp
+build error_library: phony obj/libhwsec/error_library.stamp
+build flatbuffers-binding-generator: phony obj/libhwsec/flatbuffers-binding-generator.stamp
+build hardware_abstraction_external_library: phony obj/libhwsec/hardware_abstraction_external_library.stamp
+build hardware_abstraction_external_thread_local_library: phony obj/libhwsec/hardware_abstraction_external_thread_local_library.stamp
+build hardware_abstraction_internal_library: phony obj/libhwsec/hardware_abstraction_internal_library.stamp
+build install_error_h: phony obj/libhwsec/install_error_h.stamp
+build install_headers: phony obj/libhwsec/install_headers.stamp
+build install_headers_overalls: phony obj/libhwsec/install_headers_overalls.stamp
+build install_headers_structures: phony obj/libhwsec/install_headers_structures.stamp
+build install_tpm1_error_h: phony obj/libhwsec/install_tpm1_error_h.stamp
+build install_tpm1_headers: phony obj/libhwsec/install_tpm1_headers.stamp
+build install_tpm2_error_h: phony obj/libhwsec/install_tpm2_error_h.stamp
+build oobe_config_encrypted_data_proto: phony ./liboobe_config_encrypted_data_proto.a
+build oobe_config_encrypted_data_proto_gen: phony obj/libhwsec/oobe_config_encrypted_data_proto_gen.stamp
+build overalls_library: phony ./liboveralls_library.a
+build pinweaver_manager_proto: phony ./libpinweaver_manager_proto.a
+build pinweaver_manager_proto_gen: phony obj/libhwsec/pinweaver_manager_proto_gen.stamp
+build python-flatbuffers-reflection: phony obj/libhwsec/python-flatbuffers-reflection.stamp
+build python-flatbuffers-reflection_gen: phony obj/libhwsec/python-flatbuffers-reflection_gen.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build signature-sealed-data-flatbuffers: phony obj/libhwsec/signature-sealed-data-flatbuffers.stamp
+build signature-sealed-data-flatbuffers-binding-binary: phony obj/libhwsec/signature-sealed-data-flatbuffers-binding-binary.stamp
+build signature-sealed-data-flatbuffers-binding-binary_gen: phony obj/libhwsec/signature-sealed-data-flatbuffers-binding-binary_gen.stamp
+build signature-sealed-data-flatbuffers-binding-generate: phony obj/libhwsec/signature-sealed-data-flatbuffers-binding-generate.stamp
+build signature-sealed-data-flatbuffers_gen: phony obj/libhwsec/signature-sealed-data-flatbuffers_gen.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build libhwsec$:_libhwsec-install_config: phony obj/libhwsec/_libhwsec-install_config.stamp
+build libhwsec$:_libhwsec_client-install_config: phony obj/libhwsec/_libhwsec_client-install_config.stamp
+build libhwsec$:all: phony obj/libhwsec/all.stamp
+build libhwsec$:error_library: phony obj/libhwsec/error_library.stamp
+build libhwsec$:flatbuffers-binding-generator: phony obj/libhwsec/flatbuffers-binding-generator.stamp
+build libhwsec$:hardware_abstraction_external_library: phony obj/libhwsec/hardware_abstraction_external_library.stamp
+build libhwsec$:hardware_abstraction_external_thread_local_library: phony obj/libhwsec/hardware_abstraction_external_thread_local_library.stamp
+build libhwsec$:hardware_abstraction_internal_library: phony obj/libhwsec/hardware_abstraction_internal_library.stamp
+build libhwsec$:install_error_h: phony obj/libhwsec/install_error_h.stamp
+build libhwsec$:install_headers: phony obj/libhwsec/install_headers.stamp
+build libhwsec$:install_headers_overalls: phony obj/libhwsec/install_headers_overalls.stamp
+build libhwsec$:install_headers_structures: phony obj/libhwsec/install_headers_structures.stamp
+build libhwsec$:install_tpm1_error_h: phony obj/libhwsec/install_tpm1_error_h.stamp
+build libhwsec$:install_tpm1_headers: phony obj/libhwsec/install_tpm1_headers.stamp
+build libhwsec$:install_tpm2_error_h: phony obj/libhwsec/install_tpm2_error_h.stamp
+build libhwsec$:libhwsec: phony ./lib/libhwsec.so
+build libhwsec$:libhwsec_client: phony ./libhwsec_client
+build libhwsec$:oobe_config_encrypted_data_proto: phony ./liboobe_config_encrypted_data_proto.a
+build libhwsec$:oobe_config_encrypted_data_proto_gen: phony obj/libhwsec/oobe_config_encrypted_data_proto_gen.stamp
+build libhwsec$:overalls_library: phony ./liboveralls_library.a
+build libhwsec$:pinweaver_manager_proto: phony ./libpinweaver_manager_proto.a
+build libhwsec$:pinweaver_manager_proto_gen: phony obj/libhwsec/pinweaver_manager_proto_gen.stamp
+build libhwsec$:python-flatbuffers-reflection: phony obj/libhwsec/python-flatbuffers-reflection.stamp
+build libhwsec$:python-flatbuffers-reflection_gen: phony obj/libhwsec/python-flatbuffers-reflection_gen.stamp
+build libhwsec$:signature-sealed-data-flatbuffers: phony obj/libhwsec/signature-sealed-data-flatbuffers.stamp
+build libhwsec$:signature-sealed-data-flatbuffers-binding-binary: phony obj/libhwsec/signature-sealed-data-flatbuffers-binding-binary.stamp
+build libhwsec$:signature-sealed-data-flatbuffers-binding-binary_gen: phony obj/libhwsec/signature-sealed-data-flatbuffers-binding-binary_gen.stamp
+build libhwsec$:signature-sealed-data-flatbuffers-binding-generate: phony obj/libhwsec/signature-sealed-data-flatbuffers-binding-generate.stamp
+build libhwsec$:signature-sealed-data-flatbuffers_gen: phony obj/libhwsec/signature-sealed-data-flatbuffers_gen.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    obj/libhwsec/_libhwsec-install_config.stamp $
+    obj/libhwsec/_libhwsec_client-install_config.stamp $
+    obj/libhwsec/all.stamp $
+    obj/libhwsec/error_library.stamp $
+    obj/libhwsec/flatbuffers-binding-generator.stamp $
+    obj/libhwsec/hardware_abstraction_external_library.stamp $
+    obj/libhwsec/hardware_abstraction_external_thread_local_library.stamp $
+    obj/libhwsec/hardware_abstraction_internal_library.stamp $
+    obj/libhwsec/install_error_h.stamp $
+    obj/libhwsec/install_headers.stamp $
+    obj/libhwsec/install_headers_overalls.stamp $
+    obj/libhwsec/install_headers_structures.stamp $
+    obj/libhwsec/install_tpm1_error_h.stamp $
+    obj/libhwsec/install_tpm1_headers.stamp $
+    obj/libhwsec/install_tpm2_error_h.stamp $
+    ./lib/libhwsec.so $
+    ./libhwsec_client $
+    ./liboobe_config_encrypted_data_proto.a $
+    obj/libhwsec/oobe_config_encrypted_data_proto_gen.stamp $
+    ./liboveralls_library.a $
+    ./libpinweaver_manager_proto.a $
+    obj/libhwsec/pinweaver_manager_proto_gen.stamp $
+    obj/libhwsec/python-flatbuffers-reflection.stamp $
+    obj/libhwsec/python-flatbuffers-reflection_gen.stamp $
+    obj/libhwsec/signature-sealed-data-flatbuffers.stamp $
+    obj/libhwsec/signature-sealed-data-flatbuffers-binding-binary.stamp $
+    obj/libhwsec/signature-sealed-data-flatbuffers-binding-binary_gen.stamp $
+    obj/libhwsec/signature-sealed-data-flatbuffers-binding-generate.stamp $
+    obj/libhwsec/signature-sealed-data-flatbuffers_gen.stamp
+
+default all

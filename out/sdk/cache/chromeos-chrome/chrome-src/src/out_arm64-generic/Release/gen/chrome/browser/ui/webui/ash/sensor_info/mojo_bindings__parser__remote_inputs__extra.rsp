@@ -21,5 +21,5 @@ home/chrome-bot/chrome_root/src/third_party/ply/yacc.py
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/ash/sensor_info/mojo_bindings.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/ash/sensor_info/mojo_bindings__parser.rsp
 home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/ash/sensor_info/sensor.mojom
-home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/ash/sensor_info/sensor.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/ash/sensor_info/mojo_bindings.build_metadata
+home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/ash/sensor_info/sensor.mojom
