@@ -41,11 +41,11 @@ build obj/tpm_manager/install_minijail_conf.stamp: stamp
 build obj/tpm_manager/install_tmpfiles_config.stamp: stamp
 subninja obj/tpm_manager/legacy_local_data_proto.ninja
 rule __tpm_manager_legacy_local_data_proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/tpm_manager-0.0.1-r3216/work/tpm_manager-0.0.1/common-mk/file_generator_wrapper.py protoc legacy_local_data.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/tpm_manager-0.0.1-r3216/work/tpm_manager-0.0.1/tpm_manager/server --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/tpm_manager/out/Default/gen/include/tpm_manager/server
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/tpm_manager-0.0.1-r3217/work/tpm_manager-0.0.1/common-mk/file_generator_wrapper.py protoc legacy_local_data.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/tpm_manager-0.0.1-r3217/work/tpm_manager-0.0.1/tpm_manager/server --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/tpm_manager/out/Default/gen/include/tpm_manager/server
   description = ACTION //tpm_manager:legacy_local_data_proto_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/tpm_manager/server/legacy_local_data.pb.cc gen/include/tpm_manager/server/legacy_local_data.pb.h: __tpm_manager_legacy_local_data_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/tpm_manager-0.0.1-r3216/work/tpm_manager-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/tpm_manager-0.0.1-r3216/work/tpm_manager-0.0.1/tpm_manager/server/legacy_local_data.proto
+build gen/include/tpm_manager/server/legacy_local_data.pb.cc gen/include/tpm_manager/server/legacy_local_data.pb.h: __tpm_manager_legacy_local_data_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/tpm_manager-0.0.1-r3217/work/tpm_manager-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/tpm_manager-0.0.1-r3217/work/tpm_manager-0.0.1/tpm_manager/server/legacy_local_data.proto
 
 build obj/tpm_manager/legacy_local_data_proto_gen.stamp: stamp gen/include/tpm_manager/server/legacy_local_data.pb.cc gen/include/tpm_manager/server/legacy_local_data.pb.h
 subninja obj/tpm_manager/local_data_migration.ninja

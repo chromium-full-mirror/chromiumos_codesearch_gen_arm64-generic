@@ -19,6 +19,12 @@ G_DECLARE_DERIVABLE_TYPE(JcatBlob, jcat_blob, JCAT, BLOB, GObject)
  * @JCAT_BLOB_KIND_GPG:			GPG detached signature
  * @JCAT_BLOB_KIND_PKCS7:		PKCS-7 detached signature
  * @JCAT_BLOB_KIND_SHA1:		SHA-1 checksum
+ * @JCAT_BLOB_KIND_BT_MANIFEST:		Binary transparency manifest
+ * @JCAT_BLOB_KIND_BT_CHECKPOINT:	Binary transparency checkpoint
+ * @JCAT_BLOB_KIND_BT_INCLUSION_PROOF:	Binary transparency inclusion proof
+ * @JCAT_BLOB_KIND_BT_VERIFIER:		Binary transparency verifier
+ * @JCAT_BLOB_KIND_ED25519:		ED25519 signature
+ * @JCAT_BLOB_KIND_SHA512:		SHA-512 checksum
  *
  * The kind of blob stored as a signature on the item.
  **/
@@ -28,6 +34,12 @@ typedef enum {
 	JCAT_BLOB_KIND_GPG,
 	JCAT_BLOB_KIND_PKCS7,
 	JCAT_BLOB_KIND_SHA1,
+	JCAT_BLOB_KIND_BT_MANIFEST,	   /* Since: 0.1.9 */
+	JCAT_BLOB_KIND_BT_CHECKPOINT,	   /* Since: 0.1.9 */
+	JCAT_BLOB_KIND_BT_INCLUSION_PROOF, /* Since: 0.1.9 */
+	JCAT_BLOB_KIND_BT_VERIFIER,	   /* Since: 0.1.9 */
+	JCAT_BLOB_KIND_ED25519,		   /* Since: 0.1.9 */
+	JCAT_BLOB_KIND_SHA512,		   /* Since: 0.1.13 */
 	/*< private >*/
 	JCAT_BLOB_KIND_LAST
 } JcatBlobKind;
@@ -56,36 +68,43 @@ typedef enum {
  * Flags used when creating the blob.
  **/
 typedef enum {
-	JCAT_BLOB_FLAG_NONE		= 0,
-	JCAT_BLOB_FLAG_IS_UTF8		= 1 << 0,
+	JCAT_BLOB_FLAG_NONE = 0,
+	JCAT_BLOB_FLAG_IS_UTF8 = 1 << 0,
 	/*< private >*/
 	JCAT_BLOB_FLAG_LAST
 } JcatBlobFlags;
 
-struct _JcatBlobClass
-{
-	GObjectClass		 parent_class;
-	gpointer		 padding[15];
+struct _JcatBlobClass {
+	GObjectClass parent_class;
+	gpointer padding[15];
 };
 
-JcatBlobKind	 jcat_blob_kind_from_string		(const gchar	*kind);
-const gchar	*jcat_blob_kind_to_string		(JcatBlobKind	 kind);
-const gchar	*jcat_blob_kind_to_filename_ext		(JcatBlobKind	 kind);
+JcatBlobKind
+jcat_blob_kind_from_string(const gchar *kind);
+const gchar *
+jcat_blob_kind_to_string(JcatBlobKind kind);
+const gchar *
+jcat_blob_kind_to_filename_ext(JcatBlobKind kind);
 
-JcatBlob	*jcat_blob_new				(JcatBlobKind	 kind,
-							 GBytes		*data);
-JcatBlob	*jcat_blob_new_full			(JcatBlobKind	 kind,
-							 GBytes		*data,
-							 JcatBlobFlags	 flags);
-JcatBlob	*jcat_blob_new_utf8			(JcatBlobKind	 kind,
-							 const gchar	*data);
-gchar		*jcat_blob_to_string 			(JcatBlob	*self);
-GBytes		*jcat_blob_get_data			(JcatBlob	*self);
-gchar		*jcat_blob_get_data_as_string		(JcatBlob	*self);
-JcatBlobKind	 jcat_blob_get_kind			(JcatBlob	*self);
-gint64		 jcat_blob_get_timestamp		(JcatBlob	*self);
-void		 jcat_blob_set_timestamp		(JcatBlob	*self,
-							 gint64		 timestamp);
-const gchar	*jcat_blob_get_appstream_id		(JcatBlob	*self);
-void		 jcat_blob_set_appstream_id		(JcatBlob	*self,
-							 const gchar	*appstream_id);
+JcatBlob *
+jcat_blob_new(JcatBlobKind kind, GBytes *data);
+JcatBlob *
+jcat_blob_new_full(JcatBlobKind kind, GBytes *data, JcatBlobFlags flags);
+JcatBlob *
+jcat_blob_new_utf8(JcatBlobKind kind, const gchar *data);
+gchar *
+jcat_blob_to_string(JcatBlob *self);
+GBytes *
+jcat_blob_get_data(JcatBlob *self);
+gchar *
+jcat_blob_get_data_as_string(JcatBlob *self);
+JcatBlobKind
+jcat_blob_get_kind(JcatBlob *self);
+gint64
+jcat_blob_get_timestamp(JcatBlob *self);
+void
+jcat_blob_set_timestamp(JcatBlob *self, gint64 timestamp);
+const gchar *
+jcat_blob_get_appstream_id(JcatBlob *self);
+void
+jcat_blob_set_appstream_id(JcatBlob *self, const gchar *appstream_id);

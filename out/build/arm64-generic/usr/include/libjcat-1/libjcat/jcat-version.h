@@ -6,44 +6,60 @@
 
 #pragma once
 
+#include <glib.h>
+
 /**
  * JCAT_MAJOR_VERSION:
  *
  * The compile-time major version
+ *
+ * Since: 0.1.0
  */
 #ifndef JCAT_MAJOR_VERSION
-#define JCAT_MAJOR_VERSION				(0)
+#define JCAT_MAJOR_VERSION (0)
 #endif
 
 /**
  * JCAT_MINOR_VERSION:
  *
  * The compile-time minor version
+ *
+ * Since: 0.1.0
  */
 #ifndef JCAT_MINOR_VERSION
-#define JCAT_MINOR_VERSION				(1)
+#define JCAT_MINOR_VERSION (1)
 #endif
 
 /**
  * JCAT_MICRO_VERSION:
  *
  * The compile-time micro version
+ *
+ * Since: 0.1.0
  */
 #ifndef JCAT_MICRO_VERSION
-#define JCAT_MICRO_VERSION				(8)
+#define JCAT_MICRO_VERSION (14)
 #endif
 
 /**
- * LIBJCAT_CHECK_VERSION:
+ * JCAT_CHECK_VERSION:
  * @major: Major version number
  * @minor: Minor version number
  * @micro: Micro version number
  *
  * Check whether a libjcat version equal to or greater than
  * major.minor.micro.
+ *
+ * Since: 0.1.14
  */
-#define LIBJCAT_CHECK_VERSION(major,minor,micro)    \
-    (JCAT_MAJOR_VERSION > (major) || \
-     (JCAT_MAJOR_VERSION == (major) && JCAT_MINOR_VERSION > (minor)) || \
-     (JCAT_MAJOR_VERSION == (major) && JCAT_MINOR_VERSION == (minor) && \
-      JCAT_MICRO_VERSION >= (micro)))
+#define JCAT_CHECK_VERSION(major, minor, micro)                                                 \
+	(JCAT_MAJOR_VERSION > (major) ||                                                           \
+	 (JCAT_MAJOR_VERSION == (major) && JCAT_MINOR_VERSION > (minor)) ||                        \
+	 (JCAT_MAJOR_VERSION == (major) && JCAT_MINOR_VERSION == (minor) &&                        \
+	  JCAT_MICRO_VERSION >= (micro)))
+
+#ifndef __GI_SCANNER__
+#define LIBJCAT_CHECK_VERSION(major, minor, micro) JCAT_CHECK_VERSION(major, minor, micro)
+#endif
+
+const gchar	*jcat_version_string	(void);

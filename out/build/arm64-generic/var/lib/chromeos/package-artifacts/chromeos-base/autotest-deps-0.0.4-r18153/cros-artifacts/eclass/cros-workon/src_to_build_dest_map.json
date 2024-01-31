@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/third_party/autotest/files",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/autotest-deps-0.0.4-r18153/work/autotest-deps-0.0.4"
-    }
-  ]
-}

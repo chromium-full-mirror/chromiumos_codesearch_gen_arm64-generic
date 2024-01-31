@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/../platform/dev",
+      "build_dest_path": "/var/tmp/portage/dev-util/android-provision-0.0.1-r98/work/android-provision-0.0.1"
+    }
+  ]
+}

@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/third_party/../platform/minigbm",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/media-libs/minigbm-0.0.1-r686/work/minigbm-0.0.1"
-    }
-  ]
-}

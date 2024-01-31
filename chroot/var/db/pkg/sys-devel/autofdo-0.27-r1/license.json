@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-devel", "name": "autofdo", "version": "0.27", "revision": 1, "fullname": "sys-devel/autofdo", "fullnamerev": "sys-devel/autofdo-0.27-r1", "license_names": ["Apache-2.0"], "license_text_scanned": [], "homepages": ["http://gcc.gnu.org/wiki/AutoFDO"], "skip": false, "tainted": false, "ebuild_path": null}

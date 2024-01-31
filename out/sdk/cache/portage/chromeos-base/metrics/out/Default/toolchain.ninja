@@ -1,0 +1,82 @@
+rule link
+  command = x86_64-pc-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = x86_64-pc-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = x86_64-pc-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = x86_64-pc-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = x86_64-pc-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/metrics/all.stamp
+build obj/metrics/all.stamp: stamp obj/metrics/install_minijail_conf.stamp ./lib/libmetrics.so ./libmetrics_daemon.a ./libupload_service.a ./metrics_client ./lib/libstructuredmetrics.so obj/metrics/structured/libstructuredmetrics_install_headers.stamp obj/metrics/structured/libstructuredmetrics_pkg_config.stamp ./update_reset_counter ./metrics_daemon
+build obj/metrics/install_minijail_conf.stamp: stamp
+subninja obj/metrics/libmetrics.ninja
+subninja obj/metrics/libmetrics_daemon.ninja
+subninja obj/metrics/libupload_service.ninja
+subninja obj/metrics/metrics_client.ninja
+subninja obj/metrics/metrics_daemon.ninja
+subninja obj/metrics/metrics_proto.ninja
+rule __metrics_metrics_proto_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/common-mk/file_generator_wrapper.py protoc chrome_user_metrics_extension.proto histogram_event.proto system_profile.proto user_action_event.proto --proto_path /var/tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/uploader/proto --proto_path /./usr/share/proto --cpp_out=/var/cache/portage/chromeos-base/metrics/out/Default/gen/include/metrics/uploader/proto
+  description = ACTION //metrics:metrics_proto_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/metrics/uploader/proto/chrome_user_metrics_extension.pb.cc gen/include/metrics/uploader/proto/chrome_user_metrics_extension.pb.h gen/include/metrics/uploader/proto/histogram_event.pb.cc gen/include/metrics/uploader/proto/histogram_event.pb.h gen/include/metrics/uploader/proto/system_profile.pb.cc gen/include/metrics/uploader/proto/system_profile.pb.h gen/include/metrics/uploader/proto/user_action_event.pb.cc gen/include/metrics/uploader/proto/user_action_event.pb.h: __metrics_metrics_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/common-mk/file_generator_wrapper.py ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/uploader/proto/chrome_user_metrics_extension.proto ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/uploader/proto/histogram_event.proto ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/uploader/proto/system_profile.proto ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/uploader/proto/user_action_event.proto
+
+build obj/metrics/metrics_proto_gen.stamp: stamp gen/include/metrics/uploader/proto/chrome_user_metrics_extension.pb.cc gen/include/metrics/uploader/proto/chrome_user_metrics_extension.pb.h gen/include/metrics/uploader/proto/histogram_event.pb.cc gen/include/metrics/uploader/proto/histogram_event.pb.h gen/include/metrics/uploader/proto/system_profile.pb.cc gen/include/metrics/uploader/proto/system_profile.pb.h gen/include/metrics/uploader/proto/user_action_event.pb.cc gen/include/metrics/uploader/proto/user_action_event.pb.h
+subninja obj/metrics/metrics_test_support.ninja
+build obj/metrics/structured/_update_reset_counter-install_config.stamp: stamp
+rule __metrics_structured_gen_structured_events___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/structured/gen_events.py --input ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/structured/sync/structured.xml --output /var/cache/portage/chromeos-base/metrics/out/Default/gen/include/metrics/structured
+  description = ACTION //metrics/structured:gen_structured_events(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/metrics/structured/structured_events.cc gen/include/metrics/structured/structured_events.h: __metrics_structured_gen_structured_events___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/structured/gen_events.py ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/structured/gen_events.py ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/structured/codegen.py ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/structured/sync/model.py ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/structured/sync/model_util.py ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/structured/templates.py ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/structured/sync/structured.xml
+
+build obj/metrics/structured/gen_structured_events.stamp: stamp gen/include/metrics/structured/structured_events.cc gen/include/metrics/structured/structured_events.h
+subninja obj/metrics/structured/libstructuredmetrics.ninja
+build obj/metrics/structured/libstructuredmetrics_install_headers.stamp: stamp
+rule __metrics_structured_libstructuredmetrics_pkg_config___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/common-mk/generate-pc.py --output /var/cache/portage/chromeos-base/metrics/out/Default/obj/metrics/structured/libstructuredmetrics.pc --name=libstructuredmetrics --description=Chrome\$ OS\$ structured\$ metrics\$ library --version=1252475 --requires-private=libmetrics --libs=-lstructuredmetrics --cflags=-I/usr/include/metrics
+  description = ACTION //metrics/structured:libstructuredmetrics_pkg_config(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build obj/metrics/structured/libstructuredmetrics.pc: __metrics_structured_libstructuredmetrics_pkg_config___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/common-mk/generate-pc.py ./lib/libstructuredmetrics.so
+
+build obj/metrics/structured/libstructuredmetrics_pkg_config.stamp: stamp obj/metrics/structured/libstructuredmetrics.pc
+subninja obj/metrics/structured/storage.ninja
+rule __metrics_structured_storage_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/common-mk/file_generator_wrapper.py protoc storage.proto structured_data.proto --proto_path /var/tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/structured/proto --proto_path /./usr/share/proto --cpp_out=/var/cache/portage/chromeos-base/metrics/out/Default/gen/include/metrics/structured/proto
+  description = ACTION //metrics/structured:storage_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/metrics/structured/proto/storage.pb.cc gen/include/metrics/structured/proto/storage.pb.h gen/include/metrics/structured/proto/structured_data.pb.cc gen/include/metrics/structured/proto/structured_data.pb.h: __metrics_structured_storage_gen___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/common-mk/file_generator_wrapper.py ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/structured/proto/storage.proto ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2/metrics/structured/proto/structured_data.proto
+
+build obj/metrics/structured/storage_gen.stamp: stamp gen/include/metrics/structured/proto/storage.pb.cc gen/include/metrics/structured/proto/storage.pb.h gen/include/metrics/structured/proto/structured_data.pb.cc gen/include/metrics/structured/proto/structured_data.pb.h
+subninja obj/metrics/structured/update_reset_counter.ninja

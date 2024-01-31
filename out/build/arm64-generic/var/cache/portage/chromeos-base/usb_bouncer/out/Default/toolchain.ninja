@@ -39,10 +39,10 @@ subninja obj/usb_bouncer/usb_bouncer.ninja
 subninja obj/usb_bouncer/usb_bouncer_common.ninja
 subninja obj/usb_bouncer/usb_bouncer_protos.ninja
 rule __usb_bouncer_usb_bouncer_protos_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/usb_bouncer-0.0.1-r880/work/usb_bouncer-0.0.1/common-mk/file_generator_wrapper.py protoc usb_bouncer.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/usb_bouncer-0.0.1-r880/work/usb_bouncer-0.0.1/usb_bouncer --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/usb_bouncer/out/Default/gen/include/usb_bouncer
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/usb_bouncer-0.0.1-r881/work/usb_bouncer-0.0.1/common-mk/file_generator_wrapper.py protoc usb_bouncer.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/usb_bouncer-0.0.1-r881/work/usb_bouncer-0.0.1/usb_bouncer --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/usb_bouncer/out/Default/gen/include/usb_bouncer
   description = ACTION //usb_bouncer:usb_bouncer_protos_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/usb_bouncer/usb_bouncer.pb.cc gen/include/usb_bouncer/usb_bouncer.pb.h: __usb_bouncer_usb_bouncer_protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/usb_bouncer-0.0.1-r880/work/usb_bouncer-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/usb_bouncer-0.0.1-r880/work/usb_bouncer-0.0.1/usb_bouncer/usb_bouncer.proto
+build gen/include/usb_bouncer/usb_bouncer.pb.cc gen/include/usb_bouncer/usb_bouncer.pb.h: __usb_bouncer_usb_bouncer_protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/usb_bouncer-0.0.1-r881/work/usb_bouncer-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/usb_bouncer-0.0.1-r881/work/usb_bouncer-0.0.1/usb_bouncer/usb_bouncer.proto
 
 build obj/usb_bouncer/usb_bouncer_protos_gen.stamp: stamp gen/include/usb_bouncer/usb_bouncer.pb.cc gen/include/usb_bouncer/usb_bouncer.pb.h

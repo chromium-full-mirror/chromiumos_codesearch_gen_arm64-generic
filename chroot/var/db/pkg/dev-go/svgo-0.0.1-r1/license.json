@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "dev-go", "name": "svgo", "version": "0.0.1", "revision": 1, "fullname": "dev-go/svgo", "fullnamerev": "dev-go/svgo-0.0.1-r1", "license_names": ["CC-BY-SA-3.0"], "license_text_scanned": [], "homepages": ["https://github.com/ajstarks/svgo"], "skip": false, "tainted": false, "ebuild_path": null}

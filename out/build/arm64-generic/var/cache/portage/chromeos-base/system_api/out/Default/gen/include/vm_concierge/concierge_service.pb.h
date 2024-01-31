@@ -2351,10 +2351,10 @@ class StartVmRequest final :
   void _internal_set_software_tpm(bool value);
 
   public:
-  // bool run_as_untrusted = 10;
-  void clear_run_as_untrusted() ;
-  bool run_as_untrusted() const;
-  void set_run_as_untrusted(bool value);
+  // bool run_as_untrusted = 10 [deprecated = true];
+  [[deprecated]]  void clear_run_as_untrusted() ;
+  [[deprecated]] bool run_as_untrusted() const;
+  [[deprecated]] void set_run_as_untrusted(bool value);
 
   private:
   bool _internal_run_as_untrusted() const;
@@ -14396,30 +14396,30 @@ class GetVmLaunchAllowedRequest final :
     kIsTrustedImageFieldNumber = 2,
     kHasCustomKernelParamsFieldNumber = 3,
   };
-  // bool run_as_untrusted = 1;
-  void clear_run_as_untrusted() ;
-  bool run_as_untrusted() const;
-  void set_run_as_untrusted(bool value);
+  // bool run_as_untrusted = 1 [deprecated = true];
+  [[deprecated]]  void clear_run_as_untrusted() ;
+  [[deprecated]] bool run_as_untrusted() const;
+  [[deprecated]] void set_run_as_untrusted(bool value);
 
   private:
   bool _internal_run_as_untrusted() const;
   void _internal_set_run_as_untrusted(bool value);
 
   public:
-  // bool is_trusted_image = 2;
-  void clear_is_trusted_image() ;
-  bool is_trusted_image() const;
-  void set_is_trusted_image(bool value);
+  // bool is_trusted_image = 2 [deprecated = true];
+  [[deprecated]]  void clear_is_trusted_image() ;
+  [[deprecated]] bool is_trusted_image() const;
+  [[deprecated]] void set_is_trusted_image(bool value);
 
   private:
   bool _internal_is_trusted_image() const;
   void _internal_set_is_trusted_image(bool value);
 
   public:
-  // bool has_custom_kernel_params = 3;
-  void clear_has_custom_kernel_params() ;
-  bool has_custom_kernel_params() const;
-  void set_has_custom_kernel_params(bool value);
+  // bool has_custom_kernel_params = 3 [deprecated = true];
+  [[deprecated]]  void clear_has_custom_kernel_params() ;
+  [[deprecated]] bool has_custom_kernel_params() const;
+  [[deprecated]] void set_has_custom_kernel_params(bool value);
 
   private:
   bool _internal_has_custom_kernel_params() const;
@@ -17566,7 +17566,7 @@ inline void StartVmRequest::_internal_set_software_tpm(bool value) {
   _impl_.software_tpm_ = value;
 }
 
-// bool run_as_untrusted = 10;
+// bool run_as_untrusted = 10 [deprecated = true];
 inline void StartVmRequest::clear_run_as_untrusted() {
   _impl_.run_as_untrusted_ = false;
 }
@@ -26461,7 +26461,7 @@ inline void AddGroupPermissionMesaRequest::set_allocated_owner_id(std::string* v
 
 // GetVmLaunchAllowedRequest
 
-// bool run_as_untrusted = 1;
+// bool run_as_untrusted = 1 [deprecated = true];
 inline void GetVmLaunchAllowedRequest::clear_run_as_untrusted() {
   _impl_.run_as_untrusted_ = false;
 }
@@ -26481,7 +26481,7 @@ inline void GetVmLaunchAllowedRequest::_internal_set_run_as_untrusted(bool value
   _impl_.run_as_untrusted_ = value;
 }
 
-// bool is_trusted_image = 2;
+// bool is_trusted_image = 2 [deprecated = true];
 inline void GetVmLaunchAllowedRequest::clear_is_trusted_image() {
   _impl_.is_trusted_image_ = false;
 }
@@ -26501,7 +26501,7 @@ inline void GetVmLaunchAllowedRequest::_internal_set_is_trusted_image(bool value
   _impl_.is_trusted_image_ = value;
 }
 
-// bool has_custom_kernel_params = 3;
+// bool has_custom_kernel_params = 3 [deprecated = true];
 inline void GetVmLaunchAllowedRequest::clear_has_custom_kernel_params() {
   _impl_.has_custom_kernel_params_ = false;
 }

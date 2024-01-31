@@ -39,19 +39,19 @@ build obj/u2fd/client/_u2fd-client-install_config.stamp: stamp
 build obj/u2fd/client/all.stamp: stamp ./lib/libu2fd-client.so obj/u2fd/client/u2fd-client.stamp
 subninja obj/u2fd/client/libu2fd-client.ninja
 rule __u2fd_client_u2fd-client___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/u2fd-client-0.0.1-r627/work/u2fd-client-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/u2fd-client/out/Default/obj/u2fd/client/libu2fd-client.pc --name=libu2fd-client --description=U2F\$ client\$ shared\$ library --version=0.0.1 --libs=-lu2fd-client --cflags=-I/usr/include/u2f/client
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/u2fd-client-0.0.1-r628/work/u2fd-client-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/u2fd-client/out/Default/obj/u2fd/client/libu2fd-client.pc --name=libu2fd-client --description=U2F\$ client\$ shared\$ library --version=0.0.1 --libs=-lu2fd-client --cflags=-I/usr/include/u2f/client
   description = ACTION //u2fd/client:u2fd-client(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/u2fd/client/libu2fd-client.pc: __u2fd_client_u2fd-client___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/u2fd-client-0.0.1-r627/work/u2fd-client-0.0.1/common-mk/generate-pc.py obj/u2fd/client/_u2fd-client-install_config.stamp
+build obj/u2fd/client/libu2fd-client.pc: __u2fd_client_u2fd-client___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/u2fd-client-0.0.1-r628/work/u2fd-client-0.0.1/common-mk/generate-pc.py obj/u2fd/client/_u2fd-client-install_config.stamp
 
 build obj/u2fd/client/u2fd-client.stamp: stamp obj/u2fd/client/libu2fd-client.pc
 subninja obj/u2fd/client/user_state_proto.ninja
 rule __u2fd_client_user_state_proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/u2fd-client-0.0.1-r627/work/u2fd-client-0.0.1/common-mk/file_generator_wrapper.py protoc user_state.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/u2fd-client-0.0.1-r627/work/u2fd-client-0.0.1/u2fd/client --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/u2fd-client/out/Default/gen/include/u2fd/client
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/u2fd-client-0.0.1-r628/work/u2fd-client-0.0.1/common-mk/file_generator_wrapper.py protoc user_state.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/u2fd-client-0.0.1-r628/work/u2fd-client-0.0.1/u2fd/client --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/u2fd-client/out/Default/gen/include/u2fd/client
   description = ACTION //u2fd/client:user_state_proto_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/u2fd/client/user_state.pb.cc gen/include/u2fd/client/user_state.pb.h: __u2fd_client_user_state_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/u2fd-client-0.0.1-r627/work/u2fd-client-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/u2fd-client-0.0.1-r627/work/u2fd-client-0.0.1/u2fd/client/user_state.proto
+build gen/include/u2fd/client/user_state.pb.cc gen/include/u2fd/client/user_state.pb.h: __u2fd_client_user_state_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/u2fd-client-0.0.1-r628/work/u2fd-client-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/u2fd-client-0.0.1-r628/work/u2fd-client-0.0.1/u2fd/client/user_state.proto
 
 build obj/u2fd/client/user_state_proto_gen.stamp: stamp gen/include/u2fd/client/user_state.pb.cc gen/include/u2fd/client/user_state.pb.h

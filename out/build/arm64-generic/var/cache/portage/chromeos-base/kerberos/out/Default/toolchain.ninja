@@ -38,19 +38,19 @@ build obj/kerberos/_kerberosd-install_config.stamp: stamp
 build obj/kerberos/all.stamp: stamp ./libcontainer-protos.a obj/kerberos/dbus_code_generator.stamp obj/kerberos/install_config_cros_startup.stamp obj/kerberos/install_config_dbus_system-services.stamp obj/kerberos/install_config_dbus_systemd.stamp obj/kerberos/install_config_init.stamp obj/kerberos/install_seccomp_policy.stamp ./kerberosd ./libkerberos.a
 subninja obj/kerberos/container-protos.ninja
 rule __kerberos_container-protos_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/kerberos-0.0.1-r888/work/kerberos-0.0.1/common-mk/file_generator_wrapper.py protoc kerberos_containers.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/kerberos-0.0.1-r888/work/kerberos-0.0.1/kerberos/proto --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/kerberos/out/Default/gen/include/bindings
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/kerberos-0.0.1-r889/work/kerberos-0.0.1/common-mk/file_generator_wrapper.py protoc kerberos_containers.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/kerberos-0.0.1-r889/work/kerberos-0.0.1/kerberos/proto --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/kerberos/out/Default/gen/include/bindings
   description = ACTION //kerberos:container-protos_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/bindings/kerberos_containers.pb.cc gen/include/bindings/kerberos_containers.pb.h: __kerberos_container-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/kerberos-0.0.1-r888/work/kerberos-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/kerberos-0.0.1-r888/work/kerberos-0.0.1/kerberos/proto/kerberos_containers.proto
+build gen/include/bindings/kerberos_containers.pb.cc gen/include/bindings/kerberos_containers.pb.h: __kerberos_container-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/kerberos-0.0.1-r889/work/kerberos-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/kerberos-0.0.1-r889/work/kerberos-0.0.1/kerberos/proto/kerberos_containers.proto
 
 build obj/kerberos/container-protos_gen.stamp: stamp gen/include/bindings/kerberos_containers.pb.cc gen/include/bindings/kerberos_containers.pb.h
 rule __kerberos_dbus_code_generator___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/kerberos-0.0.1-r888/work/kerberos-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/kerberos/out/Default/gen/include/kerberos/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/kerberos-0.0.1-r888/work/kerberos-0.0.1/kerberos/dbus_bindings/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/kerberos-0.0.1-r889/work/kerberos-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/kerberos/out/Default/gen/include/kerberos/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/kerberos-0.0.1-r889/work/kerberos-0.0.1/kerberos/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //kerberos:dbus_code_generator(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/kerberos/org.chromium.Kerberos.h: __kerberos_dbus_code_generator___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/kerberos-0.0.1-r888/work/kerberos-0.0.1/kerberos/dbus_bindings/org.chromium.Kerberos.xml | ../../../../../../../tmp/portage/chromeos-base/kerberos-0.0.1-r888/work/kerberos-0.0.1/common-mk/file_generator_wrapper.py
+build gen/include/kerberos/org.chromium.Kerberos.h: __kerberos_dbus_code_generator___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/kerberos-0.0.1-r889/work/kerberos-0.0.1/kerberos/dbus_bindings/org.chromium.Kerberos.xml | ../../../../../../../tmp/portage/chromeos-base/kerberos-0.0.1-r889/work/kerberos-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.Kerberos
 
 build obj/kerberos/dbus_code_generator.stamp: stamp gen/include/kerberos/org.chromium.Kerberos.h

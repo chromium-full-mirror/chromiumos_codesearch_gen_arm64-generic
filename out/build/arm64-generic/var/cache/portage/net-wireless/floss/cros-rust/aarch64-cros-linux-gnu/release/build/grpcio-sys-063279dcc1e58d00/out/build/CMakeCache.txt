@@ -462,7 +462,7 @@ RE2_IS_TOP_LEVEL:STATIC=OFF
 RE2_SOURCE_DIR:STATIC=/build/arm64-generic/usr/lib/cros_rust_registry/store/grpcio-sys-0.13.0+1.56.2-patched/grpc/third_party/re2
 
 //Name of the computer/site where compile is being run
-SITE:STRING=chromeos-ci-codesearch-us-central1-b-x64-0-2axr
+SITE:STRING=chromeos-ci-codesearch-us-central1-b-x64-1-khbk
 
 //use PCRE in tests and benchmarks
 USEPCRE:BOOL=OFF

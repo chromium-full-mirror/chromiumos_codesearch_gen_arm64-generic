@@ -11,7 +11,7 @@ OS = "linux"
 sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root = "/build/arm64-generic/var/cache/portage/chromeos-base/chaps"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/chaps-0.0.1-r4314/work/chaps-0.0.1"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/chaps-0.0.1-r4315/work/chaps-0.0.1"
 libbase_ver = "1252475"
 enable_exceptions = false
 external_cflags = [
@@ -37,7 +37,7 @@ external_cxxflags = [
   "-fdata-sections",
 ]
 external_cppflags = [
-  "-DVCSID=\"0.0.1-r4314-01ca8c12d43f091ca9e4130b616e68f5e9496a16\"",
+  "-DVCSID=\"0.0.1-r4315-d2b8d833d3519584f706a164fd34bc676e8cedec\"",
   "-D_FILE_OFFSET_BITS=64",
   "-D_LARGEFILE_SOURCE",
   "-D_LARGEFILE64_SOURCE",

@@ -20,7 +20,7 @@ from autotest_lib.server.cros.bluetooth.bluetooth_adapter_adv_monitor_tests \
 from autotest_lib.server.cros.bluetooth.bluetooth_adapter_tests import (
         SUSPEND_POWER_DOWN_CHIPSETS, SUSPEND_POWER_DOWN_MODELS, TABLET_MODELS)
 from autotest_lib.server.cros.bluetooth.bluetooth_adapter_llprivacy_tests \
-     import (BluetoothAdapterLLPrivacyTests, DEFAULT_RPA_TIMEOUT_SEC, MIN_RPA_TIMEOUT_SEC)
+     import (BluetoothAdapterLLPrivacyTests, DEFAULT_RPA_TIMEOUT_SEC, MIN_RPA_TIMEOUT_SEC, LOG_PEER_RESOLVED_PUBLIC)
 from autotest_lib.server.cros.bluetooth.bluetooth_adapter_qr_tests import (
         BluetoothAdapterQRTests)
 from autotest_lib.server.cros.bluetooth.bluetooth_adapter_controller_role_tests\
@@ -50,8 +50,22 @@ class bluetooth_AdapterLLPrivacyHealth(
     batch_wrapper = BluetoothAdapterQuickTests.quick_test_batch_decorator
 
     def _test_mouse(self, device):
+        """Function to test the mouse is working.
+
+        When the peer is using a RPA, the peer device will have two addresses.
+        One is the RPA address which the peer is used in initial pairing. The
+        other one is the public address.
+
+        In BlueZ, the public address is used in the dbus path. In Floss, the
+        initial RPA is used to create the dbus path for the device.
+
+        The init_paired_addr in autotest is updated in Floss when pairing is done
+        with RPA. So if the self.floss is true and the init_paired_addr is not
+        None, the init_paired_addr should be used to find the device.
+        """
         return (self.test_hid_device_created(
-                device.init_paired_addr if self.floss else device.address)
+                device.init_paired_addr if self.floss and isinstance(
+                        device.init_paired_addr, str) else device.address)
                 and self.test_mouse_left_click(device)
                 and self.test_mouse_move_in_xy(device, -60, 100)
                 and self.test_mouse_scroll_down(device, 70)
@@ -132,6 +146,7 @@ class bluetooth_AdapterLLPrivacyHealth(
                                     "Sleep %d s to wait for RPA rotation.",
                                     rpa_timeout - SUSPEND_SEC)
                             time.sleep(rpa_timeout - SUSPEND_SEC)
+                        self.bluetooth_facade.btmon_start()
                         # LE can't reconnect without advertising/discoverable
                         self.test_start_device_advertise_with_rpa(device)
                         logging.info('Device current RPA: %s', device.rpa)
@@ -141,10 +156,18 @@ class bluetooth_AdapterLLPrivacyHealth(
                             logging.warning("RPA does not rotate.")
                         previous_rpa = device.rpa
                         # Make sure we're actually connected
-                        self.test_device_is_connected(
+                        connect_status = self.test_device_is_connected(
                                 device.init_paired_addr,
                                 timeout=45,
                                 identity_address=device.address)
+                        self.bluetooth_facade.btmon_stop()
+                        # Set test as NA if the controller received a public
+                        # address advertisement.
+                        if connect_status and not self.bluetooth_facade.btmon_find(
+                                LOG_PEER_RESOLVED_PUBLIC):
+                            raise error.TestNAError(
+                                    "Peer address is not Resolved Public")
+
                         self.test_stop_device_advertise_with_rpa(device)
 
                 for _, device, device_test in devtuples:
@@ -241,7 +264,7 @@ class bluetooth_AdapterLLPrivacyHealth(
             for _, device, __ in devtuples:
                 self.test_remove_pairing(device.address)
 
-    @test_wrapper('Monitor Object Health Tests')
+    @test_wrapper('Monitor Object Health Tests', supports_floss=True)
     def advmon_monitor_health_tests(self):
         """Tests advertisement monitor object health."""
         self.advmon_test_monitor_creation()
@@ -252,19 +275,24 @@ class bluetooth_AdapterLLPrivacyHealth(
     @test_wrapper('Interleave Scan Tests',
                   devices={'BLE_MOUSE': 1},
                   skip_models=SUSPEND_POWER_DOWN_MODELS,
-                  skip_chipsets=SUSPEND_POWER_DOWN_CHIPSETS)
+                  skip_chipsets=SUSPEND_POWER_DOWN_CHIPSETS,
+                  supports_floss=True)
     def advmon_interleaved_scan_tests(self):
         """Tests interleave scan."""
         self.advmon_test_interleaved_scan()
 
-    @test_wrapper('Reconnect Classic HID', devices={'MOUSE': 1})
+    @test_wrapper('Reconnect Classic HID',
+                  devices={'MOUSE': 1},
+                  supports_floss=True)
     def sr_reconnect_classic_hid(self):
         """ Reconnects a classic HID device after suspend/resume. """
         device_type = 'MOUSE'
         device = self.devices[device_type][0]
         self.run_reconnect_device([(device_type, device, self._test_mouse)])
 
-    @test_wrapper('Reconnect LE HID', devices={'BLE_MOUSE': 1})
+    @test_wrapper('Reconnect LE HID',
+                  devices={'BLE_MOUSE': 1},
+                  supports_floss=True)
     def sr_reconnect_le_hid(self):
         """ Reconnects a LE HID device after suspend/resume. """
         device_type = 'BLE_MOUSE'
@@ -287,7 +315,8 @@ class bluetooth_AdapterLLPrivacyHealth(
                   devices={'MOUSE': 1},
                   skip_models=TABLET_MODELS + SUSPEND_POWER_DOWN_MODELS +
                   ['bob'],
-                  skip_chipsets=SUSPEND_POWER_DOWN_CHIPSETS)
+                  skip_chipsets=SUSPEND_POWER_DOWN_CHIPSETS,
+                  supports_floss=True)
     def sr_peer_wake_classic_hid(self):
         """ Use classic HID device to wake from suspend. """
         device = self.devices['MOUSE'][0]
@@ -301,7 +330,8 @@ class bluetooth_AdapterLLPrivacyHealth(
                   devices={'BLE_MOUSE': 1},
                   skip_models=TABLET_MODELS + SUSPEND_POWER_DOWN_MODELS +
                   ['bob'],
-                  skip_chipsets=SUSPEND_POWER_DOWN_CHIPSETS)
+                  skip_chipsets=SUSPEND_POWER_DOWN_CHIPSETS,
+                  supports_floss=True)
     def sr_peer_wake_le_hid(self):
         """ Use LE HID device to wake from suspend. """
         device = self.devices['BLE_MOUSE'][0]
@@ -315,7 +345,8 @@ class bluetooth_AdapterLLPrivacyHealth(
                           'MOUSE': 1,
                           'KEYBOARD': 1
                   },
-                  skip_models=['hana'])
+                  skip_models=['hana'],
+                  supports_floss=True)
     def sr_reconnect_multiple_classic_hid(self):
         """ Reconnects multiple classic HID devices after suspend/resume. """
         devices = [('MOUSE', self.devices['MOUSE'][0], self._test_mouse),
@@ -327,7 +358,8 @@ class bluetooth_AdapterLLPrivacyHealth(
                   devices={
                           'BLE_MOUSE': 1,
                           'KEYBOARD': 1
-                  })
+                  },
+                  supports_floss=True)
     def sr_reconnect_multiple_classic_le_hid(self):
         """ Reconnects one of each classic and LE HID devices after
             suspend/resume.
@@ -340,7 +372,8 @@ class bluetooth_AdapterLLPrivacyHealth(
 
     @test_wrapper('Connect Disconnect by Device Loop',
                   devices={'BLE_MOUSE': 1},
-                  flags=['Quick Health'])
+                  flags=['Quick Health'],
+                  supports_floss=True)
     def le_connect_disconnect_by_device_loop(self):
         """Run connect/disconnect loop initiated by device.
            The test also checks that there are no undesired
@@ -354,7 +387,9 @@ class bluetooth_AdapterLLPrivacyHealth(
                 device_type='BLE_MOUSE',
                 check_connected_method=self.test_mouse_move_in_xy)
 
-    @test_wrapper('Connect Disconnect Loop', devices={'BLE_MOUSE': 1})
+    @test_wrapper('Connect Disconnect Loop',
+                  devices={'BLE_MOUSE': 1},
+                  supports_floss=True)
     def le_connect_disconnect_loop(self):
         """Run connect/disconnect loop initiated by DUT.
            The test also checks that there are no undesired
@@ -368,7 +403,8 @@ class bluetooth_AdapterLLPrivacyHealth(
 
     @test_wrapper('HID Reconnect Speed',
                   devices={'BLE_MOUSE': 1},
-                  flags=['Quick Health'])
+                  flags=['Quick Health'],
+                  supports_floss=True)
     def le_hid_reconnect_speed(self):
         """Test the speed of a LE HID device reconnect to DUT"""
 
@@ -391,7 +427,8 @@ class bluetooth_AdapterLLPrivacyHealth(
     # connection is initiated by the peripheral. Skip the test until 2021 uprev
     @test_wrapper('LE Receiver Role Test',
                   devices={'BLE_KEYBOARD': 1},
-                  skip_models=['bob'])
+                  skip_models=['bob'],
+                  supports_floss=True)
     def le_role_receiver(self):
         """Tests basic Nearby Receiver role"""
 
@@ -404,7 +441,9 @@ class bluetooth_AdapterLLPrivacyHealth(
 
         self.nearby_receiver_role_test(kbd, kbd_test_func)
 
-    @test_wrapper('LE Sender Role Test', devices={'BLE_KEYBOARD': 1})
+    @test_wrapper('LE Sender Role Test',
+                  devices={'BLE_KEYBOARD': 1},
+                  supports_floss=True)
     def le_role_sender(self):
         """Tests basic Nearby Sender role"""
 
@@ -421,7 +460,8 @@ class bluetooth_AdapterLLPrivacyHealth(
                   devices={
                           'BLE_KEYBOARD': 1,
                           'BLE_MOUSE': 1
-                  })
+                  },
+                  supports_floss=True)
     def le_role_sender_during_hid(self):
         """Tests Nearby Sender role while already connected to HID device"""
 
@@ -442,7 +482,8 @@ class bluetooth_AdapterLLPrivacyHealth(
 
     @test_wrapper('Use Resolving List for RPA Test',
                   devices={"BLE_MOUSE": 1},
-                  minimum_kernel_version='4.19')
+                  minimum_kernel_version='4.19',
+                  supports_floss=True)
     def le_address_resolution_power_cycle(self):
         """Test RPA is used when pairing and address resolution is enabled with
         LL privacy enabled.
@@ -486,24 +527,34 @@ class bluetooth_AdapterLLPrivacyHealth(
 
     @test_wrapper('Pair Remove Use IRK with Privacy Mode Test',
                   devices={"BLE_MOUSE": 1},
-                  supports_floss=False)
+                  supports_floss=True)
     def le_pair_remove_with_irk(self):
         """Performs discovery test with mouse peripheral which is in privacy
         mode, but not using LE advertising.
-        Floss is not supported because there is no event to indicate new irk.
         """
         device = self.devices['BLE_MOUSE'][0]
         self.test_set_device_privacy(device, True)
 
         self.test_discover_device(device.address)
 
-        self.test_pairing(device.address, device.pin, trusted=True)
+        self._get_btmon_log(lambda: self.test_pairing(
+                device.address, device.pin, trusted=True))
+        irk_pattern = [
+                "> ACL Data RX: Handle", "SMP: Identity Information",
+                "Identity resolving key"
+        ]
+        has_irk = self.bluetooth_facade.btmon_find_consecutive(irk_pattern)
+        if not has_irk:
+            raise error.TestNAError("No IRK received.")
+
         self.run_mouse_tests(device=device)
         self.test_remove_pairing(device.address)
         # Restore privacy setting
         self.test_set_device_privacy(device, False)
 
-    @test_wrapper('RPA Timeout Test', devices={"BLE_MOUSE": 1})
+    @test_wrapper('RPA Timeout Test',
+                  devices={"BLE_MOUSE": 1},
+                  supports_floss=True)
     def privacy_rpa_timeout(self):
         """Change RPA timeout"""
         device = self.devices['BLE_MOUSE'][0]

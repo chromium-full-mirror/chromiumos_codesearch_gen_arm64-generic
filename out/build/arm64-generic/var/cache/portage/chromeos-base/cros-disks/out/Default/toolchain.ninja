@@ -47,11 +47,11 @@ build obj/cros-disks/install_tmpfilesd.stamp: stamp
 build obj/cros-disks/install_usb_device_info.stamp: stamp
 subninja obj/cros-disks/libdisks.ninja
 rule __cros-disks_libdisks-adaptors___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3882/work/cros-disks-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/cros-disks/out/Default/gen/include/cros-disks/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/cros-disks-0.0.1-r3882/work/cros-disks-0.0.1/cros-disks/dbus_bindings/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3883/work/cros-disks-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/cros-disks/out/Default/gen/include/cros-disks/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/cros-disks-0.0.1-r3883/work/cros-disks-0.0.1/cros-disks/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //cros-disks:libdisks-adaptors(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/cros-disks/dbus_adaptors/org.chromium.CrosDisks.h: __cros-disks_libdisks-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3882/work/cros-disks-0.0.1/cros-disks/dbus_bindings/org.chromium.CrosDisks.xml | ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3882/work/cros-disks-0.0.1/common-mk/file_generator_wrapper.py
+build gen/include/cros-disks/dbus_adaptors/org.chromium.CrosDisks.h: __cros-disks_libdisks-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3883/work/cros-disks-0.0.1/cros-disks/dbus_bindings/org.chromium.CrosDisks.xml | ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3883/work/cros-disks-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.CrosDisks
 
 build obj/cros-disks/libdisks-adaptors.stamp: stamp gen/include/cros-disks/dbus_adaptors/org.chromium.CrosDisks.h
