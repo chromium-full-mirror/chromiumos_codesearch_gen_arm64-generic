@@ -1,0 +1,66 @@
+rule link
+  command = x86_64-pc-linux-gnu-clang++ ${ldflags} -o ${output_dir}/${target_output_name}${output_extension} -Wl,--start-group ${in} -Wl,--end-group ${solibs} ${libs}
+  description = LINK ${output_dir}/${target_output_name}${output_extension}
+rule cxx
+  command = x86_64-pc-linux-gnu-clang++ -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_cc} -c ${in} -o ${out}
+  description = CXX ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule solink
+  command = x86_64-pc-linux-gnu-clang++ -shared ${ldflags} -o ${output_dir}/lib/${target_output_name}${output_extension} -Wl,-soname=${target_output_name}${output_extension} @lib/${target_output_name}${output_extension}.rsp
+  description = SOLINK ${target_output_name}${output_extension}
+  rspfile = lib/${target_output_name}${output_extension}.rsp
+  rspfile_content = -Wl,--whole-archive ${in} ${solibs} -Wl,--no-whole-archive ${libs}
+rule stamp
+  command = touch ${out}
+  description = STAMP ${out}
+rule alink
+  command = rm -f ${out} && llvm-ar ${arflags} ${out} @${out}.rsp
+  description = AR ${target_output_name}${output_extension}
+  rspfile = ${out}.rsp
+  rspfile_content = ${in}
+rule cc
+  command = x86_64-pc-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${cflags} ${cflags_c} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule asm
+  command = x86_64-pc-linux-gnu-clang -MMD -MF ${out}.d ${defines} ${include_dirs} ${asmflags} -c ${in} -o ${out}
+  description = CC ${out}
+  depfile = ${out}.d
+  deps = gcc
+rule copy
+  command = cp -af ${in} ${out}
+  description = COPY ${in} ${out}
+
+build obj/common-mk/gn_root/root.stamp: stamp obj/imageloader/all.stamp
+build obj/imageloader/_imageloader-install_config.stamp: stamp
+build obj/imageloader/_libimageloader-manifest-install_config.stamp: stamp
+build obj/imageloader/all.stamp: stamp ./imageloader obj/imageloader/imageloader-adaptors.stamp obj/imageloader/install_header.stamp obj/imageloader/install_init.stamp obj/imageloader/install_pkgconfig.stamp obj/imageloader/install_seccomp_policy.stamp ./libimageloader_static.a ./libprotos.a
+subninja obj/imageloader/imageloader.ninja
+rule __imageloader_imageloader-adaptors___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/imageloader-0.0.1-r1982/work/imageloader-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/var/cache/portage/chromeos-base/imageloader/out/Default/gen/include/imageloader/dbus_adaptors/${source_name_part}.h -service-config=/var/tmp/portage/chromeos-base/imageloader-0.0.1-r1982/work/imageloader-0.0.1/imageloader/dbus/dbus-service-config.json ${in}
+  description = ACTION //imageloader:imageloader-adaptors(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/imageloader/dbus_adaptors/org.chromium.ImageLoaderInterface.h: __imageloader_imageloader-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../tmp/portage/chromeos-base/imageloader-0.0.1-r1982/work/imageloader-0.0.1/imageloader/dbus/org.chromium.ImageLoaderInterface.xml | ../../../../../../tmp/portage/chromeos-base/imageloader-0.0.1-r1982/work/imageloader-0.0.1/common-mk/file_generator_wrapper.py
+  source_name_part = org.chromium.ImageLoaderInterface
+
+build obj/imageloader/imageloader-adaptors.stamp: stamp gen/include/imageloader/dbus_adaptors/org.chromium.ImageLoaderInterface.h
+build obj/imageloader/install_dbus_config.stamp: stamp
+build obj/imageloader/install_dbus_service.stamp: stamp
+build obj/imageloader/install_header.stamp: stamp
+build obj/imageloader/install_init.stamp: stamp
+build obj/imageloader/install_pkgconfig.stamp: stamp
+build obj/imageloader/install_seccomp_policy.stamp: stamp
+subninja obj/imageloader/libimageloader-manifest.ninja
+subninja obj/imageloader/libimageloader_static.ninja
+subninja obj/imageloader/protos.ninja
+rule __imageloader_protos_gen___common-mk_toolchain_toolchain__rule
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/imageloader-0.0.1-r1982/work/imageloader-0.0.1/common-mk/file_generator_wrapper.py protoc ipc.proto --proto_path /var/tmp/portage/chromeos-base/imageloader-0.0.1-r1982/work/imageloader-0.0.1/imageloader --proto_path /./usr/share/proto --cpp_out=/var/cache/portage/chromeos-base/imageloader/out/Default/gen/include/imageloader
+  description = ACTION //imageloader:protos_gen(//common-mk/toolchain:toolchain)
+  restat = 1
+
+build gen/include/imageloader/ipc.pb.cc gen/include/imageloader/ipc.pb.h: __imageloader_protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/imageloader-0.0.1-r1982/work/imageloader-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../tmp/portage/chromeos-base/imageloader-0.0.1-r1982/work/imageloader-0.0.1/imageloader/ipc.proto
+
+build obj/imageloader/protos_gen.stamp: stamp gen/include/imageloader/ipc.pb.cc gen/include/imageloader/ipc.pb.h

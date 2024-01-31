@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1960/work/cros-camera-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1961/work/cros-camera-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 

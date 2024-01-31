@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/third_party/adhd",
-      "build_dest_path": "/build/arm64-generic/tmp/portage/media-sound/cras_rust-0.1.2-r534/work/cras_rust-0.1.2"
-    }
-  ]
-}

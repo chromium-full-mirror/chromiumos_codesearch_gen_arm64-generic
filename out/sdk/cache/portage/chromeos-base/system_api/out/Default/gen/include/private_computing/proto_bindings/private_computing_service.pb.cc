@@ -26,6 +26,8 @@ PROTOBUF_CONSTEXPR ChurnObservationStatus::ChurnObservationStatus(
   , /*decltype(_impl_.is_active_current_period_minus_1_)*/ false
 
   , /*decltype(_impl_.is_active_current_period_minus_2_)*/ false
+
+  , /*decltype(_impl_.is_first_powerwash_in_observation_period_)*/ false
 } {}
 struct ChurnObservationStatusDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ChurnObservationStatusDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
@@ -332,6 +334,9 @@ class ChurnObservationStatus::_Internal {
   static void set_has_is_active_current_period_minus_2(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
   }
+  static void set_has_is_first_powerwash_in_observation_period(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
 };
 
 ChurnObservationStatus::ChurnObservationStatus(::PROTOBUF_NAMESPACE_ID::Arena* arena)
@@ -356,6 +361,8 @@ inline void ChurnObservationStatus::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.is_active_current_period_minus_1_) { false }
 
     , decltype(_impl_.is_active_current_period_minus_2_) { false }
+
+    , decltype(_impl_.is_first_powerwash_in_observation_period_) { false }
 
   };
 }
@@ -384,8 +391,8 @@ void ChurnObservationStatus::Clear() {
   (void) cached_has_bits;
 
   ::memset(&_impl_.is_active_current_period_minus_0_, 0, static_cast<::size_t>(
-      reinterpret_cast<char*>(&_impl_.is_active_current_period_minus_2_) -
-      reinterpret_cast<char*>(&_impl_.is_active_current_period_minus_0_)) + sizeof(_impl_.is_active_current_period_minus_2_));
+      reinterpret_cast<char*>(&_impl_.is_first_powerwash_in_observation_period_) -
+      reinterpret_cast<char*>(&_impl_.is_active_current_period_minus_0_)) + sizeof(_impl_.is_first_powerwash_in_observation_period_));
   _impl_._has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -422,6 +429,16 @@ const char* ChurnObservationStatus::_InternalParse(const char* ptr, ::_pbi::Pars
         if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 24)) {
           _Internal::set_has_is_active_current_period_minus_2(&has_bits);
           _impl_.is_active_current_period_minus_2_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // optional bool is_first_powerwash_in_observation_period = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 32)) {
+          _Internal::set_has_is_first_powerwash_in_observation_period(&has_bits);
+          _impl_.is_first_powerwash_in_observation_period_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else {
           goto handle_unusual;
@@ -479,6 +496,13 @@ failure:
         3, this->_internal_is_active_current_period_minus_2(), target);
   }
 
+  // optional bool is_first_powerwash_in_observation_period = 4;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(
+        4, this->_internal_is_first_powerwash_in_observation_period(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -496,7 +520,7 @@ failure:
   (void) cached_has_bits;
 
   cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     // optional bool is_active_current_period_minus_0 = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 2;
@@ -509,6 +533,11 @@ failure:
 
     // optional bool is_active_current_period_minus_2 = 3;
     if (cached_has_bits & 0x00000004u) {
+      total_size += 2;
+    }
+
+    // optional bool is_first_powerwash_in_observation_period = 4;
+    if (cached_has_bits & 0x00000008u) {
       total_size += 2;
     }
 
@@ -535,7 +564,7 @@ void ChurnObservationStatus::MergeFrom(const ChurnObservationStatus& from) {
   (void) cached_has_bits;
 
   cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000000fu) {
     if (cached_has_bits & 0x00000001u) {
       _this->_impl_.is_active_current_period_minus_0_ = from._impl_.is_active_current_period_minus_0_;
     }
@@ -544,6 +573,9 @@ void ChurnObservationStatus::MergeFrom(const ChurnObservationStatus& from) {
     }
     if (cached_has_bits & 0x00000004u) {
       _this->_impl_.is_active_current_period_minus_2_ = from._impl_.is_active_current_period_minus_2_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      _this->_impl_.is_first_powerwash_in_observation_period_ = from._impl_.is_first_powerwash_in_observation_period_;
     }
     _this->_impl_._has_bits_[0] |= cached_has_bits;
   }
@@ -566,8 +598,8 @@ void ChurnObservationStatus::InternalSwap(ChurnObservationStatus* other) {
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ChurnObservationStatus, _impl_.is_active_current_period_minus_2_)
-      + sizeof(ChurnObservationStatus::_impl_.is_active_current_period_minus_2_)
+      PROTOBUF_FIELD_OFFSET(ChurnObservationStatus, _impl_.is_first_powerwash_in_observation_period_)
+      + sizeof(ChurnObservationStatus::_impl_.is_first_powerwash_in_observation_period_)
       - PROTOBUF_FIELD_OFFSET(ChurnObservationStatus, _impl_.is_active_current_period_minus_0_)>(
           reinterpret_cast<char*>(&_impl_.is_active_current_period_minus_0_),
           reinterpret_cast<char*>(&other->_impl_.is_active_current_period_minus_0_));

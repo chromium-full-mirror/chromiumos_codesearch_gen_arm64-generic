@@ -13,7 +13,7 @@ libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/runtime_probe-client"
 platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/runtime_probe-client-0.0.1-r303/work/runtime_probe-client-0.0.1"
-libbase_ver = "1252475"
+libbase_ver = "1253750"
 enable_exceptions = false
 external_cflags = [
   "-Os",

@@ -12,7 +12,7 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root = "/build/arm64-generic/var/cache/portage/chromeos-base/metrics"
 platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/metrics-0.0.2-r3777/work/metrics-0.0.2/platform2"
-libbase_ver = "1252475"
+libbase_ver = "1253750"
 enable_exceptions = false
 external_cflags = [
   "-Os",

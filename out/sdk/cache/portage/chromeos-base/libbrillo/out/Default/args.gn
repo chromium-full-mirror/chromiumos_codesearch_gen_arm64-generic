@@ -13,7 +13,7 @@ libdir = "/usr/lib64"
 build_root = "/var/cache/portage/chromeos-base/libbrillo"
 platform2_root =
     "/var/tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1"
-libbase_ver = "1252475"
+libbase_ver = "1253750"
 enable_exceptions = false
 external_cflags = [
   "-O2",
