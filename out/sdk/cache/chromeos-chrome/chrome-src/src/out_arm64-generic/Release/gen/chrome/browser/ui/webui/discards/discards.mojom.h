@@ -532,7 +532,7 @@ class  FavIconInfo {
   template <typename... Args>
   static FavIconInfoPtr New(Args&&... args) {
     return FavIconInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -678,7 +678,7 @@ class  TabDiscardsInfo {
   template <typename... Args>
   static TabDiscardsInfoPtr New(Args&&... args) {
     return TabDiscardsInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -863,7 +863,7 @@ class  PageInfo {
   template <typename... Args>
   static PageInfoPtr New(Args&&... args) {
     return PageInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1015,7 +1015,7 @@ class  FrameInfo {
   template <typename... Args>
   static FrameInfoPtr New(Args&&... args) {
     return FrameInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1170,7 +1170,7 @@ class  ProcessInfo {
   template <typename... Args>
   static ProcessInfoPtr New(Args&&... args) {
     return ProcessInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1319,7 +1319,7 @@ class  WorkerInfo {
   template <typename... Args>
   static WorkerInfoPtr New(Args&&... args) {
     return WorkerInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

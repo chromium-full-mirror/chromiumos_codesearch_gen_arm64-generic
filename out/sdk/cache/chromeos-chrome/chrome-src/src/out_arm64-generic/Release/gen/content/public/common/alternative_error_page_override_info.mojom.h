@@ -57,7 +57,7 @@ class CONTENT_EXPORT AlternativeErrorPageOverrideInfo {
   template <typename... Args>
   static AlternativeErrorPageOverrideInfoPtr New(Args&&... args) {
     return AlternativeErrorPageOverrideInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

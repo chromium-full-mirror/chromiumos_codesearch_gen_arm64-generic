@@ -61,7 +61,7 @@ class PLATFORM_EXPORT SerializedArrayBufferContents {
   template <typename... Args>
   static SerializedArrayBufferContentsPtr New(Args&&... args) {
     return SerializedArrayBufferContentsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

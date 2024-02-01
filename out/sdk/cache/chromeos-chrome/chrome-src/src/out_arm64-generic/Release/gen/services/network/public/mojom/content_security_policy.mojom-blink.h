@@ -60,7 +60,7 @@ class BLINK_PLATFORM_EXPORT ContentSecurityPolicyHeader {
   template <typename... Args>
   static ContentSecurityPolicyHeaderPtr New(Args&&... args) {
     return ContentSecurityPolicyHeaderPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -223,7 +223,7 @@ class BLINK_PLATFORM_EXPORT AllowCSPFromHeaderValue {
   static AllowCSPFromHeaderValuePtr
   NewAllowStar(
       bool value) {
-    auto result = AllowCSPFromHeaderValuePtr(absl::in_place);
+    auto result = AllowCSPFromHeaderValuePtr(std::in_place);
     result->set_allow_star(std::move(value));
     return result;
   }
@@ -231,7 +231,7 @@ class BLINK_PLATFORM_EXPORT AllowCSPFromHeaderValue {
   static AllowCSPFromHeaderValuePtr
   NewOrigin(
       const ::scoped_refptr<const ::blink::SecurityOrigin>& value) {
-    auto result = AllowCSPFromHeaderValuePtr(absl::in_place);
+    auto result = AllowCSPFromHeaderValuePtr(std::in_place);
     result->set_origin(std::move(value));
     return result;
   }
@@ -239,7 +239,7 @@ class BLINK_PLATFORM_EXPORT AllowCSPFromHeaderValue {
   static AllowCSPFromHeaderValuePtr
   NewErrorMessage(
       const WTF::String& value) {
-    auto result = AllowCSPFromHeaderValuePtr(absl::in_place);
+    auto result = AllowCSPFromHeaderValuePtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -367,7 +367,7 @@ class BLINK_PLATFORM_EXPORT CSPSource {
   template <typename... Args>
   static CSPSourcePtr New(Args&&... args) {
     return CSPSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -523,7 +523,7 @@ class BLINK_PLATFORM_EXPORT CSPHashSource {
   template <typename... Args>
   static CSPHashSourcePtr New(Args&&... args) {
     return CSPHashSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -666,7 +666,7 @@ class BLINK_PLATFORM_EXPORT CSPSourceList {
   template <typename... Args>
   static CSPSourceListPtr New(Args&&... args) {
     return CSPSourceListPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -847,7 +847,7 @@ class BLINK_PLATFORM_EXPORT CSPTrustedTypes {
   template <typename... Args>
   static CSPTrustedTypesPtr New(Args&&... args) {
     return CSPTrustedTypesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -993,7 +993,7 @@ class BLINK_PLATFORM_EXPORT ContentSecurityPolicy {
   template <typename... Args>
   static ContentSecurityPolicyPtr New(Args&&... args) {
     return ContentSecurityPolicyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1171,7 +1171,7 @@ class BLINK_PLATFORM_EXPORT CSPViolation {
   template <typename... Args>
   static CSPViolationPtr New(Args&&... args) {
     return CSPViolationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

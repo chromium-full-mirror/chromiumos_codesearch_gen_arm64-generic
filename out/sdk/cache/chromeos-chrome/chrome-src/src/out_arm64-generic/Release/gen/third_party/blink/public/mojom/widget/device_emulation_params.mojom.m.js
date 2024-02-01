@@ -7,11 +7,6 @@
 import {mojo} from '../../../../../mojo/public/js/bindings.js';
 
 import {
-  DevicePostureType as device_mojom_DevicePostureType,
-  DevicePostureTypeSpec as device_mojom_DevicePostureTypeSpec
-} from '../../../../../services/device/public/mojom/device_posture_provider.mojom.m.js';
-
-import {
   ScreenOrientation as display_mojom_ScreenOrientation,
   ScreenOrientationSpec as display_mojom_ScreenOrientationSpec
 } from '../../../../../ui/display/mojom/screen_orientation.mojom.m.js';
@@ -26,6 +21,11 @@ import {
   Size as gfx_mojom_Size,
   SizeSpec as gfx_mojom_SizeSpec
 } from '../../../../../ui/gfx/geometry/mojom/geometry.mojom.m.js';
+
+import {
+  DevicePostureType as blink_mojom_DevicePostureType,
+  DevicePostureTypeSpec as blink_mojom_DevicePostureTypeSpec
+} from '../device_posture/device_posture_provider.mojom.m.js';
 
 
 /**
@@ -149,7 +149,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'devicePosture', 64,
         0,
-        device_mojom_DevicePostureTypeSpec.$,
+        blink_mojom_DevicePostureTypeSpec.$,
         0,
         false /* nullable */,
         0,
@@ -186,7 +186,7 @@ export class DeviceEmulationParams {
     this.screenOrientationAngle;
     /** @type { !Array<!gfx_mojom_Rect> } */
     this.windowSegments;
-    /** @type { !device_mojom_DevicePostureType } */
+    /** @type { !blink_mojom_DevicePostureType } */
     this.devicePosture;
   }
 }

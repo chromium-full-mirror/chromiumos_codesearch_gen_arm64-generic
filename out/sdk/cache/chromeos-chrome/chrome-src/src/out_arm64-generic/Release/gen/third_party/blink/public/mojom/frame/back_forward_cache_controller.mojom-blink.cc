@@ -53,7 +53,7 @@ BlockingDetails::BlockingDetails()
       column_number() {}
 
 BlockingDetails::BlockingDetails(
-    uint32_t feature_in,
+    std::optional<uint32_t> feature_in,
     const WTF::String& url_in,
     const WTF::String& function_name_in,
     uint64_t line_number_in,
@@ -73,7 +73,7 @@ void BlockingDetails::WriteIntoTrace(
     dict.AddItem(
       "feature"), this->feature,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type uint32_t>"
+      "<value of type std::optional<uint32_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -201,7 +201,7 @@ BackForwardCacheControllerHostProxy::BackForwardCacheControllerHostProxy(mojo::M
 }
 
 void BackForwardCacheControllerHostProxy::EvictFromBackForwardCache(
-    ::blink::mojom::blink::RendererEvictionReason in_reason) {
+    ::blink::mojom::blink::RendererEvictionReason in_reason, BlockingDetailsPtr in_details) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send blink::mojom::BackForwardCacheControllerHost::EvictFromBackForwardCache", "input_parameters",
@@ -210,6 +210,9 @@ void BackForwardCacheControllerHostProxy::EvictFromBackForwardCache(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("reason"), in_reason,
                         "<value of type ::blink::mojom::blink::RendererEvictionReason>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("details"), in_details,
+                        "<value of type BlockingDetailsPtr>");
    });
 #endif
 
@@ -232,6 +235,13 @@ void BackForwardCacheControllerHostProxy::EvictFromBackForwardCache(
   params.Allocate();
   mojo::internal::Serialize<::blink::mojom::RendererEvictionReason>(
       in_reason, &params->reason);
+  mojo::internal::MessageFragment<
+      typename decltype(params->details)::BaseType> details_fragment(
+          params.message());
+  mojo::internal::Serialize<::blink::mojom::BlockingDetailsDataView>(
+      in_details, details_fragment);
+  params->details.Set(
+      details_fragment.is_null() ? nullptr : details_fragment.data());
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(BackForwardCacheControllerHost::Name_);
@@ -311,9 +321,12 @@ bool BackForwardCacheControllerHostStubDispatch::Accept(
       // Validation for BackForwardCacheControllerHost.0
       bool success = true;
       ::blink::mojom::blink::RendererEvictionReason p_reason{};
+      BlockingDetailsPtr p_details{};
       BackForwardCacheControllerHost_EvictFromBackForwardCache_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadReason(&p_reason))
+        success = false;
+      if (success && !input_data_view.ReadDetails(&p_details))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -325,7 +338,8 @@ bool BackForwardCacheControllerHostStubDispatch::Accept(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->EvictFromBackForwardCache(        
-        std::move(p_reason));
+        std::move(p_reason), 
+        std::move(p_details));
       return true;
     }
     case internal::kBackForwardCacheControllerHost_DidChangeBackForwardCacheDisablingFeatures_Name: {
@@ -407,8 +421,9 @@ bool StructTraits<::blink::mojom::blink::BlockingDetails::DataView, ::blink::moj
   bool success = true;
   ::blink::mojom::blink::BlockingDetailsPtr result(::blink::mojom::blink::BlockingDetails::New());
   
-      if (success)
+      if (success) {
         result->feature = input.feature();
+      }
       if (success && !input.ReadUrl(&result->url))
         success = false;
       if (success && !input.ReadFunctionName(&result->function_name))
@@ -431,8 +446,8 @@ bool StructTraits<::blink::mojom::blink::BlockingDetails::DataView, ::blink::moj
 namespace blink::mojom::blink {
 
 
-void BackForwardCacheControllerHostInterceptorForTesting::EvictFromBackForwardCache(::blink::mojom::blink::RendererEvictionReason reason) {
-  GetForwardingInterface()->EvictFromBackForwardCache(std::move(reason));
+void BackForwardCacheControllerHostInterceptorForTesting::EvictFromBackForwardCache(::blink::mojom::blink::RendererEvictionReason reason, BlockingDetailsPtr details) {
+  GetForwardingInterface()->EvictFromBackForwardCache(std::move(reason), std::move(details));
 }
 void BackForwardCacheControllerHostInterceptorForTesting::DidChangeBackForwardCacheDisablingFeatures(WTF::Vector<BlockingDetailsPtr> details) {
   GetForwardingInterface()->DidChangeBackForwardCacheDisablingFeatures(std::move(details));

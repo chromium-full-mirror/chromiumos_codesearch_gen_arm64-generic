@@ -288,7 +288,7 @@ class  PageProcess {
   template <typename... Args>
   static PageProcessPtr New(Args&&... args) {
     return PageProcessPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -445,7 +445,7 @@ class  MemoryPressure {
   template <typename... Args>
   static MemoryPressurePtr New(Args&&... args) {
     return MemoryPressurePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

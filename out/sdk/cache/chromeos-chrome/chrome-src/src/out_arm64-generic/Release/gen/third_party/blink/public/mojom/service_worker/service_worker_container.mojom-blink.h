@@ -386,7 +386,7 @@ class CORE_EXPORT ServiceWorkerContainerInfoForClient {
   template <typename... Args>
   static ServiceWorkerContainerInfoForClientPtr New(Args&&... args) {
     return ServiceWorkerContainerInfoForClientPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

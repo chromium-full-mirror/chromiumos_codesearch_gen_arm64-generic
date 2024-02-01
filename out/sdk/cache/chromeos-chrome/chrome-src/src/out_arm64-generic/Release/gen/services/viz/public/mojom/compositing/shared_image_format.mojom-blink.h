@@ -56,7 +56,7 @@ class  MultiplanarFormat {
   template <typename... Args>
   static MultiplanarFormatPtr New(Args&&... args) {
     return MultiplanarFormatPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -216,7 +216,7 @@ class  SharedImageFormat {
   static SharedImageFormatPtr
   NewSingleplanarFormat(
       ::viz::mojom::blink::SingleplanarFormat value) {
-    auto result = SharedImageFormatPtr(absl::in_place);
+    auto result = SharedImageFormatPtr(std::in_place);
     result->set_singleplanar_format(std::move(value));
     return result;
   }
@@ -224,7 +224,7 @@ class  SharedImageFormat {
   static SharedImageFormatPtr
   NewMultiplanarFormat(
       MultiplanarFormatPtr value) {
-    auto result = SharedImageFormatPtr(absl::in_place);
+    auto result = SharedImageFormatPtr(std::in_place);
     result->set_multiplanar_format(std::move(value));
     return result;
   }

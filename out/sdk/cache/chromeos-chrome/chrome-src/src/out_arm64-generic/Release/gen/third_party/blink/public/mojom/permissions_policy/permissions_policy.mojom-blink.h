@@ -64,7 +64,7 @@ class PLATFORM_EXPORT OriginWithPossibleWildcards {
   template <typename... Args>
   static OriginWithPossibleWildcardsPtr New(Args&&... args) {
     return OriginWithPossibleWildcardsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -216,7 +216,7 @@ class PLATFORM_EXPORT ParsedPermissionsPolicyDeclaration {
   template <typename... Args>
   static ParsedPermissionsPolicyDeclarationPtr New(Args&&... args) {
     return ParsedPermissionsPolicyDeclarationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

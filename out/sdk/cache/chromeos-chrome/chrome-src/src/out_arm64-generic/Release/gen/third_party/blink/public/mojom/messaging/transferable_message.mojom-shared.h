@@ -136,7 +136,7 @@ static_assert(
         ::blink::mojom::UserActivationSnapshotDataView, UserType>(),
     "Attempting to read the optional `user_activation` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUserActivation` instead "
     "of `ReadUserActivation if you're fine with null values being "
@@ -166,7 +166,7 @@ static_assert(
         ::blink::mojom::TaskAttributionIdDataView, UserType>(),
     "Attempting to read the optional `parent_task_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadParentTaskId` instead "
     "of `ReadParentTaskId if you're fine with null values being "

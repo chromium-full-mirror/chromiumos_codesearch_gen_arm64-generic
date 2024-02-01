@@ -56,7 +56,7 @@ class  Cart {
   template <typename... Args>
   static CartPtr New(Args&&... args) {
     return CartPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

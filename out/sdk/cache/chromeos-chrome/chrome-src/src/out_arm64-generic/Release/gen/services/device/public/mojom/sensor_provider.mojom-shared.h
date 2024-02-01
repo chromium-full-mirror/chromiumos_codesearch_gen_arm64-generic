@@ -248,19 +248,19 @@ class VirtualSensorMetadataDataView {
   std::optional<double> maximum_frequency() const {
 
     return data_->maximum_frequency_$flag
-        ? absl::make_optional(data_->maximum_frequency_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->maximum_frequency_$value)
+        : std::nullopt;
   }
   std::optional<double> minimum_frequency() const {
 
     return data_->minimum_frequency_$flag
-        ? absl::make_optional(data_->minimum_frequency_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->minimum_frequency_$value)
+        : std::nullopt;
   }
   template <typename UserType>
   [[nodiscard]] bool ReadReportingMode(UserType* output) const {
     if (!data_->reporting_mode_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -269,7 +269,7 @@ class VirtualSensorMetadataDataView {
   }
   std::optional<::device::mojom::ReportingMode> reporting_mode() const {
     if (!data_->reporting_mode_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::device::mojom::ReportingMode>(data_->reporting_mode_$value));

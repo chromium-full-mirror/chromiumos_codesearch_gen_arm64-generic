@@ -47,6 +47,23 @@ export const RoutineVerdict = {
 /**
  * @const { {$: !mojo.internal.MojomType} }
  */
+export const RoutineCallSourceSpec = { $: mojo.internal.Enum() };
+/**
+ * @enum {number}
+ */
+export const RoutineCallSource = {
+    kUnknown: 0,
+    kDiagnosticsUI: 1,
+    kChromeNetworkPage: 2,
+    kCrosHealthd: 3,
+    kMetricsReporting: 4,
+    kNetworkHealthSource: 5,
+    MIN_VALUE: 0,
+    MAX_VALUE: 5,
+};
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
 export const LanConnectivityProblemSpec = { $: mojo.internal.Enum() };
 /**
  * @enum {number}
@@ -296,96 +313,111 @@ export class NetworkDiagnosticsRoutinesInterface {
      */
     getAllResults() { }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runLanConnectivity() { }
+    runLanConnectivity(source) { }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runSignalStrength() { }
+    runSignalStrength(source) { }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runGatewayCanBePinged() { }
+    runGatewayCanBePinged(source) { }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runHasSecureWiFiConnection() { }
+    runHasSecureWiFiConnection(source) { }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runDnsResolverPresent() { }
+    runDnsResolverPresent(source) { }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runDnsLatency() { }
+    runDnsLatency(source) { }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runDnsResolution() { }
+    runDnsResolution(source) { }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runCaptivePortal() { }
+    runCaptivePortal(source) { }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runHttpFirewall() { }
+    runHttpFirewall(source) { }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runHttpsFirewall() { }
+    runHttpsFirewall(source) { }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runHttpsLatency() { }
+    runHttpsLatency(source) { }
     /**
      * @param { ?string } stunServerHostname
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runVideoConferencing(stunServerHostname) { }
+    runVideoConferencing(stunServerHostname, source) { }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runArcHttp() { }
+    runArcHttp(source) { }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runArcPing() { }
+    runArcPing(source) { }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runArcDnsResolution() { }
+    runArcDnsResolution(source) { }
 }
 /**
  * @implements { NetworkDiagnosticsRoutinesInterface }
@@ -425,127 +457,171 @@ export class NetworkDiagnosticsRoutinesRemote {
         return this.proxy.sendMessage(28, NetworkDiagnosticsRoutines_GetAllResults_ParamsSpec.$, NetworkDiagnosticsRoutines_GetAllResults_ResponseParamsSpec.$, []);
     }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runLanConnectivity() {
-        return this.proxy.sendMessage(12, NetworkDiagnosticsRoutines_RunLanConnectivity_ParamsSpec.$, NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParamsSpec.$, []);
-    }
-    /**
-     * @return {!Promise<{
-          result: !RoutineResult,
-     *  }>}
-     */
-    runSignalStrength() {
-        return this.proxy.sendMessage(13, NetworkDiagnosticsRoutines_RunSignalStrength_ParamsSpec.$, NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParamsSpec.$, []);
-    }
-    /**
-     * @return {!Promise<{
-          result: !RoutineResult,
-     *  }>}
-     */
-    runGatewayCanBePinged() {
-        return this.proxy.sendMessage(14, NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ParamsSpec.$, NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParamsSpec.$, []);
-    }
-    /**
-     * @return {!Promise<{
-          result: !RoutineResult,
-     *  }>}
-     */
-    runHasSecureWiFiConnection() {
-        return this.proxy.sendMessage(15, NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ParamsSpec.$, NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParamsSpec.$, []);
-    }
-    /**
-     * @return {!Promise<{
-          result: !RoutineResult,
-     *  }>}
-     */
-    runDnsResolverPresent() {
-        return this.proxy.sendMessage(16, NetworkDiagnosticsRoutines_RunDnsResolverPresent_ParamsSpec.$, NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParamsSpec.$, []);
-    }
-    /**
-     * @return {!Promise<{
-          result: !RoutineResult,
-     *  }>}
-     */
-    runDnsLatency() {
-        return this.proxy.sendMessage(17, NetworkDiagnosticsRoutines_RunDnsLatency_ParamsSpec.$, NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParamsSpec.$, []);
-    }
-    /**
-     * @return {!Promise<{
-          result: !RoutineResult,
-     *  }>}
-     */
-    runDnsResolution() {
-        return this.proxy.sendMessage(18, NetworkDiagnosticsRoutines_RunDnsResolution_ParamsSpec.$, NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParamsSpec.$, []);
-    }
-    /**
-     * @return {!Promise<{
-          result: !RoutineResult,
-     *  }>}
-     */
-    runCaptivePortal() {
-        return this.proxy.sendMessage(19, NetworkDiagnosticsRoutines_RunCaptivePortal_ParamsSpec.$, NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParamsSpec.$, []);
-    }
-    /**
-     * @return {!Promise<{
-          result: !RoutineResult,
-     *  }>}
-     */
-    runHttpFirewall() {
-        return this.proxy.sendMessage(20, NetworkDiagnosticsRoutines_RunHttpFirewall_ParamsSpec.$, NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParamsSpec.$, []);
-    }
-    /**
-     * @return {!Promise<{
-          result: !RoutineResult,
-     *  }>}
-     */
-    runHttpsFirewall() {
-        return this.proxy.sendMessage(21, NetworkDiagnosticsRoutines_RunHttpsFirewall_ParamsSpec.$, NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParamsSpec.$, []);
-    }
-    /**
-     * @return {!Promise<{
-          result: !RoutineResult,
-     *  }>}
-     */
-    runHttpsLatency() {
-        return this.proxy.sendMessage(22, NetworkDiagnosticsRoutines_RunHttpsLatency_ParamsSpec.$, NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParamsSpec.$, []);
-    }
-    /**
-     * @param { ?string } stunServerHostname
-     * @return {!Promise<{
-          result: !RoutineResult,
-     *  }>}
-     */
-    runVideoConferencing(stunServerHostname) {
-        return this.proxy.sendMessage(23, NetworkDiagnosticsRoutines_RunVideoConferencing_ParamsSpec.$, NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParamsSpec.$, [
-            stunServerHostname
+    runLanConnectivity(source) {
+        return this.proxy.sendMessage(12, NetworkDiagnosticsRoutines_RunLanConnectivity_ParamsSpec.$, NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParamsSpec.$, [
+            source
         ]);
     }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runArcHttp() {
-        return this.proxy.sendMessage(24, NetworkDiagnosticsRoutines_RunArcHttp_ParamsSpec.$, NetworkDiagnosticsRoutines_RunArcHttp_ResponseParamsSpec.$, []);
+    runSignalStrength(source) {
+        return this.proxy.sendMessage(13, NetworkDiagnosticsRoutines_RunSignalStrength_ParamsSpec.$, NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParamsSpec.$, [
+            source
+        ]);
     }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runArcPing() {
-        return this.proxy.sendMessage(25, NetworkDiagnosticsRoutines_RunArcPing_ParamsSpec.$, NetworkDiagnosticsRoutines_RunArcPing_ResponseParamsSpec.$, []);
+    runGatewayCanBePinged(source) {
+        return this.proxy.sendMessage(14, NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ParamsSpec.$, NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParamsSpec.$, [
+            source
+        ]);
     }
     /**
+     * @param { ?RoutineCallSource } source
      * @return {!Promise<{
           result: !RoutineResult,
      *  }>}
      */
-    runArcDnsResolution() {
-        return this.proxy.sendMessage(26, NetworkDiagnosticsRoutines_RunArcDnsResolution_ParamsSpec.$, NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParamsSpec.$, []);
+    runHasSecureWiFiConnection(source) {
+        return this.proxy.sendMessage(15, NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ParamsSpec.$, NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParamsSpec.$, [
+            source
+        ]);
+    }
+    /**
+     * @param { ?RoutineCallSource } source
+     * @return {!Promise<{
+          result: !RoutineResult,
+     *  }>}
+     */
+    runDnsResolverPresent(source) {
+        return this.proxy.sendMessage(16, NetworkDiagnosticsRoutines_RunDnsResolverPresent_ParamsSpec.$, NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParamsSpec.$, [
+            source
+        ]);
+    }
+    /**
+     * @param { ?RoutineCallSource } source
+     * @return {!Promise<{
+          result: !RoutineResult,
+     *  }>}
+     */
+    runDnsLatency(source) {
+        return this.proxy.sendMessage(17, NetworkDiagnosticsRoutines_RunDnsLatency_ParamsSpec.$, NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParamsSpec.$, [
+            source
+        ]);
+    }
+    /**
+     * @param { ?RoutineCallSource } source
+     * @return {!Promise<{
+          result: !RoutineResult,
+     *  }>}
+     */
+    runDnsResolution(source) {
+        return this.proxy.sendMessage(18, NetworkDiagnosticsRoutines_RunDnsResolution_ParamsSpec.$, NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParamsSpec.$, [
+            source
+        ]);
+    }
+    /**
+     * @param { ?RoutineCallSource } source
+     * @return {!Promise<{
+          result: !RoutineResult,
+     *  }>}
+     */
+    runCaptivePortal(source) {
+        return this.proxy.sendMessage(19, NetworkDiagnosticsRoutines_RunCaptivePortal_ParamsSpec.$, NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParamsSpec.$, [
+            source
+        ]);
+    }
+    /**
+     * @param { ?RoutineCallSource } source
+     * @return {!Promise<{
+          result: !RoutineResult,
+     *  }>}
+     */
+    runHttpFirewall(source) {
+        return this.proxy.sendMessage(20, NetworkDiagnosticsRoutines_RunHttpFirewall_ParamsSpec.$, NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParamsSpec.$, [
+            source
+        ]);
+    }
+    /**
+     * @param { ?RoutineCallSource } source
+     * @return {!Promise<{
+          result: !RoutineResult,
+     *  }>}
+     */
+    runHttpsFirewall(source) {
+        return this.proxy.sendMessage(21, NetworkDiagnosticsRoutines_RunHttpsFirewall_ParamsSpec.$, NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParamsSpec.$, [
+            source
+        ]);
+    }
+    /**
+     * @param { ?RoutineCallSource } source
+     * @return {!Promise<{
+          result: !RoutineResult,
+     *  }>}
+     */
+    runHttpsLatency(source) {
+        return this.proxy.sendMessage(22, NetworkDiagnosticsRoutines_RunHttpsLatency_ParamsSpec.$, NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParamsSpec.$, [
+            source
+        ]);
+    }
+    /**
+     * @param { ?string } stunServerHostname
+     * @param { ?RoutineCallSource } source
+     * @return {!Promise<{
+          result: !RoutineResult,
+     *  }>}
+     */
+    runVideoConferencing(stunServerHostname, source) {
+        return this.proxy.sendMessage(23, NetworkDiagnosticsRoutines_RunVideoConferencing_ParamsSpec.$, NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParamsSpec.$, [
+            stunServerHostname,
+            source
+        ]);
+    }
+    /**
+     * @param { ?RoutineCallSource } source
+     * @return {!Promise<{
+          result: !RoutineResult,
+     *  }>}
+     */
+    runArcHttp(source) {
+        return this.proxy.sendMessage(24, NetworkDiagnosticsRoutines_RunArcHttp_ParamsSpec.$, NetworkDiagnosticsRoutines_RunArcHttp_ResponseParamsSpec.$, [
+            source
+        ]);
+    }
+    /**
+     * @param { ?RoutineCallSource } source
+     * @return {!Promise<{
+          result: !RoutineResult,
+     *  }>}
+     */
+    runArcPing(source) {
+        return this.proxy.sendMessage(25, NetworkDiagnosticsRoutines_RunArcPing_ParamsSpec.$, NetworkDiagnosticsRoutines_RunArcPing_ResponseParamsSpec.$, [
+            source
+        ]);
+    }
+    /**
+     * @param { ?RoutineCallSource } source
+     * @return {!Promise<{
+          result: !RoutineResult,
+     *  }>}
+     */
+    runArcDnsResolution(source) {
+        return this.proxy.sendMessage(26, NetworkDiagnosticsRoutines_RunArcDnsResolution_ParamsSpec.$, NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParamsSpec.$, [
+            source
+        ]);
     }
 }
 /**
@@ -901,7 +977,8 @@ mojo.internal.Struct(RoutineResultSpec.$, 'RoutineResult', [
     mojo.internal.StructField('problems', 8, 0, RoutineProblemsSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('timestamp', 24, 0, mojoBase_mojom_TimeSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('resultValue', 32, 0, RoutineResultValueSpec.$, null, true /* nullable */, 1),
-], [[0, 40], [1, 56],]);
+    mojo.internal.StructField('source', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2),
+], [[0, 40], [1, 56], [2, 56],]);
 /**
  * @record
  */
@@ -915,6 +992,8 @@ export class RoutineResult {
         this.timestamp;
         /** @type { (RoutineResultValue|undefined) } */
         this.resultValue;
+        /** @type { !RoutineCallSource } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_GetResult_ParamsSpec.$, 'NetworkDiagnosticsRoutines_GetResult_Params', [
@@ -961,12 +1040,24 @@ export class NetworkDiagnosticsRoutines_GetAllResults_ResponseParams {
         this.results;
     }
 }
-mojo.internal.Struct(NetworkDiagnosticsRoutines_RunLanConnectivity_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunLanConnectivity_Params', [], [[0, 8],]);
+mojo.internal.Struct(NetworkDiagnosticsRoutines_RunLanConnectivity_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunLanConnectivity_Params', [
+    mojo.internal.StructField('source_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 8], [2, 16],]);
 /**
  * @record
  */
 export class NetworkDiagnosticsRoutines_RunLanConnectivity_Params {
     constructor() {
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParams', [
@@ -981,12 +1072,24 @@ export class NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParams {
         this.result;
     }
 }
-mojo.internal.Struct(NetworkDiagnosticsRoutines_RunSignalStrength_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunSignalStrength_Params', [], [[0, 8],]);
+mojo.internal.Struct(NetworkDiagnosticsRoutines_RunSignalStrength_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunSignalStrength_Params', [
+    mojo.internal.StructField('source_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 8], [2, 16],]);
 /**
  * @record
  */
 export class NetworkDiagnosticsRoutines_RunSignalStrength_Params {
     constructor() {
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParams', [
@@ -1001,12 +1104,24 @@ export class NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParams {
         this.result;
     }
 }
-mojo.internal.Struct(NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params', [], [[0, 8],]);
+mojo.internal.Struct(NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params', [
+    mojo.internal.StructField('source_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 8], [2, 16],]);
 /**
  * @record
  */
 export class NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params {
     constructor() {
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParams', [
@@ -1021,12 +1136,24 @@ export class NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParams {
         this.result;
     }
 }
-mojo.internal.Struct(NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params', [], [[0, 8],]);
+mojo.internal.Struct(NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params', [
+    mojo.internal.StructField('source_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 8], [2, 16],]);
 /**
  * @record
  */
 export class NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params {
     constructor() {
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParams', [
@@ -1041,12 +1168,24 @@ export class NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParam
         this.result;
     }
 }
-mojo.internal.Struct(NetworkDiagnosticsRoutines_RunDnsResolverPresent_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params', [], [[0, 8],]);
+mojo.internal.Struct(NetworkDiagnosticsRoutines_RunDnsResolverPresent_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params', [
+    mojo.internal.StructField('source_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 8], [2, 16],]);
 /**
  * @record
  */
 export class NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params {
     constructor() {
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParams', [
@@ -1061,12 +1200,24 @@ export class NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParams {
         this.result;
     }
 }
-mojo.internal.Struct(NetworkDiagnosticsRoutines_RunDnsLatency_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunDnsLatency_Params', [], [[0, 8],]);
+mojo.internal.Struct(NetworkDiagnosticsRoutines_RunDnsLatency_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunDnsLatency_Params', [
+    mojo.internal.StructField('source_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 8], [2, 16],]);
 /**
  * @record
  */
 export class NetworkDiagnosticsRoutines_RunDnsLatency_Params {
     constructor() {
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParams', [
@@ -1081,12 +1232,24 @@ export class NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParams {
         this.result;
     }
 }
-mojo.internal.Struct(NetworkDiagnosticsRoutines_RunDnsResolution_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunDnsResolution_Params', [], [[0, 8],]);
+mojo.internal.Struct(NetworkDiagnosticsRoutines_RunDnsResolution_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunDnsResolution_Params', [
+    mojo.internal.StructField('source_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 8], [2, 16],]);
 /**
  * @record
  */
 export class NetworkDiagnosticsRoutines_RunDnsResolution_Params {
     constructor() {
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParams', [
@@ -1101,12 +1264,24 @@ export class NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParams {
         this.result;
     }
 }
-mojo.internal.Struct(NetworkDiagnosticsRoutines_RunCaptivePortal_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunCaptivePortal_Params', [], [[0, 8],]);
+mojo.internal.Struct(NetworkDiagnosticsRoutines_RunCaptivePortal_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunCaptivePortal_Params', [
+    mojo.internal.StructField('source_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 8], [2, 16],]);
 /**
  * @record
  */
 export class NetworkDiagnosticsRoutines_RunCaptivePortal_Params {
     constructor() {
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParams', [
@@ -1121,12 +1296,24 @@ export class NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParams {
         this.result;
     }
 }
-mojo.internal.Struct(NetworkDiagnosticsRoutines_RunHttpFirewall_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunHttpFirewall_Params', [], [[0, 8],]);
+mojo.internal.Struct(NetworkDiagnosticsRoutines_RunHttpFirewall_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunHttpFirewall_Params', [
+    mojo.internal.StructField('source_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 8], [2, 16],]);
 /**
  * @record
  */
 export class NetworkDiagnosticsRoutines_RunHttpFirewall_Params {
     constructor() {
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParams', [
@@ -1141,12 +1328,24 @@ export class NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParams {
         this.result;
     }
 }
-mojo.internal.Struct(NetworkDiagnosticsRoutines_RunHttpsFirewall_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunHttpsFirewall_Params', [], [[0, 8],]);
+mojo.internal.Struct(NetworkDiagnosticsRoutines_RunHttpsFirewall_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunHttpsFirewall_Params', [
+    mojo.internal.StructField('source_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 8], [2, 16],]);
 /**
  * @record
  */
 export class NetworkDiagnosticsRoutines_RunHttpsFirewall_Params {
     constructor() {
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParams', [
@@ -1161,12 +1360,24 @@ export class NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParams {
         this.result;
     }
 }
-mojo.internal.Struct(NetworkDiagnosticsRoutines_RunHttpsLatency_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunHttpsLatency_Params', [], [[0, 8],]);
+mojo.internal.Struct(NetworkDiagnosticsRoutines_RunHttpsLatency_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunHttpsLatency_Params', [
+    mojo.internal.StructField('source_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 8], [2, 16],]);
 /**
  * @record
  */
 export class NetworkDiagnosticsRoutines_RunHttpsLatency_Params {
     constructor() {
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParams', [
@@ -1183,7 +1394,16 @@ export class NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParams {
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunVideoConferencing_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunVideoConferencing_Params', [
     mojo.internal.StructField('stunServerHostname', 0, 0, mojo.internal.String, null, true /* nullable */, 0),
-], [[0, 16],]);
+    mojo.internal.StructField('source_$flag', 8, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 12, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 16], [2, 24],]);
 /**
  * @record
  */
@@ -1191,6 +1411,8 @@ export class NetworkDiagnosticsRoutines_RunVideoConferencing_Params {
     constructor() {
         /** @type { (string|undefined) } */
         this.stunServerHostname;
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParams', [
@@ -1205,12 +1427,24 @@ export class NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParams {
         this.result;
     }
 }
-mojo.internal.Struct(NetworkDiagnosticsRoutines_RunArcHttp_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunArcHttp_Params', [], [[0, 8],]);
+mojo.internal.Struct(NetworkDiagnosticsRoutines_RunArcHttp_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunArcHttp_Params', [
+    mojo.internal.StructField('source_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 8], [2, 16],]);
 /**
  * @record
  */
 export class NetworkDiagnosticsRoutines_RunArcHttp_Params {
     constructor() {
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunArcHttp_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunArcHttp_ResponseParams', [
@@ -1225,12 +1459,24 @@ export class NetworkDiagnosticsRoutines_RunArcHttp_ResponseParams {
         this.result;
     }
 }
-mojo.internal.Struct(NetworkDiagnosticsRoutines_RunArcPing_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunArcPing_Params', [], [[0, 8],]);
+mojo.internal.Struct(NetworkDiagnosticsRoutines_RunArcPing_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunArcPing_Params', [
+    mojo.internal.StructField('source_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 8], [2, 16],]);
 /**
  * @record
  */
 export class NetworkDiagnosticsRoutines_RunArcPing_Params {
     constructor() {
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunArcPing_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunArcPing_ResponseParams', [
@@ -1245,12 +1491,24 @@ export class NetworkDiagnosticsRoutines_RunArcPing_ResponseParams {
         this.result;
     }
 }
-mojo.internal.Struct(NetworkDiagnosticsRoutines_RunArcDnsResolution_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunArcDnsResolution_Params', [], [[0, 8],]);
+mojo.internal.Struct(NetworkDiagnosticsRoutines_RunArcDnsResolution_ParamsSpec.$, 'NetworkDiagnosticsRoutines_RunArcDnsResolution_Params', [
+    mojo.internal.StructField('source_$flag', 0, 0, mojo.internal.Bool, false, false /* nullable */, 2, {
+        isPrimary: true,
+        linkedValueFieldName: "source_$value",
+        originalFieldName: "source",
+    }),
+    mojo.internal.StructField('source_$value', 4, 0, RoutineCallSourceSpec.$, 0, false /* nullable */, 2, {
+        isPrimary: false,
+        originalFieldName: "source",
+    }),
+], [[0, 8], [2, 16],]);
 /**
  * @record
  */
 export class NetworkDiagnosticsRoutines_RunArcDnsResolution_Params {
     constructor() {
+        /** @type { (RoutineCallSource|undefined) } */
+        this.source;
     }
 }
 mojo.internal.Struct(NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParamsSpec.$, 'NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParams', [

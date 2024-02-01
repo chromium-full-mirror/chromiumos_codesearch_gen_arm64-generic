@@ -453,6 +453,8 @@ NOINLINE static const char* SettingToStringHelper(Setting value) {
       return "kColorCorrectionFilterAmount";
     case Setting::kPowerwash:
       return "kPowerwash";
+    case Setting::kSanitizeCrosSettings:
+      return "kSanitizeCrosSettings";
     case Setting::kChangeChromeChannel:
       return "kChangeChromeChannel";
     case Setting::kCopyDetailedBuildInfo:
@@ -479,6 +481,8 @@ NOINLINE static const char* SettingToStringHelper(Setting value) {
       return "kRemoveKerberosTicketV2";
     case Setting::kSetActiveKerberosTicketV2:
       return "kSetActiveKerberosTicketV2";
+    case Setting::kSnapWindowSuggestions:
+      return "kSnapWindowSuggestions";
     default:
       return nullptr;
   }

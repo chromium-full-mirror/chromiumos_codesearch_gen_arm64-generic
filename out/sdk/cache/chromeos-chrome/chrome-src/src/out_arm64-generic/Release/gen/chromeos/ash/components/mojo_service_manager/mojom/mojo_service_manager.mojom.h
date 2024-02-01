@@ -404,7 +404,7 @@ class COMPONENT_EXPORT(CHROMEOS_MOJO_SERVICE_MANAGER) ProcessIdentity {
   template <typename... Args>
   static ProcessIdentityPtr New(Args&&... args) {
     return ProcessIdentityPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -555,7 +555,7 @@ class COMPONENT_EXPORT(CHROMEOS_MOJO_SERVICE_MANAGER) UnregisteredServiceState {
   template <typename... Args>
   static UnregisteredServiceStatePtr New(Args&&... args) {
     return UnregisteredServiceStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -692,7 +692,7 @@ class COMPONENT_EXPORT(CHROMEOS_MOJO_SERVICE_MANAGER) Error {
   template <typename... Args>
   static ErrorPtr New(Args&&... args) {
     return ErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -846,7 +846,7 @@ class COMPONENT_EXPORT(CHROMEOS_MOJO_SERVICE_MANAGER) ErrorOrServiceState {
   static ErrorOrServiceStatePtr
   NewDefaultType(
       uint8_t value) {
-    auto result = ErrorOrServiceStatePtr(absl::in_place);
+    auto result = ErrorOrServiceStatePtr(std::in_place);
     result->set_default_type(std::move(value));
     return result;
   }
@@ -854,7 +854,7 @@ class COMPONENT_EXPORT(CHROMEOS_MOJO_SERVICE_MANAGER) ErrorOrServiceState {
   static ErrorOrServiceStatePtr
   NewState(
       ServiceStatePtr value) {
-    auto result = ErrorOrServiceStatePtr(absl::in_place);
+    auto result = ErrorOrServiceStatePtr(std::in_place);
     result->set_state(std::move(value));
     return result;
   }
@@ -862,7 +862,7 @@ class COMPONENT_EXPORT(CHROMEOS_MOJO_SERVICE_MANAGER) ErrorOrServiceState {
   static ErrorOrServiceStatePtr
   NewError(
       ErrorPtr value) {
-    auto result = ErrorOrServiceStatePtr(absl::in_place);
+    auto result = ErrorOrServiceStatePtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -998,7 +998,7 @@ class COMPONENT_EXPORT(CHROMEOS_MOJO_SERVICE_MANAGER) ServiceState {
   static ServiceStatePtr
   NewDefaultType(
       uint8_t value) {
-    auto result = ServiceStatePtr(absl::in_place);
+    auto result = ServiceStatePtr(std::in_place);
     result->set_default_type(std::move(value));
     return result;
   }
@@ -1006,7 +1006,7 @@ class COMPONENT_EXPORT(CHROMEOS_MOJO_SERVICE_MANAGER) ServiceState {
   static ServiceStatePtr
   NewRegisteredState(
       RegisteredServiceStatePtr value) {
-    auto result = ServiceStatePtr(absl::in_place);
+    auto result = ServiceStatePtr(std::in_place);
     result->set_registered_state(std::move(value));
     return result;
   }
@@ -1014,7 +1014,7 @@ class COMPONENT_EXPORT(CHROMEOS_MOJO_SERVICE_MANAGER) ServiceState {
   static ServiceStatePtr
   NewUnregisteredState(
       UnregisteredServiceStatePtr value) {
-    auto result = ServiceStatePtr(absl::in_place);
+    auto result = ServiceStatePtr(std::in_place);
     result->set_unregistered_state(std::move(value));
     return result;
   }
@@ -1143,7 +1143,7 @@ class COMPONENT_EXPORT(CHROMEOS_MOJO_SERVICE_MANAGER) RegisteredServiceState {
   template <typename... Args>
   static RegisteredServiceStatePtr New(Args&&... args) {
     return RegisteredServiceStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1288,7 +1288,7 @@ class COMPONENT_EXPORT(CHROMEOS_MOJO_SERVICE_MANAGER) ServiceEvent {
   template <typename... Args>
   static ServiceEventPtr New(Args&&... args) {
     return ServiceEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

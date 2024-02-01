@@ -56,7 +56,7 @@ class BLINK_PLATFORM_EXPORT EncodedBodyLength {
   template <typename... Args>
   static EncodedBodyLengthPtr New(Args&&... args) {
     return EncodedBodyLengthPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

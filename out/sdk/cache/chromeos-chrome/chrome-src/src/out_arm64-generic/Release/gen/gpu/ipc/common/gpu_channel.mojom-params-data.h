@@ -1231,7 +1231,7 @@ static_assert(
         ::gfx::mojom::GpuFenceHandleDataView, UserType>(),
     "Attempting to read the optional `fence_handle` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFenceHandle` instead "
     "of `ReadFenceHandle if you're fine with null values being "

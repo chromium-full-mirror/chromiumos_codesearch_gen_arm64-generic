@@ -401,7 +401,7 @@ class  ProxyConfigWithAnnotation {
   template <typename... Args>
   static ProxyConfigWithAnnotationPtr New(Args&&... args) {
     return ProxyConfigWithAnnotationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

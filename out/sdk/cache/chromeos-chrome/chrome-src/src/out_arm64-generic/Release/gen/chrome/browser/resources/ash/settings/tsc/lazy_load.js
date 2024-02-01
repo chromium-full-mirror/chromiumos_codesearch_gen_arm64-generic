@@ -129,6 +129,7 @@ import './os_privacy_page/secure_dns.js';
 import './os_privacy_page/secure_dns_input.js';
 import './os_reset_page/os_powerwash_dialog.js';
 import './os_reset_page/os_powerwash_dialog_esim_item.js';
+import './os_reset_page/os_sanitize_dialog.js';
 export { LifetimeBrowserProxyImpl } from '/shared/settings/lifetime_browser_proxy.js';
 export { SmbBrowserProxyImpl, SmbMountResult } from 'chrome://resources/ash/common/smb_shares/smb_browser_proxy.js';
 export { AppManagementSupportedLinksItemElement } from 'chrome://resources/cr_components/app_management/supported_links_item.js';
@@ -181,6 +182,7 @@ export { CROSTINI_TYPE, GuestOsBrowserProxyImpl, PLUGIN_VM_TYPE } from './guest_
 export { ContainerSelectElement } from './guest_os/guest_os_container_select.js';
 export { SettingsGuestOsSharedPathsElement } from './guest_os/guest_os_shared_paths.js';
 export { SettingsGuestOsSharedUsbDevicesElement } from './guest_os/guest_os_shared_usb_devices.js';
+export { ApnSubpageElement } from './internet_page/apn_subpage.js';
 export { CellularNetworksListElement } from './internet_page/cellular_networks_list.js';
 export { CellularRoamingToggleButtonElement } from './internet_page/cellular_roaming_toggle_button.js';
 export { EsimInstallErrorDialogElement } from './internet_page/esim_install_error_dialog.js';
@@ -245,6 +247,7 @@ export { AppManagementPluginVmDetailViewElement } from './os_apps_page/app_manag
 export { AppManagementPwaDetailViewElement } from './os_apps_page/app_management_page/pwa_detail_view.js';
 export { AppManagementResizeLockItemElement } from './os_apps_page/app_management_page/resize_lock_item.js';
 export { AppManagementSubAppsItemElement } from './os_apps_page/app_management_page/sub_apps_item.js';
+export { AppNotificationRowElement } from './os_apps_page/app_notifications_page/app_notification_row.js';
 export { SettingsAppNotificationsManagerSubpage } from './os_apps_page/app_notifications_page/app_notifications_manager_subpage.js';
 export { AppNotificationsSubpage } from './os_apps_page/app_notifications_page/app_notifications_subpage.js';
 export { ManageIsolatedWebAppsSubpageElement } from './os_apps_page/manage_isolated_web_apps_page/manage_isolated_web_apps_subpage.js';
@@ -318,6 +321,7 @@ export { SettingsSmartPrivacySubpage } from './os_privacy_page/smart_privacy_sub
 export { OsSettingsPowerwashDialogElement } from './os_reset_page/os_powerwash_dialog.js';
 export { OsResetBrowserProxyImpl } from './os_reset_page/os_reset_browser_proxy.js';
 export { OsSettingsResetPageElement } from './os_reset_page/os_reset_page.js';
+export { OsSettingsSanitizeDialogElement } from './os_reset_page/os_sanitize_dialog.js';
 export { ResetSettingsCardElement } from './os_reset_page/reset_settings_card.js';
 export { GoogleAssistantBrowserProxyImpl } from './os_search_page/google_assistant_browser_proxy.js';
 export { ConsentStatus, DspHotwordState, SettingsGoogleAssistantSubpageElement } from './os_search_page/google_assistant_subpage.js';

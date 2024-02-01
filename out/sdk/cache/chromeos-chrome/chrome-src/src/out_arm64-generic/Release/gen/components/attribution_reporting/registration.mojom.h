@@ -78,7 +78,7 @@ class  SuitableOrigin {
   template <typename... Args>
   static SuitableOriginPtr New(Args&&... args) {
     return SuitableOriginPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -218,7 +218,7 @@ class  FilterData {
   template <typename... Args>
   static FilterDataPtr New(Args&&... args) {
     return FilterDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -358,7 +358,7 @@ class  FilterConfig {
   template <typename... Args>
   static FilterConfigPtr New(Args&&... args) {
     return FilterConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -501,7 +501,7 @@ class  FilterPair {
   template <typename... Args>
   static FilterPairPtr New(Args&&... args) {
     return FilterPairPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -646,7 +646,7 @@ class  AggregationKeys {
   template <typename... Args>
   static AggregationKeysPtr New(Args&&... args) {
     return AggregationKeysPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -786,7 +786,7 @@ class  AggregatableTriggerData {
   template <typename... Args>
   static AggregatableTriggerDataPtr New(Args&&... args) {
     return AggregatableTriggerDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -932,7 +932,7 @@ class  DestinationSet {
   template <typename... Args>
   static DestinationSetPtr New(Args&&... args) {
     return DestinationSetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1072,7 +1072,7 @@ class  EventReportWindows {
   template <typename... Args>
   static EventReportWindowsPtr New(Args&&... args) {
     return EventReportWindowsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1215,7 +1215,7 @@ class  TriggerSpec {
   template <typename... Args>
   static TriggerSpecPtr New(Args&&... args) {
     return TriggerSpecPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1355,7 +1355,7 @@ class  TriggerSpecs {
   template <typename... Args>
   static TriggerSpecsPtr New(Args&&... args) {
     return TriggerSpecsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1498,7 +1498,7 @@ class  SourceRegistration {
   template <typename... Args>
   static SourceRegistrationPtr New(Args&&... args) {
     return SourceRegistrationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1674,7 +1674,7 @@ class  EventTriggerData {
   template <typename... Args>
   static EventTriggerDataPtr New(Args&&... args) {
     return EventTriggerDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1823,7 +1823,7 @@ class  AggregatableDedupKey {
   template <typename... Args>
   static AggregatableDedupKeyPtr New(Args&&... args) {
     return AggregatableDedupKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1966,7 +1966,7 @@ class  TriggerRegistration {
   template <typename... Args>
   static TriggerRegistrationPtr New(Args&&... args) {
     return TriggerRegistrationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2135,7 +2135,7 @@ class  OsRegistrationItem {
   template <typename... Args>
   static OsRegistrationItemPtr New(Args&&... args) {
     return OsRegistrationItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2278,7 +2278,7 @@ class  OsRegistration {
   template <typename... Args>
   static OsRegistrationPtr New(Args&&... args) {
     return OsRegistrationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

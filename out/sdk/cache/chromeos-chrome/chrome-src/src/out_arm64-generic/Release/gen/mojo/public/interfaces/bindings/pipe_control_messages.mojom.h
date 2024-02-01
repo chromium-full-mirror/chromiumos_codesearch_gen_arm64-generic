@@ -54,7 +54,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) DisconnectReason {
   template <typename... Args>
   static DisconnectReasonPtr New(Args&&... args) {
     return DisconnectReasonPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -211,7 +211,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunOrClosePipeInput {
   static RunOrClosePipeInputPtr
   NewPeerAssociatedEndpointClosedEvent(
       PeerAssociatedEndpointClosedEventPtr value) {
-    auto result = RunOrClosePipeInputPtr(absl::in_place);
+    auto result = RunOrClosePipeInputPtr(std::in_place);
     result->set_peer_associated_endpoint_closed_event(std::move(value));
     return result;
   }
@@ -219,7 +219,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunOrClosePipeInput {
   static RunOrClosePipeInputPtr
   NewPauseUntilFlushCompletes(
       PauseUntilFlushCompletesPtr value) {
-    auto result = RunOrClosePipeInputPtr(absl::in_place);
+    auto result = RunOrClosePipeInputPtr(std::in_place);
     result->set_pause_until_flush_completes(std::move(value));
     return result;
   }
@@ -227,7 +227,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunOrClosePipeInput {
   static RunOrClosePipeInputPtr
   NewFlushAsync(
       FlushAsyncPtr value) {
-    auto result = RunOrClosePipeInputPtr(absl::in_place);
+    auto result = RunOrClosePipeInputPtr(std::in_place);
     result->set_flush_async(std::move(value));
     return result;
   }
@@ -354,7 +354,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunOrClosePipeMessageParams {
   template <typename... Args>
   static RunOrClosePipeMessageParamsPtr New(Args&&... args) {
     return RunOrClosePipeMessageParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -492,7 +492,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) PeerAssociatedEndpointClosedEvent {
   template <typename... Args>
   static PeerAssociatedEndpointClosedEventPtr New(Args&&... args) {
     return PeerAssociatedEndpointClosedEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -637,7 +637,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) PauseUntilFlushCompletes {
   template <typename... Args>
   static PauseUntilFlushCompletesPtr New(Args&&... args) {
     return PauseUntilFlushCompletesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -774,7 +774,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) FlushAsync {
   template <typename... Args>
   static FlushAsyncPtr New(Args&&... args) {
     return FlushAsyncPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

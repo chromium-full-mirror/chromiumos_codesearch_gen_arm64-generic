@@ -151,6 +151,11 @@ class BrowserWindowInstanceUpdateDataView {
       return bool{};
     return data_->is_incognito;
   }
+  uint64_t lacros_profile_id() const {
+    if (data_->header_.version < 4)
+      return uint64_t{};
+    return data_->lacros_profile_id;
+  }
  private:
   internal::BrowserWindowInstanceUpdate_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -313,6 +318,7 @@ struct Serializer<::crosapi::mojom::BrowserWindowInstanceUpdateDataView, MaybeCo
     fragment->browser_session_id = Traits::browser_session_id(input);
     fragment->restored_browser_session_id = Traits::restored_browser_session_id(input);
     fragment->is_incognito = Traits::is_incognito(input);
+    fragment->lacros_profile_id = Traits::lacros_profile_id(input);
   }
 
   static bool Deserialize(::crosapi::mojom::internal::BrowserWindowInstanceUpdate_Data* input,

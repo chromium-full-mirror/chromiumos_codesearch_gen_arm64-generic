@@ -175,7 +175,7 @@ class BLINK_COMMON_EXPORT PerContextV8MemoryUsage {
   template <typename... Args>
   static PerContextV8MemoryUsagePtr New(Args&&... args) {
     return PerContextV8MemoryUsagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -321,7 +321,7 @@ class BLINK_COMMON_EXPORT PerContextCanvasMemoryUsage {
   template <typename... Args>
   static PerContextCanvasMemoryUsagePtr New(Args&&... args) {
     return PerContextCanvasMemoryUsagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -464,7 +464,7 @@ class BLINK_COMMON_EXPORT PerIsolateV8MemoryUsage {
   template <typename... Args>
   static PerIsolateV8MemoryUsagePtr New(Args&&... args) {
     return PerIsolateV8MemoryUsagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -621,7 +621,7 @@ class BLINK_COMMON_EXPORT PerProcessV8MemoryUsage {
   template <typename... Args>
   static PerProcessV8MemoryUsagePtr New(Args&&... args) {
     return PerProcessV8MemoryUsagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

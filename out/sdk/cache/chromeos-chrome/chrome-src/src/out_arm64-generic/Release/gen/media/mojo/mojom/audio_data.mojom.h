@@ -55,7 +55,7 @@ class  AudioDataS16 {
   template <typename... Args>
   static AudioDataS16Ptr New(Args&&... args) {
     return AudioDataS16Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

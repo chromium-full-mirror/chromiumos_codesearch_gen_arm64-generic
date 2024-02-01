@@ -59,7 +59,7 @@ class  CookiePartitionKey {
   template <typename... Args>
   static CookiePartitionKeyPtr New(Args&&... args) {
     return CookiePartitionKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -205,7 +205,7 @@ class  CookiePartitionKeyCollection {
   template <typename... Args>
   static CookiePartitionKeyCollectionPtr New(Args&&... args) {
     return CookiePartitionKeyCollectionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

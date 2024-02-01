@@ -1,7 +1,7 @@
-import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="cr-hidden-style cr-icons demo">cr-input,cr-textarea{max-width:400px;width:100%}.no-error{--cr-input-error-display:none}.domain-name{padding-inline-end:8px}</style>
+import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="cr-hidden-style cr-icons demo">cr-input,cr-textarea{max-width:400px;width:100%}.no-error{--cr-input-error-display:none}.domain-name{padding-inline-end:8px}:host-context(html:not([chrome-refresh-2023])) .cr2023{display:none}label{flex:1;white-space:nowrap}</style>
 
 <h1>cr-input</h1>
-
+<h2 class="cr2023">Default "filled" inputs with built-in labels</h2>
 <div class="demos">
   <cr-input class="no-error" type="text" label="Standard input" placeholder="Placeholder text" value="{{textValue_}}">
   </cr-input>
@@ -39,6 +39,21 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
     <div>Number input value: [[numberValue_]]</div>
     <div>Pin input value: [[pinValue_]]</div>
     <div>Textarea value: [[textareaValue_]]</div>
+  </div>
+</div>
+
+<h2 class="cr2023">"Stroked" inputs without built-in labels</h2>
+<div class="demos cr2023">
+  <cr-input class="stroked no-error" type="text" placeholder="Insert text here" aria-label="Some label">
+  </cr-input>
+
+  <cr-input required auto-validate invalid class="stroked" type="text" placeholder="Required field" aria-label="Some label">
+  </cr-input>
+
+  <div class="row center">
+    <label aria-hidden="true">Some visible external label</label>
+    <cr-input class="stroked no-error" type="text" placeholder="Insert text here" aria-label="Some label">
+    </cr-input>
   </div>
 </div>
 <!--_html_template_end_-->`}

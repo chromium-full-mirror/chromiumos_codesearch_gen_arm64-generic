@@ -393,7 +393,7 @@ class  SnapshotSource {
   template <typename... Args>
   static SnapshotSourcePtr New(Args&&... args) {
     return SnapshotSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

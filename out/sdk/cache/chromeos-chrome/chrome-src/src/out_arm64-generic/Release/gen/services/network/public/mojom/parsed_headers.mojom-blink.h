@@ -69,7 +69,7 @@ class BLINK_PLATFORM_EXPORT ParsedHeaders {
   template <typename... Args>
   static ParsedHeadersPtr New(Args&&... args) {
     return ParsedHeadersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

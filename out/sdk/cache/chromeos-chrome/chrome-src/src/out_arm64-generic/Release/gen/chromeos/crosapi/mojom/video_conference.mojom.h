@@ -354,7 +354,7 @@ class  TitleChangeInfo {
   template <typename... Args>
   static TitleChangeInfoPtr New(Args&&... args) {
     return TitleChangeInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -497,7 +497,7 @@ class  VideoConferenceClientUpdate {
   template <typename... Args>
   static VideoConferenceClientUpdatePtr New(Args&&... args) {
     return VideoConferenceClientUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -642,7 +642,7 @@ class  VideoConferenceMediaUsageStatus {
   template <typename... Args>
   static VideoConferenceMediaUsageStatusPtr New(Args&&... args) {
     return VideoConferenceMediaUsageStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -800,7 +800,7 @@ class  VideoConferenceMediaAppInfo {
   template <typename... Args>
   static VideoConferenceMediaAppInfoPtr New(Args&&... args) {
     return VideoConferenceMediaAppInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

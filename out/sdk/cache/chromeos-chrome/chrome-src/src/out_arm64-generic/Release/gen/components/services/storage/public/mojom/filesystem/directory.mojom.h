@@ -474,7 +474,7 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM) PathAccessInfo {
   template <typename... Args>
   static PathAccessInfoPtr New(Args&&... args) {
     return PathAccessInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -620,7 +620,7 @@ class COMPONENT_EXPORT(STORAGE_SERVICE_FILESYSTEM_MOJOM) StrictRelativePath {
   template <typename... Args>
   static StrictRelativePathPtr New(Args&&... args) {
     return StrictRelativePathPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

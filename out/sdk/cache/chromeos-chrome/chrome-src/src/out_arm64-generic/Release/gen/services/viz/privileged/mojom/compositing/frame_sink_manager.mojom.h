@@ -509,7 +509,7 @@ class  RootCompositorFrameSinkParams {
   template <typename... Args>
   static RootCompositorFrameSinkParamsPtr New(Args&&... args) {
     return RootCompositorFrameSinkParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -676,7 +676,7 @@ class  FrameCountingData {
   template <typename... Args>
   static FrameCountingDataPtr New(Args&&... args) {
     return FrameCountingDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -818,7 +818,7 @@ class  FrameCountingPerSinkData {
   template <typename... Args>
   static FrameCountingPerSinkDataPtr New(Args&&... args) {
     return FrameCountingPerSinkDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

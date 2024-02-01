@@ -57,7 +57,7 @@ class BLINK_COMMON_EXPORT JavaScriptFrameworkDetectionResult {
   template <typename... Args>
   static JavaScriptFrameworkDetectionResultPtr New(Args&&... args) {
     return JavaScriptFrameworkDetectionResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

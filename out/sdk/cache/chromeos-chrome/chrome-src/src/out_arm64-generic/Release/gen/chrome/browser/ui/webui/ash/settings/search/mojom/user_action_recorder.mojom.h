@@ -223,7 +223,7 @@ class  SettingChangeValue {
   static SettingChangeValuePtr
   NewBoolValue(
       bool value) {
-    auto result = SettingChangeValuePtr(absl::in_place);
+    auto result = SettingChangeValuePtr(std::in_place);
     result->set_bool_value(std::move(value));
     return result;
   }
@@ -231,7 +231,7 @@ class  SettingChangeValue {
   static SettingChangeValuePtr
   NewIntValue(
       int32_t value) {
-    auto result = SettingChangeValuePtr(absl::in_place);
+    auto result = SettingChangeValuePtr(std::in_place);
     result->set_int_value(std::move(value));
     return result;
   }
@@ -239,7 +239,7 @@ class  SettingChangeValue {
   static SettingChangeValuePtr
   NewStringValue(
       const std::string& value) {
-    auto result = SettingChangeValuePtr(absl::in_place);
+    auto result = SettingChangeValuePtr(std::in_place);
     result->set_string_value(std::move(value));
     return result;
   }

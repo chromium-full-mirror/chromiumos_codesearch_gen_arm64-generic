@@ -54,7 +54,7 @@ class  VideoCaptureControlSupport {
   template <typename... Args>
   static VideoCaptureControlSupportPtr New(Args&&... args) {
     return VideoCaptureControlSupportPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -209,7 +209,7 @@ class  VideoCaptureFormat {
   template <typename... Args>
   static VideoCaptureFormatPtr New(Args&&... args) {
     return VideoCaptureFormatPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -355,7 +355,7 @@ class  VideoCaptureParams {
   template <typename... Args>
   static VideoCaptureParamsPtr New(Args&&... args) {
     return VideoCaptureParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -517,7 +517,7 @@ class  VideoCaptureFeedback {
   template <typename... Args>
   static VideoCaptureFeedbackPtr New(Args&&... args) {
     return VideoCaptureFeedbackPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -688,7 +688,7 @@ class  PlaneStrides {
   template <typename... Args>
   static PlaneStridesPtr New(Args&&... args) {
     return PlaneStridesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -828,7 +828,7 @@ class  VideoCaptureDeviceDescriptor {
   template <typename... Args>
   static VideoCaptureDeviceDescriptorPtr New(Args&&... args) {
     return VideoCaptureDeviceDescriptorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -998,7 +998,7 @@ class  VideoCaptureDeviceInfo {
   template <typename... Args>
   static VideoCaptureDeviceInfoPtr New(Args&&... args) {
     return VideoCaptureDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

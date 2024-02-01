@@ -290,6 +290,10 @@ suite('<settings-display>', () => {
             flush();
             // Verify histogram count for night light setting.
             assertEquals(1, externalDisplayHistogram.get(displaySettingsProviderMojom.DisplaySettingsType.kNightLight));
+            const externalDisplayNightLightStatusHistogram = displaySettingsProvider.getDisplayNightLightStatusHistogram(
+            /*is_internal=*/ false);
+            assertEquals(1, externalDisplayNightLightStatusHistogram.get(
+            /*night_light_status=*/ true));
             // Mock user updating night light schedule.
             const schedule = displayNightLight.shadowRoot
                 .querySelector('#nightLightScheduleTypeDropDown');
@@ -302,6 +306,10 @@ suite('<settings-display>', () => {
             // Verify histogram count for night light setting.
             assertEquals(1, externalDisplayHistogram.get(displaySettingsProviderMojom.DisplaySettingsType
                 .kNightLightSchedule));
+            const externalDisplayNightLightScheduleHistogram = displaySettingsProvider.getDisplayNightLightScheduleHistogram(
+            /*is_internal=*/ false);
+            assertEquals(1, externalDisplayNightLightScheduleHistogram.get(displaySettingsProviderMojom
+                .DisplaySettingsNightLightScheduleOption.kSunsetToSunrise));
         });
         test('mirror mode', () => {
             // Mock user toggling mirror mode setting.

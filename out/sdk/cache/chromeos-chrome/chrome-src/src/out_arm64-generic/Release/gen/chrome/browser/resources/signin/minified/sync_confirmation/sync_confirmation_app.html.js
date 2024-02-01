@@ -44,7 +44,7 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
   <paper-spinner-lite active="[[anyButtonClicked_]]"></paper-spinner-lite>
   <div class$="action-container tangible-sync-style
       [[getMaybeDialogClass_(isModalDialog_)]]">
-    <cr-button id="confirmButton" class="action-button" on-click="onConfirm_" disabled="[[anyButtonClicked_]]" consent-confirmation autofocus="[[isModalDialog_]]">
+    <cr-button id="confirmButton" on-click="onConfirm_" disabled="[[anyButtonClicked_]]" consent-confirmation autofocus="[[isModalDialog_]]">
       $i18n{syncConfirmationConfirmLabel}
     </cr-button>
     

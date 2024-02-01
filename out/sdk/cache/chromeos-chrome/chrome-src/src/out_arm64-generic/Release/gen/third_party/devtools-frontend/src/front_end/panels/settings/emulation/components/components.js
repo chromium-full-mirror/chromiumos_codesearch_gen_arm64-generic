@@ -20,7 +20,7 @@ import*as e from"../../../../core/i18n/i18n.js";import*as t from"../../../../ui/
           .value=${e}
           placeholder=${h(d.platformPlaceholder)}
           aria-label=${h(d.platformLabel)}
-          jslog=${s.textField().track({keydown:!0}).context("platform")}
+          jslog=${s.textField("platform").track({keydown:!0})}
         />
         <input
           class="input-field half-row"
@@ -29,13 +29,13 @@ import*as e from"../../../../core/i18n/i18n.js";import*as t from"../../../../ui/
           .value=${t}
           placeholder=${h(d.platformVersion)}
           aria-label=${h(d.platformVersion)}
-          jslog=${s.textField().track({keydown:!0}).context("platform-version")}
+          jslog=${s.textField("platform-version").track({keydown:!0})}
         />
       </div>
     `}#y(){const{model:e,mobile:t}=this.#n,a=this.#r?i.html`
       <label class="mobile-checkbox-container">
         <input type="checkbox" @input=${e=>{const t=e.target.checked;this.#v("mobile",t)}} .checked=${t}
-          jslog=${s.toggle().track({click:!0}).context("mobile")}
+          jslog=${s.toggle("mobile").track({click:!0})}
         />
         ${h(d.mobileCheckboxLabel)}
       </label>
@@ -48,7 +48,7 @@ import*as e from"../../../../core/i18n/i18n.js";import*as t from"../../../../ui/
           @input=${e=>{const t=e.target.value;this.#v("model",t)}}
           .value=${e}
           placeholder=${h(d.deviceModel)}
-          jslog=${s.textField().track({keydown:!0}).context("model")}
+          jslog=${s.textField("model").track({keydown:!0})}
         />
         ${a}
       </div>
@@ -62,7 +62,7 @@ import*as e from"../../../../core/i18n/i18n.js";import*as t from"../../../../ui/
             id="ua-brand-${t+1}-input"
             placeholder=${h(d.brandName)}
             aria-label=${h(d.brandNameAriaLabel,{PH1:t+1})}
-            jslog=${s.textField().track({keydown:!0}).context("brand-name")}
+            jslog=${s.textField("brand-name").track({keydown:!0})}
           />
           <input
             class="input-field"
@@ -71,7 +71,7 @@ import*as e from"../../../../core/i18n/i18n.js";import*as t from"../../../../ui/
             .value=${r}
             placeholder=${h(d.significantBrandVersionPlaceholder)}
             aria-label=${h(d.brandVersionAriaLabel,{PH1:t+1})}
-            jslog=${s.textField().track({keydown:!0}).context("brand-version")}
+            jslog=${s.textField("brand-version").track({keydown:!0})}
           />
           <${n.Icon.Icon.litTagName}
             .data=${{color:"var(--icon-default)",iconName:"bin",width:"16px",height:"16px"}}
@@ -108,7 +108,7 @@ import*as e from"../../../../core/i18n/i18n.js";import*as t from"../../../../ui/
         <div
           class="full-row brand-row"
           aria-label=${h(d.brandProperties)}
-          jslog=${s.section().context("full-version")}
+          jslog=${s.section("full-version")}
           role="group">
           <input
             class="input-field fvl-brand-name-input"
@@ -118,7 +118,7 @@ import*as e from"../../../../core/i18n/i18n.js";import*as t from"../../../../ui/
             id="fvl-brand-${t+1}-input"
             placeholder=${h(d.brandName)}
             aria-label=${h(d.brandNameAriaLabel,{PH1:t+1})}
-            jslog=${s.textField().track({keydown:!0}).context("brand-name")}
+            jslog=${s.textField("brand-name").track({keydown:!0})}
           />
           <input
             class="input-field"
@@ -127,7 +127,7 @@ import*as e from"../../../../core/i18n/i18n.js";import*as t from"../../../../ui/
             .value=${r}
             placeholder=${h(d.brandVersionPlaceholder)}
             aria-label=${h(d.brandVersionAriaLabel,{PH1:t+1})}
-            jslog=${s.textField().track({keydown:!0}).context("brand-version")}
+            jslog=${s.textField("brand-version").track({keydown:!0})}
           />
           <${n.Icon.Icon.litTagName}
             .data=${{color:"var(--icon-default)",iconName:"bin",width:"16px",height:"16px"}}
@@ -199,7 +199,7 @@ import*as e from"../../../../core/i18n/i18n.js";import*as t from"../../../../ui/
            class="link"
            @keypress=${this.#$}
            aria-label=${h(d.userAgentClientHintsInfo)}
-           jslog=${s.link().track({click:!0}).context("learn-more")}
+           jslog=${s.link("learn-more").track({click:!0})}
           >
             ${h(d.learnMore)}
           </x-link>

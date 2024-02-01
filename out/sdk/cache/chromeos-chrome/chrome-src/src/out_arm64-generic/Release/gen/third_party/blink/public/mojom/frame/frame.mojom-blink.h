@@ -2126,7 +2126,7 @@ class CORE_EXPORT LegacyTechEventCodeLocation {
   template <typename... Args>
   static LegacyTechEventCodeLocationPtr New(Args&&... args) {
     return LegacyTechEventCodeLocationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2275,7 +2275,7 @@ class CORE_EXPORT SavableSubframe {
   template <typename... Args>
   static SavableSubframePtr New(Args&&... args) {
     return SavableSubframePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2418,7 +2418,7 @@ class CORE_EXPORT GetSavableResourceLinksReply {
   template <typename... Args>
   static GetSavableResourceLinksReplyPtr New(Args&&... args) {
     return GetSavableResourceLinksReplyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2566,7 +2566,7 @@ class CORE_EXPORT FindInPageResultAXParams {
   template <typename... Args>
   static FindInPageResultAXParamsPtr New(Args&&... args) {
     return FindInPageResultAXParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2722,7 +2722,7 @@ class CORE_EXPORT DownloadURLParams {
   template <typename... Args>
   static DownloadURLParamsPtr New(Args&&... args) {
     return DownloadURLParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2883,7 +2883,7 @@ class CORE_EXPORT IframeAttributes {
   template <typename... Args>
   static IframeAttributesPtr New(Args&&... args) {
     return IframeAttributesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -55,7 +55,7 @@ class  UUID {
   template <typename... Args>
   static UUIDPtr New(Args&&... args) {
     return UUIDPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

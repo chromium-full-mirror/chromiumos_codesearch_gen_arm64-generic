@@ -170,7 +170,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) ConnectToTracingRequest {
   template <typename... Args>
   static ConnectToTracingRequestPtr New(Args&&... args) {
     return ConnectToTracingRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

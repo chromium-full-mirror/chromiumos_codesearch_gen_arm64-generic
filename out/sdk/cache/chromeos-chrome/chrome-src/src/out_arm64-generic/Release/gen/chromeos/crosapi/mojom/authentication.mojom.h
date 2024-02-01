@@ -180,7 +180,7 @@ class  QuickUnlockPrivateTokenInfoDeprecated {
   template <typename... Args>
   static QuickUnlockPrivateTokenInfoDeprecatedPtr New(Args&&... args) {
     return QuickUnlockPrivateTokenInfoDeprecatedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -334,7 +334,7 @@ class  CreateQuickUnlockPrivateTokenInfoResultDeprecated {
   static CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr
   NewRemoved0(
       const std::string& value) {
-    auto result = CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr(absl::in_place);
+    auto result = CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr(std::in_place);
     result->set_REMOVED_0(std::move(value));
     return result;
   }
@@ -342,7 +342,7 @@ class  CreateQuickUnlockPrivateTokenInfoResultDeprecated {
   static CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr
   NewRemoved1(
       QuickUnlockPrivateTokenInfoDeprecatedPtr value) {
-    auto result = CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr(absl::in_place);
+    auto result = CreateQuickUnlockPrivateTokenInfoResultDeprecatedPtr(std::in_place);
     result->set_REMOVED_1(std::move(value));
     return result;
   }

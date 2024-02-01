@@ -62,7 +62,7 @@ class BLINK_PLATFORM_EXPORT SurfaceInfo {
   template <typename... Args>
   static SurfaceInfoPtr New(Args&&... args) {
     return SurfaceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

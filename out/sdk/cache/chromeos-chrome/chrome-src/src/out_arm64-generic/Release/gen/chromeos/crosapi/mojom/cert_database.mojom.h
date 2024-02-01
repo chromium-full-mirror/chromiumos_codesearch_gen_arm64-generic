@@ -323,7 +323,7 @@ class  GetCertDatabaseInfoResult {
   template <typename... Args>
   static GetCertDatabaseInfoResultPtr New(Args&&... args) {
     return GetCertDatabaseInfoResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -480,7 +480,7 @@ class  CertInfo {
   template <typename... Args>
   static CertInfoPtr New(Args&&... args) {
     return CertInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

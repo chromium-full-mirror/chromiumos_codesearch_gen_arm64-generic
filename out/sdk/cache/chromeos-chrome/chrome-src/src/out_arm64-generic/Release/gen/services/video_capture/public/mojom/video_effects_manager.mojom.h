@@ -291,7 +291,7 @@ class  ImageEnhancement {
   template <typename... Args>
   static ImageEnhancementPtr New(Args&&... args) {
     return ImageEnhancementPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -432,7 +432,7 @@ class  Blur {
   template <typename... Args>
   static BlurPtr New(Args&&... args) {
     return BlurPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -583,7 +583,7 @@ class  Masking {
   template <typename... Args>
   static MaskingPtr New(Args&&... args) {
     return MaskingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -726,7 +726,7 @@ class  Framing {
   template <typename... Args>
   static FramingPtr New(Args&&... args) {
     return FramingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -866,7 +866,7 @@ class  VideoEffectsConfiguration {
   template <typename... Args>
   static VideoEffectsConfigurationPtr New(Args&&... args) {
     return VideoEffectsConfigurationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

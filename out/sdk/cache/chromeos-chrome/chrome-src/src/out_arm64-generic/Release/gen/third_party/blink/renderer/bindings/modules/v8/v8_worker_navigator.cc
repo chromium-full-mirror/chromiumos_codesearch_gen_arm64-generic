@@ -741,7 +741,7 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype_object, interface_object, signature, kAttributeTable);
 }
-if (is_in_secure_context && execution_context->IsDedicatedWorkerGlobalScope() && feature_selector.IsAll()) {
+if (is_in_secure_context && (feature_selector.IsAll() && ((execution_context->IsDedicatedWorkerGlobalScope() && RuntimeEnabledFeatures::WebGPUEnabled()) || (execution_context->IsSharedWorkerGlobalScope() && RuntimeEnabledFeatures::WebGPUExperimentalFeaturesEnabled()) || (execution_context->IsServiceWorkerGlobalScope() && RuntimeEnabledFeatures::WebGPUExperimentalFeaturesEnabled())))) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"gpu", GpuAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };

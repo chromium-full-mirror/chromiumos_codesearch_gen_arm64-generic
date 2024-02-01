@@ -196,7 +196,7 @@ class  AvailableOfflineContent {
   template <typename... Args>
   static AvailableOfflineContentPtr New(Args&&... args) {
     return AvailableOfflineContentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

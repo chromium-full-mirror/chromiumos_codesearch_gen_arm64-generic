@@ -59,7 +59,7 @@ class CONTENT_EXPORT DidCommitProvisionalLoadInterfaceParams {
   template <typename... Args>
   static DidCommitProvisionalLoadInterfaceParamsPtr New(Args&&... args) {
     return DidCommitProvisionalLoadInterfaceParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -69,7 +69,7 @@ class PLATFORM_EXPORT SHA256HashValue {
   template <typename... Args>
   static SHA256HashValuePtr New(Args&&... args) {
     return SHA256HashValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -209,7 +209,7 @@ class PLATFORM_EXPORT PrefetchedSignedExchangeInfo {
   template <typename... Args>
   static PrefetchedSignedExchangeInfoPtr New(Args&&... args) {
     return PrefetchedSignedExchangeInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

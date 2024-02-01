@@ -266,7 +266,7 @@ class  Result {
   template <typename... Args>
   static ResultPtr New(Args&&... args) {
     return ResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

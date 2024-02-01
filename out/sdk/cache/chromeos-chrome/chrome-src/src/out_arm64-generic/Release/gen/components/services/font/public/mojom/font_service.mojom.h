@@ -222,7 +222,7 @@ class  TypefaceStyle {
   template <typename... Args>
   static TypefaceStylePtr New(Args&&... args) {
     return TypefaceStylePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -374,7 +374,7 @@ class  FontIdentity {
   template <typename... Args>
   static FontIdentityPtr New(Args&&... args) {
     return FontIdentityPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -520,7 +520,7 @@ class  FontRenderStyle {
   template <typename... Args>
   static FontRenderStylePtr New(Args&&... args) {
     return FontRenderStylePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

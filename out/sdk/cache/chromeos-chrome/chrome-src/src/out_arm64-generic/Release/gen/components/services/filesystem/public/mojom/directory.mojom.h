@@ -402,7 +402,7 @@ class  FileOpenDetails {
   template <typename... Args>
   static FileOpenDetailsPtr New(Args&&... args) {
     return FileOpenDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -550,7 +550,7 @@ class  FileOpenResult {
   template <typename... Args>
   static FileOpenResultPtr New(Args&&... args) {
     return FileOpenResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

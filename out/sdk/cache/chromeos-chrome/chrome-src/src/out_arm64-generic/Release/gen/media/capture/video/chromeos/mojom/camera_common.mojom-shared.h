@@ -223,7 +223,7 @@ static_assert(
         ::cros::mojom::CameraResourceCostDataView, UserType>(),
     "Attempting to read the optional `resource_cost` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResourceCost` instead "
     "of `ReadResourceCost if you're fine with null values being "
@@ -244,7 +244,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `conflicting_devices` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadConflictingDevices` instead "
     "of `ReadConflictingDevices if you're fine with null values being "

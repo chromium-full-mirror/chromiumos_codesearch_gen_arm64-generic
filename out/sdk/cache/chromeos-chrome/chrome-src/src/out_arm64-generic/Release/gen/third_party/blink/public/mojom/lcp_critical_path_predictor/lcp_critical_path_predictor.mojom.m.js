@@ -60,6 +60,12 @@ export class LCPCriticalPathPredictorHostInterface {
   setLcpInfluencerScriptUrls(lcpInfluencerScripts) {}
   
   /**
+   * @param { !Array<!url_mojom_Url> } origins
+   */
+
+  setPreconnectOrigins(origins) {}
+  
+  /**
    * @param { !url_mojom_Url } fontUrl
    */
 
@@ -133,13 +139,29 @@ export class LCPCriticalPathPredictorHostRemote {
 
   
   /**
+   * @param { !Array<!url_mojom_Url> } origins
+   */
+
+  setPreconnectOrigins(
+      origins) {
+    this.proxy.sendMessage(
+        2,
+        LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsSpec.$,
+        null,
+        [
+          origins
+        ]);
+  }
+
+  
+  /**
    * @param { !url_mojom_Url } fontUrl
    */
 
   notifyFetchedFont(
       fontUrl) {
     this.proxy.sendMessage(
-        2,
+        3,
         LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsSpec.$,
         null,
         [
@@ -157,7 +179,7 @@ export class LCPCriticalPathPredictorHostRemote {
       subresourceUrl,
       subresourceLoadStart) {
     this.proxy.sendMessage(
-        3,
+        4,
         LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec.$,
         null,
         [
@@ -199,11 +221,16 @@ export class LCPCriticalPathPredictorHostReceiver {
         impl.setLcpInfluencerScriptUrls.bind(impl));
     this.helper_internal_.registerHandler(
         2,
+        LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsSpec.$,
+        null,
+        impl.setPreconnectOrigins.bind(impl));
+    this.helper_internal_.registerHandler(
+        3,
         LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsSpec.$,
         null,
         impl.notifyFetchedFont.bind(impl));
     this.helper_internal_.registerHandler(
-        3,
+        4,
         LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec.$,
         null,
         impl.notifyFetchedSubresource.bind(impl));
@@ -280,12 +307,24 @@ export class LCPCriticalPathPredictorHostCallbackRouter {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.notifyFetchedFont =
+    this.setPreconnectOrigins =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         2,
+        LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsSpec.$,
+        null,
+        this.setPreconnectOrigins.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.notifyFetchedFont =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        3,
         LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsSpec.$,
         null,
         this.notifyFetchedFont.createReceiverHandler(false /* expectsResponse */));
@@ -297,7 +336,7 @@ export class LCPCriticalPathPredictorHostCallbackRouter {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        3,
+        4,
         LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec.$,
         null,
         this.notifyFetchedSubresource.createReceiverHandler(false /* expectsResponse */));
@@ -330,6 +369,12 @@ export const LCPCriticalPathPredictorHost_SetLcpElementLocator_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  */
 export const LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ */
+export const LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 /**
@@ -375,8 +420,16 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'preconnectOrigins', 24,
+        0,
+        mojo.internal.Array(url_mojom_UrlSpec.$, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
     ],
-    [[0, 32],]);
+    [[0, 40],]);
 
 
 
@@ -391,6 +444,8 @@ export class LCPCriticalPathPredictorNavigationTimeHint {
     this.lcpInfluencerScripts;
     /** @type { !Array<!url_mojom_Url> } */
     this.fetchedFonts;
+    /** @type { !Array<!url_mojom_Url> } */
+    this.preconnectOrigins;
   }
 }
 
@@ -476,6 +531,35 @@ export class LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Params {
   constructor() {
     /** @type { !Array<!url_mojom_Url> } */
     this.lcpInfluencerScripts;
+  }
+}
+
+
+
+mojo.internal.Struct(
+    LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsSpec.$,
+    'LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params',
+    [
+      mojo.internal.StructField(
+        'origins', 0,
+        0,
+        mojo.internal.Array(url_mojom_UrlSpec.$, false),
+        null,
+        false /* nullable */,
+        0,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+/**
+ * @record
+ */
+export class LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params {
+  constructor() {
+    /** @type { !Array<!url_mojom_Url> } */
+    this.origins;
   }
 }
 

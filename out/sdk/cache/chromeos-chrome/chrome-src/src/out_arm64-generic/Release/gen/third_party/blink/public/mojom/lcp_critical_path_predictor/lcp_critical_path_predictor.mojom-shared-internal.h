@@ -40,6 +40,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LCPCriticalPathPredicto
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::mojo_base::mojom::internal::ByteString_Data>>> lcp_element_locators;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::url::mojom::internal::Url_Data>>> lcp_influencer_scripts;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::url::mojom::internal::Url_Data>>> fetched_fonts;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::url::mojom::internal::Url_Data>>> preconnect_origins;
 
  private:
   friend class mojo::internal::MessageFragment<LCPCriticalPathPredictorNavigationTimeHint_Data>;
@@ -47,7 +48,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LCPCriticalPathPredicto
   LCPCriticalPathPredictorNavigationTimeHint_Data();
   ~LCPCriticalPathPredictorNavigationTimeHint_Data() = delete;
 };
-static_assert(sizeof(LCPCriticalPathPredictorNavigationTimeHint_Data) == 32,
+static_assert(sizeof(LCPCriticalPathPredictorNavigationTimeHint_Data) == 40,
               "Bad sizeof(LCPCriticalPathPredictorNavigationTimeHint_Data)");
 // Used by LCPCriticalPathPredictorNavigationTimeHint::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

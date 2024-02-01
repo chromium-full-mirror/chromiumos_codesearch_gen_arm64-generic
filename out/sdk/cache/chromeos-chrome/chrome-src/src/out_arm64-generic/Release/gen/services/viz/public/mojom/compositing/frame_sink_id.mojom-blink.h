@@ -57,7 +57,7 @@ class BLINK_PLATFORM_EXPORT FrameSinkId {
   template <typename... Args>
   static FrameSinkIdPtr New(Args&&... args) {
     return FrameSinkIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -65,7 +65,7 @@ class PLATFORM_EXPORT WebPreferences {
   template <typename... Args>
   static WebPreferencesPtr New(Args&&... args) {
     return WebPreferencesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

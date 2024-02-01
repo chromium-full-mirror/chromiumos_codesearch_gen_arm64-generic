@@ -232,7 +232,7 @@ static_assert(
         ::blink::mojom::MakeCredentialAuthenticatorResponseDataView, UserType>(),
     "Attempting to read the optional `credential` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCredential` instead "
     "of `ReadCredential if you're fine with null values being "
@@ -252,7 +252,7 @@ static_assert(
         ::blink::mojom::WebAuthnDOMExceptionDetailsDataView, UserType>(),
     "Attempting to read the optional `dom_exception_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDomExceptionDetails` instead "
     "of `ReadDomExceptionDetails if you're fine with null values being "
@@ -324,7 +324,7 @@ static_assert(
         ::blink::mojom::GetAssertionAuthenticatorResponseDataView, UserType>(),
     "Attempting to read the optional `credential` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCredential` instead "
     "of `ReadCredential if you're fine with null values being "
@@ -344,7 +344,7 @@ static_assert(
         ::blink::mojom::WebAuthnDOMExceptionDetailsDataView, UserType>(),
     "Attempting to read the optional `dom_exception_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDomExceptionDetails` instead "
     "of `ReadDomExceptionDetails if you're fine with null values being "

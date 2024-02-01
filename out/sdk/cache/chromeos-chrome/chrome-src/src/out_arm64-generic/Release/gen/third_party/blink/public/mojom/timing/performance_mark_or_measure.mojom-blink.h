@@ -62,7 +62,7 @@ class PLATFORM_EXPORT PerformanceMarkOrMeasure {
   template <typename... Args>
   static PerformanceMarkOrMeasurePtr New(Args&&... args) {
     return PerformanceMarkOrMeasurePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

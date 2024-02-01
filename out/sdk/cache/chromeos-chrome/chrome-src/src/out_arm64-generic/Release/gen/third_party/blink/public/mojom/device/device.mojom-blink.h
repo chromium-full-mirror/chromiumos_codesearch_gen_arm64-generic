@@ -449,7 +449,7 @@ class PLATFORM_EXPORT DeviceAttributeResult {
   static DeviceAttributeResultPtr
   NewErrorMessage(
       const WTF::String& value) {
-    auto result = DeviceAttributeResultPtr(absl::in_place);
+    auto result = DeviceAttributeResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -457,7 +457,7 @@ class PLATFORM_EXPORT DeviceAttributeResult {
   static DeviceAttributeResultPtr
   NewAttribute(
       const WTF::String& value) {
-    auto result = DeviceAttributeResultPtr(absl::in_place);
+    auto result = DeviceAttributeResultPtr(std::in_place);
     result->set_attribute(std::move(value));
     return result;
   }

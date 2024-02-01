@@ -324,7 +324,7 @@ static_assert(
         ::smbfs::mojom::IPAddressDataView, UserType>(),
     "Attempting to read the optional `resolved_host` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResolvedHost` instead "
     "of `ReadResolvedHost if you're fine with null values being "
@@ -364,7 +364,7 @@ static_assert(
         ::smbfs::mojom::PasswordDataView, UserType>(),
     "Attempting to read the optional `password` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPassword` instead "
     "of `ReadPassword if you're fine with null values being "
@@ -384,7 +384,7 @@ static_assert(
         ::smbfs::mojom::KerberosConfigDataView, UserType>(),
     "Attempting to read the optional `kerberos_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadKerberosConfig` instead "
     "of `ReadKerberosConfig if you're fine with null values being "
@@ -410,7 +410,7 @@ static_assert(
         ::smbfs::mojom::CredentialStorageOptionsDataView, UserType>(),
     "Attempting to read the optional `credential_storage_options` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCredentialStorageOptions` instead "
     "of `ReadCredentialStorageOptions if you're fine with null values being "
@@ -467,7 +467,7 @@ static_assert(
         ::smbfs::mojom::PasswordDataView, UserType>(),
     "Attempting to read the optional `password` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPassword` instead "
     "of `ReadPassword if you're fine with null values being "

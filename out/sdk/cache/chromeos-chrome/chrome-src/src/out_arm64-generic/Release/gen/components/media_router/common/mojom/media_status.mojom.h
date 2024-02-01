@@ -165,7 +165,7 @@ class  MediaImage {
   template <typename... Args>
   static MediaImagePtr New(Args&&... args) {
     return MediaImagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -309,7 +309,7 @@ class  MediaStatus {
   template <typename... Args>
   static MediaStatusPtr New(Args&&... args) {
     return MediaStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

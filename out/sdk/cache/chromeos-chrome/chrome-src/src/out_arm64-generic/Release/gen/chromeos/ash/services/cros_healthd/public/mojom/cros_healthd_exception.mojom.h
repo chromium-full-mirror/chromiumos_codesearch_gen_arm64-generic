@@ -53,7 +53,7 @@ class  Exception {
   template <typename... Args>
   static ExceptionPtr New(Args&&... args) {
     return ExceptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -197,7 +197,7 @@ class  Supported {
   template <typename... Args>
   static SupportedPtr New(Args&&... args) {
     return SupportedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -344,7 +344,7 @@ class  SupportStatus {
   static SupportStatusPtr
   NewUnmappedUnionField(
       int8_t value) {
-    auto result = SupportStatusPtr(absl::in_place);
+    auto result = SupportStatusPtr(std::in_place);
     result->set_unmapped_union_field(std::move(value));
     return result;
   }
@@ -352,7 +352,7 @@ class  SupportStatus {
   static SupportStatusPtr
   NewException(
       ExceptionPtr value) {
-    auto result = SupportStatusPtr(absl::in_place);
+    auto result = SupportStatusPtr(std::in_place);
     result->set_exception(std::move(value));
     return result;
   }
@@ -360,7 +360,7 @@ class  SupportStatus {
   static SupportStatusPtr
   NewSupported(
       SupportedPtr value) {
-    auto result = SupportStatusPtr(absl::in_place);
+    auto result = SupportStatusPtr(std::in_place);
     result->set_supported(std::move(value));
     return result;
   }
@@ -368,7 +368,7 @@ class  SupportStatus {
   static SupportStatusPtr
   NewUnsupported(
       UnsupportedPtr value) {
-    auto result = SupportStatusPtr(absl::in_place);
+    auto result = SupportStatusPtr(std::in_place);
     result->set_unsupported(std::move(value));
     return result;
   }
@@ -516,7 +516,7 @@ class  UnsupportedReason {
   static UnsupportedReasonPtr
   NewUnmappedUnionField(
       int8_t value) {
-    auto result = UnsupportedReasonPtr(absl::in_place);
+    auto result = UnsupportedReasonPtr(std::in_place);
     result->set_unmapped_union_field(std::move(value));
     return result;
   }
@@ -616,7 +616,7 @@ class  Unsupported {
   template <typename... Args>
   static UnsupportedPtr New(Args&&... args) {
     return UnsupportedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

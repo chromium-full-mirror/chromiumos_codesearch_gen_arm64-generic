@@ -45,6 +45,32 @@
   }
 
 
+  var SharedWorkerSameSiteCookies = {};
+  SharedWorkerSameSiteCookies.kAll = 0;
+  SharedWorkerSameSiteCookies.kNone = 1;
+  SharedWorkerSameSiteCookies.MIN_VALUE = 0;
+  SharedWorkerSameSiteCookies.MAX_VALUE = 1;
+
+  SharedWorkerSameSiteCookies.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+      return true;
+    }
+    return false;
+  };
+
+  SharedWorkerSameSiteCookies.toKnownEnumValue = function(value) {
+    return value;
+  };
+
+  SharedWorkerSameSiteCookies.validate = function(enumValue) {
+    const isExtensible = false;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
 
   function SharedWorkerInfo(values) {
     this.initDefaults_();
@@ -57,6 +83,7 @@
     this.options = null;
     this.contentSecurityPolicies = null;
     this.outsideFetchClientSettingsObject = null;
+    this.sameSiteCookies = SharedWorkerSameSiteCookies.kNone;
   };
   SharedWorkerInfo.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -72,7 +99,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 40}
+      {version: 0, numBytes: 48}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -102,10 +129,16 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+    // validate SharedWorkerInfo.sameSiteCookies
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 32, SharedWorkerSameSiteCookies);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  SharedWorkerInfo.encodedSize = codec.kStructHeaderSize + 32;
+  SharedWorkerInfo.encodedSize = codec.kStructHeaderSize + 40;
 
   SharedWorkerInfo.decode = function(decoder) {
     var packed;
@@ -120,6 +153,12 @@
         decoder.decodeArrayPointer(new codec.PointerTo(content_security_policy$.ContentSecurityPolicy));
     val.outsideFetchClientSettingsObject =
         decoder.decodeStructPointer(fetch_client_settings_object$.FetchClientSettingsObject);
+    val.sameSiteCookies =
+        decoder.decodeStruct(new codec.Enum(SharedWorkerSameSiteCookies));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
     return val;
   };
 
@@ -131,6 +170,12 @@
     encoder.encodeStructPointer(worker_options$.WorkerOptions, val.options);
     encoder.encodeArrayPointer(new codec.PointerTo(content_security_policy$.ContentSecurityPolicy), val.contentSecurityPolicies);
     encoder.encodeStructPointer(fetch_client_settings_object$.FetchClientSettingsObject, val.outsideFetchClientSettingsObject);
+    encoder.encodeStruct(codec.Int32, val.sameSiteCookies);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
   };
+  exports.SharedWorkerSameSiteCookies = SharedWorkerSameSiteCookies;
   exports.SharedWorkerInfo = SharedWorkerInfo;
 })();

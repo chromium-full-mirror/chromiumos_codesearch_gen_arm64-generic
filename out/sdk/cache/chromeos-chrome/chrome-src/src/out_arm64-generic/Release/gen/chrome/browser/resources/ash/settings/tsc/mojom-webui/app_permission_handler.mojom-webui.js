@@ -33,13 +33,18 @@ export class AppPermissionsHandlerRemote {
     getSystemAppsThatUseMicrophone() {
         return this.proxy.sendMessage(3, AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsSpec.$, AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsSpec.$, []);
     }
+    openBrowserPermissionSettings(permissionType) {
+        this.proxy.sendMessage(4, AppPermissionsHandler_OpenBrowserPermissionSettings_ParamsSpec.$, null, [
+            permissionType
+        ]);
+    }
     openNativeSettings(appId) {
-        this.proxy.sendMessage(4, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, [
+        this.proxy.sendMessage(5, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, [
             appId
         ]);
     }
     setPermission(appId, permission) {
-        this.proxy.sendMessage(5, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, [
+        this.proxy.sendMessage(6, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, [
             appId,
             permission
         ]);
@@ -59,8 +64,9 @@ export class AppPermissionsHandlerReceiver {
         this.helper_internal_.registerHandler(1, AppPermissionsHandler_GetApps_ParamsSpec.$, AppPermissionsHandler_GetApps_ResponseParamsSpec.$, impl.getApps.bind(impl));
         this.helper_internal_.registerHandler(2, AppPermissionsHandler_GetSystemAppsThatUseCamera_ParamsSpec.$, AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParamsSpec.$, impl.getSystemAppsThatUseCamera.bind(impl));
         this.helper_internal_.registerHandler(3, AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsSpec.$, AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsSpec.$, impl.getSystemAppsThatUseMicrophone.bind(impl));
-        this.helper_internal_.registerHandler(4, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, impl.openNativeSettings.bind(impl));
-        this.helper_internal_.registerHandler(5, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, impl.setPermission.bind(impl));
+        this.helper_internal_.registerHandler(4, AppPermissionsHandler_OpenBrowserPermissionSettings_ParamsSpec.$, null, impl.openBrowserPermissionSettings.bind(impl));
+        this.helper_internal_.registerHandler(5, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, impl.openNativeSettings.bind(impl));
+        this.helper_internal_.registerHandler(6, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, impl.setPermission.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -102,12 +108,15 @@ export class AppPermissionsHandlerCallbackRouter {
         this.getSystemAppsThatUseMicrophone =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(3, AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsSpec.$, AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsSpec.$, this.getSystemAppsThatUseMicrophone.createReceiverHandler(true /* expectsResponse */));
+        this.openBrowserPermissionSettings =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(4, AppPermissionsHandler_OpenBrowserPermissionSettings_ParamsSpec.$, null, this.openBrowserPermissionSettings.createReceiverHandler(false /* expectsResponse */));
         this.openNativeSettings =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(4, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, this.openNativeSettings.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(5, AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, null, this.openNativeSettings.createReceiverHandler(false /* expectsResponse */));
         this.setPermission =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(5, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, this.setPermission.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(6, AppPermissionsHandler_SetPermission_ParamsSpec.$, null, this.setPermission.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -209,6 +218,7 @@ export const AppPermissionsHandler_GetSystemAppsThatUseCamera_ParamsSpec = { $: 
 export const AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParamsSpec = { $: {} };
 export const AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsSpec = { $: {} };
 export const AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsSpec = { $: {} };
+export const AppPermissionsHandler_OpenBrowserPermissionSettings_ParamsSpec = { $: {} };
 export const AppPermissionsHandler_OpenNativeSettings_ParamsSpec = { $: {} };
 export const AppPermissionsHandler_SetPermission_ParamsSpec = { $: {} };
 export const AppPermissionsObserver_OnAppRemoved_ParamsSpec = { $: {} };
@@ -233,6 +243,9 @@ mojo.internal.Struct(AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponsePa
 mojo.internal.Struct(AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ParamsSpec.$, 'AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params', [], [[0, 8],]);
 mojo.internal.Struct(AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsSpec.$, 'AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams', [
     mojo.internal.StructField('apps', 0, 0, mojo.internal.Array(AppSpec.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(AppPermissionsHandler_OpenBrowserPermissionSettings_ParamsSpec.$, 'AppPermissionsHandler_OpenBrowserPermissionSettings_Params', [
+    mojo.internal.StructField('permissionType', 0, 0, appManagement_mojom_PermissionTypeSpec.$, 0, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(AppPermissionsHandler_OpenNativeSettings_ParamsSpec.$, 'AppPermissionsHandler_OpenNativeSettings_Params', [
     mojo.internal.StructField('appId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),

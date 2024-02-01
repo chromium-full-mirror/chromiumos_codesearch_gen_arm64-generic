@@ -464,7 +464,7 @@ static_assert(
         ::payments::mojom::PaymentOptionsDataView, UserType>(),
     "Attempting to read the optional `payment_options` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPaymentOptions` instead "
     "of `ReadPaymentOptions if you're fine with null values being "
@@ -484,7 +484,7 @@ static_assert(
         mojo::ArrayDataView<::payments::mojom::PaymentShippingOptionDataView>, UserType>(),
     "Attempting to read the optional `shipping_options` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadShippingOptions` instead "
     "of `ReadShippingOptions if you're fine with null values being "
@@ -587,7 +587,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `payer_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPayerName` instead "
     "of `ReadPayerName if you're fine with null values being "
@@ -607,7 +607,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `payer_email` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPayerEmail` instead "
     "of `ReadPayerEmail if you're fine with null values being "
@@ -627,7 +627,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `payer_phone` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPayerPhone` instead "
     "of `ReadPayerPhone if you're fine with null values being "
@@ -647,7 +647,7 @@ static_assert(
         ::payments::mojom::PaymentAddressDataView, UserType>(),
     "Attempting to read the optional `shipping_address` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadShippingAddress` instead "
     "of `ReadShippingAddress if you're fine with null values being "
@@ -667,7 +667,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `shipping_option` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadShippingOption` instead "
     "of `ReadShippingOption if you're fine with null values being "

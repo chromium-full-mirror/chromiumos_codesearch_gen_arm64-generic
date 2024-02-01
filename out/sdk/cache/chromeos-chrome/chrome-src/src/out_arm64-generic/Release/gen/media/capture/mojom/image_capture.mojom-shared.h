@@ -491,7 +491,7 @@ static_assert(
         mojo::ArrayDataView<::media::mojom::BackgroundBlurMode>, UserType>(),
     "Attempting to read the optional `supported_background_blur_modes` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSupportedBackgroundBlurModes` instead "
     "of `ReadSupportedBackgroundBlurModes if you're fine with null values being "
@@ -525,7 +525,7 @@ static_assert(
         mojo::ArrayDataView<::media::mojom::MeteringMode>, UserType>(),
     "Attempting to read the optional `supported_face_framing_modes` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSupportedFaceFramingModes` instead "
     "of `ReadSupportedFaceFramingModes if you're fine with null values being "
@@ -559,7 +559,7 @@ static_assert(
         mojo::ArrayDataView<::media::mojom::EyeGazeCorrectionMode>, UserType>(),
     "Attempting to read the optional `supported_eye_gaze_correction_modes` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSupportedEyeGazeCorrectionModes` instead "
     "of `ReadSupportedEyeGazeCorrectionModes if you're fine with null values being "
@@ -816,11 +816,11 @@ class PhotoSettingsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadEyeGazeCorrectionMode(UserType* output) const {
     if (data_->header_.version < 3) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
     if (!data_->eye_gaze_correction_mode_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -829,10 +829,10 @@ class PhotoSettingsDataView {
   }
   std::optional<EyeGazeCorrectionMode> eye_gaze_correction_mode() const {
     if (data_->header_.version < 3) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     if (!data_->eye_gaze_correction_mode_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::media::mojom::EyeGazeCorrectionMode>(data_->eye_gaze_correction_mode_$value));

@@ -89,30 +89,7 @@ PageHandler_ReadPref_ResponseParams_Data::PageHandler_ReadPref_ResponseParams_Da
 
 
 // static
-bool PageHandler_GetCookieSettings_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const PageHandler_GetCookieSettings_Params_Data* object =
-      static_cast<const PageHandler_GetCookieSettings_Params_Data*>(data);
-
-  return true;
-}
-
-PageHandler_GetCookieSettings_Params_Data::PageHandler_GetCookieSettings_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool PageHandler_GetCookieSettings_ResponseParams_Data::Validate(
+bool PageHandler_ReadContentSettings_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -124,8 +101,36 @@ bool PageHandler_GetCookieSettings_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const PageHandler_GetCookieSettings_ResponseParams_Data* object =
-      static_cast<const PageHandler_GetCookieSettings_ResponseParams_Data*>(data);
+  [[maybe_unused]] const PageHandler_ReadContentSettings_Params_Data* object =
+      static_cast<const PageHandler_ReadContentSettings_Params_Data*>(data);
+
+
+  if (!::content_settings::mojom::internal::ContentSettingsType_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  return true;
+}
+
+PageHandler_ReadContentSettings_Params_Data::PageHandler_ReadContentSettings_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_ReadContentSettings_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_ReadContentSettings_ResponseParams_Data* object =
+      static_cast<const PageHandler_ReadContentSettings_ResponseParams_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->content_settings, 1, validation_context)) {
@@ -141,7 +146,7 @@ bool PageHandler_GetCookieSettings_ResponseParams_Data::Validate(
   return true;
 }
 
-PageHandler_GetCookieSettings_ResponseParams_Data::PageHandler_GetCookieSettings_ResponseParams_Data()
+PageHandler_ReadContentSettings_ResponseParams_Data::PageHandler_ReadContentSettings_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -199,177 +204,6 @@ bool PageHandler_GetTpcdMetadataGrants_ResponseParams_Data::Validate(
 }
 
 PageHandler_GetTpcdMetadataGrants_ResponseParams_Data::PageHandler_GetTpcdMetadataGrants_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool PageHandler_GetTpcdHeuristicsGrants_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const PageHandler_GetTpcdHeuristicsGrants_Params_Data* object =
-      static_cast<const PageHandler_GetTpcdHeuristicsGrants_Params_Data*>(data);
-
-  return true;
-}
-
-PageHandler_GetTpcdHeuristicsGrants_Params_Data::PageHandler_GetTpcdHeuristicsGrants_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data* object =
-      static_cast<const PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->content_settings, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& content_settings_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->content_settings, validation_context,
-                                         &content_settings_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data::PageHandler_GetTpcdHeuristicsGrants_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool PageHandler_GetTpcdTrial_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const PageHandler_GetTpcdTrial_Params_Data* object =
-      static_cast<const PageHandler_GetTpcdTrial_Params_Data*>(data);
-
-  return true;
-}
-
-PageHandler_GetTpcdTrial_Params_Data::PageHandler_GetTpcdTrial_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool PageHandler_GetTpcdTrial_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const PageHandler_GetTpcdTrial_ResponseParams_Data* object =
-      static_cast<const PageHandler_GetTpcdTrial_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->content_settings, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& content_settings_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->content_settings, validation_context,
-                                         &content_settings_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-PageHandler_GetTpcdTrial_ResponseParams_Data::PageHandler_GetTpcdTrial_ResponseParams_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool PageHandler_GetTopLevelTpcdTrial_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const PageHandler_GetTopLevelTpcdTrial_Params_Data* object =
-      static_cast<const PageHandler_GetTopLevelTpcdTrial_Params_Data*>(data);
-
-  return true;
-}
-
-PageHandler_GetTopLevelTpcdTrial_Params_Data::PageHandler_GetTopLevelTpcdTrial_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
-bool PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data* object =
-      static_cast<const PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data*>(data);
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->content_settings, 1, validation_context)) {
-    return false;
-  }
-  constexpr const mojo::internal::ContainerValidateParams& content_settings_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->content_settings, validation_context,
-                                         &content_settings_validate_params)) {
-    return false;
-  }
-
-  return true;
-}
-
-PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data::PageHandler_GetTopLevelTpcdTrial_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 

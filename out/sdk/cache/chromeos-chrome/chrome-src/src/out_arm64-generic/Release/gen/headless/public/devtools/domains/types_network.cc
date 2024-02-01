@@ -1529,25 +1529,25 @@ std::unique_ptr<BlockedSetCookieWithReason> BlockedSetCookieWithReason::Clone() 
 }
 
 
-std::unique_ptr<BlockedCookieWithReason> BlockedCookieWithReason::Parse(const base::Value& value, ErrorReporter* errors) {
+std::unique_ptr<ExemptedSetCookieWithReason> ExemptedSetCookieWithReason::Parse(const base::Value& value, ErrorReporter* errors) {
   errors->Push();
-  errors->SetName("BlockedCookieWithReason");
+  errors->SetName("ExemptedSetCookieWithReason");
   if (!value.is_dict()) {
     errors->AddError("object expected");
     errors->Pop();
     return nullptr;
   }
 
-  std::unique_ptr<BlockedCookieWithReason> result(new BlockedCookieWithReason());
+  std::unique_ptr<ExemptedSetCookieWithReason> result(new ExemptedSetCookieWithReason());
   errors->Push();
-  errors->SetName("BlockedCookieWithReason");
+  errors->SetName("ExemptedSetCookieWithReason");
   const base::Value::Dict& dict = value.GetDict();
-  const base::Value* blocked_reasons_value = dict.Find("blockedReasons");
-  if (blocked_reasons_value) {
-    errors->SetName("blockedReasons");
-    result->blocked_reasons_ = internal::FromValue<std::vector<::headless::network::CookieBlockedReason>>::Parse(*blocked_reasons_value, errors);
+  const base::Value* exemption_reason_value = dict.Find("exemptionReason");
+  if (exemption_reason_value) {
+    errors->SetName("exemptionReason");
+    result->exemption_reason_ = internal::FromValue<::headless::network::CookieExemptionReason>::Parse(*exemption_reason_value, errors);
   } else {
-    errors->AddError("required property missing: blockedReasons");
+    errors->AddError("required property missing: exemptionReason");
   }
   const base::Value* cookie_value = dict.Find("cookie");
   if (cookie_value) {
@@ -1563,16 +1563,72 @@ std::unique_ptr<BlockedCookieWithReason> BlockedCookieWithReason::Parse(const ba
   return result;
 }
 
-base::Value BlockedCookieWithReason::Serialize() const {
+base::Value ExemptedSetCookieWithReason::Serialize() const {
   base::Value::Dict result;
-  result.Set("blockedReasons", internal::ToValue(blocked_reasons_));
+  result.Set("exemptionReason", internal::ToValue(exemption_reason_));
   result.Set("cookie", internal::ToValue(*cookie_));
   return base::Value(std::move(result));
 }
 
-std::unique_ptr<BlockedCookieWithReason> BlockedCookieWithReason::Clone() const {
+std::unique_ptr<ExemptedSetCookieWithReason> ExemptedSetCookieWithReason::Clone() const {
   ErrorReporter errors;
-  std::unique_ptr<BlockedCookieWithReason> result = Parse(Serialize(), &errors);
+  std::unique_ptr<ExemptedSetCookieWithReason> result = Parse(Serialize(), &errors);
+  DCHECK(!errors.HasErrors());
+  return result;
+}
+
+
+std::unique_ptr<AssociatedCookie> AssociatedCookie::Parse(const base::Value& value, ErrorReporter* errors) {
+  errors->Push();
+  errors->SetName("AssociatedCookie");
+  if (!value.is_dict()) {
+    errors->AddError("object expected");
+    errors->Pop();
+    return nullptr;
+  }
+
+  std::unique_ptr<AssociatedCookie> result(new AssociatedCookie());
+  errors->Push();
+  errors->SetName("AssociatedCookie");
+  const base::Value::Dict& dict = value.GetDict();
+  const base::Value* cookie_value = dict.Find("cookie");
+  if (cookie_value) {
+    errors->SetName("cookie");
+    result->cookie_ = internal::FromValue<::headless::network::Cookie>::Parse(*cookie_value, errors);
+  } else {
+    errors->AddError("required property missing: cookie");
+  }
+  const base::Value* blocked_reasons_value = dict.Find("blockedReasons");
+  if (blocked_reasons_value) {
+    errors->SetName("blockedReasons");
+    result->blocked_reasons_ = internal::FromValue<std::vector<::headless::network::CookieBlockedReason>>::Parse(*blocked_reasons_value, errors);
+  } else {
+    errors->AddError("required property missing: blockedReasons");
+  }
+  const base::Value* exemption_reason_value = dict.Find("exemptionReason");
+  if (exemption_reason_value) {
+    errors->SetName("exemptionReason");
+    result->exemption_reason_ = internal::FromValue<::headless::network::CookieExemptionReason>::Parse(*exemption_reason_value, errors);
+  }
+  errors->Pop();
+  errors->Pop();
+  if (errors->HasErrors())
+    return nullptr;
+  return result;
+}
+
+base::Value AssociatedCookie::Serialize() const {
+  base::Value::Dict result;
+  result.Set("cookie", internal::ToValue(*cookie_));
+  result.Set("blockedReasons", internal::ToValue(blocked_reasons_));
+  if (exemption_reason_)
+    result.Set("exemptionReason", internal::ToValue(exemption_reason_.value()));
+  return base::Value(std::move(result));
+}
+
+std::unique_ptr<AssociatedCookie> AssociatedCookie::Clone() const {
+  ErrorReporter errors;
+  std::unique_ptr<AssociatedCookie> result = Parse(Serialize(), &errors);
   DCHECK(!errors.HasErrors());
   return result;
 }
@@ -3431,6 +3487,11 @@ std::unique_ptr<DeleteCookiesParams> DeleteCookiesParams::Parse(const base::Valu
     errors->SetName("path");
     result->path_ = internal::FromValue<std::string>::Parse(*path_value, errors);
   }
+  const base::Value* partition_key_value = dict.Find("partitionKey");
+  if (partition_key_value) {
+    errors->SetName("partitionKey");
+    result->partition_key_ = internal::FromValue<std::string>::Parse(*partition_key_value, errors);
+  }
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -3447,6 +3508,8 @@ base::Value DeleteCookiesParams::Serialize() const {
     result.Set("domain", internal::ToValue(domain_.value()));
   if (path_)
     result.Set("path", internal::ToValue(path_.value()));
+  if (partition_key_)
+    result.Set("partitionKey", internal::ToValue(partition_key_.value()));
   return base::Value(std::move(result));
 }
 
@@ -6966,7 +7029,7 @@ std::unique_ptr<RequestWillBeSentExtraInfoParams> RequestWillBeSentExtraInfoPara
   const base::Value* associated_cookies_value = dict.Find("associatedCookies");
   if (associated_cookies_value) {
     errors->SetName("associatedCookies");
-    result->associated_cookies_ = internal::FromValue<std::vector<std::unique_ptr<::headless::network::BlockedCookieWithReason>>>::Parse(*associated_cookies_value, errors);
+    result->associated_cookies_ = internal::FromValue<std::vector<std::unique_ptr<::headless::network::AssociatedCookie>>>::Parse(*associated_cookies_value, errors);
   } else {
     errors->AddError("required property missing: associatedCookies");
   }
@@ -7085,6 +7148,11 @@ std::unique_ptr<ResponseReceivedExtraInfoParams> ResponseReceivedExtraInfoParams
     errors->SetName("cookiePartitionKeyOpaque");
     result->cookie_partition_key_opaque_ = internal::FromValue<bool>::Parse(*cookie_partition_key_opaque_value, errors);
   }
+  const base::Value* exempted_cookies_value = dict.Find("exemptedCookies");
+  if (exempted_cookies_value) {
+    errors->SetName("exemptedCookies");
+    result->exempted_cookies_ = internal::FromValue<std::vector<std::unique_ptr<::headless::network::ExemptedSetCookieWithReason>>>::Parse(*exempted_cookies_value, errors);
+  }
   errors->Pop();
   errors->Pop();
   if (errors->HasErrors())
@@ -7105,6 +7173,8 @@ base::Value ResponseReceivedExtraInfoParams::Serialize() const {
     result.Set("cookiePartitionKey", internal::ToValue(cookie_partition_key_.value()));
   if (cookie_partition_key_opaque_)
     result.Set("cookiePartitionKeyOpaque", internal::ToValue(cookie_partition_key_opaque_.value()));
+  if (exempted_cookies_)
+    result.Set("exemptedCookies", internal::ToValue(exempted_cookies_.value()));
   return base::Value(std::move(result));
 }
 

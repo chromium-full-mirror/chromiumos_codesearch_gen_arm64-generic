@@ -25,6 +25,7 @@
     "preprocessed/privacy_sandbox_internals_test.ts",
     "preprocessed/content_settings_test.ts",
     "preprocessed/content_settings.mojom-webui.ts",
+    "preprocessed/content_settings_types.mojom-webui.ts",
     "preprocessed/privacy_sandbox_internals.mojom-webui.ts"
   ],
   "references": [

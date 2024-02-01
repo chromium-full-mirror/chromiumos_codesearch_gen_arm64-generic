@@ -9,9 +9,11 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from '../i18n_setup.js';
+import { routes } from '../route.js';
+import { RouteObserverMixin } from '../router.js';
 import { PrivacySandboxBrowserProxyImpl } from './privacy_sandbox_browser_proxy.js';
 import { getTemplate } from './privacy_sandbox_manage_topics_subpage.html.js';
-const SettingsPrivacySandboxManageTopicsSubpageElementBase = I18nMixin(PolymerElement);
+const SettingsPrivacySandboxManageTopicsSubpageElementBase = RouteObserverMixin(I18nMixin(PolymerElement));
 // First Level Topics for Taxonomy v2
 // This list comes from here:
 // https://github.com/patcg-individual-drafts/topics/blob/main/taxonomy_v2.md
@@ -76,6 +78,14 @@ export class SettingsPrivacySandboxManageTopicsSubpageElement extends SettingsPr
         super.ready();
         this.$.explanationText.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
         this.privacySandboxBrowserProxy_.getFirstLevelTopics().then(state => this.onFirstLevelTopicsStateChanged_(state));
+    }
+    currentRouteChanged(newRoute) {
+        if (newRoute === routes.PRIVACY_SANDBOX_MANAGE_TOPICS) {
+            // Updating the FirstLevelTopicsState because it can be changed by being
+            // blocked/unblocked in the Ad Topics Page. Need to keep the data between
+            // the two pages up to date.
+            this.privacySandboxBrowserProxy_.getFirstLevelTopics().then(state => this.onFirstLevelTopicsStateChanged_(state));
+        }
     }
     onFirstLevelTopicsStateChanged_(state) {
         const blockedTopicsList = state.blockedTopics.map(topic => {

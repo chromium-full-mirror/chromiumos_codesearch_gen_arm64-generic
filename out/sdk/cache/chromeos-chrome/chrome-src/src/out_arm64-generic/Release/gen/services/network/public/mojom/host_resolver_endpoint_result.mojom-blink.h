@@ -60,7 +60,7 @@ class  HostResolverEndpointResult {
   template <typename... Args>
   static HostResolverEndpointResultPtr New(Args&&... args) {
     return HostResolverEndpointResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

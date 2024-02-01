@@ -442,7 +442,7 @@ class  CompletedPrintJobInfo {
   template <typename... Args>
   static CompletedPrintJobInfoPtr New(Args&&... args) {
     return CompletedPrintJobInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -583,7 +583,7 @@ class  ActivePrintJobInfo {
   template <typename... Args>
   static ActivePrintJobInfoPtr New(Args&&... args) {
     return ActivePrintJobInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -732,7 +732,7 @@ class  PrintJobInfo {
   template <typename... Args>
   static PrintJobInfoPtr New(Args&&... args) {
     return PrintJobInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

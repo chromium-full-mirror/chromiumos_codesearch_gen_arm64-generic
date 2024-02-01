@@ -69,7 +69,7 @@ class  LayoutStyleProperties {
   static LayoutStylePropertiesPtr
   NewStandardAccelerator(
       StandardAcceleratorPropertiesPtr value) {
-    auto result = LayoutStylePropertiesPtr(absl::in_place);
+    auto result = LayoutStylePropertiesPtr(std::in_place);
     result->set_standard_accelerator(std::move(value));
     return result;
   }
@@ -77,7 +77,7 @@ class  LayoutStyleProperties {
   static LayoutStylePropertiesPtr
   NewTextAccelerator(
       TextAcceleratorPropertiesPtr value) {
-    auto result = LayoutStylePropertiesPtr(absl::in_place);
+    auto result = LayoutStylePropertiesPtr(std::in_place);
     result->set_text_accelerator(std::move(value));
     return result;
   }
@@ -191,7 +191,7 @@ class  TextAcceleratorPart {
   template <typename... Args>
   static TextAcceleratorPartPtr New(Args&&... args) {
     return TextAcceleratorPartPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -334,7 +334,7 @@ class  TextAcceleratorProperties {
   template <typename... Args>
   static TextAcceleratorPropertiesPtr New(Args&&... args) {
     return TextAcceleratorPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -476,7 +476,7 @@ class  StandardAcceleratorProperties {
   template <typename... Args>
   static StandardAcceleratorPropertiesPtr New(Args&&... args) {
     return StandardAcceleratorPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -622,7 +622,7 @@ class  AcceleratorInfo {
   template <typename... Args>
   static AcceleratorInfoPtr New(Args&&... args) {
     return AcceleratorInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -773,7 +773,7 @@ class  AcceleratorLayoutInfo {
   template <typename... Args>
   static AcceleratorLayoutInfoPtr New(Args&&... args) {
     return AcceleratorLayoutInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -24,15 +24,35 @@
   var ModelStreamingResponseStatus = {};
   ModelStreamingResponseStatus.kOngoing = 0;
   ModelStreamingResponseStatus.kComplete = 1;
-  ModelStreamingResponseStatus.kError = 2;
+  ModelStreamingResponseStatus.kErrorUnknown = 2;
+  ModelStreamingResponseStatus.kErrorInvalidRequest = 3;
+  ModelStreamingResponseStatus.kErrorRequestThrottled = 4;
+  ModelStreamingResponseStatus.kErrorPermissionDenied = 5;
+  ModelStreamingResponseStatus.kErrorGenericFailure = 6;
+  ModelStreamingResponseStatus.kErrorRetryableError = 7;
+  ModelStreamingResponseStatus.kErrorNonRetryableError = 8;
+  ModelStreamingResponseStatus.kErrorUnsupportedLanguage = 9;
+  ModelStreamingResponseStatus.kErrorFiltered = 10;
+  ModelStreamingResponseStatus.kErrorDisabled = 11;
+  ModelStreamingResponseStatus.kErrorCancelled = 12;
   ModelStreamingResponseStatus.MIN_VALUE = 0;
-  ModelStreamingResponseStatus.MAX_VALUE = 2;
+  ModelStreamingResponseStatus.MAX_VALUE = 12;
 
   ModelStreamingResponseStatus.isKnownEnumValue = function(value) {
     switch (value) {
     case 0:
     case 1:
     case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
       return true;
     }
     return false;

@@ -361,7 +361,7 @@ static_assert(
         mojo::ArrayDataView<::media::mojom::HypothesisPartsDataView>, UserType>(),
     "Attempting to read the optional `hypothesis_parts` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHypothesisParts` instead "
     "of `ReadHypothesisParts if you're fine with null values being "
@@ -410,7 +410,7 @@ static_assert(
         ::media::mojom::TimingInformationDataView, UserType>(),
     "Attempting to read the optional `timing_information` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTimingInformation` instead "
     "of `ReadTimingInformation if you're fine with null values being "
@@ -458,11 +458,11 @@ class LanguageIdentificationEventDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadAsrSwitchResult(UserType* output) const {
     if (data_->header_.version < 1) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
     if (!data_->asr_switch_result_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -471,10 +471,10 @@ class LanguageIdentificationEventDataView {
   }
   std::optional<AsrSwitchResult> asr_switch_result() const {
     if (data_->header_.version < 1) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     if (!data_->asr_switch_result_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::media::mojom::AsrSwitchResult>(data_->asr_switch_result_$value));
@@ -545,7 +545,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `language` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLanguage` instead "
     "of `ReadLanguage if you're fine with null values being "

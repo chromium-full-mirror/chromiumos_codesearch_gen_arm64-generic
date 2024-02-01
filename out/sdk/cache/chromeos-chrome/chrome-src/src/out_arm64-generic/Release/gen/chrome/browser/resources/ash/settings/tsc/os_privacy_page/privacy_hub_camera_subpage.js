@@ -49,13 +49,13 @@ export class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSub
                 type: Array,
                 value: [],
             },
-            connectedCameras_: {
+            connectedCameraNames_: {
                 type: Array,
                 value: [],
             },
             isCameraListEmpty_: {
                 type: Boolean,
-                computed: 'computeIsCameraListEmpty_(connectedCameras_)',
+                computed: 'computeIsCameraListEmpty_(connectedCameraNames_)',
             },
             /**
              * Tracks if the Chrome code wants the camera switch to be disabled.
@@ -158,17 +158,17 @@ export class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSub
         }
     }
     async updateCameraList_() {
-        const connectedCameras = [];
+        const connectedCameraNames = [];
         const devices = await MediaDevicesProxy.getMediaDevices().enumerateDevices();
         devices.forEach((device) => {
             if (device.kind === 'videoinput') {
-                connectedCameras.push(device.label);
+                connectedCameraNames.push(device.label);
             }
         });
-        this.connectedCameras_ = connectedCameras;
+        this.connectedCameraNames_ = connectedCameraNames;
     }
     computeIsCameraListEmpty_() {
-        return this.connectedCameras_.length === 0;
+        return this.connectedCameraNames_.length === 0;
     }
     computeOnOffText_() {
         return this.isCameraAllowed_() ? this.i18n('deviceOn') :
@@ -198,7 +198,7 @@ export class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSub
     }
     onManagePermissionsInChromeRowClick_() {
         chrome.metricsPrivate.recordEnumerationValue(CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, PrivacyHubSensorSubpageUserAction.WEBSITE_PERMISSION_LINK_CLICKED, NUMBER_OF_POSSIBLE_USER_ACTIONS);
-        window.open('chrome://settings/content/camera');
+        this.mojoInterfaceProvider_.openBrowserPermissionSettings(PermissionType.kCamera);
     }
     onCameraToggleClick_() {
         chrome.metricsPrivate.recordEnumerationValue(CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, PrivacyHubSensorSubpageUserAction.SYSTEM_ACCESS_CHANGED, NUMBER_OF_POSSIBLE_USER_ACTIONS);

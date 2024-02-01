@@ -70,7 +70,7 @@ class PLATFORM_EXPORT FetchAPIResponse {
   template <typename... Args>
   static FetchAPIResponsePtr New(Args&&... args) {
     return FetchAPIResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

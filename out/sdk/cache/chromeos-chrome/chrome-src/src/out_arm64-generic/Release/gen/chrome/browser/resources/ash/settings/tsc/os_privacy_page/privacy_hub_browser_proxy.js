@@ -13,6 +13,15 @@ export class PrivacyHubBrowserProxyImpl {
     getCameraLedFallbackState() {
         return sendWithPromise('getCameraLedFallbackState');
     }
+    getCurrentTimeZoneName() {
+        return sendWithPromise('getCurrentTimeZoneName');
+    }
+    getCurrentSunriseTime() {
+        return sendWithPromise('getCurrentSunriseTime');
+    }
+    getCurrentSunsetTime() {
+        return sendWithPromise('getCurrentSunsetTime');
+    }
     sendLeftOsPrivacyPage() {
         chrome.send('leftOsPrivacyPage');
     }

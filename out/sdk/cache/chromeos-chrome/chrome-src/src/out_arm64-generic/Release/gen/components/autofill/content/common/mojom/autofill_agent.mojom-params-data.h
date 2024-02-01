@@ -270,74 +270,6 @@ class  AutofillAgent_PreviewPasswordGenerationSuggestion_Params_Data {
 };
 static_assert(sizeof(AutofillAgent_PreviewPasswordGenerationSuggestion_Params_Data) == 16,
               "Bad sizeof(AutofillAgent_PreviewPasswordGenerationSuggestion_Params_Data)");
-class  AutofillAgent_SetUserGestureRequired_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint8_t required : 1;
-  uint8_t padfinal_[7];
-
- private:
-  friend class mojo::internal::MessageFragment<AutofillAgent_SetUserGestureRequired_Params_Data>;
-
-  AutofillAgent_SetUserGestureRequired_Params_Data();
-  ~AutofillAgent_SetUserGestureRequired_Params_Data() = delete;
-};
-static_assert(sizeof(AutofillAgent_SetUserGestureRequired_Params_Data) == 16,
-              "Bad sizeof(AutofillAgent_SetUserGestureRequired_Params_Data)");
-class  AutofillAgent_SetSecureContextRequired_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint8_t required : 1;
-  uint8_t padfinal_[7];
-
- private:
-  friend class mojo::internal::MessageFragment<AutofillAgent_SetSecureContextRequired_Params_Data>;
-
-  AutofillAgent_SetSecureContextRequired_Params_Data();
-  ~AutofillAgent_SetSecureContextRequired_Params_Data() = delete;
-};
-static_assert(sizeof(AutofillAgent_SetSecureContextRequired_Params_Data) == 16,
-              "Bad sizeof(AutofillAgent_SetSecureContextRequired_Params_Data)");
-class  AutofillAgent_SetFocusRequiresScroll_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint8_t require : 1;
-  uint8_t padfinal_[7];
-
- private:
-  friend class mojo::internal::MessageFragment<AutofillAgent_SetFocusRequiresScroll_Params_Data>;
-
-  AutofillAgent_SetFocusRequiresScroll_Params_Data();
-  ~AutofillAgent_SetFocusRequiresScroll_Params_Data() = delete;
-};
-static_assert(sizeof(AutofillAgent_SetFocusRequiresScroll_Params_Data) == 16,
-              "Bad sizeof(AutofillAgent_SetFocusRequiresScroll_Params_Data)");
-class  AutofillAgent_SetQueryPasswordSuggestion_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint8_t query : 1;
-  uint8_t padfinal_[7];
-
- private:
-  friend class mojo::internal::MessageFragment<AutofillAgent_SetQueryPasswordSuggestion_Params_Data>;
-
-  AutofillAgent_SetQueryPasswordSuggestion_Params_Data();
-  ~AutofillAgent_SetQueryPasswordSuggestion_Params_Data() = delete;
-};
-static_assert(sizeof(AutofillAgent_SetQueryPasswordSuggestion_Params_Data) == 16,
-              "Bad sizeof(AutofillAgent_SetQueryPasswordSuggestion_Params_Data)");
 class  AutofillAgent_EnableHeavyFormDataScraping_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -764,7 +696,7 @@ static_assert(
         ::autofill::mojom::FormDataDataView, UserType>(),
     "Attempting to read the optional `form` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadForm` instead "
     "of `ReadForm if you're fine with null values being "
@@ -1002,78 +934,6 @@ class AutofillAgent_PreviewPasswordGenerationSuggestion_ParamsDataView {
  private:
   internal::AutofillAgent_PreviewPasswordGenerationSuggestion_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
-};
-
-
-class AutofillAgent_SetUserGestureRequired_ParamsDataView {
- public:
-  AutofillAgent_SetUserGestureRequired_ParamsDataView() = default;
-
-  AutofillAgent_SetUserGestureRequired_ParamsDataView(
-      internal::AutofillAgent_SetUserGestureRequired_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  bool required() const {
-    return data_->required;
-  }
- private:
-  internal::AutofillAgent_SetUserGestureRequired_Params_Data* data_ = nullptr;
-};
-
-
-class AutofillAgent_SetSecureContextRequired_ParamsDataView {
- public:
-  AutofillAgent_SetSecureContextRequired_ParamsDataView() = default;
-
-  AutofillAgent_SetSecureContextRequired_ParamsDataView(
-      internal::AutofillAgent_SetSecureContextRequired_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  bool required() const {
-    return data_->required;
-  }
- private:
-  internal::AutofillAgent_SetSecureContextRequired_Params_Data* data_ = nullptr;
-};
-
-
-class AutofillAgent_SetFocusRequiresScroll_ParamsDataView {
- public:
-  AutofillAgent_SetFocusRequiresScroll_ParamsDataView() = default;
-
-  AutofillAgent_SetFocusRequiresScroll_ParamsDataView(
-      internal::AutofillAgent_SetFocusRequiresScroll_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  bool require() const {
-    return data_->require;
-  }
- private:
-  internal::AutofillAgent_SetFocusRequiresScroll_Params_Data* data_ = nullptr;
-};
-
-
-class AutofillAgent_SetQueryPasswordSuggestion_ParamsDataView {
- public:
-  AutofillAgent_SetQueryPasswordSuggestion_ParamsDataView() = default;
-
-  AutofillAgent_SetQueryPasswordSuggestion_ParamsDataView(
-      internal::AutofillAgent_SetQueryPasswordSuggestion_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  bool query() const {
-    return data_->query;
-  }
- private:
-  internal::AutofillAgent_SetQueryPasswordSuggestion_Params_Data* data_ = nullptr;
 };
 
 
@@ -1348,7 +1208,7 @@ static_assert(
         ::autofill::mojom::PasswordGenerationUIDataDataView, UserType>(),
     "Attempting to read the optional `data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadData` instead "
     "of `ReadData if you're fine with null values being "
@@ -1496,14 +1356,6 @@ inline void AutofillAgent_PreviewPasswordGenerationSuggestion_ParamsDataView::Ge
   auto pointer = data_->password.Get();
   *output = ::mojo_base::mojom::String16DataView(pointer, message_);
 }
-
-
-
-
-
-
-
-
 
 
 

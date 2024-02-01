@@ -57,7 +57,7 @@ class  TelemetryKeyboardInfo {
   template <typename... Args>
   static TelemetryKeyboardInfoPtr New(Args&&... args) {
     return TelemetryKeyboardInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -226,7 +226,7 @@ class  TelemetryKeyboardDiagnosticEventInfo {
   template <typename... Args>
   static TelemetryKeyboardDiagnosticEventInfoPtr New(Args&&... args) {
     return TelemetryKeyboardDiagnosticEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

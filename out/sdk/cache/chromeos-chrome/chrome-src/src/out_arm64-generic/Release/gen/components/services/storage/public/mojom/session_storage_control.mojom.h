@@ -273,7 +273,7 @@ class  SessionStorageUsageInfo {
   template <typename... Args>
   static SessionStorageUsageInfoPtr New(Args&&... args) {
     return SessionStorageUsageInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

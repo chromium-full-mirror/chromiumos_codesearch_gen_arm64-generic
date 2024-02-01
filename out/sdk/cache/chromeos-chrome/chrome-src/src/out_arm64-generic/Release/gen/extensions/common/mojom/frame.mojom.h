@@ -501,7 +501,7 @@ class  ExecuteCodeParams {
   template <typename... Args>
   static ExecuteCodeParamsPtr New(Args&&... args) {
     return ExecuteCodeParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -658,7 +658,7 @@ class  RequestParams {
   template <typename... Args>
   static RequestParamsPtr New(Args&&... args) {
     return RequestParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -827,7 +827,7 @@ class  DraggableRegion {
   template <typename... Args>
   static DraggableRegionPtr New(Args&&... args) {
     return DraggableRegionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

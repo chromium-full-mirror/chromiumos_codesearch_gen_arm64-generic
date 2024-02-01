@@ -187,7 +187,7 @@ class  ProfilingParams {
   template <typename... Args>
   static ProfilingParamsPtr New(Args&&... args) {
     return ProfilingParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -336,7 +336,7 @@ class  HeapProfileSample {
   template <typename... Args>
   static HeapProfileSamplePtr New(Args&&... args) {
     return HeapProfileSamplePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -488,7 +488,7 @@ class  HeapProfile {
   template <typename... Args>
   static HeapProfilePtr New(Args&&... args) {
     return HeapProfilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

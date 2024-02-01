@@ -190,7 +190,7 @@ class BLINK_PLATFORM_EXPORT ReportingApiReport {
   template <typename... Args>
   static ReportingApiReportPtr New(Args&&... args) {
     return ReportingApiReportPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -356,7 +356,7 @@ class BLINK_PLATFORM_EXPORT ReportingApiEndpoint {
   template <typename... Args>
   static ReportingApiEndpointPtr New(Args&&... args) {
     return ReportingApiEndpointPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

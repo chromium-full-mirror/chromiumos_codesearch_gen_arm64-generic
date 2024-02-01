@@ -61,7 +61,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM_BLINK) ReadOnlyFile {
   template <typename... Args>
   static ReadOnlyFilePtr New(Args&&... args) {
     return ReadOnlyFilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -37,6 +37,24 @@ static ShadowRootInit* Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_valu
 explicit  ShadowRootInit();
 explicit  ShadowRootInit(v8::Isolate* isolate);
 
+bool hasClonable() const {
+  return has_clonable_;
+}
+bool clonable() const {
+  DCHECK(hasClonable());
+return member_clonable_;
+}
+bool getClonableOr(bool fallback_value) const {
+  if (!hasClonable()) {
+  return fallback_value;
+}
+return member_clonable_;
+}
+void setClonable(bool value) {
+  member_clonable_ = value;
+has_clonable_ = true;
+}
+
 bool hasDelegatesFocus() const {
   return has_delegates_focus_;
 }
@@ -149,11 +167,13 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
   private:
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
+bool has_clonable_ = false;
 bool has_delegates_focus_ = false;
 bool has_registry_ = false;
 bool has_serializable_ = false;
 bool has_slot_assignment_ = false;
 
+bool member_clonable_;
 bool member_delegates_focus_;
 V8ShadowRootMode member_mode_{static_cast<V8ShadowRootMode::Enum>(0)};
 Member<CustomElementRegistry> member_registry_;

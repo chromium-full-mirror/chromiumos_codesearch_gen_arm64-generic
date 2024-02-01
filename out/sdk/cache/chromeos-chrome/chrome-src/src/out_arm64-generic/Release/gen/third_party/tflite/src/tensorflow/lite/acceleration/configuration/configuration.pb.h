@@ -260,6 +260,27 @@ inline const std::string& EdgeTpuSettings_QosClass_Name(T enum_t_value) {
 }
 bool EdgeTpuSettings_QosClass_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EdgeTpuSettings_QosClass* value);
+enum EdgeTpuSettings_UseLayerIrTgcBackend : int {
+  EdgeTpuSettings_UseLayerIrTgcBackend_USE_LAYER_IR_TGC_BACKEND_UNSPECIFIED = 0,
+  EdgeTpuSettings_UseLayerIrTgcBackend_USE_LAYER_IR_TGC_BACKEND_NO = 1,
+  EdgeTpuSettings_UseLayerIrTgcBackend_USE_LAYER_IR_TGC_BACKEND_YES = 2,
+  EdgeTpuSettings_UseLayerIrTgcBackend_USE_LAYER_IR_TGC_BACKEND_AUTO = 3
+};
+bool EdgeTpuSettings_UseLayerIrTgcBackend_IsValid(int value);
+constexpr EdgeTpuSettings_UseLayerIrTgcBackend EdgeTpuSettings_UseLayerIrTgcBackend_UseLayerIrTgcBackend_MIN = EdgeTpuSettings_UseLayerIrTgcBackend_USE_LAYER_IR_TGC_BACKEND_UNSPECIFIED;
+constexpr EdgeTpuSettings_UseLayerIrTgcBackend EdgeTpuSettings_UseLayerIrTgcBackend_UseLayerIrTgcBackend_MAX = EdgeTpuSettings_UseLayerIrTgcBackend_USE_LAYER_IR_TGC_BACKEND_AUTO;
+constexpr int EdgeTpuSettings_UseLayerIrTgcBackend_UseLayerIrTgcBackend_ARRAYSIZE = EdgeTpuSettings_UseLayerIrTgcBackend_UseLayerIrTgcBackend_MAX + 1;
+
+const std::string& EdgeTpuSettings_UseLayerIrTgcBackend_Name(EdgeTpuSettings_UseLayerIrTgcBackend value);
+template<typename T>
+inline const std::string& EdgeTpuSettings_UseLayerIrTgcBackend_Name(T enum_t_value) {
+  static_assert(::std::is_same<T, EdgeTpuSettings_UseLayerIrTgcBackend>::value ||
+    ::std::is_integral<T>::value,
+    "Incorrect type passed to function EdgeTpuSettings_UseLayerIrTgcBackend_Name.");
+  return EdgeTpuSettings_UseLayerIrTgcBackend_Name(static_cast<EdgeTpuSettings_UseLayerIrTgcBackend>(enum_t_value));
+}
+bool EdgeTpuSettings_UseLayerIrTgcBackend_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EdgeTpuSettings_UseLayerIrTgcBackend* value);
 enum GoogleEdgeTpuSettings_Priority : int {
   GoogleEdgeTpuSettings_Priority_PRIORITY_UNDEFINED = 0,
   GoogleEdgeTpuSettings_Priority_PRIORITY_LOW = 1,
@@ -2796,6 +2817,36 @@ class EdgeTpuSettings final :
     return EdgeTpuSettings_QosClass_Parse(name, value);
   }
 
+  typedef EdgeTpuSettings_UseLayerIrTgcBackend UseLayerIrTgcBackend;
+  static constexpr UseLayerIrTgcBackend USE_LAYER_IR_TGC_BACKEND_UNSPECIFIED =
+    EdgeTpuSettings_UseLayerIrTgcBackend_USE_LAYER_IR_TGC_BACKEND_UNSPECIFIED;
+  static constexpr UseLayerIrTgcBackend USE_LAYER_IR_TGC_BACKEND_NO =
+    EdgeTpuSettings_UseLayerIrTgcBackend_USE_LAYER_IR_TGC_BACKEND_NO;
+  static constexpr UseLayerIrTgcBackend USE_LAYER_IR_TGC_BACKEND_YES =
+    EdgeTpuSettings_UseLayerIrTgcBackend_USE_LAYER_IR_TGC_BACKEND_YES;
+  static constexpr UseLayerIrTgcBackend USE_LAYER_IR_TGC_BACKEND_AUTO =
+    EdgeTpuSettings_UseLayerIrTgcBackend_USE_LAYER_IR_TGC_BACKEND_AUTO;
+  static inline bool UseLayerIrTgcBackend_IsValid(int value) {
+    return EdgeTpuSettings_UseLayerIrTgcBackend_IsValid(value);
+  }
+  static constexpr UseLayerIrTgcBackend UseLayerIrTgcBackend_MIN =
+    EdgeTpuSettings_UseLayerIrTgcBackend_UseLayerIrTgcBackend_MIN;
+  static constexpr UseLayerIrTgcBackend UseLayerIrTgcBackend_MAX =
+    EdgeTpuSettings_UseLayerIrTgcBackend_UseLayerIrTgcBackend_MAX;
+  static constexpr int UseLayerIrTgcBackend_ARRAYSIZE =
+    EdgeTpuSettings_UseLayerIrTgcBackend_UseLayerIrTgcBackend_ARRAYSIZE;
+  template<typename T>
+  static inline const std::string& UseLayerIrTgcBackend_Name(T enum_t_value) {
+    static_assert(::std::is_same<T, UseLayerIrTgcBackend>::value ||
+      ::std::is_integral<T>::value,
+      "Incorrect type passed to function UseLayerIrTgcBackend_Name.");
+    return EdgeTpuSettings_UseLayerIrTgcBackend_Name(enum_t_value);
+  }
+  static inline bool UseLayerIrTgcBackend_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+      UseLayerIrTgcBackend* value) {
+    return EdgeTpuSettings_UseLayerIrTgcBackend_Parse(name, value);
+  }
+
   // accessors -------------------------------------------------------
 
   enum : int {
@@ -2807,6 +2858,7 @@ class EdgeTpuSettings final :
     kInferencePowerStateFieldNumber = 1,
     kFloatTruncationTypeFieldNumber = 6,
     kQosClassFieldNumber = 7,
+    kUseLayerIrTgcBackendFieldNumber = 10,
     kInferencePriorityFieldNumber = 3,
   };
   // repeated .tflite.proto.EdgeTpuInactivePowerConfig inactive_power_configs = 2;
@@ -2942,6 +2994,19 @@ class EdgeTpuSettings final :
   void _internal_set_qos_class(::tflite::proto::EdgeTpuSettings_QosClass value);
   public:
 
+  // optional .tflite.proto.EdgeTpuSettings.UseLayerIrTgcBackend use_layer_ir_tgc_backend = 10 [default = USE_LAYER_IR_TGC_BACKEND_UNSPECIFIED];
+  bool has_use_layer_ir_tgc_backend() const;
+  private:
+  bool _internal_has_use_layer_ir_tgc_backend() const;
+  public:
+  void clear_use_layer_ir_tgc_backend();
+  ::tflite::proto::EdgeTpuSettings_UseLayerIrTgcBackend use_layer_ir_tgc_backend() const;
+  void set_use_layer_ir_tgc_backend(::tflite::proto::EdgeTpuSettings_UseLayerIrTgcBackend value);
+  private:
+  ::tflite::proto::EdgeTpuSettings_UseLayerIrTgcBackend _internal_use_layer_ir_tgc_backend() const;
+  void _internal_set_use_layer_ir_tgc_backend(::tflite::proto::EdgeTpuSettings_UseLayerIrTgcBackend value);
+  public:
+
   // optional int32 inference_priority = 3 [default = -1];
   bool has_inference_priority() const;
   private:
@@ -2973,6 +3038,7 @@ class EdgeTpuSettings final :
   int inference_power_state_;
   int float_truncation_type_;
   int qos_class_;
+  int use_layer_ir_tgc_backend_;
   int32_t inference_priority_;
   friend struct ::TableStruct_tensorflow_2flite_2facceleration_2fconfiguration_2fconfiguration_2eproto;
 };
@@ -9281,7 +9347,7 @@ EdgeTpuSettings::inactive_power_configs() const {
 
 // optional int32 inference_priority = 3 [default = -1];
 inline bool EdgeTpuSettings::_internal_has_inference_priority() const {
-  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  bool value = (_has_bits_[0] & 0x00000080u) != 0;
   return value;
 }
 inline bool EdgeTpuSettings::has_inference_priority() const {
@@ -9289,7 +9355,7 @@ inline bool EdgeTpuSettings::has_inference_priority() const {
 }
 inline void EdgeTpuSettings::clear_inference_priority() {
   inference_priority_ = -1;
-  _has_bits_[0] &= ~0x00000040u;
+  _has_bits_[0] &= ~0x00000080u;
 }
 inline int32_t EdgeTpuSettings::_internal_inference_priority() const {
   return inference_priority_;
@@ -9299,7 +9365,7 @@ inline int32_t EdgeTpuSettings::inference_priority() const {
   return _internal_inference_priority();
 }
 inline void EdgeTpuSettings::_internal_set_inference_priority(int32_t value) {
-  _has_bits_[0] |= 0x00000040u;
+  _has_bits_[0] |= 0x00000080u;
   inference_priority_ = value;
 }
 inline void EdgeTpuSettings::set_inference_priority(int32_t value) {
@@ -9636,6 +9702,35 @@ inline void EdgeTpuSettings::set_allocated_public_model_id(std::string* public_m
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:tflite.proto.EdgeTpuSettings.public_model_id)
+}
+
+// optional .tflite.proto.EdgeTpuSettings.UseLayerIrTgcBackend use_layer_ir_tgc_backend = 10 [default = USE_LAYER_IR_TGC_BACKEND_UNSPECIFIED];
+inline bool EdgeTpuSettings::_internal_has_use_layer_ir_tgc_backend() const {
+  bool value = (_has_bits_[0] & 0x00000040u) != 0;
+  return value;
+}
+inline bool EdgeTpuSettings::has_use_layer_ir_tgc_backend() const {
+  return _internal_has_use_layer_ir_tgc_backend();
+}
+inline void EdgeTpuSettings::clear_use_layer_ir_tgc_backend() {
+  use_layer_ir_tgc_backend_ = 0;
+  _has_bits_[0] &= ~0x00000040u;
+}
+inline ::tflite::proto::EdgeTpuSettings_UseLayerIrTgcBackend EdgeTpuSettings::_internal_use_layer_ir_tgc_backend() const {
+  return static_cast< ::tflite::proto::EdgeTpuSettings_UseLayerIrTgcBackend >(use_layer_ir_tgc_backend_);
+}
+inline ::tflite::proto::EdgeTpuSettings_UseLayerIrTgcBackend EdgeTpuSettings::use_layer_ir_tgc_backend() const {
+  // @@protoc_insertion_point(field_get:tflite.proto.EdgeTpuSettings.use_layer_ir_tgc_backend)
+  return _internal_use_layer_ir_tgc_backend();
+}
+inline void EdgeTpuSettings::_internal_set_use_layer_ir_tgc_backend(::tflite::proto::EdgeTpuSettings_UseLayerIrTgcBackend value) {
+  assert(::tflite::proto::EdgeTpuSettings_UseLayerIrTgcBackend_IsValid(value));
+  _has_bits_[0] |= 0x00000040u;
+  use_layer_ir_tgc_backend_ = value;
+}
+inline void EdgeTpuSettings::set_use_layer_ir_tgc_backend(::tflite::proto::EdgeTpuSettings_UseLayerIrTgcBackend value) {
+  _internal_set_use_layer_ir_tgc_backend(value);
+  // @@protoc_insertion_point(field_set:tflite.proto.EdgeTpuSettings.use_layer_ir_tgc_backend)
 }
 
 // -------------------------------------------------------------------
@@ -14384,6 +14479,7 @@ template <> struct is_proto_enum< ::tflite::proto::CoreMLSettings_EnabledDevices
 template <> struct is_proto_enum< ::tflite::proto::EdgeTpuDeviceSpec_PlatformType> : ::std::true_type {};
 template <> struct is_proto_enum< ::tflite::proto::EdgeTpuSettings_FloatTruncationType> : ::std::true_type {};
 template <> struct is_proto_enum< ::tflite::proto::EdgeTpuSettings_QosClass> : ::std::true_type {};
+template <> struct is_proto_enum< ::tflite::proto::EdgeTpuSettings_UseLayerIrTgcBackend> : ::std::true_type {};
 template <> struct is_proto_enum< ::tflite::proto::GoogleEdgeTpuSettings_Priority> : ::std::true_type {};
 template <> struct is_proto_enum< ::tflite::proto::GoogleEdgeTpuSettings_TriState> : ::std::true_type {};
 template <> struct is_proto_enum< ::tflite::proto::CoralSettings_Performance> : ::std::true_type {};

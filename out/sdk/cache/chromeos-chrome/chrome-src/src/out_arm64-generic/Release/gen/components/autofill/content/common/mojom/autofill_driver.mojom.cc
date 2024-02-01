@@ -49,9 +49,6 @@ const char AutofillDriver::Name_[] = "autofill.mojom.AutofillDriver";
 AutofillDriver::IPCStableHashFunction AutofillDriver::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kAutofillDriver_SetFormToBeProbablySubmitted_Name: {
-      return &AutofillDriver::SetFormToBeProbablySubmitted_Sym::IPCStableHash;
-    }
     case internal::kAutofillDriver_FormsSeen_Name: {
       return &AutofillDriver::FormsSeen_Sym::IPCStableHash;
     }
@@ -102,8 +99,6 @@ const char* AutofillDriver::MessageToMethodName_(mojo::Message& message) {
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kAutofillDriver_SetFormToBeProbablySubmitted_Name:
-            return "Receive autofill::mojom::AutofillDriver::SetFormToBeProbablySubmitted";
       case internal::kAutofillDriver_FormsSeen_Name:
             return "Receive autofill::mojom::AutofillDriver::FormsSeen";
       case internal::kAutofillDriver_FormSubmitted_Name:
@@ -133,8 +128,6 @@ const char* AutofillDriver::MessageToMethodName_(mojo::Message& message) {
     }
   } else {
     switch (message.name()) {
-      case internal::kAutofillDriver_SetFormToBeProbablySubmitted_Name:
-            return "Receive reply autofill::mojom::AutofillDriver::SetFormToBeProbablySubmitted";
       case internal::kAutofillDriver_FormsSeen_Name:
             return "Receive reply autofill::mojom::AutofillDriver::FormsSeen";
       case internal::kAutofillDriver_FormSubmitted_Name:
@@ -175,19 +168,6 @@ const char* AutofillDriver::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t AutofillDriver::SetFormToBeProbablySubmitted_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)autofill::mojom::AutofillDriver::SetFormToBeProbablySubmitted");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t AutofillDriver::FormsSeen_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -361,53 +341,6 @@ uint32_t AutofillDriver::JavaScriptChangedAutofilledValue_Sym::IPCStableHash() {
 
 AutofillDriverProxy::AutofillDriverProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
-}
-
-void AutofillDriverProxy::SetFormToBeProbablySubmitted(
-    const std::optional<::autofill::FormData>& in_form) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send autofill::mojom::AutofillDriver::SetFormToBeProbablySubmitted", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("form"), in_form,
-                        "<value of type const std::optional<::autofill::FormData>&>");
-   });
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kAutofillDriver_SetFormToBeProbablySubmitted_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::autofill::mojom::internal::AutofillDriver_SetFormToBeProbablySubmitted_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::MessageFragment<
-      typename decltype(params->form)::BaseType> form_fragment(
-          params.message());
-  mojo::internal::Serialize<::autofill::mojom::FormDataDataView>(
-      in_form, form_fragment);
-  params->form.Set(
-      form_fragment.is_null() ? nullptr : form_fragment.data());
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(AutofillDriver::Name_);
-  message.set_method_name("SetFormToBeProbablySubmitted");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void AutofillDriverProxy::FormsSeen(
@@ -1260,34 +1193,6 @@ bool AutofillDriverStubDispatch::Accept(
     AutofillDriver* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kAutofillDriver_SetFormToBeProbablySubmitted_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::AutofillDriver_SetFormToBeProbablySubmitted_Params_Data* params =
-          reinterpret_cast<internal::AutofillDriver_SetFormToBeProbablySubmitted_Params_Data*>(
-              message->mutable_payload());
-      
-      
-      // Validation for AutofillDriver.0
-      bool success = true;
-      std::optional<::autofill::FormData> p_form{};
-      AutofillDriver_SetFormToBeProbablySubmitted_ParamsDataView input_data_view(params, message);
-      
-      if (success && !input_data_view.ReadForm(&p_form))
-        success = false;
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillDriver::Name_, 0, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetFormToBeProbablySubmitted(        
-        std::move(p_form));
-      return true;
-    }
     case internal::kAutofillDriver_FormsSeen_Name: {
 
       DCHECK(message->is_serialized());
@@ -1296,7 +1201,7 @@ bool AutofillDriverStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AutofillDriver.1
+      // Validation for AutofillDriver.0
       bool success = true;
       std::vector<::autofill::FormData> p_updated_forms{};
       std::vector<::autofill::FormRendererId> p_removed_forms{};
@@ -1310,7 +1215,7 @@ bool AutofillDriverStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillDriver::Name_, 1, false);
+            AutofillDriver::Name_, 0, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1328,7 +1233,7 @@ bool AutofillDriverStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AutofillDriver.2
+      // Validation for AutofillDriver.1
       bool success = true;
       ::autofill::FormData p_form{};
       bool p_known_success{};
@@ -1345,7 +1250,7 @@ bool AutofillDriverStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillDriver::Name_, 2, false);
+            AutofillDriver::Name_, 1, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1364,7 +1269,7 @@ bool AutofillDriverStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AutofillDriver.3
+      // Validation for AutofillDriver.2
       bool success = true;
       ::autofill::FormData p_form{};
       ::autofill::FormFieldData p_field{};
@@ -1384,7 +1289,7 @@ bool AutofillDriverStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillDriver::Name_, 3, false);
+            AutofillDriver::Name_, 2, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1404,7 +1309,7 @@ bool AutofillDriverStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AutofillDriver.4
+      // Validation for AutofillDriver.3
       bool success = true;
       ::autofill::FormData p_form{};
       ::autofill::FormFieldData p_field{};
@@ -1421,7 +1326,7 @@ bool AutofillDriverStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillDriver::Name_, 4, false);
+            AutofillDriver::Name_, 3, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1440,7 +1345,7 @@ bool AutofillDriverStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AutofillDriver.5
+      // Validation for AutofillDriver.4
       bool success = true;
       ::autofill::FormData p_form{};
       ::autofill::FormFieldData p_field{};
@@ -1457,7 +1362,7 @@ bool AutofillDriverStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillDriver::Name_, 5, false);
+            AutofillDriver::Name_, 4, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1476,7 +1381,7 @@ bool AutofillDriverStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AutofillDriver.6
+      // Validation for AutofillDriver.5
       bool success = true;
       ::autofill::FormData p_form{};
       AutofillDriver_SelectOrSelectListFieldOptionsDidChange_ParamsDataView input_data_view(params, message);
@@ -1487,7 +1392,7 @@ bool AutofillDriverStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillDriver::Name_, 6, false);
+            AutofillDriver::Name_, 5, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1504,7 +1409,7 @@ bool AutofillDriverStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AutofillDriver.7
+      // Validation for AutofillDriver.6
       bool success = true;
       ::autofill::FormData p_form{};
       ::autofill::FormFieldData p_field{};
@@ -1524,7 +1429,7 @@ bool AutofillDriverStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillDriver::Name_, 7, false);
+            AutofillDriver::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1544,7 +1449,7 @@ bool AutofillDriverStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AutofillDriver.8
+      // Validation for AutofillDriver.7
       bool success = true;
       AutofillDriver_HidePopup_ParamsDataView input_data_view(params, message);
       
@@ -1552,7 +1457,7 @@ bool AutofillDriverStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillDriver::Name_, 8, false);
+            AutofillDriver::Name_, 7, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1568,7 +1473,7 @@ bool AutofillDriverStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AutofillDriver.9
+      // Validation for AutofillDriver.8
       bool success = true;
       bool p_had_interacted_form{};
       AutofillDriver_FocusNoLongerOnForm_ParamsDataView input_data_view(params, message);
@@ -1579,7 +1484,7 @@ bool AutofillDriverStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillDriver::Name_, 9, false);
+            AutofillDriver::Name_, 8, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1596,7 +1501,7 @@ bool AutofillDriverStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AutofillDriver.10
+      // Validation for AutofillDriver.9
       bool success = true;
       ::autofill::FormData p_form{};
       ::autofill::FormFieldData p_field{};
@@ -1613,7 +1518,7 @@ bool AutofillDriverStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillDriver::Name_, 10, false);
+            AutofillDriver::Name_, 9, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1632,7 +1537,7 @@ bool AutofillDriverStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AutofillDriver.11
+      // Validation for AutofillDriver.10
       bool success = true;
       ::autofill::FormData p_form{};
       ::base::TimeTicks p_timestamp{};
@@ -1646,7 +1551,7 @@ bool AutofillDriverStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillDriver::Name_, 11, false);
+            AutofillDriver::Name_, 10, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1664,7 +1569,7 @@ bool AutofillDriverStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AutofillDriver.12
+      // Validation for AutofillDriver.11
       bool success = true;
       AutofillDriver_DidEndTextFieldEditing_ParamsDataView input_data_view(params, message);
       
@@ -1672,7 +1577,7 @@ bool AutofillDriverStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillDriver::Name_, 12, false);
+            AutofillDriver::Name_, 11, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1688,7 +1593,7 @@ bool AutofillDriverStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AutofillDriver.13
+      // Validation for AutofillDriver.12
       bool success = true;
       ::autofill::FormData p_form{};
       ::autofill::FormFieldData p_field{};
@@ -1705,7 +1610,7 @@ bool AutofillDriverStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillDriver::Name_, 13, false);
+            AutofillDriver::Name_, 12, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1729,9 +1634,6 @@ bool AutofillDriverStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kAutofillDriver_SetFormToBeProbablySubmitted_Name: {
-      break;
-    }
     case internal::kAutofillDriver_FormsSeen_Name: {
       break;
     }
@@ -1777,8 +1679,6 @@ bool AutofillDriverStubDispatch::AcceptWithResponder(
 namespace {
 }  // namespace
 static const mojo::internal::GenericValidationInfo kAutofillDriverValidationInfo[] = {
-    { &internal::AutofillDriver_SetFormToBeProbablySubmitted_Params_Data::Validate,
-     nullptr /* no response */},
     { &internal::AutofillDriver_FormsSeen_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::AutofillDriver_FormSubmitted_Params_Data::Validate,
@@ -4184,9 +4084,6 @@ namespace mojo {
 namespace autofill::mojom {
 
 
-void AutofillDriverInterceptorForTesting::SetFormToBeProbablySubmitted(const std::optional<::autofill::FormData>& form) {
-  GetForwardingInterface()->SetFormToBeProbablySubmitted(std::move(form));
-}
 void AutofillDriverInterceptorForTesting::FormsSeen(const std::vector<::autofill::FormData>& updated_forms, const std::vector<::autofill::FormRendererId>& removed_forms) {
   GetForwardingInterface()->FormsSeen(std::move(updated_forms), std::move(removed_forms));
 }

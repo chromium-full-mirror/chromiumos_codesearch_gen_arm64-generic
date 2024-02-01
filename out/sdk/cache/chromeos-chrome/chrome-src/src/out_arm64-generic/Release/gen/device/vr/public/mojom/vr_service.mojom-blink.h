@@ -1103,7 +1103,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRDepthConfig {
   template <typename... Args>
   static XRDepthConfigPtr New(Args&&... args) {
     return XRDepthConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1254,7 +1254,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) VRFieldOfView {
   template <typename... Args>
   static VRFieldOfViewPtr New(Args&&... args) {
     return VRFieldOfViewPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1410,7 +1410,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRPresentationTran
   template <typename... Args>
   static XRPresentationTransportOptionsPtr New(Args&&... args) {
     return XRPresentationTransportOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1560,7 +1560,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRInputSourceSpace
   template <typename... Args>
   static XRInputSourceSpaceInfoPtr New(Args&&... args) {
     return XRInputSourceSpaceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1704,7 +1704,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRHandJointSpaceIn
   template <typename... Args>
   static XRHandJointSpaceInfoPtr New(Args&&... args) {
     return XRHandJointSpaceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1848,7 +1848,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRPlanePointData {
   template <typename... Args>
   static XRPlanePointDataPtr New(Args&&... args) {
     return XRPlanePointDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1999,7 +1999,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) RgbTupleF32 {
   template <typename... Args>
   static RgbTupleF32Ptr New(Args&&... args) {
     return RgbTupleF32Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2146,7 +2146,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) RgbaTupleF16 {
   template <typename... Args>
   static RgbaTupleF16Ptr New(Args&&... args) {
     return RgbaTupleF16Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2299,7 +2299,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRDepthDataStillVa
   template <typename... Args>
   static XRDepthDataStillValidPtr New(Args&&... args) {
     return XRDepthDataStillValidPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2440,7 +2440,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRFrameDataRequest
   template <typename... Args>
   static XRFrameDataRequestOptionsPtr New(Args&&... args) {
     return XRFrameDataRequestOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2594,7 +2594,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRNativeOriginInfo
   static XRNativeOriginInformationPtr
   NewInputSourceSpaceInfo(
       XRInputSourceSpaceInfoPtr value) {
-    auto result = XRNativeOriginInformationPtr(absl::in_place);
+    auto result = XRNativeOriginInformationPtr(std::in_place);
     result->set_input_source_space_info(std::move(value));
     return result;
   }
@@ -2602,7 +2602,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRNativeOriginInfo
   static XRNativeOriginInformationPtr
   NewPlaneId(
       uint64_t value) {
-    auto result = XRNativeOriginInformationPtr(absl::in_place);
+    auto result = XRNativeOriginInformationPtr(std::in_place);
     result->set_plane_id(std::move(value));
     return result;
   }
@@ -2610,7 +2610,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRNativeOriginInfo
   static XRNativeOriginInformationPtr
   NewAnchorId(
       uint64_t value) {
-    auto result = XRNativeOriginInformationPtr(absl::in_place);
+    auto result = XRNativeOriginInformationPtr(std::in_place);
     result->set_anchor_id(std::move(value));
     return result;
   }
@@ -2618,7 +2618,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRNativeOriginInfo
   static XRNativeOriginInformationPtr
   NewReferenceSpaceType(
       XRReferenceSpaceType value) {
-    auto result = XRNativeOriginInformationPtr(absl::in_place);
+    auto result = XRNativeOriginInformationPtr(std::in_place);
     result->set_reference_space_type(std::move(value));
     return result;
   }
@@ -2626,7 +2626,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRNativeOriginInfo
   static XRNativeOriginInformationPtr
   NewHandJointSpaceInfo(
       XRHandJointSpaceInfoPtr value) {
-    auto result = XRNativeOriginInformationPtr(absl::in_place);
+    auto result = XRNativeOriginInformationPtr(std::in_place);
     result->set_hand_joint_space_info(std::move(value));
     return result;
   }
@@ -2634,7 +2634,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRNativeOriginInfo
   static XRNativeOriginInformationPtr
   NewImageIndex(
       uint32_t value) {
-    auto result = XRNativeOriginInformationPtr(absl::in_place);
+    auto result = XRNativeOriginInformationPtr(std::in_place);
     result->set_image_index(std::move(value));
     return result;
   }
@@ -2809,7 +2809,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRDepthData {
   static XRDepthDataPtr
   NewDataStillValid(
       XRDepthDataStillValidPtr value) {
-    auto result = XRDepthDataPtr(absl::in_place);
+    auto result = XRDepthDataPtr(std::in_place);
     result->set_data_still_valid(std::move(value));
     return result;
   }
@@ -2817,7 +2817,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRDepthData {
   static XRDepthDataPtr
   NewUpdatedDepthData(
       XRDepthDataUpdatedPtr value) {
-    auto result = XRDepthDataPtr(absl::in_place);
+    auto result = XRDepthDataPtr(std::in_place);
     result->set_updated_depth_data(std::move(value));
     return result;
   }
@@ -2939,7 +2939,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) RequestSessionResu
   static RequestSessionResultPtr
   NewSuccess(
       RequestSessionSuccessPtr value) {
-    auto result = RequestSessionResultPtr(absl::in_place);
+    auto result = RequestSessionResultPtr(std::in_place);
     result->set_success(std::move(value));
     return result;
   }
@@ -2947,7 +2947,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) RequestSessionResu
   static RequestSessionResultPtr
   NewFailureReason(
       ::device::mojom::blink::RequestSessionError value) {
-    auto result = RequestSessionResultPtr(absl::in_place);
+    auto result = RequestSessionResultPtr(std::in_place);
     result->set_failure_reason(std::move(value));
     return result;
   }
@@ -3062,7 +3062,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRSessionDeviceCon
   template <typename... Args>
   static XRSessionDeviceConfigPtr New(Args&&... args) {
     return XRSessionDeviceConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3216,7 +3216,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRSession {
   template <typename... Args>
   static XRSessionPtr New(Args&&... args) {
     return XRSessionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3371,7 +3371,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRPresentationConn
   template <typename... Args>
   static XRPresentationConnectionPtr New(Args&&... args) {
     return XRPresentationConnectionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3514,7 +3514,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRInputSourceDescr
   template <typename... Args>
   static XRInputSourceDescriptionPtr New(Args&&... args) {
     return XRInputSourceDescriptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3663,7 +3663,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRHandJointData {
   template <typename... Args>
   static XRHandJointDataPtr New(Args&&... args) {
     return XRHandJointDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3809,7 +3809,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRHandTrackingData
   template <typename... Args>
   static XRHandTrackingDataPtr New(Args&&... args) {
     return XRHandTrackingDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3951,7 +3951,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRInputSourceState
   template <typename... Args>
   static XRInputSourceStatePtr New(Args&&... args) {
     return XRInputSourceStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4127,7 +4127,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) VRPose {
   template <typename... Args>
   static VRPosePtr New(Args&&... args) {
     return VRPosePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4273,7 +4273,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) Pose {
   template <typename... Args>
   static PosePtr New(Args&&... args) {
     return PosePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4416,7 +4416,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRRay {
   template <typename... Args>
   static XRRayPtr New(Args&&... args) {
     return XRRayPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4559,7 +4559,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRHitResult {
   template <typename... Args>
   static XRHitResultPtr New(Args&&... args) {
     return XRHitResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4702,7 +4702,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRView {
   template <typename... Args>
   static XRViewPtr New(Args&&... args) {
     return XRViewPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4856,7 +4856,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) VRStageParameters 
   template <typename... Args>
   static VRStageParametersPtr New(Args&&... args) {
     return VRStageParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5003,7 +5003,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRPlaneData {
   template <typename... Args>
   static XRPlaneDataPtr New(Args&&... args) {
     return XRPlaneDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5154,7 +5154,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRPlaneDetectionDa
   template <typename... Args>
   static XRPlaneDetectionDataPtr New(Args&&... args) {
     return XRPlaneDetectionDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5299,7 +5299,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRAnchorData {
   template <typename... Args>
   static XRAnchorDataPtr New(Args&&... args) {
     return XRAnchorDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5442,7 +5442,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRAnchorsData {
   template <typename... Args>
   static XRAnchorsDataPtr New(Args&&... args) {
     return XRAnchorsDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5587,7 +5587,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRHitTestSubscript
   template <typename... Args>
   static XRHitTestSubscriptionResultDataPtr New(Args&&... args) {
     return XRHitTestSubscriptionResultDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5732,7 +5732,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRHitTestTransient
   template <typename... Args>
   static XRHitTestTransientInputSubscriptionResultDataPtr New(Args&&... args) {
     return XRHitTestTransientInputSubscriptionResultDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5877,7 +5877,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRHitTestSubscript
   template <typename... Args>
   static XRHitTestSubscriptionResultsDataPtr New(Args&&... args) {
     return XRHitTestSubscriptionResultsDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6023,7 +6023,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRSphericalHarmoni
   template <typename... Args>
   static XRSphericalHarmonicsPtr New(Args&&... args) {
     return XRSphericalHarmonicsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6166,7 +6166,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRCubeMap {
   template <typename... Args>
   static XRCubeMapPtr New(Args&&... args) {
     return XRCubeMapPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6324,7 +6324,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRLightProbe {
   template <typename... Args>
   static XRLightProbePtr New(Args&&... args) {
     return XRLightProbePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6472,7 +6472,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRReflectionProbe 
   template <typename... Args>
   static XRReflectionProbePtr New(Args&&... args) {
     return XRReflectionProbePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6614,7 +6614,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRLightEstimationD
   template <typename... Args>
   static XRLightEstimationDataPtr New(Args&&... args) {
     return XRLightEstimationDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6760,7 +6760,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRDepthDataUpdated
   template <typename... Args>
   static XRDepthDataUpdatedPtr New(Args&&... args) {
     return XRDepthDataUpdatedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6909,7 +6909,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRTrackedImageData
   template <typename... Args>
   static XRTrackedImageDataPtr New(Args&&... args) {
     return XRTrackedImageDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7058,7 +7058,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRTrackedImagesDat
   template <typename... Args>
   static XRTrackedImagesDataPtr New(Args&&... args) {
     return XRTrackedImagesDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7203,7 +7203,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) XRFrameData {
   template <typename... Args>
   static XRFrameDataPtr New(Args&&... args) {
     return XRFrameDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7391,7 +7391,7 @@ class COMPONENT_EXPORT(DEVICE_VR_SERVICE_MOJO_BINDINGS_BLINK) RequestSessionSucc
   template <typename... Args>
   static RequestSessionSuccessPtr New(Args&&... args) {
     return RequestSessionSuccessPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

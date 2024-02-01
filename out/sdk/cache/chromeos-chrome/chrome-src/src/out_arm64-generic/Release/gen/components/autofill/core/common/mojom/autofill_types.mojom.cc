@@ -417,7 +417,7 @@ FormFieldData::FormFieldData()
       css_classes(),
       aria_label(),
       aria_description(),
-      unique_renderer_id(),
+      renderer_id(),
       host_form_id(),
       properties_mask(),
       form_control_ax_id(),
@@ -454,7 +454,7 @@ FormFieldData::FormFieldData(
     const ::std::u16string& css_classes_in,
     const ::std::u16string& aria_label_in,
     const ::std::u16string& aria_description_in,
-    ::autofill::FieldRendererId unique_renderer_id_in,
+    ::autofill::FieldRendererId renderer_id_in,
     ::autofill::FormRendererId host_form_id_in,
     uint32_t properties_mask_in,
     int32_t form_control_ax_id_in,
@@ -489,7 +489,7 @@ FormFieldData::FormFieldData(
       css_classes(std::move(css_classes_in)),
       aria_label(std::move(aria_label_in)),
       aria_description(std::move(aria_description_in)),
-      unique_renderer_id(std::move(unique_renderer_id_in)),
+      renderer_id(std::move(renderer_id_in)),
       host_form_id(std::move(host_form_id_in)),
       properties_mask(std::move(properties_mask_in)),
       form_control_ax_id(std::move(form_control_ax_id_in)),
@@ -636,7 +636,7 @@ void FormFieldData::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "unique_renderer_id"), this->unique_renderer_id,
+      "renderer_id"), this->renderer_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::autofill::FieldRendererId>"
 #else
@@ -841,19 +841,19 @@ bool FormFieldData::Validate(
 }
 FormFieldData_FillData::FormFieldData_FillData()
     : value(),
-      unique_renderer_id(),
+      renderer_id(),
       is_autofilled(),
       section(),
       force_override() {}
 
 FormFieldData_FillData::FormFieldData_FillData(
     const ::std::u16string& value_in,
-    ::autofill::FieldRendererId unique_renderer_id_in,
+    ::autofill::FieldRendererId renderer_id_in,
     bool is_autofilled_in,
     const ::autofill::Section& section_in,
     bool force_override_in)
     : value(std::move(value_in)),
-      unique_renderer_id(std::move(unique_renderer_id_in)),
+      renderer_id(std::move(renderer_id_in)),
       is_autofilled(std::move(is_autofilled_in)),
       section(std::move(section_in)),
       force_override(std::move(force_override_in)) {}
@@ -874,7 +874,7 @@ void FormFieldData_FillData::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "unique_renderer_id"), this->unique_renderer_id,
+      "renderer_id"), this->renderer_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::autofill::FieldRendererId>"
 #else
@@ -963,7 +963,7 @@ FormData::FormData()
       action(),
       is_action_empty(),
       is_form_tag(),
-      unique_renderer_id(),
+      renderer_id(),
       child_frames(),
       submission_event(),
       fields(),
@@ -978,7 +978,7 @@ FormData::FormData(
     const ::GURL& action_in,
     bool is_action_empty_in,
     bool is_form_tag_in,
-    ::autofill::FormRendererId unique_renderer_id_in,
+    ::autofill::FormRendererId renderer_id_in,
     std::vector<FrameTokenWithPredecessorPtr> child_frames_in,
     SubmissionIndicatorEvent submission_event_in,
     std::vector<::autofill::FormFieldData> fields_in,
@@ -991,7 +991,7 @@ FormData::FormData(
       action(std::move(action_in)),
       is_action_empty(std::move(is_action_empty_in)),
       is_form_tag(std::move(is_form_tag_in)),
-      unique_renderer_id(std::move(unique_renderer_id_in)),
+      renderer_id(std::move(renderer_id_in)),
       child_frames(std::move(child_frames_in)),
       submission_event(std::move(submission_event_in)),
       fields(std::move(fields_in)),
@@ -1068,7 +1068,7 @@ void FormData::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "unique_renderer_id"), this->unique_renderer_id,
+      "renderer_id"), this->renderer_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::autofill::FormRendererId>"
 #else
@@ -1128,13 +1128,13 @@ bool FormData::Validate(
   return Data_::Validate(data, validation_context);
 }
 FormData_FillData::FormData_FillData()
-    : unique_renderer_id(),
+    : renderer_id(),
       fields() {}
 
 FormData_FillData::FormData_FillData(
-    ::autofill::FormRendererId unique_renderer_id_in,
+    ::autofill::FormRendererId renderer_id_in,
     std::vector<::autofill::FormFieldData::FillData> fields_in)
-    : unique_renderer_id(std::move(unique_renderer_id_in)),
+    : renderer_id(std::move(renderer_id_in)),
       fields(std::move(fields_in)) {}
 
 FormData_FillData::~FormData_FillData() = default;
@@ -1144,7 +1144,7 @@ void FormData_FillData::WriteIntoTrace(
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "unique_renderer_id"), this->unique_renderer_id,
+      "renderer_id"), this->renderer_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::autofill::FormRendererId>"
 #else
@@ -2028,7 +2028,7 @@ bool StructTraits<::autofill::mojom::FormFieldData::DataView, ::autofill::mojom:
         success = false;
       if (success && !input.ReadAriaDescription(&result->aria_description))
         success = false;
-      if (success && !input.ReadUniqueRendererId(&result->unique_renderer_id))
+      if (success && !input.ReadRendererId(&result->renderer_id))
         success = false;
       if (success && !input.ReadHostFormId(&result->host_form_id))
         success = false;
@@ -2086,7 +2086,7 @@ bool StructTraits<::autofill::mojom::FormFieldData_FillData::DataView, ::autofil
   
       if (success && !input.ReadValue(&result->value))
         success = false;
-      if (success && !input.ReadUniqueRendererId(&result->unique_renderer_id))
+      if (success && !input.ReadRendererId(&result->renderer_id))
         success = false;
       if (success)
         result->is_autofilled = input.is_autofilled();
@@ -2136,7 +2136,7 @@ bool StructTraits<::autofill::mojom::FormData::DataView, ::autofill::mojom::Form
         result->is_action_empty = input.is_action_empty();
       if (success)
         result->is_form_tag = input.is_form_tag();
-      if (success && !input.ReadUniqueRendererId(&result->unique_renderer_id))
+      if (success && !input.ReadRendererId(&result->renderer_id))
         success = false;
       if (success && !input.ReadChildFrames(&result->child_frames))
         success = false;
@@ -2160,7 +2160,7 @@ bool StructTraits<::autofill::mojom::FormData_FillData::DataView, ::autofill::mo
   bool success = true;
   ::autofill::mojom::FormData_FillDataPtr result(::autofill::mojom::FormData_FillData::New());
   
-      if (success && !input.ReadUniqueRendererId(&result->unique_renderer_id))
+      if (success && !input.ReadRendererId(&result->renderer_id))
         success = false;
       if (success && !input.ReadFields(&result->fields))
         success = false;

@@ -60,7 +60,7 @@ class  InputDeviceSettingsPolicy {
   template <typename... Args>
   static InputDeviceSettingsPolicyPtr New(Args&&... args) {
     return InputDeviceSettingsPolicyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -204,7 +204,7 @@ class  InputDeviceSettingsFkeyPolicy {
   template <typename... Args>
   static InputDeviceSettingsFkeyPolicyPtr New(Args&&... args) {
     return InputDeviceSettingsFkeyPolicyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -348,7 +348,7 @@ class  InputDeviceSettingsSixPackKeyPolicy {
   template <typename... Args>
   static InputDeviceSettingsSixPackKeyPolicyPtr New(Args&&... args) {
     return InputDeviceSettingsSixPackKeyPolicyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -501,7 +501,7 @@ class  PointingStickSettings {
   template <typename... Args>
   static PointingStickSettingsPtr New(Args&&... args) {
     return PointingStickSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -648,7 +648,7 @@ class  Stylus {
   template <typename... Args>
   static StylusPtr New(Args&&... args) {
     return StylusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -798,7 +798,7 @@ class  RemappingAction {
   static RemappingActionPtr
   NewAcceleratorAction(
       ::ash::AcceleratorAction value) {
-    auto result = RemappingActionPtr(absl::in_place);
+    auto result = RemappingActionPtr(std::in_place);
     result->set_accelerator_action(std::move(value));
     return result;
   }
@@ -806,7 +806,7 @@ class  RemappingAction {
   static RemappingActionPtr
   NewKeyEvent(
       KeyEventPtr value) {
-    auto result = RemappingActionPtr(absl::in_place);
+    auto result = RemappingActionPtr(std::in_place);
     result->set_key_event(std::move(value));
     return result;
   }
@@ -814,7 +814,7 @@ class  RemappingAction {
   static RemappingActionPtr
   NewStaticShortcutAction(
       StaticShortcutAction value) {
-    auto result = RemappingActionPtr(absl::in_place);
+    auto result = RemappingActionPtr(std::in_place);
     result->set_static_shortcut_action(std::move(value));
     return result;
   }
@@ -949,7 +949,7 @@ class  Button {
   static ButtonPtr
   NewVkey(
       ::ui::KeyboardCode value) {
-    auto result = ButtonPtr(absl::in_place);
+    auto result = ButtonPtr(std::in_place);
     result->set_vkey(std::move(value));
     return result;
   }
@@ -957,7 +957,7 @@ class  Button {
   static ButtonPtr
   NewCustomizableButton(
       CustomizableButton value) {
-    auto result = ButtonPtr(absl::in_place);
+    auto result = ButtonPtr(std::in_place);
     result->set_customizable_button(std::move(value));
     return result;
   }
@@ -1067,7 +1067,7 @@ class  SixPackKeyInfo {
   template <typename... Args>
   static SixPackKeyInfoPtr New(Args&&... args) {
     return SixPackKeyInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1226,7 +1226,7 @@ class  KeyboardPolicies {
   template <typename... Args>
   static KeyboardPoliciesPtr New(Args&&... args) {
     return KeyboardPoliciesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1389,7 +1389,7 @@ class  MousePolicies {
   template <typename... Args>
   static MousePoliciesPtr New(Args&&... args) {
     return MousePoliciesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1531,7 +1531,7 @@ class  Keyboard {
   template <typename... Args>
   static KeyboardPtr New(Args&&... args) {
     return KeyboardPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1694,7 +1694,7 @@ class  KeyboardSettings {
   template <typename... Args>
   static KeyboardSettingsPtr New(Args&&... args) {
     return KeyboardSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1851,7 +1851,7 @@ class  Mouse {
   template <typename... Args>
   static MousePtr New(Args&&... args) {
     return MousePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2011,7 +2011,7 @@ class  MouseSettings {
   template <typename... Args>
   static MouseSettingsPtr New(Args&&... args) {
     return MouseSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2171,7 +2171,7 @@ class  Touchpad {
   template <typename... Args>
   static TouchpadPtr New(Args&&... args) {
     return TouchpadPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2329,7 +2329,7 @@ class  TouchpadSettings {
   template <typename... Args>
   static TouchpadSettingsPtr New(Args&&... args) {
     return TouchpadSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2500,7 +2500,7 @@ class  PointingStick {
   template <typename... Args>
   static PointingStickPtr New(Args&&... args) {
     return PointingStickPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2657,7 +2657,7 @@ class  GraphicsTablet {
   template <typename... Args>
   static GraphicsTabletPtr New(Args&&... args) {
     return GraphicsTabletPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2811,7 +2811,7 @@ class  GraphicsTabletSettings {
   template <typename... Args>
   static GraphicsTabletSettingsPtr New(Args&&... args) {
     return GraphicsTabletSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2956,7 +2956,7 @@ class  ButtonRemapping {
   template <typename... Args>
   static ButtonRemappingPtr New(Args&&... args) {
     return ButtonRemappingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3104,7 +3104,7 @@ class  KeyEvent {
   template <typename... Args>
   static KeyEventPtr New(Args&&... args) {
     return KeyEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -65,7 +65,7 @@ class  TransferableDirectory {
   static TransferableDirectoryPtr
   NewHandleForIpc(
       ::mojo::PlatformHandle value) {
-    auto result = TransferableDirectoryPtr(absl::in_place);
+    auto result = TransferableDirectoryPtr(std::in_place);
     result->set_handle_for_ipc(std::move(value));
     return result;
   }
@@ -73,7 +73,7 @@ class  TransferableDirectory {
   static TransferableDirectoryPtr
   NewPath(
       const ::base::FilePath& value) {
-    auto result = TransferableDirectoryPtr(absl::in_place);
+    auto result = TransferableDirectoryPtr(std::in_place);
     result->set_path(std::move(value));
     return result;
   }

@@ -563,7 +563,7 @@ static_assert(
         ::bluetooth::mojom::UUIDDataView, UserType>(),
     "Attempting to read the optional `fast_advertisement_service_uuid` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFastAdvertisementServiceUuid` instead "
     "of `ReadFastAdvertisementServiceUuid if you're fine with null values being "
@@ -612,7 +612,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `remote_bluetooth_mac_address` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRemoteBluetoothMacAddress` instead "
     "of `ReadRemoteBluetoothMacAddress if you're fine with null values being "
@@ -632,7 +632,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `keep_alive_interval` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadKeepAliveInterval` instead "
     "of `ReadKeepAliveInterval if you're fine with null values being "
@@ -652,7 +652,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `keep_alive_timeout` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadKeepAliveTimeout` instead "
     "of `ReadKeepAliveTimeout if you're fine with null values being "

@@ -187,7 +187,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `voice_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadVoiceName` instead "
     "of `ReadVoiceName if you're fine with null values being "
@@ -207,7 +207,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `lang` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLang` instead "
     "of `ReadLang if you're fine with null values being "
@@ -230,7 +230,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `engine_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEngineId` instead "
     "of `ReadEngineId if you're fine with null values being "
@@ -250,7 +250,7 @@ static_assert(
         mojo::ArrayDataView<::ax::mojom::TtsEventType>, UserType>(),
     "Attempting to read the optional `event_types` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEventTypes` instead "
     "of `ReadEventTypes if you're fine with null values being "
@@ -298,7 +298,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `voice_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadVoiceName` instead "
     "of `ReadVoiceName if you're fine with null values being "
@@ -318,7 +318,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `engine_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEngineId` instead "
     "of `ReadEngineId if you're fine with null values being "
@@ -338,7 +338,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `lang` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLang` instead "
     "of `ReadLang if you're fine with null values being "
@@ -390,7 +390,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `error_message` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErrorMessage` instead "
     "of `ReadErrorMessage if you're fine with null values being "

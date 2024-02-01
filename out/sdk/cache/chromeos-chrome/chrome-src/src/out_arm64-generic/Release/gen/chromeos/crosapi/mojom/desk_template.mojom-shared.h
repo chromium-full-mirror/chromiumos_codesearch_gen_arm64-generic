@@ -170,7 +170,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `browser_app_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBrowserAppName` instead "
     "of `ReadBrowserAppName if you're fine with null values being "
@@ -201,7 +201,7 @@ static_assert(
         mojo::ArrayDataView<::crosapi::mojom::TabGroupDataView>, UserType>(),
     "Attempting to read the optional `groups` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadGroups` instead "
     "of `ReadGroups if you're fine with null values being "

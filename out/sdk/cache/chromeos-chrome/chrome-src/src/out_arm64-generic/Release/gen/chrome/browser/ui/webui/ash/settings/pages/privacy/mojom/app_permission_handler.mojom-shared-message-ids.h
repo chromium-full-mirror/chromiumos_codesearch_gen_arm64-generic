@@ -18,8 +18,9 @@ constexpr uint32_t kAppPermissionsHandler_AddObserver_Name = 0;
 constexpr uint32_t kAppPermissionsHandler_GetApps_Name = 1;
 constexpr uint32_t kAppPermissionsHandler_GetSystemAppsThatUseCamera_Name = 2;
 constexpr uint32_t kAppPermissionsHandler_GetSystemAppsThatUseMicrophone_Name = 3;
-constexpr uint32_t kAppPermissionsHandler_OpenNativeSettings_Name = 4;
-constexpr uint32_t kAppPermissionsHandler_SetPermission_Name = 5;
+constexpr uint32_t kAppPermissionsHandler_OpenBrowserPermissionSettings_Name = 4;
+constexpr uint32_t kAppPermissionsHandler_OpenNativeSettings_Name = 5;
+constexpr uint32_t kAppPermissionsHandler_SetPermission_Name = 6;
 constexpr uint32_t kAppPermissionsObserver_OnAppRemoved_Name = 0;
 constexpr uint32_t kAppPermissionsObserver_OnAppUpdated_Name = 1;
 

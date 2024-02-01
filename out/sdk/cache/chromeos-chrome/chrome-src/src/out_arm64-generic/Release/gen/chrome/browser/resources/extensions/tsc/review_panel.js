@@ -133,7 +133,6 @@ export class ExtensionsReviewPanelElement extends ExtensionsReviewPanelElementBa
         }
     }
     computeShouldShowUnsafeExtensions_() {
-        ExtensionsHatsBrowserProxyImpl.getInstance().triggerSurvey();
         const updatedUnsafeExtensions = this.getUnsafeExtensions_(this.extensions) || [];
         if (updatedUnsafeExtensions.length !== 0) {
             if (!this.shouldShowUnsafeExtensions_) {
@@ -141,9 +140,11 @@ export class ExtensionsReviewPanelElement extends ExtensionsReviewPanelElementBa
             }
             this.completionMetricLogged_ = false;
             this.reviewPanelShown_ = true;
+            ExtensionsHatsBrowserProxyImpl.getInstance().panelShown(true);
             return true;
         }
         else {
+            ExtensionsHatsBrowserProxyImpl.getInstance().panelShown(false);
             return false;
         }
     }

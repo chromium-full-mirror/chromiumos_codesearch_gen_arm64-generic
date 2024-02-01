@@ -59,7 +59,7 @@ class  WifiCredentialsMetadata {
   template <typename... Args>
   static WifiCredentialsMetadataPtr New(Args&&... args) {
     return WifiCredentialsMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -210,7 +210,7 @@ class  ConnectionResponseFrame {
   template <typename... Args>
   static ConnectionResponseFramePtr New(Args&&... args) {
     return ConnectionResponseFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -353,7 +353,7 @@ class  PairedKeyResultFrame {
   template <typename... Args>
   static PairedKeyResultFramePtr New(Args&&... args) {
     return PairedKeyResultFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -496,7 +496,7 @@ class  CancelFrame {
   template <typename... Args>
   static CancelFramePtr New(Args&&... args) {
     return CancelFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -642,7 +642,7 @@ class  Frame {
   static FramePtr
   NewV1(
       V1FramePtr value) {
-    auto result = FramePtr(absl::in_place);
+    auto result = FramePtr(std::in_place);
     result->set_v1(std::move(value));
     return result;
   }
@@ -751,7 +751,7 @@ class  V1Frame {
   static V1FramePtr
   NewIntroduction(
       IntroductionFramePtr value) {
-    auto result = V1FramePtr(absl::in_place);
+    auto result = V1FramePtr(std::in_place);
     result->set_introduction(std::move(value));
     return result;
   }
@@ -759,7 +759,7 @@ class  V1Frame {
   static V1FramePtr
   NewConnectionResponse(
       ConnectionResponseFramePtr value) {
-    auto result = V1FramePtr(absl::in_place);
+    auto result = V1FramePtr(std::in_place);
     result->set_connection_response(std::move(value));
     return result;
   }
@@ -767,7 +767,7 @@ class  V1Frame {
   static V1FramePtr
   NewPairedKeyEncryption(
       PairedKeyEncryptionFramePtr value) {
-    auto result = V1FramePtr(absl::in_place);
+    auto result = V1FramePtr(std::in_place);
     result->set_paired_key_encryption(std::move(value));
     return result;
   }
@@ -775,7 +775,7 @@ class  V1Frame {
   static V1FramePtr
   NewPairedKeyResult(
       PairedKeyResultFramePtr value) {
-    auto result = V1FramePtr(absl::in_place);
+    auto result = V1FramePtr(std::in_place);
     result->set_paired_key_result(std::move(value));
     return result;
   }
@@ -783,7 +783,7 @@ class  V1Frame {
   static V1FramePtr
   NewCertificateInfo(
       CertificateInfoFramePtr value) {
-    auto result = V1FramePtr(absl::in_place);
+    auto result = V1FramePtr(std::in_place);
     result->set_certificate_info(std::move(value));
     return result;
   }
@@ -791,7 +791,7 @@ class  V1Frame {
   static V1FramePtr
   NewCancelFrame(
       CancelFramePtr value) {
-    auto result = V1FramePtr(absl::in_place);
+    auto result = V1FramePtr(std::in_place);
     result->set_cancel_frame(std::move(value));
     return result;
   }
@@ -957,7 +957,7 @@ class  Advertisement {
   template <typename... Args>
   static AdvertisementPtr New(Args&&... args) {
     return AdvertisementPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1106,7 +1106,7 @@ class  IntroductionFrame {
   template <typename... Args>
   static IntroductionFramePtr New(Args&&... args) {
     return IntroductionFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1258,7 +1258,7 @@ class  FileMetadata {
   template <typename... Args>
   static FileMetadataPtr New(Args&&... args) {
     return FileMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1415,7 +1415,7 @@ class  TextMetadata {
   template <typename... Args>
   static TextMetadataPtr New(Args&&... args) {
     return TextMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1570,7 +1570,7 @@ class  PairedKeyEncryptionFrame {
   template <typename... Args>
   static PairedKeyEncryptionFramePtr New(Args&&... args) {
     return PairedKeyEncryptionFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1717,7 +1717,7 @@ class  CertificateInfoFrame {
   template <typename... Args>
   static CertificateInfoFramePtr New(Args&&... args) {
     return CertificateInfoFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1859,7 +1859,7 @@ class  PublicCertificate {
   template <typename... Args>
   static PublicCertificatePtr New(Args&&... args) {
     return PublicCertificatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

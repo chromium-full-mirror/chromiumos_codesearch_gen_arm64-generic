@@ -11,7 +11,7 @@ import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { EventTracker } from 'chrome://resources/js/event_tracker.js';
 import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { Subactions, UserAction } from '../mojom-webui/ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom-webui.js';
+import { Subactions, UserAction } from '../mojom-webui/shortcut_customization.mojom-webui.js';
 import { AcceleratorLookupManager } from './accelerator_lookup_manager.js';
 import { getTemplate } from './accelerator_view.html.js';
 import { getShortcutProvider } from './mojo_interface_provider.js';
@@ -88,6 +88,10 @@ export class AcceleratorViewElement extends AcceleratorViewElementBase {
                 type: Boolean,
                 value: false,
                 notify: true,
+            },
+            description: {
+                type: String,
+                value: '',
             },
             action: {
                 type: Number,
@@ -168,8 +172,6 @@ export class AcceleratorViewElement extends AcceleratorViewElementBase {
             return;
         }
         this.pendingKeyEvent = resetKeyEvent();
-        // Announce hint message when focus and start capture.
-        this.makeA11yAnnouncement(this.i18n('editViewStatusMessage'));
     }
     async endCapture(shouldDelay) {
         this.editAction = EditAction.NONE;
@@ -209,9 +211,13 @@ export class AcceleratorViewElement extends AcceleratorViewElementBase {
                 composed: true,
             }));
             this.startCapture();
+            // Announce the hint message.
+            this.makeA11yAnnouncement(this.i18n('editViewStatusMessage'));
         }
     }
     handleKeyDown(e) {
+        // Announce the key pressed.
+        this.makeA11yAnnouncement(e.detail.keyEvent.keyDisplay);
         const rewrittenKeyEvent = e.detail.keyEvent;
         const pendingAccelerator = keyEventToAccelerator(rewrittenKeyEvent);
         if (this.hasError) {
@@ -345,10 +351,6 @@ export class AcceleratorViewElement extends AcceleratorViewElementBase {
                 getShortcutProvider().recordAddOrEditSubactions(this.viewState === ViewState.ADD, this.recordedError ? Subactions.kErrorSuccess :
                     Subactions.kNoErrorSuccess);
                 getShortcutProvider().recordUserAction(UserAction.kSuccessfulModification);
-                const message = (this.viewState == ViewState.ADD) ?
-                    this.i18n('shortcutAdded') :
-                    this.i18n('shortcutEdited');
-                this.makeA11yAnnouncement(message);
                 this.fireUpdateEvent();
                 return;
             }
@@ -450,6 +452,9 @@ export class AcceleratorViewElement extends AcceleratorViewElementBase {
         return this.lookupManager.getHasLauncherButton() ?
             this.i18n('iconLabelOpenLauncher') :
             this.i18n('iconLabelOpenSearch');
+    }
+    getEditButtonAriaLabel() {
+        return this.i18n('editButtonForRow', this.description);
     }
 }
 customElements.define(AcceleratorViewElement.is, AcceleratorViewElement);

@@ -1222,7 +1222,7 @@ class  OemCryptoSubstring {
   template <typename... Args>
   static OemCryptoSubstringPtr New(Args&&... args) {
     return OemCryptoSubstringPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1372,7 +1372,7 @@ class  OemCryptoCencEncryptPatternDesc {
   template <typename... Args>
   static OemCryptoCencEncryptPatternDescPtr New(Args&&... args) {
     return OemCryptoCencEncryptPatternDescPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1520,7 +1520,7 @@ class  SubSampleDescription {
   template <typename... Args>
   static SubSampleDescriptionPtr New(Args&&... args) {
     return SubSampleDescriptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1672,7 +1672,7 @@ class  OemCryptoSecureBuffer {
   template <typename... Args>
   static OemCryptoSecureBufferPtr New(Args&&... args) {
     return OemCryptoSecureBufferPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1816,7 +1816,7 @@ class  OemCryptoKeyObjectV14 {
   template <typename... Args>
   static OemCryptoKeyObjectV14Ptr New(Args&&... args) {
     return OemCryptoKeyObjectV14Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1978,7 +1978,7 @@ class  OemCryptoKeyObject {
   template <typename... Args>
   static OemCryptoKeyObjectPtr New(Args&&... args) {
     return OemCryptoKeyObjectPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2133,7 +2133,7 @@ class  OemCryptoEntitledContentKeyObjectV14 {
   template <typename... Args>
   static OemCryptoEntitledContentKeyObjectV14Ptr New(Args&&... args) {
     return OemCryptoEntitledContentKeyObjectV14Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2282,7 +2282,7 @@ class  OemCryptoEntitledContentKeyObject {
   template <typename... Args>
   static OemCryptoEntitledContentKeyObjectPtr New(Args&&... args) {
     return OemCryptoEntitledContentKeyObjectPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2434,7 +2434,7 @@ class  OemCryptoKeyRefreshObjectV14 {
   template <typename... Args>
   static OemCryptoKeyRefreshObjectV14Ptr New(Args&&... args) {
     return OemCryptoKeyRefreshObjectV14Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2587,7 +2587,7 @@ class  OemCryptoKeyRefreshObject {
   template <typename... Args>
   static OemCryptoKeyRefreshObjectPtr New(Args&&... args) {
     return OemCryptoKeyRefreshObjectPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2737,7 +2737,7 @@ class  OemCryptoPstReport {
   template <typename... Args>
   static OemCryptoPstReportPtr New(Args&&... args) {
     return OemCryptoPstReportPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

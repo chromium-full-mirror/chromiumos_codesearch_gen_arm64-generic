@@ -168,7 +168,7 @@ class BLINK_PLATFORM_EXPORT CrossOriginOpenerPolicyReporterParams {
   template <typename... Args>
   static CrossOriginOpenerPolicyReporterParamsPtr New(Args&&... args) {
     return CrossOriginOpenerPolicyReporterParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -314,7 +314,7 @@ class BLINK_PLATFORM_EXPORT CrossOriginOpenerPolicy {
   template <typename... Args>
   static CrossOriginOpenerPolicyPtr New(Args&&... args) {
     return CrossOriginOpenerPolicyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -585,7 +585,7 @@ static_assert(
         ::ash::ime::mojom::SuggestionsTextContextDataView, UserType>(),
     "Attempting to read the optional `context` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadContext` instead "
     "of `ReadContext if you're fine with null values being "
@@ -622,7 +622,7 @@ static_assert(
         ::ash::ime::mojom::CandidatesWindowDataView, UserType>(),
     "Attempting to read the optional `window` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWindow` instead "
     "of `ReadWindow if you're fine with null values being "

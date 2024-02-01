@@ -277,7 +277,7 @@ class BLINK_PLATFORM_EXPORT WebrtcPredictionFeatures {
   template <typename... Args>
   static WebrtcPredictionFeaturesPtr New(Args&&... args) {
     return WebrtcPredictionFeaturesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -427,7 +427,7 @@ class BLINK_PLATFORM_EXPORT WebrtcVideoStats {
   template <typename... Args>
   static WebrtcVideoStatsPtr New(Args&&... args) {
     return WebrtcVideoStatsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

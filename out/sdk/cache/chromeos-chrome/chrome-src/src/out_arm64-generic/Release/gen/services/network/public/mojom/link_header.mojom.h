@@ -57,7 +57,7 @@ class  LinkHeader {
   template <typename... Args>
   static LinkHeaderPtr New(Args&&... args) {
     return LinkHeaderPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

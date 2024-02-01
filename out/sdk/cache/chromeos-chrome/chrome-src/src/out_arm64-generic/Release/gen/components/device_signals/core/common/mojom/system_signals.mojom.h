@@ -176,7 +176,7 @@ class  ExecutableMetadata {
   template <typename... Args>
   static ExecutableMetadataPtr New(Args&&... args) {
     return ExecutableMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -331,7 +331,7 @@ class  FileSystemItem {
   template <typename... Args>
   static FileSystemItemPtr New(Args&&... args) {
     return FileSystemItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -480,7 +480,7 @@ class  FileSystemItemRequest {
   template <typename... Args>
   static FileSystemItemRequestPtr New(Args&&... args) {
     return FileSystemItemRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

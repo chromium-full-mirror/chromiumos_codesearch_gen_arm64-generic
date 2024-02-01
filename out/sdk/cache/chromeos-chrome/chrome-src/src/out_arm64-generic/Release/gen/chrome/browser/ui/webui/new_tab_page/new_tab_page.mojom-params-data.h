@@ -1277,7 +1277,7 @@ static_assert(
         ::new_tab_page::mojom::DoodleDataView, UserType>(),
     "Attempting to read the optional `doodle` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDoodle` instead "
     "of `ReadDoodle if you're fine with null values being "
@@ -1849,7 +1849,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `log_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLogUrl` instead "
     "of `ReadLogUrl if you're fine with null values being "
@@ -1920,7 +1920,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `log_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLogUrl` instead "
     "of `ReadLogUrl if you're fine with null values being "
@@ -1995,7 +1995,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `image_click_params` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadImageClickParams` instead "
     "of `ReadImageClickParams if you're fine with null values being "
@@ -2015,7 +2015,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `interaction_log_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInteractionLogUrl` instead "
     "of `ReadInteractionLogUrl if you're fine with null values being "
@@ -2035,7 +2035,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `share_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadShareId` instead "
     "of `ReadShareId if you're fine with null values being "
@@ -2091,7 +2091,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `share_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadShareId` instead "
     "of `ReadShareId if you're fine with null values being "
@@ -2251,7 +2251,7 @@ static_assert(
         ::new_tab_page::mojom::PromoDataView, UserType>(),
     "Attempting to read the optional `promo` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPromo` instead "
     "of `ReadPromo if you're fine with null values being "

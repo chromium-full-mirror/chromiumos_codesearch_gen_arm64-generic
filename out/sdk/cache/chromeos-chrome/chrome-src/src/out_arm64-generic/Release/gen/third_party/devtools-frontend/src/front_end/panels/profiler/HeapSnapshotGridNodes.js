@@ -188,7 +188,7 @@ export class HeapSnapshotGridNode extends Common.ObjectWrapper.eventMixin(HeapSn
         return null;
     }
     createValueCell(columnId) {
-        const jslog = VisualLogging.tableCell().track({ click: true }).context('numeric-column');
+        const jslog = VisualLogging.tableCell('numeric-column').track({ click: true });
         const cell = UI.Fragment.html `<td class="numeric-column" jslog=${jslog} />`;
         const dataGrid = this.dataGrid;
         if (dataGrid.snapshot && dataGrid.snapshot.totalSize !== 0) {
@@ -490,7 +490,7 @@ export class HeapSnapshotGenericObjectNode extends HeapSnapshotGridNode {
         return this.createObjectCellWithValue(valueStyle, value || '');
     }
     createObjectCellWithValue(valueStyle, value) {
-        const jslog = VisualLogging.tableCell().track({ click: true }).context('object-column');
+        const jslog = VisualLogging.tableCell('object-column').track({ click: true });
         const fragment = UI.Fragment.Fragment.build `
   <td class="object-column disclosure" jslog=${jslog}>
   <div class="source-code event-properties" style="overflow: visible;" $="container">

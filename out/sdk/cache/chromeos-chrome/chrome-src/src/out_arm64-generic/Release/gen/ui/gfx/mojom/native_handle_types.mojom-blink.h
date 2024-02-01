@@ -71,7 +71,7 @@ class  GpuMemoryBufferPlatformHandle {
   static GpuMemoryBufferPlatformHandlePtr
   NewSharedMemoryHandle(
       ::base::UnsafeSharedMemoryRegion value) {
-    auto result = GpuMemoryBufferPlatformHandlePtr(absl::in_place);
+    auto result = GpuMemoryBufferPlatformHandlePtr(std::in_place);
     result->set_shared_memory_handle(std::move(value));
     return result;
   }
@@ -79,7 +79,7 @@ class  GpuMemoryBufferPlatformHandle {
   static GpuMemoryBufferPlatformHandlePtr
   NewNativePixmapHandle(
       ::gfx::NativePixmapHandle value) {
-    auto result = GpuMemoryBufferPlatformHandlePtr(absl::in_place);
+    auto result = GpuMemoryBufferPlatformHandlePtr(std::in_place);
     result->set_native_pixmap_handle(std::move(value));
     return result;
   }
@@ -193,7 +193,7 @@ class  NativePixmapPlane {
   template <typename... Args>
   static NativePixmapPlanePtr New(Args&&... args) {
     return NativePixmapPlanePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -339,7 +339,7 @@ class  NativePixmapHandle {
   template <typename... Args>
   static NativePixmapHandlePtr New(Args&&... args) {
     return NativePixmapHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

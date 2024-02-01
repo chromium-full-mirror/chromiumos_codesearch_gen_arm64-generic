@@ -7966,6 +7966,72 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kStorageAccessAPI_requestStorageAccess_BeyondCookies_cookies";
     case WebFeature::kVisualViewportScrollEndFired:
       return "kVisualViewportScrollEndFired";
+    case WebFeature::kAttributionReportingCrossAppWebSupportHeader:
+      return "kAttributionReportingCrossAppWebSupportHeader";
+    case WebFeature::kV8Element_AriaActiveDescendantElement_AttributeGetter:
+      return "kV8Element_AriaActiveDescendantElement_AttributeGetter";
+    case WebFeature::kV8Element_AriaActiveDescendantElement_AttributeSetter:
+      return "kV8Element_AriaActiveDescendantElement_AttributeSetter";
+    case WebFeature::kV8Element_AriaControlsElements_AttributeGetter:
+      return "kV8Element_AriaControlsElements_AttributeGetter";
+    case WebFeature::kV8Element_AriaControlsElements_AttributeSetter:
+      return "kV8Element_AriaControlsElements_AttributeSetter";
+    case WebFeature::kV8Element_AriaDescribedByElements_AttributeGetter:
+      return "kV8Element_AriaDescribedByElements_AttributeGetter";
+    case WebFeature::kV8Element_AriaDescribedByElements_AttributeSetter:
+      return "kV8Element_AriaDescribedByElements_AttributeSetter";
+    case WebFeature::kV8Element_AriaDetailsElements_AttributeGetter:
+      return "kV8Element_AriaDetailsElements_AttributeGetter";
+    case WebFeature::kV8Element_AriaDetailsElements_AttributeSetter:
+      return "kV8Element_AriaDetailsElements_AttributeSetter";
+    case WebFeature::kV8Element_AriaErrorMessageElements_AttributeGetter:
+      return "kV8Element_AriaErrorMessageElements_AttributeGetter";
+    case WebFeature::kV8Element_AriaErrorMessageElements_AttributeSetter:
+      return "kV8Element_AriaErrorMessageElements_AttributeSetter";
+    case WebFeature::kV8Element_AriaFlowToElements_AttributeGetter:
+      return "kV8Element_AriaFlowToElements_AttributeGetter";
+    case WebFeature::kV8Element_AriaFlowToElements_AttributeSetter:
+      return "kV8Element_AriaFlowToElements_AttributeSetter";
+    case WebFeature::kV8Element_AriaLabelledByElements_AttributeGetter:
+      return "kV8Element_AriaLabelledByElements_AttributeGetter";
+    case WebFeature::kV8Element_AriaLabelledByElements_AttributeSetter:
+      return "kV8Element_AriaLabelledByElements_AttributeSetter";
+    case WebFeature::kV8Element_AriaOwnsElements_AttributeGetter:
+      return "kV8Element_AriaOwnsElements_AttributeGetter";
+    case WebFeature::kV8Element_AriaOwnsElements_AttributeSetter:
+      return "kV8Element_AriaOwnsElements_AttributeSetter";
+    case WebFeature::kV8ElementInternals_AriaActiveDescendantElement_AttributeGetter:
+      return "kV8ElementInternals_AriaActiveDescendantElement_AttributeGetter";
+    case WebFeature::kV8ElementInternals_AriaActiveDescendantElement_AttributeSetter:
+      return "kV8ElementInternals_AriaActiveDescendantElement_AttributeSetter";
+    case WebFeature::kV8ElementInternals_AriaControlsElements_AttributeGetter:
+      return "kV8ElementInternals_AriaControlsElements_AttributeGetter";
+    case WebFeature::kV8ElementInternals_AriaControlsElements_AttributeSetter:
+      return "kV8ElementInternals_AriaControlsElements_AttributeSetter";
+    case WebFeature::kV8ElementInternals_AriaDescribedByElements_AttributeGetter:
+      return "kV8ElementInternals_AriaDescribedByElements_AttributeGetter";
+    case WebFeature::kV8ElementInternals_AriaDescribedByElements_AttributeSetter:
+      return "kV8ElementInternals_AriaDescribedByElements_AttributeSetter";
+    case WebFeature::kV8ElementInternals_AriaDetailsElements_AttributeGetter:
+      return "kV8ElementInternals_AriaDetailsElements_AttributeGetter";
+    case WebFeature::kV8ElementInternals_AriaDetailsElements_AttributeSetter:
+      return "kV8ElementInternals_AriaDetailsElements_AttributeSetter";
+    case WebFeature::kV8ElementInternals_AriaErrorMessageElements_AttributeGetter:
+      return "kV8ElementInternals_AriaErrorMessageElements_AttributeGetter";
+    case WebFeature::kV8ElementInternals_AriaErrorMessageElements_AttributeSetter:
+      return "kV8ElementInternals_AriaErrorMessageElements_AttributeSetter";
+    case WebFeature::kV8ElementInternals_AriaFlowToElements_AttributeGetter:
+      return "kV8ElementInternals_AriaFlowToElements_AttributeGetter";
+    case WebFeature::kV8ElementInternals_AriaFlowToElements_AttributeSetter:
+      return "kV8ElementInternals_AriaFlowToElements_AttributeSetter";
+    case WebFeature::kV8ElementInternals_AriaLabelledByElements_AttributeGetter:
+      return "kV8ElementInternals_AriaLabelledByElements_AttributeGetter";
+    case WebFeature::kV8ElementInternals_AriaLabelledByElements_AttributeSetter:
+      return "kV8ElementInternals_AriaLabelledByElements_AttributeSetter";
+    case WebFeature::kV8ElementInternals_AriaOwnsElements_AttributeGetter:
+      return "kV8ElementInternals_AriaOwnsElements_AttributeGetter";
+    case WebFeature::kV8ElementInternals_AriaOwnsElements_AttributeSetter:
+      return "kV8ElementInternals_AriaOwnsElements_AttributeSetter";
     case WebFeature::kNumberOfFeatures:
       return "kNumberOfFeatures";
     default:

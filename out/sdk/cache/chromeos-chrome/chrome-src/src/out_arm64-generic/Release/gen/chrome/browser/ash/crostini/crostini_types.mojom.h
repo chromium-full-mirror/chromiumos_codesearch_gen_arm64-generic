@@ -52,7 +52,7 @@ class  DiskSliderTick {
   template <typename... Args>
   static DiskSliderTickPtr New(Args&&... args) {
     return DiskSliderTickPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

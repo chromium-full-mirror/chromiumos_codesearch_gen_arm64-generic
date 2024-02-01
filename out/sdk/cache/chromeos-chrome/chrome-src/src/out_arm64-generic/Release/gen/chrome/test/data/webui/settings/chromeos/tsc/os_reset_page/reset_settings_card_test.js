@@ -11,6 +11,7 @@ import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.m
 import { assertEquals, assertFalse, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { FakeESimManagerRemote } from 'chrome://webui-test/cr_components/chromeos/cellular_setup/fake_esim_manager_remote.js';
 import { flushTasks, waitAfterNextRender } from 'chrome://webui-test/polymer_test_util.js';
+import { isVisible } from 'chrome://webui-test/test_util.js';
 import { TestLifetimeBrowserProxy } from '../test_os_lifetime_browser_proxy.js';
 import { TestOsResetBrowserProxy } from './test_os_reset_browser_proxy.js';
 suite('<reset-settings-card>', () => {
@@ -45,10 +46,19 @@ suite('<reset-settings-card>', () => {
         assertTrue(!!powerwashButton);
         return powerwashButton;
     }
+    function getSanitizeButton() {
+        const sanitizeButton = resetSettingsCard.shadowRoot.querySelector('#sanitizeButton');
+        return sanitizeButton;
+    }
     function getPowerwashDialog() {
         const powerwashDialog = resetSettingsCard.shadowRoot.querySelector('os-settings-powerwash-dialog');
         assertTrue(!!powerwashDialog);
         return powerwashDialog;
+    }
+    function getSanitizeDialog() {
+        const sanitizeDialog = resetSettingsCard.shadowRoot.querySelector('os-settings-sanitize-dialog');
+        assertTrue(!!sanitizeDialog);
+        return sanitizeDialog;
     }
     async function testOpenClosePowerwashDialog(closeButtonFn) {
         // Open powerwash dialog.
@@ -173,4 +183,24 @@ suite('<reset-settings-card>', () => {
         assertEquals(routes.INTERNET_NETWORKS, Router.getInstance().currentRoute);
         assertEquals('type=Cellular', Router.getInstance().getQueryParameters().toString());
     });
+    // Tests that the sanitize button is shown when sanitization is allowed and
+    // is not visible otherwise. When it is enabled, the dialog should pop up
+    // once the button is clicked.
+    const sanitizeFeatureEnabled = loadTimeData.getBoolean('allowSanitize');
+    if (sanitizeFeatureEnabled) {
+        test('Clicking the sanitizeButton shows its dialog.', async () => {
+            const sanitizeButton = getSanitizeButton();
+            assertTrue(!!sanitizeButton);
+            sanitizeButton.click();
+            await flushTasks();
+            const dialog = getSanitizeDialog();
+            assertTrue(!!dialog);
+        });
+    }
+    else {
+        test('The sanitizeButton does not show.', () => {
+            const sanitizeButton = getSanitizeButton();
+            assertFalse(isVisible(sanitizeButton));
+        });
+    }
 });

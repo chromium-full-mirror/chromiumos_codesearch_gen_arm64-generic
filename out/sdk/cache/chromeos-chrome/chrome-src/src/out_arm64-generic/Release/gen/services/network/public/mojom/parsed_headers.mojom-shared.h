@@ -114,7 +114,7 @@ static_assert(
         ::network::mojom::AllowCSPFromHeaderValueDataView, UserType>(),
     "Attempting to read the optional `allow_csp_from` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAllowCspFrom` instead "
     "of `ReadAllowCspFrom if you're fine with null values being "
@@ -164,7 +164,7 @@ static_assert(
         mojo::ArrayDataView<::network::mojom::WebClientHintsType>, UserType>(),
     "Attempting to read the optional `accept_ch` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAcceptCh` instead "
     "of `ReadAcceptCh if you're fine with null values being "
@@ -184,7 +184,7 @@ static_assert(
         mojo::ArrayDataView<::network::mojom::WebClientHintsType>, UserType>(),
     "Attempting to read the optional `critical_ch` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCriticalCh` instead "
     "of `ReadCriticalCh if you're fine with null values being "
@@ -227,7 +227,7 @@ static_assert(
         ::network::mojom::TimingAllowOriginDataView, UserType>(),
     "Attempting to read the optional `timing_allow_origin` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTimingAllowOrigin` instead "
     "of `ReadTimingAllowOrigin if you're fine with null values being "
@@ -257,7 +257,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `reporting_endpoints` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReportingEndpoints` instead "
     "of `ReadReportingEndpoints if you're fine with null values being "
@@ -277,7 +277,7 @@ static_assert(
         mojo::ArrayDataView<::network::mojom::VariantsHeaderDataView>, UserType>(),
     "Attempting to read the optional `variants_headers` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadVariantsHeaders` instead "
     "of `ReadVariantsHeaders if you're fine with null values being "
@@ -297,7 +297,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `content_language` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadContentLanguage` instead "
     "of `ReadContentLanguage if you're fine with null values being "
@@ -317,7 +317,7 @@ static_assert(
         ::network::mojom::NoVarySearchWithParseErrorDataView, UserType>(),
     "Attempting to read the optional `no_vary_search_with_parse_error` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNoVarySearchWithParseError` instead "
     "of `ReadNoVarySearchWithParseError if you're fine with null values being "

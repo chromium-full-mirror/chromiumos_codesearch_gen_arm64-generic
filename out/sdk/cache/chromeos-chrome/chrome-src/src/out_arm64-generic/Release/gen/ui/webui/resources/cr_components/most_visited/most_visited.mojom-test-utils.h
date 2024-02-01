@@ -41,6 +41,7 @@ class  MostVisitedPageHandlerInterceptorForTesting : public MostVisitedPageHandl
   void UpdateMostVisitedInfo() override;
   void UpdateMostVisitedTile(const ::GURL& url, const ::GURL& new_url, const std::string& new_title, UpdateMostVisitedTileCallback callback) override;
   void PrerenderMostVisitedTile(MostVisitedTilePtr tile, bool is_hover_trigger) override;
+  void PreconnectMostVisitedTile(MostVisitedTilePtr tile) override;
   void CancelPrerender() override;
   void OnMostVisitedTilesRendered(std::vector<MostVisitedTilePtr> tiles, double time) override;
   void OnMostVisitedTileNavigation(MostVisitedTilePtr tile, uint32_t index, uint8_t mouse_button, bool alt_key, bool ctrl_key, bool meta_key, bool shift_key) override;

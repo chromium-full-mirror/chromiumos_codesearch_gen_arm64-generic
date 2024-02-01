@@ -174,7 +174,7 @@ class  ApplicationsSize {
   template <typename... Args>
   static ApplicationsSizePtr New(Args&&... args) {
     return ApplicationsSizePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

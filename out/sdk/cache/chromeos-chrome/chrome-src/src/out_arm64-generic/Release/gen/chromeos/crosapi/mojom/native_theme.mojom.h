@@ -273,7 +273,7 @@ class  NativeThemeInfo {
   template <typename... Args>
   static NativeThemeInfoPtr New(Args&&... args) {
     return NativeThemeInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

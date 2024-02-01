@@ -9,7 +9,7 @@ import*as e from"../../../../core/i18n/i18n.js";import{assertNotNullOrUndefined 
           </div>
         `,this.#e,{host:this});const e=z.detailedStatus(this.#t.preloadingAttempt),t=this.#t.pageURL;s.render(s.html`
         <${g.ReportView.Report.litTagName} .data=${{reportTitle:"Speculative Loading Attempt"}}
-        jslog=${b.section().context("preloading-details")}>
+        jslog=${b.section("preloading-details")}>
           <${g.ReportView.ReportSectionHeader.litTagName}>${G(_.detailsDetailedInformation)}</${g.ReportView.ReportSectionHeader.litTagName}>
 
           ${this.#i()}
@@ -44,7 +44,7 @@ import*as e from"../../../../core/i18n/i18n.js";import{assertNotNullOrUndefined 
             .size=${"SMALL"}
             .variant=${"secondary"}
             .disabled=${a}
-            jslog=${b.action().track({click:!0}).context("inspect-prerendered-page")}
+            jslog=${b.action("inspect-prerendered-page").track({click:!0})}
           >
             ${G(_.buttonInspect)}
           </${u.Button.Button.litTagName}>
@@ -74,7 +74,7 @@ import*as e from"../../../../core/i18n/i18n.js";import{assertNotNullOrUndefined 
             @click=${()=>{l.Revealer.reveal(new f.PreloadingForward.RuleSetView(e.id))}}
             title=${G(_.buttonClickToRevealRuleSet)}
             style=${s.Directives.styleMap({color:"var(--sys-color-primary)","text-decoration":"underline"})}
-            jslog=${b.action().track({click:!0}).context("reveal-rule-set")}
+            jslog=${b.action("reveal-rule-set").track({click:!0})}
           >
             ${r}
           </button>
@@ -161,7 +161,7 @@ import*as e from"../../../../core/i18n/i18n.js";import{assertNotNullOrUndefined 
         <${y.TextEditor.TextEditor.litTagName} .style.flexGrow = '1' .state=${this.#v}></${y.TextEditor.TextEditor.litTagName}>
       `}}n.CustomElements.defineComponent("devtools-resources-rulesets-details-view",Pe);var ye=Object.freeze({__proto__:null,RuleSetDetailsView:Pe});const Ne=new CSSStyleSheet;Ne.replaceSync(":host{overflow:auto;height:100%}.ruleset-container{height:100%;display:flex;flex-direction:column}devtools-data-grid-controller{border:1px solid var(--sys-color-divider)}.inline-icon{vertical-align:text-bottom}\n/*# sourceURL=ruleSetGrid.css */\n");const Te={ruleSet:"Rule set",status:"Status",buttonClickToRevealInElementsPanel:"Click to reveal in Elements panel",buttonClickToRevealInNetworkPanel:"Click to reveal in Network panel",errors:"{errorCount, plural, =1 {# error} other {# errors}}",buttonRevealPreloadsAssociatedWithRuleSet:"Reveal speculative loads associated with this rule set"},Fe=e.i18n.registerUIStrings("panels/application/preloading/components/RuleSetGrid.ts",Te),ke=e.i18n.getLocalizedString.bind(void 0,Fe);class $e extends o.LegacyWrapper.WrappableComponent{static litTagName=s.literal`devtools-resources-ruleset-grid`;#e=this.attachShadow({mode:"open"});#t=null;connectedCallback(){this.#e.adoptedStyleSheets=[Ne],this.#r()}update(e){this.#t=e,this.#r()}#r(){if(null===this.#t)return;const e={columns:[{id:"rule-set",title:ke(Te.ruleSet),widthWeighting:20,hideable:!1,visible:!0,sortable:!0},{id:"status",title:ke(Te.status),widthWeighting:80,hideable:!1,visible:!0,sortable:!0}],rows:this.#a(),striped:!0};s.render(s.html`
       <div class="ruleset-container"
-      jslog=${b.pane().context("preloading-rules")}>
+      jslog=${b.pane("preloading-rules")}>
         <${i.DataGridController.DataGridController.litTagName} .data=${e}>
         </${i.DataGridController.DataGridController.litTagName}>
       </div>
@@ -170,7 +170,7 @@ import*as e from"../../../../core/i18n/i18n.js";import{assertNotNullOrUndefined 
         @click=${i}
         title=${ke(Te.buttonClickToRevealInElementsPanel)}
         style=${s.Directives.styleMap({border:"none",background:"none",color:"var(--icon-link)",cursor:"pointer","text-decoration":"underline","padding-inline-start":"0","padding-inline-end":"0"})}
-        jslog=${b.action().track({click:!0}).context("reveal-in-elements-panel")}
+        jslog=${b.action("reveal-in-elements-panel").track({click:!0})}
       >
         <${R.Icon.Icon.litTagName}
           .data=${{iconName:"code-circle",color:"var(--icon-link)",width:"16px",height:"16px"}}
@@ -197,7 +197,7 @@ import*as e from"../../../../core/i18n/i18n.js";import{assertNotNullOrUndefined 
         @click=${r}
         title=${ke(Te.buttonRevealPreloadsAssociatedWithRuleSet)}
         style=${s.Directives.styleMap({color:"var(--sys-color-primary)","text-decoration":"underline",cursor:"pointer",border:"none",background:"none","padding-inline-start":"0","padding-inline-end":"0"})}
-        jslog=${b.action().track({click:!0}).context("reveal-preloads")}>
+        jslog=${b.action("reveal-preloads").track({click:!0})}>
         ${e}
       </button>
     `}function a(){const e=ke(Te.errors,{errorCount:1});return s.html`
@@ -250,7 +250,7 @@ import*as e from"../../../../core/i18n/i18n.js";import{assertNotNullOrUndefined 
 
       <${g.ReportView.ReportSectionHeader.litTagName}>${De(xe.preloadedURLs)}</${g.ReportView.ReportSectionHeader.litTagName}>
       <${g.ReportView.ReportSection.litTagName}
-      jslog=${b.section().context("preloaded-urls")}>
+      jslog=${b.section("preloaded-urls")}>
         <${O.litTagName}
           .data=${r}></${O.litTagName}>
       </${g.ReportView.ReportSection.litTagName}>
@@ -270,12 +270,12 @@ import*as e from"../../../../core/i18n/i18n.js";import{assertNotNullOrUndefined 
 
           <div class="reveal-links">
             <button class="link devtools-link" @click=${()=>{l.Revealer.reveal(new f.PreloadingForward.RuleSetView(null))}}
-            jslog=${b.action().track({click:!0}).context("view-all-rules")}>
+            jslog=${b.action("view-all-rules").track({click:!0})}>
               ${De(xe.viewAllRules)}
             </button>
            ・
             <button class="link devtools-link" @click=${()=>{l.Revealer.reveal(new f.PreloadingForward.AttemptViewWithFilter(null))}}
-            jslog=${b.action().track({click:!0}).context("view-all-speculations")}>
+            jslog=${b.action("view-all-speculations").track({click:!0})}>
              ${De(xe.viewAllSpeculations)}
             </button>
           </div>

@@ -22,7 +22,7 @@ export function getTemplate() {
     </div>
   </template>
   <template is="dom-if" if="[[!isCameraListEmpty_]]" restamp>
-    <template id="cameraList" is="dom-repeat" items="[[connectedCameras_]]">
+    <template id="cameraList" is="dom-repeat" items="[[connectedCameraNames_]]">
       <div class="list-item">
         <span id="cameraName" hidden$="[[!prefs.ash.user.camera_allowed.value]]">
           [[item]]

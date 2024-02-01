@@ -7,6 +7,5 @@
 #include "build/buildflag.h" // IWYU pragma: export
 
 #define BUILDFLAG_INTERNAL_ENABLE_EXTENSIONS() (1)
-#define BUILDFLAG_INTERNAL_ENABLE_EXTENSIONS_LEGACY_IPC() (0)
 
 #endif  // EXTENSIONS_BUILDFLAGS_BUILDFLAGS_H_

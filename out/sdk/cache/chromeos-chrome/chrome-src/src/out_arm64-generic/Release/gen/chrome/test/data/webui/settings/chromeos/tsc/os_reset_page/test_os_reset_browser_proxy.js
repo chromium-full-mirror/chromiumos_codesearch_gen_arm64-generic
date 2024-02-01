@@ -6,9 +6,17 @@ export class TestOsResetBrowserProxy extends TestBrowserProxy {
     constructor() {
         super([
             'requestFactoryResetRestart',
+            'onShowSanitizeDialog',
+            'performSanitizeSettings',
         ]);
     }
     requestFactoryResetRestart() {
         this.methodCalled('requestFactoryResetRestart');
+    }
+    onShowSanitizeDialog() {
+        this.methodCalled('onShowSanitizeDialog');
+    }
+    performSanitizeSettings() {
+        this.methodCalled('performSanitizeSettings');
     }
 }

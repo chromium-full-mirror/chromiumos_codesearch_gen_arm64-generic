@@ -251,7 +251,7 @@ static_assert(
         ::device::mojom::XRDepthOptionsDataView, UserType>(),
     "Attempting to read the optional `depth_options` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDepthOptions` instead "
     "of `ReadDepthOptions if you're fine with null values being "
@@ -309,7 +309,7 @@ static_assert(
         ::viz::mojom::FrameSinkIdDataView, UserType>(),
     "Attempting to read the optional `frame_sink_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFrameSinkId` instead "
     "of `ReadFrameSinkId if you're fine with null values being "
@@ -348,7 +348,7 @@ static_assert(
         ::device::mojom::VRPoseDataView, UserType>(),
     "Attempting to read the optional `mojo_from_viewer` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMojoFromViewer` instead "
     "of `ReadMojoFromViewer if you're fine with null values being "

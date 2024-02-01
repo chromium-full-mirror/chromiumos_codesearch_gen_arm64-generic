@@ -62,7 +62,7 @@ class  BitmapN32 {
   template <typename... Args>
   static BitmapN32Ptr New(Args&&... args) {
     return BitmapN32Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -202,7 +202,7 @@ class  BitmapWithArbitraryBpp {
   template <typename... Args>
   static BitmapWithArbitraryBppPtr New(Args&&... args) {
     return BitmapWithArbitraryBppPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -345,7 +345,7 @@ class  BitmapMappedFromTrustedProcess {
   template <typename... Args>
   static BitmapMappedFromTrustedProcessPtr New(Args&&... args) {
     return BitmapMappedFromTrustedProcessPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -488,7 +488,7 @@ class  InlineBitmap {
   template <typename... Args>
   static InlineBitmapPtr New(Args&&... args) {
     return InlineBitmapPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

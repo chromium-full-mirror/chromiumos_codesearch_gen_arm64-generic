@@ -3697,6 +3697,10 @@ template <typename T>
     static_assert(sizeof(Surface) == sizeof(WGPUSurface), "sizeof mismatch for Surface");
     static_assert(alignof(Surface) == alignof(WGPUSurface), "alignof mismatch for Surface");
 
+    TextureFormat Surface::GetPreferredFormat(Adapter const& adapter) const {
+        auto result = wgpuSurfaceGetPreferredFormat(Get(), adapter.Get());
+        return static_cast<TextureFormat>(result);
+    }
     void Surface::WGPUReference(WGPUSurface handle) {
         if (handle != nullptr) {
             wgpuSurfaceReference(handle);

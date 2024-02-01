@@ -53,7 +53,7 @@ class BLINK_COMMON_EXPORT RendererContentSettings {
   template <typename... Args>
   static RendererContentSettingsPtr New(Args&&... args) {
     return RendererContentSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -1785,7 +1785,7 @@ static_assert(
         ::mojo_base::mojom::ListValueDataView, UserType>(),
     "Attempting to read the optional `network_types` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNetworkTypes` instead "
     "of `ReadNetworkTypes if you're fine with null values being "
@@ -1836,7 +1836,7 @@ static_assert(
         mojo::ArrayDataView<::mojo_base::mojom::DictionaryValueDataView>, UserType>(),
     "Attempting to read the optional `device_list` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeviceList` instead "
     "of `ReadDeviceList if you're fine with null values being "
@@ -1887,7 +1887,7 @@ static_assert(
         ::mojo_base::mojom::DictionaryValueDataView, UserType>(),
     "Attempting to read the optional `policies` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPolicies` instead "
     "of `ReadPolicies if you're fine with null values being "

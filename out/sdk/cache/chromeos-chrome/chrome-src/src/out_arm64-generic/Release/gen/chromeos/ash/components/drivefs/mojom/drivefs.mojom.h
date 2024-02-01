@@ -1150,7 +1150,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) UserInfo {
   template <typename... Args>
   static UserInfoPtr New(Args&&... args) {
     return UserInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1293,7 +1293,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) ImageMetadata {
   template <typename... Args>
   static ImageMetadataPtr New(Args&&... args) {
     return ImageMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1441,7 +1441,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FolderFeature {
   template <typename... Args>
   static FolderFeaturePtr New(Args&&... args) {
     return FolderFeaturePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1588,7 +1588,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) QuickAccess {
   template <typename... Args>
   static QuickAccessPtr New(Args&&... args) {
     return QuickAccessPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1729,7 +1729,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) SharedDriveQuota {
   template <typename... Args>
   static SharedDriveQuotaPtr New(Args&&... args) {
     return SharedDriveQuotaPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1879,7 +1879,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FetchChangeLogOptions {
   template <typename... Args>
   static FetchChangeLogOptionsPtr New(Args&&... args) {
     return FetchChangeLogOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2024,7 +2024,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) QuotaUsage {
   template <typename... Args>
   static QuotaUsagePtr New(Args&&... args) {
     return QuotaUsagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2168,7 +2168,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) HttpHeader {
   template <typename... Args>
   static HttpHeaderPtr New(Args&&... args) {
     return HttpHeaderPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2314,7 +2314,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) HttpCompletionStatus {
   template <typename... Args>
   static HttpCompletionStatusPtr New(Args&&... args) {
     return HttpCompletionStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2458,7 +2458,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DocsOfflineStats {
   template <typename... Args>
   static DocsOfflineStatsPtr New(Args&&... args) {
     return DocsOfflineStatsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2612,7 +2612,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FilePathOrError {
   static FilePathOrErrorPtr
   NewError(
       ::drive::FileError value) {
-    auto result = FilePathOrErrorPtr(absl::in_place);
+    auto result = FilePathOrErrorPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -2620,7 +2620,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FilePathOrError {
   static FilePathOrErrorPtr
   NewPath(
       const ::base::FilePath& value) {
-    auto result = FilePathOrErrorPtr(absl::in_place);
+    auto result = FilePathOrErrorPtr(std::in_place);
     result->set_path(std::move(value));
     return result;
   }
@@ -2734,7 +2734,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveFsConfiguration {
   template <typename... Args>
   static DriveFsConfigurationPtr New(Args&&... args) {
     return DriveFsConfigurationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2953,7 +2953,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) AccessToken {
   template <typename... Args>
   static AccessTokenPtr New(Args&&... args) {
     return AccessTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3097,7 +3097,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DriveError {
   template <typename... Args>
   static DriveErrorPtr New(Args&&... args) {
     return DriveErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3256,7 +3256,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) DialogReason {
   template <typename... Args>
   static DialogReasonPtr New(Args&&... args) {
     return DialogReasonPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3402,7 +3402,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FileMetadata {
   template <typename... Args>
   static FileMetadataPtr New(Args&&... args) {
     return FileMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3824,7 +3824,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) ShortcutDetails {
   template <typename... Args>
   static ShortcutDetailsPtr New(Args&&... args) {
     return ShortcutDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3975,7 +3975,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) Capabilities {
   template <typename... Args>
   static CapabilitiesPtr New(Args&&... args) {
     return CapabilitiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4132,7 +4132,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) ItemEvent {
   template <typename... Args>
   static ItemEventPtr New(Args&&... args) {
     return ItemEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4311,7 +4311,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) ProgressEvent {
   template <typename... Args>
   static ProgressEventPtr New(Args&&... args) {
     return ProgressEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4465,7 +4465,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) SyncingStatus {
   template <typename... Args>
   static SyncingStatusPtr New(Args&&... args) {
     return SyncingStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4608,7 +4608,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) FileChange {
   template <typename... Args>
   static FileChangePtr New(Args&&... args) {
     return FileChangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4762,7 +4762,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) QueryParameters {
   template <typename... Args>
   static QueryParametersPtr New(Args&&... args) {
     return QueryParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5033,7 +5033,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) QueryItem {
   template <typename... Args>
   static QueryItemPtr New(Args&&... args) {
     return QueryItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5179,7 +5179,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) PooledQuotaUsage {
   template <typename... Args>
   static PooledQuotaUsagePtr New(Args&&... args) {
     return PooledQuotaUsagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5334,7 +5334,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) HttpRequest {
   template <typename... Args>
   static HttpRequestPtr New(Args&&... args) {
     return HttpRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5485,7 +5485,7 @@ class COMPONENT_EXPORT(DRIVEFS_MOJOM) HttpResponse {
   template <typename... Args>
   static HttpResponsePtr New(Args&&... args) {
     return HttpResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

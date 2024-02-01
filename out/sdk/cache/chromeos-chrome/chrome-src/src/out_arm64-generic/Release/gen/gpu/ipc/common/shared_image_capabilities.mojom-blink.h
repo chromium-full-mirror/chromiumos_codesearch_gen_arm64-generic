@@ -59,7 +59,7 @@ class BLINK_PLATFORM_EXPORT SharedImageCapabilities {
   template <typename... Args>
   static SharedImageCapabilitiesPtr New(Args&&... args) {
     return SharedImageCapabilitiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -24,7 +24,7 @@ describeWithMockConnection('NetworkLogView', () => {
         let networkLog;
         beforeEach(() => {
             const dummyStorage = new Common.Settings.SettingsStorage({});
-            for (const settingName of ['networkColorCodeResourceTypes', 'network.group-by-frame']) {
+            for (const settingName of ['network-color-code-resource-types', 'network.group-by-frame']) {
                 Common.Settings.registerSettingExtension({
                     settingName,
                     settingType: "boolean" /* Common.Settings.SettingType.BOOLEAN */,
@@ -83,6 +83,19 @@ describeWithMockConnection('NetworkLogView', () => {
             });
             const actual = await Network.NetworkLogView.NetworkLogView.generateCurlCommand(request, 'unix');
             const expected = 'curl \'http://localhost\' \\\n  -H \'header-with-value: some value\' \\\n  -H \'no-value-header;\'';
+            assert.strictEqual(actual, expected);
+        });
+        // Note this isn't an ideal test as the internal headers are generated rather than explicitly added,
+        // are only added on HTTP/2 and HTTP/3, have a preceeding colon like `:authority` but it still tests
+        // the stripping function.
+        it('generates a valid curl command while stripping internal headers', async () => {
+            const request = createNetworkRequest('http://localhost', {
+                requestHeaders: [
+                    { name: 'authority', value: 'www.example.com' },
+                ],
+            });
+            const actual = await Network.NetworkLogView.NetworkLogView.generateCurlCommand(request, 'unix');
+            const expected = 'curl \'http://localhost\'';
             assert.strictEqual(actual, expected);
         });
         it('generates a valid curl command when header values contain double quotes', async () => {
@@ -662,7 +675,7 @@ function setupRequestTypesDropdown() {
         label: () => category.shortTitle(),
         title: category.title(),
     }));
-    const setting = Common.Settings.Settings.instance().createSetting('networkResourceTypeFilters', { all: true });
+    const setting = Common.Settings.Settings.instance().createSetting('network-resource-type-filters', { all: true });
     const dropdown = new Network.NetworkLogView.DropDownTypesUI(filterItems, setting);
     return dropdown;
 }

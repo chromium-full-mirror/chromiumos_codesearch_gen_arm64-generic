@@ -364,7 +364,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `password` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPassword` instead "
     "of `ReadPassword if you're fine with null values being "
@@ -376,7 +376,7 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadEapMethod(UserType* output) const {
     if (!data_->eap_method_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -385,7 +385,7 @@ static_assert(
   }
   std::optional<WifiEapMethod> eap_method() const {
     if (!data_->eap_method_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::camera_app::mojom::WifiEapMethod>(data_->eap_method_$value));
@@ -393,7 +393,7 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadEapPhase2Method(UserType* output) const {
     if (!data_->eap_phase2_method_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -402,7 +402,7 @@ static_assert(
   }
   std::optional<WifiEapPhase2Method> eap_phase2_method() const {
     if (!data_->eap_phase2_method_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::camera_app::mojom::WifiEapPhase2Method>(data_->eap_phase2_method_$value));
@@ -418,7 +418,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `eap_identity` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEapIdentity` instead "
     "of `ReadEapIdentity if you're fine with null values being "
@@ -438,7 +438,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `eap_anonymous_identity` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEapAnonymousIdentity` instead "
     "of `ReadEapAnonymousIdentity if you're fine with null values being "

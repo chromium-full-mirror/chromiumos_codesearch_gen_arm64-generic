@@ -60,6 +60,22 @@ struct MojomTypeTraits<::blink::mojom::SharedWorkerInfoDataView> {
 namespace blink::mojom {
 
 
+enum class SharedWorkerSameSiteCookies : int32_t {
+  
+  kAll = 0,
+  
+  kNone = 1,
+  kMinValue = 0,
+  kMaxValue = 1,
+};
+
+COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, SharedWorkerSameSiteCookies value);
+inline bool IsKnownEnumValue(SharedWorkerSameSiteCookies value) {
+  return internal::SharedWorkerSameSiteCookies_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 class SharedWorkerInfoDataView {
  public:
   SharedWorkerInfoDataView() = default;
@@ -110,6 +126,16 @@ class SharedWorkerInfoDataView {
     return mojo::internal::Deserialize<::blink::mojom::FetchClientSettingsObjectDataView>(
         pointer, output, message_);
   }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSameSiteCookies(UserType* output) const {
+    auto data_value = data_->same_site_cookies;
+    return mojo::internal::Deserialize<::blink::mojom::SharedWorkerSameSiteCookies>(
+        data_value, output);
+  }
+  SharedWorkerSameSiteCookies same_site_cookies() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::blink::mojom::SharedWorkerSameSiteCookies>(data_->same_site_cookies));
+  }
  private:
   internal::SharedWorkerInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -120,9 +146,33 @@ class SharedWorkerInfoDataView {
 
 namespace std {
 
+template <>
+struct hash<::blink::mojom::SharedWorkerSameSiteCookies>
+    : public mojo::internal::EnumHashImpl<::blink::mojom::SharedWorkerSameSiteCookies> {};
+
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::blink::mojom::SharedWorkerSameSiteCookies, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::blink::mojom::SharedWorkerSameSiteCookies, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::blink::mojom::SharedWorkerSameSiteCookies>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -188,6 +238,8 @@ struct Serializer<::blink::mojom::SharedWorkerInfoDataView, MaybeConstUserType> 
         fragment->outside_fetch_client_settings_object.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null outside_fetch_client_settings_object in SharedWorkerInfo struct");
+    mojo::internal::Serialize<::blink::mojom::SharedWorkerSameSiteCookies>(
+        Traits::same_site_cookies(input), &fragment->same_site_cookies);
   }
 
   static bool Deserialize(::blink::mojom::internal::SharedWorkerInfo_Data* input,
@@ -235,5 +287,14 @@ inline void SharedWorkerInfoDataView::GetOutsideFetchClientSettingsObjectDataVie
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TraceFormatTraits<::blink::mojom::SharedWorkerSameSiteCookies> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::blink::mojom::SharedWorkerSameSiteCookies value);
+};
+
+} // namespace perfetto
 
 #endif  // THIRD_PARTY_BLINK_PUBLIC_MOJOM_WORKER_SHARED_WORKER_INFO_MOJOM_SHARED_H_

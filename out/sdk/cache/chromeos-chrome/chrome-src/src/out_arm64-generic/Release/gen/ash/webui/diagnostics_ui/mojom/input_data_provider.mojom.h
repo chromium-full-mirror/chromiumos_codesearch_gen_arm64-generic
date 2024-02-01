@@ -816,7 +816,7 @@ class  KeyEvent {
   template <typename... Args>
   static KeyEventPtr New(Args&&... args) {
     return KeyEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -969,7 +969,7 @@ class  TouchDeviceInfo {
   template <typename... Args>
   static TouchDeviceInfoPtr New(Args&&... args) {
     return TouchDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

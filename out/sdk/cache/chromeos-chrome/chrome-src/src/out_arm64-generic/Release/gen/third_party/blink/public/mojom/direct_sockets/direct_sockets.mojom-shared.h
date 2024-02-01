@@ -134,7 +134,7 @@ static_assert(
         ::network::mojom::IPEndPointDataView, UserType>(),
     "Attempting to read the optional `local_addr` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLocalAddr` instead "
     "of `ReadLocalAddr if you're fine with null values being "
@@ -146,14 +146,14 @@ static_assert(
   std::optional<int32_t> send_buffer_size() const {
 
     return data_->send_buffer_size_$flag
-        ? absl::make_optional(data_->send_buffer_size_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->send_buffer_size_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> receive_buffer_size() const {
 
     return data_->receive_buffer_size_$flag
-        ? absl::make_optional(data_->receive_buffer_size_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->receive_buffer_size_$value)
+        : std::nullopt;
   }
   bool no_delay() const {
     return data_->no_delay;
@@ -169,7 +169,7 @@ static_assert(
         ::network::mojom::TCPKeepAliveOptionsDataView, UserType>(),
     "Attempting to read the optional `keep_alive_options` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadKeepAliveOptions` instead "
     "of `ReadKeepAliveOptions if you're fine with null values being "
@@ -181,7 +181,7 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadDnsQueryType(UserType* output) const {
     if (!data_->dns_query_type_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -190,7 +190,7 @@ static_assert(
   }
   std::optional<::network::mojom::DnsQueryType> dns_query_type() const {
     if (!data_->dns_query_type_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::network::mojom::DnsQueryType>(data_->dns_query_type_$value));
@@ -224,19 +224,19 @@ class DirectConnectedUDPSocketOptionsDataView {
   std::optional<int32_t> send_buffer_size() const {
 
     return data_->send_buffer_size_$flag
-        ? absl::make_optional(data_->send_buffer_size_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->send_buffer_size_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> receive_buffer_size() const {
 
     return data_->receive_buffer_size_$flag
-        ? absl::make_optional(data_->receive_buffer_size_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->receive_buffer_size_$value)
+        : std::nullopt;
   }
   template <typename UserType>
   [[nodiscard]] bool ReadDnsQueryType(UserType* output) const {
     if (!data_->dns_query_type_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -245,7 +245,7 @@ class DirectConnectedUDPSocketOptionsDataView {
   }
   std::optional<::network::mojom::DnsQueryType> dns_query_type() const {
     if (!data_->dns_query_type_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::network::mojom::DnsQueryType>(data_->dns_query_type_$value));
@@ -279,20 +279,20 @@ class DirectBoundUDPSocketOptionsDataView {
   std::optional<int32_t> send_buffer_size() const {
 
     return data_->send_buffer_size_$flag
-        ? absl::make_optional(data_->send_buffer_size_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->send_buffer_size_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> receive_buffer_size() const {
 
     return data_->receive_buffer_size_$flag
-        ? absl::make_optional(data_->receive_buffer_size_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->receive_buffer_size_$value)
+        : std::nullopt;
   }
   std::optional<bool> ipv6_only() const {
 
     return data_->ipv6_only_$flag
-        ? absl::make_optional(!!data_->ipv6_only_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->ipv6_only_$value)
+        : std::nullopt;
   }
  private:
   internal::DirectBoundUDPSocketOptions_Data* data_ = nullptr;
@@ -323,14 +323,14 @@ class DirectTCPServerSocketOptionsDataView {
   std::optional<bool> ipv6_only() const {
 
     return data_->ipv6_only_$flag
-        ? absl::make_optional(!!data_->ipv6_only_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->ipv6_only_$value)
+        : std::nullopt;
   }
   std::optional<uint32_t> backlog() const {
 
     return data_->backlog_$flag
-        ? absl::make_optional(data_->backlog_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->backlog_$value)
+        : std::nullopt;
   }
  private:
   internal::DirectTCPServerSocketOptions_Data* data_ = nullptr;

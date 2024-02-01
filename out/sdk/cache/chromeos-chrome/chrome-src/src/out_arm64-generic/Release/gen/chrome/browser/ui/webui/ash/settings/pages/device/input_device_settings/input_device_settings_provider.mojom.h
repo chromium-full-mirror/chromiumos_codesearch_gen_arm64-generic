@@ -974,7 +974,7 @@ class  ActionType {
   static ActionTypePtr
   NewAcceleratorAction(
       ::ash::AcceleratorAction value) {
-    auto result = ActionTypePtr(absl::in_place);
+    auto result = ActionTypePtr(std::in_place);
     result->set_accelerator_action(std::move(value));
     return result;
   }
@@ -982,7 +982,7 @@ class  ActionType {
   static ActionTypePtr
   NewStaticShortcutAction(
       ::ash::mojom::StaticShortcutAction value) {
-    auto result = ActionTypePtr(absl::in_place);
+    auto result = ActionTypePtr(std::in_place);
     result->set_static_shortcut_action(std::move(value));
     return result;
   }
@@ -1092,7 +1092,7 @@ class  ActionChoice {
   template <typename... Args>
   static ActionChoicePtr New(Args&&... args) {
     return ActionChoicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

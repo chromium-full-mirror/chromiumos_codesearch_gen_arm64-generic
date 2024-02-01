@@ -340,7 +340,7 @@ class BLINK_COMMON_EXPORT ChangedServiceWorkerObjectsMask {
   template <typename... Args>
   static ChangedServiceWorkerObjectsMaskPtr New(Args&&... args) {
     return ChangedServiceWorkerObjectsMaskPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -491,7 +491,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerRegistrationObjectInfo {
   template <typename... Args>
   static ServiceWorkerRegistrationObjectInfoPtr New(Args&&... args) {
     return ServiceWorkerRegistrationObjectInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -176,7 +176,7 @@ class PLATFORM_EXPORT OriginTrialFeatureState {
   template <typename... Args>
   static OriginTrialFeatureStatePtr New(Args&&... args) {
     return OriginTrialFeatureStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

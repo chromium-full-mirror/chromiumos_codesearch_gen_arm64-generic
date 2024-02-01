@@ -170,7 +170,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `uptime` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUptime` instead "
     "of `ReadUptime if you're fine with null values being "
@@ -237,7 +237,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `fingerprint` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFingerprint` instead "
     "of `ReadFingerprint if you're fine with null values being "

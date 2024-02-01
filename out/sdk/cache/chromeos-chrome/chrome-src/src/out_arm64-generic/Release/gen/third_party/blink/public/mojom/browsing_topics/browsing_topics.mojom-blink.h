@@ -180,7 +180,7 @@ class PLATFORM_EXPORT GetBrowsingTopicsResult {
   static GetBrowsingTopicsResultPtr
   NewErrorMessage(
       const WTF::String& value) {
-    auto result = GetBrowsingTopicsResultPtr(absl::in_place);
+    auto result = GetBrowsingTopicsResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -188,7 +188,7 @@ class PLATFORM_EXPORT GetBrowsingTopicsResult {
   static GetBrowsingTopicsResultPtr
   NewBrowsingTopics(
       WTF::Vector<EpochTopicPtr> value) {
-    auto result = GetBrowsingTopicsResultPtr(absl::in_place);
+    auto result = GetBrowsingTopicsResultPtr(std::in_place);
     result->set_browsing_topics(std::move(value));
     return result;
   }
@@ -302,7 +302,7 @@ class PLATFORM_EXPORT EpochTopic {
   template <typename... Args>
   static EpochTopicPtr New(Args&&... args) {
     return EpochTopicPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

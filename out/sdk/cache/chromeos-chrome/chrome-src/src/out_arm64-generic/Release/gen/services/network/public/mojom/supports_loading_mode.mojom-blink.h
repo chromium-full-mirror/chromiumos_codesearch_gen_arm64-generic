@@ -59,7 +59,7 @@ class BLINK_PLATFORM_EXPORT SupportsLoadingMode {
   template <typename... Args>
   static SupportsLoadingModePtr New(Args&&... args) {
     return SupportsLoadingModePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -166,7 +166,7 @@ class  ChapsKeyData {
   template <typename... Args>
   static ChapsKeyDataPtr New(Args&&... args) {
     return ChapsKeyDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -328,7 +328,7 @@ class  KeyData {
   static KeyDataPtr
   NewChapsKeyData(
       ChapsKeyDataPtr value) {
-    auto result = KeyDataPtr(absl::in_place);
+    auto result = KeyDataPtr(std::in_place);
     result->set_chaps_key_data(std::move(value));
     return result;
   }
@@ -431,7 +431,7 @@ class  ChromeOsKey {
   template <typename... Args>
   static ChromeOsKeyPtr New(Args&&... args) {
     return ChromeOsKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

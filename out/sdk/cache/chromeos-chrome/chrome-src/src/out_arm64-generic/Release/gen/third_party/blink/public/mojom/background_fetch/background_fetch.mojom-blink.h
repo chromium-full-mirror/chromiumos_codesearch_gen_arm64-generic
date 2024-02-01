@@ -480,7 +480,7 @@ class PLATFORM_EXPORT BackgroundFetchUkmData {
   template <typename... Args>
   static BackgroundFetchUkmDataPtr New(Args&&... args) {
     return BackgroundFetchUkmDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -623,7 +623,7 @@ class PLATFORM_EXPORT BackgroundFetchSettledFetch {
   template <typename... Args>
   static BackgroundFetchSettledFetchPtr New(Args&&... args) {
     return BackgroundFetchSettledFetchPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -763,7 +763,7 @@ class PLATFORM_EXPORT BackgroundFetchOptions {
   template <typename... Args>
   static BackgroundFetchOptionsPtr New(Args&&... args) {
     return BackgroundFetchOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -911,7 +911,7 @@ class PLATFORM_EXPORT BackgroundFetchRegistrationData {
   template <typename... Args>
   static BackgroundFetchRegistrationDataPtr New(Args&&... args) {
     return BackgroundFetchRegistrationDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1070,7 +1070,7 @@ class PLATFORM_EXPORT BackgroundFetchRegistration {
   template <typename... Args>
   static BackgroundFetchRegistrationPtr New(Args&&... args) {
     return BackgroundFetchRegistrationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -387,7 +387,7 @@ class BLINK_COMMON_EXPORT LockInfo {
   template <typename... Args>
   static LockInfoPtr New(Args&&... args) {
     return LockInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

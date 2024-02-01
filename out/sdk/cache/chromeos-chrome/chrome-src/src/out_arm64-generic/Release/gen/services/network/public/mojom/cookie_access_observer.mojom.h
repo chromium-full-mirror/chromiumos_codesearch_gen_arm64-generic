@@ -176,7 +176,7 @@ class  CookieAccessDetails {
   template <typename... Args>
   static CookieAccessDetailsPtr New(Args&&... args) {
     return CookieAccessDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -208,7 +208,7 @@ class  GesturePropValue {
   static GesturePropValuePtr
   NewInts(
       std::vector<int32_t> value) {
-    auto result = GesturePropValuePtr(absl::in_place);
+    auto result = GesturePropValuePtr(std::in_place);
     result->set_ints(std::move(value));
     return result;
   }
@@ -216,7 +216,7 @@ class  GesturePropValue {
   static GesturePropValuePtr
   NewShorts(
       std::vector<int16_t> value) {
-    auto result = GesturePropValuePtr(absl::in_place);
+    auto result = GesturePropValuePtr(std::in_place);
     result->set_shorts(std::move(value));
     return result;
   }
@@ -224,7 +224,7 @@ class  GesturePropValue {
   static GesturePropValuePtr
   NewBools(
       std::vector<bool> value) {
-    auto result = GesturePropValuePtr(absl::in_place);
+    auto result = GesturePropValuePtr(std::in_place);
     result->set_bools(std::move(value));
     return result;
   }
@@ -232,7 +232,7 @@ class  GesturePropValue {
   static GesturePropValuePtr
   NewStr(
       const std::string& value) {
-    auto result = GesturePropValuePtr(absl::in_place);
+    auto result = GesturePropValuePtr(std::in_place);
     result->set_str(std::move(value));
     return result;
   }
@@ -240,7 +240,7 @@ class  GesturePropValue {
   static GesturePropValuePtr
   NewReals(
       std::vector<double> value) {
-    auto result = GesturePropValuePtr(absl::in_place);
+    auto result = GesturePropValuePtr(std::in_place);
     result->set_reals(std::move(value));
     return result;
   }

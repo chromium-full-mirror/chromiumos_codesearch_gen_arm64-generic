@@ -59,7 +59,7 @@ class  EventLatencyMetadata {
   template <typename... Args>
   static EventLatencyMetadataPtr New(Args&&... args) {
     return EventLatencyMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -225,7 +225,7 @@ class  PurchaseDetails {
   template <typename... Args>
   static PurchaseDetailsPtr New(Args&&... args) {
     return PurchaseDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

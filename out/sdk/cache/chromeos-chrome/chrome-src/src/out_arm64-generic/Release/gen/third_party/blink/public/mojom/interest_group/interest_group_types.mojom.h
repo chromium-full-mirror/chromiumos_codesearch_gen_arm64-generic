@@ -63,7 +63,7 @@ class BLINK_COMMON_EXPORT SellerCapabilities {
   template <typename... Args>
   static SellerCapabilitiesPtr New(Args&&... args) {
     return SellerCapabilitiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -207,7 +207,7 @@ class BLINK_COMMON_EXPORT AuctionServerRequestFlags {
   template <typename... Args>
   static AuctionServerRequestFlagsPtr New(Args&&... args) {
     return AuctionServerRequestFlagsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -355,7 +355,7 @@ class BLINK_COMMON_EXPORT AdCurrency {
   template <typename... Args>
   static AdCurrencyPtr New(Args&&... args) {
     return AdCurrencyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -497,7 +497,7 @@ class BLINK_COMMON_EXPORT AuctionReportBuyerDebugModeConfig {
   template <typename... Args>
   static AuctionReportBuyerDebugModeConfigPtr New(Args&&... args) {
     return AuctionReportBuyerDebugModeConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -653,7 +653,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseJson {
   static AuctionAdConfigMaybePromiseJsonPtr
   NewPromise(
       uint32_t value) {
-    auto result = AuctionAdConfigMaybePromiseJsonPtr(absl::in_place);
+    auto result = AuctionAdConfigMaybePromiseJsonPtr(std::in_place);
     result->set_promise(std::move(value));
     return result;
   }
@@ -661,7 +661,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseJson {
   static AuctionAdConfigMaybePromiseJsonPtr
   NewValue(
       const std::optional<std::string>& value) {
-    auto result = AuctionAdConfigMaybePromiseJsonPtr(absl::in_place);
+    auto result = AuctionAdConfigMaybePromiseJsonPtr(std::in_place);
     result->set_value(std::move(value));
     return result;
   }
@@ -783,7 +783,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromisePerBuyerSignals {
   static AuctionAdConfigMaybePromisePerBuyerSignalsPtr
   NewPromise(
       uint32_t value) {
-    auto result = AuctionAdConfigMaybePromisePerBuyerSignalsPtr(absl::in_place);
+    auto result = AuctionAdConfigMaybePromisePerBuyerSignalsPtr(std::in_place);
     result->set_promise(std::move(value));
     return result;
   }
@@ -791,7 +791,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromisePerBuyerSignals {
   static AuctionAdConfigMaybePromisePerBuyerSignalsPtr
   NewValue(
       const std::optional<base::flat_map<::url::Origin, std::string>>& value) {
-    auto result = AuctionAdConfigMaybePromisePerBuyerSignalsPtr(absl::in_place);
+    auto result = AuctionAdConfigMaybePromisePerBuyerSignalsPtr(std::in_place);
     result->set_value(std::move(value));
     return result;
   }
@@ -913,7 +913,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseBuyerTimeouts {
   static AuctionAdConfigMaybePromiseBuyerTimeoutsPtr
   NewPromise(
       uint32_t value) {
-    auto result = AuctionAdConfigMaybePromiseBuyerTimeoutsPtr(absl::in_place);
+    auto result = AuctionAdConfigMaybePromiseBuyerTimeoutsPtr(std::in_place);
     result->set_promise(std::move(value));
     return result;
   }
@@ -921,7 +921,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseBuyerTimeouts {
   static AuctionAdConfigMaybePromiseBuyerTimeoutsPtr
   NewValue(
       const ::blink::AuctionConfig::BuyerTimeouts& value) {
-    auto result = AuctionAdConfigMaybePromiseBuyerTimeoutsPtr(absl::in_place);
+    auto result = AuctionAdConfigMaybePromiseBuyerTimeoutsPtr(std::in_place);
     result->set_value(std::move(value));
     return result;
   }
@@ -1043,7 +1043,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseBuyerCurrencies {
   static AuctionAdConfigMaybePromiseBuyerCurrenciesPtr
   NewPromise(
       uint32_t value) {
-    auto result = AuctionAdConfigMaybePromiseBuyerCurrenciesPtr(absl::in_place);
+    auto result = AuctionAdConfigMaybePromiseBuyerCurrenciesPtr(std::in_place);
     result->set_promise(std::move(value));
     return result;
   }
@@ -1051,7 +1051,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseBuyerCurrencies {
   static AuctionAdConfigMaybePromiseBuyerCurrenciesPtr
   NewValue(
       const ::blink::AuctionConfig::BuyerCurrencies& value) {
-    auto result = AuctionAdConfigMaybePromiseBuyerCurrenciesPtr(absl::in_place);
+    auto result = AuctionAdConfigMaybePromiseBuyerCurrenciesPtr(std::in_place);
     result->set_value(std::move(value));
     return result;
   }
@@ -1173,7 +1173,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseDirectFromSellerSignals {
   static AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr
   NewPromise(
       uint32_t value) {
-    auto result = AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr(absl::in_place);
+    auto result = AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr(std::in_place);
     result->set_promise(std::move(value));
     return result;
   }
@@ -1181,7 +1181,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigMaybePromiseDirectFromSellerSignals {
   static AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr
   NewValue(
       const std::optional<::blink::DirectFromSellerSignals>& value) {
-    auto result = AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr(absl::in_place);
+    auto result = AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr(std::in_place);
     result->set_value(std::move(value));
     return result;
   }
@@ -1295,7 +1295,7 @@ class BLINK_COMMON_EXPORT InterestGroupAd {
   template <typename... Args>
   static InterestGroupAdPtr New(Args&&... args) {
     return InterestGroupAdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1457,7 +1457,7 @@ class BLINK_COMMON_EXPORT InterestGroup {
   template <typename... Args>
   static InterestGroupPtr New(Args&&... args) {
     return InterestGroupPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1671,7 +1671,7 @@ class BLINK_COMMON_EXPORT DirectFromSellerSignalsSubresource {
   template <typename... Args>
   static DirectFromSellerSignalsSubresourcePtr New(Args&&... args) {
     return DirectFromSellerSignalsSubresourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1814,7 +1814,7 @@ class BLINK_COMMON_EXPORT DirectFromSellerSignals {
   template <typename... Args>
   static DirectFromSellerSignalsPtr New(Args&&... args) {
     return DirectFromSellerSignalsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1963,7 +1963,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigBuyerTimeouts {
   template <typename... Args>
   static AuctionAdConfigBuyerTimeoutsPtr New(Args&&... args) {
     return AuctionAdConfigBuyerTimeoutsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2107,7 +2107,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigBuyerCurrencies {
   template <typename... Args>
   static AuctionAdConfigBuyerCurrenciesPtr New(Args&&... args) {
     return AuctionAdConfigBuyerCurrenciesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2250,7 +2250,7 @@ class BLINK_COMMON_EXPORT AuctionAdServerResponseConfig {
   template <typename... Args>
   static AuctionAdServerResponseConfigPtr New(Args&&... args) {
     return AuctionAdServerResponseConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2391,7 +2391,7 @@ class BLINK_COMMON_EXPORT AuctionReportBuyersConfig {
   template <typename... Args>
   static AuctionReportBuyersConfigPtr New(Args&&... args) {
     return AuctionReportBuyersConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2535,7 +2535,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfigNonSharedParams {
   template <typename... Args>
   static AuctionAdConfigNonSharedParamsPtr New(Args&&... args) {
     return AuctionAdConfigNonSharedParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2737,7 +2737,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfig {
   template <typename... Args>
   static AuctionAdConfigPtr New(Args&&... args) {
     return AuctionAdConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

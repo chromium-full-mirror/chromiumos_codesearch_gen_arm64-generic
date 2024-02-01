@@ -339,7 +339,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `verification_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadVerificationToken` instead "
     "of `ReadVerificationToken if you're fine with null values being "
@@ -584,8 +584,8 @@ class WebUISourceDataView {
   std::optional<uint64_t> debug_key() const {
 
     return data_->debug_key_$flag
-        ? absl::make_optional(data_->debug_key_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->debug_key_$value)
+        : std::nullopt;
   }
   inline void GetDedupKeysDataView(
       mojo::ArrayDataView<uint64_t>* output);
@@ -708,8 +708,8 @@ class WebUIRegistrationDataView {
   std::optional<uint64_t> cleared_debug_key() const {
 
     return data_->cleared_debug_key_$flag
-        ? absl::make_optional(data_->cleared_debug_key_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->cleared_debug_key_$value)
+        : std::nullopt;
   }
  private:
   internal::WebUIRegistration_Data* data_ = nullptr;

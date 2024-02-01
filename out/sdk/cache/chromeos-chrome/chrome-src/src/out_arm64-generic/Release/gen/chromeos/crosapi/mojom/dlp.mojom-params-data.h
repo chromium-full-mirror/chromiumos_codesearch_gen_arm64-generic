@@ -417,8 +417,8 @@ class Dlp_ShowBlockedFiles_ParamsDataView {
   std::optional<uint64_t> task_id() const {
 
     return data_->task_id_$flag
-        ? absl::make_optional(data_->task_id_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->task_id_$value)
+        : std::nullopt;
   }
   inline void GetFilesDataView(
       mojo::ArrayDataView<::mojo_base::mojom::FilePathDataView>* output);

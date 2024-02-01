@@ -58,7 +58,7 @@ class BLINK_COMMON_EXPORT ViewportIntersectionState {
   template <typename... Args>
   static ViewportIntersectionStatePtr New(Args&&... args) {
     return ViewportIntersectionStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -60,7 +60,7 @@ class  PresentationFeedback {
   template <typename... Args>
   static PresentationFeedbackPtr New(Args&&... args) {
     return PresentationFeedbackPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

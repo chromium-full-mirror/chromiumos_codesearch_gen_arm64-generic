@@ -1048,7 +1048,7 @@ static_assert(
         ::content::mojom::ExtraMojoJsFeaturesDataView, UserType>(),
     "Attempting to read the optional `features` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFeatures` instead "
     "of `ReadFeatures if you're fine with null values being "
@@ -1194,7 +1194,7 @@ static_assert(
         ::content::mojom::CreateNewWindowReplyDataView, UserType>(),
     "Attempting to read the optional `reply` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReply` instead "
     "of `ReadReply if you're fine with null values being "
@@ -1369,7 +1369,7 @@ static_assert(
         ::content::mojom::DidCommitProvisionalLoadInterfaceParamsDataView, UserType>(),
     "Attempting to read the optional `interface_params` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInterfaceParams` instead "
     "of `ReadInterfaceParams if you're fine with null values being "

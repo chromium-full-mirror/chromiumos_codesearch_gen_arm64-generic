@@ -188,7 +188,7 @@ class PLATFORM_EXPORT Impression {
   template <typename... Args>
   static ImpressionPtr New(Args&&... args) {
     return ImpressionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

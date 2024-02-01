@@ -371,7 +371,7 @@ class  DynamicParams {
   template <typename... Args>
   static DynamicParamsPtr New(Args&&... args) {
     return DynamicParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

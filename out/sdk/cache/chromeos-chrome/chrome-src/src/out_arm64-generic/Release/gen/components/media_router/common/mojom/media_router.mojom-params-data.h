@@ -665,7 +665,7 @@ static_assert(
         ::media_router::mojom::MediaRouteDataView, UserType>(),
     "Attempting to read the optional `route` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRoute` instead "
     "of `ReadRoute if you're fine with null values being "
@@ -685,7 +685,7 @@ static_assert(
         ::media_router::mojom::RoutePresentationConnectionDataView, UserType>(),
     "Attempting to read the optional `connection` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadConnection` instead "
     "of `ReadConnection if you're fine with null values being "
@@ -705,7 +705,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `error_text` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErrorText` instead "
     "of `ReadErrorText if you're fine with null values being "
@@ -810,7 +810,7 @@ static_assert(
         ::media_router::mojom::MediaRouteDataView, UserType>(),
     "Attempting to read the optional `route` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRoute` instead "
     "of `ReadRoute if you're fine with null values being "
@@ -830,7 +830,7 @@ static_assert(
         ::media_router::mojom::RoutePresentationConnectionDataView, UserType>(),
     "Attempting to read the optional `connection` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadConnection` instead "
     "of `ReadConnection if you're fine with null values being "
@@ -850,7 +850,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `error_text` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErrorText` instead "
     "of `ReadErrorText if you're fine with null values being "
@@ -922,7 +922,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `error_text` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErrorText` instead "
     "of `ReadErrorText if you're fine with null values being "
@@ -1240,7 +1240,7 @@ static_assert(
         ::media_router::mojom::ProviderStateDataView, UserType>(),
     "Attempting to read the optional `state` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadState` instead "
     "of `ReadState if you're fine with null values being "

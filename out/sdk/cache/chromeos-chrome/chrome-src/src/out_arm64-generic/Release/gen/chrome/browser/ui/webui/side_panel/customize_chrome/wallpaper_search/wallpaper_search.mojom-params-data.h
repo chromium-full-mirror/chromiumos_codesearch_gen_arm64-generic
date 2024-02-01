@@ -357,7 +357,7 @@ static_assert(
         ::side_panel::customize_chrome::mojom::DescriptorsDataView, UserType>(),
     "Attempting to read the optional `descriptors` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDescriptors` instead "
     "of `ReadDescriptors if you're fine with null values being "
@@ -408,7 +408,7 @@ static_assert(
         mojo::ArrayDataView<::side_panel::customize_chrome::mojom::InspirationGroupDataView>, UserType>(),
     "Attempting to read the optional `inspirationGroups` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInspirationGroups` instead "
     "of `ReadInspirationGroups if you're fine with null values being "

@@ -284,7 +284,7 @@ class  SearchResult {
   template <typename... Args>
   static SearchResultPtr New(Args&&... args) {
     return SearchResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

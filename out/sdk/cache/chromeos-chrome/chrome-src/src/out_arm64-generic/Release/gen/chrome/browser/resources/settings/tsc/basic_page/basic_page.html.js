@@ -60,14 +60,7 @@ export function getTemplate() {
         </template>
         <template is="dom-if" if="[[showSpeedPage_(pageVisibility.performance)]]" restamp>
           <settings-section page-title="$i18n{speedPageTitle}" section="speed" nest-under-section="performance" id="speedSettingsSection">
-            <template is="dom-if" if="[[showSpeedPageV2_]]">
-              <settings-speed-page prefs="{{prefs}}">
-              </settings-speed-page>
-            </template>
-            <template is="dom-if" if="[[!showSpeedPageV2_]]">
-              <settings-preloading-page prefs="{{prefs}}">
-              </settings-preloading-page>
-            </template>
+            <settings-speed-page prefs="{{prefs}}"></settings-speed-page>
           </settings-section>
         </template>
         <template is="dom-if" if="[[showPage_(pageVisibility.appearance)]]" restamp>

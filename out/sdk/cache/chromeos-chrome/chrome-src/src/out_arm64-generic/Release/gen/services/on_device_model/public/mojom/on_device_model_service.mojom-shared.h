@@ -102,7 +102,7 @@ static_assert(
         ::mojo_base::mojom::ReadOnlyFileDataView, UserType>(),
     "Attempting to read the optional `sp_model` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSpModel` instead "
     "of `ReadSpModel if you're fine with null values being "
@@ -122,7 +122,7 @@ static_assert(
         ::mojo_base::mojom::ReadOnlyFileDataView, UserType>(),
     "Attempting to read the optional `model` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadModel` instead "
     "of `ReadModel if you're fine with null values being "
@@ -142,7 +142,7 @@ static_assert(
         ::mojo_base::mojom::FileDataView, UserType>(),
     "Attempting to read the optional `weights` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWeights` instead "
     "of `ReadWeights if you're fine with null values being "
@@ -162,7 +162,7 @@ static_assert(
         ::mojo_base::mojom::ReadOnlyFileDataView, UserType>(),
     "Attempting to read the optional `ts_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTsData` instead "
     "of `ReadTsData if you're fine with null values being "
@@ -182,7 +182,7 @@ static_assert(
         ::mojo_base::mojom::ReadOnlyFileDataView, UserType>(),
     "Attempting to read the optional `ts_sp_model` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTsSpModel` instead "
     "of `ReadTsSpModel if you're fine with null values being "
@@ -223,8 +223,8 @@ class LoadModelParamsDataView {
   std::optional<uint32_t> ts_dimension() const {
 
     return data_->ts_dimension_$flag
-        ? absl::make_optional(data_->ts_dimension_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->ts_dimension_$value)
+        : std::nullopt;
   }
  private:
   internal::LoadModelParams_Data* data_ = nullptr;

@@ -53,7 +53,7 @@ class  HDRStaticMetadata {
   template <typename... Args>
   static HDRStaticMetadataPtr New(Args&&... args) {
     return HDRStaticMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

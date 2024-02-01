@@ -283,7 +283,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `http_content_type` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHttpContentType` instead "
     "of `ReadHttpContentType if you're fine with null values being "
@@ -303,7 +303,7 @@ static_assert(
         ::blink::mojom::RequestBodyDataView, UserType>(),
     "Attempting to read the optional `request_body` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRequestBody` instead "
     "of `ReadRequestBody if you're fine with null values being "
@@ -365,7 +365,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `scroll_anchor_selector` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadScrollAnchorSelector` instead "
     "of `ReadScrollAnchorSelector if you're fine with null values being "
@@ -386,7 +386,7 @@ static_assert(
         ::gfx::mojom::PointFDataView, UserType>(),
     "Attempting to read the optional `scroll_anchor_offset` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadScrollAnchorOffset` instead "
     "of `ReadScrollAnchorOffset if you're fine with null values being "
@@ -428,7 +428,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `url_string` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUrlString` instead "
     "of `ReadUrlString if you're fine with null values being "
@@ -448,7 +448,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `referrer` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReferrer` instead "
     "of `ReadReferrer if you're fine with null values being "
@@ -468,7 +468,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `target` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTarget` instead "
     "of `ReadTarget if you're fine with null values being "
@@ -488,7 +488,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `state_object` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStateObject` instead "
     "of `ReadStateObject if you're fine with null values being "
@@ -528,7 +528,7 @@ static_assert(
         ::blink::mojom::ViewStateDataView, UserType>(),
     "Attempting to read the optional `view_state` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadViewState` instead "
     "of `ReadViewState if you're fine with null values being "
@@ -584,7 +584,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `initiator_origin` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInitiatorOrigin` instead "
     "of `ReadInitiatorOrigin if you're fine with null values being "
@@ -605,7 +605,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `navigation_api_key` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNavigationApiKey` instead "
     "of `ReadNavigationApiKey if you're fine with null values being "
@@ -626,7 +626,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `navigation_api_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNavigationApiId` instead "
     "of `ReadNavigationApiId if you're fine with null values being "
@@ -647,7 +647,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `navigation_api_state` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNavigationApiState` instead "
     "of `ReadNavigationApiState if you're fine with null values being "
@@ -673,7 +673,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `initiator_base_url_string` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInitiatorBaseUrlString` instead "
     "of `ReadInitiatorBaseUrlString if you're fine with null values being "

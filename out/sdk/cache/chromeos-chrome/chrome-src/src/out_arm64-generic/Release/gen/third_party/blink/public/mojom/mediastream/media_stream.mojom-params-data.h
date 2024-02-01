@@ -882,7 +882,7 @@ static_assert(
         ::blink::mojom::StreamDevicesSetDataView, UserType>(),
     "Attempting to read the optional `stream_devices` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStreamDevices` instead "
     "of `ReadStreamDevices if you're fine with null values being "
@@ -978,7 +978,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `session_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSessionId` instead "
     "of `ReadSessionId if you're fine with null values being "
@@ -1118,7 +1118,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `session_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSessionId` instead "
     "of `ReadSessionId if you're fine with null values being "
@@ -1346,8 +1346,8 @@ class MediaStreamDispatcherHost_GetZoomLevel_ResponseParamsDataView {
   std::optional<int32_t> zoom_level() const {
 
     return data_->zoom_level_$flag
-        ? absl::make_optional(data_->zoom_level_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->zoom_level_$value)
+        : std::nullopt;
   }
   template <typename UserType>
   [[nodiscard]] bool ReadResult(UserType* output) const {
@@ -1488,7 +1488,7 @@ static_assert(
         ::blink::mojom::GetOpenDeviceResponseDataView, UserType>(),
     "Attempting to read the optional `response` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResponse` instead "
     "of `ReadResponse if you're fine with null values being "

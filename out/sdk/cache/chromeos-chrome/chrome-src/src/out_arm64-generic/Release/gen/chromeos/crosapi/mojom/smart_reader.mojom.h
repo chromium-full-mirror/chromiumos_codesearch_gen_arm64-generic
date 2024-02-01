@@ -173,7 +173,7 @@ class  SmartReaderPageContent {
   template <typename... Args>
   static SmartReaderPageContentPtr New(Args&&... args) {
     return SmartReaderPageContentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

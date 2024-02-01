@@ -29,6 +29,7 @@
 #include "chromeos/services/machine_learning/public/mojom/document_scanner.mojom-forward.h"
 #include "chromeos/services/machine_learning/public/mojom/grammar_checker.mojom-forward.h"
 #include "chromeos/services/machine_learning/public/mojom/handwriting_recognizer.mojom-forward.h"
+#include "chromeos/services/machine_learning/public/mojom/heatmap_palm_rejection.mojom-forward.h"
 #include "chromeos/services/machine_learning/public/mojom/image_content_annotation.mojom-forward.h"
 #include "chromeos/services/machine_learning/public/mojom/model.mojom-forward.h"
 #include "chromeos/services/machine_learning/public/mojom/soda.mojom-forward.h"
@@ -70,7 +71,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) MachineLearningService
   static const char* MessageToMethodName_(mojo::Message& message);
   static constexpr base::Token Uuid_{ 11411636915813502682ULL,
                                       12396497001077425579ULL };
-  static constexpr uint32_t Version_ = 7;
+  static constexpr uint32_t Version_ = 13;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -95,6 +96,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) MachineLearningService
     kLoadDocumentScannerMinVersion = 4,
     kCreateWebPlatformModelLoaderMinVersion = 5,
     kLoadImageAnnotatorMinVersion = 7,
+    kLoadHeatmapPalmRejectionMinVersion = 13,
     kREMOVED_4MinVersion = 0,
   };
 
@@ -135,6 +137,9 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) MachineLearningService
     NOINLINE static uint32_t IPCStableHash();
   };
   struct LoadImageAnnotator_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct LoadHeatmapPalmRejection_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct REMOVED_4_Sym {
@@ -202,6 +207,11 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) MachineLearningService
   virtual void LoadImageAnnotator(::chromeos::machine_learning::mojom::ImageAnnotatorConfigPtr config, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::ImageContentAnnotator> receiver, LoadImageAnnotatorCallback callback) = 0;
 
 
+  using LoadHeatmapPalmRejectionCallback = base::OnceCallback<void(::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult)>;
+  
+  virtual void LoadHeatmapPalmRejection(::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::HeatmapPalmRejectionClient> client, LoadHeatmapPalmRejectionCallback callback) = 0;
+
+
   using REMOVED_4Callback = base::OnceCallback<void(LoadModelResult)>;
   
   virtual void REMOVED_4(::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver, REMOVED_4Callback callback) = 0;
@@ -239,6 +249,8 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) MachineLearningServiceProxy
   void CreateWebPlatformModelLoader(::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader> receiver, ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr options, CreateWebPlatformModelLoaderCallback callback) final;
   
   void LoadImageAnnotator(::chromeos::machine_learning::mojom::ImageAnnotatorConfigPtr config, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::ImageContentAnnotator> receiver, LoadImageAnnotatorCallback callback) final;
+  
+  void LoadHeatmapPalmRejection(::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::HeatmapPalmRejectionClient> client, LoadHeatmapPalmRejectionCallback callback) final;
   
   void REMOVED_4(::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver, REMOVED_4Callback callback) final;
 

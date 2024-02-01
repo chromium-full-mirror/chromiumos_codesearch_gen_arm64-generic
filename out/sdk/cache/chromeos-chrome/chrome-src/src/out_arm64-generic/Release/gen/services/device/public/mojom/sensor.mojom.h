@@ -328,7 +328,7 @@ class  SensorConfiguration {
   template <typename... Args>
   static SensorConfigurationPtr New(Args&&... args) {
     return SensorConfigurationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -470,7 +470,7 @@ class  SensorReadingRaw {
   template <typename... Args>
   static SensorReadingRawPtr New(Args&&... args) {
     return SensorReadingRawPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

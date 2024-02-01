@@ -27,7 +27,6 @@
 #include "services/device/public/mojom/device_service.mojom-shared.h"
 #include "services/device/public/mojom/device_service.mojom-forward.h"
 #include "services/device/public/mojom/battery_monitor.mojom-forward.h"
-#include "services/device/public/mojom/device_posture_provider.mojom-forward.h"
 #include "services/device/public/mojom/fingerprint.mojom-forward.h"
 #include "services/device/public/mojom/geolocation_config.mojom-forward.h"
 #include "services/device/public/mojom/geolocation_context.mojom-forward.h"
@@ -89,7 +88,6 @@ class DeviceService
   using RequestValidator_ = DeviceServiceRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
-    kBindDevicePostureProviderMinVersion = 0,
     kBindFingerprintMinVersion = 0,
     kBindGeolocationConfigMinVersion = 0,
     kBindGeolocationContextMinVersion = 0,
@@ -115,9 +113,6 @@ class DeviceService
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct BindDevicePostureProvider_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct BindFingerprint_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -180,9 +175,6 @@ class DeviceService
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~DeviceService() = default;
-
-  
-  virtual void BindDevicePostureProvider(::mojo::PendingReceiver<::device::mojom::DevicePostureProvider> receiver) = 0;
 
   
   virtual void BindFingerprint(::mojo::PendingReceiver<::device::mojom::Fingerprint> receiver) = 0;
@@ -253,8 +245,6 @@ class  DeviceServiceProxy
   using InterfaceType = DeviceService;
 
   explicit DeviceServiceProxy(mojo::MessageReceiverWithResponder* receiver);
-  
-  void BindDevicePostureProvider(::mojo::PendingReceiver<::device::mojom::DevicePostureProvider> receiver) final;
   
   void BindFingerprint(::mojo::PendingReceiver<::device::mojom::Fingerprint> receiver) final;
   

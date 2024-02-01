@@ -8,7 +8,7 @@ import { I18nMixin, loadTimeData } from '../../../i18n_setup.js';
 import { ModuleDescriptor } from '../../module_descriptor.js';
 import { getTemplate } from './module.html.js';
 import { TabResumptionProxyImpl } from './tab_resumption_proxy.js';
-export const MAX_TABS = 10;
+export const MAX_TABS = 5;
 export class TabResumptionModuleElement extends I18nMixin(PolymerElement) {
     static get is() {
         return 'ntp-tab-resumption';

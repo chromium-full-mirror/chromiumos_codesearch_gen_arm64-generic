@@ -57,7 +57,7 @@ class  StorageUsageInfo {
   template <typename... Args>
   static StorageUsageInfoPtr New(Args&&... args) {
     return StorageUsageInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

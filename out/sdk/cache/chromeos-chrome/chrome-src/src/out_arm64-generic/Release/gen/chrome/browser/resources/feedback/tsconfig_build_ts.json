@@ -1,5 +1,5 @@
 {
-  "extends": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base.json",
+  "extends": "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base_polymer.json",
   "compilerOptions": {
     "rootDir": "preprocessed",
     "outDir": "tsc",
@@ -7,6 +7,24 @@
     "declaration": true,
     "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
     "paths": {
+      "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
+      ],
+      "//resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "chrome://resources/polymer/v3_0/*": [
+        "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
+      ],
+      "//resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
+      "chrome://resources/cr_elements/*": [
+        "./../../../../ui/webui/resources/tsc/cr_elements/*"
+      ],
       "//resources/js/*": [
         "./../../../../ui/webui/resources/tsc/js/*"
       ],
@@ -25,9 +43,9 @@
     }
   },
   "files": [
+    "preprocessed/app.ts",
     "preprocessed/js/autofill_metadata.ts",
     "preprocessed/js/feedback_browser_proxy.ts",
-    "preprocessed/js/feedback.ts",
     "preprocessed/js/feedback_regexes.ts",
     "preprocessed/js/feedback_util.ts",
     "preprocessed/js/logs_map_page.ts",
@@ -35,10 +53,19 @@
     "preprocessed/js/sys_info.ts",
     "preprocessed/js/take_screenshot.ts",
     "preprocessed/js/jelly_colors.ts",
+    "preprocessed/app.html.ts",
+    "preprocessed/feedback_shared_styles.css.ts",
+    "preprocessed/feedback_shared_vars.css.ts",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/feedback_private.d.ts",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/chrome_send.d.ts"
   ],
   "references": [
+    {
+      "path": "../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+    },
     {
       "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"
     },

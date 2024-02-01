@@ -318,7 +318,7 @@ class  EventDestination {
   template <typename... Args>
   static EventDestinationPtr New(Args&&... args) {
     return EventDestinationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -462,7 +462,7 @@ class  FileDatabaseEntry {
   template <typename... Args>
   static FileDatabaseEntryPtr New(Args&&... args) {
     return FileDatabaseEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -613,7 +613,7 @@ class  DataTransferEndpoint {
   template <typename... Args>
   static DataTransferEndpointPtr New(Args&&... args) {
     return DataTransferEndpointPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -756,7 +756,7 @@ class  ContentRestrictionInfo {
   template <typename... Args>
   static ContentRestrictionInfoPtr New(Args&&... args) {
     return ContentRestrictionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -902,7 +902,7 @@ class  RenderFrameHostInfo {
   template <typename... Args>
   static RenderFrameHostInfoPtr New(Args&&... args) {
     return RenderFrameHostInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1047,7 +1047,7 @@ class  WebContentsInfo {
   template <typename... Args>
   static WebContentsInfoPtr New(Args&&... args) {
     return WebContentsInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1199,7 +1199,7 @@ class  DlpEvent {
   template <typename... Args>
   static DlpEventPtr New(Args&&... args) {
     return DlpEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

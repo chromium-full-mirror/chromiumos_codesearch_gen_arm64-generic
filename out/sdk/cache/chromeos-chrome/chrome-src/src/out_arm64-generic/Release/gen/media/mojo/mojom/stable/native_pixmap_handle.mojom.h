@@ -59,7 +59,7 @@ class  NativePixmapPlane {
   template <typename... Args>
   static NativePixmapPlanePtr New(Args&&... args) {
     return NativePixmapPlanePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -205,7 +205,7 @@ class  NativePixmapHandle {
   template <typename... Args>
   static NativePixmapHandlePtr New(Args&&... args) {
     return NativePixmapHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

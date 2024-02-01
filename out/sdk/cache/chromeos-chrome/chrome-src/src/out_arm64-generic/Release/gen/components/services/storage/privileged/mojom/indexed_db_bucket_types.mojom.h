@@ -65,7 +65,7 @@ class  IdbOriginMetadata {
   template <typename... Args>
   static IdbOriginMetadataPtr New(Args&&... args) {
     return IdbOriginMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -210,7 +210,7 @@ class  IdbStorageKeyMetadata {
   template <typename... Args>
   static IdbStorageKeyMetadataPtr New(Args&&... args) {
     return IdbStorageKeyMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -358,7 +358,7 @@ class  IdbBucketMetadata {
   template <typename... Args>
   static IdbBucketMetadataPtr New(Args&&... args) {
     return IdbBucketMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -518,7 +518,7 @@ class  IdbDatabaseMetadata {
   template <typename... Args>
   static IdbDatabaseMetadataPtr New(Args&&... args) {
     return IdbDatabaseMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -672,7 +672,7 @@ class  IdbTransactionMetadata {
   template <typename... Args>
   static IdbTransactionMetadataPtr New(Args&&... args) {
     return IdbTransactionMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

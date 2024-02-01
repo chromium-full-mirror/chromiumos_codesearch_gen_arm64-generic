@@ -86,7 +86,7 @@ class  DrawQuadState {
   static DrawQuadStatePtr
   NewDebugBorderQuadState(
       DebugBorderQuadStatePtr value) {
-    auto result = DrawQuadStatePtr(absl::in_place);
+    auto result = DrawQuadStatePtr(std::in_place);
     result->set_debug_border_quad_state(std::move(value));
     return result;
   }
@@ -94,7 +94,7 @@ class  DrawQuadState {
   static DrawQuadStatePtr
   NewRenderPassQuadState(
       CompositorRenderPassQuadStatePtr value) {
-    auto result = DrawQuadStatePtr(absl::in_place);
+    auto result = DrawQuadStatePtr(std::in_place);
     result->set_render_pass_quad_state(std::move(value));
     return result;
   }
@@ -102,7 +102,7 @@ class  DrawQuadState {
   static DrawQuadStatePtr
   NewSolidColorQuadState(
       SolidColorQuadStatePtr value) {
-    auto result = DrawQuadStatePtr(absl::in_place);
+    auto result = DrawQuadStatePtr(std::in_place);
     result->set_solid_color_quad_state(std::move(value));
     return result;
   }
@@ -110,7 +110,7 @@ class  DrawQuadState {
   static DrawQuadStatePtr
   NewSurfaceQuadState(
       SurfaceQuadStatePtr value) {
-    auto result = DrawQuadStatePtr(absl::in_place);
+    auto result = DrawQuadStatePtr(std::in_place);
     result->set_surface_quad_state(std::move(value));
     return result;
   }
@@ -118,7 +118,7 @@ class  DrawQuadState {
   static DrawQuadStatePtr
   NewTextureQuadState(
       TextureQuadStatePtr value) {
-    auto result = DrawQuadStatePtr(absl::in_place);
+    auto result = DrawQuadStatePtr(std::in_place);
     result->set_texture_quad_state(std::move(value));
     return result;
   }
@@ -126,7 +126,7 @@ class  DrawQuadState {
   static DrawQuadStatePtr
   NewTileQuadState(
       TileQuadStatePtr value) {
-    auto result = DrawQuadStatePtr(absl::in_place);
+    auto result = DrawQuadStatePtr(std::in_place);
     result->set_tile_quad_state(std::move(value));
     return result;
   }
@@ -134,7 +134,7 @@ class  DrawQuadState {
   static DrawQuadStatePtr
   NewYuvVideoQuadState(
       YUVVideoQuadStatePtr value) {
-    auto result = DrawQuadStatePtr(absl::in_place);
+    auto result = DrawQuadStatePtr(std::in_place);
     result->set_yuv_video_quad_state(std::move(value));
     return result;
   }
@@ -142,7 +142,7 @@ class  DrawQuadState {
   static DrawQuadStatePtr
   NewVideoHoleQuadState(
       VideoHoleQuadStatePtr value) {
-    auto result = DrawQuadStatePtr(absl::in_place);
+    auto result = DrawQuadStatePtr(std::in_place);
     result->set_video_hole_quad_state(std::move(value));
     return result;
   }
@@ -150,7 +150,7 @@ class  DrawQuadState {
   static DrawQuadStatePtr
   NewSharedElementQuadState(
       SharedElementQuadStatePtr value) {
-    auto result = DrawQuadStatePtr(absl::in_place);
+    auto result = DrawQuadStatePtr(std::in_place);
     result->set_shared_element_quad_state(std::move(value));
     return result;
   }
@@ -355,7 +355,7 @@ class  RoundedDisplayMasksInfo {
   template <typename... Args>
   static RoundedDisplayMasksInfoPtr New(Args&&... args) {
     return RoundedDisplayMasksInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -498,7 +498,7 @@ class  DebugBorderQuadState {
   template <typename... Args>
   static DebugBorderQuadStatePtr New(Args&&... args) {
     return DebugBorderQuadStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -641,7 +641,7 @@ class  CompositorRenderPassQuadState {
   template <typename... Args>
   static CompositorRenderPassQuadStatePtr New(Args&&... args) {
     return CompositorRenderPassQuadStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -808,7 +808,7 @@ class  SolidColorQuadState {
   template <typename... Args>
   static SolidColorQuadStatePtr New(Args&&... args) {
     return SolidColorQuadStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -951,7 +951,7 @@ class  SurfaceQuadState {
   template <typename... Args>
   static SurfaceQuadStatePtr New(Args&&... args) {
     return SurfaceQuadStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1103,7 +1103,7 @@ class  TextureQuadState {
   template <typename... Args>
   static TextureQuadStatePtr New(Args&&... args) {
     return TextureQuadStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1296,7 +1296,7 @@ class  TileQuadState {
   template <typename... Args>
   static TileQuadStatePtr New(Args&&... args) {
     return TileQuadStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1451,7 +1451,7 @@ class  YUVVideoQuadState {
   template <typename... Args>
   static YUVVideoQuadStatePtr New(Args&&... args) {
     return YUVVideoQuadStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1633,7 +1633,7 @@ class  VideoHoleQuadState {
   template <typename... Args>
   static VideoHoleQuadStatePtr New(Args&&... args) {
     return VideoHoleQuadStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1773,7 +1773,7 @@ class  SharedElementQuadState {
   template <typename... Args>
   static SharedElementQuadStatePtr New(Args&&... args) {
     return SharedElementQuadStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1913,7 +1913,7 @@ class  DrawQuad {
   template <typename... Args>
   static DrawQuadPtr New(Args&&... args) {
     return DrawQuadPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

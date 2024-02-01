@@ -166,7 +166,7 @@ class BLINK_PLATFORM_EXPORT SSLConfig {
   template <typename... Args>
   static SSLConfigPtr New(Args&&... args) {
     return SSLConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

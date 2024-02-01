@@ -68,7 +68,7 @@ bool BackForwardCacheControllerHost_EvictFromBackForwardCache_Params_Data::Valid
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+          data, 24, validation_context)) {
     return false;
   }
 
@@ -80,6 +80,9 @@ bool BackForwardCacheControllerHost_EvictFromBackForwardCache_Params_Data::Valid
 
   if (!::blink::mojom::internal::RendererEvictionReason_Data
         ::Validate(object->reason, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->details, validation_context))
     return false;
 
   return true;

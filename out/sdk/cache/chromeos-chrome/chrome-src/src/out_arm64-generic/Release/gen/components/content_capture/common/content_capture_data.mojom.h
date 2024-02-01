@@ -58,7 +58,7 @@ class  ContentCaptureData {
   template <typename... Args>
   static ContentCaptureDataPtr New(Args&&... args) {
     return ContentCaptureDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

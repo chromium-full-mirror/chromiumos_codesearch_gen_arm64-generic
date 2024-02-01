@@ -387,7 +387,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) BackgroundTracingRule {
   template <typename... Args>
   static BackgroundTracingRulePtr New(Args&&... args) {
     return BackgroundTracingRulePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

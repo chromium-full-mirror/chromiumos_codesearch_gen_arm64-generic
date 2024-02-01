@@ -133,19 +133,23 @@ export class SettingsDisplayNightLightElement extends SettingsDisplayNightLightE
         // undefined.
         if (this.currentScheduleType !== scheduleType &&
             this.currentScheduleType !== undefined) {
-            this.recordNightLightSettingsMetrics(DisplaySettingsType.kNightLightSchedule, this.isInternalDisplay);
+            this.recordChangingNightLightSchedule(this.isInternalDisplay, scheduleType);
         }
         if (this.currentNightLightStatus !== nightLightStatus &&
             this.currentNightLightStatus !== undefined) {
-            this.recordNightLightSettingsMetrics(DisplaySettingsType.kNightLight, this.isInternalDisplay);
+            this.recordTogglingNightLightStatus(this.isInternalDisplay, nightLightStatus);
         }
         // Updates current schedule type and night light status.
         this.currentScheduleType = scheduleType;
         this.currentNightLightStatus = nightLightStatus;
     }
-    // Records metrics when users change the night light settings.
-    recordNightLightSettingsMetrics(displaySettingsType, isInternalDisplay) {
-        this.displaySettingsProvider.recordChangingDisplaySettings(displaySettingsType, { isInternalDisplay });
+    // Records metrics when users change the night light schedule.
+    recordChangingNightLightSchedule(isInternalDisplay, nightLightSchedule) {
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kNightLightSchedule, { isInternalDisplay, nightLightSchedule });
+    }
+    // Records metrics when users toggle the night light status.
+    recordTogglingNightLightStatus(isInternalDisplay, nightLightStatus) {
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kNightLight, { isInternalDisplay, nightLightStatus });
     }
     computeShouldShowGeolocationWarningText_() {
         const scheduleType = this.prefs.ash.night_light.schedule_type.value;

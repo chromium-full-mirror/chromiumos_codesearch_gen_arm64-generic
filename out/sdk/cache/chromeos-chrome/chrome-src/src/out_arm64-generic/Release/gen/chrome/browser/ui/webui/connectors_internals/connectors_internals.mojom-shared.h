@@ -248,7 +248,7 @@ static_assert(
         ::connectors_internals::mojom::Int32ValueDataView, UserType>(),
     "Attempting to read the optional `sync_key_response_code` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSyncKeyResponseCode` instead "
     "of `ReadSyncKeyResponseCode if you're fine with null values being "
@@ -294,7 +294,7 @@ static_assert(
         ::connectors_internals::mojom::LoadedKeyInfoDataView, UserType>(),
     "Attempting to read the optional `loaded_key_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLoadedKeyInfo` instead "
     "of `ReadLoadedKeyInfo if you're fine with null values being "
@@ -394,7 +394,7 @@ static_assert(
         ::connectors_internals::mojom::ConsentMetadataDataView, UserType>(),
     "Attempting to read the optional `consent_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadConsentMetadata` instead "
     "of `ReadConsentMetadata if you're fine with null values being "

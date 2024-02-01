@@ -382,7 +382,7 @@ static_assert(
         ::media::mojom::DecoderBufferDataView, UserType>(),
     "Attempting to read the optional `buffer` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBuffer` instead "
     "of `ReadBuffer if you're fine with null values being "
@@ -629,7 +629,7 @@ static_assert(
         ::media::mojom::VideoFrameDataView, UserType>(),
     "Attempting to read the optional `video_frame` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadVideoFrame` instead "
     "of `ReadVideoFrame if you're fine with null values being "

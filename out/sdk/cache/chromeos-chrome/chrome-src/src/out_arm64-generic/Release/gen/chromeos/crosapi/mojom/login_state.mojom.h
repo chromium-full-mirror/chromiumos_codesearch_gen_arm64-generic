@@ -294,7 +294,7 @@ class  GetSessionStateResult {
   static GetSessionStateResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = GetSessionStateResultPtr(absl::in_place);
+    auto result = GetSessionStateResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -302,7 +302,7 @@ class  GetSessionStateResult {
   static GetSessionStateResultPtr
   NewSessionState(
       SessionState value) {
-    auto result = GetSessionStateResultPtr(absl::in_place);
+    auto result = GetSessionStateResultPtr(std::in_place);
     result->set_session_state(std::move(value));
     return result;
   }

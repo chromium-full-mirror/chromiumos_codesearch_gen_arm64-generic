@@ -680,7 +680,7 @@ class BLINK_PLATFORM_EXPORT HidUsageAndPage {
   template <typename... Args>
   static HidUsageAndPagePtr New(Args&&... args) {
     return HidUsageAndPagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -831,7 +831,7 @@ class BLINK_PLATFORM_EXPORT HidReportItem {
   template <typename... Args>
   static HidReportItemPtr New(Args&&... args) {
     return HidReportItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1045,7 +1045,7 @@ class BLINK_PLATFORM_EXPORT HidReportDescription {
   template <typename... Args>
   static HidReportDescriptionPtr New(Args&&... args) {
     return HidReportDescriptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1190,7 +1190,7 @@ class BLINK_PLATFORM_EXPORT HidCollectionInfo {
   template <typename... Args>
   static HidCollectionInfoPtr New(Args&&... args) {
     return HidCollectionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1350,7 +1350,7 @@ class BLINK_PLATFORM_EXPORT HidDeviceInfo {
   template <typename... Args>
   static HidDeviceInfoPtr New(Args&&... args) {
     return HidDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

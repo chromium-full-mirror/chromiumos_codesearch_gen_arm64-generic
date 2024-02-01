@@ -198,7 +198,7 @@ class PLATFORM_EXPORT PushSubscriptionOptions {
   template <typename... Args>
   static PushSubscriptionOptionsPtr New(Args&&... args) {
     return PushSubscriptionOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -341,7 +341,7 @@ class PLATFORM_EXPORT PushSubscription {
   template <typename... Args>
   static PushSubscriptionPtr New(Args&&... args) {
     return PushSubscriptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -55,7 +55,7 @@ class  SurfaceHandle {
   template <typename... Args>
   static SurfaceHandlePtr New(Args&&... args) {
     return SurfaceHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

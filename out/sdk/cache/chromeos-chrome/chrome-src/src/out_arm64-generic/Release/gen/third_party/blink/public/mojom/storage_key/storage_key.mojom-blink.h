@@ -64,7 +64,7 @@ class PLATFORM_EXPORT StorageKey {
   template <typename... Args>
   static StorageKeyPtr New(Args&&... args) {
     return StorageKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

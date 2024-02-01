@@ -336,7 +336,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `context_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadContextId` instead "
     "of `ReadContextId if you're fine with null values being "
@@ -356,7 +356,7 @@ static_assert(
         ::url::mojom::OriginDataView, UserType>(),
     "Attempting to read the optional `aggregation_coordinator_origin` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAggregationCoordinatorOrigin` instead "
     "of `ReadAggregationCoordinatorOrigin if you're fine with null values being "
@@ -405,7 +405,7 @@ static_assert(
         ::blink::mojom::FencedFrameConfigDataView, UserType>(),
     "Attempting to read the optional `config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadConfig` instead "
     "of `ReadConfig if you're fine with null values being "
@@ -464,7 +464,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `context_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadContextId` instead "
     "of `ReadContextId if you're fine with null values being "
@@ -484,7 +484,7 @@ static_assert(
         ::url::mojom::OriginDataView, UserType>(),
     "Attempting to read the optional `aggregation_coordinator_origin` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAggregationCoordinatorOrigin` instead "
     "of `ReadAggregationCoordinatorOrigin if you're fine with null values being "

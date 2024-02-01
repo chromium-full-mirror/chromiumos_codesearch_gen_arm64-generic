@@ -54,7 +54,7 @@ class BLINK_COMMON_EXPORT UserAgentBrandVersion {
   template <typename... Args>
   static UserAgentBrandVersionPtr New(Args&&... args) {
     return UserAgentBrandVersionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -202,7 +202,7 @@ class BLINK_COMMON_EXPORT UserAgentMetadata {
   template <typename... Args>
   static UserAgentMetadataPtr New(Args&&... args) {
     return UserAgentMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -372,7 +372,7 @@ class BLINK_COMMON_EXPORT UserAgentOverride {
   template <typename... Args>
   static UserAgentOverridePtr New(Args&&... args) {
     return UserAgentOverridePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

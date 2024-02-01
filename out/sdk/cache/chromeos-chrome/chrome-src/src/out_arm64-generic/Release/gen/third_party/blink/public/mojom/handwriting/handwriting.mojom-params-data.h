@@ -182,7 +182,7 @@ static_assert(
         mojo::ArrayDataView<::handwriting::mojom::HandwritingPredictionDataView>, UserType>(),
     "Attempting to read the optional `prediction` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPrediction` instead "
     "of `ReadPrediction if you're fine with null values being "
@@ -279,7 +279,7 @@ static_assert(
         ::handwriting::mojom::HandwritingModelConstraintDataView, UserType>(),
     "Attempting to read the optional `constraint` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadConstraint` instead "
     "of `ReadConstraint if you're fine with null values being "
@@ -315,7 +315,7 @@ static_assert(
         ::handwriting::mojom::QueryHandwritingRecognizerResultDataView, UserType>(),
     "Attempting to read the optional `result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResult` instead "
     "of `ReadResult if you're fine with null values being "

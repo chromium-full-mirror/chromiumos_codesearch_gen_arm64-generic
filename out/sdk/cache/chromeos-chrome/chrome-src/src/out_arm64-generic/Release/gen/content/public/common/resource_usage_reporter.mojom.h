@@ -166,7 +166,7 @@ class CONTENT_EXPORT ResourceTypeStat {
   template <typename... Args>
   static ResourceTypeStatPtr New(Args&&... args) {
     return ResourceTypeStatPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -321,7 +321,7 @@ class CONTENT_EXPORT ResourceTypeStats {
   template <typename... Args>
   static ResourceTypeStatsPtr New(Args&&... args) {
     return ResourceTypeStatsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -479,7 +479,7 @@ class CONTENT_EXPORT ResourceUsageData {
   template <typename... Args>
   static ResourceUsageDataPtr New(Args&&... args) {
     return ResourceUsageDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

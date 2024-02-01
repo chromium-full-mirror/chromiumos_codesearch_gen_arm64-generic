@@ -56,7 +56,7 @@ class BLINK_PLATFORM_EXPORT SourceLocation {
   template <typename... Args>
   static SourceLocationPtr New(Args&&... args) {
     return SourceLocationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

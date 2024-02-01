@@ -680,7 +680,7 @@ class  TabGroupVisualData {
   template <typename... Args>
   static TabGroupVisualDataPtr New(Args&&... args) {
     return TabGroupVisualDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -829,7 +829,7 @@ class  Tab {
   template <typename... Args>
   static TabPtr New(Args&&... args) {
     return TabPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

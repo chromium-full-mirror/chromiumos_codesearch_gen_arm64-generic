@@ -346,6 +346,28 @@ chromeos.machineLearning.mojom.MachineLearningServiceRemote = class {
 
   
   /**
+   * @param { !chromeos.machineLearning.mojom.HeatmapPalmRejectionConfig } config
+   * @param { !chromeos.machineLearning.mojom.HeatmapPalmRejectionClientRemote } client
+   * @return {!Promise<{
+        result: !chromeos.machineLearning.mojom.LoadHeatmapPalmRejectionResult,
+   *  }>}
+   */
+
+  loadHeatmapPalmRejection(
+      config,
+      client) {
+    return this.proxy.sendMessage(
+        13,
+        chromeos.machineLearning.mojom.MachineLearningService_LoadHeatmapPalmRejection_ParamsSpec.$,
+        chromeos.machineLearning.mojom.MachineLearningService_LoadHeatmapPalmRejection_ResponseParamsSpec.$,
+        [
+          config,
+          client
+        ]);
+  }
+
+  
+  /**
    * @param { !chromeos.machineLearning.mojom.HandwritingRecognizerSpec } spec
    * @param { !chromeos.machineLearning.mojom.HandwritingRecognizerPendingReceiver } receiver
    * @return {!Promise<{
@@ -449,6 +471,11 @@ chromeos.machineLearning.mojom.MachineLearningServiceReceiver = class {
         chromeos.machineLearning.mojom.MachineLearningService_LoadImageAnnotator_ParamsSpec.$,
         chromeos.machineLearning.mojom.MachineLearningService_LoadImageAnnotator_ResponseParamsSpec.$,
         impl.loadImageAnnotator.bind(impl));
+    this.helper_internal_.registerHandler(
+        13,
+        chromeos.machineLearning.mojom.MachineLearningService_LoadHeatmapPalmRejection_ParamsSpec.$,
+        chromeos.machineLearning.mojom.MachineLearningService_LoadHeatmapPalmRejection_ResponseParamsSpec.$,
+        impl.loadHeatmapPalmRejection.bind(impl));
     this.helper_internal_.registerHandler(
         4,
         chromeos.machineLearning.mojom.MachineLearningService_REMOVED_4_ParamsSpec.$,
@@ -650,6 +677,18 @@ chromeos.machineLearning.mojom.MachineLearningServiceCallbackRouter = class {
         chromeos.machineLearning.mojom.MachineLearningService_LoadImageAnnotator_ParamsSpec.$,
         chromeos.machineLearning.mojom.MachineLearningService_LoadImageAnnotator_ResponseParamsSpec.$,
         this.loadImageAnnotator.createReceiverHandler(true /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.loadHeatmapPalmRejection =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        13,
+        chromeos.machineLearning.mojom.MachineLearningService_LoadHeatmapPalmRejection_ParamsSpec.$,
+        chromeos.machineLearning.mojom.MachineLearningService_LoadHeatmapPalmRejection_ResponseParamsSpec.$,
+        this.loadHeatmapPalmRejection.createReceiverHandler(true /* expectsResponse */));
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
@@ -859,6 +898,22 @@ chromeos.machineLearning.mojom.MachineLearningService_LoadImageAnnotator_ParamsS
  * @export
  */
 chromeos.machineLearning.mojom.MachineLearningService_LoadImageAnnotator_ResponseParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+chromeos.machineLearning.mojom.MachineLearningService_LoadHeatmapPalmRejection_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+chromeos.machineLearning.mojom.MachineLearningService_LoadHeatmapPalmRejection_ResponseParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1641,6 +1696,74 @@ mojo.internal.Struct(
 chromeos.machineLearning.mojom.MachineLearningService_LoadImageAnnotator_ResponseParams = class {
   constructor() {
     /** @export { !chromeos.machineLearning.mojom.LoadModelResult } */
+    this.result;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    chromeos.machineLearning.mojom.MachineLearningService_LoadHeatmapPalmRejection_ParamsSpec.$,
+    'MachineLearningService_LoadHeatmapPalmRejection_Params',
+    [
+      mojo.internal.StructField(
+        'config', 0,
+        0,
+        chromeos.machineLearning.mojom.HeatmapPalmRejectionConfigSpec.$,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'client', 8,
+        0,
+        mojo.internal.InterfaceProxy(chromeos.machineLearning.mojom.HeatmapPalmRejectionClientRemote),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 24],]);
+
+
+
+
+
+/** @record */
+chromeos.machineLearning.mojom.MachineLearningService_LoadHeatmapPalmRejection_Params = class {
+  constructor() {
+    /** @export { !chromeos.machineLearning.mojom.HeatmapPalmRejectionConfig } */
+    this.config;
+    /** @export { !chromeos.machineLearning.mojom.HeatmapPalmRejectionClientRemote } */
+    this.client;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    chromeos.machineLearning.mojom.MachineLearningService_LoadHeatmapPalmRejection_ResponseParamsSpec.$,
+    'MachineLearningService_LoadHeatmapPalmRejection_ResponseParams',
+    [
+      mojo.internal.StructField(
+        'result', 0,
+        0,
+        chromeos.machineLearning.mojom.LoadHeatmapPalmRejectionResultSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+
+
+/** @record */
+chromeos.machineLearning.mojom.MachineLearningService_LoadHeatmapPalmRejection_ResponseParams = class {
+  constructor() {
+    /** @export { !chromeos.machineLearning.mojom.LoadHeatmapPalmRejectionResult } */
     this.result;
   }
 };

@@ -462,6 +462,7 @@ class  DocumentPath_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> authority;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> path;
+  mojo::internal::Pointer<mojo::internal::String_Data> root_id;
 
  private:
   friend class mojo::internal::MessageFragment<DocumentPath_Data>;
@@ -469,7 +470,7 @@ class  DocumentPath_Data {
   DocumentPath_Data();
   ~DocumentPath_Data() = delete;
 };
-static_assert(sizeof(DocumentPath_Data) == 24,
+static_assert(sizeof(DocumentPath_Data) == 32,
               "Bad sizeof(DocumentPath_Data)");
 // Used by DocumentPath::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

@@ -628,6 +628,8 @@ namespace policy {
   { false,        false,    true,             357,              16777216, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // DeviceWebBasedAttestationAllowedUrls
   { false,        false,    true,             636,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
+  // DeviceWeeklyScheduledSuspend
+  { false,        true,     true,            1209,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // DeviceWiFiAllowed
   { false,        false,    true,             537,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // DeviceWiFiFastTransitionEnabled
@@ -1737,7 +1739,7 @@ namespace policy {
 
 const internal::SchemaNode kSchemas[] = {
 //  Type                           Extra  IsSensitiveValue HasSensitiveChildren
-  { base::Value::Type::DICT,         188, false,           true  },  // root node
+  { base::Value::Type::DICT,         191, false,           true  },  // root node
   { base::Value::Type::BOOLEAN,       -1, false,           false },  // simple type: boolean
   { base::Value::Type::INTEGER,        0, false,           false },  // integer with ranged restriction: AC
                                                                      // integer with ranged restriction: AccessCodeCastDeviceDuration
@@ -2013,328 +2015,334 @@ const internal::SchemaNode kSchemas[] = {
   { base::Value::Type::LIST,         150, false,           false },  // 
   { base::Value::Type::LIST,           4, true,            false },  // 
   { base::Value::Type::DICT,          66, false,           false },  // DeviceWallpaperImage
-  { base::Value::Type::DICT,          67, false,           false },  // DeviceWilcoDtcConfiguration
-  { base::Value::Type::STRING,        55, false,           false },  // string with enumeration restriction: DnsOverHttpsMode
-  { base::Value::Type::STRING,        56, false,           false },  // string with enumeration restriction: DriveFileSyncAvailable
-  { base::Value::Type::DICT,          68, false,           false },  // items of ExemptDomainFileTypePairsFromFileTypeDownloadWarnings
-  { base::Value::Type::LIST,         159, false,           false },  // 
-  { base::Value::Type::STRING,        57, false,           false },  // string with enumeration restriction: items of ExplicitlyAllowedNetworkPorts
-  { base::Value::Type::LIST,         161, false,           false },  // 
-  { base::Value::Type::STRING,        58, false,           false },  // string with enumeration restriction: items of ExtensionAllowedTypes
-  { base::Value::Type::LIST,         163, false,           false },  // 
-  { base::Value::Type::DICT,          69, false,           false },  // ExtensionOAuthRedirectUrls
-  { base::Value::Type::DICT,          73, false,           false },  // ExtensionSettings
-  { base::Value::Type::DICT,          70, false,           false },  // *
-  { base::Value::Type::STRING,        59, false,           false },  // string with enumeration restriction: items of allowed_types
-  { base::Value::Type::LIST,         168, false,           false },  // 
-  { base::Value::Type::STRING,        60, false,           false },  // string with pattern restriction: items of blocked_permissions
-  { base::Value::Type::LIST,         170, false,           false },  // 
-  { base::Value::Type::STRING,        61, false,           false },  // string with enumeration restriction: installation_mode
-  { base::Value::Type::DICT,          71, false,           false },  // ^[a-p]{32}(?:,[a-p]{32})*,?$
-  { base::Value::Type::STRING,        62, false,           false },  // string with pattern restriction: items of allowed_permissions
+  { base::Value::Type::DICT,          69, false,           false },  // items of DeviceWeeklyScheduledSuspend
+  { base::Value::Type::DICT,          67, false,           false },  // end
+  { base::Value::Type::STRING,        55, false,           false },  // string with enumeration restriction: day_of_week
+  { base::Value::Type::DICT,          68, false,           false },  // start
+  { base::Value::Type::STRING,        56, false,           false },  // string with enumeration restriction: day_of_week
+  { base::Value::Type::LIST,         156, false,           false },  // 
+  { base::Value::Type::DICT,          70, false,           false },  // DeviceWilcoDtcConfiguration
+  { base::Value::Type::STRING,        57, false,           false },  // string with enumeration restriction: DnsOverHttpsMode
+  { base::Value::Type::STRING,        58, false,           false },  // string with enumeration restriction: DriveFileSyncAvailable
+  { base::Value::Type::DICT,          71, false,           false },  // items of ExemptDomainFileTypePairsFromFileTypeDownloadWarnings
+  { base::Value::Type::LIST,         165, false,           false },  // 
+  { base::Value::Type::STRING,        59, false,           false },  // string with enumeration restriction: items of ExplicitlyAllowedNetworkPorts
+  { base::Value::Type::LIST,         167, false,           false },  // 
+  { base::Value::Type::STRING,        60, false,           false },  // string with enumeration restriction: items of ExtensionAllowedTypes
+  { base::Value::Type::LIST,         169, false,           false },  // 
+  { base::Value::Type::DICT,          72, false,           false },  // ExtensionOAuthRedirectUrls
+  { base::Value::Type::DICT,          76, false,           false },  // ExtensionSettings
+  { base::Value::Type::DICT,          73, false,           false },  // *
+  { base::Value::Type::STRING,        61, false,           false },  // string with enumeration restriction: items of allowed_types
   { base::Value::Type::LIST,         174, false,           false },  // 
-  { base::Value::Type::STRING,        63, false,           false },  // string with pattern restriction: items of blocked_permissions
+  { base::Value::Type::STRING,        62, false,           false },  // string with pattern restriction: items of blocked_permissions
   { base::Value::Type::LIST,         176, false,           false },  // 
-  { base::Value::Type::STRING,        64, false,           false },  // string with enumeration restriction: installation_mode
-  { base::Value::Type::STRING,        65, false,           false },  // string with pattern restriction: minimum_version_required
-  { base::Value::Type::STRING,        66, false,           false },  // string with enumeration restriction: toolbar_pin
-  { base::Value::Type::DICT,          72, false,           false },  // ^update_url:
-  { base::Value::Type::STRING,        67, false,           false },  // string with pattern restriction: items of allowed_permissions
+  { base::Value::Type::STRING,        63, false,           false },  // string with enumeration restriction: installation_mode
+  { base::Value::Type::DICT,          74, false,           false },  // ^[a-p]{32}(?:,[a-p]{32})*,?$
+  { base::Value::Type::STRING,        64, false,           false },  // string with pattern restriction: items of allowed_permissions
+  { base::Value::Type::LIST,         180, false,           false },  // 
+  { base::Value::Type::STRING,        65, false,           false },  // string with pattern restriction: items of blocked_permissions
   { base::Value::Type::LIST,         182, false,           false },  // 
-  { base::Value::Type::STRING,        68, false,           false },  // string with pattern restriction: items of blocked_permissions
-  { base::Value::Type::LIST,         184, false,           false },  // 
-  { base::Value::Type::STRING,        69, false,           false },  // string with enumeration restriction: installation_mode
-  { base::Value::Type::DICT,          74, false,           false },  // ExternalPrintServers
-  { base::Value::Type::INTEGER,       70, false,           false },  // integer with ranged restriction: FetchKeepaliveDurationSecondsOnShutdown
-  { base::Value::Type::DICT,          79, false,           false },  // FirstPartySetsOverrides
-  { base::Value::Type::DICT,          76, false,           false },  // items of additions
-  { base::Value::Type::DICT,          75, false,           false },  // ccTLDs
+  { base::Value::Type::STRING,        66, false,           false },  // string with enumeration restriction: installation_mode
+  { base::Value::Type::STRING,        67, false,           false },  // string with pattern restriction: minimum_version_required
+  { base::Value::Type::STRING,        68, false,           false },  // string with enumeration restriction: toolbar_pin
+  { base::Value::Type::DICT,          75, false,           false },  // ^update_url:
+  { base::Value::Type::STRING,        69, false,           false },  // string with pattern restriction: items of allowed_permissions
+  { base::Value::Type::LIST,         188, false,           false },  // 
+  { base::Value::Type::STRING,        70, false,           false },  // string with pattern restriction: items of blocked_permissions
   { base::Value::Type::LIST,         190, false,           false },  // 
-  { base::Value::Type::DICT,          78, false,           false },  // items of replacements
-  { base::Value::Type::DICT,          77, false,           false },  // ccTLDs
-  { base::Value::Type::LIST,         193, false,           false },  // 
-  { base::Value::Type::INTEGER,       71, false,           false },  // integer with ranged restriction: GaiaLockScreenOfflineSigninTimeLimitDays
-                                                                     // integer with ranged restriction: SamlLockScreenOfflineSigninTimeLimitDays
-  { base::Value::Type::INTEGER,       72, false,           false },  // integer with ranged restriction: GaiaOfflineSigninTimeLimitDays
-  { base::Value::Type::STRING,        73, false,           false },  // string with enumeration restriction: GoogleWorkspaceCloudUpload
-  { base::Value::Type::STRING,        74, false,           false },  // string with pattern restriction: items of HSTSPolicyBypassList
+  { base::Value::Type::STRING,        71, false,           false },  // string with enumeration restriction: installation_mode
+  { base::Value::Type::DICT,          77, false,           false },  // ExternalPrintServers
+  { base::Value::Type::INTEGER,       72, false,           false },  // integer with ranged restriction: FetchKeepaliveDurationSecondsOnShutdown
+  { base::Value::Type::DICT,          82, false,           false },  // FirstPartySetsOverrides
+  { base::Value::Type::DICT,          79, false,           false },  // items of additions
+  { base::Value::Type::DICT,          78, false,           false },  // ccTLDs
+  { base::Value::Type::LIST,         196, false,           false },  // 
+  { base::Value::Type::DICT,          81, false,           false },  // items of replacements
+  { base::Value::Type::DICT,          80, false,           false },  // ccTLDs
   { base::Value::Type::LIST,         199, false,           false },  // 
-  { base::Value::Type::INTEGER,       75, false,           false },  // integer with ranged restriction: HeartbeatFrequency
-  { base::Value::Type::STRING,        76, false,           false },  // string with enumeration restriction: HttpsOnlyMode
-  { base::Value::Type::INTEGER,       77, false,           false },  // integer with enumeration restriction: InsertKeyModifier
-  { base::Value::Type::DICT,          80, false,           false },  // items of IsolatedWebAppInstallForceList
-  { base::Value::Type::LIST,         204, false,           false },  // 
-  { base::Value::Type::DICT,          81, false,           true  },  // items of KerberosAccounts
+  { base::Value::Type::INTEGER,       73, false,           false },  // integer with ranged restriction: GaiaLockScreenOfflineSigninTimeLimitDays
+                                                                     // integer with ranged restriction: SamlLockScreenOfflineSigninTimeLimitDays
+  { base::Value::Type::INTEGER,       74, false,           false },  // integer with ranged restriction: GaiaOfflineSigninTimeLimitDays
+  { base::Value::Type::STRING,        75, false,           false },  // string with enumeration restriction: GoogleWorkspaceCloudUpload
+  { base::Value::Type::STRING,        76, false,           false },  // string with pattern restriction: items of HSTSPolicyBypassList
+  { base::Value::Type::LIST,         205, false,           false },  // 
+  { base::Value::Type::INTEGER,       77, false,           false },  // integer with ranged restriction: HeartbeatFrequency
+  { base::Value::Type::STRING,        78, false,           false },  // string with enumeration restriction: HttpsOnlyMode
+  { base::Value::Type::INTEGER,       79, false,           false },  // integer with enumeration restriction: InsertKeyModifier
+  { base::Value::Type::DICT,          83, false,           false },  // items of IsolatedWebAppInstallForceList
+  { base::Value::Type::LIST,         210, false,           false },  // 
+  { base::Value::Type::DICT,          84, false,           true  },  // items of KerberosAccounts
   { base::Value::Type::STRING,        -1, true,            false },  // simple type: string
-  { base::Value::Type::STRING,        78, false,           false },  // string with pattern restriction: principal
-  { base::Value::Type::LIST,         206, false,           true  },  // 
-  { base::Value::Type::DICT,          83, false,           false },  // KeyPermissions
-  { base::Value::Type::DICT,          82, false,           false },  // additionalProperties of KeyPermissions
-  { base::Value::Type::STRING,        79, false,           false },  // string with enumeration restriction: LacrosAvailability
-  { base::Value::Type::STRING,        80, false,           false },  // string with enumeration restriction: LacrosDataBackwardMigrationMode
-  { base::Value::Type::STRING,        81, false,           false },  // string with enumeration restriction: LacrosSelection
-  { base::Value::Type::STRING,        82, false,           false },  // string with enumeration restriction: ManagedAccountsSigninRestriction
-  { base::Value::Type::DICT,          84, false,           false },  // items of ManagedBookmarks
-  { base::Value::Type::LIST,         216, false,           false },  // 
-  { base::Value::Type::LIST,         216, false,           false },  // 
-  { base::Value::Type::DICT,          85, false,           false },  // items of ManagedConfigurationPerOrigin
-  { base::Value::Type::LIST,         219, false,           false },  // 
-  { base::Value::Type::INTEGER,       83, false,           false },  // integer with ranged restriction: MaxInvalidationFetchDelay
-  { base::Value::Type::STRING,        84, false,           false },  // string with enumeration restriction: MicrosoftOfficeCloudUpload
-  { base::Value::Type::STRING,        85, false,           false },  // string with enumeration restriction: MicrosoftOneDriveMount
-  { base::Value::Type::DICT,          86, false,           false },  // items of NetworkFileSharesPreconfiguredShares
-  { base::Value::Type::STRING,        86, false,           false },  // string with enumeration restriction: mode
-  { base::Value::Type::LIST,         224, false,           false },  // 
-  { base::Value::Type::DICT,          87, false,           false },  // NetworkThrottlingEnabled
-  { base::Value::Type::DICT,          92, false,           false },  // items of OnBulkDataEntryEnterpriseConnector
-  { base::Value::Type::DICT,          88, false,           false },  // items of custom_messages
-  { base::Value::Type::LIST,         229, false,           false },  // 
-  { base::Value::Type::STRING,        87, false,           false },  // string with enumeration restriction: default_action
-  { base::Value::Type::DICT,          89, false,           false },  // items of disable
-  { base::Value::Type::LIST,         232, false,           false },  // 
-  { base::Value::Type::DICT,          90, false,           false },  // items of enable
-  { base::Value::Type::LIST,         234, false,           false },  // 
-  { base::Value::Type::STRING,        88, false,           false },  // string with enumeration restriction: service_provider
-  { base::Value::Type::DICT,          91, false,           false },  // verification
-  { base::Value::Type::LIST,         228, false,           false },  // 
-  { base::Value::Type::DICT,          97, false,           false },  // items of OnFileAttachedEnterpriseConnector
-  { base::Value::Type::DICT,          93, false,           false },  // items of custom_messages
-  { base::Value::Type::LIST,         240, false,           false },  // 
+  { base::Value::Type::STRING,        80, false,           false },  // string with pattern restriction: principal
+  { base::Value::Type::LIST,         212, false,           true  },  // 
+  { base::Value::Type::DICT,          86, false,           false },  // KeyPermissions
+  { base::Value::Type::DICT,          85, false,           false },  // additionalProperties of KeyPermissions
+  { base::Value::Type::STRING,        81, false,           false },  // string with enumeration restriction: LacrosAvailability
+  { base::Value::Type::STRING,        82, false,           false },  // string with enumeration restriction: LacrosDataBackwardMigrationMode
+  { base::Value::Type::STRING,        83, false,           false },  // string with enumeration restriction: LacrosSelection
+  { base::Value::Type::STRING,        84, false,           false },  // string with enumeration restriction: ManagedAccountsSigninRestriction
+  { base::Value::Type::DICT,          87, false,           false },  // items of ManagedBookmarks
+  { base::Value::Type::LIST,         222, false,           false },  // 
+  { base::Value::Type::LIST,         222, false,           false },  // 
+  { base::Value::Type::DICT,          88, false,           false },  // items of ManagedConfigurationPerOrigin
+  { base::Value::Type::LIST,         225, false,           false },  // 
+  { base::Value::Type::INTEGER,       85, false,           false },  // integer with ranged restriction: MaxInvalidationFetchDelay
+  { base::Value::Type::STRING,        86, false,           false },  // string with enumeration restriction: MicrosoftOfficeCloudUpload
+  { base::Value::Type::STRING,        87, false,           false },  // string with enumeration restriction: MicrosoftOneDriveMount
+  { base::Value::Type::DICT,          89, false,           false },  // items of NetworkFileSharesPreconfiguredShares
+  { base::Value::Type::STRING,        88, false,           false },  // string with enumeration restriction: mode
+  { base::Value::Type::LIST,         230, false,           false },  // 
+  { base::Value::Type::DICT,          90, false,           false },  // NetworkThrottlingEnabled
+  { base::Value::Type::DICT,          95, false,           false },  // items of OnBulkDataEntryEnterpriseConnector
+  { base::Value::Type::DICT,          91, false,           false },  // items of custom_messages
+  { base::Value::Type::LIST,         235, false,           false },  // 
   { base::Value::Type::STRING,        89, false,           false },  // string with enumeration restriction: default_action
-  { base::Value::Type::DICT,          94, false,           false },  // items of disable
-  { base::Value::Type::LIST,         243, false,           false },  // 
-  { base::Value::Type::DICT,          95, false,           false },  // items of enable
-  { base::Value::Type::LIST,         245, false,           false },  // 
+  { base::Value::Type::DICT,          92, false,           false },  // items of disable
+  { base::Value::Type::LIST,         238, false,           false },  // 
+  { base::Value::Type::DICT,          93, false,           false },  // items of enable
+  { base::Value::Type::LIST,         240, false,           false },  // 
   { base::Value::Type::STRING,        90, false,           false },  // string with enumeration restriction: service_provider
-  { base::Value::Type::DICT,          96, false,           false },  // verification
-  { base::Value::Type::LIST,         239, false,           false },  // 
-  { base::Value::Type::DICT,         102, false,           false },  // items of OnFileDownloadedEnterpriseConnector
-  { base::Value::Type::DICT,          98, false,           false },  // items of custom_messages
-  { base::Value::Type::LIST,         251, false,           false },  // 
+  { base::Value::Type::DICT,          94, false,           false },  // verification
+  { base::Value::Type::LIST,         234, false,           false },  // 
+  { base::Value::Type::DICT,         100, false,           false },  // items of OnFileAttachedEnterpriseConnector
+  { base::Value::Type::DICT,          96, false,           false },  // items of custom_messages
+  { base::Value::Type::LIST,         246, false,           false },  // 
   { base::Value::Type::STRING,        91, false,           false },  // string with enumeration restriction: default_action
-  { base::Value::Type::DICT,          99, false,           false },  // items of disable
-  { base::Value::Type::LIST,         254, false,           false },  // 
-  { base::Value::Type::DICT,         100, false,           false },  // items of enable
-  { base::Value::Type::LIST,         256, false,           false },  // 
+  { base::Value::Type::DICT,          97, false,           false },  // items of disable
+  { base::Value::Type::LIST,         249, false,           false },  // 
+  { base::Value::Type::DICT,          98, false,           false },  // items of enable
+  { base::Value::Type::LIST,         251, false,           false },  // 
   { base::Value::Type::STRING,        92, false,           false },  // string with enumeration restriction: service_provider
-  { base::Value::Type::DICT,         101, false,           false },  // verification
-  { base::Value::Type::LIST,         250, false,           false },  // 
-  { base::Value::Type::DICT,         112, false,           false },  // items of OnFileTransferEnterpriseConnector
-  { base::Value::Type::DICT,         103, false,           false },  // items of custom_messages
+  { base::Value::Type::DICT,          99, false,           false },  // verification
+  { base::Value::Type::LIST,         245, false,           false },  // 
+  { base::Value::Type::DICT,         105, false,           false },  // items of OnFileDownloadedEnterpriseConnector
+  { base::Value::Type::DICT,         101, false,           false },  // items of custom_messages
+  { base::Value::Type::LIST,         257, false,           false },  // 
+  { base::Value::Type::STRING,        93, false,           false },  // string with enumeration restriction: default_action
+  { base::Value::Type::DICT,         102, false,           false },  // items of disable
+  { base::Value::Type::LIST,         260, false,           false },  // 
+  { base::Value::Type::DICT,         103, false,           false },  // items of enable
   { base::Value::Type::LIST,         262, false,           false },  // 
-  { base::Value::Type::DICT,         107, false,           false },  // items of disable
-  { base::Value::Type::DICT,         106, false,           false },  // items of source_destination_list
-  { base::Value::Type::DICT,         104, false,           false },  // items of destinations
-  { base::Value::Type::STRING,        93, false,           false },  // string with enumeration restriction: file_system_type
-  { base::Value::Type::LIST,         266, false,           false },  // 
-  { base::Value::Type::DICT,         105, false,           false },  // items of sources
-  { base::Value::Type::STRING,        94, false,           false },  // string with enumeration restriction: file_system_type
-  { base::Value::Type::LIST,         269, false,           false },  // 
-  { base::Value::Type::LIST,         265, false,           false },  // 
-  { base::Value::Type::LIST,         264, false,           false },  // 
-  { base::Value::Type::DICT,         111, false,           false },  // items of enable
-  { base::Value::Type::DICT,         110, false,           false },  // items of source_destination_list
-  { base::Value::Type::DICT,         108, false,           false },  // items of destinations
+  { base::Value::Type::STRING,        94, false,           false },  // string with enumeration restriction: service_provider
+  { base::Value::Type::DICT,         104, false,           false },  // verification
+  { base::Value::Type::LIST,         256, false,           false },  // 
+  { base::Value::Type::DICT,         115, false,           false },  // items of OnFileTransferEnterpriseConnector
+  { base::Value::Type::DICT,         106, false,           false },  // items of custom_messages
+  { base::Value::Type::LIST,         268, false,           false },  // 
+  { base::Value::Type::DICT,         110, false,           false },  // items of disable
+  { base::Value::Type::DICT,         109, false,           false },  // items of source_destination_list
+  { base::Value::Type::DICT,         107, false,           false },  // items of destinations
   { base::Value::Type::STRING,        95, false,           false },  // string with enumeration restriction: file_system_type
-  { base::Value::Type::LIST,         276, false,           false },  // 
-  { base::Value::Type::DICT,         109, false,           false },  // items of sources
+  { base::Value::Type::LIST,         272, false,           false },  // 
+  { base::Value::Type::DICT,         108, false,           false },  // items of sources
   { base::Value::Type::STRING,        96, false,           false },  // string with enumeration restriction: file_system_type
-  { base::Value::Type::LIST,         279, false,           false },  // 
   { base::Value::Type::LIST,         275, false,           false },  // 
-  { base::Value::Type::LIST,         274, false,           false },  // 
-  { base::Value::Type::LIST,         261, false,           false },  // 
-  { base::Value::Type::DICT,         117, false,           false },  // items of OnPrintEnterpriseConnector
-  { base::Value::Type::DICT,         113, false,           false },  // items of custom_messages
-  { base::Value::Type::LIST,         286, false,           false },  // 
-  { base::Value::Type::STRING,        97, false,           false },  // string with enumeration restriction: default_action
-  { base::Value::Type::DICT,         114, false,           false },  // items of disable
-  { base::Value::Type::LIST,         289, false,           false },  // 
-  { base::Value::Type::DICT,         115, false,           false },  // items of enable
-  { base::Value::Type::LIST,         291, false,           false },  // 
-  { base::Value::Type::STRING,        98, false,           false },  // string with enumeration restriction: service_provider
-  { base::Value::Type::DICT,         116, false,           false },  // verification
+  { base::Value::Type::LIST,         271, false,           false },  // 
+  { base::Value::Type::LIST,         270, false,           false },  // 
+  { base::Value::Type::DICT,         114, false,           false },  // items of enable
+  { base::Value::Type::DICT,         113, false,           false },  // items of source_destination_list
+  { base::Value::Type::DICT,         111, false,           false },  // items of destinations
+  { base::Value::Type::STRING,        97, false,           false },  // string with enumeration restriction: file_system_type
+  { base::Value::Type::LIST,         282, false,           false },  // 
+  { base::Value::Type::DICT,         112, false,           false },  // items of sources
+  { base::Value::Type::STRING,        98, false,           false },  // string with enumeration restriction: file_system_type
   { base::Value::Type::LIST,         285, false,           false },  // 
-  { base::Value::Type::DICT,         119, false,           false },  // items of OnSecurityEventEnterpriseConnector
-  { base::Value::Type::DICT,         118, false,           false },  // items of enabled_opt_in_events
+  { base::Value::Type::LIST,         281, false,           false },  // 
+  { base::Value::Type::LIST,         280, false,           false },  // 
+  { base::Value::Type::LIST,         267, false,           false },  // 
+  { base::Value::Type::DICT,         120, false,           false },  // items of OnPrintEnterpriseConnector
+  { base::Value::Type::DICT,         116, false,           false },  // items of custom_messages
+  { base::Value::Type::LIST,         292, false,           false },  // 
+  { base::Value::Type::STRING,        99, false,           false },  // string with enumeration restriction: default_action
+  { base::Value::Type::DICT,         117, false,           false },  // items of disable
+  { base::Value::Type::LIST,         295, false,           false },  // 
+  { base::Value::Type::DICT,         118, false,           false },  // items of enable
   { base::Value::Type::LIST,         297, false,           false },  // 
-  { base::Value::Type::STRING,        99, false,           false },  // string with enumeration restriction: service_provider
-  { base::Value::Type::LIST,         296, false,           false },  // 
-  { base::Value::Type::STRING,       100, false,           false },  // string with enumeration restriction: OsColorMode
-  { base::Value::Type::DICT,         123, true,            false },  // ParentAccessCodeConfig
-  { base::Value::Type::DICT,         120, false,           false },  // current_config
-  { base::Value::Type::INTEGER,      101, false,           false },  // integer with ranged restriction: access_code_ttl
-  { base::Value::Type::INTEGER,      102, false,           false },  // integer with ranged restriction: clock_drift_tolerance
-  { base::Value::Type::DICT,         121, false,           false },  // future_config
-  { base::Value::Type::DICT,         122, false,           false },  // items of old_configs
-  { base::Value::Type::LIST,         307, false,           false },  // 
-  { base::Value::Type::DICT,         127, false,           false },  // PerAppTimeLimits
-  { base::Value::Type::DICT,         125, false,           false },  // items of app_limits
-  { base::Value::Type::DICT,         124, false,           false },  // app_info
-  { base::Value::Type::STRING,       103, false,           false },  // string with enumeration restriction: app_type
-  { base::Value::Type::INTEGER,      104, false,           false },  // integer with ranged restriction: daily_limit_mins
-  { base::Value::Type::STRING,       105, false,           false },  // string with enumeration restriction: restriction
-  { base::Value::Type::LIST,         310, false,           false },  // 
-  { base::Value::Type::DICT,         126, false,           false },  // reset_at
-  { base::Value::Type::DICT,         129, false,           false },  // PerAppTimeLimitsAllowlist
-  { base::Value::Type::DICT,         128, false,           false },  // items of app_list
-  { base::Value::Type::STRING,       106, false,           false },  // string with enumeration restriction: app_type
-  { base::Value::Type::LIST,         318, false,           false },  // 
-  { base::Value::Type::DICT,         130, false,           false },  // PluginVmImage
-  { base::Value::Type::INTEGER,      107, false,           false },  // integer with ranged restriction: PluginVmRequiredFreeDiskSpace
-  { base::Value::Type::STRING,       108, false,           false },  // string with enumeration restriction: items of PolicyDictionaryMultipleSourceMergeList
-  { base::Value::Type::LIST,         323, false,           false },  // 
-  { base::Value::Type::INTEGER,      109, false,           false },  // integer with ranged restriction: PolicyRefreshRate
-  { base::Value::Type::DICT,         135, false,           false },  // PowerManagementIdleSettings
-  { base::Value::Type::DICT,         132, false,           false },  // AC
-  { base::Value::Type::DICT,         131, false,           false },  // Delays
-  { base::Value::Type::STRING,       110, false,           false },  // string with enumeration restriction: IdleAction
-  { base::Value::Type::DICT,         134, false,           false },  // Battery
-  { base::Value::Type::DICT,         133, false,           false },  // Delays
-  { base::Value::Type::STRING,       111, false,           false },  // string with enumeration restriction: IdleAction
-  { base::Value::Type::DICT,         136, false,           false },  // PreconfiguredDeskTemplates
-  { base::Value::Type::INTEGER,      112, false,           false },  // integer with ranged restriction: PrintJobHistoryExpirationPeriod
+  { base::Value::Type::STRING,       100, false,           false },  // string with enumeration restriction: service_provider
+  { base::Value::Type::DICT,         119, false,           false },  // verification
+  { base::Value::Type::LIST,         291, false,           false },  // 
+  { base::Value::Type::DICT,         122, false,           false },  // items of OnSecurityEventEnterpriseConnector
+  { base::Value::Type::DICT,         121, false,           false },  // items of enabled_opt_in_events
+  { base::Value::Type::LIST,         303, false,           false },  // 
+  { base::Value::Type::STRING,       101, false,           false },  // string with enumeration restriction: service_provider
+  { base::Value::Type::LIST,         302, false,           false },  // 
+  { base::Value::Type::STRING,       102, false,           false },  // string with enumeration restriction: OsColorMode
+  { base::Value::Type::DICT,         126, true,            false },  // ParentAccessCodeConfig
+  { base::Value::Type::DICT,         123, false,           false },  // current_config
+  { base::Value::Type::INTEGER,      103, false,           false },  // integer with ranged restriction: access_code_ttl
+  { base::Value::Type::INTEGER,      104, false,           false },  // integer with ranged restriction: clock_drift_tolerance
+  { base::Value::Type::DICT,         124, false,           false },  // future_config
+  { base::Value::Type::DICT,         125, false,           false },  // items of old_configs
+  { base::Value::Type::LIST,         313, false,           false },  // 
+  { base::Value::Type::DICT,         130, false,           false },  // PerAppTimeLimits
+  { base::Value::Type::DICT,         128, false,           false },  // items of app_limits
+  { base::Value::Type::DICT,         127, false,           false },  // app_info
+  { base::Value::Type::STRING,       105, false,           false },  // string with enumeration restriction: app_type
+  { base::Value::Type::INTEGER,      106, false,           false },  // integer with ranged restriction: daily_limit_mins
+  { base::Value::Type::STRING,       107, false,           false },  // string with enumeration restriction: restriction
+  { base::Value::Type::LIST,         316, false,           false },  // 
+  { base::Value::Type::DICT,         129, false,           false },  // reset_at
+  { base::Value::Type::DICT,         132, false,           false },  // PerAppTimeLimitsAllowlist
+  { base::Value::Type::DICT,         131, false,           false },  // items of app_list
+  { base::Value::Type::STRING,       108, false,           false },  // string with enumeration restriction: app_type
+  { base::Value::Type::LIST,         324, false,           false },  // 
+  { base::Value::Type::DICT,         133, false,           false },  // PluginVmImage
+  { base::Value::Type::INTEGER,      109, false,           false },  // integer with ranged restriction: PluginVmRequiredFreeDiskSpace
+  { base::Value::Type::STRING,       110, false,           false },  // string with enumeration restriction: items of PolicyDictionaryMultipleSourceMergeList
+  { base::Value::Type::LIST,         329, false,           false },  // 
+  { base::Value::Type::INTEGER,      111, false,           false },  // integer with ranged restriction: PolicyRefreshRate
+  { base::Value::Type::DICT,         138, false,           false },  // PowerManagementIdleSettings
+  { base::Value::Type::DICT,         135, false,           false },  // AC
+  { base::Value::Type::DICT,         134, false,           false },  // Delays
+  { base::Value::Type::STRING,       112, false,           false },  // string with enumeration restriction: IdleAction
+  { base::Value::Type::DICT,         137, false,           false },  // Battery
+  { base::Value::Type::DICT,         136, false,           false },  // Delays
+  { base::Value::Type::STRING,       113, false,           false },  // string with enumeration restriction: IdleAction
+  { base::Value::Type::DICT,         139, false,           false },  // PreconfiguredDeskTemplates
+  { base::Value::Type::INTEGER,      114, false,           false },  // integer with ranged restriction: PrintJobHistoryExpirationPeriod
                                                                      // integer with ranged restriction: SAMLOfflineSigninTimeLimit
-  { base::Value::Type::STRING,       113, false,           false },  // string with enumeration restriction: items of PrinterTypeDenyList
-  { base::Value::Type::LIST,         335, false,           false },  // 
-  { base::Value::Type::DICT,         137, false,           false },  // PrintersBulkConfiguration
-  { base::Value::Type::STRING,       114, false,           false },  // string with enumeration restriction: PrintingAllowedBackgroundGraphicsModes
-  { base::Value::Type::STRING,       115, false,           false },  // string with enumeration restriction: PrintingAllowedColorModes
-  { base::Value::Type::STRING,       116, false,           false },  // string with enumeration restriction: PrintingAllowedDuplexModes
-  { base::Value::Type::STRING,       117, false,           false },  // string with enumeration restriction: PrintingAllowedPinModes
-  { base::Value::Type::STRING,       118, false,           false },  // string with enumeration restriction: PrintingBackgroundGraphicsDefault
-  { base::Value::Type::STRING,       119, false,           false },  // string with enumeration restriction: PrintingColorDefault
-  { base::Value::Type::STRING,       120, false,           false },  // string with enumeration restriction: PrintingDuplexDefault
-  { base::Value::Type::DICT,         139, false,           false },  // PrintingPaperSizeDefault
-  { base::Value::Type::DICT,         138, false,           false },  // custom_size
-  { base::Value::Type::STRING,       121, false,           false },  // string with enumeration restriction: name
-  { base::Value::Type::STRING,       122, false,           false },  // string with enumeration restriction: PrintingPinDefault
-  { base::Value::Type::STRING,       123, false,           false },  // string with enumeration restriction: ProxyMode
-  { base::Value::Type::DICT,         140, false,           false },  // ProxySettings
-  { base::Value::Type::STRING,       124, false,           false },  // string with enumeration restriction: ProxyMode
-  { base::Value::Type::STRING,       125, false,           false },  // string with enumeration restriction: items of QuickUnlockModeAllowlist
-  { base::Value::Type::LIST,         352, false,           false },  // 
-  { base::Value::Type::DICT,         141, false,           false },  // items of RegisteredProtocolHandlers
-  { base::Value::Type::LIST,         354, false,           false },  // 
-  { base::Value::Type::DICT,         146, false,           false },  // RelatedWebsiteSetsOverrides
-  { base::Value::Type::DICT,         143, false,           false },  // items of additions
-  { base::Value::Type::DICT,         142, false,           false },  // ccTLDs
-  { base::Value::Type::LIST,         357, false,           false },  // 
-  { base::Value::Type::DICT,         145, false,           false },  // items of replacements
-  { base::Value::Type::DICT,         144, false,           false },  // ccTLDs
+  { base::Value::Type::STRING,       115, false,           false },  // string with enumeration restriction: items of PrinterTypeDenyList
+  { base::Value::Type::LIST,         341, false,           false },  // 
+  { base::Value::Type::DICT,         140, false,           false },  // PrintersBulkConfiguration
+  { base::Value::Type::STRING,       116, false,           false },  // string with enumeration restriction: PrintingAllowedBackgroundGraphicsModes
+  { base::Value::Type::STRING,       117, false,           false },  // string with enumeration restriction: PrintingAllowedColorModes
+  { base::Value::Type::STRING,       118, false,           false },  // string with enumeration restriction: PrintingAllowedDuplexModes
+  { base::Value::Type::STRING,       119, false,           false },  // string with enumeration restriction: PrintingAllowedPinModes
+  { base::Value::Type::STRING,       120, false,           false },  // string with enumeration restriction: PrintingBackgroundGraphicsDefault
+  { base::Value::Type::STRING,       121, false,           false },  // string with enumeration restriction: PrintingColorDefault
+  { base::Value::Type::STRING,       122, false,           false },  // string with enumeration restriction: PrintingDuplexDefault
+  { base::Value::Type::DICT,         142, false,           false },  // PrintingPaperSizeDefault
+  { base::Value::Type::DICT,         141, false,           false },  // custom_size
+  { base::Value::Type::STRING,       123, false,           false },  // string with enumeration restriction: name
+  { base::Value::Type::STRING,       124, false,           false },  // string with enumeration restriction: PrintingPinDefault
+  { base::Value::Type::STRING,       125, false,           false },  // string with enumeration restriction: ProxyMode
+  { base::Value::Type::DICT,         143, false,           false },  // ProxySettings
+  { base::Value::Type::STRING,       126, false,           false },  // string with enumeration restriction: ProxyMode
+  { base::Value::Type::STRING,       127, false,           false },  // string with enumeration restriction: items of QuickUnlockModeAllowlist
+  { base::Value::Type::LIST,         358, false,           false },  // 
+  { base::Value::Type::DICT,         144, false,           false },  // items of RegisteredProtocolHandlers
   { base::Value::Type::LIST,         360, false,           false },  // 
-  { base::Value::Type::INTEGER,      126, false,           false },  // integer with ranged restriction: RelaunchHeadsUpPeriod
+  { base::Value::Type::DICT,         149, false,           false },  // RelatedWebsiteSetsOverrides
+  { base::Value::Type::DICT,         146, false,           false },  // items of additions
+  { base::Value::Type::DICT,         145, false,           false },  // ccTLDs
+  { base::Value::Type::LIST,         363, false,           false },  // 
+  { base::Value::Type::DICT,         148, false,           false },  // items of replacements
+  { base::Value::Type::DICT,         147, false,           false },  // ccTLDs
+  { base::Value::Type::LIST,         366, false,           false },  // 
+  { base::Value::Type::INTEGER,      128, false,           false },  // integer with ranged restriction: RelaunchHeadsUpPeriod
                                                                      // integer with ranged restriction: RelaunchNotificationPeriod
-  { base::Value::Type::DICT,         149, false,           false },  // RelaunchWindow
-  { base::Value::Type::DICT,         148, false,           false },  // items of entries
-  { base::Value::Type::INTEGER,      127, false,           false },  // integer with ranged restriction: duration_mins
-  { base::Value::Type::DICT,         147, false,           false },  // start
-  { base::Value::Type::LIST,         365, false,           false },  // 
-  { base::Value::Type::INTEGER,      128, false,           false },  // integer with ranged restriction: RemoteAccessHostClipboardSizeBytes
-  { base::Value::Type::STRING,       129, false,           false },  // string with enumeration restriction: items of ReportAppInventory
-  { base::Value::Type::LIST,         370, false,           false },  // 
-  { base::Value::Type::STRING,       130, false,           false },  // string with enumeration restriction: items of ReportAppUsage
-  { base::Value::Type::LIST,         372, false,           false },  // 
-  { base::Value::Type::INTEGER,      131, false,           false },  // integer with ranged restriction: ReportAppUsageCollectionRateMs
+  { base::Value::Type::DICT,         152, false,           false },  // RelaunchWindow
+  { base::Value::Type::DICT,         151, false,           false },  // items of entries
+  { base::Value::Type::INTEGER,      129, false,           false },  // integer with ranged restriction: duration_mins
+  { base::Value::Type::DICT,         150, false,           false },  // start
+  { base::Value::Type::LIST,         371, false,           false },  // 
+  { base::Value::Type::INTEGER,      130, false,           false },  // integer with ranged restriction: RemoteAccessHostClipboardSizeBytes
+  { base::Value::Type::STRING,       131, false,           false },  // string with enumeration restriction: items of ReportAppInventory
+  { base::Value::Type::LIST,         376, false,           false },  // 
+  { base::Value::Type::STRING,       132, false,           false },  // string with enumeration restriction: items of ReportAppUsage
+  { base::Value::Type::LIST,         378, false,           false },  // 
+  { base::Value::Type::INTEGER,      133, false,           false },  // integer with ranged restriction: ReportAppUsageCollectionRateMs
                                                                      // integer with ranged restriction: ReportWebsiteTelemetryCollectionRateMs
-  { base::Value::Type::STRING,       132, false,           false },  // string with enumeration restriction: items of ReportDeviceSignalStrengthEventDrivenTelemetry
-  { base::Value::Type::LIST,         375, false,           false },  // 
-  { base::Value::Type::STRING,       133, false,           false },  // string with enumeration restriction: items of ReportWebsiteTelemetry
-  { base::Value::Type::LIST,         377, false,           false },  // 
-  { base::Value::Type::DICT,         150, false,           false },  // items of RequiredClientCertificateForDevice
-  { base::Value::Type::STRING,       134, false,           false },  // string with enumeration restriction: key_algorithm
-  { base::Value::Type::LIST,         379, false,           false },  // 
-  { base::Value::Type::DICT,         151, false,           false },  // items of RequiredClientCertificateForUser
-  { base::Value::Type::STRING,       135, false,           false },  // string with enumeration restriction: key_algorithm
-  { base::Value::Type::LIST,         382, false,           false },  // 
-  { base::Value::Type::INTEGER,      136, false,           false },  // integer with enumeration restriction: RestoreOnStartup
-  { base::Value::Type::STRING,       137, false,           false },  // string with pattern restriction: items of RestrictedManagedGuestSessionExtensionCleanupExemptList
-  { base::Value::Type::LIST,         386, false,           false },  // 
-  { base::Value::Type::INTEGER,      138, false,           false },  // integer with ranged restriction: SamlPasswordExpirationAdvanceWarningDays
-  { base::Value::Type::STRING,       139, false,           false },  // string with enumeration restriction: SchedulerConfiguration
-  { base::Value::Type::DICT,         152, false,           false },  // ScreenBrightnessPercent
-  { base::Value::Type::DICT,         153, false,           false },  // ScreenLockDelays
-  { base::Value::Type::STRING,       140, false,           false },  // string with enumeration restriction: SecurityTokenSessionBehavior
-  { base::Value::Type::INTEGER,      141, false,           false },  // integer with ranged restriction: SecurityTokenSessionNotificationSeconds
-  { base::Value::Type::DICT,         155, false,           false },  // items of SerialAllowUsbDevicesForUrls
-  { base::Value::Type::DICT,         154, false,           false },  // items of devices
-  { base::Value::Type::LIST,         395, false,           false },  // 
-  { base::Value::Type::LIST,         394, false,           false },  // 
-  { base::Value::Type::STRING,       142, false,           false },  // string with enumeration restriction: ShelfAlignment
-  { base::Value::Type::STRING,       143, false,           false },  // string with enumeration restriction: ShelfAutoHideBehavior
-  { base::Value::Type::DICT,         156, false,           false },  // items of SiteSearchSettings
+  { base::Value::Type::STRING,       134, false,           false },  // string with enumeration restriction: items of ReportDeviceSignalStrengthEventDrivenTelemetry
+  { base::Value::Type::LIST,         381, false,           false },  // 
+  { base::Value::Type::STRING,       135, false,           false },  // string with enumeration restriction: items of ReportWebsiteTelemetry
+  { base::Value::Type::LIST,         383, false,           false },  // 
+  { base::Value::Type::DICT,         153, false,           false },  // items of RequiredClientCertificateForDevice
+  { base::Value::Type::STRING,       136, false,           false },  // string with enumeration restriction: key_algorithm
+  { base::Value::Type::LIST,         385, false,           false },  // 
+  { base::Value::Type::DICT,         154, false,           false },  // items of RequiredClientCertificateForUser
+  { base::Value::Type::STRING,       137, false,           false },  // string with enumeration restriction: key_algorithm
+  { base::Value::Type::LIST,         388, false,           false },  // 
+  { base::Value::Type::INTEGER,      138, false,           false },  // integer with enumeration restriction: RestoreOnStartup
+  { base::Value::Type::STRING,       139, false,           false },  // string with pattern restriction: items of RestrictedManagedGuestSessionExtensionCleanupExemptList
+  { base::Value::Type::LIST,         392, false,           false },  // 
+  { base::Value::Type::INTEGER,      140, false,           false },  // integer with ranged restriction: SamlPasswordExpirationAdvanceWarningDays
+  { base::Value::Type::STRING,       141, false,           false },  // string with enumeration restriction: SchedulerConfiguration
+  { base::Value::Type::DICT,         155, false,           false },  // ScreenBrightnessPercent
+  { base::Value::Type::DICT,         156, false,           false },  // ScreenLockDelays
+  { base::Value::Type::STRING,       142, false,           false },  // string with enumeration restriction: SecurityTokenSessionBehavior
+  { base::Value::Type::INTEGER,      143, false,           false },  // integer with ranged restriction: SecurityTokenSessionNotificationSeconds
+  { base::Value::Type::DICT,         158, false,           false },  // items of SerialAllowUsbDevicesForUrls
+  { base::Value::Type::DICT,         157, false,           false },  // items of devices
+  { base::Value::Type::LIST,         401, false,           false },  // 
   { base::Value::Type::LIST,         400, false,           false },  // 
-  { base::Value::Type::STRING,       144, false,           false },  // string with enumeration restriction: items of SystemFeaturesDisableList
-  { base::Value::Type::LIST,         402, false,           false },  // 
-  { base::Value::Type::STRING,       145, false,           false },  // string with enumeration restriction: SystemFeaturesDisableMode
-  { base::Value::Type::DICT,         157, false,           true  },  // SystemProxySettings
-  { base::Value::Type::STRING,       146, false,           false },  // string with enumeration restriction: items of policy_credentials_auth_schemes
+  { base::Value::Type::STRING,       144, false,           false },  // string with enumeration restriction: ShelfAlignment
+  { base::Value::Type::STRING,       145, false,           false },  // string with enumeration restriction: ShelfAutoHideBehavior
+  { base::Value::Type::DICT,         159, false,           false },  // items of SiteSearchSettings
   { base::Value::Type::LIST,         406, false,           false },  // 
-  { base::Value::Type::DICT,         158, false,           false },  // TPMFirmwareUpdateSettings
-  { base::Value::Type::DICT,         174, false,           false },  // UsageTimeLimit
-  { base::Value::Type::DICT,         160, false,           false },  // items of overrides
-  { base::Value::Type::STRING,       147, false,           false },  // string with enumeration restriction: action
-  { base::Value::Type::DICT,         159, false,           false },  // action_specific_data
-  { base::Value::Type::LIST,         410, false,           false },  // 
-  { base::Value::Type::DICT,         169, false,           false },  // time_usage_limit
-  { base::Value::Type::DICT,         161, false,           false },  // friday
-  { base::Value::Type::DICT,         162, false,           false },  // monday
-  { base::Value::Type::DICT,         163, false,           false },  // reset_at
-  { base::Value::Type::DICT,         164, false,           false },  // saturday
-  { base::Value::Type::DICT,         165, false,           false },  // sunday
-  { base::Value::Type::DICT,         166, false,           false },  // thursday
-  { base::Value::Type::DICT,         167, false,           false },  // tuesday
-  { base::Value::Type::DICT,         168, false,           false },  // wednesday
-  { base::Value::Type::DICT,         173, false,           false },  // time_window_limit
-  { base::Value::Type::DICT,         172, false,           false },  // items of entries
-  { base::Value::Type::STRING,       148, false,           false },  // string with enumeration restriction: effective_day
-  { base::Value::Type::DICT,         170, false,           false },  // ends_at
-  { base::Value::Type::DICT,         171, false,           false },  // starts_at
-  { base::Value::Type::LIST,         424, false,           false },  // 
-  { base::Value::Type::DICT,         175, false,           false },  // items of UsbDetachableAllowlist
-  { base::Value::Type::LIST,         429, false,           false },  // 
-  { base::Value::Type::DICT,         176, false,           false },  // UserAvatarImage
-  { base::Value::Type::STRING,       149, false,           false },  // string with enumeration restriction: items of UserFeedbackWithLowLevelDebugDataAllowed
-  { base::Value::Type::LIST,         432, false,           false },  // 
-  { base::Value::Type::DICT,         177, false,           false },  // VirtualKeyboardFeatures
-  { base::Value::Type::DICT,         178, false,           false },  // WallpaperImage
-  { base::Value::Type::DICT,         180, false,           false },  // items of WebAppInstallForceList
-  { base::Value::Type::DICT,         179, false,           false },  // custom_icon
-  { base::Value::Type::STRING,       150, false,           false },  // string with enumeration restriction: default_launch_container
-  { base::Value::Type::LIST,         436, false,           false },  // 
-  { base::Value::Type::DICT,         181, false,           false },  // items of WebAppSettings
-  { base::Value::Type::STRING,       151, false,           false },  // string with enumeration restriction: run_on_os_login
-  { base::Value::Type::LIST,         440, false,           false },  // 
-  { base::Value::Type::STRING,       152, false,           false },  // string with enumeration restriction: items of WebAuthnFactors
-  { base::Value::Type::LIST,         443, false,           false },  // 
-  { base::Value::Type::DICT,         183, false,           false },  // items of WebHidAllowDevicesForUrls
-  { base::Value::Type::DICT,         182, false,           false },  // items of devices
+  { base::Value::Type::STRING,       146, false,           false },  // string with enumeration restriction: items of SystemFeaturesDisableList
+  { base::Value::Type::LIST,         408, false,           false },  // 
+  { base::Value::Type::STRING,       147, false,           false },  // string with enumeration restriction: SystemFeaturesDisableMode
+  { base::Value::Type::DICT,         160, false,           true  },  // SystemProxySettings
+  { base::Value::Type::STRING,       148, false,           false },  // string with enumeration restriction: items of policy_credentials_auth_schemes
+  { base::Value::Type::LIST,         412, false,           false },  // 
+  { base::Value::Type::DICT,         161, false,           false },  // TPMFirmwareUpdateSettings
+  { base::Value::Type::DICT,         177, false,           false },  // UsageTimeLimit
+  { base::Value::Type::DICT,         163, false,           false },  // items of overrides
+  { base::Value::Type::STRING,       149, false,           false },  // string with enumeration restriction: action
+  { base::Value::Type::DICT,         162, false,           false },  // action_specific_data
+  { base::Value::Type::LIST,         416, false,           false },  // 
+  { base::Value::Type::DICT,         172, false,           false },  // time_usage_limit
+  { base::Value::Type::DICT,         164, false,           false },  // friday
+  { base::Value::Type::DICT,         165, false,           false },  // monday
+  { base::Value::Type::DICT,         166, false,           false },  // reset_at
+  { base::Value::Type::DICT,         167, false,           false },  // saturday
+  { base::Value::Type::DICT,         168, false,           false },  // sunday
+  { base::Value::Type::DICT,         169, false,           false },  // thursday
+  { base::Value::Type::DICT,         170, false,           false },  // tuesday
+  { base::Value::Type::DICT,         171, false,           false },  // wednesday
+  { base::Value::Type::DICT,         176, false,           false },  // time_window_limit
+  { base::Value::Type::DICT,         175, false,           false },  // items of entries
+  { base::Value::Type::STRING,       150, false,           false },  // string with enumeration restriction: effective_day
+  { base::Value::Type::DICT,         173, false,           false },  // ends_at
+  { base::Value::Type::DICT,         174, false,           false },  // starts_at
+  { base::Value::Type::LIST,         430, false,           false },  // 
+  { base::Value::Type::DICT,         178, false,           false },  // items of UsbDetachableAllowlist
+  { base::Value::Type::LIST,         435, false,           false },  // 
+  { base::Value::Type::DICT,         179, false,           false },  // UserAvatarImage
+  { base::Value::Type::STRING,       151, false,           false },  // string with enumeration restriction: items of UserFeedbackWithLowLevelDebugDataAllowed
+  { base::Value::Type::LIST,         438, false,           false },  // 
+  { base::Value::Type::DICT,         180, false,           false },  // VirtualKeyboardFeatures
+  { base::Value::Type::DICT,         181, false,           false },  // WallpaperImage
+  { base::Value::Type::DICT,         183, false,           false },  // items of WebAppInstallForceList
+  { base::Value::Type::DICT,         182, false,           false },  // custom_icon
+  { base::Value::Type::STRING,       152, false,           false },  // string with enumeration restriction: default_launch_container
+  { base::Value::Type::LIST,         442, false,           false },  // 
+  { base::Value::Type::DICT,         184, false,           false },  // items of WebAppSettings
+  { base::Value::Type::STRING,       153, false,           false },  // string with enumeration restriction: run_on_os_login
   { base::Value::Type::LIST,         446, false,           false },  // 
-  { base::Value::Type::LIST,         445, false,           false },  // 
-  { base::Value::Type::DICT,         185, false,           false },  // items of WebHidAllowDevicesWithHidUsagesForUrls
-  { base::Value::Type::DICT,         184, false,           false },  // items of usages
-  { base::Value::Type::LIST,         450, false,           false },  // 
+  { base::Value::Type::STRING,       154, false,           false },  // string with enumeration restriction: items of WebAuthnFactors
   { base::Value::Type::LIST,         449, false,           false },  // 
-  { base::Value::Type::STRING,       153, false,           false },  // string with enumeration restriction: WebRtcIPHandling
-  { base::Value::Type::DICT,         187, false,           false },  // items of WebUsbAllowDevicesForUrls
-  { base::Value::Type::DICT,         186, false,           false },  // items of devices
+  { base::Value::Type::DICT,         186, false,           false },  // items of WebHidAllowDevicesForUrls
+  { base::Value::Type::DICT,         185, false,           false },  // items of devices
+  { base::Value::Type::LIST,         452, false,           false },  // 
+  { base::Value::Type::LIST,         451, false,           false },  // 
+  { base::Value::Type::DICT,         188, false,           false },  // items of WebHidAllowDevicesWithHidUsagesForUrls
+  { base::Value::Type::DICT,         187, false,           false },  // items of usages
+  { base::Value::Type::LIST,         456, false,           false },  // 
   { base::Value::Type::LIST,         455, false,           false },  // 
-  { base::Value::Type::LIST,         454, false,           false },  // 
-  { base::Value::Type::DICT,         200, false,           false },  // validation_schema root node
-  { base::Value::Type::DICT,         192, false,           false },  // items of AutoSelectCertificateForUrls
-  { base::Value::Type::DICT,         191, false,           false },  // filter
-  { base::Value::Type::DICT,         189, false,           false },  // ISSUER
-  { base::Value::Type::DICT,         190, false,           false },  // SUBJECT
-  { base::Value::Type::LIST,         459, false,           false },  // 
-  { base::Value::Type::DICT,         193, false,           false },  // DefaultPrinterSelection
-  { base::Value::Type::STRING,       154, false,           false },  // string with enumeration restriction: kind
-  { base::Value::Type::DICT,         197, false,           false },  // items of DeviceLoginScreenAutoSelectCertificateForUrls
-  { base::Value::Type::DICT,         196, false,           false },  // filter
-  { base::Value::Type::DICT,         194, false,           false },  // ISSUER
-  { base::Value::Type::DICT,         195, false,           false },  // SUBJECT
-  { base::Value::Type::LIST,         466, false,           false },  // 
-  { base::Value::Type::DICT,         199, false,           false },  // items of Printers
-  { base::Value::Type::DICT,         198, false,           false },  // ppd_resource
-  { base::Value::Type::LIST,         471, false,           false },  // 
+  { base::Value::Type::STRING,       155, false,           false },  // string with enumeration restriction: WebRtcIPHandling
+  { base::Value::Type::DICT,         190, false,           false },  // items of WebUsbAllowDevicesForUrls
+  { base::Value::Type::DICT,         189, false,           false },  // items of devices
+  { base::Value::Type::LIST,         461, false,           false },  // 
+  { base::Value::Type::LIST,         460, false,           false },  // 
+  { base::Value::Type::DICT,         203, false,           false },  // validation_schema root node
+  { base::Value::Type::DICT,         195, false,           false },  // items of AutoSelectCertificateForUrls
+  { base::Value::Type::DICT,         194, false,           false },  // filter
+  { base::Value::Type::DICT,         192, false,           false },  // ISSUER
+  { base::Value::Type::DICT,         193, false,           false },  // SUBJECT
+  { base::Value::Type::LIST,         465, false,           false },  // 
+  { base::Value::Type::DICT,         196, false,           false },  // DefaultPrinterSelection
+  { base::Value::Type::STRING,       156, false,           false },  // string with enumeration restriction: kind
+  { base::Value::Type::DICT,         200, false,           false },  // items of DeviceLoginScreenAutoSelectCertificateForUrls
+  { base::Value::Type::DICT,         199, false,           false },  // filter
+  { base::Value::Type::DICT,         197, false,           false },  // ISSUER
+  { base::Value::Type::DICT,         198, false,           false },  // SUBJECT
+  { base::Value::Type::LIST,         472, false,           false },  // 
+  { base::Value::Type::DICT,         202, false,           false },  // items of Printers
+  { base::Value::Type::DICT,         201, false,           false },  // ppd_resource
+  { base::Value::Type::LIST,         477, false,           false },  // 
 };
 
 const internal::PropertyNode kPropertyNodes[] = {
@@ -2539,61 +2547,67 @@ const internal::PropertyNode kPropertyNodes[] = {
   { "percentage",                                                       152 },
   { "hash",                                                               4 },
   { "url",                                                                4 },
+  { "day_of_week",                                                      158 },
+  { "time",                                                              13 },
+  { "day_of_week",                                                      160 },
+  { "time",                                                              13 },
+  { "end",                                                              157 },
+  { "start",                                                            159 },
   { "hash",                                                               4 },
   { "url",                                                                4 },
   { "domains",                                                            5 },
   { "file_extension",                                                     4 },
-  { "allowed_types",                                                    169 },
-  { "blocked_install_message",                                            4 },
-  { "blocked_permissions",                                              171 },
-  { "install_sources",                                                    5 },
-  { "installation_mode",                                                172 },
-  { "runtime_allowed_hosts",                                              5 },
-  { "runtime_blocked_hosts",                                              5 },
-  { "allowed_permissions",                                              175 },
+  { "allowed_types",                                                    175 },
   { "blocked_install_message",                                            4 },
   { "blocked_permissions",                                              177 },
-  { "file_url_navigation_allowed",                                        1 },
+  { "install_sources",                                                    5 },
   { "installation_mode",                                                178 },
-  { "minimum_version_required",                                         179 },
+  { "runtime_allowed_hosts",                                              5 },
+  { "runtime_blocked_hosts",                                              5 },
+  { "allowed_permissions",                                              181 },
+  { "blocked_install_message",                                            4 },
+  { "blocked_permissions",                                              183 },
+  { "file_url_navigation_allowed",                                        1 },
+  { "installation_mode",                                                184 },
+  { "minimum_version_required",                                         185 },
   { "override_update_url",                                                1 },
   { "runtime_allowed_hosts",                                              5 },
   { "runtime_blocked_hosts",                                              5 },
-  { "toolbar_pin",                                                      180 },
+  { "toolbar_pin",                                                      186 },
   { "update_url",                                                         4 },
-  { "allowed_permissions",                                              183 },
-  { "blocked_permissions",                                              185 },
-  { "installation_mode",                                                186 },
-  { "*",                                                                167 },
-  { "^[a-p]{32}(?:,[a-p]{32})*,?$",                                     173 },
-  { "^update_url:",                                                     181 },
+  { "allowed_permissions",                                              189 },
+  { "blocked_permissions",                                              191 },
+  { "installation_mode",                                                192 },
+  { "*",                                                                173 },
+  { "^[a-p]{32}(?:,[a-p]{32})*,?$",                                     179 },
+  { "^update_url:",                                                     187 },
   { "hash",                                                               4 },
   { "url",                                                                4 },
   { "associatedSites",                                                    5 },
-  { "ccTLDs",                                                           191 },
+  { "ccTLDs",                                                           197 },
   { "primary",                                                            4 },
   { "serviceSites",                                                       5 },
   { "associatedSites",                                                    5 },
-  { "ccTLDs",                                                           194 },
+  { "ccTLDs",                                                           200 },
   { "primary",                                                            4 },
   { "serviceSites",                                                       5 },
-  { "additions",                                                        192 },
-  { "replacements",                                                     195 },
+  { "additions",                                                        198 },
+  { "replacements",                                                     201 },
   { "update_manifest_url",                                                4 },
   { "web_bundle_id",                                                      4 },
   { "krb5conf",                                                           5 },
-  { "password",                                                         207 },
-  { "principal",                                                        208 },
+  { "password",                                                         213 },
+  { "principal",                                                        214 },
   { "remember_password_from_policy",                                      1 },
   { "allowCorporateKeyUsage",                                             1 },
-  { "children",                                                         217 },
+  { "children",                                                         223 },
   { "name",                                                               4 },
   { "toplevel_name",                                                      4 },
   { "url",                                                                4 },
   { "managed_configuration_hash",                                         4 },
   { "managed_configuration_url",                                          4 },
   { "origin",                                                             4 },
-  { "mode",                                                             225 },
+  { "mode",                                                             231 },
   { "share_url",                                                          4 },
   { "download_rate_kbits",                                               13 },
   { "enabled",                                                            1 },
@@ -2610,14 +2624,14 @@ const internal::PropertyNode kPropertyNodes[] = {
   { "mac",                                                                5 },
   { "windows",                                                            5 },
   { "block_until_verdict",                                               13 },
-  { "custom_messages",                                                  230 },
-  { "default_action",                                                   231 },
-  { "disable",                                                          233 },
-  { "enable",                                                           235 },
+  { "custom_messages",                                                  236 },
+  { "default_action",                                                   237 },
+  { "disable",                                                          239 },
+  { "enable",                                                           241 },
   { "minimum_data_size",                                                  2 },
   { "require_justification_tags",                                         5 },
-  { "service_provider",                                                 236 },
-  { "verification",                                                     237 },
+  { "service_provider",                                                 242 },
+  { "verification",                                                     243 },
   { "language",                                                           4 },
   { "learn_more_url",                                                     4 },
   { "message",                                                            4 },
@@ -2632,13 +2646,13 @@ const internal::PropertyNode kPropertyNodes[] = {
   { "block_large_files",                                                  1 },
   { "block_password_protected",                                           1 },
   { "block_until_verdict",                                               13 },
-  { "custom_messages",                                                  241 },
-  { "default_action",                                                   242 },
-  { "disable",                                                          244 },
-  { "enable",                                                           246 },
+  { "custom_messages",                                                  247 },
+  { "default_action",                                                   248 },
+  { "disable",                                                          250 },
+  { "enable",                                                           252 },
   { "require_justification_tags",                                         5 },
-  { "service_provider",                                                 247 },
-  { "verification",                                                     248 },
+  { "service_provider",                                                 253 },
+  { "verification",                                                     254 },
   { "language",                                                           4 },
   { "learn_more_url",                                                     4 },
   { "message",                                                            4 },
@@ -2653,35 +2667,35 @@ const internal::PropertyNode kPropertyNodes[] = {
   { "block_large_files",                                                  1 },
   { "block_password_protected",                                           1 },
   { "block_until_verdict",                                               13 },
-  { "custom_messages",                                                  252 },
-  { "default_action",                                                   253 },
-  { "disable",                                                          255 },
-  { "enable",                                                           257 },
+  { "custom_messages",                                                  258 },
+  { "default_action",                                                   259 },
+  { "disable",                                                          261 },
+  { "enable",                                                           263 },
   { "require_justification_tags",                                         5 },
-  { "service_provider",                                                 258 },
-  { "verification",                                                     259 },
+  { "service_provider",                                                 264 },
+  { "verification",                                                     265 },
   { "language",                                                           4 },
   { "learn_more_url",                                                     4 },
   { "message",                                                            4 },
   { "tag",                                                                4 },
-  { "file_system_type",                                                 267 },
-  { "file_system_type",                                                 270 },
-  { "destinations",                                                     268 },
-  { "sources",                                                          271 },
-  { "source_destination_list",                                          272 },
+  { "file_system_type",                                                 273 },
+  { "file_system_type",                                                 276 },
+  { "destinations",                                                     274 },
+  { "sources",                                                          277 },
+  { "source_destination_list",                                          278 },
   { "tags",                                                               5 },
-  { "file_system_type",                                                 277 },
-  { "file_system_type",                                                 280 },
-  { "destinations",                                                     278 },
-  { "sources",                                                          281 },
-  { "source_destination_list",                                          282 },
+  { "file_system_type",                                                 283 },
+  { "file_system_type",                                                 286 },
+  { "destinations",                                                     284 },
+  { "sources",                                                          287 },
+  { "source_destination_list",                                          288 },
   { "tags",                                                               5 },
   { "block_large_files",                                                  1 },
   { "block_password_protected",                                           1 },
   { "block_until_verdict",                                               13 },
-  { "custom_messages",                                                  263 },
-  { "disable",                                                          273 },
-  { "enable",                                                           283 },
+  { "custom_messages",                                                  269 },
+  { "disable",                                                          279 },
+  { "enable",                                                           289 },
   { "require_justification_tags",                                         5 },
   { "service_provider",                                                   4 },
   { "language",                                                           4 },
@@ -2697,44 +2711,44 @@ const internal::PropertyNode kPropertyNodes[] = {
   { "windows",                                                            5 },
   { "block_large_files",                                                  1 },
   { "block_until_verdict",                                               17 },
-  { "custom_messages",                                                  287 },
-  { "default_action",                                                   288 },
-  { "disable",                                                          290 },
-  { "enable",                                                           292 },
+  { "custom_messages",                                                  293 },
+  { "default_action",                                                   294 },
+  { "disable",                                                          296 },
+  { "enable",                                                           298 },
   { "require_justification_tags",                                         5 },
-  { "service_provider",                                                 293 },
-  { "verification",                                                     294 },
+  { "service_provider",                                                 299 },
+  { "verification",                                                     300 },
   { "name",                                                               4 },
   { "url_patterns",                                                       5 },
   { "enabled_event_names",                                                5 },
-  { "enabled_opt_in_events",                                            298 },
-  { "service_provider",                                                 299 },
-  { "access_code_ttl",                                                  304 },
-  { "clock_drift_tolerance",                                            305 },
+  { "enabled_opt_in_events",                                            304 },
+  { "service_provider",                                                 305 },
+  { "access_code_ttl",                                                  310 },
+  { "clock_drift_tolerance",                                            311 },
   { "shared_secret",                                                      4 },
-  { "access_code_ttl",                                                  304 },
-  { "clock_drift_tolerance",                                            305 },
+  { "access_code_ttl",                                                  310 },
+  { "clock_drift_tolerance",                                            311 },
   { "shared_secret",                                                      4 },
-  { "access_code_ttl",                                                  304 },
-  { "clock_drift_tolerance",                                            305 },
+  { "access_code_ttl",                                                  310 },
+  { "clock_drift_tolerance",                                            311 },
   { "shared_secret",                                                      4 },
-  { "current_config",                                                   303 },
-  { "future_config",                                                    306 },
-  { "old_configs",                                                      308 },
+  { "current_config",                                                   309 },
+  { "future_config",                                                    312 },
+  { "old_configs",                                                      314 },
   { "app_id",                                                             4 },
-  { "app_type",                                                         312 },
-  { "app_info",                                                         311 },
-  { "daily_limit_mins",                                                 313 },
+  { "app_type",                                                         318 },
+  { "app_info",                                                         317 },
+  { "daily_limit_mins",                                                 319 },
   { "last_updated_millis",                                                4 },
-  { "restriction",                                                      314 },
+  { "restriction",                                                      320 },
   { "hour",                                                              78 },
   { "minute",                                                            79 },
   { "activity_reporting_enabled",                                         1 },
-  { "app_limits",                                                       315 },
-  { "reset_at",                                                         316 },
+  { "app_limits",                                                       321 },
+  { "reset_at",                                                         322 },
   { "app_id",                                                             4 },
-  { "app_type",                                                         319 },
-  { "app_list",                                                         320 },
+  { "app_type",                                                         325 },
+  { "app_list",                                                         326 },
   { "url_list",                                                           5 },
   { "hash",                                                               4 },
   { "url",                                                                4 },
@@ -2742,26 +2756,26 @@ const internal::PropertyNode kPropertyNodes[] = {
   { "IdleWarning",                                                        2 },
   { "ScreenDim",                                                          2 },
   { "ScreenOff",                                                          2 },
-  { "Delays",                                                           328 },
-  { key::kIdleAction,                                                   329 },
+  { "Delays",                                                           334 },
+  { key::kIdleAction,                                                   335 },
   { "Idle",                                                               2 },
   { "IdleWarning",                                                        2 },
   { "ScreenDim",                                                          2 },
   { "ScreenOff",                                                          2 },
-  { "Delays",                                                           331 },
-  { key::kIdleAction,                                                   332 },
-  { "AC",                                                               327 },
-  { "Battery",                                                          330 },
+  { "Delays",                                                           337 },
+  { key::kIdleAction,                                                   338 },
+  { "AC",                                                               333 },
+  { "Battery",                                                          336 },
   { "hash",                                                               4 },
   { "url",                                                                4 },
   { "hash",                                                               4 },
   { "url",                                                                4 },
   { "height",                                                            13 },
   { "width",                                                             13 },
-  { "custom_size",                                                      346 },
-  { "name",                                                             347 },
+  { "custom_size",                                                      352 },
+  { "name",                                                             353 },
   { key::kProxyBypassList,                                                4 },
-  { key::kProxyMode,                                                    351 },
+  { key::kProxyMode,                                                    357 },
   { "ProxyPacMandatory",                                                  1 },
   { key::kProxyPacUrl,                                                    4 },
   { key::kProxyServer,                                                    4 },
@@ -2770,30 +2784,30 @@ const internal::PropertyNode kPropertyNodes[] = {
   { "protocol",                                                           4 },
   { "url",                                                                4 },
   { "associatedSites",                                                    5 },
-  { "ccTLDs",                                                           358 },
+  { "ccTLDs",                                                           364 },
   { "primary",                                                            4 },
   { "serviceSites",                                                       5 },
   { "associatedSites",                                                    5 },
-  { "ccTLDs",                                                           361 },
+  { "ccTLDs",                                                           367 },
   { "primary",                                                            4 },
   { "serviceSites",                                                       5 },
-  { "additions",                                                        359 },
-  { "replacements",                                                     362 },
+  { "additions",                                                        365 },
+  { "replacements",                                                     368 },
   { "hour",                                                              78 },
   { "minute",                                                            79 },
-  { "duration_mins",                                                    366 },
-  { "start",                                                            367 },
-  { "entries",                                                          368 },
+  { "duration_mins",                                                    372 },
+  { "start",                                                            373 },
+  { "entries",                                                          374 },
   { "cert_profile_id",                                                    4 },
   { "enable_remote_attestation_check",                                    1 },
-  { "key_algorithm",                                                    380 },
+  { "key_algorithm",                                                    386 },
   { "name",                                                               4 },
   { "policy_version",                                                     4 },
   { "protocol_version",                                                  13 },
   { "renewal_period_seconds",                                            13 },
   { "cert_profile_id",                                                    4 },
   { "enable_remote_attestation_check",                                    1 },
-  { "key_algorithm",                                                    383 },
+  { "key_algorithm",                                                    389 },
   { "name",                                                               4 },
   { "policy_version",                                                     4 },
   { "protocol_version",                                                  13 },
@@ -2804,22 +2818,22 @@ const internal::PropertyNode kPropertyNodes[] = {
   { "Battery",                                                            2 },
   { "product_id",                                                       110 },
   { "vendor_id",                                                        110 },
-  { "devices",                                                          396 },
+  { "devices",                                                          402 },
   { "urls",                                                               5 },
   { "featured",                                                           1 },
   { "name",                                                               4 },
   { "shortcut",                                                           4 },
   { "url",                                                                4 },
-  { "policy_credentials_auth_schemes",                                  407 },
+  { "policy_credentials_auth_schemes",                                  413 },
   { "system_proxy_enabled",                                               1 },
-  { "system_services_password",                                         207 },
-  { "system_services_username",                                         207 },
+  { "system_services_password",                                         213 },
+  { "system_services_username",                                         213 },
   { "allow-user-initiated-powerwash",                                     1 },
   { "allow-user-initiated-preserve-device-state",                         1 },
   { "auto-update-mode",                                                 137 },
   { "duration_mins",                                                      2 },
-  { "action",                                                           411 },
-  { "action_specific_data",                                             412 },
+  { "action",                                                           417 },
+  { "action_specific_data",                                             418 },
   { "created_at_millis",                                                  4 },
   { "last_updated_millis",                                                4 },
   { "usage_quota_mins",                                                   2 },
@@ -2837,26 +2851,26 @@ const internal::PropertyNode kPropertyNodes[] = {
   { "usage_quota_mins",                                                   2 },
   { "last_updated_millis",                                                4 },
   { "usage_quota_mins",                                                   2 },
-  { "friday",                                                           415 },
-  { "monday",                                                           416 },
-  { "reset_at",                                                         417 },
-  { "saturday",                                                         418 },
-  { "sunday",                                                           419 },
-  { "thursday",                                                         420 },
-  { "tuesday",                                                          421 },
-  { "wednesday",                                                        422 },
+  { "friday",                                                           421 },
+  { "monday",                                                           422 },
+  { "reset_at",                                                         423 },
+  { "saturday",                                                         424 },
+  { "sunday",                                                           425 },
+  { "thursday",                                                         426 },
+  { "tuesday",                                                          427 },
+  { "wednesday",                                                        428 },
   { "hour",                                                              78 },
   { "minute",                                                            79 },
   { "hour",                                                              78 },
   { "minute",                                                            79 },
-  { "effective_day",                                                    425 },
-  { "ends_at",                                                          426 },
+  { "effective_day",                                                    431 },
+  { "ends_at",                                                          432 },
   { "last_updated_millis",                                                4 },
-  { "starts_at",                                                        427 },
-  { "entries",                                                          428 },
-  { "overrides",                                                        413 },
-  { "time_usage_limit",                                                 414 },
-  { "time_window_limit",                                                423 },
+  { "starts_at",                                                        433 },
+  { "entries",                                                          434 },
+  { "overrides",                                                        419 },
+  { "time_usage_limit",                                                 420 },
+  { "time_window_limit",                                                429 },
   { "product_id",                                                        13 },
   { "vendor_id",                                                         13 },
   { "hash",                                                               4 },
@@ -2871,27 +2885,27 @@ const internal::PropertyNode kPropertyNodes[] = {
   { "hash",                                                               4 },
   { "url",                                                                4 },
   { "create_desktop_shortcut",                                            1 },
-  { "custom_icon",                                                      437 },
+  { "custom_icon",                                                      443 },
   { "custom_name",                                                        4 },
-  { "default_launch_container",                                         438 },
+  { "default_launch_container",                                         444 },
   { "fallback_app_name",                                                  4 },
   { "install_as_shortcut",                                                1 },
   { "url",                                                                4 },
   { "force_unregister_os_integration",                                    1 },
   { "manifest_id",                                                        4 },
   { "prevent_close_after_run_on_os_login",                                1 },
-  { "run_on_os_login",                                                  441 },
+  { "run_on_os_login",                                                  447 },
   { "product_id",                                                       110 },
   { "vendor_id",                                                        110 },
-  { "devices",                                                          447 },
+  { "devices",                                                          453 },
   { "urls",                                                               5 },
   { "usage",                                                            110 },
   { "usage_page",                                                       110 },
   { "urls",                                                               5 },
-  { "usages",                                                           451 },
+  { "usages",                                                           457 },
   { "product_id",                                                       110 },
   { "vendor_id",                                                        110 },
-  { "devices",                                                          456 },
+  { "devices",                                                          462 },
   { "urls",                                                               5 },
   { key::kAbusiveExperienceInterventionEnforce,                           1 },
   { key::kAccessCodeCastDeviceDuration,                                   2 },
@@ -3195,10 +3209,11 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kDeviceVariationsRestrictParameter,                              4 },
   { key::kDeviceWallpaperImage,                                         155 },
   { key::kDeviceWebBasedAttestationAllowedUrls,                           5 },
+  { key::kDeviceWeeklyScheduledSuspend,                                 161 },
   { key::kDeviceWiFiAllowed,                                              1 },
   { key::kDeviceWiFiFastTransitionEnabled,                                1 },
   { key::kDeviceWilcoDtcAllowed,                                          1 },
-  { key::kDeviceWilcoDtcConfiguration,                                  156 },
+  { key::kDeviceWilcoDtcConfiguration,                                  162 },
   { key::kDictationEnabled,                                               1 },
   { key::kDisable3DAPIs,                                                  1 },
   { key::kDisableAuthNegotiateCnameLookup,                                1 },
@@ -3206,7 +3221,7 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kDisableScreenshots,                                             1 },
   { key::kDisabledSchemes,                                                5 },
   { key::kDisplayRotationDefault,                                         6 },
-  { key::kDnsOverHttpsMode,                                             157 },
+  { key::kDnsOverHttpsMode,                                             163 },
   { key::kDnsOverHttpsSalt,                                               4 },
   { key::kDnsOverHttpsTemplates,                                          4 },
   { key::kDnsOverHttpsTemplatesWithIdentifiers,                           4 },
@@ -3215,7 +3230,7 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kDownloadRestrictions,                                         139 },
   { key::kDriveDisabled,                                                  1 },
   { key::kDriveDisabledOverCellular,                                      1 },
-  { key::kDriveFileSyncAvailable,                                       158 },
+  { key::kDriveFileSyncAvailable,                                       164 },
   { key::kEasyUnlockAllowed,                                              1 },
   { key::kEcheAllowed,                                                    1 },
   { key::kEditBookmarksEnabled,                                           1 },
@@ -3233,9 +3248,9 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kEnterpriseHardwarePlatformAPIEnabled,                           1 },
   { key::kEnterpriseRealTimeUrlCheckMode,                                17 },
   { key::kEssentialSearchEnabled,                                         1 },
-  { key::kExemptDomainFileTypePairsFromFileTypeDownloadWarnings,        160 },
-  { key::kExplicitlyAllowedNetworkPorts,                                162 },
-  { key::kExtensionAllowedTypes,                                        164 },
+  { key::kExemptDomainFileTypePairsFromFileTypeDownloadWarnings,        166 },
+  { key::kExplicitlyAllowedNetworkPorts,                                168 },
+  { key::kExtensionAllowedTypes,                                        170 },
   { key::kExtensionCacheSize,                                            13 },
   { key::kExtensionExtendedBackgroundLifetimeForPortConnectionsToUrls,      5 },
   { key::kExtensionInstallAllowlist,                                      5 },
@@ -3243,10 +3258,10 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kExtensionInstallForcelist,                                      5 },
   { key::kExtensionInstallSources,                                        5 },
   { key::kExtensionManifestV2Availability,                                6 },
-  { key::kExtensionOAuthRedirectUrls,                                   165 },
-  { key::kExtensionSettings,                                            166 },
+  { key::kExtensionOAuthRedirectUrls,                                   171 },
+  { key::kExtensionSettings,                                            172 },
   { key::kExtensionUnpublishedAvailability,                              17 },
-  { key::kExternalPrintServers,                                         187 },
+  { key::kExternalPrintServers,                                         193 },
   { key::kExternalPrintServersAllowlist,                                  5 },
   { key::kExternalStorageDisabled,                                        1 },
   { key::kExternalStorageReadOnly,                                        1 },
@@ -3254,14 +3269,14 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kF12KeyModifier,                                                 6 },
   { key::kFastPairEnabled,                                                1 },
   { key::kFeedbackSurveysEnabled,                                         1 },
-  { key::kFetchKeepaliveDurationSecondsOnShutdown,                      188 },
+  { key::kFetchKeepaliveDurationSecondsOnShutdown,                      194 },
   { key::kFileOrDirectoryPickerWithoutGestureAllowedForOrigins,           5 },
   { key::kFileSystemReadAskForUrls,                                       5 },
   { key::kFileSystemReadBlockedForUrls,                                   5 },
   { key::kFileSystemWriteAskForUrls,                                      5 },
   { key::kFileSystemWriteBlockedForUrls,                                  5 },
   { key::kFirstPartySetsEnabled,                                          1 },
-  { key::kFirstPartySetsOverrides,                                      189 },
+  { key::kFirstPartySetsOverrides,                                      195 },
   { key::kFloatingAccessibilityMenuEnabled,                               1 },
   { key::kFloatingSsoDomainBlocklist,                                     5 },
   { key::kFloatingSsoDomainBlocklistExceptions,                           5 },
@@ -3280,18 +3295,18 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kFullRestoreMode,                                               71 },
   { key::kFullscreenAlertEnabled,                                         1 },
   { key::kFullscreenAllowed,                                              1 },
-  { key::kGaiaLockScreenOfflineSigninTimeLimitDays,                     196 },
-  { key::kGaiaOfflineSigninTimeLimitDays,                               197 },
+  { key::kGaiaLockScreenOfflineSigninTimeLimitDays,                     202 },
+  { key::kGaiaOfflineSigninTimeLimitDays,                               203 },
   { key::kGetDisplayMediaSetSelectAllScreensAllowedForUrls,               5 },
   { key::kGhostWindowEnabled,                                             1 },
   { key::kGlanceablesEnabled,                                             1 },
   { key::kGloballyScopeHTTPAuthCacheEnabled,                              1 },
   { key::kGoogleSearchSidePanelEnabled,                                   1 },
-  { key::kGoogleWorkspaceCloudUpload,                                   198 },
-  { key::kHSTSPolicyBypassList,                                         200 },
+  { key::kGoogleWorkspaceCloudUpload,                                   204 },
+  { key::kHSTSPolicyBypassList,                                         206 },
   { key::kHeadlessMode,                                                   3 },
   { key::kHeartbeatEnabled,                                               1 },
-  { key::kHeartbeatFrequency,                                           201 },
+  { key::kHeartbeatFrequency,                                           207 },
   { key::kHelpMeWriteSettings,                                           16 },
   { key::kHideWebStoreIcon,                                               1 },
   { key::kHighContrastEnabled,                                            1 },
@@ -3301,7 +3316,7 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kHomepageIsNewTabPage,                                           1 },
   { key::kHomepageLocation,                                               4 },
   { key::kHttpAllowlist,                                                  5 },
-  { key::kHttpsOnlyMode,                                                202 },
+  { key::kHttpsOnlyMode,                                                208 },
   { key::kHttpsUpgradesEnabled,                                           1 },
   { key::kIPv6ReachabilityOverrideEnabled,                                1 },
   { key::kIdleAction,                                                     6 },
@@ -3321,36 +3336,36 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kInsecureHashesInTLSHandshakesEnabled,                           1 },
   { key::kInsecurePrivateNetworkRequestsAllowed,                          1 },
   { key::kInsecurePrivateNetworkRequestsAllowedForUrls,                   5 },
-  { key::kInsertKeyModifier,                                            203 },
+  { key::kInsertKeyModifier,                                            209 },
   { key::kInsightsExtensionEnabled,                                       1 },
   { key::kInstantTetheringAllowed,                                        1 },
   { key::kIntensiveWakeUpThrottlingEnabled,                               1 },
   { key::kIntranetRedirectBehavior,                                       6 },
   { key::kIsolateOrigins,                                                 4 },
   { key::kIsolatedAppsDeveloperModeAllowed,                               1 },
-  { key::kIsolatedWebAppInstallForceList,                               205 },
+  { key::kIsolatedWebAppInstallForceList,                               211 },
   { key::kJavaScriptAllowedForUrls,                                       5 },
   { key::kJavaScriptBlockedForUrls,                                       5 },
   { key::kJavaScriptJitAllowedForSites,                                   5 },
   { key::kJavaScriptJitBlockedForSites,                                   5 },
   { key::kJavascriptEnabled,                                              1 },
   { key::kKeepFullscreenWithoutNotificationUrlAllowList,                  5 },
-  { key::kKerberosAccounts,                                             209 },
+  { key::kKerberosAccounts,                                             215 },
   { key::kKerberosAddAccountsAllowed,                                     1 },
   { key::kKerberosCustomPrefilledConfig,                                  4 },
   { key::kKerberosDomainAutocomplete,                                     4 },
   { key::kKerberosEnabled,                                                1 },
   { key::kKerberosRememberPasswordEnabled,                                1 },
   { key::kKerberosUseCustomPrefilledConfig,                               1 },
-  { key::kKeyPermissions,                                               210 },
+  { key::kKeyPermissions,                                               216 },
   { key::kKeyboardDefaultToFunctionKeys,                                  1 },
   { key::kKeyboardFocusHighlightEnabled,                                  1 },
   { key::kKioskCRXManifestUpdateURLIgnored,                               1 },
   { key::kKioskTroubleshootingToolsEnabled,                               1 },
-  { key::kLacrosAvailability,                                           212 },
-  { key::kLacrosDataBackwardMigrationMode,                              213 },
+  { key::kLacrosAvailability,                                           218 },
+  { key::kLacrosDataBackwardMigrationMode,                              219 },
   { key::kLacrosSecondaryProfilesAllowed,                                 1 },
-  { key::kLacrosSelection,                                              214 },
+  { key::kLacrosSelection,                                              220 },
   { key::kLargeCursorEnabled,                                             1 },
   { key::kLegacySameSiteCookieBehaviorEnabledForDomainList,               5 },
   { key::kLegacyTechReportAllowlist,                                      5 },
@@ -3366,18 +3381,18 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kLoginDisplayPasswordButtonEnabled,                              1 },
   { key::kLoginVideoCaptureAllowedUrls,                                   5 },
   { key::kLookalikeWarningAllowlistDomains,                               5 },
-  { key::kManagedAccountsSigninRestriction,                             215 },
-  { key::kManagedBookmarks,                                             218 },
-  { key::kManagedConfigurationPerOrigin,                                220 },
+  { key::kManagedAccountsSigninRestriction,                             221 },
+  { key::kManagedBookmarks,                                             224 },
+  { key::kManagedConfigurationPerOrigin,                                226 },
   { key::kManagedGuestSessionPrivacyWarningsEnabled,                      1 },
   { key::kMandatoryExtensionsForIncognitoNavigation,                      5 },
   { key::kMaxConnectionsPerProxy,                                        13 },
-  { key::kMaxInvalidationFetchDelay,                                    221 },
+  { key::kMaxInvalidationFetchDelay,                                    227 },
   { key::kMediaRecommendationsEnabled,                                    1 },
   { key::kMediaRouterCastAllowAllIPs,                                     1 },
-  { key::kMicrosoftOfficeCloudUpload,                                   222 },
+  { key::kMicrosoftOfficeCloudUpload,                                   228 },
   { key::kMicrosoftOneDriveAccountRestrictions,                           5 },
-  { key::kMicrosoftOneDriveMount,                                       223 },
+  { key::kMicrosoftOneDriveMount,                                       229 },
   { key::kMidiAllowedForUrls,                                             5 },
   { key::kMidiBlockedForUrls,                                             5 },
   { key::kMonoAudioEnabled,                                               1 },
@@ -3389,9 +3404,9 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kNearbyShareAllowed,                                             1 },
   { key::kNetBiosShareDiscoveryEnabled,                                   1 },
   { key::kNetworkFileSharesAllowed,                                       1 },
-  { key::kNetworkFileSharesPreconfiguredShares,                         226 },
+  { key::kNetworkFileSharesPreconfiguredShares,                         232 },
   { key::kNetworkPredictionOptions,                                      16 },
-  { key::kNetworkThrottlingEnabled,                                     227 },
+  { key::kNetworkThrottlingEnabled,                                     233 },
   { key::kNewBaseUrlInheritanceBehaviorAllowed,                           1 },
   { key::kNewTabPageLocation,                                             4 },
   { key::kNewWindowsInKioskAllowed,                                       1 },
@@ -3399,19 +3414,19 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kNotificationsAllowedForUrls,                                    5 },
   { key::kNotificationsBlockedForUrls,                                    5 },
   { key::kNtlmV2Enabled,                                                  1 },
-  { key::kOnBulkDataEntryEnterpriseConnector,                           238 },
-  { key::kOnFileAttachedEnterpriseConnector,                            249 },
-  { key::kOnFileDownloadedEnterpriseConnector,                          260 },
-  { key::kOnFileTransferEnterpriseConnector,                            284 },
-  { key::kOnPrintEnterpriseConnector,                                   295 },
-  { key::kOnSecurityEventEnterpriseConnector,                           300 },
+  { key::kOnBulkDataEntryEnterpriseConnector,                           244 },
+  { key::kOnFileAttachedEnterpriseConnector,                            255 },
+  { key::kOnFileDownloadedEnterpriseConnector,                          266 },
+  { key::kOnFileTransferEnterpriseConnector,                            290 },
+  { key::kOnPrintEnterpriseConnector,                                   301 },
+  { key::kOnSecurityEventEnterpriseConnector,                           306 },
   { key::kOopPrintDriversAllowed,                                         1 },
   { key::kOpenNetworkConfiguration,                                       4 },
   { key::kOriginAgentClusterDefaultEnabled,                               1 },
-  { key::kOsColorMode,                                                  301 },
+  { key::kOsColorMode,                                                  307 },
   { key::kOverrideSecurityRestrictionsOnInsecureOrigin,                   5 },
   { key::kPageUpAndPageDownKeysModifier,                                 16 },
-  { key::kParentAccessCodeConfig,                                       302 },
+  { key::kParentAccessCodeConfig,                                       308 },
   { key::kPasswordDismissCompromisedAlertEnabled,                         1 },
   { key::kPasswordLeakDetectionEnabled,                                   1 },
   { key::kPasswordManagerEnabled,                                         1 },
@@ -3423,8 +3438,8 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kPdfAnnotationsEnabled,                                          1 },
   { key::kPdfLocalFileAccessAllowedForDomains,                            5 },
   { key::kPdfUseSkiaRendererEnabled,                                      1 },
-  { key::kPerAppTimeLimits,                                             309 },
-  { key::kPerAppTimeLimitsAllowlist,                                    317 },
+  { key::kPerAppTimeLimits,                                             315 },
+  { key::kPerAppTimeLimitsAllowlist,                                    323 },
   { key::kPhoneHubAllowed,                                                1 },
   { key::kPhoneHubCameraRollAllowed,                                      1 },
   { key::kPhoneHubNotificationsAllowed,                                   1 },
@@ -3438,46 +3453,46 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kPinnedLauncherApps,                                             5 },
   { key::kPluginVmAllowed,                                                1 },
   { key::kPluginVmDataCollectionAllowed,                                  1 },
-  { key::kPluginVmImage,                                                321 },
-  { key::kPluginVmRequiredFreeDiskSpace,                                322 },
-  { key::kPluginVmUserId,                                               207 },
+  { key::kPluginVmImage,                                                327 },
+  { key::kPluginVmRequiredFreeDiskSpace,                                328 },
+  { key::kPluginVmUserId,                                               213 },
   { key::kPolicyAtomicGroupsEnabled,                                      1 },
-  { key::kPolicyDictionaryMultipleSourceMergeList,                      324 },
+  { key::kPolicyDictionaryMultipleSourceMergeList,                      330 },
   { key::kPolicyListMultipleSourceMergeList,                              5 },
-  { key::kPolicyRefreshRate,                                            325 },
+  { key::kPolicyRefreshRate,                                            331 },
   { key::kPolicyTestPageEnabled,                                          1 },
   { key::kPopupsAllowedForUrls,                                           5 },
   { key::kPopupsBlockedForUrls,                                           5 },
   { key::kPostQuantumKeyAgreementEnabled,                                 1 },
-  { key::kPowerManagementIdleSettings,                                  326 },
+  { key::kPowerManagementIdleSettings,                                  332 },
   { key::kPowerManagementUsesAudioActivity,                               1 },
   { key::kPowerManagementUsesVideoActivity,                               1 },
   { key::kPowerSmartDimEnabled,                                           1 },
-  { key::kPreconfiguredDeskTemplates,                                   333 },
+  { key::kPreconfiguredDeskTemplates,                                   339 },
   { key::kPresentationScreenDimDelayScale,                               13 },
   { key::kPrimaryMouseButtonSwitch,                                       1 },
   { key::kPrintHeaderFooter,                                              1 },
-  { key::kPrintJobHistoryExpirationPeriod,                              334 },
+  { key::kPrintJobHistoryExpirationPeriod,                              340 },
   { key::kPrintPdfAsImageDefault,                                         1 },
   { key::kPrintRasterizePdfDpi,                                           2 },
-  { key::kPrinterTypeDenyList,                                          336 },
+  { key::kPrinterTypeDenyList,                                          342 },
   { key::kPrinters,                                                       5 },
   { key::kPrintersBulkAccessMode,                                        16 },
   { key::kPrintersBulkAllowlist,                                          5 },
   { key::kPrintersBulkBlocklist,                                          5 },
-  { key::kPrintersBulkConfiguration,                                    337 },
+  { key::kPrintersBulkConfiguration,                                    343 },
   { key::kPrintingAPIExtensionsAllowlist,                                 5 },
-  { key::kPrintingAllowedBackgroundGraphicsModes,                       338 },
-  { key::kPrintingAllowedColorModes,                                    339 },
-  { key::kPrintingAllowedDuplexModes,                                   340 },
-  { key::kPrintingAllowedPinModes,                                      341 },
-  { key::kPrintingBackgroundGraphicsDefault,                            342 },
-  { key::kPrintingColorDefault,                                         343 },
-  { key::kPrintingDuplexDefault,                                        344 },
+  { key::kPrintingAllowedBackgroundGraphicsModes,                       344 },
+  { key::kPrintingAllowedColorModes,                                    345 },
+  { key::kPrintingAllowedDuplexModes,                                   346 },
+  { key::kPrintingAllowedPinModes,                                      347 },
+  { key::kPrintingBackgroundGraphicsDefault,                            348 },
+  { key::kPrintingColorDefault,                                         349 },
+  { key::kPrintingDuplexDefault,                                        350 },
   { key::kPrintingEnabled,                                                1 },
   { key::kPrintingMaxSheetsAllowed,                                      22 },
-  { key::kPrintingPaperSizeDefault,                                     345 },
-  { key::kPrintingPinDefault,                                           348 },
+  { key::kPrintingPaperSizeDefault,                                     351 },
+  { key::kPrintingPinDefault,                                           354 },
   { key::kPrintingSendUsernameAndFilenameEnabled,                         1 },
   { key::kPrivacySandboxAdMeasurementEnabled,                             1 },
   { key::kPrivacySandboxAdTopicsEnabled,                                  1 },
@@ -3492,44 +3507,44 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kPromptForDownloadLocation,                                      1 },
   { key::kPromptOnMultipleMatchingCertificates,                           1 },
   { key::kProxyBypassList,                                                4 },
-  { key::kProxyMode,                                                    349 },
+  { key::kProxyMode,                                                    355 },
   { key::kProxyPacUrl,                                                    4 },
   { key::kProxyServer,                                                    4 },
   { key::kProxyServerMode,                                                6 },
-  { key::kProxySettings,                                                350 },
+  { key::kProxySettings,                                                356 },
   { key::kQuicAllowed,                                                    1 },
   { key::kQuickAnswersDefinitionEnabled,                                  1 },
   { key::kQuickAnswersEnabled,                                            1 },
   { key::kQuickAnswersTranslationEnabled,                                 1 },
   { key::kQuickAnswersUnitConversionEnabled,                              1 },
   { key::kQuickOfficeForceFileDownloadEnabled,                            1 },
-  { key::kQuickUnlockModeAllowlist,                                     353 },
+  { key::kQuickUnlockModeAllowlist,                                     359 },
   { key::kQuickUnlockTimeout,                                             6 },
   { key::kRSAKeyUsageForLocalAnchorsEnabled,                              1 },
   { key::kRebootAfterUpdate,                                              1 },
   { key::kRecoveryFactorBehavior,                                         1 },
-  { key::kRegisteredProtocolHandlers,                                   355 },
+  { key::kRegisteredProtocolHandlers,                                   361 },
   { key::kRelatedWebsiteSetsEnabled,                                      1 },
-  { key::kRelatedWebsiteSetsOverrides,                                  356 },
-  { key::kRelaunchHeadsUpPeriod,                                        363 },
+  { key::kRelatedWebsiteSetsOverrides,                                  362 },
+  { key::kRelaunchHeadsUpPeriod,                                        369 },
   { key::kRelaunchNotification,                                           3 },
-  { key::kRelaunchNotificationPeriod,                                   363 },
-  { key::kRelaunchWindow,                                               364 },
+  { key::kRelaunchNotificationPeriod,                                   369 },
+  { key::kRelaunchWindow,                                               370 },
   { key::kRemoteAccessHostAllowEnterpriseFileTransfer,                    1 },
   { key::kRemoteAccessHostAllowEnterpriseRemoteSupportConnections,        1 },
   { key::kRemoteAccessHostAllowRelayedConnection,                         1 },
   { key::kRemoteAccessHostAllowRemoteSupportConnections,                  1 },
   { key::kRemoteAccessHostClientDomain,                                   4 },
   { key::kRemoteAccessHostClientDomainList,                               5 },
-  { key::kRemoteAccessHostClipboardSizeBytes,                           369 },
+  { key::kRemoteAccessHostClipboardSizeBytes,                           375 },
   { key::kRemoteAccessHostDomain,                                         4 },
   { key::kRemoteAccessHostDomainList,                                     5 },
   { key::kRemoteAccessHostFirewallTraversal,                              1 },
   { key::kRemoteAccessHostUdpPortRange,                                   4 },
   { key::kRemoteDebuggingAllowed,                                         1 },
-  { key::kReportAppInventory,                                           371 },
-  { key::kReportAppUsage,                                               373 },
-  { key::kReportAppUsageCollectionRateMs,                               374 },
+  { key::kReportAppInventory,                                           377 },
+  { key::kReportAppUsage,                                               379 },
+  { key::kReportAppUsageCollectionRateMs,                               380 },
   { key::kReportArcStatusEnabled,                                         1 },
   { key::kReportCRDSessions,                                              1 },
   { key::kReportCrostiniUsageEnabled,                                     1 },
@@ -3560,7 +3575,7 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kReportDevicePrintJobs,                                          1 },
   { key::kReportDeviceSecurityStatus,                                     1 },
   { key::kReportDeviceSessionStatus,                                      1 },
-  { key::kReportDeviceSignalStrengthEventDrivenTelemetry,               376 },
+  { key::kReportDeviceSignalStrengthEventDrivenTelemetry,               382 },
   { key::kReportDeviceStorageStatus,                                      1 },
   { key::kReportDeviceSystemInfo,                                         1 },
   { key::kReportDeviceTimezoneInfo,                                       1 },
@@ -3569,16 +3584,16 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kReportDeviceVpdInfo,                                            1 },
   { key::kReportUploadFrequency,                                         74 },
   { key::kReportWebsiteActivityAllowlist,                                 5 },
-  { key::kReportWebsiteTelemetry,                                       378 },
+  { key::kReportWebsiteTelemetry,                                       384 },
   { key::kReportWebsiteTelemetryAllowlist,                                5 },
-  { key::kReportWebsiteTelemetryCollectionRateMs,                       374 },
+  { key::kReportWebsiteTelemetryCollectionRateMs,                       380 },
   { key::kRequireOnlineRevocationChecksForLocalAnchors,                   1 },
-  { key::kRequiredClientCertificateForDevice,                           381 },
-  { key::kRequiredClientCertificateForUser,                             384 },
-  { key::kRestoreOnStartup,                                             385 },
+  { key::kRequiredClientCertificateForDevice,                           387 },
+  { key::kRequiredClientCertificateForUser,                             390 },
+  { key::kRestoreOnStartup,                                             391 },
   { key::kRestoreOnStartupURLs,                                           5 },
-  { key::kRestrictedManagedGuestSessionExtensionCleanupExemptList,      387 },
-  { key::kSAMLOfflineSigninTimeLimit,                                   334 },
+  { key::kRestrictedManagedGuestSessionExtensionCleanupExemptList,      393 },
+  { key::kSAMLOfflineSigninTimeLimit,                                   340 },
   { key::kSSLErrorOverrideAllowed,                                        1 },
   { key::kSSLErrorOverrideAllowedForOrigins,                              5 },
   { key::kSafeBrowsingAllowlistDomains,                                   5 },
@@ -3591,12 +3606,12 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kSafeSitesFilterBehavior,                                       17 },
   { key::kSameOriginTabCaptureAllowedByOrigins,                           5 },
   { key::kSamlInSessionPasswordChangeEnabled,                             1 },
-  { key::kSamlLockScreenOfflineSigninTimeLimitDays,                     196 },
-  { key::kSamlPasswordExpirationAdvanceWarningDays,                     388 },
+  { key::kSamlLockScreenOfflineSigninTimeLimitDays,                     202 },
+  { key::kSamlPasswordExpirationAdvanceWarningDays,                     394 },
   { key::kSandboxExternalProtocolBlocked,                                 1 },
   { key::kSavingBrowserHistoryDisabled,                                   1 },
-  { key::kSchedulerConfiguration,                                       389 },
-  { key::kScreenBrightnessPercent,                                      390 },
+  { key::kSchedulerConfiguration,                                       395 },
+  { key::kScreenBrightnessPercent,                                      396 },
   { key::kScreenCaptureAllowed,                                           1 },
   { key::kScreenCaptureAllowedByOrigins,                                  5 },
   { key::kScreenCaptureWithoutGestureAllowedForOrigins,                   5 },
@@ -3604,7 +3619,7 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kScreenDimDelayBattery,                                          2 },
   { key::kScreenLockDelayAC,                                              2 },
   { key::kScreenLockDelayBattery,                                         2 },
-  { key::kScreenLockDelays,                                             391 },
+  { key::kScreenLockDelays,                                             397 },
   { key::kScreenMagnifierType,                                           16 },
   { key::kScreenOffDelayAC,                                               2 },
   { key::kScreenOffDelayBattery,                                          2 },
@@ -3616,21 +3631,21 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kSearchSuggestEnabled,                                           1 },
   { key::kSecondaryGoogleAccountSigninAllowed,                            1 },
   { key::kSecurityKeyPermitAttestation,                                   5 },
-  { key::kSecurityTokenSessionBehavior,                                 392 },
-  { key::kSecurityTokenSessionNotificationSeconds,                      393 },
+  { key::kSecurityTokenSessionBehavior,                                 398 },
+  { key::kSecurityTokenSessionNotificationSeconds,                      399 },
   { key::kSelectToSpeakEnabled,                                           1 },
   { key::kSensorsAllowedForUrls,                                          5 },
   { key::kSensorsBlockedForUrls,                                          5 },
   { key::kSerialAllowAllPortsForUrls,                                     5 },
-  { key::kSerialAllowUsbDevicesForUrls,                                 397 },
+  { key::kSerialAllowUsbDevicesForUrls,                                 403 },
   { key::kSerialAskForUrls,                                               5 },
   { key::kSerialBlockedForUrls,                                           5 },
   { key::kSessionLengthLimit,                                            13 },
   { key::kSessionLocales,                                                 5 },
   { key::kSharedArrayBufferUnrestrictedAccessAllowed,                     1 },
   { key::kSharedClipboardEnabled,                                         1 },
-  { key::kShelfAlignment,                                               398 },
-  { key::kShelfAutoHideBehavior,                                        399 },
+  { key::kShelfAlignment,                                               404 },
+  { key::kShelfAutoHideBehavior,                                        405 },
   { key::kShoppingListEnabled,                                            1 },
   { key::kShortcutCustomizationAllowed,                                   1 },
   { key::kShowAccessibilityOptionsInSystemTrayMenu,                       1 },
@@ -3645,7 +3660,7 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kSideSearchEnabled,                                              1 },
   { key::kSignedHTTPExchangeEnabled,                                      1 },
   { key::kSitePerProcess,                                                 1 },
-  { key::kSiteSearchSettings,                                           401 },
+  { key::kSiteSearchSettings,                                           407 },
   { key::kSmsMessagesAllowed,                                             1 },
   { key::kSpellCheckServiceEnabled,                                       1 },
   { key::kSpellcheckEnabled,                                              1 },
@@ -3661,14 +3676,14 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kSuppressUnsupportedOSWarning,                                   1 },
   { key::kSyncDisabled,                                                   1 },
   { key::kSyncTypesListDisabled,                                          5 },
-  { key::kSystemFeaturesDisableList,                                    403 },
-  { key::kSystemFeaturesDisableMode,                                    404 },
-  { key::kSystemProxySettings,                                          405 },
+  { key::kSystemFeaturesDisableList,                                    409 },
+  { key::kSystemFeaturesDisableMode,                                    410 },
+  { key::kSystemProxySettings,                                          411 },
   { key::kSystemTerminalSshAllowed,                                       1 },
   { key::kSystemTimezone,                                                 4 },
   { key::kSystemTimezoneAutomaticDetection,                             139 },
   { key::kSystemUse24HourClock,                                           1 },
-  { key::kTPMFirmwareUpdateSettings,                                    408 },
+  { key::kTPMFirmwareUpdateSettings,                                    414 },
   { key::kTabCaptureAllowedByOrigins,                                     5 },
   { key::kTabDiscardingExceptions,                                        5 },
   { key::kTabOrganizerSettings,                                          16 },
@@ -3688,25 +3703,25 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kUptimeLimit,                                                   13 },
   { key::kUrlKeyedAnonymizedDataCollectionEnabled,                        1 },
   { key::kUrlKeyedMetricsAllowed,                                         1 },
-  { key::kUsageTimeLimit,                                               409 },
-  { key::kUsbDetachableAllowlist,                                       430 },
+  { key::kUsageTimeLimit,                                               415 },
+  { key::kUsbDetachableAllowlist,                                       436 },
   { key::kUsbDetectorNotificationEnabled,                                 1 },
   { key::kUserActivityScreenDimDelayScale,                               13 },
   { key::kUserAgentClientHintsGREASEUpdateEnabled,                        1 },
   { key::kUserAgentReduction,                                            16 },
   { key::kUserAvatarCustomizationSelectorsEnabled,                        1 },
-  { key::kUserAvatarImage,                                              431 },
+  { key::kUserAvatarImage,                                              437 },
   { key::kUserBorealisAllowed,                                            1 },
   { key::kUserContextAwareAccessSignalsAllowlist,                         5 },
   { key::kUserDisplayName,                                                4 },
   { key::kUserFeedbackAllowed,                                            1 },
-  { key::kUserFeedbackWithLowLevelDebugDataAllowed,                     433 },
+  { key::kUserFeedbackWithLowLevelDebugDataAllowed,                     439 },
   { key::kUserPluginVmAllowed,                                            1 },
   { key::kUserPrintersAllowed,                                            1 },
   { key::kVideoCaptureAllowed,                                            1 },
   { key::kVideoCaptureAllowedUrls,                                        5 },
   { key::kVirtualKeyboardEnabled,                                         1 },
-  { key::kVirtualKeyboardFeatures,                                      434 },
+  { key::kVirtualKeyboardFeatures,                                      440 },
   { key::kVirtualKeyboardSmartVisibilityEnabled,                          1 },
   { key::kVirtualMachinesAllowed,                                         1 },
   { key::kVmManagementCliAllowed,                                         1 },
@@ -3716,23 +3731,23 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kWPADQuickCheckEnabled,                                          1 },
   { key::kWaitForInitialUserActivity,                                     1 },
   { key::kWallpaperGooglePhotosIntegrationEnabled,                        1 },
-  { key::kWallpaperImage,                                               435 },
-  { key::kWebAppInstallForceList,                                       439 },
-  { key::kWebAppSettings,                                               442 },
+  { key::kWallpaperImage,                                               441 },
+  { key::kWebAppInstallForceList,                                       445 },
+  { key::kWebAppSettings,                                               448 },
   { key::kWebAuthenticationRemoteProxiedRequestsAllowed,                  1 },
-  { key::kWebAuthnFactors,                                              444 },
+  { key::kWebAuthnFactors,                                              450 },
   { key::kWebHidAllowAllDevicesForUrls,                                   5 },
-  { key::kWebHidAllowDevicesForUrls,                                    448 },
-  { key::kWebHidAllowDevicesWithHidUsagesForUrls,                       452 },
+  { key::kWebHidAllowDevicesForUrls,                                    454 },
+  { key::kWebHidAllowDevicesWithHidUsagesForUrls,                       458 },
   { key::kWebHidAskForUrls,                                               5 },
   { key::kWebHidBlockedForUrls,                                           5 },
   { key::kWebRtcEventLogCollectionAllowed,                                1 },
-  { key::kWebRtcIPHandling,                                             453 },
+  { key::kWebRtcIPHandling,                                             459 },
   { key::kWebRtcLocalIpsAllowedUrls,                                      5 },
   { key::kWebRtcTextLogCollectionAllowed,                                 1 },
   { key::kWebRtcUdpPortRange,                                             4 },
   { key::kWebSQLAccess,                                                   1 },
-  { key::kWebUsbAllowDevicesForUrls,                                    457 },
+  { key::kWebUsbAllowDevicesForUrls,                                    463 },
   { key::kWebUsbAskForUrls,                                               5 },
   { key::kWebUsbBlockedForUrls,                                           5 },
   { key::kWifiSyncAndroidAllowed,                                         1 },
@@ -3750,12 +3765,12 @@ const internal::PropertyNode kPropertyNodes[] = {
   { "L",                                                                  4 },
   { "O",                                                                  4 },
   { "OU",                                                                 4 },
-  { "ISSUER",                                                           461 },
-  { "SUBJECT",                                                          462 },
-  { "filter",                                                           460 },
+  { "ISSUER",                                                           467 },
+  { "SUBJECT",                                                          468 },
+  { "filter",                                                           466 },
   { "pattern",                                                            4 },
   { "idPattern",                                                          4 },
-  { "kind",                                                             465 },
+  { "kind",                                                             471 },
   { "namePattern",                                                        4 },
   { "CN",                                                                 4 },
   { "L",                                                                  4 },
@@ -3765,9 +3780,9 @@ const internal::PropertyNode kPropertyNodes[] = {
   { "L",                                                                  4 },
   { "O",                                                                  4 },
   { "OU",                                                                 4 },
-  { "ISSUER",                                                           468 },
-  { "SUBJECT",                                                          469 },
-  { "filter",                                                           467 },
+  { "ISSUER",                                                           474 },
+  { "SUBJECT",                                                          475 },
+  { "filter",                                                           473 },
   { "pattern",                                                            4 },
   { "autoconf",                                                           1 },
   { "effective_model",                                                    4 },
@@ -3775,13 +3790,13 @@ const internal::PropertyNode kPropertyNodes[] = {
   { "display_name",                                                       4 },
   { "manufacturer",                                                       4 },
   { "model",                                                              4 },
-  { "ppd_resource",                                                     472 },
+  { "ppd_resource",                                                     478 },
   { "uri",                                                                4 },
   { "uuid",                                                               4 },
-  { key::kAutoSelectCertificateForUrls,                                 463 },
-  { key::kDefaultPrinterSelection,                                      464 },
-  { key::kDeviceLoginScreenAutoSelectCertificateForUrls,                470 },
-  { key::kPrinters,                                                     473 },
+  { key::kAutoSelectCertificateForUrls,                                 469 },
+  { key::kDefaultPrinterSelection,                                      470 },
+  { key::kDeviceLoginScreenAutoSelectCertificateForUrls,                476 },
+  { key::kPrinters,                                                     479 },
 };
 
 const internal::PropertiesNode kProperties[] = {
@@ -3853,140 +3868,143 @@ const internal::PropertiesNode kProperties[] = {
   {   192,   196,   196,    39,         41,    -1 },  // frequency
   {   196,   198,   198,    41,         41,    -1 },  // items of DeviceUpdateStagingSchedule
   {   198,   200,   200,    41,         41,    -1 },  // DeviceWallpaperImage
-  {   200,   202,   202,    41,         41,    -1 },  // DeviceWilcoDtcConfiguration
-  {   202,   204,   204,    41,         41,    -1 },  // items of ExemptDomainFileTypePairsFromFileTypeDownloadWarnings
-  {   204,   204,   204,    41,         41,     5 },  // ExtensionOAuthRedirectUrls
-  {   204,   211,   211,    41,         41,    -1 },  // *
-  {   211,   222,   222,    41,         41,    -1 },  // ^[a-p]{32}(?:,[a-p]{32})*,?$
-  {   222,   225,   225,    41,         41,    -1 },  // ^update_url:
-  {   225,   226,   228,    41,         41,    -1 },  // ExtensionSettings
-  {   228,   230,   230,    41,         41,    -1 },  // ExternalPrintServers
-  {   230,   230,   230,    41,         41,     5 },  // ccTLDs
-  {   230,   234,   234,    41,         43,    -1 },  // associatedSites
-  {   234,   234,   234,    43,         43,     5 },  // ccTLDs
-  {   234,   238,   238,    43,         45,    -1 },  // associatedSites
-  {   238,   240,   240,    45,         45,    -1 },  // FirstPartySetsOverrides
-  {   240,   242,   242,    45,         47,    -1 },  // web_bundle_id
-  {   242,   246,   246,    47,         48,    -1 },  // principal
-  {   246,   247,   247,    48,         48,    -1 },  // additionalProperties of KeyPermissions
-  {   247,   247,   247,    48,         48,   211 },  // KeyPermissions
-  {   247,   251,   251,    48,         48,    -1 },  // items of ManagedBookmarks
-  {   251,   254,   254,    48,         51,    -1 },  // managed_configuration_hash
-  {   254,   256,   256,    51,         53,    -1 },  // mode
-  {   256,   259,   259,    53,         56,    -1 },  // download_rate_kbits
-  {   259,   263,   263,    56,         56,    -1 },  // items of custom_messages
-  {   263,   265,   265,    56,         56,    -1 },  // items of disable
-  {   265,   267,   267,    56,         56,    -1 },  // items of enable
-  {   267,   270,   270,    56,         56,    -1 },  // verification
-  {   270,   279,   279,    56,         56,    -1 },  // items of OnBulkDataEntryEnterpriseConnector
-  {   279,   283,   283,    56,         56,    -1 },  // items of custom_messages
-  {   283,   285,   285,    56,         56,    -1 },  // items of disable
-  {   285,   287,   287,    56,         56,    -1 },  // items of enable
-  {   287,   290,   290,    56,         56,    -1 },  // verification
-  {   290,   300,   300,    56,         56,    -1 },  // items of OnFileAttachedEnterpriseConnector
-  {   300,   304,   304,    56,         56,    -1 },  // items of custom_messages
-  {   304,   306,   306,    56,         56,    -1 },  // items of disable
-  {   306,   308,   308,    56,         56,    -1 },  // items of enable
-  {   308,   311,   311,    56,         56,    -1 },  // verification
-  {   311,   321,   321,    56,         56,    -1 },  // items of OnFileDownloadedEnterpriseConnector
-  {   321,   325,   325,    56,         56,    -1 },  // items of custom_messages
-  {   325,   326,   326,    56,         56,    -1 },  // items of destinations
-  {   326,   327,   327,    56,         56,    -1 },  // items of sources
-  {   327,   329,   329,    56,         56,    -1 },  // items of source_destination_list
-  {   329,   331,   331,    56,         56,    -1 },  // items of disable
+  {   200,   202,   202,    41,         41,    -1 },  // end
+  {   202,   204,   204,    41,         41,    -1 },  // start
+  {   204,   206,   206,    41,         41,    -1 },  // items of DeviceWeeklyScheduledSuspend
+  {   206,   208,   208,    41,         41,    -1 },  // DeviceWilcoDtcConfiguration
+  {   208,   210,   210,    41,         41,    -1 },  // items of ExemptDomainFileTypePairsFromFileTypeDownloadWarnings
+  {   210,   210,   210,    41,         41,     5 },  // ExtensionOAuthRedirectUrls
+  {   210,   217,   217,    41,         41,    -1 },  // *
+  {   217,   228,   228,    41,         41,    -1 },  // ^[a-p]{32}(?:,[a-p]{32})*,?$
+  {   228,   231,   231,    41,         41,    -1 },  // ^update_url:
+  {   231,   232,   234,    41,         41,    -1 },  // ExtensionSettings
+  {   234,   236,   236,    41,         41,    -1 },  // ExternalPrintServers
+  {   236,   236,   236,    41,         41,     5 },  // ccTLDs
+  {   236,   240,   240,    41,         43,    -1 },  // associatedSites
+  {   240,   240,   240,    43,         43,     5 },  // ccTLDs
+  {   240,   244,   244,    43,         45,    -1 },  // associatedSites
+  {   244,   246,   246,    45,         45,    -1 },  // FirstPartySetsOverrides
+  {   246,   248,   248,    45,         47,    -1 },  // web_bundle_id
+  {   248,   252,   252,    47,         48,    -1 },  // principal
+  {   252,   253,   253,    48,         48,    -1 },  // additionalProperties of KeyPermissions
+  {   253,   253,   253,    48,         48,   217 },  // KeyPermissions
+  {   253,   257,   257,    48,         48,    -1 },  // items of ManagedBookmarks
+  {   257,   260,   260,    48,         51,    -1 },  // managed_configuration_hash
+  {   260,   262,   262,    51,         53,    -1 },  // mode
+  {   262,   265,   265,    53,         56,    -1 },  // download_rate_kbits
+  {   265,   269,   269,    56,         56,    -1 },  // items of custom_messages
+  {   269,   271,   271,    56,         56,    -1 },  // items of disable
+  {   271,   273,   273,    56,         56,    -1 },  // items of enable
+  {   273,   276,   276,    56,         56,    -1 },  // verification
+  {   276,   285,   285,    56,         56,    -1 },  // items of OnBulkDataEntryEnterpriseConnector
+  {   285,   289,   289,    56,         56,    -1 },  // items of custom_messages
+  {   289,   291,   291,    56,         56,    -1 },  // items of disable
+  {   291,   293,   293,    56,         56,    -1 },  // items of enable
+  {   293,   296,   296,    56,         56,    -1 },  // verification
+  {   296,   306,   306,    56,         56,    -1 },  // items of OnFileAttachedEnterpriseConnector
+  {   306,   310,   310,    56,         56,    -1 },  // items of custom_messages
+  {   310,   312,   312,    56,         56,    -1 },  // items of disable
+  {   312,   314,   314,    56,         56,    -1 },  // items of enable
+  {   314,   317,   317,    56,         56,    -1 },  // verification
+  {   317,   327,   327,    56,         56,    -1 },  // items of OnFileDownloadedEnterpriseConnector
+  {   327,   331,   331,    56,         56,    -1 },  // items of custom_messages
   {   331,   332,   332,    56,         56,    -1 },  // items of destinations
   {   332,   333,   333,    56,         56,    -1 },  // items of sources
   {   333,   335,   335,    56,         56,    -1 },  // items of source_destination_list
-  {   335,   337,   337,    56,         56,    -1 },  // items of enable
-  {   337,   345,   345,    56,         56,    -1 },  // items of OnFileTransferEnterpriseConnector
-  {   345,   349,   349,    56,         56,    -1 },  // items of custom_messages
-  {   349,   351,   351,    56,         56,    -1 },  // items of disable
-  {   351,   353,   353,    56,         56,    -1 },  // items of enable
-  {   353,   356,   356,    56,         56,    -1 },  // verification
-  {   356,   365,   365,    56,         56,    -1 },  // items of OnPrintEnterpriseConnector
-  {   365,   367,   367,    56,         56,    -1 },  // items of enabled_opt_in_events
-  {   367,   370,   370,    56,         56,    -1 },  // items of OnSecurityEventEnterpriseConnector
-  {   370,   373,   373,    56,         56,    -1 },  // current_config
-  {   373,   376,   376,    56,         56,    -1 },  // future_config
-  {   376,   379,   379,    56,         56,    -1 },  // items of old_configs
-  {   379,   382,   382,    56,         56,    -1 },  // ParentAccessCodeConfig
-  {   382,   384,   384,    56,         56,    -1 },  // app_info
-  {   384,   388,   388,    56,         56,    -1 },  // items of app_limits
-  {   388,   390,   390,    56,         56,    -1 },  // reset_at
-  {   390,   393,   393,    56,         56,    -1 },  // PerAppTimeLimits
-  {   393,   395,   395,    56,         56,    -1 },  // items of app_list
-  {   395,   397,   397,    56,         56,    -1 },  // PerAppTimeLimitsAllowlist
-  {   397,   399,   399,    56,         56,    -1 },  // PluginVmImage
-  {   399,   403,   403,    56,         56,    -1 },  // Delays
-  {   403,   405,   405,    56,         56,    -1 },  // AC
+  {   335,   337,   337,    56,         56,    -1 },  // items of disable
+  {   337,   338,   338,    56,         56,    -1 },  // items of destinations
+  {   338,   339,   339,    56,         56,    -1 },  // items of sources
+  {   339,   341,   341,    56,         56,    -1 },  // items of source_destination_list
+  {   341,   343,   343,    56,         56,    -1 },  // items of enable
+  {   343,   351,   351,    56,         56,    -1 },  // items of OnFileTransferEnterpriseConnector
+  {   351,   355,   355,    56,         56,    -1 },  // items of custom_messages
+  {   355,   357,   357,    56,         56,    -1 },  // items of disable
+  {   357,   359,   359,    56,         56,    -1 },  // items of enable
+  {   359,   362,   362,    56,         56,    -1 },  // verification
+  {   362,   371,   371,    56,         56,    -1 },  // items of OnPrintEnterpriseConnector
+  {   371,   373,   373,    56,         56,    -1 },  // items of enabled_opt_in_events
+  {   373,   376,   376,    56,         56,    -1 },  // items of OnSecurityEventEnterpriseConnector
+  {   376,   379,   379,    56,         56,    -1 },  // current_config
+  {   379,   382,   382,    56,         56,    -1 },  // future_config
+  {   382,   385,   385,    56,         56,    -1 },  // items of old_configs
+  {   385,   388,   388,    56,         56,    -1 },  // ParentAccessCodeConfig
+  {   388,   390,   390,    56,         56,    -1 },  // app_info
+  {   390,   394,   394,    56,         56,    -1 },  // items of app_limits
+  {   394,   396,   396,    56,         56,    -1 },  // reset_at
+  {   396,   399,   399,    56,         56,    -1 },  // PerAppTimeLimits
+  {   399,   401,   401,    56,         56,    -1 },  // items of app_list
+  {   401,   403,   403,    56,         56,    -1 },  // PerAppTimeLimitsAllowlist
+  {   403,   405,   405,    56,         56,    -1 },  // PluginVmImage
   {   405,   409,   409,    56,         56,    -1 },  // Delays
-  {   409,   411,   411,    56,         56,    -1 },  // Battery
-  {   411,   413,   413,    56,         56,    -1 },  // PowerManagementIdleSettings
-  {   413,   415,   415,    56,         56,    -1 },  // PreconfiguredDeskTemplates
-  {   415,   417,   417,    56,         56,    -1 },  // PrintersBulkConfiguration
-  {   417,   419,   419,    56,         58,    -1 },  // height
-  {   419,   421,   421,    58,         59,    -1 },  // name
-  {   421,   427,   427,    59,         59,    -1 },  // ProxySettings
-  {   427,   430,   430,    59,         61,    -1 },  // url
-  {   430,   430,   430,    61,         61,     5 },  // ccTLDs
-  {   430,   434,   434,    61,         63,    -1 },  // associatedSites
-  {   434,   434,   434,    63,         63,     5 },  // ccTLDs
-  {   434,   438,   438,    63,         65,    -1 },  // associatedSites
-  {   438,   440,   440,    65,         65,    -1 },  // RelatedWebsiteSetsOverrides
-  {   440,   442,   442,    65,         67,    -1 },  // minute
-  {   442,   444,   444,    67,         69,    -1 },  // duration_mins
-  {   444,   445,   445,    69,         69,    -1 },  // RelaunchWindow
-  {   445,   452,   452,    69,         71,    -1 },  // key_algorithm
-  {   452,   459,   459,    71,         73,    -1 },  // key_algorithm
-  {   459,   461,   461,    73,         73,    -1 },  // ScreenBrightnessPercent
-  {   461,   463,   463,    73,         73,    -1 },  // ScreenLockDelays
-  {   463,   465,   465,    73,         74,    -1 },  // vendor_id
-  {   465,   467,   467,    74,         76,    -1 },  // urls
-  {   467,   471,   471,    76,         79,    -1 },  // url
-  {   471,   475,   475,    79,         79,    -1 },  // SystemProxySettings
-  {   475,   478,   478,    79,         79,    -1 },  // TPMFirmwareUpdateSettings
-  {   478,   479,   479,    79,         79,    -1 },  // action_specific_data
-  {   479,   482,   482,    79,         79,    -1 },  // items of overrides
-  {   482,   484,   484,    79,         79,    -1 },  // friday
-  {   484,   486,   486,    79,         79,    -1 },  // monday
-  {   486,   488,   488,    79,         81,    -1 },  // minute
-  {   488,   490,   490,    81,         81,    -1 },  // saturday
-  {   490,   492,   492,    81,         81,    -1 },  // sunday
-  {   492,   494,   494,    81,         81,    -1 },  // thursday
-  {   494,   496,   496,    81,         81,    -1 },  // tuesday
-  {   496,   498,   498,    81,         81,    -1 },  // wednesday
-  {   498,   506,   506,    81,         81,    -1 },  // time_usage_limit
-  {   506,   508,   508,    81,         83,    -1 },  // minute
-  {   508,   510,   510,    83,         85,    -1 },  // minute
-  {   510,   514,   514,    85,         85,    -1 },  // items of entries
-  {   514,   515,   515,    85,         85,    -1 },  // time_window_limit
-  {   515,   518,   518,    85,         85,    -1 },  // UsageTimeLimit
-  {   518,   520,   520,    85,         85,    -1 },  // items of UsbDetachableAllowlist
-  {   520,   522,   522,    85,         85,    -1 },  // UserAvatarImage
-  {   522,   527,   527,    85,         85,    -1 },  // VirtualKeyboardFeatures
-  {   527,   529,   529,    85,         85,    -1 },  // WallpaperImage
-  {   529,   531,   531,    85,         87,    -1 },  // hash
-  {   531,   538,   538,    87,         88,    -1 },  // url
-  {   538,   542,   542,    88,         89,    -1 },  // manifest_id
-  {   542,   544,   544,    89,         90,    -1 },  // vendor_id
-  {   544,   546,   546,    90,         92,    -1 },  // urls
-  {   546,   548,   548,    92,         93,    -1 },  // usage_page
-  {   548,   550,   550,    93,         95,    -1 },  // urls
-  {   550,   552,   552,    95,         95,    -1 },  // items of devices
-  {   552,   554,   554,    95,         97,    -1 },  // urls
-  {   554,  1403,  1403,    97,         97,    -1 },  // root node
-  {  1403,  1407,  1407,    97,         97,    -1 },  // ISSUER
-  {  1407,  1411,  1411,    97,         97,    -1 },  // SUBJECT
-  {  1411,  1413,  1413,    97,         97,    -1 },  // filter
-  {  1413,  1415,  1415,    97,         97,    -1 },  // items of AutoSelectCertificateForUrls
-  {  1415,  1418,  1418,    97,         97,    -1 },  // DefaultPrinterSelection
-  {  1418,  1422,  1422,    97,         97,    -1 },  // ISSUER
-  {  1422,  1426,  1426,    97,         97,    -1 },  // SUBJECT
-  {  1426,  1428,  1428,    97,         97,    -1 },  // filter
-  {  1428,  1430,  1430,    97,         97,    -1 },  // items of DeviceLoginScreenAutoSelectCertificateForUrls
-  {  1430,  1432,  1432,    97,         97,    -1 },  // ppd_resource
-  {  1432,  1439,  1439,    97,         97,    -1 },  // items of Printers
-  {  1439,  1443,  1443,    97,         97,    -1 },  // validation_schema root node
+  {   409,   411,   411,    56,         56,    -1 },  // AC
+  {   411,   415,   415,    56,         56,    -1 },  // Delays
+  {   415,   417,   417,    56,         56,    -1 },  // Battery
+  {   417,   419,   419,    56,         56,    -1 },  // PowerManagementIdleSettings
+  {   419,   421,   421,    56,         56,    -1 },  // PreconfiguredDeskTemplates
+  {   421,   423,   423,    56,         56,    -1 },  // PrintersBulkConfiguration
+  {   423,   425,   425,    56,         58,    -1 },  // height
+  {   425,   427,   427,    58,         59,    -1 },  // name
+  {   427,   433,   433,    59,         59,    -1 },  // ProxySettings
+  {   433,   436,   436,    59,         61,    -1 },  // url
+  {   436,   436,   436,    61,         61,     5 },  // ccTLDs
+  {   436,   440,   440,    61,         63,    -1 },  // associatedSites
+  {   440,   440,   440,    63,         63,     5 },  // ccTLDs
+  {   440,   444,   444,    63,         65,    -1 },  // associatedSites
+  {   444,   446,   446,    65,         65,    -1 },  // RelatedWebsiteSetsOverrides
+  {   446,   448,   448,    65,         67,    -1 },  // minute
+  {   448,   450,   450,    67,         69,    -1 },  // duration_mins
+  {   450,   451,   451,    69,         69,    -1 },  // RelaunchWindow
+  {   451,   458,   458,    69,         71,    -1 },  // key_algorithm
+  {   458,   465,   465,    71,         73,    -1 },  // key_algorithm
+  {   465,   467,   467,    73,         73,    -1 },  // ScreenBrightnessPercent
+  {   467,   469,   469,    73,         73,    -1 },  // ScreenLockDelays
+  {   469,   471,   471,    73,         74,    -1 },  // vendor_id
+  {   471,   473,   473,    74,         76,    -1 },  // urls
+  {   473,   477,   477,    76,         79,    -1 },  // url
+  {   477,   481,   481,    79,         79,    -1 },  // SystemProxySettings
+  {   481,   484,   484,    79,         79,    -1 },  // TPMFirmwareUpdateSettings
+  {   484,   485,   485,    79,         79,    -1 },  // action_specific_data
+  {   485,   488,   488,    79,         79,    -1 },  // items of overrides
+  {   488,   490,   490,    79,         79,    -1 },  // friday
+  {   490,   492,   492,    79,         79,    -1 },  // monday
+  {   492,   494,   494,    79,         81,    -1 },  // minute
+  {   494,   496,   496,    81,         81,    -1 },  // saturday
+  {   496,   498,   498,    81,         81,    -1 },  // sunday
+  {   498,   500,   500,    81,         81,    -1 },  // thursday
+  {   500,   502,   502,    81,         81,    -1 },  // tuesday
+  {   502,   504,   504,    81,         81,    -1 },  // wednesday
+  {   504,   512,   512,    81,         81,    -1 },  // time_usage_limit
+  {   512,   514,   514,    81,         83,    -1 },  // minute
+  {   514,   516,   516,    83,         85,    -1 },  // minute
+  {   516,   520,   520,    85,         85,    -1 },  // items of entries
+  {   520,   521,   521,    85,         85,    -1 },  // time_window_limit
+  {   521,   524,   524,    85,         85,    -1 },  // UsageTimeLimit
+  {   524,   526,   526,    85,         85,    -1 },  // items of UsbDetachableAllowlist
+  {   526,   528,   528,    85,         85,    -1 },  // UserAvatarImage
+  {   528,   533,   533,    85,         85,    -1 },  // VirtualKeyboardFeatures
+  {   533,   535,   535,    85,         85,    -1 },  // WallpaperImage
+  {   535,   537,   537,    85,         87,    -1 },  // hash
+  {   537,   544,   544,    87,         88,    -1 },  // url
+  {   544,   548,   548,    88,         89,    -1 },  // manifest_id
+  {   548,   550,   550,    89,         90,    -1 },  // vendor_id
+  {   550,   552,   552,    90,         92,    -1 },  // urls
+  {   552,   554,   554,    92,         93,    -1 },  // usage_page
+  {   554,   556,   556,    93,         95,    -1 },  // urls
+  {   556,   558,   558,    95,         95,    -1 },  // items of devices
+  {   558,   560,   560,    95,         97,    -1 },  // urls
+  {   560,  1410,  1410,    97,         97,    -1 },  // root node
+  {  1410,  1414,  1414,    97,         97,    -1 },  // ISSUER
+  {  1414,  1418,  1418,    97,         97,    -1 },  // SUBJECT
+  {  1418,  1420,  1420,    97,         97,    -1 },  // filter
+  {  1420,  1422,  1422,    97,         97,    -1 },  // items of AutoSelectCertificateForUrls
+  {  1422,  1425,  1425,    97,         97,    -1 },  // DefaultPrinterSelection
+  {  1425,  1429,  1429,    97,         97,    -1 },  // ISSUER
+  {  1429,  1433,  1433,    97,         97,    -1 },  // SUBJECT
+  {  1433,  1435,  1435,    97,         97,    -1 },  // filter
+  {  1435,  1437,  1437,    97,         97,    -1 },  // items of DeviceLoginScreenAutoSelectCertificateForUrls
+  {  1437,  1439,  1439,    97,         97,    -1 },  // ppd_resource
+  {  1439,  1446,  1446,    97,         97,    -1 },  // items of Printers
+  {  1446,  1450,  1450,    97,         97,    -1 },  // validation_schema root node
 };
 
 const internal::RestrictionNode kRestrictionNodes[] = {
@@ -4046,106 +4064,108 @@ const internal::RestrictionNode kRestrictionNodes[] = {
   {{ 9999,       1}},
   {{ 28,         1}},
   {{ 100,        0}},
-  {{ 133,      136}},
-  {{ 136,      138}},
-  {{ 138,      143}},
-  {{ 143,      149}},
-  {{ 149,      155}},
-  {{ 155,      155}},
-  {{ 156,      159}},
-  {{ 159,      159}},
-  {{ 160,      160}},
-  {{ 161,      166}},
-  {{ 166,      166}},
-  {{ 167,      169}},
+  {{ 133,      140}},
+  {{ 140,      147}},
+  {{ 147,      150}},
+  {{ 150,      152}},
+  {{ 152,      157}},
+  {{ 157,      163}},
+  {{ 163,      169}},
   {{ 169,      169}},
-  {{ 170,      170}},
-  {{ 171,      174}},
+  {{ 170,      173}},
+  {{ 173,      173}},
+  {{ 174,      174}},
+  {{ 175,      180}},
+  {{ 180,      180}},
+  {{ 181,      183}},
+  {{ 183,      183}},
+  {{ 184,      184}},
+  {{ 185,      188}},
   {{ 5,          0}},
   {{ 365,       -2}},
   {{ 365,       -1}},
-  {{ 174,      177}},
-  {{ 177,      177}},
+  {{ 188,      191}},
+  {{ 191,      191}},
   {{ INT_MAX, 30000}},
-  {{ 178,      181}},
+  {{ 192,      195}},
   {{ 12,        14}},
-  {{ 181,      181}},
-  {{ 182,      187}},
-  {{ 187,      191}},
-  {{ 191,      193}},
-  {{ 193,      199}},
-  {{ 300000,  1000}},
-  {{ 199,      202}},
-  {{ 202,      205}},
+  {{ 195,      195}},
+  {{ 196,      201}},
+  {{ 201,      205}},
   {{ 205,      207}},
-  {{ 207,      209}},
-  {{ 209,      214}},
-  {{ 214,      216}},
-  {{ 216,      221}},
+  {{ 207,      213}},
+  {{ 300000,  1000}},
+  {{ 213,      216}},
+  {{ 216,      219}},
+  {{ 219,      221}},
   {{ 221,      223}},
   {{ 223,      228}},
-  {{ 228,      243}},
-  {{ 243,      258}},
-  {{ 258,      273}},
-  {{ 273,      288}},
-  {{ 288,      290}},
-  {{ 290,      295}},
-  {{ 295,      296}},
-  {{ 296,      299}},
+  {{ 228,      230}},
+  {{ 230,      235}},
+  {{ 235,      237}},
+  {{ 237,      242}},
+  {{ 242,      257}},
+  {{ 257,      272}},
+  {{ 272,      287}},
+  {{ 287,      302}},
+  {{ 302,      304}},
+  {{ 304,      309}},
+  {{ 309,      310}},
+  {{ 310,      313}},
   {{ 3600,      60}},
   {{ 1800,       0}},
-  {{ 299,      304}},
+  {{ 313,      318}},
   {{ 1440,       0}},
-  {{ 304,      306}},
-  {{ 306,      311}},
+  {{ 318,      320}},
+  {{ 320,      325}},
   {{ 1000,       0}},
-  {{ 311,      318}},
+  {{ 325,      332}},
   {{ 86400000, 1800000}},
-  {{ 318,      322}},
-  {{ 322,      326}},
+  {{ 332,      336}},
+  {{ 336,      340}},
   {{ INT_MAX,   -1}},
-  {{ 326,      331}},
-  {{ 331,      334}},
-  {{ 334,      337}},
-  {{ 337,      340}},
-  {{ 340,      343}},
-  {{ 343,      345}},
-  {{ 345,      347}},
-  {{ 347,      350}},
-  {{ 350,      485}},
-  {{ 485,      487}},
-  {{ 487,      492}},
-  {{ 492,      497}},
-  {{ 497,      500}},
+  {{ 340,      345}},
+  {{ 345,      348}},
+  {{ 348,      351}},
+  {{ 351,      354}},
+  {{ 354,      357}},
+  {{ 357,      359}},
+  {{ 359,      361}},
+  {{ 361,      364}},
+  {{ 364,      499}},
+  {{ 499,      501}},
+  {{ 501,      506}},
+  {{ 506,      511}},
+  {{ 511,      514}},
   {{ INT_MAX, 3600000}},
   {{ 1440,       1}},
   {{ 2147483647,    0}},
-  {{ 500,      507}},
-  {{ 507,      514}},
+  {{ 514,      521}},
+  {{ 521,      528}},
   {{ INT_MAX, 300000}},
-  {{ 514,      516}},
-  {{ 516,      517}},
-  {{ 517,      518}},
-  {{ 518,      519}},
-  {{ 14,        17}},
-  {{ 519,      519}},
-  {{ 90,         0}},
-  {{ 520,      522}},
-  {{ 522,      525}},
-  {{ 9999,       0}},
-  {{ 525,      528}},
   {{ 528,      530}},
-  {{ 530,      541}},
-  {{ 541,      543}},
-  {{ 543,      546}},
-  {{ 546,      548}},
-  {{ 548,      555}},
-  {{ 555,      556}},
-  {{ 556,      558}},
-  {{ 558,      561}},
-  {{ 561,      564}},
-  {{ 564,      568}},
-  {{ 568,      570}},
+  {{ 530,      531}},
+  {{ 531,      532}},
+  {{ 532,      533}},
+  {{ 14,        17}},
+  {{ 533,      533}},
+  {{ 90,         0}},
+  {{ 534,      536}},
+  {{ 536,      539}},
+  {{ 9999,       0}},
+  {{ 539,      542}},
+  {{ 542,      544}},
+  {{ 544,      555}},
+  {{ 555,      557}},
+  {{ 557,      560}},
+  {{ 560,      562}},
+  {{ 562,      569}},
+  {{ 569,      570}},
+  {{ 570,      572}},
+  {{ 572,      575}},
+  {{ 575,      578}},
+  {{ 578,      582}},
+  {{ 582,      584}},
 };
 
 const char* const kRequiredProperties[] = {
@@ -4402,6 +4422,20 @@ const char* const kStringEnumerations[] = {
   "DAILY",
   "WEEKLY",
   "MONTHLY",
+  "MONDAY",
+  "TUESDAY",
+  "WEDNESDAY",
+  "THURSDAY",
+  "FRIDAY",
+  "SATURDAY",
+  "SUNDAY",
+  "MONDAY",
+  "TUESDAY",
+  "WEDNESDAY",
+  "THURSDAY",
+  "FRIDAY",
+  "SATURDAY",
+  "SUNDAY",
   "off",
   "automatic",
   "secure",
@@ -4850,7 +4884,7 @@ const internal::SchemaData* GetChromeSchemaData() {
     kRequiredProperties,
     kIntegerEnumerations,
     kStringEnumerations,
-    458,  // validation_schema root index
+    464,  // validation_schema root index
   };
 
   return &kChromeSchemaData;
@@ -5317,9 +5351,9 @@ void SetEnterpriseUsersDefaults(PolicyMap* policy_map) {
 
 const PolicyDetails* GetChromePolicyDetails(const std::string& policy) {
   // First index in kPropertyNodes of the Chrome policies.
-  static constexpr int begin_index = 554;
+  static constexpr int begin_index = 560;
   // One-past-the-end of the Chrome policies in kPropertyNodes.
-  static constexpr int end_index = 1403;
+  static constexpr int end_index = 1410;
   const internal::PropertyNode* begin =
      kPropertyNodes + begin_index;
   const internal::PropertyNode* end = kPropertyNodes + end_index;
@@ -5646,6 +5680,7 @@ const char kDeviceUserAllowlist[] = "DeviceUserAllowlist";
 const char kDeviceVariationsRestrictParameter[] = "DeviceVariationsRestrictParameter";
 const char kDeviceWallpaperImage[] = "DeviceWallpaperImage";
 const char kDeviceWebBasedAttestationAllowedUrls[] = "DeviceWebBasedAttestationAllowedUrls";
+const char kDeviceWeeklyScheduledSuspend[] = "DeviceWeeklyScheduledSuspend";
 const char kDeviceWiFiAllowed[] = "DeviceWiFiAllowed";
 const char kDeviceWiFiFastTransitionEnabled[] = "DeviceWiFiFastTransitionEnabled";
 const char kDeviceWilcoDtcAllowed[] = "DeviceWilcoDtcAllowed";

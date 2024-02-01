@@ -61,7 +61,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM_BLINK) RefCountedMemory {
   template <typename... Args>
   static RefCountedMemoryPtr New(Args&&... args) {
     return RefCountedMemoryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

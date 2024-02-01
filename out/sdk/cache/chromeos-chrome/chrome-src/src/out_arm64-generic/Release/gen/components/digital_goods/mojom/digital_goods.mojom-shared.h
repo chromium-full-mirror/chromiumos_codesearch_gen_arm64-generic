@@ -212,7 +212,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `subscription_period` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSubscriptionPeriod` instead "
     "of `ReadSubscriptionPeriod if you're fine with null values being "
@@ -232,7 +232,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `free_trial_period` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFreeTrialPeriod` instead "
     "of `ReadFreeTrialPeriod if you're fine with null values being "
@@ -252,7 +252,7 @@ static_assert(
         ::payments::mojom::PaymentCurrencyAmountDataView, UserType>(),
     "Attempting to read the optional `introductory_price` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIntroductoryPrice` instead "
     "of `ReadIntroductoryPrice if you're fine with null values being "
@@ -272,7 +272,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `introductory_price_period` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIntroductoryPricePeriod` instead "
     "of `ReadIntroductoryPricePeriod if you're fine with null values being "
@@ -310,7 +310,7 @@ static_assert(
         mojo::ArrayDataView<::url::mojom::UrlDataView>, UserType>(),
     "Attempting to read the optional `icon_urls` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIconUrls` instead "
     "of `ReadIconUrls if you're fine with null values being "

@@ -166,7 +166,7 @@ class  HttpHeader {
   template <typename... Args>
   static HttpHeaderPtr New(Args&&... args) {
     return HttpHeaderPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

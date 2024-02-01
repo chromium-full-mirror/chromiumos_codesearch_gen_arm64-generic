@@ -332,7 +332,7 @@ class PLATFORM_EXPORT SerialPortInfo {
   template <typename... Args>
   static SerialPortInfoPtr New(Args&&... args) {
     return SerialPortInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -489,7 +489,7 @@ class PLATFORM_EXPORT SerialPortFilter {
   template <typename... Args>
   static SerialPortFilterPtr New(Args&&... args) {
     return SerialPortFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

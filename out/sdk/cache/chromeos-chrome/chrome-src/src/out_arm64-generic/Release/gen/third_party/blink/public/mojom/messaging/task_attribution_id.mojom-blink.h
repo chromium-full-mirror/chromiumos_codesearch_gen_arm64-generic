@@ -57,7 +57,7 @@ class CORE_EXPORT TaskAttributionId {
   template <typename... Args>
   static TaskAttributionIdPtr New(Args&&... args) {
     return TaskAttributionIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

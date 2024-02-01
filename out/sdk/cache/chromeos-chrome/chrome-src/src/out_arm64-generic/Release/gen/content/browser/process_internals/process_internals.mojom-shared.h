@@ -179,7 +179,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `site_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSiteUrl` instead "
     "of `ReadSiteUrl if you're fine with null values being "
@@ -199,7 +199,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `process_lock_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadProcessLockUrl` instead "
     "of `ReadProcessLockUrl if you're fine with null values being "
@@ -231,7 +231,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `storage_partition` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStoragePartition` instead "
     "of `ReadStoragePartition if you're fine with null values being "
@@ -286,7 +286,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `last_committed_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLastCommittedUrl` instead "
     "of `ReadLastCommittedUrl if you're fine with null values being "

@@ -264,7 +264,7 @@ class COMPONENT_EXPORT(DRIVEFS_NATIVE_MESSAGING_MOJOM) ExtensionConnectionParams
   template <typename... Args>
   static ExtensionConnectionParamsPtr New(Args&&... args) {
     return ExtensionConnectionParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

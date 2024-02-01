@@ -135,8 +135,8 @@ SeaPenTemplateQuery::SeaPenTemplateQuery()
       user_visible_query() {}
 
 SeaPenTemplateQuery::SeaPenTemplateQuery(
-    SeaPenTemplateId id_in,
-    const base::flat_map<SeaPenTemplateChip, SeaPenTemplateOption>& options_in,
+    ::ash::personalization_app::mojom::SeaPenTemplateId id_in,
+    const base::flat_map<::ash::personalization_app::mojom::SeaPenTemplateChip, ::ash::personalization_app::mojom::SeaPenTemplateOption>& options_in,
     SeaPenUserVisibleQueryPtr user_visible_query_in)
     : id(std::move(id_in)),
       options(std::move(options_in)),
@@ -151,7 +151,7 @@ void SeaPenTemplateQuery::WriteIntoTrace(
     dict.AddItem(
       "id"), this->id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type SeaPenTemplateId>"
+      "<value of type ::ash::personalization_app::mojom::SeaPenTemplateId>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -160,7 +160,7 @@ void SeaPenTemplateQuery::WriteIntoTrace(
     dict.AddItem(
       "options"), this->options,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const base::flat_map<SeaPenTemplateChip, SeaPenTemplateOption>&>"
+      "<value of type const base::flat_map<::ash::personalization_app::mojom::SeaPenTemplateChip, ::ash::personalization_app::mojom::SeaPenTemplateOption>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

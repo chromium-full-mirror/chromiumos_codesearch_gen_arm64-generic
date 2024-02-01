@@ -57,7 +57,7 @@ class BLINK_COMMON_EXPORT OpenGraphMetadata {
   template <typename... Args>
   static OpenGraphMetadataPtr New(Args&&... args) {
     return OpenGraphMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

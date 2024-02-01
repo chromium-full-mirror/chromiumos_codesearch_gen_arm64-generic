@@ -400,7 +400,7 @@ class PLATFORM_EXPORT WebPrintingRange {
   template <typename... Args>
   static WebPrintingRangePtr New(Args&&... args) {
     return WebPrintingRangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -546,7 +546,7 @@ class PLATFORM_EXPORT WebPrintJobUpdate {
   template <typename... Args>
   static WebPrintJobUpdatePtr New(Args&&... args) {
     return WebPrintJobUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -701,7 +701,7 @@ class PLATFORM_EXPORT GetPrintersResult {
   static GetPrintersResultPtr
   NewPrinters(
       WTF::Vector<WebPrinterInfoPtr> value) {
-    auto result = GetPrintersResultPtr(absl::in_place);
+    auto result = GetPrintersResultPtr(std::in_place);
     result->set_printers(std::move(value));
     return result;
   }
@@ -709,7 +709,7 @@ class PLATFORM_EXPORT GetPrintersResult {
   static GetPrintersResultPtr
   NewError(
       GetPrintersError value) {
-    auto result = GetPrintersResultPtr(absl::in_place);
+    auto result = GetPrintersResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -831,7 +831,7 @@ class PLATFORM_EXPORT WebPrinterFetchResult {
   static WebPrinterFetchResultPtr
   NewPrinterAttributes(
       WebPrinterAttributesPtr value) {
-    auto result = WebPrinterFetchResultPtr(absl::in_place);
+    auto result = WebPrinterFetchResultPtr(std::in_place);
     result->set_printer_attributes(std::move(value));
     return result;
   }
@@ -839,7 +839,7 @@ class PLATFORM_EXPORT WebPrinterFetchResult {
   static WebPrinterFetchResultPtr
   NewError(
       WebPrinterFetchError value) {
-    auto result = WebPrinterFetchResultPtr(absl::in_place);
+    auto result = WebPrinterFetchResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -961,7 +961,7 @@ class PLATFORM_EXPORT WebPrintResult {
   static WebPrintResultPtr
   NewPrintJobInfo(
       WebPrintJobInfoPtr value) {
-    auto result = WebPrintResultPtr(absl::in_place);
+    auto result = WebPrintResultPtr(std::in_place);
     result->set_print_job_info(std::move(value));
     return result;
   }
@@ -969,7 +969,7 @@ class PLATFORM_EXPORT WebPrintResult {
   static WebPrintResultPtr
   NewError(
       WebPrintError value) {
-    auto result = WebPrintResultPtr(absl::in_place);
+    auto result = WebPrintResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1083,7 +1083,7 @@ class PLATFORM_EXPORT WebPrinterInfo {
   template <typename... Args>
   static WebPrinterInfoPtr New(Args&&... args) {
     return WebPrinterInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1224,7 +1224,7 @@ class PLATFORM_EXPORT WebPrinterAttributes {
   template <typename... Args>
   static WebPrinterAttributesPtr New(Args&&... args) {
     return WebPrinterAttributesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1408,7 +1408,7 @@ class PLATFORM_EXPORT WebPrintJobTemplateAttributes {
   template <typename... Args>
   static WebPrintJobTemplateAttributesPtr New(Args&&... args) {
     return WebPrintJobTemplateAttributesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1567,7 +1567,7 @@ class PLATFORM_EXPORT WebPrintJobInfo {
   template <typename... Args>
   static WebPrintJobInfoPtr New(Args&&... args) {
     return WebPrintJobInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

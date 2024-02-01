@@ -103,7 +103,7 @@ static_assert(
         ::skia::mojom::SkColorDataView, UserType>(),
     "Attempting to read the optional `seed_color` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSeedColor` instead "
     "of `ReadSeedColor if you're fine with null values being "
@@ -116,11 +116,11 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadSchemeVariant(UserType* output) const {
     if (data_->header_.version < 1) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
     if (!data_->scheme_variant_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -129,10 +129,10 @@ static_assert(
   }
   std::optional<::color::mojom::SchemeVariant> scheme_variant() const {
     if (data_->header_.version < 1) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     if (!data_->scheme_variant_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::color::mojom::SchemeVariant>(data_->scheme_variant_$value));

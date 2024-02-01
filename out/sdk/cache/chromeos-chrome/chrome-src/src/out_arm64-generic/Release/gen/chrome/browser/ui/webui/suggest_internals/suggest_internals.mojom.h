@@ -303,7 +303,7 @@ class  Request {
   template <typename... Args>
   static RequestPtr New(Args&&... args) {
     return RequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

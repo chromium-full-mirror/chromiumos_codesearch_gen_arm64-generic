@@ -305,6 +305,20 @@ struct PerfDataProto_PerfPMUMappingsMetadataDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfPMUMappingsMetadataDefaultTypeInternal _PerfDataProto_PerfPMUMappingsMetadata_default_instance_;
+PROTOBUF_CONSTEXPR PerfDataProto_PerfHybridTopologyMetadata::PerfDataProto_PerfHybridTopologyMetadata(
+    ::_pbi::ConstantInitialized)
+  : cpu_list_()
+  , _cpu_list_cached_byte_size_(0)
+  , pmu_name_md5_prefix_(uint64_t{0u}){}
+struct PerfDataProto_PerfHybridTopologyMetadataDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PerfDataProto_PerfHybridTopologyMetadataDefaultTypeInternal()
+      : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PerfDataProto_PerfHybridTopologyMetadataDefaultTypeInternal() {}
+  union {
+    PerfDataProto_PerfHybridTopologyMetadata _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PerfDataProto_PerfHybridTopologyMetadataDefaultTypeInternal _PerfDataProto_PerfHybridTopologyMetadata_default_instance_;
 PROTOBUF_CONSTEXPR PerfDataProto_StringMetadata_StringAndMd5sumPrefix::PerfDataProto_StringMetadata_StringAndMd5sumPrefix(
     ::_pbi::ConstantInitialized)
   : value_md5_prefix_(uint64_t{0u}){}
@@ -336,6 +350,7 @@ PROTOBUF_CONSTEXPR PerfDataProto::PerfDataProto(
   , build_ids_()
   , event_types_()
   , pmu_mappings_()
+  , hybrid_topology_()
   , stats_(nullptr)
   , string_metadata_(nullptr)
   , timestamp_sec_(uint64_t{0u}){}
@@ -6656,6 +6671,225 @@ std::string PerfDataProto_PerfPMUMappingsMetadata::GetTypeName() const {
 
 // ===================================================================
 
+class PerfDataProto_PerfHybridTopologyMetadata::_Internal {
+ public:
+  using HasBits = decltype(std::declval<PerfDataProto_PerfHybridTopologyMetadata>()._has_bits_);
+  static void set_has_pmu_name_md5_prefix(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+PerfDataProto_PerfHybridTopologyMetadata::PerfDataProto_PerfHybridTopologyMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
+  cpu_list_(arena) {
+  SharedCtor();
+  // @@protoc_insertion_point(arena_constructor:metrics.PerfDataProto.PerfHybridTopologyMetadata)
+}
+PerfDataProto_PerfHybridTopologyMetadata::PerfDataProto_PerfHybridTopologyMetadata(const PerfDataProto_PerfHybridTopologyMetadata& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_),
+      cpu_list_(from.cpu_list_) {
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  pmu_name_md5_prefix_ = from.pmu_name_md5_prefix_;
+  // @@protoc_insertion_point(copy_constructor:metrics.PerfDataProto.PerfHybridTopologyMetadata)
+}
+
+inline void PerfDataProto_PerfHybridTopologyMetadata::SharedCtor() {
+pmu_name_md5_prefix_ = uint64_t{0u};
+}
+
+PerfDataProto_PerfHybridTopologyMetadata::~PerfDataProto_PerfHybridTopologyMetadata() {
+  // @@protoc_insertion_point(destructor:metrics.PerfDataProto.PerfHybridTopologyMetadata)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void PerfDataProto_PerfHybridTopologyMetadata::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void PerfDataProto_PerfHybridTopologyMetadata::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void PerfDataProto_PerfHybridTopologyMetadata::Clear() {
+// @@protoc_insertion_point(message_clear_start:metrics.PerfDataProto.PerfHybridTopologyMetadata)
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cpu_list_.Clear();
+  pmu_name_md5_prefix_ = uint64_t{0u};
+  _has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* PerfDataProto_PerfHybridTopologyMetadata::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional uint64 pmu_name_md5_prefix = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_pmu_name_md5_prefix(&has_bits);
+          pmu_name_md5_prefix_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated uint32 cpu_list = 4 [packed = true];
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_cpu_list(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<uint8_t>(tag) == 32) {
+          _internal_add_cpu_list(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+uint8_t* PerfDataProto_PerfHybridTopologyMetadata::_InternalSerialize(
+    uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:metrics.PerfDataProto.PerfHybridTopologyMetadata)
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional uint64 pmu_name_md5_prefix = 2;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_pmu_name_md5_prefix(), target);
+  }
+
+  // repeated uint32 cpu_list = 4 [packed = true];
+  {
+    int byte_size = _cpu_list_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteUInt32Packed(
+          4, _internal_cpu_list(), byte_size, target);
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:metrics.PerfDataProto.PerfHybridTopologyMetadata)
+  return target;
+}
+
+size_t PerfDataProto_PerfHybridTopologyMetadata::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:metrics.PerfDataProto.PerfHybridTopologyMetadata)
+  size_t total_size = 0;
+
+  uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated uint32 cpu_list = 4 [packed = true];
+  {
+    size_t data_size = ::_pbi::WireFormatLite::
+      UInt32Size(this->cpu_list_);
+    if (data_size > 0) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::Int32Size(static_cast<int32_t>(data_size));
+    }
+    int cached_size = ::_pbi::ToCachedSize(data_size);
+    _cpu_list_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  // optional uint64 pmu_name_md5_prefix = 2;
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_pmu_name_md5_prefix());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void PerfDataProto_PerfHybridTopologyMetadata::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const PerfDataProto_PerfHybridTopologyMetadata*>(
+      &from));
+}
+
+void PerfDataProto_PerfHybridTopologyMetadata::MergeFrom(const PerfDataProto_PerfHybridTopologyMetadata& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:metrics.PerfDataProto.PerfHybridTopologyMetadata)
+  GOOGLE_DCHECK_NE(&from, this);
+  uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cpu_list_.MergeFrom(from.cpu_list_);
+  if (from._internal_has_pmu_name_md5_prefix()) {
+    _internal_set_pmu_name_md5_prefix(from._internal_pmu_name_md5_prefix());
+  }
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void PerfDataProto_PerfHybridTopologyMetadata::CopyFrom(const PerfDataProto_PerfHybridTopologyMetadata& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:metrics.PerfDataProto.PerfHybridTopologyMetadata)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PerfDataProto_PerfHybridTopologyMetadata::IsInitialized() const {
+  return true;
+}
+
+void PerfDataProto_PerfHybridTopologyMetadata::InternalSwap(PerfDataProto_PerfHybridTopologyMetadata* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  cpu_list_.InternalSwap(&other->cpu_list_);
+  swap(pmu_name_md5_prefix_, other->pmu_name_md5_prefix_);
+}
+
+std::string PerfDataProto_PerfHybridTopologyMetadata::GetTypeName() const {
+  return "metrics.PerfDataProto.PerfHybridTopologyMetadata";
+}
+
+
+// ===================================================================
+
 class PerfDataProto_StringMetadata_StringAndMd5sumPrefix::_Internal {
  public:
   using HasBits = decltype(std::declval<PerfDataProto_StringMetadata_StringAndMd5sumPrefix>()._has_bits_);
@@ -7063,7 +7297,8 @@ PerfDataProto::PerfDataProto(::PROTOBUF_NAMESPACE_ID::Arena* arena,
   events_(arena),
   build_ids_(arena),
   event_types_(arena),
-  pmu_mappings_(arena) {
+  pmu_mappings_(arena),
+  hybrid_topology_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:metrics.PerfDataProto)
 }
@@ -7074,7 +7309,8 @@ PerfDataProto::PerfDataProto(const PerfDataProto& from)
       events_(from.events_),
       build_ids_(from.build_ids_),
       event_types_(from.event_types_),
-      pmu_mappings_(from.pmu_mappings_) {
+      pmu_mappings_(from.pmu_mappings_),
+      hybrid_topology_(from.hybrid_topology_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   if (from._internal_has_stats()) {
     stats_ = new ::metrics::PerfDataProto_PerfEventStats(*from.stats_);
@@ -7127,6 +7363,7 @@ void PerfDataProto::Clear() {
   build_ids_.Clear();
   event_types_.Clear();
   pmu_mappings_.Clear();
+  hybrid_topology_.Clear();
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000003u) {
     if (cached_has_bits & 0x00000001u) {
@@ -7240,6 +7477,19 @@ const char* PerfDataProto::_InternalParse(const char* ptr, ::_pbi::ParseContext*
         } else
           goto handle_unusual;
         continue;
+      // repeated .metrics.PerfDataProto.PerfHybridTopologyMetadata hybrid_topology = 17;
+      case 17:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 138)) {
+          ptr -= 2;
+          do {
+            ptr += 2;
+            ptr = ctx->ParseMessage(_internal_add_hybrid_topology(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<138>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -7331,6 +7581,14 @@ uint8_t* PerfDataProto::_InternalSerialize(
         InternalWriteMessage(15, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // repeated .metrics.PerfDataProto.PerfHybridTopologyMetadata hybrid_topology = 17;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_hybrid_topology_size()); i < n; i++) {
+    const auto& repfield = this->_internal_hybrid_topology(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(17, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -7382,6 +7640,13 @@ size_t PerfDataProto::ByteSizeLong() const {
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
+  // repeated .metrics.PerfDataProto.PerfHybridTopologyMetadata hybrid_topology = 17;
+  total_size += 2UL * this->_internal_hybrid_topology_size();
+  for (const auto& msg : this->hybrid_topology_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
   cached_has_bits = _has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     // optional .metrics.PerfDataProto.PerfEventStats stats = 4;
@@ -7429,6 +7694,7 @@ void PerfDataProto::MergeFrom(const PerfDataProto& from) {
   build_ids_.MergeFrom(from.build_ids_);
   event_types_.MergeFrom(from.event_types_);
   pmu_mappings_.MergeFrom(from.pmu_mappings_);
+  hybrid_topology_.MergeFrom(from.hybrid_topology_);
   cached_has_bits = from._has_bits_[0];
   if (cached_has_bits & 0x00000007u) {
     if (cached_has_bits & 0x00000001u) {
@@ -7465,6 +7731,7 @@ void PerfDataProto::InternalSwap(PerfDataProto* other) {
   build_ids_.InternalSwap(&other->build_ids_);
   event_types_.InternalSwap(&other->event_types_);
   pmu_mappings_.InternalSwap(&other->pmu_mappings_);
+  hybrid_topology_.InternalSwap(&other->hybrid_topology_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(PerfDataProto, timestamp_sec_)
       + sizeof(PerfDataProto::timestamp_sec_)
@@ -7544,6 +7811,10 @@ Arena::CreateMaybeMessage< ::metrics::PerfDataProto_PerfBuildID >(Arena* arena) 
 template<> PROTOBUF_NOINLINE ::metrics::PerfDataProto_PerfPMUMappingsMetadata*
 Arena::CreateMaybeMessage< ::metrics::PerfDataProto_PerfPMUMappingsMetadata >(Arena* arena) {
   return Arena::CreateMessageInternal< ::metrics::PerfDataProto_PerfPMUMappingsMetadata >(arena);
+}
+template<> PROTOBUF_NOINLINE ::metrics::PerfDataProto_PerfHybridTopologyMetadata*
+Arena::CreateMaybeMessage< ::metrics::PerfDataProto_PerfHybridTopologyMetadata >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::metrics::PerfDataProto_PerfHybridTopologyMetadata >(arena);
 }
 template<> PROTOBUF_NOINLINE ::metrics::PerfDataProto_StringMetadata_StringAndMd5sumPrefix*
 Arena::CreateMaybeMessage< ::metrics::PerfDataProto_StringMetadata_StringAndMd5sumPrefix >(Arena* arena) {

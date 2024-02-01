@@ -565,7 +565,7 @@ class  VisibleNetworkDetails {
   template <typename... Args>
   static VisibleNetworkDetailsPtr New(Args&&... args) {
     return VisibleNetworkDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -712,7 +712,7 @@ class  ConfiguredNetworkDetails {
   template <typename... Args>
   static ConfiguredNetworkDetailsPtr New(Args&&... args) {
     return ConfiguredNetworkDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -863,7 +863,7 @@ class  PasspointRemovalProperties {
   template <typename... Args>
   static PasspointRemovalPropertiesPtr New(Args&&... args) {
     return PasspointRemovalPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1010,7 +1010,7 @@ class  LinkSpeed {
   template <typename... Args>
   static LinkSpeedPtr New(Args&&... args) {
     return LinkSpeedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1155,7 +1155,7 @@ class  StaticIpv4Configuration {
   template <typename... Args>
   static StaticIpv4ConfigurationPtr New(Args&&... args) {
     return StaticIpv4ConfigurationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1305,7 +1305,7 @@ class  ArcDnsResolutionTestResult {
   template <typename... Args>
   static ArcDnsResolutionTestResultPtr New(Args&&... args) {
     return ArcDnsResolutionTestResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1453,7 +1453,7 @@ class  ArcPingTestResult {
   template <typename... Args>
   static ArcPingTestResultPtr New(Args&&... args) {
     return ArcPingTestResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1597,7 +1597,7 @@ class  LohsConfig {
   template <typename... Args>
   static LohsConfigPtr New(Args&&... args) {
     return LohsConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1746,7 +1746,7 @@ class  PasspointApprovalRequest {
   template <typename... Args>
   static PasspointApprovalRequestPtr New(Args&&... args) {
     return PasspointApprovalRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1899,7 +1899,7 @@ class  PasspointApprovalResponse {
   template <typename... Args>
   static PasspointApprovalResponsePtr New(Args&&... args) {
     return PasspointApprovalResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2051,7 +2051,7 @@ class  NetworkDetails {
   static NetworkDetailsPtr
   NewVisible(
       VisibleNetworkDetailsPtr value) {
-    auto result = NetworkDetailsPtr(absl::in_place);
+    auto result = NetworkDetailsPtr(std::in_place);
     result->set_visible(std::move(value));
     return result;
   }
@@ -2059,7 +2059,7 @@ class  NetworkDetails {
   static NetworkDetailsPtr
   NewConfigured(
       ConfiguredNetworkDetailsPtr value) {
-    auto result = NetworkDetailsPtr(absl::in_place);
+    auto result = NetworkDetailsPtr(std::in_place);
     result->set_configured(std::move(value));
     return result;
   }
@@ -2181,7 +2181,7 @@ class  ArcProxyInfo {
   static ArcProxyInfoPtr
   NewManualProxy(
       ManualProxyConfigPtr value) {
-    auto result = ArcProxyInfoPtr(absl::in_place);
+    auto result = ArcProxyInfoPtr(std::in_place);
     result->set_manual_proxy(std::move(value));
     return result;
   }
@@ -2189,7 +2189,7 @@ class  ArcProxyInfo {
   static ArcProxyInfoPtr
   NewPacUrlProxy(
       PacUrlProxyConfigPtr value) {
-    auto result = ArcProxyInfoPtr(absl::in_place);
+    auto result = ArcProxyInfoPtr(std::in_place);
     result->set_pac_url_proxy(std::move(value));
     return result;
   }
@@ -2305,7 +2305,7 @@ class  PasspointCredentials {
   template <typename... Args>
   static PasspointCredentialsPtr New(Args&&... args) {
     return PasspointCredentialsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2485,7 +2485,7 @@ class  EapCredentials {
   template <typename... Args>
   static EapCredentialsPtr New(Args&&... args) {
     return EapCredentialsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2670,7 +2670,7 @@ class  IPConfiguration {
   template <typename... Args>
   static IPConfigurationPtr New(Args&&... args) {
     return IPConfigurationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2822,7 +2822,7 @@ class  WiFi {
   template <typename... Args>
   static WiFiPtr New(Args&&... args) {
     return WiFiPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3004,7 +3004,7 @@ class  NetworkConfiguration {
   template <typename... Args>
   static NetworkConfigurationPtr New(Args&&... args) {
     return NetworkConfigurationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3386,7 +3386,7 @@ class  WifiConfiguration {
   template <typename... Args>
   static WifiConfigurationPtr New(Args&&... args) {
     return WifiConfigurationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3623,7 +3623,7 @@ class  PacUrlProxyConfig {
   template <typename... Args>
   static PacUrlProxyConfigPtr New(Args&&... args) {
     return PacUrlProxyConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3763,7 +3763,7 @@ class  ManualProxyConfig {
   template <typename... Args>
   static ManualProxyConfigPtr New(Args&&... args) {
     return ManualProxyConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3909,7 +3909,7 @@ class  GetNetworksResponseType {
   template <typename... Args>
   static GetNetworksResponseTypePtr New(Args&&... args) {
     return GetNetworksResponseTypePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4054,7 +4054,7 @@ class  AndroidVpnConfiguration {
   template <typename... Args>
   static AndroidVpnConfigurationPtr New(Args&&... args) {
     return AndroidVpnConfigurationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4235,7 +4235,7 @@ class  ArcHttpTestResult {
   template <typename... Args>
   static ArcHttpTestResultPtr New(Args&&... args) {
     return ArcHttpTestResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4388,7 +4388,7 @@ class  SocketConnectionEvent {
   template <typename... Args>
   static SocketConnectionEventPtr New(Args&&... args) {
     return SocketConnectionEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

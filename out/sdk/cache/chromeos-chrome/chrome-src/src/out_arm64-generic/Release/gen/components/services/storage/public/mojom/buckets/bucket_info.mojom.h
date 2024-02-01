@@ -61,7 +61,7 @@ class  BucketInfo {
   template <typename... Args>
   static BucketInfoPtr New(Args&&... args) {
     return BucketInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

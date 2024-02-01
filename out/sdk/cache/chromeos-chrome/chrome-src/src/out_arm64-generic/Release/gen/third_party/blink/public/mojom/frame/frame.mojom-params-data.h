@@ -2965,7 +2965,7 @@ static_assert(
         ::blink::mojom::FullscreenOptionsDataView, UserType>(),
     "Attempting to read the optional `options` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOptions` instead "
     "of `ReadOptions if you're fine with null values being "
@@ -3195,7 +3195,7 @@ static_assert(
         ::skia::mojom::SkColorDataView, UserType>(),
     "Attempting to read the optional `theme_color` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadThemeColor` instead "
     "of `ReadThemeColor if you're fine with null values being "
@@ -3613,7 +3613,7 @@ static_assert(
         ::blink::mojom::TaskAttributionIdDataView, UserType>(),
     "Attempting to read the optional `soft_navigation_heuristics_task_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSoftNavigationHeuristicsTaskId` instead "
     "of `ReadSoftNavigationHeuristicsTaskId if you're fine with null values being "
@@ -3662,7 +3662,7 @@ static_assert(
         ::blink::mojom::TaskAttributionIdDataView, UserType>(),
     "Attempting to read the optional `soft_navigation_heuristics_task_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSoftNavigationHeuristicsTaskId` instead "
     "of `ReadSoftNavigationHeuristicsTaskId if you're fine with null values being "
@@ -3716,7 +3716,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `title` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTitle` instead "
     "of `ReadTitle if you're fine with null values being "
@@ -4496,7 +4496,7 @@ static_assert(
         ::blink::mojom::LocalFrameTokenDataView, UserType>(),
     "Attempting to read the optional `opener_frame` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOpenerFrame` instead "
     "of `ReadOpenerFrame if you're fine with null values being "
@@ -4728,7 +4728,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `source_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSourceId` instead "
     "of `ReadSourceId if you're fine with null values being "
@@ -4748,7 +4748,7 @@ static_assert(
         ::mojo_base::mojom::BigString16DataView, UserType>(),
     "Attempting to read the optional `untrusted_stack_trace` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUntrustedStackTrace` instead "
     "of `ReadUntrustedStackTrace if you're fine with null values being "
@@ -5238,7 +5238,7 @@ static_assert(
         ::skia::mojom::BitmapN32DataView, UserType>(),
     "Attempting to read the optional `image` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadImage` instead "
     "of `ReadImage if you're fine with null values being "
@@ -5937,7 +5937,7 @@ static_assert(
         ::blink::mojom::RemoteFrameTokenDataView, UserType>(),
     "Attempting to read the optional `source_frame_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSourceFrameToken` instead "
     "of `ReadSourceFrameToken if you're fine with null values being "
@@ -6050,7 +6050,7 @@ static_assert(
         ::blink::mojom::RemoteFrameTokenDataView, UserType>(),
     "Attempting to read the optional `source_frame_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSourceFrameToken` instead "
     "of `ReadSourceFrameToken if you're fine with null values being "
@@ -6400,7 +6400,7 @@ static_assert(
         ::blink::mojom::FrameTokenDataView, UserType>(),
     "Attempting to read the optional `opener_frame_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOpenerFrameToken` instead "
     "of `ReadOpenerFrameToken if you're fine with null values being "
@@ -6451,7 +6451,7 @@ static_assert(
         ::blink::mojom::GetSavableResourceLinksReplyDataView, UserType>(),
     "Attempting to read the optional `reply` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReply` instead "
     "of `ReadReply if you're fine with null values being "
@@ -6533,7 +6533,7 @@ static_assert(
         ::network::mojom::SourceLocationDataView, UserType>(),
     "Attempting to read the optional `source_location` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSourceLocation` instead "
     "of `ReadSourceLocation if you're fine with null values being "
@@ -6644,7 +6644,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `canonical_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCanonicalUrl` instead "
     "of `ReadCanonicalUrl if you're fine with null values being "

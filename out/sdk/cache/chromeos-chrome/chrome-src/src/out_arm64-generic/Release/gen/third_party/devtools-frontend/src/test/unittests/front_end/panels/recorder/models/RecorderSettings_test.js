@@ -26,16 +26,16 @@ describeWithEnvironment('RecorderSettings', () => {
     it('should save selector attribute change', () => {
         const value = 'custom-selector';
         recorderSettings.selectorAttribute = value;
-        assert.strictEqual(Common.Settings.Settings.instance().settingForTest('recorderSelectorAttribute').get(), value);
+        assert.strictEqual(Common.Settings.Settings.instance().settingForTest('recorder-selector-attribute').get(), value);
     });
     it('should save speed attribute change', () => {
         recorderSettings.speed = "extremely_slow" /* Models.RecordingPlayer.PlayRecordingSpeed.ExtremelySlow */;
-        assert.strictEqual(Common.Settings.Settings.instance().settingForTest('recorderPanelReplaySpeed').get(), "extremely_slow" /* Models.RecordingPlayer.PlayRecordingSpeed.ExtremelySlow */);
+        assert.strictEqual(Common.Settings.Settings.instance().settingForTest('recorder-panel-replay-speed').get(), "extremely_slow" /* Models.RecordingPlayer.PlayRecordingSpeed.ExtremelySlow */);
     });
     it('should save selector type change', () => {
         const selectorType = Models.Schema.SelectorType.CSS;
         recorderSettings.setSelectorByType(selectorType, false);
-        assert.isFalse(Common.Settings.Settings.instance().settingForTest(`recorder${selectorType}SelectorEnabled`).get());
+        assert.isFalse(Common.Settings.Settings.instance().settingForTest(`recorder-${selectorType}-selector-enabled`).get());
     });
 });
 //# sourceMappingURL=RecorderSettings_test.js.map

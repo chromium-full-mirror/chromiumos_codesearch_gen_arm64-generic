@@ -193,7 +193,7 @@ class  RestrictedUDPSocketParams {
   template <typename... Args>
   static RestrictedUDPSocketParamsPtr New(Args&&... args) {
     return RestrictedUDPSocketParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

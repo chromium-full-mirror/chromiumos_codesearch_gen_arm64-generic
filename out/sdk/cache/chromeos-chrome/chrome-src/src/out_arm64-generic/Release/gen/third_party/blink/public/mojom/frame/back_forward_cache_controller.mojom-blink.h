@@ -90,7 +90,7 @@ class CORE_EXPORT BackForwardCacheControllerHost
   virtual ~BackForwardCacheControllerHost() = default;
 
   
-  virtual void EvictFromBackForwardCache(::blink::mojom::blink::RendererEvictionReason reason) = 0;
+  virtual void EvictFromBackForwardCache(::blink::mojom::blink::RendererEvictionReason reason, BlockingDetailsPtr details) = 0;
 
   
   virtual void DidChangeBackForwardCacheDisablingFeatures(WTF::Vector<BlockingDetailsPtr> details) = 0;
@@ -105,7 +105,7 @@ class CORE_EXPORT BackForwardCacheControllerHostProxy
 
   explicit BackForwardCacheControllerHostProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void EvictFromBackForwardCache(::blink::mojom::blink::RendererEvictionReason reason) final;
+  void EvictFromBackForwardCache(::blink::mojom::blink::RendererEvictionReason reason, BlockingDetailsPtr details) final;
   
   void DidChangeBackForwardCacheDisablingFeatures(WTF::Vector<BlockingDetailsPtr> details) final;
 
@@ -175,7 +175,7 @@ class CORE_EXPORT BlockingDetails {
   template <typename... Args>
   static BlockingDetailsPtr New(Args&&... args) {
     return BlockingDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -192,7 +192,7 @@ class CORE_EXPORT BlockingDetails {
   BlockingDetails();
 
   BlockingDetails(
-      uint32_t feature,
+      std::optional<uint32_t> feature,
       const WTF::String& url,
       const WTF::String& function_name,
       uint64_t line_number,
@@ -274,7 +274,7 @@ class CORE_EXPORT BlockingDetails {
   }
 
   
-  uint32_t feature;
+  std::optional<uint32_t> feature;
   
   WTF::String url;
   

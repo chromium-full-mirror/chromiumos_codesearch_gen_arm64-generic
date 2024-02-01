@@ -63,7 +63,7 @@ class  PageMargins {
   template <typename... Args>
   static PageMarginsPtr New(Args&&... args) {
     return PageMarginsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -218,7 +218,7 @@ class  PageSetup {
   template <typename... Args>
   static PageSetupPtr New(Args&&... args) {
     return PageSetupPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -379,7 +379,7 @@ class  RequestedMedia {
   template <typename... Args>
   static RequestedMediaPtr New(Args&&... args) {
     return RequestedMediaPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -522,7 +522,7 @@ class  PrintSettings {
   template <typename... Args>
   static PrintSettingsPtr New(Args&&... args) {
     return PrintSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

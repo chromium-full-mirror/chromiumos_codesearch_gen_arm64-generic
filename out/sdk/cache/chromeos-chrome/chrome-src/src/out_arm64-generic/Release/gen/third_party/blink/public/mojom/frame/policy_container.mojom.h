@@ -283,7 +283,7 @@ class BLINK_COMMON_EXPORT PolicyContainerPolicies {
   template <typename... Args>
   static PolicyContainerPoliciesPtr New(Args&&... args) {
     return PolicyContainerPoliciesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -446,7 +446,7 @@ class BLINK_COMMON_EXPORT PolicyContainer {
   template <typename... Args>
   static PolicyContainerPtr New(Args&&... args) {
     return PolicyContainerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -586,7 +586,7 @@ class BLINK_COMMON_EXPORT PolicyContainerBindParams {
   template <typename... Args>
   static PolicyContainerBindParamsPtr New(Args&&... args) {
     return PolicyContainerBindParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

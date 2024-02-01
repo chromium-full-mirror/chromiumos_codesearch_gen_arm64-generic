@@ -169,7 +169,7 @@ class  RssLinks {
   template <typename... Args>
   static RssLinksPtr New(Args&&... args) {
     return RssLinksPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -223,7 +223,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `media_type` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMediaType` instead "
     "of `ReadMediaType if you're fine with null values being "
@@ -243,7 +243,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadId` instead "
     "of `ReadId if you're fine with null values being "
@@ -263,7 +263,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `encoding` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEncoding` instead "
     "of `ReadEncoding if you're fine with null values being "
@@ -283,7 +283,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `lang` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLang` instead "
     "of `ReadLang if you're fine with null values being "
@@ -313,7 +313,7 @@ static_assert(
         ::device::mojom::NDEFMessageDataView, UserType>(),
     "Attempting to read the optional `payload_message` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPayloadMessage` instead "
     "of `ReadPayloadMessage if you're fine with null values being "

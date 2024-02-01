@@ -188,7 +188,7 @@ class PLATFORM_EXPORT ServiceWorkerFetchEventTiming {
   template <typename... Args>
   static ServiceWorkerFetchEventTimingPtr New(Args&&... args) {
     return ServiceWorkerFetchEventTimingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

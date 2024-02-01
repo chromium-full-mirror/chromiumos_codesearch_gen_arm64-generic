@@ -371,7 +371,7 @@ class  CreatePushSubscriptionResultCode {
   static CreatePushSubscriptionResultCodePtr
   NewSuccessCode(
       CreatePushSubscriptionSuccessCode value) {
-    auto result = CreatePushSubscriptionResultCodePtr(absl::in_place);
+    auto result = CreatePushSubscriptionResultCodePtr(std::in_place);
     result->set_success_code(std::move(value));
     return result;
   }
@@ -379,7 +379,7 @@ class  CreatePushSubscriptionResultCode {
   static CreatePushSubscriptionResultCodePtr
   NewErrorCode(
       ::media::VideoCaptureError value) {
-    auto result = CreatePushSubscriptionResultCodePtr(absl::in_place);
+    auto result = CreatePushSubscriptionResultCodePtr(std::in_place);
     result->set_error_code(std::move(value));
     return result;
   }

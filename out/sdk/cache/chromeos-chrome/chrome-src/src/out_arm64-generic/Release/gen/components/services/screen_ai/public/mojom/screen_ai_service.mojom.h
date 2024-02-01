@@ -636,7 +636,7 @@ class  VisualAnnotation {
   template <typename... Args>
   static VisualAnnotationPtr New(Args&&... args) {
     return VisualAnnotationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -778,7 +778,7 @@ class  LineBox {
   template <typename... Args>
   static LineBoxPtr New(Args&&... args) {
     return LineBoxPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -944,7 +944,7 @@ class  WordBox {
   template <typename... Args>
   static WordBoxPtr New(Args&&... args) {
     return WordBoxPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

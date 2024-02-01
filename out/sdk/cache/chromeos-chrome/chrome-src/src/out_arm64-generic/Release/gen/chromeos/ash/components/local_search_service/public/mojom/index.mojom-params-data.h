@@ -473,7 +473,7 @@ static_assert(
         mojo::ArrayDataView<::ash::local_search_service::mojom::ResultDataView>, UserType>(),
     "Attempting to read the optional `results` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResults` instead "
     "of `ReadResults if you're fine with null values being "

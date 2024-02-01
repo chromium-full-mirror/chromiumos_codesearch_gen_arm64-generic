@@ -169,7 +169,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) WritingGuide {
   template <typename... Args>
   static WritingGuidePtr New(Args&&... args) {
     return WritingGuidePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -315,7 +315,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizerInkRange {
   template <typename... Args>
   static HandwritingRecognizerInkRangePtr New(Args&&... args) {
     return HandwritingRecognizerInkRangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -469,7 +469,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizerSpec {
   template <typename... Args>
   static HandwritingRecognizerSpecPtr New(Args&&... args) {
     return HandwritingRecognizerSpecPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -624,7 +624,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) InkPoint {
   template <typename... Args>
   static InkPointPtr New(Args&&... args) {
     return InkPointPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -770,7 +770,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) InkStroke {
   template <typename... Args>
   static InkStrokePtr New(Args&&... args) {
     return InkStrokePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -913,7 +913,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) RecognitionContext {
   template <typename... Args>
   static RecognitionContextPtr New(Args&&... args) {
     return RecognitionContextPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1058,7 +1058,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognitionQuery {
   template <typename... Args>
   static HandwritingRecognitionQueryPtr New(Args&&... args) {
     return HandwritingRecognitionQueryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1210,7 +1210,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizerSegment {
   template <typename... Args>
   static HandwritingRecognizerSegmentPtr New(Args&&... args) {
     return HandwritingRecognizerSegmentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1355,7 +1355,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizerSegmentation {
   template <typename... Args>
   static HandwritingRecognizerSegmentationPtr New(Args&&... args) {
     return HandwritingRecognizerSegmentationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1497,7 +1497,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizerCandidate {
   template <typename... Args>
   static HandwritingRecognizerCandidatePtr New(Args&&... args) {
     return HandwritingRecognizerCandidatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1646,7 +1646,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingRecognizerResult {
   template <typename... Args>
   static HandwritingRecognizerResultPtr New(Args&&... args) {
     return HandwritingRecognizerResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

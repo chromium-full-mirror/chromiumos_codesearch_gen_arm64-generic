@@ -433,7 +433,7 @@ class  HelpBubbleButtonParams {
   template <typename... Args>
   static HelpBubbleButtonParamsPtr New(Args&&... args) {
     return HelpBubbleButtonParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -577,7 +577,7 @@ class  Progress {
   template <typename... Args>
   static ProgressPtr New(Args&&... args) {
     return ProgressPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -726,7 +726,7 @@ class  HelpBubbleParams {
   template <typename... Args>
   static HelpBubbleParamsPtr New(Args&&... args) {
     return HelpBubbleParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -358,7 +358,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `custom_key_commitment` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCustomKeyCommitment` instead "
     "of `ReadCustomKeyCommitment if you're fine with null values being "
@@ -378,7 +378,7 @@ static_assert(
         ::url::mojom::OriginDataView, UserType>(),
     "Attempting to read the optional `custom_issuer` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCustomIssuer` instead "
     "of `ReadCustomIssuer if you're fine with null values being "
@@ -431,7 +431,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `possibly_unsafe_additional_signing_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPossiblyUnsafeAdditionalSigningData` instead "
     "of `ReadPossiblyUnsafeAdditionalSigningData if you're fine with null values being "
@@ -713,7 +713,7 @@ static_assert(
         ::url::mojom::OriginDataView, UserType>(),
     "Attempting to read the optional `issuer` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIssuer` instead "
     "of `ReadIssuer if you're fine with null values being "
@@ -733,7 +733,7 @@ static_assert(
         ::url::mojom::OriginDataView, UserType>(),
     "Attempting to read the optional `top_level_origin` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTopLevelOrigin` instead "
     "of `ReadTopLevelOrigin if you're fine with null values being "

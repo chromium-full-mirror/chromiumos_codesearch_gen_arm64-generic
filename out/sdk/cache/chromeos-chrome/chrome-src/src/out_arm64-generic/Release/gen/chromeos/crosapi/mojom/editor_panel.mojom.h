@@ -231,7 +231,7 @@ class  EditorPanelPresetTextQuery {
   template <typename... Args>
   static EditorPanelPresetTextQueryPtr New(Args&&... args) {
     return EditorPanelPresetTextQueryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -385,7 +385,7 @@ class  EditorPanelContext {
   template <typename... Args>
   static EditorPanelContextPtr New(Args&&... args) {
     return EditorPanelContextPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

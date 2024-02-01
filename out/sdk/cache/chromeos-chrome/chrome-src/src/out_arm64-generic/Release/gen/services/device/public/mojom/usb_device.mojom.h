@@ -431,7 +431,7 @@ class  UsbIsochronousPacket {
   template <typename... Args>
   static UsbIsochronousPacketPtr New(Args&&... args) {
     return UsbIsochronousPacketPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -588,7 +588,7 @@ class  UsbOpenDeviceResult {
   static UsbOpenDeviceResultPtr
   NewSuccess(
       UsbOpenDeviceSuccess value) {
-    auto result = UsbOpenDeviceResultPtr(absl::in_place);
+    auto result = UsbOpenDeviceResultPtr(std::in_place);
     result->set_success(std::move(value));
     return result;
   }
@@ -596,7 +596,7 @@ class  UsbOpenDeviceResult {
   static UsbOpenDeviceResultPtr
   NewError(
       UsbOpenDeviceError value) {
-    auto result = UsbOpenDeviceResultPtr(absl::in_place);
+    auto result = UsbOpenDeviceResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -707,7 +707,7 @@ class  UsbEndpointInfo {
   template <typename... Args>
   static UsbEndpointInfoPtr New(Args&&... args) {
     return UsbEndpointInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -868,7 +868,7 @@ class  UsbAlternateInterfaceInfo {
   template <typename... Args>
   static UsbAlternateInterfaceInfoPtr New(Args&&... args) {
     return UsbAlternateInterfaceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1028,7 +1028,7 @@ class  UsbInterfaceInfo {
   template <typename... Args>
   static UsbInterfaceInfoPtr New(Args&&... args) {
     return UsbInterfaceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1176,7 +1176,7 @@ class  UsbConfigurationInfo {
   template <typename... Args>
   static UsbConfigurationInfoPtr New(Args&&... args) {
     return UsbConfigurationInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1336,7 +1336,7 @@ class  UsbDeviceInfo {
   template <typename... Args>
   static UsbDeviceInfoPtr New(Args&&... args) {
     return UsbDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1537,7 +1537,7 @@ class  UsbControlTransferParams {
   template <typename... Args>
   static UsbControlTransferParamsPtr New(Args&&... args) {
     return UsbControlTransferParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

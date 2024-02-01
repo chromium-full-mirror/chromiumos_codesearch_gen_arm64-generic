@@ -560,7 +560,7 @@ class  RunOnOsLogin {
   template <typename... Args>
   static RunOnOsLoginPtr New(Args&&... args) {
     return RunOnOsLoginPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -703,7 +703,7 @@ class  Locale {
   template <typename... Args>
   static LocalePtr New(Args&&... args) {
     return LocalePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -863,7 +863,7 @@ class  PermissionValue {
   static PermissionValuePtr
   NewBoolValue(
       bool value) {
-    auto result = PermissionValuePtr(absl::in_place);
+    auto result = PermissionValuePtr(std::in_place);
     result->set_bool_value(std::move(value));
     return result;
   }
@@ -871,7 +871,7 @@ class  PermissionValue {
   static PermissionValuePtr
   NewTristateValue(
       TriState value) {
-    auto result = PermissionValuePtr(absl::in_place);
+    auto result = PermissionValuePtr(std::in_place);
     result->set_tristate_value(std::move(value));
     return result;
   }
@@ -982,7 +982,7 @@ class  Permission {
   template <typename... Args>
   static PermissionPtr New(Args&&... args) {
     return PermissionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1135,7 +1135,7 @@ class  App {
   template <typename... Args>
   static AppPtr New(Args&&... args) {
     return AppPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1358,7 +1358,7 @@ class  ExtensionAppPermissionMessage {
   template <typename... Args>
   static ExtensionAppPermissionMessagePtr New(Args&&... args) {
     return ExtensionAppPermissionMessagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1501,7 +1501,7 @@ class  FileHandlingState {
   template <typename... Args>
   static FileHandlingStatePtr New(Args&&... args) {
     return FileHandlingStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

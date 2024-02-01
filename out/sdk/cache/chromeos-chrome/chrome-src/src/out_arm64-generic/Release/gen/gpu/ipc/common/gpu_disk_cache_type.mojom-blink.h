@@ -56,7 +56,7 @@ class BLINK_PLATFORM_EXPORT GpuDiskCacheGlShaderHandle {
   template <typename... Args>
   static GpuDiskCacheGlShaderHandlePtr New(Args&&... args) {
     return GpuDiskCacheGlShaderHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -197,7 +197,7 @@ class BLINK_PLATFORM_EXPORT GpuDiskCacheDawnWebGPUHandle {
   template <typename... Args>
   static GpuDiskCacheDawnWebGPUHandlePtr New(Args&&... args) {
     return GpuDiskCacheDawnWebGPUHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -348,7 +348,7 @@ class BLINK_PLATFORM_EXPORT GpuDiskCacheHandle {
   static GpuDiskCacheHandlePtr
   NewGlShaderHandle(
       GpuDiskCacheGlShaderHandlePtr value) {
-    auto result = GpuDiskCacheHandlePtr(absl::in_place);
+    auto result = GpuDiskCacheHandlePtr(std::in_place);
     result->set_gl_shader_handle(std::move(value));
     return result;
   }
@@ -356,7 +356,7 @@ class BLINK_PLATFORM_EXPORT GpuDiskCacheHandle {
   static GpuDiskCacheHandlePtr
   NewDawnWebgpuHandle(
       GpuDiskCacheDawnWebGPUHandlePtr value) {
-    auto result = GpuDiskCacheHandlePtr(absl::in_place);
+    auto result = GpuDiskCacheHandlePtr(std::in_place);
     result->set_dawn_webgpu_handle(std::move(value));
     return result;
   }

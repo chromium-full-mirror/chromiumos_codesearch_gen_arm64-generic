@@ -638,7 +638,7 @@ class  VideoCaptureSubTarget {
   static VideoCaptureSubTargetPtr
   NewSubtreeCaptureId(
       const ::viz::SubtreeCaptureId& value) {
-    auto result = VideoCaptureSubTargetPtr(absl::in_place);
+    auto result = VideoCaptureSubTargetPtr(std::in_place);
     result->set_subtree_capture_id(std::move(value));
     return result;
   }
@@ -646,7 +646,7 @@ class  VideoCaptureSubTarget {
   static VideoCaptureSubTargetPtr
   NewRegionCaptureCropId(
       const ::base::Token& value) {
-    auto result = VideoCaptureSubTargetPtr(absl::in_place);
+    auto result = VideoCaptureSubTargetPtr(std::in_place);
     result->set_region_capture_crop_id(std::move(value));
     return result;
   }
@@ -760,7 +760,7 @@ class  VideoCaptureTarget {
   template <typename... Args>
   static VideoCaptureTargetPtr New(Args&&... args) {
     return VideoCaptureTargetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

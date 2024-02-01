@@ -63,7 +63,7 @@ class  ImeTextSpanInfo {
   template <typename... Args>
   static ImeTextSpanInfoPtr New(Args&&... args) {
     return ImeTextSpanInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -206,7 +206,7 @@ class  TextInputState {
   template <typename... Args>
   static TextInputStatePtr New(Args&&... args) {
     return TextInputStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

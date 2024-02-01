@@ -273,7 +273,7 @@ class  PageTextDumpRequest {
   template <typename... Args>
   static PageTextDumpRequestPtr New(Args&&... args) {
     return PageTextDumpRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

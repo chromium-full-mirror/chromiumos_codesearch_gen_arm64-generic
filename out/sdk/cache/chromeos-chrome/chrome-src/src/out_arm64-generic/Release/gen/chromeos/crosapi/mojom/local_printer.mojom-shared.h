@@ -527,7 +527,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `uri` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUri` instead "
     "of `ReadUri if you're fine with null values being "
@@ -548,7 +548,7 @@ static_assert(
         ::crosapi::mojom::PrinterStatusDataView, UserType>(),
     "Attempting to read the optional `printer_status` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPrinterStatus` instead "
     "of `ReadPrinterStatus if you're fine with null values being "
@@ -866,7 +866,7 @@ static_assert(
         ::printing::mojom::PrinterSemanticCapsAndDefaultsDataView, UserType>(),
     "Attempting to read the optional `capabilities` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCapabilities` instead "
     "of `ReadCapabilities if you're fine with null values being "
@@ -994,7 +994,7 @@ static_assert(
         ::gfx::mojom::SizeDataView, UserType>(),
     "Attempting to read the optional `paper_size_default` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPaperSizeDefault` instead "
     "of `ReadPaperSizeDefault if you're fine with null values being "

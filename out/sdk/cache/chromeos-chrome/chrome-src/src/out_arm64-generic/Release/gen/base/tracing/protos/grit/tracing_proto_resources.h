@@ -2,4 +2,4 @@
 
 #pragma once
 
-#define chrome_track_event_descriptor 43650
+#define chrome_track_event_descriptor 43660

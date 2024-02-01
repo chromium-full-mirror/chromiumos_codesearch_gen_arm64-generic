@@ -56,7 +56,7 @@ class  Range {
   template <typename... Args>
   static RangePtr New(Args&&... args) {
     return RangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -199,7 +199,7 @@ class  RangeF {
   template <typename... Args>
   static RangeFPtr New(Args&&... args) {
     return RangeFPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

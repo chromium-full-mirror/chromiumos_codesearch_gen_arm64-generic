@@ -57,7 +57,7 @@ class  MediaType {
   template <typename... Args>
   static MediaTypePtr New(Args&&... args) {
     return MediaTypePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -201,7 +201,7 @@ class  AdvancedCapabilityValue {
   template <typename... Args>
   static AdvancedCapabilityValuePtr New(Args&&... args) {
     return AdvancedCapabilityValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -348,7 +348,7 @@ class  PrinterBasicInfo {
   template <typename... Args>
   static PrinterBasicInfoPtr New(Args&&... args) {
     return PrinterBasicInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -503,7 +503,7 @@ class  Paper {
   template <typename... Args>
   static PaperPtr New(Args&&... args) {
     return PaperPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -678,7 +678,7 @@ class  AdvancedCapability {
   template <typename... Args>
   static AdvancedCapabilityPtr New(Args&&... args) {
     return AdvancedCapabilityPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -830,7 +830,7 @@ class  PrinterSemanticCapsAndDefaults {
   template <typename... Args>
   static PrinterSemanticCapsAndDefaultsPtr New(Args&&... args) {
     return PrinterSemanticCapsAndDefaultsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

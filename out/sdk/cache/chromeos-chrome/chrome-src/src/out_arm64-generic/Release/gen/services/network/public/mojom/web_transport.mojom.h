@@ -522,7 +522,7 @@ class  WebTransportError {
   template <typename... Args>
   static WebTransportErrorPtr New(Args&&... args) {
     return WebTransportErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -671,7 +671,7 @@ class  WebTransportCertificateFingerprint {
   template <typename... Args>
   static WebTransportCertificateFingerprintPtr New(Args&&... args) {
     return WebTransportCertificateFingerprintPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -815,7 +815,7 @@ class  WebTransportCloseInfo {
   template <typename... Args>
   static WebTransportCloseInfoPtr New(Args&&... args) {
     return WebTransportCloseInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -965,7 +965,7 @@ class  WebTransportStats {
   template <typename... Args>
   static WebTransportStatsPtr New(Args&&... args) {
     return WebTransportStatsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -685,7 +685,7 @@ class GPU_EXPORT DeferredRequestParams {
   static DeferredRequestParamsPtr
   NewCommandBufferRequest(
       DeferredCommandBufferRequestPtr value) {
-    auto result = DeferredRequestParamsPtr(absl::in_place);
+    auto result = DeferredRequestParamsPtr(std::in_place);
     result->set_command_buffer_request(std::move(value));
     return result;
   }
@@ -693,7 +693,7 @@ class GPU_EXPORT DeferredRequestParams {
   static DeferredRequestParamsPtr
   NewSharedImageRequest(
       DeferredSharedImageRequestPtr value) {
-    auto result = DeferredRequestParamsPtr(absl::in_place);
+    auto result = DeferredRequestParamsPtr(std::in_place);
     result->set_shared_image_request(std::move(value));
     return result;
   }
@@ -815,7 +815,7 @@ class GPU_EXPORT DeferredCommandBufferRequestParams {
   static DeferredCommandBufferRequestParamsPtr
   NewAsyncFlush(
       AsyncFlushParamsPtr value) {
-    auto result = DeferredCommandBufferRequestParamsPtr(absl::in_place);
+    auto result = DeferredCommandBufferRequestParamsPtr(std::in_place);
     result->set_async_flush(std::move(value));
     return result;
   }
@@ -823,7 +823,7 @@ class GPU_EXPORT DeferredCommandBufferRequestParams {
   static DeferredCommandBufferRequestParamsPtr
   NewDestroyTransferBuffer(
       int32_t value) {
-    auto result = DeferredCommandBufferRequestParamsPtr(absl::in_place);
+    auto result = DeferredCommandBufferRequestParamsPtr(std::in_place);
     result->set_destroy_transfer_buffer(std::move(value));
     return result;
   }
@@ -831,7 +831,7 @@ class GPU_EXPORT DeferredCommandBufferRequestParams {
   static DeferredCommandBufferRequestParamsPtr
   NewSetDefaultFramebufferSharedImage(
       SetDefaultFramebufferSharedImageParamsPtr value) {
-    auto result = DeferredCommandBufferRequestParamsPtr(absl::in_place);
+    auto result = DeferredCommandBufferRequestParamsPtr(std::in_place);
     result->set_set_default_framebuffer_shared_image(std::move(value));
     return result;
   }
@@ -966,7 +966,7 @@ class GPU_EXPORT DeferredSharedImageRequest {
   static DeferredSharedImageRequestPtr
   NewNop(
       uint8_t value) {
-    auto result = DeferredSharedImageRequestPtr(absl::in_place);
+    auto result = DeferredSharedImageRequestPtr(std::in_place);
     result->set_nop(std::move(value));
     return result;
   }
@@ -974,7 +974,7 @@ class GPU_EXPORT DeferredSharedImageRequest {
   static DeferredSharedImageRequestPtr
   NewCreateSharedImage(
       CreateSharedImageParamsPtr value) {
-    auto result = DeferredSharedImageRequestPtr(absl::in_place);
+    auto result = DeferredSharedImageRequestPtr(std::in_place);
     result->set_create_shared_image(std::move(value));
     return result;
   }
@@ -982,7 +982,7 @@ class GPU_EXPORT DeferredSharedImageRequest {
   static DeferredSharedImageRequestPtr
   NewCreateSharedImageWithData(
       CreateSharedImageWithDataParamsPtr value) {
-    auto result = DeferredSharedImageRequestPtr(absl::in_place);
+    auto result = DeferredSharedImageRequestPtr(std::in_place);
     result->set_create_shared_image_with_data(std::move(value));
     return result;
   }
@@ -990,7 +990,7 @@ class GPU_EXPORT DeferredSharedImageRequest {
   static DeferredSharedImageRequestPtr
   NewCreateSharedImageWithBuffer(
       CreateSharedImageWithBufferParamsPtr value) {
-    auto result = DeferredSharedImageRequestPtr(absl::in_place);
+    auto result = DeferredSharedImageRequestPtr(std::in_place);
     result->set_create_shared_image_with_buffer(std::move(value));
     return result;
   }
@@ -998,7 +998,7 @@ class GPU_EXPORT DeferredSharedImageRequest {
   static DeferredSharedImageRequestPtr
   NewCreateGmbSharedImage(
       CreateGMBSharedImageParamsPtr value) {
-    auto result = DeferredSharedImageRequestPtr(absl::in_place);
+    auto result = DeferredSharedImageRequestPtr(std::in_place);
     result->set_create_gmb_shared_image(std::move(value));
     return result;
   }
@@ -1006,7 +1006,7 @@ class GPU_EXPORT DeferredSharedImageRequest {
   static DeferredSharedImageRequestPtr
   NewRegisterUploadBuffer(
       ::base::ReadOnlySharedMemoryRegion value) {
-    auto result = DeferredSharedImageRequestPtr(absl::in_place);
+    auto result = DeferredSharedImageRequestPtr(std::in_place);
     result->set_register_upload_buffer(std::move(value));
     return result;
   }
@@ -1014,7 +1014,7 @@ class GPU_EXPORT DeferredSharedImageRequest {
   static DeferredSharedImageRequestPtr
   NewUpdateSharedImage(
       UpdateSharedImageParamsPtr value) {
-    auto result = DeferredSharedImageRequestPtr(absl::in_place);
+    auto result = DeferredSharedImageRequestPtr(std::in_place);
     result->set_update_shared_image(std::move(value));
     return result;
   }
@@ -1022,7 +1022,7 @@ class GPU_EXPORT DeferredSharedImageRequest {
   static DeferredSharedImageRequestPtr
   NewDestroySharedImage(
       const ::gpu::Mailbox& value) {
-    auto result = DeferredSharedImageRequestPtr(absl::in_place);
+    auto result = DeferredSharedImageRequestPtr(std::in_place);
     result->set_destroy_shared_image(std::move(value));
     return result;
   }
@@ -1030,7 +1030,7 @@ class GPU_EXPORT DeferredSharedImageRequest {
   static DeferredSharedImageRequestPtr
   NewAddReferenceToSharedImage(
       AddReferenceToSharedImageParamsPtr value) {
-    auto result = DeferredSharedImageRequestPtr(absl::in_place);
+    auto result = DeferredSharedImageRequestPtr(std::in_place);
     result->set_add_reference_to_shared_image(std::move(value));
     return result;
   }
@@ -1235,7 +1235,7 @@ class GPU_EXPORT ContextCreationAttribs {
   template <typename... Args>
   static ContextCreationAttribsPtr New(Args&&... args) {
     return ContextCreationAttribsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1399,7 +1399,7 @@ class GPU_EXPORT CreateCommandBufferParams {
   template <typename... Args>
   static CreateCommandBufferParamsPtr New(Args&&... args) {
     return CreateCommandBufferParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1551,7 +1551,7 @@ class GPU_EXPORT CommandBufferState {
   template <typename... Args>
   static CommandBufferStatePtr New(Args&&... args) {
     return CommandBufferStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1709,7 +1709,7 @@ class GPU_EXPORT ScheduleImageDecodeParams {
   template <typename... Args>
   static ScheduleImageDecodeParamsPtr New(Args&&... args) {
     return ScheduleImageDecodeParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1874,7 +1874,7 @@ class GPU_EXPORT DeferredRequest {
   template <typename... Args>
   static DeferredRequestPtr New(Args&&... args) {
     return DeferredRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2014,7 +2014,7 @@ class GPU_EXPORT DeferredCommandBufferRequest {
   template <typename... Args>
   static DeferredCommandBufferRequestPtr New(Args&&... args) {
     return DeferredCommandBufferRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2159,7 +2159,7 @@ class GPU_EXPORT AsyncFlushParams {
   template <typename... Args>
   static AsyncFlushParamsPtr New(Args&&... args) {
     return AsyncFlushParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2305,7 +2305,7 @@ class GPU_EXPORT SetDefaultFramebufferSharedImageParams {
   template <typename... Args>
   static SetDefaultFramebufferSharedImageParamsPtr New(Args&&... args) {
     return SetDefaultFramebufferSharedImageParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2457,7 +2457,7 @@ class GPU_EXPORT CreateSharedImageParams {
   template <typename... Args>
   static CreateSharedImageParamsPtr New(Args&&... args) {
     return CreateSharedImageParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2621,7 +2621,7 @@ class GPU_EXPORT CreateSharedImageWithDataParams {
   template <typename... Args>
   static CreateSharedImageWithDataParamsPtr New(Args&&... args) {
     return CreateSharedImageWithDataParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2794,7 +2794,7 @@ class GPU_EXPORT CreateSharedImageWithBufferParams {
   template <typename... Args>
   static CreateSharedImageWithBufferParamsPtr New(Args&&... args) {
     return CreateSharedImageWithBufferParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2958,7 +2958,7 @@ class GPU_EXPORT CreateGMBSharedImageParams {
   template <typename... Args>
   static CreateGMBSharedImageParamsPtr New(Args&&... args) {
     return CreateGMBSharedImageParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3125,7 +3125,7 @@ class GPU_EXPORT UpdateSharedImageParams {
   template <typename... Args>
   static UpdateSharedImageParamsPtr New(Args&&... args) {
     return UpdateSharedImageParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3268,7 +3268,7 @@ class GPU_EXPORT AddReferenceToSharedImageParams {
   template <typename... Args>
   static AddReferenceToSharedImageParamsPtr New(Args&&... args) {
     return AddReferenceToSharedImageParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

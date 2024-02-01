@@ -4,6 +4,7 @@
 import * as Common from '../../../../../front_end/core/common/common.js';
 import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 import * as Logs from '../../../../../front_end/models/logs/logs.js';
+import * as TextUtils from '../../../../../front_end/models/text_utils/text_utils.js';
 import * as Workspace from '../../../../../front_end/models/workspace/workspace.js';
 import * as Network from '../../../../../front_end/panels/network/network.js';
 import { describeWithLocale } from '../../helpers/EnvironmentHelpers.js';
@@ -15,13 +16,13 @@ describeWithLocale('NetworkSearchScope', () => {
         fakeRequest1.responseHeaders = [{ name: 'fooResponseHeader', value: 'foo value' }];
         fakeRequest1.setResourceType(Common.ResourceType.resourceTypes.Script);
         fakeRequest1.mimeType = 'text/javascript';
-        fakeRequest1.setContentDataProvider(async () => new SDK.ContentData.ContentData('This is the response body of request 1.\nAnd a second line.\n', false, fakeRequest1.mimeType));
+        fakeRequest1.setContentDataProvider(async () => new TextUtils.ContentData.ContentData('This is the response body of request 1.\nAnd a second line.\n', false, fakeRequest1.mimeType));
         const fakeRequest2 = SDK.NetworkRequest.NetworkRequest.createWithoutBackendRequest('fakeId1', 'http://example.com/bundle.min.js', 'http://example.com/index.html', null);
         fakeRequest2.setRequestHeaders([{ name: 'barRequestHeader', value: 'value2' }]);
         fakeRequest2.responseHeaders = [{ name: 'barResponseHeader', value: 'bar value' }];
         fakeRequest2.setResourceType(Common.ResourceType.resourceTypes.Script);
         fakeRequest2.mimeType = 'text/javascript';
-        fakeRequest2.setContentDataProvider(async () => new SDK.ContentData.ContentData('This is the first line.\nAnd another line in the response body of request 2.\n', false, fakeRequest2.mimeType));
+        fakeRequest2.setContentDataProvider(async () => new TextUtils.ContentData.ContentData('This is the first line.\nAnd another line in the response body of request 2.\n', false, fakeRequest2.mimeType));
         const fakeLog = sinon.createStubInstance(Logs.NetworkLog.NetworkLog, { requests: [fakeRequest1, fakeRequest2] });
         scope = new Network.NetworkSearchScope.NetworkSearchScope(fakeLog);
     });

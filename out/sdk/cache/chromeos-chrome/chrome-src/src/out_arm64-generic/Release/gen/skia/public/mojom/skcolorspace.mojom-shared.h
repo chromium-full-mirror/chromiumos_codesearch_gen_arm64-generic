@@ -156,7 +156,7 @@ static_assert(
         ::skia::mojom::SkcmsTransferFunctionDataView, UserType>(),
     "Attempting to read the optional `to_linear` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadToLinear` instead "
     "of `ReadToLinear if you're fine with null values being "
@@ -176,7 +176,7 @@ static_assert(
         ::skia::mojom::SkcmsMatrix3x3DataView, UserType>(),
     "Attempting to read the optional `to_xyzd50` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadToXyzd50` instead "
     "of `ReadToXyzd50 if you're fine with null values being "

@@ -23,6 +23,11 @@ export function getTemplate() {
       <startup-settings-card prefs="{{prefs}}"></startup-settings-card>
     </template>
 
+    <template is="dom-if" if="[[shouldShowMultitaskingCard_]]">
+      <multitasking-settings-card prefs="{{prefs}}">
+      </multitasking-settings-card>
+    </template>
+
     <template is="dom-if" if="[[shouldShowResetSettingsCard_]]">
       <reset-settings-card></reset-settings-card>
     </template>

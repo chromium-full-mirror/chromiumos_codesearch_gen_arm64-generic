@@ -59,7 +59,7 @@ class PLATFORM_EXPORT OriginTrialsSettings {
   template <typename... Args>
   static OriginTrialsSettingsPtr New(Args&&... args) {
     return OriginTrialsSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

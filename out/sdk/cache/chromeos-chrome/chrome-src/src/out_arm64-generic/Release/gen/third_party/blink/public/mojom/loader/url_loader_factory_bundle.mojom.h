@@ -60,7 +60,7 @@ class BLINK_COMMON_EXPORT URLLoaderFactoryBundle {
   template <typename... Args>
   static URLLoaderFactoryBundlePtr New(Args&&... args) {
     return URLLoaderFactoryBundlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

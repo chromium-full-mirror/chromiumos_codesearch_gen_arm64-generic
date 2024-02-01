@@ -179,7 +179,7 @@ class CONTENT_EXPORT AuctionWorkletPermissionsPolicyState {
   template <typename... Args>
   static AuctionWorkletPermissionsPolicyStatePtr New(Args&&... args) {
     return AuctionWorkletPermissionsPolicyStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -325,7 +325,7 @@ class CONTENT_EXPORT BrowserSignals {
   template <typename... Args>
   static BrowserSignalsPtr New(Args&&... args) {
     return BrowserSignalsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

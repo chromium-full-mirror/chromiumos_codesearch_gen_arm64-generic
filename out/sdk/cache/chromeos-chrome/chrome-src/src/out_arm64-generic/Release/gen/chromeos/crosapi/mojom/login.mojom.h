@@ -557,7 +557,7 @@ class  SamlUserSessionProperties {
   template <typename... Args>
   static SamlUserSessionPropertiesPtr New(Args&&... args) {
     return SamlUserSessionPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

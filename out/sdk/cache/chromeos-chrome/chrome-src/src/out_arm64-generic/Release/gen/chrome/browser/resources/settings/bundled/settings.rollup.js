@@ -2352,7 +2352,7 @@ function getTemplate$y() {
       </template>
 
 
-      <template is="dom-if" route-path="/content/v8">
+      <template is="dom-if" route-path="/content/v8" no-search>
         <settings-subpage page-title="$i18n{siteSettingsCategoryJavascriptJit}" search-label="$i18n{siteSettingsAllSitesSearch}" search-term="{{searchFilter_}}">
           <div class="content-settings-header secondary">
             $i18n{siteSettingsJavascriptJitDescription}
@@ -8555,14 +8555,7 @@ function getTemplate$7() {
         </template>
         <template is="dom-if" if="[[showSpeedPage_(pageVisibility.performance)]]" restamp>
           <settings-section page-title="$i18n{speedPageTitle}" section="speed" nest-under-section="performance" id="speedSettingsSection">
-            <template is="dom-if" if="[[showSpeedPageV2_]]">
-              <settings-speed-page prefs="{{prefs}}">
-              </settings-speed-page>
-            </template>
-            <template is="dom-if" if="[[!showSpeedPageV2_]]">
-              <settings-preloading-page prefs="{{prefs}}">
-              </settings-preloading-page>
-            </template>
+            <settings-speed-page prefs="{{prefs}}"></settings-speed-page>
           </settings-section>
         </template>
         <template is="dom-if" if="[[showPage_(pageVisibility.appearance)]]" restamp>
@@ -8704,16 +8697,6 @@ class SettingsBasicPageElement extends SettingsBasicPageElementBase {
             showBatterySettings_: {
                 type: Boolean,
                 value: false,
-            },
-            /**
-             * If the preloading section is under performance settings, this
-             * determines if the V2 UI with a toggle button is displayed.
-             */
-            showSpeedPageV2_: {
-                type: Boolean,
-                value() {
-                    return loadTimeData.getBoolean('isPerformanceSettingsPreloadingSubpageV2Enabled');
-                },
             },
             showAdvancedFeaturesMainControl_: {
                 type: Boolean,

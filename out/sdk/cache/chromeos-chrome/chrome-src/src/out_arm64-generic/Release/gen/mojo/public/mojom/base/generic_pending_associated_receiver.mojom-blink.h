@@ -157,7 +157,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM_BLINK) GenericPendingAssociatedReceiver {
   template <typename... Args>
   static GenericPendingAssociatedReceiverPtr New(Args&&... args) {
     return GenericPendingAssociatedReceiverPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

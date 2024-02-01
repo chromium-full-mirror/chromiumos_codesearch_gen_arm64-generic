@@ -304,7 +304,7 @@ class BLINK_COMMON_EXPORT FindOptions {
   template <typename... Args>
   static FindOptionsPtr New(Args&&... args) {
     return FindOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

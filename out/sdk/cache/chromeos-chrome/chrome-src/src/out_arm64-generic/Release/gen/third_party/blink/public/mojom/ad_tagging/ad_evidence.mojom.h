@@ -57,7 +57,7 @@ class BLINK_COMMON_EXPORT FrameAdEvidence {
   template <typename... Args>
   static FrameAdEvidencePtr New(Args&&... args) {
     return FrameAdEvidencePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

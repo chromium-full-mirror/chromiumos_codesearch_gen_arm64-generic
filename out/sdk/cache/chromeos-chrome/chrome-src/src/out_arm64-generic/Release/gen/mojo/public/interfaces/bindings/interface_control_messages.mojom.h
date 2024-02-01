@@ -55,7 +55,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) QueryVersion {
   template <typename... Args>
   static QueryVersionPtr New(Args&&... args) {
     return QueryVersionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -191,7 +191,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) QueryVersionResult {
   template <typename... Args>
   static QueryVersionResultPtr New(Args&&... args) {
     return QueryVersionResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -332,7 +332,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) FlushForTesting {
   template <typename... Args>
   static FlushForTestingPtr New(Args&&... args) {
     return FlushForTestingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -469,7 +469,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RequireVersion {
   template <typename... Args>
   static RequireVersionPtr New(Args&&... args) {
     return RequireVersionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -610,7 +610,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) EnableIdleTracking {
   template <typename... Args>
   static EnableIdleTrackingPtr New(Args&&... args) {
     return EnableIdleTrackingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -751,7 +751,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) MessageAck {
   template <typename... Args>
   static MessageAckPtr New(Args&&... args) {
     return MessageAckPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -887,7 +887,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) NotifyIdle {
   template <typename... Args>
   static NotifyIdlePtr New(Args&&... args) {
     return NotifyIdlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1033,7 +1033,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunInput {
   static RunInputPtr
   NewQueryVersion(
       QueryVersionPtr value) {
-    auto result = RunInputPtr(absl::in_place);
+    auto result = RunInputPtr(std::in_place);
     result->set_query_version(std::move(value));
     return result;
   }
@@ -1041,7 +1041,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunInput {
   static RunInputPtr
   NewFlushForTesting(
       FlushForTestingPtr value) {
-    auto result = RunInputPtr(absl::in_place);
+    auto result = RunInputPtr(std::in_place);
     result->set_flush_for_testing(std::move(value));
     return result;
   }
@@ -1164,7 +1164,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunOutput {
   static RunOutputPtr
   NewQueryVersionResult(
       QueryVersionResultPtr value) {
-    auto result = RunOutputPtr(absl::in_place);
+    auto result = RunOutputPtr(std::in_place);
     result->set_query_version_result(std::move(value));
     return result;
   }
@@ -1274,7 +1274,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunOrClosePipeInput {
   static RunOrClosePipeInputPtr
   NewRequireVersion(
       RequireVersionPtr value) {
-    auto result = RunOrClosePipeInputPtr(absl::in_place);
+    auto result = RunOrClosePipeInputPtr(std::in_place);
     result->set_require_version(std::move(value));
     return result;
   }
@@ -1282,7 +1282,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunOrClosePipeInput {
   static RunOrClosePipeInputPtr
   NewEnableIdleTracking(
       EnableIdleTrackingPtr value) {
-    auto result = RunOrClosePipeInputPtr(absl::in_place);
+    auto result = RunOrClosePipeInputPtr(std::in_place);
     result->set_enable_idle_tracking(std::move(value));
     return result;
   }
@@ -1290,7 +1290,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunOrClosePipeInput {
   static RunOrClosePipeInputPtr
   NewMessageAck(
       MessageAckPtr value) {
-    auto result = RunOrClosePipeInputPtr(absl::in_place);
+    auto result = RunOrClosePipeInputPtr(std::in_place);
     result->set_message_ack(std::move(value));
     return result;
   }
@@ -1298,7 +1298,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunOrClosePipeInput {
   static RunOrClosePipeInputPtr
   NewNotifyIdle(
       NotifyIdlePtr value) {
-    auto result = RunOrClosePipeInputPtr(absl::in_place);
+    auto result = RunOrClosePipeInputPtr(std::in_place);
     result->set_notify_idle(std::move(value));
     return result;
   }
@@ -1439,7 +1439,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunMessageParams {
   template <typename... Args>
   static RunMessageParamsPtr New(Args&&... args) {
     return RunMessageParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1582,7 +1582,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunResponseMessageParams {
   template <typename... Args>
   static RunResponseMessageParamsPtr New(Args&&... args) {
     return RunResponseMessageParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1727,7 +1727,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) RunOrClosePipeMessageParams {
   template <typename... Args>
   static RunOrClosePipeMessageParamsPtr New(Args&&... args) {
     return RunOrClosePipeMessageParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

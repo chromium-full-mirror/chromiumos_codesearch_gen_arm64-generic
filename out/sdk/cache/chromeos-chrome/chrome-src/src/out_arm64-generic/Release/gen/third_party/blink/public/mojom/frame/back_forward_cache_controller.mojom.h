@@ -87,7 +87,7 @@ class BLINK_COMMON_EXPORT BackForwardCacheControllerHost
   virtual ~BackForwardCacheControllerHost() = default;
 
   
-  virtual void EvictFromBackForwardCache(::blink::mojom::RendererEvictionReason reason) = 0;
+  virtual void EvictFromBackForwardCache(::blink::mojom::RendererEvictionReason reason, BlockingDetailsPtr details) = 0;
 
   
   virtual void DidChangeBackForwardCacheDisablingFeatures(std::vector<BlockingDetailsPtr> details) = 0;
@@ -102,7 +102,7 @@ class BLINK_COMMON_EXPORT BackForwardCacheControllerHostProxy
 
   explicit BackForwardCacheControllerHostProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void EvictFromBackForwardCache(::blink::mojom::RendererEvictionReason reason) final;
+  void EvictFromBackForwardCache(::blink::mojom::RendererEvictionReason reason, BlockingDetailsPtr details) final;
   
   void DidChangeBackForwardCacheDisablingFeatures(std::vector<BlockingDetailsPtr> details) final;
 
@@ -172,7 +172,7 @@ class BLINK_COMMON_EXPORT BlockingDetails {
   template <typename... Args>
   static BlockingDetailsPtr New(Args&&... args) {
     return BlockingDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -189,7 +189,7 @@ class BLINK_COMMON_EXPORT BlockingDetails {
   BlockingDetails();
 
   BlockingDetails(
-      uint32_t feature,
+      std::optional<uint32_t> feature,
       const std::optional<std::string>& url,
       const std::optional<std::string>& function_name,
       uint64_t line_number,
@@ -271,7 +271,7 @@ class BLINK_COMMON_EXPORT BlockingDetails {
   }
 
   
-  uint32_t feature;
+  std::optional<uint32_t> feature;
   
   std::optional<std::string> url;
   

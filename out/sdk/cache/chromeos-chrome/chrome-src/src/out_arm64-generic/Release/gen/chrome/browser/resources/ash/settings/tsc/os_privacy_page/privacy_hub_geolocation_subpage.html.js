@@ -48,11 +48,9 @@ export function getTemplate() {
     $i18n{privacyHubSystemServicesSectionTitle}
   </h2>
   <div class="list-frame">
-      <settings-privacy-hub-system-service-row class="list-item" name="$i18n{privacyHubSystemServicesAutomaticTimeZoneName}" permission-state="[[getSystemServicesPermissionText_(
-            prefs.ash.user.geolocation_access_level.value)]]" icon-source="chrome://app-icon/$i18n{osSettingsAppId}/64">
+      <settings-privacy-hub-system-service-row class="list-item" name="$i18n{privacyHubSystemServicesAutomaticTimeZoneName}" permission-state="[[automaticTimeZoneText_]]" icon-source="chrome://app-icon/$i18n{osSettingsAppId}/64">
       </settings-privacy-hub-system-service-row>
-      <settings-privacy-hub-system-service-row class="list-item" name="$i18n{privacyHubSystemServicesSunsetScheduleName}" permission-state="[[getSystemServicesPermissionText_(
-            prefs.ash.user.geolocation_access_level.value)]]" icon-source="chrome://app-icon/$i18n{osSettingsAppId}/64">
+      <settings-privacy-hub-system-service-row class="list-item" name="$i18n{privacyHubSystemServicesSunsetScheduleName}" permission-state="[[sunsetScheduleText_]]" icon-source="chrome://app-icon/$i18n{osSettingsAppId}/64">
       </settings-privacy-hub-system-service-row>
       <settings-privacy-hub-system-service-row class="list-item" name="$i18n{privacyHubSystemServicesLocalWeatherName}" permission-state="[[getSystemServicesPermissionText_(
             prefs.ash.user.geolocation_access_level.value)]]" icon-source="chrome://app-icon/$i18n{osSettingsAppId}/64">

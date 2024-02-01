@@ -880,7 +880,7 @@ class  PresetTextQuery {
   template <typename... Args>
   static PresetTextQueryPtr New(Args&&... args) {
     return PresetTextQueryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1031,7 +1031,7 @@ class  TextQueryResult {
   template <typename... Args>
   static TextQueryResultPtr New(Args&&... args) {
     return TextQueryResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1175,7 +1175,7 @@ class  TextQueryError {
   template <typename... Args>
   static TextQueryErrorPtr New(Args&&... args) {
     return TextQueryErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1331,7 +1331,7 @@ class  TextQueryResponse {
   static TextQueryResponsePtr
   NewResults(
       std::vector<TextQueryResultPtr> value) {
-    auto result = TextQueryResponsePtr(absl::in_place);
+    auto result = TextQueryResponsePtr(std::in_place);
     result->set_results(std::move(value));
     return result;
   }
@@ -1339,7 +1339,7 @@ class  TextQueryResponse {
   static TextQueryResponsePtr
   NewError(
       TextQueryErrorPtr value) {
-    auto result = TextQueryResponsePtr(absl::in_place);
+    auto result = TextQueryResponsePtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1454,7 +1454,7 @@ class  TextQueryRequest {
   template <typename... Args>
   static TextQueryRequestPtr New(Args&&... args) {
     return TextQueryRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1602,7 +1602,7 @@ class  SurroundingText {
   template <typename... Args>
   static SurroundingTextPtr New(Args&&... args) {
     return SurroundingTextPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1745,7 +1745,7 @@ class  Context {
   template <typename... Args>
   static ContextPtr New(Args&&... args) {
     return ContextPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

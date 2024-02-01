@@ -17,7 +17,7 @@ export function getTemplate() {
 
 <template is="dom-if" if="[[!isLoading]]">
   <div class="utility-bar">
-    <cr-button class="floating-button" disabled$="[[hasTraces_(traces)]]" on-click="onDeleteAllTracesClick_">
+    <cr-button class="floating-button" disabled$="[[!hasTraces_(traces)]]" on-click="onDeleteAllTracesClick_">
       <iron-icon icon="cr:delete" aria-hidden="true"></iron-icon>
       Delete All Traces
     </cr-button>

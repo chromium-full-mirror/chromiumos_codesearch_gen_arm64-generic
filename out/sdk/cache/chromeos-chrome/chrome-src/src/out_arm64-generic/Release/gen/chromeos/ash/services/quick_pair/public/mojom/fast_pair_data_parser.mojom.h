@@ -212,7 +212,7 @@ class  BatteryInfo {
   template <typename... Args>
   static BatteryInfoPtr New(Args&&... args) {
     return BatteryInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -358,7 +358,7 @@ class  RingDevice {
   template <typename... Args>
   static RingDevicePtr New(Args&&... args) {
     return RingDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -502,7 +502,7 @@ class  AcknowledgementMessage {
   template <typename... Args>
   static AcknowledgementMessagePtr New(Args&&... args) {
     return AcknowledgementMessagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -660,7 +660,7 @@ class  MessageStreamMessage {
   static MessageStreamMessagePtr
   NewModelId(
       const std::string& value) {
-    auto result = MessageStreamMessagePtr(absl::in_place);
+    auto result = MessageStreamMessagePtr(std::in_place);
     result->set_model_id(std::move(value));
     return result;
   }
@@ -668,7 +668,7 @@ class  MessageStreamMessage {
   static MessageStreamMessagePtr
   NewBleAddressUpdate(
       const std::string& value) {
-    auto result = MessageStreamMessagePtr(absl::in_place);
+    auto result = MessageStreamMessagePtr(std::in_place);
     result->set_ble_address_update(std::move(value));
     return result;
   }
@@ -676,7 +676,7 @@ class  MessageStreamMessage {
   static MessageStreamMessagePtr
   NewBatteryUpdate(
       BatteryUpdatePtr value) {
-    auto result = MessageStreamMessagePtr(absl::in_place);
+    auto result = MessageStreamMessagePtr(std::in_place);
     result->set_battery_update(std::move(value));
     return result;
   }
@@ -684,7 +684,7 @@ class  MessageStreamMessage {
   static MessageStreamMessagePtr
   NewRemainingBatteryTime(
       uint16_t value) {
-    auto result = MessageStreamMessagePtr(absl::in_place);
+    auto result = MessageStreamMessagePtr(std::in_place);
     result->set_remaining_battery_time(std::move(value));
     return result;
   }
@@ -692,7 +692,7 @@ class  MessageStreamMessage {
   static MessageStreamMessagePtr
   NewEnableSilenceMode(
       bool value) {
-    auto result = MessageStreamMessagePtr(absl::in_place);
+    auto result = MessageStreamMessagePtr(std::in_place);
     result->set_enable_silence_mode(std::move(value));
     return result;
   }
@@ -700,7 +700,7 @@ class  MessageStreamMessage {
   static MessageStreamMessagePtr
   NewCompanionAppLogBufferFull(
       bool value) {
-    auto result = MessageStreamMessagePtr(absl::in_place);
+    auto result = MessageStreamMessagePtr(std::in_place);
     result->set_companion_app_log_buffer_full(std::move(value));
     return result;
   }
@@ -708,7 +708,7 @@ class  MessageStreamMessage {
   static MessageStreamMessagePtr
   NewActiveComponentsByte(
       uint8_t value) {
-    auto result = MessageStreamMessagePtr(absl::in_place);
+    auto result = MessageStreamMessagePtr(std::in_place);
     result->set_active_components_byte(std::move(value));
     return result;
   }
@@ -716,7 +716,7 @@ class  MessageStreamMessage {
   static MessageStreamMessagePtr
   NewRingDeviceEvent(
       RingDevicePtr value) {
-    auto result = MessageStreamMessagePtr(absl::in_place);
+    auto result = MessageStreamMessagePtr(std::in_place);
     result->set_ring_device_event(std::move(value));
     return result;
   }
@@ -724,7 +724,7 @@ class  MessageStreamMessage {
   static MessageStreamMessagePtr
   NewAcknowledgement(
       AcknowledgementMessagePtr value) {
-    auto result = MessageStreamMessagePtr(absl::in_place);
+    auto result = MessageStreamMessagePtr(std::in_place);
     result->set_acknowledgement(std::move(value));
     return result;
   }
@@ -732,7 +732,7 @@ class  MessageStreamMessage {
   static MessageStreamMessagePtr
   NewSdkVersion(
       int8_t value) {
-    auto result = MessageStreamMessagePtr(absl::in_place);
+    auto result = MessageStreamMessagePtr(std::in_place);
     result->set_sdk_version(std::move(value));
     return result;
   }
@@ -951,7 +951,7 @@ class  DecryptedResponse {
   template <typename... Args>
   static DecryptedResponsePtr New(Args&&... args) {
     return DecryptedResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1097,7 +1097,7 @@ class  DecryptedPasskey {
   template <typename... Args>
   static DecryptedPasskeyPtr New(Args&&... args) {
     return DecryptedPasskeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1244,7 +1244,7 @@ class  BatteryNotification {
   template <typename... Args>
   static BatteryNotificationPtr New(Args&&... args) {
     return BatteryNotificationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1396,7 +1396,7 @@ class  BatteryUpdate {
   template <typename... Args>
   static BatteryUpdatePtr New(Args&&... args) {
     return BatteryUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1547,7 +1547,7 @@ class  NotDiscoverableAdvertisement {
   template <typename... Args>
   static NotDiscoverableAdvertisementPtr New(Args&&... args) {
     return NotDiscoverableAdvertisementPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

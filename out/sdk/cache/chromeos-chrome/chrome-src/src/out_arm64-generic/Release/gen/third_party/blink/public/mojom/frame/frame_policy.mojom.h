@@ -62,7 +62,7 @@ class BLINK_COMMON_EXPORT FramePolicy {
   template <typename... Args>
   static FramePolicyPtr New(Args&&... args) {
     return FramePolicyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

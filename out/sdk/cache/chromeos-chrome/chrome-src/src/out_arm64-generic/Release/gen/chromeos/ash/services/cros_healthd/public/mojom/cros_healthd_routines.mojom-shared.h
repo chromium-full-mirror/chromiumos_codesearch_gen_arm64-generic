@@ -361,8 +361,8 @@ class MemoryRoutineArgumentDataView {
   std::optional<uint32_t> max_testing_mem_kib() const {
 
     return data_->max_testing_mem_kib_$flag
-        ? absl::make_optional(data_->max_testing_mem_kib_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->max_testing_mem_kib_$value)
+        : std::nullopt;
   }
  private:
   internal::MemoryRoutineArgument_Data* data_ = nullptr;
@@ -539,7 +539,7 @@ static_assert(
         ::ash::cros_healthd::mojom::RoutineDetailDataView, UserType>(),
     "Attempting to read the optional `detail` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDetail` instead "
     "of `ReadDetail if you're fine with null values being "

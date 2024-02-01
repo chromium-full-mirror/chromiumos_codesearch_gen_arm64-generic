@@ -60,7 +60,7 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM_BLINK) ServiceFilter {
   template <typename... Args>
   static ServiceFilterPtr New(Args&&... args) {
     return ServiceFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

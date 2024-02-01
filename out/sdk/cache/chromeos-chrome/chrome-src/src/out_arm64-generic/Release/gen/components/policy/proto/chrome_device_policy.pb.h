@@ -24853,6 +24853,7 @@ kDeviceFlexHwDataForProductImprovementEnabledFieldNumber = 157,
 kDeviceHardwareVideoDecodingEnabledFieldNumber = 1185,
 kDeviceLoginScreenTouchVirtualKeyboardEnabledFieldNumber = 1194,
 kDeviceExtendedAutoUpdateEnabledFieldNumber = 1195,
+kDeviceWeeklyScheduledSuspendFieldNumber = 1196,
 };
 // optional .enterprise_management.DevicePolicyRefreshRateProto device_policy_refresh_rate = 1;
 bool has_device_policy_refresh_rate() const;
@@ -27680,6 +27681,24 @@ void unsafe_arena_set_allocated_deviceextendedautoupdateenabled(
 ::enterprise_management::BooleanPolicyProto* deviceextendedautoupdateenabled);
 ::enterprise_management::BooleanPolicyProto* unsafe_arena_release_deviceextendedautoupdateenabled();
 
+// optional .enterprise_management.StringPolicyProto DeviceWeeklyScheduledSuspend = 1196;
+bool has_deviceweeklyscheduledsuspend() const;
+private:
+bool _internal_has_deviceweeklyscheduledsuspend() const;
+public:
+void clear_deviceweeklyscheduledsuspend();
+const ::enterprise_management::StringPolicyProto& deviceweeklyscheduledsuspend() const;
+PROTOBUF_NODISCARD ::enterprise_management::StringPolicyProto* release_deviceweeklyscheduledsuspend();
+::enterprise_management::StringPolicyProto* mutable_deviceweeklyscheduledsuspend();
+void set_allocated_deviceweeklyscheduledsuspend(::enterprise_management::StringPolicyProto* deviceweeklyscheduledsuspend);
+private:
+const ::enterprise_management::StringPolicyProto& _internal_deviceweeklyscheduledsuspend() const;
+::enterprise_management::StringPolicyProto* _internal_mutable_deviceweeklyscheduledsuspend();
+public:
+void unsafe_arena_set_allocated_deviceweeklyscheduledsuspend(
+::enterprise_management::StringPolicyProto* deviceweeklyscheduledsuspend);
+::enterprise_management::StringPolicyProto* unsafe_arena_release_deviceweeklyscheduledsuspend();
+
 // @@protoc_insertion_point(class_scope:enterprise_management.ChromeDeviceSettingsProto)
 private:
 class _Internal;
@@ -27846,6 +27865,7 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::enterprise_management::BooleanPolicyProto* devicehardwarevideodecodingenabled_;
 ::enterprise_management::BooleanPolicyProto* deviceloginscreentouchvirtualkeyboardenabled_;
 ::enterprise_management::BooleanPolicyProto* deviceextendedautoupdateenabled_;
+::enterprise_management::StringPolicyProto* deviceweeklyscheduledsuspend_;
 friend struct ::TableStruct_chrome_5fdevice_5fpolicy_2eproto;
 };
 // ===================================================================
@@ -54785,6 +54805,93 @@ _has_bits_[4] &= ~0x10000000u;
 }
 deviceextendedautoupdateenabled_ = deviceextendedautoupdateenabled;
 // @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.DeviceExtendedAutoUpdateEnabled)
+}
+
+// optional .enterprise_management.StringPolicyProto DeviceWeeklyScheduledSuspend = 1196;
+inline bool ChromeDeviceSettingsProto::_internal_has_deviceweeklyscheduledsuspend() const {
+bool value = (_has_bits_[4] & 0x20000000u) != 0;
+PROTOBUF_ASSUME(!value || deviceweeklyscheduledsuspend_ != nullptr);
+return value;
+}
+inline bool ChromeDeviceSettingsProto::has_deviceweeklyscheduledsuspend() const {
+return _internal_has_deviceweeklyscheduledsuspend();
+}
+inline const ::enterprise_management::StringPolicyProto& ChromeDeviceSettingsProto::_internal_deviceweeklyscheduledsuspend() const {
+const ::enterprise_management::StringPolicyProto* p = deviceweeklyscheduledsuspend_;
+return p != nullptr ? *p : reinterpret_cast<const ::enterprise_management::StringPolicyProto&>(
+::enterprise_management::_StringPolicyProto_default_instance_);
+}
+inline const ::enterprise_management::StringPolicyProto& ChromeDeviceSettingsProto::deviceweeklyscheduledsuspend() const {
+// @@protoc_insertion_point(field_get:enterprise_management.ChromeDeviceSettingsProto.DeviceWeeklyScheduledSuspend)
+return _internal_deviceweeklyscheduledsuspend();
+}
+inline void ChromeDeviceSettingsProto::unsafe_arena_set_allocated_deviceweeklyscheduledsuspend(
+::enterprise_management::StringPolicyProto* deviceweeklyscheduledsuspend) {
+if (GetArenaForAllocation() == nullptr) {
+delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(deviceweeklyscheduledsuspend_);
+}
+deviceweeklyscheduledsuspend_ = deviceweeklyscheduledsuspend;
+if (deviceweeklyscheduledsuspend) {
+_has_bits_[4] |= 0x20000000u;
+} else {
+_has_bits_[4] &= ~0x20000000u;
+}
+// @@protoc_insertion_point(field_unsafe_arena_set_allocated:enterprise_management.ChromeDeviceSettingsProto.DeviceWeeklyScheduledSuspend)
+}
+inline ::enterprise_management::StringPolicyProto* ChromeDeviceSettingsProto::release_deviceweeklyscheduledsuspend() {
+_has_bits_[4] &= ~0x20000000u;
+::enterprise_management::StringPolicyProto* temp = deviceweeklyscheduledsuspend_;
+deviceweeklyscheduledsuspend_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+if (GetArenaForAllocation() != nullptr) {
+temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+}
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+return temp;
+}
+inline ::enterprise_management::StringPolicyProto* ChromeDeviceSettingsProto::unsafe_arena_release_deviceweeklyscheduledsuspend() {
+// @@protoc_insertion_point(field_release:enterprise_management.ChromeDeviceSettingsProto.DeviceWeeklyScheduledSuspend)
+_has_bits_[4] &= ~0x20000000u;
+::enterprise_management::StringPolicyProto* temp = deviceweeklyscheduledsuspend_;
+deviceweeklyscheduledsuspend_ = nullptr;
+return temp;
+}
+inline ::enterprise_management::StringPolicyProto* ChromeDeviceSettingsProto::_internal_mutable_deviceweeklyscheduledsuspend() {
+_has_bits_[4] |= 0x20000000u;
+if (deviceweeklyscheduledsuspend_ == nullptr) {
+auto* p = CreateMaybeMessage<::enterprise_management::StringPolicyProto>(GetArenaForAllocation());
+deviceweeklyscheduledsuspend_ = p;
+}
+return deviceweeklyscheduledsuspend_;
+}
+inline ::enterprise_management::StringPolicyProto* ChromeDeviceSettingsProto::mutable_deviceweeklyscheduledsuspend() {
+::enterprise_management::StringPolicyProto* _msg = _internal_mutable_deviceweeklyscheduledsuspend();
+// @@protoc_insertion_point(field_mutable:enterprise_management.ChromeDeviceSettingsProto.DeviceWeeklyScheduledSuspend)
+return _msg;
+}
+inline void ChromeDeviceSettingsProto::set_allocated_deviceweeklyscheduledsuspend(::enterprise_management::StringPolicyProto* deviceweeklyscheduledsuspend) {
+::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+if (message_arena == nullptr) {
+delete reinterpret_cast< ::PROTOBUF_NAMESPACE_ID::MessageLite*>(deviceweeklyscheduledsuspend_);
+}
+if (deviceweeklyscheduledsuspend) {
+::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(deviceweeklyscheduledsuspend));
+if (message_arena != submessage_arena) {
+deviceweeklyscheduledsuspend = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+message_arena, deviceweeklyscheduledsuspend, submessage_arena);
+}
+_has_bits_[4] |= 0x20000000u;
+} else {
+_has_bits_[4] &= ~0x20000000u;
+}
+deviceweeklyscheduledsuspend_ = deviceweeklyscheduledsuspend;
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.ChromeDeviceSettingsProto.DeviceWeeklyScheduledSuspend)
 }
 
 #ifdef __GNUC__

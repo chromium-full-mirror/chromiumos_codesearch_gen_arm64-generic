@@ -265,7 +265,7 @@ static_assert(
         ::mojo_base::mojom::RelativeFilePathDataView, UserType>(),
     "Attempting to read the optional `background_filepath` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBackgroundFilepath` instead "
     "of `ReadBackgroundFilepath if you're fine with null values being "
@@ -277,12 +277,12 @@ static_assert(
   }
   std::optional<float> light_intensity() const {
     if (data_->header_.version < 4) {
-      return absl::nullopt;
+      return std::nullopt;
     }
 
     return data_->light_intensity_$flag
-        ? absl::make_optional(data_->light_intensity_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->light_intensity_$value)
+        : std::nullopt;
   }
  private:
   internal::EffectsConfig_Data* data_ = nullptr;

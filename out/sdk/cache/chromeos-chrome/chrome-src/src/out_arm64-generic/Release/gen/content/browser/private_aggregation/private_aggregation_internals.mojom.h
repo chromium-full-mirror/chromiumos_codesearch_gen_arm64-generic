@@ -411,7 +411,7 @@ class CONTENT_EXPORT AggregatableReportRequestID {
   template <typename... Args>
   static AggregatableReportRequestIDPtr New(Args&&... args) {
     return AggregatableReportRequestIDPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -556,7 +556,7 @@ class CONTENT_EXPORT AggregatableHistogramContribution {
   template <typename... Args>
   static AggregatableHistogramContributionPtr New(Args&&... args) {
     return AggregatableHistogramContributionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -699,7 +699,7 @@ class CONTENT_EXPORT WebUIAggregatableReport {
   template <typename... Args>
   static WebUIAggregatableReportPtr New(Args&&... args) {
     return WebUIAggregatableReportPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

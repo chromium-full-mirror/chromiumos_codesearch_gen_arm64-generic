@@ -86,6 +86,9 @@ MachineLearningService::IPCStableHashFunction MachineLearningService::MessageToM
     case internal::kMachineLearningService_LoadImageAnnotator_Name: {
       return &MachineLearningService::LoadImageAnnotator_Sym::IPCStableHash;
     }
+    case internal::kMachineLearningService_LoadHeatmapPalmRejection_Name: {
+      return &MachineLearningService::LoadHeatmapPalmRejection_Sym::IPCStableHash;
+    }
     case internal::kMachineLearningService_REMOVED_4_Name: {
       return &MachineLearningService::REMOVED_4_Sym::IPCStableHash;
     }
@@ -124,6 +127,8 @@ const char* MachineLearningService::MessageToMethodName_(mojo::Message& message)
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::CreateWebPlatformModelLoader";
       case internal::kMachineLearningService_LoadImageAnnotator_Name:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::LoadImageAnnotator";
+      case internal::kMachineLearningService_LoadHeatmapPalmRejection_Name:
+            return "Receive chromeos::machine_learning::mojom::MachineLearningService::LoadHeatmapPalmRejection";
       case internal::kMachineLearningService_REMOVED_4_Name:
             return "Receive chromeos::machine_learning::mojom::MachineLearningService::REMOVED_4";
     }
@@ -153,6 +158,8 @@ const char* MachineLearningService::MessageToMethodName_(mojo::Message& message)
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::CreateWebPlatformModelLoader";
       case internal::kMachineLearningService_LoadImageAnnotator_Name:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::LoadImageAnnotator";
+      case internal::kMachineLearningService_LoadHeatmapPalmRejection_Name:
+            return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::LoadHeatmapPalmRejection";
       case internal::kMachineLearningService_REMOVED_4_Name:
             return "Receive reply chromeos::machine_learning::mojom::MachineLearningService::REMOVED_4";
     }
@@ -321,6 +328,19 @@ uint32_t MachineLearningService::LoadImageAnnotator_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadImageAnnotator");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MachineLearningService::LoadHeatmapPalmRejection_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)chromeos::machine_learning::mojom::MachineLearningService::LoadHeatmapPalmRejection");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -514,6 +534,22 @@ class MachineLearningService_LoadImageAnnotator_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   MachineLearningService::LoadImageAnnotatorCallback callback_;
+};
+
+class MachineLearningService_LoadHeatmapPalmRejection_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  MachineLearningService_LoadHeatmapPalmRejection_ForwardToCallback(
+      MachineLearningService::LoadHeatmapPalmRejectionCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  MachineLearningService_LoadHeatmapPalmRejection_ForwardToCallback(const MachineLearningService_LoadHeatmapPalmRejection_ForwardToCallback&) = delete;
+  MachineLearningService_LoadHeatmapPalmRejection_ForwardToCallback& operator=(const MachineLearningService_LoadHeatmapPalmRejection_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  MachineLearningService::LoadHeatmapPalmRejectionCallback callback_;
 };
 
 class MachineLearningService_REMOVED_4_ForwardToCallback
@@ -1222,6 +1258,67 @@ void MachineLearningServiceProxy::LoadImageAnnotator(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new MachineLearningService_LoadImageAnnotator_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void MachineLearningServiceProxy::LoadHeatmapPalmRejection(
+    ::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigPtr in_config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::HeatmapPalmRejectionClient> in_client, LoadHeatmapPalmRejectionCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::machine_learning::mojom::MachineLearningService::LoadHeatmapPalmRejection", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("config"), in_config,
+                        "<value of type ::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigPtr>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("client"), in_client,
+                        "<value of type ::mojo::PendingRemote<::chromeos::machine_learning::mojom::HeatmapPalmRejectionClient>>");
+   });
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMachineLearningService_LoadHeatmapPalmRejection_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadHeatmapPalmRejection_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->config)::BaseType> config_fragment(
+          params.message());
+  mojo::internal::Serialize<::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigDataView>(
+      in_config, config_fragment);
+  params->config.Set(
+      config_fragment.is_null() ? nullptr : config_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->config.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null config in MachineLearningService.LoadHeatmapPalmRejection request");
+  mojo::internal::Serialize<mojo::InterfacePtrDataView<::chromeos::machine_learning::mojom::HeatmapPalmRejectionClientInterfaceBase>>(
+      in_client, &params->client, &params.message());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      !mojo::internal::IsHandleOrInterfaceValid(params->client),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+      "invalid client in MachineLearningService.LoadHeatmapPalmRejection request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MachineLearningService::Name_);
+  message.set_method_name("LoadHeatmapPalmRejection");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new MachineLearningService_LoadHeatmapPalmRejection_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -2628,6 +2725,128 @@ void MachineLearningService_LoadImageAnnotator_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class MachineLearningService_LoadHeatmapPalmRejection_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static MachineLearningService::LoadHeatmapPalmRejectionCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<MachineLearningService_LoadHeatmapPalmRejection_ProxyToResponder> proxy(
+        new MachineLearningService_LoadHeatmapPalmRejection_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&MachineLearningService_LoadHeatmapPalmRejection_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~MachineLearningService_LoadHeatmapPalmRejection_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  MachineLearningService_LoadHeatmapPalmRejection_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "MachineLearningService::LoadHeatmapPalmRejectionCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult in_result);
+};
+
+bool MachineLearningService_LoadHeatmapPalmRejection_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for MachineLearningService.13
+  bool success = true;
+  ::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult p_result{};
+  MachineLearningService_LoadHeatmapPalmRejection_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadResult(&p_result))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        MachineLearningService::Name_, 13, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_result));
+  return true;
+}
+
+void MachineLearningService_LoadHeatmapPalmRejection_ProxyToResponder::Run(
+    ::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult in_result) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply chromeos::machine_learning::mojom::MachineLearningService::LoadHeatmapPalmRejection", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("result"), in_result,
+                        "<value of type ::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMachineLearningService_LoadHeatmapPalmRejection_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::chromeos::machine_learning::mojom::internal::MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult>(
+      in_result, &params->result);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MachineLearningService::Name_);
+  message.set_method_name("LoadHeatmapPalmRejection");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 class MachineLearningService_REMOVED_4_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static MachineLearningService::REMOVED_4Callback CreateCallback(
@@ -2817,6 +3036,9 @@ bool MachineLearningServiceStubDispatch::Accept(
       break;
     }
     case internal::kMachineLearningService_LoadImageAnnotator_Name: {
+      break;
+    }
+    case internal::kMachineLearningService_LoadHeatmapPalmRejection_Name: {
       break;
     }
     case internal::kMachineLearningService_REMOVED_4_Name: {
@@ -3243,6 +3465,43 @@ bool MachineLearningServiceStubDispatch::AcceptWithResponder(
         std::move(p_receiver), std::move(callback));
       return true;
     }
+    case internal::kMachineLearningService_LoadHeatmapPalmRejection_Name: {
+
+      internal::MachineLearningService_LoadHeatmapPalmRejection_Params_Data* params =
+          reinterpret_cast<
+              internal::MachineLearningService_LoadHeatmapPalmRejection_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for MachineLearningService.13
+      bool success = true;
+      ::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigPtr p_config{};
+      ::mojo::PendingRemote<::chromeos::machine_learning::mojom::HeatmapPalmRejectionClient> p_client{};
+      MachineLearningService_LoadHeatmapPalmRejection_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadConfig(&p_config))
+        success = false;
+      if (success) {
+        p_client =
+            input_data_view.TakeClient<decltype(p_client)>();
+      }
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MachineLearningService::Name_, 13, false);
+        return false;
+      }
+      MachineLearningService::LoadHeatmapPalmRejectionCallback callback =
+          MachineLearningService_LoadHeatmapPalmRejection_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->LoadHeatmapPalmRejection(        
+        std::move(p_config), 
+        std::move(p_client), std::move(callback));
+      return true;
+    }
     case internal::kMachineLearningService_REMOVED_4_Name: {
 
       internal::MachineLearningService_REMOVED_4_Params_Data* params =
@@ -3312,6 +3571,8 @@ static const mojo::internal::GenericValidationInfo kMachineLearningServiceValida
      &internal::MachineLearningService_CreateWebPlatformModelLoader_ResponseParams_Data::Validate},
     { &internal::MachineLearningService_LoadImageAnnotator_Params_Data::Validate,
      &internal::MachineLearningService_LoadImageAnnotator_ResponseParams_Data::Validate},
+    { &internal::MachineLearningService_LoadHeatmapPalmRejection_Params_Data::Validate,
+     &internal::MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data::Validate},
 };
 
 bool MachineLearningServiceRequestValidator::Accept(mojo::Message* message) {
@@ -3375,6 +3636,9 @@ void MachineLearningServiceInterceptorForTesting::CreateWebPlatformModelLoader(:
 }
 void MachineLearningServiceInterceptorForTesting::LoadImageAnnotator(::chromeos::machine_learning::mojom::ImageAnnotatorConfigPtr config, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::ImageContentAnnotator> receiver, LoadImageAnnotatorCallback callback) {
   GetForwardingInterface()->LoadImageAnnotator(std::move(config), std::move(receiver), std::move(callback));
+}
+void MachineLearningServiceInterceptorForTesting::LoadHeatmapPalmRejection(::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::HeatmapPalmRejectionClient> client, LoadHeatmapPalmRejectionCallback callback) {
+  GetForwardingInterface()->LoadHeatmapPalmRejection(std::move(config), std::move(client), std::move(callback));
 }
 void MachineLearningServiceInterceptorForTesting::REMOVED_4(::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver, REMOVED_4Callback callback) {
   GetForwardingInterface()->REMOVED_4(std::move(spec), std::move(receiver), std::move(callback));
@@ -3634,6 +3898,29 @@ LoadModelResult MachineLearningServiceAsyncWaiter::LoadImageAnnotator(
     ::chromeos::machine_learning::mojom::ImageAnnotatorConfigPtr config, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::ImageContentAnnotator> receiver) {
   LoadModelResult async_wait_result;
   LoadImageAnnotator(std::move(config),std::move(receiver),&async_wait_result);
+  return async_wait_result;
+}
+
+void MachineLearningServiceAsyncWaiter::LoadHeatmapPalmRejection(
+    ::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::HeatmapPalmRejectionClient> client, ::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult* out_result) {
+  base::RunLoop loop;
+  proxy_->LoadHeatmapPalmRejection(std::move(config),std::move(client),
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult* out_result
+,
+             ::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult result) {*out_result = std::move(result);
+            loop->Quit();
+          },
+          &loop,
+          out_result));
+  loop.Run();
+}
+
+::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult MachineLearningServiceAsyncWaiter::LoadHeatmapPalmRejection(
+    ::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::HeatmapPalmRejectionClient> client) {
+  ::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult async_wait_result;
+  LoadHeatmapPalmRejection(std::move(config),std::move(client),&async_wait_result);
   return async_wait_result;
 }
 

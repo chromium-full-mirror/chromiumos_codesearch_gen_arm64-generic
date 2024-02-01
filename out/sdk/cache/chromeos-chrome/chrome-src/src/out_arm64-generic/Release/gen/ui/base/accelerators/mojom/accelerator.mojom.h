@@ -59,7 +59,7 @@ class  Accelerator {
   template <typename... Args>
   static AcceleratorPtr New(Args&&... args) {
     return AcceleratorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

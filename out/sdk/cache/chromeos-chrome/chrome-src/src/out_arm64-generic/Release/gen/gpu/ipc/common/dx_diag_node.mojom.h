@@ -57,7 +57,7 @@ class GPU_EXPORT DxDiagNode {
   template <typename... Args>
   static DxDiagNodePtr New(Args&&... args) {
     return DxDiagNodePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -58,7 +58,7 @@ class PLATFORM_EXPORT AdGeolocation {
   template <typename... Args>
   static AdGeolocationPtr New(Args&&... args) {
     return AdGeolocationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -206,7 +206,7 @@ class PLATFORM_EXPORT AdProperties {
   template <typename... Args>
   static AdPropertiesPtr New(Args&&... args) {
     return AdPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -363,7 +363,7 @@ class PLATFORM_EXPORT AdTargeting {
   template <typename... Args>
   static AdTargetingPtr New(Args&&... args) {
     return AdTargetingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -508,7 +508,7 @@ class PLATFORM_EXPORT AdRequestConfig {
   template <typename... Args>
   static AdRequestConfigPtr New(Args&&... args) {
     return AdRequestConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

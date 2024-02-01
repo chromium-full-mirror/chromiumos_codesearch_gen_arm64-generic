@@ -273,7 +273,7 @@ class  SystemAppRunningState {
   template <typename... Args>
   static SystemAppRunningStatePtr New(Args&&... args) {
     return SystemAppRunningStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

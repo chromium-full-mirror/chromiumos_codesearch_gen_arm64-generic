@@ -321,7 +321,7 @@ class  DiskSpace {
   template <typename... Args>
   static DiskSpacePtr New(Args&&... args) {
     return DiskSpacePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

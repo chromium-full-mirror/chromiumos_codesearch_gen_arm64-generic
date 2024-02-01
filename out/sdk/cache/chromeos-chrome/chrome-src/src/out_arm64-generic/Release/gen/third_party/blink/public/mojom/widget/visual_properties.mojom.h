@@ -65,7 +65,7 @@ class BLINK_COMMON_EXPORT VisualProperties {
   template <typename... Args>
   static VisualPropertiesPtr New(Args&&... args) {
     return VisualPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

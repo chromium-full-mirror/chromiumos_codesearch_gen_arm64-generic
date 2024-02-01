@@ -165,7 +165,7 @@ class  WindowData {
   template <typename... Args>
   static WindowDataPtr New(Args&&... args) {
     return WindowDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

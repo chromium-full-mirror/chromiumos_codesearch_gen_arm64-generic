@@ -167,7 +167,7 @@ class  PermissionState {
   template <typename... Args>
   static PermissionStatePtr New(Args&&... args) {
     return PermissionStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

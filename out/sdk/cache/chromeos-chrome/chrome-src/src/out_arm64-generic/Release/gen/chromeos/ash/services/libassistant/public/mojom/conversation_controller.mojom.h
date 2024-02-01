@@ -227,7 +227,7 @@ class  DeviceSetting {
   template <typename... Args>
   static DeviceSettingPtr New(Args&&... args) {
     return DeviceSettingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -373,7 +373,7 @@ class  AssistantFeedback {
   template <typename... Args>
   static AssistantFeedbackPtr New(Args&&... args) {
     return AssistantFeedbackPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

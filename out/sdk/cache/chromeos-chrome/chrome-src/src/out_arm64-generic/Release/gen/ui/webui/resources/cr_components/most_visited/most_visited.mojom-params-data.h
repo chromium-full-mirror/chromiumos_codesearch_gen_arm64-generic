@@ -206,6 +206,22 @@ class  MostVisitedPageHandler_PrerenderMostVisitedTile_Params_Data {
 };
 static_assert(sizeof(MostVisitedPageHandler_PrerenderMostVisitedTile_Params_Data) == 24,
               "Bad sizeof(MostVisitedPageHandler_PrerenderMostVisitedTile_Params_Data)");
+class  MostVisitedPageHandler_PreconnectMostVisitedTile_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::MostVisitedTile_Data> tile;
+
+ private:
+  friend class mojo::internal::MessageFragment<MostVisitedPageHandler_PreconnectMostVisitedTile_Params_Data>;
+
+  MostVisitedPageHandler_PreconnectMostVisitedTile_Params_Data();
+  ~MostVisitedPageHandler_PreconnectMostVisitedTile_Params_Data() = delete;
+};
+static_assert(sizeof(MostVisitedPageHandler_PreconnectMostVisitedTile_Params_Data) == 16,
+              "Bad sizeof(MostVisitedPageHandler_PreconnectMostVisitedTile_Params_Data)");
 class  MostVisitedPageHandler_CancelPrerender_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -562,6 +578,32 @@ class MostVisitedPageHandler_PrerenderMostVisitedTile_ParamsDataView {
 };
 
 
+class MostVisitedPageHandler_PreconnectMostVisitedTile_ParamsDataView {
+ public:
+  MostVisitedPageHandler_PreconnectMostVisitedTile_ParamsDataView() = default;
+
+  MostVisitedPageHandler_PreconnectMostVisitedTile_ParamsDataView(
+      internal::MostVisitedPageHandler_PreconnectMostVisitedTile_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetTileDataView(
+      MostVisitedTileDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTile(UserType* output) {
+    
+    auto* pointer = data_->tile.Get();
+    return mojo::internal::Deserialize<::most_visited::mojom::MostVisitedTileDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::MostVisitedPageHandler_PreconnectMostVisitedTile_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 class MostVisitedPageHandler_CancelPrerender_ParamsDataView {
  public:
   MostVisitedPageHandler_CancelPrerender_ParamsDataView() = default;
@@ -731,6 +773,13 @@ inline void MostVisitedPageHandler_UpdateMostVisitedTile_ParamsDataView::GetNewT
 
 
 inline void MostVisitedPageHandler_PrerenderMostVisitedTile_ParamsDataView::GetTileDataView(
+    MostVisitedTileDataView* output) {
+  auto pointer = data_->tile.Get();
+  *output = MostVisitedTileDataView(pointer, message_);
+}
+
+
+inline void MostVisitedPageHandler_PreconnectMostVisitedTile_ParamsDataView::GetTileDataView(
     MostVisitedTileDataView* output) {
   auto pointer = data_->tile.Get();
   *output = MostVisitedTileDataView(pointer, message_);

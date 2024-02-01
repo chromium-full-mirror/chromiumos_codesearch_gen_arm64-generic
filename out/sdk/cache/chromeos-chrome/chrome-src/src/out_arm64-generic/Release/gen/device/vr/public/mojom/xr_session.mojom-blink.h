@@ -64,7 +64,7 @@ class COMPONENT_EXPORT(DEVICE_XR_COMMON_MOJO_BINDINGS_BLINK) XRTrackedImage {
   template <typename... Args>
   static XRTrackedImagePtr New(Args&&... args) {
     return XRTrackedImagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -205,7 +205,7 @@ class COMPONENT_EXPORT(DEVICE_XR_COMMON_MOJO_BINDINGS_BLINK) XRDepthOptions {
   template <typename... Args>
   static XRDepthOptionsPtr New(Args&&... args) {
     return XRDepthOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -348,7 +348,7 @@ class COMPONENT_EXPORT(DEVICE_XR_COMMON_MOJO_BINDINGS_BLINK) XRSessionOptions {
   template <typename... Args>
   static XRSessionOptionsPtr New(Args&&... args) {
     return XRSessionOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -7,7 +7,7 @@
     "type": "module"
   },
   "name": "__MSG_CHROMEVOX_NAME__",
-  "version": "123.0.6268.0",
+  "version": "123.0.6273.0",
   "description": "__MSG_CHROMEVOX_DESCRIPTION__",
   "incognito": "split",
   "bluetooth": {},

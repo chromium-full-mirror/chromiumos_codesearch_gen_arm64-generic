@@ -279,7 +279,7 @@ class BLINK_COMMON_EXPORT PageLifecycleState {
   template <typename... Args>
   static PageLifecycleStatePtr New(Args&&... args) {
     return PageLifecycleStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -432,7 +432,7 @@ class BLINK_COMMON_EXPORT PageRestoreParams {
   template <typename... Args>
   static PageRestoreParamsPtr New(Args&&... args) {
     return PageRestoreParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -581,7 +581,7 @@ class BLINK_COMMON_EXPORT ColorProviderColorMaps {
   template <typename... Args>
   static ColorProviderColorMapsPtr New(Args&&... args) {
     return ColorProviderColorMapsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -727,7 +727,7 @@ class BLINK_COMMON_EXPORT PrerenderPageActivationParams {
   template <typename... Args>
   static PrerenderPageActivationParamsPtr New(Args&&... args) {
     return PrerenderPageActivationParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

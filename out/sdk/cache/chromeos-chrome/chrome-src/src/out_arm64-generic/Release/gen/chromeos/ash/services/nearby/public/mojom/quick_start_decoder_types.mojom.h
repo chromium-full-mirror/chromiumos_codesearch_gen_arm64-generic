@@ -52,7 +52,7 @@ class  BootstrapConfigurations {
   template <typename... Args>
   static BootstrapConfigurationsPtr New(Args&&... args) {
     return BootstrapConfigurationsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -199,7 +199,7 @@ class  UserVerificationMethod {
   template <typename... Args>
   static UserVerificationMethodPtr New(Args&&... args) {
     return UserVerificationMethodPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -340,7 +340,7 @@ class  UserVerificationResponse {
   template <typename... Args>
   static UserVerificationResponsePtr New(Args&&... args) {
     return UserVerificationResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -484,7 +484,7 @@ class  UserVerificationRequested {
   template <typename... Args>
   static UserVerificationRequestedPtr New(Args&&... args) {
     return UserVerificationRequestedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -625,7 +625,7 @@ class  WifiCredentials {
   template <typename... Args>
   static WifiCredentialsPtr New(Args&&... args) {
     return WifiCredentialsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -775,7 +775,7 @@ class  NotifySourceOfUpdateResponse {
   template <typename... Args>
   static NotifySourceOfUpdateResponsePtr New(Args&&... args) {
     return NotifySourceOfUpdateResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -926,7 +926,7 @@ class  QuickStartMessage {
   static QuickStartMessagePtr
   NewBootstrapConfigurations(
       BootstrapConfigurationsPtr value) {
-    auto result = QuickStartMessagePtr(absl::in_place);
+    auto result = QuickStartMessagePtr(std::in_place);
     result->set_bootstrap_configurations(std::move(value));
     return result;
   }
@@ -934,7 +934,7 @@ class  QuickStartMessage {
   static QuickStartMessagePtr
   NewWifiCredentials(
       WifiCredentialsPtr value) {
-    auto result = QuickStartMessagePtr(absl::in_place);
+    auto result = QuickStartMessagePtr(std::in_place);
     result->set_wifi_credentials(std::move(value));
     return result;
   }
@@ -942,7 +942,7 @@ class  QuickStartMessage {
   static QuickStartMessagePtr
   NewNotifySourceOfUpdateResponse(
       NotifySourceOfUpdateResponsePtr value) {
-    auto result = QuickStartMessagePtr(absl::in_place);
+    auto result = QuickStartMessagePtr(std::in_place);
     result->set_notify_source_of_update_response(std::move(value));
     return result;
   }
@@ -950,7 +950,7 @@ class  QuickStartMessage {
   static QuickStartMessagePtr
   NewFidoAssertionResponse(
       FidoAssertionResponsePtr value) {
-    auto result = QuickStartMessagePtr(absl::in_place);
+    auto result = QuickStartMessagePtr(std::in_place);
     result->set_fido_assertion_response(std::move(value));
     return result;
   }
@@ -958,7 +958,7 @@ class  QuickStartMessage {
   static QuickStartMessagePtr
   NewUserVerificationRequested(
       UserVerificationRequestedPtr value) {
-    auto result = QuickStartMessagePtr(absl::in_place);
+    auto result = QuickStartMessagePtr(std::in_place);
     result->set_user_verification_requested(std::move(value));
     return result;
   }
@@ -966,7 +966,7 @@ class  QuickStartMessage {
   static QuickStartMessagePtr
   NewUserVerificationResponse(
       UserVerificationResponsePtr value) {
-    auto result = QuickStartMessagePtr(absl::in_place);
+    auto result = QuickStartMessagePtr(std::in_place);
     result->set_user_verification_response(std::move(value));
     return result;
   }
@@ -974,7 +974,7 @@ class  QuickStartMessage {
   static QuickStartMessagePtr
   NewUserVerificationMethod(
       UserVerificationMethodPtr value) {
-    auto result = QuickStartMessagePtr(absl::in_place);
+    auto result = QuickStartMessagePtr(std::in_place);
     result->set_user_verification_method(std::move(value));
     return result;
   }
@@ -1158,7 +1158,7 @@ class  FidoAssertionResponse {
   template <typename... Args>
   static FidoAssertionResponsePtr New(Args&&... args) {
     return FidoAssertionResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

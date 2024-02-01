@@ -524,8 +524,8 @@ NOINLINE static const char* AutofillSuggestionTriggerSourceToStringHelper(Autofi
       return "kManualFallbackPayments";
     case AutofillSuggestionTriggerSource::kManualFallbackPasswords:
       return "kManualFallbackPasswords";
-    case AutofillSuggestionTriggerSource::kShowPromptAfterDialogClosed:
-      return "kShowPromptAfterDialogClosed";
+    case AutofillSuggestionTriggerSource::kShowPromptAfterDialogClosedNonManualFallback:
+      return "kShowPromptAfterDialogClosedNonManualFallback";
     default:
       return nullptr;
   }
@@ -1112,10 +1112,10 @@ bool FormFieldData_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->unique_renderer_id, 14, validation_context)) {
+          object->renderer_id, 14, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->unique_renderer_id, validation_context))
+  if (!mojo::internal::ValidateStruct(object->renderer_id, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
@@ -1219,10 +1219,10 @@ bool FormFieldData_FillData_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->unique_renderer_id, 2, validation_context)) {
+          object->renderer_id, 2, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->unique_renderer_id, validation_context))
+  if (!mojo::internal::ValidateStruct(object->renderer_id, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
@@ -1330,10 +1330,10 @@ bool FormData_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->unique_renderer_id, 8, validation_context)) {
+          object->renderer_id, 8, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->unique_renderer_id, validation_context))
+  if (!mojo::internal::ValidateStruct(object->renderer_id, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
@@ -1398,10 +1398,10 @@ bool FormData_FillData_Data::Validate(
       static_cast<const FormData_FillData_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->unique_renderer_id, 1, validation_context)) {
+          object->renderer_id, 1, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->unique_renderer_id, validation_context))
+  if (!mojo::internal::ValidateStruct(object->renderer_id, validation_context))
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(

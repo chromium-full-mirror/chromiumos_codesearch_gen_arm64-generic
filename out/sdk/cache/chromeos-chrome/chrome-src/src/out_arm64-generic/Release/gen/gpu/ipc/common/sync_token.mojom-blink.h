@@ -57,7 +57,7 @@ class BLINK_PLATFORM_EXPORT SyncToken {
   template <typename... Args>
   static SyncTokenPtr New(Args&&... args) {
     return SyncTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

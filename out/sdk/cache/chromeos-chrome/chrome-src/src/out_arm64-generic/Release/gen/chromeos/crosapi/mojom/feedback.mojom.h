@@ -166,7 +166,7 @@ class  FeedbackInfo {
   template <typename... Args>
   static FeedbackInfoPtr New(Args&&... args) {
     return FeedbackInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

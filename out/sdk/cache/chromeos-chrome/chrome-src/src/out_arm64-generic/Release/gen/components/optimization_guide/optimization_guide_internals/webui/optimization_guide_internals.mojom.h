@@ -292,7 +292,7 @@ class  DownloadedModelInfo {
   template <typename... Args>
   static DownloadedModelInfoPtr New(Args&&... args) {
     return DownloadedModelInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -439,7 +439,7 @@ class  LoggedClientIds {
   template <typename... Args>
   static LoggedClientIdsPtr New(Args&&... args) {
     return LoggedClientIdsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -149,21 +149,21 @@ class DownloadStatusDataView {
   }
   std::optional<int64_t> received_bytes_deprecated() const {
     if (data_->header_.version < 1) {
-      return absl::nullopt;
+      return std::nullopt;
     }
 
     return data_->received_bytes_deprecated_$flag
-        ? absl::make_optional(data_->received_bytes_deprecated_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->received_bytes_deprecated_$value)
+        : std::nullopt;
   }
   std::optional<int64_t> total_bytes_deprecated() const {
     if (data_->header_.version < 1) {
-      return absl::nullopt;
+      return std::nullopt;
     }
 
     return data_->total_bytes_deprecated_$flag
-        ? absl::make_optional(data_->total_bytes_deprecated_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->total_bytes_deprecated_$value)
+        : std::nullopt;
   }
   inline void GetTargetFilePathDataView(
       ::mojo_base::mojom::FilePathDataView* output);
@@ -176,7 +176,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `target_file_path` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTargetFilePath` instead "
     "of `ReadTargetFilePath if you're fine with null values being "
@@ -188,30 +188,30 @@ static_assert(
   }
   std::optional<bool> cancellable() const {
     if (data_->header_.version < 1) {
-      return absl::nullopt;
+      return std::nullopt;
     }
 
     return data_->cancellable_$flag
-        ? absl::make_optional(!!data_->cancellable_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->cancellable_$value)
+        : std::nullopt;
   }
   std::optional<bool> pausable() const {
     if (data_->header_.version < 1) {
-      return absl::nullopt;
+      return std::nullopt;
     }
 
     return data_->pausable_$flag
-        ? absl::make_optional(!!data_->pausable_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->pausable_$value)
+        : std::nullopt;
   }
   std::optional<bool> resumable() const {
     if (data_->header_.version < 1) {
-      return absl::nullopt;
+      return std::nullopt;
     }
 
     return data_->resumable_$flag
-        ? absl::make_optional(!!data_->resumable_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->resumable_$value)
+        : std::nullopt;
   }
   inline void GetFullPathDataView(
       ::mojo_base::mojom::FilePathDataView* output);
@@ -224,7 +224,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `full_path` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFullPath` instead "
     "of `ReadFullPath if you're fine with null values being "
@@ -245,7 +245,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `status_text` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStatusText` instead "
     "of `ReadStatusText if you're fine with null values being "
@@ -266,7 +266,7 @@ static_assert(
         ::gfx::mojom::ImageSkiaDataView, UserType>(),
     "Attempting to read the optional `image` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadImage` instead "
     "of `ReadImage if you're fine with null values being "
@@ -287,7 +287,7 @@ static_assert(
         ::crosapi::mojom::DownloadProgressDataView, UserType>(),
     "Attempting to read the optional `progress` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadProgress` instead "
     "of `ReadProgress if you're fine with null values being "

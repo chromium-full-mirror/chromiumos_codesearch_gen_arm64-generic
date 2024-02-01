@@ -176,7 +176,7 @@ class PLATFORM_EXPORT MenuItem {
   template <typename... Args>
   static MenuItemPtr New(Args&&... args) {
     return MenuItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

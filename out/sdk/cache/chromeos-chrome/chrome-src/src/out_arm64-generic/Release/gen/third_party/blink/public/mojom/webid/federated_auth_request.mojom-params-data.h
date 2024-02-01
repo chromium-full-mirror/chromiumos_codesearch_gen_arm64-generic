@@ -376,7 +376,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `selected_identity_provider_config_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSelectedIdentityProviderConfigUrl` instead "
     "of `ReadSelectedIdentityProviderConfigUrl if you're fine with null values being "
@@ -396,7 +396,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadToken` instead "
     "of `ReadToken if you're fine with null values being "
@@ -416,7 +416,7 @@ static_assert(
         ::blink::mojom::TokenErrorDataView, UserType>(),
     "Attempting to read the optional `error` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadError` instead "
     "of `ReadError if you're fine with null values being "
@@ -491,7 +491,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::IdentityUserInfoDataView>, UserType>(),
     "Attempting to read the optional `user_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUserInfo` instead "
     "of `ReadUserInfo if you're fine with null values being "

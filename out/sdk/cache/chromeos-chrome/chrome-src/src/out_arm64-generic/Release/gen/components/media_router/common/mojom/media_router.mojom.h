@@ -515,7 +515,7 @@ class  CastSessionState {
   template <typename... Args>
   static CastSessionStatePtr New(Args&&... args) {
     return CastSessionStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -676,7 +676,7 @@ class  MediaSinkExtraData {
   static MediaSinkExtraDataPtr
   NewDialMediaSink(
       DialMediaSinkPtr value) {
-    auto result = MediaSinkExtraDataPtr(absl::in_place);
+    auto result = MediaSinkExtraDataPtr(std::in_place);
     result->set_dial_media_sink(std::move(value));
     return result;
   }
@@ -684,7 +684,7 @@ class  MediaSinkExtraData {
   static MediaSinkExtraDataPtr
   NewCastMediaSink(
       CastMediaSinkPtr value) {
-    auto result = MediaSinkExtraDataPtr(absl::in_place);
+    auto result = MediaSinkExtraDataPtr(std::in_place);
     result->set_cast_media_sink(std::move(value));
     return result;
   }
@@ -806,7 +806,7 @@ class  ProviderState {
   static ProviderStatePtr
   NewCastProviderState(
       CastProviderStatePtr value) {
-    auto result = ProviderStatePtr(absl::in_place);
+    auto result = ProviderStatePtr(std::in_place);
     result->set_cast_provider_state(std::move(value));
     return result;
   }
@@ -907,7 +907,7 @@ class  MediaSink {
   template <typename... Args>
   static MediaSinkPtr New(Args&&... args) {
     return MediaSinkPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1061,7 +1061,7 @@ class  DialMediaSink {
   template <typename... Args>
   static DialMediaSinkPtr New(Args&&... args) {
     return DialMediaSinkPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1207,7 +1207,7 @@ class  CastMediaSink {
   template <typename... Args>
   static CastMediaSinkPtr New(Args&&... args) {
     return CastMediaSinkPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1356,7 +1356,7 @@ class  MediaRoute {
   template <typename... Args>
   static MediaRoutePtr New(Args&&... args) {
     return MediaRoutePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1524,7 +1524,7 @@ class  Issue {
   template <typename... Args>
   static IssuePtr New(Args&&... args) {
     return IssuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1677,7 +1677,7 @@ class  RouteMessage {
   template <typename... Args>
   static RouteMessagePtr New(Args&&... args) {
     return RouteMessagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1823,7 +1823,7 @@ class  RoutePresentationConnection {
   template <typename... Args>
   static RoutePresentationConnectionPtr New(Args&&... args) {
     return RoutePresentationConnectionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1964,7 +1964,7 @@ class  CastProviderState {
   template <typename... Args>
   static CastProviderStatePtr New(Args&&... args) {
     return CastProviderStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

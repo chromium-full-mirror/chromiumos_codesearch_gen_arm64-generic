@@ -475,7 +475,7 @@ class PLATFORM_EXPORT ColorSuggestion {
   template <typename... Args>
   static ColorSuggestionPtr New(Args&&... args) {
     return ColorSuggestionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

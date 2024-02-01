@@ -61,7 +61,7 @@ class BLINK_PLATFORM_EXPORT PreviousOperatorEntry {
   template <typename... Args>
   static PreviousOperatorEntryPtr New(Args&&... args) {
     return PreviousOperatorEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -204,7 +204,7 @@ class BLINK_PLATFORM_EXPORT CTLogInfo {
   template <typename... Args>
   static CTLogInfoPtr New(Args&&... args) {
     return CTLogInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

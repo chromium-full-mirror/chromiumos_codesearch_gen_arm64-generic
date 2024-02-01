@@ -181,7 +181,7 @@ class BLINK_COMMON_EXPORT PluginMimeType {
   template <typename... Args>
   static PluginMimeTypePtr New(Args&&... args) {
     return PluginMimeTypePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -327,7 +327,7 @@ class BLINK_COMMON_EXPORT PluginInfo {
   template <typename... Args>
   static PluginInfoPtr New(Args&&... args) {
     return PluginInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

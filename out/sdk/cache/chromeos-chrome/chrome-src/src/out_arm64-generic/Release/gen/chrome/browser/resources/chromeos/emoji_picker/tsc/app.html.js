@@ -11,7 +11,7 @@ export function getTemplate() {
 </div>
 
 <div id="message" class="sr-only" aria-live="polite"></div>
-  <emoji-search class="search-side-padding" id="search-container" categories-data="[[categoriesData]]" lazy-indexing="[[searchLazyIndexing]]" on-scroll="onSearchScroll" category-metadata="[[getCategoryMetadata(gifSupport, category)]]" gif-support$="[[gifSupport]]" close-gif-nudge-overlay="[[closeGifNudgeOverlay]]" use-grouped-preference="[[shouldUseGroupedPreference(false)]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]">
+  <emoji-search class="search-side-padding" id="search-container" categories-data="[[categoriesData]]" lazy-indexing="[[searchLazyIndexing]]" on-scroll="onSearchScroll" category-metadata="[[getCategoryMetadata(gifSupport, category)]]" gif-support$="[[gifSupport]]" seal-support$="[[sealSupport]]" close-gif-nudge-overlay="[[closeGifNudgeOverlay]]" use-grouped-preference="[[shouldUseGroupedPreference(false)]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]">
   </emoji-search>
 
 <div id="list-container" class$="[[computeListContainerClass(category, status)]]">

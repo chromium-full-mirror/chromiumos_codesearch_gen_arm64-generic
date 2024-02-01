@@ -137,7 +137,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `action` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAction` instead "
     "of `ReadAction if you're fine with null values being "
@@ -157,7 +157,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `method` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMethod` instead "
     "of `ReadMethod if you're fine with null values being "
@@ -177,7 +177,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `enctype` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEnctype` instead "
     "of `ReadEnctype if you're fine with null values being "
@@ -197,7 +197,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `param_title` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadParamTitle` instead "
     "of `ReadParamTitle if you're fine with null values being "
@@ -217,7 +217,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `param_text` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadParamText` instead "
     "of `ReadParamText if you're fine with null values being "
@@ -237,7 +237,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `param_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadParamUrl` instead "
     "of `ReadParamUrl if you're fine with null values being "
@@ -373,7 +373,7 @@ static_assert(
         ::arc::mojom::WebShareTargetInfoDataView, UserType>(),
     "Attempting to read the optional `share_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadShareInfo` instead "
     "of `ReadShareInfo if you're fine with null values being "

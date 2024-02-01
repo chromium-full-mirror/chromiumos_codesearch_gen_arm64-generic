@@ -66,7 +66,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) Value {
   static ValuePtr
   NewNullValue(
       uint8_t value) {
-    auto result = ValuePtr(absl::in_place);
+    auto result = ValuePtr(std::in_place);
     result->set_null_value(std::move(value));
     return result;
   }
@@ -74,7 +74,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) Value {
   static ValuePtr
   NewBoolValue(
       bool value) {
-    auto result = ValuePtr(absl::in_place);
+    auto result = ValuePtr(std::in_place);
     result->set_bool_value(std::move(value));
     return result;
   }
@@ -82,7 +82,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) Value {
   static ValuePtr
   NewIntValue(
       int32_t value) {
-    auto result = ValuePtr(absl::in_place);
+    auto result = ValuePtr(std::in_place);
     result->set_int_value(std::move(value));
     return result;
   }
@@ -90,7 +90,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) Value {
   static ValuePtr
   NewDoubleValue(
       double value) {
-    auto result = ValuePtr(absl::in_place);
+    auto result = ValuePtr(std::in_place);
     result->set_double_value(std::move(value));
     return result;
   }
@@ -98,7 +98,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) Value {
   static ValuePtr
   NewStringValue(
       const std::string& value) {
-    auto result = ValuePtr(absl::in_place);
+    auto result = ValuePtr(std::in_place);
     result->set_string_value(std::move(value));
     return result;
   }
@@ -106,7 +106,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) Value {
   static ValuePtr
   NewBinaryValue(
       std::vector<uint8_t> value) {
-    auto result = ValuePtr(absl::in_place);
+    auto result = ValuePtr(std::in_place);
     result->set_binary_value(std::move(value));
     return result;
   }
@@ -114,7 +114,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) Value {
   static ValuePtr
   NewDictionaryValue(
       ::base::Value::Dict value) {
-    auto result = ValuePtr(absl::in_place);
+    auto result = ValuePtr(std::in_place);
     result->set_dictionary_value(std::move(value));
     return result;
   }
@@ -122,7 +122,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) Value {
   static ValuePtr
   NewListValue(
       ::base::Value::List value) {
-    auto result = ValuePtr(absl::in_place);
+    auto result = ValuePtr(std::in_place);
     result->set_list_value(std::move(value));
     return result;
   }
@@ -314,7 +314,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) DictionaryValue {
   template <typename... Args>
   static DictionaryValuePtr New(Args&&... args) {
     return DictionaryValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -456,7 +456,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) ListValue {
   template <typename... Args>
   static ListValuePtr New(Args&&... args) {
     return ListValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

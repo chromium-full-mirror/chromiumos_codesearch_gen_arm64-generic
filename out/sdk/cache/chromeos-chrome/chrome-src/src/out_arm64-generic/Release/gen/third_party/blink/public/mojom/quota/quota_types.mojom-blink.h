@@ -59,7 +59,7 @@ class PLATFORM_EXPORT UsageBreakdown {
   template <typename... Args>
   static UsageBreakdownPtr New(Args&&... args) {
     return UsageBreakdownPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

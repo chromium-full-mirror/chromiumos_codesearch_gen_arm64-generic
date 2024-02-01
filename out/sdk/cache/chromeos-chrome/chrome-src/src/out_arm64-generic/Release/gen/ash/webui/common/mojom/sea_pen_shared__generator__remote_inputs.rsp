@@ -61,6 +61,8 @@ home/chrome-bot/chrome_root/src/third_party/markupsafe/_compat.py
 home/chrome-bot/chrome_root/src/third_party/markupsafe/_constants.py
 home/chrome-bot/chrome_root/src/third_party/markupsafe/_native.py
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/common/mojom/sea_pen.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/common/mojom/sea_pen_generated.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/common/mojom/sea_pen_shared__generator.rsp
 home/chrome-bot/chrome_root/src/ash/webui/common/mojom/sea_pen.mojom
+home/chrome-bot/chrome_root/src/ash/webui/common/mojom/sea_pen_generated.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/tools/bindings/cpp_templates.zip

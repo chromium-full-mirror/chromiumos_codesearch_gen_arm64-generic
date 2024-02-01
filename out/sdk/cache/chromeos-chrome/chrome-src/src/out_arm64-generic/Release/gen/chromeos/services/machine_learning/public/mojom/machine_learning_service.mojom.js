@@ -37,6 +37,12 @@
     mojo.internal.loadMojomIfNecessary(
         'chromeos/services/machine_learning/public/mojom/handwriting_recognizer.mojom', 'handwriting_recognizer.mojom.js');
   }
+  var heatmap_palm_rejection$ =
+      mojo.internal.exposeNamespace('chromeos.machineLearning.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'chromeos/services/machine_learning/public/mojom/heatmap_palm_rejection.mojom', 'heatmap_palm_rejection.mojom.js');
+  }
   var image_content_annotation$ =
       mojo.internal.exposeNamespace('chromeos.machineLearning.mojom');
   if (mojo.config.autoLoadMojomDeps) {
@@ -1704,6 +1710,136 @@
     encoder.skip(1);
     encoder.skip(1);
   };
+  function MachineLearningService_LoadHeatmapPalmRejection_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  MachineLearningService_LoadHeatmapPalmRejection_Params.prototype.initDefaults_ = function() {
+    this.config = null;
+    this.client = new heatmap_palm_rejection$.HeatmapPalmRejectionClientPtr();
+  };
+  MachineLearningService_LoadHeatmapPalmRejection_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  MachineLearningService_LoadHeatmapPalmRejection_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 24}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate MachineLearningService_LoadHeatmapPalmRejection_Params.config
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, heatmap_palm_rejection$.HeatmapPalmRejectionConfig, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate MachineLearningService_LoadHeatmapPalmRejection_Params.client
+    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 8, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  MachineLearningService_LoadHeatmapPalmRejection_Params.encodedSize = codec.kStructHeaderSize + 16;
+
+  MachineLearningService_LoadHeatmapPalmRejection_Params.decode = function(decoder) {
+    var packed;
+    var val = new MachineLearningService_LoadHeatmapPalmRejection_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.config =
+        decoder.decodeStructPointer(heatmap_palm_rejection$.HeatmapPalmRejectionConfig);
+    val.client =
+        decoder.decodeStruct(new codec.Interface(heatmap_palm_rejection$.HeatmapPalmRejectionClientPtr));
+    return val;
+  };
+
+  MachineLearningService_LoadHeatmapPalmRejection_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(MachineLearningService_LoadHeatmapPalmRejection_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStructPointer(heatmap_palm_rejection$.HeatmapPalmRejectionConfig, val.config);
+    encoder.encodeStruct(new codec.Interface(heatmap_palm_rejection$.HeatmapPalmRejectionClientPtr), val.client);
+  };
+  function MachineLearningService_LoadHeatmapPalmRejection_ResponseParams(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  MachineLearningService_LoadHeatmapPalmRejection_ResponseParams.prototype.initDefaults_ = function() {
+    this.result = 0;
+  };
+  MachineLearningService_LoadHeatmapPalmRejection_ResponseParams.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  MachineLearningService_LoadHeatmapPalmRejection_ResponseParams.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate MachineLearningService_LoadHeatmapPalmRejection_ResponseParams.result
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 0, heatmap_palm_rejection$.LoadHeatmapPalmRejectionResult);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  MachineLearningService_LoadHeatmapPalmRejection_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
+
+  MachineLearningService_LoadHeatmapPalmRejection_ResponseParams.decode = function(decoder) {
+    var packed;
+    var val = new MachineLearningService_LoadHeatmapPalmRejection_ResponseParams();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.result =
+        decoder.decodeStruct(new codec.Enum(heatmap_palm_rejection$.LoadHeatmapPalmRejectionResult));
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    return val;
+  };
+
+  MachineLearningService_LoadHeatmapPalmRejection_ResponseParams.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(MachineLearningService_LoadHeatmapPalmRejection_ResponseParams.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeStruct(codec.Int32, val.result);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+  };
   function MachineLearningService_REMOVED_4_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -1854,6 +1990,7 @@
   var kMachineLearningService_LoadDocumentScanner_Name = 10;
   var kMachineLearningService_CreateWebPlatformModelLoader_Name = 11;
   var kMachineLearningService_LoadImageAnnotator_Name = 12;
+  var kMachineLearningService_LoadHeatmapPalmRejection_Name = 13;
   var kMachineLearningService_REMOVED_4_Name = 4;
 
   function MachineLearningServicePtr(handleOrPtrInfo) {
@@ -2174,6 +2311,32 @@
       });
     }.bind(this));
   };
+  MachineLearningServicePtr.prototype.loadHeatmapPalmRejection = function() {
+    return MachineLearningServiceProxy.prototype.loadHeatmapPalmRejection
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  MachineLearningServiceProxy.prototype.loadHeatmapPalmRejection = function(config, client) {
+    var params_ = new MachineLearningService_LoadHeatmapPalmRejection_Params();
+    params_.config = config;
+    params_.client = client;
+    return new Promise(function(resolve, reject) {
+      var builder = new codec.MessageV1Builder(
+          kMachineLearningService_LoadHeatmapPalmRejection_Name,
+          codec.align(MachineLearningService_LoadHeatmapPalmRejection_Params.encodedSize),
+          codec.kMessageExpectsResponse, 0);
+      builder.encodeStruct(MachineLearningService_LoadHeatmapPalmRejection_Params, params_);
+      var message = builder.finish();
+      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
+        var reader = new codec.MessageReader(message);
+        var responseParams =
+            reader.decodeStruct(MachineLearningService_LoadHeatmapPalmRejection_ResponseParams);
+        resolve(responseParams);
+      }).catch(function(result) {
+        reject(Error("Connection error: " + result));
+      });
+    }.bind(this));
+  };
   MachineLearningServicePtr.prototype.rEMOVED4 = function() {
     return MachineLearningServiceProxy.prototype.rEMOVED4
         .apply(this.ptr.getProxy(), arguments);
@@ -2239,6 +2402,9 @@
   }
   MachineLearningServiceStub.prototype.loadImageAnnotator = function(config, receiver) {
     return this.delegate_ && this.delegate_.loadImageAnnotator && this.delegate_.loadImageAnnotator(config, receiver);
+  }
+  MachineLearningServiceStub.prototype.loadHeatmapPalmRejection = function(config, client) {
+    return this.delegate_ && this.delegate_.loadHeatmapPalmRejection && this.delegate_.loadHeatmapPalmRejection(config, client);
   }
   MachineLearningServiceStub.prototype.rEMOVED4 = function(spec, receiver) {
     return this.delegate_ && this.delegate_.rEMOVED4 && this.delegate_.rEMOVED4(spec, receiver);
@@ -2436,6 +2602,22 @@
         responder.accept(message);
       });
       return true;
+    case kMachineLearningService_LoadHeatmapPalmRejection_Name:
+      var params = reader.decodeStruct(MachineLearningService_LoadHeatmapPalmRejection_Params);
+      this.loadHeatmapPalmRejection(params.config, params.client).then(function(response) {
+        var responseParams =
+            new MachineLearningService_LoadHeatmapPalmRejection_ResponseParams();
+        responseParams.result = response.result;
+        var builder = new codec.MessageV1Builder(
+            kMachineLearningService_LoadHeatmapPalmRejection_Name,
+            codec.align(MachineLearningService_LoadHeatmapPalmRejection_ResponseParams.encodedSize),
+            codec.kMessageIsResponse, reader.requestID);
+        builder.encodeStruct(MachineLearningService_LoadHeatmapPalmRejection_ResponseParams,
+                             responseParams);
+        var message = builder.finish();
+        responder.accept(message);
+      });
+      return true;
     case kMachineLearningService_REMOVED_4_Name:
       var params = reader.decodeStruct(MachineLearningService_REMOVED_4_Params);
       this.rEMOVED4(params.spec, params.receiver).then(function(response) {
@@ -2509,6 +2691,10 @@
         if (message.expectsResponse())
           paramsClass = MachineLearningService_LoadImageAnnotator_Params;
       break;
+      case kMachineLearningService_LoadHeatmapPalmRejection_Name:
+        if (message.expectsResponse())
+          paramsClass = MachineLearningService_LoadHeatmapPalmRejection_Params;
+      break;
       case kMachineLearningService_REMOVED_4_Name:
         if (message.expectsResponse())
           paramsClass = MachineLearningService_REMOVED_4_Params;
@@ -2567,6 +2753,10 @@
         if (message.isResponse())
           paramsClass = MachineLearningService_LoadImageAnnotator_ResponseParams;
         break;
+      case kMachineLearningService_LoadHeatmapPalmRejection_Name:
+        if (message.isResponse())
+          paramsClass = MachineLearningService_LoadHeatmapPalmRejection_ResponseParams;
+        break;
       case kMachineLearningService_REMOVED_4_Name:
         if (message.isResponse())
           paramsClass = MachineLearningService_REMOVED_4_ResponseParams;
@@ -2579,7 +2769,7 @@
 
   var MachineLearningService = {
     name: 'chromeos.machine_learning.mojom.MachineLearningService',
-    kVersion: 7,
+    kVersion: 13,
     ptrClass: MachineLearningServicePtr,
     proxyClass: MachineLearningServiceProxy,
     stubClass: MachineLearningServiceStub,

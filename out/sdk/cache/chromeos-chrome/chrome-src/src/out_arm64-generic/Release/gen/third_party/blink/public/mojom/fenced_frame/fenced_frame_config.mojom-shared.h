@@ -394,7 +394,7 @@ static_assert(
         ::blink::mojom::PotentiallyOpaqueURLDataView, UserType>(),
     "Attempting to read the optional `mapped_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMappedUrl` instead "
     "of `ReadMappedUrl if you're fine with null values being "
@@ -414,7 +414,7 @@ static_assert(
         ::blink::mojom::PotentiallyOpaqueSizeDataView, UserType>(),
     "Attempting to read the optional `container_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadContainerSize` instead "
     "of `ReadContainerSize if you're fine with null values being "
@@ -434,7 +434,7 @@ static_assert(
         ::blink::mojom::PotentiallyOpaqueSizeDataView, UserType>(),
     "Attempting to read the optional `content_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadContentSize` instead "
     "of `ReadContentSize if you're fine with null values being "
@@ -454,7 +454,7 @@ static_assert(
         ::blink::mojom::PotentiallyOpaqueBoolDataView, UserType>(),
     "Attempting to read the optional `deprecated_should_freeze_initial_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeprecatedShouldFreezeInitialSize` instead "
     "of `ReadDeprecatedShouldFreezeInitialSize if you're fine with null values being "
@@ -474,7 +474,7 @@ static_assert(
         ::blink::mojom::PotentiallyOpaqueAdAuctionDataDataView, UserType>(),
     "Attempting to read the optional `ad_auction_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAdAuctionData` instead "
     "of `ReadAdAuctionData if you're fine with null values being "
@@ -494,7 +494,7 @@ static_assert(
         ::blink::mojom::PotentiallyOpaqueConfigVectorDataView, UserType>(),
     "Attempting to read the optional `nested_configs` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNestedConfigs` instead "
     "of `ReadNestedConfigs if you're fine with null values being "
@@ -514,7 +514,7 @@ static_assert(
         ::blink::mojom::PotentiallyOpaqueSharedStorageBudgetMetadataDataView, UserType>(),
     "Attempting to read the optional `shared_storage_budget_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSharedStorageBudgetMetadata` instead "
     "of `ReadSharedStorageBudgetMetadata if you're fine with null values being "
@@ -564,7 +564,7 @@ static_assert(
         ::blink::mojom::ParentPermissionsInfoDataView, UserType>(),
     "Attempting to read the optional `parent_permissions_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadParentPermissionsInfo` instead "
     "of `ReadParentPermissionsInfo if you're fine with null values being "
@@ -600,7 +600,7 @@ static_assert(
         ::blink::mojom::PotentiallyOpaqueURLDataView, UserType>(),
     "Attempting to read the optional `mapped_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMappedUrl` instead "
     "of `ReadMappedUrl if you're fine with null values being "
@@ -620,7 +620,7 @@ static_assert(
         ::blink::mojom::PotentiallyOpaqueSizeDataView, UserType>(),
     "Attempting to read the optional `container_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadContainerSize` instead "
     "of `ReadContainerSize if you're fine with null values being "
@@ -640,7 +640,7 @@ static_assert(
         ::blink::mojom::PotentiallyOpaqueSizeDataView, UserType>(),
     "Attempting to read the optional `content_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadContentSize` instead "
     "of `ReadContentSize if you're fine with null values being "
@@ -660,7 +660,7 @@ static_assert(
         ::blink::mojom::PotentiallyOpaqueBoolDataView, UserType>(),
     "Attempting to read the optional `deprecated_should_freeze_initial_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeprecatedShouldFreezeInitialSize` instead "
     "of `ReadDeprecatedShouldFreezeInitialSize if you're fine with null values being "
@@ -680,7 +680,7 @@ static_assert(
         ::blink::mojom::PotentiallyOpaqueAdAuctionDataDataView, UserType>(),
     "Attempting to read the optional `ad_auction_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAdAuctionData` instead "
     "of `ReadAdAuctionData if you're fine with null values being "
@@ -700,7 +700,7 @@ static_assert(
         ::blink::mojom::PotentiallyOpaqueURNConfigVectorDataView, UserType>(),
     "Attempting to read the optional `nested_urn_config_pairs` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNestedUrnConfigPairs` instead "
     "of `ReadNestedUrnConfigPairs if you're fine with null values being "
@@ -720,7 +720,7 @@ static_assert(
         ::blink::mojom::PotentiallyOpaqueSharedStorageBudgetMetadataDataView, UserType>(),
     "Attempting to read the optional `shared_storage_budget_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSharedStorageBudgetMetadata` instead "
     "of `ReadSharedStorageBudgetMetadata if you're fine with null values being "
@@ -763,7 +763,7 @@ static_assert(
         ::blink::mojom::ParentPermissionsInfoDataView, UserType>(),
     "Attempting to read the optional `parent_permissions_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadParentPermissionsInfo` instead "
     "of `ReadParentPermissionsInfo if you're fine with null values being "

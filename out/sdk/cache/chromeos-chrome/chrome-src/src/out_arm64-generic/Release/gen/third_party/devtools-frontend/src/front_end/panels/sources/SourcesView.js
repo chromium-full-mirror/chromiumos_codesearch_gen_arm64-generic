@@ -65,7 +65,7 @@ export class SourcesView extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox)
         this.searchableViewInternal.setMinimalSearchQuerySize(0);
         this.searchableViewInternal.show(this.element);
         this.sourceViewByUISourceCode = new Map();
-        this.editorContainer = new TabbedEditorContainer(this, Common.Settings.Settings.instance().createLocalSetting('previouslyViewedFiles', []), this.placeholderElement(), this.focusedPlaceholderElement);
+        this.editorContainer = new TabbedEditorContainer(this, Common.Settings.Settings.instance().createLocalSetting('previously-viewed-files', []), this.placeholderElement(), this.focusedPlaceholderElement);
         this.editorContainer.show(this.searchableViewInternal.element);
         this.editorContainer.addEventListener("EditorSelected" /* TabbedEditorContainerEvents.EditorSelected */, this.editorSelected, this);
         this.editorContainer.addEventListener("EditorClosed" /* TabbedEditorContainerEvents.EditorClosed */, this.editorClosed, this);

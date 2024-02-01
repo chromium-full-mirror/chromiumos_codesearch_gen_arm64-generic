@@ -183,7 +183,7 @@ static_assert(
         ::network::mojom::URLLoaderClientEndpointsDataView, UserType>(),
     "Attempting to read the optional `url_loader_client_endpoints` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUrlLoaderClientEndpoints` instead "
     "of `ReadUrlLoaderClientEndpoints if you're fine with null values being "
@@ -203,7 +203,7 @@ static_assert(
         ::blink::mojom::URLLoaderFactoryBundleDataView, UserType>(),
     "Attempting to read the optional `subresource_loader_factories` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSubresourceLoaderFactories` instead "
     "of `ReadSubresourceLoaderFactories if you're fine with null values being "
@@ -223,7 +223,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::TransferrableURLLoaderDataView>, UserType>(),
     "Attempting to read the optional `subresource_overrides` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSubresourceOverrides` instead "
     "of `ReadSubresourceOverrides if you're fine with null values being "
@@ -243,7 +243,7 @@ static_assert(
         ::blink::mojom::ControllerServiceWorkerInfoDataView, UserType>(),
     "Attempting to read the optional `controller_service_worker_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadControllerServiceWorkerInfo` instead "
     "of `ReadControllerServiceWorkerInfo if you're fine with null values being "
@@ -263,7 +263,7 @@ static_assert(
         ::blink::mojom::ServiceWorkerContainerInfoForClientDataView, UserType>(),
     "Attempting to read the optional `container_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadContainerInfo` instead "
     "of `ReadContainerInfo if you're fine with null values being "
@@ -330,7 +330,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::ParsedPermissionsPolicyDeclarationDataView>, UserType>(),
     "Attempting to read the optional `permissions_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPermissionsPolicy` instead "
     "of `ReadPermissionsPolicy if you're fine with null values being "
@@ -378,7 +378,7 @@ static_assert(
         ::content::mojom::CookieManagerInfoDataView, UserType>(),
     "Attempting to read the optional `cookie_manager_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCookieManagerInfo` instead "
     "of `ReadCookieManagerInfo if you're fine with null values being "
@@ -398,7 +398,7 @@ static_assert(
         ::content::mojom::StorageInfoDataView, UserType>(),
     "Attempting to read the optional `storage_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStorageInfo` instead "
     "of `ReadStorageInfo if you're fine with null values being "
@@ -444,7 +444,7 @@ static_assert(
         ::content::mojom::DidCommitProvisionalLoadInterfaceParamsDataView, UserType>(),
     "Attempting to read the optional `interface_params` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInterfaceParams` instead "
     "of `ReadInterfaceParams if you're fine with null values being "
@@ -519,7 +519,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `error_page_content` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErrorPageContent` instead "
     "of `ReadErrorPageContent if you're fine with null values being "
@@ -539,7 +539,7 @@ static_assert(
         ::blink::mojom::URLLoaderFactoryBundleDataView, UserType>(),
     "Attempting to read the optional `subresource_loader_factories` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSubresourceLoaderFactories` instead "
     "of `ReadSubresourceLoaderFactories if you're fine with null values being "
@@ -579,7 +579,7 @@ static_assert(
         ::content::mojom::AlternativeErrorPageOverrideInfoDataView, UserType>(),
     "Attempting to read the optional `alternative_error_page_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAlternativeErrorPageInfo` instead "
     "of `ReadAlternativeErrorPageInfo if you're fine with null values being "
@@ -625,7 +625,7 @@ static_assert(
         ::content::mojom::DidCommitProvisionalLoadInterfaceParamsDataView, UserType>(),
     "Attempting to read the optional `interface_params` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInterfaceParams` instead "
     "of `ReadInterfaceParams if you're fine with null values being "

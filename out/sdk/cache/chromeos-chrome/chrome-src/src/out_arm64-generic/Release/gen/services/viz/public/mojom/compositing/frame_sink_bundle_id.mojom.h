@@ -53,7 +53,7 @@ class  FrameSinkBundleId {
   template <typename... Args>
   static FrameSinkBundleIdPtr New(Args&&... args) {
     return FrameSinkBundleIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

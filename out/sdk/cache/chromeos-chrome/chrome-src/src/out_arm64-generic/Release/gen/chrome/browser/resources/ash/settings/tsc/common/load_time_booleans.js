@@ -57,6 +57,10 @@ export function isAccountManagerEnabled() {
 export function isPowerwashAllowed() {
     return loadTimeData.getBoolean('allowPowerwash');
 }
+// Reset page
+export function isSanitizeAllowed() {
+    return loadTimeData.getBoolean('allowSanitize');
+}
 // Search page
 export function isAssistantAllowed() {
     return loadTimeData.getBoolean('isAssistantAllowed');
@@ -67,4 +71,7 @@ export function shouldShowQuickAnswersSettings() {
 // System preferences page
 export function shouldShowStartup() {
     return loadTimeData.getBoolean('shouldShowStartup');
+}
+export function shouldShowMultitasking() {
+    return loadTimeData.getBoolean('shouldShowMultitasking');
 }

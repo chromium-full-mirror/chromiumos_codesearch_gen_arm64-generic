@@ -79,8 +79,11 @@ class BlockingDetailsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  uint32_t feature() const {
-    return data_->feature;
+  std::optional<uint32_t> feature() const {
+
+    return data_->feature_$flag
+        ? std::make_optional(data_->feature_$value)
+        : std::nullopt;
   }
   inline void GetUrlDataView(
       mojo::StringDataView* output);
@@ -93,7 +96,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUrl` instead "
     "of `ReadUrl if you're fine with null values being "
@@ -113,7 +116,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `function_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFunctionName` instead "
     "of `ReadFunctionName if you're fine with null values being "
@@ -156,7 +159,10 @@ struct Serializer<::blink::mojom::BlockingDetailsDataView, MaybeConstUserType> {
     if (CallIsNullIfExists<Traits>(input))
       return;
     fragment.Allocate();
-    fragment->feature = Traits::feature(input);
+    fragment->feature_$flag = Traits::feature(input).has_value();
+    if (Traits::feature(input).has_value()) {
+      fragment->feature_$value = Traits::feature(input).value();
+    }
     decltype(Traits::url(input)) in_url = Traits::url(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->url)::BaseType> url_fragment(

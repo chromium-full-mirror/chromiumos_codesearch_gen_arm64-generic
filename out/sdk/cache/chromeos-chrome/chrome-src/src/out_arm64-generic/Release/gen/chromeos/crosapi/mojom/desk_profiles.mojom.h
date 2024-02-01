@@ -175,7 +175,7 @@ class  LacrosProfileSummary {
   template <typename... Args>
   static LacrosProfileSummaryPtr New(Args&&... args) {
     return LacrosProfileSummaryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

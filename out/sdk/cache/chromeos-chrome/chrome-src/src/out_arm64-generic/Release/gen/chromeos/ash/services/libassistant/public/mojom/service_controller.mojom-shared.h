@@ -120,7 +120,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `s3_server_uri_override` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadS3ServerUriOverride` instead "
     "of `ReadS3ServerUriOverride if you're fine with null values being "
@@ -140,7 +140,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `device_id_override` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeviceIdOverride` instead "
     "of `ReadDeviceIdOverride if you're fine with null values being "

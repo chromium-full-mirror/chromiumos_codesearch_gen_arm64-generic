@@ -180,7 +180,7 @@ class  WebShareTargetInfo {
   template <typename... Args>
   static WebShareTargetInfoPtr New(Args&&... args) {
     return WebShareTargetInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -341,7 +341,7 @@ class  WebApkInfo {
   template <typename... Args>
   static WebApkInfoPtr New(Args&&... args) {
     return WebApkInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

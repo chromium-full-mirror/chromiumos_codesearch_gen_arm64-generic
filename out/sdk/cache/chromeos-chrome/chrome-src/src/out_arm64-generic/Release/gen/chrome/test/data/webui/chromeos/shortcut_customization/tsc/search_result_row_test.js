@@ -87,11 +87,11 @@ suite('searchResultRowTest', function () {
         // Control + Overview
         assertEquals(2, keys1.length);
         assertEquals('ctrl', keys1[0].shadowRoot.querySelector('#key').textContent.trim());
-        assertEquals('show windows', keys1[1].shadowRoot.querySelector('#icon-description').textContent);
+        assertEquals('show windows', keys1[1].shadowRoot.querySelector('#keyIcon').getAttribute('aria-label'));
         const keys2 = acceleratorElements[1].querySelectorAll('shortcut-input-key');
         // Screenshot
         assertEquals(1, keys2.length);
-        assertEquals('take screenshot', keys2[0].shadowRoot.querySelector('#icon-description').textContent);
+        assertEquals('take screenshot', keys2[0].shadowRoot.querySelector('#keyIcon').getAttribute('aria-label'));
         // Select the row and verify that the keys are highlighted.
         assertFalse(keys1[0].highlighted);
         assertFalse(keys1[1].highlighted);

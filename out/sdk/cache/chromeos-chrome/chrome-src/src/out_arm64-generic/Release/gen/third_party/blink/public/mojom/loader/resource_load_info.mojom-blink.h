@@ -69,7 +69,7 @@ class PLATFORM_EXPORT CommonNetworkInfo {
   template <typename... Args>
   static CommonNetworkInfoPtr New(Args&&... args) {
     return CommonNetworkInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -215,7 +215,7 @@ class PLATFORM_EXPORT RedirectInfo {
   template <typename... Args>
   static RedirectInfoPtr New(Args&&... args) {
     return RedirectInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -360,7 +360,7 @@ class PLATFORM_EXPORT ResourceLoadInfo {
   template <typename... Args>
   static ResourceLoadInfoPtr New(Args&&... args) {
     return ResourceLoadInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

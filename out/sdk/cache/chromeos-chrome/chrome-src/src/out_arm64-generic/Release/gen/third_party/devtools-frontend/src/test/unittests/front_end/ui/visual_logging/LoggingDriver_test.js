@@ -142,6 +142,38 @@ describe('LoggingDriver', () => {
         await new Promise(resolve => setTimeout(resolve, 0));
         assert.isFalse(recordClick.called);
     });
+    it('does not log click on double click', async () => {
+        const clickLogThrottler = new Common.Throttler.Throttler(1000000000);
+        addLoggableElements();
+        const element = document.getElementById('element');
+        element.setAttribute('jslog', 'TreeItem; context:42; track: click, dblclick');
+        await VisualLoggingTesting.LoggingDriver.startLogging({ clickLogThrottler });
+        const recordClick = sinon.stub(Host.InspectorFrontendHost.InspectorFrontendHostInstance, 'recordClick');
+        element.dispatchEvent(new MouseEvent('click'));
+        element.dispatchEvent(new MouseEvent('dblclick'));
+        await new Promise(resolve => setTimeout(resolve, 0));
+        assert.exists(clickLogThrottler.process);
+        assert.isFalse(recordClick.called);
+        await clickLogThrottler.process?.();
+        assert.isTrue(recordClick.calledOnce);
+        assert.deepStrictEqual(stabilizeEvent(recordClick.firstCall.firstArg), { veid: 0, context: 42, mouseButton: 0, doubleClick: true });
+    });
+    it('does not log click on parent when clicked on child', async () => {
+        const clickLogThrottler = new Common.Throttler.Throttler(1000000000);
+        addLoggableElements();
+        const parent = document.getElementById('parent');
+        parent.setAttribute('jslog', 'TreeItem; track: click');
+        await VisualLoggingTesting.LoggingDriver.startLogging({ clickLogThrottler });
+        const recordClick = sinon.stub(Host.InspectorFrontendHost.InspectorFrontendHostInstance, 'recordClick');
+        const element = document.getElementById('element');
+        element.click();
+        await new Promise(resolve => setTimeout(resolve, 0));
+        assert.exists(clickLogThrottler.process);
+        assert.isFalse(recordClick.called);
+        await clickLogThrottler.process?.();
+        assert.isTrue(recordClick.calledOnce);
+        assert.deepStrictEqual(stabilizeEvent(recordClick.firstCall.firstArg), { veid: 0, context: 42, mouseButton: 0, doubleClick: false });
+    });
     it('logs keydown', async () => {
         const keyboardLogThrottler = new Common.Throttler.Throttler(1000000000);
         addLoggableElements();

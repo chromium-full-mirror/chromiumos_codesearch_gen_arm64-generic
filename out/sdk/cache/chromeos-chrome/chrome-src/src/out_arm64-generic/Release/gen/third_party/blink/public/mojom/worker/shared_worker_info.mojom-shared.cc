@@ -21,6 +21,30 @@
 namespace blink {
 namespace mojom {
 
+NOINLINE static const char* SharedWorkerSameSiteCookiesToStringHelper(SharedWorkerSameSiteCookies value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case SharedWorkerSameSiteCookies::kAll:
+      return "kAll";
+    case SharedWorkerSameSiteCookies::kNone:
+      return "kNone";
+    default:
+      return nullptr;
+  }
+}
+
+std::string SharedWorkerSameSiteCookiesToString(SharedWorkerSameSiteCookies value) {
+  const char *str = SharedWorkerSameSiteCookiesToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown SharedWorkerSameSiteCookies value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, SharedWorkerSameSiteCookies value) {
+  return os << SharedWorkerSameSiteCookiesToString(value);
+}
+
 namespace internal {
 
 
@@ -31,7 +55,7 @@ bool SharedWorkerInfo_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
@@ -72,6 +96,11 @@ bool SharedWorkerInfo_Data::Validate(
   if (!mojo::internal::ValidateStruct(object->outside_fetch_client_settings_object, validation_context))
     return false;
 
+
+  if (!::blink::mojom::internal::SharedWorkerSameSiteCookies_Data
+        ::Validate(object->same_site_cookies, validation_context))
+    return false;
+
   return true;
 }
 
@@ -81,3 +110,13 @@ SharedWorkerInfo_Data::SharedWorkerInfo_Data()
 }  // namespace internal
 }  // namespace mojom
 }  // namespace blink
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::blink::mojom::SharedWorkerSameSiteCookies>::WriteIntoTrace(
+   perfetto::TracedValue context, ::blink::mojom::SharedWorkerSameSiteCookies value) {
+  return std::move(context).WriteString(::blink::mojom::SharedWorkerSameSiteCookiesToString(value));
+}
+
+} // namespace perfetto

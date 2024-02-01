@@ -49,17 +49,20 @@ SharedWorkerInfo::SharedWorkerInfo()
     : url(),
       options(),
       content_security_policies(),
-      outside_fetch_client_settings_object() {}
+      outside_fetch_client_settings_object(),
+      same_site_cookies(SharedWorkerSameSiteCookies::kNone) {}
 
 SharedWorkerInfo::SharedWorkerInfo(
     const ::blink::KURL& url_in,
     ::blink::mojom::blink::WorkerOptionsPtr options_in,
     WTF::Vector<::network::mojom::blink::ContentSecurityPolicyPtr> content_security_policies_in,
-    ::blink::mojom::blink::FetchClientSettingsObjectPtr outside_fetch_client_settings_object_in)
+    ::blink::mojom::blink::FetchClientSettingsObjectPtr outside_fetch_client_settings_object_in,
+    SharedWorkerSameSiteCookies same_site_cookies_in)
     : url(std::move(url_in)),
       options(std::move(options_in)),
       content_security_policies(std::move(content_security_policies_in)),
-      outside_fetch_client_settings_object(std::move(outside_fetch_client_settings_object_in)) {}
+      outside_fetch_client_settings_object(std::move(outside_fetch_client_settings_object_in)),
+      same_site_cookies(std::move(same_site_cookies_in)) {}
 
 SharedWorkerInfo::~SharedWorkerInfo() = default;
 
@@ -102,6 +105,15 @@ void SharedWorkerInfo::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "same_site_cookies"), this->same_site_cookies,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type SharedWorkerSameSiteCookies>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool SharedWorkerInfo::Validate(
@@ -131,6 +143,8 @@ bool StructTraits<::blink::mojom::blink::SharedWorkerInfo::DataView, ::blink::mo
       if (success && !input.ReadContentSecurityPolicies(&result->content_security_policies))
         success = false;
       if (success && !input.ReadOutsideFetchClientSettingsObject(&result->outside_fetch_client_settings_object))
+        success = false;
+      if (success && !input.ReadSameSiteCookies(&result->same_site_cookies))
         success = false;
   *output = std::move(result);
   return success;

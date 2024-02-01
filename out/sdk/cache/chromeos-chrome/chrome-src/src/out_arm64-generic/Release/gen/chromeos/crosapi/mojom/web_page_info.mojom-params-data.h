@@ -109,7 +109,7 @@ static_assert(
         ::crosapi::mojom::WebPageInfoDataView, UserType>(),
     "Attempting to read the optional `web_page_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWebPageInfo` instead "
     "of `ReadWebPageInfo if you're fine with null values being "

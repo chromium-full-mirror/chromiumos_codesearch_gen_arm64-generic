@@ -52,7 +52,7 @@ class  PortraitModeConfig {
   template <typename... Args>
   static PortraitModeConfigPtr New(Args&&... args) {
     return PortraitModeConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -203,7 +203,7 @@ class  Camera3StreamEffect {
   static Camera3StreamEffectPtr
   NewUnknownConfig(
       uint8_t value) {
-    auto result = Camera3StreamEffectPtr(absl::in_place);
+    auto result = Camera3StreamEffectPtr(std::in_place);
     result->set_unknown_config(std::move(value));
     return result;
   }
@@ -211,7 +211,7 @@ class  Camera3StreamEffect {
   static Camera3StreamEffectPtr
   NewPortraitModeConfig(
       PortraitModeConfigPtr value) {
-    auto result = Camera3StreamEffectPtr(absl::in_place);
+    auto result = Camera3StreamEffectPtr(std::in_place);
     result->set_portrait_mode_config(std::move(value));
     return result;
   }

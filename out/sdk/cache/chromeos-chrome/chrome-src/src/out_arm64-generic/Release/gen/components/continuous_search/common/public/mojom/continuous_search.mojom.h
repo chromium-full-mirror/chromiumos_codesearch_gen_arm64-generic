@@ -174,7 +174,7 @@ class  SearchResult {
   template <typename... Args>
   static SearchResultPtr New(Args&&... args) {
     return SearchResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -317,7 +317,7 @@ class  ResultGroup {
   template <typename... Args>
   static ResultGroupPtr New(Args&&... args) {
     return ResultGroupPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -462,7 +462,7 @@ class  CategoryResults {
   template <typename... Args>
   static CategoryResultsPtr New(Args&&... args) {
     return CategoryResultsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

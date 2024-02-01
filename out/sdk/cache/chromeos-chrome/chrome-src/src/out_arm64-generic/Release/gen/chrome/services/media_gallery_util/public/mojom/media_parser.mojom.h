@@ -423,7 +423,7 @@ class  MediaStreamInfo {
   template <typename... Args>
   static MediaStreamInfoPtr New(Args&&... args) {
     return MediaStreamInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -568,7 +568,7 @@ class  MediaMetadata {
   template <typename... Args>
   static MediaMetadataPtr New(Args&&... args) {
     return MediaMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -752,7 +752,7 @@ class  AttachedImage {
   template <typename... Args>
   static AttachedImagePtr New(Args&&... args) {
     return AttachedImagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

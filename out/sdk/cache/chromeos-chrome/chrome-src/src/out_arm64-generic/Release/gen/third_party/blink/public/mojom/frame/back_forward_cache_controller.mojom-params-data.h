@@ -29,7 +29,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) BackForwardCacheControl
 
   mojo::internal::StructHeader header_;
   int32_t reason;
-  uint8_t padfinal_[4];
+  uint8_t pad0_[4];
+  mojo::internal::Pointer<internal::BlockingDetails_Data> details;
 
  private:
   friend class mojo::internal::MessageFragment<BackForwardCacheControllerHost_EvictFromBackForwardCache_Params_Data>;
@@ -37,7 +38,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) BackForwardCacheControl
   BackForwardCacheControllerHost_EvictFromBackForwardCache_Params_Data();
   ~BackForwardCacheControllerHost_EvictFromBackForwardCache_Params_Data() = delete;
 };
-static_assert(sizeof(BackForwardCacheControllerHost_EvictFromBackForwardCache_Params_Data) == 16,
+static_assert(sizeof(BackForwardCacheControllerHost_EvictFromBackForwardCache_Params_Data) == 24,
               "Bad sizeof(BackForwardCacheControllerHost_EvictFromBackForwardCache_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) BackForwardCacheControllerHost_DidChangeBackForwardCacheDisablingFeatures_Params_Data {
  public:
@@ -66,7 +67,7 @@ class BackForwardCacheControllerHost_EvictFromBackForwardCache_ParamsDataView {
   BackForwardCacheControllerHost_EvictFromBackForwardCache_ParamsDataView(
       internal::BackForwardCacheControllerHost_EvictFromBackForwardCache_Params_Data* data,
       mojo::Message* message)
-      : data_(data) {}
+      : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
   template <typename UserType>
@@ -79,8 +80,29 @@ class BackForwardCacheControllerHost_EvictFromBackForwardCache_ParamsDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::blink::mojom::RendererEvictionReason>(data_->reason));
   }
+  inline void GetDetailsDataView(
+      BlockingDetailsDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadDetails(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::blink::mojom::BlockingDetailsDataView, UserType>(),
+    "Attempting to read the optional `details` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadDetails` instead "
+    "of `ReadDetails if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->details.Get();
+    return mojo::internal::Deserialize<::blink::mojom::BlockingDetailsDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::BackForwardCacheControllerHost_EvictFromBackForwardCache_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -109,6 +131,11 @@ class BackForwardCacheControllerHost_DidChangeBackForwardCacheDisablingFeatures_
   mojo::Message* message_ = nullptr;
 };
 
+inline void BackForwardCacheControllerHost_EvictFromBackForwardCache_ParamsDataView::GetDetailsDataView(
+    BlockingDetailsDataView* output) {
+  auto pointer = data_->details.Get();
+  *output = BlockingDetailsDataView(pointer, message_);
+}
 
 
 inline void BackForwardCacheControllerHost_DidChangeBackForwardCacheDisablingFeatures_ParamsDataView::GetDetailsDataView(

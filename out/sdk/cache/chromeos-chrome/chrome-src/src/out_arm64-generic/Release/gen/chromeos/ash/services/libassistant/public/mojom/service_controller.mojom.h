@@ -304,7 +304,7 @@ class  BootupConfig {
   template <typename... Args>
   static BootupConfigPtr New(Args&&... args) {
     return BootupConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -254,7 +254,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `message` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMessage` instead "
     "of `ReadMessage if you're fine with null values being "
@@ -324,7 +324,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `cache_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCacheName` instead "
     "of `ReadCacheName if you're fine with null values being "
@@ -380,7 +380,7 @@ static_assert(
         ::blink::mojom::FetchAPIResponseDataView, UserType>(),
     "Attempting to read the optional `response` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResponse` instead "
     "of `ReadResponse if you're fine with null values being "
@@ -400,7 +400,7 @@ static_assert(
         ::blink::mojom::CacheQueryOptionsDataView, UserType>(),
     "Attempting to read the optional `match_options` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMatchOptions` instead "
     "of `ReadMatchOptions if you're fine with null values being "

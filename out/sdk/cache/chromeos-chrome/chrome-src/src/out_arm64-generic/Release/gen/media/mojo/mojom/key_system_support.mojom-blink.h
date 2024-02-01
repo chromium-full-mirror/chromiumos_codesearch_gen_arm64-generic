@@ -276,7 +276,7 @@ class BLINK_PLATFORM_EXPORT VideoCodecInfo {
   template <typename... Args>
   static VideoCodecInfoPtr New(Args&&... args) {
     return VideoCodecInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -419,7 +419,7 @@ class BLINK_PLATFORM_EXPORT CdmCapability {
   template <typename... Args>
   static CdmCapabilityPtr New(Args&&... args) {
     return CdmCapabilityPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -570,7 +570,7 @@ class BLINK_PLATFORM_EXPORT KeySystemCapability {
   template <typename... Args>
   static KeySystemCapabilityPtr New(Args&&... args) {
     return KeySystemCapabilityPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

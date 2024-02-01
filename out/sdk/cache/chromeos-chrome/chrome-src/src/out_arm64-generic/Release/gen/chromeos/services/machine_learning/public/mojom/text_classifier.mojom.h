@@ -192,7 +192,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) CodepointSpan {
   template <typename... Args>
   static CodepointSpanPtr New(Args&&... args) {
     return CodepointSpanPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -336,7 +336,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextLanguage {
   template <typename... Args>
   static TextLanguagePtr New(Args&&... args) {
     return TextLanguagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -491,7 +491,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextEntityData {
   static TextEntityDataPtr
   NewNumericValue(
       double value) {
-    auto result = TextEntityDataPtr(absl::in_place);
+    auto result = TextEntityDataPtr(std::in_place);
     result->set_numeric_value(std::move(value));
     return result;
   }
@@ -499,7 +499,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextEntityData {
   static TextEntityDataPtr
   NewStringValue(
       const std::string& value) {
-    auto result = TextEntityDataPtr(absl::in_place);
+    auto result = TextEntityDataPtr(std::in_place);
     result->set_string_value(std::move(value));
     return result;
   }
@@ -614,7 +614,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextEntity {
   template <typename... Args>
   static TextEntityPtr New(Args&&... args) {
     return TextEntityPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -763,7 +763,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextAnnotation {
   template <typename... Args>
   static TextAnnotationPtr New(Args&&... args) {
     return TextAnnotationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -911,7 +911,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextAnnotationRequest {
   template <typename... Args>
   static TextAnnotationRequestPtr New(Args&&... args) {
     return TextAnnotationRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1083,7 +1083,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) REMOVED_TextSuggestSelectionRequest {
   template <typename... Args>
   static REMOVED_TextSuggestSelectionRequestPtr New(Args&&... args) {
     return REMOVED_TextSuggestSelectionRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

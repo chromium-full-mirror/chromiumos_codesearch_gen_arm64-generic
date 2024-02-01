@@ -109,7 +109,7 @@ class BLINK_PLATFORM_EXPORT DataElement {
   static DataElementPtr
   NewBytes(
       ::network::DataElementBytes value) {
-    auto result = DataElementPtr(absl::in_place);
+    auto result = DataElementPtr(std::in_place);
     result->set_bytes(std::move(value));
     return result;
   }
@@ -117,7 +117,7 @@ class BLINK_PLATFORM_EXPORT DataElement {
   static DataElementPtr
   NewFile(
       ::network::DataElementFile value) {
-    auto result = DataElementPtr(absl::in_place);
+    auto result = DataElementPtr(std::in_place);
     result->set_file(std::move(value));
     return result;
   }
@@ -125,7 +125,7 @@ class BLINK_PLATFORM_EXPORT DataElement {
   static DataElementPtr
   NewDataPipe(
       ::network::DataElementDataPipe value) {
-    auto result = DataElementPtr(absl::in_place);
+    auto result = DataElementPtr(std::in_place);
     result->set_data_pipe(std::move(value));
     return result;
   }
@@ -133,7 +133,7 @@ class BLINK_PLATFORM_EXPORT DataElement {
   static DataElementPtr
   NewChunkedDataPipe(
       ::network::DataElementChunkedDataPipe value) {
-    auto result = DataElementPtr(absl::in_place);
+    auto result = DataElementPtr(std::in_place);
     result->set_chunked_data_pipe(std::move(value));
     return result;
   }
@@ -273,7 +273,7 @@ class BLINK_PLATFORM_EXPORT TrustedUrlRequestParams {
   template <typename... Args>
   static TrustedUrlRequestParamsPtr New(Args&&... args) {
     return TrustedUrlRequestParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -440,7 +440,7 @@ class BLINK_PLATFORM_EXPORT WebBundleTokenParams {
   template <typename... Args>
   static WebBundleTokenParamsPtr New(Args&&... args) {
     return WebBundleTokenParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -586,7 +586,7 @@ class BLINK_PLATFORM_EXPORT URLRequest {
   template <typename... Args>
   static URLRequestPtr New(Args&&... args) {
     return URLRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -906,7 +906,7 @@ class BLINK_PLATFORM_EXPORT URLRequestBody {
   template <typename... Args>
   static URLRequestBodyPtr New(Args&&... args) {
     return URLRequestBodyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1052,7 +1052,7 @@ class BLINK_PLATFORM_EXPORT DataElementBytes {
   template <typename... Args>
   static DataElementBytesPtr New(Args&&... args) {
     return DataElementBytesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1189,7 +1189,7 @@ class BLINK_PLATFORM_EXPORT DataElementFile {
   template <typename... Args>
   static DataElementFilePtr New(Args&&... args) {
     return DataElementFilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1338,7 +1338,7 @@ class BLINK_PLATFORM_EXPORT DataElementDataPipe {
   template <typename... Args>
   static DataElementDataPipePtr New(Args&&... args) {
     return DataElementDataPipePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1475,7 +1475,7 @@ class BLINK_PLATFORM_EXPORT DataElementChunkedDataPipe {
   template <typename... Args>
   static DataElementChunkedDataPipePtr New(Args&&... args) {
     return DataElementChunkedDataPipePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -58,7 +58,7 @@ class  EarlyHints {
   template <typename... Args>
   static EarlyHintsPtr New(Args&&... args) {
     return EarlyHintsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

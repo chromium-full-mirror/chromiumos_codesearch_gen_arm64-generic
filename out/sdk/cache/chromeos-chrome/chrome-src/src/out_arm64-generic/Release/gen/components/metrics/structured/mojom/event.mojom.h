@@ -65,7 +65,7 @@ class  MetricValue {
   static MetricValuePtr
   NewHmacValue(
       const std::string& value) {
-    auto result = MetricValuePtr(absl::in_place);
+    auto result = MetricValuePtr(std::in_place);
     result->set_hmac_value(std::move(value));
     return result;
   }
@@ -73,7 +73,7 @@ class  MetricValue {
   static MetricValuePtr
   NewLongValue(
       int64_t value) {
-    auto result = MetricValuePtr(absl::in_place);
+    auto result = MetricValuePtr(std::in_place);
     result->set_long_value(std::move(value));
     return result;
   }
@@ -81,7 +81,7 @@ class  MetricValue {
   static MetricValuePtr
   NewIntValue(
       int32_t value) {
-    auto result = MetricValuePtr(absl::in_place);
+    auto result = MetricValuePtr(std::in_place);
     result->set_int_value(std::move(value));
     return result;
   }
@@ -89,7 +89,7 @@ class  MetricValue {
   static MetricValuePtr
   NewDoubleValue(
       double value) {
-    auto result = MetricValuePtr(absl::in_place);
+    auto result = MetricValuePtr(std::in_place);
     result->set_double_value(std::move(value));
     return result;
   }
@@ -97,7 +97,7 @@ class  MetricValue {
   static MetricValuePtr
   NewRawStrValue(
       const std::string& value) {
-    auto result = MetricValuePtr(absl::in_place);
+    auto result = MetricValuePtr(std::in_place);
     result->set_raw_str_value(std::move(value));
     return result;
   }
@@ -105,7 +105,7 @@ class  MetricValue {
   static MetricValuePtr
   NewBoolValue(
       bool value) {
-    auto result = MetricValuePtr(absl::in_place);
+    auto result = MetricValuePtr(std::in_place);
     result->set_bool_value(std::move(value));
     return result;
   }
@@ -272,7 +272,7 @@ class  Event {
   template <typename... Args>
   static EventPtr New(Args&&... args) {
     return EventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

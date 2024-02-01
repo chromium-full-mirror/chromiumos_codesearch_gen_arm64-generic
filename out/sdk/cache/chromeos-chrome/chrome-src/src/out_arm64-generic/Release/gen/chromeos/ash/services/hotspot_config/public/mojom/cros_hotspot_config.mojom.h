@@ -439,7 +439,7 @@ class  HotspotConfig {
   template <typename... Args>
   static HotspotConfigPtr New(Args&&... args) {
     return HotspotConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -595,7 +595,7 @@ class  HotspotInfo {
   template <typename... Args>
   static HotspotInfoPtr New(Args&&... args) {
     return HotspotInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

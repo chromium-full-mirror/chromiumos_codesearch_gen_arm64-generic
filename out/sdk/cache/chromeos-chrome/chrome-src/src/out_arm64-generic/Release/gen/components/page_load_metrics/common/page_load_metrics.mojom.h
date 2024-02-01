@@ -202,7 +202,7 @@ class  UserInteractionLatencies {
   static UserInteractionLatenciesPtr
   NewUserInteractionLatencies(
       std::vector<UserInteractionLatencyPtr> value) {
-    auto result = UserInteractionLatenciesPtr(absl::in_place);
+    auto result = UserInteractionLatenciesPtr(std::in_place);
     result->set_user_interaction_latencies(std::move(value));
     return result;
   }
@@ -210,7 +210,7 @@ class  UserInteractionLatencies {
   static UserInteractionLatenciesPtr
   NewWorstInteractionLatency(
       ::base::TimeDelta value) {
-    auto result = UserInteractionLatenciesPtr(absl::in_place);
+    auto result = UserInteractionLatenciesPtr(std::in_place);
     result->set_worst_interaction_latency(std::move(value));
     return result;
   }
@@ -324,7 +324,7 @@ class  DocumentTiming {
   template <typename... Args>
   static DocumentTimingPtr New(Args&&... args) {
     return DocumentTimingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -467,7 +467,7 @@ class  LargestContentfulPaintTiming {
   template <typename... Args>
   static LargestContentfulPaintTimingPtr New(Args&&... args) {
     return LargestContentfulPaintTimingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -643,7 +643,7 @@ class  PaintTiming {
   template <typename... Args>
   static PaintTimingPtr New(Args&&... args) {
     return PaintTimingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -809,7 +809,7 @@ class  ParseTiming {
   template <typename... Args>
   static ParseTimingPtr New(Args&&... args) {
     return ParseTimingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -964,7 +964,7 @@ class  InteractiveTiming {
   template <typename... Args>
   static InteractiveTimingPtr New(Args&&... args) {
     return InteractiveTimingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1113,7 +1113,7 @@ class  PageLoadTiming {
   template <typename... Args>
   static PageLoadTimingPtr New(Args&&... args) {
     return PageLoadTimingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1288,7 +1288,7 @@ class  FrameMetadata {
   template <typename... Args>
   static FrameMetadataPtr New(Args&&... args) {
     return FrameMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1440,7 +1440,7 @@ class  SubresourceLoadMetrics {
   template <typename... Args>
   static SubresourceLoadMetricsPtr New(Args&&... args) {
     return SubresourceLoadMetricsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1586,7 +1586,7 @@ class  ServiceWorkerSubresourceLoadMetrics {
   template <typename... Args>
   static ServiceWorkerSubresourceLoadMetricsPtr New(Args&&... args) {
     return ServiceWorkerSubresourceLoadMetricsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1813,7 +1813,7 @@ class  ResourceDataUpdate {
   template <typename... Args>
   static ResourceDataUpdatePtr New(Args&&... args) {
     return ResourceDataUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1990,7 +1990,7 @@ class  LayoutShift {
   template <typename... Args>
   static LayoutShiftPtr New(Args&&... args) {
     return LayoutShiftPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2133,7 +2133,7 @@ class  FrameRenderDataUpdate {
   template <typename... Args>
   static FrameRenderDataUpdatePtr New(Args&&... args) {
     return FrameRenderDataUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2281,7 +2281,7 @@ class  CpuTiming {
   template <typename... Args>
   static CpuTimingPtr New(Args&&... args) {
     return CpuTimingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2421,7 +2421,7 @@ class  InputTiming {
   template <typename... Args>
   static InputTimingPtr New(Args&&... args) {
     return InputTimingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2566,7 +2566,7 @@ class  UserInteractionLatency {
   template <typename... Args>
   static UserInteractionLatencyPtr New(Args&&... args) {
     return UserInteractionLatencyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2715,7 +2715,7 @@ class  BackForwardCacheTiming {
   template <typename... Args>
   static BackForwardCacheTimingPtr New(Args&&... args) {
     return BackForwardCacheTimingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2861,7 +2861,7 @@ class  SoftNavigationMetrics {
   template <typename... Args>
   static SoftNavigationMetricsPtr New(Args&&... args) {
     return SoftNavigationMetricsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

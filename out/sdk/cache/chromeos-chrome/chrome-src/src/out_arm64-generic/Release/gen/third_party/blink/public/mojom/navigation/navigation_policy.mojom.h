@@ -58,7 +58,7 @@ class BLINK_COMMON_EXPORT NavigationDownloadTypes {
   template <typename... Args>
   static NavigationDownloadTypesPtr New(Args&&... args) {
     return NavigationDownloadTypesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -216,7 +216,7 @@ class BLINK_COMMON_EXPORT NavigationDownloadPolicy {
   template <typename... Args>
   static NavigationDownloadPolicyPtr New(Args&&... args) {
     return NavigationDownloadPolicyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

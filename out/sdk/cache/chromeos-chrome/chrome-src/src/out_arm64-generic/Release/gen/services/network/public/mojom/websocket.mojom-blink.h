@@ -541,7 +541,7 @@ class BLINK_PLATFORM_EXPORT HttpHeader {
   template <typename... Args>
   static HttpHeaderPtr New(Args&&... args) {
     return HttpHeaderPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -690,7 +690,7 @@ class BLINK_PLATFORM_EXPORT WebSocketHandshakeRequest {
   template <typename... Args>
   static WebSocketHandshakeRequestPtr New(Args&&... args) {
     return WebSocketHandshakeRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -838,7 +838,7 @@ class BLINK_PLATFORM_EXPORT WebSocketHandshakeResponse {
   template <typename... Args>
   static WebSocketHandshakeResponsePtr New(Args&&... args) {
     return WebSocketHandshakeResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -111,6 +111,16 @@ class LCPCriticalPathPredictorNavigationTimeHintDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::url::mojom::UrlDataView>>(
         pointer, output, message_);
   }
+  inline void GetPreconnectOriginsDataView(
+      mojo::ArrayDataView<::url::mojom::UrlDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPreconnectOrigins(UserType* output) {
+    
+    auto* pointer = data_->preconnect_origins.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::url::mojom::UrlDataView>>(
+        pointer, output, message_);
+  }
  private:
   internal::LCPCriticalPathPredictorNavigationTimeHint_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -181,6 +191,20 @@ struct Serializer<::blink::mojom::LCPCriticalPathPredictorNavigationTimeHintData
         fragment->fetched_fonts.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null fetched_fonts in LCPCriticalPathPredictorNavigationTimeHint struct");
+    decltype(Traits::preconnect_origins(input)) in_preconnect_origins = Traits::preconnect_origins(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->preconnect_origins)::BaseType>
+        preconnect_origins_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& preconnect_origins_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::url::mojom::UrlDataView>>(
+        in_preconnect_origins, preconnect_origins_fragment, &preconnect_origins_validate_params);
+    fragment->preconnect_origins.Set(
+        preconnect_origins_fragment.is_null() ? nullptr : preconnect_origins_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->preconnect_origins.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null preconnect_origins in LCPCriticalPathPredictorNavigationTimeHint struct");
   }
 
   static bool Deserialize(::blink::mojom::internal::LCPCriticalPathPredictorNavigationTimeHint_Data* input,
@@ -214,6 +238,11 @@ inline void LCPCriticalPathPredictorNavigationTimeHintDataView::GetLcpInfluencer
 inline void LCPCriticalPathPredictorNavigationTimeHintDataView::GetFetchedFontsDataView(
     mojo::ArrayDataView<::url::mojom::UrlDataView>* output) {
   auto pointer = data_->fetched_fonts.Get();
+  *output = mojo::ArrayDataView<::url::mojom::UrlDataView>(pointer, message_);
+}
+inline void LCPCriticalPathPredictorNavigationTimeHintDataView::GetPreconnectOriginsDataView(
+    mojo::ArrayDataView<::url::mojom::UrlDataView>* output) {
+  auto pointer = data_->preconnect_origins.Get();
   *output = mojo::ArrayDataView<::url::mojom::UrlDataView>(pointer, message_);
 }
 

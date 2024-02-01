@@ -57,7 +57,7 @@ class NetworkDiagnosticsRoutines
   static const char Name_[];
   static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
   static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
+  static constexpr uint32_t Version_ = 2;
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
@@ -159,77 +159,77 @@ class NetworkDiagnosticsRoutines
 
   using RunLanConnectivityCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunLanConnectivity(RunLanConnectivityCallback callback) = 0;
+  virtual void RunLanConnectivity(std::optional<RoutineCallSource> source, RunLanConnectivityCallback callback) = 0;
 
 
   using RunSignalStrengthCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunSignalStrength(RunSignalStrengthCallback callback) = 0;
+  virtual void RunSignalStrength(std::optional<RoutineCallSource> source, RunSignalStrengthCallback callback) = 0;
 
 
   using RunGatewayCanBePingedCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunGatewayCanBePinged(RunGatewayCanBePingedCallback callback) = 0;
+  virtual void RunGatewayCanBePinged(std::optional<RoutineCallSource> source, RunGatewayCanBePingedCallback callback) = 0;
 
 
   using RunHasSecureWiFiConnectionCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunHasSecureWiFiConnection(RunHasSecureWiFiConnectionCallback callback) = 0;
+  virtual void RunHasSecureWiFiConnection(std::optional<RoutineCallSource> source, RunHasSecureWiFiConnectionCallback callback) = 0;
 
 
   using RunDnsResolverPresentCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunDnsResolverPresent(RunDnsResolverPresentCallback callback) = 0;
+  virtual void RunDnsResolverPresent(std::optional<RoutineCallSource> source, RunDnsResolverPresentCallback callback) = 0;
 
 
   using RunDnsLatencyCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunDnsLatency(RunDnsLatencyCallback callback) = 0;
+  virtual void RunDnsLatency(std::optional<RoutineCallSource> source, RunDnsLatencyCallback callback) = 0;
 
 
   using RunDnsResolutionCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunDnsResolution(RunDnsResolutionCallback callback) = 0;
+  virtual void RunDnsResolution(std::optional<RoutineCallSource> source, RunDnsResolutionCallback callback) = 0;
 
 
   using RunCaptivePortalCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunCaptivePortal(RunCaptivePortalCallback callback) = 0;
+  virtual void RunCaptivePortal(std::optional<RoutineCallSource> source, RunCaptivePortalCallback callback) = 0;
 
 
   using RunHttpFirewallCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunHttpFirewall(RunHttpFirewallCallback callback) = 0;
+  virtual void RunHttpFirewall(std::optional<RoutineCallSource> source, RunHttpFirewallCallback callback) = 0;
 
 
   using RunHttpsFirewallCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunHttpsFirewall(RunHttpsFirewallCallback callback) = 0;
+  virtual void RunHttpsFirewall(std::optional<RoutineCallSource> source, RunHttpsFirewallCallback callback) = 0;
 
 
   using RunHttpsLatencyCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunHttpsLatency(RunHttpsLatencyCallback callback) = 0;
+  virtual void RunHttpsLatency(std::optional<RoutineCallSource> source, RunHttpsLatencyCallback callback) = 0;
 
 
   using RunVideoConferencingCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, RunVideoConferencingCallback callback) = 0;
+  virtual void RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, std::optional<RoutineCallSource> source, RunVideoConferencingCallback callback) = 0;
 
 
   using RunArcHttpCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunArcHttp(RunArcHttpCallback callback) = 0;
+  virtual void RunArcHttp(std::optional<RoutineCallSource> source, RunArcHttpCallback callback) = 0;
 
 
   using RunArcPingCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunArcPing(RunArcPingCallback callback) = 0;
+  virtual void RunArcPing(std::optional<RoutineCallSource> source, RunArcPingCallback callback) = 0;
 
 
   using RunArcDnsResolutionCallback = base::OnceCallback<void(RoutineResultPtr)>;
   
-  virtual void RunArcDnsResolution(RunArcDnsResolutionCallback callback) = 0;
+  virtual void RunArcDnsResolution(std::optional<RoutineCallSource> source, RunArcDnsResolutionCallback callback) = 0;
 };
 
 
@@ -245,35 +245,35 @@ class  NetworkDiagnosticsRoutinesProxy
   
   void GetAllResults(GetAllResultsCallback callback) final;
   
-  void RunLanConnectivity(RunLanConnectivityCallback callback) final;
+  void RunLanConnectivity(std::optional<RoutineCallSource> source, RunLanConnectivityCallback callback) final;
   
-  void RunSignalStrength(RunSignalStrengthCallback callback) final;
+  void RunSignalStrength(std::optional<RoutineCallSource> source, RunSignalStrengthCallback callback) final;
   
-  void RunGatewayCanBePinged(RunGatewayCanBePingedCallback callback) final;
+  void RunGatewayCanBePinged(std::optional<RoutineCallSource> source, RunGatewayCanBePingedCallback callback) final;
   
-  void RunHasSecureWiFiConnection(RunHasSecureWiFiConnectionCallback callback) final;
+  void RunHasSecureWiFiConnection(std::optional<RoutineCallSource> source, RunHasSecureWiFiConnectionCallback callback) final;
   
-  void RunDnsResolverPresent(RunDnsResolverPresentCallback callback) final;
+  void RunDnsResolverPresent(std::optional<RoutineCallSource> source, RunDnsResolverPresentCallback callback) final;
   
-  void RunDnsLatency(RunDnsLatencyCallback callback) final;
+  void RunDnsLatency(std::optional<RoutineCallSource> source, RunDnsLatencyCallback callback) final;
   
-  void RunDnsResolution(RunDnsResolutionCallback callback) final;
+  void RunDnsResolution(std::optional<RoutineCallSource> source, RunDnsResolutionCallback callback) final;
   
-  void RunCaptivePortal(RunCaptivePortalCallback callback) final;
+  void RunCaptivePortal(std::optional<RoutineCallSource> source, RunCaptivePortalCallback callback) final;
   
-  void RunHttpFirewall(RunHttpFirewallCallback callback) final;
+  void RunHttpFirewall(std::optional<RoutineCallSource> source, RunHttpFirewallCallback callback) final;
   
-  void RunHttpsFirewall(RunHttpsFirewallCallback callback) final;
+  void RunHttpsFirewall(std::optional<RoutineCallSource> source, RunHttpsFirewallCallback callback) final;
   
-  void RunHttpsLatency(RunHttpsLatencyCallback callback) final;
+  void RunHttpsLatency(std::optional<RoutineCallSource> source, RunHttpsLatencyCallback callback) final;
   
-  void RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, RunVideoConferencingCallback callback) final;
+  void RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, std::optional<RoutineCallSource> source, RunVideoConferencingCallback callback) final;
   
-  void RunArcHttp(RunArcHttpCallback callback) final;
+  void RunArcHttp(std::optional<RoutineCallSource> source, RunArcHttpCallback callback) final;
   
-  void RunArcPing(RunArcPingCallback callback) final;
+  void RunArcPing(std::optional<RoutineCallSource> source, RunArcPingCallback callback) final;
   
-  void RunArcDnsResolution(RunArcDnsResolutionCallback callback) final;
+  void RunArcDnsResolution(std::optional<RoutineCallSource> source, RunArcDnsResolutionCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -354,7 +354,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewLanConnectivityProblems(
       std::vector<LanConnectivityProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_lan_connectivity_problems(std::move(value));
     return result;
   }
@@ -362,7 +362,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewSignalStrengthProblems(
       std::vector<SignalStrengthProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_signal_strength_problems(std::move(value));
     return result;
   }
@@ -370,7 +370,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewGatewayCanBePingedProblems(
       std::vector<GatewayCanBePingedProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_gateway_can_be_pinged_problems(std::move(value));
     return result;
   }
@@ -378,7 +378,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewHasSecureWifiConnectionProblems(
       std::vector<HasSecureWiFiConnectionProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_has_secure_wifi_connection_problems(std::move(value));
     return result;
   }
@@ -386,7 +386,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewDnsResolverPresentProblems(
       std::vector<DnsResolverPresentProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_dns_resolver_present_problems(std::move(value));
     return result;
   }
@@ -394,7 +394,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewDnsLatencyProblems(
       std::vector<DnsLatencyProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_dns_latency_problems(std::move(value));
     return result;
   }
@@ -402,7 +402,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewDnsResolutionProblems(
       std::vector<DnsResolutionProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_dns_resolution_problems(std::move(value));
     return result;
   }
@@ -410,7 +410,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewCaptivePortalProblems(
       std::vector<CaptivePortalProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_captive_portal_problems(std::move(value));
     return result;
   }
@@ -418,7 +418,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewHttpFirewallProblems(
       std::vector<HttpFirewallProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_http_firewall_problems(std::move(value));
     return result;
   }
@@ -426,7 +426,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewHttpsFirewallProblems(
       std::vector<HttpsFirewallProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_https_firewall_problems(std::move(value));
     return result;
   }
@@ -434,7 +434,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewHttpsLatencyProblems(
       std::vector<HttpsLatencyProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_https_latency_problems(std::move(value));
     return result;
   }
@@ -442,7 +442,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewVideoConferencingProblems(
       std::vector<VideoConferencingProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_video_conferencing_problems(std::move(value));
     return result;
   }
@@ -450,7 +450,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewArcHttpProblems(
       std::vector<ArcHttpProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_arc_http_problems(std::move(value));
     return result;
   }
@@ -458,7 +458,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewArcDnsResolutionProblems(
       std::vector<ArcDnsResolutionProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_arc_dns_resolution_problems(std::move(value));
     return result;
   }
@@ -466,7 +466,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewArcPingProblems(
       std::vector<ArcPingProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_arc_ping_problems(std::move(value));
     return result;
   }
@@ -757,7 +757,7 @@ class  RoutineResultValue {
   static RoutineResultValuePtr
   NewHttpsLatencyResultValue(
       HttpsLatencyResultValuePtr value) {
-    auto result = RoutineResultValuePtr(absl::in_place);
+    auto result = RoutineResultValuePtr(std::in_place);
     result->set_https_latency_result_value(std::move(value));
     return result;
   }
@@ -858,7 +858,7 @@ class  HttpsLatencyResultValue {
   template <typename... Args>
   static HttpsLatencyResultValuePtr New(Args&&... args) {
     return HttpsLatencyResultValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -998,7 +998,7 @@ class  RoutineResult {
   template <typename... Args>
   static RoutineResultPtr New(Args&&... args) {
     return RoutineResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1024,6 +1024,13 @@ class  RoutineResult {
       RoutineProblemsPtr problems,
       ::base::Time timestamp,
       RoutineResultValuePtr result_value);
+
+  RoutineResult(
+      RoutineVerdict verdict,
+      RoutineProblemsPtr problems,
+      ::base::Time timestamp,
+      RoutineResultValuePtr result_value,
+      RoutineCallSource source);
 
 RoutineResult(const RoutineResult&) = delete;
 RoutineResult& operator=(const RoutineResult&) = delete;
@@ -1110,6 +1117,8 @@ RoutineResult& operator=(const RoutineResult&) = delete;
   ::base::Time timestamp;
   
   RoutineResultValuePtr result_value;
+  
+  RoutineCallSource source;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1286,7 +1295,8 @@ RoutineResultPtr RoutineResult::Clone() const {
       mojo::Clone(verdict),
       mojo::Clone(problems),
       mojo::Clone(timestamp),
-      mojo::Clone(result_value)
+      mojo::Clone(result_value),
+      mojo::Clone(source)
   );
 }
 
@@ -1299,6 +1309,8 @@ bool RoutineResult::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->timestamp, other_struct.timestamp))
     return false;
   if (!mojo::Equals(this->result_value, other_struct.result_value))
+    return false;
+  if (!mojo::Equals(this->source, other_struct.source))
     return false;
   return true;
 }
@@ -1320,6 +1332,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.result_value < rhs.result_value)
     return true;
   if (rhs.result_value < lhs.result_value)
+    return false;
+  if (lhs.source < rhs.source)
+    return true;
+  if (rhs.source < lhs.source)
     return false;
   return false;
 }
@@ -1369,6 +1385,11 @@ struct  StructTraits<::chromeos::network_diagnostics::mojom::RoutineResult::Data
   static const decltype(::chromeos::network_diagnostics::mojom::RoutineResult::result_value)& result_value(
       const ::chromeos::network_diagnostics::mojom::RoutineResultPtr& input) {
     return input->result_value;
+  }
+
+  static decltype(::chromeos::network_diagnostics::mojom::RoutineResult::source) source(
+      const ::chromeos::network_diagnostics::mojom::RoutineResultPtr& input) {
+    return input->source;
   }
 
   static bool Read(::chromeos::network_diagnostics::mojom::RoutineResult::DataView input, ::chromeos::network_diagnostics::mojom::RoutineResultPtr* output);

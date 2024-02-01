@@ -253,7 +253,7 @@ static_assert(
         ::blink::mojom::FocusedEditableParamsDataView, UserType>(),
     "Attempting to read the optional `for_focused_editable` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadForFocusedEditable` instead "
     "of `ReadForFocusedEditable if you're fine with null values being "

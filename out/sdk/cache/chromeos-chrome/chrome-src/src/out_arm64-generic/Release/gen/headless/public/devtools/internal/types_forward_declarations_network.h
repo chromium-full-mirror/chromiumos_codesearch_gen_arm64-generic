@@ -29,7 +29,8 @@ class CachedResource;
 class Initiator;
 class Cookie;
 class BlockedSetCookieWithReason;
-class BlockedCookieWithReason;
+class ExemptedSetCookieWithReason;
+class AssociatedCookie;
 class CookieParam;
 class AuthChallenge;
 class AuthChallengeResponse;
@@ -347,6 +348,18 @@ enum class CookieBlockedReason {
   SCHEMEFUL_SAME_SITE_UNSPECIFIED_TREATED_AS_LAX,
   SAME_PARTY_FROM_CROSS_PARTY_CONTEXT,
   NAME_VALUE_PAIR_EXCEEDS_MAX_SIZE
+};
+
+enum class CookieExemptionReason {
+  NONE,
+  USER_SETTING,
+  TPCD_METADATA,
+  TPCD_DEPRECATION_TRIAL,
+  TPCD_HEURISTICS,
+  ENTERPRISE_POLICY,
+  STORAGE_ACCESS,
+  TOP_LEVEL_STORAGE_ACCESS,
+  BROWSER_HEURISTICS
 };
 
 enum class InterceptionStage {

@@ -60,7 +60,7 @@ class PLATFORM_EXPORT SameOriginBfcacheNotRestoredDetails {
   template <typename... Args>
   static SameOriginBfcacheNotRestoredDetailsPtr New(Args&&... args) {
     return SameOriginBfcacheNotRestoredDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -205,7 +205,7 @@ class PLATFORM_EXPORT BackForwardCacheNotRestoredReasons {
   template <typename... Args>
   static BackForwardCacheNotRestoredReasonsPtr New(Args&&... args) {
     return BackForwardCacheNotRestoredReasonsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -1,41 +1,8 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="shortcut-customization-shared">
-  #container {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-  }
-
-  #restoreAllButton {
-    /*
-     * Specifying a large single value for border-radius ensures perfectly
-     * circular rounded corners.
-     */
-    border-radius: 999px;
-    margin-bottom: 16px;
-  }
-
-  #keyboardSettingsLinkContainer {
-    padding-inline-start: 16px;
-  }
-
-  #keyboardSettingsLinkContainer a {
-    align-items: center;
-    color: var(--cros-link-color);
-    display: flex;
-    font-weight: var(--shortcuts-font-weight-medium);
-    text-decoration: none;
-  }
-
-  #keyboardSettingsLinkContainer a iron-icon {
-    fill: var(--cros-link-color);
-    margin-inline-start: 4px;
-  }
-</style>
+    return html `<!--_html_template_start_--><style include="shortcut-customization-shared">#container{align-items:center;display:flex;flex-direction:column}#restoreAllButton{border-radius:999px;margin-bottom:16px}#keyboardSettingsLinkContainer{padding-inline-start:16px}#keyboardSettingsLinkContainer a{align-items:center;color:var(--cros-link-color);display:flex;font-weight:var(--shortcuts-font-weight-medium);text-decoration:none}#keyboardSettingsLinkContainer a iron-icon{fill:var(--cros-link-color);margin-inline-start:4px}</style>
 <div id="container">
-  <cr-button id="restoreAllButton" on-click="onRestoreAllDefaultClicked"
-      hidden="[[restoreAllButtonHidden]]">
+  <cr-button id="restoreAllButton" on-click="onRestoreAllDefaultClicked" hidden="[[restoreAllButtonHidden]]">
     [[i18n('resetAllShortcuts')]]
   </cr-button>
   <div id="keyboardSettingsLinkContainer">

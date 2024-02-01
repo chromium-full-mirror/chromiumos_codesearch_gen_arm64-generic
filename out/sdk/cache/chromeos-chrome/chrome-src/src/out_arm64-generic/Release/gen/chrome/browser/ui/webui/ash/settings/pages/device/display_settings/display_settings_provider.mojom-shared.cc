@@ -64,6 +64,32 @@ std::ostream& operator<<(std::ostream& os, DisplaySettingsType value) {
   return os << DisplaySettingsTypeToString(value);
 }
 
+NOINLINE static const char* DisplaySettingsNightLightScheduleOptionToStringHelper(DisplaySettingsNightLightScheduleOption value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case DisplaySettingsNightLightScheduleOption::kNever:
+      return "kNever";
+    case DisplaySettingsNightLightScheduleOption::kSunsetToSunrise:
+      return "kSunsetToSunrise";
+    case DisplaySettingsNightLightScheduleOption::kCustom:
+      return "kCustom";
+    default:
+      return nullptr;
+  }
+}
+
+std::string DisplaySettingsNightLightScheduleOptionToString(DisplaySettingsNightLightScheduleOption value) {
+  const char *str = DisplaySettingsNightLightScheduleOptionToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown DisplaySettingsNightLightScheduleOption value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, DisplaySettingsNightLightScheduleOption value) {
+  return os << DisplaySettingsNightLightScheduleOptionToString(value);
+}
+
 NOINLINE static const char* DisplaySettingsOrientationOptionToStringHelper(DisplaySettingsOrientationOption value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -104,7 +130,7 @@ bool DisplaySettingsValue_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+          data, 32, validation_context)) {
     return false;
   }
 
@@ -116,6 +142,11 @@ bool DisplaySettingsValue_Data::Validate(
 
   if (!::ash::settings::mojom::internal::DisplaySettingsOrientationOption_Data
         ::Validate(object->orientation_$value, validation_context))
+    return false;
+
+
+  if (!::ash::settings::mojom::internal::DisplaySettingsNightLightScheduleOption_Data
+        ::Validate(object->night_light_schedule_$value, validation_context))
     return false;
 
   return true;
@@ -303,6 +334,16 @@ namespace perfetto {
 void TraceFormatTraits<::ash::settings::mojom::DisplaySettingsType>::WriteIntoTrace(
    perfetto::TracedValue context, ::ash::settings::mojom::DisplaySettingsType value) {
   return std::move(context).WriteString(::ash::settings::mojom::DisplaySettingsTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ash::settings::mojom::DisplaySettingsNightLightScheduleOption>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ash::settings::mojom::DisplaySettingsNightLightScheduleOption value) {
+  return std::move(context).WriteString(::ash::settings::mojom::DisplaySettingsNightLightScheduleOptionToString(value));
 }
 
 } // namespace perfetto

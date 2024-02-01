@@ -299,7 +299,7 @@ class  Volume {
   template <typename... Args>
   static VolumePtr New(Args&&... args) {
     return VolumePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

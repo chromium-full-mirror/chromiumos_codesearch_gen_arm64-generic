@@ -144,7 +144,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `mime_type` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMimeType` instead "
     "of `ReadMimeType if you're fine with null values being "
@@ -164,7 +164,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `request_method` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRequestMethod` instead "
     "of `ReadRequestMethod if you're fine with null values being "
@@ -184,7 +184,7 @@ static_assert(
         ::blink::mojom::SerializedBlobDataView, UserType>(),
     "Attempting to read the optional `blob` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBlob` instead "
     "of `ReadBlob if you're fine with null values being "
@@ -224,7 +224,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `cache_storage_cache_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCacheStorageCacheName` instead "
     "of `ReadCacheStorageCacheName if you're fine with null values being "
@@ -254,7 +254,7 @@ static_assert(
         ::blink::mojom::SerializedBlobDataView, UserType>(),
     "Attempting to read the optional `side_data_blob` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSideDataBlob` instead "
     "of `ReadSideDataBlob if you're fine with null values being "
@@ -274,7 +274,7 @@ static_assert(
         ::blink::mojom::SerializedBlobDataView, UserType>(),
     "Attempting to read the optional `side_data_blob_for_cache_put` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSideDataBlobForCachePut` instead "
     "of `ReadSideDataBlobForCachePut if you're fine with null values being "
@@ -294,7 +294,7 @@ static_assert(
         ::network::mojom::ParsedHeadersDataView, UserType>(),
     "Attempting to read the optional `parsed_headers` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadParsedHeaders` instead "
     "of `ReadParsedHeaders if you're fine with null values being "
@@ -340,7 +340,7 @@ static_assert(
         ::network::mojom::AuthChallengeInfoDataView, UserType>(),
     "Attempting to read the optional `auth_challenge_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAuthChallengeInfo` instead "
     "of `ReadAuthChallengeInfo if you're fine with null values being "

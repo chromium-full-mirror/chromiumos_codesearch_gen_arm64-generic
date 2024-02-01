@@ -57,7 +57,7 @@ class BLINK_PLATFORM_EXPORT TriggerVerification {
   template <typename... Args>
   static TriggerVerificationPtr New(Args&&... args) {
     return TriggerVerificationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -200,7 +200,7 @@ class BLINK_PLATFORM_EXPORT AttributionReportingRuntimeFeatures {
   template <typename... Args>
   static AttributionReportingRuntimeFeaturesPtr New(Args&&... args) {
     return AttributionReportingRuntimeFeaturesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -529,7 +529,7 @@ static_assert(
         ::blink::mojom::IDBKeyPathDataDataView, UserType>(),
     "Attempting to read the optional `data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadData` instead "
     "of `ReadData if you're fine with null values being "
@@ -881,7 +881,7 @@ static_assert(
         ::blink::mojom::IDBFileInfoDataView, UserType>(),
     "Attempting to read the optional `file` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFile` instead "
     "of `ReadFile if you're fine with null values being "
@@ -1110,7 +1110,7 @@ static_assert(
         ::blink::mojom::IDBValueDataView, UserType>(),
     "Attempting to read the optional `value` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadValue` instead "
     "of `ReadValue if you're fine with null values being "

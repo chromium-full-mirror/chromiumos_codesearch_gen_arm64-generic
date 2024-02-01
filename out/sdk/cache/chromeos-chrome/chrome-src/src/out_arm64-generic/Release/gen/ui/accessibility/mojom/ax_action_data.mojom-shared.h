@@ -203,7 +203,7 @@ static_assert(
         ::ax::mojom::AXTreeIDDataView, UserType>(),
     "Attempting to read the optional `child_tree_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadChildTreeId` instead "
     "of `ReadChildTreeId if you're fine with null values being "

@@ -34,15 +34,20 @@ export class TestPrivacySandboxBrowserProxy extends TestBrowserProxy {
                 }],
         };
     }
+    // Setters for test
     setChildTopics(childTopics) {
         this.childTopicsCurrentlyAssigned_ = childTopics;
     }
     setFirstLevelTopicsState(firstLevelTopicsState) {
         this.firstLevelTopicsState_ = firstLevelTopicsState;
     }
+    setTestTopicState(topicsState) {
+        this.topicsState_ = topicsState;
+    }
     setFledgeState(fledgeState) {
         this.fledgeState_ = fledgeState;
     }
+    // Test Proxy Functions
     getFledgeState() {
         this.methodCalled('getFledgeState');
         return Promise.resolve(this.fledgeState_);

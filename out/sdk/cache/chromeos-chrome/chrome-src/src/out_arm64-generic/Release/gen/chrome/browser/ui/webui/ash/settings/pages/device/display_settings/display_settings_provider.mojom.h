@@ -383,6 +383,9 @@ class  DisplaySettingsProviderResponseValidator : public mojo::MessageReceiver {
 
 
 
+
+
+
 class  DisplaySettingsValue {
  public:
   template <typename T>
@@ -393,7 +396,7 @@ class  DisplaySettingsValue {
   template <typename... Args>
   static DisplaySettingsValuePtr New(Args&&... args) {
     return DisplaySettingsValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -412,7 +415,9 @@ class  DisplaySettingsValue {
   DisplaySettingsValue(
       std::optional<bool> is_internal_display,
       std::optional<int64_t> display_id,
-      std::optional<DisplaySettingsOrientationOption> orientation);
+      std::optional<DisplaySettingsOrientationOption> orientation,
+      std::optional<bool> night_light_status,
+      std::optional<DisplaySettingsNightLightScheduleOption> night_light_schedule);
 
 
   ~DisplaySettingsValue();
@@ -495,6 +500,10 @@ class  DisplaySettingsValue {
   std::optional<int64_t> display_id;
   
   std::optional<DisplaySettingsOrientationOption> orientation;
+  
+  std::optional<bool> night_light_status;
+  
+  std::optional<DisplaySettingsNightLightScheduleOption> night_light_schedule;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -525,15 +534,14 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
-
-
-
 template <typename StructPtrType>
 DisplaySettingsValuePtr DisplaySettingsValue::Clone() const {
   return New(
       mojo::Clone(is_internal_display),
       mojo::Clone(display_id),
-      mojo::Clone(orientation)
+      mojo::Clone(orientation),
+      mojo::Clone(night_light_status),
+      mojo::Clone(night_light_schedule)
   );
 }
 
@@ -544,6 +552,10 @@ bool DisplaySettingsValue::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->display_id, other_struct.display_id))
     return false;
   if (!mojo::Equals(this->orientation, other_struct.orientation))
+    return false;
+  if (!mojo::Equals(this->night_light_status, other_struct.night_light_status))
+    return false;
+  if (!mojo::Equals(this->night_light_schedule, other_struct.night_light_schedule))
     return false;
   return true;
 }
@@ -561,6 +573,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.orientation < rhs.orientation)
     return true;
   if (rhs.orientation < lhs.orientation)
+    return false;
+  if (lhs.night_light_status < rhs.night_light_status)
+    return true;
+  if (rhs.night_light_status < lhs.night_light_status)
+    return false;
+  if (lhs.night_light_schedule < rhs.night_light_schedule)
+    return true;
+  if (rhs.night_light_schedule < lhs.night_light_schedule)
     return false;
   return false;
 }
@@ -590,6 +610,16 @@ struct  StructTraits<::ash::settings::mojom::DisplaySettingsValue::DataView,
   static decltype(::ash::settings::mojom::DisplaySettingsValue::orientation) orientation(
       const ::ash::settings::mojom::DisplaySettingsValuePtr& input) {
     return input->orientation;
+  }
+
+  static decltype(::ash::settings::mojom::DisplaySettingsValue::night_light_status) night_light_status(
+      const ::ash::settings::mojom::DisplaySettingsValuePtr& input) {
+    return input->night_light_status;
+  }
+
+  static decltype(::ash::settings::mojom::DisplaySettingsValue::night_light_schedule) night_light_schedule(
+      const ::ash::settings::mojom::DisplaySettingsValuePtr& input) {
+    return input->night_light_schedule;
   }
 
   static bool Read(::ash::settings::mojom::DisplaySettingsValue::DataView input, ::ash::settings::mojom::DisplaySettingsValuePtr* output);

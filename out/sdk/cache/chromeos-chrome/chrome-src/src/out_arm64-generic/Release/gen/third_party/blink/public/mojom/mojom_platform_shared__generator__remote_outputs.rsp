@@ -168,6 +168,11 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_par
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/device/device.mojom-shared-internal.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/device/device.mojom-shared.cc
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/device/device.mojom-shared.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/device_posture/device_posture_provider.mojom-features.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/device_posture/device_posture_provider.mojom-params-data.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/device_posture/device_posture_provider.mojom-shared-internal.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/device_posture/device_posture_provider.mojom-shared.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/device_posture/device_posture_provider.mojom-shared.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/devtools/console_message.mojom-features.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/devtools/console_message.mojom-params-data.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/devtools/console_message.mojom-shared-internal.h

@@ -11,7 +11,7 @@ import*as e from"../../../core/host/host.js";import*as t from"../../../core/i18n
             .showConnector=${!1}
             .position=${"bottom"}
             .buttonTitle=${t}
-            jslog=${p.dropDown().track({click:!0}).context("targets")}
+            jslog=${p.dropDown("targets").track({click:!0})}
           >
           ${P(this.targets,(e=>l.html`
                 <${n.Menu.MenuItem.litTagName}
@@ -166,7 +166,7 @@ import*as e from"../../../core/host/host.js";import*as t from"../../../core/i18n
           .iconUrl=${z}
           .variant=${"toolbar"}
           @click=${this.#x}
-          jslog=${p.action().track({click:!0}).context("protocol-monitor.copy-command")}
+          jslog=${p.action("protocol-monitor.copy-command").track({click:!0})}
         ></${r.Button.Button.litTagName}>
         <${r.Button.Button.litTagName}
           .size=${"SMALL"}
@@ -174,7 +174,7 @@ import*as e from"../../../core/host/host.js";import*as t from"../../../core/i18n
           .iconUrl=${K}
           .variant=${"primary_toolbar"}
           @click=${this.#E}
-          jslog=${p.action().track({click:!0}).context("protocol-monitor.send-command")}
+          jslog=${p.action("protocol-monitor.send-command").track({click:!0})}
         ></${r.Button.Button.litTagName}>
       </div>
     `}};J=M([_("devtools-pm-toolbar")],J);var W=Object.freeze({__proto__:null,CopyCommandEvent:F,SendCommandEvent:q,get Toolbar(){return J}});export{B as JSONEditor,W as Toolbar};

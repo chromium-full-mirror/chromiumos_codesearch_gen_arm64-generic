@@ -57,7 +57,7 @@ class  ClearDataFilter {
   template <typename... Args>
   static ClearDataFilterPtr New(Args&&... args) {
     return ClearDataFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

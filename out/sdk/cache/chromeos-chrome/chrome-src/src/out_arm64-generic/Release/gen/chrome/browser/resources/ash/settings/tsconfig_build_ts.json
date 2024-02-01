@@ -13,6 +13,12 @@
       "chrome://resources/ash/common/*": [
         "./../../../../../ash/webui/common/resources/preprocessed/*"
       ],
+      "//resources/ash/common/cellular_setup/*": [
+        "./../../../../../ash/webui/common/resources/preprocessed/cellular_setup/*"
+      ],
+      "chrome://resources/ash/common/cellular_setup/*": [
+        "./../../../../../ash/webui/common/resources/preprocessed/cellular_setup/*"
+      ],
       "//resources/cros_components/*": [
         "./../../../../../ui/webui/resources/tsc/cros_components/to_be_rewritten/*"
       ],
@@ -356,6 +362,7 @@
     "preprocessed/os_reset_page/os_powerwash_dialog.ts",
     "preprocessed/os_reset_page/os_powerwash_dialog_esim_item.ts",
     "preprocessed/os_reset_page/os_reset_page.ts",
+    "preprocessed/os_reset_page/os_sanitize_dialog.ts",
     "preprocessed/os_reset_page/reset_settings_card.ts",
     "preprocessed/os_search_page/google_assistant_subpage.ts",
     "preprocessed/os_search_page/os_search_page.ts",
@@ -377,6 +384,7 @@
     "preprocessed/parental_controls_page/parental_controls_settings_card.ts",
     "preprocessed/personalization_page/personalization_page.ts",
     "preprocessed/settings_scheduler_slider/settings_scheduler_slider.ts",
+    "preprocessed/system_preferences_page/multitasking_settings_card.ts",
     "preprocessed/system_preferences_page/startup_settings_card.ts",
     "preprocessed/system_preferences_page/storage_and_power_settings_card.ts",
     "preprocessed/system_preferences_page/system_preferences_page.ts",
@@ -754,6 +762,7 @@
     "preprocessed/os_reset_page/os_powerwash_dialog.html.ts",
     "preprocessed/os_reset_page/os_powerwash_dialog_esim_item.html.ts",
     "preprocessed/os_reset_page/os_reset_page.html.ts",
+    "preprocessed/os_reset_page/os_sanitize_dialog.html.ts",
     "preprocessed/os_reset_page/reset_settings_card.html.ts",
     "preprocessed/os_search_page/google_assistant_subpage.html.ts",
     "preprocessed/os_search_page/os_search_page.html.ts",
@@ -775,6 +784,7 @@
     "preprocessed/parental_controls_page/parental_controls_settings_card.html.ts",
     "preprocessed/personalization_page/personalization_page.html.ts",
     "preprocessed/settings_scheduler_slider/settings_scheduler_slider.html.ts",
+    "preprocessed/system_preferences_page/multitasking_settings_card.html.ts",
     "preprocessed/system_preferences_page/startup_settings_card.html.ts",
     "preprocessed/system_preferences_page/storage_and_power_settings_card.html.ts",
     "preprocessed/system_preferences_page/system_preferences_page.html.ts",
@@ -829,6 +839,9 @@
   "references": [
     {
       "path": "../../../../../ash/webui/common/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../ash/webui/common/resources/cellular_setup/tsconfig_build_ts.json"
     },
     {
       "path": "../../nearby_share/shared/tsconfig_build_ts.json"

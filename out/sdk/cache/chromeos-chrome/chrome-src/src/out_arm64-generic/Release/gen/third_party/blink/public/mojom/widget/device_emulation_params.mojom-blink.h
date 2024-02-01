@@ -26,7 +26,7 @@
 #include "third_party/blink/public/mojom/widget/device_emulation_params.mojom-features.h"
 #include "third_party/blink/public/mojom/widget/device_emulation_params.mojom-shared.h"
 #include "third_party/blink/public/mojom/widget/device_emulation_params.mojom-blink-forward.h"
-#include "services/device/public/mojom/device_posture_provider.mojom-blink-forward.h"
+#include "third_party/blink/public/mojom/device_posture/device_posture_provider.mojom-blink-forward.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-blink.h"
 #include "ui/display/mojom/screen_orientation.mojom-blink-forward.h"
 
@@ -63,7 +63,7 @@ class PLATFORM_EXPORT DeviceEmulationParams {
   template <typename... Args>
   static DeviceEmulationParamsPtr New(Args&&... args) {
     return DeviceEmulationParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -91,7 +91,7 @@ class PLATFORM_EXPORT DeviceEmulationParams {
       ::display::mojom::blink::ScreenOrientation screen_orientation_type,
       uint32_t screen_orientation_angle,
       WTF::Vector<::gfx::Rect> window_segments,
-      ::device::mojom::blink::DevicePostureType device_posture);
+      ::blink::mojom::blink::DevicePostureType device_posture);
 
 
   ~DeviceEmulationParams();
@@ -191,7 +191,7 @@ class PLATFORM_EXPORT DeviceEmulationParams {
   
   WTF::Vector<::gfx::Rect> window_segments;
   
-  ::device::mojom::blink::DevicePostureType device_posture;
+  ::blink::mojom::blink::DevicePostureType device_posture;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;

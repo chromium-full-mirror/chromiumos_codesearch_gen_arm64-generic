@@ -47,15 +47,21 @@ namespace ash::settings::mojom {
 DisplaySettingsValue::DisplaySettingsValue()
     : is_internal_display(),
       display_id(),
-      orientation() {}
+      orientation(),
+      night_light_status(),
+      night_light_schedule() {}
 
 DisplaySettingsValue::DisplaySettingsValue(
     std::optional<bool> is_internal_display_in,
     std::optional<int64_t> display_id_in,
-    std::optional<DisplaySettingsOrientationOption> orientation_in)
+    std::optional<DisplaySettingsOrientationOption> orientation_in,
+    std::optional<bool> night_light_status_in,
+    std::optional<DisplaySettingsNightLightScheduleOption> night_light_schedule_in)
     : is_internal_display(std::move(is_internal_display_in)),
       display_id(std::move(display_id_in)),
-      orientation(std::move(orientation_in)) {}
+      orientation(std::move(orientation_in)),
+      night_light_status(std::move(night_light_status_in)),
+      night_light_schedule(std::move(night_light_schedule_in)) {}
 
 DisplaySettingsValue::~DisplaySettingsValue() = default;
 
@@ -85,6 +91,24 @@ void DisplaySettingsValue::WriteIntoTrace(
       "orientation"), this->orientation,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::optional<DisplaySettingsOrientationOption>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "night_light_status"), this->night_light_status,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<bool>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "night_light_schedule"), this->night_light_schedule,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<DisplaySettingsNightLightScheduleOption>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -964,6 +988,12 @@ bool StructTraits<::ash::settings::mojom::DisplaySettingsValue::DataView, ::ash:
         result->display_id = input.display_id();
       }
       if (success && !input.ReadOrientation(&result->orientation)) {
+        success = false;
+      }
+      if (success) {
+        result->night_light_status = input.night_light_status();
+      }
+      if (success && !input.ReadNightLightSchedule(&result->night_light_schedule)) {
         success = false;
       }
   *output = std::move(result);

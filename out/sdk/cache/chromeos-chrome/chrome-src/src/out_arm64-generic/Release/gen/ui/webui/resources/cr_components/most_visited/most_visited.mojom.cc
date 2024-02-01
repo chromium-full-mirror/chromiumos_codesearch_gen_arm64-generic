@@ -451,6 +451,9 @@ MostVisitedPageHandler::IPCStableHashFunction MostVisitedPageHandler::MessageToM
     case internal::kMostVisitedPageHandler_PrerenderMostVisitedTile_Name: {
       return &MostVisitedPageHandler::PrerenderMostVisitedTile_Sym::IPCStableHash;
     }
+    case internal::kMostVisitedPageHandler_PreconnectMostVisitedTile_Name: {
+      return &MostVisitedPageHandler::PreconnectMostVisitedTile_Sym::IPCStableHash;
+    }
     case internal::kMostVisitedPageHandler_CancelPrerender_Name: {
       return &MostVisitedPageHandler::CancelPrerender_Sym::IPCStableHash;
     }
@@ -487,6 +490,8 @@ const char* MostVisitedPageHandler::MessageToMethodName_(mojo::Message& message)
             return "Receive most_visited::mojom::MostVisitedPageHandler::UpdateMostVisitedTile";
       case internal::kMostVisitedPageHandler_PrerenderMostVisitedTile_Name:
             return "Receive most_visited::mojom::MostVisitedPageHandler::PrerenderMostVisitedTile";
+      case internal::kMostVisitedPageHandler_PreconnectMostVisitedTile_Name:
+            return "Receive most_visited::mojom::MostVisitedPageHandler::PreconnectMostVisitedTile";
       case internal::kMostVisitedPageHandler_CancelPrerender_Name:
             return "Receive most_visited::mojom::MostVisitedPageHandler::CancelPrerender";
       case internal::kMostVisitedPageHandler_OnMostVisitedTilesRendered_Name:
@@ -512,6 +517,8 @@ const char* MostVisitedPageHandler::MessageToMethodName_(mojo::Message& message)
             return "Receive reply most_visited::mojom::MostVisitedPageHandler::UpdateMostVisitedTile";
       case internal::kMostVisitedPageHandler_PrerenderMostVisitedTile_Name:
             return "Receive reply most_visited::mojom::MostVisitedPageHandler::PrerenderMostVisitedTile";
+      case internal::kMostVisitedPageHandler_PreconnectMostVisitedTile_Name:
+            return "Receive reply most_visited::mojom::MostVisitedPageHandler::PreconnectMostVisitedTile";
       case internal::kMostVisitedPageHandler_CancelPrerender_Name:
             return "Receive reply most_visited::mojom::MostVisitedPageHandler::CancelPrerender";
       case internal::kMostVisitedPageHandler_OnMostVisitedTilesRendered_Name:
@@ -632,6 +639,19 @@ uint32_t MostVisitedPageHandler::PrerenderMostVisitedTile_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)most_visited::mojom::MostVisitedPageHandler::PrerenderMostVisitedTile");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t MostVisitedPageHandler::PreconnectMostVisitedTile_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)most_visited::mojom::MostVisitedPageHandler::PreconnectMostVisitedTile");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1113,6 +1133,57 @@ void MostVisitedPageHandlerProxy::PrerenderMostVisitedTile(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(MostVisitedPageHandler::Name_);
   message.set_method_name("PrerenderMostVisitedTile");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+void MostVisitedPageHandlerProxy::PreconnectMostVisitedTile(
+    MostVisitedTilePtr in_tile) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send most_visited::mojom::MostVisitedPageHandler::PreconnectMostVisitedTile", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("tile"), in_tile,
+                        "<value of type MostVisitedTilePtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kMostVisitedPageHandler_PreconnectMostVisitedTile_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::most_visited::mojom::internal::MostVisitedPageHandler_PreconnectMostVisitedTile_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->tile)::BaseType> tile_fragment(
+          params.message());
+  mojo::internal::Serialize<::most_visited::mojom::MostVisitedTileDataView>(
+      in_tile, tile_fragment);
+  params->tile.Set(
+      tile_fragment.is_null() ? nullptr : tile_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->tile.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null tile in MostVisitedPageHandler.PreconnectMostVisitedTile request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(MostVisitedPageHandler::Name_);
+  message.set_method_name("PreconnectMostVisitedTile");
 #endif
   // This return value may be ignored as false implies the Connector has
   // encountered an error, which will be visible through other means.
@@ -1701,6 +1772,34 @@ bool MostVisitedPageHandlerStubDispatch::Accept(
         std::move(p_is_hover_trigger));
       return true;
     }
+    case internal::kMostVisitedPageHandler_PreconnectMostVisitedTile_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::MostVisitedPageHandler_PreconnectMostVisitedTile_Params_Data* params =
+          reinterpret_cast<internal::MostVisitedPageHandler_PreconnectMostVisitedTile_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for MostVisitedPageHandler.8
+      bool success = true;
+      MostVisitedTilePtr p_tile{};
+      MostVisitedPageHandler_PreconnectMostVisitedTile_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadTile(&p_tile))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            MostVisitedPageHandler::Name_, 8, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->PreconnectMostVisitedTile(        
+        std::move(p_tile));
+      return true;
+    }
     case internal::kMostVisitedPageHandler_CancelPrerender_Name: {
 
       DCHECK(message->is_serialized());
@@ -1709,7 +1808,7 @@ bool MostVisitedPageHandlerStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for MostVisitedPageHandler.8
+      // Validation for MostVisitedPageHandler.9
       bool success = true;
       MostVisitedPageHandler_CancelPrerender_ParamsDataView input_data_view(params, message);
       
@@ -1717,7 +1816,7 @@ bool MostVisitedPageHandlerStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MostVisitedPageHandler::Name_, 8, false);
+            MostVisitedPageHandler::Name_, 9, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1733,7 +1832,7 @@ bool MostVisitedPageHandlerStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for MostVisitedPageHandler.9
+      // Validation for MostVisitedPageHandler.10
       bool success = true;
       std::vector<MostVisitedTilePtr> p_tiles{};
       double p_time{};
@@ -1747,7 +1846,7 @@ bool MostVisitedPageHandlerStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MostVisitedPageHandler::Name_, 9, false);
+            MostVisitedPageHandler::Name_, 10, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1765,7 +1864,7 @@ bool MostVisitedPageHandlerStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for MostVisitedPageHandler.10
+      // Validation for MostVisitedPageHandler.11
       bool success = true;
       MostVisitedTilePtr p_tile{};
       uint32_t p_index{};
@@ -1794,7 +1893,7 @@ bool MostVisitedPageHandlerStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            MostVisitedPageHandler::Name_, 10, false);
+            MostVisitedPageHandler::Name_, 11, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1914,6 +2013,9 @@ bool MostVisitedPageHandlerStubDispatch::AcceptWithResponder(
     case internal::kMostVisitedPageHandler_PrerenderMostVisitedTile_Name: {
       break;
     }
+    case internal::kMostVisitedPageHandler_PreconnectMostVisitedTile_Name: {
+      break;
+    }
     case internal::kMostVisitedPageHandler_CancelPrerender_Name: {
       break;
     }
@@ -1944,6 +2046,8 @@ static const mojo::internal::GenericValidationInfo kMostVisitedPageHandlerValida
     { &internal::MostVisitedPageHandler_UpdateMostVisitedTile_Params_Data::Validate,
      &internal::MostVisitedPageHandler_UpdateMostVisitedTile_ResponseParams_Data::Validate},
     { &internal::MostVisitedPageHandler_PrerenderMostVisitedTile_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::MostVisitedPageHandler_PreconnectMostVisitedTile_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::MostVisitedPageHandler_CancelPrerender_Params_Data::Validate,
      nullptr /* no response */},
@@ -2247,6 +2351,9 @@ void MostVisitedPageHandlerInterceptorForTesting::UpdateMostVisitedTile(const ::
 }
 void MostVisitedPageHandlerInterceptorForTesting::PrerenderMostVisitedTile(MostVisitedTilePtr tile, bool is_hover_trigger) {
   GetForwardingInterface()->PrerenderMostVisitedTile(std::move(tile), std::move(is_hover_trigger));
+}
+void MostVisitedPageHandlerInterceptorForTesting::PreconnectMostVisitedTile(MostVisitedTilePtr tile) {
+  GetForwardingInterface()->PreconnectMostVisitedTile(std::move(tile));
 }
 void MostVisitedPageHandlerInterceptorForTesting::CancelPrerender() {
   GetForwardingInterface()->CancelPrerender();

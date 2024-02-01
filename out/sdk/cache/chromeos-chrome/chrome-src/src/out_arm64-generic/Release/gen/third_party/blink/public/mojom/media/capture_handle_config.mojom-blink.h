@@ -61,7 +61,7 @@ class PLATFORM_EXPORT CaptureHandleConfig {
   template <typename... Args>
   static CaptureHandleConfigPtr New(Args&&... args) {
     return CaptureHandleConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

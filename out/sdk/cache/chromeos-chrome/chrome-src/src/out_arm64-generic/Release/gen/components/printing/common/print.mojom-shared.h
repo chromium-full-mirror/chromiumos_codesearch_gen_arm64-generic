@@ -370,7 +370,7 @@ static_assert(
         ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView, UserType>(),
     "Attempting to read the optional `metafile_data_region` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMetafileDataRegion` instead "
     "of `ReadMetafileDataRegion if you're fine with null values being "
@@ -672,8 +672,8 @@ class PrintParamsDataView {
   std::optional<bool> generate_tagged_pdf() const {
 
     return data_->generate_tagged_pdf_$flag
-        ? absl::make_optional(!!data_->generate_tagged_pdf_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->generate_tagged_pdf_$value)
+        : std::nullopt;
   }
   bool generate_document_outline() const {
     return data_->generate_document_outline;

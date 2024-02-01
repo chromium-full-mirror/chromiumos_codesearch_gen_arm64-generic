@@ -11,7 +11,7 @@
 
 goog.require('mojo.internal');
 
-goog.require('device.mojom.DevicePostureType');
+goog.require('blink.mojom.DevicePostureType');
 goog.require('display.mojom.ScreenOrientation');
 goog.require('gfx.mojom.Point');
 goog.require('gfx.mojom.PointF');
@@ -149,7 +149,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'devicePosture', 64,
         0,
-        device.mojom.DevicePostureTypeSpec.$,
+        blink.mojom.DevicePostureTypeSpec.$,
         0,
         false, /* nullable */
         0 /* minVersion */,
@@ -186,7 +186,7 @@ blink.mojom.DeviceEmulationParams = class {
     this.screenOrientationAngle;
     /** @export { !Array<!gfx.mojom.Rect> } */
     this.windowSegments;
-    /** @export { !device.mojom.DevicePostureType } */
+    /** @export { !blink.mojom.DevicePostureType } */
     this.devicePosture;
   }
 };

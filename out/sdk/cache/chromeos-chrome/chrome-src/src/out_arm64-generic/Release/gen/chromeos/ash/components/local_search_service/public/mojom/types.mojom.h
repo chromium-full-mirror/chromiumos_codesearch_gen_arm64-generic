@@ -56,7 +56,7 @@ class  SearchParams {
   template <typename... Args>
   static SearchParamsPtr New(Args&&... args) {
     return SearchParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -202,7 +202,7 @@ class  Position {
   template <typename... Args>
   static PositionPtr New(Args&&... args) {
     return PositionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -351,7 +351,7 @@ class  Content {
   template <typename... Args>
   static ContentPtr New(Args&&... args) {
     return ContentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -497,7 +497,7 @@ class  Data {
   template <typename... Args>
   static DataPtr New(Args&&... args) {
     return DataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -645,7 +645,7 @@ class  Result {
   template <typename... Args>
   static ResultPtr New(Args&&... args) {
     return ResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

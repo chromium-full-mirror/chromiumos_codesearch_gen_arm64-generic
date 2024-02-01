@@ -581,7 +581,7 @@ class BLINK_COMMON_EXPORT TrackControls {
   template <typename... Args>
   static TrackControlsPtr New(Args&&... args) {
     return TrackControlsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -726,7 +726,7 @@ class BLINK_COMMON_EXPORT CapturedWheelAction {
   template <typename... Args>
   static CapturedWheelActionPtr New(Args&&... args) {
     return CapturedWheelActionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -880,7 +880,7 @@ class BLINK_COMMON_EXPORT StreamSelectionInfo {
   template <typename... Args>
   static StreamSelectionInfoPtr New(Args&&... args) {
     return StreamSelectionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1023,7 +1023,7 @@ class BLINK_COMMON_EXPORT MediaStreamDevice {
   template <typename... Args>
   static MediaStreamDevicePtr New(Args&&... args) {
     return MediaStreamDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1193,7 +1193,7 @@ class BLINK_COMMON_EXPORT StreamControls {
   template <typename... Args>
   static StreamControlsPtr New(Args&&... args) {
     return StreamControlsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1366,7 +1366,7 @@ class BLINK_COMMON_EXPORT GetOpenDeviceResponse {
   template <typename... Args>
   static GetOpenDeviceResponsePtr New(Args&&... args) {
     return GetOpenDeviceResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1513,7 +1513,7 @@ class BLINK_COMMON_EXPORT StreamDevices {
   template <typename... Args>
   static StreamDevicesPtr New(Args&&... args) {
     return StreamDevicesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1656,7 +1656,7 @@ class BLINK_COMMON_EXPORT StreamDevicesSet {
   template <typename... Args>
   static StreamDevicesSetPtr New(Args&&... args) {
     return StreamDevicesSetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

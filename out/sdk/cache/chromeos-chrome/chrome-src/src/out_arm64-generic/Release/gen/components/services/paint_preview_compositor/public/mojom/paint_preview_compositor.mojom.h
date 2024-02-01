@@ -368,7 +368,7 @@ class  PaintPreviewBeginCompositeRequest {
   template <typename... Args>
   static PaintPreviewBeginCompositeRequestPtr New(Args&&... args) {
     return PaintPreviewBeginCompositeRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -508,7 +508,7 @@ class  SubframeClipRect {
   template <typename... Args>
   static SubframeClipRectPtr New(Args&&... args) {
     return SubframeClipRectPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -651,7 +651,7 @@ class  FrameData {
   template <typename... Args>
   static FrameDataPtr New(Args&&... args) {
     return FrameDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -799,7 +799,7 @@ class  PaintPreviewBeginCompositeResponse {
   template <typename... Args>
   static PaintPreviewBeginCompositeResponsePtr New(Args&&... args) {
     return PaintPreviewBeginCompositeResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

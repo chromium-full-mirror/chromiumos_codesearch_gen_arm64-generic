@@ -27,6 +27,7 @@
 #include "chrome/browser/ui/webui/privacy_sandbox/privacy_sandbox_internals.mojom-shared.h"
 #include "chrome/browser/ui/webui/privacy_sandbox/privacy_sandbox_internals.mojom-forward.h"
 #include "mojo/public/mojom/base/values.mojom.h"
+#include "components/content_settings/core/common/content_settings_types.mojom-forward.h"
 #include "components/content_settings/core/common/content_settings.mojom.h"
 #include <string>
 #include <vector>
@@ -72,11 +73,8 @@ class PageHandler
   using ResponseValidator_ = PageHandlerResponseValidator;
   enum MethodMinVersions : uint32_t {
     kReadPrefMinVersion = 0,
-    kGetCookieSettingsMinVersion = 0,
+    kReadContentSettingsMinVersion = 0,
     kGetTpcdMetadataGrantsMinVersion = 0,
-    kGetTpcdHeuristicsGrantsMinVersion = 0,
-    kGetTpcdTrialMinVersion = 0,
-    kGetTopLevelTpcdTrialMinVersion = 0,
     kContentSettingsPatternToStringMinVersion = 0,
     kStringToContentSettingsPatternMinVersion = 0,
   };
@@ -87,19 +85,10 @@ class PageHandler
   struct ReadPref_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct GetCookieSettings_Sym {
+  struct ReadContentSettings_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetTpcdMetadataGrants_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetTpcdHeuristicsGrants_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetTpcdTrial_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetTopLevelTpcdTrial_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ContentSettingsPatternToString_Sym {
@@ -117,29 +106,14 @@ class PageHandler
   virtual void ReadPref(const std::string& pref_name, ReadPrefCallback callback) = 0;
 
 
-  using GetCookieSettingsCallback = base::OnceCallback<void(const std::vector<::ContentSettingPatternSource>&)>;
+  using ReadContentSettingsCallback = base::OnceCallback<void(const std::vector<::ContentSettingPatternSource>&)>;
   
-  virtual void GetCookieSettings(GetCookieSettingsCallback callback) = 0;
+  virtual void ReadContentSettings(::content_settings::mojom::ContentSettingsType type, ReadContentSettingsCallback callback) = 0;
 
 
   using GetTpcdMetadataGrantsCallback = base::OnceCallback<void(const std::vector<::ContentSettingPatternSource>&)>;
   
   virtual void GetTpcdMetadataGrants(GetTpcdMetadataGrantsCallback callback) = 0;
-
-
-  using GetTpcdHeuristicsGrantsCallback = base::OnceCallback<void(const std::vector<::ContentSettingPatternSource>&)>;
-  
-  virtual void GetTpcdHeuristicsGrants(GetTpcdHeuristicsGrantsCallback callback) = 0;
-
-
-  using GetTpcdTrialCallback = base::OnceCallback<void(const std::vector<::ContentSettingPatternSource>&)>;
-  
-  virtual void GetTpcdTrial(GetTpcdTrialCallback callback) = 0;
-
-
-  using GetTopLevelTpcdTrialCallback = base::OnceCallback<void(const std::vector<::ContentSettingPatternSource>&)>;
-  
-  virtual void GetTopLevelTpcdTrial(GetTopLevelTpcdTrialCallback callback) = 0;
 
 
   using ContentSettingsPatternToStringCallback = base::OnceCallback<void(const std::string&)>;
@@ -201,15 +175,9 @@ class  PageHandlerProxy
   
   void ReadPref(const std::string& pref_name, ReadPrefCallback callback) final;
   
-  void GetCookieSettings(GetCookieSettingsCallback callback) final;
+  void ReadContentSettings(::content_settings::mojom::ContentSettingsType type, ReadContentSettingsCallback callback) final;
   
   void GetTpcdMetadataGrants(GetTpcdMetadataGrantsCallback callback) final;
-  
-  void GetTpcdHeuristicsGrants(GetTpcdHeuristicsGrantsCallback callback) final;
-  
-  void GetTpcdTrial(GetTpcdTrialCallback callback) final;
-  
-  void GetTopLevelTpcdTrial(GetTopLevelTpcdTrialCallback callback) final;
   
   void ContentSettingsPatternToString(const ::ContentSettingsPattern& pattern, ContentSettingsPatternToStringCallback callback) final;
   

@@ -231,7 +231,7 @@ class  FeaturePromoDemoPageData {
   template <typename... Args>
   static FeaturePromoDemoPageDataPtr New(Args&&... args) {
     return FeaturePromoDemoPageDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -379,7 +379,7 @@ class  FeaturePromoDemoPageInfo {
   template <typename... Args>
   static FeaturePromoDemoPageInfoPtr New(Args&&... args) {
     return FeaturePromoDemoPageInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

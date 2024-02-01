@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/diagnostics-0.0.1-r2509/work/diagnostics-0.0.1/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/diagnostics-0.0.1-r2511/work/diagnostics-0.0.1/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -36,7 +36,6 @@ build _libcros_healthd_mojo_bindings_gen-cros_healthd_exception.mojom-install_co
 build _libcros_healthd_mojo_bindings_gen-cros_healthd_probe.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_probe.mojom-install_config.stamp
 build _libcros_healthd_mojo_bindings_gen-cros_healthd_routines.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_routines.mojom-install_config.stamp
 build _libcros_healthd_mojo_bindings_gen-nullable_primitives.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-nullable_primitives.mojom-install_config.stamp
-build _libcros_healthd_mojo_bindings_gen-wilco_ec.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-wilco_ec.mojom-install_config.stamp
 build _libdiagnostics_base-install_config: phony obj/diagnostics/base/_libdiagnostics_base-install_config.stamp
 build _libmojo_base-install_config: phony obj/diagnostics/mojom/external/_libmojo_base-install_config.stamp
 build _libmojo_base_gen-time.mojom-install_config: phony obj/diagnostics/mojom/external/_libmojo_base_gen-time.mojom-install_config.stamp
@@ -259,7 +258,6 @@ build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings_gen-cros_healthd_
 build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings_gen-cros_healthd_probe.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_probe.mojom-install_config.stamp
 build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings_gen-cros_healthd_routines.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_routines.mojom-install_config.stamp
 build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings_gen-nullable_primitives.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-nullable_primitives.mojom-install_config.stamp
-build diagnostics/mojom/public$:_libcros_healthd_mojo_bindings_gen-wilco_ec.mojom-install_config: phony obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-wilco_ec.mojom-install_config.stamp
 build diagnostics/mojom/public$:libcros_healthd_mojo_bindings: phony ./libcros_healthd_mojo_bindings.a
 build diagnostics/mojom/public$:libcros_healthd_mojo_bindings_gen: phony obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen.stamp
 build diagnostics/mojom/public$:libcros_healthd_mojo_bindings_gen_mojo_templates: phony obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_mojo_templates.stamp
@@ -393,7 +391,6 @@ build all: phony $
     obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_probe.mojom-install_config.stamp $
     obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-cros_healthd_routines.mojom-install_config.stamp $
     obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-nullable_primitives.mojom-install_config.stamp $
-    obj/diagnostics/mojom/public/_libcros_healthd_mojo_bindings_gen-wilco_ec.mojom-install_config.stamp $
     ./libcros_healthd_mojo_bindings.a $
     obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen.stamp $
     obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_mojo_templates.stamp $

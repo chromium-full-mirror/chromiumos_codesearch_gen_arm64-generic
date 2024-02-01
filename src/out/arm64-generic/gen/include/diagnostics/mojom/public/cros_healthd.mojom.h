@@ -34,7 +34,6 @@
 #include "diagnostics/mojom/public/cros_healthd_exception.mojom-forward.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-forward.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-forward.h"
-#include "diagnostics/mojom/public/wilco_ec.mojom-forward.h"
 #include <string>
 #include <vector>
 
@@ -833,75 +832,6 @@ class CrosHealthdSystemService
   virtual void GetServiceStatus(GetServiceStatusCallback callback) = 0;
 };
 
-class WilcoEcServiceControllerProxy;
-
-template <typename ImplRefTraits>
-class WilcoEcServiceControllerStub;
-
-class WilcoEcServiceControllerRequestValidator;
-class WilcoEcServiceControllerResponseValidator;
-
-
-class WilcoEcServiceController
-    : public WilcoEcServiceControllerInterfaceBase {
- public:
-  using IPCStableHashFunction = uint32_t(*)();
-
-  static const char Name_[];
-  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
-  static const char* MessageToMethodName_(mojo::Message& message);
-  static constexpr uint32_t Version_ = 0;
-  static constexpr bool PassesAssociatedKinds_ = false;
-  static constexpr bool HasUninterruptableMethods_ = false;
-
-  using Base_ = WilcoEcServiceControllerInterfaceBase;
-  using Proxy_ = WilcoEcServiceControllerProxy;
-
-  template <typename ImplRefTraits>
-  using Stub_ = WilcoEcServiceControllerStub<ImplRefTraits>;
-
-  using RequestValidator_ = WilcoEcServiceControllerRequestValidator;
-  using ResponseValidator_ = WilcoEcServiceControllerResponseValidator;
-  enum MethodMinVersions : uint32_t {
-    kAddEcObserverMinVersion = 0,
-    kGetEcTelemetryMinVersion = 0,
-    kStartEcServiceMinVersion = 0,
-    kShutdownEcServiceMinVersion = 0,
-  };
-
-// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
-// with not having this data in traces there.
-#if !BUILDFLAG(IS_FUCHSIA)
-  struct AddEcObserver_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetEcTelemetry_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct StartEcService_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct ShutdownEcService_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-#endif // !BUILDFLAG(IS_FUCHSIA)
-  virtual ~WilcoEcServiceController() = default;
-
-  
-  virtual void AddEcObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::WilcoEcObserver> observer) = 0;
-
-
-  using GetEcTelemetryCallback = base::OnceCallback<void(::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr)>;
-  
-  virtual void GetEcTelemetry(const std::string& payload_string, GetEcTelemetryCallback callback) = 0;
-
-  
-  virtual void StartEcService() = 0;
-
-  
-  virtual void ShutdownEcService() = 0;
-};
-
 
 
 class  CrosHealthdServiceFactoryProxy
@@ -1100,27 +1030,6 @@ class  CrosHealthdSystemServiceProxy
   explicit CrosHealthdSystemServiceProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void GetServiceStatus(GetServiceStatusCallback callback) final;
-
- private:
-  mojo::MessageReceiverWithResponder* receiver_;
-};
-
-
-
-class  WilcoEcServiceControllerProxy
-    : public WilcoEcServiceController {
- public:
-  using InterfaceType = WilcoEcServiceController;
-
-  explicit WilcoEcServiceControllerProxy(mojo::MessageReceiverWithResponder* receiver);
-  
-  void AddEcObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::WilcoEcObserver> observer) final;
-  
-  void GetEcTelemetry(const std::string& payload_string, GetEcTelemetryCallback callback) final;
-  
-  void StartEcService() final;
-  
-  void ShutdownEcService() final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -1330,47 +1239,6 @@ class CrosHealthdSystemServiceStub
  private:
   ImplPointerType sink_;
 };
-class  WilcoEcServiceControllerStubDispatch {
- public:
-  static bool Accept(WilcoEcServiceController* impl, mojo::Message* message);
-  static bool AcceptWithResponder(
-      WilcoEcServiceController* impl,
-      mojo::Message* message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
-};
-
-template <typename ImplRefTraits =
-              mojo::RawPtrImplRefTraits<WilcoEcServiceController>>
-class WilcoEcServiceControllerStub
-    : public mojo::MessageReceiverWithResponderStatus {
- public:
-  using ImplPointerType = typename ImplRefTraits::PointerType;
-
-  WilcoEcServiceControllerStub() = default;
-  ~WilcoEcServiceControllerStub() override = default;
-
-  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
-  ImplPointerType& sink() { return sink_; }
-
-  bool Accept(mojo::Message* message) override {
-    if (ImplRefTraits::IsNull(sink_))
-      return false;
-    return WilcoEcServiceControllerStubDispatch::Accept(
-        ImplRefTraits::GetRawPointer(&sink_), message);
-  }
-
-  bool AcceptWithResponder(
-      mojo::Message* message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
-    if (ImplRefTraits::IsNull(sink_))
-      return false;
-    return WilcoEcServiceControllerStubDispatch::AcceptWithResponder(
-        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
-  }
-
- private:
-  ImplPointerType sink_;
-};
 class  CrosHealthdServiceFactoryRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
@@ -1391,10 +1259,6 @@ class  CrosHealthdSystemServiceRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
-class  WilcoEcServiceControllerRequestValidator : public mojo::MessageReceiver {
- public:
-  bool Accept(mojo::Message* message) override;
-};
 class  CrosHealthdDiagnosticsServiceResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
@@ -1408,10 +1272,6 @@ class  CrosHealthdProbeServiceResponseValidator : public mojo::MessageReceiver {
   bool Accept(mojo::Message* message) override;
 };
 class  CrosHealthdSystemServiceResponseValidator : public mojo::MessageReceiver {
- public:
-  bool Accept(mojo::Message* message) override;
-};
-class  WilcoEcServiceControllerResponseValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

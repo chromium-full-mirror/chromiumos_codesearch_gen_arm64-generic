@@ -60,7 +60,7 @@ class BLINK_PLATFORM_EXPORT FrameDeadline {
   template <typename... Args>
   static FrameDeadlinePtr New(Args&&... args) {
     return FrameDeadlinePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

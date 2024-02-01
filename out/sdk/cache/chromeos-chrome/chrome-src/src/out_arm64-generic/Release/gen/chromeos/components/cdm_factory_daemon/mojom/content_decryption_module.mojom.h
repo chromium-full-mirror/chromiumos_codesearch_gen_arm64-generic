@@ -405,7 +405,7 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) CdmPromiseResult {
   template <typename... Args>
   static CdmPromiseResultPtr New(Args&&... args) {
     return CdmPromiseResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -555,7 +555,7 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) EncryptionPattern {
   template <typename... Args>
   static EncryptionPatternPtr New(Args&&... args) {
     return EncryptionPatternPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -698,7 +698,7 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) SubsampleEntry {
   template <typename... Args>
   static SubsampleEntryPtr New(Args&&... args) {
     return SubsampleEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -845,7 +845,7 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) CdmKeyInformation {
   template <typename... Args>
   static CdmKeyInformationPtr New(Args&&... args) {
     return CdmKeyInformationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -993,7 +993,7 @@ class COMPONENT_EXPORT(CHROMEOS_CDM_MOJOM) DecryptConfig {
   template <typename... Args>
   static DecryptConfigPtr New(Args&&... args) {
     return DecryptConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

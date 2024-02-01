@@ -416,7 +416,7 @@ static_assert(
         mojo::ArrayDataView<::network::mojom::IPEndPointDataView>, UserType>(),
     "Attempting to read the optional `nameservers` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNameservers` instead "
     "of `ReadNameservers if you're fine with null values being "
@@ -436,7 +436,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `search` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSearch` instead "
     "of `ReadSearch if you're fine with null values being "
@@ -469,7 +469,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `fallback_period` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFallbackPeriod` instead "
     "of `ReadFallbackPeriod if you're fine with null values being "
@@ -512,7 +512,7 @@ static_assert(
         ::network::mojom::DnsOverHttpsConfigDataView, UserType>(),
     "Attempting to read the optional `dns_over_https_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDnsOverHttpsConfig` instead "
     "of `ReadDnsOverHttpsConfig if you're fine with null values being "

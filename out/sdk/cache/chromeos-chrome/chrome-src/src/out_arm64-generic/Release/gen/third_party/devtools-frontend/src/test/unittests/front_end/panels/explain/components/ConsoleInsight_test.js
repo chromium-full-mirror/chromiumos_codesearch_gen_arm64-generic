@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import * as Explain from '../../../../../../front_end/panels/explain/explain.js';
+import { dispatchClickEvent, renderElementIntoDOM } from '../../../helpers/DOMHelpers.js';
 import { describeWithLocale } from '../../../helpers/EnvironmentHelpers.js';
 const { assert } = chai;
 describeWithLocale('ConsoleInsight', () => {
@@ -20,6 +21,50 @@ describeWithLocale('ConsoleInsight', () => {
             const renderer = new Explain.MarkdownRenderer();
             const result = renderer.renderToken({ type: 'heading', text: 'learn more' });
             assert(result.strings.join('').includes('<strong>'));
+        });
+    });
+    describe('ConsoleInsight', () => {
+        function getTestInsightProvider() {
+            return {
+                async getInsights() {
+                    return 'test';
+                },
+            };
+        }
+        function getTestPromptBuilder() {
+            return {
+                async buildPrompt() {
+                    return {
+                        prompt: '',
+                        sources: [
+                            {
+                                type: Explain.SourceType.MESSAGE,
+                                value: 'error message',
+                            },
+                        ],
+                    };
+                },
+            };
+        }
+        it('shows the consent flow by default', async () => {
+            const component = new Explain.ConsoleInsight(getTestPromptBuilder(), getTestInsightProvider());
+            renderElementIntoDOM(component);
+            await component.update();
+            // Consent button is present.
+            assert(component.shadowRoot.querySelector('.consent-button'));
+        });
+        it('consent can be accepted', async () => {
+            const component = new Explain.ConsoleInsight(getTestPromptBuilder(), getTestInsightProvider());
+            renderElementIntoDOM(component);
+            await component.update();
+            dispatchClickEvent(component.shadowRoot.querySelector('.consent-button'), {
+                bubbles: true,
+                composed: true,
+            });
+            // Expected to be rendered in the next task.
+            await new Promise(resolve => setTimeout(resolve, 0));
+            // Rating buttons are shown.
+            assert(component.shadowRoot.querySelector('.rating'));
         });
     });
 });

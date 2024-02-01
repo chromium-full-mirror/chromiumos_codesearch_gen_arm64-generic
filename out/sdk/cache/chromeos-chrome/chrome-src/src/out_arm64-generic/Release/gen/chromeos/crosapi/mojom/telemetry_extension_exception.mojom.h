@@ -53,7 +53,7 @@ class  TelemetryExtensionException {
   template <typename... Args>
   static TelemetryExtensionExceptionPtr New(Args&&... args) {
     return TelemetryExtensionExceptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -197,7 +197,7 @@ class  TelemetryExtensionSupported {
   template <typename... Args>
   static TelemetryExtensionSupportedPtr New(Args&&... args) {
     return TelemetryExtensionSupportedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -344,7 +344,7 @@ class  TelemetryExtensionSupportStatus {
   static TelemetryExtensionSupportStatusPtr
   NewUnmappedUnionField(
       int8_t value) {
-    auto result = TelemetryExtensionSupportStatusPtr(absl::in_place);
+    auto result = TelemetryExtensionSupportStatusPtr(std::in_place);
     result->set_unmapped_union_field(std::move(value));
     return result;
   }
@@ -352,7 +352,7 @@ class  TelemetryExtensionSupportStatus {
   static TelemetryExtensionSupportStatusPtr
   NewException(
       TelemetryExtensionExceptionPtr value) {
-    auto result = TelemetryExtensionSupportStatusPtr(absl::in_place);
+    auto result = TelemetryExtensionSupportStatusPtr(std::in_place);
     result->set_exception(std::move(value));
     return result;
   }
@@ -360,7 +360,7 @@ class  TelemetryExtensionSupportStatus {
   static TelemetryExtensionSupportStatusPtr
   NewSupported(
       TelemetryExtensionSupportedPtr value) {
-    auto result = TelemetryExtensionSupportStatusPtr(absl::in_place);
+    auto result = TelemetryExtensionSupportStatusPtr(std::in_place);
     result->set_supported(std::move(value));
     return result;
   }
@@ -368,7 +368,7 @@ class  TelemetryExtensionSupportStatus {
   static TelemetryExtensionSupportStatusPtr
   NewUnsupported(
       TelemetryExtensionUnsupportedPtr value) {
-    auto result = TelemetryExtensionSupportStatusPtr(absl::in_place);
+    auto result = TelemetryExtensionSupportStatusPtr(std::in_place);
     result->set_unsupported(std::move(value));
     return result;
   }
@@ -516,7 +516,7 @@ class  TelemetryExtensionUnsupportedReason {
   static TelemetryExtensionUnsupportedReasonPtr
   NewUnmappedUnionField(
       int8_t value) {
-    auto result = TelemetryExtensionUnsupportedReasonPtr(absl::in_place);
+    auto result = TelemetryExtensionUnsupportedReasonPtr(std::in_place);
     result->set_unmapped_union_field(std::move(value));
     return result;
   }
@@ -616,7 +616,7 @@ class  TelemetryExtensionUnsupported {
   template <typename... Args>
   static TelemetryExtensionUnsupportedPtr New(Args&&... args) {
     return TelemetryExtensionUnsupportedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

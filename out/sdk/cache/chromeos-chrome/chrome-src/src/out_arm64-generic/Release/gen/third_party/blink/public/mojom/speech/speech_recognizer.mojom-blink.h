@@ -450,7 +450,7 @@ class PLATFORM_EXPORT StartSpeechRecognitionRequestParams {
   template <typename... Args>
   static StartSpeechRecognitionRequestParamsPtr New(Args&&... args) {
     return StartSpeechRecognitionRequestParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

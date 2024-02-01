@@ -419,7 +419,7 @@ class  EligibleEntry {
   template <typename... Args>
   static EligibleEntryPtr New(Args&&... args) {
     return EligibleEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -568,7 +568,7 @@ class  ShoppingListEligibleDetail {
   template <typename... Args>
   static ShoppingListEligibleDetailPtr New(Args&&... args) {
     return ShoppingListEligibleDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -729,7 +729,7 @@ class  Subscription {
   template <typename... Args>
   static SubscriptionPtr New(Args&&... args) {
     return SubscriptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

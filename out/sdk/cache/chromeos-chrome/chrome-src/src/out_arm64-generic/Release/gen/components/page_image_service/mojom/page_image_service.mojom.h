@@ -166,7 +166,7 @@ class  Options {
   template <typename... Args>
   static OptionsPtr New(Args&&... args) {
     return OptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -314,7 +314,7 @@ class  ImageResult {
   template <typename... Args>
   static ImageResultPtr New(Args&&... args) {
     return ImageResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

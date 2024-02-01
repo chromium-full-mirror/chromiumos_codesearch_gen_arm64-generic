@@ -1094,7 +1094,7 @@ static_assert(
         ::blink::mojom::LocalFrameTokenDataView, UserType>(),
     "Attempting to read the optional `opener_frame` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOpenerFrame` instead "
     "of `ReadOpenerFrame if you're fine with null values being "
@@ -1166,7 +1166,7 @@ static_assert(
         ::blink::mojom::LocalFrameTokenDataView, UserType>(),
     "Attempting to read the optional `source_frame_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSourceFrameToken` instead "
     "of `ReadSourceFrameToken if you're fine with null values being "
@@ -1286,7 +1286,7 @@ static_assert(
         ::blink::mojom::FrameVisualPropertiesDataView, UserType>(),
     "Attempting to read the optional `visual_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadVisualProperties` instead "
     "of `ReadVisualProperties if you're fine with null values being "
@@ -1953,7 +1953,7 @@ static_assert(
         ::blink::mojom::FrameTokenDataView, UserType>(),
     "Attempting to read the optional `opener_frame_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOpenerFrameToken` instead "
     "of `ReadOpenerFrameToken if you're fine with null values being "
@@ -2132,7 +2132,7 @@ static_assert(
         ::blink::mojom::FrameTokenDataView, UserType>(),
     "Attempting to read the optional `opener_frame_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOpenerFrameToken` instead "
     "of `ReadOpenerFrameToken if you're fine with null values being "

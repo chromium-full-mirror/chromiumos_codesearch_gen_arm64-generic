@@ -436,7 +436,7 @@ class  ImportedPasswordForm {
   template <typename... Args>
   static ImportedPasswordFormPtr New(Args&&... args) {
     return ImportedPasswordFormPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

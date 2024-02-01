@@ -626,7 +626,7 @@ class  InstallationProgress {
   template <typename... Args>
   static InstallationProgressPtr New(Args&&... args) {
     return InstallationProgressPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -770,7 +770,7 @@ class  DeviceRequest {
   template <typename... Args>
   static DeviceRequestPtr New(Args&&... args) {
     return DeviceRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -916,7 +916,7 @@ class  FirmwareUpdate {
   template <typename... Args>
   static FirmwareUpdatePtr New(Args&&... args) {
     return FirmwareUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

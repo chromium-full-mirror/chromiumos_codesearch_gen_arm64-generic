@@ -165,7 +165,7 @@ class  RunRoutineResponse {
   template <typename... Args>
   static RunRoutineResponsePtr New(Args&&... args) {
     return RunRoutineResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -309,7 +309,7 @@ class  InteractiveRoutineUpdate {
   template <typename... Args>
   static InteractiveRoutineUpdatePtr New(Args&&... args) {
     return InteractiveRoutineUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -450,7 +450,7 @@ class  NonInteractiveRoutineUpdate {
   template <typename... Args>
   static NonInteractiveRoutineUpdatePtr New(Args&&... args) {
     return NonInteractiveRoutineUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -605,7 +605,7 @@ class  RoutineUpdateUnion {
   static RoutineUpdateUnionPtr
   NewInteractiveUpdate(
       InteractiveRoutineUpdatePtr value) {
-    auto result = RoutineUpdateUnionPtr(absl::in_place);
+    auto result = RoutineUpdateUnionPtr(std::in_place);
     result->set_interactive_update(std::move(value));
     return result;
   }
@@ -613,7 +613,7 @@ class  RoutineUpdateUnion {
   static RoutineUpdateUnionPtr
   NewNoninteractiveUpdate(
       NonInteractiveRoutineUpdatePtr value) {
-    auto result = RoutineUpdateUnionPtr(absl::in_place);
+    auto result = RoutineUpdateUnionPtr(std::in_place);
     result->set_noninteractive_update(std::move(value));
     return result;
   }
@@ -731,7 +731,7 @@ class  RoutineUpdate {
   template <typename... Args>
   static RoutineUpdatePtr New(Args&&... args) {
     return RoutineUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

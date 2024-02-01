@@ -56,7 +56,7 @@ class PLATFORM_EXPORT PictureInPictureWindowOptions {
   template <typename... Args>
   static PictureInPictureWindowOptionsPtr New(Args&&... args) {
     return PictureInPictureWindowOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

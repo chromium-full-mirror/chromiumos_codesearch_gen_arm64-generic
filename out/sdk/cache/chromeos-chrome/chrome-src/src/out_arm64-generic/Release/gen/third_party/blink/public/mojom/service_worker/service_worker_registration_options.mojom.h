@@ -58,7 +58,7 @@ class COMPONENT_EXPORT(SERVICE_WORKER_STORAGE_MOJOM) ServiceWorkerRegistrationOp
   template <typename... Args>
   static ServiceWorkerRegistrationOptionsPtr New(Args&&... args) {
     return ServiceWorkerRegistrationOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

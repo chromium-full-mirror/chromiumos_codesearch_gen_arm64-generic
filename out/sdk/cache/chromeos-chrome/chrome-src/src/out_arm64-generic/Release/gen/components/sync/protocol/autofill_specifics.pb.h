@@ -570,9 +570,6 @@ class AutofillProfileSpecifics final :
     kAddressHomeSubpremiseNameStatusFieldNumber = 55,
     kAddressHomeAptNumStatusFieldNumber = 58,
     kAddressHomeFloorStatusFieldNumber = 59,
-    kBirthdateDayFieldNumber = 64,
-    kBirthdateMonthFieldNumber = 65,
-    kBirthdateYearFieldNumber = 66,
     kAddressHomeLandmarkStatusFieldNumber = 68,
     kAddressHomeBetweenStreetsStatusFieldNumber = 70,
     kAddressHomeAdminLevel2StatusFieldNumber = 72,
@@ -1717,45 +1714,6 @@ class AutofillProfileSpecifics final :
   void _internal_set_address_home_floor_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value);
   public:
 
-  // optional int32 birthdate_day = 64;
-  bool has_birthdate_day() const;
-  private:
-  bool _internal_has_birthdate_day() const;
-  public:
-  void clear_birthdate_day();
-  int32_t birthdate_day() const;
-  void set_birthdate_day(int32_t value);
-  private:
-  int32_t _internal_birthdate_day() const;
-  void _internal_set_birthdate_day(int32_t value);
-  public:
-
-  // optional int32 birthdate_month = 65;
-  bool has_birthdate_month() const;
-  private:
-  bool _internal_has_birthdate_month() const;
-  public:
-  void clear_birthdate_month();
-  int32_t birthdate_month() const;
-  void set_birthdate_month(int32_t value);
-  private:
-  int32_t _internal_birthdate_month() const;
-  void _internal_set_birthdate_month(int32_t value);
-  public:
-
-  // optional int32 birthdate_year = 66;
-  bool has_birthdate_year() const;
-  private:
-  bool _internal_has_birthdate_year() const;
-  public:
-  void clear_birthdate_year();
-  int32_t birthdate_year() const;
-  void set_birthdate_year(int32_t value);
-  private:
-  int32_t _internal_birthdate_year() const;
-  void _internal_set_birthdate_year(int32_t value);
-  public:
-
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_landmark_status = 68;
   bool has_address_home_landmark_status() const;
   private:
@@ -1973,9 +1931,6 @@ class AutofillProfileSpecifics final :
   int address_home_subpremise_name_status_;
   int address_home_apt_num_status_;
   int address_home_floor_status_;
-  int32_t birthdate_day_;
-  int32_t birthdate_month_;
-  int32_t birthdate_year_;
   int address_home_landmark_status_;
   int address_home_between_streets_status_;
   int address_home_admin_level_2_status_;
@@ -9071,7 +9026,7 @@ inline void AutofillProfileSpecifics::set_address_home_country_status(::sync_pb:
 
 // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_landmark_status = 68;
 inline bool AutofillProfileSpecifics::_internal_has_address_home_landmark_status() const {
-  bool value = (_has_bits_[1] & 0x00100000u) != 0;
+  bool value = (_has_bits_[1] & 0x00020000u) != 0;
   return value;
 }
 inline bool AutofillProfileSpecifics::has_address_home_landmark_status() const {
@@ -9079,7 +9034,7 @@ inline bool AutofillProfileSpecifics::has_address_home_landmark_status() const {
 }
 inline void AutofillProfileSpecifics::clear_address_home_landmark_status() {
   address_home_landmark_status_ = 0;
-  _has_bits_[1] &= ~0x00100000u;
+  _has_bits_[1] &= ~0x00020000u;
 }
 inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::_internal_address_home_landmark_status() const {
   return static_cast< ::sync_pb::AutofillProfileSpecifics_VerificationStatus >(address_home_landmark_status_);
@@ -9090,7 +9045,7 @@ inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpe
 }
 inline void AutofillProfileSpecifics::_internal_set_address_home_landmark_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
   assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  _has_bits_[1] |= 0x00100000u;
+  _has_bits_[1] |= 0x00020000u;
   address_home_landmark_status_ = value;
 }
 inline void AutofillProfileSpecifics::set_address_home_landmark_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
@@ -9100,7 +9055,7 @@ inline void AutofillProfileSpecifics::set_address_home_landmark_status(::sync_pb
 
 // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_status = 70;
 inline bool AutofillProfileSpecifics::_internal_has_address_home_between_streets_status() const {
-  bool value = (_has_bits_[1] & 0x00200000u) != 0;
+  bool value = (_has_bits_[1] & 0x00040000u) != 0;
   return value;
 }
 inline bool AutofillProfileSpecifics::has_address_home_between_streets_status() const {
@@ -9108,7 +9063,7 @@ inline bool AutofillProfileSpecifics::has_address_home_between_streets_status() 
 }
 inline void AutofillProfileSpecifics::clear_address_home_between_streets_status() {
   address_home_between_streets_status_ = 0;
-  _has_bits_[1] &= ~0x00200000u;
+  _has_bits_[1] &= ~0x00040000u;
 }
 inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::_internal_address_home_between_streets_status() const {
   return static_cast< ::sync_pb::AutofillProfileSpecifics_VerificationStatus >(address_home_between_streets_status_);
@@ -9119,7 +9074,7 @@ inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpe
 }
 inline void AutofillProfileSpecifics::_internal_set_address_home_between_streets_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
   assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  _has_bits_[1] |= 0x00200000u;
+  _has_bits_[1] |= 0x00040000u;
   address_home_between_streets_status_ = value;
 }
 inline void AutofillProfileSpecifics::set_address_home_between_streets_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
@@ -9129,7 +9084,7 @@ inline void AutofillProfileSpecifics::set_address_home_between_streets_status(::
 
 // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_1_status = 78;
 inline bool AutofillProfileSpecifics::_internal_has_address_home_between_streets_1_status() const {
-  bool value = (_has_bits_[1] & 0x02000000u) != 0;
+  bool value = (_has_bits_[1] & 0x00400000u) != 0;
   return value;
 }
 inline bool AutofillProfileSpecifics::has_address_home_between_streets_1_status() const {
@@ -9137,7 +9092,7 @@ inline bool AutofillProfileSpecifics::has_address_home_between_streets_1_status(
 }
 inline void AutofillProfileSpecifics::clear_address_home_between_streets_1_status() {
   address_home_between_streets_1_status_ = 0;
-  _has_bits_[1] &= ~0x02000000u;
+  _has_bits_[1] &= ~0x00400000u;
 }
 inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::_internal_address_home_between_streets_1_status() const {
   return static_cast< ::sync_pb::AutofillProfileSpecifics_VerificationStatus >(address_home_between_streets_1_status_);
@@ -9148,7 +9103,7 @@ inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpe
 }
 inline void AutofillProfileSpecifics::_internal_set_address_home_between_streets_1_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
   assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  _has_bits_[1] |= 0x02000000u;
+  _has_bits_[1] |= 0x00400000u;
   address_home_between_streets_1_status_ = value;
 }
 inline void AutofillProfileSpecifics::set_address_home_between_streets_1_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
@@ -9158,7 +9113,7 @@ inline void AutofillProfileSpecifics::set_address_home_between_streets_1_status(
 
 // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_2_status = 80;
 inline bool AutofillProfileSpecifics::_internal_has_address_home_between_streets_2_status() const {
-  bool value = (_has_bits_[1] & 0x04000000u) != 0;
+  bool value = (_has_bits_[1] & 0x00800000u) != 0;
   return value;
 }
 inline bool AutofillProfileSpecifics::has_address_home_between_streets_2_status() const {
@@ -9166,7 +9121,7 @@ inline bool AutofillProfileSpecifics::has_address_home_between_streets_2_status(
 }
 inline void AutofillProfileSpecifics::clear_address_home_between_streets_2_status() {
   address_home_between_streets_2_status_ = 0;
-  _has_bits_[1] &= ~0x04000000u;
+  _has_bits_[1] &= ~0x00800000u;
 }
 inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::_internal_address_home_between_streets_2_status() const {
   return static_cast< ::sync_pb::AutofillProfileSpecifics_VerificationStatus >(address_home_between_streets_2_status_);
@@ -9177,7 +9132,7 @@ inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpe
 }
 inline void AutofillProfileSpecifics::_internal_set_address_home_between_streets_2_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
   assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  _has_bits_[1] |= 0x04000000u;
+  _has_bits_[1] |= 0x00800000u;
   address_home_between_streets_2_status_ = value;
 }
 inline void AutofillProfileSpecifics::set_address_home_between_streets_2_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
@@ -9187,7 +9142,7 @@ inline void AutofillProfileSpecifics::set_address_home_between_streets_2_status(
 
 // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_admin_level_2_status = 72;
 inline bool AutofillProfileSpecifics::_internal_has_address_home_admin_level_2_status() const {
-  bool value = (_has_bits_[1] & 0x00400000u) != 0;
+  bool value = (_has_bits_[1] & 0x00080000u) != 0;
   return value;
 }
 inline bool AutofillProfileSpecifics::has_address_home_admin_level_2_status() const {
@@ -9195,7 +9150,7 @@ inline bool AutofillProfileSpecifics::has_address_home_admin_level_2_status() co
 }
 inline void AutofillProfileSpecifics::clear_address_home_admin_level_2_status() {
   address_home_admin_level_2_status_ = 0;
-  _has_bits_[1] &= ~0x00400000u;
+  _has_bits_[1] &= ~0x00080000u;
 }
 inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::_internal_address_home_admin_level_2_status() const {
   return static_cast< ::sync_pb::AutofillProfileSpecifics_VerificationStatus >(address_home_admin_level_2_status_);
@@ -9206,7 +9161,7 @@ inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpe
 }
 inline void AutofillProfileSpecifics::_internal_set_address_home_admin_level_2_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
   assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  _has_bits_[1] |= 0x00400000u;
+  _has_bits_[1] |= 0x00080000u;
   address_home_admin_level_2_status_ = value;
 }
 inline void AutofillProfileSpecifics::set_address_home_admin_level_2_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
@@ -9216,7 +9171,7 @@ inline void AutofillProfileSpecifics::set_address_home_admin_level_2_status(::sy
 
 // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_overflow_status = 76;
 inline bool AutofillProfileSpecifics::_internal_has_address_home_overflow_status() const {
-  bool value = (_has_bits_[1] & 0x01000000u) != 0;
+  bool value = (_has_bits_[1] & 0x00200000u) != 0;
   return value;
 }
 inline bool AutofillProfileSpecifics::has_address_home_overflow_status() const {
@@ -9224,7 +9179,7 @@ inline bool AutofillProfileSpecifics::has_address_home_overflow_status() const {
 }
 inline void AutofillProfileSpecifics::clear_address_home_overflow_status() {
   address_home_overflow_status_ = 0;
-  _has_bits_[1] &= ~0x01000000u;
+  _has_bits_[1] &= ~0x00200000u;
 }
 inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::_internal_address_home_overflow_status() const {
   return static_cast< ::sync_pb::AutofillProfileSpecifics_VerificationStatus >(address_home_overflow_status_);
@@ -9235,7 +9190,7 @@ inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpe
 }
 inline void AutofillProfileSpecifics::_internal_set_address_home_overflow_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
   assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  _has_bits_[1] |= 0x01000000u;
+  _has_bits_[1] |= 0x00200000u;
   address_home_overflow_status_ = value;
 }
 inline void AutofillProfileSpecifics::set_address_home_overflow_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
@@ -9245,7 +9200,7 @@ inline void AutofillProfileSpecifics::set_address_home_overflow_status(::sync_pb
 
 // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_or_landmark_status = 82;
 inline bool AutofillProfileSpecifics::_internal_has_address_home_between_streets_or_landmark_status() const {
-  bool value = (_has_bits_[1] & 0x08000000u) != 0;
+  bool value = (_has_bits_[1] & 0x01000000u) != 0;
   return value;
 }
 inline bool AutofillProfileSpecifics::has_address_home_between_streets_or_landmark_status() const {
@@ -9253,7 +9208,7 @@ inline bool AutofillProfileSpecifics::has_address_home_between_streets_or_landma
 }
 inline void AutofillProfileSpecifics::clear_address_home_between_streets_or_landmark_status() {
   address_home_between_streets_or_landmark_status_ = 0;
-  _has_bits_[1] &= ~0x08000000u;
+  _has_bits_[1] &= ~0x01000000u;
 }
 inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::_internal_address_home_between_streets_or_landmark_status() const {
   return static_cast< ::sync_pb::AutofillProfileSpecifics_VerificationStatus >(address_home_between_streets_or_landmark_status_);
@@ -9264,7 +9219,7 @@ inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpe
 }
 inline void AutofillProfileSpecifics::_internal_set_address_home_between_streets_or_landmark_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
   assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  _has_bits_[1] |= 0x08000000u;
+  _has_bits_[1] |= 0x01000000u;
   address_home_between_streets_or_landmark_status_ = value;
 }
 inline void AutofillProfileSpecifics::set_address_home_between_streets_or_landmark_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
@@ -9274,7 +9229,7 @@ inline void AutofillProfileSpecifics::set_address_home_between_streets_or_landma
 
 // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_overflow_and_landmark_status = 84;
 inline bool AutofillProfileSpecifics::_internal_has_address_home_overflow_and_landmark_status() const {
-  bool value = (_has_bits_[1] & 0x10000000u) != 0;
+  bool value = (_has_bits_[1] & 0x02000000u) != 0;
   return value;
 }
 inline bool AutofillProfileSpecifics::has_address_home_overflow_and_landmark_status() const {
@@ -9282,7 +9237,7 @@ inline bool AutofillProfileSpecifics::has_address_home_overflow_and_landmark_sta
 }
 inline void AutofillProfileSpecifics::clear_address_home_overflow_and_landmark_status() {
   address_home_overflow_and_landmark_status_ = 0;
-  _has_bits_[1] &= ~0x10000000u;
+  _has_bits_[1] &= ~0x02000000u;
 }
 inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::_internal_address_home_overflow_and_landmark_status() const {
   return static_cast< ::sync_pb::AutofillProfileSpecifics_VerificationStatus >(address_home_overflow_and_landmark_status_);
@@ -9293,7 +9248,7 @@ inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpe
 }
 inline void AutofillProfileSpecifics::_internal_set_address_home_overflow_and_landmark_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
   assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  _has_bits_[1] |= 0x10000000u;
+  _has_bits_[1] |= 0x02000000u;
   address_home_overflow_and_landmark_status_ = value;
 }
 inline void AutofillProfileSpecifics::set_address_home_overflow_and_landmark_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
@@ -9477,7 +9432,7 @@ inline void AutofillProfileSpecifics::set_address_home_thoroughfare_number_statu
 
 // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_street_location_status = 74;
 inline bool AutofillProfileSpecifics::_internal_has_address_home_street_location_status() const {
-  bool value = (_has_bits_[1] & 0x00800000u) != 0;
+  bool value = (_has_bits_[1] & 0x00100000u) != 0;
   return value;
 }
 inline bool AutofillProfileSpecifics::has_address_home_street_location_status() const {
@@ -9485,7 +9440,7 @@ inline bool AutofillProfileSpecifics::has_address_home_street_location_status() 
 }
 inline void AutofillProfileSpecifics::clear_address_home_street_location_status() {
   address_home_street_location_status_ = 0;
-  _has_bits_[1] &= ~0x00800000u;
+  _has_bits_[1] &= ~0x00100000u;
 }
 inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::_internal_address_home_street_location_status() const {
   return static_cast< ::sync_pb::AutofillProfileSpecifics_VerificationStatus >(address_home_street_location_status_);
@@ -9496,7 +9451,7 @@ inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpe
 }
 inline void AutofillProfileSpecifics::_internal_set_address_home_street_location_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
   assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  _has_bits_[1] |= 0x00800000u;
+  _has_bits_[1] |= 0x00100000u;
   address_home_street_location_status_ = value;
 }
 inline void AutofillProfileSpecifics::set_address_home_street_location_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
@@ -9535,7 +9490,7 @@ inline void AutofillProfileSpecifics::set_address_home_subpremise_name_status(::
 
 // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_apt_status = 86;
 inline bool AutofillProfileSpecifics::_internal_has_address_home_apt_status() const {
-  bool value = (_has_bits_[1] & 0x20000000u) != 0;
+  bool value = (_has_bits_[1] & 0x04000000u) != 0;
   return value;
 }
 inline bool AutofillProfileSpecifics::has_address_home_apt_status() const {
@@ -9543,7 +9498,7 @@ inline bool AutofillProfileSpecifics::has_address_home_apt_status() const {
 }
 inline void AutofillProfileSpecifics::clear_address_home_apt_status() {
   address_home_apt_status_ = 0;
-  _has_bits_[1] &= ~0x20000000u;
+  _has_bits_[1] &= ~0x04000000u;
 }
 inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::_internal_address_home_apt_status() const {
   return static_cast< ::sync_pb::AutofillProfileSpecifics_VerificationStatus >(address_home_apt_status_);
@@ -9554,7 +9509,7 @@ inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpe
 }
 inline void AutofillProfileSpecifics::_internal_set_address_home_apt_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
   assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  _has_bits_[1] |= 0x20000000u;
+  _has_bits_[1] |= 0x04000000u;
   address_home_apt_status_ = value;
 }
 inline void AutofillProfileSpecifics::set_address_home_apt_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
@@ -9593,7 +9548,7 @@ inline void AutofillProfileSpecifics::set_address_home_apt_num_status(::sync_pb:
 
 // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_apt_type_status = 88;
 inline bool AutofillProfileSpecifics::_internal_has_address_home_apt_type_status() const {
-  bool value = (_has_bits_[1] & 0x40000000u) != 0;
+  bool value = (_has_bits_[1] & 0x08000000u) != 0;
   return value;
 }
 inline bool AutofillProfileSpecifics::has_address_home_apt_type_status() const {
@@ -9601,7 +9556,7 @@ inline bool AutofillProfileSpecifics::has_address_home_apt_type_status() const {
 }
 inline void AutofillProfileSpecifics::clear_address_home_apt_type_status() {
   address_home_apt_type_status_ = 0;
-  _has_bits_[1] &= ~0x40000000u;
+  _has_bits_[1] &= ~0x08000000u;
 }
 inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpecifics::_internal_address_home_apt_type_status() const {
   return static_cast< ::sync_pb::AutofillProfileSpecifics_VerificationStatus >(address_home_apt_type_status_);
@@ -9612,7 +9567,7 @@ inline ::sync_pb::AutofillProfileSpecifics_VerificationStatus AutofillProfileSpe
 }
 inline void AutofillProfileSpecifics::_internal_set_address_home_apt_type_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
   assert(::sync_pb::AutofillProfileSpecifics_VerificationStatus_IsValid(value));
-  _has_bits_[1] |= 0x40000000u;
+  _has_bits_[1] |= 0x08000000u;
   address_home_apt_type_status_ = value;
 }
 inline void AutofillProfileSpecifics::set_address_home_apt_type_status(::sync_pb::AutofillProfileSpecifics_VerificationStatus value) {
@@ -9722,90 +9677,6 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 AutofillProfileSpecifics::mutable_phone_home_whole_number() {
   // @@protoc_insertion_point(field_mutable_list:sync_pb.AutofillProfileSpecifics.phone_home_whole_number)
   return &phone_home_whole_number_;
-}
-
-// optional int32 birthdate_day = 64;
-inline bool AutofillProfileSpecifics::_internal_has_birthdate_day() const {
-  bool value = (_has_bits_[1] & 0x00020000u) != 0;
-  return value;
-}
-inline bool AutofillProfileSpecifics::has_birthdate_day() const {
-  return _internal_has_birthdate_day();
-}
-inline void AutofillProfileSpecifics::clear_birthdate_day() {
-  birthdate_day_ = 0;
-  _has_bits_[1] &= ~0x00020000u;
-}
-inline int32_t AutofillProfileSpecifics::_internal_birthdate_day() const {
-  return birthdate_day_;
-}
-inline int32_t AutofillProfileSpecifics::birthdate_day() const {
-  // @@protoc_insertion_point(field_get:sync_pb.AutofillProfileSpecifics.birthdate_day)
-  return _internal_birthdate_day();
-}
-inline void AutofillProfileSpecifics::_internal_set_birthdate_day(int32_t value) {
-  _has_bits_[1] |= 0x00020000u;
-  birthdate_day_ = value;
-}
-inline void AutofillProfileSpecifics::set_birthdate_day(int32_t value) {
-  _internal_set_birthdate_day(value);
-  // @@protoc_insertion_point(field_set:sync_pb.AutofillProfileSpecifics.birthdate_day)
-}
-
-// optional int32 birthdate_month = 65;
-inline bool AutofillProfileSpecifics::_internal_has_birthdate_month() const {
-  bool value = (_has_bits_[1] & 0x00040000u) != 0;
-  return value;
-}
-inline bool AutofillProfileSpecifics::has_birthdate_month() const {
-  return _internal_has_birthdate_month();
-}
-inline void AutofillProfileSpecifics::clear_birthdate_month() {
-  birthdate_month_ = 0;
-  _has_bits_[1] &= ~0x00040000u;
-}
-inline int32_t AutofillProfileSpecifics::_internal_birthdate_month() const {
-  return birthdate_month_;
-}
-inline int32_t AutofillProfileSpecifics::birthdate_month() const {
-  // @@protoc_insertion_point(field_get:sync_pb.AutofillProfileSpecifics.birthdate_month)
-  return _internal_birthdate_month();
-}
-inline void AutofillProfileSpecifics::_internal_set_birthdate_month(int32_t value) {
-  _has_bits_[1] |= 0x00040000u;
-  birthdate_month_ = value;
-}
-inline void AutofillProfileSpecifics::set_birthdate_month(int32_t value) {
-  _internal_set_birthdate_month(value);
-  // @@protoc_insertion_point(field_set:sync_pb.AutofillProfileSpecifics.birthdate_month)
-}
-
-// optional int32 birthdate_year = 66;
-inline bool AutofillProfileSpecifics::_internal_has_birthdate_year() const {
-  bool value = (_has_bits_[1] & 0x00080000u) != 0;
-  return value;
-}
-inline bool AutofillProfileSpecifics::has_birthdate_year() const {
-  return _internal_has_birthdate_year();
-}
-inline void AutofillProfileSpecifics::clear_birthdate_year() {
-  birthdate_year_ = 0;
-  _has_bits_[1] &= ~0x00080000u;
-}
-inline int32_t AutofillProfileSpecifics::_internal_birthdate_year() const {
-  return birthdate_year_;
-}
-inline int32_t AutofillProfileSpecifics::birthdate_year() const {
-  // @@protoc_insertion_point(field_get:sync_pb.AutofillProfileSpecifics.birthdate_year)
-  return _internal_birthdate_year();
-}
-inline void AutofillProfileSpecifics::_internal_set_birthdate_year(int32_t value) {
-  _has_bits_[1] |= 0x00080000u;
-  birthdate_year_ = value;
-}
-inline void AutofillProfileSpecifics::set_birthdate_year(int32_t value) {
-  _internal_set_birthdate_year(value);
-  // @@protoc_insertion_point(field_set:sync_pb.AutofillProfileSpecifics.birthdate_year)
 }
 
 // optional string deprecated_label = 1 [deprecated = true];

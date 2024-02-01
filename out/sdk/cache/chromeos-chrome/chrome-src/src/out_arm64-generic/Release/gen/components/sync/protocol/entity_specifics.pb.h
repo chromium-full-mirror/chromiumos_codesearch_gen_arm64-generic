@@ -67,6 +67,7 @@
 #include "components/sync/protocol/send_tab_to_self_specifics.pb.h"
 #include "components/sync/protocol/segmentation_specifics.pb.h"
 #include "components/sync/protocol/session_specifics.pb.h"
+#include "components/sync/protocol/shared_tab_group_data_specifics.pb.h"
 #include "components/sync/protocol/sharing_message_specifics.pb.h"
 #include "components/sync/protocol/theme_specifics.pb.h"
 #include "components/sync/protocol/typed_url_specifics.pb.h"
@@ -196,6 +197,7 @@ class EntitySpecifics final :
     kIncomingPasswordSharingInvitation = 1141935,
     kOutgoingPasswordSharingInvitation = 1142081,
     kAutofillWalletCredential = 1164238,
+    kSharedTabGroupData = 1239418,
     kAppNotification = 45184,
     kSyncedNotification = 153108,
     kSyncedNotificationAppInfo = 235816,
@@ -326,6 +328,7 @@ class EntitySpecifics final :
     kIncomingPasswordSharingInvitationFieldNumber = 1141935,
     kOutgoingPasswordSharingInvitationFieldNumber = 1142081,
     kAutofillWalletCredentialFieldNumber = 1164238,
+    kSharedTabGroupDataFieldNumber = 1239418,
     kAppNotificationFieldNumber = 45184,
     kSyncedNotificationFieldNumber = 153108,
     kSyncedNotificationAppInfoFieldNumber = 235816,
@@ -1218,6 +1221,24 @@ class EntitySpecifics final :
       ::sync_pb::AutofillWalletCredentialSpecifics* autofill_wallet_credential);
   ::sync_pb::AutofillWalletCredentialSpecifics* unsafe_arena_release_autofill_wallet_credential();
 
+  // .sync_pb.SharedTabGroupDataSpecifics shared_tab_group_data = 1239418;
+  bool has_shared_tab_group_data() const;
+  private:
+  bool _internal_has_shared_tab_group_data() const;
+  public:
+  void clear_shared_tab_group_data();
+  const ::sync_pb::SharedTabGroupDataSpecifics& shared_tab_group_data() const;
+  PROTOBUF_NODISCARD ::sync_pb::SharedTabGroupDataSpecifics* release_shared_tab_group_data();
+  ::sync_pb::SharedTabGroupDataSpecifics* mutable_shared_tab_group_data();
+  void set_allocated_shared_tab_group_data(::sync_pb::SharedTabGroupDataSpecifics* shared_tab_group_data);
+  private:
+  const ::sync_pb::SharedTabGroupDataSpecifics& _internal_shared_tab_group_data() const;
+  ::sync_pb::SharedTabGroupDataSpecifics* _internal_mutable_shared_tab_group_data();
+  public:
+  void unsafe_arena_set_allocated_shared_tab_group_data(
+      ::sync_pb::SharedTabGroupDataSpecifics* shared_tab_group_data);
+  ::sync_pb::SharedTabGroupDataSpecifics* unsafe_arena_release_shared_tab_group_data();
+
   // .sync_pb.EmptySpecifics app_notification = 45184 [deprecated = true];
   PROTOBUF_DEPRECATED bool has_app_notification() const;
   private:
@@ -1433,6 +1454,7 @@ class EntitySpecifics final :
   void set_has_incoming_password_sharing_invitation();
   void set_has_outgoing_password_sharing_invitation();
   void set_has_autofill_wallet_credential();
+  void set_has_shared_tab_group_data();
   void set_has_app_notification();
   void set_has_synced_notification();
   void set_has_synced_notification_app_info();
@@ -1503,6 +1525,7 @@ class EntitySpecifics final :
     ::sync_pb::IncomingPasswordSharingInvitationSpecifics* incoming_password_sharing_invitation_;
     ::sync_pb::OutgoingPasswordSharingInvitationSpecifics* outgoing_password_sharing_invitation_;
     ::sync_pb::AutofillWalletCredentialSpecifics* autofill_wallet_credential_;
+    ::sync_pb::SharedTabGroupDataSpecifics* shared_tab_group_data_;
     ::sync_pb::EmptySpecifics* app_notification_;
     ::sync_pb::EmptySpecifics* synced_notification_;
     ::sync_pb::EmptySpecifics* synced_notification_app_info_;
@@ -4901,6 +4924,72 @@ inline ::sync_pb::AutofillWalletCredentialSpecifics* EntitySpecifics::_internal_
 inline ::sync_pb::AutofillWalletCredentialSpecifics* EntitySpecifics::mutable_autofill_wallet_credential() {
   ::sync_pb::AutofillWalletCredentialSpecifics* _msg = _internal_mutable_autofill_wallet_credential();
   // @@protoc_insertion_point(field_mutable:sync_pb.EntitySpecifics.autofill_wallet_credential)
+  return _msg;
+}
+
+// .sync_pb.SharedTabGroupDataSpecifics shared_tab_group_data = 1239418;
+inline bool EntitySpecifics::_internal_has_shared_tab_group_data() const {
+  return specifics_variant_case() == kSharedTabGroupData;
+}
+inline bool EntitySpecifics::has_shared_tab_group_data() const {
+  return _internal_has_shared_tab_group_data();
+}
+inline void EntitySpecifics::set_has_shared_tab_group_data() {
+  _oneof_case_[0] = kSharedTabGroupData;
+}
+inline ::sync_pb::SharedTabGroupDataSpecifics* EntitySpecifics::release_shared_tab_group_data() {
+  // @@protoc_insertion_point(field_release:sync_pb.EntitySpecifics.shared_tab_group_data)
+  if (_internal_has_shared_tab_group_data()) {
+    clear_has_specifics_variant();
+    ::sync_pb::SharedTabGroupDataSpecifics* temp = specifics_variant_.shared_tab_group_data_;
+    if (GetArenaForAllocation() != nullptr) {
+      temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+    }
+    specifics_variant_.shared_tab_group_data_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline const ::sync_pb::SharedTabGroupDataSpecifics& EntitySpecifics::_internal_shared_tab_group_data() const {
+  return _internal_has_shared_tab_group_data()
+      ? *specifics_variant_.shared_tab_group_data_
+      : reinterpret_cast< ::sync_pb::SharedTabGroupDataSpecifics&>(::sync_pb::_SharedTabGroupDataSpecifics_default_instance_);
+}
+inline const ::sync_pb::SharedTabGroupDataSpecifics& EntitySpecifics::shared_tab_group_data() const {
+  // @@protoc_insertion_point(field_get:sync_pb.EntitySpecifics.shared_tab_group_data)
+  return _internal_shared_tab_group_data();
+}
+inline ::sync_pb::SharedTabGroupDataSpecifics* EntitySpecifics::unsafe_arena_release_shared_tab_group_data() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:sync_pb.EntitySpecifics.shared_tab_group_data)
+  if (_internal_has_shared_tab_group_data()) {
+    clear_has_specifics_variant();
+    ::sync_pb::SharedTabGroupDataSpecifics* temp = specifics_variant_.shared_tab_group_data_;
+    specifics_variant_.shared_tab_group_data_ = nullptr;
+    return temp;
+  } else {
+    return nullptr;
+  }
+}
+inline void EntitySpecifics::unsafe_arena_set_allocated_shared_tab_group_data(::sync_pb::SharedTabGroupDataSpecifics* shared_tab_group_data) {
+  clear_specifics_variant();
+  if (shared_tab_group_data) {
+    set_has_shared_tab_group_data();
+    specifics_variant_.shared_tab_group_data_ = shared_tab_group_data;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:sync_pb.EntitySpecifics.shared_tab_group_data)
+}
+inline ::sync_pb::SharedTabGroupDataSpecifics* EntitySpecifics::_internal_mutable_shared_tab_group_data() {
+  if (!_internal_has_shared_tab_group_data()) {
+    clear_specifics_variant();
+    set_has_shared_tab_group_data();
+    specifics_variant_.shared_tab_group_data_ = CreateMaybeMessage< ::sync_pb::SharedTabGroupDataSpecifics >(GetArenaForAllocation());
+  }
+  return specifics_variant_.shared_tab_group_data_;
+}
+inline ::sync_pb::SharedTabGroupDataSpecifics* EntitySpecifics::mutable_shared_tab_group_data() {
+  ::sync_pb::SharedTabGroupDataSpecifics* _msg = _internal_mutable_shared_tab_group_data();
+  // @@protoc_insertion_point(field_mutable:sync_pb.EntitySpecifics.shared_tab_group_data)
   return _msg;
 }
 

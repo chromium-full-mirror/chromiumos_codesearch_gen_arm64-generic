@@ -57,6 +57,22 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LCPCriticalPathPredicto
 };
 static_assert(sizeof(LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Params_Data) == 16,
               "Bad sizeof(LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::url::mojom::internal::Url_Data>>> origins;
+
+ private:
+  friend class mojo::internal::MessageFragment<LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params_Data>;
+
+  LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params_Data();
+  ~LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params_Data() = delete;
+};
+static_assert(sizeof(LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params_Data) == 16,
+              "Bad sizeof(LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) LCPCriticalPathPredictorHost_NotifyFetchedFont_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -117,8 +133,8 @@ class LCPCriticalPathPredictorHost_SetLcpElementLocator_ParamsDataView {
   std::optional<uint32_t> predicted_lcp_index() const {
 
     return data_->predicted_lcp_index_$flag
-        ? absl::make_optional(data_->predicted_lcp_index_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->predicted_lcp_index_$value)
+        : std::nullopt;
   }
  private:
   internal::LCPCriticalPathPredictorHost_SetLcpElementLocator_Params_Data* data_ = nullptr;
@@ -148,6 +164,32 @@ class LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_ParamsDataView {
   }
  private:
   internal::LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsDataView {
+ public:
+  LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsDataView() = default;
+
+  LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsDataView(
+      internal::LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetOriginsDataView(
+      mojo::ArrayDataView<::url::mojom::UrlDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadOrigins(UserType* output) {
+    
+    auto* pointer = data_->origins.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::url::mojom::UrlDataView>>(
+        pointer, output, message_);
+  }
+ private:
+  internal::LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -223,6 +265,13 @@ inline void LCPCriticalPathPredictorHost_SetLcpElementLocator_ParamsDataView::Ge
 inline void LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_ParamsDataView::GetLcpInfluencerScriptsDataView(
     mojo::ArrayDataView<::url::mojom::UrlDataView>* output) {
   auto pointer = data_->lcp_influencer_scripts.Get();
+  *output = mojo::ArrayDataView<::url::mojom::UrlDataView>(pointer, message_);
+}
+
+
+inline void LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsDataView::GetOriginsDataView(
+    mojo::ArrayDataView<::url::mojom::UrlDataView>* output) {
+  auto pointer = data_->origins.Get();
   *output = mojo::ArrayDataView<::url::mojom::UrlDataView>(pointer, message_);
 }
 

@@ -1526,7 +1526,7 @@ class  AppListItemAttributes {
   template <typename... Args>
   static AppListItemAttributesPtr New(Args&&... args) {
     return AppListItemAttributesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1671,7 +1671,7 @@ class  InputMethod {
   template <typename... Args>
   static InputMethodPtr New(Args&&... args) {
     return InputMethodPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1822,7 +1822,7 @@ class  IsolatedWebAppLocation {
   static IsolatedWebAppLocationPtr
   NewProxyOrigin(
       const ::GURL& value) {
-    auto result = IsolatedWebAppLocationPtr(absl::in_place);
+    auto result = IsolatedWebAppLocationPtr(std::in_place);
     result->set_proxy_origin(std::move(value));
     return result;
   }
@@ -1830,7 +1830,7 @@ class  IsolatedWebAppLocation {
   static IsolatedWebAppLocationPtr
   NewBundlePath(
       const ::base::FilePath& value) {
-    auto result = IsolatedWebAppLocationPtr(absl::in_place);
+    auto result = IsolatedWebAppLocationPtr(std::in_place);
     result->set_bundle_path(std::move(value));
     return result;
   }
@@ -1952,7 +1952,7 @@ class  InstallWebAppResult {
   static InstallWebAppResultPtr
   NewAppId(
       const std::string& value) {
-    auto result = InstallWebAppResultPtr(absl::in_place);
+    auto result = InstallWebAppResultPtr(std::in_place);
     result->set_app_id(std::move(value));
     return result;
   }
@@ -1960,7 +1960,7 @@ class  InstallWebAppResult {
   static InstallWebAppResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = InstallWebAppResultPtr(absl::in_place);
+    auto result = InstallWebAppResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -2076,7 +2076,7 @@ class  KeyEvent {
   template <typename... Args>
   static KeyEventPtr New(Args&&... args) {
     return KeyEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

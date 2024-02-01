@@ -60,7 +60,7 @@ class BLINK_PLATFORM_EXPORT MtpFileEntry {
   template <typename... Args>
   static MtpFileEntryPtr New(Args&&... args) {
     return MtpFileEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

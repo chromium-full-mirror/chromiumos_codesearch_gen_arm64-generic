@@ -57,7 +57,7 @@ class BLINK_COMMON_EXPORT RecordContentToVisibleTimeRequest {
   template <typename... Args>
   static RecordContentToVisibleTimeRequestPtr New(Args&&... args) {
     return RecordContentToVisibleTimeRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

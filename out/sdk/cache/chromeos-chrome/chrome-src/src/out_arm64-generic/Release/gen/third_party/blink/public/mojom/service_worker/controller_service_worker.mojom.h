@@ -298,7 +298,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerRouterData {
   template <typename... Args>
   static ServiceWorkerRouterDataPtr New(Args&&... args) {
     return ServiceWorkerRouterDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -444,7 +444,7 @@ class BLINK_COMMON_EXPORT ControllerServiceWorkerInfo {
   template <typename... Args>
   static ControllerServiceWorkerInfoPtr New(Args&&... args) {
     return ControllerServiceWorkerInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

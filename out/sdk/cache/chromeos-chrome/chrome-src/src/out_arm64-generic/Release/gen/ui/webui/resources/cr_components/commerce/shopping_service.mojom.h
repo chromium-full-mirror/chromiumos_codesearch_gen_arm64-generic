@@ -546,7 +546,7 @@ class  PricePoint {
   template <typename... Args>
   static PricePointPtr New(Args&&... args) {
     return PricePointPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -696,7 +696,7 @@ class  ProductInfo {
   template <typename... Args>
   static ProductInfoPtr New(Args&&... args) {
     return ProductInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -857,7 +857,7 @@ class  BookmarkProductInfo {
   template <typename... Args>
   static BookmarkProductInfoPtr New(Args&&... args) {
     return BookmarkProductInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1004,7 +1004,7 @@ class  PriceInsightsInfo {
   template <typename... Args>
   static PriceInsightsInfoPtr New(Args&&... args) {
     return PriceInsightsInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

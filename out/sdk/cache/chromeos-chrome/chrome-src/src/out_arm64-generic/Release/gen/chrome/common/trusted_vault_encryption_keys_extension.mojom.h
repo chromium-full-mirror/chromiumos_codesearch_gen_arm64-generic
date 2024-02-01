@@ -179,7 +179,7 @@ class  TrustedVaultKey {
   template <typename... Args>
   static TrustedVaultKeyPtr New(Args&&... args) {
     return TrustedVaultKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

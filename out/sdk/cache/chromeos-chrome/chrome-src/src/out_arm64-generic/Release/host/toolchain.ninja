@@ -96,7 +96,7 @@ build host/obj/base/anchor_functions_buildflags.stamp: host_stamp host/gen/base/
 subninja host/obj/base/base.ninja
 subninja host/obj/base/base_static.ninja
 rule __base_build_date___build_toolchain_cros_host__rule
-  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/base/write_build_date_header.py host/gen/base/generated_build_date.h 1706328309
+  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/base/write_build_date_header.py host/gen/base/generated_build_date.h 1706717093
   description = ACTION //base:build_date(//build/toolchain/cros:host)
   restat = 1
   pool = build_toolchain_action_pool
@@ -480,7 +480,7 @@ subninja host/obj/build/rust/std/rules/alloc.ninja
 subninja host/obj/build/rust/std/rules/cfg_if.ninja
 subninja host/obj/build/rust/std/rules/compiler_builtins.ninja
 rule __build_rust_std_rules_compiler_builtins_compiler_builtins_vunknown_build_script_output___build_toolchain_cros_host__rule
-  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/build/rust/run_build_script.py --build-script host_for_rust_host_build_tools/compiler_builtins_compiler_builtins_vunknown_build_script --output host/gen/build/rust/std/rules/compiler_builtins/cargo_flags.rs --rust-prefix ../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin --out-dir host/gen/build/rust/std/rules/compiler_builtins --src-dir ../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/lib/rustlib/src/rust/vendor/compiler_builtins-0.1.103 --target x86_64-unknown-linux-gnu --features compiler-builtins core rustc-dep-of-std weak-intrinsics --env CFG_DISABLE_UNSTABLE_FEATURES=0 STD_ENV_ARCH=x86_64 CARGO_PKG_AUTHORS=Jorge\$ Aparicio\$ \<japaricious@gmail.com\> CARGO_PKG_VERSION=0.1.103 CARGO_PKG_NAME=compiler_builtins CARGO_PKG_DESCRIPTION=Compiler\$ intrinsics\$ used\$ by\$ the\$ Rust\$ compiler.\$ Also\$ available\$ for\$ other\$ targets\$ if\$ necessary\! CARGO_MANIFEST_DIR=.
+  command = python3 ../../../../../../../home/chrome-bot/chrome_root/src/build/rust/run_build_script.py --build-script host_for_rust_host_build_tools/compiler_builtins_compiler_builtins_vunknown_build_script --output host/gen/build/rust/std/rules/compiler_builtins/cargo_flags.rs --rust-prefix ../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/bin --out-dir host/gen/build/rust/std/rules/compiler_builtins --src-dir ../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust-toolchain/lib/rustlib/src/rust/vendor/compiler_builtins-0.1.105 --target x86_64-unknown-linux-gnu --features compiler-builtins core rustc-dep-of-std weak-intrinsics --env CFG_DISABLE_UNSTABLE_FEATURES=0 STD_ENV_ARCH=x86_64 CARGO_PKG_AUTHORS=Jorge\$ Aparicio\$ \<japaricious@gmail.com\> CARGO_PKG_VERSION=0.1.105 CARGO_PKG_NAME=compiler_builtins CARGO_PKG_DESCRIPTION=Compiler\$ intrinsics\$ used\$ by\$ the\$ Rust\$ compiler.\$ Also\$ available\$ for\$ other\$ targets\$ if\$ necessary\! CARGO_MANIFEST_DIR=.
   description = ACTION //build/rust/std/rules:compiler_builtins_compiler_builtins_vunknown_build_script_output(//build/toolchain/cros:host)
   restat = 1
   pool = build_toolchain_action_pool

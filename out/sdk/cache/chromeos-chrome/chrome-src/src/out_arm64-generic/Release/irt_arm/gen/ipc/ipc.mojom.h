@@ -279,7 +279,7 @@ class COMPONENT_EXPORT(IPC_MOJOM) Message {
   template <typename... Args>
   static MessagePtr New(Args&&... args) {
     return MessagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -1,7 +1,7 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_search_field/cr_search_field.js';
+import 'chrome://resources/ash/common/cr_elements/cr_search_field/cr_search_field.js';
 import './emoji_category_button.js';
 import './emoji_group.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
@@ -9,9 +9,10 @@ import { NO_INTERNET_SEARCH_ERROR_MSG } from './constants.js';
 import { Status } from './emoji_picker.mojom-webui.js';
 import { EmojiPickerApiProxyImpl } from './emoji_picker_api_proxy.js';
 import { getTemplate } from './emoji_search.html.js';
-import { GIF_ERROR_TRY_AGAIN } from './events.js';
+import { createCustomEvent, EMOJI_IMG_BUTTON_CLICK, GIF_ERROR_TRY_AGAIN } from './events.js';
 import Fuse from './fuse.js';
 import { CategoryEnum } from './types.js';
+const SEAL_DEFAULT_STYLE_NAME = 'seal';
 export class EmojiSearch extends PolymerElement {
     constructor() {
         super(...arguments);
@@ -42,6 +43,7 @@ export class EmojiSearch extends PolymerElement {
             searchResults: { type: Array },
             needIndexing: { type: Boolean, value: false },
             gifSupport: { type: Boolean, value: false },
+            sealSupport: { type: Boolean, value: false },
             status: { type: Status, value: null },
             searchQuery: { type: String, value: '' },
             nextGifPos: { type: String, value: '' },
@@ -50,6 +52,7 @@ export class EmojiSearch extends PolymerElement {
             useGroupedPreference: { type: Boolean, value: false },
             globalTone: { type: Number, value: null, readonly: true },
             globalGender: { type: Number, value: null, readonly: true },
+            sealMode: { type: Boolean, value: false },
         };
     }
     static get observers() {
@@ -65,6 +68,10 @@ export class EmojiSearch extends PolymerElement {
         this.addEventListener(GIF_ERROR_TRY_AGAIN, this.onClickTryAgain);
     }
     onSearch(newSearch) {
+        this.sealMode = this.isSealMode(newSearch);
+        if (this.sealMode) {
+            return;
+        }
         const localSearchResults = this.computeLocalSearchResults(newSearch);
         if (!this.gifSupport) {
             this.set('searchResults', localSearchResults);
@@ -260,6 +267,10 @@ export class EmojiSearch extends PolymerElement {
                 .then((searchResults) => {
                 this.push(['searchResults', gifIndex, 'emoji'], ...searchResults);
             });
+            // As part of loading more GIFs process, we also show seal snackbar.
+            if (!this.sealMode && this.sealSupport) {
+                this.shadowRoot?.querySelector('seal-snackbar')?.show();
+            }
         }
     }
     async computeInitialGifSearchResults(search) {
@@ -343,6 +354,34 @@ export class EmojiSearch extends PolymerElement {
     }
     onClickTryAgain() {
         this.onSearch(this.$.search.getValue());
+    }
+    getSearchQuery() {
+        return this.$.search.getValue();
+    }
+    isSealMode(query) {
+        return query.includes(':');
+    }
+    onSealToastConfirmed() {
+        if (!this.sealMode && this.sealSupport) {
+            this.setSearchQuery(`${SEAL_DEFAULT_STYLE_NAME}: ${this.getSearchQuery()}`);
+        }
+    }
+    onSealQueryChange(e) {
+        this.setSearchQuery(e.detail);
+    }
+    onSealImageClick(e) {
+        this.dispatchEvent(createCustomEvent(EMOJI_IMG_BUTTON_CLICK, {
+            name: 'image',
+            category: CategoryEnum.GIF,
+            visualContent: {
+                id: 'seal',
+                url: {
+                    full: e.detail.url,
+                    preview: e.detail.url,
+                },
+                previewSize: e.detail.size,
+            },
+        }));
     }
     /**
      * Sets the search query

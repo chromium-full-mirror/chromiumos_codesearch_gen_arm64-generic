@@ -183,7 +183,7 @@ static_assert(
         ::blink::mojom::ServiceWorkerClientInfoDataView, UserType>(),
     "Attempting to read the optional `source_info_for_client` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSourceInfoForClient` instead "
     "of `ReadSourceInfoForClient if you're fine with null values being "
@@ -203,7 +203,7 @@ static_assert(
         ::blink::mojom::ServiceWorkerObjectInfoDataView, UserType>(),
     "Attempting to read the optional `source_info_for_service_worker` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSourceInfoForServiceWorker` instead "
     "of `ReadSourceInfoForServiceWorker if you're fine with null values being "

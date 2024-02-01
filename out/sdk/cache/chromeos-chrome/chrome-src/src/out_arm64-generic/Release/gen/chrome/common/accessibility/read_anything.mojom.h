@@ -557,7 +557,7 @@ class  ReadAnythingTheme {
   template <typename... Args>
   static ReadAnythingThemePtr New(Args&&... args) {
     return ReadAnythingThemePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

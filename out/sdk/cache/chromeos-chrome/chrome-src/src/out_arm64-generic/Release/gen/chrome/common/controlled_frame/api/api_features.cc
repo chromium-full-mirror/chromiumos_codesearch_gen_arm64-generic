@@ -23,7 +23,7 @@ void AddControlledFrameAPIFeatures(FeatureProvider* provider) {
   {
     SimpleFeature* feature = new SimpleFeature();
     feature->set_name("controlledFrameInternal");
-    feature->set_channel(version_info::Channel::DEV);
+    feature->set_channel(version_info::Channel::STABLE);
     feature->set_contexts({mojom::ContextType::kWebPage});
     feature->set_internal(true);
     feature->set_requires_delegated_availability_check(true);

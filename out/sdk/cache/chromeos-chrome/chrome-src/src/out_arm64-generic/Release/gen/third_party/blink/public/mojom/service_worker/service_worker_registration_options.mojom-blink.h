@@ -61,7 +61,7 @@ class PLATFORM_EXPORT ServiceWorkerRegistrationOptions {
   template <typename... Args>
   static ServiceWorkerRegistrationOptionsPtr New(Args&&... args) {
     return ServiceWorkerRegistrationOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -89,5 +89,31 @@ mocha_extensions_js_1.describe.skip('[crbug.com/1280763]: The Elements tab', asy
         const hiddenDisplayStyle = await (0, elements_helpers_js_1.getComputedStylesForDomNode)(TARGET_SHOWN_ON_FOCUS_SELECTOR, 'display');
         chai_1.assert.strictEqual(hiddenDisplayStyle, 'none');
     });
+    (0, mocha_extensions_js_1.it)('can toggle emulate a focused page', async () => {
+        const { frontend, target } = (0, helper_js_1.getBrowserAndPages)();
+        await (0, helper_js_1.goToResource)('elements/dissapearing-popup.html');
+        await (0, elements_helpers_js_1.waitForElementsStyleSection)();
+        await (0, helper_js_1.step)('Ensure the correct node is selected after opening a file', async () => {
+            await (0, elements_helpers_js_1.waitForContentOfSelectedElementsNode)('<body>\u200B');
+        });
+        await (0, helper_js_1.step)('Navigate to #query input', async () => {
+            await frontend.keyboard.press('ArrowRight');
+            await (0, elements_helpers_js_1.waitForContentOfSelectedElementsNode)('<input id=\u200B"query" type=\u200B"text">\u200B');
+        });
+        await (0, helper_js_1.step)('Verify #result is hidden', async () => {
+            await frontend.keyboard.press('ArrowDown');
+            await (0, elements_helpers_js_1.waitForPartialContentOfSelectedElementsNode)('<p id=\u200B"result" class=\u200B"hide">\u200B');
+        });
+        await (0, helper_js_1.step)('Verify #result is visible', async () => {
+            await (0, elements_helpers_js_1.forcePseudoState)('Emulate a focused page');
+            await target.keyboard.press('Tab');
+            await (0, elements_helpers_js_1.waitForPartialContentOfSelectedElementsNode)('<p id=\u200B"result" class>\u200B');
+        });
+        await (0, helper_js_1.step)('Verify #result is hidden', async () => {
+            await (0, elements_helpers_js_1.removePseudoState)('Emulate a focused page');
+            await target.keyboard.press('Tab');
+            await (0, elements_helpers_js_1.waitForPartialContentOfSelectedElementsNode)('<p id=\u200B"result" class=\u200B"hide">\u200B');
+        });
+    });
 });
 //# sourceMappingURL=pseudo-states_test.js.map

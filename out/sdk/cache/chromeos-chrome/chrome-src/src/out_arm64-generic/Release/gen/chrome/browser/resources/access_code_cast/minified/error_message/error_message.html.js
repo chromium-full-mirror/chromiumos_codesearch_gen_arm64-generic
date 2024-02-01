@@ -1,4 +1,4 @@
-import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="cr-shared-style">:host{--error-message-color:var(--google-red-600)}@media (prefers-color-scheme:dark){:host{--error-message-color:var(--google-red-300)}}.error{color:var(--error-message-color);text-align:center}</style>
+import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export function getTemplate(){return html`<!--_html_template_start_--><style include="cr-shared-style">:host{--error-message-color:var(--color-sys-error)}.error{color:var(--error-message-color);text-align:center}</style>
 <div class="error" aria-live="assertive">
   <template is="dom-if" if="[[isNotEqual(messageCode, errorMessageEnum.NO_ERROR)]]">
     <template is="dom-if" if="[[isEqual(messageCode, errorMessageEnum.GENERIC)]]">

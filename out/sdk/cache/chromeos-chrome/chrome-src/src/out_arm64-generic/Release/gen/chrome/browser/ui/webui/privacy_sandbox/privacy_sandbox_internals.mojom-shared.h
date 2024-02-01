@@ -25,6 +25,7 @@
 
 #include "chrome/browser/ui/webui/privacy_sandbox/privacy_sandbox_internals.mojom-shared-internal.h"
 #include "mojo/public/mojom/base/values.mojom-shared.h"
+#include "components/content_settings/core/common/content_settings_types.mojom-shared.h"
 #include "components/content_settings/core/common/content_settings.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"

@@ -56,7 +56,7 @@ class BLINK_COMMON_EXPORT AdSize {
   template <typename... Args>
   static AdSizePtr New(Args&&... args) {
     return AdSizePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -209,7 +209,7 @@ class BLINK_COMMON_EXPORT AdDescriptor {
   template <typename... Args>
   static AdDescriptorPtr New(Args&&... args) {
     return AdDescriptorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

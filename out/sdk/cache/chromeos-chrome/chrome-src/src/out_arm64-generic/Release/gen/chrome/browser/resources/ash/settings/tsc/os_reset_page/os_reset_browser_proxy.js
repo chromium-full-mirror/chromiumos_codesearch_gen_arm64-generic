@@ -12,4 +12,10 @@ export class OsResetBrowserProxyImpl {
     requestFactoryResetRestart() {
         chrome.send('requestFactoryResetRestart');
     }
+    onShowSanitizeDialog() {
+        chrome.send('onShowSanitizeDialog');
+    }
+    performSanitizeSettings() {
+        chrome.send('performSanitizeSettings');
+    }
 }

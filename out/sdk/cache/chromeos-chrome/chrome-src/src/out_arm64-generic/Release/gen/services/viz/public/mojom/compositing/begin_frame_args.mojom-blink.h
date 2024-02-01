@@ -59,7 +59,7 @@ class BLINK_PLATFORM_EXPORT BeginFrameAck {
   template <typename... Args>
   static BeginFrameAckPtr New(Args&&... args) {
     return BeginFrameAckPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -210,7 +210,7 @@ class BLINK_PLATFORM_EXPORT BeginFrameArgs {
   template <typename... Args>
   static BeginFrameArgsPtr New(Args&&... args) {
     return BeginFrameArgsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

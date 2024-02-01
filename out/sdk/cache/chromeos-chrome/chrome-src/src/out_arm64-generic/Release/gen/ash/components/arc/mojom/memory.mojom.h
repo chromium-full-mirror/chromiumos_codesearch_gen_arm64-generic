@@ -176,7 +176,7 @@ class  ReclaimRequest {
   template <typename... Args>
   static ReclaimRequestPtr New(Args&&... args) {
     return ReclaimRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -317,7 +317,7 @@ class  ReclaimResult {
   template <typename... Args>
   static ReclaimResultPtr New(Args&&... args) {
     return ReclaimResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -180,7 +180,7 @@ class  FrameSinkManagerParams {
   template <typename... Args>
   static FrameSinkManagerParamsPtr New(Args&&... args) {
     return FrameSinkManagerParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -171,7 +171,7 @@ static_assert(
         ::blink::mojom::ManifestDataView, UserType>(),
     "Attempting to read the optional `manifest` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadManifest` instead "
     "of `ReadManifest if you're fine with null values being "
@@ -232,7 +232,7 @@ static_assert(
         ::blink::mojom::ManifestDataView, UserType>(),
     "Attempting to read the optional `parsed_manifest` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadParsedManifest` instead "
     "of `ReadParsedManifest if you're fine with null values being "
@@ -252,7 +252,7 @@ static_assert(
         ::blink::mojom::ManifestDebugInfoDataView, UserType>(),
     "Attempting to read the optional `debug_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDebugInfo` instead "
     "of `ReadDebugInfo if you're fine with null values being "
@@ -334,7 +334,7 @@ static_assert(
         ::blink::mojom::ManifestDataView, UserType>(),
     "Attempting to read the optional `parsed_manifest` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadParsedManifest` instead "
     "of `ReadParsedManifest if you're fine with null values being "

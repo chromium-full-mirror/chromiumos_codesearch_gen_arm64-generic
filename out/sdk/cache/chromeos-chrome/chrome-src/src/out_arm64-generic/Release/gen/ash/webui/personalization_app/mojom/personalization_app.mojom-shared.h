@@ -669,7 +669,7 @@ static_assert(
         mojo::ArrayDataView<::ash::personalization_app::mojom::GooglePhotosAlbumDataView>, UserType>(),
     "Attempting to read the optional `albums` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAlbums` instead "
     "of `ReadAlbums if you're fine with null values being "
@@ -689,7 +689,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `resume_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResumeToken` instead "
     "of `ReadResumeToken if you're fine with null values being "
@@ -787,7 +787,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `dedup_key` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDedupKey` instead "
     "of `ReadDedupKey if you're fine with null values being "
@@ -837,7 +837,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `location` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLocation` instead "
     "of `ReadLocation if you're fine with null values being "
@@ -873,7 +873,7 @@ static_assert(
         mojo::ArrayDataView<::ash::personalization_app::mojom::GooglePhotosPhotoDataView>, UserType>(),
     "Attempting to read the optional `photos` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPhotos` instead "
     "of `ReadPhotos if you're fine with null values being "
@@ -893,7 +893,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `resume_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResumeToken` instead "
     "of `ReadResumeToken if you're fine with null values being "
@@ -1182,7 +1182,7 @@ static_assert(
         ::ash::personalization_app::mojom::DeprecatedSourceInfoDataView, UserType>(),
     "Attempting to read the optional `source_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSourceInfo` instead "
     "of `ReadSourceInfo if you're fine with null values being "

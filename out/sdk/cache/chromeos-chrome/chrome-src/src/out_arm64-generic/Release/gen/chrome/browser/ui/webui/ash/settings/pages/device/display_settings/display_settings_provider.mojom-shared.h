@@ -90,6 +90,24 @@ inline bool IsKnownEnumValue(DisplaySettingsType value) {
 }
 
 
+enum class DisplaySettingsNightLightScheduleOption : int32_t {
+  
+  kNever = 0,
+  
+  kSunsetToSunrise = 1,
+  
+  kCustom = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, DisplaySettingsNightLightScheduleOption value);
+inline bool IsKnownEnumValue(DisplaySettingsNightLightScheduleOption value) {
+  return internal::DisplaySettingsNightLightScheduleOption_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class DisplaySettingsOrientationOption : int32_t {
   
   kAuto = 0,
@@ -156,19 +174,19 @@ class DisplaySettingsValueDataView {
   std::optional<bool> is_internal_display() const {
 
     return data_->is_internal_display_$flag
-        ? absl::make_optional(!!data_->is_internal_display_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->is_internal_display_$value)
+        : std::nullopt;
   }
   std::optional<int64_t> display_id() const {
 
     return data_->display_id_$flag
-        ? absl::make_optional(data_->display_id_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->display_id_$value)
+        : std::nullopt;
   }
   template <typename UserType>
   [[nodiscard]] bool ReadOrientation(UserType* output) const {
     if (!data_->orientation_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -177,10 +195,33 @@ class DisplaySettingsValueDataView {
   }
   std::optional<DisplaySettingsOrientationOption> orientation() const {
     if (!data_->orientation_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::settings::mojom::DisplaySettingsOrientationOption>(data_->orientation_$value));
+  }
+  std::optional<bool> night_light_status() const {
+
+    return data_->night_light_status_$flag
+        ? std::make_optional(!!data_->night_light_status_$value)
+        : std::nullopt;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadNightLightSchedule(UserType* output) const {
+    if (!data_->night_light_schedule_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::ash::settings::mojom::DisplaySettingsNightLightScheduleOption>(
+        data_->night_light_schedule_$value, &output->emplace());
+  }
+  std::optional<DisplaySettingsNightLightScheduleOption> night_light_schedule() const {
+    if (!data_->night_light_schedule_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ash::settings::mojom::DisplaySettingsNightLightScheduleOption>(data_->night_light_schedule_$value));
   }
  private:
   internal::DisplaySettingsValue_Data* data_ = nullptr;
@@ -194,6 +235,10 @@ namespace std {
 template <>
 struct hash<::ash::settings::mojom::DisplaySettingsType>
     : public mojo::internal::EnumHashImpl<::ash::settings::mojom::DisplaySettingsType> {};
+
+template <>
+struct hash<::ash::settings::mojom::DisplaySettingsNightLightScheduleOption>
+    : public mojo::internal::EnumHashImpl<::ash::settings::mojom::DisplaySettingsNightLightScheduleOption> {};
 
 template <>
 struct hash<::ash::settings::mojom::DisplaySettingsOrientationOption>
@@ -218,6 +263,26 @@ struct Serializer<::ash::settings::mojom::DisplaySettingsType, MaybeConstUserTyp
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::ash::settings::mojom::DisplaySettingsType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ash::settings::mojom::DisplaySettingsNightLightScheduleOption, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ash::settings::mojom::DisplaySettingsNightLightScheduleOption, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ash::settings::mojom::DisplaySettingsNightLightScheduleOption>(input)), output);
   }
 };
 
@@ -273,6 +338,18 @@ struct Serializer<::ash::settings::mojom::DisplaySettingsValueDataView, MaybeCon
       fragment->orientation_$value =
           static_cast<int32_t>(::ash::settings::mojom::DisplaySettingsOrientationOption::kMinValue);
     }
+    fragment->night_light_status_$flag = Traits::night_light_status(input).has_value();
+    if (Traits::night_light_status(input).has_value()) {
+      fragment->night_light_status_$value = Traits::night_light_status(input).value();
+    }
+    fragment->night_light_schedule_$flag = Traits::night_light_schedule(input).has_value();
+    if (Traits::night_light_schedule(input).has_value()) {
+      mojo::internal::Serialize<::ash::settings::mojom::DisplaySettingsNightLightScheduleOption>(
+          Traits::night_light_schedule(input).value(), &fragment->night_light_schedule_$value);
+    } else {
+      fragment->night_light_schedule_$value =
+          static_cast<int32_t>(::ash::settings::mojom::DisplaySettingsNightLightScheduleOption::kMinValue);
+    }
   }
 
   static bool Deserialize(::ash::settings::mojom::internal::DisplaySettingsValue_Data* input,
@@ -306,6 +383,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::ash::settings::mojom::DisplaySettingsType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::ash::settings::mojom::DisplaySettingsType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ash::settings::mojom::DisplaySettingsNightLightScheduleOption> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ash::settings::mojom::DisplaySettingsNightLightScheduleOption value);
 };
 
 } // namespace perfetto

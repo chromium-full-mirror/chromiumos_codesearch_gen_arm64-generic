@@ -479,7 +479,7 @@ static_assert(
         ::blink::mojom::MouseDataDataView, UserType>(),
     "Attempting to read the optional `mouse_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMouseData` instead "
     "of `ReadMouseData if you're fine with null values being "
@@ -576,7 +576,7 @@ static_assert(
         ::blink::mojom::WheelDataDataView, UserType>(),
     "Attempting to read the optional `wheel_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWheelData` instead "
     "of `ReadWheelData if you're fine with null values being "
@@ -671,7 +671,7 @@ static_assert(
         ::blink::mojom::ScrollUpdateDataView, UserType>(),
     "Attempting to read the optional `update_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUpdateDetails` instead "
     "of `ReadUpdateDetails if you're fine with null values being "
@@ -882,7 +882,7 @@ static_assert(
         ::gfx::mojom::SizeDataView, UserType>(),
     "Attempting to read the optional `contact_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadContactSize` instead "
     "of `ReadContactSize if you're fine with null values being "
@@ -902,7 +902,7 @@ static_assert(
         ::blink::mojom::ScrollDataDataView, UserType>(),
     "Attempting to read the optional `scroll_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadScrollData` instead "
     "of `ReadScrollData if you're fine with null values being "
@@ -922,7 +922,7 @@ static_assert(
         ::blink::mojom::PinchBeginDataDataView, UserType>(),
     "Attempting to read the optional `pinch_begin_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPinchBeginData` instead "
     "of `ReadPinchBeginData if you're fine with null values being "
@@ -942,7 +942,7 @@ static_assert(
         ::blink::mojom::PinchUpdateDataDataView, UserType>(),
     "Attempting to read the optional `pinch_update_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPinchUpdateData` instead "
     "of `ReadPinchUpdateData if you're fine with null values being "
@@ -962,7 +962,7 @@ static_assert(
         ::blink::mojom::PinchEndDataDataView, UserType>(),
     "Attempting to read the optional `pinch_end_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPinchEndData` instead "
     "of `ReadPinchEndData if you're fine with null values being "
@@ -982,7 +982,7 @@ static_assert(
         ::blink::mojom::TapDataDataView, UserType>(),
     "Attempting to read the optional `tap_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTapData` instead "
     "of `ReadTapData if you're fine with null values being "
@@ -1002,7 +1002,7 @@ static_assert(
         ::blink::mojom::TapDownDataDataView, UserType>(),
     "Attempting to read the optional `tap_down_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTapDownData` instead "
     "of `ReadTapDownData if you're fine with null values being "
@@ -1022,7 +1022,7 @@ static_assert(
         ::blink::mojom::FlingDataDataView, UserType>(),
     "Attempting to read the optional `fling_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFlingData` instead "
     "of `ReadFlingData if you're fine with null values being "
@@ -1194,7 +1194,7 @@ static_assert(
         ::blink::mojom::KeyDataDataView, UserType>(),
     "Attempting to read the optional `key_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadKeyData` instead "
     "of `ReadKeyData if you're fine with null values being "
@@ -1214,7 +1214,7 @@ static_assert(
         ::blink::mojom::PointerDataDataView, UserType>(),
     "Attempting to read the optional `pointer_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPointerData` instead "
     "of `ReadPointerData if you're fine with null values being "
@@ -1234,7 +1234,7 @@ static_assert(
         ::blink::mojom::GestureDataDataView, UserType>(),
     "Attempting to read the optional `gesture_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadGestureData` instead "
     "of `ReadGestureData if you're fine with null values being "
@@ -1254,7 +1254,7 @@ static_assert(
         ::blink::mojom::TouchDataDataView, UserType>(),
     "Attempting to read the optional `touch_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTouchData` instead "
     "of `ReadTouchData if you're fine with null values being "

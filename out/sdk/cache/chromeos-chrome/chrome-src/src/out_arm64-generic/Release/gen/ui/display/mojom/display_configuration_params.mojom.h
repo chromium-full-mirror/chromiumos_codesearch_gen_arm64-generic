@@ -58,7 +58,7 @@ class  DisplayConfigurationParams {
   template <typename... Args>
   static DisplayConfigurationParamsPtr New(Args&&... args) {
     return DisplayConfigurationParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

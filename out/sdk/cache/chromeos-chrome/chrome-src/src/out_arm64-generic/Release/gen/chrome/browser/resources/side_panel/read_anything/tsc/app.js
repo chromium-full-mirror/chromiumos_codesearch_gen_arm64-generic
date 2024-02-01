@@ -16,16 +16,11 @@ import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled
 import { getTemplate } from './app.html.js';
 const ReadAnythingElementBase = WebUiListenerMixin(PolymerElement);
 // TODO(crbug.com/1465029): Remove colors defined here once the Views toolbar is
-// removed. Note: if crbug.com/1516972 still exists, these colors will need
-// to remain to provide a workaround when color ids are blocked from being
-// loaded on first launch.
+// removed.
 const style = getComputedStyle(document.body);
 const darkThemeBackgroundSkColor = rgbToSkColor(style.getPropertyValue('--google-grey-900-rgb'));
 const lightThemeBackgroundSkColor = rgbToSkColor(style.getPropertyValue('--google-grey-50-rgb'));
 const yellowThemeBackgroundSkColor = rgbToSkColor(style.getPropertyValue('--google-yellow-100-rgb'));
-const blueThemeBackgroundSkColor = rgbToSkColor(style.getPropertyValue('--google-blue-100-rgb'));
-const lightForegroundSkColor = rgbToSkColor('31,31,31');
-const darkForegroundSkColor = rgbToSkColor('227,227,227');
 const darkThemeEmptyStateBodyColor = 'var(--google-grey-500)';
 const defaultThemeEmptyStateBodyColor = 'var(--google-grey-700)';
 const darkThemeLinkColors = {
@@ -139,20 +134,14 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         this.previousHighlight_ = [];
         this.chromeRefresh2023Enabled_ = document.documentElement.hasAttribute('chrome-refresh-2023');
         this.synth = window.speechSynthesis;
+        // State for speech synthesis paused/play state needs to be tracked explicitly
+        // because there are bugs with window.speechSynthesis.paused and
+        // window.speechSynthesis.speaking on some platforms.
         this.paused = true;
         this.speechStarted = false;
         this.maxSpeechLength = 175;
         this.rate = 1;
         if (chrome.readingMode && chrome.readingMode.isWebUIToolbarVisible) {
-            // TODO(crbug.com/1516972): This does not load stylesheets for
-            // chrome-untrusted when Chrome is first launched until a new tab is
-            // opened. #refreshColorsCss hangs and the Promise never resolves until
-            // a new tab is opened. #updateThemeWhenColorTokensAreUnavailable gives
-            // a workaround for Reading Mode to allow colors to work when this
-            // happens.
-            // Longer term, we should investigate if there's a way to force a
-            // stylesheet to load when we detect that we've entered the blocked
-            // state.
             ColorChangeUpdater.forDocument().start();
         }
     }
@@ -218,7 +207,7 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         if (htmlTag === '#document') {
             htmlTag = 'div';
         }
-        if (!chrome.readingMode.linksEnabled && htmlTag === 'a') {
+        if (!this.shouldShowLinks() && htmlTag === 'a') {
             htmlTag = 'span';
         }
         const element = document.createElement(htmlTag);
@@ -240,6 +229,11 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         }
         this.appendChildSubtrees_(element, nodeId);
         return element;
+    }
+    // TODO(crbug.com/1442693): Potentially hide links during distillation.
+    shouldShowLinks() {
+        // Links should only show when Read Aloud is paused.
+        return chrome.readingMode.linksEnabled && this.paused;
     }
     appendChildSubtrees_(node, nodeId) {
         for (const childNodeId of chrome.readingMode.getChildren(nodeId)) {
@@ -300,7 +294,7 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         this.hasContent_ = false;
         if (this.isReadAloudEnabled_) {
             this.synth.cancel();
-            this.onSpeechFinished();
+            this.clearReadAloudState();
         }
     }
     // TODO(crbug.com/1474951): Handle focus changes for speech, including
@@ -366,10 +360,10 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         this.rate = rate;
     }
     getSpeechSynthesisVoice() {
-        if (!this.voice) {
-            this.voice = this.defaultVoice();
+        if (!this.selectedVoice) {
+            this.selectedVoice = this.defaultVoice();
         }
-        return this.voice;
+        return this.selectedVoice;
     }
     defaultVoice() {
         // TODO(crbug.com/1474951): Additional logic to find default voice if there
@@ -380,10 +374,10 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         // TODO(crbug.com/1474951): Ensure various locales are handled such as
         // "en-US" vs. "en-UK." This should be fixed by using page language instead
         // of browser language.
-        const voices = this.synth.getVoices().filter(voice => voice.lang.startsWith(languageCode));
+        const voices = this.getVoices().filter(voice => voice.lang.startsWith(languageCode));
         if (!voices || (voices.length === 0)) {
             // If no voices in the given language are found, use the default voice.
-            return this.synth.getVoices().find(({ default: isDefaultVoice }) => isDefaultVoice);
+            return this.getVoices().find(({ default: isDefaultVoice }) => isDefaultVoice);
         }
         // The default voice doesn't always match with the actual default voice
         // of the device, therefore use the language code to find a voice first.
@@ -393,24 +387,30 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         }
         return voice;
     }
-    getVoices() {
+    getVoicesByLanguage() {
         // TODO(crbug.com/1474951): Filter by localService. Doing this now prevents
         // voices from loading on Linux, which slows down development.
-        return this.synth.getVoices().reduce((voicesByLang, voice) => {
+        return this.getVoices().reduce((voicesByLang, voice) => {
             (voicesByLang[voice.lang] = voicesByLang[voice.lang] || [])
                 .push(voice);
             return voicesByLang;
         }, {});
     }
-    setSpeechSynthesisVoice(voice) {
-        this.voice = voice;
+    getVoices() {
+        if (!this.availableVoices) {
+            this.availableVoices = this.synth.getVoices();
+        }
+        return this.availableVoices;
     }
-    previewSpeechSynthesisVoice(voice) {
+    onPreviewVoice_(event) {
+        event.preventDefault();
+        event.stopPropagation();
         const defaultUtteranceSettings = this.defaultUtteranceSettings();
         // TODO(crbug.com/1474951): Finalize the default voice preview text.
         // TODO(crbug.com/1474951): Call this.synth.cancel() to interrupt reading
         // and reset the play icon.
         const utterance = new SpeechSynthesisUtterance(loadTimeData.getString('readingModeVoicePreviewText'));
+        const voice = event.detail.previewVoice;
         utterance.voice = voice;
         utterance.lang = defaultUtteranceSettings.lang;
         utterance.volume = defaultUtteranceSettings.volume;
@@ -418,10 +418,10 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         utterance.rate = defaultUtteranceSettings.rate;
         // TODO(crbug.com/1474951): Add tests for pause button
         utterance.onstart = event => {
-            this.$.toolbar.showVoicePreviewPlaying(event.utterance.voice);
+            this.previewVoicePlaying = event.utterance.voice;
         };
         utterance.onend = () => {
-            this.$.toolbar.showVoicePreviewDone();
+            this.previewVoicePlaying = null;
         };
         this.synth.speak(utterance);
     }
@@ -430,6 +430,10 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         // word so that speech doesn't resume in the middle of the word?
         this.synth.pause();
         this.paused = true;
+        // Restore links if they're enabled when speech pauses.
+        if (chrome.readingMode.linksEnabled) {
+            this.updateContent();
+        }
     }
     playNextGranularity() {
         this.synth.cancel();
@@ -449,6 +453,10 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         if (this.speechStarted && this.paused) {
             this.synth.resume();
             this.paused = false;
+            // Hide links when speech resumes.
+            if (chrome.readingMode.linksEnabled) {
+                this.updateContent();
+            }
             return;
         }
         const shadowRoot = this.shadowRoot;
@@ -457,6 +465,10 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         assert(container);
         if (container.textContent) {
             this.paused = false;
+            // Hide links when speech begins playing.
+            if (chrome.readingMode.linksEnabled) {
+                this.updateContent();
+            }
             // Gather all the messages that can be played. We need nodes, rather
             // than just text because we need to add a span to the current sentence
             // in order to use css styling to highlight the text as it's spoken.
@@ -639,9 +651,22 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         return parentOfHighlight;
     }
     onSpeechFinished() {
+        this.clearReadAloudState();
+        // Hide links when speech finishes playing.
+        if (chrome.readingMode.linksEnabled) {
+            this.updateContent();
+        }
+    }
+    clearReadAloudState() {
         this.speechStarted = false;
         this.paused = true;
         this.previousHighlight_ = [];
+    }
+    onSelectVoice_(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.selectedVoice = event.detail.selectedVoice;
+        chrome.readingMode.onVoiceChange(this.selectedVoice.name, this.selectedVoice.lang.split('-')[0]);
     }
     // TODO(b/1465029): Once the IsReadAnythingWebUIEnabled flag is removed
     // this should be renamed to just validatedFontName_ and the current
@@ -734,13 +759,13 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         const storedLang = chrome.readingMode.speechSynthesisLanguageCode;
         const storedVoice = chrome.readingMode.getStoredVoice(storedLang);
         if (!storedVoice) {
-            this.setSpeechSynthesisVoice(this.defaultVoice());
+            this.selectedVoice = this.defaultVoice();
             return;
         }
         // TODO(crbug.com/1474951): Ensure various locales are handled such as
         // "en-US" vs. "en-UK." This should be fixed by using page language instead
         // of browser language.
-        const voices = this.getVoices();
+        const voices = this.getVoicesByLanguage();
         const entry = Object.entries(voices).find(([key, _]) => key.startsWith(storedLang));
         let voice;
         if (entry) {
@@ -749,7 +774,7 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
                 voice = voicesForLang.find(voice => voice.name === storedVoice);
             }
         }
-        this.setSpeechSynthesisVoice((voice === null) ? this.defaultVoice() : voice);
+        this.selectedVoice = (voice === null) ? this.defaultVoice() : voice;
     }
     updateLineSpacing(newLineHeight) {
         this.updateStyles({
@@ -781,25 +806,10 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
                 'transparent',
         });
     }
-    areColorTokensUnavailable() {
-        // This check is arbitrarily for color-read-anything-text-selection-dark-
-        // checking for any color token defined in
-        // chrome/browser/ui/color/chrome_color_id.h will work.
-        return !window.getComputedStyle(document.documentElement)
-            .getPropertyValue('--color-read-anything-text-selection-dark');
-    }
     // TODO(crbug.com/1465029): This method should be renamed to updateTheme()
     // and replace the one below once we've removed the Views toolbar.
     updateThemeFromWebUi(colorSuffix) {
         this.currentColorSuffix_ = colorSuffix;
-        // Check if some property is undefined. If it is, Reading Mode is in a
-        // state where stylesheets cannot be loaded without opening a new tab.
-        // When this happens, default to using predefined colors. If we do nothing,
-        // Reading Mode colors stop working and the overall experience feels broken.
-        if (this.areColorTokensUnavailable()) {
-            this.updateThemeWhenColorTokensAreUnavailable(colorSuffix);
-            return;
-        }
         const emptyStateBodyColor = colorSuffix ?
             this.getEmptyStateBodyColorFromWebUi_(colorSuffix) :
             'var(--color-side-panel-card-secondary-foreground)';
@@ -856,56 +866,9 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         }
         return `var(--google-grey-800)`;
     }
-    // When Chrome is first launched, it's possible for Reading Mode to be opened
-    // in a state when stylesheets haven't been loaded and will never be loaded
-    // until a new tab is opened and Reading Mode is reopened. When Reading Mode
-    // is in this state, color tokens defined in
-    // chrome/browser/ui/color/chrome_color_id.h appear as undefined until the
-    // new tab is opened. When in this state without a workaround, some colors
-    // like selection colors don't work and theme colors cannot be changed. This
-    // method serves as a workaround by using colors defined in this file,
-    // instead of in chrome_color_id.h.
-    // This means that Chrome Refresh colors won't work when the theme is set to
-    // default until a new tab is opened, but this is preferable to all colors
-    // being broken.
-    // This method should only be called in the buggy state. Otherwise,
-    // use updateTheme for the Views toolbar or updateThemeForWebUI for the WebUI
-    // toolbar.
-    // See b/293464821#comment4 or crbug.com/1516972 for more details.
-    updateThemeWhenColorTokensAreUnavailable(colorSuffix) {
-        const foregroundColor = this.getForegroundColorForUnavailableColorTokens(colorSuffix);
-        const backgroundColor = this.getBackgroundColorForUnavailableColorTokens(colorSuffix);
-        this.updateThemeWithColors(foregroundColor, backgroundColor);
-        // TODO(crbug.com/1474951): Also handle Read Aloud-specific colors, such
-        // as the Read Aloud highlights, when in this state.
-    }
-    getBackgroundColorForUnavailableColorTokens(colorSuffix) {
-        if (colorSuffix.includes('light')) {
-            return lightThemeBackgroundSkColor;
-        }
-        if (colorSuffix.includes('dark')) {
-            return darkThemeBackgroundSkColor;
-        }
-        if (colorSuffix.includes('yellow')) {
-            return yellowThemeBackgroundSkColor;
-        }
-        if (colorSuffix.includes('blue')) {
-            return blueThemeBackgroundSkColor;
-        }
-        return lightThemeBackgroundSkColor;
-    }
-    getForegroundColorForUnavailableColorTokens(colorSuffix) {
-        if (colorSuffix.includes('dark')) {
-            return darkForegroundSkColor;
-        }
-        return lightForegroundSkColor;
-    }
     updateTheme() {
         const foregroundColor = { value: chrome.readingMode.foregroundColor };
         const backgroundColor = { value: chrome.readingMode.backgroundColor };
-        this.updateThemeWithColors(foregroundColor, backgroundColor);
-    }
-    updateThemeWithColors(foregroundColor, backgroundColor) {
         const linkColor = this.getLinkColor_(backgroundColor);
         this.updateStyles({
             '--background-color': skColorToRgba(backgroundColor),

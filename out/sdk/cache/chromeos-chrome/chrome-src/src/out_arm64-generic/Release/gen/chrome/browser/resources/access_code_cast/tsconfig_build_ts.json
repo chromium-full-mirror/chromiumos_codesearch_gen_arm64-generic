@@ -19,6 +19,12 @@
       "chrome://resources/polymer/v3_0/*": [
         "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
       ],
+      "//resources/cr_components/color_change_listener/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
+      "chrome://resources/cr_components/color_change_listener/*": [
+        "./../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
+      ],
       "//resources/cr_elements/*": [
         "./../../../../ui/webui/resources/tsc/cr_elements/*"
       ],
@@ -56,6 +62,9 @@
   "references": [
     {
       "path": "../../../../third_party/polymer/v3_0/tsconfig_library.json"
+    },
+    {
+      "path": "../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"

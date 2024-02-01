@@ -4,6 +4,7 @@
 import 'chrome://resources/cr_components/settings_prefs/prefs.js';
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/cr_elements/cr_toast/cr_toast.js';
 import 'chrome://resources/cr_elements/cr_expand_button/cr_expand_button.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import 'chrome://resources/polymer/v3_0/iron-collapse/iron-collapse.js';
@@ -79,9 +80,28 @@ export class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacyS
                 type: Object,
                 observer: 'focusConfigChanged_',
             },
-            isProactiveTopicsBlockingEnabled_: {
+            // Version 2 of Ad Topics Page should be displayed when Proactive Topics
+            // Blocking is enabled.
+            shouldShowV2_: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled'),
+            },
+            blockTopicDialogTitle_: {
+                type: String,
+                value: '',
+            },
+            blockTopicDialogBody_: {
+                type: String,
+                value: '',
+            },
+            shouldShowBlockTopicDialog_: {
+                type: Boolean,
+                value: false,
+            },
+            shouldShowV2EmptyState_: {
+                type: Boolean,
+                computed: 'computeShouldShowV2EmptyState_(' +
+                    'shouldShowV2, prefs.privacy_sandbox.m1.topics_enabled.value)',
             },
         };
     }
@@ -89,11 +109,23 @@ export class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacyS
         super.ready();
         this.privacySandboxBrowserProxy_.getTopicsState().then(state => this.onTopicsStateChanged_(state));
         this.$.footer.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
-        this.$.footerPTB.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
+        this.$.footerV2.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
+    }
+    // Goal is to not show anything but the toggle and disclaimer when we
+    // should show V2 and the pref is false.
+    computeShouldShowV2EmptyState_() {
+        return (this.shouldShowV2_ &&
+            !this.getPref('privacy_sandbox.m1.topics_enabled').value);
     }
     currentRouteChanged(newRoute) {
         if (newRoute === routes.PRIVACY_SANDBOX_TOPICS) {
             HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.OPENED_TOPICS_SUBPAGE);
+            // Updating the TopicsState because it can be changed by being
+            // blocked/unblocked in the Manage Topics Page. Need to keep the data
+            // between the two pages up to date.
+            if (this.shouldShowV2_) {
+                this.privacySandboxBrowserProxy_.getTopicsState().then(state => this.onTopicsStateChanged_(state));
+            }
         }
     }
     isTopicsPrefManaged_() {
@@ -119,7 +151,13 @@ export class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacyS
             this.isTopicsListLoaded_;
     }
     isTopicsListEmpty_() {
-        return this.topicsList_.length === 0;
+        return this.topicsList_.length === 0 && !this.shouldShowV2_;
+    }
+    isTopicsListEmptyV2_() {
+        return this.topicsList_.length === 0 && this.shouldShowV2_;
+    }
+    isBlockedTopicsListEmptyV2_() {
+        return this.blockedTopicsList_.length === 0 && this.shouldShowV2_;
     }
     computeBlockedTopicsDescription_() {
         return this.i18n(this.blockedTopicsList_.length === 0 ?
@@ -154,27 +192,45 @@ export class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacyS
             this.shadowRoot.querySelector('#learnMoreLink')?.focus();
         });
     }
-    onInterestChanged_(e) {
-        const interest = e.detail;
-        assert(!interest.site);
-        if (interest.removed) {
-            this.blockedTopicsList_.splice(this.blockedTopicsList_.indexOf(interest), 1);
+    onBlockTopicDialogClose_() {
+        const dialog = this.shadowRoot.querySelector('settings-simple-confirmation-dialog');
+        assert(dialog);
+        assert(this.currentInterest_);
+        if (dialog.wasConfirmed()) {
+            this.onBlockButtonDialogHandler_(this.currentInterest_);
         }
-        else {
-            this.topicsList_.splice(this.topicsList_.indexOf(interest), 1);
-            // Move the blocked topic to the blocked section.
-            this.blockedTopicsList_.push({ topic: interest.topic, removed: true });
-            this.blockedTopicsList_.sort((first, second) => first.topic.displayString < second.topic.displayString ? -1 :
-                1);
-        }
+        this.blockTopicDialogBody_ = '';
+        this.blockTopicDialogTitle_ = '';
+        this.currentChildTopics_ = [];
+        this.shouldShowBlockTopicDialog_ = false;
+        this.currentInterest_ = undefined;
+    }
+    onBlockButtonDialogHandler_(currentSelectedInterest) {
+        // Remove the selected topic's active child topics from the topics list.
+        this.topicsList_ = this.topicsList_.filter(activeTopic => !this.currentChildTopics_.some(childTopic => activeTopic.topic?.topicId === childTopic.topicId));
+        assert(currentSelectedInterest);
+        this.blockCurrentSelectedTopic_(currentSelectedInterest);
+        this.updateTopicsStateForSelectedTopic_(currentSelectedInterest);
+        this.blockedTopicsExpanded_ = true;
+    }
+    blockCurrentSelectedTopic_(currentSelectedInterest) {
+        // Remove current selected topic from active topics list.
+        this.topicsList_.splice(this.topicsList_.indexOf(currentSelectedInterest), 1);
+        // Move the blocked topic to the blocked section.
+        this.blockedTopicsList_.push({ topic: currentSelectedInterest.topic, removed: true });
+        this.blockedTopicsList_.sort((first, second) => first.topic.displayString < second.topic.displayString ? -1 : 1);
+    }
+    updateTopicsStateForSelectedTopic_(currentSelectedInterest) {
         // This causes the lists to be fully re-rendered, in order to reflect the
         /// interest changes.
         this.topicsList_ = this.topicsList_.slice();
         this.blockedTopicsList_ = this.blockedTopicsList_.slice();
         // If the interest was previously removed, set it to allowed, and vice
         // versa.
-        this.privacySandboxBrowserProxy_.setTopicAllowed(interest.topic, /*allowed=*/ interest.removed);
-        this.metricsBrowserProxy_.recordAction(interest.removed ? 'Settings.PrivacySandbox.Topics.TopicAdded' :
+        this.privacySandboxBrowserProxy_.setTopicAllowed(currentSelectedInterest.topic, 
+        /*allowed=*/ currentSelectedInterest.removed);
+        this.metricsBrowserProxy_.recordAction(currentSelectedInterest.removed ?
+            'Settings.PrivacySandbox.Topics.TopicAdded' :
             'Settings.PrivacySandbox.Topics.TopicRemoved');
         // After allowing or blocking the last item, the focus is lost after the
         // item is removed. Set the focus to the #blockedTopicsRow element.
@@ -184,6 +240,58 @@ export class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacyS
                     ?.focus();
             }
         });
+    }
+    // In the V2 of the ad topics page, this function is invoked by
+    // onInterestedChanged_ to handle the blocking/allowing and updating state.
+    async onInterestChangedV2_() {
+        assert(this.currentInterest_.topic);
+        assert(this.currentInterest_.topic.displayString);
+        // If topic is being unblocked, show toast and remove from blocked topics
+        // list.
+        if (this.currentInterest_.removed) {
+            const toast = this.shadowRoot.querySelector('cr-toast');
+            assert(toast);
+            toast.show();
+            this.blockedTopicsList_.splice(this.blockedTopicsList_.indexOf(this.currentInterest_), 1);
+            this.updateTopicsStateForSelectedTopic_(this.currentInterest_);
+            return;
+        }
+        this.currentChildTopics_ =
+            await this.privacySandboxBrowserProxy_.getChildTopicsCurrentlyAssigned(this.currentInterest_.topic);
+        // Check if currently selected topic to block has active child topics
+        // if it does, show simple confirmation dialog.
+        if (this.currentChildTopics_.length !== 0) {
+            this.blockTopicDialogTitle_ = loadTimeData.getStringF('manageTopicsDialogTitle', this.currentInterest_.topic.displayString);
+            this.blockTopicDialogBody_ = loadTimeData.getStringF('manageTopicsDialogBody', this.currentInterest_.topic.displayString);
+            this.shouldShowBlockTopicDialog_ = true;
+            return;
+        }
+        // Currently selected topic doesn't have active child topics.
+        // Block topic and update state.
+        this.blockCurrentSelectedTopic_(this.currentInterest_);
+        this.updateTopicsStateForSelectedTopic_(this.currentInterest_);
+        this.blockedTopicsExpanded_ = true;
+    }
+    // TODO(b/322545308) - Clean up Ad Topics Subpage UI so that it does not need
+    // to rely on updating the state of blocked/active topics. Just rely on the
+    // backend API functions to be the source of truth.
+    // This function is run anytime the interest item changes. Which means that it
+    // runs when a user blocks/allows a topic.
+    onInterestChanged_(e) {
+        this.currentInterest_ = e.detail;
+        assert(!this.currentInterest_.site);
+        if (this.shouldShowV2_) {
+            this.onInterestChangedV2_();
+            return;
+        }
+        if (this.currentInterest_.removed) {
+            // Topic is being allowed
+            this.blockedTopicsList_.splice(this.blockedTopicsList_.indexOf(this.currentInterest_), 1);
+        }
+        else {
+            this.blockCurrentSelectedTopic_(this.currentInterest_);
+        }
+        this.updateTopicsStateForSelectedTopic_(this.currentInterest_);
     }
     onBlockedTopicsExpanded_() {
         if (this.blockedTopicsExpanded_) {
@@ -204,33 +312,30 @@ export class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacyS
             });
         }
     }
+    onHideToastClick_() {
+        const toast = this.shadowRoot.querySelector('cr-toast');
+        assert(toast);
+        toast.hide();
+    }
     computeTopicsPageToggleSubLabel_() {
-        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ? 'topicsPageToggleSubLabelPTB' :
+        return this.i18n(this.shouldShowV2_ ? 'topicsPageToggleSubLabelV2' :
             'topicsPageToggleSubLabel');
     }
     computeTopicsPageCurrentTopicsHeading_() {
-        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ?
-            'topicsPageCurrentTopicsHeadingPTB' :
+        return this.i18n(this.shouldShowV2_ ? 'topicsPageCurrentTopicsHeadingV2' :
             'topicsPageCurrentTopicsHeading');
     }
     computeTopicsPageCurrentTopicsDescription_() {
-        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ?
-            'topicsPageCurrentTopicsDescriptionPTB' :
+        return this.i18n(this.shouldShowV2_ ? 'topicsPageCurrentTopicsDescriptionV2' :
             'topicsPageCurrentTopicsDescription');
     }
     computeTopicsPageCurrentTopicsDescriptionEmpty_() {
-        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ?
-            'topicsPageCurrentTopicsDescriptionEmptyPTB' :
+        return this.i18n(this.shouldShowV2_ ? 'topicsPageCurrentTopicsDescriptionEmptyPTB' :
             'topicsPageCurrentTopicsDescriptionEmpty');
     }
     computeTopicsPageBlockedTopicsHeading_() {
-        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ?
-            'topicsPageBlockedTopicsHeadingPTB' :
+        return this.i18n(this.shouldShowV2_ ? 'topicsPageBlockedTopicsHeadingV2' :
             'topicsPageBlockedTopicsHeading');
-    }
-    shouldShowManageTopics_() {
-        return this.isProactiveTopicsBlockingEnabled_ &&
-            !loadTimeData.getBoolean('isPrivacySandboxRestricted');
     }
 }
 customElements.define(SettingsPrivacySandboxTopicsSubpageElement.is, SettingsPrivacySandboxTopicsSubpageElement);

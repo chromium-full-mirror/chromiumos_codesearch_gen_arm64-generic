@@ -418,7 +418,7 @@ static_assert(
         ::arc::mojom::BufferModifierDataView, UserType>(),
     "Attempting to read the optional `modifier` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadModifier` instead "
     "of `ReadModifier if you're fine with null values being "

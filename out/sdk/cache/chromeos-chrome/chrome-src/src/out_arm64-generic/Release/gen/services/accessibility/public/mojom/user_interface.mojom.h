@@ -216,7 +216,7 @@ class  FocusRingInfo {
   template <typename... Args>
   static FocusRingInfoPtr New(Args&&... args) {
     return FocusRingInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

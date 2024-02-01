@@ -61,7 +61,7 @@ class  Display {
   template <typename... Args>
   static DisplayPtr New(Args&&... args) {
     return DisplayPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

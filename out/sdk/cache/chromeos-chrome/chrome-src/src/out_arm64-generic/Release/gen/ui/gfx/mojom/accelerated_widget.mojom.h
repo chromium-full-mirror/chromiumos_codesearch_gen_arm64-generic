@@ -53,7 +53,7 @@ class  AcceleratedWidget {
   template <typename... Args>
   static AcceleratedWidgetPtr New(Args&&... args) {
     return AcceleratedWidgetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

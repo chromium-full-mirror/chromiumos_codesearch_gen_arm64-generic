@@ -56,7 +56,7 @@ class  Point {
   template <typename... Args>
   static PointPtr New(Args&&... args) {
     return PointPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -199,7 +199,7 @@ class  PointF {
   template <typename... Args>
   static PointFPtr New(Args&&... args) {
     return PointFPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -342,7 +342,7 @@ class  Point3F {
   template <typename... Args>
   static Point3FPtr New(Args&&... args) {
     return Point3FPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -488,7 +488,7 @@ class  Size {
   template <typename... Args>
   static SizePtr New(Args&&... args) {
     return SizePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -631,7 +631,7 @@ class  SizeF {
   template <typename... Args>
   static SizeFPtr New(Args&&... args) {
     return SizeFPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -774,7 +774,7 @@ class  Rect {
   template <typename... Args>
   static RectPtr New(Args&&... args) {
     return RectPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -923,7 +923,7 @@ class  RectF {
   template <typename... Args>
   static RectFPtr New(Args&&... args) {
     return RectFPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1072,7 +1072,7 @@ class  Insets {
   template <typename... Args>
   static InsetsPtr New(Args&&... args) {
     return InsetsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1221,7 +1221,7 @@ class  InsetsF {
   template <typename... Args>
   static InsetsFPtr New(Args&&... args) {
     return InsetsFPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1370,7 +1370,7 @@ class  Vector2d {
   template <typename... Args>
   static Vector2dPtr New(Args&&... args) {
     return Vector2dPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1513,7 +1513,7 @@ class  Vector2dF {
   template <typename... Args>
   static Vector2dFPtr New(Args&&... args) {
     return Vector2dFPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1656,7 +1656,7 @@ class  Vector3dF {
   template <typename... Args>
   static Vector3dFPtr New(Args&&... args) {
     return Vector3dFPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1802,7 +1802,7 @@ class  Quaternion {
   template <typename... Args>
   static QuaternionPtr New(Args&&... args) {
     return QuaternionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1967,7 +1967,7 @@ class  QuadF {
   template <typename... Args>
   static QuadFPtr New(Args&&... args) {
     return QuadFPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

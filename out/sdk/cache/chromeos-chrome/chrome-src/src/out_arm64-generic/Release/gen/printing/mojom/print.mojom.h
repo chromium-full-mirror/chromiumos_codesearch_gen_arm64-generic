@@ -54,7 +54,7 @@ class  PageRange {
   template <typename... Args>
   static PageRangePtr New(Args&&... args) {
     return PageRangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -200,7 +200,7 @@ class  PageSizeMargins {
   template <typename... Args>
   static PageSizeMarginsPtr New(Args&&... args) {
     return PageSizeMarginsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -358,7 +358,7 @@ class  IppClientInfo {
   template <typename... Args>
   static IppClientInfoPtr New(Args&&... args) {
     return IppClientInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -6185,12 +6185,12 @@ class BrowserService_NewWindow_ParamsDataView {
   }
   std::optional<uint64_t> profile_id() const {
     if (data_->header_.version < 75) {
-      return absl::nullopt;
+      return std::nullopt;
     }
 
     return data_->profile_id_$flag
-        ? absl::make_optional(data_->profile_id_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->profile_id_$value)
+        : std::nullopt;
   }
  private:
   internal::BrowserService_NewWindow_Params_Data* data_ = nullptr;
@@ -6510,7 +6510,7 @@ static_assert(
         ::crosapi::mojom::OpenUrlParamsDataView, UserType>(),
     "Attempting to read the optional `params` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadParams` instead "
     "of `ReadParams if you're fine with null values being "
@@ -6738,7 +6738,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUrl` instead "
     "of `ReadUrl if you're fine with null values being "
@@ -6901,12 +6901,12 @@ class BrowserService_Launch_ParamsDataView {
   }
   std::optional<uint64_t> profile_id() const {
     if (data_->header_.version < 75) {
-      return absl::nullopt;
+      return std::nullopt;
     }
 
     return data_->profile_id_$flag
-        ? absl::make_optional(data_->profile_id_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->profile_id_$value)
+        : std::nullopt;
   }
  private:
   internal::BrowserService_Launch_Params_Data* data_ = nullptr;

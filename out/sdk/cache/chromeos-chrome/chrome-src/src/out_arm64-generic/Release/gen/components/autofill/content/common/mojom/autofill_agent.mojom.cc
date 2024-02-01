@@ -88,18 +88,6 @@ AutofillAgent::IPCStableHashFunction AutofillAgent::MessageToMethodInfo_(mojo::M
     case internal::kAutofillAgent_PreviewPasswordGenerationSuggestion_Name: {
       return &AutofillAgent::PreviewPasswordGenerationSuggestion_Sym::IPCStableHash;
     }
-    case internal::kAutofillAgent_SetUserGestureRequired_Name: {
-      return &AutofillAgent::SetUserGestureRequired_Sym::IPCStableHash;
-    }
-    case internal::kAutofillAgent_SetSecureContextRequired_Name: {
-      return &AutofillAgent::SetSecureContextRequired_Sym::IPCStableHash;
-    }
-    case internal::kAutofillAgent_SetFocusRequiresScroll_Name: {
-      return &AutofillAgent::SetFocusRequiresScroll_Sym::IPCStableHash;
-    }
-    case internal::kAutofillAgent_SetQueryPasswordSuggestion_Name: {
-      return &AutofillAgent::SetQueryPasswordSuggestion_Sym::IPCStableHash;
-    }
     case internal::kAutofillAgent_EnableHeavyFormDataScraping_Name: {
       return &AutofillAgent::EnableHeavyFormDataScraping_Sym::IPCStableHash;
     }
@@ -143,14 +131,6 @@ const char* AutofillAgent::MessageToMethodName_(mojo::Message& message) {
             return "Receive autofill::mojom::AutofillAgent::PreviewPasswordSuggestion";
       case internal::kAutofillAgent_PreviewPasswordGenerationSuggestion_Name:
             return "Receive autofill::mojom::AutofillAgent::PreviewPasswordGenerationSuggestion";
-      case internal::kAutofillAgent_SetUserGestureRequired_Name:
-            return "Receive autofill::mojom::AutofillAgent::SetUserGestureRequired";
-      case internal::kAutofillAgent_SetSecureContextRequired_Name:
-            return "Receive autofill::mojom::AutofillAgent::SetSecureContextRequired";
-      case internal::kAutofillAgent_SetFocusRequiresScroll_Name:
-            return "Receive autofill::mojom::AutofillAgent::SetFocusRequiresScroll";
-      case internal::kAutofillAgent_SetQueryPasswordSuggestion_Name:
-            return "Receive autofill::mojom::AutofillAgent::SetQueryPasswordSuggestion";
       case internal::kAutofillAgent_EnableHeavyFormDataScraping_Name:
             return "Receive autofill::mojom::AutofillAgent::EnableHeavyFormDataScraping";
       case internal::kAutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Name:
@@ -184,14 +164,6 @@ const char* AutofillAgent::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply autofill::mojom::AutofillAgent::PreviewPasswordSuggestion";
       case internal::kAutofillAgent_PreviewPasswordGenerationSuggestion_Name:
             return "Receive reply autofill::mojom::AutofillAgent::PreviewPasswordGenerationSuggestion";
-      case internal::kAutofillAgent_SetUserGestureRequired_Name:
-            return "Receive reply autofill::mojom::AutofillAgent::SetUserGestureRequired";
-      case internal::kAutofillAgent_SetSecureContextRequired_Name:
-            return "Receive reply autofill::mojom::AutofillAgent::SetSecureContextRequired";
-      case internal::kAutofillAgent_SetFocusRequiresScroll_Name:
-            return "Receive reply autofill::mojom::AutofillAgent::SetFocusRequiresScroll";
-      case internal::kAutofillAgent_SetQueryPasswordSuggestion_Name:
-            return "Receive reply autofill::mojom::AutofillAgent::SetQueryPasswordSuggestion";
       case internal::kAutofillAgent_EnableHeavyFormDataScraping_Name:
             return "Receive reply autofill::mojom::AutofillAgent::EnableHeavyFormDataScraping";
       case internal::kAutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_Name:
@@ -375,58 +347,6 @@ uint32_t AutofillAgent::PreviewPasswordGenerationSuggestion_Sym::IPCStableHash()
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)autofill::mojom::AutofillAgent::PreviewPasswordGenerationSuggestion");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t AutofillAgent::SetUserGestureRequired_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)autofill::mojom::AutofillAgent::SetUserGestureRequired");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t AutofillAgent::SetSecureContextRequired_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)autofill::mojom::AutofillAgent::SetSecureContextRequired");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t AutofillAgent::SetFocusRequiresScroll_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)autofill::mojom::AutofillAgent::SetFocusRequiresScroll");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
-uint32_t AutofillAgent::SetQueryPasswordSuggestion_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)autofill::mojom::AutofillAgent::SetQueryPasswordSuggestion");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -1178,170 +1098,6 @@ void AutofillAgentProxy::PreviewPasswordGenerationSuggestion(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void AutofillAgentProxy::SetUserGestureRequired(
-    bool in_required) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send autofill::mojom::AutofillAgent::SetUserGestureRequired", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("required"), in_required,
-                        "<value of type bool>");
-   });
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kAutofillAgent_SetUserGestureRequired_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::autofill::mojom::internal::AutofillAgent_SetUserGestureRequired_Params_Data> params(
-          message);
-  params.Allocate();
-  params->required = in_required;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(AutofillAgent::Name_);
-  message.set_method_name("SetUserGestureRequired");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void AutofillAgentProxy::SetSecureContextRequired(
-    bool in_required) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send autofill::mojom::AutofillAgent::SetSecureContextRequired", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("required"), in_required,
-                        "<value of type bool>");
-   });
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kAutofillAgent_SetSecureContextRequired_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::autofill::mojom::internal::AutofillAgent_SetSecureContextRequired_Params_Data> params(
-          message);
-  params.Allocate();
-  params->required = in_required;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(AutofillAgent::Name_);
-  message.set_method_name("SetSecureContextRequired");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void AutofillAgentProxy::SetFocusRequiresScroll(
-    bool in_require) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send autofill::mojom::AutofillAgent::SetFocusRequiresScroll", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("require"), in_require,
-                        "<value of type bool>");
-   });
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kAutofillAgent_SetFocusRequiresScroll_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::autofill::mojom::internal::AutofillAgent_SetFocusRequiresScroll_Params_Data> params(
-          message);
-  params.Allocate();
-  params->require = in_require;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(AutofillAgent::Name_);
-  message.set_method_name("SetFocusRequiresScroll");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
-void AutofillAgentProxy::SetQueryPasswordSuggestion(
-    bool in_query) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send autofill::mojom::AutofillAgent::SetQueryPasswordSuggestion", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("query"), in_query,
-                        "<value of type bool>");
-   });
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kAutofillAgent_SetQueryPasswordSuggestion_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::autofill::mojom::internal::AutofillAgent_SetQueryPasswordSuggestion_Params_Data> params(
-          message);
-  params.Allocate();
-  params->query = in_query;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(AutofillAgent::Name_);
-  message.set_method_name("SetQueryPasswordSuggestion");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
-}
-
 void AutofillAgentProxy::EnableHeavyFormDataScraping(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1715,7 +1471,7 @@ bool AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_ForwardToCal
               message->mutable_payload());
   
   
-  // Validation for AutofillAgent.18
+  // Validation for AutofillAgent.14
   bool success = true;
   std::vector<std::string> p_potential_matches{};
   AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_ResponseParamsDataView input_data_view(params, message);
@@ -1726,7 +1482,7 @@ bool AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_ForwardToCal
     ReportValidationErrorForMessage(
         message,
         mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        AutofillAgent::Name_, 18, true);
+        AutofillAgent::Name_, 14, true);
     return false;
   }
   if (!callback_.is_null())
@@ -2133,118 +1889,6 @@ bool AutofillAgentStubDispatch::Accept(
         std::move(p_password));
       return true;
     }
-    case internal::kAutofillAgent_SetUserGestureRequired_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::AutofillAgent_SetUserGestureRequired_Params_Data* params =
-          reinterpret_cast<internal::AutofillAgent_SetUserGestureRequired_Params_Data*>(
-              message->mutable_payload());
-      
-      
-      // Validation for AutofillAgent.13
-      bool success = true;
-      bool p_required{};
-      AutofillAgent_SetUserGestureRequired_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_required = input_data_view.required();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillAgent::Name_, 13, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetUserGestureRequired(        
-        std::move(p_required));
-      return true;
-    }
-    case internal::kAutofillAgent_SetSecureContextRequired_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::AutofillAgent_SetSecureContextRequired_Params_Data* params =
-          reinterpret_cast<internal::AutofillAgent_SetSecureContextRequired_Params_Data*>(
-              message->mutable_payload());
-      
-      
-      // Validation for AutofillAgent.14
-      bool success = true;
-      bool p_required{};
-      AutofillAgent_SetSecureContextRequired_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_required = input_data_view.required();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillAgent::Name_, 14, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetSecureContextRequired(        
-        std::move(p_required));
-      return true;
-    }
-    case internal::kAutofillAgent_SetFocusRequiresScroll_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::AutofillAgent_SetFocusRequiresScroll_Params_Data* params =
-          reinterpret_cast<internal::AutofillAgent_SetFocusRequiresScroll_Params_Data*>(
-              message->mutable_payload());
-      
-      
-      // Validation for AutofillAgent.15
-      bool success = true;
-      bool p_require{};
-      AutofillAgent_SetFocusRequiresScroll_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_require = input_data_view.require();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillAgent::Name_, 15, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetFocusRequiresScroll(        
-        std::move(p_require));
-      return true;
-    }
-    case internal::kAutofillAgent_SetQueryPasswordSuggestion_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::AutofillAgent_SetQueryPasswordSuggestion_Params_Data* params =
-          reinterpret_cast<internal::AutofillAgent_SetQueryPasswordSuggestion_Params_Data*>(
-              message->mutable_payload());
-      
-      
-      // Validation for AutofillAgent.16
-      bool success = true;
-      bool p_query{};
-      AutofillAgent_SetQueryPasswordSuggestion_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_query = input_data_view.query();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillAgent::Name_, 16, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->SetQueryPasswordSuggestion(        
-        std::move(p_query));
-      return true;
-    }
     case internal::kAutofillAgent_EnableHeavyFormDataScraping_Name: {
 
       DCHECK(message->is_serialized());
@@ -2253,7 +1897,7 @@ bool AutofillAgentStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AutofillAgent.17
+      // Validation for AutofillAgent.13
       bool success = true;
       AutofillAgent_EnableHeavyFormDataScraping_ParamsDataView input_data_view(params, message);
       
@@ -2261,7 +1905,7 @@ bool AutofillAgentStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillAgent::Name_, 17, false);
+            AutofillAgent::Name_, 13, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2376,18 +2020,6 @@ bool AutofillAgentStubDispatch::AcceptWithResponder(
     case internal::kAutofillAgent_PreviewPasswordGenerationSuggestion_Name: {
       break;
     }
-    case internal::kAutofillAgent_SetUserGestureRequired_Name: {
-      break;
-    }
-    case internal::kAutofillAgent_SetSecureContextRequired_Name: {
-      break;
-    }
-    case internal::kAutofillAgent_SetFocusRequiresScroll_Name: {
-      break;
-    }
-    case internal::kAutofillAgent_SetQueryPasswordSuggestion_Name: {
-      break;
-    }
     case internal::kAutofillAgent_EnableHeavyFormDataScraping_Name: {
       break;
     }
@@ -2399,7 +2031,7 @@ bool AutofillAgentStubDispatch::AcceptWithResponder(
                   message->mutable_payload());
       
       
-      // Validation for AutofillAgent.18
+      // Validation for AutofillAgent.14
       bool success = true;
       AutofillAgent_GetPotentialLastFourCombinationsForStandaloneCvc_ParamsDataView input_data_view(params, message);
       
@@ -2407,7 +2039,7 @@ bool AutofillAgentStubDispatch::AcceptWithResponder(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AutofillAgent::Name_, 18, false);
+            AutofillAgent::Name_, 14, false);
         return false;
       }
       AutofillAgent::GetPotentialLastFourCombinationsForStandaloneCvcCallback callback =
@@ -2449,14 +2081,6 @@ static const mojo::internal::GenericValidationInfo kAutofillAgentValidationInfo[
     { &internal::AutofillAgent_PreviewPasswordSuggestion_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::AutofillAgent_PreviewPasswordGenerationSuggestion_Params_Data::Validate,
-     nullptr /* no response */},
-    { &internal::AutofillAgent_SetUserGestureRequired_Params_Data::Validate,
-     nullptr /* no response */},
-    { &internal::AutofillAgent_SetSecureContextRequired_Params_Data::Validate,
-     nullptr /* no response */},
-    { &internal::AutofillAgent_SetFocusRequiresScroll_Params_Data::Validate,
-     nullptr /* no response */},
-    { &internal::AutofillAgent_SetQueryPasswordSuggestion_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::AutofillAgent_EnableHeavyFormDataScraping_Params_Data::Validate,
      nullptr /* no response */},
@@ -3821,18 +3445,6 @@ void AutofillAgentInterceptorForTesting::PreviewPasswordSuggestion(const ::std::
 }
 void AutofillAgentInterceptorForTesting::PreviewPasswordGenerationSuggestion(const ::std::u16string& password) {
   GetForwardingInterface()->PreviewPasswordGenerationSuggestion(std::move(password));
-}
-void AutofillAgentInterceptorForTesting::SetUserGestureRequired(bool required) {
-  GetForwardingInterface()->SetUserGestureRequired(std::move(required));
-}
-void AutofillAgentInterceptorForTesting::SetSecureContextRequired(bool required) {
-  GetForwardingInterface()->SetSecureContextRequired(std::move(required));
-}
-void AutofillAgentInterceptorForTesting::SetFocusRequiresScroll(bool require) {
-  GetForwardingInterface()->SetFocusRequiresScroll(std::move(require));
-}
-void AutofillAgentInterceptorForTesting::SetQueryPasswordSuggestion(bool query) {
-  GetForwardingInterface()->SetQueryPasswordSuggestion(std::move(query));
 }
 void AutofillAgentInterceptorForTesting::EnableHeavyFormDataScraping() {
   GetForwardingInterface()->EnableHeavyFormDataScraping();

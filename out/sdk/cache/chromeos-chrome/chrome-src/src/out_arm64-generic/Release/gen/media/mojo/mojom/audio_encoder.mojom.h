@@ -299,7 +299,7 @@ class  AacAudioEncoderConfig {
   template <typename... Args>
   static AacAudioEncoderConfigPtr New(Args&&... args) {
     return AacAudioEncoderConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -445,7 +445,7 @@ class  AudioEncoderConfig {
   template <typename... Args>
   static AudioEncoderConfigPtr New(Args&&... args) {
     return AudioEncoderConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -599,7 +599,7 @@ class  EncodedAudioBuffer {
   template <typename... Args>
   static EncodedAudioBufferPtr New(Args&&... args) {
     return EncodedAudioBufferPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -26,7 +26,7 @@ export function getTemplate() {
     </div>
   </template>
   <template is="dom-if" if="[[!isMicListEmpty_]]" restamp>
-    <template id="microphoneList" is="dom-repeat" items="[[connectedMicrophones_]]">
+    <template id="microphoneList" is="dom-repeat" items="[[connectedMicrophoneNames_]]">
       <div class="list-item">
         <span id="microphoneName" hidden$="[[!prefs.ash.user.microphone_allowed.value]]">
           [[item]]

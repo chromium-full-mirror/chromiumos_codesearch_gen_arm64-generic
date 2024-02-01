@@ -63,7 +63,7 @@ class BLINK_PLATFORM_EXPORT CropIdBoundsPair {
   template <typename... Args>
   static CropIdBoundsPairPtr New(Args&&... args) {
     return CropIdBoundsPairPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -206,7 +206,7 @@ class BLINK_PLATFORM_EXPORT RegionCaptureBounds {
   template <typename... Args>
   static RegionCaptureBoundsPtr New(Args&&... args) {
     return RegionCaptureBoundsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

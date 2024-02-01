@@ -292,7 +292,7 @@ class  KeyboardShortcutInfo {
   template <typename... Args>
   static KeyboardShortcutInfoPtr New(Args&&... args) {
     return KeyboardShortcutInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -441,7 +441,7 @@ class  AppKeyboardShortcutsList {
   template <typename... Args>
   static AppKeyboardShortcutsListPtr New(Args&&... args) {
     return AppKeyboardShortcutsListPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -586,7 +586,7 @@ class  KeyboardShortcutGroup {
   template <typename... Args>
   static KeyboardShortcutGroupPtr New(Args&&... args) {
     return KeyboardShortcutGroupPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

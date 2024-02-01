@@ -202,7 +202,7 @@ class  TouchscreenDevice {
   template <typename... Args>
   static TouchscreenDevicePtr New(Args&&... args) {
     return TouchscreenDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -355,7 +355,7 @@ class  InputDevice {
   template <typename... Args>
   static InputDevicePtr New(Args&&... args) {
     return InputDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

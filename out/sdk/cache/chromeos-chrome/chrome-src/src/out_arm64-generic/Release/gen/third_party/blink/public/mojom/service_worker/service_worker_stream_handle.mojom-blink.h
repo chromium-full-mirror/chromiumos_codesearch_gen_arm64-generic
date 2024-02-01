@@ -174,7 +174,7 @@ class PLATFORM_EXPORT ServiceWorkerStreamHandle {
   template <typename... Args>
   static ServiceWorkerStreamHandlePtr New(Args&&... args) {
     return ServiceWorkerStreamHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

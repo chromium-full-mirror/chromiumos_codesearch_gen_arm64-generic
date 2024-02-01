@@ -73,6 +73,10 @@ export class AcceleratorLookupManager {
         // Determine whether the keyboard has a launcher button or a search button. It
         // is used to display the 'meta' key with correct icon.
         this.hasLauncherButton = false;
+        // Determine if a search result row is currently focused. This ensures the
+        // focused row stays highlighted as the search result, despite mouse hover
+        // actions.
+        this.searchResultRowFocused = false;
     }
     /**
      * Used to generate the keys for the ReverseAcceleratorLookupMap.
@@ -161,6 +165,12 @@ export class AcceleratorLookupManager {
     }
     getHasLauncherButton() {
         return this.hasLauncherButton;
+    }
+    setSearchResultRowFocused(searchResultRowFocused) {
+        this.searchResultRowFocused = searchResultRowFocused;
+    }
+    getSearchResultRowFocused() {
+        return this.searchResultRowFocused;
     }
     isSubcategoryLocked(subcategory) {
         const acceleratorIds = this.layoutInfoProvider.getAcceleratorIdsBySubcategory(subcategory);

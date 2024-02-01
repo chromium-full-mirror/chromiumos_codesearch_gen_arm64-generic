@@ -483,7 +483,7 @@ class  FileInfo {
   template <typename... Args>
   static FileInfoPtr New(Args&&... args) {
     return FileInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -632,7 +632,7 @@ class  ShareIntentInfo {
   template <typename... Args>
   static ShareIntentInfoPtr New(Args&&... args) {
     return ShareIntentInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

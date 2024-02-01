@@ -851,6 +851,10 @@ namespace {
         return object->procs->SharedTextureMemoryRelease(self);
     }
 
+    WGPUTextureFormat ForwardSurfaceGetPreferredFormat(WGPUSurface self, WGPUAdapter adapter) {
+        auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
+        return object->procs->SurfaceGetPreferredFormat(self, adapter);
+    }
     void ForwardSurfaceReference(WGPUSurface self) {
         auto object = reinterpret_cast<ProcTableAsClass::Object*>(self);
         return object->procs->SurfaceReference(self);
@@ -1163,6 +1167,7 @@ void ProcTableAsClass::GetProcTable(DawnProcTable* table) {
     table->sharedTextureMemorySetLabel = reinterpret_cast<WGPUProcSharedTextureMemorySetLabel>(ForwardSharedTextureMemorySetLabel);
     table->sharedTextureMemoryReference = reinterpret_cast<WGPUProcSharedTextureMemoryReference>(ForwardSharedTextureMemoryReference);
     table->sharedTextureMemoryRelease = reinterpret_cast<WGPUProcSharedTextureMemoryRelease>(ForwardSharedTextureMemoryRelease);
+    table->surfaceGetPreferredFormat = reinterpret_cast<WGPUProcSurfaceGetPreferredFormat>(ForwardSurfaceGetPreferredFormat);
     table->surfaceReference = reinterpret_cast<WGPUProcSurfaceReference>(ForwardSurfaceReference);
     table->surfaceRelease = reinterpret_cast<WGPUProcSurfaceRelease>(ForwardSurfaceRelease);
     table->swapChainGetCurrentTexture = reinterpret_cast<WGPUProcSwapChainGetCurrentTexture>(ForwardSwapChainGetCurrentTexture);

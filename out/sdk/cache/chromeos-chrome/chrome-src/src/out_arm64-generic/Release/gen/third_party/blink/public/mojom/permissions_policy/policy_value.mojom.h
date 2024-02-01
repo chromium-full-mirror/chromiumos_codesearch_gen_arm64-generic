@@ -64,7 +64,7 @@ class BLINK_COMMON_EXPORT PolicyValue {
   static PolicyValuePtr
   NewNullValue(
       bool value) {
-    auto result = PolicyValuePtr(absl::in_place);
+    auto result = PolicyValuePtr(std::in_place);
     result->set_null_value(std::move(value));
     return result;
   }
@@ -72,7 +72,7 @@ class BLINK_COMMON_EXPORT PolicyValue {
   static PolicyValuePtr
   NewBoolValue(
       bool value) {
-    auto result = PolicyValuePtr(absl::in_place);
+    auto result = PolicyValuePtr(std::in_place);
     result->set_bool_value(std::move(value));
     return result;
   }
@@ -80,7 +80,7 @@ class BLINK_COMMON_EXPORT PolicyValue {
   static PolicyValuePtr
   NewDecDoubleValue(
       double value) {
-    auto result = PolicyValuePtr(absl::in_place);
+    auto result = PolicyValuePtr(std::in_place);
     result->set_dec_double_value(std::move(value));
     return result;
   }
@@ -88,7 +88,7 @@ class BLINK_COMMON_EXPORT PolicyValue {
   static PolicyValuePtr
   NewEnumValue(
       int32_t value) {
-    auto result = PolicyValuePtr(absl::in_place);
+    auto result = PolicyValuePtr(std::in_place);
     result->set_enum_value(std::move(value));
     return result;
   }

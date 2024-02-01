@@ -74,7 +74,6 @@ class AutofillDriver
   using RequestValidator_ = AutofillDriverRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
-    kSetFormToBeProbablySubmittedMinVersion = 0,
     kFormsSeenMinVersion = 0,
     kFormSubmittedMinVersion = 0,
     kTextFieldDidChangeMinVersion = 0,
@@ -93,9 +92,6 @@ class AutofillDriver
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
-  struct SetFormToBeProbablySubmitted_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
   struct FormsSeen_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
@@ -137,9 +133,6 @@ class AutofillDriver
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~AutofillDriver() = default;
-
-  
-  virtual void SetFormToBeProbablySubmitted(const std::optional<::autofill::FormData>& form) = 0;
 
   
   virtual void FormsSeen(const std::vector<::autofill::FormData>& updated_forms, const std::vector<::autofill::FormRendererId>& removed_forms) = 0;
@@ -405,8 +398,6 @@ class  AutofillDriverProxy
   using InterfaceType = AutofillDriver;
 
   explicit AutofillDriverProxy(mojo::MessageReceiverWithResponder* receiver);
-  
-  void SetFormToBeProbablySubmitted(const std::optional<::autofill::FormData>& form) final;
   
   void FormsSeen(const std::vector<::autofill::FormData>& updated_forms, const std::vector<::autofill::FormRendererId>& removed_forms) final;
   

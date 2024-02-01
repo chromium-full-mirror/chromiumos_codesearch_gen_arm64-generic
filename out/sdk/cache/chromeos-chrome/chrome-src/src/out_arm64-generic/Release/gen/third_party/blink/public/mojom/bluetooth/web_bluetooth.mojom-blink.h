@@ -661,7 +661,7 @@ class BLINK_PLATFORM_EXPORT WebBluetoothCompany {
   template <typename... Args>
   static WebBluetoothCompanyPtr New(Args&&... args) {
     return WebBluetoothCompanyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -802,7 +802,7 @@ class BLINK_PLATFORM_EXPORT WebBluetoothDataFilter {
   template <typename... Args>
   static WebBluetoothDataFilterPtr New(Args&&... args) {
     return WebBluetoothDataFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -956,7 +956,7 @@ class BLINK_PLATFORM_EXPORT WebBluetoothLeScanFilter {
   template <typename... Args>
   static WebBluetoothLeScanFilterPtr New(Args&&... args) {
     return WebBluetoothLeScanFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1109,7 +1109,7 @@ class BLINK_PLATFORM_EXPORT WebBluetoothRequestDeviceOptions {
   template <typename... Args>
   static WebBluetoothRequestDeviceOptionsPtr New(Args&&... args) {
     return WebBluetoothRequestDeviceOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1263,7 +1263,7 @@ class BLINK_PLATFORM_EXPORT WebBluetoothRequestLEScanOptions {
   template <typename... Args>
   static WebBluetoothRequestLEScanOptionsPtr New(Args&&... args) {
     return WebBluetoothRequestLEScanOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1411,7 +1411,7 @@ class BLINK_PLATFORM_EXPORT WebBluetoothDeviceId {
   template <typename... Args>
   static WebBluetoothDeviceIdPtr New(Args&&... args) {
     return WebBluetoothDeviceIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1551,7 +1551,7 @@ class BLINK_PLATFORM_EXPORT WebBluetoothDevice {
   template <typename... Args>
   static WebBluetoothDevicePtr New(Args&&... args) {
     return WebBluetoothDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1694,7 +1694,7 @@ class BLINK_PLATFORM_EXPORT WebBluetoothRemoteGATTService {
   template <typename... Args>
   static WebBluetoothRemoteGATTServicePtr New(Args&&... args) {
     return WebBluetoothRemoteGATTServicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1837,7 +1837,7 @@ class BLINK_PLATFORM_EXPORT WebBluetoothRemoteGATTCharacteristic {
   template <typename... Args>
   static WebBluetoothRemoteGATTCharacteristicPtr New(Args&&... args) {
     return WebBluetoothRemoteGATTCharacteristicPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1983,7 +1983,7 @@ class BLINK_PLATFORM_EXPORT WebBluetoothAdvertisingEvent {
   template <typename... Args>
   static WebBluetoothAdvertisingEventPtr New(Args&&... args) {
     return WebBluetoothAdvertisingEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2155,7 +2155,7 @@ class BLINK_PLATFORM_EXPORT WebBluetoothRemoteGATTDescriptor {
   template <typename... Args>
   static WebBluetoothRemoteGATTDescriptorPtr New(Args&&... args) {
     return WebBluetoothRemoteGATTDescriptorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

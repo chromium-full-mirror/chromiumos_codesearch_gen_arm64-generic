@@ -53,7 +53,15 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'preloadUrlLoaderClientReceiver', 16,
+        'resultingClientId', 16,
+        0,
+        mojo.internal.String,
+        null,
+        false /* nullable */,
+        0,
+      ),
+      mojo.internal.StructField(
+        'preloadUrlLoaderClientReceiver', 24,
         0,
         mojo.internal.InterfaceRequest(network_mojom_URLLoaderClientPendingReceiver),
         null,
@@ -61,7 +69,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'isOfflineCapabilityCheck', 20,
+        'isOfflineCapabilityCheck', 28,
         0,
         mojo.internal.Bool,
         false,
@@ -69,7 +77,7 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'raceNetworkRequestLoaderFactory', 24,
+        'raceNetworkRequestLoaderFactory', 32,
         0,
         mojo.internal.InterfaceProxy(network_mojom_URLLoaderFactoryRemote),
         null,
@@ -77,7 +85,7 @@ mojo.internal.Struct(
         0,
       ),
     ],
-    [[0, 40],]);
+    [[0, 48],]);
 
 
 
@@ -90,6 +98,8 @@ export class DispatchFetchEventParams {
     this.request;
     /** @type { !string } */
     this.clientId;
+    /** @type { !string } */
+    this.resultingClientId;
     /** @type { (network_mojom_URLLoaderClientPendingReceiver|undefined) } */
     this.preloadUrlLoaderClientReceiver;
     /** @type { !boolean } */

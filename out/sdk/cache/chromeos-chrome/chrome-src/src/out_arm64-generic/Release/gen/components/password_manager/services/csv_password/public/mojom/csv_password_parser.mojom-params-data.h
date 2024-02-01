@@ -105,7 +105,7 @@ static_assert(
         ::password_manager::mojom::CSVPasswordSequenceDataView, UserType>(),
     "Attempting to read the optional `sequence` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSequence` instead "
     "of `ReadSequence if you're fine with null values being "

@@ -58,7 +58,7 @@ class  SharedDictionaryIsolationKey {
   template <typename... Args>
   static SharedDictionaryIsolationKeyPtr New(Args&&... args) {
     return SharedDictionaryIsolationKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

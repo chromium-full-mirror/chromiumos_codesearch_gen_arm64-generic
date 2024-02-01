@@ -180,7 +180,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `source_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSourceName` instead "
     "of `ReadSourceName if you're fine with null values being "
@@ -201,7 +201,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `request_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRequestId` instead "
     "of `ReadRequestId if you're fine with null values being "
@@ -222,7 +222,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `source_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSourceId` instead "
     "of `ReadSourceId if you're fine with null values being "

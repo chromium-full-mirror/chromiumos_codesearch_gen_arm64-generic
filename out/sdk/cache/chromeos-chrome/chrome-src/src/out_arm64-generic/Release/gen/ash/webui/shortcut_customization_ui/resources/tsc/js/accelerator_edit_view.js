@@ -11,13 +11,13 @@ import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/stri
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { Subactions, UserAction } from '../mojom-webui/ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom-webui.js';
+import { Subactions, UserAction } from '../mojom-webui/shortcut_customization.mojom-webui.js';
 import { getTemplate } from './accelerator_edit_view.html.js';
 import { AcceleratorLookupManager } from './accelerator_lookup_manager.js';
 import { AcceleratorViewElement, ViewState } from './accelerator_view.js';
 import { getShortcutProvider } from './mojo_interface_provider.js';
 import { AcceleratorConfigResult, AcceleratorKeyState, AcceleratorState, AcceleratorType, EditAction } from './shortcut_types.js';
-import { getAccelerator } from './shortcut_utils.js';
+import { getAccelerator, getAriaLabelForStandardAcceleratorInfo } from './shortcut_utils.js';
 const accelerator = {
     modifiers: 0,
     keyCode: 0,
@@ -126,8 +126,8 @@ export class AcceleratorEditViewElement extends AcceleratorEditViewElementBase {
                 this.statusMessage = this.i18n('editViewStatusMessage');
             }
         }
-        this.hasWarning =
-            this.statusMessage === this.i18n('warningSearchNotIncluded');
+        this.hasWarning = this.statusMessage ===
+            this.i18n('warningSearchNotIncluded', this.getMetaKeyDisplay());
     }
     onEditButtonClicked() {
         // Reset the error messages upon clicking the edit button.
@@ -198,8 +198,19 @@ export class AcceleratorEditViewElement extends AcceleratorEditViewElementBase {
         const viewElement = strictQuery('accelerator-view', this.shadowRoot, AcceleratorViewElement);
         viewElement.endCapture(/*should_delay=*/ false);
     }
+    getMetaKeyDisplay() {
+        return this.lookupManager.getHasLauncherButton() ?
+            this.i18n('iconLabelOpenLauncher') :
+            this.i18n('iconLabelOpenSearch');
+    }
     getStatusMessageForTesting() {
         return this.statusMessage;
+    }
+    getEditAriaLabel() {
+        return this.i18n('editButtonForAction', getAriaLabelForStandardAcceleratorInfo(this.acceleratorInfo));
+    }
+    getDeleteAriaLabel() {
+        return this.i18n('deleteButtonForAction', getAriaLabelForStandardAcceleratorInfo(this.acceleratorInfo));
     }
 }
 customElements.define(AcceleratorEditViewElement.is, AcceleratorEditViewElement);

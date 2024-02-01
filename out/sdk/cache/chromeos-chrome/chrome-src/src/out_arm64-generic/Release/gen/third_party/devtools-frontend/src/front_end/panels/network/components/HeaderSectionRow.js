@@ -214,7 +214,7 @@ export class HeaderSectionRow extends HTMLElement {
           @click=${() => {
                 this.dispatchEvent(new EnableHeaderEditingEvent());
             }}
-          jslog=${VisualLogging.action().track({ click: true }).context('enable-header-overrides')}
+          jslog=${VisualLogging.action('enable-header-overrides').track({ click: true })}
           class="enable-editing inline-button"
         ></${Buttons.Button.Button.litTagName}>
       ` : LitHtml.nothing}
@@ -236,7 +236,7 @@ export class HeaderSectionRow extends HTMLElement {
         .variant=${"round" /* Buttons.Button.Variant.ROUND */}
         class="remove-header inline-button"
         @click=${this.#onRemoveOverrideClick}
-        jslog=${VisualLogging.action().track({ click: true }).context('remove-header-override')}
+        jslog=${VisualLogging.action('remove-header-override').track({ click: true })}
       ></${Buttons.Button.Button.litTagName}>
     `;
         // clang-format on

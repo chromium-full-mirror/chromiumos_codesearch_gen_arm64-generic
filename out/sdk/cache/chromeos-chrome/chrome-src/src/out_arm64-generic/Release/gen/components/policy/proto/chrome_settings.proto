@@ -22153,10 +22153,14 @@ message SyncDisabledProto {
 // synchronization. This can be beneficial to reduce the size of the roaming
 // profile or limit the type of data uploaded to the Chrome Sync Servers.
 //
-// The current data types for this policy are: "bookmarks", "readingList",
-// "preferences", "passwords", "autofill", "themes", "typedUrls", "extensions",
-// "apps", "tabs", "wifiConfigurations", "savedTabGroups". Those names are case
-// sensitive!
+// The current data types for this policy are: "apps", "autofill", "bookmarks",
+// "extensions", "preferences", "passwords", "payments", "readingList",
+// "savedTabGroups", "tabs", "themes", "typedUrls", "wifiConfigurations". Those
+// names are case sensitive!
+//
+// Notes: Dynamic Policy Refresh is supported only in Google Chrome version 123
+// and later. Disabling "autofill" also disables "payments". "typedUrls" refers
+// to all browsing history.
 //
 // Supported on: android, chrome_os, fuchsia, ios, linux, mac, win
 message SyncTypesListDisabledProto {
@@ -22511,6 +22515,26 @@ message ThirdPartyStoragePartitioningBlockedForOriginsProto {
 message ThrottleNonVisibleCrossOriginIframesAllowedProto {
   optional PolicyOptions policy_options = 1;
   optional bool ThrottleNonVisibleCrossOriginIframesAllowed = 2;
+}
+
+// Managed toolbar avatar label setting
+//
+// Leaving this policy unset or setting it to display_management_label_permanent
+// (value 0) will show a Work or School label next to the toolbar avatar.
+// These labels will only be shown if the signed in account is managed.
+//
+// Setting it to display_management_label_transient (value 1) will show a Work
+// or School label next to the toolbar avatar for 30 seconds after opening the
+// profile.
+//
+// Valid values:
+//   0: Always display management label
+//   1: Display management labels for 30s
+//
+// Supported on: linux, mac, win
+message ToolbarAvatarLabelSettingsProto {
+  optional PolicyOptions policy_options = 1;
+  optional int64 ToolbarAvatarLabelSettings = 2;
 }
 
 // Configuring the ToS behavior during first-run for CCT
@@ -25311,6 +25335,7 @@ message ChromeSettingsSubProto1 {
   optional SiteSearchSettingsProto SiteSearchSettings = 136;
   optional TabOrganizerSettingsProto TabOrganizerSettings = 146;
   optional ThirdPartyStoragePartitioningBlockedForOriginsProto ThirdPartyStoragePartitioningBlockedForOrigins = 51;
+  optional ToolbarAvatarLabelSettingsProto ToolbarAvatarLabelSettings = 168;
   optional UnaffiliatedDeviceArcAllowedProto UnaffiliatedDeviceArcAllowed = 127;
   optional UrlKeyedMetricsAllowedProto UrlKeyedMetricsAllowed = 73;
   optional UsbDetectorNotificationEnabledProto UsbDetectorNotificationEnabled = 4;

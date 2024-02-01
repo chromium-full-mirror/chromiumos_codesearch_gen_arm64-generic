@@ -224,7 +224,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `locale` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLocale` instead "
     "of `ReadLocale if you're fine with null values being "
@@ -236,8 +236,8 @@ static_assert(
   std::optional<bool> interim_results() const {
 
     return data_->interim_results_$flag
-        ? absl::make_optional(!!data_->interim_results_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->interim_results_$value)
+        : std::nullopt;
   }
  private:
   internal::StartOptions_Data* data_ = nullptr;

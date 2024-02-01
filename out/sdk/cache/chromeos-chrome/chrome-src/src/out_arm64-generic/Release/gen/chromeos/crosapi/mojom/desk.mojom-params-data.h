@@ -649,12 +649,12 @@ class Desk_RemoveDesk_ParamsDataView {
   }
   std::optional<bool> allow_undo() const {
     if (data_->header_.version < 5) {
-      return absl::nullopt;
+      return std::nullopt;
     }
 
     return data_->allow_undo_$flag
-        ? absl::make_optional(!!data_->allow_undo_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->allow_undo_$value)
+        : std::nullopt;
   }
  private:
   internal::Desk_RemoveDesk_Params_Data* data_ = nullptr;

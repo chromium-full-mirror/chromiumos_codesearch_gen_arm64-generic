@@ -49,9 +49,6 @@ const char DeviceService::Name_[] = "device.mojom.DeviceService";
 DeviceService::IPCStableHashFunction DeviceService::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kDeviceService_BindDevicePostureProvider_Name: {
-      return &DeviceService::BindDevicePostureProvider_Sym::IPCStableHash;
-    }
     case internal::kDeviceService_BindFingerprint_Name: {
       return &DeviceService::BindFingerprint_Sym::IPCStableHash;
     }
@@ -123,8 +120,6 @@ const char* DeviceService::MessageToMethodName_(mojo::Message& message) {
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kDeviceService_BindDevicePostureProvider_Name:
-            return "Receive device::mojom::DeviceService::BindDevicePostureProvider";
       case internal::kDeviceService_BindFingerprint_Name:
             return "Receive device::mojom::DeviceService::BindFingerprint";
       case internal::kDeviceService_BindGeolocationConfig_Name:
@@ -168,8 +163,6 @@ const char* DeviceService::MessageToMethodName_(mojo::Message& message) {
     }
   } else {
     switch (message.name()) {
-      case internal::kDeviceService_BindDevicePostureProvider_Name:
-            return "Receive reply device::mojom::DeviceService::BindDevicePostureProvider";
       case internal::kDeviceService_BindFingerprint_Name:
             return "Receive reply device::mojom::DeviceService::BindFingerprint";
       case internal::kDeviceService_BindGeolocationConfig_Name:
@@ -224,19 +217,6 @@ const char* DeviceService::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t DeviceService::BindDevicePostureProvider_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)device::mojom::DeviceService::BindDevicePostureProvider");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 uint32_t DeviceService::BindFingerprint_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
@@ -501,52 +481,6 @@ uint32_t DeviceService::BindUsbDeviceManagerTest_Sym::IPCStableHash() {
 
 DeviceServiceProxy::DeviceServiceProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
-}
-
-void DeviceServiceProxy::BindDevicePostureProvider(
-    ::mojo::PendingReceiver<::device::mojom::DevicePostureProvider> in_receiver) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send device::mojom::DeviceService::BindDevicePostureProvider", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("receiver"), in_receiver,
-                        "<value of type ::mojo::PendingReceiver<::device::mojom::DevicePostureProvider>>");
-   });
-#endif
-
-  const bool kExpectsResponse = false;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kDeviceService_BindDevicePostureProvider_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::device::mojom::internal::DeviceService_BindDevicePostureProvider_Params_Data> params(
-          message);
-  params.Allocate();
-  mojo::internal::Serialize<mojo::InterfaceRequestDataView<::device::mojom::DevicePostureProviderInterfaceBase>>(
-      in_receiver, &params->receiver, &params.message());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->receiver),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
-      "invalid receiver in DeviceService.BindDevicePostureProvider request");
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(DeviceService::Name_);
-  message.set_method_name("BindDevicePostureProvider");
-#endif
-  // This return value may be ignored as false implies the Connector has
-  // encountered an error, which will be visible through other means.
-  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void DeviceServiceProxy::BindFingerprint(
@@ -1474,36 +1408,6 @@ bool DeviceServiceStubDispatch::Accept(
     DeviceService* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kDeviceService_BindDevicePostureProvider_Name: {
-
-      DCHECK(message->is_serialized());
-      internal::DeviceService_BindDevicePostureProvider_Params_Data* params =
-          reinterpret_cast<internal::DeviceService_BindDevicePostureProvider_Params_Data*>(
-              message->mutable_payload());
-      
-      
-      // Validation for DeviceService.0
-      bool success = true;
-      ::mojo::PendingReceiver<::device::mojom::DevicePostureProvider> p_receiver{};
-      DeviceService_BindDevicePostureProvider_ParamsDataView input_data_view(params, message);
-      
-      if (success) {
-        p_receiver =
-            input_data_view.TakeReceiver<decltype(p_receiver)>();
-      }
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 0, false);
-        return false;
-      }
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->BindDevicePostureProvider(        
-        std::move(p_receiver));
-      return true;
-    }
     case internal::kDeviceService_BindFingerprint_Name: {
 
       DCHECK(message->is_serialized());
@@ -1512,7 +1416,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.1
+      // Validation for DeviceService.0
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::Fingerprint> p_receiver{};
       DeviceService_BindFingerprint_ParamsDataView input_data_view(params, message);
@@ -1525,7 +1429,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 1, false);
+            DeviceService::Name_, 0, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1542,7 +1446,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.2
+      // Validation for DeviceService.1
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::GeolocationConfig> p_receiver{};
       DeviceService_BindGeolocationConfig_ParamsDataView input_data_view(params, message);
@@ -1555,7 +1459,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 2, false);
+            DeviceService::Name_, 1, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1572,7 +1476,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.3
+      // Validation for DeviceService.2
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::GeolocationContext> p_receiver{};
       DeviceService_BindGeolocationContext_ParamsDataView input_data_view(params, message);
@@ -1585,7 +1489,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 3, false);
+            DeviceService::Name_, 2, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1602,7 +1506,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.4
+      // Validation for DeviceService.3
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::GeolocationControl> p_receiver{};
       DeviceService_BindGeolocationControl_ParamsDataView input_data_view(params, message);
@@ -1615,7 +1519,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 4, false);
+            DeviceService::Name_, 3, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1632,7 +1536,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.5
+      // Validation for DeviceService.4
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::GeolocationInternals> p_receiver{};
       DeviceService_BindGeolocationInternals_ParamsDataView input_data_view(params, message);
@@ -1645,7 +1549,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 5, false);
+            DeviceService::Name_, 4, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1662,7 +1566,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.6
+      // Validation for DeviceService.5
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::InputDeviceManager> p_receiver{};
       DeviceService_BindInputDeviceManager_ParamsDataView input_data_view(params, message);
@@ -1675,7 +1579,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 6, false);
+            DeviceService::Name_, 5, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1692,7 +1596,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.7
+      // Validation for DeviceService.6
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::BatteryMonitor> p_receiver{};
       DeviceService_BindBatteryMonitor_ParamsDataView input_data_view(params, message);
@@ -1705,7 +1609,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 7, false);
+            DeviceService::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1722,7 +1626,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.8
+      // Validation for DeviceService.7
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::PressureManager> p_receiver{};
       DeviceService_BindPressureManager_ParamsDataView input_data_view(params, message);
@@ -1735,7 +1639,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 8, false);
+            DeviceService::Name_, 7, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1752,7 +1656,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.9
+      // Validation for DeviceService.8
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::VibrationManager> p_receiver{};
       DeviceService_BindVibrationManager_ParamsDataView input_data_view(params, message);
@@ -1765,7 +1669,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 9, false);
+            DeviceService::Name_, 8, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1782,7 +1686,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.10
+      // Validation for DeviceService.9
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::HidManager> p_receiver{};
       DeviceService_BindHidManager_ParamsDataView input_data_view(params, message);
@@ -1795,7 +1699,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 10, false);
+            DeviceService::Name_, 9, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1812,7 +1716,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.11
+      // Validation for DeviceService.10
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::MtpManager> p_receiver{};
       DeviceService_BindMtpManager_ParamsDataView input_data_view(params, message);
@@ -1825,7 +1729,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 11, false);
+            DeviceService::Name_, 10, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1842,7 +1746,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.12
+      // Validation for DeviceService.11
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::PowerMonitor> p_receiver{};
       DeviceService_BindPowerMonitor_ParamsDataView input_data_view(params, message);
@@ -1855,7 +1759,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 12, false);
+            DeviceService::Name_, 11, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1872,7 +1776,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.13
+      // Validation for DeviceService.12
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::PublicIpAddressGeolocationProvider> p_receiver{};
       DeviceService_BindPublicIpAddressGeolocationProvider_ParamsDataView input_data_view(params, message);
@@ -1885,7 +1789,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 13, false);
+            DeviceService::Name_, 12, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1902,7 +1806,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.14
+      // Validation for DeviceService.13
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::ScreenOrientationListener> p_receiver{};
       DeviceService_BindScreenOrientationListener_ParamsDataView input_data_view(params, message);
@@ -1915,7 +1819,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 14, false);
+            DeviceService::Name_, 13, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1932,7 +1836,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.15
+      // Validation for DeviceService.14
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::SensorProvider> p_receiver{};
       DeviceService_BindSensorProvider_ParamsDataView input_data_view(params, message);
@@ -1945,7 +1849,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 15, false);
+            DeviceService::Name_, 14, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1962,7 +1866,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.16
+      // Validation for DeviceService.15
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::SerialPortManager> p_receiver{};
       DeviceService_BindSerialPortManager_ParamsDataView input_data_view(params, message);
@@ -1975,7 +1879,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 16, false);
+            DeviceService::Name_, 15, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1992,7 +1896,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.17
+      // Validation for DeviceService.16
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::TimeZoneMonitor> p_receiver{};
       DeviceService_BindTimeZoneMonitor_ParamsDataView input_data_view(params, message);
@@ -2005,7 +1909,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 17, false);
+            DeviceService::Name_, 16, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2022,7 +1926,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.18
+      // Validation for DeviceService.17
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::WakeLockProvider> p_receiver{};
       DeviceService_BindWakeLockProvider_ParamsDataView input_data_view(params, message);
@@ -2035,7 +1939,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 18, false);
+            DeviceService::Name_, 17, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2052,7 +1956,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.19
+      // Validation for DeviceService.18
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::UsbDeviceManager> p_receiver{};
       DeviceService_BindUsbDeviceManager_ParamsDataView input_data_view(params, message);
@@ -2065,7 +1969,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 19, false);
+            DeviceService::Name_, 18, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2082,7 +1986,7 @@ bool DeviceServiceStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for DeviceService.20
+      // Validation for DeviceService.19
       bool success = true;
       ::mojo::PendingReceiver<::device::mojom::UsbDeviceManagerTest> p_receiver{};
       DeviceService_BindUsbDeviceManagerTest_ParamsDataView input_data_view(params, message);
@@ -2095,7 +1999,7 @@ bool DeviceServiceStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DeviceService::Name_, 20, false);
+            DeviceService::Name_, 19, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -2117,9 +2021,6 @@ bool DeviceServiceStubDispatch::AcceptWithResponder(
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kDeviceService_BindDevicePostureProvider_Name: {
-      break;
-    }
     case internal::kDeviceService_BindFingerprint_Name: {
       break;
     }
@@ -2186,8 +2087,6 @@ bool DeviceServiceStubDispatch::AcceptWithResponder(
 namespace {
 }  // namespace
 static const mojo::internal::GenericValidationInfo kDeviceServiceValidationInfo[] = {
-    { &internal::DeviceService_BindDevicePostureProvider_Params_Data::Validate,
-     nullptr /* no response */},
     { &internal::DeviceService_BindFingerprint_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::DeviceService_BindGeolocationConfig_Params_Data::Validate,
@@ -2252,9 +2151,6 @@ namespace mojo {
 namespace device::mojom {
 
 
-void DeviceServiceInterceptorForTesting::BindDevicePostureProvider(::mojo::PendingReceiver<::device::mojom::DevicePostureProvider> receiver) {
-  GetForwardingInterface()->BindDevicePostureProvider(std::move(receiver));
-}
 void DeviceServiceInterceptorForTesting::BindFingerprint(::mojo::PendingReceiver<::device::mojom::Fingerprint> receiver) {
   GetForwardingInterface()->BindFingerprint(std::move(receiver));
 }

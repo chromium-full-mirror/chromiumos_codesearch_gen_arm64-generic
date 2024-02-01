@@ -205,7 +205,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `payment_request_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPaymentRequestId` instead "
     "of `ReadPaymentRequestId if you're fine with null values being "
@@ -226,7 +226,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `request_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRequestToken` instead "
     "of `ReadRequestToken if you're fine with null values being "
@@ -247,7 +247,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `twa_instance_identifier` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTwaInstanceIdentifier` instead "
     "of `ReadTwaInstanceIdentifier if you're fine with null values being "

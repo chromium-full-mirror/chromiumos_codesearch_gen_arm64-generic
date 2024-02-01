@@ -364,7 +364,7 @@ static_assert(
         mojo::ArrayDataView<::bluetooth::mojom::UUIDDataView>, UserType>(),
     "Attempting to read the optional `services` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadServices` instead "
     "of `ReadServices if you're fine with null values being "
@@ -384,7 +384,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadName` instead "
     "of `ReadName if you're fine with null values being "
@@ -404,7 +404,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `name_prefix` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNamePrefix` instead "
     "of `ReadNamePrefix if you're fine with null values being "
@@ -424,7 +424,7 @@ static_assert(
         mojo::MapDataView<::blink::mojom::WebBluetoothCompanyDataView, mojo::ArrayDataView<::blink::mojom::WebBluetoothDataFilterDataView>>, UserType>(),
     "Attempting to read the optional `manufacturer_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadManufacturerData` instead "
     "of `ReadManufacturerData if you're fine with null values being "
@@ -499,7 +499,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::WebBluetoothLeScanFilterDataView>, UserType>(),
     "Attempting to read the optional `filters` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFilters` instead "
     "of `ReadFilters if you're fine with null values being "
@@ -519,7 +519,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::WebBluetoothLeScanFilterDataView>, UserType>(),
     "Attempting to read the optional `exclusion_filters` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadExclusionFilters` instead "
     "of `ReadExclusionFilters if you're fine with null values being "
@@ -578,7 +578,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::WebBluetoothLeScanFilterDataView>, UserType>(),
     "Attempting to read the optional `filters` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFilters` instead "
     "of `ReadFilters if you're fine with null values being "
@@ -656,7 +656,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadName` instead "
     "of `ReadName if you're fine with null values being "
@@ -777,7 +777,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadName` instead "
     "of `ReadName if you're fine with null values being "

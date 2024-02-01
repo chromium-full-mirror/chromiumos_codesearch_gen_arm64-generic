@@ -73,7 +73,7 @@ class  URLResponseHead {
   template <typename... Args>
   static URLResponseHeadPtr New(Args&&... args) {
     return URLResponseHeadPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

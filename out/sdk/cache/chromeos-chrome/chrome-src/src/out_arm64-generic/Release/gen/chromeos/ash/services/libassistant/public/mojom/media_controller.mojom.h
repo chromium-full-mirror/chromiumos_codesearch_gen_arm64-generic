@@ -346,7 +346,7 @@ class  MediaMetadata {
   template <typename... Args>
   static MediaMetadataPtr New(Args&&... args) {
     return MediaMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -495,7 +495,7 @@ class  MediaState {
   template <typename... Args>
   static MediaStatePtr New(Args&&... args) {
     return MediaStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

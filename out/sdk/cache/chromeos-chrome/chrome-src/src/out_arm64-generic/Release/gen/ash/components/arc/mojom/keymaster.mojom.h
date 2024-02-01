@@ -559,7 +559,7 @@ class  IntegerKeyParam {
   static IntegerKeyParamPtr
   NewBooleanValue(
       bool value) {
-    auto result = IntegerKeyParamPtr(absl::in_place);
+    auto result = IntegerKeyParamPtr(std::in_place);
     result->set_boolean_value(std::move(value));
     return result;
   }
@@ -567,7 +567,7 @@ class  IntegerKeyParam {
   static IntegerKeyParamPtr
   NewInteger(
       uint32_t value) {
-    auto result = IntegerKeyParamPtr(absl::in_place);
+    auto result = IntegerKeyParamPtr(std::in_place);
     result->set_integer(std::move(value));
     return result;
   }
@@ -575,7 +575,7 @@ class  IntegerKeyParam {
   static IntegerKeyParamPtr
   NewLongInteger(
       uint64_t value) {
-    auto result = IntegerKeyParamPtr(absl::in_place);
+    auto result = IntegerKeyParamPtr(std::in_place);
     result->set_long_integer(std::move(value));
     return result;
   }
@@ -583,7 +583,7 @@ class  IntegerKeyParam {
   static IntegerKeyParamPtr
   NewDateTime(
       uint64_t value) {
-    auto result = IntegerKeyParamPtr(absl::in_place);
+    auto result = IntegerKeyParamPtr(std::in_place);
     result->set_date_time(std::move(value));
     return result;
   }
@@ -591,7 +591,7 @@ class  IntegerKeyParam {
   static IntegerKeyParamPtr
   NewBlob(
       std::vector<uint8_t> value) {
-    auto result = IntegerKeyParamPtr(absl::in_place);
+    auto result = IntegerKeyParamPtr(std::in_place);
     result->set_blob(std::move(value));
     return result;
   }
@@ -744,7 +744,7 @@ class  KeyParameter {
   template <typename... Args>
   static KeyParameterPtr New(Args&&... args) {
     return KeyParameterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -889,7 +889,7 @@ class  KeyCharacteristics {
   template <typename... Args>
   static KeyCharacteristicsPtr New(Args&&... args) {
     return KeyCharacteristicsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1034,7 +1034,7 @@ class  GetKeyCharacteristicsRequest {
   template <typename... Args>
   static GetKeyCharacteristicsRequestPtr New(Args&&... args) {
     return GetKeyCharacteristicsRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1180,7 +1180,7 @@ class  GetKeyCharacteristicsResult {
   template <typename... Args>
   static GetKeyCharacteristicsResultPtr New(Args&&... args) {
     return GetKeyCharacteristicsResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1325,7 +1325,7 @@ class  GenerateKeyResult {
   template <typename... Args>
   static GenerateKeyResultPtr New(Args&&... args) {
     return GenerateKeyResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1473,7 +1473,7 @@ class  ImportKeyRequest {
   template <typename... Args>
   static ImportKeyRequestPtr New(Args&&... args) {
     return ImportKeyRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1621,7 +1621,7 @@ class  ImportKeyResult {
   template <typename... Args>
   static ImportKeyResultPtr New(Args&&... args) {
     return ImportKeyResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1769,7 +1769,7 @@ class  ExportKeyRequest {
   template <typename... Args>
   static ExportKeyRequestPtr New(Args&&... args) {
     return ExportKeyRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1918,7 +1918,7 @@ class  ExportKeyResult {
   template <typename... Args>
   static ExportKeyResultPtr New(Args&&... args) {
     return ExportKeyResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2061,7 +2061,7 @@ class  AttestKeyRequest {
   template <typename... Args>
   static AttestKeyRequestPtr New(Args&&... args) {
     return AttestKeyRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2206,7 +2206,7 @@ class  AttestKeyResult {
   template <typename... Args>
   static AttestKeyResultPtr New(Args&&... args) {
     return AttestKeyResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2349,7 +2349,7 @@ class  UpgradeKeyRequest {
   template <typename... Args>
   static UpgradeKeyRequestPtr New(Args&&... args) {
     return UpgradeKeyRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2494,7 +2494,7 @@ class  UpgradeKeyResult {
   template <typename... Args>
   static UpgradeKeyResultPtr New(Args&&... args) {
     return UpgradeKeyResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2637,7 +2637,7 @@ class  BeginRequest {
   template <typename... Args>
   static BeginRequestPtr New(Args&&... args) {
     return BeginRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2785,7 +2785,7 @@ class  BeginResult {
   template <typename... Args>
   static BeginResultPtr New(Args&&... args) {
     return BeginResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2933,7 +2933,7 @@ class  UpdateRequest {
   template <typename... Args>
   static UpdateRequestPtr New(Args&&... args) {
     return UpdateRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3081,7 +3081,7 @@ class  UpdateResult {
   template <typename... Args>
   static UpdateResultPtr New(Args&&... args) {
     return UpdateResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3232,7 +3232,7 @@ class  FinishRequest {
   template <typename... Args>
   static FinishRequestPtr New(Args&&... args) {
     return FinishRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3383,7 +3383,7 @@ class  FinishResult {
   template <typename... Args>
   static FinishResultPtr New(Args&&... args) {
     return FinishResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

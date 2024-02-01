@@ -894,6 +894,45 @@ void AddCrosRefColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
   mixer[kCrosRefGreen95] = {SkColorSetRGB(0xBE, 0xFF, 0xDC)};
   mixer[kCrosRefGreen99] = {SkColorSetRGB(0xF4, 0xFF, 0xF6)};
   mixer[kCrosRefGreen100] = {SkColorSetRGB(0xFF, 0xFF, 0xFF)};
+  mixer[kCrosRefSparkleAnalog0] = {SkColorSetRGB(0x0, 0x0, 0x0)};
+  mixer[kCrosRefSparkleAnalog10] = {SkColorSetRGB(0x26, 0x0, 0x59)};
+  mixer[kCrosRefSparkleAnalog20] = {SkColorSetRGB(0x40, 0x6, 0x88)};
+  mixer[kCrosRefSparkleAnalog30] = {SkColorSetRGB(0x57, 0x2B, 0x9F)};
+  mixer[kCrosRefSparkleAnalog40] = {SkColorSetRGB(0x6F, 0x46, 0xB9)};
+  mixer[kCrosRefSparkleAnalog50] = {SkColorSetRGB(0x89, 0x60, 0xD4)};
+  mixer[kCrosRefSparkleAnalog60] = {SkColorSetRGB(0xA4, 0x7A, 0xF0)};
+  mixer[kCrosRefSparkleAnalog70] = {SkColorSetRGB(0xBD, 0x99, 0xFF)};
+  mixer[kCrosRefSparkleAnalog80] = {SkColorSetRGB(0xD4, 0xBB, 0xFF)};
+  mixer[kCrosRefSparkleAnalog90] = {SkColorSetRGB(0xEB, 0xDC, 0xFF)};
+  mixer[kCrosRefSparkleAnalog95] = {SkColorSetRGB(0xF7, 0xED, 0xFF)};
+  mixer[kCrosRefSparkleAnalog99] = {SkColorSetRGB(0xFF, 0xFB, 0xFF)};
+  mixer[kCrosRefSparkleAnalog100] = {SkColorSetRGB(0xFF, 0xFF, 0xFF)};
+  mixer[kCrosRefSparkleMuted0] = {SkColorSetRGB(0x0, 0x0, 0x0)};
+  mixer[kCrosRefSparkleMuted10] = {SkColorSetRGB(0x1B, 0x12, 0x47)};
+  mixer[kCrosRefSparkleMuted20] = {SkColorSetRGB(0x31, 0x29, 0x5D)};
+  mixer[kCrosRefSparkleMuted30] = {SkColorSetRGB(0x47, 0x3F, 0x75)};
+  mixer[kCrosRefSparkleMuted40] = {SkColorSetRGB(0x5F, 0x57, 0x8F)};
+  mixer[kCrosRefSparkleMuted50] = {SkColorSetRGB(0x78, 0x70, 0xA9)};
+  mixer[kCrosRefSparkleMuted60] = {SkColorSetRGB(0x92, 0x89, 0xC5)};
+  mixer[kCrosRefSparkleMuted70] = {SkColorSetRGB(0xAD, 0xA4, 0xE1)};
+  mixer[kCrosRefSparkleMuted80] = {SkColorSetRGB(0xC9, 0xBF, 0xFE)};
+  mixer[kCrosRefSparkleMuted90] = {SkColorSetRGB(0xE5, 0xDE, 0xFF)};
+  mixer[kCrosRefSparkleMuted95] = {SkColorSetRGB(0xF4, 0xEE, 0xFF)};
+  mixer[kCrosRefSparkleMuted99] = {SkColorSetRGB(0xFF, 0xFB, 0xFF)};
+  mixer[kCrosRefSparkleMuted100] = {SkColorSetRGB(0xFF, 0xFF, 0xFF)};
+  mixer[kCrosRefSparkleComplement0] = {SkColorSetRGB(0x0, 0x0, 0x0)};
+  mixer[kCrosRefSparkleComplement10] = {SkColorSetRGB(0x0, 0x21, 0x8)};
+  mixer[kCrosRefSparkleComplement20] = {SkColorSetRGB(0x10, 0x38, 0x19)};
+  mixer[kCrosRefSparkleComplement30] = {SkColorSetRGB(0x28, 0x4F, 0x2E)};
+  mixer[kCrosRefSparkleComplement40] = {SkColorSetRGB(0x40, 0x67, 0x43)};
+  mixer[kCrosRefSparkleComplement50] = {SkColorSetRGB(0x58, 0x81, 0x5B)};
+  mixer[kCrosRefSparkleComplement60] = {SkColorSetRGB(0x71, 0x9B, 0x73)};
+  mixer[kCrosRefSparkleComplement70] = {SkColorSetRGB(0x8B, 0xB6, 0x8C)};
+  mixer[kCrosRefSparkleComplement80] = {SkColorSetRGB(0xA5, 0xD2, 0xA6)};
+  mixer[kCrosRefSparkleComplement90] = {SkColorSetRGB(0xC1, 0xEE, 0xC0)};
+  mixer[kCrosRefSparkleComplement95] = {SkColorSetRGB(0xCF, 0xFD, 0xCE)};
+  mixer[kCrosRefSparkleComplement99] = {SkColorSetRGB(0xF6, 0xFF, 0xF1)};
+  mixer[kCrosRefSparkleComplement100] = {SkColorSetRGB(0xFF, 0xFF, 0xFF)};
 }
 
 
@@ -1191,19 +1230,19 @@ void AddCrosSysColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
   }
   mixer[kCrosSysSystemOnPrimaryContainerDisabled] = ui::SetAlpha({kCrosSysSystemOnPrimaryContainer}, 0x60);
   if (dark_mode) {
-    mixer[kCrosSysOnPositiveContainer] = {kCrosRefGreen90};
+    mixer[kCrosSysOnSuccessContainer] = {kCrosRefGreen90};
   } else {
-    mixer[kCrosSysOnPositiveContainer] = {kCrosRefGreen30};
+    mixer[kCrosSysOnSuccessContainer] = {kCrosRefGreen30};
   }
   if (dark_mode) {
-    mixer[kCrosSysPositiveContainer] = ui::GetResultingPaintColor(ui::SetAlpha({kCrosRefGreen95}, 0x33), {SkColorSetRGB(0x0, 0x0, 0x0)});
+    mixer[kCrosSysSuccessContainer] = ui::GetResultingPaintColor(ui::SetAlpha({kCrosRefGreen95}, 0x33), {SkColorSetRGB(0x0, 0x0, 0x0)});
   } else {
-    mixer[kCrosSysPositiveContainer] = {kCrosRefGreen95};
+    mixer[kCrosSysSuccessContainer] = {kCrosRefGreen95};
   }
   if (dark_mode) {
-    mixer[kCrosSysPositive] = {kCrosRefGreen80};
+    mixer[kCrosSysSuccess] = {kCrosRefGreen80};
   } else {
-    mixer[kCrosSysPositive] = {kCrosRefGreen50};
+    mixer[kCrosSysSuccess] = {kCrosRefGreen50};
   }
   if (dark_mode) {
     mixer[kCrosSysOnWarningContainer] = {kCrosRefYellow80};
@@ -1236,6 +1275,16 @@ void AddCrosSysColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
     mixer[kCrosSysWarning] = {kCrosRefYellow50};
   }
   if (dark_mode) {
+    mixer[kCrosSysSystemOnErrorContainer] = {kCrosRefRed10};
+  } else {
+    mixer[kCrosSysSystemOnErrorContainer] = {kCrosRefRed10};
+  }
+  if (dark_mode) {
+    mixer[kCrosSysSystemErrorContainer] = {kCrosRefRed80};
+  } else {
+    mixer[kCrosSysSystemErrorContainer] = {kCrosRefRed80};
+  }
+  if (dark_mode) {
     mixer[kCrosSysOnProgressContainer] = {kCrosRefBlue80};
   } else {
     mixer[kCrosSysOnProgressContainer] = {kCrosRefBlue30};
@@ -1250,16 +1299,11 @@ void AddCrosSysColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
   } else {
     mixer[kCrosSysProgress] = {kCrosRefBlue50};
   }
-  if (dark_mode) {
-    mixer[kCrosSysSystemOnNegativeContainer] = {kCrosRefRed10};
-  } else {
-    mixer[kCrosSysSystemOnNegativeContainer] = {kCrosRefRed10};
-  }
-  if (dark_mode) {
-    mixer[kCrosSysSystemNegativeContainer] = {kCrosRefRed80};
-  } else {
-    mixer[kCrosSysSystemNegativeContainer] = {kCrosRefRed80};
-  }
+  mixer[kCrosSysOnPositiveContainer] = {kCrosSysOnSuccessContainer};
+  mixer[kCrosSysPositiveContainer] = {kCrosSysSuccessContainer};
+  mixer[kCrosSysPositive] = {kCrosSysSuccess};
+  mixer[kCrosSysSystemOnNegativeContainer] = {kCrosSysSystemOnErrorContainer};
+  mixer[kCrosSysSystemNegativeContainer] = {kCrosSysSystemErrorContainer};
   mixer[kCrosSysOnSurfaceLight] = {kCrosRefNeutral10};
   mixer[kCrosSysOnSurfaceDark] = {kCrosRefNeutral90};
   if (dark_mode) {
@@ -1393,6 +1437,36 @@ void AddCrosSysColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
     mixer[kCrosSysPressedOnSubtle] = ui::GetResultingPaintColor({kCrosSysHoverOnSubtle}, {kCrosSysRippleNeutralOnSubtle});
   } else {
     mixer[kCrosSysPressedOnSubtle] = ui::GetResultingPaintColor({kCrosSysHoverOnSubtle}, {kCrosSysRippleNeutralOnSubtle});
+  }
+  if (dark_mode) {
+    mixer[kCrosSysAnalog] = {kCrosRefSparkleAnalog30};
+  } else {
+    mixer[kCrosSysAnalog] = {kCrosRefSparkleAnalog70};
+  }
+  if (dark_mode) {
+    mixer[kCrosSysAnalogVariant] = {kCrosRefSparkleAnalog40};
+  } else {
+    mixer[kCrosSysAnalogVariant] = {kCrosRefSparkleAnalog80};
+  }
+  if (dark_mode) {
+    mixer[kCrosSysMuted] = {kCrosRefSparkleMuted30};
+  } else {
+    mixer[kCrosSysMuted] = {kCrosRefSparkleMuted80};
+  }
+  if (dark_mode) {
+    mixer[kCrosSysMutedVariant] = {kCrosRefSparkleMuted40};
+  } else {
+    mixer[kCrosSysMutedVariant] = {kCrosRefSparkleMuted90};
+  }
+  if (dark_mode) {
+    mixer[kCrosSysComplement] = {kCrosRefSparkleComplement20};
+  } else {
+    mixer[kCrosSysComplement] = {kCrosRefSparkleComplement90};
+  }
+  if (dark_mode) {
+    mixer[kCrosSysComplementVariant] = {kCrosRefSparkleComplement30};
+  } else {
+    mixer[kCrosSysComplementVariant] = {kCrosRefSparkleComplement95};
   }
   mixer[kCrosSysIlloColor1Light] = {kCrosRefPrimary30};
   mixer[kCrosSysIlloColor1Dark] = {kCrosRefPrimary80};
@@ -1534,6 +1608,10 @@ void AddCrosSysColorsToMixer(ui::ColorMixer& mixer, bool dark_mode) {
   } else {
     mixer[kCrosSysIlloCardOnColor5] = {kCrosSysIlloCardOnColor5Light};
   }
+  mixer[kCrosSysIlloAnalog] = {kCrosRefSparkleAnalog70};
+  mixer[kCrosSysIlloMuted] = {kCrosRefSparkleMuted80};
+  mixer[kCrosSysIlloComplement] = {kCrosRefSparkleComplement90};
+  mixer[kCrosSysIlloOnGradient] = {kCrosRefNeutral10};
   mixer[kCrosSysIlloElevatedColor11] = {kCrosSysIlloColor11};
   mixer[kCrosSysIlloElevatedColor12] = {kCrosSysIlloColor12};
   mixer[kCrosSysIlloElevatedBase] = {kCrosSysIlloBase};
@@ -2433,6 +2511,84 @@ std::string ColorIdName(ui::ColorId id) {
       return "--cros-ref-green99";
     case kCrosRefGreen100:
       return "--cros-ref-green100";
+    case kCrosRefSparkleAnalog0:
+      return "--cros-ref-sparkle_analog0";
+    case kCrosRefSparkleAnalog10:
+      return "--cros-ref-sparkle_analog10";
+    case kCrosRefSparkleAnalog20:
+      return "--cros-ref-sparkle_analog20";
+    case kCrosRefSparkleAnalog30:
+      return "--cros-ref-sparkle_analog30";
+    case kCrosRefSparkleAnalog40:
+      return "--cros-ref-sparkle_analog40";
+    case kCrosRefSparkleAnalog50:
+      return "--cros-ref-sparkle_analog50";
+    case kCrosRefSparkleAnalog60:
+      return "--cros-ref-sparkle_analog60";
+    case kCrosRefSparkleAnalog70:
+      return "--cros-ref-sparkle_analog70";
+    case kCrosRefSparkleAnalog80:
+      return "--cros-ref-sparkle_analog80";
+    case kCrosRefSparkleAnalog90:
+      return "--cros-ref-sparkle_analog90";
+    case kCrosRefSparkleAnalog95:
+      return "--cros-ref-sparkle_analog95";
+    case kCrosRefSparkleAnalog99:
+      return "--cros-ref-sparkle_analog99";
+    case kCrosRefSparkleAnalog100:
+      return "--cros-ref-sparkle_analog100";
+    case kCrosRefSparkleMuted0:
+      return "--cros-ref-sparkle_muted0";
+    case kCrosRefSparkleMuted10:
+      return "--cros-ref-sparkle_muted10";
+    case kCrosRefSparkleMuted20:
+      return "--cros-ref-sparkle_muted20";
+    case kCrosRefSparkleMuted30:
+      return "--cros-ref-sparkle_muted30";
+    case kCrosRefSparkleMuted40:
+      return "--cros-ref-sparkle_muted40";
+    case kCrosRefSparkleMuted50:
+      return "--cros-ref-sparkle_muted50";
+    case kCrosRefSparkleMuted60:
+      return "--cros-ref-sparkle_muted60";
+    case kCrosRefSparkleMuted70:
+      return "--cros-ref-sparkle_muted70";
+    case kCrosRefSparkleMuted80:
+      return "--cros-ref-sparkle_muted80";
+    case kCrosRefSparkleMuted90:
+      return "--cros-ref-sparkle_muted90";
+    case kCrosRefSparkleMuted95:
+      return "--cros-ref-sparkle_muted95";
+    case kCrosRefSparkleMuted99:
+      return "--cros-ref-sparkle_muted99";
+    case kCrosRefSparkleMuted100:
+      return "--cros-ref-sparkle_muted100";
+    case kCrosRefSparkleComplement0:
+      return "--cros-ref-sparkle_complement0";
+    case kCrosRefSparkleComplement10:
+      return "--cros-ref-sparkle_complement10";
+    case kCrosRefSparkleComplement20:
+      return "--cros-ref-sparkle_complement20";
+    case kCrosRefSparkleComplement30:
+      return "--cros-ref-sparkle_complement30";
+    case kCrosRefSparkleComplement40:
+      return "--cros-ref-sparkle_complement40";
+    case kCrosRefSparkleComplement50:
+      return "--cros-ref-sparkle_complement50";
+    case kCrosRefSparkleComplement60:
+      return "--cros-ref-sparkle_complement60";
+    case kCrosRefSparkleComplement70:
+      return "--cros-ref-sparkle_complement70";
+    case kCrosRefSparkleComplement80:
+      return "--cros-ref-sparkle_complement80";
+    case kCrosRefSparkleComplement90:
+      return "--cros-ref-sparkle_complement90";
+    case kCrosRefSparkleComplement95:
+      return "--cros-ref-sparkle_complement95";
+    case kCrosRefSparkleComplement99:
+      return "--cros-ref-sparkle_complement99";
+    case kCrosRefSparkleComplement100:
+      return "--cros-ref-sparkle_complement100";
     case kCrosSysPrimaryLight:
       return "--cros-sys-primary-light";
     case kCrosSysPrimaryDark:
@@ -2569,12 +2725,12 @@ std::string ColorIdName(ui::ColorId id) {
       return "--cros-sys-system_on_primary_container";
     case kCrosSysSystemOnPrimaryContainerDisabled:
       return "--cros-sys-system_on_primary_container_disabled";
-    case kCrosSysOnPositiveContainer:
-      return "--cros-sys-on_positive_container";
-    case kCrosSysPositiveContainer:
-      return "--cros-sys-positive_container";
-    case kCrosSysPositive:
-      return "--cros-sys-positive";
+    case kCrosSysOnSuccessContainer:
+      return "--cros-sys-on_success_container";
+    case kCrosSysSuccessContainer:
+      return "--cros-sys-success_container";
+    case kCrosSysSuccess:
+      return "--cros-sys-success";
     case kCrosSysOnWarningContainer:
       return "--cros-sys-on_warning_container";
     case kCrosSysWarningContainer:
@@ -2587,12 +2743,22 @@ std::string ColorIdName(ui::ColorId id) {
       return "--cros-sys-system_warning_inverse";
     case kCrosSysWarning:
       return "--cros-sys-warning";
+    case kCrosSysSystemOnErrorContainer:
+      return "--cros-sys-system_on_error_container";
+    case kCrosSysSystemErrorContainer:
+      return "--cros-sys-system_error_container";
     case kCrosSysOnProgressContainer:
       return "--cros-sys-on_progress_container";
     case kCrosSysProgressContainer:
       return "--cros-sys-progress_container";
     case kCrosSysProgress:
       return "--cros-sys-progress";
+    case kCrosSysOnPositiveContainer:
+      return "--cros-sys-on_positive_container";
+    case kCrosSysPositiveContainer:
+      return "--cros-sys-positive_container";
+    case kCrosSysPositive:
+      return "--cros-sys-positive";
     case kCrosSysSystemOnNegativeContainer:
       return "--cros-sys-system_on_negative_container";
     case kCrosSysSystemNegativeContainer:
@@ -2657,6 +2823,18 @@ std::string ColorIdName(ui::ColorId id) {
       return "--cros-sys-pressed_on_prominent";
     case kCrosSysPressedOnSubtle:
       return "--cros-sys-pressed_on_subtle";
+    case kCrosSysAnalog:
+      return "--cros-sys-analog";
+    case kCrosSysAnalogVariant:
+      return "--cros-sys-analog_variant";
+    case kCrosSysMuted:
+      return "--cros-sys-muted";
+    case kCrosSysMutedVariant:
+      return "--cros-sys-muted_variant";
+    case kCrosSysComplement:
+      return "--cros-sys-complement";
+    case kCrosSysComplementVariant:
+      return "--cros-sys-complement_variant";
     case kCrosSysIlloColor1Light:
       return "--cros-sys-illo-color1-light";
     case kCrosSysIlloColor1Dark:
@@ -2777,6 +2955,14 @@ std::string ColorIdName(ui::ColorId id) {
       return "--cros-sys-illo-card-on_color5-dark";
     case kCrosSysIlloCardOnColor5:
       return "--cros-sys-illo-card-on_color5";
+    case kCrosSysIlloAnalog:
+      return "--cros-sys-illo-analog";
+    case kCrosSysIlloMuted:
+      return "--cros-sys-illo-muted";
+    case kCrosSysIlloComplement:
+      return "--cros-sys-illo-complement";
+    case kCrosSysIlloOnGradient:
+      return "--cros-sys-illo-on_gradient";
     case kCrosSysIlloElevatedColor11:
       return "--cros-sys-illo-elevated-color1-1";
     case kCrosSysIlloElevatedColor12:

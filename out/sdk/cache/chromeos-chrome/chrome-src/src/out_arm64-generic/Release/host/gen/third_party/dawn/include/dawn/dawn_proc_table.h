@@ -241,6 +241,7 @@ typedef struct DawnProcTable {
     WGPUProcSharedTextureMemoryReference sharedTextureMemoryReference;
     WGPUProcSharedTextureMemoryRelease sharedTextureMemoryRelease;
 
+    WGPUProcSurfaceGetPreferredFormat surfaceGetPreferredFormat;
     WGPUProcSurfaceReference surfaceReference;
     WGPUProcSurfaceRelease surfaceRelease;
 

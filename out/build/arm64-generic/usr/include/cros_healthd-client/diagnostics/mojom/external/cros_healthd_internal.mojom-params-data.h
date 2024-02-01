@@ -118,7 +118,7 @@ class  ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data {
 };
 static_assert(sizeof(ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data) == 16,
               "Bad sizeof(ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data)");
-class  ChromiumDataCollector_SetAudioOutputMute_Params_Data {
+class  ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -128,14 +128,14 @@ class  ChromiumDataCollector_SetAudioOutputMute_Params_Data {
   uint8_t padfinal_[7];
 
  private:
-  friend class mojo::internal::MessageFragment<ChromiumDataCollector_SetAudioOutputMute_Params_Data>;
+  friend class mojo::internal::MessageFragment<ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data>;
 
-  ChromiumDataCollector_SetAudioOutputMute_Params_Data();
-  ~ChromiumDataCollector_SetAudioOutputMute_Params_Data() = delete;
+  ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data();
+  ~ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data() = delete;
 };
-static_assert(sizeof(ChromiumDataCollector_SetAudioOutputMute_Params_Data) == 16,
-              "Bad sizeof(ChromiumDataCollector_SetAudioOutputMute_Params_Data)");
-class  ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data {
+static_assert(sizeof(ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data) == 16,
+              "Bad sizeof(ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data)");
+class  ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -145,13 +145,13 @@ class  ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data {
   uint8_t padfinal_[7];
 
  private:
-  friend class mojo::internal::MessageFragment<ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data>;
+  friend class mojo::internal::MessageFragment<ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data>;
 
-  ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data();
-  ~ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data() = delete;
+  ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data();
+  ~ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data() = delete;
 };
-static_assert(sizeof(ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data) == 16,
-              "Bad sizeof(ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data)");
+static_assert(sizeof(ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data) == 16,
+              "Bad sizeof(ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -274,12 +274,12 @@ class ChromiumDataCollector_SetPrivacyScreenState_ResponseParamsDataView {
 };
 
 
-class ChromiumDataCollector_SetAudioOutputMute_ParamsDataView {
+class ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ParamsDataView {
  public:
-  ChromiumDataCollector_SetAudioOutputMute_ParamsDataView() = default;
+  ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ParamsDataView() = default;
 
-  ChromiumDataCollector_SetAudioOutputMute_ParamsDataView(
-      internal::ChromiumDataCollector_SetAudioOutputMute_Params_Data* data,
+  ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ParamsDataView(
+      internal::ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -288,16 +288,16 @@ class ChromiumDataCollector_SetAudioOutputMute_ParamsDataView {
     return data_->mute_on;
   }
  private:
-  internal::ChromiumDataCollector_SetAudioOutputMute_Params_Data* data_ = nullptr;
+  internal::ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data* data_ = nullptr;
 };
 
 
-class ChromiumDataCollector_SetAudioOutputMute_ResponseParamsDataView {
+class ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParamsDataView {
  public:
-  ChromiumDataCollector_SetAudioOutputMute_ResponseParamsDataView() = default;
+  ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParamsDataView() = default;
 
-  ChromiumDataCollector_SetAudioOutputMute_ResponseParamsDataView(
-      internal::ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data* data,
+  ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParamsDataView(
+      internal::ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
@@ -306,7 +306,7 @@ class ChromiumDataCollector_SetAudioOutputMute_ResponseParamsDataView {
     return data_->success;
   }
  private:
-  internal::ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data* data_ = nullptr;
+  internal::ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data* data_ = nullptr;
 };
 
 

@@ -313,7 +313,7 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM) RunningServiceInfo {
   template <typename... Args>
   static RunningServiceInfoPtr New(Args&&... args) {
     return RunningServiceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

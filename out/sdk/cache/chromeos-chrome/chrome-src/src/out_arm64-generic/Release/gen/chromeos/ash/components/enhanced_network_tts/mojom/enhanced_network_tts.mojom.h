@@ -270,7 +270,7 @@ class  TtsRequest {
   template <typename... Args>
   static TtsRequestPtr New(Args&&... args) {
     return TtsRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -419,7 +419,7 @@ class  TimingInfo {
   template <typename... Args>
   static TimingInfoPtr New(Args&&... args) {
     return TimingInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -580,7 +580,7 @@ class  TtsResponse {
   static TtsResponsePtr
   NewErrorCode(
       TtsRequestError value) {
-    auto result = TtsResponsePtr(absl::in_place);
+    auto result = TtsResponsePtr(std::in_place);
     result->set_error_code(std::move(value));
     return result;
   }
@@ -588,7 +588,7 @@ class  TtsResponse {
   static TtsResponsePtr
   NewData(
       TtsDataPtr value) {
-    auto result = TtsResponsePtr(absl::in_place);
+    auto result = TtsResponsePtr(std::in_place);
     result->set_data(std::move(value));
     return result;
   }
@@ -704,7 +704,7 @@ class  TtsData {
   template <typename... Args>
   static TtsDataPtr New(Args&&... args) {
     return TtsDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

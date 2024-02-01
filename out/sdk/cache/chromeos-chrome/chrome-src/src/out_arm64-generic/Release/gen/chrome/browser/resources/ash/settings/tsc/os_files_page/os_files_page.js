@@ -31,6 +31,12 @@ export class OsSettingsFilesPageElement extends PolymerElement {
                 value: Section.kFiles,
                 readOnly: true,
             },
+            shouldShowOneDriveSettings_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('showOneDriveSettings');
+                },
+            },
             shouldShowOfficeSettings_: {
                 type: Boolean,
                 value() {

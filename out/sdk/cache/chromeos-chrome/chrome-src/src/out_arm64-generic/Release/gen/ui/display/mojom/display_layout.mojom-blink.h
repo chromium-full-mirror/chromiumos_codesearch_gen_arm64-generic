@@ -59,7 +59,7 @@ class  DisplayPlacement {
   template <typename... Args>
   static DisplayPlacementPtr New(Args&&... args) {
     return DisplayPlacementPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -212,7 +212,7 @@ class  DisplayLayout {
   template <typename... Args>
   static DisplayLayoutPtr New(Args&&... args) {
     return DisplayLayoutPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

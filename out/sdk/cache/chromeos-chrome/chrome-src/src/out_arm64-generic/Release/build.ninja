@@ -1057,6 +1057,8 @@ build bluetooth_settings: phony obj/chrome/browser/resources/chromeos/emulator/b
 build bluetooth_socket: phony obj/extensions/browser/api/bluetooth_socket/bluetooth_socket.stamp
 build bluetooth_test_strings: phony obj/device/bluetooth/strings/bluetooth_test_strings.stamp
 build blur: phony obj/components/exo/wayland/blur.stamp
+build bmp_image_decoder_fuzztests__fuzzer_options: phony obj/third_party/blink/renderer/platform/image-decoders/bmp_image_decoder_fuzztests__fuzzer_options.stamp
+build bmp_image_decoder_fuzztests__runner: phony obj/third_party/blink/renderer/platform/image-decoders/bmp_image_decoder_fuzztests__runner.stamp
 build bookmark_node_data_read_fuzzer: phony obj/components/bookmarks/browser/bookmark_node_data_read_fuzzer.stamp
 build borealis_installer_types_mojom: phony obj/chrome/browser/ash/borealis/borealis_installer_types_mojom.stamp
 build borealis_installer_types_mojom__check_deps_are_all_mojom: phony obj/chrome/browser/ash/borealis/borealis_installer_types_mojom__check_deps_are_all_mojom.stamp
@@ -1996,10 +1998,6 @@ build cookies_mojom_shared_cpp_sources: phony obj/services/network/public/mojom/
 build cookies_mojom_support: phony obj/services/network/public/cpp/libcookies_mojom_support.a
 build coop_fuzzer: phony obj/services/network/public/cpp/coop_fuzzer.stamp
 build copy: phony obj/chrome/test/data/webui/net_internals/copy.stamp
-build copy_accelerator_actions_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_accelerator_actions_mojo.stamp
-build copy_accelerator_configuration_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_accelerator_configuration_mojo.stamp
-build copy_accelerator_info_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_accelerator_info_mojo.stamp
-build copy_accelerator_keys_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_accelerator_keys_mojo.stamp
 build copy_app: phony obj/ui/file_manager/integration_tests/copy_app.stamp
 build copy_audio: phony obj/chrome/browser/resources/chromeos/audio/copy_audio.stamp
 build copy_bindings_dts: phony obj/ui/webui/resources/mojo/copy_bindings_dts.stamp
@@ -2010,7 +2008,6 @@ build copy_debug_check: phony obj/third_party/devtools-frontend/src/test/unittes
 build copy_definition: phony obj/chrome/browser/resources/chromeos/desk_api/copy_definition.stamp
 build copy_definitions_to_gen: phony obj/ui/file_manager/copy_definitions_to_gen.stamp
 build copy_definitions_to_preprocess: phony obj/ui/file_manager/copy_definitions_to_preprocess.stamp
-build copy_events_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_events_mojo.stamp
 build copy_files: phony obj/chrome/browser/resources/chromeos/accessibility/common/tutorial/copy_files.stamp
 build copy_fmp: phony obj/ui/file_manager/copy_fmp.stamp
 build copy_fmp_test: phony obj/ui/file_manager/copy_fmp_test.stamp
@@ -2018,14 +2015,10 @@ build copy_fuse_dts_tsc: phony obj/chrome/browser/resources/tab_search/copy_fuse
 build copy_google_protobuf: phony obj/third_party/protobuf/copy_google_protobuf.stamp
 build copy_google_protobuf_internal: phony obj/third_party/protobuf/copy_google_protobuf_internal.stamp
 build copy_icudata: phony obj/third_party/icu/copy_icudata.stamp
-build copy_input_device_settings_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_input_device_settings_mojo.stamp
 build copy_lit_bundle: phony obj/third_party/material_web_components/copy_lit_bundle.stamp
 build copy_locales: phony obj/remoting/resources/copy_locales.stamp
 build copy_on_write_buffer: phony obj/third_party/webrtc/rtc_base/libcopy_on_write_buffer.a
 build copy_shell_resources: phony obj/content/shell/copy_shell_resources.stamp
-build copy_shortcut_input_provider_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_shortcut_input_provider_mojo.stamp
-build copy_shortcuts_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_shortcuts_mojo.stamp
-build copy_shortcuts_search_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_shortcuts_search_mojo.stamp
 build copy_sources: phony obj/ash/webui/camera_app_ui/resources/copy_sources.stamp
 build copy_src_and_mojo: phony obj/chrome/browser/resources/reset_password/copy_src_and_mojo.stamp
 build copy_stylesheets_for_server: phony obj/third_party/devtools-frontend/src/front_end/ui/legacy/copy_stylesheets_for_server.stamp
@@ -2142,7 +2135,7 @@ build credential_ui_entry: phony obj/components/password_manager/core/browser/ui
 build credentialmanagement: phony obj/third_party/blink/renderer/modules/credentialmanagement/libcredentialmanagement.a
 build credentials: phony obj/chromeos/ash/components/nearby/presence/credentials/libcredentials.a
 build criticalsection: phony obj/third_party/webrtc/rtc_base/libcriticalsection.a
-build cronet: phony ./libcronet.123.0.6268.0.so.TOC
+build cronet: phony ./libcronet.123.0.6273.0.so.TOC
 build cronet_common: phony obj/components/cronet/cronet_common.stamp
 build cronet_common_unittests: phony obj/components/cronet/cronet_common_unittests.stamp
 build cronet_native_headers: phony obj/components/cronet/native/cronet_native_headers.stamp
@@ -2479,6 +2472,7 @@ build device_policy_and_policy_common_definitions: phony obj/chrome/browser/priv
 build device_policy_and_policy_common_definitions_gen: phony obj/chrome/browser/privacy/device_policy_and_policy_common_definitions_gen.stamp
 build device_policy_remover_generate: phony obj/chrome/browser/ash/device_policy_remover_generate.stamp
 build device_policy_remover_generated: phony obj/chrome/browser/ash/libdevice_policy_remover_generated.a
+build device_posture: phony obj/third_party/blink/renderer/modules/device_posture/libdevice_posture.a
 build device_reauth: phony obj/components/device_reauth/libdevice_reauth.a
 build device_rpc_proto: phony obj/third_party/nearby/libdevice_rpc_proto.a
 build device_rpc_proto_gen: phony obj/third_party/nearby/device_rpc_proto_gen.stamp
@@ -3418,7 +3412,6 @@ build generated_client_helper_headers: phony obj/components/exo/wayland/compatib
 build generated_client_helper_impl: phony obj/components/exo/wayland/compatibility_test/generated_client_helper_impl.stamp
 build generated_resources: phony obj/chrome/app/generated_resources.stamp
 build generated_resources_grit: phony obj/chrome/app/generated_resources_grit.stamp
-build generated_settings_macros: phony obj/third_party/blink/renderer/core/generated_settings_macros.stamp
 build generated_test_mojom: phony obj/mojo/public/cpp/bindings/tests/generated_test_mojom.stamp
 build generated_test_mojom__check_deps_are_all_mojom: phony obj/mojo/public/cpp/bindings/tests/generated_test_mojom__check_deps_are_all_mojom.stamp
 build generated_test_mojom__generate_message_ids: phony obj/mojo/public/cpp/bindings/tests/generated_test_mojom__generate_message_ids.stamp
@@ -3897,7 +3890,6 @@ build hps_proto_gen: phony obj/chromeos/ash/components/dbus/human_presence/hps_p
 build html_entrypoints: phony obj/third_party/devtools-frontend/src/front_end/html_entrypoints.stamp
 build html_in_process_fuzzer: phony obj/chrome/test/fuzzing/html_in_process_fuzzer.stamp
 build html_preload_scanner_fuzzer: phony obj/third_party/blink/renderer/core/html_preload_scanner_fuzzer.stamp
-build html_to_wrapper_files: phony obj/ash/webui/shortcut_customization_ui/resources/html_to_wrapper_files.stamp
 build html_tree_proto: phony obj/content/test/fuzzer/libhtml_tree_proto.a
 build html_tree_proto_gen: phony obj/content/test/fuzzer/html_tree_proto_gen.stamp
 build http_common: phony obj/third_party/webrtc/rtc_base/libhttp_common.a
@@ -4261,6 +4253,7 @@ build js: phony obj/ash/webui/files_internals/js.stamp
 build js_api_copied_files: phony obj/services/accessibility/features/javascript/js_api_copied_files.stamp
 build js_api_files: phony obj/services/accessibility/features/javascript/js_api_files.stamp
 build js_from_ts: phony obj/chrome/browser/resources/chromeos/desk_api/js_from_ts.stamp
+build js_in_process_fuzzer: phony obj/chrome/test/fuzzing/js_in_process_fuzzer.stamp
 build js_proto: phony obj/third_party/protobuf/js_proto.stamp
 build js_unit_test_support_copied_files: phony obj/services/accessibility/features/mojo/test/js_unit_test_support_copied_files.stamp
 build jsep_ice_candidate: phony obj/third_party/webrtc/pc/jsep_ice_candidate.stamp
@@ -4712,6 +4705,7 @@ build make_core_generated_pointer_type_names: phony obj/third_party/blink/render
 build make_core_generated_property_bitsets: phony obj/third_party/blink/renderer/core/make_core_generated_property_bitsets.stamp
 build make_core_generated_script_type_names: phony obj/third_party/blink/renderer/core/make_core_generated_script_type_names.stamp
 build make_core_generated_securitypolicyviolation_disposition_names: phony obj/third_party/blink/renderer/core/make_core_generated_securitypolicyviolation_disposition_names.stamp
+build make_core_generated_settings: phony obj/third_party/blink/renderer/core/make_core_generated_settings.stamp
 build make_core_generated_shadow_element_names: phony obj/third_party/blink/renderer/core/make_core_generated_shadow_element_names.stamp
 build make_core_generated_style_property_shorthand: phony obj/third_party/blink/renderer/core/make_core_generated_style_property_shorthand.stamp
 build make_core_generated_svg_element_type_helpers: phony obj/third_party/blink/renderer/core/make_core_generated_svg_element_type_helpers.stamp
@@ -6010,8 +6004,6 @@ build nullability_test: phony obj/third_party/abseil-cpp/absl/base/nullability_t
 build nullguard: phony obj/third_party/abseil-cpp/absl/log/internal/nullguard.stamp
 build nullstream: phony obj/third_party/abseil-cpp/absl/log/internal/nullstream.stamp
 build numerics: phony obj/third_party/webrtc/api/numerics/libnumerics.a
-build oauth2_mint_token_consent_result_proto: phony obj/google_apis/liboauth2_mint_token_consent_result_proto.a
-build oauth2_mint_token_consent_result_proto_gen: phony obj/google_apis/oauth2_mint_token_consent_result_proto_gen.stamp
 build object: phony local_rustc_sysroot/lib/rustlib/aarch64-unknown-linux-gnu/lib/libobject_object.rlib
 build objects: phony obj/ppapi/cpp/objects.stamp
 build observers: phony obj/components/ukm/libobservers.a
@@ -7973,8 +7965,6 @@ build shopping_service: phony obj/components/commerce/core/libshopping_service.a
 build shopping_service_test_support: phony obj/components/commerce/core/shopping_service_test_support.stamp
 build shopping_service_unit_tests: phony obj/components/commerce/core/shopping_service_unit_tests.stamp
 build shortcut: phony obj/components/services/app_service/public/cpp/shortcut/libSHORTCUT.a
-build shortcut_customization_app_resources: phony obj/ash/webui/resources/shortcut_customization_app_resources.stamp
-build shortcut_customization_app_resources_grit: phony obj/ash/webui/resources/shortcut_customization_app_resources_grit.stamp
 build shortcut_customization_ui: phony obj/ash/webui/shortcut_customization_ui/libshortcut_customization_ui.a
 build shortcut_dialog: phony obj/third_party/devtools-frontend/src/front_end/ui/components/docs/shortcut_dialog/shortcut_dialog.stamp
 build shortcut_input_key_strings: phony obj/ash/webui/common/libshortcut_input_key_strings.a
@@ -8183,7 +8173,6 @@ build sql_built_in_recovery_lpm_fuzzer: phony obj/sql/fuzzers/sql_built_in_recov
 build sql_disk_corruption_proto: phony obj/sql/fuzzers/libsql_disk_corruption_proto.a
 build sql_disk_corruption_proto_gen: phony obj/sql/fuzzers/sql_disk_corruption_proto_gen.stamp
 build sql_query_proto_to_string: phony obj/third_party/sqlite/sql_query_proto_to_string.stamp
-build sql_recovery_fuzzer: phony obj/sql/sql_recovery_fuzzer.stamp
 build sql_unittests__runner: phony obj/sql/sql_unittests__runner.stamp
 build sql_unittests_bundle_data: phony obj/sql/sql_unittests_bundle_data.stamp
 build sqlite3_fts3_lpm_fuzzer: phony obj/third_party/sqlite/sqlite3_fts3_lpm_fuzzer.stamp
@@ -9812,6 +9801,7 @@ build views_examples_unittests__runner: phony obj/ui/views/examples/views_exampl
 build views_examples_unittests_filters: phony obj/testing/buildbot/filters/views_examples_unittests_filters.stamp
 build views_examples_with_content_lib: phony obj/ui/views/examples/libviews_examples_with_content_lib.a
 build views_interactive_ui_tests: phony obj/ui/views/views_interactive_ui_tests.stamp
+build views_nocompile_tests: phony obj/ui/views/views_nocompile_tests.stamp
 build views_perftests__runner: phony obj/ui/views/views_perftests__runner.stamp
 build views_unittests__runner: phony obj/ui/views/views_unittests__runner.stamp
 build views_unittests_filters: phony obj/testing/buildbot/filters/views_unittests_filters.stamp
@@ -10129,7 +10119,6 @@ build web_ui_ts_test_mojo_bindings_shared: phony obj/content/test/web_ui_ts_test
 build web_ui_ts_test_mojo_bindings_shared__generator: phony obj/content/test/web_ui_ts_test_mojo_bindings_shared__generator.stamp
 build web_ui_ts_test_mojo_bindings_shared_cpp_sources: phony obj/content/test/web_ui_ts_test_mojo_bindings_shared_cpp_sources.stamp
 build web_ui_ts_test_mojo_bindings_ts__generator: phony obj/content/test/web_ui_ts_test_mojo_bindings_ts__generator.stamp
-build web_view_helper: phony obj/chrome/browser/resources/chromeos/login/components/web_view_helper.stamp
 build web_view_loader: phony obj/chrome/browser/resources/chromeos/login/components/web_view_loader.stamp
 build webcam_private: phony obj/extensions/browser/api/webcam_private/webcam_private.stamp
 build webcam_utils: phony obj/ash/webui/common/resources/cr_picture/webcam_utils.stamp
@@ -10976,6 +10965,13 @@ build ash/webui/common/resources$:resources_grit: phony obj/ash/webui/common/res
 build ash/webui/common/resources$:util: phony obj/ash/webui/common/resources/util.stamp
 build ash/webui/common/resources$:web_ui_listener_behavior: phony obj/ash/webui/common/resources/web_ui_listener_behavior.stamp
 build ash/webui/common/resources$:webui_resource_test: phony obj/ash/webui/common/resources/webui_resource_test.stamp
+build ash/webui/common/resources/cellular_setup$:build_grdp: phony obj/ash/webui/common/resources/cellular_setup/build_grdp.stamp
+build ash/webui/common/resources/cellular_setup$:build_min_js: phony obj/ash/webui/common/resources/cellular_setup/build_min_js.stamp
+build ash/webui/common/resources/cellular_setup$:build_ts: phony obj/ash/webui/common/resources/cellular_setup/build_ts.stamp
+build ash/webui/common/resources/cellular_setup$:html_wrapper_files: phony obj/ash/webui/common/resources/cellular_setup/html_wrapper_files.stamp
+build ash/webui/common/resources/cellular_setup$:preprocess_html_css_files: phony obj/ash/webui/common/resources/cellular_setup/preprocess_html_css_files.stamp
+build ash/webui/common/resources/cellular_setup$:preprocess_static_files: phony obj/ash/webui/common/resources/cellular_setup/preprocess_static_files.stamp
+build ash/webui/common/resources/cellular_setup$:preprocess_ts_files: phony obj/ash/webui/common/resources/cellular_setup/preprocess_ts_files.stamp
 build ash/webui/common/resources/connectivity$:copy_mojo_files: phony obj/ash/webui/common/resources/connectivity/copy_mojo_files.stamp
 build ash/webui/common/resources/cr_elements$:build_grdp: phony obj/ash/webui/common/resources/cr_elements/build_grdp.stamp
 build ash/webui/common/resources/cr_elements$:build_min_js: phony obj/ash/webui/common/resources/cr_elements/build_min_js.stamp
@@ -11685,8 +11681,6 @@ build ash/webui/resources$:projector_app_untrusted_resources: phony obj/ash/webu
 build ash/webui/resources$:projector_app_untrusted_resources_grit: phony obj/ash/webui/resources/projector_app_untrusted_resources_grit.stamp
 build ash/webui/resources$:projector_common_resources: phony obj/ash/webui/resources/projector_common_resources.stamp
 build ash/webui/resources$:projector_common_resources_grit: phony obj/ash/webui/resources/projector_common_resources_grit.stamp
-build ash/webui/resources$:shortcut_customization_app_resources: phony obj/ash/webui/resources/shortcut_customization_app_resources.stamp
-build ash/webui/resources$:shortcut_customization_app_resources_grit: phony obj/ash/webui/resources/shortcut_customization_app_resources_grit.stamp
 build ash/webui/scanning$:scanning: phony obj/ash/webui/scanning/libscanning.a
 build ash/webui/scanning: phony obj/ash/webui/scanning/libscanning.a
 build ash/webui/scanning$:unit_tests: phony obj/ash/webui/scanning/unit_tests.stamp
@@ -11827,21 +11821,17 @@ build ash/webui/shortcut_customization_ui/mojom$:mojom_shared_cpp_sources: phony
 build ash/webui/shortcut_customization_ui/mojom$:mojom_ts__generator: phony obj/ash/webui/shortcut_customization_ui/mojom/mojom_ts__generator.stamp
 build ash/webui/shortcut_customization_ui/mojom$:unit_tests: phony obj/ash/webui/shortcut_customization_ui/mojom/unit_tests.stamp
 build ash/webui/shortcut_customization_ui/resources$:build_grd: phony obj/ash/webui/shortcut_customization_ui/resources/build_grd.stamp
-build ash/webui/shortcut_customization_ui/resources$:build_mojo_grdp: phony obj/ash/webui/shortcut_customization_ui/resources/build_mojo_grdp.stamp
+build ash/webui/shortcut_customization_ui/resources$:build_min_js: phony obj/ash/webui/shortcut_customization_ui/resources/build_min_js.stamp
 build ash/webui/shortcut_customization_ui/resources$:build_ts: phony obj/ash/webui/shortcut_customization_ui/resources/build_ts.stamp
-build ash/webui/shortcut_customization_ui/resources$:copy_accelerator_actions_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_accelerator_actions_mojo.stamp
-build ash/webui/shortcut_customization_ui/resources$:copy_accelerator_configuration_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_accelerator_configuration_mojo.stamp
-build ash/webui/shortcut_customization_ui/resources$:copy_accelerator_info_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_accelerator_info_mojo.stamp
-build ash/webui/shortcut_customization_ui/resources$:copy_accelerator_keys_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_accelerator_keys_mojo.stamp
-build ash/webui/shortcut_customization_ui/resources$:copy_events_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_events_mojo.stamp
-build ash/webui/shortcut_customization_ui/resources$:copy_input_device_settings_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_input_device_settings_mojo.stamp
-build ash/webui/shortcut_customization_ui/resources$:copy_shortcut_input_provider_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_shortcut_input_provider_mojo.stamp
-build ash/webui/shortcut_customization_ui/resources$:copy_shortcuts_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_shortcuts_mojo.stamp
-build ash/webui/shortcut_customization_ui/resources$:copy_shortcuts_search_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_shortcuts_search_mojo.stamp
+build ash/webui/shortcut_customization_ui/resources$:copy_mojo: phony obj/ash/webui/shortcut_customization_ui/resources/copy_mojo.stamp
 build ash/webui/shortcut_customization_ui/resources$:css_wrapper_files: phony obj/ash/webui/shortcut_customization_ui/resources/css_wrapper_files.stamp
-build ash/webui/shortcut_customization_ui/resources$:html_to_wrapper_files: phony obj/ash/webui/shortcut_customization_ui/resources/html_to_wrapper_files.stamp
-build ash/webui/shortcut_customization_ui/resources$:preprocess: phony obj/ash/webui/shortcut_customization_ui/resources/preprocess.stamp
-build ash/webui/shortcut_customization_ui/resources$:preprocess_generated: phony obj/ash/webui/shortcut_customization_ui/resources/preprocess_generated.stamp
+build ash/webui/shortcut_customization_ui/resources$:html_wrapper_files: phony obj/ash/webui/shortcut_customization_ui/resources/html_wrapper_files.stamp
+build ash/webui/shortcut_customization_ui/resources$:preprocess_html_css_files: phony obj/ash/webui/shortcut_customization_ui/resources/preprocess_html_css_files.stamp
+build ash/webui/shortcut_customization_ui/resources$:preprocess_static_files: phony obj/ash/webui/shortcut_customization_ui/resources/preprocess_static_files.stamp
+build ash/webui/shortcut_customization_ui/resources$:preprocess_ts_files: phony obj/ash/webui/shortcut_customization_ui/resources/preprocess_ts_files.stamp
+build ash/webui/shortcut_customization_ui/resources$:resources: phony obj/ash/webui/shortcut_customization_ui/resources/resources.stamp
+build ash/webui/shortcut_customization_ui/resources: phony obj/ash/webui/shortcut_customization_ui/resources/resources.stamp
+build ash/webui/shortcut_customization_ui/resources$:resources_grit: phony obj/ash/webui/shortcut_customization_ui/resources/resources_grit.stamp
 build ash/webui/status_area_internals$:status_area_internals: phony obj/ash/webui/status_area_internals/libstatus_area_internals.a
 build ash/webui/status_area_internals: phony obj/ash/webui/status_area_internals/libstatus_area_internals.a
 build ash/webui/status_area_internals$:unit_tests: phony obj/ash/webui/status_area_internals/unit_tests.stamp
@@ -13736,7 +13726,6 @@ build chrome/browser/resources/chromeos/login/components$:security_token_pin: ph
 build chrome/browser/resources/chromeos/login/components$:throbber_notice: phony obj/chrome/browser/resources/chromeos/login/components/throbber_notice.stamp
 build chrome/browser/resources/chromeos/login/components$:web_components: phony obj/chrome/browser/resources/chromeos/login/components/web_components.stamp
 build chrome/browser/resources/chromeos/login/components$:web_components_local: phony obj/chrome/browser/resources/chromeos/login/components/web_components_local.stamp
-build chrome/browser/resources/chromeos/login/components$:web_view_helper: phony obj/chrome/browser/resources/chromeos/login/components/web_view_helper.stamp
 build chrome/browser/resources/chromeos/login/components$:web_view_loader: phony obj/chrome/browser/resources/chromeos/login/components/web_view_loader.stamp
 build chrome/browser/resources/chromeos/login/components/behaviors$:closure_compile: phony obj/chrome/browser/resources/chromeos/login/components/behaviors/closure_compile.stamp
 build chrome/browser/resources/chromeos/login/components/behaviors$:copy_js: phony obj/chrome/browser/resources/chromeos/login/components/behaviors/copy_js.stamp
@@ -13886,6 +13875,8 @@ build chrome/browser/resources/chromeos/remote_maintenance_curtain$:preprocess_s
 build chrome/browser/resources/chromeos/remote_maintenance_curtain$:preprocess_ts_files: phony obj/chrome/browser/resources/chromeos/remote_maintenance_curtain/preprocess_ts_files.stamp
 build chrome/browser/resources/chromeos/remote_maintenance_curtain$:resources: phony obj/chrome/browser/resources/chromeos/remote_maintenance_curtain/resources.stamp
 build chrome/browser/resources/chromeos/remote_maintenance_curtain$:resources_grit: phony obj/chrome/browser/resources/chromeos/remote_maintenance_curtain/resources_grit.stamp
+build chrome/browser/resources/chromeos/seal$:resources: phony obj/chrome/browser/resources/chromeos/seal/resources.stamp
+build chrome/browser/resources/chromeos/seal$:resources_grit: phony obj/chrome/browser/resources/chromeos/seal/resources_grit.stamp
 build chrome/browser/resources/chromeos/sensor_info$:build_grd: phony obj/chrome/browser/resources/chromeos/sensor_info/build_grd.stamp
 build chrome/browser/resources/chromeos/sensor_info$:build_min_js: phony obj/chrome/browser/resources/chromeos/sensor_info/build_min_js.stamp
 build chrome/browser/resources/chromeos/sensor_info$:build_ts: phony obj/chrome/browser/resources/chromeos/sensor_info/build_ts.stamp
@@ -14039,6 +14030,9 @@ build chrome/browser/resources/feed$:resources_grit: phony obj/chrome/browser/re
 build chrome/browser/resources/feedback$:build_grd: phony obj/chrome/browser/resources/feedback/build_grd.stamp
 build chrome/browser/resources/feedback$:build_min_js: phony obj/chrome/browser/resources/feedback/build_min_js.stamp
 build chrome/browser/resources/feedback$:build_ts: phony obj/chrome/browser/resources/feedback/build_ts.stamp
+build chrome/browser/resources/feedback$:css_wrapper_files: phony obj/chrome/browser/resources/feedback/css_wrapper_files.stamp
+build chrome/browser/resources/feedback$:html_wrapper_files: phony obj/chrome/browser/resources/feedback/html_wrapper_files.stamp
+build chrome/browser/resources/feedback$:preprocess_html_css_files: phony obj/chrome/browser/resources/feedback/preprocess_html_css_files.stamp
 build chrome/browser/resources/feedback$:preprocess_static_files: phony obj/chrome/browser/resources/feedback/preprocess_static_files.stamp
 build chrome/browser/resources/feedback$:preprocess_ts_files: phony obj/chrome/browser/resources/feedback/preprocess_ts_files.stamp
 build chrome/browser/resources/feedback$:resources: phony obj/chrome/browser/resources/feedback/resources.stamp
@@ -16722,6 +16716,7 @@ build chrome/test/data/webui/whats_new$:build_ts: phony obj/chrome/test/data/web
 build chrome/test/data/webui/whats_new$:preprocess: phony obj/chrome/test/data/webui/whats_new/preprocess.stamp
 build chrome/test/data/webui/whats_new$:preprocess_static_files: phony obj/chrome/test/data/webui/whats_new/preprocess_static_files.stamp
 build chrome/test/fuzzing$:html_in_process_fuzzer: phony obj/chrome/test/fuzzing/html_in_process_fuzzer.stamp
+build chrome/test/fuzzing$:js_in_process_fuzzer: phony obj/chrome/test/fuzzing/js_in_process_fuzzer.stamp
 build chrome/test/fuzzing$:kombucha_in_process_fuzzer: phony obj/chrome/test/fuzzing/kombucha_in_process_fuzzer.stamp
 build chrome/test/fuzzing$:page_load_in_process_fuzzer: phony obj/chrome/test/fuzzing/page_load_in_process_fuzzer.stamp
 build chrome/test/fuzzing$:test: phony obj/chrome/test/fuzzing/test.stamp
@@ -16910,6 +16905,8 @@ build chromeos/ash/components/dbus/device_management$:device_management: phony o
 build chromeos/ash/components/dbus/device_management: phony obj/chromeos/ash/components/dbus/device_management/libash_dbus_device_management.a
 build chromeos/ash/components/dbus/device_management$:device_management_proto: phony obj/chromeos/ash/components/dbus/device_management/libdevice_management_proto.a
 build chromeos/ash/components/dbus/device_management$:device_management_proto_gen: phony obj/chromeos/ash/components/dbus/device_management/device_management_proto_gen.stamp
+build chromeos/ash/components/dbus/device_management$:test_support: phony obj/chromeos/ash/components/dbus/device_management/test_support.stamp
+build chromeos/ash/components/dbus/device_management$:unit_tests: phony obj/chromeos/ash/components/dbus/device_management/unit_tests.stamp
 build chromeos/ash/components/dbus/dlcservice$:dlcservice: phony obj/chromeos/ash/components/dbus/dlcservice/libdlcservice.a
 build chromeos/ash/components/dbus/dlcservice: phony obj/chromeos/ash/components/dbus/dlcservice/libdlcservice.a
 build chromeos/ash/components/dbus/dlcservice$:dlcservice_proto: phony obj/chromeos/ash/components/dbus/dlcservice/libdlcservice_proto.a
@@ -19569,8 +19566,8 @@ build components/crash/core/common$:crash_key: phony obj/components/crash/core/c
 build components/crash/core/common$:crash_key_lib: phony obj/components/crash/core/common/libcrash_key_lib.a
 build components/crash/core/common$:crash_key_utils: phony obj/components/crash/core/common/libcrash_key_utils.a
 build components/crash/core/common$:unit_tests: phony obj/components/crash/core/common/unit_tests.stamp
-build components/cronet$:cronet: phony ./libcronet.123.0.6268.0.so.TOC
-build components/cronet: phony ./libcronet.123.0.6268.0.so.TOC
+build components/cronet$:cronet: phony ./libcronet.123.0.6273.0.so.TOC
+build components/cronet: phony ./libcronet.123.0.6273.0.so.TOC
 build components/cronet$:cronet_buildflags: phony obj/components/cronet/cronet_buildflags.stamp
 build components/cronet$:cronet_common: phony obj/components/cronet/cronet_common.stamp
 build components/cronet$:cronet_common_unittests: phony obj/components/cronet/cronet_common_unittests.stamp
@@ -20331,9 +20328,6 @@ build components/history_clusters/public/mojom$:mojo_bindings_shared: phony obj/
 build components/history_clusters/public/mojom$:mojo_bindings_shared__generator: phony obj/components/history_clusters/public/mojom/mojo_bindings_shared__generator.stamp
 build components/history_clusters/public/mojom$:mojo_bindings_shared_cpp_sources: phony obj/components/history_clusters/public/mojom/mojo_bindings_shared_cpp_sources.stamp
 build components/history_clusters/public/mojom$:mojo_bindings_ts__generator: phony obj/components/history_clusters/public/mojom/mojo_bindings_ts__generator.stamp
-build components/history_clusters/ui$:ui: phony obj/components/history_clusters/ui/libui.a
-build components/history_clusters/ui: phony obj/components/history_clusters/ui/libui.a
-build components/history_clusters/ui$:unit_tests: phony obj/components/history_clusters/ui/unit_tests.stamp
 build components/image_fetcher/core$:core: phony obj/components/image_fetcher/core/libcore.a
 build components/image_fetcher/core: phony obj/components/image_fetcher/core/libcore.a
 build components/image_fetcher/core$:metrics: phony obj/components/image_fetcher/core/libmetrics.a
@@ -24774,8 +24768,8 @@ build google_apis$:google_apis: phony obj/google_apis/libgoogle_apis.a
 build google_apis$:google_apis_unittest_bundle_data: phony obj/google_apis/google_apis_unittest_bundle_data.stamp
 build google_apis$:google_apis_unittests: phony ./google_apis_unittests
 build google_apis$:google_apis_unittests__runner: phony obj/google_apis/google_apis_unittests__runner.stamp
-build google_apis$:oauth2_mint_token_consent_result_proto: phony obj/google_apis/liboauth2_mint_token_consent_result_proto.a
-build google_apis$:oauth2_mint_token_consent_result_proto_gen: phony obj/google_apis/oauth2_mint_token_consent_result_proto_gen.stamp
+build google_apis$:proto: phony obj/google_apis/libproto.a
+build google_apis$:proto_gen: phony obj/google_apis/proto_gen.stamp
 build google_apis$:run_all_unittests: phony obj/google_apis/run_all_unittests.stamp
 build google_apis$:test_support: phony obj/google_apis/libtest_support.a
 build google_apis/calendar$:calendar: phony obj/google_apis/calendar/libcalendar.a
@@ -27468,8 +27462,6 @@ build services/device/battery$:battery: phony obj/services/device/battery/batter
 build services/device/battery: phony obj/services/device/battery/battery.stamp
 build services/device/compute_pressure$:compute_pressure: phony obj/services/device/compute_pressure/compute_pressure.stamp
 build services/device/compute_pressure: phony obj/services/device/compute_pressure/compute_pressure.stamp
-build services/device/device_posture$:device_posture: phony obj/services/device/device_posture/device_posture.stamp
-build services/device/device_posture: phony obj/services/device/device_posture/device_posture.stamp
 build services/device/fingerprint$:fingerprint: phony obj/services/device/fingerprint/libfingerprint.a
 build services/device/fingerprint: phony obj/services/device/fingerprint/libfingerprint.a
 build services/device/generic_sensor$:generic_sensor: phony obj/services/device/generic_sensor/generic_sensor.stamp
@@ -28808,7 +28800,6 @@ build skia/tools/fuzzers: phony obj/skia/tools/fuzzers/fuzzers.stamp
 build sql$:fuzzers: phony obj/sql/fuzzers.stamp
 build sql$:sql: phony obj/sql/libsql.a
 build sql$:sql_built_in_recovery_fuzzer: phony obj/sql/sql_built_in_recovery_fuzzer.stamp
-build sql$:sql_recovery_fuzzer: phony obj/sql/sql_recovery_fuzzer.stamp
 build sql$:sql_unittests: phony ./sql_unittests
 build sql$:sql_unittests__runner: phony obj/sql/sql_unittests__runner.stamp
 build sql$:sql_unittests_bundle_data: phony obj/sql/sql_unittests_bundle_data.stamp
@@ -30057,7 +30048,6 @@ build third_party/blink/renderer/core$:feature_policy_fuzzer: phony obj/third_pa
 build third_party/blink/renderer/core$:form_controls_pickers_js: phony obj/third_party/blink/renderer/core/form_controls_pickers_js.stamp
 build third_party/blink/renderer/core$:gen_files_for_web_tests: phony obj/third_party/blink/renderer/core/gen_files_for_web_tests.stamp
 build third_party/blink/renderer/core$:generate_eventhandler_names: phony obj/third_party/blink/renderer/core/generate_eventhandler_names.stamp
-build third_party/blink/renderer/core$:generated_settings_macros: phony obj/third_party/blink/renderer/core/generated_settings_macros.stamp
 build third_party/blink/renderer/core$:generated_testing_idls: phony obj/third_party/blink/renderer/core/generated_testing_idls.stamp
 build third_party/blink/renderer/core$:generated_testing_idls_internal_runtime_flags: phony obj/third_party/blink/renderer/core/generated_testing_idls_internal_runtime_flags.stamp
 build third_party/blink/renderer/core$:generated_testing_idls_settings: phony obj/third_party/blink/renderer/core/generated_testing_idls_settings.stamp
@@ -30095,6 +30085,7 @@ build third_party/blink/renderer/core$:make_core_generated_pointer_type_names: p
 build third_party/blink/renderer/core$:make_core_generated_property_bitsets: phony obj/third_party/blink/renderer/core/make_core_generated_property_bitsets.stamp
 build third_party/blink/renderer/core$:make_core_generated_script_type_names: phony obj/third_party/blink/renderer/core/make_core_generated_script_type_names.stamp
 build third_party/blink/renderer/core$:make_core_generated_securitypolicyviolation_disposition_names: phony obj/third_party/blink/renderer/core/make_core_generated_securitypolicyviolation_disposition_names.stamp
+build third_party/blink/renderer/core$:make_core_generated_settings: phony obj/third_party/blink/renderer/core/make_core_generated_settings.stamp
 build third_party/blink/renderer/core$:make_core_generated_shadow_element_names: phony obj/third_party/blink/renderer/core/make_core_generated_shadow_element_names.stamp
 build third_party/blink/renderer/core$:make_core_generated_style_property_shorthand: phony obj/third_party/blink/renderer/core/make_core_generated_style_property_shorthand.stamp
 build third_party/blink/renderer/core$:make_core_generated_svg_element_type_helpers: phony obj/third_party/blink/renderer/core/make_core_generated_svg_element_type_helpers.stamp
@@ -30512,6 +30503,9 @@ build third_party/blink/renderer/platform/heap$:blink_heap_unittests_sources: ph
 build third_party/blink/renderer/platform/heap$:heap: phony obj/third_party/blink/renderer/platform/heap/heap.stamp
 build third_party/blink/renderer/platform/heap: phony obj/third_party/blink/renderer/platform/heap/heap.stamp
 build third_party/blink/renderer/platform/heap$:test_support: phony obj/third_party/blink/renderer/platform/heap/test_support.stamp
+build third_party/blink/renderer/platform/image-decoders$:bmp_image_decoder_fuzztests: phony ./bmp_image_decoder_fuzztests
+build third_party/blink/renderer/platform/image-decoders$:bmp_image_decoder_fuzztests__fuzzer_options: phony obj/third_party/blink/renderer/platform/image-decoders/bmp_image_decoder_fuzztests__fuzzer_options.stamp
+build third_party/blink/renderer/platform/image-decoders$:bmp_image_decoder_fuzztests__runner: phony obj/third_party/blink/renderer/platform/image-decoders/bmp_image_decoder_fuzztests__runner.stamp
 build third_party/blink/renderer/platform/image-decoders$:image_decoders: phony obj/third_party/blink/renderer/platform/image-decoders/libimage_decoders.a
 build third_party/blink/renderer/platform/image-decoders$:unit_tests: phony obj/third_party/blink/renderer/platform/image-decoders/unit_tests.stamp
 build third_party/blink/renderer/platform/instrumentation$:histogram: phony obj/third_party/blink/renderer/platform/instrumentation/libblink_histogram.a
@@ -37473,6 +37467,7 @@ build ui/views$:view_pixel_diff_test_support: phony obj/ui/views/libview_pixel_d
 build ui/views$:views: phony obj/ui/views/libviews.a
 build ui/views: phony obj/ui/views/libviews.a
 build ui/views$:views_interactive_ui_tests: phony obj/ui/views/views_interactive_ui_tests.stamp
+build ui/views$:views_nocompile_tests: phony obj/ui/views/views_nocompile_tests.stamp
 build ui/views$:views_perftests: phony ./views_perftests
 build ui/views$:views_perftests__runner: phony obj/ui/views/views_perftests__runner.stamp
 build ui/views$:views_unittests: phony ./views_unittests
@@ -38687,6 +38682,13 @@ build all: phony $
     obj/ash/webui/common/resources/util.stamp $
     obj/ash/webui/common/resources/web_ui_listener_behavior.stamp $
     obj/ash/webui/common/resources/webui_resource_test.stamp $
+    obj/ash/webui/common/resources/cellular_setup/build_grdp.stamp $
+    obj/ash/webui/common/resources/cellular_setup/build_min_js.stamp $
+    obj/ash/webui/common/resources/cellular_setup/build_ts.stamp $
+    obj/ash/webui/common/resources/cellular_setup/html_wrapper_files.stamp $
+    obj/ash/webui/common/resources/cellular_setup/preprocess_html_css_files.stamp $
+    obj/ash/webui/common/resources/cellular_setup/preprocess_static_files.stamp $
+    obj/ash/webui/common/resources/cellular_setup/preprocess_ts_files.stamp $
     obj/ash/webui/common/resources/connectivity/copy_mojo_files.stamp $
     obj/ash/webui/common/resources/cr_elements/build_grdp.stamp $
     obj/ash/webui/common/resources/cr_elements/build_min_js.stamp $
@@ -39362,8 +39364,6 @@ build all: phony $
     obj/ash/webui/resources/projector_app_untrusted_resources_grit.stamp $
     obj/ash/webui/resources/projector_common_resources.stamp $
     obj/ash/webui/resources/projector_common_resources_grit.stamp $
-    obj/ash/webui/resources/shortcut_customization_app_resources.stamp $
-    obj/ash/webui/resources/shortcut_customization_app_resources_grit.stamp $
     obj/ash/webui/scanning/libscanning.a $
     obj/ash/webui/scanning/unit_tests.stamp $
     obj/ash/webui/scanning/url_constants.stamp $
@@ -39492,21 +39492,16 @@ build all: phony $
     obj/ash/webui/shortcut_customization_ui/mojom/mojom_ts__generator.stamp $
     obj/ash/webui/shortcut_customization_ui/mojom/unit_tests.stamp $
     obj/ash/webui/shortcut_customization_ui/resources/build_grd.stamp $
-    obj/ash/webui/shortcut_customization_ui/resources/build_mojo_grdp.stamp $
+    obj/ash/webui/shortcut_customization_ui/resources/build_min_js.stamp $
     obj/ash/webui/shortcut_customization_ui/resources/build_ts.stamp $
-    obj/ash/webui/shortcut_customization_ui/resources/copy_accelerator_actions_mojo.stamp $
-    obj/ash/webui/shortcut_customization_ui/resources/copy_accelerator_configuration_mojo.stamp $
-    obj/ash/webui/shortcut_customization_ui/resources/copy_accelerator_info_mojo.stamp $
-    obj/ash/webui/shortcut_customization_ui/resources/copy_accelerator_keys_mojo.stamp $
-    obj/ash/webui/shortcut_customization_ui/resources/copy_events_mojo.stamp $
-    obj/ash/webui/shortcut_customization_ui/resources/copy_input_device_settings_mojo.stamp $
-    obj/ash/webui/shortcut_customization_ui/resources/copy_shortcut_input_provider_mojo.stamp $
-    obj/ash/webui/shortcut_customization_ui/resources/copy_shortcuts_mojo.stamp $
-    obj/ash/webui/shortcut_customization_ui/resources/copy_shortcuts_search_mojo.stamp $
+    obj/ash/webui/shortcut_customization_ui/resources/copy_mojo.stamp $
     obj/ash/webui/shortcut_customization_ui/resources/css_wrapper_files.stamp $
-    obj/ash/webui/shortcut_customization_ui/resources/html_to_wrapper_files.stamp $
-    obj/ash/webui/shortcut_customization_ui/resources/preprocess.stamp $
-    obj/ash/webui/shortcut_customization_ui/resources/preprocess_generated.stamp $
+    obj/ash/webui/shortcut_customization_ui/resources/html_wrapper_files.stamp $
+    obj/ash/webui/shortcut_customization_ui/resources/preprocess_html_css_files.stamp $
+    obj/ash/webui/shortcut_customization_ui/resources/preprocess_static_files.stamp $
+    obj/ash/webui/shortcut_customization_ui/resources/preprocess_ts_files.stamp $
+    obj/ash/webui/shortcut_customization_ui/resources/resources.stamp $
+    obj/ash/webui/shortcut_customization_ui/resources/resources_grit.stamp $
     obj/ash/webui/status_area_internals/libstatus_area_internals.a $
     obj/ash/webui/status_area_internals/unit_tests.stamp $
     obj/ash/webui/status_area_internals/mojom/mojom.stamp $
@@ -41243,7 +41238,6 @@ build all: phony $
     obj/chrome/browser/resources/chromeos/login/components/throbber_notice.stamp $
     obj/chrome/browser/resources/chromeos/login/components/web_components.stamp $
     obj/chrome/browser/resources/chromeos/login/components/web_components_local.stamp $
-    obj/chrome/browser/resources/chromeos/login/components/web_view_helper.stamp $
     obj/chrome/browser/resources/chromeos/login/components/web_view_loader.stamp $
     obj/chrome/browser/resources/chromeos/login/components/behaviors/closure_compile.stamp $
     obj/chrome/browser/resources/chromeos/login/components/behaviors/copy_js.stamp $
@@ -41388,6 +41382,8 @@ build all: phony $
     obj/chrome/browser/resources/chromeos/remote_maintenance_curtain/preprocess_ts_files.stamp $
     obj/chrome/browser/resources/chromeos/remote_maintenance_curtain/resources.stamp $
     obj/chrome/browser/resources/chromeos/remote_maintenance_curtain/resources_grit.stamp $
+    obj/chrome/browser/resources/chromeos/seal/resources.stamp $
+    obj/chrome/browser/resources/chromeos/seal/resources_grit.stamp $
     obj/chrome/browser/resources/chromeos/sensor_info/build_grd.stamp $
     obj/chrome/browser/resources/chromeos/sensor_info/build_min_js.stamp $
     obj/chrome/browser/resources/chromeos/sensor_info/build_ts.stamp $
@@ -41540,6 +41536,9 @@ build all: phony $
     obj/chrome/browser/resources/feedback/build_grd.stamp $
     obj/chrome/browser/resources/feedback/build_min_js.stamp $
     obj/chrome/browser/resources/feedback/build_ts.stamp $
+    obj/chrome/browser/resources/feedback/css_wrapper_files.stamp $
+    obj/chrome/browser/resources/feedback/html_wrapper_files.stamp $
+    obj/chrome/browser/resources/feedback/preprocess_html_css_files.stamp $
     obj/chrome/browser/resources/feedback/preprocess_static_files.stamp $
     obj/chrome/browser/resources/feedback/preprocess_ts_files.stamp $
     obj/chrome/browser/resources/feedback/resources.stamp $
@@ -44133,6 +44132,7 @@ build all: phony $
     obj/chrome/test/data/webui/whats_new/preprocess.stamp $
     obj/chrome/test/data/webui/whats_new/preprocess_static_files.stamp $
     obj/chrome/test/fuzzing/html_in_process_fuzzer.stamp $
+    obj/chrome/test/fuzzing/js_in_process_fuzzer.stamp $
     obj/chrome/test/fuzzing/kombucha_in_process_fuzzer.stamp $
     obj/chrome/test/fuzzing/page_load_in_process_fuzzer.stamp $
     obj/chrome/test/fuzzing/test.stamp $
@@ -44287,6 +44287,8 @@ build all: phony $
     obj/chromeos/ash/components/dbus/device_management/libash_dbus_device_management.a $
     obj/chromeos/ash/components/dbus/device_management/libdevice_management_proto.a $
     obj/chromeos/ash/components/dbus/device_management/device_management_proto_gen.stamp $
+    obj/chromeos/ash/components/dbus/device_management/test_support.stamp $
+    obj/chromeos/ash/components/dbus/device_management/unit_tests.stamp $
     obj/chromeos/ash/components/dbus/dlcservice/libdlcservice.a $
     obj/chromeos/ash/components/dbus/dlcservice/libdlcservice_proto.a $
     obj/chromeos/ash/components/dbus/dlcservice/dlcservice_proto_gen.stamp $
@@ -46620,7 +46622,7 @@ build all: phony $
     obj/components/crash/core/common/libcrash_key_lib.a $
     obj/components/crash/core/common/libcrash_key_utils.a $
     obj/components/crash/core/common/unit_tests.stamp $
-    ./libcronet.123.0.6268.0.so.TOC $
+    ./libcronet.123.0.6273.0.so.TOC $
     obj/components/cronet/cronet_buildflags.stamp $
     obj/components/cronet/cronet_common.stamp $
     obj/components/cronet/cronet_common_unittests.stamp $
@@ -47274,8 +47276,6 @@ build all: phony $
     obj/components/history_clusters/public/mojom/mojo_bindings_shared__generator.stamp $
     obj/components/history_clusters/public/mojom/mojo_bindings_shared_cpp_sources.stamp $
     obj/components/history_clusters/public/mojom/mojo_bindings_ts__generator.stamp $
-    obj/components/history_clusters/ui/libui.a $
-    obj/components/history_clusters/ui/unit_tests.stamp $
     obj/components/image_fetcher/core/libcore.a $
     obj/components/image_fetcher/core/libmetrics.a $
     obj/components/image_fetcher/core/libtest_support.a $
@@ -51237,8 +51237,8 @@ build all: phony $
     obj/google_apis/google_apis_unittest_bundle_data.stamp $
     ./google_apis_unittests $
     obj/google_apis/google_apis_unittests__runner.stamp $
-    obj/google_apis/liboauth2_mint_token_consent_result_proto.a $
-    obj/google_apis/oauth2_mint_token_consent_result_proto_gen.stamp $
+    obj/google_apis/libproto.a $
+    obj/google_apis/proto_gen.stamp $
     obj/google_apis/run_all_unittests.stamp $
     obj/google_apis/libtest_support.a $
     obj/google_apis/calendar/libcalendar.a $
@@ -53775,7 +53775,6 @@ build all: phony $
     obj/services/device/utility.stamp $
     obj/services/device/battery/battery.stamp $
     obj/services/device/compute_pressure/compute_pressure.stamp $
-    obj/services/device/device_posture/device_posture.stamp $
     obj/services/device/fingerprint/libfingerprint.a $
     obj/services/device/generic_sensor/generic_sensor.stamp $
     obj/services/device/geolocation/geolocation.stamp $
@@ -55047,7 +55046,6 @@ build all: phony $
     obj/sql/fuzzers.stamp $
     obj/sql/libsql.a $
     obj/sql/sql_built_in_recovery_fuzzer.stamp $
-    obj/sql/sql_recovery_fuzzer.stamp $
     ./sql_unittests $
     obj/sql/sql_unittests__runner.stamp $
     obj/sql/sql_unittests_bundle_data.stamp $
@@ -56248,7 +56246,6 @@ build all: phony $
     obj/third_party/blink/renderer/core/form_controls_pickers_js.stamp $
     obj/third_party/blink/renderer/core/gen_files_for_web_tests.stamp $
     obj/third_party/blink/renderer/core/generate_eventhandler_names.stamp $
-    obj/third_party/blink/renderer/core/generated_settings_macros.stamp $
     obj/third_party/blink/renderer/core/generated_testing_idls.stamp $
     obj/third_party/blink/renderer/core/generated_testing_idls_internal_runtime_flags.stamp $
     obj/third_party/blink/renderer/core/generated_testing_idls_settings.stamp $
@@ -56286,6 +56283,7 @@ build all: phony $
     obj/third_party/blink/renderer/core/make_core_generated_property_bitsets.stamp $
     obj/third_party/blink/renderer/core/make_core_generated_script_type_names.stamp $
     obj/third_party/blink/renderer/core/make_core_generated_securitypolicyviolation_disposition_names.stamp $
+    obj/third_party/blink/renderer/core/make_core_generated_settings.stamp $
     obj/third_party/blink/renderer/core/make_core_generated_shadow_element_names.stamp $
     obj/third_party/blink/renderer/core/make_core_generated_style_property_shorthand.stamp $
     obj/third_party/blink/renderer/core/make_core_generated_svg_element_type_helpers.stamp $
@@ -56569,6 +56567,9 @@ build all: phony $
     obj/third_party/blink/renderer/platform/heap/blink_heap_unittests_sources.stamp $
     obj/third_party/blink/renderer/platform/heap/heap.stamp $
     obj/third_party/blink/renderer/platform/heap/test_support.stamp $
+    ./bmp_image_decoder_fuzztests $
+    obj/third_party/blink/renderer/platform/image-decoders/bmp_image_decoder_fuzztests__fuzzer_options.stamp $
+    obj/third_party/blink/renderer/platform/image-decoders/bmp_image_decoder_fuzztests__runner.stamp $
     obj/third_party/blink/renderer/platform/image-decoders/libimage_decoders.a $
     obj/third_party/blink/renderer/platform/image-decoders/unit_tests.stamp $
     obj/third_party/blink/renderer/platform/instrumentation/libblink_histogram.a $
@@ -62611,6 +62612,7 @@ build all: phony $
     obj/ui/views/libview_pixel_diff_test_support.a $
     obj/ui/views/libviews.a $
     obj/ui/views/views_interactive_ui_tests.stamp $
+    obj/ui/views/views_nocompile_tests.stamp $
     ./views_perftests $
     obj/ui/views/views_perftests__runner.stamp $
     ./views_unittests $

@@ -56,7 +56,7 @@ class PLATFORM_EXPORT TouchEventConsumers {
   template <typename... Args>
   static TouchEventConsumersPtr New(Args&&... args) {
     return TouchEventConsumersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -40,9 +40,10 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DispatchFetchEventParam
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::blink::mojom::internal::FetchAPIRequest_Data> request;
   mojo::internal::Pointer<mojo::internal::String_Data> client_id;
+  mojo::internal::Pointer<mojo::internal::String_Data> resulting_client_id;
   mojo::internal::Handle_Data preload_url_loader_client_receiver;
   uint8_t is_offline_capability_check : 1;
-  uint8_t pad3_[3];
+  uint8_t pad4_[3];
   mojo::internal::Interface_Data race_network_request_loader_factory;
 
  private:
@@ -51,7 +52,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DispatchFetchEventParam
   DispatchFetchEventParams_Data();
   ~DispatchFetchEventParams_Data() = delete;
 };
-static_assert(sizeof(DispatchFetchEventParams_Data) == 40,
+static_assert(sizeof(DispatchFetchEventParams_Data) == 48,
               "Bad sizeof(DispatchFetchEventParams_Data)");
 // Used by DispatchFetchEventParams::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

@@ -33,6 +33,8 @@ enum class RoutineType : int32_t;
 
 enum class RoutineVerdict : int32_t;
 
+enum class RoutineCallSource : int32_t;
+
 enum class LanConnectivityProblem : int32_t;
 
 enum class SignalStrengthProblem : int32_t;

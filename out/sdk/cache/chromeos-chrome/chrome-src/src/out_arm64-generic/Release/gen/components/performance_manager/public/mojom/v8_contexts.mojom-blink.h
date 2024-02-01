@@ -57,7 +57,7 @@ class COMPONENT_EXPORT(PERFORMANCE_MANAGER_PUBLIC_MOJOM_BLINK) IframeAttribution
   template <typename... Args>
   static IframeAttributionDataPtr New(Args&&... args) {
     return IframeAttributionDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -204,7 +204,7 @@ class COMPONENT_EXPORT(PERFORMANCE_MANAGER_PUBLIC_MOJOM_BLINK) V8ContextDescript
   template <typename... Args>
   static V8ContextDescriptionPtr New(Args&&... args) {
     return V8ContextDescriptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

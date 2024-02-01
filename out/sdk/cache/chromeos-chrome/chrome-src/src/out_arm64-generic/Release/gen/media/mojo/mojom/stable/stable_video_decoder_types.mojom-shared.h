@@ -934,7 +934,7 @@ static_assert(
         ::media::mojom::EncryptionPatternDataView, UserType>(),
     "Attempting to read the optional `encryption_pattern` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEncryptionPattern` instead "
     "of `ReadEncryptionPattern if you're fine with null values being "
@@ -1150,7 +1150,7 @@ static_assert(
         ::media::stable::mojom::HDRMetadataDataView, UserType>(),
     "Attempting to read the optional `hdr_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHdrMetadata` instead "
     "of `ReadHdrMetadata if you're fine with null values being "
@@ -1288,7 +1288,7 @@ static_assert(
         ::media::stable::mojom::StatusDataDataView, UserType>(),
     "Attempting to read the optional `cause` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCause` instead "
     "of `ReadCause if you're fine with null values being "
@@ -1334,7 +1334,7 @@ static_assert(
         ::media::stable::mojom::StatusDataDataView, UserType>(),
     "Attempting to read the optional `internal` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInternal` instead "
     "of `ReadInternal if you're fine with null values being "
@@ -1448,7 +1448,7 @@ static_assert(
         ::media::stable::mojom::DecryptConfigDataView, UserType>(),
     "Attempting to read the optional `decrypt_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDecryptConfig` instead "
     "of `ReadDecryptConfig if you're fine with null values being "
@@ -1488,7 +1488,7 @@ static_assert(
         ::media::stable::mojom::DecoderBufferSideDataDataView, UserType>(),
     "Attempting to read the optional `side_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSideData` instead "
     "of `ReadSideData if you're fine with null values being "
@@ -1743,7 +1743,7 @@ static_assert(
         ::media::stable::mojom::HDRMetadataDataView, UserType>(),
     "Attempting to read the optional `hdr_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHdrMetadata` instead "
     "of `ReadHdrMetadata if you're fine with null values being "

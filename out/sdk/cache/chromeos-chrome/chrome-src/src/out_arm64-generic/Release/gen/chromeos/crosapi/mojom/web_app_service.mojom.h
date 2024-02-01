@@ -389,7 +389,7 @@ class  WebAppAndroidPackage {
   template <typename... Args>
   static WebAppAndroidPackagePtr New(Args&&... args) {
     return WebAppAndroidPackagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -537,7 +537,7 @@ class  WebApkCreationParams {
   template <typename... Args>
   static WebApkCreationParamsPtr New(Args&&... args) {
     return WebApkCreationParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -192,7 +192,7 @@ class PLATFORM_EXPORT GetKeyboardLayoutMapResult {
   template <typename... Args>
   static GetKeyboardLayoutMapResultPtr New(Args&&... args) {
     return GetKeyboardLayoutMapResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

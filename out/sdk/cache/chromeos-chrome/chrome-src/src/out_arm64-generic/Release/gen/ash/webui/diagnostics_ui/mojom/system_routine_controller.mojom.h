@@ -279,7 +279,7 @@ class  PowerRoutineResult {
   template <typename... Args>
   static PowerRoutineResultPtr New(Args&&... args) {
     return PowerRoutineResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -437,7 +437,7 @@ class  RoutineResult {
   static RoutineResultPtr
   NewSimpleResult(
       StandardRoutineResult value) {
-    auto result = RoutineResultPtr(absl::in_place);
+    auto result = RoutineResultPtr(std::in_place);
     result->set_simple_result(std::move(value));
     return result;
   }
@@ -445,7 +445,7 @@ class  RoutineResult {
   static RoutineResultPtr
   NewPowerResult(
       PowerRoutineResultPtr value) {
-    auto result = RoutineResultPtr(absl::in_place);
+    auto result = RoutineResultPtr(std::in_place);
     result->set_power_result(std::move(value));
     return result;
   }
@@ -561,7 +561,7 @@ class  RoutineResultInfo {
   template <typename... Args>
   static RoutineResultInfoPtr New(Args&&... args) {
     return RoutineResultInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

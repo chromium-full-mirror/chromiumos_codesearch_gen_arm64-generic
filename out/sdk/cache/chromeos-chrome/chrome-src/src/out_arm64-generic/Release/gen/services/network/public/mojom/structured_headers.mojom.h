@@ -67,7 +67,7 @@ class  StructuredHeadersItem {
   static StructuredHeadersItemPtr
   NewNullValue(
       uint8_t value) {
-    auto result = StructuredHeadersItemPtr(absl::in_place);
+    auto result = StructuredHeadersItemPtr(std::in_place);
     result->set_null_value(std::move(value));
     return result;
   }
@@ -75,7 +75,7 @@ class  StructuredHeadersItem {
   static StructuredHeadersItemPtr
   NewIntegerValue(
       int64_t value) {
-    auto result = StructuredHeadersItemPtr(absl::in_place);
+    auto result = StructuredHeadersItemPtr(std::in_place);
     result->set_integer_value(std::move(value));
     return result;
   }
@@ -83,7 +83,7 @@ class  StructuredHeadersItem {
   static StructuredHeadersItemPtr
   NewDecimalValue(
       double value) {
-    auto result = StructuredHeadersItemPtr(absl::in_place);
+    auto result = StructuredHeadersItemPtr(std::in_place);
     result->set_decimal_value(std::move(value));
     return result;
   }
@@ -91,7 +91,7 @@ class  StructuredHeadersItem {
   static StructuredHeadersItemPtr
   NewStringValue(
       const std::string& value) {
-    auto result = StructuredHeadersItemPtr(absl::in_place);
+    auto result = StructuredHeadersItemPtr(std::in_place);
     result->set_string_value(std::move(value));
     return result;
   }
@@ -99,7 +99,7 @@ class  StructuredHeadersItem {
   static StructuredHeadersItemPtr
   NewTokenValue(
       const std::string& value) {
-    auto result = StructuredHeadersItemPtr(absl::in_place);
+    auto result = StructuredHeadersItemPtr(std::in_place);
     result->set_token_value(std::move(value));
     return result;
   }
@@ -107,7 +107,7 @@ class  StructuredHeadersItem {
   static StructuredHeadersItemPtr
   NewByteSequenceValue(
       const std::string& value) {
-    auto result = StructuredHeadersItemPtr(absl::in_place);
+    auto result = StructuredHeadersItemPtr(std::in_place);
     result->set_byte_sequence_value(std::move(value));
     return result;
   }
@@ -115,7 +115,7 @@ class  StructuredHeadersItem {
   static StructuredHeadersItemPtr
   NewBooleanValue(
       bool value) {
-    auto result = StructuredHeadersItemPtr(absl::in_place);
+    auto result = StructuredHeadersItemPtr(std::in_place);
     result->set_boolean_value(std::move(value));
     return result;
   }
@@ -294,7 +294,7 @@ class  StructuredHeadersParameter {
   template <typename... Args>
   static StructuredHeadersParameterPtr New(Args&&... args) {
     return StructuredHeadersParameterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -439,7 +439,7 @@ class  StructuredHeadersParameterizedItem {
   template <typename... Args>
   static StructuredHeadersParameterizedItemPtr New(Args&&... args) {
     return StructuredHeadersParameterizedItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -584,7 +584,7 @@ class  StructuredHeadersParameterizedMember {
   template <typename... Args>
   static StructuredHeadersParameterizedMemberPtr New(Args&&... args) {
     return StructuredHeadersParameterizedMemberPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

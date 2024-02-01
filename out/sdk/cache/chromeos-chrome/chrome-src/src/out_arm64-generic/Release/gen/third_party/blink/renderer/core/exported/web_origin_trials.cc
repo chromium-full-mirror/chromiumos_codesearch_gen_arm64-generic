@@ -38,6 +38,12 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
           return false;
         }
         break;
+      case mojom::blink::OriginTrialFeature::kAppTitle:
+        if (!RuntimeEnabledFeatures::AppTitleEnabled(
+                document->GetExecutionContext())) {
+          return false;
+        }
+        break;
       case mojom::blink::OriginTrialFeature::kAttributionReporting:
         if (!RuntimeEnabledFeatures::AttributionReportingEnabled(
                 document->GetExecutionContext())) {

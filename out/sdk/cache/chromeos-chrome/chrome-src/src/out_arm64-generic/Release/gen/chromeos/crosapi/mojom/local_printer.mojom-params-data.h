@@ -881,7 +881,7 @@ static_assert(
         ::crosapi::mojom::CapabilitiesResponseDataView, UserType>(),
     "Attempting to read the optional `capabilities` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCapabilities` instead "
     "of `ReadCapabilities if you're fine with null values being "
@@ -1317,7 +1317,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `username` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUsername` instead "
     "of `ReadUsername if you're fine with null values being "

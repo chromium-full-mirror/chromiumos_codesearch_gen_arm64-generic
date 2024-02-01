@@ -71,7 +71,7 @@ export class SearchAndAssistantSettingsCardElement extends SearchAndAssistantSet
                         };
                     }
                     return {
-                        searchEngine: 'os-settings:google-drive',
+                        searchEngine: '',
                         assistant: '',
                         contentRecommendations: '',
                     };

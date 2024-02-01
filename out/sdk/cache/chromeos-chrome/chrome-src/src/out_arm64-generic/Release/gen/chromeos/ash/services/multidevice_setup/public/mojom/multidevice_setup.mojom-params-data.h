@@ -670,7 +670,7 @@ static_assert(
         ::ash::multidevice::mojom::RemoteDeviceDataView, UserType>(),
     "Attempting to read the optional `host_device` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHostDevice` instead "
     "of `ReadHostDevice if you're fine with null values being "
@@ -983,7 +983,7 @@ static_assert(
         ::ash::multidevice::mojom::RemoteDeviceDataView, UserType>(),
     "Attempting to read the optional `host_device` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHostDevice` instead "
     "of `ReadHostDevice if you're fine with null values being "
@@ -1032,7 +1032,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `auth_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAuthToken` instead "
     "of `ReadAuthToken if you're fine with null values being "
@@ -1244,7 +1244,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `qs_phone_instance_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadQsPhoneInstanceId` instead "
     "of `ReadQsPhoneInstanceId if you're fine with null values being "

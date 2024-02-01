@@ -417,6 +417,26 @@ bool WebGPUExecutionContextToken_Data::Validate(
         return false;
       return true;
     }
+    case WebGPUExecutionContextToken_Tag::kSharedWorkerToken: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_shared_worker_token, 3, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_shared_worker_token, validation_context))
+        return false;
+      return true;
+    }
+    case WebGPUExecutionContextToken_Tag::kServiceWorkerToken: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_service_worker_token, 4, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_service_worker_token, validation_context))
+        return false;
+      return true;
+    }
     default: {
 
       ReportValidationError(

@@ -156,6 +156,37 @@ inline RoutineVerdict ToKnownEnumValue(RoutineVerdict value) {
 }
 
 
+enum class RoutineCallSource : int32_t {
+  
+  kUnknown = 0,
+  
+  kDiagnosticsUI = 1,
+  
+  kChromeNetworkPage = 2,
+  
+  kCrosHealthd = 3,
+  
+  kMetricsReporting = 4,
+  
+  kNetworkHealthSource = 5,
+  kMinValue = 0,
+  kMaxValue = 5,
+  kDefaultValue = 0
+};
+
+ std::ostream& operator<<(std::ostream& os, RoutineCallSource value);
+inline bool IsKnownEnumValue(RoutineCallSource value) {
+  return internal::RoutineCallSource_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+inline RoutineCallSource ToKnownEnumValue(RoutineCallSource value) {
+  if (IsKnownEnumValue(value)) {
+    return value;
+  }
+  return RoutineCallSource::kDefaultValue;
+}
+
+
 enum class LanConnectivityProblem : int32_t {
   
   kNoLanConnectivity = 0,
@@ -639,7 +670,7 @@ static_assert(
         ::chromeos::network_diagnostics::mojom::RoutineResultValueDataView, UserType>(),
     "Attempting to read the optional `result_value` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResultValue` instead "
     "of `ReadResultValue if you're fine with null values being "
@@ -648,6 +679,19 @@ static_assert(
                     ? &data_->result_value : nullptr;
     return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineResultValueDataView>(
         pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    auto data_value = data_->header_.version >= 2
+                      ? data_->source : 0;
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_value, output);
+  }
+  RoutineCallSource source() const {
+    if (data_->header_.version < 2)
+      return RoutineCallSource{};
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source));
   }
  private:
   internal::RoutineResult_Data* data_ = nullptr;
@@ -896,6 +940,10 @@ struct hash<::chromeos::network_diagnostics::mojom::RoutineVerdict>
     : public mojo::internal::EnumHashImpl<::chromeos::network_diagnostics::mojom::RoutineVerdict> {};
 
 template <>
+struct hash<::chromeos::network_diagnostics::mojom::RoutineCallSource>
+    : public mojo::internal::EnumHashImpl<::chromeos::network_diagnostics::mojom::RoutineCallSource> {};
+
+template <>
 struct hash<::chromeos::network_diagnostics::mojom::LanConnectivityProblem>
     : public mojo::internal::EnumHashImpl<::chromeos::network_diagnostics::mojom::LanConnectivityProblem> {};
 
@@ -994,6 +1042,26 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineVerdict, MaybeC
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::chromeos::network_diagnostics::mojom::RoutineVerdict>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::chromeos::network_diagnostics::mojom::RoutineCallSource, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::chromeos::network_diagnostics::mojom::RoutineCallSource, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(input)), output);
   }
 };
 
@@ -1384,6 +1452,8 @@ struct Serializer<::chromeos::network_diagnostics::mojom::RoutineResultDataView,
     result_value_fragment.Claim(&fragment->result_value);
     mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineResultValueDataView>(
         in_result_value, result_value_fragment, true);
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        Traits::source(input), &fragment->source);
   }
 
   static bool Deserialize(::chromeos::network_diagnostics::mojom::internal::RoutineResult_Data* input,
@@ -1899,6 +1969,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::chromeos::network_diagnostics::mojom::RoutineVerdict> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::RoutineVerdict value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::chromeos::network_diagnostics::mojom::RoutineCallSource> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::RoutineCallSource value);
 };
 
 } // namespace perfetto

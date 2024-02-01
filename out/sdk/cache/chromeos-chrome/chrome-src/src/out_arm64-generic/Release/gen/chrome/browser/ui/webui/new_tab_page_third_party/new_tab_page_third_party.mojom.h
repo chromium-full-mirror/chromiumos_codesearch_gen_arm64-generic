@@ -373,7 +373,7 @@ class  Theme {
   template <typename... Args>
   static ThemePtr New(Args&&... args) {
     return ThemePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

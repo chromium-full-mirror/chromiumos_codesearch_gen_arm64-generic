@@ -60,7 +60,7 @@ class PLATFORM_EXPORT WindowFeatures {
   template <typename... Args>
   static WindowFeaturesPtr New(Args&&... args) {
     return WindowFeaturesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

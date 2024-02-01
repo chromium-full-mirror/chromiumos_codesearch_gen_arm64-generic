@@ -565,7 +565,7 @@ class SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_ParamsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadErrorCode(UserType* output) const {
     if (!data_->error_code_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -574,7 +574,7 @@ class SecureChannelStructuredMetricsLogger_LogDiscoveryAttempt_ParamsDataView {
   }
   std::optional<DiscoveryErrorCode> error_code() const {
     if (!data_->error_code_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::secure_channel::mojom::DiscoveryErrorCode>(data_->error_code_$value));
@@ -875,7 +875,7 @@ static_assert(
         ::mojo_base::mojom::TimeDataView, UserType>(),
     "Attempting to read the optional `time` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTime` instead "
     "of `ReadTime if you're fine with null values being "

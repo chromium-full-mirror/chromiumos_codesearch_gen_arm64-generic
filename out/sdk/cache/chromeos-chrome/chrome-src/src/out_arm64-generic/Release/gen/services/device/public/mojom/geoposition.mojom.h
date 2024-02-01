@@ -54,7 +54,7 @@ class  GeopositionError {
   template <typename... Args>
   static GeopositionErrorPtr New(Args&&... args) {
     return GeopositionErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -211,7 +211,7 @@ class  GeopositionResult {
   static GeopositionResultPtr
   NewPosition(
       GeopositionPtr value) {
-    auto result = GeopositionResultPtr(absl::in_place);
+    auto result = GeopositionResultPtr(std::in_place);
     result->set_position(std::move(value));
     return result;
   }
@@ -219,7 +219,7 @@ class  GeopositionResult {
   static GeopositionResultPtr
   NewError(
       GeopositionErrorPtr value) {
-    auto result = GeopositionResultPtr(absl::in_place);
+    auto result = GeopositionResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -333,7 +333,7 @@ class  Geoposition {
   template <typename... Args>
   static GeopositionPtr New(Args&&... args) {
     return GeopositionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

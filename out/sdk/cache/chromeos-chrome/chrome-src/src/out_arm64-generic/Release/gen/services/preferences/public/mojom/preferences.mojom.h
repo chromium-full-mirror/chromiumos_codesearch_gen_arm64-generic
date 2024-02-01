@@ -167,7 +167,7 @@ class  TrackedPersistentPrefStoreConfiguration {
   template <typename... Args>
   static TrackedPersistentPrefStoreConfigurationPtr New(Args&&... args) {
     return TrackedPersistentPrefStoreConfigurationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -334,7 +334,7 @@ class  TrackedPreferenceMetadata {
   template <typename... Args>
   static TrackedPreferenceMetadataPtr New(Args&&... args) {
     return TrackedPreferenceMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

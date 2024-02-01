@@ -197,8 +197,8 @@ class UpdateSystemColorInfoParamsDataView {
   std::optional<uint32_t> accent_color() const {
 
     return data_->accent_color_$flag
-        ? absl::make_optional(data_->accent_color_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->accent_color_$value)
+        : std::nullopt;
   }
   inline void GetLightColorsDataView(
       mojo::MapDataView<::color::mojom::RendererColorId, ::skia::mojom::SkColorDataView>* output);

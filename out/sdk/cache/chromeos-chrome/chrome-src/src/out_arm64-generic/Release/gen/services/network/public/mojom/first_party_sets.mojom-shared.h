@@ -188,7 +188,7 @@ static_assert(
         ::network::mojom::SiteIndexDataView, UserType>(),
     "Attempting to read the optional `site_index` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSiteIndex` instead "
     "of `ReadSiteIndex if you're fine with null values being "
@@ -224,7 +224,7 @@ static_assert(
         ::network::mojom::FirstPartySetEntryDataView, UserType>(),
     "Attempting to read the optional `frame_entry` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFrameEntry` instead "
     "of `ReadFrameEntry if you're fine with null values being "
@@ -244,7 +244,7 @@ static_assert(
         ::network::mojom::FirstPartySetEntryDataView, UserType>(),
     "Attempting to read the optional `top_frame_entry` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTopFrameEntry` instead "
     "of `ReadTopFrameEntry if you're fine with null values being "
@@ -280,7 +280,7 @@ static_assert(
         ::network::mojom::FirstPartySetEntryDataView, UserType>(),
     "Attempting to read the optional `entry` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEntry` instead "
     "of `ReadEntry if you're fine with null values being "

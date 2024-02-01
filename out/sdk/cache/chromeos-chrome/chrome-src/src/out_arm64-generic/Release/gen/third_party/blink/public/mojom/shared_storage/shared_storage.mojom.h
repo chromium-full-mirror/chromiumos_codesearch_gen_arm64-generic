@@ -345,7 +345,7 @@ class BLINK_COMMON_EXPORT SharedStorageKeyArgument {
   template <typename... Args>
   static SharedStorageKeyArgumentPtr New(Args&&... args) {
     return SharedStorageKeyArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -485,7 +485,7 @@ class BLINK_COMMON_EXPORT SharedStorageValueArgument {
   template <typename... Args>
   static SharedStorageValueArgumentPtr New(Args&&... args) {
     return SharedStorageValueArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -625,7 +625,7 @@ class BLINK_COMMON_EXPORT SharedStorageUrlWithMetadata {
   template <typename... Args>
   static SharedStorageUrlWithMetadataPtr New(Args&&... args) {
     return SharedStorageUrlWithMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

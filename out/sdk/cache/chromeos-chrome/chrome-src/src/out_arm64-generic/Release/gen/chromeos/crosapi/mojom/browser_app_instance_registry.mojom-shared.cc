@@ -58,6 +58,7 @@ bool BrowserWindowInstanceUpdate_Data::Validate(
     { 0, 32 },
     { 2, 40 },
     { 3, 40 },
+    { 4, 48 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -91,7 +92,7 @@ bool BrowserWindowInstanceUpdate_Data::Validate(
 }
 
 BrowserWindowInstanceUpdate_Data::BrowserWindowInstanceUpdate_Data()
-    : header_({sizeof(*this), 3}) {}
+    : header_({sizeof(*this), 4}) {}
 
 
 // static

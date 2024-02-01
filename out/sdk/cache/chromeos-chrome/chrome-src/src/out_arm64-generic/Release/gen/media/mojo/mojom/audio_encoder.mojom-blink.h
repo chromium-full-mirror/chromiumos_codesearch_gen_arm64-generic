@@ -301,7 +301,7 @@ class BLINK_PLATFORM_EXPORT AacAudioEncoderConfig {
   template <typename... Args>
   static AacAudioEncoderConfigPtr New(Args&&... args) {
     return AacAudioEncoderConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -447,7 +447,7 @@ class BLINK_PLATFORM_EXPORT AudioEncoderConfig {
   template <typename... Args>
   static AudioEncoderConfigPtr New(Args&&... args) {
     return AudioEncoderConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -602,7 +602,7 @@ class BLINK_PLATFORM_EXPORT EncodedAudioBuffer {
   template <typename... Args>
   static EncodedAudioBufferPtr New(Args&&... args) {
     return EncodedAudioBufferPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

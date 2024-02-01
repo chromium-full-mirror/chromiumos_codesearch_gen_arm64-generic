@@ -149,7 +149,8 @@ export class SourceFrameImpl extends Common.ObjectWrapper.eventMixin(UI.View.Sim
         this.prettyInternal = false;
         this.rawContent = null;
         this.formattedMap = null;
-        this.prettyToggle = new UI.Toolbar.ToolbarToggle(i18nString(UIStrings.prettyPrint), 'brackets');
+        this.prettyToggle =
+            new UI.Toolbar.ToolbarToggle(i18nString(UIStrings.prettyPrint), 'brackets', undefined, 'pretty-print');
         this.prettyToggle.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, () => {
             void this.setPretty(!this.prettyToggle.toggled());
         });
@@ -184,12 +185,12 @@ export class SourceFrameImpl extends Common.ObjectWrapper.eventMixin(UI.View.Sim
         this.contentSet = false;
         this.selfXssWarningDisabledSetting = Common.Settings.Settings.instance().createSetting('disableSelfXssWarning', false, "Synced" /* Common.Settings.SettingStorageType.Synced */);
         Common.Settings.Settings.instance()
-            .moduleSetting('textEditorIndent')
+            .moduleSetting('text-editor-indent')
             .addChangeListener(this.#textEditorIndentChanged, this);
     }
     disposeView() {
         Common.Settings.Settings.instance()
-            .moduleSetting('textEditorIndent')
+            .moduleSetting('text-editor-indent')
             .removeChangeListener(this.#textEditorIndentChanged, this);
     }
     async #textEditorIndentChanged() {

@@ -1,7 +1,6 @@
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// @ts-nocheck
 import { assert } from 'chrome://resources/ash/common/assert.js';
 import { ImageCache } from './cache.js';
 import { ImageOrientation } from './image_orientation.js';
@@ -37,11 +36,13 @@ export class ImageLoader {
             }
             this.onIncomingRequest_(msg, sender.origin, sendResponse);
         });
-        chrome.runtime['onConnectNative'].addListener((port) => {
+        // @ts-ignore: error TS7006: Parameter 'port' implicitly has an 'any' type.
+        chrome.runtime.onConnectNative.addListener((port) => {
             if (port.sender.nativeApplication !== 'com.google.ash_thumbnail_loader') {
                 port.disconnect();
                 return;
             }
+            // @ts-ignore: error TS7006: Parameter 'msg' implicitly has an 'any' type.
             port.onMessage.addListener((msg) => {
                 // Each connection is expected to handle a single request only.
                 const started = this.onIncomingRequest_(msg, port.sender.nativeApplication, response => {
@@ -65,6 +66,8 @@ export class ImageLoader {
         const request = /** @type {!LoadImageRequest} */ (request_data);
         // Sending a response may fail if the receiver already went offline.
         // This is not an error, but a normal and quite common situation.
+        // @ts-ignore: error TS7006: Parameter 'response' implicitly has an 'any'
+        // type.
         const failSafeSendResponse = function (response) {
             try {
                 sendResponse(response);
@@ -78,6 +81,9 @@ export class ImageLoader {
         assert(!(typeof request.orientation === 'number'));
         if (request.orientation) {
             request.orientation =
+                // @ts-ignore: error TS2345: Argument of type 'ImageTransformParam |
+                // ImageOrientation' is not assignable to parameter of type
+                // 'ImageTransformParam'.
                 ImageOrientation.fromRotationAndScale(request.orientation);
         }
         else {
@@ -91,7 +97,7 @@ export class ImageLoader {
      *
      * @param {string} senderOrigin Sender's origin.
      * @param {!LoadImageRequest} request Pre-processed request.
-     * @param {function(!LoadImageResponse)} callback Callback to be called to
+     * @param {(r: LoadImageResponse) => void} callback Callback to be called to
      *     return response.
      * @return {boolean} True if the message channel should stay alive until the
      *     callback is called.
@@ -116,9 +122,15 @@ export class ImageLoader {
      * @return {ImageLoader} ImageLoader object.
      */
     static getInstance() {
+        // @ts-ignore: error TS2339: Property 'instance_' does not exist on type
+        // 'typeof ImageLoader'.
         if (!ImageLoader.instance_) {
+            // @ts-ignore: error TS2339: Property 'instance_' does not exist on type
+            // 'typeof ImageLoader'.
             ImageLoader.instance_ = new ImageLoader();
         }
+        // @ts-ignore: error TS2339: Property 'instance_' does not exist on type
+        // 'typeof ImageLoader'.
         return ImageLoader.instance_;
     }
 }

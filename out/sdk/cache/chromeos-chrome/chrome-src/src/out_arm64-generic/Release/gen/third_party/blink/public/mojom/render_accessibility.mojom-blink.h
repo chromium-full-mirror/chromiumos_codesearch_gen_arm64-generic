@@ -340,7 +340,7 @@ class PLATFORM_EXPORT LocationChanges {
   template <typename... Args>
   static LocationChangesPtr New(Args&&... args) {
     return LocationChangesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -483,7 +483,7 @@ class PLATFORM_EXPORT HitTestResponse {
   template <typename... Args>
   static HitTestResponsePtr New(Args&&... args) {
     return HitTestResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -629,7 +629,7 @@ class PLATFORM_EXPORT AXUpdatesAndEvents {
   template <typename... Args>
   static AXUpdatesAndEventsPtr New(Args&&... args) {
     return AXUpdatesAndEventsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

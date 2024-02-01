@@ -53,7 +53,7 @@ class  AccountId {
   template <typename... Args>
   static AccountIdPtr New(Args&&... args) {
     return AccountIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -1,6 +1,5 @@
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/battery_monitor.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/battery_status.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/device_posture_provider.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/fingerprint.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/geolocation.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/geolocation_config.mojom-module

@@ -780,12 +780,22 @@ mojo.internal.Union(
         'ordinal': 1,
         'type': blink.mojom.DedicatedWorkerTokenSpec.$,
       },
+      'sharedWorkerToken': {
+        'ordinal': 2,
+        'type': blink.mojom.SharedWorkerTokenSpec.$,
+      },
+      'serviceWorkerToken': {
+        'ordinal': 3,
+        'type': blink.mojom.ServiceWorkerTokenSpec.$,
+      },
     });
 
 /**
  * @typedef { {
  *   documentToken: (!blink.mojom.DocumentToken|undefined),
  *   dedicatedWorkerToken: (!blink.mojom.DedicatedWorkerToken|undefined),
+ *   sharedWorkerToken: (!blink.mojom.SharedWorkerToken|undefined),
+ *   serviceWorkerToken: (!blink.mojom.ServiceWorkerToken|undefined),
  * } }
  */
 blink.mojom.WebGPUExecutionContextToken;

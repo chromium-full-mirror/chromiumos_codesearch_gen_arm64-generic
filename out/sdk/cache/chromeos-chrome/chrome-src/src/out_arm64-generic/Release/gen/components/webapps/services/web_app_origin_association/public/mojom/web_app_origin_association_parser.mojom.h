@@ -170,7 +170,7 @@ class  WebAppOriginAssociationError {
   template <typename... Args>
   static WebAppOriginAssociationErrorPtr New(Args&&... args) {
     return WebAppOriginAssociationErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -319,7 +319,7 @@ class  WebAppOriginAssociation {
   template <typename... Args>
   static WebAppOriginAssociationPtr New(Args&&... args) {
     return WebAppOriginAssociationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -461,7 +461,7 @@ class  AssociatedWebApp {
   template <typename... Args>
   static AssociatedWebAppPtr New(Args&&... args) {
     return AssociatedWebAppPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

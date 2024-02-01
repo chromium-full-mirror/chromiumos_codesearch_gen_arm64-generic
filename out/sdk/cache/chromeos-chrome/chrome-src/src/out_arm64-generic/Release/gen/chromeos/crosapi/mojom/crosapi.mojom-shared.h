@@ -684,7 +684,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `lacros_workarounds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLacrosWorkarounds` instead "
     "of `ReadLacrosWorkarounds if you're fine with null values being "
@@ -741,7 +741,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `drivefs` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDrivefs` instead "
     "of `ReadDrivefs if you're fine with null values being "
@@ -762,7 +762,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `user_nss_database` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUserNssDatabase` instead "
     "of `ReadUserNssDatabase if you're fine with null values being "
@@ -783,7 +783,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `removable_media` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRemovableMedia` instead "
     "of `ReadRemovableMedia if you're fine with null values being "
@@ -804,7 +804,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `android_files` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAndroidFiles` instead "
     "of `ReadAndroidFiles if you're fine with null values being "
@@ -825,7 +825,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `linux_files` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLinuxFiles` instead "
     "of `ReadLinuxFiles if you're fine with null values being "
@@ -846,7 +846,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `ash_resources` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAshResources` instead "
     "of `ReadAshResources if you're fine with null values being "
@@ -867,7 +867,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `share_cache` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadShareCache` instead "
     "of `ReadShareCache if you're fine with null values being "
@@ -888,7 +888,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `preinstalled_web_app_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPreinstalledWebAppConfig` instead "
     "of `ReadPreinstalledWebAppConfig if you're fine with null values being "
@@ -909,7 +909,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `preinstalled_web_app_extra_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPreinstalledWebAppExtraConfig` instead "
     "of `ReadPreinstalledWebAppExtraConfig if you're fine with null values being "
@@ -956,7 +956,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `device_affiliation_ids` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeviceAffiliationIds` instead "
     "of `ReadDeviceAffiliationIds if you're fine with null values being "
@@ -987,7 +987,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `directory_device_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDirectoryDeviceId` instead "
     "of `ReadDirectoryDeviceId if you're fine with null values being "
@@ -1008,7 +1008,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `serial_number` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSerialNumber` instead "
     "of `ReadSerialNumber if you're fine with null values being "
@@ -1029,7 +1029,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `annotated_asset_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAnnotatedAssetId` instead "
     "of `ReadAnnotatedAssetId if you're fine with null values being "
@@ -1050,7 +1050,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `annotated_location` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAnnotatedLocation` instead "
     "of `ReadAnnotatedLocation if you're fine with null values being "
@@ -1071,7 +1071,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `hostname` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHostname` instead "
     "of `ReadHostname if you're fine with null values being "
@@ -1083,12 +1083,12 @@ static_assert(
   }
   std::optional<bool> has_stylus_enabled_touchscreen() const {
     if (data_->header_.version < 4) {
-      return absl::nullopt;
+      return std::nullopt;
     }
 
     return data_->has_stylus_enabled_touchscreen_$flag
-        ? absl::make_optional(!!data_->has_stylus_enabled_touchscreen_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->has_stylus_enabled_touchscreen_$value)
+        : std::nullopt;
   }
  private:
   internal::DeviceProperties_Data* data_ = nullptr;
@@ -1182,7 +1182,7 @@ static_assert(
         mojo::MapDataView<::mojo_base::mojom::TokenDataView, uint32_t>, UserType>(),
     "Attempting to read the optional `interface_versions` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInterfaceVersions` instead "
     "of `ReadInterfaceVersions if you're fine with null values being "
@@ -1203,7 +1203,7 @@ static_assert(
         ::crosapi::mojom::DefaultPathsDataView, UserType>(),
     "Attempting to read the optional `default_paths` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDefaultPaths` instead "
     "of `ReadDefaultPaths if you're fine with null values being "
@@ -1224,7 +1224,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `REMOVED_7` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRemoved7` instead "
     "of `ReadRemoved7 if you're fine with null values being "
@@ -1271,7 +1271,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `cros_user_id_hash` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCrosUserIdHash` instead "
     "of `ReadCrosUserIdHash if you're fine with null values being "
@@ -1292,7 +1292,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `device_account_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeviceAccountPolicy` instead "
     "of `ReadDeviceAccountPolicy if you're fine with null values being "
@@ -1313,7 +1313,7 @@ static_assert(
         ::crosapi::mojom::IdleInfoDataView, UserType>(),
     "Attempting to read the optional `idle_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIdleInfo` instead "
     "of `ReadIdleInfo if you're fine with null values being "
@@ -1357,7 +1357,7 @@ static_assert(
         ::crosapi::mojom::AccountDataView, UserType>(),
     "Attempting to read the optional `device_account` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeviceAccount` instead "
     "of `ReadDeviceAccount if you're fine with null values being "
@@ -1393,7 +1393,7 @@ static_assert(
         ::crosapi::mojom::NativeThemeInfoDataView, UserType>(),
     "Attempting to read the optional `native_theme_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNativeThemeInfo` instead "
     "of `ReadNativeThemeInfo if you're fine with null values being "
@@ -1414,7 +1414,7 @@ static_assert(
         ::crosapi::mojom::DevicePropertiesDataView, UserType>(),
     "Attempting to read the optional `device_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeviceProperties` instead "
     "of `ReadDeviceProperties if you're fine with null values being "
@@ -1448,7 +1448,7 @@ static_assert(
         mojo::ArrayDataView<::crosapi::mojom::BuildFlag>, UserType>(),
     "Attempting to read the optional `build_flags` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBuildFlags` instead "
     "of `ReadBuildFlags if you're fine with null values being "
@@ -1469,7 +1469,7 @@ static_assert(
         mojo::ArrayDataView<::url::mojom::UrlDataView>, UserType>(),
     "Attempting to read the optional `REMOVED_24` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRemoved24` instead "
     "of `ReadRemoved24 if you're fine with null values being "
@@ -1490,7 +1490,7 @@ static_assert(
         ::crosapi::mojom::DeviceSettingsDataView, UserType>(),
     "Attempting to read the optional `device_settings` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeviceSettings` instead "
     "of `ReadDeviceSettings if you're fine with null values being "
@@ -1511,7 +1511,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `metrics_service_client_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMetricsServiceClientId` instead "
     "of `ReadMetricsServiceClientId if you're fine with null values being "
@@ -1560,7 +1560,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `ash_capabilities` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAshCapabilities` instead "
     "of `ReadAshCapabilities if you're fine with null values being "
@@ -1581,7 +1581,7 @@ static_assert(
         mojo::ArrayDataView<::url::mojom::UrlDataView>, UserType>(),
     "Attempting to read the optional `accepted_internal_ash_urls` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAcceptedInternalAshUrls` instead "
     "of `ReadAcceptedInternalAshUrls if you're fine with null values being "
@@ -1658,7 +1658,7 @@ static_assert(
         mojo::MapDataView<::crosapi::mojom::PolicyNamespaceDataView, mojo::ArrayDataView<uint8_t>>, UserType>(),
     "Attempting to read the optional `REMOVED_41` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRemoved41` instead "
     "of `ReadRemoved41 if you're fine with null values being "
@@ -1684,7 +1684,7 @@ static_assert(
         mojo::MapDataView<::crosapi::mojom::PolicyNamespaceDataView, ::mojo_base::mojom::ValueDataView>, UserType>(),
     "Attempting to read the optional `device_account_component_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeviceAccountComponentPolicy` instead "
     "of `ReadDeviceAccountComponentPolicy if you're fine with null values being "
@@ -1705,7 +1705,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `ash_chrome_version` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAshChromeVersion` instead "
     "of `ReadAshChromeVersion if you're fine with null values being "
@@ -1787,7 +1787,7 @@ static_assert(
         ::crosapi::mojom::ExtensionKeepListDataView, UserType>(),
     "Attempting to read the optional `extension_keep_list` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadExtensionKeepList` instead "
     "of `ReadExtensionKeepList if you're fine with null values being "
@@ -1818,7 +1818,7 @@ static_assert(
         ::crosapi::mojom::StandaloneBrowserAppServiceBlockListDataView, UserType>(),
     "Attempting to read the optional `standalone_browser_app_service_blocklist` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStandaloneBrowserAppServiceBlocklist` instead "
     "of `ReadStandaloneBrowserAppServiceBlocklist if you're fine with null values being "
@@ -1914,7 +1914,7 @@ static_assert(
         ::crosapi::mojom::EntropySourceDataView, UserType>(),
     "Attempting to read the optional `entropy_source` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEntropySource` instead "
     "of `ReadEntropySource if you're fine with null values being "
@@ -1971,7 +1971,7 @@ static_assert(
         ::crosapi::mojom::DefaultPathsDataView, UserType>(),
     "Attempting to read the optional `default_paths` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDefaultPaths` instead "
     "of `ReadDefaultPaths if you're fine with null values being "
@@ -1991,7 +1991,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `REMOVED_2` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRemoved2` instead "
     "of `ReadRemoved2 if you're fine with null values being "
@@ -2011,7 +2011,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `cros_user_id_hash` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCrosUserIdHash` instead "
     "of `ReadCrosUserIdHash if you're fine with null values being "
@@ -2031,7 +2031,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `device_account_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeviceAccountPolicy` instead "
     "of `ReadDeviceAccountPolicy if you're fine with null values being "
@@ -2064,7 +2064,7 @@ static_assert(
         ::crosapi::mojom::AccountDataView, UserType>(),
     "Attempting to read the optional `device_account` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeviceAccount` instead "
     "of `ReadDeviceAccount if you're fine with null values being "
@@ -2100,7 +2100,7 @@ static_assert(
         mojo::ArrayDataView<::url::mojom::UrlDataView>, UserType>(),
     "Attempting to read the optional `REMOVED_11` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRemoved11` instead "
     "of `ReadRemoved11 if you're fine with null values being "
@@ -2129,7 +2129,7 @@ static_assert(
         mojo::MapDataView<::crosapi::mojom::PolicyNamespaceDataView, ::mojo_base::mojom::ValueDataView>, UserType>(),
     "Attempting to read the optional `device_account_component_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeviceAccountComponentPolicy` instead "
     "of `ReadDeviceAccountComponentPolicy if you're fine with null values being "

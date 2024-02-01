@@ -622,7 +622,7 @@ class BLINK_PLATFORM_EXPORT AudioFocusRequestState {
   template <typename... Args>
   static AudioFocusRequestStatePtr New(Args&&... args) {
     return AudioFocusRequestStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

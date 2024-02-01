@@ -64,7 +64,7 @@ class PLATFORM_EXPORT DispatchFetchEventParams {
   template <typename... Args>
   static DispatchFetchEventParamsPtr New(Args&&... args) {
     return DispatchFetchEventParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -83,6 +83,7 @@ class PLATFORM_EXPORT DispatchFetchEventParams {
   DispatchFetchEventParams(
       ::blink::mojom::blink::FetchAPIRequestPtr request,
       const WTF::String& client_id,
+      const WTF::String& resulting_client_id,
       ::mojo::PendingReceiver<::network::mojom::blink::URLLoaderClient> preload_url_loader_client_receiver,
       bool is_offline_capability_check,
       ::mojo::PendingRemote<::network::mojom::blink::URLLoaderFactory> race_network_request_loader_factory);
@@ -164,6 +165,8 @@ DispatchFetchEventParams& operator=(const DispatchFetchEventParams&) = delete;
   
   WTF::String client_id;
   
+  WTF::String resulting_client_id;
+  
   ::mojo::PendingReceiver<::network::mojom::blink::URLLoaderClient> preload_url_loader_client_receiver;
   
   bool is_offline_capability_check;
@@ -204,6 +207,7 @@ DispatchFetchEventParamsPtr DispatchFetchEventParams::Clone() const {
   return New(
       mojo::Clone(request),
       mojo::Clone(client_id),
+      mojo::Clone(resulting_client_id),
       mojo::Clone(preload_url_loader_client_receiver),
       mojo::Clone(is_offline_capability_check),
       mojo::Clone(race_network_request_loader_factory)
@@ -215,6 +219,8 @@ bool DispatchFetchEventParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->request, other_struct.request))
     return false;
   if (!mojo::Equals(this->client_id, other_struct.client_id))
+    return false;
+  if (!mojo::Equals(this->resulting_client_id, other_struct.resulting_client_id))
     return false;
   if (!mojo::Equals(this->preload_url_loader_client_receiver, other_struct.preload_url_loader_client_receiver))
     return false;
@@ -234,6 +240,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.client_id < rhs.client_id)
     return true;
   if (rhs.client_id < lhs.client_id)
+    return false;
+  if (lhs.resulting_client_id < rhs.resulting_client_id)
+    return true;
+  if (rhs.resulting_client_id < lhs.resulting_client_id)
     return false;
   if (lhs.preload_url_loader_client_receiver < rhs.preload_url_loader_client_receiver)
     return true;
@@ -270,6 +280,11 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::DispatchFetchEventPar
   static const decltype(::blink::mojom::blink::DispatchFetchEventParams::client_id)& client_id(
       const ::blink::mojom::blink::DispatchFetchEventParamsPtr& input) {
     return input->client_id;
+  }
+
+  static const decltype(::blink::mojom::blink::DispatchFetchEventParams::resulting_client_id)& resulting_client_id(
+      const ::blink::mojom::blink::DispatchFetchEventParamsPtr& input) {
+    return input->resulting_client_id;
   }
 
   static  decltype(::blink::mojom::blink::DispatchFetchEventParams::preload_url_loader_client_receiver)& preload_url_loader_client_receiver(

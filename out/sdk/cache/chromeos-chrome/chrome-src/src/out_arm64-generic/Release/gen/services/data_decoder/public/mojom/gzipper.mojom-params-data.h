@@ -202,7 +202,7 @@ static_assert(
         ::mojo_base::mojom::BigBufferDataView, UserType>(),
     "Attempting to read the optional `deflated_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeflatedData` instead "
     "of `ReadDeflatedData if you're fine with null values being "
@@ -267,7 +267,7 @@ static_assert(
         ::mojo_base::mojom::BigBufferDataView, UserType>(),
     "Attempting to read the optional `inflated_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInflatedData` instead "
     "of `ReadInflatedData if you're fine with null values being "
@@ -329,7 +329,7 @@ static_assert(
         ::mojo_base::mojom::BigBufferDataView, UserType>(),
     "Attempting to read the optional `compressed_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCompressedData` instead "
     "of `ReadCompressedData if you're fine with null values being "
@@ -391,7 +391,7 @@ static_assert(
         ::mojo_base::mojom::BigBufferDataView, UserType>(),
     "Attempting to read the optional `data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadData` instead "
     "of `ReadData if you're fine with null values being "

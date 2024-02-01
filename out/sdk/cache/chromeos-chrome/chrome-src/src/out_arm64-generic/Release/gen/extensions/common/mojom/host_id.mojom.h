@@ -53,7 +53,7 @@ class  HostID {
   template <typename... Args>
   static HostIDPtr New(Args&&... args) {
     return HostIDPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

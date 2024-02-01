@@ -59,7 +59,7 @@ class BLINK_PLATFORM_EXPORT PurchaseReference {
   template <typename... Args>
   static PurchaseReferencePtr New(Args&&... args) {
     return PurchaseReferencePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -205,7 +205,7 @@ class BLINK_PLATFORM_EXPORT ItemDetails {
   template <typename... Args>
   static ItemDetailsPtr New(Args&&... args) {
     return ItemDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

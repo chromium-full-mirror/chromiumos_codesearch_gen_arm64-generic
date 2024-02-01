@@ -301,7 +301,7 @@ class  OtherPartitionInfo {
   template <typename... Args>
   static OtherPartitionInfoPtr New(Args&&... args) {
     return OtherPartitionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -444,7 +444,7 @@ class  URLRequestDevToolsInfo {
   template <typename... Args>
   static URLRequestDevToolsInfoPtr New(Args&&... args) {
     return URLRequestDevToolsInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -604,7 +604,7 @@ class  URLResponseHeadDevToolsInfo {
   template <typename... Args>
   static URLResponseHeadDevToolsInfoPtr New(Args&&... args) {
     return URLResponseHeadDevToolsInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -116,7 +116,7 @@ static_assert(
         mojo::ArrayDataView<::chromeos::machine_learning::web_platform::mojom::HandwritingPredictionDataView>, UserType>(),
     "Attempting to read the optional `prediction` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPrediction` instead "
     "of `ReadPrediction if you're fine with null values being "

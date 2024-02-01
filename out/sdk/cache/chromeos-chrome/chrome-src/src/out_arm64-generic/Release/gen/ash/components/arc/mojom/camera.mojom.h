@@ -491,7 +491,7 @@ class  CameraDeviceInfo {
   template <typename... Args>
   static CameraDeviceInfoPtr New(Args&&... args) {
     return CameraDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -672,7 +672,7 @@ class  CameraSupportedFormat {
   template <typename... Args>
   static CameraSupportedFormatPtr New(Args&&... args) {
     return CameraSupportedFormatPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

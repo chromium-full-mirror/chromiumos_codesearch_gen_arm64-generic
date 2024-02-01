@@ -233,7 +233,7 @@ class  DeviceAttributesStringResult {
   static DeviceAttributesStringResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = DeviceAttributesStringResultPtr(absl::in_place);
+    auto result = DeviceAttributesStringResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -241,7 +241,7 @@ class  DeviceAttributesStringResult {
   static DeviceAttributesStringResultPtr
   NewContents(
       const std::string& value) {
-    auto result = DeviceAttributesStringResultPtr(absl::in_place);
+    auto result = DeviceAttributesStringResultPtr(std::in_place);
     result->set_contents(std::move(value));
     return result;
   }

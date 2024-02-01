@@ -61,7 +61,7 @@ class BLINK_PLATFORM_EXPORT LocalSurfaceId {
   template <typename... Args>
   static LocalSurfaceIdPtr New(Args&&... args) {
     return LocalSurfaceIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

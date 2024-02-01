@@ -394,7 +394,7 @@ class PLATFORM_EXPORT SelectorCreationResult {
   template <typename... Args>
   static SelectorCreationResultPtr New(Args&&... args) {
     return SelectorCreationResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

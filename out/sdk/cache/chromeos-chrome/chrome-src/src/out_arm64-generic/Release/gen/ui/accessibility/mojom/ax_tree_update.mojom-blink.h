@@ -62,7 +62,7 @@ class  AXTreeUpdate {
   template <typename... Args>
   static AXTreeUpdatePtr New(Args&&... args) {
     return AXTreeUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

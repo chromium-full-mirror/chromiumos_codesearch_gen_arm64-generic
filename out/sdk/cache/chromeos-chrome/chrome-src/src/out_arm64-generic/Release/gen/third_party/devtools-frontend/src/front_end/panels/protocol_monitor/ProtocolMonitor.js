@@ -574,7 +574,7 @@ export class ProtocolMonitorImpl extends UI.Widget.VBox {
     #sideBarMinWidth = 400;
     constructor() {
         super(true);
-        this.element.setAttribute('jslog', `${VisualLogging.panel().context('protocol-monitor')}`);
+        this.element.setAttribute('jslog', `${VisualLogging.panel('protocol-monitor')}`);
         this.#split =
             new UI.SplitWidget.SplitWidget(true, false, 'protocol-monitor-split-container', this.#sideBarMinWidth);
         this.#split.show(this.contentElement);
@@ -660,7 +660,7 @@ export class EditorWidget extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox
     jsonEditor;
     constructor() {
         super();
-        this.element.setAttribute('jslog', `${VisualLogging.pane().context('command-editor')}`);
+        this.element.setAttribute('jslog', `${VisualLogging.pane('command-editor')}`);
         this.jsonEditor = new Components.JSONEditor.JSONEditor();
         this.jsonEditor.metadataByCommand = metadataByCommand;
         this.jsonEditor.typesByName = typesByName;

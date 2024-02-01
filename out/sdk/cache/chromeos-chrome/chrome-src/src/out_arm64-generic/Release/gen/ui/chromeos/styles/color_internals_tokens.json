@@ -539,6 +539,162 @@
         {
             "token_name": "cros.ref.green100",
             "css_variable": "--cros-ref-green100"
+        },
+        {
+            "token_name": "cros.ref.sparkle-analog0",
+            "css_variable": "--cros-ref-sparkle_analog0"
+        },
+        {
+            "token_name": "cros.ref.sparkle-analog10",
+            "css_variable": "--cros-ref-sparkle_analog10"
+        },
+        {
+            "token_name": "cros.ref.sparkle-analog20",
+            "css_variable": "--cros-ref-sparkle_analog20"
+        },
+        {
+            "token_name": "cros.ref.sparkle-analog30",
+            "css_variable": "--cros-ref-sparkle_analog30"
+        },
+        {
+            "token_name": "cros.ref.sparkle-analog40",
+            "css_variable": "--cros-ref-sparkle_analog40"
+        },
+        {
+            "token_name": "cros.ref.sparkle-analog50",
+            "css_variable": "--cros-ref-sparkle_analog50"
+        },
+        {
+            "token_name": "cros.ref.sparkle-analog60",
+            "css_variable": "--cros-ref-sparkle_analog60"
+        },
+        {
+            "token_name": "cros.ref.sparkle-analog70",
+            "css_variable": "--cros-ref-sparkle_analog70"
+        },
+        {
+            "token_name": "cros.ref.sparkle-analog80",
+            "css_variable": "--cros-ref-sparkle_analog80"
+        },
+        {
+            "token_name": "cros.ref.sparkle-analog90",
+            "css_variable": "--cros-ref-sparkle_analog90"
+        },
+        {
+            "token_name": "cros.ref.sparkle-analog95",
+            "css_variable": "--cros-ref-sparkle_analog95"
+        },
+        {
+            "token_name": "cros.ref.sparkle-analog99",
+            "css_variable": "--cros-ref-sparkle_analog99"
+        },
+        {
+            "token_name": "cros.ref.sparkle-analog100",
+            "css_variable": "--cros-ref-sparkle_analog100"
+        },
+        {
+            "token_name": "cros.ref.sparkle-muted0",
+            "css_variable": "--cros-ref-sparkle_muted0"
+        },
+        {
+            "token_name": "cros.ref.sparkle-muted10",
+            "css_variable": "--cros-ref-sparkle_muted10"
+        },
+        {
+            "token_name": "cros.ref.sparkle-muted20",
+            "css_variable": "--cros-ref-sparkle_muted20"
+        },
+        {
+            "token_name": "cros.ref.sparkle-muted30",
+            "css_variable": "--cros-ref-sparkle_muted30"
+        },
+        {
+            "token_name": "cros.ref.sparkle-muted40",
+            "css_variable": "--cros-ref-sparkle_muted40"
+        },
+        {
+            "token_name": "cros.ref.sparkle-muted50",
+            "css_variable": "--cros-ref-sparkle_muted50"
+        },
+        {
+            "token_name": "cros.ref.sparkle-muted60",
+            "css_variable": "--cros-ref-sparkle_muted60"
+        },
+        {
+            "token_name": "cros.ref.sparkle-muted70",
+            "css_variable": "--cros-ref-sparkle_muted70"
+        },
+        {
+            "token_name": "cros.ref.sparkle-muted80",
+            "css_variable": "--cros-ref-sparkle_muted80"
+        },
+        {
+            "token_name": "cros.ref.sparkle-muted90",
+            "css_variable": "--cros-ref-sparkle_muted90"
+        },
+        {
+            "token_name": "cros.ref.sparkle-muted95",
+            "css_variable": "--cros-ref-sparkle_muted95"
+        },
+        {
+            "token_name": "cros.ref.sparkle-muted99",
+            "css_variable": "--cros-ref-sparkle_muted99"
+        },
+        {
+            "token_name": "cros.ref.sparkle-muted100",
+            "css_variable": "--cros-ref-sparkle_muted100"
+        },
+        {
+            "token_name": "cros.ref.sparkle-complement0",
+            "css_variable": "--cros-ref-sparkle_complement0"
+        },
+        {
+            "token_name": "cros.ref.sparkle-complement10",
+            "css_variable": "--cros-ref-sparkle_complement10"
+        },
+        {
+            "token_name": "cros.ref.sparkle-complement20",
+            "css_variable": "--cros-ref-sparkle_complement20"
+        },
+        {
+            "token_name": "cros.ref.sparkle-complement30",
+            "css_variable": "--cros-ref-sparkle_complement30"
+        },
+        {
+            "token_name": "cros.ref.sparkle-complement40",
+            "css_variable": "--cros-ref-sparkle_complement40"
+        },
+        {
+            "token_name": "cros.ref.sparkle-complement50",
+            "css_variable": "--cros-ref-sparkle_complement50"
+        },
+        {
+            "token_name": "cros.ref.sparkle-complement60",
+            "css_variable": "--cros-ref-sparkle_complement60"
+        },
+        {
+            "token_name": "cros.ref.sparkle-complement70",
+            "css_variable": "--cros-ref-sparkle_complement70"
+        },
+        {
+            "token_name": "cros.ref.sparkle-complement80",
+            "css_variable": "--cros-ref-sparkle_complement80"
+        },
+        {
+            "token_name": "cros.ref.sparkle-complement90",
+            "css_variable": "--cros-ref-sparkle_complement90"
+        },
+        {
+            "token_name": "cros.ref.sparkle-complement95",
+            "css_variable": "--cros-ref-sparkle_complement95"
+        },
+        {
+            "token_name": "cros.ref.sparkle-complement99",
+            "css_variable": "--cros-ref-sparkle_complement99"
+        },
+        {
+            "token_name": "cros.ref.sparkle-complement100",
+            "css_variable": "--cros-ref-sparkle_complement100"
         }
     ],
     "sys_tokens": [
@@ -1087,24 +1243,24 @@
             }
         },
         {
-            "token_name": "cros.sys.on-positive-container",
-            "css_variable": "--cros-sys-on_positive_container",
+            "token_name": "cros.sys.on-success-container",
+            "css_variable": "--cros-sys-on_success_container",
             "mode_values": {
                 "light": "cros.ref.green30",
                 "dark": "cros.ref.green90"
             }
         },
         {
-            "token_name": "cros.sys.positive-container",
-            "css_variable": "--cros-sys-positive_container",
+            "token_name": "cros.sys.success-container",
+            "css_variable": "--cros-sys-success_container",
             "mode_values": {
                 "light": "cros.ref.green95",
                 "dark": "blend(cros.ref.green95.rgb @ 20%, rgba(0, 0, 0, 1))"
             }
         },
         {
-            "token_name": "cros.sys.positive",
-            "css_variable": "--cros-sys-positive",
+            "token_name": "cros.sys.success",
+            "css_variable": "--cros-sys-success",
             "mode_values": {
                 "light": "cros.ref.green50",
                 "dark": "cros.ref.green80"
@@ -1159,6 +1315,22 @@
             }
         },
         {
+            "token_name": "cros.sys.system-on-error-container",
+            "css_variable": "--cros-sys-system_on_error_container",
+            "mode_values": {
+                "light": "cros.ref.red10",
+                "dark": "cros.ref.red10"
+            }
+        },
+        {
+            "token_name": "cros.sys.system-error-container",
+            "css_variable": "--cros-sys-system_error_container",
+            "mode_values": {
+                "light": "cros.ref.red80",
+                "dark": "cros.ref.red80"
+            }
+        },
+        {
             "token_name": "cros.sys.on-progress-container",
             "css_variable": "--cros-sys-on_progress_container",
             "mode_values": {
@@ -1183,19 +1355,43 @@
             }
         },
         {
+            "token_name": "cros.sys.on-positive-container",
+            "css_variable": "--cros-sys-on_positive_container",
+            "mode_values": {
+                "light": "cros.sys.on-success-container",
+                "dark": "cros.sys.on-success-container"
+            }
+        },
+        {
+            "token_name": "cros.sys.positive-container",
+            "css_variable": "--cros-sys-positive_container",
+            "mode_values": {
+                "light": "cros.sys.success-container",
+                "dark": "cros.sys.success-container"
+            }
+        },
+        {
+            "token_name": "cros.sys.positive",
+            "css_variable": "--cros-sys-positive",
+            "mode_values": {
+                "light": "cros.sys.success",
+                "dark": "cros.sys.success"
+            }
+        },
+        {
             "token_name": "cros.sys.system-on-negative-container",
             "css_variable": "--cros-sys-system_on_negative_container",
             "mode_values": {
-                "light": "cros.ref.red10",
-                "dark": "cros.ref.red10"
+                "light": "cros.sys.system-on-error-container",
+                "dark": "cros.sys.system-on-error-container"
             }
         },
         {
             "token_name": "cros.sys.system-negative-container",
             "css_variable": "--cros-sys-system_negative_container",
             "mode_values": {
-                "light": "cros.ref.red80",
-                "dark": "cros.ref.red80"
+                "light": "cros.sys.system-error-container",
+                "dark": "cros.sys.system-error-container"
             }
         },
         {
@@ -1436,6 +1632,54 @@
             "mode_values": {
                 "light": "blend(cros.sys.hover-on-subtle, cros.sys.ripple-neutral-on-subtle)",
                 "dark": "blend(cros.sys.hover-on-subtle, cros.sys.ripple-neutral-on-subtle)"
+            }
+        },
+        {
+            "token_name": "cros.sys.analog",
+            "css_variable": "--cros-sys-analog",
+            "mode_values": {
+                "light": "cros.ref.sparkle-analog70",
+                "dark": "cros.ref.sparkle-analog30"
+            }
+        },
+        {
+            "token_name": "cros.sys.analog-variant",
+            "css_variable": "--cros-sys-analog_variant",
+            "mode_values": {
+                "light": "cros.ref.sparkle-analog80",
+                "dark": "cros.ref.sparkle-analog40"
+            }
+        },
+        {
+            "token_name": "cros.sys.muted",
+            "css_variable": "--cros-sys-muted",
+            "mode_values": {
+                "light": "cros.ref.sparkle-muted80",
+                "dark": "cros.ref.sparkle-muted30"
+            }
+        },
+        {
+            "token_name": "cros.sys.muted-variant",
+            "css_variable": "--cros-sys-muted_variant",
+            "mode_values": {
+                "light": "cros.ref.sparkle-muted90",
+                "dark": "cros.ref.sparkle-muted40"
+            }
+        },
+        {
+            "token_name": "cros.sys.complement",
+            "css_variable": "--cros-sys-complement",
+            "mode_values": {
+                "light": "cros.ref.sparkle-complement90",
+                "dark": "cros.ref.sparkle-complement20"
+            }
+        },
+        {
+            "token_name": "cros.sys.complement-variant",
+            "css_variable": "--cros-sys-complement_variant",
+            "mode_values": {
+                "light": "cros.ref.sparkle-complement95",
+                "dark": "cros.ref.sparkle-complement30"
             }
         },
         {
@@ -1916,6 +2160,38 @@
             "mode_values": {
                 "light": "cros.sys.illo.card.on-color5_light",
                 "dark": "cros.sys.illo.card.on-color5_dark"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.analog",
+            "css_variable": "--cros-sys-illo-analog",
+            "mode_values": {
+                "light": "cros.ref.sparkle-analog70",
+                "dark": "cros.ref.sparkle-analog70"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.muted",
+            "css_variable": "--cros-sys-illo-muted",
+            "mode_values": {
+                "light": "cros.ref.sparkle-muted80",
+                "dark": "cros.ref.sparkle-muted80"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.complement",
+            "css_variable": "--cros-sys-illo-complement",
+            "mode_values": {
+                "light": "cros.ref.sparkle-complement90",
+                "dark": "cros.ref.sparkle-complement90"
+            }
+        },
+        {
+            "token_name": "cros.sys.illo.on-gradient",
+            "css_variable": "--cros-sys-illo-on_gradient",
+            "mode_values": {
+                "light": "cros.ref.neutral10",
+                "dark": "cros.ref.neutral10"
             }
         },
         {

@@ -348,7 +348,7 @@ static_assert(
         ::omnibox::mojom::SuggestionAnswerDataView, UserType>(),
     "Attempting to read the optional `answer` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAnswer` instead "
     "of `ReadAnswer if you're fine with null values being "
@@ -430,8 +430,8 @@ static_assert(
   std::optional<bool> is_weather_answer_suggestion() const {
 
     return data_->is_weather_answer_suggestion_$flag
-        ? absl::make_optional(!!data_->is_weather_answer_suggestion_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->is_weather_answer_suggestion_$value)
+        : std::nullopt;
   }
   inline void GetIconUrlDataView(
       mojo::StringDataView* output);
@@ -509,7 +509,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `tail_suggest_common_prefix` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTailSuggestCommonPrefix` instead "
     "of `ReadTailSuggestCommonPrefix if you're fine with null values being "

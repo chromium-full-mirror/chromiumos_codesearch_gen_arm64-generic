@@ -504,7 +504,7 @@ static_assert(
         ::device::mojom::GamepadQuaternionDataView, UserType>(),
     "Attempting to read the optional `orientation` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOrientation` instead "
     "of `ReadOrientation if you're fine with null values being "
@@ -524,7 +524,7 @@ static_assert(
         ::device::mojom::GamepadVectorDataView, UserType>(),
     "Attempting to read the optional `position` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPosition` instead "
     "of `ReadPosition if you're fine with null values being "
@@ -544,7 +544,7 @@ static_assert(
         ::device::mojom::GamepadVectorDataView, UserType>(),
     "Attempting to read the optional `angular_velocity` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAngularVelocity` instead "
     "of `ReadAngularVelocity if you're fine with null values being "
@@ -564,7 +564,7 @@ static_assert(
         ::device::mojom::GamepadVectorDataView, UserType>(),
     "Attempting to read the optional `linear_velocity` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLinearVelocity` instead "
     "of `ReadLinearVelocity if you're fine with null values being "
@@ -584,7 +584,7 @@ static_assert(
         ::device::mojom::GamepadVectorDataView, UserType>(),
     "Attempting to read the optional `angular_acceleration` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAngularAcceleration` instead "
     "of `ReadAngularAcceleration if you're fine with null values being "
@@ -604,7 +604,7 @@ static_assert(
         ::device::mojom::GamepadVectorDataView, UserType>(),
     "Attempting to read the optional `linear_acceleration` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLinearAcceleration` instead "
     "of `ReadLinearAcceleration if you're fine with null values being "
@@ -701,7 +701,7 @@ static_assert(
         ::device::mojom::GamepadHapticActuatorDataView, UserType>(),
     "Attempting to read the optional `vibration_actuator` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadVibrationActuator` instead "
     "of `ReadVibrationActuator if you're fine with null values being "
@@ -731,7 +731,7 @@ static_assert(
         ::device::mojom::GamepadPoseDataView, UserType>(),
     "Attempting to read the optional `pose` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPose` instead "
     "of `ReadPose if you're fine with null values being "

@@ -55,7 +55,7 @@ class  Bitmap {
   template <typename... Args>
   static BitmapPtr New(Args&&... args) {
     return BitmapPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

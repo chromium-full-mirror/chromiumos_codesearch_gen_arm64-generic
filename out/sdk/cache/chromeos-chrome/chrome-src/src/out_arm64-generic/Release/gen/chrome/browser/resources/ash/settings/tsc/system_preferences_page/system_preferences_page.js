@@ -14,13 +14,14 @@ import '../os_settings_page/os_settings_subpage.js';
 import '../os_reset_page/reset_settings_card.js';
 import '../os_search_page/search_and_assistant_settings_card.js';
 import '../settings_shared.css.js';
+import './multitasking_settings_card.js';
 import './startup_settings_card.js';
 import './storage_and_power_settings_card.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { isAssistantAllowed, isExternalStorageEnabled, isGuest, isPowerwashAllowed, isRevampWayfindingEnabled, shouldShowQuickAnswersSettings, shouldShowStartup } from '../common/load_time_booleans.js';
+import { isAssistantAllowed, isExternalStorageEnabled, isGuest, isPowerwashAllowed, isRevampWayfindingEnabled, shouldShowMultitasking, shouldShowQuickAnswersSettings, shouldShowStartup } from '../common/load_time_booleans.js';
 import { Section } from '../mojom-webui/routes.mojom-webui.js';
 import { routes } from '../router.js';
 import { getTemplate } from './system_preferences_page.html.js';
@@ -63,6 +64,12 @@ export class SettingsSystemPreferencesPageElement extends SettingsSystemPreferen
                 type: Boolean,
                 value: () => {
                     return !isGuest();
+                },
+            },
+            shouldShowMultitaskingCard_: {
+                type: Boolean,
+                value: () => {
+                    return shouldShowMultitasking();
                 },
             },
             shouldShowResetSettingsCard_: {

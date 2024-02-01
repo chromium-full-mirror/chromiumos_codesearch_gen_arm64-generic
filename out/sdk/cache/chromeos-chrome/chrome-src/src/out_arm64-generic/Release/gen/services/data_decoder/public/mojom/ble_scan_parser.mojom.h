@@ -169,7 +169,7 @@ class  ScanRecord {
   template <typename... Args>
   static ScanRecordPtr New(Args&&... args) {
     return ScanRecordPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

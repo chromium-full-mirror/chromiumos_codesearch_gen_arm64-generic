@@ -8,11 +8,14 @@ export function getTemplate() {
       </div>
   </cr-link-row>
 
-  <template is="dom-if" if="[[shouldShowOfficeSettings_]]">
+  <template is="dom-if" if="[[shouldShowOneDriveSettings_]]">
     <cr-link-row id="oneDriveRow" start-icon="[[rowIcons_.oneDrive]]" class="hr" on-click="onClickOneDrive_" label="$i18n{oneDriveLabel}" sub-label="[[computeOneDriveSignedInLabel_(oneDriveConnectionState_)]]" role-description="$i18n{subpageArrowRoleDescription}">
     </cr-link-row>
+  </template>
+
+  <template is="dom-if" if="[[shouldShowOfficeSettings_]]">
     <cr-link-row id="officeRow" class="hr" start-icon="[[rowIcons_.ms365]]" on-click="onClickOffice_" label="$i18n{officeLabel}" sub-label="$i18n{officeSublabel}" role-description="$i18n{subpageArrowRoleDescription}">
-    </cr-link-row>
+      </cr-link-row>
   </template>
 
   <template is="dom-if" if="[[isRevampWayfindingEnabled_]]">

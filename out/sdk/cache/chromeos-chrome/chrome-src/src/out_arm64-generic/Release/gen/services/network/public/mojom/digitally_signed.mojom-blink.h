@@ -59,7 +59,7 @@ class BLINK_PLATFORM_EXPORT DigitallySigned {
   template <typename... Args>
   static DigitallySignedPtr New(Args&&... args) {
     return DigitallySignedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

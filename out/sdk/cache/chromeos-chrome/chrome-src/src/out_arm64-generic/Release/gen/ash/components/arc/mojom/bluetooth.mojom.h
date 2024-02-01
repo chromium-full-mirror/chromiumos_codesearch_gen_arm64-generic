@@ -1293,7 +1293,7 @@ class  BluetoothRemoteVersion {
   template <typename... Args>
   static BluetoothRemoteVersionPtr New(Args&&... args) {
     return BluetoothRemoteVersionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1448,7 +1448,7 @@ class  BluetoothCreateSdpRecordResult {
   template <typename... Args>
   static BluetoothCreateSdpRecordResultPtr New(Args&&... args) {
     return BluetoothCreateSdpRecordResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1593,7 +1593,7 @@ class  BluetoothSocketFlags {
   template <typename... Args>
   static BluetoothSocketFlagsPtr New(Args&&... args) {
     return BluetoothSocketFlagsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1754,7 +1754,7 @@ class  BluetoothProperty {
   static BluetoothPropertyPtr
   NewBdname(
       const std::string& value) {
-    auto result = BluetoothPropertyPtr(absl::in_place);
+    auto result = BluetoothPropertyPtr(std::in_place);
     result->set_bdname(std::move(value));
     return result;
   }
@@ -1762,7 +1762,7 @@ class  BluetoothProperty {
   static BluetoothPropertyPtr
   NewBdaddr(
       BluetoothAddressPtr value) {
-    auto result = BluetoothPropertyPtr(absl::in_place);
+    auto result = BluetoothPropertyPtr(std::in_place);
     result->set_bdaddr(std::move(value));
     return result;
   }
@@ -1770,7 +1770,7 @@ class  BluetoothProperty {
   static BluetoothPropertyPtr
   NewUuids(
       std::vector<::device::BluetoothUUID> value) {
-    auto result = BluetoothPropertyPtr(absl::in_place);
+    auto result = BluetoothPropertyPtr(std::in_place);
     result->set_uuids(std::move(value));
     return result;
   }
@@ -1778,7 +1778,7 @@ class  BluetoothProperty {
   static BluetoothPropertyPtr
   NewDeviceClass(
       uint32_t value) {
-    auto result = BluetoothPropertyPtr(absl::in_place);
+    auto result = BluetoothPropertyPtr(std::in_place);
     result->set_device_class(std::move(value));
     return result;
   }
@@ -1786,7 +1786,7 @@ class  BluetoothProperty {
   static BluetoothPropertyPtr
   NewDeviceType(
       ::device::BluetoothTransport value) {
-    auto result = BluetoothPropertyPtr(absl::in_place);
+    auto result = BluetoothPropertyPtr(std::in_place);
     result->set_device_type(std::move(value));
     return result;
   }
@@ -1794,7 +1794,7 @@ class  BluetoothProperty {
   static BluetoothPropertyPtr
   NewServiceRecord(
       BluetoothServiceRecordPtr value) {
-    auto result = BluetoothPropertyPtr(absl::in_place);
+    auto result = BluetoothPropertyPtr(std::in_place);
     result->set_service_record(std::move(value));
     return result;
   }
@@ -1802,7 +1802,7 @@ class  BluetoothProperty {
   static BluetoothPropertyPtr
   NewAdapterScanMode(
       BluetoothScanMode value) {
-    auto result = BluetoothPropertyPtr(absl::in_place);
+    auto result = BluetoothPropertyPtr(std::in_place);
     result->set_adapter_scan_mode(std::move(value));
     return result;
   }
@@ -1810,7 +1810,7 @@ class  BluetoothProperty {
   static BluetoothPropertyPtr
   NewBondedDevices(
       std::vector<BluetoothAddressPtr> value) {
-    auto result = BluetoothPropertyPtr(absl::in_place);
+    auto result = BluetoothPropertyPtr(std::in_place);
     result->set_bonded_devices(std::move(value));
     return result;
   }
@@ -1818,7 +1818,7 @@ class  BluetoothProperty {
   static BluetoothPropertyPtr
   NewDiscoveryTimeout(
       uint32_t value) {
-    auto result = BluetoothPropertyPtr(absl::in_place);
+    auto result = BluetoothPropertyPtr(std::in_place);
     result->set_discovery_timeout(std::move(value));
     return result;
   }
@@ -1826,7 +1826,7 @@ class  BluetoothProperty {
   static BluetoothPropertyPtr
   NewRemoteFriendlyName(
       const std::string& value) {
-    auto result = BluetoothPropertyPtr(absl::in_place);
+    auto result = BluetoothPropertyPtr(std::in_place);
     result->set_remote_friendly_name(std::move(value));
     return result;
   }
@@ -1834,7 +1834,7 @@ class  BluetoothProperty {
   static BluetoothPropertyPtr
   NewRemoteRssi(
       int32_t value) {
-    auto result = BluetoothPropertyPtr(absl::in_place);
+    auto result = BluetoothPropertyPtr(std::in_place);
     result->set_remote_rssi(std::move(value));
     return result;
   }
@@ -1842,7 +1842,7 @@ class  BluetoothProperty {
   static BluetoothPropertyPtr
   NewRemoteVersion(
       BluetoothRemoteVersionPtr value) {
-    auto result = BluetoothPropertyPtr(absl::in_place);
+    auto result = BluetoothPropertyPtr(std::in_place);
     result->set_remote_version(std::move(value));
     return result;
   }
@@ -1850,7 +1850,7 @@ class  BluetoothProperty {
   static BluetoothPropertyPtr
   NewLocalLeFeatures(
       BluetoothLocalLEFeaturesPtr value) {
-    auto result = BluetoothPropertyPtr(absl::in_place);
+    auto result = BluetoothPropertyPtr(std::in_place);
     result->set_local_le_features(std::move(value));
     return result;
   }
@@ -2115,7 +2115,7 @@ class  BluetoothAdvertisingData {
   static BluetoothAdvertisingDataPtr
   NewFlags(
       uint8_t value) {
-    auto result = BluetoothAdvertisingDataPtr(absl::in_place);
+    auto result = BluetoothAdvertisingDataPtr(std::in_place);
     result->set_flags(std::move(value));
     return result;
   }
@@ -2123,7 +2123,7 @@ class  BluetoothAdvertisingData {
   static BluetoothAdvertisingDataPtr
   NewServiceUuids16(
       std::vector<uint16_t> value) {
-    auto result = BluetoothAdvertisingDataPtr(absl::in_place);
+    auto result = BluetoothAdvertisingDataPtr(std::in_place);
     result->set_service_uuids_16(std::move(value));
     return result;
   }
@@ -2131,7 +2131,7 @@ class  BluetoothAdvertisingData {
   static BluetoothAdvertisingDataPtr
   NewServiceUuids(
       std::vector<::device::BluetoothUUID> value) {
-    auto result = BluetoothAdvertisingDataPtr(absl::in_place);
+    auto result = BluetoothAdvertisingDataPtr(std::in_place);
     result->set_service_uuids(std::move(value));
     return result;
   }
@@ -2139,7 +2139,7 @@ class  BluetoothAdvertisingData {
   static BluetoothAdvertisingDataPtr
   NewLocalName(
       const std::string& value) {
-    auto result = BluetoothAdvertisingDataPtr(absl::in_place);
+    auto result = BluetoothAdvertisingDataPtr(std::in_place);
     result->set_local_name(std::move(value));
     return result;
   }
@@ -2147,7 +2147,7 @@ class  BluetoothAdvertisingData {
   static BluetoothAdvertisingDataPtr
   NewTxPowerLevel(
       uint8_t value) {
-    auto result = BluetoothAdvertisingDataPtr(absl::in_place);
+    auto result = BluetoothAdvertisingDataPtr(std::in_place);
     result->set_tx_power_level(std::move(value));
     return result;
   }
@@ -2155,7 +2155,7 @@ class  BluetoothAdvertisingData {
   static BluetoothAdvertisingDataPtr
   NewServiceData(
       BluetoothServiceDataPtr value) {
-    auto result = BluetoothAdvertisingDataPtr(absl::in_place);
+    auto result = BluetoothAdvertisingDataPtr(std::in_place);
     result->set_service_data(std::move(value));
     return result;
   }
@@ -2163,7 +2163,7 @@ class  BluetoothAdvertisingData {
   static BluetoothAdvertisingDataPtr
   NewManufacturerData(
       std::vector<uint8_t> value) {
-    auto result = BluetoothAdvertisingDataPtr(absl::in_place);
+    auto result = BluetoothAdvertisingDataPtr(std::in_place);
     result->set_manufacturer_data(std::move(value));
     return result;
   }
@@ -2171,7 +2171,7 @@ class  BluetoothAdvertisingData {
   static BluetoothAdvertisingDataPtr
   NewOtherData(
       std::vector<uint8_t> value) {
-    auto result = BluetoothAdvertisingDataPtr(absl::in_place);
+    auto result = BluetoothAdvertisingDataPtr(std::in_place);
     result->set_other_data(std::move(value));
     return result;
   }
@@ -2363,7 +2363,7 @@ class  BluetoothAddress {
   template <typename... Args>
   static BluetoothAddressPtr New(Args&&... args) {
     return BluetoothAddressPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2503,7 +2503,7 @@ class  BluetoothUUID {
   template <typename... Args>
   static BluetoothUUIDPtr New(Args&&... args) {
     return BluetoothUUIDPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2643,7 +2643,7 @@ class  BluetoothServiceRecord {
   template <typename... Args>
   static BluetoothServiceRecordPtr New(Args&&... args) {
     return BluetoothServiceRecordPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2789,7 +2789,7 @@ class  BluetoothLocalLEFeatures {
   template <typename... Args>
   static BluetoothLocalLEFeaturesPtr New(Args&&... args) {
     return BluetoothLocalLEFeaturesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2961,7 +2961,7 @@ class  BluetoothGattID {
   template <typename... Args>
   static BluetoothGattIDPtr New(Args&&... args) {
     return BluetoothGattIDPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3111,7 +3111,7 @@ class  BluetoothGattServiceID {
   template <typename... Args>
   static BluetoothGattServiceIDPtr New(Args&&... args) {
     return BluetoothGattServiceIDPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3256,7 +3256,7 @@ class  BluetoothGattValue {
   template <typename... Args>
   static BluetoothGattValuePtr New(Args&&... args) {
     return BluetoothGattValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3399,7 +3399,7 @@ class  BluetoothServiceData {
   template <typename... Args>
   static BluetoothServiceDataPtr New(Args&&... args) {
     return BluetoothServiceDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3542,7 +3542,7 @@ class  BluetoothAdvertisement {
   template <typename... Args>
   static BluetoothAdvertisementPtr New(Args&&... args) {
     return BluetoothAdvertisementPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3690,7 +3690,7 @@ class  BluetoothGattDBElement {
   template <typename... Args>
   static BluetoothGattDBElementPtr New(Args&&... args) {
     return BluetoothGattDBElementPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3860,7 +3860,7 @@ class  BluetoothSdpAttribute {
   template <typename... Args>
   static BluetoothSdpAttributePtr New(Args&&... args) {
     return BluetoothSdpAttributePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4020,7 +4020,7 @@ class  BluetoothSdpRecord {
   template <typename... Args>
   static BluetoothSdpRecordPtr New(Args&&... args) {
     return BluetoothSdpRecordPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4163,7 +4163,7 @@ class  BluetoothRfcommConnection {
   template <typename... Args>
   static BluetoothRfcommConnectionPtr New(Args&&... args) {
     return BluetoothRfcommConnectionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4307,7 +4307,7 @@ class  BluetoothSocketConnection {
   template <typename... Args>
   static BluetoothSocketConnectionPtr New(Args&&... args) {
     return BluetoothSocketConnectionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

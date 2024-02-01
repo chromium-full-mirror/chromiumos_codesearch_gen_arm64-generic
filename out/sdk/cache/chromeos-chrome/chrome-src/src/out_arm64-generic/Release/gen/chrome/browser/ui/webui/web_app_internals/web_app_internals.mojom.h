@@ -234,7 +234,7 @@ class  InstallIsolatedWebAppResult {
   template <typename... Args>
   static InstallIsolatedWebAppResultPtr New(Args&&... args) {
     return InstallIsolatedWebAppResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -389,7 +389,7 @@ class  IwaDevModeLocation {
   static IwaDevModeLocationPtr
   NewProxyOrigin(
       const ::url::Origin& value) {
-    auto result = IwaDevModeLocationPtr(absl::in_place);
+    auto result = IwaDevModeLocationPtr(std::in_place);
     result->set_proxy_origin(std::move(value));
     return result;
   }
@@ -397,7 +397,7 @@ class  IwaDevModeLocation {
   static IwaDevModeLocationPtr
   NewBundlePath(
       const ::base::FilePath& value) {
-    auto result = IwaDevModeLocationPtr(absl::in_place);
+    auto result = IwaDevModeLocationPtr(std::in_place);
     result->set_bundle_path(std::move(value));
     return result;
   }
@@ -512,7 +512,7 @@ class  IwaDevModeAppInfo {
   template <typename... Args>
   static IwaDevModeAppInfoPtr New(Args&&... args) {
     return IwaDevModeAppInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -710,7 +710,7 @@ class  PatternMatcher {
   template <typename... Args>
   static PatternMatcherPtr New(Args&&... args) {
     return PatternMatcherPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -853,7 +853,7 @@ class  AuthorityEntry {
   template <typename... Args>
   static AuthorityEntryPtr New(Args&&... args) {
     return AuthorityEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -996,7 +996,7 @@ class  UriComponents {
   template <typename... Args>
   static UriComponentsPtr New(Args&&... args) {
     return UriComponentsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1147,7 +1147,7 @@ class  UrlWithMimeType {
   template <typename... Args>
   static UrlWithMimeTypePtr New(Args&&... args) {
     return UrlWithMimeTypePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1295,7 +1295,7 @@ class  CaptionColor {
   template <typename... Args>
   static CaptionColorPtr New(Args&&... args) {
     return CaptionColorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1452,7 +1452,7 @@ class  IntentInfo {
   template <typename... Args>
   static IntentInfoPtr New(Args&&... args) {
     return IntentInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1645,7 +1645,7 @@ class  IntentFilter {
   template <typename... Args>
   static IntentFilterPtr New(Args&&... args) {
     return IntentFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1857,7 +1857,7 @@ class  IntentHandlerInfo {
   template <typename... Args>
   static IntentHandlerInfoPtr New(Args&&... args) {
     return IntentHandlerInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2041,7 +2041,7 @@ class  ActivityIcon {
   template <typename... Args>
   static ActivityIconPtr New(Args&&... args) {
     return ActivityIconPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2202,7 +2202,7 @@ class  TextSelectionAction {
   template <typename... Args>
   static TextSelectionActionPtr New(Args&&... args) {
     return TextSelectionActionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2365,7 +2365,7 @@ class  LaunchFileInfo {
   template <typename... Args>
   static LaunchFileInfoPtr New(Args&&... args) {
     return LaunchFileInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2523,7 +2523,7 @@ class  LaunchIntent {
   template <typename... Args>
   static LaunchIntentPtr New(Args&&... args) {
     return LaunchIntentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2680,7 +2680,7 @@ class  SupportedLinksPackage {
   template <typename... Args>
   static SupportedLinksPackagePtr New(Args&&... args) {
     return SupportedLinksPackagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2826,7 +2826,7 @@ class  CaptionStyle {
   template <typename... Args>
   static CaptionStylePtr New(Args&&... args) {
     return CaptionStylePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2980,7 +2980,7 @@ class  AccessibilityFeatures {
   template <typename... Args>
   static AccessibilityFeaturesPtr New(Args&&... args) {
     return AccessibilityFeaturesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

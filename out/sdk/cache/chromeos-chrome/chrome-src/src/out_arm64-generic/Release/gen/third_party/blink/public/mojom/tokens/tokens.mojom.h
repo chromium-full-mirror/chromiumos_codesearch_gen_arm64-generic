@@ -81,7 +81,7 @@ class BLINK_COMMON_EXPORT FrameToken {
   static FrameTokenPtr
   NewLocalFrameToken(
       const ::blink::LocalFrameToken& value) {
-    auto result = FrameTokenPtr(absl::in_place);
+    auto result = FrameTokenPtr(std::in_place);
     result->set_local_frame_token(std::move(value));
     return result;
   }
@@ -89,7 +89,7 @@ class BLINK_COMMON_EXPORT FrameToken {
   static FrameTokenPtr
   NewRemoteFrameToken(
       const ::blink::RemoteFrameToken& value) {
-    auto result = FrameTokenPtr(absl::in_place);
+    auto result = FrameTokenPtr(std::in_place);
     result->set_remote_frame_token(std::move(value));
     return result;
   }
@@ -211,7 +211,7 @@ class BLINK_COMMON_EXPORT WorkerToken {
   static WorkerTokenPtr
   NewDedicatedWorkerToken(
       const ::blink::DedicatedWorkerToken& value) {
-    auto result = WorkerTokenPtr(absl::in_place);
+    auto result = WorkerTokenPtr(std::in_place);
     result->set_dedicated_worker_token(std::move(value));
     return result;
   }
@@ -219,7 +219,7 @@ class BLINK_COMMON_EXPORT WorkerToken {
   static WorkerTokenPtr
   NewServiceWorkerToken(
       const ::blink::ServiceWorkerToken& value) {
-    auto result = WorkerTokenPtr(absl::in_place);
+    auto result = WorkerTokenPtr(std::in_place);
     result->set_service_worker_token(std::move(value));
     return result;
   }
@@ -227,7 +227,7 @@ class BLINK_COMMON_EXPORT WorkerToken {
   static WorkerTokenPtr
   NewSharedWorkerToken(
       const ::blink::SharedWorkerToken& value) {
-    auto result = WorkerTokenPtr(absl::in_place);
+    auto result = WorkerTokenPtr(std::in_place);
     result->set_shared_worker_token(std::move(value));
     return result;
   }
@@ -362,7 +362,7 @@ class BLINK_COMMON_EXPORT WorkletToken {
   static WorkletTokenPtr
   NewAnimationWorkletToken(
       const ::blink::AnimationWorkletToken& value) {
-    auto result = WorkletTokenPtr(absl::in_place);
+    auto result = WorkletTokenPtr(std::in_place);
     result->set_animation_worklet_token(std::move(value));
     return result;
   }
@@ -370,7 +370,7 @@ class BLINK_COMMON_EXPORT WorkletToken {
   static WorkletTokenPtr
   NewAudioWorkletToken(
       const ::blink::AudioWorkletToken& value) {
-    auto result = WorkletTokenPtr(absl::in_place);
+    auto result = WorkletTokenPtr(std::in_place);
     result->set_audio_worklet_token(std::move(value));
     return result;
   }
@@ -378,7 +378,7 @@ class BLINK_COMMON_EXPORT WorkletToken {
   static WorkletTokenPtr
   NewLayoutWorkletToken(
       LayoutWorkletTokenPtr value) {
-    auto result = WorkletTokenPtr(absl::in_place);
+    auto result = WorkletTokenPtr(std::in_place);
     result->set_layout_worklet_token(std::move(value));
     return result;
   }
@@ -386,7 +386,7 @@ class BLINK_COMMON_EXPORT WorkletToken {
   static WorkletTokenPtr
   NewPaintWorkletToken(
       const ::blink::PaintWorkletToken& value) {
-    auto result = WorkletTokenPtr(absl::in_place);
+    auto result = WorkletTokenPtr(std::in_place);
     result->set_paint_worklet_token(std::move(value));
     return result;
   }
@@ -394,7 +394,7 @@ class BLINK_COMMON_EXPORT WorkletToken {
   static WorkletTokenPtr
   NewSharedStorageWorkletToken(
       SharedStorageWorkletTokenPtr value) {
-    auto result = WorkletTokenPtr(absl::in_place);
+    auto result = WorkletTokenPtr(std::in_place);
     result->set_shared_storage_worklet_token(std::move(value));
     return result;
   }
@@ -555,7 +555,7 @@ class BLINK_COMMON_EXPORT ExecutionContextToken {
   static ExecutionContextTokenPtr
   NewLocalFrameToken(
       const ::blink::LocalFrameToken& value) {
-    auto result = ExecutionContextTokenPtr(absl::in_place);
+    auto result = ExecutionContextTokenPtr(std::in_place);
     result->set_local_frame_token(std::move(value));
     return result;
   }
@@ -563,7 +563,7 @@ class BLINK_COMMON_EXPORT ExecutionContextToken {
   static ExecutionContextTokenPtr
   NewDedicatedWorkerToken(
       const ::blink::DedicatedWorkerToken& value) {
-    auto result = ExecutionContextTokenPtr(absl::in_place);
+    auto result = ExecutionContextTokenPtr(std::in_place);
     result->set_dedicated_worker_token(std::move(value));
     return result;
   }
@@ -571,7 +571,7 @@ class BLINK_COMMON_EXPORT ExecutionContextToken {
   static ExecutionContextTokenPtr
   NewServiceWorkerToken(
       const ::blink::ServiceWorkerToken& value) {
-    auto result = ExecutionContextTokenPtr(absl::in_place);
+    auto result = ExecutionContextTokenPtr(std::in_place);
     result->set_service_worker_token(std::move(value));
     return result;
   }
@@ -579,7 +579,7 @@ class BLINK_COMMON_EXPORT ExecutionContextToken {
   static ExecutionContextTokenPtr
   NewSharedWorkerToken(
       const ::blink::SharedWorkerToken& value) {
-    auto result = ExecutionContextTokenPtr(absl::in_place);
+    auto result = ExecutionContextTokenPtr(std::in_place);
     result->set_shared_worker_token(std::move(value));
     return result;
   }
@@ -587,7 +587,7 @@ class BLINK_COMMON_EXPORT ExecutionContextToken {
   static ExecutionContextTokenPtr
   NewAnimationWorkletToken(
       const ::blink::AnimationWorkletToken& value) {
-    auto result = ExecutionContextTokenPtr(absl::in_place);
+    auto result = ExecutionContextTokenPtr(std::in_place);
     result->set_animation_worklet_token(std::move(value));
     return result;
   }
@@ -595,7 +595,7 @@ class BLINK_COMMON_EXPORT ExecutionContextToken {
   static ExecutionContextTokenPtr
   NewAudioWorkletToken(
       const ::blink::AudioWorkletToken& value) {
-    auto result = ExecutionContextTokenPtr(absl::in_place);
+    auto result = ExecutionContextTokenPtr(std::in_place);
     result->set_audio_worklet_token(std::move(value));
     return result;
   }
@@ -603,7 +603,7 @@ class BLINK_COMMON_EXPORT ExecutionContextToken {
   static ExecutionContextTokenPtr
   NewLayoutWorkletToken(
       LayoutWorkletTokenPtr value) {
-    auto result = ExecutionContextTokenPtr(absl::in_place);
+    auto result = ExecutionContextTokenPtr(std::in_place);
     result->set_layout_worklet_token(std::move(value));
     return result;
   }
@@ -611,7 +611,7 @@ class BLINK_COMMON_EXPORT ExecutionContextToken {
   static ExecutionContextTokenPtr
   NewPaintWorkletToken(
       const ::blink::PaintWorkletToken& value) {
-    auto result = ExecutionContextTokenPtr(absl::in_place);
+    auto result = ExecutionContextTokenPtr(std::in_place);
     result->set_paint_worklet_token(std::move(value));
     return result;
   }
@@ -619,7 +619,7 @@ class BLINK_COMMON_EXPORT ExecutionContextToken {
   static ExecutionContextTokenPtr
   NewSharedStorageWorkletToken(
       SharedStorageWorkletTokenPtr value) {
-    auto result = ExecutionContextTokenPtr(absl::in_place);
+    auto result = ExecutionContextTokenPtr(std::in_place);
     result->set_shared_storage_worklet_token(std::move(value));
     return result;
   }
@@ -627,7 +627,7 @@ class BLINK_COMMON_EXPORT ExecutionContextToken {
   static ExecutionContextTokenPtr
   NewShadowRealmToken(
       const ::blink::ShadowRealmToken& value) {
-    auto result = ExecutionContextTokenPtr(absl::in_place);
+    auto result = ExecutionContextTokenPtr(std::in_place);
     result->set_shadow_realm_token(std::move(value));
     return result;
   }
@@ -853,7 +853,7 @@ class BLINK_COMMON_EXPORT WebGPUExecutionContextToken {
   static WebGPUExecutionContextTokenPtr
   NewDocumentToken(
       const ::blink::DocumentToken& value) {
-    auto result = WebGPUExecutionContextTokenPtr(absl::in_place);
+    auto result = WebGPUExecutionContextTokenPtr(std::in_place);
     result->set_document_token(std::move(value));
     return result;
   }
@@ -861,8 +861,24 @@ class BLINK_COMMON_EXPORT WebGPUExecutionContextToken {
   static WebGPUExecutionContextTokenPtr
   NewDedicatedWorkerToken(
       const ::blink::DedicatedWorkerToken& value) {
-    auto result = WebGPUExecutionContextTokenPtr(absl::in_place);
+    auto result = WebGPUExecutionContextTokenPtr(std::in_place);
     result->set_dedicated_worker_token(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |shared_worker_token|.
+  static WebGPUExecutionContextTokenPtr
+  NewSharedWorkerToken(
+      const ::blink::SharedWorkerToken& value) {
+    auto result = WebGPUExecutionContextTokenPtr(std::in_place);
+    result->set_shared_worker_token(std::move(value));
+    return result;
+  }
+  // Construct an instance holding |service_worker_token|.
+  static WebGPUExecutionContextTokenPtr
+  NewServiceWorkerToken(
+      const ::blink::ServiceWorkerToken& value) {
+    auto result = WebGPUExecutionContextTokenPtr(std::in_place);
+    result->set_service_worker_token(std::move(value));
     return result;
   }
 
@@ -931,6 +947,30 @@ class BLINK_COMMON_EXPORT WebGPUExecutionContextToken {
   
   void set_dedicated_worker_token(
       const ::blink::DedicatedWorkerToken& dedicated_worker_token);
+  
+  bool is_shared_worker_token() const { return tag_ == Tag::kSharedWorkerToken; }
+
+  
+  ::blink::SharedWorkerToken& get_shared_worker_token() const {
+    CHECK(tag_ == Tag::kSharedWorkerToken);
+    return *(data_.shared_worker_token);
+  }
+
+  
+  void set_shared_worker_token(
+      const ::blink::SharedWorkerToken& shared_worker_token);
+  
+  bool is_service_worker_token() const { return tag_ == Tag::kServiceWorkerToken; }
+
+  
+  ::blink::ServiceWorkerToken& get_service_worker_token() const {
+    CHECK(tag_ == Tag::kServiceWorkerToken);
+    return *(data_.service_worker_token);
+  }
+
+  
+  void set_service_worker_token(
+      const ::blink::ServiceWorkerToken& service_worker_token);
 
   template <typename UserType>
   static mojo::Message SerializeAsMessage(UserType* input) {
@@ -951,6 +991,8 @@ class BLINK_COMMON_EXPORT WebGPUExecutionContextToken {
     ~Union_() = default;
     ::blink::DocumentToken* document_token;
     ::blink::DedicatedWorkerToken* dedicated_worker_token;
+    ::blink::SharedWorkerToken* shared_worker_token;
+    ::blink::ServiceWorkerToken* service_worker_token;
   };
 
   static bool Validate(const void* data,
@@ -975,7 +1017,7 @@ class BLINK_COMMON_EXPORT DocumentToken {
   template <typename... Args>
   static DocumentTokenPtr New(Args&&... args) {
     return DocumentTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1115,7 +1157,7 @@ class BLINK_COMMON_EXPORT LocalFrameToken {
   template <typename... Args>
   static LocalFrameTokenPtr New(Args&&... args) {
     return LocalFrameTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1255,7 +1297,7 @@ class BLINK_COMMON_EXPORT RemoteFrameToken {
   template <typename... Args>
   static RemoteFrameTokenPtr New(Args&&... args) {
     return RemoteFrameTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1395,7 +1437,7 @@ class BLINK_COMMON_EXPORT DedicatedWorkerToken {
   template <typename... Args>
   static DedicatedWorkerTokenPtr New(Args&&... args) {
     return DedicatedWorkerTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1535,7 +1577,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerToken {
   template <typename... Args>
   static ServiceWorkerTokenPtr New(Args&&... args) {
     return ServiceWorkerTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1675,7 +1717,7 @@ class BLINK_COMMON_EXPORT SharedWorkerToken {
   template <typename... Args>
   static SharedWorkerTokenPtr New(Args&&... args) {
     return SharedWorkerTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1815,7 +1857,7 @@ class BLINK_COMMON_EXPORT AnimationWorkletToken {
   template <typename... Args>
   static AnimationWorkletTokenPtr New(Args&&... args) {
     return AnimationWorkletTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1955,7 +1997,7 @@ class BLINK_COMMON_EXPORT AudioWorkletToken {
   template <typename... Args>
   static AudioWorkletTokenPtr New(Args&&... args) {
     return AudioWorkletTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2095,7 +2137,7 @@ class BLINK_COMMON_EXPORT LayoutWorkletToken {
   template <typename... Args>
   static LayoutWorkletTokenPtr New(Args&&... args) {
     return LayoutWorkletTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2235,7 +2277,7 @@ class BLINK_COMMON_EXPORT PaintWorkletToken {
   template <typename... Args>
   static PaintWorkletTokenPtr New(Args&&... args) {
     return PaintWorkletTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2375,7 +2417,7 @@ class BLINK_COMMON_EXPORT SharedStorageWorkletToken {
   template <typename... Args>
   static SharedStorageWorkletTokenPtr New(Args&&... args) {
     return SharedStorageWorkletTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2515,7 +2557,7 @@ class BLINK_COMMON_EXPORT ShadowRealmToken {
   template <typename... Args>
   static ShadowRealmTokenPtr New(Args&&... args) {
     return ShadowRealmTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2655,7 +2697,7 @@ class BLINK_COMMON_EXPORT AttributionSrcToken {
   template <typename... Args>
   static AttributionSrcTokenPtr New(Args&&... args) {
     return AttributionSrcTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2795,7 +2837,7 @@ class BLINK_COMMON_EXPORT ClipboardSequenceNumberToken {
   template <typename... Args>
   static ClipboardSequenceNumberTokenPtr New(Args&&... args) {
     return ClipboardSequenceNumberTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2935,7 +2977,7 @@ class BLINK_COMMON_EXPORT V8ContextToken {
   template <typename... Args>
   static V8ContextTokenPtr New(Args&&... args) {
     return V8ContextTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3246,6 +3288,12 @@ WebGPUExecutionContextTokenPtr WebGPUExecutionContextToken::Clone() const {
     case Tag::kDedicatedWorkerToken:
       return NewDedicatedWorkerToken(
           mojo::Clone(*data_.dedicated_worker_token));
+    case Tag::kSharedWorkerToken:
+      return NewSharedWorkerToken(
+          mojo::Clone(*data_.shared_worker_token));
+    case Tag::kServiceWorkerToken:
+      return NewServiceWorkerToken(
+          mojo::Clone(*data_.service_worker_token));
   }
   return nullptr;
 }
@@ -3262,6 +3310,10 @@ bool WebGPUExecutionContextToken::Equals(const T& other) const {
       return mojo::Equals(*(data_.document_token), *(other.data_.document_token));
     case Tag::kDedicatedWorkerToken:
       return mojo::Equals(*(data_.dedicated_worker_token), *(other.data_.dedicated_worker_token));
+    case Tag::kSharedWorkerToken:
+      return mojo::Equals(*(data_.shared_worker_token), *(other.data_.shared_worker_token));
+    case Tag::kServiceWorkerToken:
+      return mojo::Equals(*(data_.service_worker_token), *(other.data_.service_worker_token));
   }
 
   return false;
@@ -3980,6 +4032,14 @@ struct BLINK_COMMON_EXPORT UnionTraits<::blink::mojom::WebGPUExecutionContextTok
 
   static const ::blink::DedicatedWorkerToken& dedicated_worker_token(const ::blink::mojom::WebGPUExecutionContextTokenPtr& input) {
     return input->get_dedicated_worker_token();
+  }
+
+  static const ::blink::SharedWorkerToken& shared_worker_token(const ::blink::mojom::WebGPUExecutionContextTokenPtr& input) {
+    return input->get_shared_worker_token();
+  }
+
+  static const ::blink::ServiceWorkerToken& service_worker_token(const ::blink::mojom::WebGPUExecutionContextTokenPtr& input) {
+    return input->get_service_worker_token();
   }
 
   static bool Read(::blink::mojom::WebGPUExecutionContextToken::DataView input, ::blink::mojom::WebGPUExecutionContextTokenPtr* output);

@@ -453,7 +453,7 @@ class  QueryResult {
   template <typename... Args>
   static QueryResultPtr New(Args&&... args) {
     return QueryResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

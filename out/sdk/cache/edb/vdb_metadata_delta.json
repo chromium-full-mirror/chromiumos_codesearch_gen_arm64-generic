@@ -1,1 +1,1 @@
-{"version": "1", "timestamp": 1706768393.5747068}
+{"version": "1", "timestamp": 1706789760.0008924, "deltas": [{"event": "add", "package": "chromeos-base/ec-devutils", "version": "0.0.3-r13569", "slot": "0", "counter": "1056"}]}

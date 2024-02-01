@@ -65,7 +65,7 @@ class  KeyAction {
   static KeyActionPtr
   NewFunction(
       ::remoting::protocol::LayoutKeyFunction value) {
-    auto result = KeyActionPtr(absl::in_place);
+    auto result = KeyActionPtr(std::in_place);
     result->set_function(std::move(value));
     return result;
   }
@@ -73,7 +73,7 @@ class  KeyAction {
   static KeyActionPtr
   NewCharacter(
       const std::string& value) {
-    auto result = KeyActionPtr(absl::in_place);
+    auto result = KeyActionPtr(std::in_place);
     result->set_character(std::move(value));
     return result;
   }
@@ -187,7 +187,7 @@ class  KeyBehavior {
   template <typename... Args>
   static KeyBehaviorPtr New(Args&&... args) {
     return KeyBehaviorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -327,7 +327,7 @@ class  KeyboardLayout {
   template <typename... Args>
   static KeyboardLayoutPtr New(Args&&... args) {
     return KeyboardLayoutPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -56,7 +56,7 @@ class  ClickModifiers {
   template <typename... Args>
   static ClickModifiersPtr New(Args&&... args) {
     return ClickModifiersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

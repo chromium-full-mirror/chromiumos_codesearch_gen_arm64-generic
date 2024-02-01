@@ -483,6 +483,9 @@ void RemovePolicies(enterprise_management::ChromeDeviceSettingsProto* policies,
       case 1195:
         policies->clear_deviceextendedautoupdateenabled();
         break;
+      case 1196:
+        policies->clear_deviceweeklyscheduledsuspend();
+        break;
     }
   }
 }

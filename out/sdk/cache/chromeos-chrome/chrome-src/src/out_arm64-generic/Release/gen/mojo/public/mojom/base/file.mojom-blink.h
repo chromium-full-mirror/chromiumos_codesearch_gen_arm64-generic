@@ -61,7 +61,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM_BLINK) File {
   template <typename... Args>
   static FilePtr New(Args&&... args) {
     return FilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

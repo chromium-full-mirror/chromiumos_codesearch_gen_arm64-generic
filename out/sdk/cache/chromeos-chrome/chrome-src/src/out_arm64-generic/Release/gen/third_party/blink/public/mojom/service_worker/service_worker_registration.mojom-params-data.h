@@ -304,7 +304,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `error_msg` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErrorMsg` instead "
     "of `ReadErrorMsg if you're fine with null values being "
@@ -365,7 +365,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `error_msg` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErrorMsg` instead "
     "of `ReadErrorMsg if you're fine with null values being "
@@ -429,7 +429,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `error_msg` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErrorMsg` instead "
     "of `ReadErrorMsg if you're fine with null values being "
@@ -490,7 +490,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `error_msg` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErrorMsg` instead "
     "of `ReadErrorMsg if you're fine with null values being "
@@ -510,7 +510,7 @@ static_assert(
         ::blink::mojom::NavigationPreloadStateDataView, UserType>(),
     "Attempting to read the optional `state` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadState` instead "
     "of `ReadState if you're fine with null values being "
@@ -582,7 +582,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `error_msg` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErrorMsg` instead "
     "of `ReadErrorMsg if you're fine with null values being "
@@ -628,7 +628,7 @@ static_assert(
         ::blink::mojom::ServiceWorkerObjectInfoDataView, UserType>(),
     "Attempting to read the optional `installing` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInstalling` instead "
     "of `ReadInstalling if you're fine with null values being "
@@ -648,7 +648,7 @@ static_assert(
         ::blink::mojom::ServiceWorkerObjectInfoDataView, UserType>(),
     "Attempting to read the optional `waiting` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWaiting` instead "
     "of `ReadWaiting if you're fine with null values being "
@@ -668,7 +668,7 @@ static_assert(
         ::blink::mojom::ServiceWorkerObjectInfoDataView, UserType>(),
     "Attempting to read the optional `active` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadActive` instead "
     "of `ReadActive if you're fine with null values being "

@@ -61,7 +61,7 @@ class  HitTestRegion {
   template <typename... Args>
   static HitTestRegionPtr New(Args&&... args) {
     return HitTestRegionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -213,7 +213,7 @@ class  HitTestRegionList {
   template <typename... Args>
   static HitTestRegionListPtr New(Args&&... args) {
     return HitTestRegionListPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

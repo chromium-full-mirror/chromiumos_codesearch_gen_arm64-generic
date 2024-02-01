@@ -185,7 +185,7 @@ class  ParentAccessErrorResult {
   template <typename... Args>
   static ParentAccessErrorResultPtr New(Args&&... args) {
     return ParentAccessErrorResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -326,7 +326,7 @@ class  ParentAccessCanceledResult {
   template <typename... Args>
   static ParentAccessCanceledResultPtr New(Args&&... args) {
     return ParentAccessCanceledResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -462,7 +462,7 @@ class  ParentAccessDeclinedResult {
   template <typename... Args>
   static ParentAccessDeclinedResultPtr New(Args&&... args) {
     return ParentAccessDeclinedResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -598,7 +598,7 @@ class  ParentAccessDisabledResult {
   template <typename... Args>
   static ParentAccessDisabledResultPtr New(Args&&... args) {
     return ParentAccessDisabledResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -745,7 +745,7 @@ class  ParentAccessResult {
   static ParentAccessResultPtr
   NewApproved(
       ParentAccessApprovedResultPtr value) {
-    auto result = ParentAccessResultPtr(absl::in_place);
+    auto result = ParentAccessResultPtr(std::in_place);
     result->set_approved(std::move(value));
     return result;
   }
@@ -753,7 +753,7 @@ class  ParentAccessResult {
   static ParentAccessResultPtr
   NewError(
       ParentAccessErrorResultPtr value) {
-    auto result = ParentAccessResultPtr(absl::in_place);
+    auto result = ParentAccessResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -761,7 +761,7 @@ class  ParentAccessResult {
   static ParentAccessResultPtr
   NewCanceled(
       ParentAccessCanceledResultPtr value) {
-    auto result = ParentAccessResultPtr(absl::in_place);
+    auto result = ParentAccessResultPtr(std::in_place);
     result->set_canceled(std::move(value));
     return result;
   }
@@ -769,7 +769,7 @@ class  ParentAccessResult {
   static ParentAccessResultPtr
   NewDeclined(
       ParentAccessDeclinedResultPtr value) {
-    auto result = ParentAccessResultPtr(absl::in_place);
+    auto result = ParentAccessResultPtr(std::in_place);
     result->set_declined(std::move(value));
     return result;
   }
@@ -777,7 +777,7 @@ class  ParentAccessResult {
   static ParentAccessResultPtr
   NewDisabled(
       ParentAccessDisabledResultPtr value) {
-    auto result = ParentAccessResultPtr(absl::in_place);
+    auto result = ParentAccessResultPtr(std::in_place);
     result->set_disabled(std::move(value));
     return result;
   }
@@ -930,7 +930,7 @@ class  ParentAccessApprovedResult {
   template <typename... Args>
   static ParentAccessApprovedResultPtr New(Args&&... args) {
     return ParentAccessApprovedResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1077,7 +1077,7 @@ class  ExtensionPermission {
   template <typename... Args>
   static ExtensionPermissionPtr New(Args&&... args) {
     return ExtensionPermissionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

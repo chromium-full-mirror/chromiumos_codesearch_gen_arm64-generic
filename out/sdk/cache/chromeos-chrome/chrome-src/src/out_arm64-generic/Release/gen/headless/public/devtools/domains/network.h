@@ -217,7 +217,7 @@ class HEADLESS_EXPORT Domain {
   void ClearBrowserCookies(base::OnceClosure callback = base::OnceClosure());
   void ClearBrowserCookies(std::unique_ptr<ClearBrowserCookiesParams> params, base::OnceClosure callback);
 
-  // Deletes browser cookies with matching name and url or domain/path pair.
+  // Deletes browser cookies with matching name and url or domain/path/partitionKey pair.
   void DeleteCookies(std::unique_ptr<DeleteCookiesParams> params, base::OnceCallback<void(std::unique_ptr<DeleteCookiesResult>)> callback = base::OnceCallback<void(std::unique_ptr<DeleteCookiesResult>)>());
   void DeleteCookies(const std::string& name, base::OnceClosure callback = base::OnceClosure());
   void DeleteCookies(std::unique_ptr<DeleteCookiesParams> params, base::OnceClosure callback);

@@ -595,7 +595,7 @@ class  SharedStorageOperation {
   template <typename... Args>
   static SharedStorageOperationPtr New(Args&&... args) {
     return SharedStorageOperationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -746,7 +746,7 @@ class  LoadInfo {
   template <typename... Args>
   static LoadInfoPtr New(Args&&... args) {
     return LoadInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

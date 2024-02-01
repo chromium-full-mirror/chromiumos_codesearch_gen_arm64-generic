@@ -70,7 +70,7 @@ class  CompositorFrameMetadata {
   template <typename... Args>
   static CompositorFrameMetadataPtr New(Args&&... args) {
     return CompositorFrameMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

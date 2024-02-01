@@ -91,6 +91,16 @@ class DispatchFetchEventParamsDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  inline void GetResultingClientIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadResultingClientId(UserType* output) {
+    
+    auto* pointer = data_->resulting_client_id.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
   template <typename UserType>
   UserType TakePreloadUrlLoaderClientReceiver() {
     UserType result;
@@ -164,6 +174,18 @@ struct Serializer<::blink::mojom::DispatchFetchEventParamsDataView, MaybeConstUs
         fragment->client_id.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null client_id in DispatchFetchEventParams struct");
+    decltype(Traits::resulting_client_id(input)) in_resulting_client_id = Traits::resulting_client_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->resulting_client_id)::BaseType> resulting_client_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_resulting_client_id, resulting_client_id_fragment);
+    fragment->resulting_client_id.Set(
+        resulting_client_id_fragment.is_null() ? nullptr : resulting_client_id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->resulting_client_id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null resulting_client_id in DispatchFetchEventParams struct");
     decltype(Traits::preload_url_loader_client_receiver(input)) in_preload_url_loader_client_receiver = Traits::preload_url_loader_client_receiver(input);
     mojo::internal::Serialize<mojo::InterfaceRequestDataView<::network::mojom::URLLoaderClientInterfaceBase>>(
         in_preload_url_loader_client_receiver, &fragment->preload_url_loader_client_receiver, &fragment.message());
@@ -199,6 +221,11 @@ inline void DispatchFetchEventParamsDataView::GetRequestDataView(
 inline void DispatchFetchEventParamsDataView::GetClientIdDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->client_id.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void DispatchFetchEventParamsDataView::GetResultingClientIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->resulting_client_id.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 

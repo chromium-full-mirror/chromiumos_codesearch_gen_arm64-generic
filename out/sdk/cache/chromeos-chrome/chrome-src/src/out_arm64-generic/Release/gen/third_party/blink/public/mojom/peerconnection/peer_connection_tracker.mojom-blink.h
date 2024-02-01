@@ -430,7 +430,7 @@ class PLATFORM_EXPORT PeerConnectionInfo {
   template <typename... Args>
   static PeerConnectionInfoPtr New(Args&&... args) {
     return PeerConnectionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

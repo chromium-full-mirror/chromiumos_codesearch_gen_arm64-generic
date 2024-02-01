@@ -109,12 +109,12 @@ class FieldTrialGroupInfoDataView {
   }
   std::optional<bool> is_overridden() const {
     if (data_->header_.version < 1) {
-      return absl::nullopt;
+      return std::nullopt;
     }
 
     return data_->is_overridden_$flag
-        ? absl::make_optional(!!data_->is_overridden_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->is_overridden_$value)
+        : std::nullopt;
   }
  private:
   internal::FieldTrialGroupInfo_Data* data_ = nullptr;

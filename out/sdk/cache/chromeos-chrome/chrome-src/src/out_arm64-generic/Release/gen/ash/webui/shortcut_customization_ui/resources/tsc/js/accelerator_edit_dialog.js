@@ -6,11 +6,12 @@ import '../css/shortcut_customization_shared.css.js';
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
 import 'chrome://resources/cr_elements/cr_input/cr_input.js';
+import { getInstance as getAnnouncerInstance } from 'chrome://resources/cr_elements/cr_a11y_announcer/cr_a11y_announcer.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { EventTracker } from 'chrome://resources/js/event_tracker.js';
 import { flush, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { EditDialogCompletedActions, UserAction } from '../mojom-webui/ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom-webui.js';
+import { EditDialogCompletedActions, UserAction } from '../mojom-webui/shortcut_customization.mojom-webui.js';
 import { getTemplate } from './accelerator_edit_dialog.html.js';
 import { ViewState } from './accelerator_view.js';
 import { getShortcutProvider } from './mojo_interface_provider.js';
@@ -146,6 +147,8 @@ export class AcceleratorEditDialogElement extends AcceleratorEditDialogElementBa
         this.updateCompletedActions(e.detail.editAction);
     }
     updateCompletedActions(editAction) {
+        // Announce the completed action.
+        this.announceCompleteActions(editAction);
         this.completedActions |= editAction;
     }
     focusAcceleratorItemContainer() {
@@ -254,6 +257,26 @@ export class AcceleratorEditDialogElement extends AcceleratorEditDialogElementBa
         return currentAccelerators.every(acceleratorInfo => isStandardAcceleratorInfo(acceleratorInfo) &&
             defaultAccelerators.accelerators.some(defaultAccelerator => JSON.stringify(defaultAccelerator) ===
                 JSON.stringify(getAccelerator(acceleratorInfo))));
+    }
+    announceCompleteActions(editAction) {
+        let message = '';
+        switch (editAction) {
+            case EditAction.ADD:
+                message = this.i18n('shortcutAdded');
+                break;
+            case EditAction.EDIT:
+                message = this.i18n('shortcutEdited');
+                break;
+            case EditAction.REMOVE:
+                message = this.i18n('shortcutDeleted');
+                break;
+            case EditAction.RESET:
+                message = this.i18n('shortcutRestored');
+                break;
+            default:
+                return; // No action needed.
+        }
+        getAnnouncerInstance(this.$.editDialog.getNative()).announce(message);
     }
 }
 customElements.define(AcceleratorEditDialogElement.is, AcceleratorEditDialogElement);

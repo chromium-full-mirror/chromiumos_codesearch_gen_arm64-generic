@@ -56,7 +56,7 @@ class  TimespecOrNow {
   template <typename... Args>
   static TimespecOrNowPtr New(Args&&... args) {
     return TimespecOrNowPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -205,7 +205,7 @@ class  FileInformation {
   template <typename... Args>
   static FileInformationPtr New(Args&&... args) {
     return FileInformationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -358,7 +358,7 @@ class  DirectoryEntry {
   template <typename... Args>
   static DirectoryEntryPtr New(Args&&... args) {
     return DirectoryEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

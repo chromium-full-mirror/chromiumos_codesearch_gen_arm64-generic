@@ -60,7 +60,7 @@ class  Origin {
   template <typename... Args>
   static OriginPtr New(Args&&... args) {
     return OriginPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

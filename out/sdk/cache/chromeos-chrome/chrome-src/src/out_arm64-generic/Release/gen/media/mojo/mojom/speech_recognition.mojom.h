@@ -917,7 +917,7 @@ class  LanguageIdentificationEvent {
   template <typename... Args>
   static LanguageIdentificationEventPtr New(Args&&... args) {
     return LanguageIdentificationEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1071,7 +1071,7 @@ class  HypothesisParts {
   template <typename... Args>
   static HypothesisPartsPtr New(Args&&... args) {
     return HypothesisPartsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1214,7 +1214,7 @@ class  TimingInformation {
   template <typename... Args>
   static TimingInformationPtr New(Args&&... args) {
     return TimingInformationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1360,7 +1360,7 @@ class  SpeechRecognitionResult {
   template <typename... Args>
   static SpeechRecognitionResultPtr New(Args&&... args) {
     return SpeechRecognitionResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1507,7 +1507,7 @@ class  SpeechRecognitionSurfaceMetadata {
   template <typename... Args>
   static SpeechRecognitionSurfaceMetadataPtr New(Args&&... args) {
     return SpeechRecognitionSurfaceMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1647,7 +1647,7 @@ class  SpeechRecognitionOptions {
   template <typename... Args>
   static SpeechRecognitionOptionsPtr New(Args&&... args) {
     return SpeechRecognitionOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

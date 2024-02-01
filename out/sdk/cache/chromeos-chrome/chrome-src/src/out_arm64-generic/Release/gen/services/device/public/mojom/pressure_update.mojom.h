@@ -56,7 +56,7 @@ class  PressureUpdate {
   template <typename... Args>
   static PressureUpdatePtr New(Args&&... args) {
     return PressureUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

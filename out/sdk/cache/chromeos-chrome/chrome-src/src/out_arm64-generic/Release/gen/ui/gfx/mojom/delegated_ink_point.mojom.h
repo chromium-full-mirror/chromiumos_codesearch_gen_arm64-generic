@@ -58,7 +58,7 @@ class  DelegatedInkPoint {
   template <typename... Args>
   static DelegatedInkPointPtr New(Args&&... args) {
     return DelegatedInkPointPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

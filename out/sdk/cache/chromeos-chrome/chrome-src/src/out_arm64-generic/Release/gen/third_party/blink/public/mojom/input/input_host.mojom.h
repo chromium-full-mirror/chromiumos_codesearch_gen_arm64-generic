@@ -177,7 +177,7 @@ class BLINK_COMMON_EXPORT SpellCheckSuggestion {
   template <typename... Args>
   static SpellCheckSuggestionPtr New(Args&&... args) {
     return SpellCheckSuggestionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -322,7 +322,7 @@ class BLINK_COMMON_EXPORT TextSuggestion {
   template <typename... Args>
   static TextSuggestionPtr New(Args&&... args) {
     return TextSuggestionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -190,7 +190,7 @@ class  Range {
   template <typename... Args>
   static RangePtr New(Args&&... args) {
     return RangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -341,7 +341,7 @@ class  Point2D {
   template <typename... Args>
   static Point2DPtr New(Args&&... args) {
     return Point2DPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -490,7 +490,7 @@ class  PhotoState {
   template <typename... Args>
   static PhotoStatePtr New(Args&&... args) {
     return PhotoStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -810,7 +810,7 @@ class  PhotoSettings {
   template <typename... Args>
   static PhotoSettingsPtr New(Args&&... args) {
     return PhotoSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1222,7 +1222,7 @@ class  Blob {
   template <typename... Args>
   static BlobPtr New(Args&&... args) {
     return BlobPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

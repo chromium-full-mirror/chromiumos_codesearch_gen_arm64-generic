@@ -339,7 +339,7 @@ static_assert(
         ::device::mojom::XRDepthOptionsDataView, UserType>(),
     "Attempting to read the optional `depth_options` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDepthOptions` instead "
     "of `ReadDepthOptions if you're fine with null values being "

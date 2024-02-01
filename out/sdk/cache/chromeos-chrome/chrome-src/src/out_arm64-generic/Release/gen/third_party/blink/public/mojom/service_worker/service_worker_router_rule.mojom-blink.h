@@ -59,7 +59,7 @@ class CORE_EXPORT ServiceWorkerRouterRunningStatusCondition {
   template <typename... Args>
   static ServiceWorkerRouterRunningStatusConditionPtr New(Args&&... args) {
     return ServiceWorkerRouterRunningStatusConditionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -203,7 +203,7 @@ class CORE_EXPORT ServiceWorkerRouterNetworkSource {
   template <typename... Args>
   static ServiceWorkerRouterNetworkSourcePtr New(Args&&... args) {
     return ServiceWorkerRouterNetworkSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -339,7 +339,7 @@ class CORE_EXPORT ServiceWorkerRouterRaceSource {
   template <typename... Args>
   static ServiceWorkerRouterRaceSourcePtr New(Args&&... args) {
     return ServiceWorkerRouterRaceSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -475,7 +475,7 @@ class CORE_EXPORT ServiceWorkerRouterFetchEventSource {
   template <typename... Args>
   static ServiceWorkerRouterFetchEventSourcePtr New(Args&&... args) {
     return ServiceWorkerRouterFetchEventSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -611,7 +611,7 @@ class CORE_EXPORT ServiceWorkerRouterCacheSource {
   template <typename... Args>
   static ServiceWorkerRouterCacheSourcePtr New(Args&&... args) {
     return ServiceWorkerRouterCacheSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -763,7 +763,7 @@ class CORE_EXPORT ServiceWorkerRouterSource {
   static ServiceWorkerRouterSourcePtr
   NewNetworkSource(
       ServiceWorkerRouterNetworkSourcePtr value) {
-    auto result = ServiceWorkerRouterSourcePtr(absl::in_place);
+    auto result = ServiceWorkerRouterSourcePtr(std::in_place);
     result->set_network_source(std::move(value));
     return result;
   }
@@ -771,7 +771,7 @@ class CORE_EXPORT ServiceWorkerRouterSource {
   static ServiceWorkerRouterSourcePtr
   NewRaceSource(
       ServiceWorkerRouterRaceSourcePtr value) {
-    auto result = ServiceWorkerRouterSourcePtr(absl::in_place);
+    auto result = ServiceWorkerRouterSourcePtr(std::in_place);
     result->set_race_source(std::move(value));
     return result;
   }
@@ -779,7 +779,7 @@ class CORE_EXPORT ServiceWorkerRouterSource {
   static ServiceWorkerRouterSourcePtr
   NewFetchEventSource(
       ServiceWorkerRouterFetchEventSourcePtr value) {
-    auto result = ServiceWorkerRouterSourcePtr(absl::in_place);
+    auto result = ServiceWorkerRouterSourcePtr(std::in_place);
     result->set_fetch_event_source(std::move(value));
     return result;
   }
@@ -787,7 +787,7 @@ class CORE_EXPORT ServiceWorkerRouterSource {
   static ServiceWorkerRouterSourcePtr
   NewCacheSource(
       ServiceWorkerRouterCacheSourcePtr value) {
-    auto result = ServiceWorkerRouterSourcePtr(absl::in_place);
+    auto result = ServiceWorkerRouterSourcePtr(std::in_place);
     result->set_cache_source(std::move(value));
     return result;
   }
@@ -928,7 +928,7 @@ class CORE_EXPORT ServiceWorkerRouterRequestCondition {
   template <typename... Args>
   static ServiceWorkerRouterRequestConditionPtr New(Args&&... args) {
     return ServiceWorkerRouterRequestConditionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1080,7 +1080,7 @@ class CORE_EXPORT ServiceWorkerRouterOrCondition {
   template <typename... Args>
   static ServiceWorkerRouterOrConditionPtr New(Args&&... args) {
     return ServiceWorkerRouterOrConditionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1222,7 +1222,7 @@ class CORE_EXPORT ServiceWorkerRouterCondition {
   template <typename... Args>
   static ServiceWorkerRouterConditionPtr New(Args&&... args) {
     return ServiceWorkerRouterConditionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1377,7 +1377,7 @@ class CORE_EXPORT ServiceWorkerRouterRule {
   template <typename... Args>
   static ServiceWorkerRouterRulePtr New(Args&&... args) {
     return ServiceWorkerRouterRulePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1522,7 +1522,7 @@ class CORE_EXPORT ServiceWorkerRouterRules {
   template <typename... Args>
   static ServiceWorkerRouterRulesPtr New(Args&&... args) {
     return ServiceWorkerRouterRulesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

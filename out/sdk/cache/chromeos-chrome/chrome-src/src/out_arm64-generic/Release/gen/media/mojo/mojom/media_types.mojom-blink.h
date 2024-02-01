@@ -74,7 +74,7 @@ class BLINK_PLATFORM_EXPORT VideoTransformation {
   template <typename... Args>
   static VideoTransformationPtr New(Args&&... args) {
     return VideoTransformationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -222,7 +222,7 @@ class BLINK_PLATFORM_EXPORT VideoColorSpace {
   template <typename... Args>
   static VideoColorSpacePtr New(Args&&... args) {
     return VideoColorSpacePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -381,7 +381,7 @@ class BLINK_PLATFORM_EXPORT EosVideoFrameData {
   template <typename... Args>
   static EosVideoFrameDataPtr New(Args&&... args) {
     return EosVideoFrameDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -522,7 +522,7 @@ class BLINK_PLATFORM_EXPORT PredictionTargets {
   template <typename... Args>
   static PredictionTargetsPtr New(Args&&... args) {
     return PredictionTargetsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -669,7 +669,7 @@ class BLINK_PLATFORM_EXPORT AudioPipelineInfo {
   template <typename... Args>
   static AudioPipelineInfoPtr New(Args&&... args) {
     return AudioPipelineInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -819,7 +819,7 @@ class BLINK_PLATFORM_EXPORT VideoPipelineInfo {
   template <typename... Args>
   static VideoPipelineInfoPtr New(Args&&... args) {
     return VideoPipelineInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -983,7 +983,7 @@ class BLINK_PLATFORM_EXPORT VideoFrameData {
   static VideoFrameDataPtr
   NewEosData(
       EosVideoFrameDataPtr value) {
-    auto result = VideoFrameDataPtr(absl::in_place);
+    auto result = VideoFrameDataPtr(std::in_place);
     result->set_eos_data(std::move(value));
     return result;
   }
@@ -991,7 +991,7 @@ class BLINK_PLATFORM_EXPORT VideoFrameData {
   static VideoFrameDataPtr
   NewSharedMemoryData(
       SharedMemoryVideoFrameDataPtr value) {
-    auto result = VideoFrameDataPtr(absl::in_place);
+    auto result = VideoFrameDataPtr(std::in_place);
     result->set_shared_memory_data(std::move(value));
     return result;
   }
@@ -999,7 +999,7 @@ class BLINK_PLATFORM_EXPORT VideoFrameData {
   static VideoFrameDataPtr
   NewGpuMemoryBufferData(
       GpuMemoryBufferVideoFrameDataPtr value) {
-    auto result = VideoFrameDataPtr(absl::in_place);
+    auto result = VideoFrameDataPtr(std::in_place);
     result->set_gpu_memory_buffer_data(std::move(value));
     return result;
   }
@@ -1007,7 +1007,7 @@ class BLINK_PLATFORM_EXPORT VideoFrameData {
   static VideoFrameDataPtr
   NewMailboxData(
       MailboxVideoFrameDataPtr value) {
-    auto result = VideoFrameDataPtr(absl::in_place);
+    auto result = VideoFrameDataPtr(std::in_place);
     result->set_mailbox_data(std::move(value));
     return result;
   }
@@ -1150,7 +1150,7 @@ class BLINK_PLATFORM_EXPORT AudioDecoderConfig {
   template <typename... Args>
   static AudioDecoderConfigPtr New(Args&&... args) {
     return AudioDecoderConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1326,7 +1326,7 @@ class BLINK_PLATFORM_EXPORT VideoDecoderConfig {
   template <typename... Args>
   static VideoDecoderConfigPtr New(Args&&... args) {
     return VideoDecoderConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1502,7 +1502,7 @@ class BLINK_PLATFORM_EXPORT DecryptConfig {
   template <typename... Args>
   static DecryptConfigPtr New(Args&&... args) {
     return DecryptConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1656,7 +1656,7 @@ class BLINK_PLATFORM_EXPORT DecoderBufferSideData {
   template <typename... Args>
   static DecoderBufferSideDataPtr New(Args&&... args) {
     return DecoderBufferSideDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1802,7 +1802,7 @@ class BLINK_PLATFORM_EXPORT DecoderBuffer {
   template <typename... Args>
   static DecoderBufferPtr New(Args&&... args) {
     return DecoderBufferPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1968,7 +1968,7 @@ class BLINK_PLATFORM_EXPORT AudioBuffer {
   template <typename... Args>
   static AudioBufferPtr New(Args&&... args) {
     return AudioBufferPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2129,7 +2129,7 @@ class BLINK_PLATFORM_EXPORT VideoFrameMetadata {
   template <typename... Args>
   static VideoFrameMetadataPtr New(Args&&... args) {
     return VideoFrameMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2403,7 +2403,7 @@ class BLINK_PLATFORM_EXPORT VideoFrame {
   template <typename... Args>
   static VideoFramePtr New(Args&&... args) {
     return VideoFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2568,7 +2568,7 @@ class BLINK_PLATFORM_EXPORT SharedMemoryVideoFrameData {
   template <typename... Args>
   static SharedMemoryVideoFrameDataPtr New(Args&&... args) {
     return SharedMemoryVideoFrameDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2711,7 +2711,7 @@ class BLINK_PLATFORM_EXPORT GpuMemoryBufferVideoFrameData {
   template <typename... Args>
   static GpuMemoryBufferVideoFrameDataPtr New(Args&&... args) {
     return GpuMemoryBufferVideoFrameDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2851,7 +2851,7 @@ class BLINK_PLATFORM_EXPORT MailboxVideoFrameData {
   template <typename... Args>
   static MailboxVideoFrameDataPtr New(Args&&... args) {
     return MailboxVideoFrameDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2996,7 +2996,7 @@ class BLINK_PLATFORM_EXPORT PipelineStatistics {
   template <typename... Args>
   static PipelineStatisticsPtr New(Args&&... args) {
     return PipelineStatisticsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3152,7 +3152,7 @@ class BLINK_PLATFORM_EXPORT PredictionFeatures {
   template <typename... Args>
   static PredictionFeaturesPtr New(Args&&... args) {
     return PredictionFeaturesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3307,7 +3307,7 @@ class BLINK_PLATFORM_EXPORT StatusData {
   template <typename... Args>
   static StatusDataPtr New(Args&&... args) {
     return StatusDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3467,7 +3467,7 @@ class BLINK_PLATFORM_EXPORT EncoderStatus {
   template <typename... Args>
   static EncoderStatusPtr New(Args&&... args) {
     return EncoderStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3609,7 +3609,7 @@ class BLINK_PLATFORM_EXPORT DecoderStatus {
   template <typename... Args>
   static DecoderStatusPtr New(Args&&... args) {
     return DecoderStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3751,7 +3751,7 @@ class BLINK_PLATFORM_EXPORT PipelineStatus {
   template <typename... Args>
   static PipelineStatusPtr New(Args&&... args) {
     return PipelineStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

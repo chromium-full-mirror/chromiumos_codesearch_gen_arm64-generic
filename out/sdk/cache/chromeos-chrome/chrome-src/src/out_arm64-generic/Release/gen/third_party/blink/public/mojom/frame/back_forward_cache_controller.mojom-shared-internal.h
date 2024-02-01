@@ -35,8 +35,9 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) BlockingDetails_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  uint32_t feature;
-  uint8_t pad0_[4];
+  uint8_t feature_$flag : 1;
+  uint8_t pad0_[3];
+  uint32_t feature_$value;
   mojo::internal::Pointer<mojo::internal::String_Data> url;
   mojo::internal::Pointer<mojo::internal::String_Data> function_name;
   uint64_t line_number;

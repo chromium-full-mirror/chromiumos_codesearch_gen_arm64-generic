@@ -284,7 +284,7 @@ class  AppInstallParams {
   template <typename... Args>
   static AppInstallParamsPtr New(Args&&... args) {
     return AppInstallParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

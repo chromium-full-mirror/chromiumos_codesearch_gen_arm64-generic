@@ -18,7 +18,6 @@
 #include "diagnostics/mojom/public/cros_healthd_exception.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/cros_healthd_probe.mojom-shared-internal.h"
 #include "diagnostics/mojom/public/nullable_primitives.mojom-shared-internal.h"
-#include "diagnostics/mojom/public/wilco_ec.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 

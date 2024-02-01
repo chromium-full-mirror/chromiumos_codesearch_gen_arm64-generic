@@ -549,7 +549,7 @@ static_assert(
         ::gfx::mojom::RectDataView, UserType>(),
     "Attempting to read the optional `damage_rect` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDamageRect` instead "
     "of `ReadDamageRect if you're fine with null values being "
@@ -765,7 +765,7 @@ static_assert(
         ::gfx::mojom::RectDataView, UserType>(),
     "Attempting to read the optional `damage_rect` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDamageRect` instead "
     "of `ReadDamageRect if you're fine with null values being "
@@ -876,7 +876,7 @@ static_assert(
         ::viz::mojom::SharedQuadStateDataView, UserType>(),
     "Attempting to read the optional `sqs` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSqs` instead "
     "of `ReadSqs if you're fine with null values being "

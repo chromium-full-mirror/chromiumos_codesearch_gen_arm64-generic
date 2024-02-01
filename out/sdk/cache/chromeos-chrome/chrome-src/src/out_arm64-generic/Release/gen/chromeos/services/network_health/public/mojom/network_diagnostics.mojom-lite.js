@@ -72,6 +72,29 @@ chromeos.networkDiagnostics.mojom.RoutineVerdict = {
  * @const { {$: !mojo.internal.MojomType} }
  * @export
  */
+chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ * @export
+ */
+chromeos.networkDiagnostics.mojom.RoutineCallSource = {
+  
+  kUnknown: 0,
+  kDiagnosticsUI: 1,
+  kChromeNetworkPage: 2,
+  kCrosHealthd: 3,
+  kMetricsReporting: 4,
+  kNetworkHealthSource: 5,
+  MIN_VALUE: 0,
+  MAX_VALUE: 5,
+};
+
+
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ * @export
+ */
 chromeos.networkDiagnostics.mojom.LanConnectivityProblemSpec = { $: mojo.internal.Enum() };
 
 /**
@@ -466,244 +489,289 @@ chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutinesRemote = class {
 
   
   /**
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
-  runLanConnectivity() {
+  runLanConnectivity(
+      source) {
     return this.proxy.sendMessage(
         12,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunLanConnectivity_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParamsSpec.$,
         [
+          source
         ]);
   }
 
   
   /**
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
-  runSignalStrength() {
+  runSignalStrength(
+      source) {
     return this.proxy.sendMessage(
         13,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunSignalStrength_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParamsSpec.$,
         [
+          source
         ]);
   }
 
   
   /**
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
-  runGatewayCanBePinged() {
+  runGatewayCanBePinged(
+      source) {
     return this.proxy.sendMessage(
         14,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParamsSpec.$,
         [
+          source
         ]);
   }
 
   
   /**
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
-  runHasSecureWiFiConnection() {
+  runHasSecureWiFiConnection(
+      source) {
     return this.proxy.sendMessage(
         15,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParamsSpec.$,
         [
+          source
         ]);
   }
 
   
   /**
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
-  runDnsResolverPresent() {
+  runDnsResolverPresent(
+      source) {
     return this.proxy.sendMessage(
         16,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunDnsResolverPresent_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParamsSpec.$,
         [
+          source
         ]);
   }
 
   
   /**
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
-  runDnsLatency() {
+  runDnsLatency(
+      source) {
     return this.proxy.sendMessage(
         17,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunDnsLatency_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParamsSpec.$,
         [
+          source
         ]);
   }
 
   
   /**
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
-  runDnsResolution() {
+  runDnsResolution(
+      source) {
     return this.proxy.sendMessage(
         18,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunDnsResolution_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParamsSpec.$,
         [
+          source
         ]);
   }
 
   
   /**
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
-  runCaptivePortal() {
+  runCaptivePortal(
+      source) {
     return this.proxy.sendMessage(
         19,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunCaptivePortal_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParamsSpec.$,
         [
+          source
         ]);
   }
 
   
   /**
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
-  runHttpFirewall() {
+  runHttpFirewall(
+      source) {
     return this.proxy.sendMessage(
         20,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHttpFirewall_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParamsSpec.$,
         [
+          source
         ]);
   }
 
   
   /**
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
-  runHttpsFirewall() {
+  runHttpsFirewall(
+      source) {
     return this.proxy.sendMessage(
         21,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHttpsFirewall_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParamsSpec.$,
         [
+          source
         ]);
   }
 
   
   /**
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
-  runHttpsLatency() {
+  runHttpsLatency(
+      source) {
     return this.proxy.sendMessage(
         22,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHttpsLatency_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParamsSpec.$,
         [
+          source
         ]);
   }
 
   
   /**
    * @param { ?string } stunServerHostname
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
   runVideoConferencing(
-      stunServerHostname) {
+      stunServerHostname,
+      source) {
     return this.proxy.sendMessage(
         23,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunVideoConferencing_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParamsSpec.$,
         [
-          stunServerHostname
+          stunServerHostname,
+          source
         ]);
   }
 
   
   /**
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
-  runArcHttp() {
+  runArcHttp(
+      source) {
     return this.proxy.sendMessage(
         24,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunArcHttp_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunArcHttp_ResponseParamsSpec.$,
         [
+          source
         ]);
   }
 
   
   /**
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
-  runArcPing() {
+  runArcPing(
+      source) {
     return this.proxy.sendMessage(
         25,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunArcPing_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunArcPing_ResponseParamsSpec.$,
         [
+          source
         ]);
   }
 
   
   /**
+   * @param { ?chromeos.networkDiagnostics.mojom.RoutineCallSource } source
    * @return {!Promise<{
         result: !chromeos.networkDiagnostics.mojom.RoutineResult,
    *  }>}
    */
 
-  runArcDnsResolution() {
+  runArcDnsResolution(
+      source) {
     return this.proxy.sendMessage(
         26,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunArcDnsResolution_ParamsSpec.$,
         chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParamsSpec.$,
         [
+          source
         ]);
   }
 };
@@ -1458,8 +1526,16 @@ mojo.internal.Struct(
         true, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'source', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 40],[1, 56],]);
+    [[0, 40],[1, 56],[2, 56],]);
 
 
 
@@ -1476,6 +1552,8 @@ chromeos.networkDiagnostics.mojom.RoutineResult = class {
     this.timestamp;
     /** @export { (chromeos.networkDiagnostics.mojom.RoutineResultValue|undefined) } */
     this.resultValue;
+    /** @export { !chromeos.networkDiagnostics.mojom.RoutineCallSource } */
+    this.source;
   }
 };
 
@@ -1591,8 +1669,33 @@ mojo.internal.Struct(
     chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunLanConnectivity_ParamsSpec.$,
     'NetworkDiagnosticsRoutines_RunLanConnectivity_Params',
     [
+      mojo.internal.StructField(
+        'source_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 8],]);
+    [[0, 8],[2, 16],]);
 
 
 
@@ -1601,6 +1704,8 @@ mojo.internal.Struct(
 /** @record */
 chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunLanConnectivity_Params = class {
   constructor() {
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 
@@ -1639,8 +1744,33 @@ mojo.internal.Struct(
     chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunSignalStrength_ParamsSpec.$,
     'NetworkDiagnosticsRoutines_RunSignalStrength_Params',
     [
+      mojo.internal.StructField(
+        'source_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 8],]);
+    [[0, 8],[2, 16],]);
 
 
 
@@ -1649,6 +1779,8 @@ mojo.internal.Struct(
 /** @record */
 chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunSignalStrength_Params = class {
   constructor() {
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 
@@ -1687,8 +1819,33 @@ mojo.internal.Struct(
     chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ParamsSpec.$,
     'NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params',
     [
+      mojo.internal.StructField(
+        'source_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 8],]);
+    [[0, 8],[2, 16],]);
 
 
 
@@ -1697,6 +1854,8 @@ mojo.internal.Struct(
 /** @record */
 chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params = class {
   constructor() {
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 
@@ -1735,8 +1894,33 @@ mojo.internal.Struct(
     chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ParamsSpec.$,
     'NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params',
     [
+      mojo.internal.StructField(
+        'source_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 8],]);
+    [[0, 8],[2, 16],]);
 
 
 
@@ -1745,6 +1929,8 @@ mojo.internal.Struct(
 /** @record */
 chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params = class {
   constructor() {
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 
@@ -1783,8 +1969,33 @@ mojo.internal.Struct(
     chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunDnsResolverPresent_ParamsSpec.$,
     'NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params',
     [
+      mojo.internal.StructField(
+        'source_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 8],]);
+    [[0, 8],[2, 16],]);
 
 
 
@@ -1793,6 +2004,8 @@ mojo.internal.Struct(
 /** @record */
 chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params = class {
   constructor() {
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 
@@ -1831,8 +2044,33 @@ mojo.internal.Struct(
     chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunDnsLatency_ParamsSpec.$,
     'NetworkDiagnosticsRoutines_RunDnsLatency_Params',
     [
+      mojo.internal.StructField(
+        'source_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 8],]);
+    [[0, 8],[2, 16],]);
 
 
 
@@ -1841,6 +2079,8 @@ mojo.internal.Struct(
 /** @record */
 chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunDnsLatency_Params = class {
   constructor() {
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 
@@ -1879,8 +2119,33 @@ mojo.internal.Struct(
     chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunDnsResolution_ParamsSpec.$,
     'NetworkDiagnosticsRoutines_RunDnsResolution_Params',
     [
+      mojo.internal.StructField(
+        'source_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 8],]);
+    [[0, 8],[2, 16],]);
 
 
 
@@ -1889,6 +2154,8 @@ mojo.internal.Struct(
 /** @record */
 chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunDnsResolution_Params = class {
   constructor() {
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 
@@ -1927,8 +2194,33 @@ mojo.internal.Struct(
     chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunCaptivePortal_ParamsSpec.$,
     'NetworkDiagnosticsRoutines_RunCaptivePortal_Params',
     [
+      mojo.internal.StructField(
+        'source_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 8],]);
+    [[0, 8],[2, 16],]);
 
 
 
@@ -1937,6 +2229,8 @@ mojo.internal.Struct(
 /** @record */
 chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunCaptivePortal_Params = class {
   constructor() {
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 
@@ -1975,8 +2269,33 @@ mojo.internal.Struct(
     chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHttpFirewall_ParamsSpec.$,
     'NetworkDiagnosticsRoutines_RunHttpFirewall_Params',
     [
+      mojo.internal.StructField(
+        'source_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 8],]);
+    [[0, 8],[2, 16],]);
 
 
 
@@ -1985,6 +2304,8 @@ mojo.internal.Struct(
 /** @record */
 chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHttpFirewall_Params = class {
   constructor() {
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 
@@ -2023,8 +2344,33 @@ mojo.internal.Struct(
     chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHttpsFirewall_ParamsSpec.$,
     'NetworkDiagnosticsRoutines_RunHttpsFirewall_Params',
     [
+      mojo.internal.StructField(
+        'source_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 8],]);
+    [[0, 8],[2, 16],]);
 
 
 
@@ -2033,6 +2379,8 @@ mojo.internal.Struct(
 /** @record */
 chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHttpsFirewall_Params = class {
   constructor() {
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 
@@ -2071,8 +2419,33 @@ mojo.internal.Struct(
     chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHttpsLatency_ParamsSpec.$,
     'NetworkDiagnosticsRoutines_RunHttpsLatency_Params',
     [
+      mojo.internal.StructField(
+        'source_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 8],]);
+    [[0, 8],[2, 16],]);
 
 
 
@@ -2081,6 +2454,8 @@ mojo.internal.Struct(
 /** @record */
 chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunHttpsLatency_Params = class {
   constructor() {
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 
@@ -2127,8 +2502,33 @@ mojo.internal.Struct(
         true, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'source_$flag', 8,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 12,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 16],]);
+    [[0, 16],[2, 24],]);
 
 
 
@@ -2139,6 +2539,8 @@ chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunVideoConferencin
   constructor() {
     /** @export { (string|undefined) } */
     this.stunServerHostname;
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 
@@ -2177,8 +2579,33 @@ mojo.internal.Struct(
     chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunArcHttp_ParamsSpec.$,
     'NetworkDiagnosticsRoutines_RunArcHttp_Params',
     [
+      mojo.internal.StructField(
+        'source_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 8],]);
+    [[0, 8],[2, 16],]);
 
 
 
@@ -2187,6 +2614,8 @@ mojo.internal.Struct(
 /** @record */
 chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunArcHttp_Params = class {
   constructor() {
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 
@@ -2225,8 +2654,33 @@ mojo.internal.Struct(
     chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunArcPing_ParamsSpec.$,
     'NetworkDiagnosticsRoutines_RunArcPing_Params',
     [
+      mojo.internal.StructField(
+        'source_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 8],]);
+    [[0, 8],[2, 16],]);
 
 
 
@@ -2235,6 +2689,8 @@ mojo.internal.Struct(
 /** @record */
 chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunArcPing_Params = class {
   constructor() {
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 
@@ -2273,8 +2729,33 @@ mojo.internal.Struct(
     chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunArcDnsResolution_ParamsSpec.$,
     'NetworkDiagnosticsRoutines_RunArcDnsResolution_Params',
     [
+      mojo.internal.StructField(
+        'source_$flag', 0,
+        0,
+        mojo.internal.Bool,
+        false,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "source_$value",
+          originalFieldName: "source",
+        }
+      ),
+      mojo.internal.StructField(
+        'source_$value', 4,
+        0,
+        chromeos.networkDiagnostics.mojom.RoutineCallSourceSpec.$,
+        0,
+        false, /* nullable */
+        0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "source",
+        }
+      ),
     ],
-    [[0, 8],]);
+    [[0, 8],[2, 16],]);
 
 
 
@@ -2283,6 +2764,8 @@ mojo.internal.Struct(
 /** @record */
 chromeos.networkDiagnostics.mojom.NetworkDiagnosticsRoutines_RunArcDnsResolution_Params = class {
   constructor() {
+    /** @export { (chromeos.networkDiagnostics.mojom.RoutineCallSource|undefined) } */
+    this.source;
   }
 };
 

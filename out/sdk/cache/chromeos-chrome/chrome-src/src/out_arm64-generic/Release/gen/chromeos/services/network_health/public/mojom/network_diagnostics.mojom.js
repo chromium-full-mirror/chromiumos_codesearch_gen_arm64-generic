@@ -113,6 +113,43 @@
 
     return validator.validationError.UNKNOWN_ENUM_VALUE;
   };
+  var RoutineCallSource = {};
+  RoutineCallSource.kUnknown = 0;
+  RoutineCallSource.kDiagnosticsUI = 1;
+  RoutineCallSource.kChromeNetworkPage = 2;
+  RoutineCallSource.kCrosHealthd = 3;
+  RoutineCallSource.kMetricsReporting = 4;
+  RoutineCallSource.kNetworkHealthSource = 5;
+  RoutineCallSource.MIN_VALUE = 0;
+  RoutineCallSource.MAX_VALUE = 5;
+  RoutineCallSource.DEFAULT_VALUE = 0;
+
+  RoutineCallSource.isKnownEnumValue = function(value) {
+    switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+      return true;
+    }
+    return false;
+  };
+
+  RoutineCallSource.toKnownEnumValue = function(value) {
+    if (this.isKnownEnumValue(value))
+      return value;
+    return this.DEFAULT_VALUE;
+  };
+
+  RoutineCallSource.validate = function(enumValue) {
+    const isExtensible = true;
+    if (isExtensible || this.isKnownEnumValue(enumValue))
+      return validator.validationError.NONE;
+
+    return validator.validationError.UNKNOWN_ENUM_VALUE;
+  };
   var LanConnectivityProblem = {};
   LanConnectivityProblem.kNoLanConnectivity = 0;
   LanConnectivityProblem.MIN_VALUE = 0;
@@ -663,6 +700,7 @@
 
   RoutineResult.prototype.initDefaults_ = function() {
     this.verdict = 0;
+    this.source = 0;
     this.problems = null;
     this.timestamp = null;
     this.resultValue = null;
@@ -682,7 +720,8 @@
 
     var kVersionSizes = [
       {version: 0, numBytes: 40},
-      {version: 1, numBytes: 56}
+      {version: 1, numBytes: 56},
+      {version: 2, numBytes: 56}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -716,6 +755,16 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+
+    // version check RoutineResult.source
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate RoutineResult.source
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
@@ -728,10 +777,12 @@
     var version = decoder.readUint32();
     val.verdict =
         decoder.decodeStruct(new codec.Enum(RoutineVerdict));
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
+    if (version >= 2) {
+      val.source =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source = null;
+    }
     val.problems =
         decoder.decodeStruct(RoutineProblems);
     val.timestamp =
@@ -748,12 +799,9 @@
   RoutineResult.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(RoutineResult.encodedSize);
-    encoder.writeUint32(1);
+    encoder.writeUint32(2);
     encoder.encodeStruct(codec.Int32, val.verdict);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source);
     encoder.encodeStruct(RoutineProblems, val.problems);
     encoder.encodeStructPointer(time$.Time, val.timestamp);
     encoder.encodeStruct(RoutineResultValue, val.resultValue);
@@ -987,6 +1035,8 @@
 
 
   NetworkDiagnosticsRoutines_RunLanConnectivity_Params.prototype.initDefaults_ = function() {
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunLanConnectivity_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1002,29 +1052,59 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 8},
+      {version: 2, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunLanConnectivity_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunLanConnectivity_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunLanConnectivity_Params.encodedSize = codec.kStructHeaderSize + 0;
+  NetworkDiagnosticsRoutines_RunLanConnectivity_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkDiagnosticsRoutines_RunLanConnectivity_Params.decode = function(decoder) {
     var packed;
     var val = new NetworkDiagnosticsRoutines_RunLanConnectivity_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunLanConnectivity_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunLanConnectivity_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParams(values) {
     this.initDefaults_();
@@ -1089,6 +1169,8 @@
 
 
   NetworkDiagnosticsRoutines_RunSignalStrength_Params.prototype.initDefaults_ = function() {
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunSignalStrength_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1104,29 +1186,59 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 8},
+      {version: 2, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunSignalStrength_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunSignalStrength_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunSignalStrength_Params.encodedSize = codec.kStructHeaderSize + 0;
+  NetworkDiagnosticsRoutines_RunSignalStrength_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkDiagnosticsRoutines_RunSignalStrength_Params.decode = function(decoder) {
     var packed;
     var val = new NetworkDiagnosticsRoutines_RunSignalStrength_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunSignalStrength_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunSignalStrength_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParams(values) {
     this.initDefaults_();
@@ -1191,6 +1303,8 @@
 
 
   NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params.prototype.initDefaults_ = function() {
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1206,29 +1320,59 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 8},
+      {version: 2, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params.encodedSize = codec.kStructHeaderSize + 0;
+  NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params.decode = function(decoder) {
     var packed;
     var val = new NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParams(values) {
     this.initDefaults_();
@@ -1293,6 +1437,8 @@
 
 
   NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params.prototype.initDefaults_ = function() {
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1308,29 +1454,59 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 8},
+      {version: 2, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params.encodedSize = codec.kStructHeaderSize + 0;
+  NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params.decode = function(decoder) {
     var packed;
     var val = new NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParams(values) {
     this.initDefaults_();
@@ -1395,6 +1571,8 @@
 
 
   NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params.prototype.initDefaults_ = function() {
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1410,29 +1588,59 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 8},
+      {version: 2, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params.encodedSize = codec.kStructHeaderSize + 0;
+  NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params.decode = function(decoder) {
     var packed;
     var val = new NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParams(values) {
     this.initDefaults_();
@@ -1497,6 +1705,8 @@
 
 
   NetworkDiagnosticsRoutines_RunDnsLatency_Params.prototype.initDefaults_ = function() {
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunDnsLatency_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1512,29 +1722,59 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 8},
+      {version: 2, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunDnsLatency_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunDnsLatency_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunDnsLatency_Params.encodedSize = codec.kStructHeaderSize + 0;
+  NetworkDiagnosticsRoutines_RunDnsLatency_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkDiagnosticsRoutines_RunDnsLatency_Params.decode = function(decoder) {
     var packed;
     var val = new NetworkDiagnosticsRoutines_RunDnsLatency_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunDnsLatency_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunDnsLatency_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParams(values) {
     this.initDefaults_();
@@ -1599,6 +1839,8 @@
 
 
   NetworkDiagnosticsRoutines_RunDnsResolution_Params.prototype.initDefaults_ = function() {
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunDnsResolution_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1614,29 +1856,59 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 8},
+      {version: 2, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunDnsResolution_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunDnsResolution_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunDnsResolution_Params.encodedSize = codec.kStructHeaderSize + 0;
+  NetworkDiagnosticsRoutines_RunDnsResolution_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkDiagnosticsRoutines_RunDnsResolution_Params.decode = function(decoder) {
     var packed;
     var val = new NetworkDiagnosticsRoutines_RunDnsResolution_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunDnsResolution_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunDnsResolution_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParams(values) {
     this.initDefaults_();
@@ -1701,6 +1973,8 @@
 
 
   NetworkDiagnosticsRoutines_RunCaptivePortal_Params.prototype.initDefaults_ = function() {
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunCaptivePortal_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1716,29 +1990,59 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 8},
+      {version: 2, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunCaptivePortal_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunCaptivePortal_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunCaptivePortal_Params.encodedSize = codec.kStructHeaderSize + 0;
+  NetworkDiagnosticsRoutines_RunCaptivePortal_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkDiagnosticsRoutines_RunCaptivePortal_Params.decode = function(decoder) {
     var packed;
     var val = new NetworkDiagnosticsRoutines_RunCaptivePortal_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunCaptivePortal_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunCaptivePortal_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParams(values) {
     this.initDefaults_();
@@ -1803,6 +2107,8 @@
 
 
   NetworkDiagnosticsRoutines_RunHttpFirewall_Params.prototype.initDefaults_ = function() {
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunHttpFirewall_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1818,29 +2124,59 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 8},
+      {version: 2, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunHttpFirewall_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunHttpFirewall_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunHttpFirewall_Params.encodedSize = codec.kStructHeaderSize + 0;
+  NetworkDiagnosticsRoutines_RunHttpFirewall_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkDiagnosticsRoutines_RunHttpFirewall_Params.decode = function(decoder) {
     var packed;
     var val = new NetworkDiagnosticsRoutines_RunHttpFirewall_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunHttpFirewall_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunHttpFirewall_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParams(values) {
     this.initDefaults_();
@@ -1905,6 +2241,8 @@
 
 
   NetworkDiagnosticsRoutines_RunHttpsFirewall_Params.prototype.initDefaults_ = function() {
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunHttpsFirewall_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -1920,29 +2258,59 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 8},
+      {version: 2, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunHttpsFirewall_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunHttpsFirewall_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunHttpsFirewall_Params.encodedSize = codec.kStructHeaderSize + 0;
+  NetworkDiagnosticsRoutines_RunHttpsFirewall_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkDiagnosticsRoutines_RunHttpsFirewall_Params.decode = function(decoder) {
     var packed;
     var val = new NetworkDiagnosticsRoutines_RunHttpsFirewall_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunHttpsFirewall_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunHttpsFirewall_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParams(values) {
     this.initDefaults_();
@@ -2007,6 +2375,8 @@
 
 
   NetworkDiagnosticsRoutines_RunHttpsLatency_Params.prototype.initDefaults_ = function() {
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunHttpsLatency_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -2022,29 +2392,59 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 8},
+      {version: 2, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunHttpsLatency_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunHttpsLatency_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunHttpsLatency_Params.encodedSize = codec.kStructHeaderSize + 0;
+  NetworkDiagnosticsRoutines_RunHttpsLatency_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkDiagnosticsRoutines_RunHttpsLatency_Params.decode = function(decoder) {
     var packed;
     var val = new NetworkDiagnosticsRoutines_RunHttpsLatency_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunHttpsLatency_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunHttpsLatency_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParams(values) {
     this.initDefaults_();
@@ -2110,6 +2510,8 @@
 
   NetworkDiagnosticsRoutines_RunVideoConferencing_Params.prototype.initDefaults_ = function() {
     this.stunServerHostname = null;
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunVideoConferencing_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -2125,7 +2527,8 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 16}
+      {version: 0, numBytes: 16},
+      {version: 2, numBytes: 24}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -2137,10 +2540,21 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunVideoConferencing_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunVideoConferencing_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 12, RoutineCallSource);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunVideoConferencing_Params.encodedSize = codec.kStructHeaderSize + 8;
+  NetworkDiagnosticsRoutines_RunVideoConferencing_Params.encodedSize = codec.kStructHeaderSize + 16;
 
   NetworkDiagnosticsRoutines_RunVideoConferencing_Params.decode = function(decoder) {
     var packed;
@@ -2149,14 +2563,32 @@
     var version = decoder.readUint32();
     val.stunServerHostname =
         decoder.decodeStruct(codec.NullableString);
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunVideoConferencing_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunVideoConferencing_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
     encoder.encodeStruct(codec.NullableString, val.stunServerHostname);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParams(values) {
     this.initDefaults_();
@@ -2221,6 +2653,8 @@
 
 
   NetworkDiagnosticsRoutines_RunArcHttp_Params.prototype.initDefaults_ = function() {
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunArcHttp_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -2236,29 +2670,59 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 8},
+      {version: 2, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunArcHttp_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunArcHttp_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunArcHttp_Params.encodedSize = codec.kStructHeaderSize + 0;
+  NetworkDiagnosticsRoutines_RunArcHttp_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkDiagnosticsRoutines_RunArcHttp_Params.decode = function(decoder) {
     var packed;
     var val = new NetworkDiagnosticsRoutines_RunArcHttp_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunArcHttp_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunArcHttp_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunArcHttp_ResponseParams(values) {
     this.initDefaults_();
@@ -2323,6 +2787,8 @@
 
 
   NetworkDiagnosticsRoutines_RunArcPing_Params.prototype.initDefaults_ = function() {
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunArcPing_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -2338,29 +2804,59 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 8},
+      {version: 2, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunArcPing_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunArcPing_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunArcPing_Params.encodedSize = codec.kStructHeaderSize + 0;
+  NetworkDiagnosticsRoutines_RunArcPing_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkDiagnosticsRoutines_RunArcPing_Params.decode = function(decoder) {
     var packed;
     var val = new NetworkDiagnosticsRoutines_RunArcPing_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunArcPing_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunArcPing_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunArcPing_ResponseParams(values) {
     this.initDefaults_();
@@ -2425,6 +2921,8 @@
 
 
   NetworkDiagnosticsRoutines_RunArcDnsResolution_Params.prototype.initDefaults_ = function() {
+    this.source_$flag = false;
+    this.source_$value = 0;
   };
   NetworkDiagnosticsRoutines_RunArcDnsResolution_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -2440,29 +2938,59 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 8}
+      {version: 0, numBytes: 8},
+      {version: 2, numBytes: 16}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+
+
+    // version check NetworkDiagnosticsRoutines_RunArcDnsResolution_Params.source_$value
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate NetworkDiagnosticsRoutines_RunArcDnsResolution_Params.source_$value
+    err = messageValidator.validateEnum(offset + codec.kStructHeaderSize + 4, RoutineCallSource);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  NetworkDiagnosticsRoutines_RunArcDnsResolution_Params.encodedSize = codec.kStructHeaderSize + 0;
+  NetworkDiagnosticsRoutines_RunArcDnsResolution_Params.encodedSize = codec.kStructHeaderSize + 8;
 
   NetworkDiagnosticsRoutines_RunArcDnsResolution_Params.decode = function(decoder) {
     var packed;
     var val = new NetworkDiagnosticsRoutines_RunArcDnsResolution_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
+    packed = decoder.readUint8();
+    val.source_$flag = (packed >> 0) & 1 ? true : false;
+    decoder.skip(1);
+    decoder.skip(1);
+    decoder.skip(1);
+    if (version >= 2) {
+      val.source_$value =
+          decoder.decodeStruct(new codec.Enum(RoutineCallSource));
+    } else {
+      val.source_$value = null;
+    }
     return val;
   };
 
   NetworkDiagnosticsRoutines_RunArcDnsResolution_Params.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(NetworkDiagnosticsRoutines_RunArcDnsResolution_Params.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
+    packed = 0;
+    packed |= (val.source_$flag & 1) << 0
+    encoder.writeUint8(packed);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.source_$value);
   };
   function NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParams(values) {
     this.initDefaults_();
@@ -3276,8 +3804,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runLanConnectivity = function() {
+  NetworkDiagnosticsRoutinesProxy.prototype.runLanConnectivity = function(source) {
     var params_ = new NetworkDiagnosticsRoutines_RunLanConnectivity_Params();
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunLanConnectivity_Name,
@@ -3300,8 +3829,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runSignalStrength = function() {
+  NetworkDiagnosticsRoutinesProxy.prototype.runSignalStrength = function(source) {
     var params_ = new NetworkDiagnosticsRoutines_RunSignalStrength_Params();
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunSignalStrength_Name,
@@ -3324,8 +3854,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runGatewayCanBePinged = function() {
+  NetworkDiagnosticsRoutinesProxy.prototype.runGatewayCanBePinged = function(source) {
     var params_ = new NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params();
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name,
@@ -3348,8 +3879,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runHasSecureWiFiConnection = function() {
+  NetworkDiagnosticsRoutinesProxy.prototype.runHasSecureWiFiConnection = function(source) {
     var params_ = new NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params();
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name,
@@ -3372,8 +3904,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runDnsResolverPresent = function() {
+  NetworkDiagnosticsRoutinesProxy.prototype.runDnsResolverPresent = function(source) {
     var params_ = new NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params();
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name,
@@ -3396,8 +3929,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runDnsLatency = function() {
+  NetworkDiagnosticsRoutinesProxy.prototype.runDnsLatency = function(source) {
     var params_ = new NetworkDiagnosticsRoutines_RunDnsLatency_Params();
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunDnsLatency_Name,
@@ -3420,8 +3954,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runDnsResolution = function() {
+  NetworkDiagnosticsRoutinesProxy.prototype.runDnsResolution = function(source) {
     var params_ = new NetworkDiagnosticsRoutines_RunDnsResolution_Params();
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunDnsResolution_Name,
@@ -3444,8 +3979,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runCaptivePortal = function() {
+  NetworkDiagnosticsRoutinesProxy.prototype.runCaptivePortal = function(source) {
     var params_ = new NetworkDiagnosticsRoutines_RunCaptivePortal_Params();
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunCaptivePortal_Name,
@@ -3468,8 +4004,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runHttpFirewall = function() {
+  NetworkDiagnosticsRoutinesProxy.prototype.runHttpFirewall = function(source) {
     var params_ = new NetworkDiagnosticsRoutines_RunHttpFirewall_Params();
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunHttpFirewall_Name,
@@ -3492,8 +4029,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runHttpsFirewall = function() {
+  NetworkDiagnosticsRoutinesProxy.prototype.runHttpsFirewall = function(source) {
     var params_ = new NetworkDiagnosticsRoutines_RunHttpsFirewall_Params();
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name,
@@ -3516,8 +4054,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runHttpsLatency = function() {
+  NetworkDiagnosticsRoutinesProxy.prototype.runHttpsLatency = function(source) {
     var params_ = new NetworkDiagnosticsRoutines_RunHttpsLatency_Params();
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunHttpsLatency_Name,
@@ -3540,9 +4079,10 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runVideoConferencing = function(stunServerHostname) {
+  NetworkDiagnosticsRoutinesProxy.prototype.runVideoConferencing = function(stunServerHostname, source) {
     var params_ = new NetworkDiagnosticsRoutines_RunVideoConferencing_Params();
     params_.stunServerHostname = stunServerHostname;
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunVideoConferencing_Name,
@@ -3565,8 +4105,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runArcHttp = function() {
+  NetworkDiagnosticsRoutinesProxy.prototype.runArcHttp = function(source) {
     var params_ = new NetworkDiagnosticsRoutines_RunArcHttp_Params();
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunArcHttp_Name,
@@ -3589,8 +4130,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runArcPing = function() {
+  NetworkDiagnosticsRoutinesProxy.prototype.runArcPing = function(source) {
     var params_ = new NetworkDiagnosticsRoutines_RunArcPing_Params();
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunArcPing_Name,
@@ -3613,8 +4155,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  NetworkDiagnosticsRoutinesProxy.prototype.runArcDnsResolution = function() {
+  NetworkDiagnosticsRoutinesProxy.prototype.runArcDnsResolution = function(source) {
     var params_ = new NetworkDiagnosticsRoutines_RunArcDnsResolution_Params();
+    params_.source = source;
     return new Promise(function(resolve, reject) {
       var builder = new codec.MessageV1Builder(
           kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name,
@@ -3642,50 +4185,50 @@
   NetworkDiagnosticsRoutinesStub.prototype.getAllResults = function() {
     return this.delegate_ && this.delegate_.getAllResults && this.delegate_.getAllResults();
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runLanConnectivity = function() {
-    return this.delegate_ && this.delegate_.runLanConnectivity && this.delegate_.runLanConnectivity();
+  NetworkDiagnosticsRoutinesStub.prototype.runLanConnectivity = function(source) {
+    return this.delegate_ && this.delegate_.runLanConnectivity && this.delegate_.runLanConnectivity(source);
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runSignalStrength = function() {
-    return this.delegate_ && this.delegate_.runSignalStrength && this.delegate_.runSignalStrength();
+  NetworkDiagnosticsRoutinesStub.prototype.runSignalStrength = function(source) {
+    return this.delegate_ && this.delegate_.runSignalStrength && this.delegate_.runSignalStrength(source);
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runGatewayCanBePinged = function() {
-    return this.delegate_ && this.delegate_.runGatewayCanBePinged && this.delegate_.runGatewayCanBePinged();
+  NetworkDiagnosticsRoutinesStub.prototype.runGatewayCanBePinged = function(source) {
+    return this.delegate_ && this.delegate_.runGatewayCanBePinged && this.delegate_.runGatewayCanBePinged(source);
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runHasSecureWiFiConnection = function() {
-    return this.delegate_ && this.delegate_.runHasSecureWiFiConnection && this.delegate_.runHasSecureWiFiConnection();
+  NetworkDiagnosticsRoutinesStub.prototype.runHasSecureWiFiConnection = function(source) {
+    return this.delegate_ && this.delegate_.runHasSecureWiFiConnection && this.delegate_.runHasSecureWiFiConnection(source);
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runDnsResolverPresent = function() {
-    return this.delegate_ && this.delegate_.runDnsResolverPresent && this.delegate_.runDnsResolverPresent();
+  NetworkDiagnosticsRoutinesStub.prototype.runDnsResolverPresent = function(source) {
+    return this.delegate_ && this.delegate_.runDnsResolverPresent && this.delegate_.runDnsResolverPresent(source);
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runDnsLatency = function() {
-    return this.delegate_ && this.delegate_.runDnsLatency && this.delegate_.runDnsLatency();
+  NetworkDiagnosticsRoutinesStub.prototype.runDnsLatency = function(source) {
+    return this.delegate_ && this.delegate_.runDnsLatency && this.delegate_.runDnsLatency(source);
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runDnsResolution = function() {
-    return this.delegate_ && this.delegate_.runDnsResolution && this.delegate_.runDnsResolution();
+  NetworkDiagnosticsRoutinesStub.prototype.runDnsResolution = function(source) {
+    return this.delegate_ && this.delegate_.runDnsResolution && this.delegate_.runDnsResolution(source);
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runCaptivePortal = function() {
-    return this.delegate_ && this.delegate_.runCaptivePortal && this.delegate_.runCaptivePortal();
+  NetworkDiagnosticsRoutinesStub.prototype.runCaptivePortal = function(source) {
+    return this.delegate_ && this.delegate_.runCaptivePortal && this.delegate_.runCaptivePortal(source);
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runHttpFirewall = function() {
-    return this.delegate_ && this.delegate_.runHttpFirewall && this.delegate_.runHttpFirewall();
+  NetworkDiagnosticsRoutinesStub.prototype.runHttpFirewall = function(source) {
+    return this.delegate_ && this.delegate_.runHttpFirewall && this.delegate_.runHttpFirewall(source);
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runHttpsFirewall = function() {
-    return this.delegate_ && this.delegate_.runHttpsFirewall && this.delegate_.runHttpsFirewall();
+  NetworkDiagnosticsRoutinesStub.prototype.runHttpsFirewall = function(source) {
+    return this.delegate_ && this.delegate_.runHttpsFirewall && this.delegate_.runHttpsFirewall(source);
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runHttpsLatency = function() {
-    return this.delegate_ && this.delegate_.runHttpsLatency && this.delegate_.runHttpsLatency();
+  NetworkDiagnosticsRoutinesStub.prototype.runHttpsLatency = function(source) {
+    return this.delegate_ && this.delegate_.runHttpsLatency && this.delegate_.runHttpsLatency(source);
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runVideoConferencing = function(stunServerHostname) {
-    return this.delegate_ && this.delegate_.runVideoConferencing && this.delegate_.runVideoConferencing(stunServerHostname);
+  NetworkDiagnosticsRoutinesStub.prototype.runVideoConferencing = function(stunServerHostname, source) {
+    return this.delegate_ && this.delegate_.runVideoConferencing && this.delegate_.runVideoConferencing(stunServerHostname, source);
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runArcHttp = function() {
-    return this.delegate_ && this.delegate_.runArcHttp && this.delegate_.runArcHttp();
+  NetworkDiagnosticsRoutinesStub.prototype.runArcHttp = function(source) {
+    return this.delegate_ && this.delegate_.runArcHttp && this.delegate_.runArcHttp(source);
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runArcPing = function() {
-    return this.delegate_ && this.delegate_.runArcPing && this.delegate_.runArcPing();
+  NetworkDiagnosticsRoutinesStub.prototype.runArcPing = function(source) {
+    return this.delegate_ && this.delegate_.runArcPing && this.delegate_.runArcPing(source);
   }
-  NetworkDiagnosticsRoutinesStub.prototype.runArcDnsResolution = function() {
-    return this.delegate_ && this.delegate_.runArcDnsResolution && this.delegate_.runArcDnsResolution();
+  NetworkDiagnosticsRoutinesStub.prototype.runArcDnsResolution = function(source) {
+    return this.delegate_ && this.delegate_.runArcDnsResolution && this.delegate_.runArcDnsResolution(source);
   }
 
   NetworkDiagnosticsRoutinesStub.prototype.accept = function(message) {
@@ -3734,7 +4277,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunLanConnectivity_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunLanConnectivity_Params);
-      this.runLanConnectivity().then(function(response) {
+      this.runLanConnectivity(params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParams();
         responseParams.result = response.result;
@@ -3750,7 +4293,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunSignalStrength_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunSignalStrength_Params);
-      this.runSignalStrength().then(function(response) {
+      this.runSignalStrength(params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParams();
         responseParams.result = response.result;
@@ -3766,7 +4309,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params);
-      this.runGatewayCanBePinged().then(function(response) {
+      this.runGatewayCanBePinged(params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParams();
         responseParams.result = response.result;
@@ -3782,7 +4325,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params);
-      this.runHasSecureWiFiConnection().then(function(response) {
+      this.runHasSecureWiFiConnection(params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParams();
         responseParams.result = response.result;
@@ -3798,7 +4341,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params);
-      this.runDnsResolverPresent().then(function(response) {
+      this.runDnsResolverPresent(params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParams();
         responseParams.result = response.result;
@@ -3814,7 +4357,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunDnsLatency_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunDnsLatency_Params);
-      this.runDnsLatency().then(function(response) {
+      this.runDnsLatency(params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParams();
         responseParams.result = response.result;
@@ -3830,7 +4373,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunDnsResolution_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunDnsResolution_Params);
-      this.runDnsResolution().then(function(response) {
+      this.runDnsResolution(params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParams();
         responseParams.result = response.result;
@@ -3846,7 +4389,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunCaptivePortal_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunCaptivePortal_Params);
-      this.runCaptivePortal().then(function(response) {
+      this.runCaptivePortal(params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParams();
         responseParams.result = response.result;
@@ -3862,7 +4405,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunHttpFirewall_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunHttpFirewall_Params);
-      this.runHttpFirewall().then(function(response) {
+      this.runHttpFirewall(params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParams();
         responseParams.result = response.result;
@@ -3878,7 +4421,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunHttpsFirewall_Params);
-      this.runHttpsFirewall().then(function(response) {
+      this.runHttpsFirewall(params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParams();
         responseParams.result = response.result;
@@ -3894,7 +4437,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunHttpsLatency_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunHttpsLatency_Params);
-      this.runHttpsLatency().then(function(response) {
+      this.runHttpsLatency(params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParams();
         responseParams.result = response.result;
@@ -3910,7 +4453,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunVideoConferencing_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunVideoConferencing_Params);
-      this.runVideoConferencing(params.stunServerHostname).then(function(response) {
+      this.runVideoConferencing(params.stunServerHostname, params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParams();
         responseParams.result = response.result;
@@ -3926,7 +4469,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunArcHttp_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunArcHttp_Params);
-      this.runArcHttp().then(function(response) {
+      this.runArcHttp(params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunArcHttp_ResponseParams();
         responseParams.result = response.result;
@@ -3942,7 +4485,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunArcPing_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunArcPing_Params);
-      this.runArcPing().then(function(response) {
+      this.runArcPing(params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunArcPing_ResponseParams();
         responseParams.result = response.result;
@@ -3958,7 +4501,7 @@
       return true;
     case kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name:
       var params = reader.decodeStruct(NetworkDiagnosticsRoutines_RunArcDnsResolution_Params);
-      this.runArcDnsResolution().then(function(response) {
+      this.runArcDnsResolution(params.source).then(function(response) {
         var responseParams =
             new NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParams();
         responseParams.result = response.result;
@@ -4135,7 +4678,7 @@
 
   var NetworkDiagnosticsRoutines = {
     name: 'chromeos.network_diagnostics.mojom.NetworkDiagnosticsRoutines',
-    kVersion: 0,
+    kVersion: 2,
     ptrClass: NetworkDiagnosticsRoutinesPtr,
     proxyClass: NetworkDiagnosticsRoutinesProxy,
     stubClass: NetworkDiagnosticsRoutinesStub,
@@ -4146,6 +4689,7 @@
   NetworkDiagnosticsRoutinesProxy.prototype.validator = validateNetworkDiagnosticsRoutinesResponse;
   exports.RoutineType = RoutineType;
   exports.RoutineVerdict = RoutineVerdict;
+  exports.RoutineCallSource = RoutineCallSource;
   exports.LanConnectivityProblem = LanConnectivityProblem;
   exports.SignalStrengthProblem = SignalStrengthProblem;
   exports.GatewayCanBePingedProblem = GatewayCanBePingedProblem;

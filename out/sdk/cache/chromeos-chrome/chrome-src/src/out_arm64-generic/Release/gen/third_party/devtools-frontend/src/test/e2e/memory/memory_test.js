@@ -372,5 +372,16 @@ const memory_helpers_js_1 = require("../helpers/memory-helpers.js");
         // The backing storage retains 100 strings, which occupy at least 16 bytes each.
         chai_1.assert.isTrue(sizes.sizesForBackingStorage.retainedSize >= 1600);
     });
+    (0, mocha_extensions_js_1.it)('Computes distances for WeakMap values correctly', async () => {
+        await (0, helper_js_1.goToResource)('memory/weakmap.html');
+        await (0, memory_helpers_js_1.navigateToMemoryTab)();
+        await (0, memory_helpers_js_1.takeHeapSnapshot)();
+        await (0, memory_helpers_js_1.waitForNonEmptyHeapSnapshotData)();
+        await (0, memory_helpers_js_1.setClassFilter)('CustomClass');
+        chai_1.assert.strictEqual(5, await (0, memory_helpers_js_1.getDistanceFromCategoryRow)('CustomClass1'));
+        chai_1.assert.strictEqual(6, await (0, memory_helpers_js_1.getDistanceFromCategoryRow)('CustomClass2'));
+        chai_1.assert.strictEqual(2, await (0, memory_helpers_js_1.getDistanceFromCategoryRow)('CustomClass3'));
+        chai_1.assert.strictEqual(8, await (0, memory_helpers_js_1.getDistanceFromCategoryRow)('CustomClass4'));
+    });
 });
 //# sourceMappingURL=memory_test.js.map

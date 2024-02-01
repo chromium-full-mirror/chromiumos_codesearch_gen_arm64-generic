@@ -5,7 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`.styles-element-state-pane{overflow:hidden;padding-left:2px;background-color:var(--sys-color-cdt-base-container);border-bottom:1px solid var(--sys-color-divider);margin-top:0;padding-bottom:2px}.styles-element-state-pane > div{margin:8px 4px 6px}.styles-element-state-pane > table{width:100%;border-spacing:0}.styles-element-state-pane td{padding:0}
+`.styles-element-state-pane{overflow:hidden;padding-left:2px;background-color:var(--sys-color-cdt-base-container);border-bottom:1px solid var(--sys-color-divider);margin-top:0;padding-bottom:2px}.styles-element-state-pane > .page-state-checkbox{margin-block:6px;display:flex;align-items:center;gap:2px}.styles-element-state-pane > .section-header{margin:8px 4px 6px;color:var(--color-text-secondary)}.styles-element-state-pane > table{width:100%;border-spacing:0}.styles-element-state-pane td{padding:0}
 /*# sourceURL=elementStatePaneWidget.css */
 `);
 

@@ -288,7 +288,7 @@ class  LayerTreeUpdate {
   template <typename... Args>
   static LayerTreeUpdatePtr New(Args&&... args) {
     return LayerTreeUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -434,7 +434,7 @@ class  PendingLayerContext {
   template <typename... Args>
   static PendingLayerContextPtr New(Args&&... args) {
     return PendingLayerContextPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

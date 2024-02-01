@@ -22,22 +22,6 @@ class ValidationContext;
 
 namespace autofill::mojom {
 namespace internal {
-class  AutofillDriver_SetFormToBeProbablySubmitted_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::autofill::mojom::internal::FormData_Data> form;
-
- private:
-  friend class mojo::internal::MessageFragment<AutofillDriver_SetFormToBeProbablySubmitted_Params_Data>;
-
-  AutofillDriver_SetFormToBeProbablySubmitted_Params_Data();
-  ~AutofillDriver_SetFormToBeProbablySubmitted_Params_Data() = delete;
-};
-static_assert(sizeof(AutofillDriver_SetFormToBeProbablySubmitted_Params_Data) == 16,
-              "Bad sizeof(AutofillDriver_SetFormToBeProbablySubmitted_Params_Data)");
 class  AutofillDriver_FormsSeen_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -604,42 +588,6 @@ static_assert(sizeof(PasswordGenerationDriver_GenerationElementLostFocus_Params_
               "Bad sizeof(PasswordGenerationDriver_GenerationElementLostFocus_Params_Data)");
 
 }  // namespace internal
-
-
-class AutofillDriver_SetFormToBeProbablySubmitted_ParamsDataView {
- public:
-  AutofillDriver_SetFormToBeProbablySubmitted_ParamsDataView() = default;
-
-  AutofillDriver_SetFormToBeProbablySubmitted_ParamsDataView(
-      internal::AutofillDriver_SetFormToBeProbablySubmitted_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  inline void GetFormDataView(
-      ::autofill::mojom::FormDataDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadForm(UserType* output) {
-    
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::autofill::mojom::FormDataDataView, UserType>(),
-    "Attempting to read the optional `form` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadForm` instead "
-    "of `ReadForm if you're fine with null values being "
-    "silently ignored in this case.");
-    auto* pointer = data_->form.Get();
-    return mojo::internal::Deserialize<::autofill::mojom::FormDataDataView>(
-        pointer, output, message_);
-  }
- private:
-  internal::AutofillDriver_SetFormToBeProbablySubmitted_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
 
 
 class AutofillDriver_FormsSeen_ParamsDataView {
@@ -1724,13 +1672,6 @@ class PasswordGenerationDriver_GenerationElementLostFocus_ParamsDataView {
  private:
   internal::PasswordGenerationDriver_GenerationElementLostFocus_Params_Data* data_ = nullptr;
 };
-
-inline void AutofillDriver_SetFormToBeProbablySubmitted_ParamsDataView::GetFormDataView(
-    ::autofill::mojom::FormDataDataView* output) {
-  auto pointer = data_->form.Get();
-  *output = ::autofill::mojom::FormDataDataView(pointer, message_);
-}
-
 
 inline void AutofillDriver_FormsSeen_ParamsDataView::GetUpdatedFormsDataView(
     mojo::ArrayDataView<::autofill::mojom::FormDataDataView>* output) {

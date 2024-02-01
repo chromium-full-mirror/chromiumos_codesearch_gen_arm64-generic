@@ -243,7 +243,7 @@ class BLINK_PLATFORM_EXPORT PlaybackProperties {
   template <typename... Args>
   static PlaybackPropertiesPtr New(Args&&... args) {
     return PlaybackPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -408,7 +408,7 @@ class BLINK_PLATFORM_EXPORT SecondaryPlaybackProperties {
   template <typename... Args>
   static SecondaryPlaybackPropertiesPtr New(Args&&... args) {
     return SecondaryPlaybackPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

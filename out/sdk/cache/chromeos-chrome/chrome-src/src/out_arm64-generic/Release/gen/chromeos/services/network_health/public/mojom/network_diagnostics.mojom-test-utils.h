@@ -17,21 +17,21 @@ class  NetworkDiagnosticsRoutinesInterceptorForTesting : public NetworkDiagnosti
   virtual NetworkDiagnosticsRoutines* GetForwardingInterface() = 0;
   void GetResult(RoutineType routine, GetResultCallback callback) override;
   void GetAllResults(GetAllResultsCallback callback) override;
-  void RunLanConnectivity(RunLanConnectivityCallback callback) override;
-  void RunSignalStrength(RunSignalStrengthCallback callback) override;
-  void RunGatewayCanBePinged(RunGatewayCanBePingedCallback callback) override;
-  void RunHasSecureWiFiConnection(RunHasSecureWiFiConnectionCallback callback) override;
-  void RunDnsResolverPresent(RunDnsResolverPresentCallback callback) override;
-  void RunDnsLatency(RunDnsLatencyCallback callback) override;
-  void RunDnsResolution(RunDnsResolutionCallback callback) override;
-  void RunCaptivePortal(RunCaptivePortalCallback callback) override;
-  void RunHttpFirewall(RunHttpFirewallCallback callback) override;
-  void RunHttpsFirewall(RunHttpsFirewallCallback callback) override;
-  void RunHttpsLatency(RunHttpsLatencyCallback callback) override;
-  void RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, RunVideoConferencingCallback callback) override;
-  void RunArcHttp(RunArcHttpCallback callback) override;
-  void RunArcPing(RunArcPingCallback callback) override;
-  void RunArcDnsResolution(RunArcDnsResolutionCallback callback) override;
+  void RunLanConnectivity(std::optional<RoutineCallSource> source, RunLanConnectivityCallback callback) override;
+  void RunSignalStrength(std::optional<RoutineCallSource> source, RunSignalStrengthCallback callback) override;
+  void RunGatewayCanBePinged(std::optional<RoutineCallSource> source, RunGatewayCanBePingedCallback callback) override;
+  void RunHasSecureWiFiConnection(std::optional<RoutineCallSource> source, RunHasSecureWiFiConnectionCallback callback) override;
+  void RunDnsResolverPresent(std::optional<RoutineCallSource> source, RunDnsResolverPresentCallback callback) override;
+  void RunDnsLatency(std::optional<RoutineCallSource> source, RunDnsLatencyCallback callback) override;
+  void RunDnsResolution(std::optional<RoutineCallSource> source, RunDnsResolutionCallback callback) override;
+  void RunCaptivePortal(std::optional<RoutineCallSource> source, RunCaptivePortalCallback callback) override;
+  void RunHttpFirewall(std::optional<RoutineCallSource> source, RunHttpFirewallCallback callback) override;
+  void RunHttpsFirewall(std::optional<RoutineCallSource> source, RunHttpsFirewallCallback callback) override;
+  void RunHttpsLatency(std::optional<RoutineCallSource> source, RunHttpsLatencyCallback callback) override;
+  void RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, std::optional<RoutineCallSource> source, RunVideoConferencingCallback callback) override;
+  void RunArcHttp(std::optional<RoutineCallSource> source, RunArcHttpCallback callback) override;
+  void RunArcPing(std::optional<RoutineCallSource> source, RunArcPingCallback callback) override;
+  void RunArcDnsResolution(std::optional<RoutineCallSource> source, RunArcDnsResolutionCallback callback) override;
 };
 class  NetworkDiagnosticsRoutinesAsyncWaiter {
  public:
@@ -48,50 +48,50 @@ class  NetworkDiagnosticsRoutinesAsyncWaiter {
       base::flat_map<RoutineType, RoutineResultPtr>* out_results);
   base::flat_map<RoutineType, RoutineResultPtr> GetAllResults();
   void RunLanConnectivity(
-      RoutineResultPtr* out_result);
-  RoutineResultPtr RunLanConnectivity();
+      std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunLanConnectivity(std::optional<RoutineCallSource> source);
   void RunSignalStrength(
-      RoutineResultPtr* out_result);
-  RoutineResultPtr RunSignalStrength();
+      std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunSignalStrength(std::optional<RoutineCallSource> source);
   void RunGatewayCanBePinged(
-      RoutineResultPtr* out_result);
-  RoutineResultPtr RunGatewayCanBePinged();
+      std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunGatewayCanBePinged(std::optional<RoutineCallSource> source);
   void RunHasSecureWiFiConnection(
-      RoutineResultPtr* out_result);
-  RoutineResultPtr RunHasSecureWiFiConnection();
+      std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunHasSecureWiFiConnection(std::optional<RoutineCallSource> source);
   void RunDnsResolverPresent(
-      RoutineResultPtr* out_result);
-  RoutineResultPtr RunDnsResolverPresent();
+      std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunDnsResolverPresent(std::optional<RoutineCallSource> source);
   void RunDnsLatency(
-      RoutineResultPtr* out_result);
-  RoutineResultPtr RunDnsLatency();
+      std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunDnsLatency(std::optional<RoutineCallSource> source);
   void RunDnsResolution(
-      RoutineResultPtr* out_result);
-  RoutineResultPtr RunDnsResolution();
+      std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunDnsResolution(std::optional<RoutineCallSource> source);
   void RunCaptivePortal(
-      RoutineResultPtr* out_result);
-  RoutineResultPtr RunCaptivePortal();
+      std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunCaptivePortal(std::optional<RoutineCallSource> source);
   void RunHttpFirewall(
-      RoutineResultPtr* out_result);
-  RoutineResultPtr RunHttpFirewall();
+      std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunHttpFirewall(std::optional<RoutineCallSource> source);
   void RunHttpsFirewall(
-      RoutineResultPtr* out_result);
-  RoutineResultPtr RunHttpsFirewall();
+      std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunHttpsFirewall(std::optional<RoutineCallSource> source);
   void RunHttpsLatency(
-      RoutineResultPtr* out_result);
-  RoutineResultPtr RunHttpsLatency();
+      std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunHttpsLatency(std::optional<RoutineCallSource> source);
   void RunVideoConferencing(
-      const std::optional<std::string>& stun_server_hostname, RoutineResultPtr* out_result);
-  RoutineResultPtr RunVideoConferencing(const std::optional<std::string>& stun_server_hostname);
+      const std::optional<std::string>& stun_server_hostname, std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, std::optional<RoutineCallSource> source);
   void RunArcHttp(
-      RoutineResultPtr* out_result);
-  RoutineResultPtr RunArcHttp();
+      std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunArcHttp(std::optional<RoutineCallSource> source);
   void RunArcPing(
-      RoutineResultPtr* out_result);
-  RoutineResultPtr RunArcPing();
+      std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunArcPing(std::optional<RoutineCallSource> source);
   void RunArcDnsResolution(
-      RoutineResultPtr* out_result);
-  RoutineResultPtr RunArcDnsResolution();
+      std::optional<RoutineCallSource> source, RoutineResultPtr* out_result);
+  RoutineResultPtr RunArcDnsResolution(std::optional<RoutineCallSource> source);
 
  private:
   NetworkDiagnosticsRoutines* const proxy_;

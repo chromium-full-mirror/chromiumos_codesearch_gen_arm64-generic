@@ -170,7 +170,7 @@ class BLINK_PLATFORM_EXPORT ObliviousHttpRequestBody {
   template <typename... Args>
   static ObliviousHttpRequestBodyPtr New(Args&&... args) {
     return ObliviousHttpRequestBodyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -315,7 +315,7 @@ class BLINK_PLATFORM_EXPORT ObliviousHttpPaddingParameters {
   template <typename... Args>
   static ObliviousHttpPaddingParametersPtr New(Args&&... args) {
     return ObliviousHttpPaddingParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -473,7 +473,7 @@ class BLINK_PLATFORM_EXPORT ObliviousHttpCompletionResult {
   static ObliviousHttpCompletionResultPtr
   NewNetError(
       int32_t value) {
-    auto result = ObliviousHttpCompletionResultPtr(absl::in_place);
+    auto result = ObliviousHttpCompletionResultPtr(std::in_place);
     result->set_net_error(std::move(value));
     return result;
   }
@@ -481,7 +481,7 @@ class BLINK_PLATFORM_EXPORT ObliviousHttpCompletionResult {
   static ObliviousHttpCompletionResultPtr
   NewOuterResponseErrorCode(
       int32_t value) {
-    auto result = ObliviousHttpCompletionResultPtr(absl::in_place);
+    auto result = ObliviousHttpCompletionResultPtr(std::in_place);
     result->set_outer_response_error_code(std::move(value));
     return result;
   }
@@ -489,7 +489,7 @@ class BLINK_PLATFORM_EXPORT ObliviousHttpCompletionResult {
   static ObliviousHttpCompletionResultPtr
   NewInnerResponse(
       ObliviousHttpResponsePtr value) {
-    auto result = ObliviousHttpCompletionResultPtr(absl::in_place);
+    auto result = ObliviousHttpCompletionResultPtr(std::in_place);
     result->set_inner_response(std::move(value));
     return result;
   }
@@ -617,7 +617,7 @@ class BLINK_PLATFORM_EXPORT ObliviousHttpResponse {
   template <typename... Args>
   static ObliviousHttpResponsePtr New(Args&&... args) {
     return ObliviousHttpResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -766,7 +766,7 @@ class BLINK_PLATFORM_EXPORT ObliviousHttpRequest {
   template <typename... Args>
   static ObliviousHttpRequestPtr New(Args&&... args) {
     return ObliviousHttpRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

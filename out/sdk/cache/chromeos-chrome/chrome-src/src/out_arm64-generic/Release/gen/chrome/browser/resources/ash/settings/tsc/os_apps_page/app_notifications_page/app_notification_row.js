@@ -14,7 +14,11 @@ import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_
 import { recordSettingChange } from '../../metrics_recorder.js';
 import { getTemplate } from './app_notification_row.html.js';
 import { getAppNotificationProvider } from './mojo_interface_provider.js';
-class AppNotificationRowElement extends PolymerElement {
+export class AppNotificationRowElement extends PolymerElement {
+    constructor() {
+        super(...arguments);
+        this.mojoInterfaceProvider_ = getAppNotificationProvider();
+    }
     static get is() {
         return 'app-notification-row';
     }
@@ -33,20 +37,25 @@ class AppNotificationRowElement extends PolymerElement {
         };
     }
     static get observers() {
-        return ['isNotificationPermissionEnabled_(app.notificationPermission.*)'];
+        return ['updateToggleState_(app.notificationPermission.*)'];
     }
-    constructor() {
-        super();
-        this.mojoInterfaceProvider_ = getAppNotificationProvider();
+    ready() {
+        super.ready();
+        this.addEventListener('click', this.onToggleChangeByUser_.bind(this));
     }
-    isNotificationPermissionEnabled_() {
+    updateToggleState_() {
         this.checked_ = isPermissionEnabled(this.app.notificationPermission.value);
     }
-    onNotificationRowClicked_() {
+    /**
+     * Called when a user toggles the notification on/off via click or keypress.
+     */
+    onToggleChangeByUser_() {
         const permission = this.app.notificationPermission;
+        if (permission.isManaged) {
+            return;
+        }
         if (isBoolValue(permission.value)) {
-            permission.value =
-                createBoolPermissionValue(this.checked_ ? false : true);
+            permission.value = createBoolPermissionValue(!this.checked_);
         }
         else if (isTriStateValue(permission.value)) {
             permission.value = createTriStatePermissionValue(this.checked_ ? TriState.kBlock : TriState.kAllow);

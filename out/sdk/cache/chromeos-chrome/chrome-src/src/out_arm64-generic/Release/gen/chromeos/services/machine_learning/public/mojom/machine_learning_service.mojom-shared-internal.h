@@ -13,6 +13,7 @@
 #include "chromeos/services/machine_learning/public/mojom/document_scanner.mojom-shared-internal.h"
 #include "chromeos/services/machine_learning/public/mojom/grammar_checker.mojom-shared-internal.h"
 #include "chromeos/services/machine_learning/public/mojom/handwriting_recognizer.mojom-shared-internal.h"
+#include "chromeos/services/machine_learning/public/mojom/heatmap_palm_rejection.mojom-shared-internal.h"
 #include "chromeos/services/machine_learning/public/mojom/image_content_annotation.mojom-shared-internal.h"
 #include "chromeos/services/machine_learning/public/mojom/model.mojom-shared-internal.h"
 #include "chromeos/services/machine_learning/public/mojom/soda.mojom-shared-internal.h"

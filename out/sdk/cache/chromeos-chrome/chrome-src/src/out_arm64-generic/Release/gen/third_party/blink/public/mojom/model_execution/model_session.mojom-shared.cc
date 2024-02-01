@@ -28,8 +28,28 @@ NOINLINE static const char* ModelStreamingResponseStatusToStringHelper(ModelStre
       return "kOngoing";
     case ModelStreamingResponseStatus::kComplete:
       return "kComplete";
-    case ModelStreamingResponseStatus::kError:
-      return "kError";
+    case ModelStreamingResponseStatus::kErrorUnknown:
+      return "kErrorUnknown";
+    case ModelStreamingResponseStatus::kErrorInvalidRequest:
+      return "kErrorInvalidRequest";
+    case ModelStreamingResponseStatus::kErrorRequestThrottled:
+      return "kErrorRequestThrottled";
+    case ModelStreamingResponseStatus::kErrorPermissionDenied:
+      return "kErrorPermissionDenied";
+    case ModelStreamingResponseStatus::kErrorGenericFailure:
+      return "kErrorGenericFailure";
+    case ModelStreamingResponseStatus::kErrorRetryableError:
+      return "kErrorRetryableError";
+    case ModelStreamingResponseStatus::kErrorNonRetryableError:
+      return "kErrorNonRetryableError";
+    case ModelStreamingResponseStatus::kErrorUnsupportedLanguage:
+      return "kErrorUnsupportedLanguage";
+    case ModelStreamingResponseStatus::kErrorFiltered:
+      return "kErrorFiltered";
+    case ModelStreamingResponseStatus::kErrorDisabled:
+      return "kErrorDisabled";
+    case ModelStreamingResponseStatus::kErrorCancelled:
+      return "kErrorCancelled";
     default:
       return nullptr;
   }

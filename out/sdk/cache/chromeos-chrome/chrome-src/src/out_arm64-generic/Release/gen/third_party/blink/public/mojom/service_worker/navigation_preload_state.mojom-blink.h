@@ -56,7 +56,7 @@ class PLATFORM_EXPORT NavigationPreloadState {
   template <typename... Args>
   static NavigationPreloadStatePtr New(Args&&... args) {
     return NavigationPreloadStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

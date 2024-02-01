@@ -64,7 +64,7 @@ class BLINK_COMMON_EXPORT AllowedDragOperations {
   template <typename... Args>
   static AllowedDragOperationsPtr New(Args&&... args) {
     return AllowedDragOperationsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -225,7 +225,7 @@ class BLINK_COMMON_EXPORT DragItem {
   static DragItemPtr
   NewString(
       DragItemStringPtr value) {
-    auto result = DragItemPtr(absl::in_place);
+    auto result = DragItemPtr(std::in_place);
     result->set_string(std::move(value));
     return result;
   }
@@ -233,7 +233,7 @@ class BLINK_COMMON_EXPORT DragItem {
   static DragItemPtr
   NewFile(
       ::blink::mojom::DataTransferFilePtr value) {
-    auto result = DragItemPtr(absl::in_place);
+    auto result = DragItemPtr(std::in_place);
     result->set_file(std::move(value));
     return result;
   }
@@ -241,7 +241,7 @@ class BLINK_COMMON_EXPORT DragItem {
   static DragItemPtr
   NewBinary(
       DragItemBinaryPtr value) {
-    auto result = DragItemPtr(absl::in_place);
+    auto result = DragItemPtr(std::in_place);
     result->set_binary(std::move(value));
     return result;
   }
@@ -249,7 +249,7 @@ class BLINK_COMMON_EXPORT DragItem {
   static DragItemPtr
   NewFileSystemFile(
       DragItemFileSystemFilePtr value) {
-    auto result = DragItemPtr(absl::in_place);
+    auto result = DragItemPtr(std::in_place);
     result->set_file_system_file(std::move(value));
     return result;
   }
@@ -390,7 +390,7 @@ class BLINK_COMMON_EXPORT DragItemString {
   template <typename... Args>
   static DragItemStringPtr New(Args&&... args) {
     return DragItemStringPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -534,7 +534,7 @@ class BLINK_COMMON_EXPORT DragItemBinary {
   template <typename... Args>
   static DragItemBinaryPtr New(Args&&... args) {
     return DragItemBinaryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -683,7 +683,7 @@ class BLINK_COMMON_EXPORT DragItemFileSystemFile {
   template <typename... Args>
   static DragItemFileSystemFilePtr New(Args&&... args) {
     return DragItemFileSystemFilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -829,7 +829,7 @@ class BLINK_COMMON_EXPORT DragData {
   template <typename... Args>
   static DragDataPtr New(Args&&... args) {
     return DragDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -975,7 +975,7 @@ class BLINK_COMMON_EXPORT DragEventSourceInfo {
   template <typename... Args>
   static DragEventSourceInfoPtr New(Args&&... args) {
     return DragEventSourceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

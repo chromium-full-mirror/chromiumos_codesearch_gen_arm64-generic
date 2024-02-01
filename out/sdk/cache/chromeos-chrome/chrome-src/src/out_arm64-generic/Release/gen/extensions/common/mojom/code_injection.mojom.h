@@ -57,7 +57,7 @@ class  CSSSource {
   template <typename... Args>
   static CSSSourcePtr New(Args&&... args) {
     return CSSSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -212,7 +212,7 @@ class  CodeInjection {
   static CodeInjectionPtr
   NewCss(
       CSSInjectionPtr value) {
-    auto result = CodeInjectionPtr(absl::in_place);
+    auto result = CodeInjectionPtr(std::in_place);
     result->set_css(std::move(value));
     return result;
   }
@@ -220,7 +220,7 @@ class  CodeInjection {
   static CodeInjectionPtr
   NewJs(
       JSInjectionPtr value) {
-    auto result = CodeInjectionPtr(absl::in_place);
+    auto result = CodeInjectionPtr(std::in_place);
     result->set_js(std::move(value));
     return result;
   }
@@ -334,7 +334,7 @@ class  JSSource {
   template <typename... Args>
   static JSSourcePtr New(Args&&... args) {
     return JSSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -478,7 +478,7 @@ class  JSInjection {
   template <typename... Args>
   static JSInjectionPtr New(Args&&... args) {
     return JSInjectionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -633,7 +633,7 @@ class  CSSInjection {
   template <typename... Args>
   static CSSInjectionPtr New(Args&&... args) {
     return CSSInjectionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

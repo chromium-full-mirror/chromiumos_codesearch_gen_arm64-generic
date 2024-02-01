@@ -163,7 +163,7 @@ class  SampledProfile {
   template <typename... Args>
   static SampledProfilePtr New(Args&&... args) {
     return SampledProfilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

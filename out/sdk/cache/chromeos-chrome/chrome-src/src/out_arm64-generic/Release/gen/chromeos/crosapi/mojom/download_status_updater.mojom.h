@@ -321,7 +321,7 @@ class  DownloadProgress {
   template <typename... Args>
   static DownloadProgressPtr New(Args&&... args) {
     return DownloadProgressPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -475,7 +475,7 @@ class  DownloadStatus {
   template <typename... Args>
   static DownloadStatusPtr New(Args&&... args) {
     return DownloadStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

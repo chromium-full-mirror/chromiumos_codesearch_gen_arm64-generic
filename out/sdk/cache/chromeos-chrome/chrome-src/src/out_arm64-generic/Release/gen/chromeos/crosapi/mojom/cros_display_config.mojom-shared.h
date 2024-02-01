@@ -489,7 +489,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `mirror_source_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMirrorSourceId` instead "
     "of `ReadMirrorSourceId if you're fine with null values being "
@@ -509,7 +509,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `mirror_destination_ids` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMirrorDestinationIds` instead "
     "of `ReadMirrorDestinationIds if you're fine with null values being "
@@ -529,7 +529,7 @@ static_assert(
         mojo::ArrayDataView<::crosapi::mojom::DisplayLayoutDataView>, UserType>(),
     "Attempting to read the optional `layouts` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLayouts` instead "
     "of `ReadLayouts if you're fine with null values being "
@@ -697,7 +697,7 @@ static_assert(
         ::crosapi::mojom::EdidDataView, UserType>(),
     "Attempting to read the optional `edid` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEdid` instead "
     "of `ReadEdid if you're fine with null values being "
@@ -831,7 +831,7 @@ static_assert(
         ::gfx::mojom::InsetsDataView, UserType>(),
     "Attempting to read the optional `overscan` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOverscan` instead "
     "of `ReadOverscan if you're fine with null values being "
@@ -851,7 +851,7 @@ static_assert(
         ::crosapi::mojom::DisplayRotationDataView, UserType>(),
     "Attempting to read the optional `rotation` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRotation` instead "
     "of `ReadRotation if you're fine with null values being "
@@ -871,7 +871,7 @@ static_assert(
         ::gfx::mojom::PointDataView, UserType>(),
     "Attempting to read the optional `bounds_origin` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBoundsOrigin` instead "
     "of `ReadBoundsOrigin if you're fine with null values being "
@@ -894,7 +894,7 @@ static_assert(
         ::crosapi::mojom::DisplayModeDataView, UserType>(),
     "Attempting to read the optional `display_mode` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDisplayMode` instead "
     "of `ReadDisplayMode if you're fine with null values being "

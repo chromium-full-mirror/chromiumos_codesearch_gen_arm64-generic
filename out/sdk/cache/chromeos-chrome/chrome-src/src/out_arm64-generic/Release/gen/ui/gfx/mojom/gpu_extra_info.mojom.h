@@ -58,7 +58,7 @@ class  ANGLEFeature {
   template <typename... Args>
   static ANGLEFeaturePtr New(Args&&... args) {
     return ANGLEFeaturePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -213,7 +213,7 @@ class  GpuExtraInfo {
   template <typename... Args>
   static GpuExtraInfoPtr New(Args&&... args) {
     return GpuExtraInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

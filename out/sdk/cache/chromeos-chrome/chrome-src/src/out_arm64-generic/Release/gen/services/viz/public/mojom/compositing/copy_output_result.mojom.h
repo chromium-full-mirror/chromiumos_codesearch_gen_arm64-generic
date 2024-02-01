@@ -63,7 +63,7 @@ class  CopyOutputResult {
   template <typename... Args>
   static CopyOutputResultPtr New(Args&&... args) {
     return CopyOutputResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

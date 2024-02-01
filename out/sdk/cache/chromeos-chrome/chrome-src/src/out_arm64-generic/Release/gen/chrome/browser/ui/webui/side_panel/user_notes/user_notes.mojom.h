@@ -530,7 +530,7 @@ class  Note {
   template <typename... Args>
   static NotePtr New(Args&&... args) {
     return NotePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -682,7 +682,7 @@ class  NoteOverview {
   template <typename... Args>
   static NoteOverviewPtr New(Args&&... args) {
     return NoteOverviewPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

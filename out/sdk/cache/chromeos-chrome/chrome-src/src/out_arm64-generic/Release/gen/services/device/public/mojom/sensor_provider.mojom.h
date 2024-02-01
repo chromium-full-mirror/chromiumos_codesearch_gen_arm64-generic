@@ -212,7 +212,7 @@ class  VirtualSensorMetadata {
   template <typename... Args>
   static VirtualSensorMetadataPtr New(Args&&... args) {
     return VirtualSensorMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -361,7 +361,7 @@ class  VirtualSensorInformation {
   template <typename... Args>
   static VirtualSensorInformationPtr New(Args&&... args) {
     return VirtualSensorInformationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -512,7 +512,7 @@ class  GetVirtualSensorInformationResult {
   static GetVirtualSensorInformationResultPtr
   NewInfo(
       VirtualSensorInformationPtr value) {
-    auto result = GetVirtualSensorInformationResultPtr(absl::in_place);
+    auto result = GetVirtualSensorInformationResultPtr(std::in_place);
     result->set_info(std::move(value));
     return result;
   }
@@ -520,7 +520,7 @@ class  GetVirtualSensorInformationResult {
   static GetVirtualSensorInformationResultPtr
   NewError(
       GetVirtualSensorInformationError value) {
-    auto result = GetVirtualSensorInformationResultPtr(absl::in_place);
+    auto result = GetVirtualSensorInformationResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -637,7 +637,7 @@ class  SensorInitParams {
   template <typename... Args>
   static SensorInitParamsPtr New(Args&&... args) {
     return SensorInitParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -423,6 +423,40 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) MachineLearningService_LoadImageA
 };
 static_assert(sizeof(MachineLearningService_LoadImageAnnotator_ResponseParams_Data) == 16,
               "Bad sizeof(MachineLearningService_LoadImageAnnotator_ResponseParams_Data)");
+class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) MachineLearningService_LoadHeatmapPalmRejection_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<::chromeos::machine_learning::mojom::internal::HeatmapPalmRejectionConfig_Data> config;
+  mojo::internal::Interface_Data client;
+
+ private:
+  friend class mojo::internal::MessageFragment<MachineLearningService_LoadHeatmapPalmRejection_Params_Data>;
+
+  MachineLearningService_LoadHeatmapPalmRejection_Params_Data();
+  ~MachineLearningService_LoadHeatmapPalmRejection_Params_Data() = delete;
+};
+static_assert(sizeof(MachineLearningService_LoadHeatmapPalmRejection_Params_Data) == 24,
+              "Bad sizeof(MachineLearningService_LoadHeatmapPalmRejection_Params_Data)");
+class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t result;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data>;
+
+  MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data();
+  ~MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data) == 16,
+              "Bad sizeof(MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data)");
 class COMPONENT_EXPORT(MLSERVICE_MOJOM_SHARED) MachineLearningService_REMOVED_4_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -866,7 +900,7 @@ static_assert(
         ::chromeos::machine_learning::mojom::TextSuggesterSpecDataView, UserType>(),
     "Attempting to read the optional `spec` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSpec` instead "
     "of `ReadSpec if you're fine with null values being "
@@ -997,7 +1031,7 @@ static_assert(
         ::chromeos::machine_learning::mojom::DocumentScannerConfigDataView, UserType>(),
     "Attempting to read the optional `config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadConfig` instead "
     "of `ReadConfig if you're fine with null values being "
@@ -1158,6 +1192,66 @@ class MachineLearningService_LoadImageAnnotator_ResponseParamsDataView {
 };
 
 
+class MachineLearningService_LoadHeatmapPalmRejection_ParamsDataView {
+ public:
+  MachineLearningService_LoadHeatmapPalmRejection_ParamsDataView() = default;
+
+  MachineLearningService_LoadHeatmapPalmRejection_ParamsDataView(
+      internal::MachineLearningService_LoadHeatmapPalmRejection_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetConfigDataView(
+      ::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadConfig(UserType* output) {
+    
+    auto* pointer = data_->config.Get();
+    return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  UserType TakeClient() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::chromeos::machine_learning::mojom::HeatmapPalmRejectionClientInterfaceBase>>(
+            &data_->client, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+ private:
+  internal::MachineLearningService_LoadHeatmapPalmRejection_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class MachineLearningService_LoadHeatmapPalmRejection_ResponseParamsDataView {
+ public:
+  MachineLearningService_LoadHeatmapPalmRejection_ResponseParamsDataView() = default;
+
+  MachineLearningService_LoadHeatmapPalmRejection_ResponseParamsDataView(
+      internal::MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadResult(UserType* output) const {
+    auto data_value = data_->result;
+    return mojo::internal::Deserialize<::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult>(
+        data_value, output);
+  }
+  ::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult result() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult>(data_->result));
+  }
+ private:
+  internal::MachineLearningService_LoadHeatmapPalmRejection_ResponseParams_Data* data_ = nullptr;
+};
+
+
 class MachineLearningService_REMOVED_4_ParamsDataView {
  public:
   MachineLearningService_REMOVED_4_ParamsDataView() = default;
@@ -1305,6 +1399,15 @@ inline void MachineLearningService_LoadImageAnnotator_ParamsDataView::GetConfigD
     ::chromeos::machine_learning::mojom::ImageAnnotatorConfigDataView* output) {
   auto pointer = data_->config.Get();
   *output = ::chromeos::machine_learning::mojom::ImageAnnotatorConfigDataView(pointer, message_);
+}
+
+
+
+
+inline void MachineLearningService_LoadHeatmapPalmRejection_ParamsDataView::GetConfigDataView(
+    ::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigDataView* output) {
+  auto pointer = data_->config.Get();
+  *output = ::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigDataView(pointer, message_);
 }
 
 

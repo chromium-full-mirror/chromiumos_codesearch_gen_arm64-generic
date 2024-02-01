@@ -76,7 +76,8 @@ RoutineResult::RoutineResult()
     : verdict(),
       problems(),
       timestamp(),
-      result_value() {}
+      result_value(),
+      source() {}
 
 RoutineResult::RoutineResult(
     RoutineVerdict verdict_in,
@@ -85,7 +86,8 @@ RoutineResult::RoutineResult(
     : verdict(std::move(verdict_in)),
       problems(std::move(problems_in)),
       timestamp(std::move(timestamp_in)),
-      result_value() {}
+      result_value(),
+      source() {}
 
 RoutineResult::RoutineResult(
     RoutineVerdict verdict_in,
@@ -95,7 +97,20 @@ RoutineResult::RoutineResult(
     : verdict(std::move(verdict_in)),
       problems(std::move(problems_in)),
       timestamp(std::move(timestamp_in)),
-      result_value(std::move(result_value_in)) {}
+      result_value(std::move(result_value_in)),
+      source() {}
+
+RoutineResult::RoutineResult(
+    RoutineVerdict verdict_in,
+    RoutineProblemsPtr problems_in,
+    ::base::Time timestamp_in,
+    RoutineResultValuePtr result_value_in,
+    RoutineCallSource source_in)
+    : verdict(std::move(verdict_in)),
+      problems(std::move(problems_in)),
+      timestamp(std::move(timestamp_in)),
+      result_value(std::move(result_value_in)),
+      source(std::move(source_in)) {}
 
 RoutineResult::~RoutineResult() = default;
 
@@ -134,6 +149,15 @@ void RoutineResult::WriteIntoTrace(
       "result_value"), this->result_value,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type RoutineResultValuePtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "source"), this->source,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type RoutineCallSource>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1156,9 +1180,16 @@ void NetworkDiagnosticsRoutinesProxy::GetAllResults(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunLanConnectivity(
-    RunLanConnectivityCallback callback) {
+    std::optional<RoutineCallSource> in_source, RunLanConnectivityCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunLanConnectivity");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunLanConnectivity", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -1178,6 +1209,14 @@ void NetworkDiagnosticsRoutinesProxy::RunLanConnectivity(
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data> params(
           message);
   params.Allocate();
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -1190,9 +1229,16 @@ void NetworkDiagnosticsRoutinesProxy::RunLanConnectivity(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunSignalStrength(
-    RunSignalStrengthCallback callback) {
+    std::optional<RoutineCallSource> in_source, RunSignalStrengthCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunSignalStrength");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunSignalStrength", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -1212,6 +1258,14 @@ void NetworkDiagnosticsRoutinesProxy::RunSignalStrength(
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data> params(
           message);
   params.Allocate();
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -1224,9 +1278,16 @@ void NetworkDiagnosticsRoutinesProxy::RunSignalStrength(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunGatewayCanBePinged(
-    RunGatewayCanBePingedCallback callback) {
+    std::optional<RoutineCallSource> in_source, RunGatewayCanBePingedCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunGatewayCanBePinged");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunGatewayCanBePinged", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -1246,6 +1307,14 @@ void NetworkDiagnosticsRoutinesProxy::RunGatewayCanBePinged(
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data> params(
           message);
   params.Allocate();
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -1258,9 +1327,16 @@ void NetworkDiagnosticsRoutinesProxy::RunGatewayCanBePinged(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunHasSecureWiFiConnection(
-    RunHasSecureWiFiConnectionCallback callback) {
+    std::optional<RoutineCallSource> in_source, RunHasSecureWiFiConnectionCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHasSecureWiFiConnection");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHasSecureWiFiConnection", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -1280,6 +1356,14 @@ void NetworkDiagnosticsRoutinesProxy::RunHasSecureWiFiConnection(
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data> params(
           message);
   params.Allocate();
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -1292,9 +1376,16 @@ void NetworkDiagnosticsRoutinesProxy::RunHasSecureWiFiConnection(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunDnsResolverPresent(
-    RunDnsResolverPresentCallback callback) {
+    std::optional<RoutineCallSource> in_source, RunDnsResolverPresentCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsResolverPresent");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsResolverPresent", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -1314,6 +1405,14 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsResolverPresent(
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data> params(
           message);
   params.Allocate();
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -1326,9 +1425,16 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsResolverPresent(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunDnsLatency(
-    RunDnsLatencyCallback callback) {
+    std::optional<RoutineCallSource> in_source, RunDnsLatencyCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsLatency");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsLatency", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -1348,6 +1454,14 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsLatency(
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data> params(
           message);
   params.Allocate();
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -1360,9 +1474,16 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsLatency(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunDnsResolution(
-    RunDnsResolutionCallback callback) {
+    std::optional<RoutineCallSource> in_source, RunDnsResolutionCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsResolution");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunDnsResolution", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -1382,6 +1503,14 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsResolution(
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data> params(
           message);
   params.Allocate();
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -1394,9 +1523,16 @@ void NetworkDiagnosticsRoutinesProxy::RunDnsResolution(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunCaptivePortal(
-    RunCaptivePortalCallback callback) {
+    std::optional<RoutineCallSource> in_source, RunCaptivePortalCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunCaptivePortal");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunCaptivePortal", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -1416,6 +1552,14 @@ void NetworkDiagnosticsRoutinesProxy::RunCaptivePortal(
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data> params(
           message);
   params.Allocate();
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -1428,9 +1572,16 @@ void NetworkDiagnosticsRoutinesProxy::RunCaptivePortal(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunHttpFirewall(
-    RunHttpFirewallCallback callback) {
+    std::optional<RoutineCallSource> in_source, RunHttpFirewallCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpFirewall");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpFirewall", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -1450,6 +1601,14 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpFirewall(
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data> params(
           message);
   params.Allocate();
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -1462,9 +1621,16 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpFirewall(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunHttpsFirewall(
-    RunHttpsFirewallCallback callback) {
+    std::optional<RoutineCallSource> in_source, RunHttpsFirewallCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpsFirewall");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpsFirewall", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -1484,6 +1650,14 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsFirewall(
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data> params(
           message);
   params.Allocate();
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -1496,9 +1670,16 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsFirewall(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunHttpsLatency(
-    RunHttpsLatencyCallback callback) {
+    std::optional<RoutineCallSource> in_source, RunHttpsLatencyCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpsLatency");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunHttpsLatency", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -1518,6 +1699,14 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsLatency(
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data> params(
           message);
   params.Allocate();
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -1530,7 +1719,7 @@ void NetworkDiagnosticsRoutinesProxy::RunHttpsLatency(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunVideoConferencing(
-    const std::optional<std::string>& in_stun_server_hostname, RunVideoConferencingCallback callback) {
+    const std::optional<std::string>& in_stun_server_hostname, std::optional<RoutineCallSource> in_source, RunVideoConferencingCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunVideoConferencing", "input_parameters",
@@ -1539,6 +1728,9 @@ void NetworkDiagnosticsRoutinesProxy::RunVideoConferencing(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("stun_server_hostname"), in_stun_server_hostname,
                         "<value of type const std::optional<std::string>&>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
    });
 #endif
 
@@ -1566,6 +1758,14 @@ void NetworkDiagnosticsRoutinesProxy::RunVideoConferencing(
       in_stun_server_hostname, stun_server_hostname_fragment);
   params->stun_server_hostname.Set(
       stun_server_hostname_fragment.is_null() ? nullptr : stun_server_hostname_fragment.data());
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -1578,9 +1778,16 @@ void NetworkDiagnosticsRoutinesProxy::RunVideoConferencing(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunArcHttp(
-    RunArcHttpCallback callback) {
+    std::optional<RoutineCallSource> in_source, RunArcHttpCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcHttp");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcHttp", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -1600,6 +1807,14 @@ void NetworkDiagnosticsRoutinesProxy::RunArcHttp(
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcHttp_Params_Data> params(
           message);
   params.Allocate();
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -1612,9 +1827,16 @@ void NetworkDiagnosticsRoutinesProxy::RunArcHttp(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunArcPing(
-    RunArcPingCallback callback) {
+    std::optional<RoutineCallSource> in_source, RunArcPingCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcPing");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcPing", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -1634,6 +1856,14 @@ void NetworkDiagnosticsRoutinesProxy::RunArcPing(
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcPing_Params_Data> params(
           message);
   params.Allocate();
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -1646,9 +1876,16 @@ void NetworkDiagnosticsRoutinesProxy::RunArcPing(
 }
 
 void NetworkDiagnosticsRoutinesProxy::RunArcDnsResolution(
-    RunArcDnsResolutionCallback callback) {
+    std::optional<RoutineCallSource> in_source, RunArcDnsResolutionCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcDnsResolution");
+  TRACE_EVENT1(
+    "mojom", "Send chromeos::network_diagnostics::mojom::NetworkDiagnosticsRoutines::RunArcDnsResolution", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("source"), in_source,
+                        "<value of type std::optional<RoutineCallSource>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -1668,6 +1905,14 @@ void NetworkDiagnosticsRoutinesProxy::RunArcDnsResolution(
       ::chromeos::network_diagnostics::mojom::internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data> params(
           message);
   params.Allocate();
+  params->source_$flag = in_source.has_value();
+  if (in_source.has_value()) {
+    mojo::internal::Serialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        in_source.value(), &params->source_$value);
+  } else {
+    params->source_$value =
+        static_cast<int32_t>(::chromeos::network_diagnostics::mojom::RoutineCallSource::kMinValue);
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(NetworkDiagnosticsRoutines::Name_);
@@ -4041,8 +4286,12 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       
       // Validation for NetworkDiagnosticsRoutines.12
       bool success = true;
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunLanConnectivity_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4055,7 +4304,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunLanConnectivity(std::move(callback));
+      impl->RunLanConnectivity(        
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunSignalStrength_Name: {
@@ -4068,8 +4318,12 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       
       // Validation for NetworkDiagnosticsRoutines.13
       bool success = true;
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunSignalStrength_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4082,7 +4336,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunSignalStrength(std::move(callback));
+      impl->RunSignalStrength(        
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunGatewayCanBePinged_Name: {
@@ -4095,8 +4350,12 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       
       // Validation for NetworkDiagnosticsRoutines.14
       bool success = true;
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4109,7 +4368,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunGatewayCanBePinged(std::move(callback));
+      impl->RunGatewayCanBePinged(        
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Name: {
@@ -4122,8 +4382,12 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       
       // Validation for NetworkDiagnosticsRoutines.15
       bool success = true;
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4136,7 +4400,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunHasSecureWiFiConnection(std::move(callback));
+      impl->RunHasSecureWiFiConnection(        
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunDnsResolverPresent_Name: {
@@ -4149,8 +4414,12 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       
       // Validation for NetworkDiagnosticsRoutines.16
       bool success = true;
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunDnsResolverPresent_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4163,7 +4432,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunDnsResolverPresent(std::move(callback));
+      impl->RunDnsResolverPresent(        
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunDnsLatency_Name: {
@@ -4176,8 +4446,12 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       
       // Validation for NetworkDiagnosticsRoutines.17
       bool success = true;
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunDnsLatency_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4190,7 +4464,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunDnsLatency(std::move(callback));
+      impl->RunDnsLatency(        
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunDnsResolution_Name: {
@@ -4203,8 +4478,12 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       
       // Validation for NetworkDiagnosticsRoutines.18
       bool success = true;
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunDnsResolution_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4217,7 +4496,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunDnsResolution(std::move(callback));
+      impl->RunDnsResolution(        
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunCaptivePortal_Name: {
@@ -4230,8 +4510,12 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       
       // Validation for NetworkDiagnosticsRoutines.19
       bool success = true;
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunCaptivePortal_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4244,7 +4528,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunCaptivePortal(std::move(callback));
+      impl->RunCaptivePortal(        
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunHttpFirewall_Name: {
@@ -4257,8 +4542,12 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       
       // Validation for NetworkDiagnosticsRoutines.20
       bool success = true;
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunHttpFirewall_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4271,7 +4560,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunHttpFirewall(std::move(callback));
+      impl->RunHttpFirewall(        
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunHttpsFirewall_Name: {
@@ -4284,8 +4574,12 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       
       // Validation for NetworkDiagnosticsRoutines.21
       bool success = true;
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunHttpsFirewall_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4298,7 +4592,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunHttpsFirewall(std::move(callback));
+      impl->RunHttpsFirewall(        
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunHttpsLatency_Name: {
@@ -4311,8 +4606,12 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       
       // Validation for NetworkDiagnosticsRoutines.22
       bool success = true;
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunHttpsLatency_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4325,7 +4624,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunHttpsLatency(std::move(callback));
+      impl->RunHttpsLatency(        
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunVideoConferencing_Name: {
@@ -4339,10 +4639,14 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       // Validation for NetworkDiagnosticsRoutines.23
       bool success = true;
       std::optional<std::string> p_stun_server_hostname{};
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunVideoConferencing_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadStunServerHostname(&p_stun_server_hostname))
         success = false;
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4356,7 +4660,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->RunVideoConferencing(        
-        std::move(p_stun_server_hostname), std::move(callback));
+        std::move(p_stun_server_hostname), 
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunArcHttp_Name: {
@@ -4369,8 +4674,12 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       
       // Validation for NetworkDiagnosticsRoutines.24
       bool success = true;
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunArcHttp_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4383,7 +4692,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunArcHttp(std::move(callback));
+      impl->RunArcHttp(        
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunArcPing_Name: {
@@ -4396,8 +4706,12 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       
       // Validation for NetworkDiagnosticsRoutines.25
       bool success = true;
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunArcPing_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4410,7 +4724,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunArcPing(std::move(callback));
+      impl->RunArcPing(        
+        std::move(p_source), std::move(callback));
       return true;
     }
     case internal::kNetworkDiagnosticsRoutines_RunArcDnsResolution_Name: {
@@ -4423,8 +4738,12 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
       
       // Validation for NetworkDiagnosticsRoutines.26
       bool success = true;
+      std::optional<RoutineCallSource> p_source{};
       NetworkDiagnosticsRoutines_RunArcDnsResolution_ParamsDataView input_data_view(params, message);
       
+      if (success && !input_data_view.ReadSource(&p_source)) {
+        success = false;
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -4437,7 +4756,8 @@ bool NetworkDiagnosticsRoutinesStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->RunArcDnsResolution(std::move(callback));
+      impl->RunArcDnsResolution(        
+        std::move(p_source), std::move(callback));
       return true;
     }
   }
@@ -4539,6 +4859,8 @@ bool StructTraits<::chromeos::network_diagnostics::mojom::RoutineResult::DataVie
       if (success && !input.ReadTimestamp(&result->timestamp))
         success = false;
       if (success && !input.ReadResultValue(&result->result_value))
+        success = false;
+      if (success && !input.ReadSource(&result->source))
         success = false;
   *output = std::move(result);
   return success;
@@ -4734,50 +5056,50 @@ void NetworkDiagnosticsRoutinesInterceptorForTesting::GetResult(RoutineType rout
 void NetworkDiagnosticsRoutinesInterceptorForTesting::GetAllResults(GetAllResultsCallback callback) {
   GetForwardingInterface()->GetAllResults(std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunLanConnectivity(RunLanConnectivityCallback callback) {
-  GetForwardingInterface()->RunLanConnectivity(std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunLanConnectivity(std::optional<RoutineCallSource> source, RunLanConnectivityCallback callback) {
+  GetForwardingInterface()->RunLanConnectivity(std::move(source), std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunSignalStrength(RunSignalStrengthCallback callback) {
-  GetForwardingInterface()->RunSignalStrength(std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunSignalStrength(std::optional<RoutineCallSource> source, RunSignalStrengthCallback callback) {
+  GetForwardingInterface()->RunSignalStrength(std::move(source), std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunGatewayCanBePinged(RunGatewayCanBePingedCallback callback) {
-  GetForwardingInterface()->RunGatewayCanBePinged(std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunGatewayCanBePinged(std::optional<RoutineCallSource> source, RunGatewayCanBePingedCallback callback) {
+  GetForwardingInterface()->RunGatewayCanBePinged(std::move(source), std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHasSecureWiFiConnection(RunHasSecureWiFiConnectionCallback callback) {
-  GetForwardingInterface()->RunHasSecureWiFiConnection(std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHasSecureWiFiConnection(std::optional<RoutineCallSource> source, RunHasSecureWiFiConnectionCallback callback) {
+  GetForwardingInterface()->RunHasSecureWiFiConnection(std::move(source), std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunDnsResolverPresent(RunDnsResolverPresentCallback callback) {
-  GetForwardingInterface()->RunDnsResolverPresent(std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunDnsResolverPresent(std::optional<RoutineCallSource> source, RunDnsResolverPresentCallback callback) {
+  GetForwardingInterface()->RunDnsResolverPresent(std::move(source), std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunDnsLatency(RunDnsLatencyCallback callback) {
-  GetForwardingInterface()->RunDnsLatency(std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunDnsLatency(std::optional<RoutineCallSource> source, RunDnsLatencyCallback callback) {
+  GetForwardingInterface()->RunDnsLatency(std::move(source), std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunDnsResolution(RunDnsResolutionCallback callback) {
-  GetForwardingInterface()->RunDnsResolution(std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunDnsResolution(std::optional<RoutineCallSource> source, RunDnsResolutionCallback callback) {
+  GetForwardingInterface()->RunDnsResolution(std::move(source), std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunCaptivePortal(RunCaptivePortalCallback callback) {
-  GetForwardingInterface()->RunCaptivePortal(std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunCaptivePortal(std::optional<RoutineCallSource> source, RunCaptivePortalCallback callback) {
+  GetForwardingInterface()->RunCaptivePortal(std::move(source), std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHttpFirewall(RunHttpFirewallCallback callback) {
-  GetForwardingInterface()->RunHttpFirewall(std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHttpFirewall(std::optional<RoutineCallSource> source, RunHttpFirewallCallback callback) {
+  GetForwardingInterface()->RunHttpFirewall(std::move(source), std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHttpsFirewall(RunHttpsFirewallCallback callback) {
-  GetForwardingInterface()->RunHttpsFirewall(std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHttpsFirewall(std::optional<RoutineCallSource> source, RunHttpsFirewallCallback callback) {
+  GetForwardingInterface()->RunHttpsFirewall(std::move(source), std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHttpsLatency(RunHttpsLatencyCallback callback) {
-  GetForwardingInterface()->RunHttpsLatency(std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunHttpsLatency(std::optional<RoutineCallSource> source, RunHttpsLatencyCallback callback) {
+  GetForwardingInterface()->RunHttpsLatency(std::move(source), std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, RunVideoConferencingCallback callback) {
-  GetForwardingInterface()->RunVideoConferencing(std::move(stun_server_hostname), std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunVideoConferencing(const std::optional<std::string>& stun_server_hostname, std::optional<RoutineCallSource> source, RunVideoConferencingCallback callback) {
+  GetForwardingInterface()->RunVideoConferencing(std::move(stun_server_hostname), std::move(source), std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunArcHttp(RunArcHttpCallback callback) {
-  GetForwardingInterface()->RunArcHttp(std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunArcHttp(std::optional<RoutineCallSource> source, RunArcHttpCallback callback) {
+  GetForwardingInterface()->RunArcHttp(std::move(source), std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunArcPing(RunArcPingCallback callback) {
-  GetForwardingInterface()->RunArcPing(std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunArcPing(std::optional<RoutineCallSource> source, RunArcPingCallback callback) {
+  GetForwardingInterface()->RunArcPing(std::move(source), std::move(callback));
 }
-void NetworkDiagnosticsRoutinesInterceptorForTesting::RunArcDnsResolution(RunArcDnsResolutionCallback callback) {
-  GetForwardingInterface()->RunArcDnsResolution(std::move(callback));
+void NetworkDiagnosticsRoutinesInterceptorForTesting::RunArcDnsResolution(std::optional<RoutineCallSource> source, RunArcDnsResolutionCallback callback) {
+  GetForwardingInterface()->RunArcDnsResolution(std::move(source), std::move(callback));
 }
 NetworkDiagnosticsRoutinesAsyncWaiter::NetworkDiagnosticsRoutinesAsyncWaiter(
     NetworkDiagnosticsRoutines* proxy) : proxy_(proxy) {}
@@ -4831,9 +5153,9 @@ base::flat_map<RoutineType, RoutineResultPtr> NetworkDiagnosticsRoutinesAsyncWai
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunLanConnectivity(
-    RoutineResultPtr* out_result) {
+    std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunLanConnectivity(
+  proxy_->RunLanConnectivity(std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -4847,16 +5169,16 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunLanConnectivity(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunLanConnectivity(
-    ) {
+    std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunLanConnectivity(&async_wait_result);
+  RunLanConnectivity(std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunSignalStrength(
-    RoutineResultPtr* out_result) {
+    std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunSignalStrength(
+  proxy_->RunSignalStrength(std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -4870,16 +5192,16 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunSignalStrength(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunSignalStrength(
-    ) {
+    std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunSignalStrength(&async_wait_result);
+  RunSignalStrength(std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunGatewayCanBePinged(
-    RoutineResultPtr* out_result) {
+    std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunGatewayCanBePinged(
+  proxy_->RunGatewayCanBePinged(std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -4893,16 +5215,16 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunGatewayCanBePinged(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunGatewayCanBePinged(
-    ) {
+    std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunGatewayCanBePinged(&async_wait_result);
+  RunGatewayCanBePinged(std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunHasSecureWiFiConnection(
-    RoutineResultPtr* out_result) {
+    std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunHasSecureWiFiConnection(
+  proxy_->RunHasSecureWiFiConnection(std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -4916,16 +5238,16 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunHasSecureWiFiConnection(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunHasSecureWiFiConnection(
-    ) {
+    std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunHasSecureWiFiConnection(&async_wait_result);
+  RunHasSecureWiFiConnection(std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolverPresent(
-    RoutineResultPtr* out_result) {
+    std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunDnsResolverPresent(
+  proxy_->RunDnsResolverPresent(std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -4939,16 +5261,16 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolverPresent(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolverPresent(
-    ) {
+    std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunDnsResolverPresent(&async_wait_result);
+  RunDnsResolverPresent(std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsLatency(
-    RoutineResultPtr* out_result) {
+    std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunDnsLatency(
+  proxy_->RunDnsLatency(std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -4962,16 +5284,16 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsLatency(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsLatency(
-    ) {
+    std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunDnsLatency(&async_wait_result);
+  RunDnsLatency(std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolution(
-    RoutineResultPtr* out_result) {
+    std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunDnsResolution(
+  proxy_->RunDnsResolution(std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -4985,16 +5307,16 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolution(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunDnsResolution(
-    ) {
+    std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunDnsResolution(&async_wait_result);
+  RunDnsResolution(std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunCaptivePortal(
-    RoutineResultPtr* out_result) {
+    std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunCaptivePortal(
+  proxy_->RunCaptivePortal(std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -5008,16 +5330,16 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunCaptivePortal(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunCaptivePortal(
-    ) {
+    std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunCaptivePortal(&async_wait_result);
+  RunCaptivePortal(std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpFirewall(
-    RoutineResultPtr* out_result) {
+    std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunHttpFirewall(
+  proxy_->RunHttpFirewall(std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -5031,16 +5353,16 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpFirewall(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpFirewall(
-    ) {
+    std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunHttpFirewall(&async_wait_result);
+  RunHttpFirewall(std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsFirewall(
-    RoutineResultPtr* out_result) {
+    std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunHttpsFirewall(
+  proxy_->RunHttpsFirewall(std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -5054,16 +5376,16 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsFirewall(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsFirewall(
-    ) {
+    std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunHttpsFirewall(&async_wait_result);
+  RunHttpsFirewall(std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsLatency(
-    RoutineResultPtr* out_result) {
+    std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunHttpsLatency(
+  proxy_->RunHttpsLatency(std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -5077,16 +5399,16 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsLatency(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunHttpsLatency(
-    ) {
+    std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunHttpsLatency(&async_wait_result);
+  RunHttpsLatency(std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunVideoConferencing(
-    const std::optional<std::string>& stun_server_hostname, RoutineResultPtr* out_result) {
+    const std::optional<std::string>& stun_server_hostname, std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunVideoConferencing(std::move(stun_server_hostname),
+  proxy_->RunVideoConferencing(std::move(stun_server_hostname),std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -5100,16 +5422,16 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunVideoConferencing(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunVideoConferencing(
-    const std::optional<std::string>& stun_server_hostname) {
+    const std::optional<std::string>& stun_server_hostname, std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunVideoConferencing(std::move(stun_server_hostname),&async_wait_result);
+  RunVideoConferencing(std::move(stun_server_hostname),std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcHttp(
-    RoutineResultPtr* out_result) {
+    std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunArcHttp(
+  proxy_->RunArcHttp(std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -5123,16 +5445,16 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcHttp(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunArcHttp(
-    ) {
+    std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunArcHttp(&async_wait_result);
+  RunArcHttp(std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcPing(
-    RoutineResultPtr* out_result) {
+    std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunArcPing(
+  proxy_->RunArcPing(std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -5146,16 +5468,16 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcPing(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunArcPing(
-    ) {
+    std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunArcPing(&async_wait_result);
+  RunArcPing(std::move(source),&async_wait_result);
   return async_wait_result;
 }
 
 void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcDnsResolution(
-    RoutineResultPtr* out_result) {
+    std::optional<RoutineCallSource> source, RoutineResultPtr* out_result) {
   base::RunLoop loop;
-  proxy_->RunArcDnsResolution(
+  proxy_->RunArcDnsResolution(std::move(source),
       base::BindOnce(
           [](base::RunLoop* loop,
              RoutineResultPtr* out_result
@@ -5169,9 +5491,9 @@ void NetworkDiagnosticsRoutinesAsyncWaiter::RunArcDnsResolution(
 }
 
 RoutineResultPtr NetworkDiagnosticsRoutinesAsyncWaiter::RunArcDnsResolution(
-    ) {
+    std::optional<RoutineCallSource> source) {
   RoutineResultPtr async_wait_result;
-  RunArcDnsResolution(&async_wait_result);
+  RunArcDnsResolution(std::move(source),&async_wait_result);
   return async_wait_result;
 }
 

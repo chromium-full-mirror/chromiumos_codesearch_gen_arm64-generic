@@ -61,7 +61,7 @@ class BLINK_PLATFORM_EXPORT ResolutionBitrateLimit {
   template <typename... Args>
   static ResolutionBitrateLimitPtr New(Args&&... args) {
     return ResolutionBitrateLimitPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -210,7 +210,7 @@ class BLINK_PLATFORM_EXPORT VideoEncoderInfo {
   template <typename... Args>
   static VideoEncoderInfoPtr New(Args&&... args) {
     return VideoEncoderInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

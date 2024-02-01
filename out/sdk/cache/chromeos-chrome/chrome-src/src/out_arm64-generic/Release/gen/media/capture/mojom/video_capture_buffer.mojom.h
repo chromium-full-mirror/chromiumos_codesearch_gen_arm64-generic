@@ -74,7 +74,7 @@ class  VideoBufferHandle {
   static VideoBufferHandlePtr
   NewUnsafeShmemRegion(
       ::base::UnsafeSharedMemoryRegion value) {
-    auto result = VideoBufferHandlePtr(absl::in_place);
+    auto result = VideoBufferHandlePtr(std::in_place);
     result->set_unsafe_shmem_region(std::move(value));
     return result;
   }
@@ -82,7 +82,7 @@ class  VideoBufferHandle {
   static VideoBufferHandlePtr
   NewReadOnlyShmemRegion(
       ::base::ReadOnlySharedMemoryRegion value) {
-    auto result = VideoBufferHandlePtr(absl::in_place);
+    auto result = VideoBufferHandlePtr(std::in_place);
     result->set_read_only_shmem_region(std::move(value));
     return result;
   }
@@ -90,7 +90,7 @@ class  VideoBufferHandle {
   static VideoBufferHandlePtr
   NewMailboxHandles(
       MailboxBufferHandleSetPtr value) {
-    auto result = VideoBufferHandlePtr(absl::in_place);
+    auto result = VideoBufferHandlePtr(std::in_place);
     result->set_mailbox_handles(std::move(value));
     return result;
   }
@@ -98,7 +98,7 @@ class  VideoBufferHandle {
   static VideoBufferHandlePtr
   NewGpuMemoryBufferHandle(
       ::gfx::GpuMemoryBufferHandle value) {
-    auto result = VideoBufferHandlePtr(absl::in_place);
+    auto result = VideoBufferHandlePtr(std::in_place);
     result->set_gpu_memory_buffer_handle(std::move(value));
     return result;
   }
@@ -238,7 +238,7 @@ class  VideoFrameInfo {
   template <typename... Args>
   static VideoFrameInfoPtr New(Args&&... args) {
     return VideoFrameInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -401,7 +401,7 @@ class  ReadyBuffer {
   template <typename... Args>
   static ReadyBufferPtr New(Args&&... args) {
     return ReadyBufferPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -546,7 +546,7 @@ class  MailboxBufferHandleSet {
   template <typename... Args>
   static MailboxBufferHandleSetPtr New(Args&&... args) {
     return MailboxBufferHandleSetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

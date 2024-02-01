@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { assert } from 'chrome://resources/js/assert.js';
-import { AcceleratorConfigurationProvider } from '../mojom-webui/ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom-webui.js';
+import { AcceleratorConfigurationProvider } from '../mojom-webui/shortcut_customization.mojom-webui.js';
 import { fakeAcceleratorConfig, fakeLayoutInfo } from './fake_data.js';
 import { FakeShortcutProvider } from './fake_shortcut_provider.js';
 /**

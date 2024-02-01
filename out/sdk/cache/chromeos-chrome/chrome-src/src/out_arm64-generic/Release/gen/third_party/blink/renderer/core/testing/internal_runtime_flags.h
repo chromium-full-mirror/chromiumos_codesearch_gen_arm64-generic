@@ -131,7 +131,7 @@ class InternalRuntimeFlags : public ScriptWrappable {
     return RuntimeEnabledFeatures::AOMAriaRelationshipPropertiesEnabled();
   }
   bool appTitleEnabled() {
-    return RuntimeEnabledFeatures::AppTitleEnabled();
+    return RuntimeEnabledFeatures::AppTitleEnabledByRuntimeFlag();
   }
   bool asyncClipboardImplicitPermissionEnabled() {
     return RuntimeEnabledFeatures::AsyncClipboardImplicitPermissionEnabled();
@@ -234,9 +234,6 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool cacheStorageCodeCacheHintEnabled() {
     return RuntimeEnabledFeatures::CacheStorageCodeCacheHintEnabledByRuntimeFlag();
-  }
-  bool canonicalizeWhitespaceStringsEnabled() {
-    return RuntimeEnabledFeatures::CanonicalizeWhitespaceStringsEnabled();
   }
   bool canvas2dCanvasFilterEnabled() {
     return RuntimeEnabledFeatures::Canvas2dCanvasFilterEnabled();
@@ -454,6 +451,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   bool cssLayoutAPIEnabled() {
     return RuntimeEnabledFeatures::CSSLayoutAPIEnabled();
   }
+  bool cssLightDarkColorsEnabled() {
+    return RuntimeEnabledFeatures::CSSLightDarkColorsEnabled();
+  }
   bool cssLinearTimingFunctionEnabled() {
     return RuntimeEnabledFeatures::CSSLinearTimingFunctionEnabled();
   }
@@ -537,9 +537,6 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool cssSelectorFragmentAnchorEnabled() {
     return RuntimeEnabledFeatures::CSSSelectorFragmentAnchorEnabled();
-  }
-  bool cssSelectorNthChildComplexSelectorEnabled() {
-    return RuntimeEnabledFeatures::CSSSelectorNthChildComplexSelectorEnabled();
   }
   bool cssSignRelatedFunctionsEnabled() {
     return RuntimeEnabledFeatures::CSSSignRelatedFunctionsEnabled();
@@ -768,9 +765,6 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool eventTimingInteractionCountEnabled() {
     return RuntimeEnabledFeatures::EventTimingInteractionCountEnabled();
-  }
-  bool excludeBrokenImageIconFromBeingLcpEligibleEnabled() {
-    return RuntimeEnabledFeatures::ExcludeBrokenImageIconFromBeingLcpEligibleEnabled();
   }
   bool experimentalContentSecurityPolicyFeaturesEnabled() {
     return RuntimeEnabledFeatures::ExperimentalContentSecurityPolicyFeaturesEnabled();
@@ -1120,15 +1114,6 @@ class InternalRuntimeFlags : public ScriptWrappable {
   bool layoutIgnoreMarginsForStickyEnabled() {
     return RuntimeEnabledFeatures::LayoutIgnoreMarginsForStickyEnabled();
   }
-  bool layoutNewContainingBlockEnabled() {
-    return RuntimeEnabledFeatures::LayoutNewContainingBlockEnabled();
-  }
-  bool layoutNewMeasureCacheEnabled() {
-    return RuntimeEnabledFeatures::LayoutNewMeasureCacheEnabled();
-  }
-  bool layoutNewMinMaxCacheEnabled() {
-    return RuntimeEnabledFeatures::LayoutNewMinMaxCacheEnabled();
-  }
   bool layoutNGShapeCacheEnabled() {
     return RuntimeEnabledFeatures::LayoutNGShapeCacheEnabled();
   }
@@ -1266,9 +1251,6 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool mojoJSTestEnabled() {
     return RuntimeEnabledFeatures::MojoJSTestEnabled();
-  }
-  bool monitorTypeSurfacesEnabled() {
-    return RuntimeEnabledFeatures::MonitorTypeSurfacesEnabled();
   }
   bool mouseDragFromIframeOnCancelledMouseDownEnabled() {
     return RuntimeEnabledFeatures::MouseDragFromIframeOnCancelledMouseDownEnabled();
@@ -1588,9 +1570,6 @@ class InternalRuntimeFlags : public ScriptWrappable {
   bool reduceUserAgentPlatformOsCpuEnabled() {
     return RuntimeEnabledFeatures::ReduceUserAgentPlatformOsCpuEnabled();
   }
-  bool referenceBoxNoPixelSnappingEnabled() {
-    return RuntimeEnabledFeatures::ReferenceBoxNoPixelSnappingEnabled();
-  }
   bool regionCaptureEnabled() {
     return RuntimeEnabledFeatures::RegionCaptureEnabled();
   }
@@ -1620,6 +1599,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool renderPriorityAttributeEnabled() {
     return RuntimeEnabledFeatures::RenderPriorityAttributeEnabled();
+  }
+  bool reportVisibleLineBoundsEnabled() {
+    return RuntimeEnabledFeatures::ReportVisibleLineBoundsEnabled();
   }
   bool resourceTimingContentTypeEnabled() {
     return RuntimeEnabledFeatures::ResourceTimingContentTypeEnabled();
@@ -1752,6 +1734,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool shadowRootAttachmentNewBehaviorEnabled() {
     return RuntimeEnabledFeatures::ShadowRootAttachmentNewBehaviorEnabled();
+  }
+  bool shadowRootClonableEnabled() {
+    return RuntimeEnabledFeatures::ShadowRootClonableEnabled();
   }
   bool sharedArrayBufferEnabled() {
     return RuntimeEnabledFeatures::SharedArrayBufferEnabled();
@@ -2151,6 +2136,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool webglImageChromiumEnabled() {
     return RuntimeEnabledFeatures::WebGLImageChromiumEnabled();
+  }
+  bool webgpuEnabled() {
+    return RuntimeEnabledFeatures::WebGPUEnabled();
   }
   bool webgpuDeveloperFeaturesEnabled() {
     return RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled();

@@ -59,7 +59,7 @@ class  AssistantNotification {
   template <typename... Args>
   static AssistantNotificationPtr New(Args&&... args) {
     return AssistantNotificationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -234,7 +234,7 @@ class  AssistantNotificationButton {
   template <typename... Args>
   static AssistantNotificationButtonPtr New(Args&&... args) {
     return AssistantNotificationButtonPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

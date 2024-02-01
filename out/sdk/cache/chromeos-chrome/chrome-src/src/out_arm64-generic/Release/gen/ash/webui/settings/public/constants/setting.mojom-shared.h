@@ -469,6 +469,8 @@ enum class Setting : int32_t {
   
   kPowerwash = 1600,
   
+  kSanitizeCrosSettings = 1601,
+  
   kChangeChromeChannel = 1700,
   
   kCopyDetailedBuildInfo = 1701,
@@ -494,8 +496,10 @@ enum class Setting : int32_t {
   kRemoveKerberosTicketV2 = 1801,
   
   kSetActiveKerberosTicketV2 = 1802,
+  
+  kSnapWindowSuggestions = 1900,
   kMinValue = 0,
-  kMaxValue = 1802,
+  kMaxValue = 1900,
 };
 
  std::ostream& operator<<(std::ostream& os, Setting value);

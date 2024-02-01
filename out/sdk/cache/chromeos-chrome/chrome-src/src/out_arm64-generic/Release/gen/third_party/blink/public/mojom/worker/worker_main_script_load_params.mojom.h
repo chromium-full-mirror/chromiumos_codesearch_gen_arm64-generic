@@ -61,7 +61,7 @@ class BLINK_COMMON_EXPORT WorkerMainScriptLoadParams {
   template <typename... Args>
   static WorkerMainScriptLoadParamsPtr New(Args&&... args) {
     return WorkerMainScriptLoadParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -56,7 +56,7 @@ class  StringOrdinal {
   template <typename... Args>
   static StringOrdinalPtr New(Args&&... args) {
     return StringOrdinalPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

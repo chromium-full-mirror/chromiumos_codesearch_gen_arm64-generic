@@ -55,7 +55,7 @@ class  SiteIndex {
   template <typename... Args>
   static SiteIndexPtr New(Args&&... args) {
     return SiteIndexPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -204,7 +204,7 @@ class  FirstPartySetEntry {
   template <typename... Args>
   static FirstPartySetEntryPtr New(Args&&... args) {
     return FirstPartySetEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -350,7 +350,7 @@ class  FirstPartySetMetadata {
   template <typename... Args>
   static FirstPartySetMetadataPtr New(Args&&... args) {
     return FirstPartySetMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -493,7 +493,7 @@ class  FirstPartySetEntryOverride {
   template <typename... Args>
   static FirstPartySetEntryOverridePtr New(Args&&... args) {
     return FirstPartySetEntryOverridePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -633,7 +633,7 @@ class  FirstPartySetsContextConfig {
   template <typename... Args>
   static FirstPartySetsContextConfigPtr New(Args&&... args) {
     return FirstPartySetsContextConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -773,7 +773,7 @@ class  FirstPartySetsCacheFilter {
   template <typename... Args>
   static FirstPartySetsCacheFilterPtr New(Args&&... args) {
     return FirstPartySetsCacheFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -916,7 +916,7 @@ class  GlobalFirstPartySets {
   template <typename... Args>
   static GlobalFirstPartySetsPtr New(Args&&... args) {
     return GlobalFirstPartySetsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

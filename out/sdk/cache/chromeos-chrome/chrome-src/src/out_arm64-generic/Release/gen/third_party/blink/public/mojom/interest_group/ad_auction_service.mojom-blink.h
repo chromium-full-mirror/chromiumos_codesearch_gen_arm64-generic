@@ -471,7 +471,7 @@ class PLATFORM_EXPORT AdKeywordReplacement {
   template <typename... Args>
   static AdKeywordReplacementPtr New(Args&&... args) {
     return AdKeywordReplacementPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -625,7 +625,7 @@ class PLATFORM_EXPORT AuctionAdConfigAuctionId {
   static AuctionAdConfigAuctionIdPtr
   NewMainAuction(
       uint32_t value) {
-    auto result = AuctionAdConfigAuctionIdPtr(absl::in_place);
+    auto result = AuctionAdConfigAuctionIdPtr(std::in_place);
     result->set_main_auction(std::move(value));
     return result;
   }
@@ -633,7 +633,7 @@ class PLATFORM_EXPORT AuctionAdConfigAuctionId {
   static AuctionAdConfigAuctionIdPtr
   NewComponentAuction(
       uint32_t value) {
-    auto result = AuctionAdConfigAuctionIdPtr(absl::in_place);
+    auto result = AuctionAdConfigAuctionIdPtr(std::in_place);
     result->set_component_auction(std::move(value));
     return result;
   }

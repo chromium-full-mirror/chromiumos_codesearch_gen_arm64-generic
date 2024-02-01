@@ -3993,9 +3993,42 @@
   WebFeature.kStorageAccessAPI_hasUnpartitionedCookieAccess = 4790;
   WebFeature.kStorageAccessAPI_requestStorageAccess_BeyondCookies_cookies = 4791;
   WebFeature.kVisualViewportScrollEndFired = 4792;
-  WebFeature.kNumberOfFeatures = 4793;
+  WebFeature.kAttributionReportingCrossAppWebSupportHeader = 4793;
+  WebFeature.kV8Element_AriaActiveDescendantElement_AttributeGetter = 4794;
+  WebFeature.kV8Element_AriaActiveDescendantElement_AttributeSetter = 4795;
+  WebFeature.kV8Element_AriaControlsElements_AttributeGetter = 4796;
+  WebFeature.kV8Element_AriaControlsElements_AttributeSetter = 4797;
+  WebFeature.kV8Element_AriaDescribedByElements_AttributeGetter = 4798;
+  WebFeature.kV8Element_AriaDescribedByElements_AttributeSetter = 4799;
+  WebFeature.kV8Element_AriaDetailsElements_AttributeGetter = 4800;
+  WebFeature.kV8Element_AriaDetailsElements_AttributeSetter = 4801;
+  WebFeature.kV8Element_AriaErrorMessageElements_AttributeGetter = 4802;
+  WebFeature.kV8Element_AriaErrorMessageElements_AttributeSetter = 4803;
+  WebFeature.kV8Element_AriaFlowToElements_AttributeGetter = 4804;
+  WebFeature.kV8Element_AriaFlowToElements_AttributeSetter = 4805;
+  WebFeature.kV8Element_AriaLabelledByElements_AttributeGetter = 4806;
+  WebFeature.kV8Element_AriaLabelledByElements_AttributeSetter = 4807;
+  WebFeature.kV8Element_AriaOwnsElements_AttributeGetter = 4808;
+  WebFeature.kV8Element_AriaOwnsElements_AttributeSetter = 4809;
+  WebFeature.kV8ElementInternals_AriaActiveDescendantElement_AttributeGetter = 4810;
+  WebFeature.kV8ElementInternals_AriaActiveDescendantElement_AttributeSetter = 4811;
+  WebFeature.kV8ElementInternals_AriaControlsElements_AttributeGetter = 4812;
+  WebFeature.kV8ElementInternals_AriaControlsElements_AttributeSetter = 4813;
+  WebFeature.kV8ElementInternals_AriaDescribedByElements_AttributeGetter = 4814;
+  WebFeature.kV8ElementInternals_AriaDescribedByElements_AttributeSetter = 4815;
+  WebFeature.kV8ElementInternals_AriaDetailsElements_AttributeGetter = 4816;
+  WebFeature.kV8ElementInternals_AriaDetailsElements_AttributeSetter = 4817;
+  WebFeature.kV8ElementInternals_AriaErrorMessageElements_AttributeGetter = 4818;
+  WebFeature.kV8ElementInternals_AriaErrorMessageElements_AttributeSetter = 4819;
+  WebFeature.kV8ElementInternals_AriaFlowToElements_AttributeGetter = 4820;
+  WebFeature.kV8ElementInternals_AriaFlowToElements_AttributeSetter = 4821;
+  WebFeature.kV8ElementInternals_AriaLabelledByElements_AttributeGetter = 4822;
+  WebFeature.kV8ElementInternals_AriaLabelledByElements_AttributeSetter = 4823;
+  WebFeature.kV8ElementInternals_AriaOwnsElements_AttributeGetter = 4824;
+  WebFeature.kV8ElementInternals_AriaOwnsElements_AttributeSetter = 4825;
+  WebFeature.kNumberOfFeatures = 4826;
   WebFeature.MIN_VALUE = 0;
-  WebFeature.MAX_VALUE = 4793;
+  WebFeature.MAX_VALUE = 4826;
 
   WebFeature.isKnownEnumValue = function(value) {
     switch (value) {
@@ -7971,6 +8004,39 @@
     case 4791:
     case 4792:
     case 4793:
+    case 4794:
+    case 4795:
+    case 4796:
+    case 4797:
+    case 4798:
+    case 4799:
+    case 4800:
+    case 4801:
+    case 4802:
+    case 4803:
+    case 4804:
+    case 4805:
+    case 4806:
+    case 4807:
+    case 4808:
+    case 4809:
+    case 4810:
+    case 4811:
+    case 4812:
+    case 4813:
+    case 4814:
+    case 4815:
+    case 4816:
+    case 4817:
+    case 4818:
+    case 4819:
+    case 4820:
+    case 4821:
+    case 4822:
+    case 4823:
+    case 4824:
+    case 4825:
+    case 4826:
       return true;
     }
     return false;

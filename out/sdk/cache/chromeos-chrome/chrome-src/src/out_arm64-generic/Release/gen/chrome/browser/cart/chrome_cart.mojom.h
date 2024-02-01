@@ -353,7 +353,7 @@ class  MerchantCart {
   template <typename... Args>
   static MerchantCartPtr New(Args&&... args) {
     return MerchantCartPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

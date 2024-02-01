@@ -1,10 +1,16 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared passwords-shared iron-flex">#addressList .start{display:flex;overflow:hidden}#addressSummary{display:flex;flex:1;overflow:hidden}</style>
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared passwords-shared iron-flex">#autofillSyncToggleWrapper{align-items:center;cursor:pointer;display:flex;min-height:var(--cr-section-two-line-min-height);padding:0 var(--cr-section-padding)}#autofillSyncToggleWrapper:hover{background-color:var(--cr-hover-background-color)}#addressList .start{display:flex;overflow:hidden}#addressSummary{display:flex;flex:1;overflow:hidden}</style>
     <settings-toggle-button id="autofillProfileToggle" no-extension-indicator label="$i18n{enableProfilesLabel}" sub-label="$i18n{enableProfilesSublabel}" pref="{{prefs.autofill.profile_enabled}}">
     </settings-toggle-button>
-    <settings-toggle-button id="autofillSyncToggle" hidden$="[[!isAutofillSyncToggleVisible_(accountInfo_)]]" checked="[[accountInfo_.isAutofillSyncToggleEnabled]]" label="$i18n{autofillSyncToggleLabel}" sub-label="[[accountInfo_.email]]" on-change="onAutofillSyncEnabledChange_" no-extension-indicator no-set-pref>
-    </settings-toggle-button>
+    <div id="autofillSyncToggleWrapper" hidden$="[[!isAutofillSyncToggleVisible_(accountInfo_)]]">
+      <div class="flex">
+        <div class="label">$i18n{autofillSyncToggleLabel}</div>
+        <div class="label cr-secondary-text">[[accountInfo_.email]]</div>
+      </div>
+      <cr-toggle id="autofillSyncToggle" checked="[[accountInfo_.isAutofillSyncToggleEnabled]]" on-change="onAutofillSyncEnabledChange_">
+      </cr-toggle>
+    </div>
     <template is="dom-if" if="[[prefs.autofill.profile_enabled.extensionId]]">
       <div class="cr-row continuation">
         <extension-controlled-indicator class="flex" id="autofillExtensionIndicator" extension-id="[[prefs.autofill.profile_enabled.extensionId]]" extension-name="[[prefs.autofill.profile_enabled.controlledByName]]" extension-can-be-disabled="[[

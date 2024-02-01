@@ -58,7 +58,7 @@ class  SkcmsMatrix3x3 {
   template <typename... Args>
   static SkcmsMatrix3x3Ptr New(Args&&... args) {
     return SkcmsMatrix3x3Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -198,7 +198,7 @@ class  SkcmsTransferFunction {
   template <typename... Args>
   static SkcmsTransferFunctionPtr New(Args&&... args) {
     return SkcmsTransferFunctionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -356,7 +356,7 @@ class  SkColorSpace {
   template <typename... Args>
   static SkColorSpacePtr New(Args&&... args) {
     return SkColorSpacePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

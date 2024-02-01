@@ -343,7 +343,7 @@ class  DownloadItem {
   template <typename... Args>
   static DownloadItemPtr New(Args&&... args) {
     return DownloadItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

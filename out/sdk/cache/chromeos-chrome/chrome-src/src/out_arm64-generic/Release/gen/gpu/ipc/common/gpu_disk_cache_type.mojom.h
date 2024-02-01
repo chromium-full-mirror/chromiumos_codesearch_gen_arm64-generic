@@ -54,7 +54,7 @@ class GPU_EXPORT GpuDiskCacheGlShaderHandle {
   template <typename... Args>
   static GpuDiskCacheGlShaderHandlePtr New(Args&&... args) {
     return GpuDiskCacheGlShaderHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -194,7 +194,7 @@ class GPU_EXPORT GpuDiskCacheDawnWebGPUHandle {
   template <typename... Args>
   static GpuDiskCacheDawnWebGPUHandlePtr New(Args&&... args) {
     return GpuDiskCacheDawnWebGPUHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -344,7 +344,7 @@ class GPU_EXPORT GpuDiskCacheHandle {
   static GpuDiskCacheHandlePtr
   NewGlShaderHandle(
       const ::gpu::GpuDiskCacheGlShaderHandle& value) {
-    auto result = GpuDiskCacheHandlePtr(absl::in_place);
+    auto result = GpuDiskCacheHandlePtr(std::in_place);
     result->set_gl_shader_handle(std::move(value));
     return result;
   }
@@ -352,7 +352,7 @@ class GPU_EXPORT GpuDiskCacheHandle {
   static GpuDiskCacheHandlePtr
   NewDawnWebgpuHandle(
       const ::gpu::GpuDiskCacheDawnWebGPUHandle& value) {
-    auto result = GpuDiskCacheHandlePtr(absl::in_place);
+    auto result = GpuDiskCacheHandlePtr(std::in_place);
     result->set_dawn_webgpu_handle(std::move(value));
     return result;
   }

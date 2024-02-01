@@ -183,7 +183,7 @@ class BLINK_PLATFORM_EXPORT HasTrustTokensResult {
   template <typename... Args>
   static HasTrustTokensResultPtr New(Args&&... args) {
     return HasTrustTokensResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -327,7 +327,7 @@ class BLINK_PLATFORM_EXPORT HasRedemptionRecordResult {
   template <typename... Args>
   static HasRedemptionRecordResultPtr New(Args&&... args) {
     return HasRedemptionRecordResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -475,7 +475,7 @@ class BLINK_PLATFORM_EXPORT FulfillTrustTokenIssuanceAnswer {
   template <typename... Args>
   static FulfillTrustTokenIssuanceAnswerPtr New(Args&&... args) {
     return FulfillTrustTokenIssuanceAnswerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -623,7 +623,7 @@ class BLINK_PLATFORM_EXPORT TrustTokenParams {
   template <typename... Args>
   static TrustTokenParamsPtr New(Args&&... args) {
     return TrustTokenParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -789,7 +789,7 @@ class BLINK_PLATFORM_EXPORT TrustTokenVerificationKey {
   template <typename... Args>
   static TrustTokenVerificationKeyPtr New(Args&&... args) {
     return TrustTokenVerificationKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -934,7 +934,7 @@ class BLINK_PLATFORM_EXPORT TrustTokenKeyCommitmentResult {
   template <typename... Args>
   static TrustTokenKeyCommitmentResultPtr New(Args&&... args) {
     return TrustTokenKeyCommitmentResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1091,7 +1091,7 @@ class BLINK_PLATFORM_EXPORT FulfillTrustTokenIssuanceRequest {
   template <typename... Args>
   static FulfillTrustTokenIssuanceRequestPtr New(Args&&... args) {
     return FulfillTrustTokenIssuanceRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1235,7 +1235,7 @@ class BLINK_PLATFORM_EXPORT TrustTokenOperationResult {
   template <typename... Args>
   static TrustTokenOperationResultPtr New(Args&&... args) {
     return TrustTokenOperationResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1387,7 +1387,7 @@ class BLINK_PLATFORM_EXPORT StoredTrustTokensForIssuer {
   template <typename... Args>
   static StoredTrustTokensForIssuerPtr New(Args&&... args) {
     return StoredTrustTokensForIssuerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

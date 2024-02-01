@@ -8,11 +8,6 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/battery_status.mojom-test-utils.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/battery_status.mojom.cc
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/battery_status.mojom.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/device_posture_provider.mojom-forward.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/device_posture_provider.mojom-import-headers.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/device_posture_provider.mojom-test-utils.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/device_posture_provider.mojom.cc
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/device_posture_provider.mojom.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/fingerprint.mojom-forward.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/fingerprint.mojom-import-headers.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/fingerprint.mojom-test-utils.h

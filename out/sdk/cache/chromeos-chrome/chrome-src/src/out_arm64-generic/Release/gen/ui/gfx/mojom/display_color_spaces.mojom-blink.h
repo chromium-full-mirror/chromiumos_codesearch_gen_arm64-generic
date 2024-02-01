@@ -63,7 +63,7 @@ class  DisplayColorSpaces {
   template <typename... Args>
   static DisplayColorSpacesPtr New(Args&&... args) {
     return DisplayColorSpacesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

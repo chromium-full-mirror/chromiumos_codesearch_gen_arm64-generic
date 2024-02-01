@@ -249,7 +249,7 @@ export class CookiesTable extends UI.Widget.VBox {
             });
         }
         this.dataGrid.setStriped(true);
-        this.dataGrid.setName('cookiesTable');
+        this.dataGrid.setName('cookies-table');
         this.dataGrid.addEventListener("SortingChanged" /* DataGrid.DataGrid.Events.SortingChanged */, this.rebuildTable, this);
         this.dataGrid.setRowContextMenuCallback(this.populateContextMenu.bind(this));
         if (renderInline) {

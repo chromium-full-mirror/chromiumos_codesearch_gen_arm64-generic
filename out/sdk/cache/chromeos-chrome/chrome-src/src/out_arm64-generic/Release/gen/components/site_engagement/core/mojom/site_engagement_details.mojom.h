@@ -178,7 +178,7 @@ class  SiteEngagementDetails {
   template <typename... Args>
   static SiteEngagementDetailsPtr New(Args&&... args) {
     return SiteEngagementDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

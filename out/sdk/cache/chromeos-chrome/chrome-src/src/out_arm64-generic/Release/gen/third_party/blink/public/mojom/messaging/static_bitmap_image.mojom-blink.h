@@ -178,7 +178,7 @@ class CORE_EXPORT SerializedStaticBitmapImage {
   static SerializedStaticBitmapImagePtr
   NewBitmap(
       const ::SkBitmap& value) {
-    auto result = SerializedStaticBitmapImagePtr(absl::in_place);
+    auto result = SerializedStaticBitmapImagePtr(std::in_place);
     result->set_bitmap(std::move(value));
     return result;
   }
@@ -186,7 +186,7 @@ class CORE_EXPORT SerializedStaticBitmapImage {
   static SerializedStaticBitmapImagePtr
   NewAcceleratedImage(
       ::blink::AcceleratedImageInfo value) {
-    auto result = SerializedStaticBitmapImagePtr(absl::in_place);
+    auto result = SerializedStaticBitmapImagePtr(std::in_place);
     result->set_accelerated_image(std::move(value));
     return result;
   }
@@ -300,7 +300,7 @@ class CORE_EXPORT AcceleratedStaticBitmapImage {
   template <typename... Args>
   static AcceleratedStaticBitmapImagePtr New(Args&&... args) {
     return AcceleratedStaticBitmapImagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

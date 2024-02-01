@@ -179,7 +179,7 @@ class CONTENT_EXPORT MhtmlOutputHandle {
   static MhtmlOutputHandlePtr
   NewFileHandle(
       ::base::File value) {
-    auto result = MhtmlOutputHandlePtr(absl::in_place);
+    auto result = MhtmlOutputHandlePtr(std::in_place);
     result->set_file_handle(std::move(value));
     return result;
   }
@@ -187,7 +187,7 @@ class CONTENT_EXPORT MhtmlOutputHandle {
   static MhtmlOutputHandlePtr
   NewProducerHandle(
       ::mojo::ScopedDataPipeProducerHandle value) {
-    auto result = MhtmlOutputHandlePtr(absl::in_place);
+    auto result = MhtmlOutputHandlePtr(std::in_place);
     result->set_producer_handle(std::move(value));
     return result;
   }
@@ -301,7 +301,7 @@ class CONTENT_EXPORT SerializeAsMHTMLParams {
   template <typename... Args>
   static SerializeAsMHTMLParamsPtr New(Args&&... args) {
     return SerializeAsMHTMLParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

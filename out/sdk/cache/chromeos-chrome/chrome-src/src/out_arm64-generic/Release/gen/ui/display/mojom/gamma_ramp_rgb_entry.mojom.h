@@ -53,7 +53,7 @@ class  GammaRampRGBEntry {
   template <typename... Args>
   static GammaRampRGBEntryPtr New(Args&&... args) {
     return GammaRampRGBEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

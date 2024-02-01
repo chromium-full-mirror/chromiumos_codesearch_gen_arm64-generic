@@ -318,7 +318,7 @@ class  NullableInt64 {
   template <typename... Args>
   static NullableInt64Ptr New(Args&&... args) {
     return NullableInt64Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -460,7 +460,7 @@ class  UsbDeviceId {
   template <typename... Args>
   static UsbDeviceIdPtr New(Args&&... args) {
     return UsbDeviceIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -614,7 +614,7 @@ class  UsbDetachableAllowlist {
   template <typename... Args>
   static UsbDetachableAllowlistPtr New(Args&&... args) {
     return UsbDetachableAllowlistPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -758,7 +758,7 @@ class  DeviceSettings {
   template <typename... Args>
   static DeviceSettingsPtr New(Args&&... args) {
     return DeviceSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

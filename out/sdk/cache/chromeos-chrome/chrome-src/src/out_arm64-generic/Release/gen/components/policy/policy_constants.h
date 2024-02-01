@@ -351,6 +351,7 @@ extern const char kDeviceUserAllowlist[];
 extern const char kDeviceVariationsRestrictParameter[];
 extern const char kDeviceWallpaperImage[];
 extern const char kDeviceWebBasedAttestationAllowedUrls[];
+extern const char kDeviceWeeklyScheduledSuspend[];
 extern const char kDeviceWiFiAllowed[];
 extern const char kDeviceWiFiFastTransitionEnabled[];
 extern const char kDeviceWilcoDtcAllowed[];

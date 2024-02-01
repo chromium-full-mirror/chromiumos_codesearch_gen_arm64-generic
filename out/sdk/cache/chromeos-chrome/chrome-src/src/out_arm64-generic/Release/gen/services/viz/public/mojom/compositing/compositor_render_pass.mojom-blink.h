@@ -69,7 +69,7 @@ class BLINK_PLATFORM_EXPORT CompositorRenderPass {
   template <typename... Args>
   static CompositorRenderPassPtr New(Args&&... args) {
     return CompositorRenderPassPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

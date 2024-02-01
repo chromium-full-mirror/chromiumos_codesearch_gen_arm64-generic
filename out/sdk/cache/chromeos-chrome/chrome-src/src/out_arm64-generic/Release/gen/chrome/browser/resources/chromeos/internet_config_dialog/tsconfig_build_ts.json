@@ -3,6 +3,9 @@
   "compilerOptions": {
     "rootDir": "preprocessed",
     "outDir": "tsc",
+    "composite": true,
+    "declaration": true,
+    "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
     "paths": {
       "//resources/ash/common/*": [
         "./../../../../../ash/webui/common/resources/preprocessed/*"

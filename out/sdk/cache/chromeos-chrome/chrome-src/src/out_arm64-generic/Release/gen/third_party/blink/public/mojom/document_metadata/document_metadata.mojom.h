@@ -171,7 +171,7 @@ class BLINK_COMMON_EXPORT WebPage {
   template <typename... Args>
   static WebPagePtr New(Args&&... args) {
     return WebPagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

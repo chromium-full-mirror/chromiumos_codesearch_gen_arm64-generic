@@ -239,7 +239,7 @@ class  PlaybackProperties {
   template <typename... Args>
   static PlaybackPropertiesPtr New(Args&&... args) {
     return PlaybackPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -403,7 +403,7 @@ class  SecondaryPlaybackProperties {
   template <typename... Args>
   static SecondaryPlaybackPropertiesPtr New(Args&&... args) {
     return SecondaryPlaybackPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

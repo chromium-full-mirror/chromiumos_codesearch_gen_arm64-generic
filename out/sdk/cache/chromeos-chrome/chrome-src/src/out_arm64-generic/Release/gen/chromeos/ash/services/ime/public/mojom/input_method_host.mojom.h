@@ -312,7 +312,7 @@ class  CompositionSpan {
   template <typename... Args>
   static CompositionSpanPtr New(Args&&... args) {
     return CompositionSpanPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -459,7 +459,7 @@ class  TextRange {
   template <typename... Args>
   static TextRangePtr New(Args&&... args) {
     return TextRangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -603,7 +603,7 @@ class  CompletionCandidate {
   template <typename... Args>
   static CompletionCandidatePtr New(Args&&... args) {
     return CompletionCandidatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -748,7 +748,7 @@ class  SuggestionsTextContext {
   template <typename... Args>
   static SuggestionsTextContextPtr New(Args&&... args) {
     return SuggestionsTextContextPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -891,7 +891,7 @@ class  NonCompliantApiMetric {
   template <typename... Args>
   static NonCompliantApiMetricPtr New(Args&&... args) {
     return NonCompliantApiMetricPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1032,7 +1032,7 @@ class  Candidate {
   template <typename... Args>
   static CandidatePtr New(Args&&... args) {
     return CandidatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1178,7 +1178,7 @@ class  HighlightedCandidate {
   template <typename... Args>
   static HighlightedCandidatePtr New(Args&&... args) {
     return HighlightedCandidatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1331,7 +1331,7 @@ class  UkmEntry {
   static UkmEntryPtr
   NewNonCompliantApi(
       NonCompliantApiMetricPtr value) {
-    auto result = UkmEntryPtr(absl::in_place);
+    auto result = UkmEntryPtr(std::in_place);
     result->set_non_compliant_api(std::move(value));
     return result;
   }
@@ -1435,7 +1435,7 @@ class  AutocorrectSpan {
   template <typename... Args>
   static AutocorrectSpanPtr New(Args&&... args) {
     return AutocorrectSpanPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1582,7 +1582,7 @@ class  SuggestionsRequest {
   template <typename... Args>
   static SuggestionsRequestPtr New(Args&&... args) {
     return SuggestionsRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1728,7 +1728,7 @@ class  SuggestionsResponse {
   template <typename... Args>
   static SuggestionsResponsePtr New(Args&&... args) {
     return SuggestionsResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1872,7 +1872,7 @@ class  CandidatesWindow {
   template <typename... Args>
   static CandidatesWindowPtr New(Args&&... args) {
     return CandidatesWindowPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2032,7 +2032,7 @@ class  BucketedHistogram {
   template <typename... Args>
   static BucketedHistogramPtr New(Args&&... args) {
     return BucketedHistogramPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

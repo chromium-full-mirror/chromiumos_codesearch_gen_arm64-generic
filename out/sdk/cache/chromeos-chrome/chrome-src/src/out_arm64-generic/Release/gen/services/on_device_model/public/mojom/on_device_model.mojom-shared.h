@@ -192,7 +192,7 @@ static_assert(
         mojo::ArrayDataView<float>, UserType>(),
     "Attempting to read the optional `ts_scores` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTsScores` instead "
     "of `ReadTsScores if you're fine with null values being "
@@ -228,7 +228,7 @@ static_assert(
         mojo::ArrayDataView<float>, UserType>(),
     "Attempting to read the optional `ts_scores` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTsScores` instead "
     "of `ReadTsScores if you're fine with null values being "
@@ -266,14 +266,14 @@ class InputOptionsDataView {
   std::optional<uint32_t> max_tokens() const {
 
     return data_->max_tokens_$flag
-        ? absl::make_optional(data_->max_tokens_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->max_tokens_$value)
+        : std::nullopt;
   }
   std::optional<uint32_t> token_offset() const {
 
     return data_->token_offset_$flag
-        ? absl::make_optional(data_->token_offset_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->token_offset_$value)
+        : std::nullopt;
   }
   bool ignore_context() const {
     return data_->ignore_context;
@@ -281,14 +281,14 @@ class InputOptionsDataView {
   std::optional<uint32_t> max_output_tokens() const {
 
     return data_->max_output_tokens_$flag
-        ? absl::make_optional(data_->max_output_tokens_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->max_output_tokens_$value)
+        : std::nullopt;
   }
   std::optional<uint32_t> ts_interval() const {
 
     return data_->ts_interval_$flag
-        ? absl::make_optional(data_->ts_interval_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->ts_interval_$value)
+        : std::nullopt;
   }
  private:
   internal::InputOptions_Data* data_ = nullptr;

@@ -188,7 +188,7 @@ class BLINK_COMMON_EXPORT SubAppsServiceAddParameters {
   template <typename... Args>
   static SubAppsServiceAddParametersPtr New(Args&&... args) {
     return SubAppsServiceAddParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -332,7 +332,7 @@ class BLINK_COMMON_EXPORT SubAppsServiceAddResult {
   template <typename... Args>
   static SubAppsServiceAddResultPtr New(Args&&... args) {
     return SubAppsServiceAddResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -477,7 +477,7 @@ class BLINK_COMMON_EXPORT SubAppsServiceListResultEntry {
   template <typename... Args>
   static SubAppsServiceListResultEntryPtr New(Args&&... args) {
     return SubAppsServiceListResultEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -621,7 +621,7 @@ class BLINK_COMMON_EXPORT SubAppsServiceRemoveResult {
   template <typename... Args>
   static SubAppsServiceRemoveResultPtr New(Args&&... args) {
     return SubAppsServiceRemoveResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -769,7 +769,7 @@ class BLINK_COMMON_EXPORT SubAppsServiceListResult {
   template <typename... Args>
   static SubAppsServiceListResultPtr New(Args&&... args) {
     return SubAppsServiceListResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

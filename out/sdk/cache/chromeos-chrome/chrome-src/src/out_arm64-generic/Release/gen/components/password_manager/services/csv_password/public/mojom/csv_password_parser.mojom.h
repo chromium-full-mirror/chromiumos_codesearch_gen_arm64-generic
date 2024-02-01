@@ -173,7 +173,7 @@ class  CSVPasswordSequence {
   template <typename... Args>
   static CSVPasswordSequencePtr New(Args&&... args) {
     return CSVPasswordSequencePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -314,7 +314,7 @@ class  CSVPassword {
   template <typename... Args>
   static CSVPasswordPtr New(Args&&... args) {
     return CSVPasswordPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

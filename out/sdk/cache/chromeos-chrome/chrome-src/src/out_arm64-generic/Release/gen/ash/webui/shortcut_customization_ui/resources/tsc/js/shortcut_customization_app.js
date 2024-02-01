@@ -21,7 +21,7 @@ import { FindShortcutMixin } from 'chrome://resources/cr_elements/find_shortcut_
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { AcceleratorsUpdatedObserverReceiver, PolicyUpdatedObserverReceiver, UserAction } from '../mojom-webui/ash/webui/shortcut_customization_ui/mojom/shortcut_customization.mojom-webui.js';
+import { AcceleratorsUpdatedObserverReceiver, PolicyUpdatedObserverReceiver, UserAction } from '../mojom-webui/shortcut_customization.mojom-webui.js';
 import { AcceleratorLookupManager } from './accelerator_lookup_manager.js';
 import { getShortcutProvider } from './mojo_interface_provider.js';
 import { Router } from './router.js';

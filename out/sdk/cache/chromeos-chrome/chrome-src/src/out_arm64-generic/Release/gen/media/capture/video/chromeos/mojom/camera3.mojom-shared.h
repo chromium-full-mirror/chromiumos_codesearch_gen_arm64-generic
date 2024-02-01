@@ -511,7 +511,7 @@ static_assert(
         ::cros::mojom::CropRotateScaleInfoDataView, UserType>(),
     "Attempting to read the optional `crop_rotate_scale_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCropRotateScaleInfo` instead "
     "of `ReadCropRotateScaleInfo if you're fine with null values being "
@@ -532,7 +532,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `physical_camera_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPhysicalCameraId` instead "
     "of `ReadPhysicalCameraId if you're fine with null values being "
@@ -553,7 +553,7 @@ static_assert(
         mojo::ArrayDataView<::cros::mojom::Camera3StreamEffectDataView>, UserType>(),
     "Attempting to read the optional `effects` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEffects` instead "
     "of `ReadEffects if you're fine with null values being "
@@ -610,7 +610,7 @@ static_assert(
         ::cros::mojom::CameraMetadataDataView, UserType>(),
     "Attempting to read the optional `session_parameters` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSessionParameters` instead "
     "of `ReadSessionParameters if you're fine with null values being "
@@ -699,7 +699,7 @@ static_assert(
         mojo::ArrayDataView<uint32_t>, UserType>(),
     "Attempting to read the optional `sizes` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSizes` instead "
     "of `ReadSizes if you're fine with null values being "
@@ -778,7 +778,7 @@ static_assert(
         ::cros::mojom::CameraBufferHandleDataView, UserType>(),
     "Attempting to read the optional `buffer_handle` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBufferHandle` instead "
     "of `ReadBufferHandle if you're fine with null values being "
@@ -937,7 +937,7 @@ static_assert(
         mojo::ArrayDataView<::cros::mojom::Camera3StreamBufferDataView>, UserType>(),
     "Attempting to read the optional `output_buffers` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOutputBuffers` instead "
     "of `ReadOutputBuffers if you're fine with null values being "
@@ -1015,7 +1015,7 @@ static_assert(
         ::cros::mojom::Camera3StreamBufferDataView, UserType>(),
     "Attempting to read the optional `input_buffer` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInputBuffer` instead "
     "of `ReadInputBuffer if you're fine with null values being "
@@ -1045,7 +1045,7 @@ static_assert(
         mojo::ArrayDataView<::cros::mojom::Camera3PhyscamMetadataDataView>, UserType>(),
     "Attempting to read the optional `physcam_settings` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPhyscamSettings` instead "
     "of `ReadPhyscamSettings if you're fine with null values being "
@@ -1095,7 +1095,7 @@ static_assert(
         mojo::ArrayDataView<::cros::mojom::Camera3StreamBufferDataView>, UserType>(),
     "Attempting to read the optional `output_buffers` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOutputBuffers` instead "
     "of `ReadOutputBuffers if you're fine with null values being "
@@ -1115,7 +1115,7 @@ static_assert(
         ::cros::mojom::Camera3StreamBufferDataView, UserType>(),
     "Attempting to read the optional `input_buffer` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInputBuffer` instead "
     "of `ReadInputBuffer if you're fine with null values being "
@@ -1138,7 +1138,7 @@ static_assert(
         mojo::ArrayDataView<::cros::mojom::Camera3PhyscamMetadataDataView>, UserType>(),
     "Attempting to read the optional `physcam_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPhyscamMetadata` instead "
     "of `ReadPhyscamMetadata if you're fine with null values being "

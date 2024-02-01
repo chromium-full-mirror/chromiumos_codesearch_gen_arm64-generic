@@ -53,7 +53,7 @@ class  SkColor4f {
   template <typename... Args>
   static SkColor4fPtr New(Args&&... args) {
     return SkColor4fPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

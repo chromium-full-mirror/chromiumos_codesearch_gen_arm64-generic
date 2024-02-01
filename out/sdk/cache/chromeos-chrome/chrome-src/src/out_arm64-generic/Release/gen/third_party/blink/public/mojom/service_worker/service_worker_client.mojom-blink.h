@@ -59,7 +59,7 @@ class PLATFORM_EXPORT ServiceWorkerClientQueryOptions {
   template <typename... Args>
   static ServiceWorkerClientQueryOptionsPtr New(Args&&... args) {
     return ServiceWorkerClientQueryOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -207,7 +207,7 @@ class PLATFORM_EXPORT ServiceWorkerClientInfo {
   template <typename... Args>
   static ServiceWorkerClientInfoPtr New(Args&&... args) {
     return ServiceWorkerClientInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

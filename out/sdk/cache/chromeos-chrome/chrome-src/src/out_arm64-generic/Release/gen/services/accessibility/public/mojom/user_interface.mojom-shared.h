@@ -145,7 +145,7 @@ static_assert(
         ::skia::mojom::SkColorDataView, UserType>(),
     "Attempting to read the optional `color` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadColor` instead "
     "of `ReadColor if you're fine with null values being "
@@ -165,7 +165,7 @@ static_assert(
         ::skia::mojom::SkColorDataView, UserType>(),
     "Attempting to read the optional `secondary_color` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSecondaryColor` instead "
     "of `ReadSecondaryColor if you're fine with null values being "
@@ -185,7 +185,7 @@ static_assert(
         ::skia::mojom::SkColorDataView, UserType>(),
     "Attempting to read the optional `background_color` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBackgroundColor` instead "
     "of `ReadBackgroundColor if you're fine with null values being "
@@ -197,7 +197,7 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadStackingOrder(UserType* output) const {
     if (!data_->stacking_order_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -206,7 +206,7 @@ static_assert(
   }
   std::optional<FocusRingStackingOrder> stacking_order() const {
     if (!data_->stacking_order_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ax::mojom::FocusRingStackingOrder>(data_->stacking_order_$value));
@@ -222,7 +222,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadId` instead "
     "of `ReadId if you're fine with null values being "

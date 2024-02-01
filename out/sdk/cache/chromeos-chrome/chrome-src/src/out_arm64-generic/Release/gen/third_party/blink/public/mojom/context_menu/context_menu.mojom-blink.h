@@ -179,7 +179,7 @@ class PLATFORM_EXPORT FormRendererId {
   template <typename... Args>
   static FormRendererIdPtr New(Args&&... args) {
     return FormRendererIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -320,7 +320,7 @@ class PLATFORM_EXPORT FieldRendererId {
   template <typename... Args>
   static FieldRendererIdPtr New(Args&&... args) {
     return FieldRendererIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -467,7 +467,7 @@ class PLATFORM_EXPORT CustomContextMenuItem {
   template <typename... Args>
   static CustomContextMenuItemPtr New(Args&&... args) {
     return CustomContextMenuItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -636,7 +636,7 @@ class PLATFORM_EXPORT UntrustworthyContextMenuParams {
   template <typename... Args>
   static UntrustworthyContextMenuParamsPtr New(Args&&... args) {
     return UntrustworthyContextMenuParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

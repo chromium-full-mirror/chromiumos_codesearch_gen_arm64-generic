@@ -725,7 +725,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUrl` instead "
     "of `ReadUrl if you're fine with null values being "
@@ -787,7 +787,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `script_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadScriptId` instead "
     "of `ReadScriptId if you're fine with null values being "
@@ -807,7 +807,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUrl` instead "
     "of `ReadUrl if you're fine with null values being "
@@ -859,7 +859,7 @@ static_assert(
         ::blink::mojom::AffectedFrameDataView, UserType>(),
     "Attempting to read the optional `parentFrame` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadParentFrame` instead "
     "of `ReadParentFrame if you're fine with null values being "
@@ -879,7 +879,7 @@ static_assert(
         ::blink::mojom::AffectedFrameDataView, UserType>(),
     "Attempting to read the optional `blockedFrame` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBlockedFrame` instead "
     "of `ReadBlockedFrame if you're fine with null values being "
@@ -981,7 +981,7 @@ static_assert(
         ::blink::mojom::AffectedRequestDataView, UserType>(),
     "Attempting to read the optional `request` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRequest` instead "
     "of `ReadRequest if you're fine with null values being "
@@ -1001,7 +1001,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `invalid_parameter` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInvalidParameter` instead "
     "of `ReadInvalidParameter if you're fine with null values being "
@@ -1077,7 +1077,7 @@ static_assert(
         ::blink::mojom::AffectedRequestDataView, UserType>(),
     "Attempting to read the optional `request` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRequest` instead "
     "of `ReadRequest if you're fine with null values being "
@@ -1097,7 +1097,7 @@ static_assert(
         ::blink::mojom::AffectedFrameDataView, UserType>(),
     "Attempting to read the optional `frame` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFrame` instead "
     "of `ReadFrame if you're fine with null values being "
@@ -1133,7 +1133,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `blocked_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBlockedUrl` instead "
     "of `ReadBlockedUrl if you're fine with null values being "
@@ -1176,7 +1176,7 @@ static_assert(
         ::blink::mojom::AffectedFrameDataView, UserType>(),
     "Attempting to read the optional `frame_ancestor` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFrameAncestor` instead "
     "of `ReadFrameAncestor if you're fine with null values being "
@@ -1196,7 +1196,7 @@ static_assert(
         ::blink::mojom::AffectedLocationDataView, UserType>(),
     "Attempting to read the optional `affected_location` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAffectedLocation` instead "
     "of `ReadAffectedLocation if you're fine with null values being "
@@ -1275,7 +1275,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `site_for_cookies` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSiteForCookies` instead "
     "of `ReadSiteForCookies if you're fine with null values being "
@@ -1295,7 +1295,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `cookie_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCookieUrl` instead "
     "of `ReadCookieUrl if you're fine with null values being "
@@ -1315,7 +1315,7 @@ static_assert(
         ::blink::mojom::AffectedRequestDataView, UserType>(),
     "Attempting to read the optional `request` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRequest` instead "
     "of `ReadRequest if you're fine with null values being "
@@ -1351,7 +1351,7 @@ static_assert(
         ::blink::mojom::AffectedLocationDataView, UserType>(),
     "Attempting to read the optional `affected_location` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAffectedLocation` instead "
     "of `ReadAffectedLocation if you're fine with null values being "
@@ -1570,7 +1570,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `frame_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFrameId` instead "
     "of `ReadFrameId if you're fine with null values being "
@@ -1593,7 +1593,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `violating_node_attribute` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadViolatingNodeAttribute` instead "
     "of `ReadViolatingNodeAttribute if you're fine with null values being "
@@ -1665,7 +1665,7 @@ static_assert(
         ::blink::mojom::CookieIssueDetailsDataView, UserType>(),
     "Attempting to read the optional `cookie_issue_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCookieIssueDetails` instead "
     "of `ReadCookieIssueDetails if you're fine with null values being "
@@ -1685,7 +1685,7 @@ static_assert(
         ::blink::mojom::MixedContentIssueDetailsDataView, UserType>(),
     "Attempting to read the optional `mixed_content_issue_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMixedContentIssueDetails` instead "
     "of `ReadMixedContentIssueDetails if you're fine with null values being "
@@ -1705,7 +1705,7 @@ static_assert(
         ::blink::mojom::BlockedByResponseIssueDetailsDataView, UserType>(),
     "Attempting to read the optional `blocked_by_response_issue_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBlockedByResponseIssueDetails` instead "
     "of `ReadBlockedByResponseIssueDetails if you're fine with null values being "
@@ -1725,7 +1725,7 @@ static_assert(
         ::blink::mojom::ContentSecurityPolicyIssueDetailsDataView, UserType>(),
     "Attempting to read the optional `csp_issue_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCspIssueDetails` instead "
     "of `ReadCspIssueDetails if you're fine with null values being "
@@ -1745,7 +1745,7 @@ static_assert(
         ::blink::mojom::SharedArrayBufferIssueDetailsDataView, UserType>(),
     "Attempting to read the optional `sab_issue_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSabIssueDetails` instead "
     "of `ReadSabIssueDetails if you're fine with null values being "
@@ -1765,7 +1765,7 @@ static_assert(
         ::blink::mojom::HeavyAdIssueDetailsDataView, UserType>(),
     "Attempting to read the optional `heavy_ad_issue_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHeavyAdIssueDetails` instead "
     "of `ReadHeavyAdIssueDetails if you're fine with null values being "
@@ -1785,7 +1785,7 @@ static_assert(
         ::blink::mojom::AttributionReportingIssueDetailsDataView, UserType>(),
     "Attempting to read the optional `attribution_reporting_issue_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAttributionReportingIssueDetails` instead "
     "of `ReadAttributionReportingIssueDetails if you're fine with null values being "
@@ -1805,7 +1805,7 @@ static_assert(
         ::blink::mojom::LowTextContrastIssueDataView, UserType>(),
     "Attempting to read the optional `low_text_contrast_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLowTextContrastDetails` instead "
     "of `ReadLowTextContrastDetails if you're fine with null values being "
@@ -1825,7 +1825,7 @@ static_assert(
         ::blink::mojom::FederatedAuthRequestIssueDetailsDataView, UserType>(),
     "Attempting to read the optional `federated_auth_request_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFederatedAuthRequestDetails` instead "
     "of `ReadFederatedAuthRequestDetails if you're fine with null values being "
@@ -1845,7 +1845,7 @@ static_assert(
         ::blink::mojom::BounceTrackingIssueDetailsDataView, UserType>(),
     "Attempting to read the optional `bounce_tracking_issue_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBounceTrackingIssueDetails` instead "
     "of `ReadBounceTrackingIssueDetails if you're fine with null values being "
@@ -1865,7 +1865,7 @@ static_assert(
         ::blink::mojom::CookieDeprecationMetadataIssueDetailsDataView, UserType>(),
     "Attempting to read the optional `cookie_deprecation_metadata_issue_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCookieDeprecationMetadataIssueDetails` instead "
     "of `ReadCookieDeprecationMetadataIssueDetails if you're fine with null values being "
@@ -1885,7 +1885,7 @@ static_assert(
         ::blink::mojom::GenericIssueDetailsDataView, UserType>(),
     "Attempting to read the optional `generic_issue_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadGenericIssueDetails` instead "
     "of `ReadGenericIssueDetails if you're fine with null values being "
@@ -1905,7 +1905,7 @@ static_assert(
         ::blink::mojom::DeprecationIssueDetailsDataView, UserType>(),
     "Attempting to read the optional `deprecation_issue_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeprecationIssueDetails` instead "
     "of `ReadDeprecationIssueDetails if you're fine with null values being "
@@ -1925,7 +1925,7 @@ static_assert(
         ::blink::mojom::FederatedAuthUserInfoRequestIssueDetailsDataView, UserType>(),
     "Attempting to read the optional `federated_auth_user_info_request_details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFederatedAuthUserInfoRequestDetails` instead "
     "of `ReadFederatedAuthUserInfoRequestDetails if you're fine with null values being "
@@ -1945,7 +1945,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `issue_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIssueId` instead "
     "of `ReadIssueId if you're fine with null values being "

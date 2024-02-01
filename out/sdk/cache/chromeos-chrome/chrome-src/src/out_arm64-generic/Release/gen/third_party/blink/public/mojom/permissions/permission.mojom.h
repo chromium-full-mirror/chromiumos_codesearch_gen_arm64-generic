@@ -450,7 +450,7 @@ class BLINK_COMMON_EXPORT MidiPermissionDescriptor {
   template <typename... Args>
   static MidiPermissionDescriptorPtr New(Args&&... args) {
     return MidiPermissionDescriptorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -591,7 +591,7 @@ class BLINK_COMMON_EXPORT ClipboardPermissionDescriptor {
   template <typename... Args>
   static ClipboardPermissionDescriptorPtr New(Args&&... args) {
     return ClipboardPermissionDescriptorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -735,7 +735,7 @@ class BLINK_COMMON_EXPORT CameraDevicePermissionDescriptor {
   template <typename... Args>
   static CameraDevicePermissionDescriptorPtr New(Args&&... args) {
     return CameraDevicePermissionDescriptorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -889,7 +889,7 @@ class BLINK_COMMON_EXPORT PermissionDescriptorExtension {
   static PermissionDescriptorExtensionPtr
   NewMidi(
       MidiPermissionDescriptorPtr value) {
-    auto result = PermissionDescriptorExtensionPtr(absl::in_place);
+    auto result = PermissionDescriptorExtensionPtr(std::in_place);
     result->set_midi(std::move(value));
     return result;
   }
@@ -897,7 +897,7 @@ class BLINK_COMMON_EXPORT PermissionDescriptorExtension {
   static PermissionDescriptorExtensionPtr
   NewClipboard(
       ClipboardPermissionDescriptorPtr value) {
-    auto result = PermissionDescriptorExtensionPtr(absl::in_place);
+    auto result = PermissionDescriptorExtensionPtr(std::in_place);
     result->set_clipboard(std::move(value));
     return result;
   }
@@ -905,7 +905,7 @@ class BLINK_COMMON_EXPORT PermissionDescriptorExtension {
   static PermissionDescriptorExtensionPtr
   NewCameraDevice(
       CameraDevicePermissionDescriptorPtr value) {
-    auto result = PermissionDescriptorExtensionPtr(absl::in_place);
+    auto result = PermissionDescriptorExtensionPtr(std::in_place);
     result->set_camera_device(std::move(value));
     return result;
   }
@@ -913,7 +913,7 @@ class BLINK_COMMON_EXPORT PermissionDescriptorExtension {
   static PermissionDescriptorExtensionPtr
   NewTopLevelStorageAccess(
       TopLevelStorageAccessPermissionDescriptorPtr value) {
-    auto result = PermissionDescriptorExtensionPtr(absl::in_place);
+    auto result = PermissionDescriptorExtensionPtr(std::in_place);
     result->set_top_level_storage_access(std::move(value));
     return result;
   }
@@ -1056,7 +1056,7 @@ class BLINK_COMMON_EXPORT TopLevelStorageAccessPermissionDescriptor {
   template <typename... Args>
   static TopLevelStorageAccessPermissionDescriptorPtr New(Args&&... args) {
     return TopLevelStorageAccessPermissionDescriptorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1196,7 +1196,7 @@ class BLINK_COMMON_EXPORT PermissionDescriptor {
   template <typename... Args>
   static PermissionDescriptorPtr New(Args&&... args) {
     return PermissionDescriptorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1341,7 +1341,7 @@ class BLINK_COMMON_EXPORT EmbeddedPermissionRequestDescriptor {
   template <typename... Args>
   static EmbeddedPermissionRequestDescriptorPtr New(Args&&... args) {
     return EmbeddedPermissionRequestDescriptorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

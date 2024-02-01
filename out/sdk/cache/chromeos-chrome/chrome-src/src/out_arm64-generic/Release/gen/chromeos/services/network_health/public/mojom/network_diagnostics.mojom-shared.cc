@@ -98,6 +98,38 @@ std::ostream& operator<<(std::ostream& os, RoutineVerdict value) {
   return os << RoutineVerdictToString(value);
 }
 
+NOINLINE static const char* RoutineCallSourceToStringHelper(RoutineCallSource value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case RoutineCallSource::kUnknown:
+      return "kUnknown";
+    case RoutineCallSource::kDiagnosticsUI:
+      return "kDiagnosticsUI";
+    case RoutineCallSource::kChromeNetworkPage:
+      return "kChromeNetworkPage";
+    case RoutineCallSource::kCrosHealthd:
+      return "kCrosHealthd";
+    case RoutineCallSource::kMetricsReporting:
+      return "kMetricsReporting";
+    case RoutineCallSource::kNetworkHealthSource:
+      return "kNetworkHealthSource";
+    default:
+      return nullptr;
+  }
+}
+
+std::string RoutineCallSourceToString(RoutineCallSource value) {
+  const char *str = RoutineCallSourceToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown RoutineCallSource value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, RoutineCallSource value) {
+  return os << RoutineCallSourceToString(value);
+}
+
 NOINLINE static const char* LanConnectivityProblemToStringHelper(LanConnectivityProblem value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -844,6 +876,7 @@ bool RoutineResult_Data::Validate(
   static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
     { 0, 40 },
     { 1, 56 },
+    { 2, 56 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -878,12 +911,19 @@ bool RoutineResult_Data::Validate(
 
   if (!mojo::internal::ValidateInlinedUnion(object->result_value, validation_context))
     return false;
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source, validation_context))
+    return false;
 
   return true;
 }
 
 RoutineResult_Data::RoutineResult_Data()
-    : header_({sizeof(*this), 1}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1003,8 +1043,12 @@ bool NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1012,12 +1056,19 @@ bool NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data*>(data);
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data::NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1056,8 +1107,12 @@ bool NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1065,12 +1120,19 @@ bool NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data*>(data);
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data::NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1109,8 +1171,12 @@ bool NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1118,12 +1184,19 @@ bool NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data*>(data);
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1162,8 +1235,12 @@ bool NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data::Validate
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1171,12 +1248,19 @@ bool NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data::Validate
   // the message comes from an older version.
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data*>(data);
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1215,8 +1299,12 @@ bool NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1224,12 +1312,19 @@ bool NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data*>(data);
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data::NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1268,8 +1363,12 @@ bool NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1277,12 +1376,19 @@ bool NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data*>(data);
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data::NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1321,8 +1427,12 @@ bool NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1330,12 +1440,19 @@ bool NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data*>(data);
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data::NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1374,8 +1491,12 @@ bool NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1383,12 +1504,19 @@ bool NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data*>(data);
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data::NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1427,8 +1555,12 @@ bool NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1436,12 +1568,19 @@ bool NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data*>(data);
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data::NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1480,8 +1619,12 @@ bool NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1489,12 +1632,19 @@ bool NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data*>(data);
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data::NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1533,8 +1683,12 @@ bool NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1542,12 +1696,19 @@ bool NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data*>(data);
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data::NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1586,8 +1747,12 @@ bool NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 16 },
+    { 2, 24 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1602,12 +1767,19 @@ bool NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data::Validate(
                                          &stun_server_hostname_validate_params)) {
     return false;
   }
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data::NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1646,8 +1818,12 @@ bool NetworkDiagnosticsRoutines_RunArcHttp_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1655,12 +1831,19 @@ bool NetworkDiagnosticsRoutines_RunArcHttp_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunArcHttp_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunArcHttp_Params_Data*>(data);
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunArcHttp_Params_Data::NetworkDiagnosticsRoutines_RunArcHttp_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1699,8 +1882,12 @@ bool NetworkDiagnosticsRoutines_RunArcPing_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1708,12 +1895,19 @@ bool NetworkDiagnosticsRoutines_RunArcPing_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunArcPing_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunArcPing_Params_Data*>(data);
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunArcPing_Params_Data::NetworkDiagnosticsRoutines_RunArcPing_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1752,8 +1946,12 @@ bool NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 8, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 8 },
+    { 2, 16 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -1761,12 +1959,19 @@ bool NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data::Validate(
   // the message comes from an older version.
   [[maybe_unused]] const NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data* object =
       static_cast<const NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data*>(data);
+  if (object->header_.version < 2)
+    return true;
+
+
+  if (!::chromeos::network_diagnostics::mojom::internal::RoutineCallSource_Data
+        ::Validate(object->source_$value, validation_context))
+    return false;
 
   return true;
 }
 
 NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data::NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 
 // static
@@ -1819,6 +2024,16 @@ namespace perfetto {
 void TraceFormatTraits<::chromeos::network_diagnostics::mojom::RoutineVerdict>::WriteIntoTrace(
    perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::RoutineVerdict value) {
   return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::RoutineVerdictToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::chromeos::network_diagnostics::mojom::RoutineCallSource>::WriteIntoTrace(
+   perfetto::TracedValue context, ::chromeos::network_diagnostics::mojom::RoutineCallSource value) {
+  return std::move(context).WriteString(::chromeos::network_diagnostics::mojom::RoutineCallSourceToString(value));
 }
 
 } // namespace perfetto

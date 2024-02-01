@@ -1076,7 +1076,7 @@ class  FormFieldData_Data {
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> css_classes;
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> aria_label;
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> aria_description;
-  mojo::internal::Pointer<internal::FieldRendererId_Data> unique_renderer_id;
+  mojo::internal::Pointer<internal::FieldRendererId_Data> renderer_id;
   mojo::internal::Pointer<internal::FormRendererId_Data> host_form_id;
   int32_t form_control_ax_id;
   uint8_t is_user_edited : 1;
@@ -1146,7 +1146,7 @@ class  FormFieldData_FillData_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> value;
-  mojo::internal::Pointer<internal::FieldRendererId_Data> unique_renderer_id;
+  mojo::internal::Pointer<internal::FieldRendererId_Data> renderer_id;
   uint8_t is_autofilled : 1;
   uint8_t force_override : 1;
   uint8_t pad3_[7];
@@ -1258,7 +1258,7 @@ class  FormData_Data {
   uint8_t is_gaia_with_skip_save_password_form : 1;
   uint8_t pad7_[3];
   int32_t submission_event;
-  mojo::internal::Pointer<internal::FormRendererId_Data> unique_renderer_id;
+  mojo::internal::Pointer<internal::FormRendererId_Data> renderer_id;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::FrameTokenWithPredecessor_Data>>> child_frames;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::FormFieldData_Data>>> fields;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::FieldRendererId_Data>>> username_predictions;
@@ -1309,7 +1309,7 @@ class  FormData_FillData_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<internal::FormRendererId_Data> unique_renderer_id;
+  mojo::internal::Pointer<internal::FormRendererId_Data> renderer_id;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::FormFieldData_FillData_Data>>> fields;
 
  private:

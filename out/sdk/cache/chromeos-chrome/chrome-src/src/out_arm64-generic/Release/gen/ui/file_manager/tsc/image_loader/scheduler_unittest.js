@@ -1,7 +1,6 @@
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// @ts-nocheck
 import { assertEquals } from 'chrome://webui-test/chromeos/chai_assert.js';
 import { ImageRequestTask } from './image_request_task.js';
 import { MAXIMUM_IN_PARALLEL, Scheduler } from './scheduler.js';
@@ -12,19 +11,8 @@ let globalTime = 0;
 export function setUp() {
     globalTime = 0;
 }
-/**
- * @typedef{{
- *   cancelCallCount: number,
- *   runTime: number,
- * }}
- */
-let FakeImageRequestTask;
-/**
- * @param {string} taskId
- * @return {!FakeImageRequestTask}
- */
 function newTask(taskId, priority) {
-    return /** @type !FakeImageRequestTask */ ({
+    return {
         // Counts how many times cancel method was called.
         // Used to test multiple cancellation of the same task.
         cancelCallCount: 0,
@@ -41,11 +29,11 @@ function newTask(taskId, priority) {
         cancel() {
             ++this.cancelCallCount;
         },
-        loadFromCacheAndProcess(resolve, reject) {
+        loadFromCacheAndProcess(resolve, _reject) {
             this.runTime = ++globalTime;
             setTimeout(resolve);
         },
-    });
+    };
 }
 /**
  * Checks that adding and removing tasks before the scheduler is started works.
@@ -53,7 +41,7 @@ function newTask(taskId, priority) {
 export function testIdleSchedulerAddRemove() {
     const scheduler = new Scheduler();
     const fakeTask = newTask('task-1', 0);
-    scheduler.add(/** @type {!ImageRequestTask} */ (fakeTask));
+    scheduler.add(fakeTask);
     assertEquals(0, fakeTask.cancelCallCount);
     scheduler.remove('task-1');
     assertEquals(1, fakeTask.cancelCallCount);
@@ -69,8 +57,8 @@ export function testNewTasksMovedAndRunInPriorityOrder() {
     const fakeTask1 = newTask('task-1', 1);
     const fakeTask2 = newTask('task-2', 0);
     const scheduler = new Scheduler();
-    scheduler.add(/** @type {!ImageRequestTask} */ (fakeTask1));
-    scheduler.add(/** @type {!ImageRequestTask} */ (fakeTask2));
+    scheduler.add(fakeTask1);
+    scheduler.add(fakeTask2);
     scheduler.start();
     assertEquals(2, fakeTask1.runTime);
     assertEquals(1, fakeTask2.runTime);
@@ -83,7 +71,7 @@ export function testParallelTasks() {
     const taskList = [];
     for (let i = 0; i <= MAXIMUM_IN_PARALLEL; ++i) {
         taskList.push(newTask(`task-${i}`, 0));
-        scheduler.add(/** @type {!ImageRequestTask} */ (taskList[i]));
+        scheduler.add(taskList[i]);
     }
     scheduler.start();
     for (let i = 0; i < MAXIMUM_IN_PARALLEL; ++i) {

@@ -676,7 +676,7 @@ class  HidUsageAndPage {
   template <typename... Args>
   static HidUsageAndPagePtr New(Args&&... args) {
     return HidUsageAndPagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -827,7 +827,7 @@ class  HidReportItem {
   template <typename... Args>
   static HidReportItemPtr New(Args&&... args) {
     return HidReportItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1041,7 +1041,7 @@ class  HidReportDescription {
   template <typename... Args>
   static HidReportDescriptionPtr New(Args&&... args) {
     return HidReportDescriptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1186,7 +1186,7 @@ class  HidCollectionInfo {
   template <typename... Args>
   static HidCollectionInfoPtr New(Args&&... args) {
     return HidCollectionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1346,7 +1346,7 @@ class  HidDeviceInfo {
   template <typename... Args>
   static HidDeviceInfoPtr New(Args&&... args) {
     return HidDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

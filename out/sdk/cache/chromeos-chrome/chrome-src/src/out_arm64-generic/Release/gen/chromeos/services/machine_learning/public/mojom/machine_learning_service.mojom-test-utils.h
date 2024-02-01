@@ -28,6 +28,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) MachineLearningServiceInterceptorForTest
   void LoadDocumentScanner(::mojo::PendingReceiver<::chromeos::machine_learning::mojom::DocumentScanner> receiver, ::chromeos::machine_learning::mojom::DocumentScannerConfigPtr config, LoadDocumentScannerCallback callback) override;
   void CreateWebPlatformModelLoader(::mojo::PendingReceiver<::ml::model_loader::mojom::ModelLoader> receiver, ::ml::model_loader::mojom::CreateModelLoaderOptionsPtr options, CreateWebPlatformModelLoaderCallback callback) override;
   void LoadImageAnnotator(::chromeos::machine_learning::mojom::ImageAnnotatorConfigPtr config, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::ImageContentAnnotator> receiver, LoadImageAnnotatorCallback callback) override;
+  void LoadHeatmapPalmRejection(::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::HeatmapPalmRejectionClient> client, LoadHeatmapPalmRejectionCallback callback) override;
   void REMOVED_4(::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver, REMOVED_4Callback callback) override;
 };
 class COMPONENT_EXPORT(MLSERVICE_MOJOM) MachineLearningServiceAsyncWaiter {
@@ -71,6 +72,9 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) MachineLearningServiceAsyncWaiter {
   void LoadImageAnnotator(
       ::chromeos::machine_learning::mojom::ImageAnnotatorConfigPtr config, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::ImageContentAnnotator> receiver, LoadModelResult* out_result);
   LoadModelResult LoadImageAnnotator(::chromeos::machine_learning::mojom::ImageAnnotatorConfigPtr config, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::ImageContentAnnotator> receiver);
+  void LoadHeatmapPalmRejection(
+      ::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::HeatmapPalmRejectionClient> client, ::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult* out_result);
+  ::chromeos::machine_learning::mojom::LoadHeatmapPalmRejectionResult LoadHeatmapPalmRejection(::chromeos::machine_learning::mojom::HeatmapPalmRejectionConfigPtr config, ::mojo::PendingRemote<::chromeos::machine_learning::mojom::HeatmapPalmRejectionClient> client);
   void REMOVED_4(
       ::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver, LoadModelResult* out_result);
   LoadModelResult REMOVED_4(::chromeos::machine_learning::mojom::HandwritingRecognizerSpecPtr spec, ::mojo::PendingReceiver<::chromeos::machine_learning::mojom::HandwritingRecognizer> receiver);

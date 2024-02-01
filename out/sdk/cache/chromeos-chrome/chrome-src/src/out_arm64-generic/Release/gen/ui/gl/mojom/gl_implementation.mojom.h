@@ -55,7 +55,7 @@ class COMPONENT_EXPORT(GL_MOJOM) GLImplementationParts {
   template <typename... Args>
   static GLImplementationPartsPtr New(Args&&... args) {
     return GLImplementationPartsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

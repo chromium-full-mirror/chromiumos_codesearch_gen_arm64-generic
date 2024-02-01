@@ -303,7 +303,7 @@ class  LanguageDetectionDetails {
   template <typename... Args>
   static LanguageDetectionDetailsPtr New(Args&&... args) {
     return LanguageDetectionDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

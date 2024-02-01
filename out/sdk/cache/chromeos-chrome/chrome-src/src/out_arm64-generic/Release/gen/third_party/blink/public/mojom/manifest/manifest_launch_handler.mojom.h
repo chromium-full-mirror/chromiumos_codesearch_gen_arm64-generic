@@ -56,7 +56,7 @@ class BLINK_COMMON_EXPORT ManifestLaunchHandler {
   template <typename... Args>
   static ManifestLaunchHandlerPtr New(Args&&... args) {
     return ManifestLaunchHandlerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

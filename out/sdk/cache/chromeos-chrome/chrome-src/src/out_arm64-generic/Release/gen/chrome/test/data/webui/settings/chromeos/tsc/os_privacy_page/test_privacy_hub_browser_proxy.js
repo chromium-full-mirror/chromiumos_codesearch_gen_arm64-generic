@@ -6,6 +6,9 @@ export class TestPrivacyHubBrowserProxy extends TestBrowserProxy {
     microphoneToggleIsEnabled;
     cameraSwitchIsForceDisabled;
     cameraLEDFallbackState;
+    currentTimeZoneName;
+    currentSunRiseTime;
+    currentSunSetTime;
     constructor() {
         super([
             'getInitialMicrophoneHardwareToggleState',
@@ -13,10 +16,16 @@ export class TestPrivacyHubBrowserProxy extends TestBrowserProxy {
             'sendLeftOsPrivacyPage',
             'sendOpenedOsPrivacyPage',
             'getCameraLedFallbackState',
+            'getCurrentTimeZoneName',
+            'getCurrentSunriseTime',
+            'getCurrentSunsetTime',
         ]);
         this.microphoneToggleIsEnabled = false;
         this.cameraSwitchIsForceDisabled = false;
         this.cameraLEDFallbackState = false;
+        this.currentTimeZoneName = 'Test Time Zone';
+        this.currentSunRiseTime = '7:00AM';
+        this.currentSunSetTime = '8:00PM';
     }
     getInitialMicrophoneHardwareToggleState() {
         this.methodCalled('getInitialMicrophoneHardwareToggleState');
@@ -29,6 +38,18 @@ export class TestPrivacyHubBrowserProxy extends TestBrowserProxy {
     getCameraLedFallbackState() {
         this.methodCalled('getCameraLedFallbackState');
         return Promise.resolve(this.cameraLEDFallbackState);
+    }
+    getCurrentTimeZoneName() {
+        this.methodCalled('getCurrentTimeZoneName');
+        return Promise.resolve(this.currentTimeZoneName);
+    }
+    getCurrentSunriseTime() {
+        this.methodCalled('getCurrentSunriseTime');
+        return Promise.resolve(this.currentSunRiseTime);
+    }
+    getCurrentSunsetTime() {
+        this.methodCalled('getCurrentSunsetTime');
+        return Promise.resolve(this.currentSunSetTime);
     }
     sendLeftOsPrivacyPage() {
         this.methodCalled('sendLeftOsPrivacyPage');

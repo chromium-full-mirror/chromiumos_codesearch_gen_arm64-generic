@@ -53,7 +53,7 @@ class  TcpServerSocketPort {
   template <typename... Args>
   static TcpServerSocketPortPtr New(Args&&... args) {
     return TcpServerSocketPortPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

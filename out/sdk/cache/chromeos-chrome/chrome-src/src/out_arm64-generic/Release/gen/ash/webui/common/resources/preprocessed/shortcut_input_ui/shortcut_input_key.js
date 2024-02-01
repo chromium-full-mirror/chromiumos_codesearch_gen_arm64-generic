@@ -104,9 +104,6 @@ export class ShortcutInputKeyElement extends ShortcutInputKeyElementBase {
         assert(this.i18nExists(ariaLabelStringId), `String ID ${ariaLabelStringId} should exist, but it doesn't.`);
         return this.i18n(ariaLabelStringId);
     }
-    getAriaHidden() {
-        return this.keyState === KeyInputState.NOT_SELECTED;
-    }
     onKeyChanged() {
         this.hasIcon = this.key in KeyToIconNameMap;
     }

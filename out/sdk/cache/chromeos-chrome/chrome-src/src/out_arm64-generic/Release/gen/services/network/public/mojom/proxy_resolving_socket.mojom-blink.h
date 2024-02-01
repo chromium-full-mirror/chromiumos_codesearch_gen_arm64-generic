@@ -289,7 +289,7 @@ class BLINK_PLATFORM_EXPORT ProxyResolvingSocketOptions {
   template <typename... Args>
   static ProxyResolvingSocketOptionsPtr New(Args&&... args) {
     return ProxyResolvingSocketOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

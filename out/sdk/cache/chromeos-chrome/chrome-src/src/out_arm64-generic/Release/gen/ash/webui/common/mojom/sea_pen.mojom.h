@@ -26,6 +26,7 @@
 #include "ash/webui/common/mojom/sea_pen.mojom-features.h"
 #include "ash/webui/common/mojom/sea_pen.mojom-shared.h"
 #include "ash/webui/common/mojom/sea_pen.mojom-forward.h"
+#include "ash/webui/common/mojom/sea_pen_generated.mojom.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
 #include "url/mojom/url.mojom.h"
 #include <string>
@@ -253,7 +254,7 @@ class  SeaPenUserVisibleQuery {
   template <typename... Args>
   static SeaPenUserVisibleQueryPtr New(Args&&... args) {
     return SeaPenUserVisibleQueryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -398,7 +399,7 @@ class  SeaPenFeedbackMetadata {
   template <typename... Args>
   static SeaPenFeedbackMetadataPtr New(Args&&... args) {
     return SeaPenFeedbackMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -552,7 +553,7 @@ class  SeaPenQuery {
   static SeaPenQueryPtr
   NewTextQuery(
       const std::string& value) {
-    auto result = SeaPenQueryPtr(absl::in_place);
+    auto result = SeaPenQueryPtr(std::in_place);
     result->set_text_query(std::move(value));
     return result;
   }
@@ -560,7 +561,7 @@ class  SeaPenQuery {
   static SeaPenQueryPtr
   NewTemplateQuery(
       SeaPenTemplateQueryPtr value) {
-    auto result = SeaPenQueryPtr(absl::in_place);
+    auto result = SeaPenQueryPtr(std::in_place);
     result->set_template_query(std::move(value));
     return result;
   }
@@ -674,7 +675,7 @@ class  SeaPenThumbnail {
   template <typename... Args>
   static SeaPenThumbnailPtr New(Args&&... args) {
     return SeaPenThumbnailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -818,7 +819,7 @@ class  SeaPenTemplateQuery {
   template <typename... Args>
   static SeaPenTemplateQueryPtr New(Args&&... args) {
     return SeaPenTemplateQueryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -835,8 +836,8 @@ class  SeaPenTemplateQuery {
   SeaPenTemplateQuery();
 
   SeaPenTemplateQuery(
-      SeaPenTemplateId id,
-      const base::flat_map<SeaPenTemplateChip, SeaPenTemplateOption>& options,
+      ::ash::personalization_app::mojom::SeaPenTemplateId id,
+      const base::flat_map<::ash::personalization_app::mojom::SeaPenTemplateChip, ::ash::personalization_app::mojom::SeaPenTemplateOption>& options,
       SeaPenUserVisibleQueryPtr user_visible_query);
 
 SeaPenTemplateQuery(const SeaPenTemplateQuery&) = delete;
@@ -917,9 +918,9 @@ SeaPenTemplateQuery& operator=(const SeaPenTemplateQuery&) = delete;
   }
 
   
-  SeaPenTemplateId id;
+  ::ash::personalization_app::mojom::SeaPenTemplateId id;
   
-  base::flat_map<SeaPenTemplateChip, SeaPenTemplateOption> options;
+  base::flat_map<::ash::personalization_app::mojom::SeaPenTemplateChip, ::ash::personalization_app::mojom::SeaPenTemplateOption> options;
   
   SeaPenUserVisibleQueryPtr user_visible_query;
 

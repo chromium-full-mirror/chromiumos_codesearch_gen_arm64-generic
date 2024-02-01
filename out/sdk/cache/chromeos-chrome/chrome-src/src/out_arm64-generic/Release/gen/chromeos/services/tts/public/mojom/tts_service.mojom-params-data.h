@@ -490,7 +490,7 @@ static_assert(
         ::chromeos::tts::mojom::AudioParametersDataView, UserType>(),
     "Attempting to read the optional `desired_audio_parameters` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDesiredAudioParameters` instead "
     "of `ReadDesiredAudioParameters if you're fine with null values being "

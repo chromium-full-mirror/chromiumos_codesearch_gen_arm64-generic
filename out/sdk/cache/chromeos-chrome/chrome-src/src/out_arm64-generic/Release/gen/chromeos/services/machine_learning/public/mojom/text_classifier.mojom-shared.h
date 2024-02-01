@@ -240,7 +240,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `default_locales` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDefaultLocales` instead "
     "of `ReadDefaultLocales if you're fine with null values being "
@@ -260,7 +260,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `detected_text_language_tags` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDetectedTextLanguageTags` instead "
     "of `ReadDetectedTextLanguageTags if you're fine with null values being "
@@ -290,7 +290,7 @@ static_assert(
         ::mojo_base::mojom::TimeDataView, UserType>(),
     "Attempting to read the optional `reference_time` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReferenceTime` instead "
     "of `ReadReferenceTime if you're fine with null values being "
@@ -310,7 +310,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `reference_timezone` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReferenceTimezone` instead "
     "of `ReadReferenceTimezone if you're fine with null values being "
@@ -330,7 +330,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `enabled_entities` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEnabledEntities` instead "
     "of `ReadEnabledEntities if you're fine with null values being "
@@ -441,7 +441,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `default_locales` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDefaultLocales` instead "
     "of `ReadDefaultLocales if you're fine with null values being "
@@ -461,7 +461,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `detected_text_language_tags` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDetectedTextLanguageTags` instead "
     "of `ReadDetectedTextLanguageTags if you're fine with null values being "

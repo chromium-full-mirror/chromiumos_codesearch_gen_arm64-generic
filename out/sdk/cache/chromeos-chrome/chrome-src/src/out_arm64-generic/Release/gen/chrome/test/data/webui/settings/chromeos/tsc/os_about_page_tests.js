@@ -12,12 +12,12 @@ import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.m
 import { flushTasks, waitAfterNextRender } from 'chrome://webui-test/polymer_test_util.js';
 import { eventToPromise, isVisible } from 'chrome://webui-test/test_util.js';
 import { FakeUserActionRecorder } from './fake_user_action_recorder.js';
-import { TestAboutPageBrowserProxyChromeOS } from './test_about_page_browser_proxy_chromeos.js';
+import { TestAboutPageBrowserProxy } from './test_about_page_browser_proxy.js';
 import { TestDeviceNameBrowserProxy } from './test_device_name_browser_proxy.js';
 import { TestLifetimeBrowserProxy } from './test_os_lifetime_browser_proxy.js';
 suite('AboutPageTest', function () {
     let page = null;
-    /** @type {?TestAboutPageBrowserProxyChromeOS} */
+    /** @type {?TestAboutPageBrowserProxy} */
     let aboutBrowserProxy = null;
     /** @type {?TestLifetimeBrowserProxy} */
     let lifetimeBrowserProxy = null;
@@ -31,7 +31,7 @@ suite('AboutPageTest', function () {
         setUserActionRecorderForTesting(userActionRecorder);
         lifetimeBrowserProxy = new TestLifetimeBrowserProxy();
         LifetimeBrowserProxyImpl.setInstance(lifetimeBrowserProxy);
-        aboutBrowserProxy = new TestAboutPageBrowserProxyChromeOS();
+        aboutBrowserProxy = new TestAboutPageBrowserProxy();
         AboutPageBrowserProxyImpl.setInstanceForTesting(aboutBrowserProxy);
         return initNewPage();
     });
@@ -404,7 +404,7 @@ suite('AboutPageTest', function () {
     });
     test('TPMFirmwareUpdate', async () => {
         assertTrue(page.$.aboutTPMFirmwareUpdate.hidden);
-        aboutBrowserProxy.setTPMFirmwareUpdateStatus({ updateAvailable: true });
+        aboutBrowserProxy.setTpmFirmwareUpdateStatus({ updateAvailable: true });
         aboutBrowserProxy.refreshTpmFirmwareUpdateStatus();
         assertFalse(page.$.aboutTPMFirmwareUpdate.hidden);
         page.$.aboutTPMFirmwareUpdate.click();
@@ -764,7 +764,7 @@ suite('DetailedBuildInfoTest', function () {
     let browserProxy = null;
     let deviceNameBrowserProxy = null;
     setup(function () {
-        browserProxy = new TestAboutPageBrowserProxyChromeOS();
+        browserProxy = new TestAboutPageBrowserProxy();
         deviceNameBrowserProxy = new TestDeviceNameBrowserProxy();
         AboutPageBrowserProxyImpl.setInstanceForTesting(browserProxy);
         DeviceNameBrowserProxyImpl.setInstanceForTesting(deviceNameBrowserProxy);
@@ -1148,7 +1148,7 @@ suite('EditHostnameDialogTest', function () {
         });
         dialog = document.createElement('edit-hostname-dialog');
         document.body.appendChild(dialog);
-        deviceNameBrowserProxy.setDeviceNameResult(SetDeviceNameResult.UPDATE_SUCCESSFUL);
+        deviceNameBrowserProxy.setDeviceNameResultForTesting(SetDeviceNameResult.UPDATE_SUCCESSFUL);
         dialog.shadowRoot.querySelector('#deviceName').value = 'TestName';
         dialog.shadowRoot.querySelector('#done').click();
         flush();
@@ -1164,7 +1164,7 @@ suite('ChannelSwitcherDialogTest', function () {
     let currentChannel;
     setup(async function () {
         currentChannel = BrowserChannel.BETA;
-        browserProxy = new TestAboutPageBrowserProxyChromeOS();
+        browserProxy = new TestAboutPageBrowserProxy();
         browserProxy.setChannels(currentChannel, currentChannel);
         AboutPageBrowserProxyImpl.setInstanceForTesting(browserProxy);
         PolymerTest.clearBody();
@@ -1236,7 +1236,7 @@ suite('Consumer auto update dialog popup', function () {
     let events;
     setup(function () {
         events = [];
-        browserProxy = new TestAboutPageBrowserProxyChromeOS();
+        browserProxy = new TestAboutPageBrowserProxy();
         AboutPageBrowserProxyImpl.setInstanceForTesting(browserProxy);
         PolymerTest.clearBody();
         dialog =
@@ -1272,7 +1272,7 @@ suite('AboutPageTest_OfficialBuild', function () {
     let page = null;
     let browserProxy = null;
     setup(function () {
-        browserProxy = new TestAboutPageBrowserProxyChromeOS();
+        browserProxy = new TestAboutPageBrowserProxy();
         AboutPageBrowserProxyImpl.setInstanceForTesting(browserProxy);
         PolymerTest.clearBody();
         page = document.createElement('os-about-page');

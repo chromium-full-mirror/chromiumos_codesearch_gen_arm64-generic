@@ -24,7 +24,7 @@ export function getTemplate() {
   <print-preview-settings-section id="customInputWrapper">
     <div slot="title"></div>
     <div slot="controls">
-      <cr-input id="pageSettingsCustomInput" type="text" data-timeout-delay="500" invalid="[[hasError_]]" disabled$="[[inputDisabled_(controlsDisabled_, selection_)]]" spellcheck="false" placeholder="$i18n{examplePageRangeText}" error-message="[[getHintMessage_(errorState_, pageCount)]]" on-blur="onCustomInputBlur_">
+      <cr-input id="pageSettingsCustomInput" class="stroked" type="text" data-timeout-delay="500" invalid="[[hasError_]]" disabled$="[[inputDisabled_(controlsDisabled_, selection_)]]" spellcheck="false" placeholder="$i18n{examplePageRangeText}" error-message="[[getHintMessage_(errorState_, pageCount)]]" on-blur="onCustomInputBlur_">
       </cr-input>
     </div>
   </print-preview-settings-section>

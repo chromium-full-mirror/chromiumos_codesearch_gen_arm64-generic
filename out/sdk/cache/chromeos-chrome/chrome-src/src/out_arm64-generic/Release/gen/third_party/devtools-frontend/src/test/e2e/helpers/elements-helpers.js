@@ -259,16 +259,17 @@ const expandSelectedNodeRecursively = async () => {
 };
 exports.expandSelectedNodeRecursively = expandSelectedNodeRecursively;
 const forcePseudoState = async (pseudoState) => {
-    // Open element state pane and wait for it to be loaded asynchronously
-    await (0, helper_js_1.click)('[aria-label="Toggle Element State"]');
-    await (0, helper_js_1.waitFor)(`[aria-label="${pseudoState}"]`);
+    // Open element & page state pane and wait for it to be loaded asynchronously
+    await (0, helper_js_1.click)('[aria-label="Toggle element & page state"]');
+    const stateEl = await (0, helper_js_1.waitForAria)(pseudoState);
     // FIXME(crbug/1112692): Refactor test to remove the timeout.
     await (0, helper_js_1.timeout)(100);
-    await (0, helper_js_1.click)(`[aria-label="${pseudoState}"]`);
+    await stateEl.click();
 };
 exports.forcePseudoState = forcePseudoState;
 const removePseudoState = async (pseudoState) => {
-    await (0, helper_js_1.click)(`[aria-label="${pseudoState}"]`);
+    const stateEl = await (0, helper_js_1.waitForAria)(pseudoState);
+    await stateEl.click();
 };
 exports.removePseudoState = removePseudoState;
 const getComputedStylesForDomNode = async (elementSelector, styleAttribute) => {

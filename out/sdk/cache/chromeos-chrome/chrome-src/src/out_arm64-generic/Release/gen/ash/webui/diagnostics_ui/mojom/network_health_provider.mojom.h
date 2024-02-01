@@ -380,7 +380,7 @@ class  EthernetStateProperties {
   template <typename... Args>
   static EthernetStatePropertiesPtr New(Args&&... args) {
     return EthernetStatePropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -532,7 +532,7 @@ class  NetworkTypeProperties {
   static NetworkTypePropertiesPtr
   NewCellular(
       CellularStatePropertiesPtr value) {
-    auto result = NetworkTypePropertiesPtr(absl::in_place);
+    auto result = NetworkTypePropertiesPtr(std::in_place);
     result->set_cellular(std::move(value));
     return result;
   }
@@ -540,7 +540,7 @@ class  NetworkTypeProperties {
   static NetworkTypePropertiesPtr
   NewEthernet(
       EthernetStatePropertiesPtr value) {
-    auto result = NetworkTypePropertiesPtr(absl::in_place);
+    auto result = NetworkTypePropertiesPtr(std::in_place);
     result->set_ethernet(std::move(value));
     return result;
   }
@@ -548,7 +548,7 @@ class  NetworkTypeProperties {
   static NetworkTypePropertiesPtr
   NewWifi(
       WiFiStatePropertiesPtr value) {
-    auto result = NetworkTypePropertiesPtr(absl::in_place);
+    auto result = NetworkTypePropertiesPtr(std::in_place);
     result->set_wifi(std::move(value));
     return result;
   }
@@ -675,7 +675,7 @@ class  IPConfigProperties {
   template <typename... Args>
   static IPConfigPropertiesPtr New(Args&&... args) {
     return IPConfigPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -824,7 +824,7 @@ class  CellularStateProperties {
   template <typename... Args>
   static CellularStatePropertiesPtr New(Args&&... args) {
     return CellularStatePropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -987,7 +987,7 @@ class  WiFiStateProperties {
   template <typename... Args>
   static WiFiStatePropertiesPtr New(Args&&... args) {
     return WiFiStatePropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1139,7 +1139,7 @@ class  Network {
   template <typename... Args>
   static NetworkPtr New(Args&&... args) {
     return NetworkPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

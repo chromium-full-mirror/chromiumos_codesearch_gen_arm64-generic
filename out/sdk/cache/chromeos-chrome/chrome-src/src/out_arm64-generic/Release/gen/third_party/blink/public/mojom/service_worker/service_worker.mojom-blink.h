@@ -703,7 +703,7 @@ class CORE_EXPORT ExtendableMessageEvent {
   template <typename... Args>
   static ExtendableMessageEventPtr New(Args&&... args) {
     return ExtendableMessageEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

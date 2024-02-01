@@ -1085,7 +1085,7 @@ class  ServiceWorkerUserData {
   template <typename... Args>
   static ServiceWorkerUserDataPtr New(Args&&... args) {
     return ServiceWorkerUserDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1234,7 +1234,7 @@ class  ServiceWorkerLiveVersionInfo {
   template <typename... Args>
   static ServiceWorkerLiveVersionInfoPtr New(Args&&... args) {
     return ServiceWorkerLiveVersionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1377,7 +1377,7 @@ class  ServiceWorkerFindRegistrationResult {
   template <typename... Args>
   static ServiceWorkerFindRegistrationResultPtr New(Args&&... args) {
     return ServiceWorkerFindRegistrationResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

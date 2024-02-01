@@ -207,7 +207,7 @@ class MediaDeviceInfoDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadAvailability(UserType* output) const {
     if (!data_->availability_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -216,7 +216,7 @@ class MediaDeviceInfoDataView {
   }
   std::optional<::media::mojom::CameraAvailability> availability() const {
     if (!data_->availability_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::media::mojom::CameraAvailability>(data_->availability_$value));
@@ -290,7 +290,7 @@ class VideoInputDeviceCapabilitiesDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadAvailability(UserType* output) const {
     if (!data_->availability_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -299,7 +299,7 @@ class VideoInputDeviceCapabilitiesDataView {
   }
   std::optional<::media::mojom::CameraAvailability> availability() const {
     if (!data_->availability_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::media::mojom::CameraAvailability>(data_->availability_$value));

@@ -75,7 +75,7 @@ class BLINK_COMMON_EXPORT Element {
   static ElementPtr
   NewBlobUuid(
       const std::string& value) {
-    auto result = ElementPtr(absl::in_place);
+    auto result = ElementPtr(std::in_place);
     result->set_blob_uuid(std::move(value));
     return result;
   }
@@ -83,7 +83,7 @@ class BLINK_COMMON_EXPORT Element {
   static ElementPtr
   NewBytes(
       std::vector<uint8_t> value) {
-    auto result = ElementPtr(absl::in_place);
+    auto result = ElementPtr(std::in_place);
     result->set_bytes(std::move(value));
     return result;
   }
@@ -91,7 +91,7 @@ class BLINK_COMMON_EXPORT Element {
   static ElementPtr
   NewFile(
       FilePtr value) {
-    auto result = ElementPtr(absl::in_place);
+    auto result = ElementPtr(std::in_place);
     result->set_file(std::move(value));
     return result;
   }
@@ -99,7 +99,7 @@ class BLINK_COMMON_EXPORT Element {
   static ElementPtr
   NewDeprecatedFileSystemFile(
       DEPRECATED_FileSystemFilePtr value) {
-    auto result = ElementPtr(absl::in_place);
+    auto result = ElementPtr(std::in_place);
     result->set_DEPRECATED_file_system_file(std::move(value));
     return result;
   }
@@ -239,7 +239,7 @@ class BLINK_COMMON_EXPORT DEPRECATED_FileSystemFile {
   template <typename... Args>
   static DEPRECATED_FileSystemFilePtr New(Args&&... args) {
     return DEPRECATED_FileSystemFilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -388,7 +388,7 @@ class BLINK_COMMON_EXPORT File {
   template <typename... Args>
   static FilePtr New(Args&&... args) {
     return FilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -537,7 +537,7 @@ class BLINK_COMMON_EXPORT RequestBody {
   template <typename... Args>
   static RequestBodyPtr New(Args&&... args) {
     return RequestBodyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -685,7 +685,7 @@ class BLINK_COMMON_EXPORT HttpBody {
   template <typename... Args>
   static HttpBodyPtr New(Args&&... args) {
     return HttpBodyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -833,7 +833,7 @@ class BLINK_COMMON_EXPORT ViewState {
   template <typename... Args>
   static ViewStatePtr New(Args&&... args) {
     return ViewStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -993,7 +993,7 @@ class BLINK_COMMON_EXPORT FrameState {
   template <typename... Args>
   static FrameStatePtr New(Args&&... args) {
     return FrameStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1269,7 +1269,7 @@ class BLINK_COMMON_EXPORT PageState {
   template <typename... Args>
   static PageStatePtr New(Args&&... args) {
     return PageStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

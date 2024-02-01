@@ -60,7 +60,7 @@ class  IPEndPoint {
   template <typename... Args>
   static IPEndPointPtr New(Args&&... args) {
     return IPEndPointPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -65,7 +65,7 @@ class CORE_EXPORT ViewTransitionElement {
   template <typename... Args>
   static ViewTransitionElementPtr New(Args&&... args) {
     return ViewTransitionElementPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -228,7 +228,7 @@ class CORE_EXPORT ViewTransitionState {
   template <typename... Args>
   static ViewTransitionStatePtr New(Args&&... args) {
     return ViewTransitionStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

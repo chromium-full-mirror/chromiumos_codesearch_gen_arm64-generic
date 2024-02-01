@@ -42,7 +42,7 @@ suite('cr-expand-button', function () {
         assertEquals('false', icon.getAttribute('aria-expanded'));
         assertFalse(icon.disabled);
         button.disabled = true;
-        assertFalse(icon.hasAttribute('aria-expanded'));
+        assertEquals('false', icon.getAttribute('aria-expanded'));
         assertTrue(icon.disabled);
     });
     // Ensure that the label is marked with aria-hidden="true", so that screen

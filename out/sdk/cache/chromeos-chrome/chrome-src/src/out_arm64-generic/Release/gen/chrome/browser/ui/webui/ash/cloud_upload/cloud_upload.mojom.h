@@ -412,7 +412,7 @@ class  DialogTask {
   template <typename... Args>
   static DialogTaskPtr New(Args&&... args) {
     return DialogTaskPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -562,7 +562,7 @@ class  OneDriveSetupDialogArgs {
   template <typename... Args>
   static OneDriveSetupDialogArgsPtr New(Args&&... args) {
     return OneDriveSetupDialogArgsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -703,7 +703,7 @@ class  MoveConfirmationOneDriveDialogArgs {
   template <typename... Args>
   static MoveConfirmationOneDriveDialogArgsPtr New(Args&&... args) {
     return MoveConfirmationOneDriveDialogArgsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -844,7 +844,7 @@ class  MoveConfirmationGoogleDriveDialogArgs {
   template <typename... Args>
   static MoveConfirmationGoogleDriveDialogArgsPtr New(Args&&... args) {
     return MoveConfirmationGoogleDriveDialogArgsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -985,7 +985,7 @@ class  ConnectToOneDriveDialogArgs {
   template <typename... Args>
   static ConnectToOneDriveDialogArgsPtr New(Args&&... args) {
     return ConnectToOneDriveDialogArgsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1133,7 +1133,7 @@ class  DialogSpecificArgs {
   static DialogSpecificArgsPtr
   NewFileHandlerDialogArgs(
       FileHandlerDialogArgsPtr value) {
-    auto result = DialogSpecificArgsPtr(absl::in_place);
+    auto result = DialogSpecificArgsPtr(std::in_place);
     result->set_file_handler_dialog_args(std::move(value));
     return result;
   }
@@ -1141,7 +1141,7 @@ class  DialogSpecificArgs {
   static DialogSpecificArgsPtr
   NewOneDriveSetupDialogArgs(
       OneDriveSetupDialogArgsPtr value) {
-    auto result = DialogSpecificArgsPtr(absl::in_place);
+    auto result = DialogSpecificArgsPtr(std::in_place);
     result->set_one_drive_setup_dialog_args(std::move(value));
     return result;
   }
@@ -1149,7 +1149,7 @@ class  DialogSpecificArgs {
   static DialogSpecificArgsPtr
   NewMoveConfirmationOneDriveDialogArgs(
       MoveConfirmationOneDriveDialogArgsPtr value) {
-    auto result = DialogSpecificArgsPtr(absl::in_place);
+    auto result = DialogSpecificArgsPtr(std::in_place);
     result->set_move_confirmation_one_drive_dialog_args(std::move(value));
     return result;
   }
@@ -1157,7 +1157,7 @@ class  DialogSpecificArgs {
   static DialogSpecificArgsPtr
   NewMoveConfirmationGoogleDriveDialogArgs(
       MoveConfirmationGoogleDriveDialogArgsPtr value) {
-    auto result = DialogSpecificArgsPtr(absl::in_place);
+    auto result = DialogSpecificArgsPtr(std::in_place);
     result->set_move_confirmation_google_drive_dialog_args(std::move(value));
     return result;
   }
@@ -1165,7 +1165,7 @@ class  DialogSpecificArgs {
   static DialogSpecificArgsPtr
   NewConnectToOneDriveDialogArgs(
       ConnectToOneDriveDialogArgsPtr value) {
-    auto result = DialogSpecificArgsPtr(absl::in_place);
+    auto result = DialogSpecificArgsPtr(std::in_place);
     result->set_connect_to_one_drive_dialog_args(std::move(value));
     return result;
   }
@@ -1323,7 +1323,7 @@ class  FileHandlerDialogArgs {
   template <typename... Args>
   static FileHandlerDialogArgsPtr New(Args&&... args) {
     return FileHandlerDialogArgsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1471,7 +1471,7 @@ class  DialogArgs {
   template <typename... Args>
   static DialogArgsPtr New(Args&&... args) {
     return DialogArgsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

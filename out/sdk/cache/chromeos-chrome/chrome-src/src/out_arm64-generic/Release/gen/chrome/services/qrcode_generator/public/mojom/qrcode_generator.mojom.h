@@ -169,7 +169,7 @@ class  GenerateQRCodeRequest {
   template <typename... Args>
   static GenerateQRCodeRequestPtr New(Args&&... args) {
     return GenerateQRCodeRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -323,7 +323,7 @@ class  GenerateQRCodeResponse {
   template <typename... Args>
   static GenerateQRCodeResponsePtr New(Args&&... args) {
     return GenerateQRCodeResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

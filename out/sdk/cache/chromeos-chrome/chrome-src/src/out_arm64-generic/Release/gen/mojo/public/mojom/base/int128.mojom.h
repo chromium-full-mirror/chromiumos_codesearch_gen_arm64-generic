@@ -54,7 +54,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) Int128 {
   template <typename... Args>
   static Int128Ptr New(Args&&... args) {
     return Int128Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -197,7 +197,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) Uint128 {
   template <typename... Args>
   static Uint128Ptr New(Args&&... args) {
     return Uint128Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

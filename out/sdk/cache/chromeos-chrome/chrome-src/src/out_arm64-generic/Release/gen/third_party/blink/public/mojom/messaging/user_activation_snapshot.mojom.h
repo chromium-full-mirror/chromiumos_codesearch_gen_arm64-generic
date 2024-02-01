@@ -53,7 +53,7 @@ class BLINK_COMMON_EXPORT UserActivationSnapshot {
   template <typename... Args>
   static UserActivationSnapshotPtr New(Args&&... args) {
     return UserActivationSnapshotPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -11,11 +11,11 @@ import { PermissionType } from 'chrome://resources/cr_components/app_management/
 import { isPermissionEnabled } from 'chrome://resources/cr_components/app_management/permission_util.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
-import { OpenWindowProxyImpl } from 'chrome://resources/js/open_window_proxy.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertExhaustive, castExists } from '../assert_extras.js';
 import { AppPermissionsObserverReceiver } from '../mojom-webui/app_permission_handler.mojom-webui.js';
 import { getAppPermissionProvider } from './mojo_interface_provider.js';
+import { PrivacyHubBrowserProxyImpl } from './privacy_hub_browser_proxy.js';
 import { getTemplate } from './privacy_hub_geolocation_subpage.html.js';
 import { LOCATION_PERMISSION_CHANGE_FROM_SETTINGS_HISTOGRAM_NAME } from './privacy_hub_metrics_util.js';
 /**
@@ -72,17 +72,55 @@ export class SettingsPrivacyHubGeolocationSubpage extends SettingsPrivacyHubGeol
                 type: Array,
                 value: [],
             },
+            automaticTimeZoneText_: {
+                type: String,
+                notify: true,
+                computed: 'computeAutomaticTimeZoneText_(' +
+                    'prefs.ash.user.geolocation_access_level.value,' +
+                    'currentTimeZoneName_)',
+            },
             isGeolocationAllowedForApps_: {
                 type: Boolean,
                 computed: 'computedIsGeolocationAllowedForApps_(' +
                     'prefs.ash.user.geolocation_access_level.value)',
             },
+            currentTimeZoneName_: {
+                type: String,
+                notify: true,
+            },
+            currentSunRiseTime_: {
+                type: String,
+                notify: true,
+            },
+            currentSunSetTime_: {
+                type: String,
+                notify: true,
+            },
+            sunsetScheduleText_: {
+                type: String,
+                notify: true,
+                computed: 'computeSunsetScheduleText_(' +
+                    'prefs.ash.user.geolocation_access_level.value,' +
+                    'currentSunRiseTime_, currentSunSetTime_)',
+            },
         };
+    }
+    static get observers() {
+        return [
+            'onTimeZoneChanged_(prefs.cros.system.timezone.value)',
+        ];
     }
     constructor() {
         super();
         this.mojoInterfaceProvider_ = getAppPermissionProvider();
         this.appPermissionsObserverReceiver_ = null;
+        this.browserProxy_ = PrivacyHubBrowserProxyImpl.getInstance();
+        // Assigning the initial time zone name.
+        this.currentTimeZoneName_ = this.i18n('timeZoneName');
+        this.currentSunRiseTime_ =
+            this.i18n('privacyHubSystemServicesInitSunRiseTime');
+        this.currentSunSetTime_ =
+            this.i18n('privacyHubSystemServicesInitSunSetTime');
     }
     connectedCallback() {
         super.connectedCallback();
@@ -138,8 +176,18 @@ export class SettingsPrivacyHubGeolocationSubpage extends SettingsPrivacyHubGeol
                 assertExhaustive(accessLevel);
         }
     }
+    computeAutomaticTimeZoneText_() {
+        return this.geolocationAllowedForSystem_() ?
+            this.i18n('privacyHubSystemServicesAllowedText') :
+            this.i18n('privacyHubSystemServicesAutomaticTimeZoneBlockedText', this.currentTimeZoneName_);
+    }
+    computeSunsetScheduleText_() {
+        return this.geolocationAllowedForSystem_() ?
+            this.i18n('privacyHubSystemServicesAllowedText') :
+            this.i18n('privacyHubSystemServicesSunsetScheduleBlockedText', this.currentSunRiseTime_, this.currentSunSetTime_);
+    }
     onManagePermissionsInChromeRowClick_() {
-        OpenWindowProxyImpl.getInstance().openUrl('chrome://settings/content/location');
+        this.mojoInterfaceProvider_.openBrowserPermissionSettings(PermissionType.kLocation);
     }
     recordMetric_() {
         const accessLevel = this.$.geolocationDropdown.pref.value;
@@ -153,6 +201,17 @@ export class SettingsPrivacyHubGeolocationSubpage extends SettingsPrivacyHubGeol
         return this.geolocationAllowedForSystem_() ?
             this.i18n('privacyHubSystemServicesAllowedText') :
             this.i18n('privacyHubSystemServicesBlockedText');
+    }
+    onTimeZoneChanged_() {
+        this.browserProxy_.getCurrentTimeZoneName().then((timeZoneName) => {
+            this.currentTimeZoneName_ = timeZoneName;
+        });
+        this.browserProxy_.getCurrentSunriseTime().then((time) => {
+            this.currentSunRiseTime_ = time;
+        });
+        this.browserProxy_.getCurrentSunsetTime().then((time) => {
+            this.currentSunSetTime_ = time;
+        });
     }
 }
 customElements.define(SettingsPrivacyHubGeolocationSubpage.is, SettingsPrivacyHubGeolocationSubpage);

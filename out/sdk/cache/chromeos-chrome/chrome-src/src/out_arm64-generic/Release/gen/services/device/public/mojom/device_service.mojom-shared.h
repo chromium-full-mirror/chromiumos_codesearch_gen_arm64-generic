@@ -25,7 +25,6 @@
 
 #include "services/device/public/mojom/device_service.mojom-shared-internal.h"
 #include "services/device/public/mojom/battery_monitor.mojom-shared.h"
-#include "services/device/public/mojom/device_posture_provider.mojom-shared.h"
 #include "services/device/public/mojom/fingerprint.mojom-shared.h"
 #include "services/device/public/mojom/geolocation_config.mojom-shared.h"
 #include "services/device/public/mojom/geolocation_context.mojom-shared.h"

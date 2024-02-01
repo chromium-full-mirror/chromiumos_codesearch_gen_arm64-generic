@@ -173,7 +173,7 @@ class BLINK_PLATFORM_EXPORT FirstPartySetsAccessDelegateParams {
   template <typename... Args>
   static FirstPartySetsAccessDelegateParamsPtr New(Args&&... args) {
     return FirstPartySetsAccessDelegateParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -318,7 +318,7 @@ class BLINK_PLATFORM_EXPORT FirstPartySetsReadyEvent {
   template <typename... Args>
   static FirstPartySetsReadyEventPtr New(Args&&... args) {
     return FirstPartySetsReadyEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

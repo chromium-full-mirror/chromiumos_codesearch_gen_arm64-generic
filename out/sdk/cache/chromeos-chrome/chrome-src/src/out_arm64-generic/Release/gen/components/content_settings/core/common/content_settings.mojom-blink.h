@@ -64,7 +64,7 @@ class  PatternParts {
   template <typename... Args>
   static PatternPartsPtr New(Args&&... args) {
     return PatternPartsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -226,7 +226,7 @@ class  ContentSettingsPattern {
   template <typename... Args>
   static ContentSettingsPatternPtr New(Args&&... args) {
     return ContentSettingsPatternPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -372,7 +372,7 @@ class  RuleMetaData {
   template <typename... Args>
   static RuleMetaDataPtr New(Args&&... args) {
     return RuleMetaDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -527,7 +527,7 @@ class  ContentSettingPatternSource {
   template <typename... Args>
   static ContentSettingPatternSourcePtr New(Args&&... args) {
     return ContentSettingPatternSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -684,7 +684,7 @@ class  RendererContentSettingRules {
   template <typename... Args>
   static RendererContentSettingRulesPtr New(Args&&... args) {
     return RendererContentSettingRulesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

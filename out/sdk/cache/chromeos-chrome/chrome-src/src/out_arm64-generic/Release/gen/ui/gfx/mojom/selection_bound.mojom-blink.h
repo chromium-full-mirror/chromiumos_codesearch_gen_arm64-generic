@@ -60,7 +60,7 @@ class  SelectionBound {
   template <typename... Args>
   static SelectionBoundPtr New(Args&&... args) {
     return SelectionBoundPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -170,7 +170,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingDrawingSegment {
   template <typename... Args>
   static HandwritingDrawingSegmentPtr New(Args&&... args) {
     return HandwritingDrawingSegmentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -323,7 +323,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingPoint {
   template <typename... Args>
   static HandwritingPointPtr New(Args&&... args) {
     return HandwritingPointPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -466,7 +466,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingStroke {
   template <typename... Args>
   static HandwritingStrokePtr New(Args&&... args) {
     return HandwritingStrokePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -609,7 +609,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingSegment {
   template <typename... Args>
   static HandwritingSegmentPtr New(Args&&... args) {
     return HandwritingSegmentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -760,7 +760,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingPrediction {
   template <typename... Args>
   static HandwritingPredictionPtr New(Args&&... args) {
     return HandwritingPredictionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -905,7 +905,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingHints {
   template <typename... Args>
   static HandwritingHintsPtr New(Args&&... args) {
     return HandwritingHintsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1063,7 +1063,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) HandwritingModelConstraint {
   template <typename... Args>
   static HandwritingModelConstraintPtr New(Args&&... args) {
     return HandwritingModelConstraintPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

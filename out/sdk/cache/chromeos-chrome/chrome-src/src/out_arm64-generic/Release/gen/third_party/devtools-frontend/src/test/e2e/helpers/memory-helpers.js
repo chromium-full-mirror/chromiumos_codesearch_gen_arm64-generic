@@ -3,7 +3,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getSizesFromSelectedRow = exports.expandFocusedRow = exports.focusTableRow = exports.changeAllocationSampleViewViaDropdown = exports.changeViewViaDropdown = exports.waitForRetainerChain = exports.appearsInOrder = exports.waitUntilRetainerChainSatisfies = exports.assertRetainerChainSatisfies = exports.findSearchResult = exports.waitForSearchResultNumber = exports.setSearchFilter = exports.triggerLocalFindDialog = exports.setClassFilter = exports.getDataGridRows = exports.waitForNonEmptyHeapSnapshotData = exports.waitForHeapSnapshotData = exports.takeHeapSnapshot = exports.takeAllocationTimelineProfile = exports.takeAllocationProfile = exports.navigateToMemoryTab = exports.MEMORY_TAB_ID = void 0;
+exports.getDistanceFromCategoryRow = exports.getSizesFromSelectedRow = exports.expandFocusedRow = exports.focusTableRow = exports.changeAllocationSampleViewViaDropdown = exports.changeViewViaDropdown = exports.waitForRetainerChain = exports.appearsInOrder = exports.waitUntilRetainerChainSatisfies = exports.assertRetainerChainSatisfies = exports.findSearchResult = exports.waitForSearchResultNumber = exports.setSearchFilter = exports.triggerLocalFindDialog = exports.setClassFilter = exports.getDataGridRows = exports.waitForNonEmptyHeapSnapshotData = exports.waitForHeapSnapshotData = exports.takeHeapSnapshot = exports.takeAllocationTimelineProfile = exports.takeAllocationProfile = exports.navigateToMemoryTab = exports.MEMORY_TAB_ID = void 0;
 const chai_1 = require("chai");
 const helper_js_1 = require("../../shared/helper.js");
 const NEW_HEAP_SNAPSHOT_BUTTON = 'button[aria-label="Take heap snapshot"]';
@@ -281,4 +281,10 @@ async function getSizesFromSelectedRow() {
     return { shallowSize, retainedSize };
 }
 exports.getSizesFromSelectedRow = getSizesFromSelectedRow;
+async function getDistanceFromCategoryRow(text) {
+    const row = await (0, helper_js_1.waitFor)(`//td[text()="${text}"]/ancestor::tr`, undefined, undefined, 'xpath');
+    const numericColumns = await (0, helper_js_1.$$)('.numeric-column', row);
+    return await numericColumns[0].evaluate(e => parseInt(e.textContent, 10));
+}
+exports.getDistanceFromCategoryRow = getDistanceFromCategoryRow;
 //# sourceMappingURL=memory-helpers.js.map

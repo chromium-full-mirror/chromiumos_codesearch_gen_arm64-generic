@@ -165,7 +165,7 @@ class  AppInfo {
   template <typename... Args>
   static AppInfoPtr New(Args&&... args) {
     return AppInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -312,7 +312,7 @@ class  PreferredAppInfo {
   template <typename... Args>
   static PreferredAppInfoPtr New(Args&&... args) {
     return PreferredAppInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -459,7 +459,7 @@ class  PromiseAppInfo {
   template <typename... Args>
   static PromiseAppInfoPtr New(Args&&... args) {
     return PromiseAppInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -603,7 +603,7 @@ class  AppCapabilityInfo {
   template <typename... Args>
   static AppCapabilityInfoPtr New(Args&&... args) {
     return AppCapabilityInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -747,7 +747,7 @@ class  ShortcutInfo {
   template <typename... Args>
   static ShortcutInfoPtr New(Args&&... args) {
     return ShortcutInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -902,7 +902,7 @@ class  DebugInfo {
   template <typename... Args>
   static DebugInfoPtr New(Args&&... args) {
     return DebugInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -191,7 +191,7 @@ static_assert(
         ::mojo_base::mojom::TimeDataView, UserType>(),
     "Attempting to read the optional `timestamp` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTimestamp` instead "
     "of `ReadTimestamp if you're fine with null values being "
@@ -237,7 +237,7 @@ static_assert(
         ::mojo_base::mojom::TimeDataView, UserType>(),
     "Attempting to read the optional `wifi_timestamp` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWifiTimestamp` instead "
     "of `ReadWifiTimestamp if you're fine with null values being "
@@ -276,7 +276,7 @@ static_assert(
         ::mojo_base::mojom::TimeDataView, UserType>(),
     "Attempting to read the optional `last_hit` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLastHit` instead "
     "of `ReadLastHit if you're fine with null values being "
@@ -296,7 +296,7 @@ static_assert(
         ::mojo_base::mojom::TimeDataView, UserType>(),
     "Attempting to read the optional `last_miss` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLastMiss` instead "
     "of `ReadLastMiss if you're fine with null values being "
@@ -308,8 +308,8 @@ static_assert(
   std::optional<double> hit_rate() const {
 
     return data_->hit_rate_$flag
-        ? absl::make_optional(data_->hit_rate_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->hit_rate_$value)
+        : std::nullopt;
   }
   inline void GetLastNetworkResultDataView(
       ::device::mojom::GeopositionResultDataView* output);
@@ -322,7 +322,7 @@ static_assert(
         ::device::mojom::GeopositionResultDataView, UserType>(),
     "Attempting to read the optional `last_network_result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLastNetworkResult` instead "
     "of `ReadLastNetworkResult if you're fine with null values being "
@@ -358,7 +358,7 @@ static_assert(
         ::mojo_base::mojom::TimeDataView, UserType>(),
     "Attempting to read the optional `interval_start` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIntervalStart` instead "
     "of `ReadIntervalStart if you're fine with null values being "
@@ -464,7 +464,7 @@ static_assert(
         ::device::mojom::NetworkLocationDiagnosticsDataView, UserType>(),
     "Attempting to read the optional `network_location_diagnostics` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNetworkLocationDiagnostics` instead "
     "of `ReadNetworkLocationDiagnostics if you're fine with null values being "
@@ -484,7 +484,7 @@ static_assert(
         ::device::mojom::PositionCacheDiagnosticsDataView, UserType>(),
     "Attempting to read the optional `position_cache_diagnostics` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPositionCacheDiagnostics` instead "
     "of `ReadPositionCacheDiagnostics if you're fine with null values being "
@@ -504,7 +504,7 @@ static_assert(
         ::device::mojom::WifiPollingPolicyDiagnosticsDataView, UserType>(),
     "Attempting to read the optional `wifi_polling_policy_diagnostics` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWifiPollingPolicyDiagnostics` instead "
     "of `ReadWifiPollingPolicyDiagnostics if you're fine with null values being "
@@ -538,8 +538,8 @@ class NetworkLocationResponseDataView {
   std::optional<double> accuracy() const {
 
     return data_->accuracy_$flag
-        ? absl::make_optional(data_->accuracy_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->accuracy_$value)
+        : std::nullopt;
   }
  private:
   internal::NetworkLocationResponse_Data* data_ = nullptr;

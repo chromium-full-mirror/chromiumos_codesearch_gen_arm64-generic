@@ -135,17 +135,22 @@ export class MostVisitedPageHandlerRemote {
             isHoverTrigger
         ]);
     }
+    preconnectMostVisitedTile(tile) {
+        this.proxy.sendMessage(8, MostVisitedPageHandler_PreconnectMostVisitedTile_ParamsSpec.$, null, [
+            tile
+        ]);
+    }
     cancelPrerender() {
-        this.proxy.sendMessage(8, MostVisitedPageHandler_CancelPrerender_ParamsSpec.$, null, []);
+        this.proxy.sendMessage(9, MostVisitedPageHandler_CancelPrerender_ParamsSpec.$, null, []);
     }
     onMostVisitedTilesRendered(tiles, time) {
-        this.proxy.sendMessage(9, MostVisitedPageHandler_OnMostVisitedTilesRendered_ParamsSpec.$, null, [
+        this.proxy.sendMessage(10, MostVisitedPageHandler_OnMostVisitedTilesRendered_ParamsSpec.$, null, [
             tiles,
             time
         ]);
     }
     onMostVisitedTileNavigation(tile, index, mouseButton, altKey, ctrlKey, metaKey, shiftKey) {
-        this.proxy.sendMessage(10, MostVisitedPageHandler_OnMostVisitedTileNavigation_ParamsSpec.$, null, [
+        this.proxy.sendMessage(11, MostVisitedPageHandler_OnMostVisitedTileNavigation_ParamsSpec.$, null, [
             tile,
             index,
             mouseButton,
@@ -174,9 +179,10 @@ export class MostVisitedPageHandlerReceiver {
         this.helper_internal_.registerHandler(5, MostVisitedPageHandler_UpdateMostVisitedInfo_ParamsSpec.$, null, impl.updateMostVisitedInfo.bind(impl));
         this.helper_internal_.registerHandler(6, MostVisitedPageHandler_UpdateMostVisitedTile_ParamsSpec.$, MostVisitedPageHandler_UpdateMostVisitedTile_ResponseParamsSpec.$, impl.updateMostVisitedTile.bind(impl));
         this.helper_internal_.registerHandler(7, MostVisitedPageHandler_PrerenderMostVisitedTile_ParamsSpec.$, null, impl.prerenderMostVisitedTile.bind(impl));
-        this.helper_internal_.registerHandler(8, MostVisitedPageHandler_CancelPrerender_ParamsSpec.$, null, impl.cancelPrerender.bind(impl));
-        this.helper_internal_.registerHandler(9, MostVisitedPageHandler_OnMostVisitedTilesRendered_ParamsSpec.$, null, impl.onMostVisitedTilesRendered.bind(impl));
-        this.helper_internal_.registerHandler(10, MostVisitedPageHandler_OnMostVisitedTileNavigation_ParamsSpec.$, null, impl.onMostVisitedTileNavigation.bind(impl));
+        this.helper_internal_.registerHandler(8, MostVisitedPageHandler_PreconnectMostVisitedTile_ParamsSpec.$, null, impl.preconnectMostVisitedTile.bind(impl));
+        this.helper_internal_.registerHandler(9, MostVisitedPageHandler_CancelPrerender_ParamsSpec.$, null, impl.cancelPrerender.bind(impl));
+        this.helper_internal_.registerHandler(10, MostVisitedPageHandler_OnMostVisitedTilesRendered_ParamsSpec.$, null, impl.onMostVisitedTilesRendered.bind(impl));
+        this.helper_internal_.registerHandler(11, MostVisitedPageHandler_OnMostVisitedTileNavigation_ParamsSpec.$, null, impl.onMostVisitedTileNavigation.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -230,15 +236,18 @@ export class MostVisitedPageHandlerCallbackRouter {
         this.prerenderMostVisitedTile =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(7, MostVisitedPageHandler_PrerenderMostVisitedTile_ParamsSpec.$, null, this.prerenderMostVisitedTile.createReceiverHandler(false /* expectsResponse */));
+        this.preconnectMostVisitedTile =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(8, MostVisitedPageHandler_PreconnectMostVisitedTile_ParamsSpec.$, null, this.preconnectMostVisitedTile.createReceiverHandler(false /* expectsResponse */));
         this.cancelPrerender =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(8, MostVisitedPageHandler_CancelPrerender_ParamsSpec.$, null, this.cancelPrerender.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(9, MostVisitedPageHandler_CancelPrerender_ParamsSpec.$, null, this.cancelPrerender.createReceiverHandler(false /* expectsResponse */));
         this.onMostVisitedTilesRendered =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(9, MostVisitedPageHandler_OnMostVisitedTilesRendered_ParamsSpec.$, null, this.onMostVisitedTilesRendered.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(10, MostVisitedPageHandler_OnMostVisitedTilesRendered_ParamsSpec.$, null, this.onMostVisitedTilesRendered.createReceiverHandler(false /* expectsResponse */));
         this.onMostVisitedTileNavigation =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(10, MostVisitedPageHandler_OnMostVisitedTileNavigation_ParamsSpec.$, null, this.onMostVisitedTileNavigation.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(11, MostVisitedPageHandler_OnMostVisitedTileNavigation_ParamsSpec.$, null, this.onMostVisitedTileNavigation.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -337,6 +346,7 @@ export const MostVisitedPageHandler_UpdateMostVisitedInfo_ParamsSpec = { $: {} }
 export const MostVisitedPageHandler_UpdateMostVisitedTile_ParamsSpec = { $: {} };
 export const MostVisitedPageHandler_UpdateMostVisitedTile_ResponseParamsSpec = { $: {} };
 export const MostVisitedPageHandler_PrerenderMostVisitedTile_ParamsSpec = { $: {} };
+export const MostVisitedPageHandler_PreconnectMostVisitedTile_ParamsSpec = { $: {} };
 export const MostVisitedPageHandler_CancelPrerender_ParamsSpec = { $: {} };
 export const MostVisitedPageHandler_OnMostVisitedTilesRendered_ParamsSpec = { $: {} };
 export const MostVisitedPageHandler_OnMostVisitedTileNavigation_ParamsSpec = { $: {} };
@@ -392,6 +402,9 @@ mojo.internal.Struct(MostVisitedPageHandler_PrerenderMostVisitedTile_ParamsSpec.
     mojo.internal.StructField('tile', 0, 0, MostVisitedTileSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('isHoverTrigger', 8, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 24],]);
+mojo.internal.Struct(MostVisitedPageHandler_PreconnectMostVisitedTile_ParamsSpec.$, 'MostVisitedPageHandler_PreconnectMostVisitedTile_Params', [
+    mojo.internal.StructField('tile', 0, 0, MostVisitedTileSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);
 mojo.internal.Struct(MostVisitedPageHandler_CancelPrerender_ParamsSpec.$, 'MostVisitedPageHandler_CancelPrerender_Params', [], [[0, 8],]);
 mojo.internal.Struct(MostVisitedPageHandler_OnMostVisitedTilesRendered_ParamsSpec.$, 'MostVisitedPageHandler_OnMostVisitedTilesRendered_Params', [
     mojo.internal.StructField('tiles', 0, 0, mojo.internal.Array(MostVisitedTileSpec.$, false), null, false /* nullable */, 0),

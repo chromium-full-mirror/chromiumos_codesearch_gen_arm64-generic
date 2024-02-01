@@ -49,7 +49,7 @@ async function enableUntrustedEventMode() {
     // TODO: have an explicit UI setting or perhaps a special event to configure this
     // instead of having a global setting.
     const Common = await import('./core/common/common.js');
-    Common.Settings.Settings.instance().createSetting('untrustedRecorderEvents', true);
+    Common.Settings.Settings.instance().createSetting('untrusted-recorder-events', true);
   })()`);
 }
 exports.enableUntrustedEventMode = enableUntrustedEventMode;

@@ -351,7 +351,7 @@ class  ConstantBitrate {
   template <typename... Args>
   static ConstantBitratePtr New(Args&&... args) {
     return ConstantBitratePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -492,7 +492,7 @@ class  VariableBitrate {
   template <typename... Args>
   static VariableBitratePtr New(Args&&... args) {
     return VariableBitratePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -647,7 +647,7 @@ class  Bitrate {
   static BitratePtr
   NewConstant(
       ConstantBitratePtr value) {
-    auto result = BitratePtr(absl::in_place);
+    auto result = BitratePtr(std::in_place);
     result->set_constant(std::move(value));
     return result;
   }
@@ -655,7 +655,7 @@ class  Bitrate {
   static BitratePtr
   NewVariable(
       VariableBitratePtr value) {
-    auto result = BitratePtr(absl::in_place);
+    auto result = BitratePtr(std::in_place);
     result->set_variable(std::move(value));
     return result;
   }
@@ -770,7 +770,7 @@ class  VideoEncodeProfile {
   template <typename... Args>
   static VideoEncodeProfilePtr New(Args&&... args) {
     return VideoEncodeProfilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -921,7 +921,7 @@ class  VideoEncodeAcceleratorConfig {
   template <typename... Args>
   static VideoEncodeAcceleratorConfigPtr New(Args&&... args) {
     return VideoEncodeAcceleratorConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

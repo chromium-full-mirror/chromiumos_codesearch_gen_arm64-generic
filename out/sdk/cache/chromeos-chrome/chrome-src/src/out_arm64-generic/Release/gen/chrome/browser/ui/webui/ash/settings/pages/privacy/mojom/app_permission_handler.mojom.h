@@ -74,6 +74,7 @@ class AppPermissionsHandler
     kGetAppsMinVersion = 0,
     kGetSystemAppsThatUseCameraMinVersion = 0,
     kGetSystemAppsThatUseMicrophoneMinVersion = 0,
+    kOpenBrowserPermissionSettingsMinVersion = 0,
     kOpenNativeSettingsMinVersion = 0,
     kSetPermissionMinVersion = 0,
   };
@@ -91,6 +92,9 @@ class AppPermissionsHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct GetSystemAppsThatUseMicrophone_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct OpenBrowserPermissionSettings_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct OpenNativeSettings_Sym {
@@ -119,6 +123,9 @@ class AppPermissionsHandler
   using GetSystemAppsThatUseMicrophoneCallback = base::OnceCallback<void(std::vector<AppPtr>)>;
   
   virtual void GetSystemAppsThatUseMicrophone(GetSystemAppsThatUseMicrophoneCallback callback) = 0;
+
+  
+  virtual void OpenBrowserPermissionSettings(::apps::PermissionType permission_type) = 0;
 
   
   virtual void OpenNativeSettings(const std::string& app_id) = 0;
@@ -195,6 +202,8 @@ class  AppPermissionsHandlerProxy
   void GetSystemAppsThatUseCamera(GetSystemAppsThatUseCameraCallback callback) final;
   
   void GetSystemAppsThatUseMicrophone(GetSystemAppsThatUseMicrophoneCallback callback) final;
+  
+  void OpenBrowserPermissionSettings(::apps::PermissionType permission_type) final;
   
   void OpenNativeSettings(const std::string& app_id) final;
   
@@ -332,7 +341,7 @@ class  App {
   template <typename... Args>
   static AppPtr New(Args&&... args) {
     return AppPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

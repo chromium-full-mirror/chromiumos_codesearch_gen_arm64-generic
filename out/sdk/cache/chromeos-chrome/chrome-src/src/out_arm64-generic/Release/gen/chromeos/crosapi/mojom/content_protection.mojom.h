@@ -212,7 +212,7 @@ class  ContentProtectionWindowStatus {
   template <typename... Args>
   static ContentProtectionWindowStatusPtr New(Args&&... args) {
     return ContentProtectionWindowStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -356,7 +356,7 @@ class  ChallengePlatformResult {
   template <typename... Args>
   static ChallengePlatformResultPtr New(Args&&... args) {
     return ChallengePlatformResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -11,13 +11,14 @@ export class MouseController {
     onMouseMovedHandler_;
     onMouseDraggedHandler_;
     screenBounds_;
-    /** These should come from user prefs, but are currently simply hard-coded. */
-    targetBufferSize_ = MouseController.BUFFER_SIZE;
-    useMouseAcceleration_ = MouseController.USE_MOUSE_ACCELERATION;
-    spdRight_ = MouseController.SPD_RIGHT;
-    spdLeft_ = MouseController.SPD_LEFT;
-    spdUp_ = MouseController.SPD_UP;
-    spdDown_ = MouseController.SPD_DOWN;
+    prefsListener_;
+    // These values will be updated when prefs are received in init_().
+    targetBufferSize_ = MouseController.DEFAULT_BUFFER_SIZE;
+    useMouseAcceleration_ = MouseController.DEFAULT_USE_MOUSE_ACCELERATION;
+    spdRight_ = MouseController.DEFAULT_MOUSE_SPEED;
+    spdLeft_ = MouseController.DEFAULT_MOUSE_SPEED;
+    spdUp_ = MouseController.DEFAULT_MOUSE_SPEED;
+    spdDown_ = MouseController.DEFAULT_MOUSE_SPEED;
     /** The most recent raw face landmark mouse locations. */
     buffer_ = [];
     /** Used for smoothing the recent points in the buffer. */
@@ -32,6 +33,7 @@ export class MouseController {
         this.onMouseMovedHandler_ = new EventHandler([], chrome.automation.EventType.MOUSE_MOVED, event => this.onMouseMovedOrDragged_(event));
         this.onMouseDraggedHandler_ = new EventHandler([], chrome.automation.EventType.MOUSE_DRAGGED, event => this.onMouseMovedOrDragged_(event));
         this.calcSmoothKernel_();
+        this.prefsListener_ = prefs => this.updateFromPrefs_(prefs);
     }
     async init() {
         chrome.accessibilityPrivate.enableMouseEvents(true);
@@ -40,6 +42,8 @@ export class MouseController {
         this.onMouseMovedHandler_.start();
         this.onMouseDraggedHandler_.setNodes(desktop);
         this.onMouseDraggedHandler_.start();
+        chrome.settingsPrivate.getAllPrefs(prefs => this.updateFromPrefs_(prefs));
+        chrome.settingsPrivate.onPrefsChanged.addListener(this.prefsListener_);
         // TODO(b/309121742): Handle display bounds changed.
         const screens = await new Promise((resolve) => {
             chrome.accessibilityPrivate.getDisplayBounds((screens) => {
@@ -181,6 +185,7 @@ export class MouseController {
             clearInterval(this.mouseInterval_);
             this.mouseInterval_ = -1;
         }
+        chrome.settingsPrivate.onPrefsChanged.removeListener(this.prefsListener_);
     }
     /** Listener for when the mouse position changes. */
     onMouseMovedOrDragged_(event) {
@@ -193,7 +198,7 @@ export class MouseController {
     }
     /**
      * Construct a kernel for smoothing the recent facegaze points.
-     * Specifically, this is a Hamming curve with M = BUFFER_SIZE * 2,
+     * Specifically, this is a Hamming curve with M = targetBufferSize_ * 2,
      * matching the project-gameface Python implementation.
      * Note: Whenever the buffer size is updated, we must reconstruct
      * the smoothing kernel so that it is the right length.
@@ -257,22 +262,68 @@ export class MouseController {
         const sig = 1 / (1 + Math.exp(-slope * (velocity - shift)));
         return multiply * sig;
     }
+    updateFromPrefs_(prefs) {
+        prefs.forEach(pref => {
+            switch (pref.key) {
+                case MouseController.PREF_SPD_UP:
+                    if (pref.value) {
+                        this.spdUp_ = pref.value;
+                    }
+                    break;
+                case MouseController.PREF_SPD_DOWN:
+                    if (pref.value) {
+                        this.spdDown_ = pref.value;
+                    }
+                    break;
+                case MouseController.PREF_SPD_LEFT:
+                    if (pref.value) {
+                        this.spdLeft_ = pref.value;
+                    }
+                    break;
+                case MouseController.PREF_SPD_RIGHT:
+                    if (pref.value) {
+                        this.spdRight_ = pref.value;
+                    }
+                    break;
+                case MouseController.PREF_CURSOR_SMOOTHING:
+                    if (pref.value) {
+                        this.targetBufferSize_ = pref.value;
+                        this.calcSmoothKernel_();
+                        while (this.buffer_.length > this.targetBufferSize_) {
+                            this.buffer_.shift();
+                        }
+                    }
+                    break;
+                case MouseController.PREF_CURSOR_USE_ACCELERATION:
+                    if (pref.value !== undefined) {
+                        this.useMouseAcceleration_ = pref.value;
+                    }
+                    break;
+                default:
+                    return;
+            }
+        });
+    }
 }
 (function (MouseController) {
     /** The index of the forehead landmark in a FaceLandmarkerResult. */
     MouseController.FOREHEAD_LANDMARK_INDEX = 8;
     /** How frequently to run the mouse movement logic. */
     MouseController.MOUSE_INTERVAL_MS = 16;
-    // TODO(b/309121742): These constants could become prefs.
     /**
      * How long to wait after the user moves the mouse with a physical device
      * before moving the mouse with facegaze.
      */
     MouseController.IGNORE_UPDATES_AFTER_MOUSE_MOVE_MS = 500;
-    MouseController.BUFFER_SIZE = 6;
-    MouseController.USE_MOUSE_ACCELERATION = true;
-    MouseController.SPD_RIGHT = 20;
-    MouseController.SPD_LEFT = 20;
-    MouseController.SPD_DOWN = 20;
-    MouseController.SPD_UP = 20;
+    // Pref names. Should be in sync with with values at ash_pref_names.h.
+    MouseController.PREF_SPD_UP = 'settings.a11y.face_gaze.cursor_speed_up';
+    MouseController.PREF_SPD_DOWN = 'settings.a11y.face_gaze.cursor_speed_down';
+    MouseController.PREF_SPD_LEFT = 'settings.a11y.face_gaze.cursor_speed_left';
+    MouseController.PREF_SPD_RIGHT = 'settings.a11y.face_gaze.cursor_speed_right';
+    MouseController.PREF_CURSOR_SMOOTHING = 'settings.a11y.face_gaze.cursor_smoothing';
+    MouseController.PREF_CURSOR_USE_ACCELERATION = 'settings.a11y.face_gaze.cursor_use_acceleration';
+    // Default values. Will be overwritten by prefs.
+    MouseController.DEFAULT_MOUSE_SPEED = 20;
+    MouseController.DEFAULT_USE_MOUSE_ACCELERATION = true;
+    MouseController.DEFAULT_BUFFER_SIZE = 6;
 })(MouseController || (MouseController = {}));

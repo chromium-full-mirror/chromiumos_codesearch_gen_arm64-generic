@@ -1129,6 +1129,61 @@ inline base::Value ToValue(const network::CookieBlockedReason& value) {
   NOTREACHED();
   return base::Value();
 }
+template <>
+struct FromValue<network::CookieExemptionReason> {
+  static network::CookieExemptionReason Parse(const base::Value& value, ErrorReporter* errors) {
+    if (!value.is_string()) {
+      errors->AddError("string enum value expected");
+      return network::CookieExemptionReason::NONE;
+    }
+    if (value.GetString() == "None")
+      return network::CookieExemptionReason::NONE;
+    if (value.GetString() == "UserSetting")
+      return network::CookieExemptionReason::USER_SETTING;
+    if (value.GetString() == "TPCDMetadata")
+      return network::CookieExemptionReason::TPCD_METADATA;
+    if (value.GetString() == "TPCDDeprecationTrial")
+      return network::CookieExemptionReason::TPCD_DEPRECATION_TRIAL;
+    if (value.GetString() == "TPCDHeuristics")
+      return network::CookieExemptionReason::TPCD_HEURISTICS;
+    if (value.GetString() == "EnterprisePolicy")
+      return network::CookieExemptionReason::ENTERPRISE_POLICY;
+    if (value.GetString() == "StorageAccess")
+      return network::CookieExemptionReason::STORAGE_ACCESS;
+    if (value.GetString() == "TopLevelStorageAccess")
+      return network::CookieExemptionReason::TOP_LEVEL_STORAGE_ACCESS;
+    if (value.GetString() == "BrowserHeuristics")
+      return network::CookieExemptionReason::BROWSER_HEURISTICS;
+    errors->AddError("invalid enum value");
+    return network::CookieExemptionReason::NONE;
+  }
+};
+
+template <>
+inline base::Value ToValue(const network::CookieExemptionReason& value) {
+  switch (value) {
+    case network::CookieExemptionReason::NONE:
+      return base::Value("None");
+    case network::CookieExemptionReason::USER_SETTING:
+      return base::Value("UserSetting");
+    case network::CookieExemptionReason::TPCD_METADATA:
+      return base::Value("TPCDMetadata");
+    case network::CookieExemptionReason::TPCD_DEPRECATION_TRIAL:
+      return base::Value("TPCDDeprecationTrial");
+    case network::CookieExemptionReason::TPCD_HEURISTICS:
+      return base::Value("TPCDHeuristics");
+    case network::CookieExemptionReason::ENTERPRISE_POLICY:
+      return base::Value("EnterprisePolicy");
+    case network::CookieExemptionReason::STORAGE_ACCESS:
+      return base::Value("StorageAccess");
+    case network::CookieExemptionReason::TOP_LEVEL_STORAGE_ACCESS:
+      return base::Value("TopLevelStorageAccess");
+    case network::CookieExemptionReason::BROWSER_HEURISTICS:
+      return base::Value("BrowserHeuristics");
+  };
+  NOTREACHED();
+  return base::Value();
+}
 
 template <>
 struct FromValue<network::BlockedSetCookieWithReason> {
@@ -1144,14 +1199,27 @@ inline base::Value ToValue(const network::BlockedSetCookieWithReason& value) {
 
 
 template <>
-struct FromValue<network::BlockedCookieWithReason> {
-  static std::unique_ptr<network::BlockedCookieWithReason> Parse(const base::Value& value, ErrorReporter* errors) {
-    return network::BlockedCookieWithReason::Parse(value, errors);
+struct FromValue<network::ExemptedSetCookieWithReason> {
+  static std::unique_ptr<network::ExemptedSetCookieWithReason> Parse(const base::Value& value, ErrorReporter* errors) {
+    return network::ExemptedSetCookieWithReason::Parse(value, errors);
   }
 };
 
 template <>
-inline base::Value ToValue(const network::BlockedCookieWithReason& value) {
+inline base::Value ToValue(const network::ExemptedSetCookieWithReason& value) {
+  return value.Serialize();
+}
+
+
+template <>
+struct FromValue<network::AssociatedCookie> {
+  static std::unique_ptr<network::AssociatedCookie> Parse(const base::Value& value, ErrorReporter* errors) {
+    return network::AssociatedCookie::Parse(value, errors);
+  }
+};
+
+template <>
+inline base::Value ToValue(const network::AssociatedCookie& value) {
   return value.Serialize();
 }
 

@@ -77,7 +77,7 @@ class  ArcWebAppInstallInfo {
   template <typename... Args>
   static ArcWebAppInstallInfoPtr New(Args&&... args) {
     return ArcWebAppInstallInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -234,7 +234,7 @@ class  PreloadWebAppInstallInfo {
   template <typename... Args>
   static PreloadWebAppInstallInfoPtr New(Args&&... args) {
     return PreloadWebAppInstallInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

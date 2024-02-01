@@ -1238,7 +1238,7 @@ class  WifiConfig {
   template <typename... Args>
   static WifiConfigPtr New(Args&&... args) {
     return WifiConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

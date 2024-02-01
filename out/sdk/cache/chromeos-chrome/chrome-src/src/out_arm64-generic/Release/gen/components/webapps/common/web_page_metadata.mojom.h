@@ -58,7 +58,7 @@ class  WebPageIconInfo {
   template <typename... Args>
   static WebPageIconInfoPtr New(Args&&... args) {
     return WebPageIconInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -201,7 +201,7 @@ class  WebPageMetadata {
   template <typename... Args>
   static WebPageMetadataPtr New(Args&&... args) {
     return WebPageMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -82,7 +82,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadData` instead "
     "of `ReadData if you're fine with null values being "
@@ -118,7 +118,7 @@ static_assert(
         ::ash::quick_start::mojom::QuickStartMessageDataView, UserType>(),
     "Attempting to read the optional `result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResult` instead "
     "of `ReadResult if you're fine with null values being "
@@ -130,7 +130,7 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadError(UserType* output) const {
     if (!data_->error_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -139,7 +139,7 @@ static_assert(
   }
   std::optional<::ash::quick_start::mojom::QuickStartDecoderError> error() const {
     if (!data_->error_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::quick_start::mojom::QuickStartDecoderError>(data_->error_$value));

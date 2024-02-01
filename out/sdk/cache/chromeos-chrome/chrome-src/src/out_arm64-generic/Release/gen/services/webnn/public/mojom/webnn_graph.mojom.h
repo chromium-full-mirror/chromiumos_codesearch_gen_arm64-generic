@@ -179,7 +179,7 @@ class  Clamp {
   template <typename... Args>
   static ClampPtr New(Args&&... args) {
     return ClampPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -330,7 +330,7 @@ class  Size2d {
   template <typename... Args>
   static Size2dPtr New(Args&&... args) {
     return Size2dPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -477,7 +477,7 @@ class  ElementWiseBinary {
   template <typename... Args>
   static ElementWiseBinaryPtr New(Args&&... args) {
     return ElementWiseBinaryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -628,7 +628,7 @@ class  ElementWiseUnary {
   template <typename... Args>
   static ElementWiseUnaryPtr New(Args&&... args) {
     return ElementWiseUnaryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -775,7 +775,7 @@ class  Expand {
   template <typename... Args>
   static ExpandPtr New(Args&&... args) {
     return ExpandPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -919,7 +919,7 @@ class  ConstantPadding {
   template <typename... Args>
   static ConstantPaddingPtr New(Args&&... args) {
     return ConstantPaddingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1060,7 +1060,7 @@ class  EdgePadding {
   template <typename... Args>
   static EdgePaddingPtr New(Args&&... args) {
     return EdgePaddingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1196,7 +1196,7 @@ class  ReflectionPadding {
   template <typename... Args>
   static ReflectionPaddingPtr New(Args&&... args) {
     return ReflectionPaddingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1332,7 +1332,7 @@ class  SymmetricPadding {
   template <typename... Args>
   static SymmetricPaddingPtr New(Args&&... args) {
     return SymmetricPaddingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1469,7 +1469,7 @@ class  Matmul {
   template <typename... Args>
   static MatmulPtr New(Args&&... args) {
     return MatmulPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1619,7 +1619,7 @@ class  StartAndSize {
   template <typename... Args>
   static StartAndSizePtr New(Args&&... args) {
     return StartAndSizePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1764,7 +1764,7 @@ class  Elu {
   template <typename... Args>
   static EluPtr New(Args&&... args) {
     return EluPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1911,7 +1911,7 @@ class  Gather {
   template <typename... Args>
   static GatherPtr New(Args&&... args) {
     return GatherPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2062,7 +2062,7 @@ class  HardSigmoid {
   template <typename... Args>
   static HardSigmoidPtr New(Args&&... args) {
     return HardSigmoidPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2213,7 +2213,7 @@ class  LeakyRelu {
   template <typename... Args>
   static LeakyReluPtr New(Args&&... args) {
     return LeakyReluPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2360,7 +2360,7 @@ class  Linear {
   template <typename... Args>
   static LinearPtr New(Args&&... args) {
     return LinearPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2510,7 +2510,7 @@ class  Prelu {
   template <typename... Args>
   static PreluPtr New(Args&&... args) {
     return PreluPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2657,7 +2657,7 @@ class  Relu {
   template <typename... Args>
   static ReluPtr New(Args&&... args) {
     return ReluPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2801,7 +2801,7 @@ class  Reshape {
   template <typename... Args>
   static ReshapePtr New(Args&&... args) {
     return ReshapePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2945,7 +2945,7 @@ class  Sigmoid {
   template <typename... Args>
   static SigmoidPtr New(Args&&... args) {
     return SigmoidPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3089,7 +3089,7 @@ class  Softmax {
   template <typename... Args>
   static SoftmaxPtr New(Args&&... args) {
     return SoftmaxPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3233,7 +3233,7 @@ class  Softplus {
   template <typename... Args>
   static SoftplusPtr New(Args&&... args) {
     return SoftplusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3380,7 +3380,7 @@ class  Softsign {
   template <typename... Args>
   static SoftsignPtr New(Args&&... args) {
     return SoftsignPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3525,7 +3525,7 @@ class  Tanh {
   template <typename... Args>
   static TanhPtr New(Args&&... args) {
     return TanhPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3671,7 +3671,7 @@ class  Where {
   template <typename... Args>
   static WherePtr New(Args&&... args) {
     return WherePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3832,7 +3832,7 @@ class  PaddingMode {
   static PaddingModePtr
   NewConstant(
       ConstantPaddingPtr value) {
-    auto result = PaddingModePtr(absl::in_place);
+    auto result = PaddingModePtr(std::in_place);
     result->set_constant(std::move(value));
     return result;
   }
@@ -3840,7 +3840,7 @@ class  PaddingMode {
   static PaddingModePtr
   NewEdge(
       EdgePaddingPtr value) {
-    auto result = PaddingModePtr(absl::in_place);
+    auto result = PaddingModePtr(std::in_place);
     result->set_edge(std::move(value));
     return result;
   }
@@ -3848,7 +3848,7 @@ class  PaddingMode {
   static PaddingModePtr
   NewReflection(
       ReflectionPaddingPtr value) {
-    auto result = PaddingModePtr(absl::in_place);
+    auto result = PaddingModePtr(std::in_place);
     result->set_reflection(std::move(value));
     return result;
   }
@@ -3856,7 +3856,7 @@ class  PaddingMode {
   static PaddingModePtr
   NewSymmetric(
       SymmetricPaddingPtr value) {
-    auto result = PaddingModePtr(absl::in_place);
+    auto result = PaddingModePtr(std::in_place);
     result->set_symmetric(std::move(value));
     return result;
   }
@@ -4005,7 +4005,7 @@ class  Activation {
   static ActivationPtr
   NewClamp(
       ClampPtr value) {
-    auto result = ActivationPtr(absl::in_place);
+    auto result = ActivationPtr(std::in_place);
     result->set_clamp(std::move(value));
     return result;
   }
@@ -4013,7 +4013,7 @@ class  Activation {
   static ActivationPtr
   NewElu(
       EluPtr value) {
-    auto result = ActivationPtr(absl::in_place);
+    auto result = ActivationPtr(std::in_place);
     result->set_elu(std::move(value));
     return result;
   }
@@ -4021,7 +4021,7 @@ class  Activation {
   static ActivationPtr
   NewHardSigmoid(
       HardSigmoidPtr value) {
-    auto result = ActivationPtr(absl::in_place);
+    auto result = ActivationPtr(std::in_place);
     result->set_hard_sigmoid(std::move(value));
     return result;
   }
@@ -4029,7 +4029,7 @@ class  Activation {
   static ActivationPtr
   NewLeakyRelu(
       LeakyReluPtr value) {
-    auto result = ActivationPtr(absl::in_place);
+    auto result = ActivationPtr(std::in_place);
     result->set_leaky_relu(std::move(value));
     return result;
   }
@@ -4037,7 +4037,7 @@ class  Activation {
   static ActivationPtr
   NewLinear(
       LinearPtr value) {
-    auto result = ActivationPtr(absl::in_place);
+    auto result = ActivationPtr(std::in_place);
     result->set_linear(std::move(value));
     return result;
   }
@@ -4045,7 +4045,7 @@ class  Activation {
   static ActivationPtr
   NewRelu(
       ReluPtr value) {
-    auto result = ActivationPtr(absl::in_place);
+    auto result = ActivationPtr(std::in_place);
     result->set_relu(std::move(value));
     return result;
   }
@@ -4053,7 +4053,7 @@ class  Activation {
   static ActivationPtr
   NewSigmoid(
       SigmoidPtr value) {
-    auto result = ActivationPtr(absl::in_place);
+    auto result = ActivationPtr(std::in_place);
     result->set_sigmoid(std::move(value));
     return result;
   }
@@ -4061,7 +4061,7 @@ class  Activation {
   static ActivationPtr
   NewSoftmax(
       SoftmaxPtr value) {
-    auto result = ActivationPtr(absl::in_place);
+    auto result = ActivationPtr(std::in_place);
     result->set_softmax(std::move(value));
     return result;
   }
@@ -4069,7 +4069,7 @@ class  Activation {
   static ActivationPtr
   NewSoftplus(
       SoftplusPtr value) {
-    auto result = ActivationPtr(absl::in_place);
+    auto result = ActivationPtr(std::in_place);
     result->set_softplus(std::move(value));
     return result;
   }
@@ -4077,7 +4077,7 @@ class  Activation {
   static ActivationPtr
   NewSoftsign(
       SoftsignPtr value) {
-    auto result = ActivationPtr(absl::in_place);
+    auto result = ActivationPtr(std::in_place);
     result->set_softsign(std::move(value));
     return result;
   }
@@ -4085,7 +4085,7 @@ class  Activation {
   static ActivationPtr
   NewTanh(
       TanhPtr value) {
-    auto result = ActivationPtr(absl::in_place);
+    auto result = ActivationPtr(std::in_place);
     result->set_tanh(std::move(value));
     return result;
   }
@@ -4325,7 +4325,7 @@ class  Operation {
   static OperationPtr
   NewArgMinMax(
       ArgMinMaxPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_arg_min_max(std::move(value));
     return result;
   }
@@ -4333,7 +4333,7 @@ class  Operation {
   static OperationPtr
   NewBatchNormalization(
       BatchNormalizationPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_batch_normalization(std::move(value));
     return result;
   }
@@ -4341,7 +4341,7 @@ class  Operation {
   static OperationPtr
   NewClamp(
       ClampPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_clamp(std::move(value));
     return result;
   }
@@ -4349,7 +4349,7 @@ class  Operation {
   static OperationPtr
   NewConcat(
       ConcatPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_concat(std::move(value));
     return result;
   }
@@ -4357,7 +4357,7 @@ class  Operation {
   static OperationPtr
   NewConv2d(
       Conv2dPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_conv2d(std::move(value));
     return result;
   }
@@ -4365,7 +4365,7 @@ class  Operation {
   static OperationPtr
   NewElementWiseBinary(
       ElementWiseBinaryPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_element_wise_binary(std::move(value));
     return result;
   }
@@ -4373,7 +4373,7 @@ class  Operation {
   static OperationPtr
   NewElu(
       EluPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_elu(std::move(value));
     return result;
   }
@@ -4381,7 +4381,7 @@ class  Operation {
   static OperationPtr
   NewElementWiseUnary(
       ElementWiseUnaryPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_element_wise_unary(std::move(value));
     return result;
   }
@@ -4389,7 +4389,7 @@ class  Operation {
   static OperationPtr
   NewExpand(
       ExpandPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_expand(std::move(value));
     return result;
   }
@@ -4397,7 +4397,7 @@ class  Operation {
   static OperationPtr
   NewGather(
       GatherPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_gather(std::move(value));
     return result;
   }
@@ -4405,7 +4405,7 @@ class  Operation {
   static OperationPtr
   NewGemm(
       GemmPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_gemm(std::move(value));
     return result;
   }
@@ -4413,7 +4413,7 @@ class  Operation {
   static OperationPtr
   NewHardSigmoid(
       HardSigmoidPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_hard_sigmoid(std::move(value));
     return result;
   }
@@ -4421,7 +4421,7 @@ class  Operation {
   static OperationPtr
   NewLayerNormalization(
       LayerNormalizationPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_layer_normalization(std::move(value));
     return result;
   }
@@ -4429,7 +4429,7 @@ class  Operation {
   static OperationPtr
   NewInstanceNormalization(
       InstanceNormalizationPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_instance_normalization(std::move(value));
     return result;
   }
@@ -4437,7 +4437,7 @@ class  Operation {
   static OperationPtr
   NewLeakyRelu(
       LeakyReluPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_leaky_relu(std::move(value));
     return result;
   }
@@ -4445,7 +4445,7 @@ class  Operation {
   static OperationPtr
   NewLinear(
       LinearPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_linear(std::move(value));
     return result;
   }
@@ -4453,7 +4453,7 @@ class  Operation {
   static OperationPtr
   NewMatmul(
       MatmulPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_matmul(std::move(value));
     return result;
   }
@@ -4461,7 +4461,7 @@ class  Operation {
   static OperationPtr
   NewPad(
       PadPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_pad(std::move(value));
     return result;
   }
@@ -4469,7 +4469,7 @@ class  Operation {
   static OperationPtr
   NewPool2d(
       Pool2dPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_pool2d(std::move(value));
     return result;
   }
@@ -4477,7 +4477,7 @@ class  Operation {
   static OperationPtr
   NewPrelu(
       PreluPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_prelu(std::move(value));
     return result;
   }
@@ -4485,7 +4485,7 @@ class  Operation {
   static OperationPtr
   NewReduce(
       ReducePtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_reduce(std::move(value));
     return result;
   }
@@ -4493,7 +4493,7 @@ class  Operation {
   static OperationPtr
   NewRelu(
       ReluPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_relu(std::move(value));
     return result;
   }
@@ -4501,7 +4501,7 @@ class  Operation {
   static OperationPtr
   NewResample2d(
       Resample2dPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_resample2d(std::move(value));
     return result;
   }
@@ -4509,7 +4509,7 @@ class  Operation {
   static OperationPtr
   NewReshape(
       ReshapePtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_reshape(std::move(value));
     return result;
   }
@@ -4517,7 +4517,7 @@ class  Operation {
   static OperationPtr
   NewSigmoid(
       SigmoidPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_sigmoid(std::move(value));
     return result;
   }
@@ -4525,7 +4525,7 @@ class  Operation {
   static OperationPtr
   NewSlice(
       SlicePtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_slice(std::move(value));
     return result;
   }
@@ -4533,7 +4533,7 @@ class  Operation {
   static OperationPtr
   NewSoftmax(
       SoftmaxPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_softmax(std::move(value));
     return result;
   }
@@ -4541,7 +4541,7 @@ class  Operation {
   static OperationPtr
   NewSoftplus(
       SoftplusPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_softplus(std::move(value));
     return result;
   }
@@ -4549,7 +4549,7 @@ class  Operation {
   static OperationPtr
   NewSoftsign(
       SoftsignPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_softsign(std::move(value));
     return result;
   }
@@ -4557,7 +4557,7 @@ class  Operation {
   static OperationPtr
   NewSplit(
       SplitPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_split(std::move(value));
     return result;
   }
@@ -4565,7 +4565,7 @@ class  Operation {
   static OperationPtr
   NewTanh(
       TanhPtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_tanh(std::move(value));
     return result;
   }
@@ -4573,7 +4573,7 @@ class  Operation {
   static OperationPtr
   NewTranspose(
       TransposePtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_transpose(std::move(value));
     return result;
   }
@@ -4581,7 +4581,7 @@ class  Operation {
   static OperationPtr
   NewWhere(
       WherePtr value) {
-    auto result = OperationPtr(absl::in_place);
+    auto result = OperationPtr(std::in_place);
     result->set_where(std::move(value));
     return result;
   }
@@ -5106,7 +5106,7 @@ class  ComputeResult {
   static ComputeResultPtr
   NewNamedOutputs(
       base::flat_map<std::string, ::mojo_base::BigBuffer> value) {
-    auto result = ComputeResultPtr(absl::in_place);
+    auto result = ComputeResultPtr(std::in_place);
     result->set_named_outputs(std::move(value));
     return result;
   }
@@ -5114,7 +5114,7 @@ class  ComputeResult {
   static ComputeResultPtr
   NewError(
       ::webnn::mojom::ErrorPtr value) {
-    auto result = ComputeResultPtr(absl::in_place);
+    auto result = ComputeResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -5230,7 +5230,7 @@ class  Operand {
   template <typename... Args>
   static OperandPtr New(Args&&... args) {
     return OperandPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5380,7 +5380,7 @@ class  ArgMinMax {
   template <typename... Args>
   static ArgMinMaxPtr New(Args&&... args) {
     return ArgMinMaxPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5535,7 +5535,7 @@ class  BatchNormalization {
   template <typename... Args>
   static BatchNormalizationPtr New(Args&&... args) {
     return BatchNormalizationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5702,7 +5702,7 @@ class  Concat {
   template <typename... Args>
   static ConcatPtr New(Args&&... args) {
     return ConcatPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5849,7 +5849,7 @@ class  Padding2d {
   template <typename... Args>
   static Padding2dPtr New(Args&&... args) {
     return Padding2dPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5996,7 +5996,7 @@ class  Conv2d {
   template <typename... Args>
   static Conv2dPtr New(Args&&... args) {
     return Conv2dPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6175,7 +6175,7 @@ class  InstanceNormalization {
   template <typename... Args>
   static InstanceNormalizationPtr New(Args&&... args) {
     return InstanceNormalizationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6331,7 +6331,7 @@ class  Pad {
   template <typename... Args>
   static PadPtr New(Args&&... args) {
     return PadPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6486,7 +6486,7 @@ class  Reduce {
   template <typename... Args>
   static ReducePtr New(Args&&... args) {
     return ReducePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6639,7 +6639,7 @@ class  Pool2d {
   template <typename... Args>
   static Pool2dPtr New(Args&&... args) {
     return Pool2dPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6804,7 +6804,7 @@ class  Slice {
   template <typename... Args>
   static SlicePtr New(Args&&... args) {
     return SlicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6954,7 +6954,7 @@ class  Gemm {
   template <typename... Args>
   static GemmPtr New(Args&&... args) {
     return GemmPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7116,7 +7116,7 @@ class  LayerNormalization {
   template <typename... Args>
   static LayerNormalizationPtr New(Args&&... args) {
     return LayerNormalizationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7280,7 +7280,7 @@ class  Split {
   template <typename... Args>
   static SplitPtr New(Args&&... args) {
     return SplitPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7427,7 +7427,7 @@ class  Transpose {
   template <typename... Args>
   static TransposePtr New(Args&&... args) {
     return TransposePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7574,7 +7574,7 @@ class  Resample2d {
   template <typename... Args>
   static Resample2dPtr New(Args&&... args) {
     return Resample2dPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7727,7 +7727,7 @@ class  GraphInfo {
   template <typename... Args>
   static GraphInfoPtr New(Args&&... args) {
     return GraphInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

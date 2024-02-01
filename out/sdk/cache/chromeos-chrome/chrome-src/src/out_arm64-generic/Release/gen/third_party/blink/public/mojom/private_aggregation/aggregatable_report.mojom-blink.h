@@ -60,7 +60,7 @@ class PLATFORM_EXPORT AggregatableReportHistogramContribution {
   template <typename... Args>
   static AggregatableReportHistogramContributionPtr New(Args&&... args) {
     return AggregatableReportHistogramContributionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -522,7 +522,7 @@ class  DefaultPrinterNameResult {
   static DefaultPrinterNameResultPtr
   NewDefaultPrinterName(
       const std::string& value) {
-    auto result = DefaultPrinterNameResultPtr(absl::in_place);
+    auto result = DefaultPrinterNameResultPtr(std::in_place);
     result->set_default_printer_name(std::move(value));
     return result;
   }
@@ -530,7 +530,7 @@ class  DefaultPrinterNameResult {
   static DefaultPrinterNameResultPtr
   NewResultCode(
       ::printing::mojom::ResultCode value) {
-    auto result = DefaultPrinterNameResultPtr(absl::in_place);
+    auto result = DefaultPrinterNameResultPtr(std::in_place);
     result->set_result_code(std::move(value));
     return result;
   }
@@ -653,7 +653,7 @@ class  PrinterListResult {
   static PrinterListResultPtr
   NewPrinterList(
       std::vector<::printing::PrinterBasicInfo> value) {
-    auto result = PrinterListResultPtr(absl::in_place);
+    auto result = PrinterListResultPtr(std::in_place);
     result->set_printer_list(std::move(value));
     return result;
   }
@@ -661,7 +661,7 @@ class  PrinterListResult {
   static PrinterListResultPtr
   NewResultCode(
       ::printing::mojom::ResultCode value) {
-    auto result = PrinterListResultPtr(absl::in_place);
+    auto result = PrinterListResultPtr(std::in_place);
     result->set_result_code(std::move(value));
     return result;
   }
@@ -783,7 +783,7 @@ class  PrinterSemanticCapsAndDefaultsResult {
   static PrinterSemanticCapsAndDefaultsResultPtr
   NewPrinterCaps(
       const ::printing::PrinterSemanticCapsAndDefaults& value) {
-    auto result = PrinterSemanticCapsAndDefaultsResultPtr(absl::in_place);
+    auto result = PrinterSemanticCapsAndDefaultsResultPtr(std::in_place);
     result->set_printer_caps(std::move(value));
     return result;
   }
@@ -791,7 +791,7 @@ class  PrinterSemanticCapsAndDefaultsResult {
   static PrinterSemanticCapsAndDefaultsResultPtr
   NewResultCode(
       ::printing::mojom::ResultCode value) {
-    auto result = PrinterSemanticCapsAndDefaultsResultPtr(absl::in_place);
+    auto result = PrinterSemanticCapsAndDefaultsResultPtr(std::in_place);
     result->set_result_code(std::move(value));
     return result;
   }
@@ -913,7 +913,7 @@ class  PrinterCapsAndInfoResult {
   static PrinterCapsAndInfoResultPtr
   NewPrinterCapsAndInfo(
       PrinterCapsAndInfoPtr value) {
-    auto result = PrinterCapsAndInfoResultPtr(absl::in_place);
+    auto result = PrinterCapsAndInfoResultPtr(std::in_place);
     result->set_printer_caps_and_info(std::move(value));
     return result;
   }
@@ -921,7 +921,7 @@ class  PrinterCapsAndInfoResult {
   static PrinterCapsAndInfoResultPtr
   NewResultCode(
       ::printing::mojom::ResultCode value) {
-    auto result = PrinterCapsAndInfoResultPtr(absl::in_place);
+    auto result = PrinterCapsAndInfoResultPtr(std::in_place);
     result->set_result_code(std::move(value));
     return result;
   }
@@ -1043,7 +1043,7 @@ class  PrintSettingsResult {
   static PrintSettingsResultPtr
   NewSettings(
       const ::printing::PrintSettings& value) {
-    auto result = PrintSettingsResultPtr(absl::in_place);
+    auto result = PrintSettingsResultPtr(std::in_place);
     result->set_settings(std::move(value));
     return result;
   }
@@ -1051,7 +1051,7 @@ class  PrintSettingsResult {
   static PrintSettingsResultPtr
   NewResultCode(
       ::printing::mojom::ResultCode value) {
-    auto result = PrintSettingsResultPtr(absl::in_place);
+    auto result = PrintSettingsResultPtr(std::in_place);
     result->set_result_code(std::move(value));
     return result;
   }
@@ -1165,7 +1165,7 @@ class  PrinterCapsAndInfo {
   template <typename... Args>
   static PrinterCapsAndInfoPtr New(Args&&... args) {
     return PrinterCapsAndInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -107,7 +107,7 @@ static_assert(
         ::network::mojom::IPAddressDataView, UserType>(),
     "Attempting to read the optional `ipv4_address` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIpv4Address` instead "
     "of `ReadIpv4Address if you're fine with null values being "
@@ -127,7 +127,7 @@ static_assert(
         ::network::mojom::IPAddressDataView, UserType>(),
     "Attempting to read the optional `ipv6_address` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIpv6Address` instead "
     "of `ReadIpv6Address if you're fine with null values being "

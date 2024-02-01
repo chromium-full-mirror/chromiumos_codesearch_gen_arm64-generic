@@ -53,7 +53,7 @@ class BLINK_COMMON_EXPORT TextAutosizerPageInfo {
   template <typename... Args>
   static TextAutosizerPageInfoPtr New(Args&&... args) {
     return TextAutosizerPageInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

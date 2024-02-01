@@ -337,6 +337,12 @@ suite('<settings-privacy-hub-microphone-subpage>', () => {
         getManagePermissionsInChromeRow().click();
         assertEquals(1, metrics.countMetricValue('ChromeOS.PrivacyHub.MicrophoneSubpage.UserAction', PrivacyHubSensorSubpageUserAction.WEBSITE_PERMISSION_LINK_CLICKED));
     });
+    test('Clicking Chrome row opens Chrome browser microphone permission settings', async () => {
+        assertEquals(PermissionType.kUnknown, fakeHandler.getLastOpenedBrowserPermissionSettingsType());
+        getManagePermissionsInChromeRow().click();
+        await fakeHandler.whenCalled('openBrowserPermissionSettings');
+        assertEquals(PermissionType.kMicrophone, fakeHandler.getLastOpenedBrowserPermissionSettingsType());
+    });
     test('System services section when microphone is allowed', async () => {
         assertEquals(privacyHubMicrophoneSubpage.i18n('privacyHubSystemServicesSectionTitle'), privacyHubMicrophoneSubpage.shadowRoot
             .querySelector('#systemServicesSectionTitle').textContent.trim());

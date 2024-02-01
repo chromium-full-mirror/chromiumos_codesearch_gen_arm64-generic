@@ -57,7 +57,7 @@ class  SessionParameters {
   template <typename... Args>
   static SessionParametersPtr New(Args&&... args) {
     return SessionParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -55,7 +55,7 @@ class  Step {
   template <typename... Args>
   static StepPtr New(Args&&... args) {
     return StepPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -203,7 +203,7 @@ class  LinearGradient {
   template <typename... Args>
   static LinearGradientPtr New(Args&&... args) {
     return LinearGradientPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

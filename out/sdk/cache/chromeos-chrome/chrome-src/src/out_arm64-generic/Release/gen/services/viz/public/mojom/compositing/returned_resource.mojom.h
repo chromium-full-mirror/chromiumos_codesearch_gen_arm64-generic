@@ -60,7 +60,7 @@ class  ReturnedResource {
   template <typename... Args>
   static ReturnedResourcePtr New(Args&&... args) {
     return ReturnedResourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

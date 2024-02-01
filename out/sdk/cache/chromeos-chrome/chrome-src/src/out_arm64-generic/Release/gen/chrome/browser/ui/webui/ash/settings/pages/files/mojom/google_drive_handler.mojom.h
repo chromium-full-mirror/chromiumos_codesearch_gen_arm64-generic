@@ -417,7 +417,7 @@ class  Status {
   template <typename... Args>
   static StatusPtr New(Args&&... args) {
     return StatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

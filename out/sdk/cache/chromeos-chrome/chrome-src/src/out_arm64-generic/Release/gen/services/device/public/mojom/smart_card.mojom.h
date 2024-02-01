@@ -604,7 +604,7 @@ class  SmartCardProtocols {
   template <typename... Args>
   static SmartCardProtocolsPtr New(Args&&... args) {
     return SmartCardProtocolsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -763,7 +763,7 @@ class  SmartCardResult {
   static SmartCardResultPtr
   NewSuccess(
       SmartCardSuccess value) {
-    auto result = SmartCardResultPtr(absl::in_place);
+    auto result = SmartCardResultPtr(std::in_place);
     result->set_success(std::move(value));
     return result;
   }
@@ -771,7 +771,7 @@ class  SmartCardResult {
   static SmartCardResultPtr
   NewError(
       SmartCardError value) {
-    auto result = SmartCardResultPtr(absl::in_place);
+    auto result = SmartCardResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -890,7 +890,7 @@ class  SmartCardStatusChangeResult {
   static SmartCardStatusChangeResultPtr
   NewReaderStates(
       std::vector<SmartCardReaderStateOutPtr> value) {
-    auto result = SmartCardStatusChangeResultPtr(absl::in_place);
+    auto result = SmartCardStatusChangeResultPtr(std::in_place);
     result->set_reader_states(std::move(value));
     return result;
   }
@@ -898,7 +898,7 @@ class  SmartCardStatusChangeResult {
   static SmartCardStatusChangeResultPtr
   NewError(
       SmartCardError value) {
-    auto result = SmartCardStatusChangeResultPtr(absl::in_place);
+    auto result = SmartCardStatusChangeResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1020,7 +1020,7 @@ class  SmartCardListReadersResult {
   static SmartCardListReadersResultPtr
   NewReaders(
       std::vector<std::string> value) {
-    auto result = SmartCardListReadersResultPtr(absl::in_place);
+    auto result = SmartCardListReadersResultPtr(std::in_place);
     result->set_readers(std::move(value));
     return result;
   }
@@ -1028,7 +1028,7 @@ class  SmartCardListReadersResult {
   static SmartCardListReadersResultPtr
   NewError(
       SmartCardError value) {
-    auto result = SmartCardListReadersResultPtr(absl::in_place);
+    auto result = SmartCardListReadersResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1150,7 +1150,7 @@ class  SmartCardCreateContextResult {
   static SmartCardCreateContextResultPtr
   NewContext(
       ::mojo::PendingRemote<SmartCardContext> value) {
-    auto result = SmartCardCreateContextResultPtr(absl::in_place);
+    auto result = SmartCardCreateContextResultPtr(std::in_place);
     result->set_context(std::move(value));
     return result;
   }
@@ -1158,7 +1158,7 @@ class  SmartCardCreateContextResult {
   static SmartCardCreateContextResultPtr
   NewError(
       SmartCardError value) {
-    auto result = SmartCardCreateContextResultPtr(absl::in_place);
+    auto result = SmartCardCreateContextResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1280,7 +1280,7 @@ class  SmartCardConnectResult {
   static SmartCardConnectResultPtr
   NewSuccess(
       SmartCardConnectSuccessPtr value) {
-    auto result = SmartCardConnectResultPtr(absl::in_place);
+    auto result = SmartCardConnectResultPtr(std::in_place);
     result->set_success(std::move(value));
     return result;
   }
@@ -1288,7 +1288,7 @@ class  SmartCardConnectResult {
   static SmartCardConnectResultPtr
   NewError(
       SmartCardError value) {
-    auto result = SmartCardConnectResultPtr(absl::in_place);
+    auto result = SmartCardConnectResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1410,7 +1410,7 @@ class  SmartCardDataResult {
   static SmartCardDataResultPtr
   NewData(
       std::vector<uint8_t> value) {
-    auto result = SmartCardDataResultPtr(absl::in_place);
+    auto result = SmartCardDataResultPtr(std::in_place);
     result->set_data(std::move(value));
     return result;
   }
@@ -1418,7 +1418,7 @@ class  SmartCardDataResult {
   static SmartCardDataResultPtr
   NewError(
       SmartCardError value) {
-    auto result = SmartCardDataResultPtr(absl::in_place);
+    auto result = SmartCardDataResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1540,7 +1540,7 @@ class  SmartCardStatusResult {
   static SmartCardStatusResultPtr
   NewStatus(
       SmartCardStatusPtr value) {
-    auto result = SmartCardStatusResultPtr(absl::in_place);
+    auto result = SmartCardStatusResultPtr(std::in_place);
     result->set_status(std::move(value));
     return result;
   }
@@ -1548,7 +1548,7 @@ class  SmartCardStatusResult {
   static SmartCardStatusResultPtr
   NewError(
       SmartCardError value) {
-    auto result = SmartCardStatusResultPtr(absl::in_place);
+    auto result = SmartCardStatusResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1670,7 +1670,7 @@ class  SmartCardTransactionResult {
   static SmartCardTransactionResultPtr
   NewTransaction(
       ::mojo::PendingAssociatedRemote<SmartCardTransaction> value) {
-    auto result = SmartCardTransactionResultPtr(absl::in_place);
+    auto result = SmartCardTransactionResultPtr(std::in_place);
     result->set_transaction(std::move(value));
     return result;
   }
@@ -1678,7 +1678,7 @@ class  SmartCardTransactionResult {
   static SmartCardTransactionResultPtr
   NewError(
       SmartCardError value) {
-    auto result = SmartCardTransactionResultPtr(absl::in_place);
+    auto result = SmartCardTransactionResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1792,7 +1792,7 @@ class  SmartCardReaderStateFlags {
   template <typename... Args>
   static SmartCardReaderStateFlagsPtr New(Args&&... args) {
     return SmartCardReaderStateFlagsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1963,7 +1963,7 @@ class  SmartCardReaderStateIn {
   template <typename... Args>
   static SmartCardReaderStateInPtr New(Args&&... args) {
     return SmartCardReaderStateInPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2112,7 +2112,7 @@ class  SmartCardReaderStateOut {
   template <typename... Args>
   static SmartCardReaderStateOutPtr New(Args&&... args) {
     return SmartCardReaderStateOutPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2264,7 +2264,7 @@ class  SmartCardStatus {
   template <typename... Args>
   static SmartCardStatusPtr New(Args&&... args) {
     return SmartCardStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2413,7 +2413,7 @@ class  SmartCardConnectSuccess {
   template <typename... Args>
   static SmartCardConnectSuccessPtr New(Args&&... args) {
     return SmartCardConnectSuccessPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

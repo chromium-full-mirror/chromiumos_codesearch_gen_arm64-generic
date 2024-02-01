@@ -56,7 +56,7 @@ class  PrintPageRange {
   template <typename... Args>
   static PrintPageRangePtr New(Args&&... args) {
     return PrintPageRangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -199,7 +199,7 @@ class  PrintMediaSize {
   template <typename... Args>
   static PrintMediaSizePtr New(Args&&... args) {
     return PrintMediaSizePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -349,7 +349,7 @@ class  PrintResolution {
   template <typename... Args>
   static PrintResolutionPtr New(Args&&... args) {
     return PrintResolutionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -498,7 +498,7 @@ class  PrintMargins {
   template <typename... Args>
   static PrintMarginsPtr New(Args&&... args) {
     return PrintMarginsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -659,7 +659,7 @@ class  PrintAttributes {
   template <typename... Args>
   static PrintAttributesPtr New(Args&&... args) {
     return PrintAttributesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -813,7 +813,7 @@ class  PrintDocumentRequest {
   template <typename... Args>
   static PrintDocumentRequestPtr New(Args&&... args) {
     return PrintDocumentRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -958,7 +958,7 @@ class  PrintJobRequest {
   template <typename... Args>
   static PrintJobRequestPtr New(Args&&... args) {
     return PrintJobRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1128,7 +1128,7 @@ class  PrinterCapabilities {
   template <typename... Args>
   static PrinterCapabilitiesPtr New(Args&&... args) {
     return PrinterCapabilitiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1285,7 +1285,7 @@ class  PrinterInfo {
   template <typename... Args>
   static PrinterInfoPtr New(Args&&... args) {
     return PrinterInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -180,7 +180,7 @@ class  ThumbParams {
   template <typename... Args>
   static ThumbParamsPtr New(Args&&... args) {
     return ThumbParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

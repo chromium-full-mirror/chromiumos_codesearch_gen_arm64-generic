@@ -57,7 +57,7 @@ class  UsbDeviceFilter {
   template <typename... Args>
   static UsbDeviceFilterPtr New(Args&&... args) {
     return UsbDeviceFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -227,7 +227,7 @@ class  UsbEnumerationOptions {
   template <typename... Args>
   static UsbEnumerationOptionsPtr New(Args&&... args) {
     return UsbEnumerationOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

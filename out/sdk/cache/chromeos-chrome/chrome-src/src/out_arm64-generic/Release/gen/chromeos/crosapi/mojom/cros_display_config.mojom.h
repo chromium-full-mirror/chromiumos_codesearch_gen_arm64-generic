@@ -370,7 +370,7 @@ class  DisplayLayout {
   template <typename... Args>
   static DisplayLayoutPtr New(Args&&... args) {
     return DisplayLayoutPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -521,7 +521,7 @@ class  Edid {
   template <typename... Args>
   static EdidPtr New(Args&&... args) {
     return EdidPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -668,7 +668,7 @@ class  DisplayRotation {
   template <typename... Args>
   static DisplayRotationPtr New(Args&&... args) {
     return DisplayRotationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -814,7 +814,7 @@ class  TouchCalibrationPair {
   template <typename... Args>
   static TouchCalibrationPairPtr New(Args&&... args) {
     return TouchCalibrationPairPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -957,7 +957,7 @@ class  TouchCalibration {
   template <typename... Args>
   static TouchCalibrationPtr New(Args&&... args) {
     return TouchCalibrationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1103,7 +1103,7 @@ class  DisplayLayoutInfo {
   template <typename... Args>
   static DisplayLayoutInfoPtr New(Args&&... args) {
     return DisplayLayoutInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1256,7 +1256,7 @@ class  DisplayMode {
   template <typename... Args>
   static DisplayModePtr New(Args&&... args) {
     return DisplayModePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1411,7 +1411,7 @@ class  DisplayUnitInfo {
   template <typename... Args>
   static DisplayUnitInfoPtr New(Args&&... args) {
     return DisplayUnitInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1631,7 +1631,7 @@ class  DisplayConfigProperties {
   template <typename... Args>
   static DisplayConfigPropertiesPtr New(Args&&... args) {
     return DisplayConfigPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

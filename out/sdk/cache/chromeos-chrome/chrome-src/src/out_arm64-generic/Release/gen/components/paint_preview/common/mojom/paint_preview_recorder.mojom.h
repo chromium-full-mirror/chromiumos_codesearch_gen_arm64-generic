@@ -177,7 +177,7 @@ class  PaintPreviewCaptureParams {
   template <typename... Args>
   static PaintPreviewCaptureParamsPtr New(Args&&... args) {
     return PaintPreviewCaptureParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -341,7 +341,7 @@ class  LinkData {
   template <typename... Args>
   static LinkDataPtr New(Args&&... args) {
     return LinkDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -484,7 +484,7 @@ class  PaintPreviewCaptureResponse {
   template <typename... Args>
   static PaintPreviewCaptureResponsePtr New(Args&&... args) {
     return PaintPreviewCaptureResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

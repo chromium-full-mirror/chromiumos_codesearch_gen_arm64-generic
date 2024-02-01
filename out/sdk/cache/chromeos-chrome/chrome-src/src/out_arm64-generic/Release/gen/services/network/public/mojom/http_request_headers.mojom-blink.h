@@ -57,7 +57,7 @@ class BLINK_PLATFORM_EXPORT HttpRequestHeaderKeyValuePair {
   template <typename... Args>
   static HttpRequestHeaderKeyValuePairPtr New(Args&&... args) {
     return HttpRequestHeaderKeyValuePairPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -205,7 +205,7 @@ class BLINK_PLATFORM_EXPORT HttpRequestHeaders {
   template <typename... Args>
   static HttpRequestHeadersPtr New(Args&&... args) {
     return HttpRequestHeadersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

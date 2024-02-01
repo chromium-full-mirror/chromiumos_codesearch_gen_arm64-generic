@@ -553,7 +553,7 @@ class  BootProgressEvent {
   template <typename... Args>
   static BootProgressEventPtr New(Args&&... args) {
     return BootProgressEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -697,7 +697,7 @@ class  GfxMetrics {
   template <typename... Args>
   static GfxMetricsPtr New(Args&&... args) {
     return GfxMetricsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -844,7 +844,7 @@ class  AppKill {
   template <typename... Args>
   static AppKillPtr New(Args&&... args) {
     return AppKillPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -988,7 +988,7 @@ class  LowLatencyStylusLibPredictionTarget {
   template <typename... Args>
   static LowLatencyStylusLibPredictionTargetPtr New(Args&&... args) {
     return LowLatencyStylusLibPredictionTargetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

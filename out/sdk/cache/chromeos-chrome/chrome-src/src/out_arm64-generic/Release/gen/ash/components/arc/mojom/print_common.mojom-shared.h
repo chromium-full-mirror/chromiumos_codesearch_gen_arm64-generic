@@ -351,7 +351,7 @@ static_assert(
         ::arc::mojom::PrintMediaSizeDataView, UserType>(),
     "Attempting to read the optional `media_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMediaSize` instead "
     "of `ReadMediaSize if you're fine with null values being "
@@ -371,7 +371,7 @@ static_assert(
         ::arc::mojom::PrintResolutionDataView, UserType>(),
     "Attempting to read the optional `resolution` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResolution` instead "
     "of `ReadResolution if you're fine with null values being "
@@ -391,7 +391,7 @@ static_assert(
         ::arc::mojom::PrintMarginsDataView, UserType>(),
     "Attempting to read the optional `min_margins` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMinMargins` instead "
     "of `ReadMinMargins if you're fine with null values being "
@@ -503,7 +503,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `printer_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPrinterId` instead "
     "of `ReadPrinterId if you're fine with null values being "
@@ -705,7 +705,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `description` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDescription` instead "
     "of `ReadDescription if you're fine with null values being "
@@ -725,7 +725,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `info_intent` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInfoIntent` instead "
     "of `ReadInfoIntent if you're fine with null values being "
@@ -745,7 +745,7 @@ static_assert(
         ::arc::mojom::PrinterCapabilitiesDataView, UserType>(),
     "Attempting to read the optional `capabilities` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCapabilities` instead "
     "of `ReadCapabilities if you're fine with null values being "

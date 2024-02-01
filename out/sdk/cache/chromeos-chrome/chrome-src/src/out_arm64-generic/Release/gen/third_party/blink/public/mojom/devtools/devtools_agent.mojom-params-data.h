@@ -289,7 +289,7 @@ static_assert(
         ::blink::mojom::DevToolsSessionStateDataView, UserType>(),
     "Attempting to read the optional `reattach_session_state` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReattachSessionState` instead "
     "of `ReadReattachSessionState if you're fine with null values being "
@@ -601,7 +601,7 @@ static_assert(
         ::blink::mojom::DevToolsSessionStateDataView, UserType>(),
     "Attempting to read the optional `updates` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUpdates` instead "
     "of `ReadUpdates if you're fine with null values being "
@@ -647,7 +647,7 @@ static_assert(
         ::blink::mojom::DevToolsSessionStateDataView, UserType>(),
     "Attempting to read the optional `updates` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUpdates` instead "
     "of `ReadUpdates if you're fine with null values being "

@@ -318,7 +318,7 @@ class  TabGroup {
   template <typename... Args>
   static TabGroupPtr New(Args&&... args) {
     return TabGroupPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -470,7 +470,7 @@ class  DeskTemplateState {
   template <typename... Args>
   static DeskTemplateStatePtr New(Args&&... args) {
     return DeskTemplateStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

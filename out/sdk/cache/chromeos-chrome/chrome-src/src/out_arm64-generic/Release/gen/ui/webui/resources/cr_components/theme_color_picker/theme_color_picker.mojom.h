@@ -435,7 +435,7 @@ class  Theme {
   template <typename... Args>
   static ThemePtr New(Args&&... args) {
     return ThemePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -611,7 +611,7 @@ class  ChromeColor {
   template <typename... Args>
   static ChromeColorPtr New(Args&&... args) {
     return ChromeColorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

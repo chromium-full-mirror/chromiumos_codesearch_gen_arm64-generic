@@ -396,7 +396,7 @@ class PLATFORM_EXPORT VirtualAuthenticatorOptions {
   template <typename... Args>
   static VirtualAuthenticatorOptionsPtr New(Args&&... args) {
     return VirtualAuthenticatorOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -573,7 +573,7 @@ class PLATFORM_EXPORT RegisteredKey {
   template <typename... Args>
   static RegisteredKeyPtr New(Args&&... args) {
     return RegisteredKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

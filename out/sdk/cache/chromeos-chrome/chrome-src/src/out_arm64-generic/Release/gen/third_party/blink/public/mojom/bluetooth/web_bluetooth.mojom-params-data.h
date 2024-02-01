@@ -723,7 +723,7 @@ static_assert(
         ::blink::mojom::WebBluetoothDeviceDataView, UserType>(),
     "Attempting to read the optional `device` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDevice` instead "
     "of `ReadDevice if you're fine with null values being "
@@ -947,7 +947,7 @@ static_assert(
         ::bluetooth::mojom::UUIDDataView, UserType>(),
     "Attempting to read the optional `services_uuid` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadServicesUuid` instead "
     "of `ReadServicesUuid if you're fine with null values being "
@@ -993,7 +993,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::WebBluetoothRemoteGATTServiceDataView>, UserType>(),
     "Attempting to read the optional `services` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadServices` instead "
     "of `ReadServices if you're fine with null values being "
@@ -1049,7 +1049,7 @@ static_assert(
         ::bluetooth::mojom::UUIDDataView, UserType>(),
     "Attempting to read the optional `characteristics_uuid` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCharacteristicsUuid` instead "
     "of `ReadCharacteristicsUuid if you're fine with null values being "
@@ -1095,7 +1095,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::WebBluetoothRemoteGATTCharacteristicDataView>, UserType>(),
     "Attempting to read the optional `characteristics` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCharacteristics` instead "
     "of `ReadCharacteristics if you're fine with null values being "
@@ -1167,7 +1167,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `value` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadValue` instead "
     "of `ReadValue if you're fine with null values being "
@@ -1395,7 +1395,7 @@ static_assert(
         ::bluetooth::mojom::UUIDDataView, UserType>(),
     "Attempting to read the optional `descriptor_uuid` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDescriptorUuid` instead "
     "of `ReadDescriptorUuid if you're fine with null values being "
@@ -1441,7 +1441,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::WebBluetoothRemoteGATTDescriptorDataView>, UserType>(),
     "Attempting to read the optional `descriptors` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDescriptors` instead "
     "of `ReadDescriptors if you're fine with null values being "
@@ -1513,7 +1513,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `value` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadValue` instead "
     "of `ReadValue if you're fine with null values being "

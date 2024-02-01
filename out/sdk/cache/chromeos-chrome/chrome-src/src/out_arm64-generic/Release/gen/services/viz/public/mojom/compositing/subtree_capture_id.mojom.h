@@ -57,7 +57,7 @@ class  SubtreeCaptureId {
   template <typename... Args>
   static SubtreeCaptureIdPtr New(Args&&... args) {
     return SubtreeCaptureIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

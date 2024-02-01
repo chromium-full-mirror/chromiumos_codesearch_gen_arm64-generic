@@ -1,0 +1,4 @@
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import{mojo}from"//resources/mojo/mojo/public/js/bindings.js";export const SimulateRightClickModifierSpec={$:mojo.internal.Enum()};export var SimulateRightClickModifier;(function(SimulateRightClickModifier){SimulateRightClickModifier[SimulateRightClickModifier["MIN_VALUE"]=0]="MIN_VALUE";SimulateRightClickModifier[SimulateRightClickModifier["MAX_VALUE"]=2]="MAX_VALUE";SimulateRightClickModifier[SimulateRightClickModifier["kNone"]=0]="kNone";SimulateRightClickModifier[SimulateRightClickModifier["kAlt"]=1]="kAlt";SimulateRightClickModifier[SimulateRightClickModifier["kSearch"]=2]="kSearch"})(SimulateRightClickModifier||(SimulateRightClickModifier={}));

@@ -62,7 +62,7 @@ class PLATFORM_EXPORT DataTransferFile {
   template <typename... Args>
   static DataTransferFilePtr New(Args&&... args) {
     return DataTransferFilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

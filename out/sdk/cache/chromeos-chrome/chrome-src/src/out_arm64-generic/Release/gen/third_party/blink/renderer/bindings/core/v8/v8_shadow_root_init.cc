@@ -79,8 +79,16 @@ return dictionary;
 
 
 
+
+
+
+
+
+
+
 void ShadowRootInit::Trace(Visitor* visitor) const {
-  TraceIfNeeded<bool>::Trace(visitor, member_delegates_focus_);
+  TraceIfNeeded<bool>::Trace(visitor, member_clonable_);
+TraceIfNeeded<bool>::Trace(visitor, member_delegates_focus_);
 TraceIfNeeded<V8ShadowRootMode>::Trace(visitor, member_mode_);
 TraceIfNeeded<Member<CustomElementRegistry>>::Trace(visitor, member_registry_);
 TraceIfNeeded<bool>::Trace(visitor, member_serializable_);
@@ -93,29 +101,35 @@ bool ShadowRootInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Loca
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+if (RuntimeEnabledFeatures::ShadowRootClonableEnabled()) {
+  if (hasClonable()) {
+  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_clonable_);
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+}
+}
 if (hasDelegatesFocus()) {
   v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_delegates_focus_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
 }
 if (hasMode()) {
   v8_value = ToV8Traits<V8ShadowRootMode>::ToV8(script_state, member_mode_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 if (RuntimeEnabledFeatures::ScopedCustomElementRegistryEnabled()) {
   if (hasRegistry()) {
   v8_value = ToV8Traits<CustomElementRegistry>::ToV8(script_state, member_registry_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
 }
 }
 if (RuntimeEnabledFeatures::ElementGetHTMLEnabled()) {
   if (hasSerializable()) {
   v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_serializable_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
 }
 }
 if (hasSlotAssignment()) {
   v8_value = ToV8Traits<V8SlotAssignmentMode>::ToV8(script_state, member_slot_assignment_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
 }
 return true;
 }
@@ -123,40 +137,47 @@ return true;
 void ShadowRootInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
   const char* const class_like_name = "ShadowRootInit";
 ExceptionState::ContextScope exception_context_scope(ExceptionContext(ExceptionContextType::kDictionaryMemberGet, class_like_name, ""), exception_state);
-exception_context_scope.ChangePropertyNameAsOptimizationHack("delegatesFocus");
 constexpr bool is_optional = false;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 v8::TryCatch try_block(isolate);
-if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_delegates_focus_, member_delegates_focus_, try_block, exception_state)) {
+if (RuntimeEnabledFeatures::ShadowRootClonableEnabled()) {
+  exception_context_scope.ChangePropertyNameAsOptimizationHack("clonable");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_clonable_, member_clonable_, try_block, exception_state)) {
+  return;
+}
+}
+exception_context_scope.ChangePropertyNameAsOptimizationHack("delegatesFocus");
+if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_delegates_focus_, member_delegates_focus_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("mode");
 constexpr bool is_required = true;
 bool fallback_presence_var;
-if (!bindings::GetDictionaryMemberFromV8Object<V8ShadowRootMode, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), fallback_presence_var, member_mode_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<V8ShadowRootMode, is_required>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), fallback_presence_var, member_mode_, try_block, exception_state)) {
   return;
 }
 if (RuntimeEnabledFeatures::ScopedCustomElementRegistryEnabled()) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("registry");
-if (!bindings::GetDictionaryMemberFromV8Object<CustomElementRegistry, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_registry_, member_registry_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<CustomElementRegistry, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_registry_, member_registry_, try_block, exception_state)) {
   return;
 }
 }
 if (RuntimeEnabledFeatures::ElementGetHTMLEnabled()) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("serializable");
-if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_serializable_, member_serializable_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_serializable_, member_serializable_, try_block, exception_state)) {
   return;
 }
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("slotAssignment");
-if (!bindings::GetDictionaryMemberFromV8Object<V8SlotAssignmentMode, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), has_slot_assignment_, member_slot_assignment_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<V8SlotAssignmentMode, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[5].Get(isolate), has_slot_assignment_, member_slot_assignment_, try_block, exception_state)) {
   return;
 }
 }
 
 const base::span<const v8::Eternal<v8::Name>> ShadowRootInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
+"clonable",
 "delegatesFocus",
 "mode",
 "registry",

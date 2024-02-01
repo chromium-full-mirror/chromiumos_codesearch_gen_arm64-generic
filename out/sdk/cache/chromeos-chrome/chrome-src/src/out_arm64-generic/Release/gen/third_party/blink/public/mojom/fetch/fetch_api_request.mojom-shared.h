@@ -362,7 +362,7 @@ static_assert(
         ::blink::mojom::SerializedBlobDataView, UserType>(),
     "Attempting to read the optional `blob` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBlob` instead "
     "of `ReadBlob if you're fine with null values being "
@@ -382,7 +382,7 @@ static_assert(
         ::blink::mojom::FetchAPIRequestBodyDataView, UserType>(),
     "Attempting to read the optional `body` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBody` instead "
     "of `ReadBody if you're fine with null values being "
@@ -402,7 +402,7 @@ static_assert(
         ::url::mojom::OriginDataView, UserType>(),
     "Attempting to read the optional `request_initiator` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRequestInitiator` instead "
     "of `ReadRequestInitiator if you're fine with null values being "
@@ -432,7 +432,7 @@ static_assert(
         ::blink::mojom::ReferrerDataView, UserType>(),
     "Attempting to read the optional `referrer` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReferrer` instead "
     "of `ReadReferrer if you're fine with null values being "
@@ -482,7 +482,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `integrity` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIntegrity` instead "
     "of `ReadIntegrity if you're fine with null values being "
@@ -512,7 +512,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `fetch_window_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFetchWindowId` instead "
     "of `ReadFetchWindowId if you're fine with null values being "
@@ -541,7 +541,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `devtools_stack_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDevtoolsStackId` instead "
     "of `ReadDevtoolsStackId if you're fine with null values being "
@@ -561,7 +561,7 @@ static_assert(
         ::network::mojom::TrustTokenParamsDataView, UserType>(),
     "Attempting to read the optional `trust_token_params` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTrustTokenParams` instead "
     "of `ReadTrustTokenParams if you're fine with null values being "
@@ -601,7 +601,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `service_worker_race_network_request_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadServiceWorkerRaceNetworkRequestToken` instead "
     "of `ReadServiceWorkerRaceNetworkRequestToken if you're fine with null values being "

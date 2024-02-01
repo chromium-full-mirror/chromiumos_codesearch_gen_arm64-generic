@@ -56,7 +56,7 @@ class  AndroidAppInfo {
   template <typename... Args>
   static AndroidAppInfoPtr New(Args&&... args) {
     return AndroidAppInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

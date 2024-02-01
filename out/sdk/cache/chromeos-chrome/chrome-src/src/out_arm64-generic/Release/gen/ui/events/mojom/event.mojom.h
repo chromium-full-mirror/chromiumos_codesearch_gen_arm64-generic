@@ -60,7 +60,7 @@ class  KeyData {
   template <typename... Args>
   static KeyDataPtr New(Args&&... args) {
     return KeyDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -211,7 +211,7 @@ class  GesturePinchData {
   template <typename... Args>
   static GesturePinchDataPtr New(Args&&... args) {
     return GesturePinchDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -352,7 +352,7 @@ class  GestureSwipeData {
   template <typename... Args>
   static GestureSwipeDataPtr New(Args&&... args) {
     return GestureSwipeDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -518,7 +518,7 @@ class  GestureDataDetails {
   static GestureDataDetailsPtr
   NewPinch(
       GesturePinchDataPtr value) {
-    auto result = GestureDataDetailsPtr(absl::in_place);
+    auto result = GestureDataDetailsPtr(std::in_place);
     result->set_pinch(std::move(value));
     return result;
   }
@@ -526,7 +526,7 @@ class  GestureDataDetails {
   static GestureDataDetailsPtr
   NewSwipe(
       GestureSwipeDataPtr value) {
-    auto result = GestureDataDetailsPtr(absl::in_place);
+    auto result = GestureDataDetailsPtr(std::in_place);
     result->set_swipe(std::move(value));
     return result;
   }
@@ -642,7 +642,7 @@ class  LocationData {
   template <typename... Args>
   static LocationDataPtr New(Args&&... args) {
     return LocationDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -787,7 +787,7 @@ class  GestureData {
   template <typename... Args>
   static GestureDataPtr New(Args&&... args) {
     return GestureDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -935,7 +935,7 @@ class  ScrollData {
   template <typename... Args>
   static ScrollDataPtr New(Args&&... args) {
     return ScrollDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1098,7 +1098,7 @@ class  PointerDetails {
   template <typename... Args>
   static PointerDetailsPtr New(Args&&... args) {
     return PointerDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1268,7 +1268,7 @@ class  MouseData {
   template <typename... Args>
   static MouseDataPtr New(Args&&... args) {
     return MouseDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1422,7 +1422,7 @@ class  TouchData {
   template <typename... Args>
   static TouchDataPtr New(Args&&... args) {
     return TouchDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1573,7 +1573,7 @@ class  Event {
   template <typename... Args>
   static EventPtr New(Args&&... args) {
     return EventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

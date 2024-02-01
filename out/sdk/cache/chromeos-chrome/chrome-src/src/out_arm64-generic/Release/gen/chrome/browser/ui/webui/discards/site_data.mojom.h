@@ -176,7 +176,7 @@ class  SiteDataFeature {
   template <typename... Args>
   static SiteDataFeaturePtr New(Args&&... args) {
     return SiteDataFeaturePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -320,7 +320,7 @@ class  SiteDataPerformanceMeasurement {
   template <typename... Args>
   static SiteDataPerformanceMeasurementPtr New(Args&&... args) {
     return SiteDataPerformanceMeasurementPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -467,7 +467,7 @@ class  SiteDataDatabaseSize {
   template <typename... Args>
   static SiteDataDatabaseSizePtr New(Args&&... args) {
     return SiteDataDatabaseSizePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -619,7 +619,7 @@ class  SiteDataValue {
   template <typename... Args>
   static SiteDataValuePtr New(Args&&... args) {
     return SiteDataValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -773,7 +773,7 @@ class  SiteDataEntry {
   template <typename... Args>
   static SiteDataEntryPtr New(Args&&... args) {
     return SiteDataEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -921,7 +921,7 @@ class  SiteDataArray {
   template <typename... Args>
   static SiteDataArrayPtr New(Args&&... args) {
     return SiteDataArrayPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -142,7 +142,7 @@ static_assert(
         ::media::mojom::AudioProcessingConfigDataView, UserType>(),
     "Attempting to read the optional `processing_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadProcessingConfig` instead "
     "of `ReadProcessingConfig if you're fine with null values being "
@@ -245,7 +245,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `stream_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStreamId` instead "
     "of `ReadStreamId if you're fine with null values being "

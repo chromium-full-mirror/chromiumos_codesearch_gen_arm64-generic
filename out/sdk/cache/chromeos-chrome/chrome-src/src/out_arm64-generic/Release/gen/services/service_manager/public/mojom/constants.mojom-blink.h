@@ -56,7 +56,7 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM_CONSTANTS_BLINK) Constants_UnusedSt
   template <typename... Args>
   static Constants_UnusedStruct_InternalPtr New(Args&&... args) {
     return Constants_UnusedStruct_InternalPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

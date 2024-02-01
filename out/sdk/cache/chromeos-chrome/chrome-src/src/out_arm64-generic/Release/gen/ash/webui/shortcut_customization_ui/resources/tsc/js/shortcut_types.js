@@ -4,7 +4,7 @@
 import * as AcceleratorTypes from 'chrome://resources/mojo/ui/base/accelerators/mojom/accelerator.mojom-webui.js';
 import * as AcceleratorConfigurationTypes from '../mojom-webui/accelerator_configuration.mojom-webui.js';
 import * as AcceleratorInfoTypes from '../mojom-webui/accelerator_info.mojom-webui.js';
-import { SearchHandler } from '../mojom-webui/ash/webui/shortcut_customization_ui/backend/search/search.mojom-webui.js';
+import { SearchHandler } from '../mojom-webui/search.mojom-webui.js';
 /**
  * @fileoverview
  * Type aliases for the mojo API.

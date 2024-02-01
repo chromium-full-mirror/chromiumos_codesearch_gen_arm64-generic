@@ -505,7 +505,11 @@ export var Action;
     Action[Action["SelfXssWarningDialogShown"] = 123] = "SelfXssWarningDialogShown";
     Action[Action["SelfXssAllowPastingInConsole"] = 124] = "SelfXssAllowPastingInConsole";
     Action[Action["SelfXssAllowPastingInDialog"] = 125] = "SelfXssAllowPastingInDialog";
-    Action[Action["MaxValue"] = 126] = "MaxValue";
+    Action[Action["ToggleEmulateFocusedPageFromStylesPaneOn"] = 126] = "ToggleEmulateFocusedPageFromStylesPaneOn";
+    Action[Action["ToggleEmulateFocusedPageFromStylesPaneOff"] = 127] = "ToggleEmulateFocusedPageFromStylesPaneOff";
+    Action[Action["ToggleEmulateFocusedPageFromRenderingTab"] = 128] = "ToggleEmulateFocusedPageFromRenderingTab";
+    Action[Action["ToggleEmulateFocusedPageFromCommandMenu"] = 129] = "ToggleEmulateFocusedPageFromCommandMenu";
+    Action[Action["MaxValue"] = 130] = "MaxValue";
 })(Action || (Action = {}));
 /* eslint-disable @typescript-eslint/naming-convention */
 export var PanelCodes;
@@ -937,7 +941,6 @@ export var DevtoolsExperiments;
     DevtoolsExperiments[DevtoolsExperiments["ignoreListJSFramesOnTimeline"] = 43] = "ignoreListJSFramesOnTimeline";
     DevtoolsExperiments[DevtoolsExperiments["contrastIssues"] = 44] = "contrastIssues";
     DevtoolsExperiments[DevtoolsExperiments["experimentalCookieFeatures"] = 45] = "experimentalCookieFeatures";
-    DevtoolsExperiments[DevtoolsExperiments["cssTypeComponentLength"] = 52] = "cssTypeComponentLength";
     DevtoolsExperiments[DevtoolsExperiments["stylesPaneCSSChanges"] = 55] = "stylesPaneCSSChanges";
     DevtoolsExperiments[DevtoolsExperiments["evaluateExpressionsWithSourceMaps"] = 58] = "evaluateExpressionsWithSourceMaps";
     DevtoolsExperiments[DevtoolsExperiments["instrumentationBreakpoints"] = 61] = "instrumentationBreakpoints";
@@ -958,8 +961,9 @@ export var DevtoolsExperiments;
     DevtoolsExperiments[DevtoolsExperiments["autofillView"] = 82] = "autofillView";
     DevtoolsExperiments[DevtoolsExperiments["sourcesFrameIndentationMarkersTemporarilyDisable"] = 83] = "sourcesFrameIndentationMarkersTemporarilyDisable";
     DevtoolsExperiments[DevtoolsExperiments["heapSnapshotTreatBackingStoreAsContainingObject"] = 84] = "heapSnapshotTreatBackingStoreAsContainingObject";
+    DevtoolsExperiments[DevtoolsExperiments["cssTypeComponentLengthDeprecate"] = 85] = "cssTypeComponentLengthDeprecate";
     // Increment this when new experiments are added.
-    DevtoolsExperiments[DevtoolsExperiments["MaxValue"] = 85] = "MaxValue";
+    DevtoolsExperiments[DevtoolsExperiments["MaxValue"] = 86] = "MaxValue";
 })(DevtoolsExperiments || (DevtoolsExperiments = {}));
 // Update DevToolsIssuesPanelIssueExpanded from tools/metrics/histograms/enums.xml if new enum is added.
 export var IssueExpanded;
@@ -985,11 +989,6 @@ export var IssueResourceOpened;
     IssueResourceOpened[IssueResourceOpened["HeavyAdElement"] = 5] = "HeavyAdElement";
     IssueResourceOpened[IssueResourceOpened["ContentSecurityPolicyDirective"] = 6] = "ContentSecurityPolicyDirective";
     IssueResourceOpened[IssueResourceOpened["ContentSecurityPolicyElement"] = 7] = "ContentSecurityPolicyElement";
-    IssueResourceOpened[IssueResourceOpened["CrossOriginEmbedderPolicyLearnMore"] = 8] = "CrossOriginEmbedderPolicyLearnMore";
-    IssueResourceOpened[IssueResourceOpened["MixedContentLearnMore"] = 9] = "MixedContentLearnMore";
-    IssueResourceOpened[IssueResourceOpened["SameSiteCookieLearnMore"] = 10] = "SameSiteCookieLearnMore";
-    IssueResourceOpened[IssueResourceOpened["HeavyAdLearnMore"] = 11] = "HeavyAdLearnMore";
-    IssueResourceOpened[IssueResourceOpened["ContentSecurityPolicyLearnMore"] = 12] = "ContentSecurityPolicyLearnMore";
     IssueResourceOpened[IssueResourceOpened["MaxValue"] = 13] = "MaxValue";
 })(IssueResourceOpened || (IssueResourceOpened = {}));
 /**

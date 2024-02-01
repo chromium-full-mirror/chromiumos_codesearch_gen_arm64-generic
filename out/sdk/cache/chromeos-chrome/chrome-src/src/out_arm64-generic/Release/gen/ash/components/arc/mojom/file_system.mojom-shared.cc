@@ -491,8 +491,12 @@ bool DocumentPath_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 24, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 24 },
+    { 24, 32 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -522,12 +526,21 @@ bool DocumentPath_Data::Validate(
                                          &path_validate_params)) {
     return false;
   }
+  if (object->header_.version < 24)
+    return true;
+
+  constexpr const mojo::internal::ContainerValidateParams& root_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->root_id, validation_context,
+                                         &root_id_validate_params)) {
+    return false;
+  }
 
   return true;
 }
 
 DocumentPath_Data::DocumentPath_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 24}) {}
 
 
 // static

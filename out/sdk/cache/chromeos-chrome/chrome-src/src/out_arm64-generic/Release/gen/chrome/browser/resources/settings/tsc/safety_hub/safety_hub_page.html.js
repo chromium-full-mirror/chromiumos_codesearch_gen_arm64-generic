@@ -31,7 +31,7 @@ export function getTemplate() {
 <template is="dom-if" if="[[showNoRecommendationsState_]]">
   <settings-safety-hub-module id="emptyStateModule" class="module box" header="$i18n{safetyHubEmptyStateModuleHeader}" subheader="$i18n{safetyHubEmptyStateModuleSubheader}" header-icon="cr:check">
   </settings-safety-hub-module>
-  <settings-safety-hub-module id="userEducationModule" class="module box" header="$i18n{safetyHubUserEduModuleHeader}" header-icon="settings20:lightbulb" sites="[[userEducationItemList_]]">
+  <settings-safety-hub-module id="userEducationModule" on-sh-module-item-link-click="onEducationLinkClick_" class="module box" header="$i18n{safetyHubUserEduModuleHeader}" header-icon="settings20:lightbulb" sites="[[userEducationItemList_]]">
   </settings-safety-hub-module>
 </template>
 

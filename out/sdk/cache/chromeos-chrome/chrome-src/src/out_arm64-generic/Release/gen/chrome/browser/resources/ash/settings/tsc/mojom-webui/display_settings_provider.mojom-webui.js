@@ -20,6 +20,15 @@ export var DisplaySettingsType;
     DisplaySettingsType[DisplaySettingsType["kUnifiedMode"] = 9] = "kUnifiedMode";
     DisplaySettingsType[DisplaySettingsType["kPrimaryDisplay"] = 10] = "kPrimaryDisplay";
 })(DisplaySettingsType || (DisplaySettingsType = {}));
+export const DisplaySettingsNightLightScheduleOptionSpec = { $: mojo.internal.Enum() };
+export var DisplaySettingsNightLightScheduleOption;
+(function (DisplaySettingsNightLightScheduleOption) {
+    DisplaySettingsNightLightScheduleOption[DisplaySettingsNightLightScheduleOption["MIN_VALUE"] = 0] = "MIN_VALUE";
+    DisplaySettingsNightLightScheduleOption[DisplaySettingsNightLightScheduleOption["MAX_VALUE"] = 2] = "MAX_VALUE";
+    DisplaySettingsNightLightScheduleOption[DisplaySettingsNightLightScheduleOption["kNever"] = 0] = "kNever";
+    DisplaySettingsNightLightScheduleOption[DisplaySettingsNightLightScheduleOption["kSunsetToSunrise"] = 1] = "kSunsetToSunrise";
+    DisplaySettingsNightLightScheduleOption[DisplaySettingsNightLightScheduleOption["kCustom"] = 2] = "kCustom";
+})(DisplaySettingsNightLightScheduleOption || (DisplaySettingsNightLightScheduleOption = {}));
 export const DisplaySettingsOrientationOptionSpec = { $: mojo.internal.Enum() };
 export var DisplaySettingsOrientationOption;
 (function (DisplaySettingsOrientationOption) {
@@ -305,7 +314,25 @@ mojo.internal.Struct(DisplaySettingsValueSpec.$, 'DisplaySettingsValue', [
         isPrimary: false,
         originalFieldName: "orientation",
     }),
-], [[0, 24],]);
+    mojo.internal.StructField('night_light_status_$flag', 0, 4, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "night_light_status_$value",
+        originalFieldName: "nightLightStatus",
+    }),
+    mojo.internal.StructField('night_light_status_$value', 0, 5, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "nightLightStatus",
+    }),
+    mojo.internal.StructField('night_light_schedule_$flag', 0, 6, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "night_light_schedule_$value",
+        originalFieldName: "nightLightSchedule",
+    }),
+    mojo.internal.StructField('night_light_schedule_$value', 16, 0, DisplaySettingsNightLightScheduleOptionSpec.$, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "nightLightSchedule",
+    }),
+], [[0, 32],]);
 mojo.internal.Struct(TabletModeObserver_OnTabletModeChanged_ParamsSpec.$, 'TabletModeObserver_OnTabletModeChanged_Params', [
     mojo.internal.StructField('isTabletMode', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);

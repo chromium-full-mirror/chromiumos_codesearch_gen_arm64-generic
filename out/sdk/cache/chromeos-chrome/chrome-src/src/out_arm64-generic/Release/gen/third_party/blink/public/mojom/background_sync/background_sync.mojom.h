@@ -320,7 +320,7 @@ class BLINK_COMMON_EXPORT SyncRegistrationOptions {
   template <typename... Args>
   static SyncRegistrationOptionsPtr New(Args&&... args) {
     return SyncRegistrationOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -464,7 +464,7 @@ class BLINK_COMMON_EXPORT BackgroundSyncRegistrationInfo {
   template <typename... Args>
   static BackgroundSyncRegistrationInfoPtr New(Args&&... args) {
     return BackgroundSyncRegistrationInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

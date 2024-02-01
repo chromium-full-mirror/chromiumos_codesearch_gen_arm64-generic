@@ -1,6 +1,6 @@
 import './strings.m.js';
-import { a as assertNotReached, ch as listenOnce, N as NetworkListenerBehavior, W as WebUiListenerMixin, R as RouteObserverMixin, I as I18nMixin, ci as ABOUT_CHROME_OS_SECTION_PATH, m as isRevampWayfindingEnabled, b7 as getInputDeviceSettingsProvider, a4 as MultiDeviceBrowserProxyImpl, j as Router, cj as isAdvancedRoute, ck as NETWORK_SECTION_PATH, cl as BLUETOOTH_SECTION_PATH, cm as MULTI_DEVICE_SECTION_PATH, cn as PEOPLE_SECTION_PATH, co as KERBEROS_SECTION_PATH, cp as DEVICE_SECTION_PATH, cq as PERSONALIZATION_SECTION_PATH, cr as PRIVACY_AND_SECURITY_SECTION_PATH, cs as APPS_SECTION_PATH, ct as ACCESSIBILITY_SECTION_PATH, cu as SYSTEM_PREFERENCES_SECTION_PATH, cv as SEARCH_AND_ASSISTANT_SECTION_PATH, cw as DATE_AND_TIME_SECTION_PATH, cx as LANGUAGES_AND_INPUT_SECTION_PATH, cy as FILES_SECTION_PATH, cz as PRINTING_SECTION_PATH, cA as CROSTINI_SECTION_PATH, cB as RESET_SECTION_PATH, aq as AccountManagerBrowserProxyImpl, _ as assertExists, h as castExists, cC as getDeviceName, ax as MultiDeviceSettingsMode, b8 as FakeInputDeviceSettingsProvider, cD as KeyboardSettingsObserverReceiver, cE as MouseSettingsObserverReceiver, cF as PointingStickSettingsObserverReceiver, cG as TouchpadSettingsObserverReceiver, cH as routesMojom, O as OncMojo, c as assert, D as DeepLinkingMixin, P as PrefsMixin, S as Setting, bd as AudioAndCaptionsPageBrowserProxyImpl, b as routes, d as cast, cI as getDisplayApi, cJ as IronResizableBehavior, ae as DevicePageBrowserProxyImpl, cK as PaperRippleMixin, G as GeolocationAccessLevel, u as focusWithoutInk, cL as getDeviceStateChangesToAnnounce, K as getInstance, cM as CrLinkRowElement, cN as Fkey, cO as ExtendedFkeysModifier, cP as TopRowActionKey, cQ as MetaKey, cR as ModifierKey, cS as SixPackShortcutModifier, cT as SixPackKey, cU as PolicyStatus, i as RouteOriginMixin, n as Section$1, cV as isInputDeviceSettingsSplitEnabled, cW as isExternalStorageEnabled, cX as GraphicsTabletSettingsObserverReceiver, b0 as ACCESSIBILITY_COMMON_IME_ID, cY as Button, cZ as ButtonState, a1 as mojoString16ToString, a5 as getEuicc, a7 as getPendingESimProfiles, c_ as hasActiveCellularNetwork, a2 as CellularSetupPageName, c$ as getESimProfile, d0 as stringToMojoString16, M as CrPolicyNetworkBehaviorMojo, d1 as NetworkConfigElementBehavior, z as I18nBehavior, d2 as assertNotReached$1, E as assert$1, d3 as htmlEscape, r as recordSettingChange, a3 as ESimManagerListenerMixin, Y as InternetPageBrowserProxyImpl, a6 as getSimSlotCount, d4 as isConnectedToNonCellularNetwork, d5 as getNumESimProfiles, aw as MultiDeviceFeature, au as LockStateMixin, aD as recordLockScreenProgress, aE as LockScreenProgress, d6 as LockScreenUnlockType, at as fireAuthTokenInvalidEvent, d7 as PhoneHubPermissionsSetupFlowScreens, d8 as PhoneHubPermissionsSetupAction, d9 as PhoneHubPermissionsSetupFeatureCombination, da as getNearbyShareSettings, db as observeNearbyShareSettings, av as MultiDeviceFeatureMixin, dc as PhoneHubFeatureAccessStatus, a8 as MultiDeviceFeatureState, dd as OsBluetoothDevicesSubpageBrowserProxyImpl, de as ButtonState$1, df as ButtonName, F as FocusRowMixin, dg as DeviceItemState, aJ as CrScrollableMixin, dh as PairingAuthType, di as recordBluetoothUiSurfaceMetrics, dj as BluetoothUiSurface, y as isChild, ar as ParentalControlsBrowserProxyImpl, ab as getImage, as as assertInstanceof, dk as isAccountManagerEnabled, aG as SyncBrowserProxyImpl, dl as AUTH_TOKEN_INVALID_EVENT_TYPE, dm as PrivacyHubNavigationOrigin, dn as shouldShowQuickAnswersSettings, dp as isAssistantAllowed, dq as isGuest, dr as isPowerwashAllowed, ds as shouldShowStartup, dt as getTrustedScriptURL, du as isAboutRoute, dv as AndroidAppsBrowserProxyImpl, A as AboutPageBrowserProxyImpl, dw as isBasicRoute, dx as CrSearchFieldMixin, dy as SectionSpec, dz as SubpageSpec, dA as SettingSpec, s as sanitizeInnerHtml, dB as OpenWindowProxyImpl, dC as recordSearch, a$ as FindShortcutMixin, dD as CrContainerShadowMixin, dE as setGlobalScrollTarget, dF as recordPageFocus, dG as recordPageBlur, dH as recordClick, dI as recordNavigation, dJ as getPrefPolicyFields$1, dK as settingsAreEqual, aF as PluralStringProxyImpl, dL as CustomizationRestriction, dM as SimulateRightClickModifier, dN as recordSavedDevicesUiEventMetrics, dO as FastPairSavedDevicesUiEvent, dP as ColorChangeUpdater } from './shared.rollup.js';
-export { dZ as ApnDetailDialog, aT as AppLanguageSelectionDialogEntryPoint, aX as AppManagementBrowserProxy, aa as AppManagementComponentBrowserProxy, d_ as AppManagementFileHandlingItemElement, el as AppManagementStore, aV as AppManagementStoreMixin, bg as AppManagementSupportedLinksItemElement, d$ as AppManagementToggleRowElement, al as BrowserChannel, ac as ChromeVoxSubpageBrowserProxyImpl, fa as ConfirmationDialogType, ep as ControlledButtonElement, eq as ControlledRadioButtonElement, aC as CrActionMenuElement, az as CrButtonElement, e4 as CrCardRadioButtonElement, e3 as CrCheckboxElement, aA as CrDialogElement, aB as CrIconButtonElement, ay as CrInputElement, ec as CrPolicyIndicatorElement, e5 as CrRadioButtonElement, e6 as CrRadioGroupElement, e7 as CrSearchFieldElement, e8 as CrSearchableDropDownElement, e2 as CrSettingsPrefs, e9 as CrSliderElement, ea as CrTextareaElement, eb as CrToastElement, a9 as CrToggleElement, ed as CrTooltipIconElement, dW as DEFAULT_CHECKED_VALUE, dX as DEFAULT_UNCHECKED_VALUE, an as DeviceNameBrowserProxyImpl, ap as DeviceNameState, dY as ExtensionControlBrowserProxyImpl, er as ExtensionControlledIndicatorElement, f4 as FastPairSavedDevicesOptInStatus, f5 as GoogleDriveBrowserProxy, f6 as GoogleDrivePageCallbackRouter, f7 as GoogleDrivePageHandlerRemote, f8 as GoogleDrivePageRemote, eu as IdleBehavior, en as LacrosExtensionControlBrowserProxyImpl, eo as LacrosExtensionControlledIndicatorElement, ev as LidClosedBehavior, L as LifetimeBrowserProxyImpl, e0 as LocalizedLinkElement, fe as MetricsConsentBrowserProxyImpl, eV as NearbyAccountManagerBrowserProxyImpl, dT as NearbyProgressElement, eW as NearbyShareConfirmPageElement, f0 as NearbyShareDataUsage, eX as NearbyShareHighVisibilityPageElement, ew as NoteAppLockScreenSupport, aU as OneDriveBrowserProxy, fb as OneDrivePageCallbackRouter, fc as OneDrivePageHandlerRemote, fd as OneDrivePageRemote, cf as OsResetBrowserProxyImpl, f3 as OsSettingsAppsPageElement, a_ as OsSettingsSubpageElement, aH as PageStatus, eT as PhoneHubFeatureAccessProhibitedReason, eU as PhoneHubPermissionsSetupMode, f1 as PluginVmBrowserProxyImpl, aQ as PrivacyHubSensorSubpageUserAction, b2 as PrivacyPageBrowserProxyImpl, fm as Route, fj as SearchEnginesBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, ag as SelectToSpeakSubpageBrowserProxyImpl, ao as SetDeviceNameResult, fk as SettingsCardElement, es as SettingsDropdownMenuElement, c8 as SettingsGoogleDriveSubpageElement, e1 as SettingsPrefsElement, fg as SettingsPrivacyHubAppPermissionRow, fh as SettingsPrivacyHubSystemServiceRow, fi as SettingsSearchEngineElement, et as SettingsSliderElement, af as SettingsToggleButtonElement, f9 as Stage, aI as StatusAction, ey as StorageSpaceState, ai as SwitchAccessSubpageBrowserProxyImpl, aj as TextToSpeechSubpageBrowserProxyImpl, ak as TtsVoiceSubpageBrowserProxyImpl, U as UpdateStatus, eN as Vkey, ee as addApp, eP as appNotificationHandlerMojom, eQ as appPermissionHandlerMojom, ef as changeApp, fl as createRouterForTesting, e$ as dataUsageStringToEnum, ez as fakeGraphicsTabletButtonActions, eA as fakeGraphicsTablets, eB as fakeKeyboards, eC as fakeKeyboards2, eD as fakeMice, eE as fakeMice2, eF as fakeMouseButtonActions, eG as fakePointingSticks, eH as fakePointingSticks2, eI as fakeStyluses, eJ as fakeTouchpads, eK as fakeTouchpads2, dQ as getContactManager, eY as getReceiveManager, bb as getShortcutInputProvider, dU as nearbyShareMojom, dR as observeContactManager, eZ as observeReceiveManager, ej as reduceAction, eg as removeApp, em as resetGlobalScrollTargetForTesting, f2 as setAppNotificationProviderForTesting, ff as setAppPermissionProviderForTesting, dS as setContactManagerForTesting, ex as setDisplayApiForTesting, eL as setInputDeviceSettingsProviderForTesting, dV as setNearbyShareSettingsForTesting, e_ as setReceiveManagerForTesting, eO as setUserActionRecorderForTesting, eR as settingMojom, eM as setupFakeInputDeviceSettingsProvider, ek as updateApps, eh as updateSelectedAppId, ei as updateSubAppToParentAppId, eS as userActionRecorderMojom } from './shared.rollup.js';
+import { a as assertNotReached, cj as listenOnce, N as NetworkListenerBehavior, W as WebUiListenerMixin, R as RouteObserverMixin, I as I18nMixin, ck as ABOUT_CHROME_OS_SECTION_PATH, m as isRevampWayfindingEnabled, b7 as getInputDeviceSettingsProvider, a4 as MultiDeviceBrowserProxyImpl, j as Router, cl as isAdvancedRoute, cm as NETWORK_SECTION_PATH, cn as BLUETOOTH_SECTION_PATH, co as MULTI_DEVICE_SECTION_PATH, cp as PEOPLE_SECTION_PATH, cq as KERBEROS_SECTION_PATH, cr as DEVICE_SECTION_PATH, cs as PERSONALIZATION_SECTION_PATH, ct as PRIVACY_AND_SECURITY_SECTION_PATH, cu as APPS_SECTION_PATH, cv as ACCESSIBILITY_SECTION_PATH, cw as SYSTEM_PREFERENCES_SECTION_PATH, cx as SEARCH_AND_ASSISTANT_SECTION_PATH, cy as DATE_AND_TIME_SECTION_PATH, cz as LANGUAGES_AND_INPUT_SECTION_PATH, cA as FILES_SECTION_PATH, cB as PRINTING_SECTION_PATH, cC as CROSTINI_SECTION_PATH, cD as RESET_SECTION_PATH, aq as AccountManagerBrowserProxyImpl, _ as assertExists, h as castExists, cE as getDeviceName, ax as MultiDeviceSettingsMode, b8 as FakeInputDeviceSettingsProvider, cF as KeyboardSettingsObserverReceiver, cG as MouseSettingsObserverReceiver, cH as PointingStickSettingsObserverReceiver, cI as TouchpadSettingsObserverReceiver, cJ as routesMojom, O as OncMojo, c as assert, D as DeepLinkingMixin, P as PrefsMixin, S as Setting, bd as AudioAndCaptionsPageBrowserProxyImpl, b as routes, d as cast, cK as getDisplayApi, cL as IronResizableBehavior, ae as DevicePageBrowserProxyImpl, cM as PaperRippleMixin, G as GeolocationAccessLevel, u as focusWithoutInk, cN as getDeviceStateChangesToAnnounce, K as getInstance, cO as CrLinkRowElement, cP as Fkey, cQ as ExtendedFkeysModifier, cR as TopRowActionKey, cS as MetaKey, cT as ModifierKey, cU as SixPackShortcutModifier, cV as SixPackKey, cW as PolicyStatus, i as RouteOriginMixin, n as Section$1, cX as isInputDeviceSettingsSplitEnabled, cY as isExternalStorageEnabled, cZ as GraphicsTabletSettingsObserverReceiver, b0 as ACCESSIBILITY_COMMON_IME_ID, c_ as Button, c$ as ButtonState, a1 as mojoString16ToString, a5 as getEuicc, a7 as getPendingESimProfiles, d0 as hasActiveCellularNetwork, a2 as CellularSetupPageName, d1 as getESimProfile, d2 as stringToMojoString16, M as CrPolicyNetworkBehaviorMojo, d3 as NetworkConfigElementBehavior, z as I18nBehavior, d4 as assertNotReached$1, E as assert$1, d5 as htmlEscape, r as recordSettingChange, a3 as ESimManagerListenerMixin, Y as InternetPageBrowserProxyImpl, a6 as getSimSlotCount, d6 as isConnectedToNonCellularNetwork, d7 as getNumESimProfiles, aw as MultiDeviceFeature, au as LockStateMixin, aD as recordLockScreenProgress, aE as LockScreenProgress, d8 as LockScreenUnlockType, at as fireAuthTokenInvalidEvent, d9 as PhoneHubPermissionsSetupFlowScreens, da as PhoneHubPermissionsSetupAction, db as PhoneHubPermissionsSetupFeatureCombination, dc as getNearbyShareSettings, dd as observeNearbyShareSettings, av as MultiDeviceFeatureMixin, de as PhoneHubFeatureAccessStatus, a8 as MultiDeviceFeatureState, df as OsBluetoothDevicesSubpageBrowserProxyImpl, dg as ButtonState$1, dh as ButtonName, F as FocusRowMixin, di as DeviceItemState, aJ as CrScrollableMixin, dj as PairingAuthType, dk as recordBluetoothUiSurfaceMetrics, dl as BluetoothUiSurface, y as isChild, ar as ParentalControlsBrowserProxyImpl, ab as getImage, as as assertInstanceof, dm as isAccountManagerEnabled, aG as SyncBrowserProxyImpl, dn as AUTH_TOKEN_INVALID_EVENT_TYPE, dp as PrivacyHubNavigationOrigin, dq as shouldShowQuickAnswersSettings, dr as isAssistantAllowed, ds as shouldShowMultitasking, dt as isGuest, du as isPowerwashAllowed, dv as shouldShowStartup, dw as getTrustedScriptURL, dx as isAboutRoute, dy as AndroidAppsBrowserProxyImpl, A as AboutPageBrowserProxyImpl, dz as isBasicRoute, dA as CrSearchFieldMixin, dB as SectionSpec, dC as SubpageSpec, dD as SettingSpec, s as sanitizeInnerHtml, dE as OpenWindowProxyImpl, dF as recordSearch, a$ as FindShortcutMixin, dG as CrContainerShadowMixin, dH as setGlobalScrollTarget, dI as recordPageFocus, dJ as recordPageBlur, dK as recordClick, dL as recordNavigation, dM as getPrefPolicyFields$1, dN as settingsAreEqual, aF as PluralStringProxyImpl, dO as CustomizationRestriction, dP as SimulateRightClickModifier, dQ as recordSavedDevicesUiEventMetrics, dR as FastPairSavedDevicesUiEvent, dS as ColorChangeUpdater } from './shared.rollup.js';
+export { e0 as ApnDetailDialog, aT as AppLanguageSelectionDialogEntryPoint, aX as AppManagementBrowserProxy, aa as AppManagementComponentBrowserProxy, e1 as AppManagementFileHandlingItemElement, eo as AppManagementStore, aV as AppManagementStoreMixin, bg as AppManagementSupportedLinksItemElement, e2 as AppManagementToggleRowElement, al as BrowserChannel, ac as ChromeVoxSubpageBrowserProxyImpl, fd as ConfirmationDialogType, es as ControlledButtonElement, et as ControlledRadioButtonElement, aC as CrActionMenuElement, az as CrButtonElement, e7 as CrCardRadioButtonElement, e6 as CrCheckboxElement, aA as CrDialogElement, aB as CrIconButtonElement, ay as CrInputElement, ef as CrPolicyIndicatorElement, e8 as CrRadioButtonElement, e9 as CrRadioGroupElement, ea as CrSearchFieldElement, eb as CrSearchableDropDownElement, e5 as CrSettingsPrefs, ec as CrSliderElement, ed as CrTextareaElement, ee as CrToastElement, a9 as CrToggleElement, eg as CrTooltipIconElement, dZ as DEFAULT_CHECKED_VALUE, d_ as DEFAULT_UNCHECKED_VALUE, an as DeviceNameBrowserProxyImpl, ap as DeviceNameState, d$ as ExtensionControlBrowserProxyImpl, eu as ExtensionControlledIndicatorElement, f7 as FastPairSavedDevicesOptInStatus, f8 as GoogleDriveBrowserProxy, f9 as GoogleDrivePageCallbackRouter, fa as GoogleDrivePageHandlerRemote, fb as GoogleDrivePageRemote, ex as IdleBehavior, eq as LacrosExtensionControlBrowserProxyImpl, er as LacrosExtensionControlledIndicatorElement, ey as LidClosedBehavior, L as LifetimeBrowserProxyImpl, e3 as LocalizedLinkElement, fh as MetricsConsentBrowserProxyImpl, eY as NearbyAccountManagerBrowserProxyImpl, dW as NearbyProgressElement, eZ as NearbyShareConfirmPageElement, f3 as NearbyShareDataUsage, e_ as NearbyShareHighVisibilityPageElement, ez as NoteAppLockScreenSupport, aU as OneDriveBrowserProxy, fe as OneDrivePageCallbackRouter, ff as OneDrivePageHandlerRemote, fg as OneDrivePageRemote, cg as OsResetBrowserProxyImpl, f6 as OsSettingsAppsPageElement, a_ as OsSettingsSubpageElement, aH as PageStatus, eW as PhoneHubFeatureAccessProhibitedReason, eX as PhoneHubPermissionsSetupMode, f4 as PluginVmBrowserProxyImpl, aQ as PrivacyHubSensorSubpageUserAction, b2 as PrivacyPageBrowserProxyImpl, fp as Route, fm as SearchEnginesBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, ag as SelectToSpeakSubpageBrowserProxyImpl, ao as SetDeviceNameResult, fn as SettingsCardElement, ev as SettingsDropdownMenuElement, c9 as SettingsGoogleDriveSubpageElement, e4 as SettingsPrefsElement, fj as SettingsPrivacyHubAppPermissionRow, fk as SettingsPrivacyHubSystemServiceRow, fl as SettingsSearchEngineElement, ew as SettingsSliderElement, af as SettingsToggleButtonElement, fc as Stage, aI as StatusAction, eB as StorageSpaceState, ai as SwitchAccessSubpageBrowserProxyImpl, aj as TextToSpeechSubpageBrowserProxyImpl, ak as TtsVoiceSubpageBrowserProxyImpl, U as UpdateStatus, eQ as Vkey, eh as addApp, eS as appNotificationHandlerMojom, eT as appPermissionHandlerMojom, ei as changeApp, fo as createRouterForTesting, f2 as dataUsageStringToEnum, eC as fakeGraphicsTabletButtonActions, eD as fakeGraphicsTablets, eE as fakeKeyboards, eF as fakeKeyboards2, eG as fakeMice, eH as fakeMice2, eI as fakeMouseButtonActions, eJ as fakePointingSticks, eK as fakePointingSticks2, eL as fakeStyluses, eM as fakeTouchpads, eN as fakeTouchpads2, dT as getContactManager, e$ as getReceiveManager, bb as getShortcutInputProvider, dX as nearbyShareMojom, dU as observeContactManager, f0 as observeReceiveManager, em as reduceAction, ej as removeApp, ep as resetGlobalScrollTargetForTesting, f5 as setAppNotificationProviderForTesting, fi as setAppPermissionProviderForTesting, dV as setContactManagerForTesting, eA as setDisplayApiForTesting, eO as setInputDeviceSettingsProviderForTesting, dY as setNearbyShareSettingsForTesting, f1 as setReceiveManagerForTesting, eR as setUserActionRecorderForTesting, eU as settingMojom, eP as setupFakeInputDeviceSettingsProvider, en as updateApps, ek as updateSelectedAppId, el as updateSubAppToParentAppId, eV as userActionRecorderMojom } from './shared.rollup.js';
 import { html, PolymerElement, mixinBehaviors, dedupingMixin, flush, afterNextRender, Polymer, beforeNextRender, templatize, microTask, Debouncer, timeOut } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getBluetoothConfig } from 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
 import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network/mojo_interface_provider.js';
@@ -24,7 +24,7 @@ import 'chrome://resources/cr_components/app_management/app_management.mojom-web
 import 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_target_types.mojom-webui.js';
 import 'chrome://resources/mojo/services/network/public/mojom/ip_address.mojom-webui.js';
 
-function getTemplate$1x() {
+function getTemplate$1y() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);font:var(--cr-drawer-header-font,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
     <dialog id="dialog" on-cancel="onDialogCancel_" on-click="onDialogClick_" on-close="onDialogClose_">
       <div id="container" on-click="onContainerClick_">
@@ -51,7 +51,7 @@ class CrDrawerElement extends PolymerElement {
         return 'cr-drawer';
     }
     static get template() {
-        return getTemplate$1x();
+        return getTemplate$1y();
     }
     static get properties() {
         return {
@@ -159,7 +159,7 @@ styleMod.appendChild(html `
 `.content);
 styleMod.register('cr-page-host-style');
 
-function getTemplate$1w() {
+function getTemplate$1x() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--tap-target-padding:3px;align-items:center;background:0 0;border-color:transparent;border-style:solid;border-width:var(--settings-menu-item-border-width);color:var(--cros-text-color-primary);display:flex;flex-direction:row;font:var(--cros-button-1-font);text-decoration:none}:host-context(body:not(.revamp-wayfinding-enabled)):host{border-end-end-radius:20px;border-start-end-radius:20px;border-inline-start-width:0;min-height:32px;padding:var(--tap-target-padding) 0;padding-inline-start:20px}:host-context(body.revamp-wayfinding-enabled):host{border-radius:16px;box-sizing:border-box;height:60px;padding-inline-start:calc(12px - var(--settings-menu-item-border-width));padding-inline-end:calc(12px - var(--settings-menu-item-border-width));width:var(--settings-menu-item-width)}#labelWrapper{flex-grow:1;max-width:200px}#label,#sublabel{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#sublabel{color:var(--cros-sys-on_surface_variant);font:var(--cros-body-2-font)}iron-icon{pointer-events:none}:host-context(body:not(.revamp-wayfinding-enabled)) iron-icon{margin-inline-end:16px}:host-context(body.revamp-wayfinding-enabled) iron-icon{margin-inline-end:12px}:host-context(body.revamp-wayfinding-enabled):host(:not(.iron-selected)) iron-icon{--iron-icon-fill-color:var(--cros-sys-primary)}:host(:not(.iron-selected):hover){background-color:var(--cros-sys-hover_on_subtle)!important}:host-context(.focus-outline-visible):host(:focus){border-color:var(--cros-focus-ring-color)}:host(.iron-selected){background-color:var(--cros-sys-primary)!important;color:var(--cros-sys-on_primary)}:host(.iron-selected)>iron-icon{--iron-icon-fill-color:var(--cros-sys-on_primary)}:host(.iron-selected) #sublabel{color:var(--cros-sys-surface_variant)}</style>
 
 <iron-icon icon="[[icon]]" hidden="[[!icon]]"></iron-icon>
@@ -183,7 +183,7 @@ class OsSettingsMenuItemElement extends PolymerElement {
         return 'os-settings-menu-item';
     }
     static get template() {
-        return getTemplate$1w();
+        return getTemplate$1x();
     }
     static get properties() {
         return {
@@ -228,7 +228,7 @@ class OsSettingsMenuItemElement extends PolymerElement {
 }
 customElements.define(OsSettingsMenuItemElement.is, OsSettingsMenuItemElement);
 
-function getTemplate$1v() {
+function getTemplate$1w() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{box-sizing:border-box;display:block;padding-bottom:2px;padding-top:8px;width:var(--settings-menu-width)}:host-context(body.revamp-wayfinding-enabled):host{padding-inline-end:var(--settings-menu-padding-inline-end);padding-inline-start:var(--settings-menu-padding-inline-start);padding-top:var(--settings-menu-padding-top)}:host *{-webkit-tap-highlight-color:transparent}[selectable]>:focus{background-color:transparent}#advancedButton{--ink-color:var(--cros-text-color-primary);align-items:center;background:0 0;border:none;border-radius:initial;box-shadow:none;color:var(--cros-text-color-primary);display:flex;font:var(--cros-button-1-font);height:unset;margin-inline-end:2px;margin-top:8px;padding-inline-end:0;padding-inline-start:20px;text-transform:none}#advancedButton:focus{outline:0}:host-context(.focus-outline-visible) #advancedButton:focus{border-radius:0 20px 20px 0;outline:var(--settings-menu-item-border-width) solid var(--cros-focus-ring-color)}:host-context([dir=rtl]):host-context(.focus-outline-visible) #advancedButton:focus{border-radius:20px 0 0 20px}#advancedButton>span{flex:1}#advancedButton>iron-icon{height:var(--cr-icon-size);margin-inline-end:14px;width:var(--cr-icon-size)}#menuSeparator{border-bottom:var(--cr-separator-line);margin-bottom:8px;margin-top:8px}#topMenu>os-settings-menu-item{margin-bottom:8px}:host-context(body:not(.revamp-wayfinding-enabled)) #topMenu>os-settings-menu-item{margin-inline-end:2px}:host-context(body:not(.revamp-wayfinding-enabled)) #advancedSubmenu>os-settings-menu-item{margin-bottom:8px;margin-inline-end:2px}#topMenu>os-settings-menu-item:last-of-type{margin-bottom:calc(48px - calc(var(--tap-target-padding) + var(--settings-menu-item-border-width)))}</style>
 <iron-selector id="topMenu" role="navigation" selectable="os-settings-menu-item" attr-for-selected="path" selected="[[selectedItemPath_]]" on-iron-activate="onItemActivated_" on-iron-select="onItemSelected_" on-iron-deselect="onItemDeselected_">
   <template id="topMenuRepeat" is="dom-repeat" items="[[basicMenuItems_]]">
@@ -310,7 +310,7 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
         return 'os-settings-menu';
     }
     static get template() {
-        return getTemplate$1v();
+        return getTemplate$1w();
     }
     static get properties() {
         return {
@@ -932,7 +932,7 @@ class OsSettingsMenuElement extends OsSettingsMenuElementBase {
 }
 customElements.define(OsSettingsMenuElement.is, OsSettingsMenuElement);
 
-function getTemplate$1u() {
+function getTemplate$1v() {
     return html `<!--_html_template_start_-->    <style>:host{align-items:center;border-top:1px solid var(--cr-separator-color);color:var(--cr-secondary-text-color);display:none;font-size:.8125rem;justify-content:center;padding:0 24px}:host([is-managed_]){display:flex}a[href]{color:var(--cr-link-color)}iron-icon{align-self:flex-start;flex-shrink:0;height:20px;padding-inline-end:var(--managed-footnote-icon-padding,8px);width:20px}</style>
 
     <template is="dom-if" if="[[isManaged_]]">
@@ -960,7 +960,7 @@ class ManagedFootnoteElement extends ManagedFootnoteElementBase {
         return 'managed-footnote';
     }
     static get template() {
-        return getTemplate$1u();
+        return getTemplate$1v();
     }
     static get properties() {
         return {
@@ -1372,7 +1372,7 @@ var cros_audio_config_mojomWebui = /*#__PURE__*/Object.freeze({
     MuteStateSpec: MuteStateSpec
 });
 
-function getTemplate$1t() {
+function getTemplate$1u() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select">.audio-mute-button{margin-inline-end:8px}.audio-mute-button[disabled]{background-color:transparent;pointer-events:auto}.audio-options-container{align-items:center;display:flex;flex-direction:row}.audio-slider{margin-inline-end:16px;padding:0;width:142px}h2{padding-inline-start:var(--cr-section-padding)}.settings-box:first-of-type{border-top:none}.subsection{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.subsection>.settings-box,.subsection>settings-toggle-button{padding-inline-end:0;padding-inline-start:0}:host([is-output-muted_]) #outputVolumeSlider{--cr-slider-active-color:var(--cros-slider-color-inactive);--cr-slider-container-color:var(--cros-slider-track-color-inactive);--cr-slider-knob-color-rgb:var(--cros-color-primary-rgb)}:host([is-output-muted_]) #audioOutputMuteButton{--cr-icon-button-fill-color:var(--cros-color-secondary)}:host(:not([is-output-muted_])) #audioOutputMuteButton{--cr-icon-button-fill-color:var(--cros-color-prominent)}:host([is-input-muted_]) #audioInputGainVolumeSlider{--cr-slider-active-color:var(--cros-slider-color-inactive);--cr-slider-container-color:var(--cros-slider-track-color-inactive);--cr-slider-knob-color-rgb:var(--cros-color-primary-rgb)}:host([is-input-muted_]) #audioInputGainMuteButton{--cr-icon-button-fill-color:var(--cros-color-secondary)}:host(:not([is-input-muted_])) #audioInputGainMuteButton{--cr-icon-button-fill-color:var(--cros-color-prominent)}paper-tooltip{--paper-tooltip-min-width:max-content}</style>
 
 
@@ -1758,7 +1758,7 @@ class SettingsAudioElement extends SettingsAudioElementBase {
         return 'settings-audio';
     }
     static get template() {
-        return getTemplate$1t();
+        return getTemplate$1u();
     }
     static get properties() {
         return {
@@ -2042,7 +2042,7 @@ class SettingsAudioElement extends SettingsAudioElementBase {
 }
 customElements.define(SettingsAudioElement.is, SettingsAudioElement);
 
-function getTemplate$1s() {
+function getTemplate$1t() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator,.tab-indicator-background{bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0)}.tab-indicator{border-top-left-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));border-top-right-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));opacity:0;transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}.tab-indicator-background{background:var(--cr-tabs-unselected-color,var(--google-blue-600));opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);z-index:-1}@media (prefers-color-scheme:dark){.tab-indicator-background{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
 
     <template is="dom-repeat" items="[[tabNames]]">
@@ -2087,7 +2087,7 @@ class CrTabsElement extends PolymerElement {
         return 'cr-tabs';
     }
     static get template() {
-        return getTemplate$1s();
+        return getTemplate$1t();
     }
     static get properties() {
         return {
@@ -2273,7 +2273,7 @@ const template$1 = html`
 template$1.setAttribute('style', 'display: none;');
 document.head.appendChild(template$1.content);
 
-function getTemplate$1r() {
+function getTemplate$1s() {
     return html `<!--_html_template_start_--><style include="settings-shared">#displayArea{height:100%;overflow:hidden;position:relative;width:100%}.display{align-items:center;background:var(--cros-textfield-background-color);color:var(--cros-text-color-secondary);cursor:default;display:flex;font-size:100%;font-weight:500;justify-content:center;margin:4px;padding:3px;position:absolute;text-align:center}.display[selected]{border:var(--cros-icon-color-prominent) solid 1px}.display.mirror{border:var(--cros-icon-color-prominent) solid 1px}.highlight-left{border-left:var(--cros-icon-color-prominent) solid 1px}.highlight-right{border-right:var(--cros-icon-color-prominent) solid 1px}.highlight-top{border-top:var(--cros-icon-color-prominent) solid 1px}.highlight-bottom{border-bottom:var(--cros-icon-color-prominent) solid 1px}.display.elevate{box-shadow:var(--cr-elevation-3)}</style>
 <div id="displayArea" on-iron-resize="calculateVisualScale_">
   <template is="dom-repeat" items="[[mirroringDestinationIds_]]">
@@ -3151,7 +3151,7 @@ class DisplayLayoutElement extends DisplayLayoutElementBase {
         return 'display-layout';
     }
     static get template() {
-        return getTemplate$1r();
+        return getTemplate$1s();
     }
     static get properties() {
         return {
@@ -3361,7 +3361,7 @@ class DisplayLayoutElement extends DisplayLayoutElementBase {
 }
 customElements.define(DisplayLayoutElement.is, DisplayLayoutElement);
 
-function getTemplate$1q() {
+function getTemplate$1r() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">.subtitle{color:var(--cros-text-color-secondary);margin-top:10px}.instructions{color:var(--cros-text-color-secondary);margin-top:4px}.details{margin:40px}.label{margin-top:15px}iron-icon{--iron-icon-fill-color:var(--cros-icon-color-primary);--iron-icon-height:18px;--iron-icon-width:18px;background:var(--cros-bg-color-dropped-elevation-2);border-radius:2px;margin:5px;padding:4px}#move{align-items:center;display:flex;flex-direction:row}#move>div{color:var(--cros-text-color-secondary);flex:0 0 auto}#move>div:not(:first-child){margin-inline-start:8px}#move>div:not(:last-child){margin-inline-end:8px}#move>div.shift{background:var(--cros-bg-color-dropped-elevation-2);border-radius:2px;color:var(--cros-text-color-primary);font-size:100%;padding:7px 8px}</style>
 <cr-dialog id="dialog" on-close="close" close-text="$i18n{close}">
   <div slot="title">$i18n{displayOverscanPageTitle}</div>
@@ -3419,7 +3419,7 @@ class SettingsDisplayOverscanDialogElement extends PolymerElement {
         return 'settings-display-overscan-dialog';
     }
     static get template() {
-        return getTemplate$1q();
+        return getTemplate$1r();
     }
     static get properties() {
         return {
@@ -3547,7 +3547,7 @@ class SettingsDisplayOverscanDialogElement extends PolymerElement {
 }
 customElements.define(SettingsDisplayOverscanDialogElement.is, SettingsDisplayOverscanDialogElement);
 
-function getTemplate$1p() {
+function getTemplate$1q() {
     return html `<!--_html_template_start_--><style>:host{cursor:default;font-weight:500;text-align:center;user-select:none}#sliderContainer{display:inline-block;position:relative;user-select:none;width:100%}#sliderBar{background-color:rgba(var(--cros-button-background-color-primary-rgb),.24);background-size:100%;display:inline-block;height:2px;position:relative;width:inherit}.knob{height:32px;margin-inline-start:-16px;margin-top:-15px;position:absolute;width:32px;z-index:3}.knob:focus{outline:0}.knob-inner{background:var(--cros-button-background-color-primary);border-radius:6px;height:10px;left:0;margin:11px;position:absolute;width:10px;z-index:3}.knob-inner:focus{outline:0}#progressContainer{height:100%;overflow:hidden;position:absolute;width:100%}.progress{background:var(--cros-button-background-color-primary);height:100%;position:absolute;z-index:1}#labelContainer{height:1.75em}.label{background:var(--cros-button-background-color-primary);border-radius:14px;color:var(--cros-bg-color);font-size:12px;left:0;line-height:1.5em;margin-inline-start:-2.5em;position:absolute;text-align:center;transition:margin-top .2s cubic-bezier(0,0,.2,1);vertical-align:middle;width:5em}.end-label-overlap{margin-top:-2em}#markersContainer{display:flex;height:100%;left:0;position:absolute;width:100%}.active-marker,.inactive-marker{border-radius:50%;display:block;height:100%;margin-inline-start:-1px;padding:0;position:absolute;width:2PX;z-index:2}.active-marker{background-color:rgba(var(--cros-bg-color-rgb),.6)}.inactive-marker{--background-color-opacity:0.6;background-color:rgba(var(--cros-button-background-color-primary-rgb),var(--background-color-opacity))}@media(prefers-color-scheme:dark){.inactive-marker{--background-color-opacity:1}}#legendContainer{height:10px;margin-bottom:40px;position:relative;width:inherit}#legendContainer>div{color:var(--cros-text-color-secondary);font-size:12px;margin-inline-start:-2.5em;position:absolute;text-align:center;top:5px;width:5em}paper-ripple{color:var(--cros-button-background-color-primary)}</style>
 <div id="sliderContainer">
   <div id="labelContainer">
@@ -3633,7 +3633,7 @@ class SettingsSchedulerSliderElement extends SettingsSchedulerSliderElementBase 
         return 'settings-scheduler-slider';
     }
     static get template() {
-        return getTemplate$1p();
+        return getTemplate$1q();
     }
     static get properties() {
         return {
@@ -4197,6 +4197,15 @@ var DisplaySettingsType;
     DisplaySettingsType[DisplaySettingsType["kUnifiedMode"] = 9] = "kUnifiedMode";
     DisplaySettingsType[DisplaySettingsType["kPrimaryDisplay"] = 10] = "kPrimaryDisplay";
 })(DisplaySettingsType || (DisplaySettingsType = {}));
+const DisplaySettingsNightLightScheduleOptionSpec = { $: mojo.internal.Enum() };
+var DisplaySettingsNightLightScheduleOption;
+(function (DisplaySettingsNightLightScheduleOption) {
+    DisplaySettingsNightLightScheduleOption[DisplaySettingsNightLightScheduleOption["MIN_VALUE"] = 0] = "MIN_VALUE";
+    DisplaySettingsNightLightScheduleOption[DisplaySettingsNightLightScheduleOption["MAX_VALUE"] = 2] = "MAX_VALUE";
+    DisplaySettingsNightLightScheduleOption[DisplaySettingsNightLightScheduleOption["kNever"] = 0] = "kNever";
+    DisplaySettingsNightLightScheduleOption[DisplaySettingsNightLightScheduleOption["kSunsetToSunrise"] = 1] = "kSunsetToSunrise";
+    DisplaySettingsNightLightScheduleOption[DisplaySettingsNightLightScheduleOption["kCustom"] = 2] = "kCustom";
+})(DisplaySettingsNightLightScheduleOption || (DisplaySettingsNightLightScheduleOption = {}));
 const DisplaySettingsOrientationOptionSpec = { $: mojo.internal.Enum() };
 var DisplaySettingsOrientationOption;
 (function (DisplaySettingsOrientationOption) {
@@ -4479,7 +4488,25 @@ mojo.internal.Struct(DisplaySettingsValueSpec.$, 'DisplaySettingsValue', [
         isPrimary: false,
         originalFieldName: "orientation",
     }),
-], [[0, 24],]);
+    mojo.internal.StructField('night_light_status_$flag', 0, 4, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "night_light_status_$value",
+        originalFieldName: "nightLightStatus",
+    }),
+    mojo.internal.StructField('night_light_status_$value', 0, 5, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "nightLightStatus",
+    }),
+    mojo.internal.StructField('night_light_schedule_$flag', 0, 6, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "night_light_schedule_$value",
+        originalFieldName: "nightLightSchedule",
+    }),
+    mojo.internal.StructField('night_light_schedule_$value', 16, 0, DisplaySettingsNightLightScheduleOptionSpec.$, 0, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "nightLightSchedule",
+    }),
+], [[0, 32],]);
 mojo.internal.Struct(TabletModeObserver_OnTabletModeChanged_ParamsSpec.$, 'TabletModeObserver_OnTabletModeChanged_Params', [
     mojo.internal.StructField('isTabletMode', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
@@ -4506,6 +4533,8 @@ var display_settings_provider_mojomWebui = /*#__PURE__*/Object.freeze({
     DisplayConfigurationObserverReceiver: DisplayConfigurationObserverReceiver,
     DisplayConfigurationObserverRemote: DisplayConfigurationObserverRemote,
     DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec: DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec,
+    get DisplaySettingsNightLightScheduleOption () { return DisplaySettingsNightLightScheduleOption; },
+    DisplaySettingsNightLightScheduleOptionSpec: DisplaySettingsNightLightScheduleOptionSpec,
     get DisplaySettingsOrientationOption () { return DisplaySettingsOrientationOption; },
     DisplaySettingsOrientationOptionSpec: DisplaySettingsOrientationOptionSpec,
     DisplaySettingsProvider: DisplaySettingsProvider,
@@ -4528,7 +4557,7 @@ var display_settings_provider_mojomWebui = /*#__PURE__*/Object.freeze({
     TabletModeObserver_OnTabletModeChanged_ParamsSpec: TabletModeObserver_OnTabletModeChanged_ParamsSpec
 });
 
-function getTemplate$1o() {
+function getTemplate$1p() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex
   iron-flex-alignment">.indented{align-self:stretch;margin-inline-start:var(--cr-section-indent-padding);padding:0}#nightLightTemperatureDiv[disabled]{opacity:.38;pointer-events:none}#NightLightLabelDiv{align-self:start}.text-area{margin:10px 0}#nightLightSlider{flex-grow:1;margin-top:20px}#nightLightDropDownDiv{width:200px;text-align:right;margin-top:8px}iron-collapse{width:100%}</style>
 
@@ -4632,7 +4661,7 @@ class SettingsDisplayNightLightElement extends SettingsDisplayNightLightElementB
         return 'settings-display-night-light';
     }
     static get template() {
-        return getTemplate$1o();
+        return getTemplate$1p();
     }
     static get properties() {
         return {
@@ -4720,19 +4749,23 @@ class SettingsDisplayNightLightElement extends SettingsDisplayNightLightElementB
         // undefined.
         if (this.currentScheduleType !== scheduleType &&
             this.currentScheduleType !== undefined) {
-            this.recordNightLightSettingsMetrics(DisplaySettingsType.kNightLightSchedule, this.isInternalDisplay);
+            this.recordChangingNightLightSchedule(this.isInternalDisplay, scheduleType);
         }
         if (this.currentNightLightStatus !== nightLightStatus &&
             this.currentNightLightStatus !== undefined) {
-            this.recordNightLightSettingsMetrics(DisplaySettingsType.kNightLight, this.isInternalDisplay);
+            this.recordTogglingNightLightStatus(this.isInternalDisplay, nightLightStatus);
         }
         // Updates current schedule type and night light status.
         this.currentScheduleType = scheduleType;
         this.currentNightLightStatus = nightLightStatus;
     }
-    // Records metrics when users change the night light settings.
-    recordNightLightSettingsMetrics(displaySettingsType, isInternalDisplay) {
-        this.displaySettingsProvider.recordChangingDisplaySettings(displaySettingsType, { isInternalDisplay });
+    // Records metrics when users change the night light schedule.
+    recordChangingNightLightSchedule(isInternalDisplay, nightLightSchedule) {
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kNightLightSchedule, { isInternalDisplay, nightLightSchedule });
+    }
+    // Records metrics when users toggle the night light status.
+    recordTogglingNightLightStatus(isInternalDisplay, nightLightStatus) {
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kNightLight, { isInternalDisplay, nightLightStatus });
     }
     computeShouldShowGeolocationWarningText_() {
         const scheduleType = this.prefs.ash.night_light.schedule_type.value;
@@ -4749,7 +4782,7 @@ class SettingsDisplayNightLightElement extends SettingsDisplayNightLightElementB
 }
 customElements.define(SettingsDisplayNightLightElement.is, SettingsDisplayNightLightElement);
 
-function getTemplate$1n() {
+function getTemplate$1o() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared md-select iron-flex
   iron-flex-alignment">.indented{align-self:stretch;margin-inline-start:var(--cr-section-indent-padding);padding:0}.display-tabs{width:100%}display-layout{align-self:stretch;flex:1 1 auto;height:300px;margin:10px;min-height:300px}.text-area{margin:10px 0}.settings-box>cr-button:first-child{padding-inline-start:0}.settings-box>cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}.underbar{border-bottom:var(--cr-separator-line)}#controlsDiv>.settings-box:first-of-type{border-top:none}#mirrorDisplayToggleButton{display:flex;align-self:stretch;margin-bottom:20px}</style>
 
@@ -4960,7 +4993,7 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
         return 'settings-display';
     }
     static get template() {
-        return getTemplate$1n();
+        return getTemplate$1o();
     }
     static get properties() {
         return {
@@ -6013,7 +6046,7 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
 }
 customElements.define(SettingsDisplayElement.is, SettingsDisplayElement);
 
-function getTemplate$1m() {
+function getTemplate$1n() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#header{display:flex;height:24px;padding:12px 0}.subsection{margin-bottom:0;margin-top:8px}#description{color:var(--cr-secondary-text-color);margin-inline-start:20px}</style>
 <template is="dom-repeat" items="[[graphicsTablets]]" as="graphicsTablet" index-as="index" restamp>
     <div class="device" data-evdev-id$="[[graphicsTablet.id]]">
@@ -6045,7 +6078,7 @@ class SettingsGraphicsTabletSubpageElement extends SettingsGraphicsTabletSubpage
         return 'settings-graphics-tablet-subpage';
     }
     static get template() {
-        return getTemplate$1m();
+        return getTemplate$1n();
     }
     static get properties() {
         return {
@@ -6094,7 +6127,7 @@ class SettingsGraphicsTabletSubpageElement extends SettingsGraphicsTabletSubpage
 }
 customElements.define(SettingsGraphicsTabletSubpageElement.is, SettingsGraphicsTabletSubpageElement);
 
-function getTemplate$1l() {
+function getTemplate$1m() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared"></style>
 <template is="dom-if" if="[[!hasKeyboards(keyboards.length)]]">
   <div id="noKeyboardsConnectedContainer" class="settings-box start first">
@@ -6185,7 +6218,7 @@ class SettingsPerDeviceKeyboardElement extends SettingsPerDeviceKeyboardElementB
         return 'settings-per-device-keyboard';
     }
     static get template() {
-        return getTemplate$1l();
+        return getTemplate$1m();
     }
     static get properties() {
         return {
@@ -6292,7 +6325,7 @@ class SettingsPerDeviceKeyboardElement extends SettingsPerDeviceKeyboardElementB
 }
 customElements.define(SettingsPerDeviceKeyboardElement.is, SettingsPerDeviceKeyboardElement);
 
-function getTemplate$1k() {
+function getTemplate$1l() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">.settings-box{justify-content:space-between;padding-inline-start:0}</style>
 
 <div class="settings-box" id="fkeyRow">
@@ -6377,7 +6410,7 @@ class FkeyRowElement extends FkeyRowElementBase {
         return 'fkey-row';
     }
     static get template() {
-        return getTemplate$1k();
+        return getTemplate$1l();
     }
     static get properties() {
         return {
@@ -6445,7 +6478,7 @@ class FkeyRowElement extends FkeyRowElementBase {
 }
 customElements.define(FkeyRowElement.is, FkeyRowElement);
 
-function getTemplate$1j() {
+function getTemplate$1k() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#header{display:flex}:host([key-state=default-remapping]) .key-container{background-color:var(--cros-bg-color-dropped-elevation-1);border:none;box-shadow:0 1px 1px var(--cros-bg-color-dropped-elevation-1)}:host([key-state=modifier-remapped]) .key-container{background-color:var(--cros-sys-highlight_shape);border:none;box-shadow:0 1px 1px var(--cros-sys-highlight_shape)}.settings-box{justify-content:space-between;padding-inline-start:0}iron-icon{--iron-icon-fill-color:var(--cros-icon-color-secondary);--iron-icon-height:20px;--iron-icon-width:20px;align-self:center;justify-self:center}:host([remove-top-border]) .settings-box{border-top:none}</style>
 <div class="settings-box">
   <div>
@@ -6534,7 +6567,7 @@ class KeyboardRemapModifierKeyRowElement extends KeyboardRemapModifierKeyRowElem
         this.setUpKeyMapTargets();
     }
     static get template() {
-        return getTemplate$1j();
+        return getTemplate$1k();
     }
     /**
      * Whenever the key remapping is changed, update the keyState to change
@@ -6646,7 +6679,7 @@ class KeyboardRemapModifierKeyRowElement extends KeyboardRemapModifierKeyRowElem
 }
 customElements.define(KeyboardRemapModifierKeyRowElement.is, KeyboardRemapModifierKeyRowElement);
 
-function getTemplate$1i() {
+function getTemplate$1j() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">.settings-box{justify-content:space-between;padding-inline-start:0}</style>
 <div class="settings-box" id="sixPackKeyRow">
   <div>
@@ -6759,7 +6792,7 @@ class KeyboardSixPackKeyRowElement extends PolymerElement {
         return 'keyboard-six-pack-key-row';
     }
     static get template() {
-        return getTemplate$1i();
+        return getTemplate$1j();
     }
     static get properties() {
         return {
@@ -6787,7 +6820,7 @@ class KeyboardSixPackKeyRowElement extends PolymerElement {
 }
 customElements.define(KeyboardSixPackKeyRowElement.is, KeyboardSixPackKeyRowElement);
 
-function getTemplate$1h() {
+function getTemplate$1i() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#header{display:flex;height:24px;margin-top:12px}.subsection{margin-bottom:0}#description{color:var(--cr-secondary-text-color);font:var(--cros-button-2-font);margin-inline-start:20px}.subsection-header{color:var(--cr-secondary-text-color);font:var(--cros-body-2-font);height:24px;margin:12px 0;padding-inline-start:0}#modifierKeysHeader{margin-bottom:0}</style>
 <div id="header">
   <div id="description">[[computeKeyboardKeysDescription(keyboard.*)]]</div>
@@ -6908,7 +6941,7 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
         return 'settings-per-device-keyboard-remap-keys';
     }
     static get template() {
-        return getTemplate$1h();
+        return getTemplate$1i();
     }
     static get properties() {
         return {
@@ -7436,7 +7469,7 @@ class SettingsPerDeviceKeyboardRemapKeysElement extends SettingsPerDeviceKeyboar
 }
 customElements.define(SettingsPerDeviceKeyboardRemapKeysElement.is, SettingsPerDeviceKeyboardRemapKeysElement);
 
-function getTemplate$1g() {
+function getTemplate$1h() {
     return html `<!--_html_template_start_--><template is="dom-repeat" items="[[mice]]" as="mouse" index-as="index" restamp>
   <settings-per-device-mouse-subsection mouse="[[mouse]]" mouse-policies="[[mousePolicies]]" mouse-index="[[index]]" is-last-device="[[computeIsLastDevice(index, mice.length)]]">
   </settings-per-device-mouse-subsection>
@@ -7458,7 +7491,7 @@ class SettingsPerDeviceMouseElement extends SettingsPerDeviceMouseElementBase {
         return 'settings-per-device-mouse';
     }
     static get template() {
-        return getTemplate$1g();
+        return getTemplate$1h();
     }
     static get properties() {
         return {
@@ -7492,7 +7525,7 @@ class SettingsPerDeviceMouseElement extends SettingsPerDeviceMouseElementBase {
 }
 customElements.define(SettingsPerDeviceMouseElement.is, SettingsPerDeviceMouseElement);
 
-function getTemplate$1f() {
+function getTemplate$1g() {
     return html `<!--_html_template_start_--><template is="dom-repeat" items="[[pointingSticks]]" as="pointingStick" index-as="index" restamp>
   <settings-per-device-pointing-stick-subsection pointing-stick="[[pointingStick]]" pointing-stick-index="[[index]]" is-last-device="[[computeIsLastDevice(index, pointingSticks.length)]]">
   </settings-per-device-pointing-stick-subsection>
@@ -7514,7 +7547,7 @@ class SettingsPerDevicePointingStickElement extends SettingsPerDevicePointingSti
         return 'settings-per-device-pointing-stick';
     }
     static get template() {
-        return getTemplate$1f();
+        return getTemplate$1g();
     }
     static get properties() {
         return {
@@ -7545,7 +7578,7 @@ class SettingsPerDevicePointingStickElement extends SettingsPerDevicePointingSti
 }
 customElements.define(SettingsPerDevicePointingStickElement.is, SettingsPerDevicePointingStickElement);
 
-function getTemplate$1e() {
+function getTemplate$1f() {
     return html `<!--_html_template_start_--><template is="dom-repeat" items="[[touchpads]]" as="touchpad" index-as="index" restamp>
   <settings-per-device-touchpad-subsection touchpad="[[touchpad]]" touchpad-index="[[index]]" is-last-device="[[computeIsLastDevice(index, touchpads.length)]]">
   </settings-per-device-touchpad-subsection>
@@ -7567,7 +7600,7 @@ class SettingsPerDeviceTouchpadElement extends SettingsPerDeviceTouchpadElementB
         return 'settings-per-device-touchpad';
     }
     static get template() {
-        return getTemplate$1e();
+        return getTemplate$1f();
     }
     static get properties() {
         return {
@@ -7598,7 +7631,7 @@ class SettingsPerDeviceTouchpadElement extends SettingsPerDeviceTouchpadElementB
 }
 customElements.define(SettingsPerDeviceTouchpadElement.is, SettingsPerDeviceTouchpadElement);
 
-function getTemplate$1d() {
+function getTemplate$1e() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-link-row:not(:last-of-type){border-bottom:var(--cr-separator-line)}.restore-defaults-button{border-radius:16px;height:32px;margin-inline:16px}.restore-defaults-icon{--iron-icon-fill-color:currentColor;margin-inline-end:8px}</style>
 
 <os-settings-animated-pages id="pages" section="[[section_]]">
@@ -7826,7 +7859,7 @@ class SettingsDevicePageElement extends SettingsDevicePageElementBase {
         return 'settings-device-page';
     }
     static get template() {
-        return getTemplate$1d();
+        return getTemplate$1e();
     }
     static get properties() {
         return {
@@ -8285,23 +8318,23 @@ class SettingsDevicePageElement extends SettingsDevicePageElementBase {
 }
 customElements.define(SettingsDevicePageElement.is, SettingsDevicePageElement);
 
-const template = html`<!-- These icons were converted from source .svg files. -->
+const template = html `
 
 <iron-iconset-svg name="cellular-setup" size="20">
   <svg>
     <defs>
-        <g id="camera" viewBox="0 0 20 20"><mask id="a" maskUnits="userSpaceOnUse" x="1" y="2" width="18" height="16"><path fill-rule="evenodd" clip-rule="evenodd" d="M16.667 4.167h-2.642L12.5 2.5h-5L5.975 4.167H3.334c-.917 0-1.667.75-1.667 1.666v10c0 .917.75 1.667 1.667 1.667h13.333c.917 0 1.667-.75 1.667-1.667v-10c0-.916-.75-1.666-1.667-1.666zm0 11.666H3.334v-10h13.333v10zm-10-5A3.332 3.332 0 1 1 10 14.166a3.332 3.332 0 0 1-3.333-3.333z" fill="#fff"></mask><g mask="url(#a)"><path d="M0 0h20v20H0z"></g></g>
+        <g id="camera" viewBox="0 0 20 20"><mask id="a" maskUnits="userSpaceOnUse" x="1" y="2" width="18" height="16"><path fill-rule="evenodd" clip-rule="evenodd" d="M16.667 4.167h-2.642L12.5 2.5h-5L5.975 4.167H3.334c-.917 0-1.667.75-1.667 1.666v10c0 .917.75 1.667 1.667 1.667h13.333c.917 0 1.667-.75 1.667-1.667v-10c0-.916-.75-1.666-1.667-1.666zm0 11.666H3.334v-10h13.333v10zm-10-5A3.332 3.332 0 1 1 10 14.166a3.332 3.332 0 0 1-3.333-3.333z" fill="#fff"></path></mask><g mask="url(#a)"><path d="M0 0h20v20H0z"></path></g></g>
         <g id="checked" viewBox="0 0 20 20"><path d="M13.707 7.293a1 1 0 0 0-1.414 0L9 10.586 7.707 9.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0 0-1.414z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M10 18a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-2a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"></path></g>
-        <g id="error" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M9 10h2V6H9v4zm1-8c-4.416 0-8 3.584-8 8s3.584 8 8 8 8-3.584 8-8-3.584-8-8-8zm0 14c-3.308 0-6-2.693-6-6 0-3.308 2.692-6 6-6 3.307 0 6 2.692 6 6 0 3.307-2.693 6-6 6zm-1-2h2v-2H9v2z"></g>
-        <g id="switch-camera" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 9V7H4.802A5.996 5.996 0 0 1 10 4a6 6 0 0 1 5.917 5h2.021c-.491-3.945-3.853-7-7.93-7a7.992 7.992 0 0 0-6.009 2.712L4 3H2v6h5zm5.938 2v2h2.198a5.996 5.996 0 0 1-5.198 3 6 6 0 0 1-5.917-5H2c.492 3.945 3.853 7 7.93 7a7.992 7.992 0 0 0 6.009-2.712V17h2v-6h-5zM10 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></g>
-        <g id="try-again" viewBox="0 0 20 20"><path path fill-rule="evenodd" clip-rule="evenodd" d="M10 3C6.136 3 3 6.136 3 10C3 13.864 6.136 17 10 17C12.1865 17 14.1399 15.9959 15.4239 14.4239L13.9984 12.9984C13.0852 14.2129 11.6325 15 10 15C7.24375 15 5 12.7563 5 10C5 7.24375 7.24375 5 10 5C11.6318 5 13.0839 5.78641 13.9972 7H11V9H17V3H15V5.10253C13.7292 3.80529 11.9581 3 10 3Z"></g>
-        <g id="warning" viewBox="0 0 20 20"><path d="M9 12H11V8H9V12Z"></path><path d="M11 15H9V13H11V15Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 2.50386C9.51566 1.83205 10.4844 1.83205 10.8683 2.50386L18.8683 16.5039C19.2492 17.1705 18.7678 18 18 18H2.00001C1.23219 18 0.750823 17.1705 1.13177 16.5039L9.13177 2.50386ZM10 5.01556L3.72321 16H16.2768L10 5.01556Z"></g>
+        <g id="error" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M9 10h2V6H9v4zm1-8c-4.416 0-8 3.584-8 8s3.584 8 8 8 8-3.584 8-8-3.584-8-8-8zm0 14c-3.308 0-6-2.693-6-6 0-3.308 2.692-6 6-6 3.307 0 6 2.692 6 6 0 3.307-2.693 6-6 6zm-1-2h2v-2H9v2z"></path></g>
+        <g id="switch-camera" viewBox="0 0 20 20"><path fill-rule="evenodd" clip-rule="evenodd" d="M7 9V7H4.802A5.996 5.996 0 0 1 10 4a6 6 0 0 1 5.917 5h2.021c-.491-3.945-3.853-7-7.93-7a7.992 7.992 0 0 0-6.009 2.712L4 3H2v6h5zm5.938 2v2h2.198a5.996 5.996 0 0 1-5.198 3 6 6 0 0 1-5.917-5H2c.492 3.945 3.853 7 7.93 7a7.992 7.992 0 0 0 6.009-2.712V17h2v-6h-5zM10 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></g>
+        <g id="try-again" viewBox="0 0 20 20"><path path fill-rule="evenodd" clip-rule="evenodd" d="M10 3C6.136 3 3 6.136 3 10C3 13.864 6.136 17 10 17C12.1865 17 14.1399 15.9959 15.4239 14.4239L13.9984 12.9984C13.0852 14.2129 11.6325 15 10 15C7.24375 15 5 12.7563 5 10C5 7.24375 7.24375 5 10 5C11.6318 5 13.0839 5.78641 13.9972 7H11V9H17V3H15V5.10253C13.7292 3.80529 11.9581 3 10 3Z"></path></g>
+        <g id="warning" viewBox="0 0 20 20"><path d="M9 12H11V8H9V12Z"></path><path d="M11 15H9V13H11V15Z"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 2.50386C9.51566 1.83205 10.4844 1.83205 10.8683 2.50386L18.8683 16.5039C19.2492 17.1705 18.7678 18 18 18H2.00001C1.23219 18 0.750823 17.1705 1.13177 16.5039L9.13177 2.50386ZM10 5.01556L3.72321 16H16.2768L10 5.01556Z"></path></g>
         <g id="info" viewBox="0 0 24 24"><path d="M11 17h2v-6h-2v6zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 9h2V7h-2v2z"></path></g>
     </defs>
   </svg>
 </iron-iconset-svg>
 
-<!-- Set of SVG illustrations-->
+
 <iron-iconset-svg name="cellular-setup-illo" size="200">
   <svg>
     <defs>
@@ -8323,43 +8356,16 @@ const template = html`<!-- These icons were converted from source .svg files. --
 `;
 document.head.appendChild(template.content);
 
-function getTemplate$1c() {
-  return html`<!--_html_template_start_--><style include="cros-color-overrides">
-  :host {
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px 0 20px 0;
-  }
-
-  #forward:focus {
-    box-shadow: 0 0 0 2px var(--focus-shadow-color);
-  }
-
-  #flex {
-    flex: 1;
-  }
-
-</style>
-<cr-button id="backward"
-    class="cancel-button"
-    on-click="onBackwardButtonClicked_"
-    disabled="[[isButtonDisabled_(Button.BACKWARD, buttonState.*)]]"
-    hidden$="[[isButtonHidden_(Button.BACKWARD, buttonState.*)]]">
+function getTemplate$1d() {
+    return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{display:flex;justify-content:flex-end;padding:10px 0 20px 0}#forward:focus{box-shadow:0 0 0 2px var(--focus-shadow-color)}#flex{flex:1}</style>
+<cr-button id="backward" class="cancel-button" on-click="onBackwardButtonClicked_" disabled="[[isButtonDisabled_(Button.BACKWARD, buttonState.*)]]" hidden$="[[isButtonHidden_(Button.BACKWARD, buttonState.*)]]">
   [[i18n('back')]]
 </cr-button>
 <div id="flex"></div>
-<cr-button id="cancel"
-    class="cancel-button"
-    on-click="onCancelButtonClicked_"
-    disabled="[[isButtonDisabled_(Button.CANCEL, buttonState.*)]]"
-    hidden$="[[isButtonHidden_(Button.CANCEL, buttonState.*)]]">
+<cr-button id="cancel" class="cancel-button" on-click="onCancelButtonClicked_" disabled="[[isButtonDisabled_(Button.CANCEL, buttonState.*)]]" hidden$="[[isButtonHidden_(Button.CANCEL, buttonState.*)]]">
   [[i18n('cancel')]]
 </cr-button>
-<cr-button id="forward"
-    class="action-button"
-    on-click="onForwardButtonClicked_"
-    disabled="[[isButtonDisabled_(Button.FORWARD, buttonState.*)]]"
-    hidden$="[[isButtonHidden_(Button.FORWARD, buttonState.*)]]">
+<cr-button id="forward" class="action-button" on-click="onForwardButtonClicked_" disabled="[[isButtonDisabled_(Button.FORWARD, buttonState.*)]]" hidden$="[[isButtonHidden_(Button.FORWARD, buttonState.*)]]">
   [[forwardButtonLabel]]
 </cr-button>
 <!--_html_template_end_-->`;
@@ -8375,7 +8381,7 @@ class ButtonBarElement extends ButtonBarElementBase {
         return 'button-bar';
     }
     static get template() {
-        return getTemplate$1c();
+        return getTemplate$1d();
     }
     static get properties() {
         return {
@@ -8449,41 +8455,13 @@ class ButtonBarElement extends ButtonBarElementBase {
 }
 customElements.define(ButtonBarElement.is, ButtonBarElement);
 
-function getTemplate$1b() {
-  return html`<!--_html_template_start_--><style include="iron-positioning cros-color-overrides">
-  :host {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  #title {
-    color: var(--cros-text-color-primary);
-    font-weight: normal;
-    line-height: 24px;
-  }
-
-  #message {
-    height: var(--base-page-message-height, auto);
-    margin-bottom: 20px;
-  }
-
-  :host ::slotted([slot='page-body']) {
-    display: block;
-    flex: 1 1 auto;
-  }
-
-  #message iron-icon {
-    padding-inline-end: 4px;
-  }
-</style>
+function getTemplate$1c() {
+    return html `<!--_html_template_start_--><style include="iron-positioning cros-color-overrides">:host{display:flex;flex-direction:column;height:100%}#title{color:var(--cros-text-color-primary);font-weight:400;line-height:24px}#message{height:var(--base-page-message-height,auto);margin-bottom:20px}:host ::slotted([slot=page-body]){display:block;flex:1 1 auto}#message iron-icon{padding-inline-end:4px}</style>
 <template is="dom-if" if="[[isTitleShown_(title)]]" restamp>
   <h3 id="title">[[getTitle_(title)]]</h3>
 </template>
 <div id="message" aria-live="polite" aria-atomic="true">
-  <iron-icon
-      icon$="cellular-setup:[[messageIcon]]"
-      hidden$="[[!isMessageIconShown_(messageIcon)]]">
+  <iron-icon icon$="cellular-setup:[[messageIcon]]" hidden$="[[!isMessageIconShown_(messageIcon)]]">
   </iron-icon>
   [[message]]
 </div>
@@ -8500,7 +8478,7 @@ class BasePageElement extends PolymerElement {
         return 'base-page';
     }
     static get template() {
-        return getTemplate$1b();
+        return getTemplate$1c();
     }
     static get properties() {
         return {
@@ -8533,73 +8511,21 @@ class BasePageElement extends PolymerElement {
 }
 customElements.define(BasePageElement.is, BasePageElement);
 
-function getTemplate$1a() {
-  return html`<!--_html_template_start_--><style include="iron-flex cr-hidden-style">
-  #animationContainer {
-    align-items: flex-end;
-    display: flex;
-    height: 216px;
-    justify-content: center;
-    margin-bottom: 54px;
-  }
-
-  #simDetectError,
-  #simDetectErrorJelly {
-    height: 100%;
-    width: 100%;
-  }
-
-  #simDetectError {
-    background-image: url(chrome://resources/ash/common/cellular_setup/sim_detect_error.svg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
-
-  @media(prefers-color-scheme: dark) {
-    #simDetectError {
-      background-image: url(chrome://resources/ash/common/cellular_setup/sim_detect_error_dark.svg);
-    }
-  }
-
-  :host-context(body.jelly-enabled) #simDetectError {
-    display: none;
-  }
-
-  :host-context(body:not(.jelly-enabled)) #simDetectErrorJelly {
-    display: none;
-  }
-
-  #pageBody {
-    height: 222px;
-  }
-
-  cros-lottie-renderer {
-    height: 85%;
-  }
-
-  base-page {
-    --base-page-message-height: 40px;
-  }
-</style>
+function getTemplate$1b() {
+    return html `<!--_html_template_start_--><style include="iron-flex cr-hidden-style">#animationContainer{align-items:flex-end;display:flex;height:216px;justify-content:center;margin-bottom:54px}#simDetectError,#simDetectErrorJelly{height:100%;width:100%}#simDetectError{background-image:url(chrome://resources/ash/common/cellular_setup/sim_detect_error.svg);background-position:center center;background-repeat:no-repeat;background-size:contain}@media(prefers-color-scheme:dark){#simDetectError{background-image:url(chrome://resources/ash/common/cellular_setup/sim_detect_error_dark.svg)}}:host-context(body.jelly-enabled) #simDetectError{display:none}:host-context(body:not(.jelly-enabled)) #simDetectErrorJelly{display:none}#pageBody{height:222px}cros-lottie-renderer{height:85%}base-page{--base-page-message-height:40px}</style>
 <base-page title="[[loadingTitle]]" message="[[loadingMessage]]">
   <div slot="page-body" id="pageBody" class="layout vertical center-center">
-    <iron-media-query query="(prefers-color-scheme: dark)"
-        query-matches="{{isDarkModeActive_}}">
+    <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
     </iron-media-query>
     <template is="dom-if" if="[[!isSimDetectError]]" restamp>
       <div id="animationContainer">
-        <cros-lottie-renderer id="spinner"
-            asset-url="chrome://resources/ash/common/cellular_setup/spinner.json"
-            autoplay dynamic aria-hidden>
+        <cros-lottie-renderer id="spinner" asset-url="chrome://resources/ash/common/cellular_setup/spinner.json" autoplay dynamic aria-hidden>
         </cros-lottie-renderer>
       </div>
     </template>
     <div id="simDetectError" hidden$="[[!isSimDetectError]]">
     </div>
-    <iron-icon id="simDetectErrorJelly"
-        icon="cellular-setup-illo:sim-detect-error"
-        hidden$="[[!isSimDetectError]]">
+    <iron-icon id="simDetectErrorJelly" icon="cellular-setup-illo:sim-detect-error" hidden$="[[!isSimDetectError]]">
     </iron-icon>
   </div>
 </base-page>
@@ -8618,7 +8544,7 @@ class SetupLoadingPageElement extends PolymerElement {
         return 'setup-loading-page';
     }
     static get template() {
-        return getTemplate$1a();
+        return getTemplate$1b();
     }
     static get properties() {
         return {
@@ -8648,60 +8574,19 @@ class SetupLoadingPageElement extends PolymerElement {
 }
 customElements.define(SetupLoadingPageElement.is, SetupLoadingPageElement);
 
-function getTemplate$19() {
-  return html`<!--_html_template_start_--><style include="iron-flex cr-hidden-style">
-  paper-spinner-lite {
-    height: 32px;
-    width: 32px;
-  }
-
-  #portalContainer {
-    height: 100%;
-    width: 100%;
-  }
-
-  #errorIllustration,
-  #errorIllustrationJelly {
-    height: 100%;
-    width: 100%;
-  }
-
-  #errorIllustration {
-    background-image: url(chrome://resources/ash/common/cellular_setup/error.svg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
-
-  @media(prefers-color-scheme: dark) {
-    #errorIllustration {
-      background-image: url(chrome://resources/ash/common/cellular_setup/error_dark.svg);
-    }
-  }
-
-  :host-context(body.jelly-enabled) #errorIllustration {
-    display: none;
-  }
-
-  :host-context(body:not(.jelly-enabled)) #errorIllustrationJelly {
-    display: none;
-  }
-</style>
+function getTemplate$1a() {
+    return html `<!--_html_template_start_--><style include="iron-flex cr-hidden-style">paper-spinner-lite{height:32px;width:32px}#portalContainer{height:100%;width:100%}#errorIllustration,#errorIllustrationJelly{height:100%;width:100%}#errorIllustration{background-image:url(chrome://resources/ash/common/cellular_setup/error.svg);background-position:center center;background-repeat:no-repeat;background-size:contain}@media(prefers-color-scheme:dark){#errorIllustration{background-image:url(chrome://resources/ash/common/cellular_setup/error_dark.svg)}}:host-context(body.jelly-enabled) #errorIllustration{display:none}:host-context(body:not(.jelly-enabled)) #errorIllustrationJelly{display:none}</style>
 <base-page title="[[getPageTitle_(
-                        showError, carrierName_, hasCarrierPortalLoaded_)]]"
-    message="[[getPageMessage_(showError)]]">
+                        showError, carrierName_, hasCarrierPortalLoaded_)]]" message="[[getPageMessage_(showError)]]">
   <div slot="page-body" class="layout horizontal center-center">
-    <paper-spinner-lite active
-        hidden$="[[!shouldShowSpinner_(
+    <paper-spinner-lite active hidden$="[[!shouldShowSpinner_(
                         showError, hasCarrierPortalLoaded_)]]">
     </paper-spinner-lite>
-    <div id="portalContainer"
-        hidden$="[[!shouldShowPortal_(
+    <div id="portalContainer" hidden$="[[!shouldShowPortal_(
                         showError, hasCarrierPortalLoaded_)]]">
     </div>
     <div id="errorIllustration" hidden$="[[!showError]]"></div>
-    <iron-icon id="errorIllustrationJelly" icon="cellular-setup-illo:error"
-        hidden$="[[!showError]]">
+    <iron-icon id="errorIllustrationJelly" icon="cellular-setup-illo:error" hidden$="[[!showError]]">
     </iron-icon>
   </div>
 </base-page>
@@ -8807,7 +8692,7 @@ class ProvisioningPageElement extends ProvisioningPageElementBase {
         return 'provisioning-page';
     }
     static get template() {
-        return getTemplate$19();
+        return getTemplate$1a();
     }
     static get properties() {
         return {
@@ -8956,52 +8841,12 @@ class ProvisioningPageElement extends ProvisioningPageElementBase {
 }
 customElements.define(ProvisioningPageElement.is, ProvisioningPageElement);
 
-function getTemplate$18() {
-  return html`<!--_html_template_start_--><style>
-  #illustration {
-    background-image: url(chrome://resources/ash/common/cellular_setup/final_page_success.svg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-  }
-
-  #illustration.error {
-      background-image: url(chrome://resources/ash/common/cellular_setup/error.svg);
-      background-size: contain;
-  }
-
-  @media(prefers-color-scheme: dark) {
-    #illustration {
-      background-image: url(chrome://resources/ash/common/cellular_setup/final_page_success_dark.svg);
-    }
-
-    #illustration.error {
-        background-image: url(chrome://resources/ash/common/cellular_setup/error_dark.svg);
-    }
-  }
-
-  #illustrationJelly {
-    height: 242px;
-    width: 242px;
-    align-self: center;
-  }
-
-  :host-context(body.jelly-enabled) #illustration {
-    display: none;
-  }
-
-  :host-context(body:not(.jelly-enabled)) #illustrationJelly {
-    display: none;
-  }
-</style>
-<base-page title="[[getTitle_(showError)]]"
-    message="[[getMessage_(showError)]]">
-  <div id="illustration" class$="[[getPageBodyClass_(showError)]]"
-      slot="page-body">
+function getTemplate$19() {
+    return html `<!--_html_template_start_--><style>#illustration{background-image:url(chrome://resources/ash/common/cellular_setup/final_page_success.svg);background-position:center center;background-repeat:no-repeat;background-size:contain}#illustration.error{background-image:url(chrome://resources/ash/common/cellular_setup/error.svg);background-size:contain}@media(prefers-color-scheme:dark){#illustration{background-image:url(chrome://resources/ash/common/cellular_setup/final_page_success_dark.svg)}#illustration.error{background-image:url(chrome://resources/ash/common/cellular_setup/error_dark.svg)}}#illustrationJelly{height:242px;width:242px;align-self:center}:host-context(body.jelly-enabled) #illustration{display:none}:host-context(body:not(.jelly-enabled)) #illustrationJelly{display:none}</style>
+<base-page title="[[getTitle_(showError)]]" message="[[getMessage_(showError)]]">
+  <div id="illustration" class$="[[getPageBodyClass_(showError)]]" slot="page-body">
   </div>
-  <iron-icon id="illustrationJelly"
-      icon="[[getJellyIllustrationName_(showError)]]"
-      slot="page-body">
+  <iron-icon id="illustrationJelly" icon="[[getJellyIllustrationName_(showError)]]" slot="page-body">
   </iron-icon>
 </base-page>
 <!--_html_template_end_-->`;
@@ -9021,7 +8866,7 @@ class FinalPageElement extends FinalPageElementBase {
         return 'final-page';
     }
     static get template() {
-        return getTemplate$18();
+        return getTemplate$19();
     }
     static get properties() {
         return {
@@ -9054,37 +8899,14 @@ class FinalPageElement extends FinalPageElementBase {
 }
 customElements.define(FinalPageElement.is, FinalPageElement);
 
-function getTemplate$17() {
-  return html`<!--_html_template_start_--><style>
-  :host {
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-  }
-
-  iron-pages {
-    height: 400px;
-  }
-</style>
-<iron-pages attr-for-selected="id"
-    selected="[[selectedPSimPageName_]]"
-    selected-item="{{selectedPage_}}">
-  <setup-loading-page id="simDetectPage"
-      loading-title="[[getLoadingTitle_(state_)]]"
-      loading-message="[[getLoadingMessage_(state_)]]"
-      is-sim-detect-error="[[isSimDetectError_(state_)]]">
+function getTemplate$18() {
+    return html `<!--_html_template_start_--><style>:host{display:flex;flex:1 1 auto;flex-direction:column}iron-pages{height:400px}</style>
+<iron-pages attr-for-selected="id" selected="[[selectedPSimPageName_]]" selected-item="{{selectedPage_}}">
+  <setup-loading-page id="simDetectPage" loading-title="[[getLoadingTitle_(state_)]]" loading-message="[[getLoadingMessage_(state_)]]" is-sim-detect-error="[[isSimDetectError_(state_)]]">
   </setup-loading-page>
-  <provisioning-page id="provisioningPage"
-      delegate="[[delegate]]" show-error="{{showError_}}"
-      cellular-metadata="[[cellularMetadata_]]"
-      on-carrier-portal-loaded="onCarrierPortalLoaded_"
-      on-carrier-portal-result="onCarrierPortalResult_">
+  <provisioning-page id="provisioningPage" delegate="[[delegate]]" show-error="{{showError_}}" cellular-metadata="[[cellularMetadata_]]" on-carrier-portal-loaded="onCarrierPortalLoaded_" on-carrier-portal-result="onCarrierPortalResult_">
   </provisioning-page>
-  <final-page id="finalPage"
-      delegate="[[delegate]]"
-      show-error="[[showError_]]"
-      message="[[i18n('pSimfinalPageMessage')]]"
-      error-message="[[i18n('finalPageErrorMessage')]]">
+  <final-page id="finalPage" delegate="[[delegate]]" show-error="[[showError_]]" message="[[i18n('pSimfinalPageMessage')]]" error-message="[[i18n('finalPageErrorMessage')]]">
   </final-page>
 </iron-pages>
 <!--_html_template_end_-->`;
@@ -9202,7 +9024,7 @@ class PsimFlowUiElement extends PsimFlowUiElementBase {
         return 'psim-flow-ui';
     }
     static get template() {
-        return getTemplate$17();
+        return getTemplate$18();
     }
     static get properties() {
         return {
@@ -9601,284 +9423,70 @@ class PsimFlowUiElement extends PsimFlowUiElementBase {
 }
 customElements.define(PsimFlowUiElement.is, PsimFlowUiElement);
 
-function getTemplate$16() {
-  return html`<!--_html_template_start_--><style include="iron-positioning">
-  :host([expanded_]) #pageBody {
-    transition-duration: 200ms;
-  }
-  :host(:not([expanded_])) #pageBody {
-    transition-duration: 150ms;
-  }
-
-  :host([expanded_]) #esimQrCodeDetection {
-    height: 190px;
-    transition-duration: 200ms;
-  }
-  :host(:not([expanded_])) #esimQrCodeDetection {
-    height: 140px;
-    transition-duration: 150ms;
-  }
-
-  :host cr-button {
-    --ripple-opacity: 0;
-  }
-
-  #esimQrCodeDetection {
-    background-color: var(--cros-bg-color-dropped-elevation-1);
-    border-radius: 4px;
-    margin: 20px 0 15px 0;
-    overflow: hidden;
-    position: relative;
-  }
-
-  paper-spinner-lite {
-    height: 20px;
-    margin-inline-end: 6px;
-    margin-top: 6px;
-    width: 20px;
-  }
-
-  cr-button:not(:focus) {
-    border: none;
-    box-shadow: none;
-  }
-
-  cr-button:hover {
-    background-color: transparent;
-  }
-
-  cr-button[disabled] {
-    background-color: transparent;
-  }
-
-  cr-button[disabled] > iron-icon {
-    --iron-icon-fill-color: var(--cros-icon-color-disabled);
-  }
-
-  .animate {
-    transition-property: height;
-    transition-timing-function: cubic-bezier(0.00, 0.00, 0.20, 1.00);
-  }
-
-  .center {
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%) translateX(-50%);
-  }
-
-  .width-92 {
-    width: 92%;
-  }
-
-  .label {
-    font-weight: 500;
-  }
-
-  .button-image {
-    margin-inline-end: 8px;
-  }
-
-  .scan-finish-image {
-    position: absolute;
-    }
-
-  .scan-finish-message {
-    padding-inline-end: 0;
-    padding-inline-start: 30px;
-  }
-
-  .scan-finish-message:hover {
-    cursor: default;
-  }
-
-  .scan-error-header {
-    --iron-icon-fill-color: var(--cros-icon-color-alert);
-  }
-
-  .scan-error-message {
-    color: var(--cros-text-color-alert);
-  }
-
-  .blue-icon {
-    --iron-icon-fill-color: var(--cros-icon-color-prominent);
-  }
-
-  .hidden {
-    visibility: hidden;
-  }
-
-  .visually-hidden {
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-  }
-
-  #scanSucessHeader {
-    --iron-icon-fill-color: var(--cros-icon-color-positive);
-    margin-bottom: 8px;
-  }
-
-  #scanSuccessMessage {
-    color: var(--cros-text-color-positive);
-    font-size: medium;
-  }
-
-  #scanFailureHeader {
-    margin-bottom: 4px;
-  }
-
-  #useCameraAgainButton {
-    display: block;
-    font-weight: 500;
-    text-align: center;
-  }
-
-  #tryAgainButton {
-    display: block;
-    text-align: center;
-  }
-
-  #switchCameraButton {
-    background-color: var(--cros-tooltip-background-color);
-    border-radius: 16px;
-    color: var(--cros-tooltip-label-color);
-    margin: 8px;
-    padding: 8px;
-    position: absolute;
-    right: 0;
-    z-index: 2;
-  }
-
-  #switchCameraButton iron-icon {
-    --iron-icon-fill-color: var(--cros-tooltip-icon-color);
-    filter: brightness(2.1);
-  }
-
-  #inputSubtitle {
-    bottom: 0;
-    color: var(--cros-text-color-secondary);
-    font-size: var(--cr-form-field-label-font-size);
-    letter-spacing: .4px;
-    line-height: var(--cr-form-field-label-line-height);
-    margin-top: -16px;
-  }
-
-  #video {
-    height: inherit;
-    transform: rotateY(180deg);
-  }
-
-  #pageBody {
-    margin-top: -20px;
-  }
-
-  #startScanningButton {
-    max-width: 470px;
-    min-width: 345px;
-    text-align: center;
-    width: auto;
-  }
-
-  #carrierLockWarningContainer {
-    display: flex;
-    margin-bottom: 24px;
-    margin-top: 20px;
-  }
-
-  #carrierLockWarningIcon {
-    --iron-icon-fill-color: var(--cros-icon-color-alert);
-    --iron-icon-height: 24px;
-    --iron-icon-width: 24px;
-    margin-inline-end: 4px;
-  }
-
-</style>
+function getTemplate$17() {
+    return html `<!--_html_template_start_--><style include="iron-positioning">:host([expanded_]) #pageBody{transition-duration:.2s}:host(:not([expanded_])) #pageBody{transition-duration:150ms}:host([expanded_]) #esimQrCodeDetection{height:190px;transition-duration:.2s}:host(:not([expanded_])) #esimQrCodeDetection{height:140px;transition-duration:150ms}:host cr-button{--ripple-opacity:0}#esimQrCodeDetection{background-color:var(--cros-bg-color-dropped-elevation-1);border-radius:4px;margin:20px 0 15px 0;overflow:hidden;position:relative}paper-spinner-lite{height:20px;margin-inline-end:6px;margin-top:6px;width:20px}cr-button:not(:focus){border:none;box-shadow:none}cr-button:hover{background-color:transparent}cr-button[disabled]{background-color:transparent}cr-button[disabled]>iron-icon{--iron-icon-fill-color:var(--cros-icon-color-disabled)}.animate{transition-property:height;transition-timing-function:cubic-bezier(0,0,.2,1)}.center{left:50%;position:absolute;top:50%;transform:translateY(-50%) translateX(-50%)}.width-92{width:92%}.label{font-weight:500}.button-image{margin-inline-end:8px}.scan-finish-image{position:absolute}.scan-finish-message{padding-inline-end:0;padding-inline-start:30px}.scan-finish-message:hover{cursor:default}.scan-error-header{--iron-icon-fill-color:var(--cros-icon-color-alert)}.scan-error-message{color:var(--cros-text-color-alert)}.blue-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent)}.hidden{visibility:hidden}.visually-hidden{clip:rect(0 0 0 0);clip-path:inset(50%);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px}#scanSucessHeader{--iron-icon-fill-color:var(--cros-icon-color-positive);margin-bottom:8px}#scanSuccessMessage{color:var(--cros-text-color-positive);font-size:medium}#scanFailureHeader{margin-bottom:4px}#useCameraAgainButton{display:block;font-weight:500;text-align:center}#tryAgainButton{display:block;text-align:center}#switchCameraButton{background-color:var(--cros-tooltip-background-color);border-radius:16px;color:var(--cros-tooltip-label-color);margin:8px;padding:8px;position:absolute;right:0;z-index:2}#switchCameraButton iron-icon{--iron-icon-fill-color:var(--cros-tooltip-icon-color);filter:brightness(2.1)}#inputSubtitle{bottom:0;color:var(--cros-text-color-secondary);font-size:var(--cr-form-field-label-font-size);letter-spacing:.4px;line-height:var(--cr-form-field-label-line-height);margin-top:-16px}#video{height:inherit;transform:rotateY(180deg)}#pageBody{margin-top:-20px}#startScanningButton{max-width:470px;min-width:345px;text-align:center;width:auto}#carrierLockWarningContainer{display:flex;margin-bottom:24px;margin-top:20px}#carrierLockWarningIcon{--iron-icon-fill-color:var(--cros-icon-color-alert);--iron-icon-height:24px;--iron-icon-width:24px;margin-inline-end:4px}</style>
 <base-page>
   <div slot="page-body" id="pageBody" class="animate">
     <span id="description" aria-live="polite">
       [[getDescription_(cameraCount_, qrCodeDetector_, showNoProfilesFound)]]
     </span>
-    <template is="dom-if"
-        if="[[shouldShowCarrierLockWarning_(isDeviceCarrierLocked_)]]" restamp>
+    <template is="dom-if" if="[[shouldShowCarrierLockWarning_(isDeviceCarrierLocked_)]]" restamp>
       <div id="carrierLockWarningContainer" aria-live="alert">
           <iron-icon id="carrierLockWarningIcon" icon="cellular-setup:warning">
           </iron-icon>
         [[i18n('eSimCarrierLockedDevice')]]
       </div>
     </template>
-    <template is="dom-if"
-        if="[[isScanningAvailable_(cameraCount_, qrCodeDetector_.*)]]" restamp>
+    <template is="dom-if" if="[[isScanningAvailable_(cameraCount_, qrCodeDetector_.*)]]" restamp>
       <div id="esimQrCodeDetection" class="animate">
-        <cr-button id="switchCameraButton"
-            on-click="onSwitchCameraButtonPressed_"
-            hidden$="[[isUiElementHidden_(UiElement.SWITCH_CAMERA, state_, cameraCount_)]]"
-            disabled="[[isUiElementDisabled_(UiElement.SWITCH_CAMERA, state_, showBusy)]]">
+        <cr-button id="switchCameraButton" on-click="onSwitchCameraButtonPressed_" hidden$="[[isUiElementHidden_(UiElement.SWITCH_CAMERA, state_, cameraCount_)]]" disabled="[[isUiElementDisabled_(UiElement.SWITCH_CAMERA, state_, showBusy)]]">
           <iron-icon class="button-image" icon="cellular-setup:switch-camera"></iron-icon>
           [[i18n('switchCamera')]]
         </cr-button>
-        <video id="video" autoplay muted
-            hidden$="[[isUiElementHidden_(UiElement.VIDEO, state_)]]">
+        <video id="video" autoplay muted hidden$="[[isUiElementHidden_(UiElement.VIDEO, state_)]]">
         </video>
         <template is="dom-if" if="[[qrCodeCameraA11yString_]]" restamp>
           <div class="visually-hidden" aria-live="polite">
             [[qrCodeCameraA11yString_]]
           </div>
         </template>
-        <div class="center blue-icon" id="startScanningContainer"
-            hidden$="[[isUiElementHidden_(UiElement.START_SCANNING, state_)]]">
-          <cr-button class="label"
-              id="startScanningButton"
-              on-click="startScanning_"
-              disabled="[[isUiElementDisabled_(UiElement.START_SCANNING, state_, showBusy)]]">
+        <div class="center blue-icon" id="startScanningContainer" hidden$="[[isUiElementHidden_(UiElement.START_SCANNING, state_)]]">
+          <cr-button class="label" id="startScanningButton" on-click="startScanning_" disabled="[[isUiElementDisabled_(UiElement.START_SCANNING, state_, showBusy)]]">
             <iron-icon class="button-image" icon="cellular-setup:camera"></iron-icon>
             [[i18n('useCamera')]]
           </cr-button>
         </div>
-        <div class="center" id="scanFinishContainer"
-            hidden$="[[isUiElementHidden_(UiElement.SCAN_FINISH, state_)]]">
+        <div class="center" id="scanFinishContainer" hidden$="[[isUiElementHidden_(UiElement.SCAN_FINISH, state_)]]">
           <div>
-            <div id="scanSuccessContainer"
-                hidden$="[[isUiElementHidden_(UiElement.SCAN_SUCCESS, state_)]]">
-              <div id=scanSucessHeader
-                  hidden$="[[isUiElementHidden_(UiElement.CODE_DETECTED, state_)]]">
+            <div id="scanSuccessContainer" hidden$="[[isUiElementHidden_(UiElement.SCAN_SUCCESS, state_)]]">
+              <div id="scanSucessHeader" hidden$="[[isUiElementHidden_(UiElement.CODE_DETECTED, state_)]]">
                 <iron-icon class="scan-finish-image" icon="cellular-setup:checked"></iron-icon>
                 <span class="label scan-finish-message" id="scanSuccessMessage">
                   [[i18n('scanQRCodeSuccess')]]
                 </span>
               </div>
-              <div id="scanInstallFailureHeader" class="scan-error-header"
-                  hidden$="[[isUiElementHidden_(UiElement.SCAN_INSTALL_FAILURE, state_)]]">
+              <div id="scanInstallFailureHeader" class="scan-error-header" hidden$="[[isUiElementHidden_(UiElement.SCAN_INSTALL_FAILURE, state_)]]">
                 <iron-icon class="scan-finish-image" icon="cellular-setup:error"></iron-icon>
                 <span class="label scan-finish-message scan-error-message">
                   [[i18n('scanQrCodeInvalid')]]
                 </span>
               </div>
-              <template is="dom-if" restamp
-                  if="[[!isUiElementHidden_(UiElement.SCAN_INSTALL_FAILURE, state_)]]">
-                <cr-button id="useCameraAgainButton" class="blue-icon"
-                    on-click="startScanning_">
+              <template is="dom-if" restamp if="[[!isUiElementHidden_(UiElement.SCAN_INSTALL_FAILURE, state_)]]">
+                <cr-button id="useCameraAgainButton" class="blue-icon" on-click="startScanning_">
                   <iron-icon class="button-image" icon="cellular-setup:camera">
                   </iron-icon>
                   [[i18n('qrCodeUseCameraAgain')]]
                 </cr-button>
               </template>
             </div>
-            <div id="scanFailureContainer"
-                hidden$="[[isUiElementHidden_(UiElement.SCAN_FAILURE, state_)]]">
+            <div id="scanFailureContainer" hidden$="[[isUiElementHidden_(UiElement.SCAN_FAILURE, state_)]]">
               <div id="scanFailureHeader" class="scan-error-header">
                 <iron-icon class="scan-finish-image" icon="cellular-setup:error"></iron-icon>
                 <span class="label scan-finish-message scan-error-message">
                   [[i18n('scanQrCodeError')]]
                 </span>
               </div>
-              <cr-button id="tryAgainButton" class="blue-icon"
-                  on-click="startScanning_"
-                  disabled="[[isUiElementDisabled_(UiElement.SCAN_FAILURE, state_, showBusy)]]">
+              <cr-button id="tryAgainButton" class="blue-icon" on-click="startScanning_" disabled="[[isUiElementDisabled_(UiElement.SCAN_FAILURE, state_, showBusy)]]">
                 <iron-icon class="button-image" icon="cellular-setup:try-again"></iron-icon>
                 [[i18n('qrCodeRetry')]]
               </cr-button>
@@ -9889,15 +9497,8 @@ function getTemplate$16() {
     </template>
     <div id="activationCodeContainer" class$="[[computeActivationCodeClass_(
           cameraCount_, qrCodeDetector_.*)]]">
-      <cr-input id="activationCode"
-          label="[[i18n('activationCode')]]"
-          value="{{activationCode}}"
-          disabled="[[showBusy]]"
-          on-keydown="onKeyDown_"
-          invalid="[[shouldActivationCodeInputBeInvalid_(state_,
-              isActivationCodeInvalidFormat_)]]"
-          error-message="[[getInputErrorMessage_()]]"
-          aria-description="[[getInputSubtitle_(showBusy)]]">
+      <cr-input id="activationCode" label="[[i18n('activationCode')]]" value="{{activationCode}}" disabled="[[showBusy]]" on-keydown="onKeyDown_" invalid="[[shouldActivationCodeInputBeInvalid_(state_,
+              isActivationCodeInvalidFormat_)]]" error-message="[[getInputErrorMessage_()]]" aria-description="[[getInputSubtitle_(showBusy)]]">
         <template is="dom-if" if="[[showBusy]]">
           <div slot="suffix">
             <paper-spinner-lite active>
@@ -9905,8 +9506,7 @@ function getTemplate$16() {
           </div>
         </template>
       </cr-input>
-      <div id="inputSubtitle"
-          hidden$="[[shouldActivationCodeInputBeInvalid_(state_,
+      <div id="inputSubtitle" hidden$="[[shouldActivationCodeInputBeInvalid_(state_,
               isActivationCodeInvalidFormat_)]]">
         [[getInputSubtitle_(showBusy)]]
       </div>
@@ -9961,7 +9561,7 @@ class ActivationCodePageElement extends ActivationCodePageElementBase {
         return 'activation-code-page';
     }
     static get template() {
-        return getTemplate$16();
+        return getTemplate$17();
     }
     static get properties() {
         return {
@@ -10469,33 +10069,14 @@ class ActivationCodePageElement extends ActivationCodePageElementBase {
 }
 customElements.define(ActivationCodePageElement.is, ActivationCodePageElement);
 
-function getTemplate$15() {
-  return html`<!--_html_template_start_--><style>
-  #pageBody {
-    height: 282px;
-    margin-top: -20px;
-    overflow: hidden;
-  }
-
-  #animationContainer {
-    display: flex;
-    height: 216px;
-    margin-bottom: 30px;
-    margin-top: 24px;
-  }
-
-  cros-lottie-renderer {
-    margin: auto;
-  }
-</style>
+function getTemplate$16() {
+    return html `<!--_html_template_start_--><style>#pageBody{height:282px;margin-top:-20px;overflow:hidden}#animationContainer{display:flex;height:216px;margin-bottom:30px;margin-top:24px}cros-lottie-renderer{margin:auto}</style>
 
 <base-page>
   <div slot="page-body" id="pageBody" class="layout vertical center-center">
     <span>[[i18n('verifyingActivationCode')]]</span>
     <div id="animationContainer">
-      <cros-lottie-renderer id="spinner"
-          asset-url="chrome://resources/ash/common/cellular_setup/spinner.json"
-          autoplay dynamic aria-hidden>
+      <cros-lottie-renderer id="spinner" asset-url="chrome://resources/ash/common/cellular_setup/spinner.json" autoplay dynamic aria-hidden>
       </cros-lottie-renderer>
     </div>
   </div>
@@ -10516,34 +10097,18 @@ class ActivationVerificationPageElement extends ActivationVerificationPageElemen
         return 'activation-verification-page';
     }
     static get template() {
-        return getTemplate$15();
+        return getTemplate$16();
     }
 }
 customElements.define(ActivationVerificationPageElement.is, ActivationVerificationPageElement);
 
-function getTemplate$14() {
-  return html`<!--_html_template_start_--><style include="cr-shared-style iron-flex">
-  #pageBody {
-    height: 282px;
-    margin-top: -20px;
-    overflow: hidden;
-  }
-
-  #illustration {
-    height: 216px;
-    width: 448px;
-    align-self: center;
-  }
-</style>
+function getTemplate$15() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex">#pageBody{height:282px;margin-top:-20px;overflow:hidden}#illustration{height:216px;width:448px;align-self:center}</style>
 <base-page>
   <div slot="page-body" id="pageBody">
-    <localized-link
-        id="shouldSkipDiscovery"
-        localized-string="[[i18nAdvanced('profileDiscoveryConsentMessageWithLink')]]"
-        on-link-clicked="shouldSkipDiscoveryClicked_">
+    <localized-link id="shouldSkipDiscovery" localized-string="[[i18nAdvanced('profileDiscoveryConsentMessageWithLink')]]" on-link-clicked="shouldSkipDiscoveryClicked_">
     </localized-link>
-    <iron-icon id="illustration"
-        icon="cellular-setup-illo:network-setup">
+    <iron-icon id="illustration" icon="cellular-setup-illo:network-setup">
     </iron-icon>
   </div>
 </base-page>
@@ -10563,7 +10128,7 @@ class ProfileDiscoveryConsentPageElement extends ProfileDiscoveryConsentPageElem
         return 'profile-discovery-consent-page';
     }
     static get template() {
-        return getTemplate$14();
+        return getTemplate$15();
     }
     static get properties() {
         return {
@@ -10586,60 +10151,24 @@ class ProfileDiscoveryConsentPageElement extends ProfileDiscoveryConsentPageElem
 }
 customElements.define(ProfileDiscoveryConsentPageElement.is, ProfileDiscoveryConsentPageElement);
 
-function getTemplate$13() {
-  return html`<!--_html_template_start_--><style include="iron-flex iron-positioning">
-  #details {
-    align-items: center;
-    display: flex;
-    flex: auto;
-    min-height: var(--cr-section-two-line-min-height);
-  }
-
-  #profileImage {
-    margin-inline-end: 16px;
-  }
-
-  #profileTitleLabel {
-    color: var(--cros-text-color-primary);
-  }
-
-  .icon {
-    margin-inline-end: 8px;
-    padding-inline-end: var(--cr-section-padding);
-  }
-
-  #checkmark {
-    --iron-icon-fill-color: var(--cros-icon-color-prominent);
-  }
-
-  paper-spinner-lite {
-    height: 16px;
-    vertical-align: middle;
-    width: 16px;
-  }
-</style>
+function getTemplate$14() {
+    return html `<!--_html_template_start_--><style include="iron-flex iron-positioning">#details{align-items:center;display:flex;flex:auto;min-height:var(--cr-section-two-line-min-height)}#profileImage{margin-inline-end:16px}#profileTitleLabel{color:var(--cros-text-color-primary)}.icon{margin-inline-end:8px;padding-inline-end:var(--cr-section-padding)}#checkmark{--iron-icon-fill-color:var(--cros-icon-color-prominent)}paper-spinner-lite{height:16px;vertical-align:middle;width:16px}</style>
 <div class="two-line no-padding" selectable>
   <div class="flex layout horizontal center link-wrapper">
     <div id="details">
-      <iron-media-query query="(prefers-color-scheme: dark)"
-          query-matches="{{isDarkModeActive_}}">
+      <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
       </iron-media-query>
-      <!-- The item's aria properties are set in profile_discovery_list_page_legacy. -->
+      
       <div class="flex settings-box-text">
         <div id="profileTitleLabel">
           [[getProfileName_(profileProperties_)]]
         </div>
       </div>
     </div>
-    <div class="icon"
-        hidden$="[[!selected]]">
-      <iron-icon id="checkmark"
-          icon="cellular-setup:checked"
-          tabindex="-1"
-          hidden$="[[showLoadingIndicator]]">
+    <div class="icon" hidden$="[[!selected]]">
+      <iron-icon id="checkmark" icon="cellular-setup:checked" tabindex="-1" hidden$="[[showLoadingIndicator]]">
       </iron-icon>
-      <paper-spinner-lite active
-          hidden$="[[!showLoadingIndicator]]">
+      <paper-spinner-lite active hidden$="[[!showLoadingIndicator]]">
       </paper-spinner-lite>
     </div>
   </div>
@@ -10660,7 +10189,7 @@ class ProfileDiscoveryListItemLegacyElement extends PolymerElement {
         return 'profile-discovery-list-item-legacy';
     }
     static get template() {
-        return getTemplate$13();
+        return getTemplate$14();
     }
     static get properties() {
         return {
@@ -10702,45 +10231,15 @@ class ProfileDiscoveryListItemLegacyElement extends PolymerElement {
 }
 customElements.define(ProfileDiscoveryListItemLegacyElement.is, ProfileDiscoveryListItemLegacyElement);
 
-function getTemplate$12() {
-  return html`<!--_html_template_start_--><style include="cr-shared-style iron-flex">
-  [slot='page-body'] {
-    height: 300px;
-    margin-top: -20px;
-  }
-
-  profile-discovery-list-item {
-    height: 64px;
-  }
-
-  #container {
-    height: 230px;
-    margin-top: 20px;
-    overflow-x: hidden;
-    overflow-y: auto;
-  }
-
-  iron-list > *:not(:first-of-type) {
-    border-top: var(--cr-separator-line);
-  }
-</style>
+function getTemplate$13() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex">[slot=page-body]{height:300px;margin-top:-20px}profile-discovery-list-item{height:64px}#container{height:230px;margin-top:20px;overflow-x:hidden;overflow-y:auto}iron-list>:not(:first-of-type){border-top:var(--cr-separator-line)}</style>
 <base-page>
   <div slot="page-body">
     <div>[[i18n('profileListPageMessage')]]</div>
     <div id="container" class="layout vertical flex" scrollable>
-      <iron-list id="profileList" items="[[pendingProfiles]]"
-          scroll-target="container"
-          selection-enabled="[[!showBusy]]"
-          preserve-focus
-          selected-item="{{selectedProfile}}"
-          role="listbox">
+      <iron-list id="profileList" items="[[pendingProfiles]]" scroll-target="container" selection-enabled="[[!showBusy]]" preserve-focus selected-item="{{selectedProfile}}" role="listbox">
         <template>
-          <profile-discovery-list-item-legacy profile="[[item]]"
-              selected="[[isProfileSelected_(item, selectedProfile)]]"
-              tabindex="0"
-              role="option"
-              aria-selected="[[isProfileSelected_(item, selectedProfile)]]"
-              show-loading-indicator="[[showBusy]]">
+          <profile-discovery-list-item-legacy profile="[[item]]" selected="[[isProfileSelected_(item, selectedProfile)]]" tabindex="0" role="option" aria-selected="[[isProfileSelected_(item, selectedProfile)]]" show-loading-indicator="[[showBusy]]">
           </profile-discovery-list-item-legacy>
         </template>
       </iron-list>
@@ -10763,7 +10262,7 @@ class ProfileDiscoveryListPageLegacyElement extends ProfileDiscoveryListPageLega
         return 'profile-discovery-list-page-legacy';
     }
     static get template() {
-        return getTemplate$12();
+        return getTemplate$13();
     }
     static get properties() {
         return {
@@ -10788,71 +10287,19 @@ class ProfileDiscoveryListPageLegacyElement extends ProfileDiscoveryListPageLega
 }
 customElements.define(ProfileDiscoveryListPageLegacyElement.is, ProfileDiscoveryListPageLegacyElement);
 
-function getTemplate$11() {
-  return html`<!--_html_template_start_--><style include="iron-flex iron-positioning">
-    #container {
-      background-color: transparent;
-      border-radius: 12px;
-      border-width: 1px;
-      border: var(--cr-separator-line);
-      box-sizing: border-box;
-      color: var(--cr-secondary-text-color);
-      font: var(--cros-body-2-font);
-      height: 64px;
-      margin-bottom: 6px;
-      margin-top: 6px;
-      padding-inline-start: 12px;
-    }
-
-    :host([selected]) #container {
-      color: var(--cros-sys-on_primary_container);
-      background-color: var(--cros-sys-primary_container);
-      border-style: none;
-      font: var(--cros-button-2-font);
-    }
-
-    :host(:not([selected]):focus) #container {
-      border-width: 3px;
-      padding-inline-start: 10px;
-    }
-
-    #details {
-      align-items: center;
-      display: flex;
-      flex: auto;
-      min-height: var(--cr-section-two-line-min-height);
-    }
-
-    #profileTitleLabel {
-      margin-inline-start: 8px;
-    }
-
-    #profileImage {
-      margin-inline-end: 8px;
-    }
-
-    .icon {
-      padding-inline-end: var(--cr-section-padding);
-    }
-
-    #checkmark {
-      --iron-icon-fill-color: var(--cros-icon-color-prominent);
-    }
-</style>
+function getTemplate$12() {
+    return html `<!--_html_template_start_--><style include="iron-flex iron-positioning">#container{background-color:transparent;border-radius:12px;border-width:1px;border:var(--cr-separator-line);box-sizing:border-box;color:var(--cr-secondary-text-color);font:var(--cros-body-2-font);height:64px;margin-bottom:6px;margin-top:6px;padding-inline-start:12px}:host([selected]) #container{color:var(--cros-sys-on_primary_container);background-color:var(--cros-sys-primary_container);border-style:none;font:var(--cros-button-2-font)}:host(:not([selected]):focus) #container{border-width:3px;padding-inline-start:10px}#details{align-items:center;display:flex;flex:auto;min-height:var(--cr-section-two-line-min-height)}#profileTitleLabel{margin-inline-start:8px}#profileImage{margin-inline-end:8px}.icon{padding-inline-end:var(--cr-section-padding)}#checkmark{--iron-icon-fill-color:var(--cros-icon-color-prominent)}</style>
 <div id="container" class="flex layout horizontal center" selectable>
   <div id="details">
-    <!-- The item's aria properties are set in profile_discovery_list_page. -->
+    
     <div class="flex settings-box-text">
       <div id="profileTitleLabel">
         [[getProfileName_(profileProperties)]]
       </div>
     </div>
   </div>
-  <div class="icon"
-      hidden$="[[!selected]]">
-    <iron-icon id="checkmark"
-        icon="cellular-setup:checked"
-        tabindex="-1">
+  <div class="icon" hidden$="[[!selected]]">
+    <iron-icon id="checkmark" icon="cellular-setup:checked" tabindex="-1">
     </iron-icon>
   </div>
 </div>
@@ -10872,7 +10319,7 @@ class ProfileDiscoveryListItemElement extends PolymerElement {
         return 'profile-discovery-list-item';
     }
     static get template() {
-        return getTemplate$11();
+        return getTemplate$12();
     }
     static get properties() {
         return {
@@ -10900,45 +10347,16 @@ class ProfileDiscoveryListItemElement extends PolymerElement {
 }
 customElements.define(ProfileDiscoveryListItemElement.is, ProfileDiscoveryListItemElement);
 
-function getTemplate$10() {
-  return html`<!--_html_template_start_--><style include="cr-shared-style iron-flex">
-    [slot='page-body'] {
-      height: 282px;
-      margin-top: -20px;
-    }
-
-    #container {
-      height: 230px;
-      margin-top: 20px;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-
-    /* Override the styling used for the focused item */
-    [scrollable] iron-list > :not(.no-outline):focus {
-      background-color: transparent !important;
-    }
-  </style>
+function getTemplate$11() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex">[slot=page-body]{height:282px;margin-top:-20px}#container{height:230px;margin-top:20px;overflow-x:hidden;overflow-y:auto}[scrollable] iron-list>:not(.no-outline):focus{background-color:transparent!important}</style>
   <base-page>
     <div slot="page-body">
-      <localized-link
-        id="profileListMessage"
-        localized-string="[[i18nAdvanced('profileListPageMessageWithLink')]]"
-        on-link-clicked="enterManuallyClicked_">
+      <localized-link id="profileListMessage" localized-string="[[i18nAdvanced('profileListPageMessageWithLink')]]" on-link-clicked="enterManuallyClicked_">
       </localized-link>
       <div id="container" class="layout vertical flex" scrollable>
-        <iron-list id="profileList" items="[[pendingProfileProperties]]"
-            scroll-target="container"
-            preserve-focus
-            selection-enabled
-            selected-item="{{selectedProfileProperties}}"
-            role="listbox">
+        <iron-list id="profileList" items="[[pendingProfileProperties]]" scroll-target="container" preserve-focus selection-enabled selected-item="{{selectedProfileProperties}}" role="listbox">
           <template>
-            <profile-discovery-list-item profile-properties="[[item]]"
-                selected="[[isProfilePropertiesSelected_(item, selectedProfileProperties)]]"
-                tabindex="0"
-                role="option"
-                aria-selected="[[isProfilePropertiesSelected_(item, selectedProfileProperties)]]">
+            <profile-discovery-list-item profile-properties="[[item]]" selected="[[isProfilePropertiesSelected_(item, selectedProfileProperties)]]" tabindex="0" role="option" aria-selected="[[isProfilePropertiesSelected_(item, selectedProfileProperties)]]">
             </profile-discovery-list-item>
           </template>
         </iron-list>
@@ -10961,7 +10379,7 @@ class ProfileDiscoveryListPageElement extends ProfileDiscoveryListPageElementBas
         return 'profile-discovery-list-page';
     }
     static get template() {
-        return getTemplate$10();
+        return getTemplate$11();
     }
     static get properties() {
         return {
@@ -10987,53 +10405,8 @@ class ProfileDiscoveryListPageElement extends ProfileDiscoveryListPageElementBas
 }
 customElements.define(ProfileDiscoveryListPageElement.is, ProfileDiscoveryListPageElement);
 
-function getTemplate$$() {
-  return html`<!--_html_template_start_--><style include="iron-flex iron-positioning">
-  [slot='page-body'] {
-    height: 282px;
-    margin-top: -20px;
-  }
-
-  #outerDiv {
-    height: 236px;
-  }
-
-  .container {
-    width: 472px;
-  }
-
-  #details {
-    align-items: center;
-    color: var(--cros-text-color-primary);
-    display: flex;
-    margin-bottom: 40px;
-  }
-
-  #profileImage {
-    margin-inline-end: 16px;
-  }
-
-  #confirmationCodeContainer {
-    margin-inline-end: 16px;
-  }
-
-  paper-spinner-lite {
-    height: 20px;
-    position: absolute;
-    right: 16px;
-    top: 24px;
-    width: 20px;
-  }
-
-  #loadingMessage {
-    bottom: 0;
-    color: var(--cros-text-color-disabled);
-    font-size: var(--cr-form-field-label-font-size);
-    letter-spacing: .4px;
-    line-height: var(--cr-form-field-label-line-height);
-    position: absolute;
-  }
-</style>
+function getTemplate$10() {
+    return html `<!--_html_template_start_--><style include="iron-flex iron-positioning">[slot=page-body]{height:282px;margin-top:-20px}#outerDiv{height:236px}.container{width:472px}#details{align-items:center;color:var(--cros-text-color-primary);display:flex;margin-bottom:40px}#profileImage{margin-inline-end:16px}#confirmationCodeContainer{margin-inline-end:16px}paper-spinner-lite{height:20px;position:absolute;right:16px;top:24px;width:20px}#loadingMessage{bottom:0;color:var(--cros-text-color-disabled);font-size:var(--cr-form-field-label-font-size);letter-spacing:.4px;line-height:var(--cr-form-field-label-line-height);position:absolute}</style>
 <base-page>
   <div slot="page-body">
     <div aria-live="polite">
@@ -11042,26 +10415,17 @@ function getTemplate$$() {
     <div id="outerDiv" class="layout horizontal center">
       <div class="container">
         <div id="details" hidden$="[[!shouldShowProfileDetails_(profile)]]">
-          <iron-media-query query="(prefers-color-scheme: dark)"
-              query-matches="{{isDarkModeActive_}}">
+          <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
           </iron-media-query>
-          <img id="profileImage"
-              src="[[getProfileImage_(isDarkModeActive_)]]">
+          <img id="profileImage" src="[[getProfileImage_(isDarkModeActive_)]]">
           <div>
             [[getProfileName_(profileProperties_)]]
           </div>
         </div>
         <div id="confirmationCodeContainer" class="relative">
-          <cr-input id="confirmationCode"
-              label="[[i18n('confirmationCodeInput')]]"
-              value="{{confirmationCode}}"
-              error-message="[[i18n('confirmationCodeErrorLegacy')]]"
-              invalid="[[showError]]"
-              disabled="[[showBusy]]"
-              on-keydown="onKeyDown_">
+          <cr-input id="confirmationCode" label="[[i18n('confirmationCodeInput')]]" value="{{confirmationCode}}" error-message="[[i18n('confirmationCodeErrorLegacy')]]" invalid="[[showError]]" disabled="[[showBusy]]" on-keydown="onKeyDown_">
           </cr-input>
-          <paper-spinner-lite active
-              hidden$="[[!showBusy]]">
+          <paper-spinner-lite active hidden$="[[!showBusy]]">
           </paper-spinner-lite>
           <div id="loadingMessage" hidden$="[[!showBusy]]">
             [[i18n('confirmationCodeLoading')]]
@@ -11088,7 +10452,7 @@ class ConfirmationCodePageLegacyElement extends ConfirmationCodePageLegacyElemen
         return 'confirmation-code-page-legacy';
     }
     static get template() {
-        return getTemplate$$();
+        return getTemplate$10();
     }
     static get properties() {
         return {
@@ -11153,32 +10517,8 @@ class ConfirmationCodePageLegacyElement extends ConfirmationCodePageLegacyElemen
 }
 customElements.define(ConfirmationCodePageLegacyElement.is, ConfirmationCodePageLegacyElement);
 
-function getTemplate$_() {
-  return html`<!--_html_template_start_--><style include="iron-flex iron-positioning">
-    [slot='page-body'] {
-      height: 282px;
-      margin-top: -20px;
-    }
-
-    #outerDiv {
-      height: 236px;
-    }
-
-    .container {
-      width: 472px;
-    }
-
-    #details {
-      align-items: center;
-      color: var(--cros-text-color-primary);
-      display: flex;
-      margin-bottom: 40px;
-    }
-
-    #confirmationCodeContainer {
-      margin-inline-end: 16px;
-    }
-</style>
+function getTemplate$$() {
+    return html `<!--_html_template_start_--><style include="iron-flex iron-positioning">[slot=page-body]{height:282px;margin-top:-20px}#outerDiv{height:236px}.container{width:472px}#details{align-items:center;color:var(--cros-text-color-primary);display:flex;margin-bottom:40px}#confirmationCodeContainer{margin-inline-end:16px}</style>
 <base-page>
   <div slot="page-body">
     <div aria-live="polite">
@@ -11192,12 +10532,7 @@ function getTemplate$_() {
           </div>
         </div>
         <div id="confirmationCodeContainer" class="relative">
-          <cr-input id="confirmationCode"
-              label="[[i18n('confirmationCodeInput')]]"
-              value="{{confirmationCode}}"
-              error-message="[[i18n('confirmationCodeError')]]"
-              invalid="[[showError]]"
-              on-keydown="onKeyDown_">
+          <cr-input id="confirmationCode" label="[[i18n('confirmationCodeInput')]]" value="{{confirmationCode}}" error-message="[[i18n('confirmationCodeError')]]" invalid="[[showError]]" on-keydown="onKeyDown_">
           </cr-input>
         </div>
       </div>
@@ -11221,7 +10556,7 @@ class ConfirmationCodePageElement extends ConfirmationCodePageElementBase {
         return 'confirmation-code-page';
     }
     static get template() {
-        return getTemplate$_();
+        return getTemplate$$();
     }
     static get properties() {
         return {
@@ -11251,15 +10586,8 @@ class ConfirmationCodePageElement extends ConfirmationCodePageElementBase {
 }
 customElements.define(ConfirmationCodePageElement.is, ConfirmationCodePageElement);
 
-function getTemplate$Z() {
-  return html`<!--_html_template_start_--><style include="iron-flex">
-  :host {
-      align-content: space-between;
-      display: flex;
-      flex: 1 1 auto;
-      flex-direction: column;
-  }
-</style>
+function getTemplate$_() {
+    return html `<!--_html_template_start_--><style include="iron-flex">:host{align-content:space-between;display:flex;flex:1 1 auto;flex-direction:column}</style>
 <iron-pages attr-for-selected="id" selected="[[selectedESimPageName_]]">
   <setup-loading-page id="profileLoadingPage" loading-message="[[getLoadingMessage_(hasHadActiveCellularNetwork_)]]">
   </setup-loading-page>
@@ -11267,48 +10595,27 @@ function getTemplate$Z() {
     <profile-discovery-consent-page id="profileDiscoveryConsentPage" should-skip-discovery="{{shouldSkipDiscovery_}}">
     </profile-discovery-consent-page>
   </template>
-  <template is="dom-if"
-      if="[[smdsSupportEnabled_]]" restamp>
-      <profile-discovery-list-page id="profileDiscoveryPage"
-          pending-profile-properties="[[pendingProfileProperties_]]"
-          selected-profile-properties="{{selectedProfileProperties_}}">
+  <template is="dom-if" if="[[smdsSupportEnabled_]]" restamp>
+      <profile-discovery-list-page id="profileDiscoveryPage" pending-profile-properties="[[pendingProfileProperties_]]" selected-profile-properties="{{selectedProfileProperties_}}">
       </profile-discovery-list-page>
   </template>
-  <template is="dom-if"
-      if="[[!smdsSupportEnabled_]]" restamp>
-      <profile-discovery-list-page-legacy id="profileDiscoveryPageLegacy"
-          pending-profiles="[[pendingProfiles_]]"
-          selected-profile="{{selectedProfile_}}"
-          show-busy="[[shouldShowSubpageBusy_(state_)]]">
+  <template is="dom-if" if="[[!smdsSupportEnabled_]]" restamp>
+      <profile-discovery-list-page-legacy id="profileDiscoveryPageLegacy" pending-profiles="[[pendingProfiles_]]" selected-profile="{{selectedProfile_}}" show-busy="[[shouldShowSubpageBusy_(state_)]]">
       </profile-discovery-list-page-legacy>
   </template>
-  <activation-code-page id="activationCodePage" is-from-qr-code="{{isActivationCodeFromQrCode_}}"
-      activation-code="{{activationCode_}}"
-      show-no-profiles-found="[[noProfilesFound_(pendingProfiles_, pendingProfileProperties_)]]"
-      show-error="{{showError_}}"
-      show-busy="[[shouldShowSubpageBusy_(state_)]]">
+  <activation-code-page id="activationCodePage" is-from-qr-code="{{isActivationCodeFromQrCode_}}" activation-code="{{activationCode_}}" show-no-profiles-found="[[noProfilesFound_(pendingProfiles_, pendingProfileProperties_)]]" show-error="{{showError_}}" show-busy="[[shouldShowSubpageBusy_(state_)]]">
   </activation-code-page>
   <setup-loading-page id="profileInstallingPage" loading-message="[[i18n('profileInstallingMessage')]]">
   </setup-loading-page>
-  <template is="dom-if"
-      if="[[smdsSupportEnabled_]]" restamp>
-      <confirmation-code-page id="confirmationCodePage"
-          confirmation-code="{{confirmationCode_}}"
-          profile-properties="[[selectedProfileProperties_]]"
-          show-error="{{showError_}}">
+  <template is="dom-if" if="[[smdsSupportEnabled_]]" restamp>
+      <confirmation-code-page id="confirmationCodePage" confirmation-code="{{confirmationCode_}}" profile-properties="[[selectedProfileProperties_]]" show-error="{{showError_}}">
       </confirmation-code-page>
   </template>
-  <template is="dom-if"
-      if="[[!smdsSupportEnabled_]]" restamp>
-      <confirmation-code-page-legacy id="confirmationCodePageLegacy"
-          confirmation-code="{{confirmationCode_}}"
-          profile="[[selectedProfile_]]"
-          show-error="{{showError_}}"
-          show-busy="[[shouldShowSubpageBusy_(state_)]]">
+  <template is="dom-if" if="[[!smdsSupportEnabled_]]" restamp>
+      <confirmation-code-page-legacy id="confirmationCodePageLegacy" confirmation-code="{{confirmationCode_}}" profile="[[selectedProfile_]]" show-error="{{showError_}}" show-busy="[[shouldShowSubpageBusy_(state_)]]">
       </confirmation-code-page-legacy>
   </template>
-  <final-page id="finalPage" delegate="[[delegate]]" show-error="[[showError_]]"
-      message="[[i18n('eSimFinalPageMessage')]]" error-message="[[i18n('eSimFinalPageErrorMessage')]]">
+  <final-page id="finalPage" delegate="[[delegate]]" show-error="[[showError_]]" message="[[i18n('eSimFinalPageMessage')]]" error-message="[[i18n('eSimFinalPageErrorMessage')]]">
   </final-page>
 </iron-pages>
 <!--_html_template_end_-->`;
@@ -11373,7 +10680,7 @@ class EsimFlowUiElement extends EsimFlowUiElementBase {
         return 'esim-flow-ui';
     }
     static get template() {
-        return getTemplate$Z();
+        return getTemplate$_();
     }
     static get properties() {
         return {
@@ -12092,36 +11399,18 @@ class EsimFlowUiElement extends EsimFlowUiElementBase {
 }
 customElements.define(EsimFlowUiElement.is, EsimFlowUiElement);
 
-function getTemplate$Y() {
-  return html`<!--_html_template_start_--><iron-pages
-    attr-for-selected="id"
-    selected="[[currentPageName]]"
-    selected-item="{{currentPage_}}">
-  <template is="dom-if"
-      if="[[shouldShowPsimFlow_(currentPageName)]]" restamp>
-    <psim-flow-ui
-        button-state="{{buttonState_}}"
-        name-of-carrier-pending-setup="{{flowPsimBanner}}"
-        delegate="[[delegate]]"
-        id="psim-flow-ui"
-        forward-button-label="{{forwardButtonLabel_}}">
+function getTemplate$Z() {
+    return html `<!--_html_template_start_--><iron-pages attr-for-selected="id" selected="[[currentPageName]]" selected-item="{{currentPage_}}">
+  <template is="dom-if" if="[[shouldShowPsimFlow_(currentPageName)]]" restamp>
+    <psim-flow-ui button-state="{{buttonState_}}" name-of-carrier-pending-setup="{{flowPsimBanner}}" delegate="[[delegate]]" id="psim-flow-ui" forward-button-label="{{forwardButtonLabel_}}">
     </psim-flow-ui>
   </template>
-  <template is="dom-if"
-      if="[[shouldShowEsimFlow_(currentPageName)]]" restamp>
-    <esim-flow-ui
-        button-state="{{buttonState_}}"
-        delegate="[[delegate]]"
-        id="esim-flow-ui"
-        header="{{flowHeader}}"
-        forward-button-label="{{forwardButtonLabel_}}">
+  <template is="dom-if" if="[[shouldShowEsimFlow_(currentPageName)]]" restamp>
+    <esim-flow-ui button-state="{{buttonState_}}" delegate="[[delegate]]" id="esim-flow-ui" header="{{flowHeader}}" forward-button-label="{{forwardButtonLabel_}}">
     </esim-flow-ui>
   </template>
 </iron-pages>
-<button-bar
-    id="buttonBar"
-    button-state="[[buttonState_]]"
-    forward-button-label="[[forwardButtonLabel_]]">
+<button-bar id="buttonBar" button-state="[[buttonState_]]" forward-button-label="[[forwardButtonLabel_]]">
 </button-bar>
 <!--_html_template_end_-->`;
 }
@@ -12138,7 +11427,7 @@ class CellularSetupElement extends PolymerElement {
         return 'cellular-setup';
     }
     static get template() {
-        return getTemplate$Y();
+        return getTemplate$Z();
     }
     static get properties() {
         return {
@@ -12242,7 +11531,7 @@ class CellularSetupElement extends PolymerElement {
 }
 customElements.define(CellularSetupElement.is, CellularSetupElement);
 
-function getTemplate$X() {
+function getTemplate$Y() {
     return html `<!--_html_template_start_--><style include="settings-shared">@media (min-width:640px){:host{--cr-dialog-width:512px}}@media (max-width:640px){:host{--cr-dialog-width:320px}}:host{--cr-dialog-body-padding-horizontal:24px;--cr-dialog-title-slot-padding-bottom:0;--cr-dialog-title-slot-padding-end:0;--cr-dialog-title-slot-padding-start:0;--cr-dialog-title-slot-padding-top:0}#header{padding-bottom:8px;padding-inline-end:24px;padding-inline-start:24px;padding-top:24px}#title{align-items:center;background-color:var(--cros-dialog-title-background-color);display:flex;font-size:x-small;height:32px;justify-content:center}</style>
 
 <cr-dialog id="dialog">
@@ -12287,7 +11576,7 @@ class OsSettingsCellularSetupDialogElement extends OsSettingsCellularSetupDialog
         return 'os-settings-cellular-setup-dialog';
     }
     static get template() {
-        return getTemplate$X();
+        return getTemplate$Y();
     }
     static get properties() {
         return {
@@ -12331,7 +11620,7 @@ class OsSettingsCellularSetupDialogElement extends OsSettingsCellularSetupDialog
 }
 customElements.define(OsSettingsCellularSetupDialogElement.is, OsSettingsCellularSetupDialogElement);
 
-function getTemplate$W() {
+function getTemplate$X() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-positioning">:host{--cr-dialog-width:416px;--cr-dialog-title-slot-padding-bottom:10px}#body{overflow:hidden;padding:0 20px 2px 20px}#warningMessage{--iron-icon-fill-color:var(--cros-icon-color-disabled);--iron-icon-height:16px;--iron-icon-width:16px;font-size:smaller;padding-bottom:12px}#warningMessage iron-icon{float:left;padding-inline-end:4px}:host-context([dir=rtl]) #warningMessage iron-icon{float:right}#warningMessage div{overflow:hidden}#inputContainer{margin-top:12px}#inputInfo{background-color:var(--cros-bg-color);color:var(--cros-text-color-secondary);font-size:var(--cr-form-field-label-font-size);font-weight:400;height:30px;line-height:var(--cr-form-field-label-line-height);padding-top:8px;position:absolute;top:50px;width:100%}@media (prefers-color-scheme:dark){#inputInfo{background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#inputInfo.error{color:var(--cros-text-color-alert)}#inputSubtitle{display:block;width:260px}#inputCount{position:absolute;right:0;top:8px}:host-context([dir=rtl]) #inputCount{left:0;right:auto}#cancel{margin-inline-end:8px}</style>
 <cr-dialog id="profileRenameDialog" show-on-attach>
   <div slot="title">$i18n{eSimRenameProfileDialogLabel}</div>
@@ -12389,7 +11678,7 @@ class EsimRenameDialogElement extends EsimRenameDialogElementBase {
         return 'esim-rename-dialog';
     }
     static get template() {
-        return getTemplate$W();
+        return getTemplate$X();
     }
     static get properties() {
         return {
@@ -12528,7 +11817,7 @@ class EsimRenameDialogElement extends EsimRenameDialogElementBase {
 }
 customElements.define(EsimRenameDialogElement.is, EsimRenameDialogElement);
 
-function getTemplate$V() {
+function getTemplate$W() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-dialog-width:416px}#title{height:15px}#warningMessage{--iron-icon-fill-color:var(--cros-icon-color-disabled);--iron-icon-height:16px;--iron-icon-width:16px;font-size:smaller;margin-top:20px}#warningMessage iron-icon{float:left;padding-inline-end:4px}:host-context([dir=rtl]) #warningMessage iron-icon{float:right}#warningMessage div{overflow:hidden}#cancel{margin-inline-end:8px}#cancel:focus{box-shadow:0 0 0 2px var(--focus-shadow-color)}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div id="title" slot="title">
@@ -12565,7 +11854,7 @@ class EsimRemoveProfileDialogElement extends EsimRemoveProfileDialogElementBase 
         return 'esim-remove-profile-dialog';
     }
     static get template() {
-        return getTemplate$V();
+        return getTemplate$W();
     }
     static get properties() {
         return {
@@ -12644,7 +11933,7 @@ class EsimRemoveProfileDialogElement extends EsimRemoveProfileDialogElementBase 
 }
 customElements.define(EsimRemoveProfileDialogElement.is, EsimRemoveProfileDialogElement);
 
-function getTemplate$U() {
+function getTemplate$V() {
     return html `<!--_html_template_start_--><style include="internet-shared iron-flex">:host{--cr-dialog-width:380px}#subtitle{font-size:.75rem;font-weight:500;height:40px;position:relative;left:20px;top:-10px;width:340px}#warningMessage{--iron-icon-fill-color:var(--cros-icon-color-disabled);--iron-icon-height:16px;--iron-icon-width:16px;font-size:smaller;margin-top:20px}#warningMessage iron-icon{float:left;padding-inline-end:4px}:host-context([dir=rtl]) #warningMessage iron-icon{float:right}#warningMessage div{overflow:hidden}network-config-toggle{color:var(--cr-primary-text-color)}.input-info{font-size:var(--cr-form-field-label-font-size);height:20px;position:relative;top:-16px}.error{color:var(--cros-text-color-alert)}#errorMessage{font-weight:500}</style>
 
 <cr-dialog id="dialog" show-on-attach>
@@ -12717,7 +12006,7 @@ class HotspotConfigDialogElement extends HotspotConfigDialogElementBase {
         return 'hotspot-config-dialog';
     }
     static get template() {
-        return getTemplate$U();
+        return getTemplate$V();
     }
     static get properties() {
         return {
@@ -12867,7 +12156,7 @@ class HotspotConfigDialogElement extends HotspotConfigDialogElementBase {
 }
 customElements.define(HotspotConfigDialogElement.is, HotspotConfigDialogElement);
 
-function getTemplate$T() {
+function getTemplate$U() {
   return html`<!--_html_template_start_--><style include="network-shared">
   #container {
     align-items: center;
@@ -12904,7 +12193,7 @@ function getTemplate$T() {
 
 
 Polymer({
-  _template: getTemplate$T(),
+  _template: getTemplate$U(),
   is: 'network-config-input',
 
   behaviors: [
@@ -12943,7 +12232,7 @@ Polymer({
   },
 });
 
-function getTemplate$S() {
+function getTemplate$T() {
   return html`<!--_html_template_start_--><style include="cr-shared-style network-shared md-select">
   .md-select {
     color: var(--cr-primary-text-color);
@@ -12997,7 +12286,7 @@ function getTemplate$S() {
 
 
 Polymer({
-  _template: getTemplate$S(),
+  _template: getTemplate$T(),
   is: 'network-config-select',
 
   behaviors: [
@@ -13147,7 +12436,7 @@ Polymer({
   },
 });
 
-function getTemplate$R() {
+function getTemplate$S() {
   return html`<!--_html_template_start_--><style include="network-shared action-link iron-flex">
   #spinner-container {
     height: 200px;
@@ -13540,7 +12829,7 @@ const IPV6_ADDR_REGEX = /^(\:?[0-9a-f]{0,4}){2,8}$/i;
 const IP_CIDR_REGEX = /^[0-9a-f\.\:]+\/[0-9]+?$/i;
 
 Polymer({
-  _template: getTemplate$R(),
+  _template: getTemplate$S(),
   is: 'network-config',
 
   behaviors: [
@@ -15997,7 +15286,7 @@ Polymer({
   },
 });
 
-function getTemplate$Q() {
+function getTemplate$R() {
     return html `<!--_html_template_start_--><style include="internet-shared iron-flex">cr-dialog::part(dialog){width:460px}.error{color:var(--cros-text-color-alert);font-weight:500}</style>
 
 <cr-dialog id="dialog" close-text="$i18n{close}">
@@ -16043,7 +15332,7 @@ class InternetConfigElement extends InternetConfigElementBase {
         return 'internet-config';
     }
     static get template() {
-        return getTemplate$Q();
+        return getTemplate$R();
     }
     static get properties() {
         return {
@@ -16157,7 +15446,7 @@ class InternetConfigElement extends InternetConfigElementBase {
 }
 customElements.define(InternetConfigElement.is, InternetConfigElement);
 
-function getTemplate$P() {
+function getTemplate$Q() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">cr-action-menu.dropdown-item{min-height:36px}cr-action-menu hr{border:none;border-top:var(--cr-separator-line);margin:6px 0 0 0}</style>
 <template is="dom-if" if="[[shouldShowDotsMenuButton_(eSimNetworkState_, isGuest_)]]" restamp>
   <cr-icon-button class="icon-more-vert" title="$i18n{moreActions}" id="moreNetworkDetail" on-click="onDotsClick_" disabled="[[isDotsMenuButtonDisabled_(eSimNetworkState_, deviceState.*)]]">
@@ -16192,7 +15481,7 @@ class SettingsInternetDetailMenuElement extends SettingsInternetDetailMenuElemen
         return 'settings-internet-detail-menu';
     }
     static get template() {
-        return getTemplate$P();
+        return getTemplate$Q();
     }
     static get properties() {
         return {
@@ -16350,7 +15639,7 @@ class SettingsInternetDetailMenuElement extends SettingsInternetDetailMenuElemen
 }
 customElements.define(SettingsInternetDetailMenuElement.is, SettingsInternetDetailMenuElement);
 
-function getTemplate$O() {
+function getTemplate$P() {
     return html `<!--_html_template_start_--><style include="internet-shared iron-flex">.settings-box{border-top:var(--network-summary-item-border-top,var(--cr-separator-line))}#hotspotPageTitle{padding-inline-start:0}</style>
 
 <div class="settings-box two-line no-padding">
@@ -16404,7 +15693,7 @@ class HotspotSummaryItemElement extends HotspotSummaryItemElementBase {
         return 'hotspot-summary-item';
     }
     static get template() {
-        return getTemplate$O();
+        return getTemplate$P();
     }
     static get properties() {
         return {
@@ -16508,7 +15797,7 @@ class HotspotSummaryItemElement extends HotspotSummaryItemElementBase {
 }
 customElements.define(HotspotSummaryItemElement.is, HotspotSummaryItemElement);
 
-function getTemplate$N() {
+function getTemplate$O() {
     return html `<!--_html_template_start_--><style include="internet-shared iron-flex">.settings-box{border-top:var(--network-summary-item-border-top,var(--cr-separator-line))}#outerBox{padding:0 var(--cr-section-padding)}#details{align-items:center;display:flex;flex:auto}.network-state{color:var(--cr-secondary-text-color);font-size:inherit}.warning-message{color:var(--cros-text-color-warning);font-size:inherit}:host-context(body.revamp-wayfinding-enabled) network-icon{padding-inline-end:16px;padding-inline-start:0;--network-icon-fill-color:var(--cros-sys-primary)}</style>
 <div class="settings-box two-line no-padding">
   <div id="networkSummaryItemRow" actionable$="[[isItemActionable_(activeNetworkState,
@@ -16562,7 +15851,7 @@ class NetworkSummaryItemElement extends NetworkSummaryItemElementBase {
         return 'network-summary-item';
     }
     static get template() {
-        return getTemplate$N();
+        return getTemplate$O();
     }
     static get properties() {
         return {
@@ -17018,7 +16307,7 @@ class NetworkSummaryItemElement extends NetworkSummaryItemElementBase {
 }
 customElements.define(NetworkSummaryItemElement.is, NetworkSummaryItemElement);
 
-function getTemplate$M() {
+function getTemplate$N() {
     return html `<!--_html_template_start_--><style>network-summary-item:first-child{--network-summary-item-border-top:0}</style>
 <div id="summary">
   <template is="dom-repeat" items="[[activeNetworkStates_]]">
@@ -17047,7 +16336,7 @@ class NetworkSummaryElement extends NetworkSummaryElementBase {
         return 'network-summary';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$N();
     }
     static get properties() {
         return {
@@ -17347,7 +16636,7 @@ class NetworkSummaryElement extends NetworkSummaryElementBase {
 }
 customElements.define(NetworkSummaryElement.is, NetworkSummaryElement);
 
-function getTemplate$L() {
+function getTemplate$M() {
     return html `<!--_html_template_start_--><style include="os-settings-icons settings-shared">iron-icon.policy{height:24px;margin-inline-end:12px;margin-inline-start:4px;width:24px}cr-toast iron-icon{--iron-icon-fill-color:var(--cros-toast-icon-color-warning);margin-inline-end:16px}#apnTooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-text-color:var(--cros-tooltip-label-color);text-align:center}#hotspotSubtitle{color:var(--cr-secondary-text-color);font-size:inherit;left:56px;padding-inline-end:210px;position:relative;top:-22px}</style>
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
@@ -17535,7 +16824,7 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
         return 'settings-internet-page';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$M();
     }
     static get properties() {
         return {
@@ -18284,7 +17573,7 @@ class SettingsInternetPageElement extends SettingsInternetPageElementBase {
 }
 customElements.define(SettingsInternetPageElement.is, SettingsInternetPageElement);
 
-function getTemplate$K() {
+function getTemplate$L() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex"></style>
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
@@ -18319,7 +17608,7 @@ class SettingsKerberosPageElement extends SettingsKerberosPageElementBase {
         return 'settings-kerberos-page';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -18345,7 +17634,7 @@ class SettingsKerberosPageElement extends SettingsKerberosPageElementBase {
 }
 customElements.define(SettingsKerberosPageElement.is, SettingsKerberosPageElement);
 
-function getTemplate$J() {
+function getTemplate$K() {
     return html `<!--_html_template_start_--><style include="cr-shared-style cros-color-overrides">cr-dialog::part(dialog){width:320px}#passwordInput{margin-top:20px}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div slot="title">$i18n{passwordPromptTitle}</div>
@@ -18394,7 +17683,7 @@ class SettingsPasswordPromptDialogElement extends PolymerElement {
         return 'settings-password-prompt-dialog';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -18490,7 +17779,7 @@ class SettingsPasswordPromptDialogElement extends PolymerElement {
 }
 customElements.define(SettingsPasswordPromptDialogElement.is, SettingsPasswordPromptDialogElement);
 
-function getTemplate$I() {
+function getTemplate$J() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">cr-dialog::part(dialog){width:512px}div[slot=title]{flex-direction:column;height:auto}div[slot=body]{align-items:center;display:flex;flex-direction:column;height:auto;justify-content:center;width:464px}iron-icon{--iron-icon-fill-color:var(--cros-icon-color-alert);padding-bottom:13px}#description{display:flex;flex-direction:column;gap:12px}:host(:not([did-setup-attempt-fail_])) #description{height:93px}:host([did-setup-attempt-fail_]) #description{height:60px}#illustration{background-position:center center;background-repeat:no-repeat;background-size:contain;height:200px;margin-bottom:24px;margin-top:24px;width:100%}:host([has-not-started-setup-attempt_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_setup.svg)}:host([is-setup-attempt-in-progress_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_connecting.svg)}:host([did-setup-attempt-fail_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_error.svg)}:host([has-completed-setup-successfully_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_finished.svg)}@media(prefers-color-scheme:dark){:host([has-not-started-setup-attempt_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_setup_dark.svg)}:host([is-setup-attempt-in-progress_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_connecting_dark.svg)}:host([did-setup-attempt-fail_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_error_dark.svg)}:host([has-completed-setup-successfully_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_finished_dark.svg)}}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div id="dialogTitle" slot="title">
@@ -18573,7 +17862,7 @@ class SettingsMultideviceNotificationAccessSetupDialogElement extends SettingsMu
         return 'settings-multidevice-notification-access-setup-dialog';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -18756,7 +18045,7 @@ class SettingsMultideviceNotificationAccessSetupDialogElement extends SettingsMu
 }
 customElements.define(SettingsMultideviceNotificationAccessSetupDialogElement.is, SettingsMultideviceNotificationAccessSetupDialogElement);
 
-function getTemplate$H() {
+function getTemplate$I() {
     return html `<!--_html_template_start_--><settings-password-prompt-dialog id="passwordPrompt" password-prompt-text="[[selectPasswordPromptEnterPasswordString_(hasPinLogin)]]" on-token-obtained="onTokenObtained_">
 </settings-password-prompt-dialog>
 <!--_html_template_end_-->`;
@@ -18785,7 +18074,7 @@ class SettingsLockScreenPasswordPromptDialogElement extends SettingsLockScreenPa
         return 'settings-lock-screen-password-prompt-dialog';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$I();
     }
     static get properties() {
         return {};
@@ -18812,7 +18101,7 @@ class SettingsLockScreenPasswordPromptDialogElement extends SettingsLockScreenPa
 }
 customElements.define(SettingsLockScreenPasswordPromptDialogElement.is, SettingsLockScreenPasswordPromptDialogElement);
 
-function getTemplate$G() {
+function getTemplate$H() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#screen-lock-description{align-items:center;display:flex;flex-direction:row;height:auto;justify-content:center}#half-container{flex:1;height:216px}#illustration{background-image:url(chrome://os-settings/images/multidevice_permission_setup_connecting.svg);background-position:center center;background-repeat:no-repeat;background-size:contain;height:200px;margin-bottom:8px;margin-top:8px;width:100%}@media(prefers-color-scheme:dark){#illustration{background-image:url(chrome://os-settings/images/multidevice_permission_setup_connecting_dark.svg)}}#radio-button-container{padding-top:20px}#passwordRadioButton{--cr-radio-button-label-spacing:20px;--cr-radio-button-size:20px;color:var(--cr-primary-text-color);min-height:20px;padding-inline-start:8px;padding-top:24px}#pinRadioButton{--cr-radio-button-label-spacing:20px;--cr-radio-button-size:20px;color:var(--cr-primary-text-color);min-height:20px;padding-inline-start:8px;padding-top:44px}#subtext{color:var(--cr-secondary-text-color);padding-inline-start:48px}</style>
 <div id="screen-lock-description">
   <div id="half-container">
@@ -18854,7 +18143,7 @@ class SettingsMultideviceScreenLockSubpageElement extends SettingsMultideviceScr
         return 'settings-multidevice-screen-lock-subpage';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -19030,7 +18319,7 @@ class SettingsMultideviceScreenLockSubpageElement extends SettingsMultideviceScr
 }
 customElements.define(SettingsMultideviceScreenLockSubpageElement.is, SettingsMultideviceScreenLockSubpageElement);
 
-function getTemplate$F() {
+function getTemplate$G() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">cr-dialog::part(dialog){width:512px}#dialogTitle{--cr-dialog-title-slot-padding-bottom:24px;--cr-dialog-title-slot-padding-end:24px;--cr-dialog-title-slot-padding-start:24px;--cr-dialog-title-slot-padding-top:24px}:host(:not([has-started-setup-attempt_])) #dialogTitle{--cr-dialog-title-slot-padding-bottom:20px}:host([is-setup-screen-lock-in-progress_]) #dialogTitle{--cr-dialog-title-slot-padding-bottom:20px}#title{align-items:center;color:var(--cros-text-color-primary);display:flex;flex-direction:row;font:var(--cros-title-1-font);gap:8px;justify-content:flex-start}#subtitle{color:var(--cros-text-color-secondary);font:var(--cros-body-1-font)}#dialogBody{display:flex;flex-direction:column;padding-inline-end:24px;padding-inline-start:24px}:host([has-started-setup-attempt_]) #dialogBody{height:296px}:host([is-setup-screen-lock-in-progress_]) #dialogBody{height:260px}:host([did-setup-attempt-fail_]) #dialogBody{height:288px}:host([should-show-setup-instructions-separately_]) #dialogBody{justify-content:space-between}#buttonContainer{align-items:center;display:flex;flex-direction:row;justify-content:space-between;padding-bottom:20px;padding-inline-end:24px;padding-inline-start:24px;padding-top:0}#failure-icon{--iron-icon-fill-color:var(--cros-icon-color-warning);height:32px;width:32px}#feature-icon{--iron-icon-fill-color:var(--cros-icon-color-prominent);height:20px;width:20px}#instruction-icon{--iron-icon-fill-color:var(--cros-icon-color-secondary);height:16px;width:16px}#screen-lock-instruction-icon{--iron-icon-fill-color:var(--cros-icon-color-secondary);height:20px;width:20px}#button-detail{align-items:flex-end;display:flex;flex-direction:row;gap:8px;justify-content:right}#description{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font);padding-top:24px}#feature-description{align-items:flex-start;display:flex;flex-direction:column;width:252px}#start-setup-description{align-items:flex-start;display:flex;flex-direction:row;height:auto;justify-content:center}#feature-details-container{align-items:flex-start;color:var(--cros-text-color-secondary);display:flex;flex-direction:row;font:var(--cros-body-2-font);gap:20px;justify-content:start;padding-bottom:16px}#half-container{flex:1}#instruction{align-items:flex-end;color:var(--cros-text-color-secondary);display:flex;flex-direction:row;font:var(--cros-annotation-2-font);gap:6px;justify-content:start;padding-bottom:24px}#screen-lock-instruction{align-items:flex-start;color:var(--cros-text-color-secondary);display:flex;flex-direction:row;font:var(--cros-body-2-font);gap:8px;justify-content:start;padding-bottom:24px}#illustration{background-position:center center;background-repeat:no-repeat;background-size:contain;height:200px;width:100%}:host(:not([has-started-setup-attempt_])) #illustration{background-image:url(chrome://os-settings/images/notification_access_setup.svg);padding-bottom:8px;padding-top:8px;width:200px}:host([is-setup-attempt-in-progress_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_connecting.svg)}:host([did-setup-attempt-fail_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_error.svg)}:host([has-completed-setup_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_finished.svg)}@media(prefers-color-scheme:dark){:host(:not([has-started-setup-attempt_])) #illustration{background-image:url(chrome://os-settings/images/notification_access_setup_dark.svg)}:host([is-setup-attempt-in-progress_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_connecting_dark.svg)}:host([did-setup-attempt-fail_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_error_dark.svg)}:host([has-completed-setup-successfully_]) #illustration{background-image:url(chrome://os-settings/images/notification_access_finished_dark.svg)}}</style>
 <cr-dialog id="dialog" close-text="$i18n{close}">
   <div id="dialogTitle" slot="title">
@@ -19228,7 +18517,7 @@ class SettingsMultidevicePermissionsSetupDialogElement extends SettingsMultidevi
         return 'settings-multidevice-permissions-setup-dialog';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -20069,7 +19358,7 @@ const NearbyShareSettingsMixin = dedupingMixin((superClass) => {
     return NearbyShareSettingsMixinInternal;
 });
 
-function getTemplate$E() {
+function getTemplate$F() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{padding:0 var(--cr-controlled-by-spacing)}:host-context(body.revamp-wayfinding-enabled) #betterTogetherSuiteIcon,:host-context(body.revamp-wayfinding-enabled) #nearbyShareIcon{--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 
 <os-settings-animated-pages id="pages" section="[[section_]]">
@@ -20239,7 +19528,7 @@ class SettingsMultidevicePageElement extends SettingsMultidevicePageElementBase 
         return 'settings-multidevice-page';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -20791,7 +20080,7 @@ class SettingsMultidevicePageElement extends SettingsMultidevicePageElementBase 
 }
 customElements.define(SettingsMultidevicePageElement.is, SettingsMultidevicePageElement);
 
-function getTemplate$D() {
+function getTemplate$E() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 
 <os-settings-animated-pages id="pages" current-route="{{currentRoute}}" section="[[section_]]">
@@ -20953,7 +20242,7 @@ class OsSettingsA11yPageElement extends OsSettingsA11yPageElementBase {
         return 'os-settings-a11y-page';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -21099,7 +20388,7 @@ class OsSettingsA11yPageElement extends OsSettingsA11yPageElementBase {
 }
 customElements.define(OsSettingsA11yPageElement.is, OsSettingsA11yPageElement);
 
-function getTemplate$C() {
+function getTemplate$D() {
     return html `<!--_html_template_start_--><style include="settings-shared os-settings-icons">#pairNewDeviceBtn{margin-inline-end:20px}:host-context(body.revamp-wayfinding-enabled) #statusIcon{--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 <template is="dom-if" if="[[!isSecondaryUser_]]">
   <div id="bluetoothSummary" class="settings-box two-line first no-padding">
@@ -21171,7 +20460,7 @@ class SettingsBluetoothSummaryElement extends SettingsBluetoothSummaryElementBas
         return 'os-settings-bluetooth-summary';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$D();
     }
     static get properties() {
         return {
@@ -21761,7 +21050,7 @@ Polymer({
   }
 });
 
-function getTemplate$B() {
+function getTemplate$C() {
   return html`<!--_html_template_start_--><style include="iron-positioning cros-color-overrides">
   :host ::slotted([slot='page-body']) {
     color: var(--cr-primary-text-color);
@@ -21857,7 +21146,7 @@ class SettingsBluetoothBasePageElement extends SettingsBluetoothBasePageElementB
         return 'bluetooth-base-page';
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$C();
     }
     static get properties() {
         return {
@@ -21944,7 +21233,7 @@ class SettingsBluetoothBasePageElement extends SettingsBluetoothBasePageElementB
 }
 customElements.define(SettingsBluetoothBasePageElement.is, SettingsBluetoothBasePageElement);
 
-function getTemplate$A() {
+function getTemplate$B() {
   return html`<!--_html_template_start_--><style include="cr-shared-style">
   :host([pairing-failed_]) #secondaryLabel {
     color: var(--cros-text-color-alert);
@@ -22029,7 +21318,7 @@ class SettingsBluetoothPairingDeviceItemElement extends SettingsBluetoothPairing
         return 'bluetooth-pairing-device-item';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$B();
     }
     static get properties() {
         return {
@@ -22152,7 +21441,7 @@ class SettingsBluetoothPairingDeviceItemElement extends SettingsBluetoothPairing
 }
 customElements.define(SettingsBluetoothPairingDeviceItemElement.is, SettingsBluetoothPairingDeviceItemElement);
 
-function getTemplate$z() {
+function getTemplate$A() {
   return html`<!--_html_template_start_--><style include="cr-shared-style">
   localized-link,
   #learn-more-description {
@@ -22230,7 +21519,7 @@ class SettingsBluetoothPairingDeviceSelectionPageElement extends SettingsBluetoo
         return 'bluetooth-pairing-device-selection-page';
     }
     static get template() {
-        return getTemplate$z();
+        return getTemplate$A();
     }
     static get properties() {
         return {
@@ -22365,7 +21654,7 @@ class SettingsBluetoothPairingDeviceSelectionPageElement extends SettingsBluetoo
 }
 customElements.define(SettingsBluetoothPairingDeviceSelectionPageElement.is, SettingsBluetoothPairingDeviceSelectionPageElement);
 
-function getTemplate$y() {
+function getTemplate$z() {
   return html`<!--_html_template_start_--><style include="cr-hidden-style iron-flex">
   span {
     background-color: var(--cros-bg-color-dropped-elevation-2);
@@ -22461,7 +21750,7 @@ class SettingsBluetoothPairingEnterCodeElement extends SettingsBluetoothPairingE
         return 'bluetooth-pairing-enter-code-page';
     }
     static get template() {
-        return getTemplate$y();
+        return getTemplate$z();
     }
     static get properties() {
         return {
@@ -22534,7 +21823,7 @@ class SettingsBluetoothPairingEnterCodeElement extends SettingsBluetoothPairingE
 }
 customElements.define(SettingsBluetoothPairingEnterCodeElement.is, SettingsBluetoothPairingEnterCodeElement);
 
-function getTemplate$x() {
+function getTemplate$y() {
   return html`<!--_html_template_start_--><style>
   #pageBody {
     align-items: center;
@@ -22594,7 +21883,7 @@ class SettingsBluetoothRequestCodePageElement extends SettingsBluetoothPairingRe
         return 'bluetooth-pairing-request-code-page';
     }
     static get template() {
-        return getTemplate$x();
+        return getTemplate$y();
     }
     static get properties() {
         return {
@@ -22659,7 +21948,7 @@ class SettingsBluetoothRequestCodePageElement extends SettingsBluetoothPairingRe
 }
 customElements.define(SettingsBluetoothRequestCodePageElement.is, SettingsBluetoothRequestCodePageElement);
 
-function getTemplate$w() {
+function getTemplate$x() {
   return html`<!--_html_template_start_--><style>
    #code {
     font-size: 24px;
@@ -22700,7 +21989,7 @@ class SettingsBluetoothPairingConfirmCodePageElement extends SettingsBluetoothPa
         return 'bluetooth-pairing-confirm-code-page';
     }
     static get template() {
-        return getTemplate$w();
+        return getTemplate$x();
     }
     static get properties() {
         return {
@@ -22727,7 +22016,7 @@ class SettingsBluetoothPairingConfirmCodePageElement extends SettingsBluetoothPa
 }
 customElements.define(SettingsBluetoothPairingConfirmCodePageElement.is, SettingsBluetoothPairingConfirmCodePageElement);
 
-function getTemplate$v() {
+function getTemplate$w() {
   return html`<!--_html_template_start_--><style>
   #pageBody {
     align-items: center;
@@ -22762,7 +22051,7 @@ class SettingsBluetoothSpinnerPageElement extends PolymerElement {
         return 'bluetooth-spinner-page';
     }
     static get template() {
-        return getTemplate$v();
+        return getTemplate$w();
     }
     static get properties() {
         return {
@@ -22778,7 +22067,7 @@ class SettingsBluetoothSpinnerPageElement extends PolymerElement {
 }
 customElements.define(SettingsBluetoothSpinnerPageElement.is, SettingsBluetoothSpinnerPageElement);
 
-function getTemplate$u() {
+function getTemplate$v() {
   return html`<!--_html_template_start_--><style>
   #container {
     height: 408px;
@@ -22870,7 +22159,7 @@ class SettingsBluetoothPairingUiElement extends PolymerElement {
         return 'bluetooth-pairing-ui';
     }
     static get template() {
-        return getTemplate$u();
+        return getTemplate$v();
     }
     static get properties() {
         return {
@@ -23281,7 +22570,7 @@ class SettingsBluetoothPairingUiElement extends PolymerElement {
 }
 customElements.define(SettingsBluetoothPairingUiElement.is, SettingsBluetoothPairingUiElement);
 
-function getTemplate$t() {
+function getTemplate$u() {
     return html `<!--_html_template_start_--><style include="settings-shared">#dialog{--cr-dialog-top-container-min-height:0}div[slot=body]{height:426px}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="body">
@@ -23304,7 +22593,7 @@ class SettingsBluetoothPairingDialogElement extends PolymerElement {
         return 'os-settings-bluetooth-pairing-dialog';
     }
     static get template() {
-        return getTemplate$t();
+        return getTemplate$u();
     }
     connectedCallback() {
         super.connectedCallback();
@@ -23317,7 +22606,7 @@ class SettingsBluetoothPairingDialogElement extends PolymerElement {
 }
 customElements.define(SettingsBluetoothPairingDialogElement.is, SettingsBluetoothPairingDialogElement);
 
-function getTemplate$s() {
+function getTemplate$t() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex"></style>
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
@@ -23375,7 +22664,7 @@ class SettingsBluetoothPageElement extends SettingsBluetoothPageElementBase {
         return 'os-settings-bluetooth-page';
     }
     static get template() {
-        return getTemplate$s();
+        return getTemplate$t();
     }
     static get properties() {
         return {
@@ -23429,7 +22718,7 @@ class SettingsBluetoothPageElement extends SettingsBluetoothPageElementBase {
 }
 customElements.define(SettingsBluetoothPageElement.is, SettingsBluetoothPageElement);
 
-function getTemplate$r() {
+function getTemplate$s() {
     return html `<!--_html_template_start_--><style include="settings-shared">cr-link-row{--cr-section-padding:0}.start-icon{width:var(--cr-link-row-icon-width,var(--cr-icon-size))}</style>
 <div id="parental-controls-item" class="settings-box two-line">
   <template is="dom-if" if="[[isChild_]]">
@@ -23468,7 +22757,7 @@ class SettingsParentalControlsPageElement extends SettingsParentalControlsPageEl
         return 'settings-parental-controls-page';
     }
     static get template() {
-        return getTemplate$r();
+        return getTemplate$s();
     }
     static get properties() {
         return {
@@ -23537,7 +22826,7 @@ class SettingsParentalControlsPageElement extends SettingsParentalControlsPageEl
 }
 customElements.define(SettingsParentalControlsPageElement.is, SettingsParentalControlsPageElement);
 
-function getTemplate$q() {
+function getTemplate$r() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) #parentalControlRowIcon{--iron-icon-fill-color:var(--cros-sys-primary)}cr-link-row{--cr-section-padding:0}</style>
 
 <settings-card header-text="$i18n{parentalControlsPageTitle}">
@@ -23580,7 +22869,7 @@ class ParentalControlsSettingsCardElement extends ParentalControlsSettingsCardEl
         return 'parental-controls-settings-card';
     }
     static get template() {
-        return getTemplate$q();
+        return getTemplate$r();
     }
     static get properties() {
         return {
@@ -23662,7 +22951,7 @@ class ParentalControlsSettingsCardElement extends ParentalControlsSettingsCardEl
 }
 customElements.define(ParentalControlsSettingsCardElement.is, ParentalControlsSettingsCardElement);
 
-function getTemplate$p() {
+function getTemplate$q() {
     return html `<!--_html_template_start_--><style include="settings-shared">.account-manager-description{color:var(--cr-secondary-text-color);display:block;max-width:560px;padding-top:8px;padding-bottom:8px}.account-manager-description.full-width{max-width:none}.profile-icon{--profile-icon-size:40px;background:center/cover no-repeat;border-radius:50%;flex-shrink:0;height:var(--profile-icon-size);width:var(--profile-icon-size)}.profile-icon.device-account-icon{--profile-icon-size:60px;margin-top:8px}.device-account-container{align-items:center;display:flex;flex-direction:column;margin-bottom:16px}.device-account-container .primary{font-weight:500;margin-top:8px}.managed-badge{--badge-offset:calc(100% - var(--badge-size)
                          - 2 * var(--padding-size));--badge-size:10px;--padding-size:4px;background:var(--cros-icon-color-prominent);border-radius:50%;height:var(--badge-size);left:var(--badge-offset);padding:var(--padding-size);position:relative;top:var(--badge-offset);width:var(--badge-size)}.managed-badge>iron-icon{--iron-icon-fill-color:var(--cros-bg-color-elevation-1);--iron-icon-height:var(--badge-size);--iron-icon-width:var(--badge-size);display:block}.managed-message{color:var(--cr-secondary-text-color);justify-content:center;margin-top:16px}.managed-message>cr-icon-button,.managed-message>iron-icon{margin-inline-end:5px}:host-context([dir=rtl]) .managed-badge{left:auto;right:var(--badge-offset)}:host-context(body.revamp-wayfinding-enabled) #managedUserIcon{--iron-icon-fill-color:var(--cros-sys-secondary)}</style>
 
@@ -23722,7 +23011,7 @@ class AccountManagerSettingsCardElement extends AccountManagerSettingsCardElemen
         return 'account-manager-settings-card';
     }
     static get template() {
-        return getTemplate$p();
+        return getTemplate$q();
     }
     static get properties() {
         return {
@@ -23819,7 +23108,7 @@ class AccountManagerSettingsCardElement extends AccountManagerSettingsCardElemen
 }
 customElements.define(AccountManagerSettingsCardElement.is, AccountManagerSettingsCardElement);
 
-function getTemplate$o() {
+function getTemplate$p() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex iron-flex-alignment">:host{--add-account-margin-top:16px;--account-item-padding-size:8px}.settings-box-text{padding-inline-start:var(--cr-section-padding)}#addAccountButtonContainer{padding-top:8px;padding-bottom:8px}.profile-icon{--profile-icon-size:40px;background:center/cover no-repeat;border-radius:50%;flex-shrink:0;height:var(--profile-icon-size);width:var(--profile-icon-size)}.profile-icon.device-account-icon{--profile-icon-size:60px;margin-top:16px}.middle .secondary{overflow:hidden;text-overflow:ellipsis}.middle.two-line-or-more{min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size));padding-bottom:var(--account-item-padding-size);padding-top:var(--account-item-padding-size)}.middle.two-line-or-more>.flex{display:flex;flex-direction:column;justify-content:center;min-height:calc(var(--cr-section-two-line-min-height) - 2*var(--account-item-padding-size))}.secondary-accounts-policy-indicator{margin-inline-end:12px}.settings-box.user-message{align-items:flex-end}.secondary-accounts-tooltip{margin-inline-start:5px;width:15px}.settings-box.secondary-accounts-box{align-items:flex-end}.secondary-accounts-disabled-tooltip{padding-inline-end:12px}cr-policy-indicator{margin-inline-end:1em;margin-top:var(--add-account-margin-top)}.secondary-accounts-box>#addAccountButton{margin-bottom:12px;margin-top:12px}#addAccountIcon{-webkit-mask-image:url(chrome://resources/images/add.svg);background-color:currentColor;height:24px;width:24px}.signed-out-text{color:var(--cros-text-color-alert)}.error-badge{background:url(chrome://os-settings/images/error_badge.svg) center/cover no-repeat;display:block;height:20px;left:60%;position:relative;top:60%;width:20px}@media (prefers-color-scheme:dark){.error-badge{background:url(chrome://os-settings/images/error_badge_dark.svg) center/cover no-repeat}}:host-context([dir=rtl]) .error-badge{left:auto;right:60%}.edu-account-label{margin-inline-start:12px}#removeConfirmationButton{--active-shadow-action-rgb:var(--cros-color-alert-rgb);--bg-action:var(--cros-color-alert);--focus-shadow-color:var(--cros-highlight-color-error);--hover-bg-action:var(--cros-sys-hover_on_prominent);--hover-shadow-action-rgb:var(--cros-color-alert-rgb)}</style>
 
 <settings-card header-text="[[getAccountListHeader_(isChildUser_)]]">
@@ -23930,7 +23219,7 @@ class AdditionalAccountsSettingsCardElement extends AdditionalAccountsSettingsCa
         return 'additional-accounts-settings-card';
     }
     static get template() {
-        return getTemplate$o();
+        return getTemplate$p();
     }
     static get properties() {
         return {
@@ -24677,7 +23966,7 @@ let instance$4 = null;
     console.error('Unexpectedly reached end of file');
   }
 
-function getTemplate$n() {
+function getTemplate$o() {
     return html `<!--_html_template_start_--><style include="settings-shared iron-flex">:host{--icon-width:40px}.sync-row{align-items:center;flex:auto}#profile-icon{background:center/cover no-repeat;border-radius:20px;flex-shrink:0;height:40px;width:40px}#syncSetupRow{--cr-secondary-text-color:var(--cros-sys-error)}cr-link-row{--cr-link-row-icon-width:var(--icon-width);border-top:var(--cr-separator-line)}settings-parental-controls-page{--cr-link-row-icon-width:var(--icon-width)}parental-controls-settings-card{--cr-link-row-icon-width:var(--icon-width)}.icon-container{display:flex;flex-shrink:0;justify-content:center;width:40px}</style>
 
 <os-settings-animated-pages id="pages" section="[[section_]]">
@@ -24761,7 +24050,7 @@ class OsSettingsPeoplePageElement extends OsSettingsPeoplePageElementBase {
         return 'os-settings-people-page';
     }
     static get template() {
-        return getTemplate$n();
+        return getTemplate$o();
     }
     static get properties() {
         return {
@@ -25077,7 +24366,7 @@ class OsSettingsPeoplePageElement extends OsSettingsPeoplePageElementBase {
 }
 customElements.define(OsSettingsPeoplePageElement.is, OsSettingsPeoplePageElement);
 
-function getTemplate$m() {
+function getTemplate$n() {
     return html `<!--_html_template_start_--><style include="settings-shared">#dataAccesProtectionDialogSubDescription{padding-top:10px}cr-dialog::part(dialog){width:370px}</style>
 
 <cr-dialog id="warningDialog" show-on-attach>
@@ -25116,7 +24405,7 @@ class SettingsPeripheralDataAccessProtectionDialogElement extends SettingsPeriph
         return 'settings-peripheral-data-access-protection-dialog';
     }
     static get template() {
-        return getTemplate$m();
+        return getTemplate$n();
     }
     static get properties() {
         return {
@@ -25143,7 +24432,7 @@ class SettingsPeripheralDataAccessProtectionDialogElement extends SettingsPeriph
 }
 customElements.define(SettingsPeripheralDataAccessProtectionDialogElement.is, SettingsPeripheralDataAccessProtectionDialogElement);
 
-function getTemplate$l() {
+function getTemplate$m() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host([is-user-configurable_]) .peripheral-data-access-protection{--cr-disabled-opacity:1;cursor:pointer;opacity:1}#dataAccessProtectionWrapper:focus{outline:0}:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 
 <os-settings-animated-pages id="pages" section="[[section_]]">
@@ -25323,7 +24612,7 @@ class OsSettingsPrivacyPageElement extends OsSettingsPrivacyPageElementBase {
         return 'os-settings-privacy-page';
     }
     static get template() {
-        return getTemplate$l();
+        return getTemplate$m();
     }
     static get properties() {
         return {
@@ -25810,7 +25099,7 @@ class OsSettingsPrivacyPageElement extends OsSettingsPrivacyPageElementBase {
 }
 customElements.define(OsSettingsPrivacyPageElement.is, OsSettingsPrivacyPageElement);
 
-function getTemplate$k() {
+function getTemplate$l() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 
 <settings-card header-text="$i18n{osSearchPageTitle}">
@@ -25852,7 +25141,7 @@ class SearchAndAssistantSettingsCardElement extends SearchAndAssistantSettingsCa
         return 'search-and-assistant-settings-card';
     }
     static get template() {
-        return getTemplate$k();
+        return getTemplate$l();
     }
     static get properties() {
         return {
@@ -25898,7 +25187,7 @@ class SearchAndAssistantSettingsCardElement extends SearchAndAssistantSettingsCa
                         };
                     }
                     return {
-                        searchEngine: 'os-settings:google-drive',
+                        searchEngine: '',
                         assistant: '',
                         contentRecommendations: '',
                     };
@@ -25940,7 +25229,7 @@ class SearchAndAssistantSettingsCardElement extends SearchAndAssistantSettingsCa
 }
 customElements.define(SearchAndAssistantSettingsCardElement.is, SearchAndAssistantSettingsCardElement);
 
-function getTemplate$j() {
+function getTemplate$k() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 <os-settings-animated-pages section="[[section_]]">
@@ -25981,7 +25270,7 @@ class OsSettingsSearchPageElement extends PolymerElement {
         return 'os-settings-search-page';
     }
     static get template() {
-        return getTemplate$j();
+        return getTemplate$k();
     }
     static get properties() {
         return {
@@ -26028,7 +25317,7 @@ class PersonalizationHubBrowserProxyImpl {
     }
 }
 
-function getTemplate$i() {
+function getTemplate$j() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <os-settings-animated-pages id="pages" section="[[section_]]">
   <div route-path="default">
@@ -26056,7 +25345,7 @@ class SettingsPersonalizationPageElement extends SettingsPersonalizationPageElem
         return 'settings-personalization-page';
     }
     static get template() {
-        return getTemplate$i();
+        return getTemplate$j();
     }
     static get properties() {
         return {
@@ -26088,6 +25377,61 @@ class SettingsPersonalizationPageElement extends SettingsPersonalizationPageElem
     }
 }
 customElements.define(SettingsPersonalizationPageElement.is, SettingsPersonalizationPageElement);
+
+function getTemplate$i() {
+    return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
+
+<settings-card header-text="[[getHeaderText_()]]">
+  <settings-toggle-button id="snapWindowSuggestionsToggle" icon="os-settings:multitasking" pref="{{prefs.ash.snap_window_suggestions.enabled}}" label="[[getLabelText_()]]" sub-label="[[getDescriptionText_()]]">
+  </settings-toggle-button>
+</settings-card><!--_html_template_end_-->`;
+}
+
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'storage-and-power-settings-card' is the card element containing storage and
+ * power settings.
+ */
+const MultitaskingSettingsCardElementBase = WebUiListenerMixin(I18nMixin(PolymerElement));
+class MultitaskingSettingsCardElement extends MultitaskingSettingsCardElementBase {
+    static get is() {
+        return 'multitasking-settings-card';
+    }
+    static get template() {
+        return getTemplate$i();
+    }
+    static get properties() {
+        return {
+            prefs: {
+                type: Object,
+                notify: true,
+            },
+            shouldShowMultitasking_: {
+                type: Boolean,
+                value() {
+                    return shouldShowMultitasking();
+                },
+                readOnly: true,
+            },
+        };
+    }
+    // The following strings are only defined when the OsSettingsRevampWayfinding
+    // feature flag is enabled. Avoid using $i18n{} templating in HTML to avoid
+    // crashes when the feature is disabled.
+    getHeaderText_() {
+        return this.i18n('multitaskingSettingsCardTitle');
+    }
+    getLabelText_() {
+        return this.i18n('snapWindowLabel');
+    }
+    getDescriptionText_() {
+        return this.i18n('snapWindowDescription');
+    }
+}
+customElements.define(MultitaskingSettingsCardElement.is, MultitaskingSettingsCardElement);
 
 function getTemplate$h() {
     return html `<!--_html_template_start_--><style include="settings-shared">#restoreIcon{fill:var(--cros-sys-primary);margin-inline-end:16px}#textContainer{padding-inline-end:var(--cr-section-padding)}</style>
@@ -26276,6 +25620,11 @@ function getTemplate$f() {
       <startup-settings-card prefs="{{prefs}}"></startup-settings-card>
     </template>
 
+    <template is="dom-if" if="[[shouldShowMultitaskingCard_]]">
+      <multitasking-settings-card prefs="{{prefs}}">
+      </multitasking-settings-card>
+    </template>
+
     <template is="dom-if" if="[[shouldShowResetSettingsCard_]]">
       <reset-settings-card></reset-settings-card>
     </template>
@@ -26431,6 +25780,12 @@ class SettingsSystemPreferencesPageElement extends SettingsSystemPreferencesPage
                 type: Boolean,
                 value: () => {
                     return !isGuest();
+                },
+            },
+            shouldShowMultitaskingCard_: {
+                type: Boolean,
+                value: () => {
+                    return shouldShowMultitasking();
                 },
             },
             shouldShowResetSettingsCard_: {
@@ -31467,5 +30822,5 @@ window.addEventListener('load', () => {
     ColorChangeUpdater.forDocument().start();
 });
 
-export { AboutPageBrowserProxyImpl, AccountManagerSettingsCardElement, AdditionalAccountsSettingsCardElement, AndroidAppsBrowserProxyImpl, CrDrawerElement, CrLinkRowElement, CrToolbarSearchFieldElement, DevicePageBrowserProxyImpl, DisplayLayoutElement, EsimRenameDialogElement, FakeInputDeviceSettingsProvider, Fkey, FkeyRowElement, GeolocationAccessLevel, HotspotConfigDialogElement, HotspotSummaryItemElement, InternetConfigElement, InternetPageBrowserProxyImpl, KeyboardRemapModifierKeyRowElement, KeyboardSixPackKeyRowElement, MainPageContainerElement, MetaKey, ModifierKey, MultiDeviceBrowserProxyImpl, MultiDeviceFeature, MultiDeviceFeatureState, MultiDeviceSettingsMode, NearbyShareSettingsMixin, NetworkSummaryElement, NetworkSummaryItemElement, NotificationAccessSetupOperationStatus, OpenWindowProxyImpl, OsA11yPageBrowserProxyImpl, OsBluetoothDevicesSubpageBrowserProxyImpl, OsSettingsA11yPageElement, OsSettingsCellularSetupDialogElement, OsSettingsHatsBrowserProxyImpl, OsSettingsMainElement, OsSettingsMenuElement, OsSettingsMenuItemElement, OsSettingsPeoplePageElement, OsSettingsPrivacyPageElement, OsSettingsSearchBoxBrowserProxyImpl, OsSettingsSearchBoxElement, OsSettingsSearchPageElement, OsSettingsUiElement, OsToolbarElement, PageDisplayerElement, ParentalControlsBrowserProxyImpl, ParentalControlsSettingsCardElement, PeripheralDataAccessBrowserProxyImpl, PermissionsSetupStatus, PersonalizationHubBrowserProxyImpl, PhoneHubFeatureAccessStatus, PhoneHubPermissionsSetupAction, PhoneHubPermissionsSetupFeatureCombination, PhoneHubPermissionsSetupFlowScreens, PolicyStatus, ProfileInfoBrowserProxyImpl, Router, SearchAndAssistantSettingsCardElement, SettingsAudioElement, SettingsBluetoothPageElement, SettingsBluetoothPairingDialogElement, SettingsBluetoothSummaryElement, SettingsDevicePageElement, SettingsDisplayElement, SettingsGraphicsTabletSubpageElement, SettingsIdleLoadElement, SettingsInternetDetailMenuElement, SettingsKerberosPageElement, SettingsMultideviceNotificationAccessSetupDialogElement, SettingsMultidevicePageElement, SettingsMultidevicePermissionsSetupDialogElement, SettingsParentalControlsPageElement, SettingsPerDeviceKeyboardElement, SettingsPerDeviceKeyboardRemapKeysElement, SettingsPerDeviceKeyboardSubsectionElement, SettingsPerDeviceMouseElement, SettingsPerDeviceMouseSubsectionElement, SettingsPerDevicePointingStickElement, SettingsPerDevicePointingStickSubsectionElement, SettingsPerDeviceTouchpadElement, SettingsPerDeviceTouchpadSubsectionElement, SettingsPersonalizationPageElement, SettingsSchedulerSliderElement, SettingsSystemPreferencesPageElement, SetupFlowStatus, SimulateRightClickModifier, SixPackKey, SixPackShortcutModifier, StartupSettingsCardElement, StorageAndPowerSettingsCardElement, SyncBrowserProxyImpl, TopRowActionKey, WiFiSecurityType, createPageAvailability as createPageAvailabilityForTesting, cros_audio_config_mojomWebui as crosAudioConfigMojom, display_settings_provider_mojomWebui as displaySettingsProviderMojom, ensureLazyLoaded, fake_cros_audio_config as fakeCrosAudioConfig, getDisplaySettingsProvider, getInputDeviceSettingsProvider, getNearbyShareSettings, getPersonalizationSearchHandler, getSettingsSearchHandler, observeNearbyShareSettings, personalization_search_mojomWebui as personalizationSearchMojom, recordClick, recordNavigation, recordPageBlur, recordPageFocus, recordSearch, recordSettingChange, routes, routesMojom, search_mojomWebui as searchMojom, search_result_icon_mojomWebui as searchResultIconMojom, setCrosAudioConfigForTesting, setDisplaySettingsProviderForTesting, setGlobalScrollTarget as setGlobalScrollTargetForTesting, setPersonalizationSearchHandlerForTesting, setSettingsSearchHandlerForTesting, sixPackKeyProperties };
+export { AboutPageBrowserProxyImpl, AccountManagerSettingsCardElement, AdditionalAccountsSettingsCardElement, AndroidAppsBrowserProxyImpl, CrDrawerElement, CrLinkRowElement, CrToolbarSearchFieldElement, DevicePageBrowserProxyImpl, DisplayLayoutElement, EsimRenameDialogElement, FakeInputDeviceSettingsProvider, Fkey, FkeyRowElement, GeolocationAccessLevel, HotspotConfigDialogElement, HotspotSummaryItemElement, InternetConfigElement, InternetPageBrowserProxyImpl, KeyboardRemapModifierKeyRowElement, KeyboardSixPackKeyRowElement, MainPageContainerElement, MetaKey, ModifierKey, MultiDeviceBrowserProxyImpl, MultiDeviceFeature, MultiDeviceFeatureState, MultiDeviceSettingsMode, MultitaskingSettingsCardElement, NearbyShareSettingsMixin, NetworkSummaryElement, NetworkSummaryItemElement, NotificationAccessSetupOperationStatus, OpenWindowProxyImpl, OsA11yPageBrowserProxyImpl, OsBluetoothDevicesSubpageBrowserProxyImpl, OsSettingsA11yPageElement, OsSettingsCellularSetupDialogElement, OsSettingsHatsBrowserProxyImpl, OsSettingsMainElement, OsSettingsMenuElement, OsSettingsMenuItemElement, OsSettingsPeoplePageElement, OsSettingsPrivacyPageElement, OsSettingsSearchBoxBrowserProxyImpl, OsSettingsSearchBoxElement, OsSettingsSearchPageElement, OsSettingsUiElement, OsToolbarElement, PageDisplayerElement, ParentalControlsBrowserProxyImpl, ParentalControlsSettingsCardElement, PeripheralDataAccessBrowserProxyImpl, PermissionsSetupStatus, PersonalizationHubBrowserProxyImpl, PhoneHubFeatureAccessStatus, PhoneHubPermissionsSetupAction, PhoneHubPermissionsSetupFeatureCombination, PhoneHubPermissionsSetupFlowScreens, PolicyStatus, ProfileInfoBrowserProxyImpl, Router, SearchAndAssistantSettingsCardElement, SettingsAudioElement, SettingsBluetoothPageElement, SettingsBluetoothPairingDialogElement, SettingsBluetoothSummaryElement, SettingsDevicePageElement, SettingsDisplayElement, SettingsGraphicsTabletSubpageElement, SettingsIdleLoadElement, SettingsInternetDetailMenuElement, SettingsKerberosPageElement, SettingsMultideviceNotificationAccessSetupDialogElement, SettingsMultidevicePageElement, SettingsMultidevicePermissionsSetupDialogElement, SettingsParentalControlsPageElement, SettingsPerDeviceKeyboardElement, SettingsPerDeviceKeyboardRemapKeysElement, SettingsPerDeviceKeyboardSubsectionElement, SettingsPerDeviceMouseElement, SettingsPerDeviceMouseSubsectionElement, SettingsPerDevicePointingStickElement, SettingsPerDevicePointingStickSubsectionElement, SettingsPerDeviceTouchpadElement, SettingsPerDeviceTouchpadSubsectionElement, SettingsPersonalizationPageElement, SettingsSchedulerSliderElement, SettingsSystemPreferencesPageElement, SetupFlowStatus, SimulateRightClickModifier, SixPackKey, SixPackShortcutModifier, StartupSettingsCardElement, StorageAndPowerSettingsCardElement, SyncBrowserProxyImpl, TopRowActionKey, WiFiSecurityType, createPageAvailability as createPageAvailabilityForTesting, cros_audio_config_mojomWebui as crosAudioConfigMojom, display_settings_provider_mojomWebui as displaySettingsProviderMojom, ensureLazyLoaded, fake_cros_audio_config as fakeCrosAudioConfig, getDisplaySettingsProvider, getInputDeviceSettingsProvider, getNearbyShareSettings, getPersonalizationSearchHandler, getSettingsSearchHandler, observeNearbyShareSettings, personalization_search_mojomWebui as personalizationSearchMojom, recordClick, recordNavigation, recordPageBlur, recordPageFocus, recordSearch, recordSettingChange, routes, routesMojom, search_mojomWebui as searchMojom, search_result_icon_mojomWebui as searchResultIconMojom, setCrosAudioConfigForTesting, setDisplaySettingsProviderForTesting, setGlobalScrollTarget as setGlobalScrollTargetForTesting, setPersonalizationSearchHandlerForTesting, setSettingsSearchHandlerForTesting, sixPackKeyProperties };
 //# sourceMappingURL=os_settings.rollup.js.map

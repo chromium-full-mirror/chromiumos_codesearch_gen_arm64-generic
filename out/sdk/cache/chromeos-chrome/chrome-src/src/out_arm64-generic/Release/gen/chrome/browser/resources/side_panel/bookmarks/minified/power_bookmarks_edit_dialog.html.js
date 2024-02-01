@@ -7,11 +7,11 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
     <div class="input-section" hidden="[[moveOnly_]]">
       <div class="input-row name-input">
         <span class="input-label" aria-hidden="true">$i18n{editName}</span>
-        <cr-input class="sp-labelless-input" id="nameInput" value="[[getBookmarkName_(selectedBookmarks_.*)]]" aria-label="$i18n{editName}"></cr-input>
+        <cr-input class="stroked" id="nameInput" value="[[getBookmarkName_(selectedBookmarks_.*)]]" aria-label="$i18n{editName}"></cr-input>
       </div>
       <div class="input-row">
         <span class="input-label" aria-hidden="true">$i18n{editUrl}</span>
-        <cr-input class="sp-labelless-input" id="urlInput" type="url" value="[[getBookmarkUrl_(selectedBookmarks_.*)]]" error-message="$i18n{editInvalidUrl}" aria-label="$i18n{editUrl}" required></cr-input>
+        <cr-input class="stroked" id="urlInput" type="url" value="[[getBookmarkUrl_(selectedBookmarks_.*)]]" error-message="$i18n{editInvalidUrl}" aria-label="$i18n{editUrl}" required></cr-input>
       </div>
     </div>
     <sp-heading hide-back-button="[[!activeFolderPath_.length]]" back-button-title="$i18n{tooltipBack}" back-button-aria-label="[[getBackButtonLabel_(activeFolderPath_.*)]]" on-back-button-click="onBack_">

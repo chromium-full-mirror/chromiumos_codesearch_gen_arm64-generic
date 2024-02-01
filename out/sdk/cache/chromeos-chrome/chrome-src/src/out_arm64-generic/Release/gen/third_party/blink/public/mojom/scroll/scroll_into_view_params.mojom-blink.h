@@ -59,7 +59,7 @@ class PLATFORM_EXPORT ScrollAlignment {
   template <typename... Args>
   static ScrollAlignmentPtr New(Args&&... args) {
     return ScrollAlignmentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -211,7 +211,7 @@ class PLATFORM_EXPORT FocusedEditableParams {
   template <typename... Args>
   static FocusedEditableParamsPtr New(Args&&... args) {
     return FocusedEditableParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -357,7 +357,7 @@ class PLATFORM_EXPORT ScrollIntoViewParams {
   template <typename... Args>
   static ScrollIntoViewParamsPtr New(Args&&... args) {
     return ScrollIntoViewParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

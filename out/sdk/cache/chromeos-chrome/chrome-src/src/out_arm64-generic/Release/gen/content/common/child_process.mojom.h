@@ -361,7 +361,7 @@ class CONTENT_EXPORT LoggingSettings {
   template <typename... Args>
   static LoggingSettingsPtr New(Args&&... args) {
     return LoggingSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

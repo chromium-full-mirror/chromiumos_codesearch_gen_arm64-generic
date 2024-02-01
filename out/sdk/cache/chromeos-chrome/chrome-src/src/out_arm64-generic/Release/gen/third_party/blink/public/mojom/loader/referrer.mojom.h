@@ -58,7 +58,7 @@ class BLINK_COMMON_EXPORT Referrer {
   template <typename... Args>
   static ReferrerPtr New(Args&&... args) {
     return ReferrerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

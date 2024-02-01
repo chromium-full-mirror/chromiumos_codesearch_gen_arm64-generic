@@ -546,7 +546,7 @@ class BLINK_COMMON_EXPORT DevToolsMessage {
   template <typename... Args>
   static DevToolsMessagePtr New(Args&&... args) {
     return DevToolsMessagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -683,7 +683,7 @@ class BLINK_COMMON_EXPORT DevToolsSessionState {
   template <typename... Args>
   static DevToolsSessionStatePtr New(Args&&... args) {
     return DevToolsSessionStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

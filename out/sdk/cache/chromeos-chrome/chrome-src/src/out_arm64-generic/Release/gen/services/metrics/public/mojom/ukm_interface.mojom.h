@@ -486,7 +486,7 @@ class  UkmEntry {
   template <typename... Args>
   static UkmEntryPtr New(Args&&... args) {
     return UkmEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -632,7 +632,7 @@ class  UkmRecorderParameters {
   template <typename... Args>
   static UkmRecorderParametersPtr New(Args&&... args) {
     return UkmRecorderParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

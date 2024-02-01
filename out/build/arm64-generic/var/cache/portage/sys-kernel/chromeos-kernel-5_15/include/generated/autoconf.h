@@ -1021,7 +1021,7 @@
 #define CONFIG_PM_OPP 1
 #define CONFIG_GPIO_CDEV 1
 #define CONFIG_CRYPTO_SHA2_ARM64_CE 1
-#define CONFIG_CC_VERSION_TEXT "Chromium OS 18.0_pre510928-r58 clang version 18.0.0 (/mnt/host/source/src/third_party/llvm-project 82e851a407c52d65ce65e7aa58453127e67d42a0)"
+#define CONFIG_CC_VERSION_TEXT "Chromium OS 18.0_pre510928-r59 clang version 18.0.0 (/mnt/host/source/src/third_party/llvm-project 82e851a407c52d65ce65e7aa58453127e67d42a0)"
 #define CONFIG_NET_IP_TUNNEL_MODULE 1
 #define CONFIG_MTD_CFI_I1 1
 #define CONFIG_NF_NAT 1

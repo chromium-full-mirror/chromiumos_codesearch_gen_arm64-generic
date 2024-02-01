@@ -56,7 +56,7 @@ class BLINK_PLATFORM_EXPORT ResourceId {
   template <typename... Args>
   static ResourceIdPtr New(Args&&... args) {
     return ResourceIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

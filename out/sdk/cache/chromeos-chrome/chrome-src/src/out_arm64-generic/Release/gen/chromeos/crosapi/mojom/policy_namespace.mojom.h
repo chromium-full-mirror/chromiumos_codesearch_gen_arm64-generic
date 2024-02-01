@@ -68,7 +68,7 @@ class  PolicyNamespace {
   template <typename... Args>
   static PolicyNamespacePtr New(Args&&... args) {
     return PolicyNamespacePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

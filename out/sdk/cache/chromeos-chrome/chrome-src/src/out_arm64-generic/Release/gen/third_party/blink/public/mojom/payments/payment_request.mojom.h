@@ -450,7 +450,7 @@ class BLINK_COMMON_EXPORT PayerDetail {
   template <typename... Args>
   static PayerDetailPtr New(Args&&... args) {
     return PayerDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -605,7 +605,7 @@ class BLINK_COMMON_EXPORT PaymentResponse {
   template <typename... Args>
   static PaymentResponsePtr New(Args&&... args) {
     return PaymentResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -765,7 +765,7 @@ class BLINK_COMMON_EXPORT SecurePaymentConfirmationResponse {
   template <typename... Args>
   static SecurePaymentConfirmationResponsePtr New(Args&&... args) {
     return SecurePaymentConfirmationResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -917,7 +917,7 @@ class BLINK_COMMON_EXPORT PaymentItem {
   template <typename... Args>
   static PaymentItemPtr New(Args&&... args) {
     return PaymentItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1066,7 +1066,7 @@ class BLINK_COMMON_EXPORT PaymentShippingOption {
   template <typename... Args>
   static PaymentShippingOptionPtr New(Args&&... args) {
     return PaymentShippingOptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1218,7 +1218,7 @@ class BLINK_COMMON_EXPORT SecurePaymentConfirmationRequest {
   template <typename... Args>
   static SecurePaymentConfirmationRequestPtr New(Args&&... args) {
     return SecurePaymentConfirmationRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1384,7 +1384,7 @@ class BLINK_COMMON_EXPORT PaymentMethodData {
   template <typename... Args>
   static PaymentMethodDataPtr New(Args&&... args) {
     return PaymentMethodDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1544,7 +1544,7 @@ class BLINK_COMMON_EXPORT PaymentDetailsModifier {
   template <typename... Args>
   static PaymentDetailsModifierPtr New(Args&&... args) {
     return PaymentDetailsModifierPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1692,7 +1692,7 @@ class BLINK_COMMON_EXPORT PaymentDetails {
   template <typename... Args>
   static PaymentDetailsPtr New(Args&&... args) {
     return PaymentDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1858,7 +1858,7 @@ class BLINK_COMMON_EXPORT PaymentOptions {
   template <typename... Args>
   static PaymentOptionsPtr New(Args&&... args) {
     return PaymentOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

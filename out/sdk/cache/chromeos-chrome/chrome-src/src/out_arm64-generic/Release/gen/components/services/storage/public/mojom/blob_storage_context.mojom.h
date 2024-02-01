@@ -322,7 +322,7 @@ class  BlobDataItem {
   template <typename... Args>
   static BlobDataItemPtr New(Args&&... args) {
     return BlobDataItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

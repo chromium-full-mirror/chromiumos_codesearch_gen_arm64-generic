@@ -11,6 +11,7 @@ import './safety_hub_card.js';
 import './safety_hub_module.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
+import { assertNotReached } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { PasswordManagerImpl, PasswordManagerPage } from '../autofill_page/password_manager_proxy.js';
 import { MetricsBrowserProxyImpl, SafetyHubModuleType, SafetyHubSurfaces } from '../metrics_browser_proxy.js';
@@ -150,6 +151,22 @@ export class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBa
         else {
             Router.getInstance().navigateTo(routes.ABOUT, /* dynamicParams= */ undefined, 
             /* removeSearch= */ true);
+        }
+    }
+    onEducationLinkClick_(event) {
+        const headerString = event.detail.querySelector('.site-representation').textContent;
+        switch (headerString) {
+            case this.i18n('safetyHubUserEduDataHeader'):
+                this.metricsBrowserProxy_.recordAction('Settings.SafetyHub.SafetyToolsLinkClicked');
+                break;
+            case this.i18n('safetyHubUserEduIncognitoHeader'):
+                this.metricsBrowserProxy_.recordAction('Settings.SafetyHub.IncognitoLinkClicked');
+                break;
+            case this.i18n('safetyHubUserEduSafeBrowsingHeader'):
+                this.metricsBrowserProxy_.recordAction('Settings.SafetyHub.SafeBrowsingLinkClicked');
+                break;
+            default:
+                assertNotReached();
         }
     }
     onVersionKeyPress_(e) {

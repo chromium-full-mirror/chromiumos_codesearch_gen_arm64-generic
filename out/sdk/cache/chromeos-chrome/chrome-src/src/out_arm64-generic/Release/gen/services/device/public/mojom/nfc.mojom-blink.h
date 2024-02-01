@@ -341,7 +341,7 @@ class BLINK_PLATFORM_EXPORT NDEFError {
   template <typename... Args>
   static NDEFErrorPtr New(Args&&... args) {
     return NDEFErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -487,7 +487,7 @@ class BLINK_PLATFORM_EXPORT NDEFWriteOptions {
   template <typename... Args>
   static NDEFWriteOptionsPtr New(Args&&... args) {
     return NDEFWriteOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -631,7 +631,7 @@ class BLINK_PLATFORM_EXPORT NDEFRecord {
   template <typename... Args>
   static NDEFRecordPtr New(Args&&... args) {
     return NDEFRecordPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -794,7 +794,7 @@ class BLINK_PLATFORM_EXPORT NDEFMessage {
   template <typename... Args>
   static NDEFMessagePtr New(Args&&... args) {
     return NDEFMessagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

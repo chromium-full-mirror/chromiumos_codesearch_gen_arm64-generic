@@ -67,7 +67,7 @@ class  AXTreeID {
   static AXTreeIDPtr
   NewUnknown(
       uint8_t value) {
-    auto result = AXTreeIDPtr(absl::in_place);
+    auto result = AXTreeIDPtr(std::in_place);
     result->set_unknown(std::move(value));
     return result;
   }
@@ -75,7 +75,7 @@ class  AXTreeID {
   static AXTreeIDPtr
   NewToken(
       const ::base::UnguessableToken& value) {
-    auto result = AXTreeIDPtr(absl::in_place);
+    auto result = AXTreeIDPtr(std::in_place);
     result->set_token(std::move(value));
     return result;
   }

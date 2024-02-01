@@ -20,10 +20,10 @@
 
   var exports = mojo.internal.exposeNamespace('blink.mojom');
   var device_posture_provider$ =
-      mojo.internal.exposeNamespace('device.mojom');
+      mojo.internal.exposeNamespace('blink.mojom');
   if (mojo.config.autoLoadMojomDeps) {
     mojo.internal.loadMojomIfNecessary(
-        'services/device/public/mojom/device_posture_provider.mojom', '../../../../../services/device/public/mojom/device_posture_provider.mojom.js');
+        'third_party/blink/public/mojom/device_posture/device_posture_provider.mojom', '../device_posture/device_posture_provider.mojom.js');
   }
   var geometry$ =
       mojo.internal.exposeNamespace('gfx.mojom');

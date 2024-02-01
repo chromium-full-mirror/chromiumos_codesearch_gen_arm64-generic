@@ -58,7 +58,7 @@ class GPU_EXPORT GpuFeatureInfo {
   template <typename... Args>
   static GpuFeatureInfoPtr New(Args&&... args) {
     return GpuFeatureInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

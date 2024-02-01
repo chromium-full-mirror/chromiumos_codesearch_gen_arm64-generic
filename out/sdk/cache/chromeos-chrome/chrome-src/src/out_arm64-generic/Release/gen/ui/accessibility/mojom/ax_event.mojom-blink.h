@@ -60,7 +60,7 @@ class  AXEvent {
   template <typename... Args>
   static AXEventPtr New(Args&&... args) {
     return AXEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

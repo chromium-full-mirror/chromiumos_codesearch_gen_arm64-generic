@@ -55,7 +55,7 @@ class  VariationsHeaders {
   template <typename... Args>
   static VariationsHeadersPtr New(Args&&... args) {
     return VariationsHeadersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

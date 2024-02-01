@@ -61,7 +61,7 @@ class PLATFORM_EXPORT FetchClientSettingsObject {
   template <typename... Args>
   static FetchClientSettingsObjectPtr New(Args&&... args) {
     return FetchClientSettingsObjectPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

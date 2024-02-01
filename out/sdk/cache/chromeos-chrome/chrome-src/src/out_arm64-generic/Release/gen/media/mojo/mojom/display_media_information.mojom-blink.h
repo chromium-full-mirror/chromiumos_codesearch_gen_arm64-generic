@@ -60,7 +60,7 @@ class BLINK_PLATFORM_EXPORT DisplayMediaInformation {
   template <typename... Args>
   static DisplayMediaInformationPtr New(Args&&... args) {
     return DisplayMediaInformationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

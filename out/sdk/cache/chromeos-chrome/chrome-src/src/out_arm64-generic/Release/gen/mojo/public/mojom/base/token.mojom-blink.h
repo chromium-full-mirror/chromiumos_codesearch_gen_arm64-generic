@@ -57,7 +57,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM_BLINK) Token {
   template <typename... Args>
   static TokenPtr New(Args&&... args) {
     return TokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

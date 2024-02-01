@@ -45,7 +45,7 @@ export function getTemplate() {
       </template>
 
 
-      <template is="dom-if" route-path="/content/v8">
+      <template is="dom-if" route-path="/content/v8" no-search>
         <settings-subpage page-title="$i18n{siteSettingsCategoryJavascriptJit}" search-label="$i18n{siteSettingsAllSitesSearch}" search-term="{{searchFilter_}}">
           <div class="content-settings-header secondary">
             $i18n{siteSettingsJavascriptJitDescription}

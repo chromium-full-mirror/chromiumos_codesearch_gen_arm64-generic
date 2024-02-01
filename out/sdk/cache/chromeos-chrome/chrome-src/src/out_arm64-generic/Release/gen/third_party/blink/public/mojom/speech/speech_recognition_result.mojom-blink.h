@@ -61,7 +61,7 @@ class PLATFORM_EXPORT SpeechRecognitionHypothesis {
   template <typename... Args>
   static SpeechRecognitionHypothesisPtr New(Args&&... args) {
     return SpeechRecognitionHypothesisPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -204,7 +204,7 @@ class PLATFORM_EXPORT SpeechRecognitionResult {
   template <typename... Args>
   static SpeechRecognitionResultPtr New(Args&&... args) {
     return SpeechRecognitionResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

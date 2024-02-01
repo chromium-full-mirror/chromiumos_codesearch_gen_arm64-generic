@@ -307,7 +307,7 @@ static_assert(
         ::blink::mojom::FrameTokenDataView, UserType>(),
     "Attempting to read the optional `opener_frame_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOpenerFrameToken` instead "
     "of `ReadOpenerFrameToken if you're fine with null values being "
@@ -426,7 +426,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `initiator_base_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInitiatorBaseUrl` instead "
     "of `ReadInitiatorBaseUrl if you're fine with null values being "
@@ -446,7 +446,7 @@ static_assert(
         ::blink::mojom::LocalFrameTokenDataView, UserType>(),
     "Attempting to read the optional `initiator_frame_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInitiatorFrameToken` instead "
     "of `ReadInitiatorFrameToken if you're fine with null values being "
@@ -466,7 +466,7 @@ static_assert(
         ::network::mojom::URLRequestBodyDataView, UserType>(),
     "Attempting to read the optional `post_body` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPostBody` instead "
     "of `ReadPostBody if you're fine with null values being "
@@ -557,7 +557,7 @@ static_assert(
         ::blink::mojom::ImpressionDataView, UserType>(),
     "Attempting to read the optional `impression` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadImpression` instead "
     "of `ReadImpression if you're fine with null values being "

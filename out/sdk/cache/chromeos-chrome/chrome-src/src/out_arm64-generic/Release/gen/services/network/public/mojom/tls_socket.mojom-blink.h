@@ -155,7 +155,7 @@ class BLINK_PLATFORM_EXPORT TLSClientSocketOptions {
   template <typename... Args>
   static TLSClientSocketOptionsPtr New(Args&&... args) {
     return TLSClientSocketOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

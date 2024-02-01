@@ -230,7 +230,7 @@ class  AuthenticationToken {
   template <typename... Args>
   static AuthenticationTokenPtr New(Args&&... args) {
     return AuthenticationTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

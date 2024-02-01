@@ -213,7 +213,7 @@ class BLINK_COMMON_EXPORT DirectTCPSocketOptions {
   template <typename... Args>
   static DirectTCPSocketOptionsPtr New(Args&&... args) {
     return DirectTCPSocketOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -373,7 +373,7 @@ class BLINK_COMMON_EXPORT DirectConnectedUDPSocketOptions {
   template <typename... Args>
   static DirectConnectedUDPSocketOptionsPtr New(Args&&... args) {
     return DirectConnectedUDPSocketOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -522,7 +522,7 @@ class BLINK_COMMON_EXPORT DirectBoundUDPSocketOptions {
   template <typename... Args>
   static DirectBoundUDPSocketOptionsPtr New(Args&&... args) {
     return DirectBoundUDPSocketOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -671,7 +671,7 @@ class BLINK_COMMON_EXPORT DirectTCPServerSocketOptions {
   template <typename... Args>
   static DirectTCPServerSocketOptionsPtr New(Args&&... args) {
     return DirectTCPServerSocketOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -56,7 +56,7 @@ class  Transform {
   template <typename... Args>
   static TransformPtr New(Args&&... args) {
     return TransformPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -62,7 +62,7 @@ class  ProxyBypassRules {
   template <typename... Args>
   static ProxyBypassRulesPtr New(Args&&... args) {
     return ProxyBypassRulesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -202,7 +202,7 @@ class  ProxyList {
   template <typename... Args>
   static ProxyListPtr New(Args&&... args) {
     return ProxyListPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -342,7 +342,7 @@ class  ProxyRules {
   template <typename... Args>
   static ProxyRulesPtr New(Args&&... args) {
     return ProxyRulesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -503,7 +503,7 @@ class  ProxyConfig {
   template <typename... Args>
   static ProxyConfigPtr New(Args&&... args) {
     return ProxyConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

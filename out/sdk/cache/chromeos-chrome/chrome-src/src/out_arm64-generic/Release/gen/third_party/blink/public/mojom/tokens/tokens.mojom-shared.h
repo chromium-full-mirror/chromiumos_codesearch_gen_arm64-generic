@@ -977,6 +977,28 @@ class WebGPUExecutionContextTokenDataView {
     return mojo::internal::Deserialize<::blink::mojom::DedicatedWorkerTokenDataView>(
         data_->data.f_dedicated_worker_token.Get(), output, message_);
   }
+  bool is_shared_worker_token() const { return data_->tag == Tag::kSharedWorkerToken; }
+  inline void GetSharedWorkerTokenDataView(
+      SharedWorkerTokenDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSharedWorkerToken(UserType* output) const {
+    
+    CHECK(is_shared_worker_token());
+    return mojo::internal::Deserialize<::blink::mojom::SharedWorkerTokenDataView>(
+        data_->data.f_shared_worker_token.Get(), output, message_);
+  }
+  bool is_service_worker_token() const { return data_->tag == Tag::kServiceWorkerToken; }
+  inline void GetServiceWorkerTokenDataView(
+      ServiceWorkerTokenDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadServiceWorkerToken(UserType* output) const {
+    
+    CHECK(is_service_worker_token());
+    return mojo::internal::Deserialize<::blink::mojom::ServiceWorkerTokenDataView>(
+        data_->data.f_service_worker_token.Get(), output, message_);
+  }
 
  private:
   internal::WebGPUExecutionContextToken_Data* data_ = nullptr;
@@ -2149,6 +2171,38 @@ struct Serializer<::blink::mojom::WebGPUExecutionContextTokenDataView, MaybeCons
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::blink::mojom::WebGPUExecutionContextTokenDataView::Tag::kSharedWorkerToken: {
+        decltype(Traits::shared_worker_token(input))
+            in_shared_worker_token = Traits::shared_worker_token(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_shared_worker_token)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::blink::mojom::SharedWorkerTokenDataView>(
+            in_shared_worker_token, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null shared_worker_token in WebGPUExecutionContextToken union");
+        fragment->data.f_shared_worker_token.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
+      case ::blink::mojom::WebGPUExecutionContextTokenDataView::Tag::kServiceWorkerToken: {
+        decltype(Traits::service_worker_token(input))
+            in_service_worker_token = Traits::service_worker_token(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_service_worker_token)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::blink::mojom::ServiceWorkerTokenDataView>(
+            in_service_worker_token, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null service_worker_token in WebGPUExecutionContextToken union");
+        fragment->data.f_service_worker_token.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
     }
   }
 
@@ -2388,6 +2442,16 @@ inline void WebGPUExecutionContextTokenDataView::GetDedicatedWorkerTokenDataView
     DedicatedWorkerTokenDataView* output) const {
   CHECK(is_dedicated_worker_token());
   *output = DedicatedWorkerTokenDataView(data_->data.f_dedicated_worker_token.Get(), message_);
+}
+inline void WebGPUExecutionContextTokenDataView::GetSharedWorkerTokenDataView(
+    SharedWorkerTokenDataView* output) const {
+  CHECK(is_shared_worker_token());
+  *output = SharedWorkerTokenDataView(data_->data.f_shared_worker_token.Get(), message_);
+}
+inline void WebGPUExecutionContextTokenDataView::GetServiceWorkerTokenDataView(
+    ServiceWorkerTokenDataView* output) const {
+  CHECK(is_service_worker_token());
+  *output = ServiceWorkerTokenDataView(data_->data.f_service_worker_token.Get(), message_);
 }
 
 

@@ -389,7 +389,7 @@ class CORE_EXPORT EmbeddedWorkerStartParams {
   template <typename... Args>
   static EmbeddedWorkerStartParamsPtr New(Args&&... args) {
     return EmbeddedWorkerStartParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -610,7 +610,7 @@ class CORE_EXPORT EmbeddedWorkerStartTiming {
   template <typename... Args>
   static EmbeddedWorkerStartTimingPtr New(Args&&... args) {
     return EmbeddedWorkerStartTimingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -52,7 +52,7 @@ class  ServiceWorkerRouterInfo {
   template <typename... Args>
   static ServiceWorkerRouterInfoPtr New(Args&&... args) {
     return ServiceWorkerRouterInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

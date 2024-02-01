@@ -286,7 +286,7 @@ class  SysDisplayEdid {
   template <typename... Args>
   static SysDisplayEdidPtr New(Args&&... args) {
     return SysDisplayEdidPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -436,7 +436,7 @@ class  SysDisplayMode {
   template <typename... Args>
   static SysDisplayModePtr New(Args&&... args) {
     return SysDisplayModePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -598,7 +598,7 @@ class  SysDisplayUnitInfo {
   template <typename... Args>
   static SysDisplayUnitInfoPtr New(Args&&... args) {
     return SysDisplayUnitInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -626,7 +626,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `window_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWindowId` instead "
     "of `ReadWindowId if you're fine with null values being "
@@ -681,7 +681,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `window_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWindowId` instead "
     "of `ReadWindowId if you're fine with null values being "
@@ -782,7 +782,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `private_network_device_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPrivateNetworkDeviceId` instead "
     "of `ReadPrivateNetworkDeviceId if you're fine with null values being "
@@ -802,7 +802,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `private_network_device_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPrivateNetworkDeviceName` instead "
     "of `ReadPrivateNetworkDeviceName if you're fine with null values being "
@@ -879,7 +879,7 @@ static_assert(
         ::network::mojom::CookiePartitionKeyDataView, UserType>(),
     "Attempting to read the optional `cookie_partition_key` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCookiePartitionKey` instead "
     "of `ReadCookiePartitionKey if you're fine with null values being "

@@ -667,9 +667,11 @@ enum class Pool2d_Kind : int32_t {
   
   kAveragePool2d = 0,
   
-  kMaxPool2d = 1,
+  kL2Pool2d = 1,
+  
+  kMaxPool2d = 2,
   kMinValue = 0,
-  kMaxValue = 1,
+  kMaxValue = 2,
 };
 
  std::ostream& operator<<(std::ostream& os, Pool2d_Kind value);
@@ -757,7 +759,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadName` instead "
     "of `ReadName if you're fine with null values being "
@@ -845,14 +847,14 @@ class BatchNormalizationDataView {
   std::optional<uint64_t> scale_operand_id() const {
 
     return data_->scale_operand_id_$flag
-        ? absl::make_optional(data_->scale_operand_id_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->scale_operand_id_$value)
+        : std::nullopt;
   }
   std::optional<uint64_t> bias_operand_id() const {
 
     return data_->bias_operand_id_$flag
-        ? absl::make_optional(data_->bias_operand_id_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->bias_operand_id_$value)
+        : std::nullopt;
   }
   uint32_t axis() const {
     return data_->axis;
@@ -871,7 +873,7 @@ static_assert(
         ::webnn::mojom::ActivationDataView, UserType>(),
     "Attempting to read the optional `activation` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadActivation` instead "
     "of `ReadActivation if you're fine with null values being "
@@ -1077,8 +1079,8 @@ class Conv2dDataView {
   std::optional<uint64_t> bias_operand_id() const {
 
     return data_->bias_operand_id_$flag
-        ? absl::make_optional(data_->bias_operand_id_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->bias_operand_id_$value)
+        : std::nullopt;
   }
   inline void GetActivationDataView(
       ActivationDataView* output);
@@ -1091,7 +1093,7 @@ static_assert(
         ::webnn::mojom::ActivationDataView, UserType>(),
     "Attempting to read the optional `activation` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadActivation` instead "
     "of `ReadActivation if you're fine with null values being "
@@ -1274,14 +1276,14 @@ class InstanceNormalizationDataView {
   std::optional<uint64_t> scale_operand_id() const {
 
     return data_->scale_operand_id_$flag
-        ? absl::make_optional(data_->scale_operand_id_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->scale_operand_id_$value)
+        : std::nullopt;
   }
   std::optional<uint64_t> bias_operand_id() const {
 
     return data_->bias_operand_id_$flag
-        ? absl::make_optional(data_->bias_operand_id_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->bias_operand_id_$value)
+        : std::nullopt;
   }
   float epsilon() const {
     return data_->epsilon;
@@ -1630,8 +1632,8 @@ class GemmDataView {
   std::optional<uint64_t> c_operand_id() const {
 
     return data_->c_operand_id_$flag
-        ? absl::make_optional(data_->c_operand_id_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->c_operand_id_$value)
+        : std::nullopt;
   }
   float alpha() const {
     return data_->alpha;
@@ -1696,14 +1698,14 @@ class LayerNormalizationDataView {
   std::optional<uint64_t> scale_operand_id() const {
 
     return data_->scale_operand_id_$flag
-        ? absl::make_optional(data_->scale_operand_id_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->scale_operand_id_$value)
+        : std::nullopt;
   }
   std::optional<uint64_t> bias_operand_id() const {
 
     return data_->bias_operand_id_$flag
-        ? absl::make_optional(data_->bias_operand_id_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->bias_operand_id_$value)
+        : std::nullopt;
   }
   inline void GetAxesDataView(
       mojo::ArrayDataView<uint32_t>* output);
@@ -2050,7 +2052,7 @@ static_assert(
         mojo::ArrayDataView<float>, UserType>(),
     "Attempting to read the optional `scales` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadScales` instead "
     "of `ReadScales if you're fine with null values being "

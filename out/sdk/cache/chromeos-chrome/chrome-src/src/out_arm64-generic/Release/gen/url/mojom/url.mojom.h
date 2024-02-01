@@ -53,7 +53,7 @@ class  Url {
   template <typename... Args>
   static UrlPtr New(Args&&... args) {
     return UrlPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

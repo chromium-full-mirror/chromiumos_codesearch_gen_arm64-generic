@@ -198,7 +198,7 @@ class  LanguagePackInfo {
   template <typename... Args>
   static LanguagePackInfoPtr New(Args&&... args) {
     return LanguagePackInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -349,7 +349,7 @@ class  BasePackInfo {
   template <typename... Args>
   static BasePackInfoPtr New(Args&&... args) {
     return BasePackInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

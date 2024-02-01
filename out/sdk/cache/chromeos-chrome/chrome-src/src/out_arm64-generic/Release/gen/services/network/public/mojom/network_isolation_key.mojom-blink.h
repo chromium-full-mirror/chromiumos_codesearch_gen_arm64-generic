@@ -58,7 +58,7 @@ class BLINK_PLATFORM_EXPORT EmptyNetworkIsolationKey {
   template <typename... Args>
   static EmptyNetworkIsolationKeyPtr New(Args&&... args) {
     return EmptyNetworkIsolationKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -205,7 +205,7 @@ class BLINK_PLATFORM_EXPORT NetworkIsolationKey {
   static NetworkIsolationKeyPtr
   NewEmpty(
       EmptyNetworkIsolationKeyPtr value) {
-    auto result = NetworkIsolationKeyPtr(absl::in_place);
+    auto result = NetworkIsolationKeyPtr(std::in_place);
     result->set_empty(std::move(value));
     return result;
   }
@@ -213,7 +213,7 @@ class BLINK_PLATFORM_EXPORT NetworkIsolationKey {
   static NetworkIsolationKeyPtr
   NewNonEmpty(
       NonEmptyNetworkIsolationKeyPtr value) {
-    auto result = NetworkIsolationKeyPtr(absl::in_place);
+    auto result = NetworkIsolationKeyPtr(std::in_place);
     result->set_non_empty(std::move(value));
     return result;
   }
@@ -328,7 +328,7 @@ class BLINK_PLATFORM_EXPORT NonEmptyNetworkIsolationKey {
   template <typename... Args>
   static NonEmptyNetworkIsolationKeyPtr New(Args&&... args) {
     return NonEmptyNetworkIsolationKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

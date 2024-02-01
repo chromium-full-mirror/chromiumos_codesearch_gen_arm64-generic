@@ -382,7 +382,7 @@ class  Annotation {
   template <typename... Args>
   static AnnotationPtr New(Args&&... args) {
     return AnnotationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -539,7 +539,7 @@ class  AnnotateImageResult {
   static AnnotateImageResultPtr
   NewErrorCode(
       AnnotateImageError value) {
-    auto result = AnnotateImageResultPtr(absl::in_place);
+    auto result = AnnotateImageResultPtr(std::in_place);
     result->set_error_code(std::move(value));
     return result;
   }
@@ -547,7 +547,7 @@ class  AnnotateImageResult {
   static AnnotateImageResultPtr
   NewAnnotations(
       std::vector<AnnotationPtr> value) {
-    auto result = AnnotateImageResultPtr(absl::in_place);
+    auto result = AnnotateImageResultPtr(std::in_place);
     result->set_annotations(std::move(value));
     return result;
   }

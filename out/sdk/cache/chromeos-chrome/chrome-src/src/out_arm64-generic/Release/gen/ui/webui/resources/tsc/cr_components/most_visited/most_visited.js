@@ -663,6 +663,12 @@ export class MostVisitedElement extends MostVisitedElementBase {
                 this.pageHandler_.prerenderMostVisitedTile(e.model.item, true);
             }, loadTimeData.getInteger('prerenderStartTimeThreshold'));
         }
+        if (loadTimeData.getBoolean('prerenderEnabled') &&
+            loadTimeData.getInteger('preconnectStartTimeThreshold') >= 0) {
+            this.preconnectTimer_ = setTimeout(() => {
+                this.pageHandler_.preconnectMostVisitedTile(e.model.item);
+            }, loadTimeData.getInteger('preconnectStartTimeThreshold'));
+        }
     }
     onTileMouseDown_(e) {
         if (e.defaultPrevented) {

@@ -258,7 +258,7 @@ class BLINK_COMMON_EXPORT AnchorElementPointerEventForMLModel {
   template <typename... Args>
   static AnchorElementPointerEventForMLModelPtr New(Args&&... args) {
     return AnchorElementPointerEventForMLModelPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -408,7 +408,7 @@ class BLINK_COMMON_EXPORT AnchorElementMetrics {
   template <typename... Args>
   static AnchorElementMetricsPtr New(Args&&... args) {
     return AnchorElementMetricsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -584,7 +584,7 @@ class BLINK_COMMON_EXPORT AnchorElementClick {
   template <typename... Args>
   static AnchorElementClickPtr New(Args&&... args) {
     return AnchorElementClickPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -730,7 +730,7 @@ class BLINK_COMMON_EXPORT AnchorElementPointerDataOnHoverTimerFired {
   template <typename... Args>
   static AnchorElementPointerDataOnHoverTimerFiredPtr New(Args&&... args) {
     return AnchorElementPointerDataOnHoverTimerFiredPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -876,7 +876,7 @@ class BLINK_COMMON_EXPORT AnchorElementEnteredViewport {
   template <typename... Args>
   static AnchorElementEnteredViewportPtr New(Args&&... args) {
     return AnchorElementEnteredViewportPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1019,7 +1019,7 @@ class BLINK_COMMON_EXPORT AnchorElementLeftViewport {
   template <typename... Args>
   static AnchorElementLeftViewportPtr New(Args&&... args) {
     return AnchorElementLeftViewportPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1162,7 +1162,7 @@ class BLINK_COMMON_EXPORT AnchorElementPointerOver {
   template <typename... Args>
   static AnchorElementPointerOverPtr New(Args&&... args) {
     return AnchorElementPointerOverPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1305,7 +1305,7 @@ class BLINK_COMMON_EXPORT AnchorElementPointerOut {
   template <typename... Args>
   static AnchorElementPointerOutPtr New(Args&&... args) {
     return AnchorElementPointerOutPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1449,7 +1449,7 @@ class BLINK_COMMON_EXPORT AnchorElementPointerDown {
   template <typename... Args>
   static AnchorElementPointerDownPtr New(Args&&... args) {
     return AnchorElementPointerDownPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

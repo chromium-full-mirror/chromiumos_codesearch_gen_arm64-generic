@@ -242,7 +242,7 @@ static_assert(
         ::video_capture::mojom::ImageEnhancementDataView, UserType>(),
     "Attempting to read the optional `image_enhancement` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadImageEnhancement` instead "
     "of `ReadImageEnhancement if you're fine with null values being "
@@ -262,7 +262,7 @@ static_assert(
         ::video_capture::mojom::MaskingDataView, UserType>(),
     "Attempting to read the optional `masking` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMasking` instead "
     "of `ReadMasking if you're fine with null values being "
@@ -282,7 +282,7 @@ static_assert(
         ::video_capture::mojom::FramingDataView, UserType>(),
     "Attempting to read the optional `framing` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFraming` instead "
     "of `ReadFraming if you're fine with null values being "

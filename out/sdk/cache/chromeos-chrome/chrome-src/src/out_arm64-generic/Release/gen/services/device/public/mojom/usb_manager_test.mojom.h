@@ -191,7 +191,7 @@ class  TestDeviceInfo {
   template <typename... Args>
   static TestDeviceInfoPtr New(Args&&... args) {
     return TestDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

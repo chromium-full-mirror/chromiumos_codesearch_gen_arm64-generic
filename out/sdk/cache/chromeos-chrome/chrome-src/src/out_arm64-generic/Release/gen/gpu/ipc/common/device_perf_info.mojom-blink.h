@@ -56,7 +56,7 @@ class BLINK_PLATFORM_EXPORT DevicePerfInfo {
   template <typename... Args>
   static DevicePerfInfoPtr New(Args&&... args) {
     return DevicePerfInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

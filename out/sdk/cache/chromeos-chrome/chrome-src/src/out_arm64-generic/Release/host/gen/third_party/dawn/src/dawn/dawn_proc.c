@@ -889,6 +889,10 @@ void wgpuSharedTextureMemoryRelease(WGPUSharedTextureMemory sharedTextureMemory)
 }
 
 DAWN_NO_SANITIZE("cfi-icall")
+WGPUTextureFormat wgpuSurfaceGetPreferredFormat(WGPUSurface surface, WGPUAdapter adapter) {
+return     procs.surfaceGetPreferredFormat(surface, adapter);
+}
+DAWN_NO_SANITIZE("cfi-icall")
 void wgpuSurfaceReference(WGPUSurface surface) {
     procs.surfaceReference(surface);
 }

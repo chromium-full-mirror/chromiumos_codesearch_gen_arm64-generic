@@ -171,7 +171,7 @@ class PLATFORM_EXPORT InnerTextParams {
   template <typename... Args>
   static InnerTextParamsPtr New(Args&&... args) {
     return InnerTextParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -321,7 +321,7 @@ class PLATFORM_EXPORT InnerTextSegment {
   static InnerTextSegmentPtr
   NewNodeLocation(
       NodeLocationType value) {
-    auto result = InnerTextSegmentPtr(absl::in_place);
+    auto result = InnerTextSegmentPtr(std::in_place);
     result->set_node_location(std::move(value));
     return result;
   }
@@ -329,7 +329,7 @@ class PLATFORM_EXPORT InnerTextSegment {
   static InnerTextSegmentPtr
   NewText(
       const WTF::String& value) {
-    auto result = InnerTextSegmentPtr(absl::in_place);
+    auto result = InnerTextSegmentPtr(std::in_place);
     result->set_text(std::move(value));
     return result;
   }
@@ -337,7 +337,7 @@ class PLATFORM_EXPORT InnerTextSegment {
   static InnerTextSegmentPtr
   NewFrame(
       InnerTextFramePtr value) {
-    auto result = InnerTextSegmentPtr(absl::in_place);
+    auto result = InnerTextSegmentPtr(std::in_place);
     result->set_frame(std::move(value));
     return result;
   }
@@ -464,7 +464,7 @@ class PLATFORM_EXPORT InnerTextFrame {
   template <typename... Args>
   static InnerTextFramePtr New(Args&&... args) {
     return InnerTextFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

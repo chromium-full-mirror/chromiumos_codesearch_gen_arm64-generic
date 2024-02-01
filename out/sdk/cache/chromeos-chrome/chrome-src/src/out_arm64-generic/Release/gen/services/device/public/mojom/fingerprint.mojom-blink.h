@@ -424,7 +424,7 @@ class BLINK_PLATFORM_EXPORT FingerprintMessage {
   static FingerprintMessagePtr
   NewFingerprintError(
       FingerprintError value) {
-    auto result = FingerprintMessagePtr(absl::in_place);
+    auto result = FingerprintMessagePtr(std::in_place);
     result->set_fingerprint_error(std::move(value));
     return result;
   }
@@ -432,7 +432,7 @@ class BLINK_PLATFORM_EXPORT FingerprintMessage {
   static FingerprintMessagePtr
   NewScanResult(
       ScanResult value) {
-    auto result = FingerprintMessagePtr(absl::in_place);
+    auto result = FingerprintMessagePtr(std::in_place);
     result->set_scan_result(std::move(value));
     return result;
   }

@@ -76,8 +76,8 @@ const shared_js_1 = require("../../../helpers/shared.js");
         const panel = await (0, helper_js_1.waitFor)('body');
         await (0, screenshots_js_1.assertElementScreenshotUnchanged)(panel, 'performance/timeline-long-task-candystripe.png', 2);
     });
-    // Flaky test
-    mocha_extensions_js_1.itScreenshot.skip('[crbug.com/1511265]: renders screenshots in the frames track', async () => {
+    mocha_extensions_js_1.itScreenshot.skip('renders screenshots in the frames track', async () => {
+        this.timeout(20_000);
         await (0, shared_js_1.loadComponentDocExample)('performance_panel/basic.html?trace=web-dev-with-commit&flamechart-force-expand=frames');
         const panel = await (0, helper_js_1.waitFor)('body');
         await (0, helper_js_1.waitForFunction)(async () => {

@@ -65,6 +65,7 @@ PROTOBUF_CONSTEXPR DlcState::DlcState(
   : id_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , root_path_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , last_error_code_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , image_path_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , state_(0)
 
   , is_verified_(false)
@@ -972,6 +973,14 @@ DlcState::DlcState(const DlcState& from)
     last_error_code_.Set(from._internal_last_error_code(), 
       GetArenaForAllocation());
   }
+  image_path_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    image_path_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_image_path().empty()) {
+    image_path_.Set(from._internal_image_path(), 
+      GetArenaForAllocation());
+  }
   ::memcpy(&state_, &from.state_,
     static_cast<size_t>(reinterpret_cast<char*>(&progress_) -
     reinterpret_cast<char*>(&state_)) + sizeof(progress_));
@@ -990,6 +999,10 @@ root_path_.InitDefault();
 last_error_code_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   last_error_code_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+image_path_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  image_path_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&state_) - reinterpret_cast<char*>(this)),
@@ -1011,6 +1024,7 @@ inline void DlcState::SharedDtor() {
   id_.Destroy();
   root_path_.Destroy();
   last_error_code_.Destroy();
+  image_path_.Destroy();
 }
 
 void DlcState::SetCachedSize(int size) const {
@@ -1026,6 +1040,7 @@ void DlcState::Clear() {
   id_.ClearToEmpty();
   root_path_.ClearToEmpty();
   last_error_code_.ClearToEmpty();
+  image_path_.ClearToEmpty();
   ::memset(&state_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&progress_) -
       reinterpret_cast<char*>(&state_)) + sizeof(progress_));
@@ -1090,6 +1105,16 @@ const char* DlcState::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx)
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 48)) {
           is_verified_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // string image_path = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          auto str = _internal_mutable_image_path();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
         } else
           goto handle_unusual;
         continue;
@@ -1175,6 +1200,16 @@ uint8_t* DlcState::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(6, this->_internal_is_verified(), target);
   }
 
+  // string image_path = 7;
+  if (!this->_internal_image_path().empty()) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_image_path().data(), static_cast<int>(this->_internal_image_path().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "dlcservice.DlcState.image_path");
+    target = stream->WriteStringMaybeAliased(
+        7, this->_internal_image_path(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -1210,6 +1245,13 @@ size_t DlcState::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_last_error_code());
+  }
+
+  // string image_path = 7;
+  if (!this->_internal_image_path().empty()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_image_path());
   }
 
   // .dlcservice.DlcState.State state = 1;
@@ -1261,6 +1303,9 @@ void DlcState::MergeFrom(const DlcState& from) {
   if (!from._internal_last_error_code().empty()) {
     _internal_set_last_error_code(from._internal_last_error_code());
   }
+  if (!from._internal_image_path().empty()) {
+    _internal_set_image_path(from._internal_image_path());
+  }
   if (from._internal_state() != 0) {
     _internal_set_state(from._internal_state());
   }
@@ -1304,6 +1349,10 @@ void DlcState::InternalSwap(DlcState* other) {
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &last_error_code_, lhs_arena,
       &other->last_error_code_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &image_path_, lhs_arena,
+      &other->image_path_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(DlcState, progress_)

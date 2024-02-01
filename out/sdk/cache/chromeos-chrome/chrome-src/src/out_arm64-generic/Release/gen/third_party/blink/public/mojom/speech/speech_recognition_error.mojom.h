@@ -54,7 +54,7 @@ class BLINK_COMMON_EXPORT SpeechRecognitionError {
   template <typename... Args>
   static SpeechRecognitionErrorPtr New(Args&&... args) {
     return SpeechRecognitionErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

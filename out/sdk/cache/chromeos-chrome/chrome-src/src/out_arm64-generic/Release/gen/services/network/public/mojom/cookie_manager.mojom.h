@@ -461,7 +461,7 @@ class  CookieSameSiteContextMetadata {
   template <typename... Args>
   static CookieSameSiteContextMetadataPtr New(Args&&... args) {
     return CookieSameSiteContextMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -610,7 +610,7 @@ class  CookieInclusionStatus {
   template <typename... Args>
   static CookieInclusionStatusPtr New(Args&&... args) {
     return CookieInclusionStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -769,7 +769,7 @@ class  CookieOrLine {
   static CookieOrLinePtr
   NewCookie(
       const ::net::CanonicalCookie& value) {
-    auto result = CookieOrLinePtr(absl::in_place);
+    auto result = CookieOrLinePtr(std::in_place);
     result->set_cookie(std::move(value));
     return result;
   }
@@ -777,7 +777,7 @@ class  CookieOrLine {
   static CookieOrLinePtr
   NewCookieString(
       const std::string& value) {
-    auto result = CookieOrLinePtr(absl::in_place);
+    auto result = CookieOrLinePtr(std::in_place);
     result->set_cookie_string(std::move(value));
     return result;
   }
@@ -891,7 +891,7 @@ class  CookieManagerParams {
   template <typename... Args>
   static CookieManagerParamsPtr New(Args&&... args) {
     return CookieManagerParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1059,7 +1059,7 @@ class  CookieSameSiteContext {
   template <typename... Args>
   static CookieSameSiteContextPtr New(Args&&... args) {
     return CookieSameSiteContextPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1208,7 +1208,7 @@ class  CookieOptions {
   template <typename... Args>
   static CookieOptionsPtr New(Args&&... args) {
     return CookieOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1357,7 +1357,7 @@ class  CanonicalCookie {
   template <typename... Args>
   static CanonicalCookiePtr New(Args&&... args) {
     return CanonicalCookiePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1540,7 +1540,7 @@ class  CookieAndLineWithAccessResult {
   template <typename... Args>
   static CookieAndLineWithAccessResultPtr New(Args&&... args) {
     return CookieAndLineWithAccessResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1688,7 +1688,7 @@ class  CookieOrLineWithAccessResult {
   template <typename... Args>
   static CookieOrLineWithAccessResultPtr New(Args&&... args) {
     return CookieOrLineWithAccessResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1833,7 +1833,7 @@ class  CookieAccessResult {
   template <typename... Args>
   static CookieAccessResultPtr New(Args&&... args) {
     return CookieAccessResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1984,7 +1984,7 @@ class  CookieWithAccessResult {
   template <typename... Args>
   static CookieWithAccessResultPtr New(Args&&... args) {
     return CookieWithAccessResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2129,7 +2129,7 @@ class  CookieChangeInfo {
   template <typename... Args>
   static CookieChangeInfoPtr New(Args&&... args) {
     return CookieChangeInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2277,7 +2277,7 @@ class  CookieDeletionFilter {
   template <typename... Args>
   static CookieDeletionFilterPtr New(Args&&... args) {
     return CookieDeletionFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

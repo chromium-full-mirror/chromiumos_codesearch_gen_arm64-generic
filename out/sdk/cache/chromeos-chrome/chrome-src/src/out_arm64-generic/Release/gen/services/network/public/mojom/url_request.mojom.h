@@ -105,7 +105,7 @@ class  DataElement {
   static DataElementPtr
   NewBytes(
       ::network::DataElementBytes value) {
-    auto result = DataElementPtr(absl::in_place);
+    auto result = DataElementPtr(std::in_place);
     result->set_bytes(std::move(value));
     return result;
   }
@@ -113,7 +113,7 @@ class  DataElement {
   static DataElementPtr
   NewFile(
       ::network::DataElementFile value) {
-    auto result = DataElementPtr(absl::in_place);
+    auto result = DataElementPtr(std::in_place);
     result->set_file(std::move(value));
     return result;
   }
@@ -121,7 +121,7 @@ class  DataElement {
   static DataElementPtr
   NewDataPipe(
       ::network::DataElementDataPipe value) {
-    auto result = DataElementPtr(absl::in_place);
+    auto result = DataElementPtr(std::in_place);
     result->set_data_pipe(std::move(value));
     return result;
   }
@@ -129,7 +129,7 @@ class  DataElement {
   static DataElementPtr
   NewChunkedDataPipe(
       ::network::DataElementChunkedDataPipe value) {
-    auto result = DataElementPtr(absl::in_place);
+    auto result = DataElementPtr(std::in_place);
     result->set_chunked_data_pipe(std::move(value));
     return result;
   }
@@ -269,7 +269,7 @@ class  TrustedUrlRequestParams {
   template <typename... Args>
   static TrustedUrlRequestParamsPtr New(Args&&... args) {
     return TrustedUrlRequestParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -436,7 +436,7 @@ class  WebBundleTokenParams {
   template <typename... Args>
   static WebBundleTokenParamsPtr New(Args&&... args) {
     return WebBundleTokenParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -582,7 +582,7 @@ class  URLRequest {
   template <typename... Args>
   static URLRequestPtr New(Args&&... args) {
     return URLRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -902,7 +902,7 @@ class  URLRequestBody {
   template <typename... Args>
   static URLRequestBodyPtr New(Args&&... args) {
     return URLRequestBodyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1048,7 +1048,7 @@ class  DataElementBytes {
   template <typename... Args>
   static DataElementBytesPtr New(Args&&... args) {
     return DataElementBytesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1185,7 +1185,7 @@ class  DataElementFile {
   template <typename... Args>
   static DataElementFilePtr New(Args&&... args) {
     return DataElementFilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1334,7 +1334,7 @@ class  DataElementDataPipe {
   template <typename... Args>
   static DataElementDataPipePtr New(Args&&... args) {
     return DataElementDataPipePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1471,7 +1471,7 @@ class  DataElementChunkedDataPipe {
   template <typename... Args>
   static DataElementChunkedDataPipePtr New(Args&&... args) {
     return DataElementChunkedDataPipePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

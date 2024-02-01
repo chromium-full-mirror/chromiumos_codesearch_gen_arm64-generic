@@ -58,7 +58,7 @@ class  SharedDictionaryUsageInfo {
   template <typename... Args>
   static SharedDictionaryUsageInfoPtr New(Args&&... args) {
     return SharedDictionaryUsageInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

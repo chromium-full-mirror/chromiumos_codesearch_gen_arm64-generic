@@ -14,20 +14,19 @@ namespace autofill::mojom {
 namespace internal {
 
 
-constexpr uint32_t kAutofillDriver_SetFormToBeProbablySubmitted_Name = 0;
-constexpr uint32_t kAutofillDriver_FormsSeen_Name = 1;
-constexpr uint32_t kAutofillDriver_FormSubmitted_Name = 2;
-constexpr uint32_t kAutofillDriver_TextFieldDidChange_Name = 3;
-constexpr uint32_t kAutofillDriver_TextFieldDidScroll_Name = 4;
-constexpr uint32_t kAutofillDriver_SelectControlDidChange_Name = 5;
-constexpr uint32_t kAutofillDriver_SelectOrSelectListFieldOptionsDidChange_Name = 6;
-constexpr uint32_t kAutofillDriver_AskForValuesToFill_Name = 7;
-constexpr uint32_t kAutofillDriver_HidePopup_Name = 8;
-constexpr uint32_t kAutofillDriver_FocusNoLongerOnForm_Name = 9;
-constexpr uint32_t kAutofillDriver_FocusOnFormField_Name = 10;
-constexpr uint32_t kAutofillDriver_DidFillAutofillFormData_Name = 11;
-constexpr uint32_t kAutofillDriver_DidEndTextFieldEditing_Name = 12;
-constexpr uint32_t kAutofillDriver_JavaScriptChangedAutofilledValue_Name = 13;
+constexpr uint32_t kAutofillDriver_FormsSeen_Name = 0;
+constexpr uint32_t kAutofillDriver_FormSubmitted_Name = 1;
+constexpr uint32_t kAutofillDriver_TextFieldDidChange_Name = 2;
+constexpr uint32_t kAutofillDriver_TextFieldDidScroll_Name = 3;
+constexpr uint32_t kAutofillDriver_SelectControlDidChange_Name = 4;
+constexpr uint32_t kAutofillDriver_SelectOrSelectListFieldOptionsDidChange_Name = 5;
+constexpr uint32_t kAutofillDriver_AskForValuesToFill_Name = 6;
+constexpr uint32_t kAutofillDriver_HidePopup_Name = 7;
+constexpr uint32_t kAutofillDriver_FocusNoLongerOnForm_Name = 8;
+constexpr uint32_t kAutofillDriver_FocusOnFormField_Name = 9;
+constexpr uint32_t kAutofillDriver_DidFillAutofillFormData_Name = 10;
+constexpr uint32_t kAutofillDriver_DidEndTextFieldEditing_Name = 11;
+constexpr uint32_t kAutofillDriver_JavaScriptChangedAutofilledValue_Name = 12;
 constexpr uint32_t kPasswordManagerDriver_PasswordFormsParsed_Name = 0;
 constexpr uint32_t kPasswordManagerDriver_PasswordFormsRendered_Name = 1;
 constexpr uint32_t kPasswordManagerDriver_PasswordFormSubmitted_Name = 2;

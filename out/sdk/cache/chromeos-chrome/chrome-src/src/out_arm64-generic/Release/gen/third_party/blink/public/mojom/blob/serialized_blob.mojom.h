@@ -58,7 +58,7 @@ class BLINK_COMMON_EXPORT SerializedBlob {
   template <typename... Args>
   static SerializedBlobPtr New(Args&&... args) {
     return SerializedBlobPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -81,7 +81,7 @@ class BLINK_COMMON_EXPORT ManifestUserPreferenceOverrides {
   template <typename... Args>
   static ManifestUserPreferenceOverridesPtr New(Args&&... args) {
     return ManifestUserPreferenceOverridesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -235,7 +235,7 @@ class BLINK_COMMON_EXPORT ManifestError {
   template <typename... Args>
   static ManifestErrorPtr New(Args&&... args) {
     return ManifestErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -395,7 +395,7 @@ class BLINK_COMMON_EXPORT HomeTabUnion {
   static HomeTabUnionPtr
   NewVisibility(
       TabStripMemberVisibility value) {
-    auto result = HomeTabUnionPtr(absl::in_place);
+    auto result = HomeTabUnionPtr(std::in_place);
     result->set_visibility(std::move(value));
     return result;
   }
@@ -403,7 +403,7 @@ class BLINK_COMMON_EXPORT HomeTabUnion {
   static HomeTabUnionPtr
   NewParams(
       HomeTabParamsPtr value) {
-    auto result = HomeTabUnionPtr(absl::in_place);
+    auto result = HomeTabUnionPtr(std::in_place);
     result->set_params(std::move(value));
     return result;
   }
@@ -517,7 +517,7 @@ class BLINK_COMMON_EXPORT Manifest {
   template <typename... Args>
   static ManifestPtr New(Args&&... args) {
     return ManifestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -770,7 +770,7 @@ class BLINK_COMMON_EXPORT ManifestShortcutItem {
   template <typename... Args>
   static ManifestShortcutItemPtr New(Args&&... args) {
     return ManifestShortcutItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -923,7 +923,7 @@ class BLINK_COMMON_EXPORT ManifestImageResource {
   template <typename... Args>
   static ManifestImageResourcePtr New(Args&&... args) {
     return ManifestImageResourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1073,7 +1073,7 @@ class BLINK_COMMON_EXPORT ManifestScreenshot {
   template <typename... Args>
   static ManifestScreenshotPtr New(Args&&... args) {
     return ManifestScreenshotPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1219,7 +1219,7 @@ class BLINK_COMMON_EXPORT ManifestFileFilter {
   template <typename... Args>
   static ManifestFileFilterPtr New(Args&&... args) {
     return ManifestFileFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1362,7 +1362,7 @@ class BLINK_COMMON_EXPORT ManifestProtocolHandler {
   template <typename... Args>
   static ManifestProtocolHandlerPtr New(Args&&... args) {
     return ManifestProtocolHandlerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1505,7 +1505,7 @@ class BLINK_COMMON_EXPORT ManifestUrlHandler {
   template <typename... Args>
   static ManifestUrlHandlerPtr New(Args&&... args) {
     return ManifestUrlHandlerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1648,7 +1648,7 @@ class BLINK_COMMON_EXPORT ManifestScopeExtension {
   template <typename... Args>
   static ManifestScopeExtensionPtr New(Args&&... args) {
     return ManifestScopeExtensionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1791,7 +1791,7 @@ class BLINK_COMMON_EXPORT ManifestLockScreen {
   template <typename... Args>
   static ManifestLockScreenPtr New(Args&&... args) {
     return ManifestLockScreenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1931,7 +1931,7 @@ class BLINK_COMMON_EXPORT ManifestNoteTaking {
   template <typename... Args>
   static ManifestNoteTakingPtr New(Args&&... args) {
     return ManifestNoteTakingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2071,7 +2071,7 @@ class BLINK_COMMON_EXPORT ManifestRelatedApplication {
   template <typename... Args>
   static ManifestRelatedApplicationPtr New(Args&&... args) {
     return ManifestRelatedApplicationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2217,7 +2217,7 @@ class BLINK_COMMON_EXPORT ManifestShareTargetParams {
   template <typename... Args>
   static ManifestShareTargetParamsPtr New(Args&&... args) {
     return ManifestShareTargetParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2370,7 +2370,7 @@ class BLINK_COMMON_EXPORT ManifestShareTarget {
   template <typename... Args>
   static ManifestShareTargetPtr New(Args&&... args) {
     return ManifestShareTargetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2522,7 +2522,7 @@ class BLINK_COMMON_EXPORT ManifestFileHandler {
   template <typename... Args>
   static ManifestFileHandlerPtr New(Args&&... args) {
     return ManifestFileHandlerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2674,7 +2674,7 @@ class BLINK_COMMON_EXPORT ManifestTranslationItem {
   template <typename... Args>
   static ManifestTranslationItemPtr New(Args&&... args) {
     return ManifestTranslationItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2820,7 +2820,7 @@ class BLINK_COMMON_EXPORT ManifestUserPreferences {
   template <typename... Args>
   static ManifestUserPreferencesPtr New(Args&&... args) {
     return ManifestUserPreferencesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2963,7 +2963,7 @@ class BLINK_COMMON_EXPORT ManifestTabStrip {
   template <typename... Args>
   static ManifestTabStripPtr New(Args&&... args) {
     return ManifestTabStripPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3108,7 +3108,7 @@ class BLINK_COMMON_EXPORT HomeTabParams {
   template <typename... Args>
   static HomeTabParamsPtr New(Args&&... args) {
     return HomeTabParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3251,7 +3251,7 @@ class BLINK_COMMON_EXPORT NewTabButtonParams {
   template <typename... Args>
   static NewTabButtonParamsPtr New(Args&&... args) {
     return NewTabButtonParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3391,7 +3391,7 @@ class BLINK_COMMON_EXPORT ManifestDebugInfo {
   template <typename... Args>
   static ManifestDebugInfoPtr New(Args&&... args) {
     return ManifestDebugInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

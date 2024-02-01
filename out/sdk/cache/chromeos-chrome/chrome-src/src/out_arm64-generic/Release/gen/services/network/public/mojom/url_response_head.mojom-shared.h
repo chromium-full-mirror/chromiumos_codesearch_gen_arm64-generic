@@ -166,7 +166,7 @@ static_assert(
         ::network::mojom::EncodedBodyLengthDataView, UserType>(),
     "Attempting to read the optional `encoded_body_length` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEncodedBodyLength` instead "
     "of `ReadEncodedBodyLength if you're fine with null values being "
@@ -320,7 +320,7 @@ static_assert(
         ::network::mojom::ServiceWorkerRouterInfoDataView, UserType>(),
     "Attempting to read the optional `service_worker_router_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadServiceWorkerRouterInfo` instead "
     "of `ReadServiceWorkerRouterInfo if you're fine with null values being "
@@ -416,7 +416,7 @@ static_assert(
         ::network::mojom::AuthChallengeInfoDataView, UserType>(),
     "Attempting to read the optional `auth_challenge_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAuthChallengeInfo` instead "
     "of `ReadAuthChallengeInfo if you're fine with null values being "
@@ -456,7 +456,7 @@ static_assert(
         ::network::mojom::ParsedHeadersDataView, UserType>(),
     "Attempting to read the optional `parsed_headers` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadParsedHeaders` instead "
     "of `ReadParsedHeaders if you're fine with null values being "
@@ -476,7 +476,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `recursive_prefetch_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRecursivePrefetchToken` instead "
     "of `ReadRecursivePrefetchToken if you're fine with null values being "

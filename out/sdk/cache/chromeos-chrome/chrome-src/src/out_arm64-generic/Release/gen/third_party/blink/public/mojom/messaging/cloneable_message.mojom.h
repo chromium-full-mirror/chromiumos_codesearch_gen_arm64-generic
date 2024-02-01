@@ -63,7 +63,7 @@ class BLINK_COMMON_EXPORT CloneableMessage {
   template <typename... Args>
   static CloneableMessagePtr New(Args&&... args) {
     return CloneableMessagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

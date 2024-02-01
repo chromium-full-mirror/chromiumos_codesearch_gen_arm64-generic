@@ -219,7 +219,7 @@ class  GetBrightnessResult {
   template <typename... Args>
   static GetBrightnessResultPtr New(Args&&... args) {
     return GetBrightnessResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

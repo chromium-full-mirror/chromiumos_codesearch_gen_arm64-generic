@@ -23,6 +23,7 @@ const webui::ResourcePath kPrivacySandboxInternalsResources[] = {
   {"mojo_timedelta.html.js", IDR_PRIVACY_SANDBOX_INTERNALS_MOJO_TIMEDELTA_HTML_JS},
   {"mojo_timestamp.html.js", IDR_PRIVACY_SANDBOX_INTERNALS_MOJO_TIMESTAMP_HTML_JS},
   {"content_settings.mojom-webui.js", IDR_PRIVACY_SANDBOX_INTERNALS_CONTENT_SETTINGS_MOJOM_WEBUI_JS},
+  {"content_settings_types.mojom-webui.js", IDR_PRIVACY_SANDBOX_INTERNALS_CONTENT_SETTINGS_TYPES_MOJOM_WEBUI_JS},
   {"privacy_sandbox_internals.mojom-webui.js", IDR_PRIVACY_SANDBOX_INTERNALS_PRIVACY_SANDBOX_INTERNALS_MOJOM_WEBUI_JS},
 };
 

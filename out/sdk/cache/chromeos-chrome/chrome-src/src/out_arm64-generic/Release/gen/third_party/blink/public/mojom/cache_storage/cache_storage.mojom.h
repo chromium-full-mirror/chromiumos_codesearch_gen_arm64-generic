@@ -387,7 +387,7 @@ class BLINK_COMMON_EXPORT CacheStorageVerboseError {
   template <typename... Args>
   static CacheStorageVerboseErrorPtr New(Args&&... args) {
     return CacheStorageVerboseErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -530,7 +530,7 @@ class BLINK_COMMON_EXPORT CacheQueryOptions {
   template <typename... Args>
   static CacheQueryOptionsPtr New(Args&&... args) {
     return CacheQueryOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -691,7 +691,7 @@ class BLINK_COMMON_EXPORT OpenResult {
   static OpenResultPtr
   NewStatus(
       CacheStorageError value) {
-    auto result = OpenResultPtr(absl::in_place);
+    auto result = OpenResultPtr(std::in_place);
     result->set_status(std::move(value));
     return result;
   }
@@ -699,7 +699,7 @@ class BLINK_COMMON_EXPORT OpenResult {
   static OpenResultPtr
   NewCache(
       ::mojo::PendingAssociatedRemote<CacheStorageCache> value) {
-    auto result = OpenResultPtr(absl::in_place);
+    auto result = OpenResultPtr(std::in_place);
     result->set_cache(std::move(value));
     return result;
   }
@@ -821,7 +821,7 @@ class BLINK_COMMON_EXPORT MatchResult {
   static MatchResultPtr
   NewStatus(
       CacheStorageError value) {
-    auto result = MatchResultPtr(absl::in_place);
+    auto result = MatchResultPtr(std::in_place);
     result->set_status(std::move(value));
     return result;
   }
@@ -829,7 +829,7 @@ class BLINK_COMMON_EXPORT MatchResult {
   static MatchResultPtr
   NewResponse(
       ::blink::mojom::FetchAPIResponsePtr value) {
-    auto result = MatchResultPtr(absl::in_place);
+    auto result = MatchResultPtr(std::in_place);
     result->set_response(std::move(value));
     return result;
   }
@@ -837,7 +837,7 @@ class BLINK_COMMON_EXPORT MatchResult {
   static MatchResultPtr
   NewEagerResponse(
       EagerResponsePtr value) {
-    auto result = MatchResultPtr(absl::in_place);
+    auto result = MatchResultPtr(std::in_place);
     result->set_eager_response(std::move(value));
     return result;
   }
@@ -972,7 +972,7 @@ class BLINK_COMMON_EXPORT MatchAllResult {
   static MatchAllResultPtr
   NewStatus(
       CacheStorageError value) {
-    auto result = MatchAllResultPtr(absl::in_place);
+    auto result = MatchAllResultPtr(std::in_place);
     result->set_status(std::move(value));
     return result;
   }
@@ -980,7 +980,7 @@ class BLINK_COMMON_EXPORT MatchAllResult {
   static MatchAllResultPtr
   NewResponses(
       std::vector<::blink::mojom::FetchAPIResponsePtr> value) {
-    auto result = MatchAllResultPtr(absl::in_place);
+    auto result = MatchAllResultPtr(std::in_place);
     result->set_responses(std::move(value));
     return result;
   }
@@ -1102,7 +1102,7 @@ class BLINK_COMMON_EXPORT GetAllMatchedEntriesResult {
   static GetAllMatchedEntriesResultPtr
   NewStatus(
       CacheStorageError value) {
-    auto result = GetAllMatchedEntriesResultPtr(absl::in_place);
+    auto result = GetAllMatchedEntriesResultPtr(std::in_place);
     result->set_status(std::move(value));
     return result;
   }
@@ -1110,7 +1110,7 @@ class BLINK_COMMON_EXPORT GetAllMatchedEntriesResult {
   static GetAllMatchedEntriesResultPtr
   NewEntries(
       std::vector<CacheEntryPtr> value) {
-    auto result = GetAllMatchedEntriesResultPtr(absl::in_place);
+    auto result = GetAllMatchedEntriesResultPtr(std::in_place);
     result->set_entries(std::move(value));
     return result;
   }
@@ -1232,7 +1232,7 @@ class BLINK_COMMON_EXPORT CacheKeysResult {
   static CacheKeysResultPtr
   NewStatus(
       CacheStorageError value) {
-    auto result = CacheKeysResultPtr(absl::in_place);
+    auto result = CacheKeysResultPtr(std::in_place);
     result->set_status(std::move(value));
     return result;
   }
@@ -1240,7 +1240,7 @@ class BLINK_COMMON_EXPORT CacheKeysResult {
   static CacheKeysResultPtr
   NewKeys(
       std::vector<::blink::mojom::FetchAPIRequestPtr> value) {
-    auto result = CacheKeysResultPtr(absl::in_place);
+    auto result = CacheKeysResultPtr(std::in_place);
     result->set_keys(std::move(value));
     return result;
   }
@@ -1356,7 +1356,7 @@ class BLINK_COMMON_EXPORT MultiCacheQueryOptions {
   template <typename... Args>
   static MultiCacheQueryOptionsPtr New(Args&&... args) {
     return MultiCacheQueryOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1501,7 +1501,7 @@ class BLINK_COMMON_EXPORT BatchOperation {
   template <typename... Args>
   static BatchOperationPtr New(Args&&... args) {
     return BatchOperationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1647,7 +1647,7 @@ class BLINK_COMMON_EXPORT EagerResponse {
   template <typename... Args>
   static EagerResponsePtr New(Args&&... args) {
     return EagerResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1790,7 +1790,7 @@ class BLINK_COMMON_EXPORT CacheEntry {
   template <typename... Args>
   static CacheEntryPtr New(Args&&... args) {
     return CacheEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

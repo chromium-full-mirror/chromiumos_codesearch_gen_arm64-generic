@@ -6,6 +6,8 @@
 
 #ifndef ASH_WEBUI_COMMON_MOJOM_SEA_PEN_MOJOM_IMPORT_HEADERS_H_
 #define ASH_WEBUI_COMMON_MOJOM_SEA_PEN_MOJOM_IMPORT_HEADERS_H_
+#include "ash/webui/common/mojom/sea_pen_generated.mojom.h"
+#include "ash/webui/common/mojom/sea_pen_generated.mojom-import-headers.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
 #include "mojo/public/mojom/base/file_path.mojom-import-headers.h"
 #include "url/mojom/url.mojom.h"

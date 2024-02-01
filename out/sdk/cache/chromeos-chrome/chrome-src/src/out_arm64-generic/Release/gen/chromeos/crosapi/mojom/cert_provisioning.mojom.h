@@ -307,7 +307,7 @@ class  CertProvisioningBackendServerError {
   template <typename... Args>
   static CertProvisioningBackendServerErrorPtr New(Args&&... args) {
     return CertProvisioningBackendServerErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -450,7 +450,7 @@ class  CertProvisioningProcessStatus {
   template <typename... Args>
   static CertProvisioningProcessStatusPtr New(Args&&... args) {
     return CertProvisioningProcessStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

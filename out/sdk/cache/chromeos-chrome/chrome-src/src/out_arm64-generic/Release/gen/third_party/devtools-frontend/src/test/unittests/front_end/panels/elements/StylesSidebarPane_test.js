@@ -166,7 +166,7 @@ describeWithEnvironment('StylesSidebarPropertyRenderer', () => {
         assert.deepEqual(node.textContent, nodeContents, trace.toString());
     });
     it('parses lengths correctly', () => {
-        Root.Runtime.experiments.enableForTest('cssTypeComponentLength');
+        Root.Runtime.experiments.disableForTest('cssTypeComponentLengthDeprecate');
         const renderer = new Elements.StylesSidebarPane.StylesSidebarPropertyRenderer(null, null, 'width', 'calc(6em + 7em)');
         renderer.setLengthHandler(() => document.createTextNode('MATCH'));
         const node = renderer.renderValue();

@@ -179,7 +179,7 @@ class  LoginScreenStorageMetadata {
   template <typename... Args>
   static LoginScreenStorageMetadataPtr New(Args&&... args) {
     return LoginScreenStorageMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -330,7 +330,7 @@ class  LoginScreenStorageRetrieveResult {
   static LoginScreenStorageRetrieveResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = LoginScreenStorageRetrieveResultPtr(absl::in_place);
+    auto result = LoginScreenStorageRetrieveResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -338,7 +338,7 @@ class  LoginScreenStorageRetrieveResult {
   static LoginScreenStorageRetrieveResultPtr
   NewData(
       const std::string& value) {
-    auto result = LoginScreenStorageRetrieveResultPtr(absl::in_place);
+    auto result = LoginScreenStorageRetrieveResultPtr(std::in_place);
     result->set_data(std::move(value));
     return result;
   }

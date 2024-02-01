@@ -63,7 +63,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM_BLINK) String16 {
   template <typename... Args>
   static String16Ptr New(Args&&... args) {
     return String16Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -203,7 +203,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM_BLINK) BigString16 {
   template <typename... Args>
   static BigString16Ptr New(Args&&... args) {
     return BigString16Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

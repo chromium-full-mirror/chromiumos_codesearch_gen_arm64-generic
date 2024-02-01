@@ -195,7 +195,7 @@ class BLINK_COMMON_EXPORT CredentialInfo {
   template <typename... Args>
   static CredentialInfoPtr New(Args&&... args) {
     return CredentialInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

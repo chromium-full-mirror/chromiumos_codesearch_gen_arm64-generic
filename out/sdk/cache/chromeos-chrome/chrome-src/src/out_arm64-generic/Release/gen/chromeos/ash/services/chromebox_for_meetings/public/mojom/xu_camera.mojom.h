@@ -201,7 +201,7 @@ class  ControlQuery {
   template <typename... Args>
   static ControlQueryPtr New(Args&&... args) {
     return ControlQueryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -355,7 +355,7 @@ class  WebcamId {
   static WebcamIdPtr
   NewDeviceId(
       const std::string& value) {
-    auto result = WebcamIdPtr(absl::in_place);
+    auto result = WebcamIdPtr(std::in_place);
     result->set_device_id(std::move(value));
     return result;
   }
@@ -363,7 +363,7 @@ class  WebcamId {
   static WebcamIdPtr
   NewDevPath(
       const std::string& value) {
-    auto result = WebcamIdPtr(absl::in_place);
+    auto result = WebcamIdPtr(std::in_place);
     result->set_dev_path(std::move(value));
     return result;
   }
@@ -486,7 +486,7 @@ class  CtrlType {
   static CtrlTypePtr
   NewMappingCtrl(
       ControlMappingPtr value) {
-    auto result = CtrlTypePtr(absl::in_place);
+    auto result = CtrlTypePtr(std::in_place);
     result->set_mapping_ctrl(std::move(value));
     return result;
   }
@@ -494,7 +494,7 @@ class  CtrlType {
   static CtrlTypePtr
   NewQueryCtrl(
       ControlQueryPtr value) {
-    auto result = CtrlTypePtr(absl::in_place);
+    auto result = CtrlTypePtr(std::in_place);
     result->set_query_ctrl(std::move(value));
     return result;
   }
@@ -608,7 +608,7 @@ class  MenuInfo {
   template <typename... Args>
   static MenuInfoPtr New(Args&&... args) {
     return MenuInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -751,7 +751,7 @@ class  MenuEntries {
   template <typename... Args>
   static MenuEntriesPtr New(Args&&... args) {
     return MenuEntriesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -893,7 +893,7 @@ class  ControlMapping {
   template <typename... Args>
   static ControlMappingPtr New(Args&&... args) {
     return ControlMappingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

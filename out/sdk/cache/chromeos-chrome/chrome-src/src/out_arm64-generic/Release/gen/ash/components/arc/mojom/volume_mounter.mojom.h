@@ -299,7 +299,7 @@ class  MountPointInfo {
   template <typename... Args>
   static MountPointInfoPtr New(Args&&... args) {
     return MountPointInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -181,7 +181,7 @@ class  MediaEngagementScoreDetails {
   template <typename... Args>
   static MediaEngagementScoreDetailsPtr New(Args&&... args) {
     return MediaEngagementScoreDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -336,7 +336,7 @@ class  MediaEngagementConfig {
   template <typename... Args>
   static MediaEngagementConfigPtr New(Args&&... args) {
     return MediaEngagementConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

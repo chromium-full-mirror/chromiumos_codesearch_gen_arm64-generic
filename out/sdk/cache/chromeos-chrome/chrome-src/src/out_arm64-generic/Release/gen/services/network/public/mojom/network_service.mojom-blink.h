@@ -520,7 +520,7 @@ class BLINK_PLATFORM_EXPORT HttpAuthStaticParams {
   template <typename... Args>
   static HttpAuthStaticParamsPtr New(Args&&... args) {
     return HttpAuthStaticParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -662,7 +662,7 @@ class BLINK_PLATFORM_EXPORT EnvironmentVariable {
   template <typename... Args>
   static EnvironmentVariablePtr New(Args&&... args) {
     return EnvironmentVariablePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -811,7 +811,7 @@ class BLINK_PLATFORM_EXPORT HttpAuthDynamicParams {
   template <typename... Args>
   static HttpAuthDynamicParamsPtr New(Args&&... args) {
     return HttpAuthDynamicParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -982,7 +982,7 @@ class BLINK_PLATFORM_EXPORT NetworkServiceParams {
   template <typename... Args>
   static NetworkServiceParamsPtr New(Args&&... args) {
     return NetworkServiceParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1137,7 +1137,7 @@ class BLINK_PLATFORM_EXPORT SCTAuditingConfiguration {
   template <typename... Args>
   static SCTAuditingConfigurationPtr New(Args&&... args) {
     return SCTAuditingConfigurationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

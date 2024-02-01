@@ -712,7 +712,7 @@ class  SerialPortControlSignals {
   template <typename... Args>
   static SerialPortControlSignalsPtr New(Args&&... args) {
     return SerialPortControlSignalsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -864,7 +864,7 @@ class  SerialPortInfo {
   template <typename... Args>
   static SerialPortInfoPtr New(Args&&... args) {
     return SerialPortInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1031,7 +1031,7 @@ class  SerialConnectionOptions {
   template <typename... Args>
   static SerialConnectionOptionsPtr New(Args&&... args) {
     return SerialConnectionOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1187,7 +1187,7 @@ class  SerialConnectionInfo {
   template <typename... Args>
   static SerialConnectionInfoPtr New(Args&&... args) {
     return SerialConnectionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1340,7 +1340,7 @@ class  SerialHostControlSignals {
   template <typename... Args>
   static SerialHostControlSignalsPtr New(Args&&... args) {
     return SerialHostControlSignalsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

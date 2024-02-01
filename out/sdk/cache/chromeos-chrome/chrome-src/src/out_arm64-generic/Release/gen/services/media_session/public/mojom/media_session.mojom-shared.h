@@ -652,7 +652,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `unused_field` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUnusedField` instead "
     "of `ReadUnusedField if you're fine with null values being "
@@ -761,7 +761,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `audio_sink_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAudioSinkId` instead "
     "of `ReadAudioSinkId if you're fine with null values being "
@@ -782,7 +782,7 @@ static_assert(
         mojo::ArrayDataView<::media_session::mojom::MediaAudioVideoState>, UserType>(),
     "Attempting to read the optional `audio_video_states` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAudioVideoStates` instead "
     "of `ReadAudioVideoStates if you're fine with null values being "
@@ -839,7 +839,7 @@ static_assert(
         ::media_session::mojom::RemotePlaybackMetadataDataView, UserType>(),
     "Attempting to read the optional `remote_playback_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRemotePlaybackMetadata` instead "
     "of `ReadRemotePlaybackMetadata if you're fine with null values being "
@@ -853,6 +853,11 @@ static_assert(
     if (data_->header_.version < 16)
       return bool{};
     return data_->hide_metadata;
+  }
+  bool ignore_for_active_session() const {
+    if (data_->header_.version < 20)
+      return bool{};
+    return data_->ignore_for_active_session;
   }
  private:
   internal::MediaSessionInfo_Data* data_ = nullptr;
@@ -1602,6 +1607,7 @@ struct Serializer<::media_session::mojom::MediaSessionInfoDataView, MaybeConstUs
     fragment->remote_playback_metadata.Set(
         remote_playback_metadata_fragment.is_null() ? nullptr : remote_playback_metadata_fragment.data());
     fragment->hide_metadata = Traits::hide_metadata(input);
+    fragment->ignore_for_active_session = Traits::ignore_for_active_session(input);
   }
 
   static bool Deserialize(::media_session::mojom::internal::MediaSessionInfo_Data* input,

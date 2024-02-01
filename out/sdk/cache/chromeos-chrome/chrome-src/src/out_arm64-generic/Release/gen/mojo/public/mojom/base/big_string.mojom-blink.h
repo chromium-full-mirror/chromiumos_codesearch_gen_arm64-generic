@@ -63,7 +63,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM_BLINK) BigString {
   template <typename... Args>
   static BigStringPtr New(Args&&... args) {
     return BigStringPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

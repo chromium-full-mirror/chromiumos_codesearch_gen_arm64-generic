@@ -6,11 +6,11 @@ label_name = interest_group_proto
 target_out_dir = obj/content/browser/interest_group
 target_output_name = libinterest_group_proto
 
-build obj/content/browser/interest_group/interest_group_proto/interest_group_ad.pb.o: cxx gen/content/browser/interest_group/interest_group_ad.pb.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/content/browser/interest_group/interest_group_proto_gen.stamp
-  source_file_part = interest_group_ad.pb.cc
-  source_name_part = interest_group_ad.pb
+build obj/content/browser/interest_group/interest_group_proto/interest_group_storage.pb.o: cxx gen/content/browser/interest_group/interest_group_storage.pb.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/content/browser/interest_group/interest_group_proto_gen.stamp
+  source_file_part = interest_group_storage.pb.cc
+  source_name_part = interest_group_storage.pb
 
-build obj/content/browser/interest_group/libinterest_group_proto.a: alink obj/content/browser/interest_group/interest_group_proto/interest_group_ad.pb.o | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/aarch64-unknown-linux-gnu/libclang_rt.builtins.a ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/protobuf/libprotobuf_lite.a obj/content/browser/interest_group/interest_group_proto_gen.stamp
+build obj/content/browser/interest_group/libinterest_group_proto.a: alink obj/content/browser/interest_group/interest_group_proto/interest_group_storage.pb.o | ../../../../../../../home/chrome-bot/chrome_root/src/third_party/llvm-build/Release+Asserts/lib/clang/18/lib/aarch64-unknown-linux-gnu/libclang_rt.builtins.a ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/third_party/protobuf/libprotobuf_lite.a obj/content/browser/interest_group/interest_group_proto_gen.stamp
   arflags = -T
   output_extension = .a
   output_dir = obj/content/browser/interest_group

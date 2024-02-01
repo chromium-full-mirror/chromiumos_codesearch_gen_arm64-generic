@@ -59,7 +59,7 @@ class BLINK_PLATFORM_EXPORT MtpStorageInfo {
   template <typename... Args>
   static MtpStorageInfoPtr New(Args&&... args) {
     return MtpStorageInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

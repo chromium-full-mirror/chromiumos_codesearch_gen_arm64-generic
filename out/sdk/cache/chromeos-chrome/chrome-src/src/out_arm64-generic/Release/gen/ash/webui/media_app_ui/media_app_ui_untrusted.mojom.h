@@ -381,7 +381,7 @@ class  PageMetadata {
   template <typename... Args>
   static PageMetadataPtr New(Args&&... args) {
     return PageMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

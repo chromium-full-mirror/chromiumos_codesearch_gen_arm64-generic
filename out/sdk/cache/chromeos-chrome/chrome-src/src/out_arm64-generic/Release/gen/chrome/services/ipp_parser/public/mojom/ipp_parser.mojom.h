@@ -167,7 +167,7 @@ class  Resolution {
   template <typename... Args>
   static ResolutionPtr New(Args&&... args) {
     return ResolutionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -324,7 +324,7 @@ class  IppAttributeValue {
   static IppAttributeValuePtr
   NewBools(
       std::vector<bool> value) {
-    auto result = IppAttributeValuePtr(absl::in_place);
+    auto result = IppAttributeValuePtr(std::in_place);
     result->set_bools(std::move(value));
     return result;
   }
@@ -332,7 +332,7 @@ class  IppAttributeValue {
   static IppAttributeValuePtr
   NewDate(
       std::vector<uint8_t> value) {
-    auto result = IppAttributeValuePtr(absl::in_place);
+    auto result = IppAttributeValuePtr(std::in_place);
     result->set_date(std::move(value));
     return result;
   }
@@ -340,7 +340,7 @@ class  IppAttributeValue {
   static IppAttributeValuePtr
   NewInts(
       std::vector<int32_t> value) {
-    auto result = IppAttributeValuePtr(absl::in_place);
+    auto result = IppAttributeValuePtr(std::in_place);
     result->set_ints(std::move(value));
     return result;
   }
@@ -348,7 +348,7 @@ class  IppAttributeValue {
   static IppAttributeValuePtr
   NewStrings(
       std::vector<std::string> value) {
-    auto result = IppAttributeValuePtr(absl::in_place);
+    auto result = IppAttributeValuePtr(std::in_place);
     result->set_strings(std::move(value));
     return result;
   }
@@ -356,7 +356,7 @@ class  IppAttributeValue {
   static IppAttributeValuePtr
   NewOctets(
       std::vector<std::vector<uint8_t>> value) {
-    auto result = IppAttributeValuePtr(absl::in_place);
+    auto result = IppAttributeValuePtr(std::in_place);
     result->set_octets(std::move(value));
     return result;
   }
@@ -364,7 +364,7 @@ class  IppAttributeValue {
   static IppAttributeValuePtr
   NewResolutions(
       std::vector<ResolutionPtr> value) {
-    auto result = IppAttributeValuePtr(absl::in_place);
+    auto result = IppAttributeValuePtr(std::in_place);
     result->set_resolutions(std::move(value));
     return result;
   }
@@ -531,7 +531,7 @@ class  IppAttribute {
   template <typename... Args>
   static IppAttributePtr New(Args&&... args) {
     return IppAttributePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -682,7 +682,7 @@ class  IppMessage {
   template <typename... Args>
   static IppMessagePtr New(Args&&... args) {
     return IppMessagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -836,7 +836,7 @@ class  IppRequest {
   template <typename... Args>
   static IppRequestPtr New(Args&&... args) {
     return IppRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

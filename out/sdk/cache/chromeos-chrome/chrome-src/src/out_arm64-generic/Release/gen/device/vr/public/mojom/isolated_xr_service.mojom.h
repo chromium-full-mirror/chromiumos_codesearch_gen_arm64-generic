@@ -1118,7 +1118,7 @@ class COMPONENT_EXPORT(DEVICE_VR_ISOLATED_XR_SERVICE_MOJO_BINDINGS) XRRuntimeSes
   template <typename... Args>
   static XRRuntimeSessionOptionsPtr New(Args&&... args) {
     return XRRuntimeSessionOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1276,7 +1276,7 @@ class COMPONENT_EXPORT(DEVICE_VR_ISOLATED_XR_SERVICE_MOJO_BINDINGS) XRRuntimeSes
   template <typename... Args>
   static XRRuntimeSessionResultPtr New(Args&&... args) {
     return XRRuntimeSessionResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1419,7 +1419,7 @@ class COMPONENT_EXPORT(DEVICE_VR_ISOLATED_XR_SERVICE_MOJO_BINDINGS) XRRenderInfo
   template <typename... Args>
   static XRRenderInfoPtr New(Args&&... args) {
     return XRRenderInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1567,7 +1567,7 @@ class COMPONENT_EXPORT(DEVICE_VR_ISOLATED_XR_SERVICE_MOJO_BINDINGS) XRDeviceData
   template <typename... Args>
   static XRDeviceDataPtr New(Args&&... args) {
     return XRDeviceDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

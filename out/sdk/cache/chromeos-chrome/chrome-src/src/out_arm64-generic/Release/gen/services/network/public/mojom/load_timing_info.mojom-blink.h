@@ -61,7 +61,7 @@ class BLINK_PLATFORM_EXPORT LoadTimingInfoConnectTiming {
   template <typename... Args>
   static LoadTimingInfoConnectTimingPtr New(Args&&... args) {
     return LoadTimingInfoConnectTimingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -216,7 +216,7 @@ class BLINK_PLATFORM_EXPORT LoadTimingInfo {
   template <typename... Args>
   static LoadTimingInfoPtr New(Args&&... args) {
     return LoadTimingInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

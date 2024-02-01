@@ -56,7 +56,7 @@ class  ExtensionKeepList {
   template <typename... Args>
   static ExtensionKeepListPtr New(Args&&... args) {
     return ExtensionKeepListPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -205,7 +205,7 @@ class  StandaloneBrowserAppServiceBlockList {
   template <typename... Args>
   static StandaloneBrowserAppServiceBlockListPtr New(Args&&... args) {
     return StandaloneBrowserAppServiceBlockListPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

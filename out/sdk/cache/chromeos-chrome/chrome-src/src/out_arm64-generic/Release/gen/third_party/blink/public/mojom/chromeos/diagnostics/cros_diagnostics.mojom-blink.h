@@ -182,7 +182,7 @@ class PLATFORM_EXPORT CrosNetworkInterface {
   template <typename... Args>
   static CrosNetworkInterfacePtr New(Args&&... args) {
     return CrosNetworkInterfacePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -339,7 +339,7 @@ class PLATFORM_EXPORT GetCpuInfoResult {
   static GetCpuInfoResultPtr
   NewCpuInfo(
       CrosCpuInfoPtr value) {
-    auto result = GetCpuInfoResultPtr(absl::in_place);
+    auto result = GetCpuInfoResultPtr(std::in_place);
     result->set_cpu_info(std::move(value));
     return result;
   }
@@ -347,7 +347,7 @@ class PLATFORM_EXPORT GetCpuInfoResult {
   static GetCpuInfoResultPtr
   NewError(
       GetCpuInfoError value) {
-    auto result = GetCpuInfoResultPtr(absl::in_place);
+    auto result = GetCpuInfoResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -469,7 +469,7 @@ class PLATFORM_EXPORT GetNetworkInterfacesResult {
   static GetNetworkInterfacesResultPtr
   NewNetworkInterfaces(
       WTF::Vector<CrosNetworkInterfacePtr> value) {
-    auto result = GetNetworkInterfacesResultPtr(absl::in_place);
+    auto result = GetNetworkInterfacesResultPtr(std::in_place);
     result->set_network_interfaces(std::move(value));
     return result;
   }
@@ -477,7 +477,7 @@ class PLATFORM_EXPORT GetNetworkInterfacesResult {
   static GetNetworkInterfacesResultPtr
   NewError(
       GetNetworkInterfacesError value) {
-    auto result = GetNetworkInterfacesResultPtr(absl::in_place);
+    auto result = GetNetworkInterfacesResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -591,7 +591,7 @@ class PLATFORM_EXPORT CrosCpuInfo {
   template <typename... Args>
   static CrosCpuInfoPtr New(Args&&... args) {
     return CrosCpuInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -739,7 +739,7 @@ class PLATFORM_EXPORT CrosLogicalCpuInfo {
   template <typename... Args>
   static CrosLogicalCpuInfoPtr New(Args&&... args) {
     return CrosLogicalCpuInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

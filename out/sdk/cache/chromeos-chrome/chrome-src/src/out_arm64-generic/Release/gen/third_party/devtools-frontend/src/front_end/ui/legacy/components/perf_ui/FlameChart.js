@@ -76,7 +76,11 @@ const UIStrings = {
      */
     hideRepeatingChildren: 'Hide repeating children',
     /**
-     *@description Text for reseting trace and showing all of the hidden children of the Flame Chart
+     *@description Text for an action that shows all of the hidden children of an entry
+     */
+    resetChildren: 'Reset children',
+    /**
+     *@description Text for an action that shows all of the hidden entries of the Flame Chart
      */
     resetTrace: 'Reset trace',
 };
@@ -718,10 +722,15 @@ export class FlameChart extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox) 
             });
             item.setShortcut('R');
         }
-        const item = this.contextMenu.defaultSection().appendItem(i18nString(UIStrings.resetTrace), () => {
+        if (this.entryHasDecoration(this.selectedEntryIndex, "HIDDEN_DESCENDANTS_ARROW" /* FlameChartDecorationType.HIDDEN_DESCENDANTS_ARROW */)) {
+            const item = this.contextMenu.defaultSection().appendItem(i18nString(UIStrings.resetChildren), () => {
+                this.modifyTree("RESET_CHILDREN" /* TraceEngine.EntriesFilter.FilterUndoAction.RESET_CHILDREN */, this.selectedEntryIndex);
+            });
+            item.setShortcut('U');
+        }
+        this.contextMenu.defaultSection().appendItem(i18nString(UIStrings.resetTrace), () => {
             this.modifyTree("UNDO_ALL_ACTIONS" /* TraceEngine.EntriesFilter.FilterUndoAction.UNDO_ALL_ACTIONS */, this.selectedEntryIndex);
-        });
-        item.setShortcut('U');
+        }, { disabled: !possibleActions?.["UNDO_ALL_ACTIONS" /* TraceEngine.EntriesFilter.FilterUndoAction.UNDO_ALL_ACTIONS */] });
         void this.contextMenu.show();
     }
     handleFlameChartTransformEvent(event) {
@@ -735,20 +744,21 @@ export class FlameChart extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox) 
         }
         const keyboardEvent = event;
         let handled = false;
-        if (keyboardEvent.key === 'h' && possibleActions["MERGE_FUNCTION" /* TraceEngine.EntriesFilter.FilterApplyAction.MERGE_FUNCTION */]) {
+        if (keyboardEvent.code === 'KeyH' && possibleActions["MERGE_FUNCTION" /* TraceEngine.EntriesFilter.FilterApplyAction.MERGE_FUNCTION */]) {
             this.modifyTree("MERGE_FUNCTION" /* TraceEngine.EntriesFilter.FilterApplyAction.MERGE_FUNCTION */, this.selectedEntryIndex);
             handled = true;
         }
-        else if (keyboardEvent.key === 'c' && possibleActions["COLLAPSE_FUNCTION" /* TraceEngine.EntriesFilter.FilterApplyAction.COLLAPSE_FUNCTION */]) {
+        else if (keyboardEvent.code === 'KeyC' &&
+            possibleActions["COLLAPSE_FUNCTION" /* TraceEngine.EntriesFilter.FilterApplyAction.COLLAPSE_FUNCTION */]) {
             this.modifyTree("COLLAPSE_FUNCTION" /* TraceEngine.EntriesFilter.FilterApplyAction.COLLAPSE_FUNCTION */, this.selectedEntryIndex);
             handled = true;
         }
-        else if (keyboardEvent.key === 'r' &&
+        else if (keyboardEvent.code === 'KeyR' &&
             possibleActions["COLLAPSE_REPEATING_DESCENDANTS" /* TraceEngine.EntriesFilter.FilterApplyAction.COLLAPSE_REPEATING_DESCENDANTS */]) {
             this.modifyTree("COLLAPSE_REPEATING_DESCENDANTS" /* TraceEngine.EntriesFilter.FilterApplyAction.COLLAPSE_REPEATING_DESCENDANTS */, this.selectedEntryIndex);
             handled = true;
         }
-        else if (keyboardEvent.key === 'u') {
+        else if (keyboardEvent.code === 'KeyU') {
             this.modifyTree("RESET_CHILDREN" /* TraceEngine.EntriesFilter.FilterUndoAction.RESET_CHILDREN */, this.selectedEntryIndex);
             handled = true;
         }

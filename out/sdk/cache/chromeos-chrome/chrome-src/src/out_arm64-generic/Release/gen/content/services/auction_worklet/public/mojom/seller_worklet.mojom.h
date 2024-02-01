@@ -307,7 +307,7 @@ class CONTENT_EXPORT ComponentAuctionReportResultParams {
   template <typename... Args>
   static ComponentAuctionReportResultParamsPtr New(Args&&... args) {
     return ComponentAuctionReportResultParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -465,7 +465,7 @@ class CONTENT_EXPORT ComponentAuctionOtherSeller {
   static ComponentAuctionOtherSellerPtr
   NewTopLevelSeller(
       const ::url::Origin& value) {
-    auto result = ComponentAuctionOtherSellerPtr(absl::in_place);
+    auto result = ComponentAuctionOtherSellerPtr(std::in_place);
     result->set_top_level_seller(std::move(value));
     return result;
   }
@@ -473,7 +473,7 @@ class CONTENT_EXPORT ComponentAuctionOtherSeller {
   static ComponentAuctionOtherSellerPtr
   NewComponentSeller(
       const ::url::Origin& value) {
-    auto result = ComponentAuctionOtherSellerPtr(absl::in_place);
+    auto result = ComponentAuctionOtherSellerPtr(std::in_place);
     result->set_component_seller(std::move(value));
     return result;
   }
@@ -587,7 +587,7 @@ class CONTENT_EXPORT ComponentAuctionModifiedBidParams {
   template <typename... Args>
   static ComponentAuctionModifiedBidParamsPtr New(Args&&... args) {
     return ComponentAuctionModifiedBidParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -737,7 +737,7 @@ class CONTENT_EXPORT ScoreAdDependencyLatencies {
   template <typename... Args>
   static ScoreAdDependencyLatenciesPtr New(Args&&... args) {
     return ScoreAdDependencyLatenciesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

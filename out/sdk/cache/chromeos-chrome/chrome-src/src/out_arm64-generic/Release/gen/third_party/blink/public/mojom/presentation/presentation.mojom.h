@@ -602,7 +602,7 @@ class BLINK_COMMON_EXPORT PresentationError {
   template <typename... Args>
   static PresentationErrorPtr New(Args&&... args) {
     return PresentationErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -757,7 +757,7 @@ class BLINK_COMMON_EXPORT PresentationConnectionMessage {
   static PresentationConnectionMessagePtr
   NewMessage(
       const std::string& value) {
-    auto result = PresentationConnectionMessagePtr(absl::in_place);
+    auto result = PresentationConnectionMessagePtr(std::in_place);
     result->set_message(std::move(value));
     return result;
   }
@@ -765,7 +765,7 @@ class BLINK_COMMON_EXPORT PresentationConnectionMessage {
   static PresentationConnectionMessagePtr
   NewData(
       std::vector<uint8_t> value) {
-    auto result = PresentationConnectionMessagePtr(absl::in_place);
+    auto result = PresentationConnectionMessagePtr(std::in_place);
     result->set_data(std::move(value));
     return result;
   }
@@ -879,7 +879,7 @@ class BLINK_COMMON_EXPORT PresentationInfo {
   template <typename... Args>
   static PresentationInfoPtr New(Args&&... args) {
     return PresentationInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1023,7 +1023,7 @@ class BLINK_COMMON_EXPORT PresentationConnectionResult {
   template <typename... Args>
   static PresentationConnectionResultPtr New(Args&&... args) {
     return PresentationConnectionResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

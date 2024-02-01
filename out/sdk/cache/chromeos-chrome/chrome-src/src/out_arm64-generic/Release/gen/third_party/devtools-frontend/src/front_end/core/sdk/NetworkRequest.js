@@ -5,7 +5,6 @@ import * as TextUtils from '../../models/text_utils/text_utils.js';
 import * as Common from '../common/common.js';
 import * as i18n from '../i18n/i18n.js';
 import * as Platform from '../platform/platform.js';
-import { ContentData as ContentDataClass } from './ContentData.js';
 import { CookieModel } from './CookieModel.js';
 import { CookieParser } from './CookieParser.js';
 import * as HttpReasonPhraseStrings from './HttpReasonPhraseStrings.js';
@@ -626,7 +625,7 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
     }
     set mimeType(x) {
         this.#mimeTypeInternal = x;
-        if (x === "text/event-stream" /* MimeType.EVENTSTREAM */ && !this.#serverSentEvents) {
+        if (x === "text/event-stream" /* Platform.MimeType.MimeType.EVENTSTREAM */ && !this.#serverSentEvents) {
             const parseFromStreamedData = this.resourceType() !== Common.ResourceType.resourceTypes.EventSource;
             this.#serverSentEvents = new ServerSentEvents(this, parseFromStreamedData);
         }
@@ -1097,14 +1096,14 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
         return this.#resourceTypeInternal;
     }
     async requestContent() {
-        return ContentDataClass.asDeferredContent(await this.contentData());
+        return TextUtils.ContentData.ContentData.asDeferredContent(await this.contentData());
     }
     async searchInContent(query, caseSensitive, isRegex) {
         if (!this.#contentDataProvider) {
             return NetworkManager.searchInRequest(this, query, caseSensitive, isRegex);
         }
         const contentData = await this.contentData();
-        if (ContentDataClass.isError(contentData) || !contentData.isTextContent) {
+        if (TextUtils.ContentData.ContentData.isError(contentData) || !contentData.isTextContent) {
             return [];
         }
         return TextUtils.TextUtils.performSearchInContent(contentData.text, query, caseSensitive, isRegex);
@@ -1150,7 +1149,7 @@ export class NetworkRequest extends Common.ObjectWrapper.ObjectWrapper {
     }
     async populateImageSource(image) {
         const contentData = await this.contentData();
-        if (ContentDataClass.isError(contentData)) {
+        if (TextUtils.ContentData.ContentData.isError(contentData)) {
             return;
         }
         let imageSrc = contentData.asDataUrl();

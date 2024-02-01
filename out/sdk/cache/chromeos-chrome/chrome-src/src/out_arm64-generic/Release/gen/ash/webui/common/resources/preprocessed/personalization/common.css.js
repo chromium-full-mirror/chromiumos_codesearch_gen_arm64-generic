@@ -302,6 +302,11 @@ img.disabled {
    */
   opacity: 50%;
 }
+
+cr-action-menu::part(dialog) {
+  /* Prevent jank due to overscrolling from the dialog */
+  overscroll-behavior: contain;
+}
     </style>
   </template>
 `.content);

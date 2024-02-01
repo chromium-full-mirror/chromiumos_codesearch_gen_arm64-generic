@@ -537,7 +537,7 @@ class  FileEnumerationEntry {
   template <typename... Args>
   static FileEnumerationEntryPtr New(Args&&... args) {
     return FileEnumerationEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

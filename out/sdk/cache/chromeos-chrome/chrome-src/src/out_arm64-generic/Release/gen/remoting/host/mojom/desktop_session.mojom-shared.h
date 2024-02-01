@@ -670,7 +670,7 @@ static_assert(
         ::remoting::mojom::BoolDataView, UserType>(),
     "Attempting to read the optional `caps_lock_state` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCapsLockState` instead "
     "of `ReadCapsLockState if you're fine with null values being "
@@ -690,7 +690,7 @@ static_assert(
         ::remoting::mojom::BoolDataView, UserType>(),
     "Attempting to read the optional `num_lock_state` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNumLockState` instead "
     "of `ReadNumLockState if you're fine with null values being "
@@ -726,7 +726,7 @@ static_assert(
         ::remoting::mojom::Int32DataView, UserType>(),
     "Attempting to read the optional `x` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadX` instead "
     "of `ReadX if you're fine with null values being "
@@ -746,7 +746,7 @@ static_assert(
         ::remoting::mojom::Int32DataView, UserType>(),
     "Attempting to read the optional `y` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadY` instead "
     "of `ReadY if you're fine with null values being "
@@ -776,7 +776,7 @@ static_assert(
         ::remoting::mojom::BoolDataView, UserType>(),
     "Attempting to read the optional `button_down` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadButtonDown` instead "
     "of `ReadButtonDown if you're fine with null values being "
@@ -796,7 +796,7 @@ static_assert(
         ::remoting::mojom::FloatDataView, UserType>(),
     "Attempting to read the optional `wheel_delta_x` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWheelDeltaX` instead "
     "of `ReadWheelDeltaX if you're fine with null values being "
@@ -816,7 +816,7 @@ static_assert(
         ::remoting::mojom::FloatDataView, UserType>(),
     "Attempting to read the optional `wheel_delta_y` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWheelDeltaY` instead "
     "of `ReadWheelDeltaY if you're fine with null values being "
@@ -836,7 +836,7 @@ static_assert(
         ::remoting::mojom::FloatDataView, UserType>(),
     "Attempting to read the optional `wheel_ticks_x` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWheelTicksX` instead "
     "of `ReadWheelTicksX if you're fine with null values being "
@@ -856,7 +856,7 @@ static_assert(
         ::remoting::mojom::FloatDataView, UserType>(),
     "Attempting to read the optional `wheel_ticks_y` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWheelTicksY` instead "
     "of `ReadWheelTicksY if you're fine with null values being "
@@ -876,7 +876,7 @@ static_assert(
         ::remoting::mojom::Int32DataView, UserType>(),
     "Attempting to read the optional `delta_x` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeltaX` instead "
     "of `ReadDeltaX if you're fine with null values being "
@@ -896,7 +896,7 @@ static_assert(
         ::remoting::mojom::Int32DataView, UserType>(),
     "Attempting to read the optional `delta_y` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeltaY` instead "
     "of `ReadDeltaY if you're fine with null values being "
@@ -1060,7 +1060,7 @@ static_assert(
         ::remoting::mojom::UInt32DataView, UserType>(),
     "Attempting to read the optional `clipboard_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadClipboardSize` instead "
     "of `ReadClipboardSize if you're fine with null values being "
@@ -1152,7 +1152,7 @@ static_assert(
         ::remoting::mojom::Int32DataView, UserType>(),
     "Attempting to read the optional `api_error_code` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadApiErrorCode` instead "
     "of `ReadApiErrorCode if you're fine with null values being "

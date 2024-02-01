@@ -56,7 +56,7 @@ class PLATFORM_EXPORT UseCounterFeature {
   template <typename... Args>
   static UseCounterFeaturePtr New(Args&&... args) {
     return UseCounterFeaturePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

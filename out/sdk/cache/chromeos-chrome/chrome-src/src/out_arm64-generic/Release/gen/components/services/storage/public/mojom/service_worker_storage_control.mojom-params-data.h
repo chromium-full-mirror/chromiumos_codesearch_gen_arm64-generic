@@ -1624,7 +1624,7 @@ static_assert(
         ::network::mojom::URLResponseHeadDataView, UserType>(),
     "Attempting to read the optional `response_head` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResponseHead` instead "
     "of `ReadResponseHead if you're fine with null values being "
@@ -1644,7 +1644,7 @@ static_assert(
         ::mojo_base::mojom::BigBufferDataView, UserType>(),
     "Attempting to read the optional `metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMetadata` instead "
     "of `ReadMetadata if you're fine with null values being "
@@ -2085,7 +2085,7 @@ static_assert(
         ::storage::mojom::ServiceWorkerFindRegistrationResultDataView, UserType>(),
     "Attempting to read the optional `result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResult` instead "
     "of `ReadResult if you're fine with null values being "
@@ -2105,7 +2105,7 @@ static_assert(
         mojo::ArrayDataView<::url::mojom::UrlDataView>, UserType>(),
     "Attempting to read the optional `scopes` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadScopes` instead "
     "of `ReadScopes if you're fine with null values being "
@@ -2187,7 +2187,7 @@ static_assert(
         ::storage::mojom::ServiceWorkerFindRegistrationResultDataView, UserType>(),
     "Attempting to read the optional `result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResult` instead "
     "of `ReadResult if you're fine with null values being "
@@ -2226,7 +2226,7 @@ static_assert(
         ::blink::mojom::StorageKeyDataView, UserType>(),
     "Attempting to read the optional `key` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadKey` instead "
     "of `ReadKey if you're fine with null values being "
@@ -2272,7 +2272,7 @@ static_assert(
         ::storage::mojom::ServiceWorkerFindRegistrationResultDataView, UserType>(),
     "Attempting to read the optional `result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResult` instead "
     "of `ReadResult if you're fine with null values being "

@@ -68,7 +68,7 @@ class  CALayerContent {
   static CALayerContentPtr
   NewCaContextId(
       uint32_t value) {
-    auto result = CALayerContentPtr(absl::in_place);
+    auto result = CALayerContentPtr(std::in_place);
     result->set_ca_context_id(std::move(value));
     return result;
   }
@@ -76,7 +76,7 @@ class  CALayerContent {
   static CALayerContentPtr
   NewIoSurfaceMachPort(
       ::mojo::PlatformHandle value) {
-    auto result = CALayerContentPtr(absl::in_place);
+    auto result = CALayerContentPtr(std::in_place);
     result->set_io_surface_mach_port(std::move(value));
     return result;
   }
@@ -190,7 +190,7 @@ class  CALayerParams {
   template <typename... Args>
   static CALayerParamsPtr New(Args&&... args) {
     return CALayerParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

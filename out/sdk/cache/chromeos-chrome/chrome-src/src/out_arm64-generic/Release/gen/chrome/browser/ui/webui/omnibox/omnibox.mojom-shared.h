@@ -210,146 +210,146 @@ class SignalsDataView {
   std::optional<int32_t> typed_count() const {
 
     return data_->typed_count_$flag
-        ? absl::make_optional(data_->typed_count_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->typed_count_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> visit_count() const {
 
     return data_->visit_count_$flag
-        ? absl::make_optional(data_->visit_count_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->visit_count_$value)
+        : std::nullopt;
   }
   std::optional<int64_t> elapsed_time_last_visit_secs() const {
 
     return data_->elapsed_time_last_visit_secs_$flag
-        ? absl::make_optional(data_->elapsed_time_last_visit_secs_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->elapsed_time_last_visit_secs_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> shortcut_visit_count() const {
 
     return data_->shortcut_visit_count_$flag
-        ? absl::make_optional(data_->shortcut_visit_count_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->shortcut_visit_count_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> shortest_shortcut_len() const {
 
     return data_->shortest_shortcut_len_$flag
-        ? absl::make_optional(data_->shortest_shortcut_len_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->shortest_shortcut_len_$value)
+        : std::nullopt;
   }
   std::optional<int64_t> elapsed_time_last_shortcut_visit_sec() const {
 
     return data_->elapsed_time_last_shortcut_visit_sec_$flag
-        ? absl::make_optional(data_->elapsed_time_last_shortcut_visit_sec_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->elapsed_time_last_shortcut_visit_sec_$value)
+        : std::nullopt;
   }
   std::optional<bool> is_host_only() const {
 
     return data_->is_host_only_$flag
-        ? absl::make_optional(!!data_->is_host_only_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->is_host_only_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> num_bookmarks_of_url() const {
 
     return data_->num_bookmarks_of_url_$flag
-        ? absl::make_optional(data_->num_bookmarks_of_url_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->num_bookmarks_of_url_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> first_bookmark_title_match_position() const {
 
     return data_->first_bookmark_title_match_position_$flag
-        ? absl::make_optional(data_->first_bookmark_title_match_position_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->first_bookmark_title_match_position_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> total_bookmark_title_match_length() const {
 
     return data_->total_bookmark_title_match_length_$flag
-        ? absl::make_optional(data_->total_bookmark_title_match_length_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->total_bookmark_title_match_length_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> num_input_terms_matched_by_bookmark_title() const {
 
     return data_->num_input_terms_matched_by_bookmark_title_$flag
-        ? absl::make_optional(data_->num_input_terms_matched_by_bookmark_title_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->num_input_terms_matched_by_bookmark_title_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> first_url_match_position() const {
 
     return data_->first_url_match_position_$flag
-        ? absl::make_optional(data_->first_url_match_position_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->first_url_match_position_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> total_url_match_length() const {
 
     return data_->total_url_match_length_$flag
-        ? absl::make_optional(data_->total_url_match_length_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->total_url_match_length_$value)
+        : std::nullopt;
   }
   std::optional<bool> host_match_at_word_boundary() const {
 
     return data_->host_match_at_word_boundary_$flag
-        ? absl::make_optional(!!data_->host_match_at_word_boundary_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->host_match_at_word_boundary_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> total_host_match_length() const {
 
     return data_->total_host_match_length_$flag
-        ? absl::make_optional(data_->total_host_match_length_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->total_host_match_length_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> total_path_match_length() const {
 
     return data_->total_path_match_length_$flag
-        ? absl::make_optional(data_->total_path_match_length_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->total_path_match_length_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> total_query_or_ref_match_length() const {
 
     return data_->total_query_or_ref_match_length_$flag
-        ? absl::make_optional(data_->total_query_or_ref_match_length_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->total_query_or_ref_match_length_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> total_title_match_length() const {
 
     return data_->total_title_match_length_$flag
-        ? absl::make_optional(data_->total_title_match_length_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->total_title_match_length_$value)
+        : std::nullopt;
   }
   std::optional<bool> has_non_scheme_www_match() const {
 
     return data_->has_non_scheme_www_match_$flag
-        ? absl::make_optional(!!data_->has_non_scheme_www_match_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->has_non_scheme_www_match_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> num_input_terms_matched_by_title() const {
 
     return data_->num_input_terms_matched_by_title_$flag
-        ? absl::make_optional(data_->num_input_terms_matched_by_title_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->num_input_terms_matched_by_title_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> num_input_terms_matched_by_url() const {
 
     return data_->num_input_terms_matched_by_url_$flag
-        ? absl::make_optional(data_->num_input_terms_matched_by_url_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->num_input_terms_matched_by_url_$value)
+        : std::nullopt;
   }
   std::optional<int32_t> length_of_url() const {
 
     return data_->length_of_url_$flag
-        ? absl::make_optional(data_->length_of_url_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->length_of_url_$value)
+        : std::nullopt;
   }
   std::optional<float> site_engagement() const {
 
     return data_->site_engagement_$flag
-        ? absl::make_optional(data_->site_engagement_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->site_engagement_$value)
+        : std::nullopt;
   }
   std::optional<bool> allowed_to_be_default_match() const {
 
     return data_->allowed_to_be_default_match_$flag
-        ? absl::make_optional(!!data_->allowed_to_be_default_match_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->allowed_to_be_default_match_$value)
+        : std::nullopt;
   }
  private:
   internal::Signals_Data* data_ = nullptr;

@@ -2721,10 +2721,10 @@ const PaperRippleMixin = dedupingMixin(superClass => {
 });
 
 function getTemplate$d() {
-    return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
-    <div id="icon">
-      <div id="maskedImage"></div>
-    </div>
+    return html `<!--_html_template_start_--><style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
+<div id="icon">
+  <div id="maskedImage"></div>
+</div>
 <!--_html_template_end_-->`;
 }
 
@@ -2735,6 +2735,8 @@ function getTemplate$d() {
  * @fileoverview 'cr-icon-button' is a button which displays an icon with a
  * ripple. It can be interacted with like a normal button using click as well as
  * space and enter to effectively click the button and fire a 'click' event.
+ *
+ * Forked from ui/webui/resources/cr_elements/cr_icon_button/cr_icon_button.ts
  *
  * There are two sources to icons, cr-icons and iron-iconset-svg. The cr-icon's
  * are defined as background images with a reference to a resource file
@@ -3819,7 +3821,7 @@ function assertNotReached(message = 'Unreachable code hit') {
 }
 
 function getTemplate$a() {
-    return html `<!--_html_template_start_--><style>:host{margin-top:10px;position:relative;--emoji-background:transparent}:host([category=emoticon]),:host([category=symbol]){--emoji-button-border-radius:4px}.emoji-button{background:var(--emoji-background);border:none;cursor:pointer;height:100%}.emoji-button-container{height:var(--emoji-size);position:relative;width:var(--emoji-size)}.grid-layout{display:grid;gap:var(--emoji-spacing);grid-auto-rows:max-content;grid-template-columns:repeat(var(--emoji-per-row),1fr);justify-items:center}.grid-layout .emoji-button{border-radius:var(--emoji-button-border-radius,50%);display:block;font-family:'Noto Color Emoji';font-size:19px;line-height:var(--emoji-size);outline:0;padding:0;text-align:center;user-select:none;width:100%}.flex-layout{display:flex;flex-wrap:wrap;gap:12px 20px}.flex-layout .emoji-button-container{width:max-content}.flex-layout .emoji-button{border-radius:var(--emoji-button-border-radius,0);color:var(--emoji-picker-symbol-color);font-family:'Noto Sans CJK JP';font-size:13px;padding:6px;width:max-content}.two-column-layout{display:flex}.two-column-layout .left-column{flex:50%}.two-column-layout .right-column{align-items:flex-end;display:flex;flex:50%;flex-direction:column}#heading{color:var(--emoji-picker-category-header-color);display:flex;font-size:13px;padding-bottom:var(--emoji-group-heading-padding-bottom);padding-top:var(--emoji-group-heading-padding-top)}#heading:active,#heading:focus{outline-color:var(--emoji-picker-focus-ring-color);outline-width:2px}#heading-left{height:var(--emoji-group-heading-size);line-height:var(--emoji-group-heading-size);user-select:none;width:100%}#palette{padding-bottom:16px}#show-clear{--cr-icon-button-fill-color:var(--emoji-picker-icon-button-icon-color);--cr-icon-button-focus-outline-color:var(--emoji-picker-focus-ring-color);height:var(--emoji-group-heading-size);left:var(--emoji-picker-last-emoji-left);margin:0;width:var(--emoji-group-heading-size)}#clear-recents-container{position:absolute;right:0;top:calc(var(--emoji-group-heading-padding-top) + var(--emoji-group-heading-padding-bottom) + var(--emoji-group-heading-size));box-shadow:var(--cros-elevation-1-shadow);border-radius:4px;overflow:hidden;z-index:300}#clear-recents,#help{background-color:var(--emoji-picker-container-color);border:2px solid transparent;color:var(--cros-text-color-secondary);cursor:pointer;font-family:Roboto,sans-serif;font-size:12px;height:var(--emoji-size);outline:0;padding:0;white-space:nowrap;width:100%;z-index:200;display:block;text-align:left}#clear-recents:active,#clear-recents:focus,#help:active,#help:focus{border:2px solid var(--cros-toggle-color)}#fake-focus-target{position:absolute}#clear-recents-hover{border:2px solid transparent;margin:-2px;padding:7px 11px 7px 11px}#clear-recents-hover:hover{background-color:var(--cros-button-background-color-secondary-hover);border:2px solid var(--cros-button-background-color-secondary-hover)}.emoji-button:active,.emoji-button:focus{outline-color:var(--emoji-picker-focus-ring-color);outline-style:solid;outline-width:2px}.emoji-button:disabled{color:red;cursor:default}.emoji-button:hover{background-color:var(--emoji-hover-background)}.has-variants::after{background:linear-gradient(315deg,var(--google-grey-500) 4px,var(--emoji-background) 4px,var(--emoji-background));content:'';display:block;height:var(--emoji-size);position:relative;top:calc(0px - var(--emoji-size));width:var(--emoji-size)}paper-tooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-delay-in:var(--emoji-tooltip-delay-in);--paper-tooltip-delay-out:var(--emoji-tooltip-delay-out);--paper-tooltip-duration-in:0;--paper-tooltip-duration-out:0;--paper-tooltip-opacity:1;--paper-tooltip-text-color:var(--cros-tooltip-label-color)}paper-tooltip::part(tooltip){box-shadow:var(--cros-elevation-1-shadow);font-family:Roboto,sans-serif;font-size:12px;margin:4px;padding:4px 8px 4px 8px;white-space:nowrap}</style>
+    return html `<!--_html_template_start_--><style>:host{margin-top:10px;position:relative;--emoji-background:transparent}:host([category=emoticon]),:host([category=symbol]){--emoji-button-border-radius:4px}.emoji-button{background:var(--emoji-background);border:none;cursor:pointer;height:100%}.emoji-button-container{height:var(--emoji-size);position:relative;width:var(--emoji-size)}.grid-layout{display:grid;gap:var(--emoji-spacing);grid-auto-rows:max-content;grid-template-columns:repeat(var(--emoji-per-row),1fr);justify-items:center}.grid-layout .emoji-button{border-radius:var(--emoji-button-border-radius,50%);display:block;font-family:'Noto Color Emoji';font-size:19px;line-height:var(--emoji-size);outline:0;padding:0;text-align:center;user-select:none;width:100%}.flex-layout{display:flex;flex-wrap:wrap;gap:12px 20px}.flex-layout .emoji-button-container{width:max-content}.flex-layout .emoji-button{border-radius:var(--emoji-button-border-radius,0);color:var(--emoji-picker-symbol-color);font-family:'Noto Sans CJK JP';font-size:13px;padding:6px;width:max-content}.two-column-layout{display:flex}.two-column-layout .left-column{flex:50%}.two-column-layout .right-column{align-items:flex-end;display:flex;flex:50%;flex-direction:column}#heading{color:var(--emoji-picker-category-header-color);display:flex;font-size:13px;padding-bottom:var(--emoji-group-heading-padding-bottom);padding-top:var(--emoji-group-heading-padding-top)}#heading:active,#heading:focus{outline-color:var(--emoji-picker-focus-ring-color);outline-width:2px}#heading-left{height:var(--emoji-group-heading-size);line-height:var(--emoji-group-heading-size);user-select:none;width:100%}#palette{padding-bottom:16px}#show-clear{--cr-icon-button-fill-color:var(--emoji-picker-icon-button-icon-color);--cr-icon-button-focus-outline-color:var(--emoji-picker-focus-ring-color);height:var(--emoji-group-heading-size);left:var(--emoji-picker-last-emoji-left);margin:0;width:var(--emoji-group-heading-size)}#clear-recents-container{position:absolute;right:0;top:calc(var(--emoji-group-heading-padding-top) + var(--emoji-group-heading-padding-bottom) + var(--emoji-group-heading-size));box-shadow:var(--cros-elevation-1-shadow);border-radius:4px;overflow:hidden;z-index:300}#clear-recents,#help{background-color:var(--emoji-picker-container-color);border:2px solid transparent;color:var(--cros-text-color-secondary);cursor:pointer;font-family:Roboto,sans-serif;font-size:12px;height:var(--emoji-size);outline:0;padding:0;white-space:nowrap;width:100%;z-index:200;display:block;text-align:left}#clear-recents:active,#clear-recents:focus,#help:active,#help:focus{border:2px solid var(--cros-toggle-color)}#fake-focus-target{position:absolute}#clear-recents-hover{border:2px solid transparent;margin:-2px;padding:7px 11px 7px 11px}#clear-recents-hover:hover{background-color:var(--cros-button-background-color-secondary-hover);border:2px solid var(--cros-button-background-color-secondary-hover)}.emoji-button:active,.emoji-button:focus{outline-color:var(--emoji-picker-focus-ring-color);outline-style:solid;outline-width:2px}.emoji-button:disabled{color:red;cursor:default}.emoji-button:hover{background-color:var(--emoji-hover-background)}[has-variants]::after{background:linear-gradient(315deg,var(--google-grey-500) 4px,var(--emoji-background) 4px,var(--emoji-background));content:'';display:block;height:var(--emoji-size);position:relative;top:calc(0px - var(--emoji-size));width:var(--emoji-size)}paper-tooltip{--paper-tooltip-background:var(--cros-tooltip-background-color);--paper-tooltip-delay-in:var(--emoji-tooltip-delay-in);--paper-tooltip-delay-out:var(--emoji-tooltip-delay-out);--paper-tooltip-duration-in:0;--paper-tooltip-duration-out:0;--paper-tooltip-opacity:1;--paper-tooltip-text-color:var(--cros-tooltip-label-color)}paper-tooltip::part(tooltip){box-shadow:var(--cros-elevation-1-shadow);font-family:Roboto,sans-serif;font-size:12px;margin:4px;padding:4px 8px 4px 8px;white-space:nowrap}</style>
 
 
 <template is="dom-if" if="[[group]]">
@@ -3865,10 +3867,10 @@ function getTemplate$a() {
     </div>
   </template>
   <template is="dom-if" if="[[!isVisual(category)]]">
-    <template is="dom-if" if="[[hasVariants(data)]]">
+    <template is="dom-if" if="[[hasAnyVariants(data)]]">
       <template is="dom-repeat" items="[[data]]">
         <div class="emoji-button-container">
-        <button id="emoji-[[index]]" data-index$="[[index]]" class$="emoji-button [[getEmojiButtonClassName(item)]]" on-mouseenter="showTooltip" on-focus="showTooltip" aria-label="[[getEmojiAriaLabel(item)]]">
+        <button id="emoji-[[index]]" data-index$="[[index]]" class="emoji-button" has-variants$="[[hasVariants(item)]]" on-mouseenter="showTooltip" on-focus="showTooltip" aria-label="[[getEmojiAriaLabel(item)]]">
           [[getDisplayEmojiForEmoji(item.base.string, item)]]
         </button>
         <template is="dom-if" if="[[isEmojiVariantVisible(index,shownEmojiVariantIndex)]]">
@@ -3878,10 +3880,10 @@ function getTemplate$a() {
         </div>
       </template>
     </template>
-    <template is="dom-if" if="[[!hasVariants(data)]]">
+    <template is="dom-if" if="[[!hasAnyVariants(data)]]">
       <template is="dom-repeat" items="[[data]]">
         <div class="emoji-button-container">
-        <button id="emoji-[[index]]" data-index$="[[index]]" class$="emoji-button [[getEmojiButtonClassName(item)]]" on-mouseenter="showTooltip" on-focus="showTooltip" aria-label="[[getEmojiAriaLabel(item)]]">
+        <button id="emoji-[[index]]" data-index$="[[index]]" class="emoji-button" on-mouseenter="showTooltip" on-focus="showTooltip" aria-label="[[getEmojiAriaLabel(item)]]">
           [[getDisplayEmojiForEmoji(item.base.string, item)]]
         </button>
         </div>
@@ -4087,11 +4089,14 @@ class EmojiGroupComponent extends PolymerElement {
         });
     }
     /**
-     * Returns HTML class attribute of an emoji button.
+     * Returns whether the emoji has variants or not.
+     * Does not use `this`.
      */
-    getEmojiButtonClassName(emoji) {
-        return emoji.alternates && emoji.alternates.length > 0 ? 'has-variants' :
-            '';
+    hasVariants(emoji) {
+        // TODO: b/322909764 - The type of `EmojiVariants.alternates` cannot be
+        // null/undefined, so the `!== undefined` check should be redundant. Either
+        // add undefined to the type, or remove the below check.
+        return emoji.alternates !== undefined && emoji.alternates.length > 0;
     }
     /**
      * Returns HTML class attribute of an emoji groups.
@@ -4185,8 +4190,13 @@ class EmojiGroupComponent extends PolymerElement {
     isVisual(category) {
         return category === CategoryEnum.GIF;
     }
-    hasVariants(data) {
-        return data.some(t => !(t.alternates === undefined || t.alternates.length === 0));
+    /**
+     * Returns whether any emoji in the array has variants or not.
+     */
+    hasAnyVariants(data) {
+        // `hasVariants` does not use `this`, so there is no need to bind `this`
+        // here.
+        return data.some(this.hasVariants);
     }
     /**
      * Filters visual content to be displayed in the given column based on '
@@ -4322,33 +4332,34 @@ styleMod.appendChild(html `
 styleMod.register('cr-input-style');
 
 function getTemplate$8() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
-    <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
-      [[label]]
-    </div>
-    <div id="row-container" part="row-container">
-      <div id="input-container">
-        <div id="inner-input-container">
-          <div id="hover-layer"></div>
-          <div id="inner-input-content">
-            <slot name="inline-prefix"></slot>
-            
-            <input id="input" disabled="[[disabled]]" autofocus="[[autofocus]]" value="{{value::input}}" tabindex$="[[inputTabindex]]" type="[[type]]" readonly$="[[readonly]]" maxlength$="[[maxlength]]" pattern$="[[pattern]]" required="[[required]]" minlength$="[[minlength]]" inputmode$="[[inputmode]]" aria-description$="[[ariaDescription]]" aria-label$="[[getAriaLabel_(ariaLabel, label, placeholder)]]" aria-invalid$="[[getAriaInvalid_(invalid)]]" max="[[max]]" min="[[min]]" on-focus="onInputFocus_" on-blur="onInputBlur_" on-change="onInputChange_" part="input" autocomplete="off">
-            <slot name="inline-suffix"></slot>
-          </div>
-        </div>
-        <div id="underline-base"></div>
-        <div id="underline"></div>
+    return html `<!--_html_template_start_--><style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
+<div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
+  [[label]]
+</div>
+<div id="row-container" part="row-container">
+  <div id="input-container">
+    <div id="inner-input-container">
+      <div id="hover-layer"></div>
+      <div id="inner-input-content">
+        <slot name="inline-prefix"></slot>
+        
+        <input id="input" disabled="[[disabled]]" autofocus="[[autofocus]]" value="{{value::input}}" tabindex$="[[inputTabindex]]" type="[[type]]" readonly$="[[readonly]]" maxlength$="[[maxlength]]" pattern$="[[pattern]]" required="[[required]]" minlength$="[[minlength]]" inputmode$="[[inputmode]]" aria-description$="[[ariaDescription]]" aria-label$="[[getAriaLabel_(ariaLabel, label, placeholder)]]" aria-invalid$="[[getAriaInvalid_(invalid)]]" max="[[max]]" min="[[min]]" on-focus="onInputFocus_" on-blur="onInputBlur_" on-change="onInputChange_" part="input" autocomplete="off">
+        <slot name="inline-suffix"></slot>
       </div>
-      <slot name="suffix"></slot>
     </div>
-    <div id="error" aria-live="assertive">[[displayErrorMessage_]]</div>
+    <div id="underline-base"></div>
+    <div id="underline"></div>
+  </div>
+  <slot name="suffix"></slot>
+</div>
+<div id="error" aria-live="assertive">[[displayErrorMessage_]]</div>
 <!--_html_template_end_-->`;
 }
 
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// Forked from ui/webui/resources/cr_elements/cr_input/cr_input.ts
 /**
  * Input types supported by cr-input.
  */
@@ -4614,10 +4625,6 @@ const template = html `
       <g id="menu">
         <path d="M2 4h16v2H2zM2 9h16v2H2zM2 14h16v2H2z"></path>
       </g>
-      <g id="password">
-        <path d="M5.833 11.667c.458 0 .847-.16 1.167-.479.333-.333.5-.729.5-1.188s-.167-.847-.5-1.167a1.555 1.555 0 0 0-1.167-.5c-.458 0-.854.167-1.188.5A1.588 1.588 0 0 0 4.166 10c0 .458.16.854.479 1.188.333.319.729.479 1.188.479Zm0 3.333c-1.389 0-2.569-.486-3.542-1.458C1.319 12.569.833 11.389.833 10c0-1.389.486-2.569 1.458-3.542C3.264 5.486 4.444 5 5.833 5c.944 0 1.813.243 2.604.729a4.752 4.752 0 0 1 1.833 1.979h7.23c.458 0 .847.167 1.167.5.333.319.5.708.5 1.167v3.958c0 .458-.167.854-.5 1.188A1.588 1.588 0 0 1 17.5 15h-3.75a1.658 1.658 0 0 1-1.188-.479 1.658 1.658 0 0 1-.479-1.188v-1.042H10.27a4.59 4.59 0 0 1-1.813 2A5.1 5.1 0 0 1 5.833 15Zm3.292-4.375h4.625v2.708H15v-1.042a.592.592 0 0 1 .167-.438.623.623 0 0 1 .458-.188c.181 0 .327.063.438.188a.558.558 0 0 1 .188.438v1.042H17.5V9.375H9.125a3.312 3.312 0 0 0-1.167-1.938 3.203 3.203 0 0 0-2.125-.77 3.21 3.21 0 0 0-2.354.979C2.827 8.298 2.5 9.083 2.5 10s.327 1.702.979 2.354a3.21 3.21 0 0 0 2.354.979c.806 0 1.514-.25 2.125-.75.611-.514 1-1.167 1.167-1.958Z"></path>
-      </g>
-      
         <g id="banner-warning">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 1.50386C9.51566 0.832046 10.4844 0.832046 10.8683 1.50386L18.8683 15.5039C19.2492 16.1705 18.7678 17 18 17H2.00001C1.23219 17 0.750823 16.1705 1.13177 15.5039L9.13177 1.50386ZM10 4.01556L3.72321 15H16.2768L10 4.01556ZM9 11H11V7H9V11ZM11 14H9V12H11V14Z">
           </path>
@@ -4626,7 +4633,6 @@ const template = html `
           <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 1.50386C9.51566 0.832046 10.4844 0.832046 10.8683 1.50386L18.8683 15.5039C19.2492 16.1705 18.7678 17 18 17H2.00001C1.23219 17 0.750823 16.1705 1.13177 15.5039L9.13177 1.50386ZM10 4.01556L3.72321 15H16.2768L10 4.01556ZM9 11H11V7H9V11ZM11 14H9V12H11V14Z">
           </path>
         </g>
-      
   </defs></svg>
 </iron-iconset-svg>
 
@@ -4662,7 +4668,6 @@ const template = html `
       <g id="arrow-right">
         <path d="M10 7l5 5-5 5z"></path>
       </g>
-      
         <g id="bluetooth">
           <path d="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z">
           </path>
@@ -4676,7 +4681,6 @@ const template = html `
           <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z">
           </path>
         </g>
-      
       <g id="cancel">
         <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z">
         </path>
@@ -4739,12 +4743,10 @@ const template = html `
       <g id="file-download">
         <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
       </g>
-      
         <g id="folder-filled">
           <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z">
           </path>
         </g>
-      
       <g id="fullscreen">
         <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z">
         </path>
@@ -4813,7 +4815,6 @@ const template = html `
         <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z">
         </path>
       </g>
-      
         <g id="sim-card-alert">
           <path d="M18 2h-8L4.02 8 4 20c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 15h-2v-2h2v2zm0-4h-2V8h2v5z">
           </path>
@@ -4826,7 +4827,6 @@ const template = html `
           <path d="M20,2C21.1,2 22,2.9 22,4L22,16C22,17.1 21.1,18 20,18L6,18L2,22L2.01,4C2.01,2.9 2.9,2 4,2L20,2ZM8,8L4,12L8,16L8,13L14,13L14,11L8,11L8,8ZM19.666,7.872L16.038,4.372L16.038,6.997L10,6.997L10,9L16.038,9L16.038,11.372L19.666,7.872Z">
           </path>
         </g>
-      
       
       <g id="settings_icon">
         <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z">
@@ -4869,14 +4869,14 @@ const template = html `
 document.head.appendChild(template.content);
 
 function getTemplate$7() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
-          var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
-    <iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
-    <cr-input id="searchInput" part="searchInput" on-search="onSearchTermSearch" on-input="onSearchTermInput" aria-label$="[[label]]" type="search" autofocus="[[autofocus]]" placeholder="[[label]]" spellcheck="false">
-      <iron-icon id="searchIconInline" slot="inline-prefix" icon="cr:search"></iron-icon>
-      <cr-icon-button id="clearSearch" class="icon-cancel" hidden$="[[!hasSearchText]]" slot="suffix" on-click="onTapClear_" title="[[clearLabel]]">
-      </cr-icon-button>
-    </cr-input>
+    return html `<!--_html_template_start_--><style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
+      var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
+<iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
+<cr-input id="searchInput" part="searchInput" on-search="onSearchTermSearch" on-input="onSearchTermInput" aria-label$="[[label]]" type="search" autofocus="[[autofocus]]" placeholder="[[label]]" spellcheck="false">
+  <iron-icon id="searchIconInline" slot="inline-prefix" icon="cr:search"></iron-icon>
+  <cr-icon-button id="clearSearch" class="icon-cancel" hidden$="[[!hasSearchText]]" slot="suffix" on-click="onTapClear_" title="[[clearLabel]]">
+  </cr-icon-button>
+</cr-input>
 <!--_html_template_end_-->`;
 }
 
@@ -4886,6 +4886,9 @@ function getTemplate$7() {
 /**
  * Helper functions for implementing an incremental search field. See
  * <settings-subpage-search> for a simple implementation.
+ *
+ * Forked from
+ * ui/webui/resources/cr_elements/cr_search_field/cr_search_field_mixin.ts
  */
 const CrSearchFieldMixin = dedupingMixin((superClass) => {
     class CrSearchFieldMixin extends superClass {
@@ -5016,6 +5019,9 @@ const CrSearchFieldMixin = dedupingMixin((superClass) => {
  * @fileoverview
  * 'cr-search-field' is a simple implementation of a polymer component that
  * uses CrSearchFieldMixin.
+ *
+ * Forked from
+ * ui/webui/resources/cr_elements/cr_search_field/cr_search_field.ts
  */
 const CrSearchFieldElementBase = CrSearchFieldMixin(PolymerElement);
 class CrSearchFieldElement extends CrSearchFieldElementBase {
@@ -5107,7 +5113,7 @@ function getTemplate$5() {
     return html `<!--_html_template_start_--><style>:host{--emoji-picker-search-margins:14px;--emoji-picker-search-height:40px;--emoji-picker-top-bar-bottom-padding:10px;--search-content-width:calc(var(--emoji-picker-width) - 2*var(--emoji-picker-side-padding));display:flex;flex-direction:column;overflow-y:scroll;min-height:var(--min-height)}:host([gif-support]){--emoji-picker-search-height:36px;--search-content-width:calc(var(--emoji-picker-width) - 2*var(--emoji-picker-search-side-padding))}cr-search-field{--cr-search-field-clear-icon-fill:var(--emoji-picker-search-field-clear-icon-color);--cr-search-field-clear-icon-margin-end:var(--emoji-picker-search-margins);--cr-search-field-clear-icon-size:20px;--cr-search-field-clear-button-size:32px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-min-height:var(--emoji-picker-search-height);--cr-search-field-input-padding-bottom:0;--cr-search-field-input-padding-start:8px;--cr-search-field-input-padding-top:0;--cr-search-field-input-width:100%;--cr-search-field-placeholder-color:var(--emoji-picker-search-field-placeholder-color);--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--emoji-picker-search-field-search-icon-color);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:var(--emoji-picker-search-margins);--cr-search-field-underline-display:none;--cr-icon-button-focus-outline-color:var(--emoji-picker-focus-ring-color);align-items:center;background-color:var(--emoji-picker-search-field-container-color);border:2px solid transparent;font-size:13px;height:var(--emoji-picker-search-height)}cr-search-field{border-radius:8px}cr-search-field:focus-within{border:2px solid var(--emoji-picker-focus-ring-color)}.result{border:2px solid transparent;border-radius:40px;display:flex;margin-inline-end:var(--emoji-picker-search-margins)}.result:active,.result:focus{border-color:var(--emoji-picker-focus-ring-color);border-style:solid;border-width:2px;outline-style:none}.result:hover{background-color:var(--cros-ripple-color)}.name{color:var(--cr-primary-text-color);font-size:13px;line-height:var(--emoji-size);user-select:none}.sr-only{color:transparent;position:absolute;user-select:none;z-index:-2}.no-result{color:var(--emoji-picker-illustration-text-color);font:var(--cros-headline-1-font);left:50%;line-height:24px;position:absolute;text-align:center;--emoji-header-height:calc(
       var(--emoji-picker-top-padding) +
       var(--emoji-picker-search-height) +
-      var(--emoji-picker-top-bar-bottom-padding));top:calc(50% + var(--emoji-header-height)/ 2);transform:translate(-50%,-50%);width:100vw}#searchShadow{background-color:var(--emoji-picker-container-color);box-shadow:var(--cros-elevation-2-shadow);display:flex;margin-bottom:7px;margin-inline-end:calc(0px - var(--emoji-picker-side-padding));margin-inline-start:calc(0px - var(--emoji-picker-side-padding));padding-bottom:var(--emoji-picker-top-bar-bottom-padding);padding-inline-end:var(--emoji-picker-side-padding);padding-inline-start:var(--emoji-picker-side-padding);position:sticky;top:0}:host([gif-support]) #searchShadow{margin-inline-end:calc(0px - var(--emoji-picker-search-side-padding));margin-inline-start:calc(0px - var(--emoji-picker-search-side-padding));padding-inline-end:var(--emoji-picker-search-side-padding);padding-inline-start:var(--emoji-picker-search-side-padding)}#results{flex-grow:1;margin-inline-end:var(--emoji-picker-side-padding);overflow-y:scroll;padding:13px 2px 2px 2px;margin-top:-6px;padding-top:6px;width:calc(var(--emoji-picker-width) - 4px - var(--emoji-picker-side-padding))}#no-emoji-image{display:block;margin:auto}#category-button-group{align-items:center;display:flex;justify-content:space-between;margin-inline-start:20px;width:120px}:host([gif-support]) #category-button-group{margin-inline-start:var(--emoji-picker-search-side-padding);width:168px}#search{width:240px}:host([gif-support]) #search{width:200px}#search-results{width:var(--search-content-width)}</style>
+      var(--emoji-picker-top-bar-bottom-padding));top:calc(50% + var(--emoji-header-height)/ 2);transform:translate(-50%,-50%);width:100vw}#searchShadow{background-color:var(--emoji-picker-container-color);box-shadow:var(--cros-elevation-2-shadow);display:flex;margin-bottom:7px;margin-inline-end:calc(0px - var(--emoji-picker-side-padding));margin-inline-start:calc(0px - var(--emoji-picker-side-padding));padding-bottom:var(--emoji-picker-top-bar-bottom-padding);padding-inline-end:var(--emoji-picker-side-padding);padding-inline-start:var(--emoji-picker-side-padding);position:sticky;top:0}:host([gif-support]) #searchShadow{margin-inline-end:calc(0px - var(--emoji-picker-search-side-padding));margin-inline-start:calc(0px - var(--emoji-picker-search-side-padding));padding-inline-end:var(--emoji-picker-search-side-padding);padding-inline-start:var(--emoji-picker-search-side-padding)}#results{flex-grow:1;margin-inline-end:var(--emoji-picker-side-padding);overflow-y:scroll;padding:13px 2px 2px 2px;margin-top:-6px;padding-top:6px;width:calc(var(--emoji-picker-width) - 4px - var(--emoji-picker-side-padding))}#no-emoji-image{display:block;margin:auto}#category-button-group{align-items:center;display:flex;justify-content:space-between;margin-inline-start:20px;width:120px}:host([gif-support]) #category-button-group{margin-inline-start:var(--emoji-picker-search-side-padding);width:168px}#search{width:240px}:host([gif-support]) #search{width:200px}#search-results{width:var(--search-content-width)}seal-app{width:var(--search-content-width);margin-top:8px;margin-bottom:8px}</style>
 
 <div id="searchShadow">
   <cr-search-field id="search" label="[[getSearchPlaceholderLabel(gifSupport)]]" autofocus="true">
@@ -5125,31 +5131,51 @@ function getTemplate$5() {
     <div class="sr-only" role="heading" aria-level="1">
       Emoji Search Results
     </div>
-    <div id="search-results">
-      <template is="dom-repeat" items="[[searchResults]]">
-        <emoji-group data="[[item.emoji]]" category$="[[item.category]]" gif-support$="[[gifSupport]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]" use-grouped-preference="[[useGroupedPreference]">
-        </emoji-group>
-      </template>
+
+    <template is="dom-if" if="[[sealMode]]">
+      <seal-app query="[[getSearchQuery()]]" on-seal-app-query-change="onSealQueryChange" on-seal-app-image-click="onSealImageClick">
+      </seal-app>
+    </template>
+
+    
+    <template is="dom-if" if="[[!sealMode]]">
+      <div id="search-results">
+
+        <template is="dom-repeat" items="[[searchResults]]">
+          <emoji-group data="[[item.emoji]]" category$="[[item.category]]" gif-support$="[[gifSupport]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]" use-grouped-preference="[[useGroupedPreference]">
+          </emoji-group>
+        </template>
     </div>
-    <div class="no-result">
-      <template is="dom-if" if="[[noResults(status, searchResults)]]">
-        <svg id="no-emoji-image" xmlns="http://www.w3.org/2000/svg" width="224" height="168" viewBox="0 0 224 168" fill="none">
-          <path d="M183 71.5103C183 70.6172 183.782 69.9474 184.675 70.0032C192.21 70.8405 198.071 77.2038 198.071 84.9068C198.071 92.6656 192.266 99.0289 184.731 99.8662C183.838 99.9778 183.056 99.2522 183.056 98.3591L183 71.5103Z" fill="var(--cros-sys-illo-secondary)"/>
-          <path d="M123.572 74.0606C121.841 74.7862 120.167 75.7351 118.548 76.6282C116.259 77.8562 113.58 78.1353 111.124 77.4097C109.729 77.019 108.389 76.5166 106.938 76.2375C101.97 75.3444 97.1704 78.9168 97.0024 84.0521C96.8904 88.6292 100.742 92.704 105.375 92.4807C107.496 92.3691 109.561 91.5318 111.627 91.2527C113.915 90.9736 116.148 91.3643 118.101 92.5365C119.776 93.5413 121.339 94.7134 123.125 95.5507C124.856 96.3322 126.753 96.6671 128.707 96.5555C134.456 96.1647 139.145 91.5876 139.647 85.8383C140.261 78.9726 134.959 73.1675 128.205 73C126.586 73.0558 125.023 73.4466 123.572 74.0606Z" stroke="var(--cros-sys-illo-secondary)" stroke-width="1.65922" stroke-miterlimit="10"/>
-          <path d="M68.0816 87.1182L82.2037 95.491C83.655 96.3283 85.497 95.3236 85.5528 93.649L85.7761 77.2384C85.7761 75.5638 83.9899 74.4474 82.4828 75.2847L68.1374 83.3226C66.6303 84.104 66.6303 86.2251 68.0816 87.1182Z" fill="var(--cros-sys-illo-color1-2)"/>
-          <path d="M214.247 90.4939C217.145 90.4939 219.494 88.1448 219.494 85.247C219.494 82.3492 217.145 80 214.247 80C211.349 80 209 82.3492 209 85.247C209 88.1448 211.349 90.4939 214.247 90.4939Z" fill="var(--cros-sys-illo-color1-1)"/>
-          <path d="M31.9604 97.1109C44.9697 97.1109 55.5158 86.5648 55.5158 73.5555C55.5158 60.5462 44.9697 50 31.9604 50C18.9511 50 8.40491 60.5462 8.40491 73.5555C8.40491 86.5648 18.9511 97.1109 31.9604 97.1109Z" stroke="var(--cros-sys-illo-color1)" stroke-width="1.65922" stroke-miterlimit="10"/>
-          <path d="M19.9036 93.8184L5 118.825" stroke="var(--cros-sys-illo-color1)" stroke-width="5.94044" stroke-miterlimit="10"/>
-          <path d="M170.717 88.1871L164.187 94.7179C162.68 96.225 160.168 96.225 158.661 94.7179L152.13 88.1871C150.623 86.68 150.623 84.1682 152.13 82.6611L158.661 76.1303C160.168 74.6232 162.68 74.6232 164.187 76.1303L170.717 82.6611C172.225 84.1682 172.225 86.6242 170.717 88.1871Z" fill="var(--cros-sys-illo-color1)"/>
-        </svg>
-        No result found
-      </template>
-      <template is="dom-if" if="[[isGifInErrorState(status, searchResults)]]">
-        <emoji-error status="[[status]]" error-message="[[errorMessage]]">
-        </emoji-error>
-      </template>
+    </template>
+
+    
+    <template is="dom-if" if="[[!sealMode]]">
+      <div class="no-result">
+        <template is="dom-if" if="[[noResults(status, searchResults)]]">
+          <svg id="no-emoji-image" xmlns="http://www.w3.org/2000/svg" width="224" height="168" viewBox="0 0 224 168" fill="none">
+            <path d="M183 71.5103C183 70.6172 183.782 69.9474 184.675 70.0032C192.21 70.8405 198.071 77.2038 198.071 84.9068C198.071 92.6656 192.266 99.0289 184.731 99.8662C183.838 99.9778 183.056 99.2522 183.056 98.3591L183 71.5103Z" fill="var(--cros-sys-illo-secondary)"/>
+            <path d="M123.572 74.0606C121.841 74.7862 120.167 75.7351 118.548 76.6282C116.259 77.8562 113.58 78.1353 111.124 77.4097C109.729 77.019 108.389 76.5166 106.938 76.2375C101.97 75.3444 97.1704 78.9168 97.0024 84.0521C96.8904 88.6292 100.742 92.704 105.375 92.4807C107.496 92.3691 109.561 91.5318 111.627 91.2527C113.915 90.9736 116.148 91.3643 118.101 92.5365C119.776 93.5413 121.339 94.7134 123.125 95.5507C124.856 96.3322 126.753 96.6671 128.707 96.5555C134.456 96.1647 139.145 91.5876 139.647 85.8383C140.261 78.9726 134.959 73.1675 128.205 73C126.586 73.0558 125.023 73.4466 123.572 74.0606Z" stroke="var(--cros-sys-illo-secondary)" stroke-width="1.65922" stroke-miterlimit="10"/>
+            <path d="M68.0816 87.1182L82.2037 95.491C83.655 96.3283 85.497 95.3236 85.5528 93.649L85.7761 77.2384C85.7761 75.5638 83.9899 74.4474 82.4828 75.2847L68.1374 83.3226C66.6303 84.104 66.6303 86.2251 68.0816 87.1182Z" fill="var(--cros-sys-illo-color1-2)"/>
+            <path d="M214.247 90.4939C217.145 90.4939 219.494 88.1448 219.494 85.247C219.494 82.3492 217.145 80 214.247 80C211.349 80 209 82.3492 209 85.247C209 88.1448 211.349 90.4939 214.247 90.4939Z" fill="var(--cros-sys-illo-color1-1)"/>
+            <path d="M31.9604 97.1109C44.9697 97.1109 55.5158 86.5648 55.5158 73.5555C55.5158 60.5462 44.9697 50 31.9604 50C18.9511 50 8.40491 60.5462 8.40491 73.5555C8.40491 86.5648 18.9511 97.1109 31.9604 97.1109Z" stroke="var(--cros-sys-illo-color1)" stroke-width="1.65922" stroke-miterlimit="10"/>
+            <path d="M19.9036 93.8184L5 118.825" stroke="var(--cros-sys-illo-color1)" stroke-width="5.94044" stroke-miterlimit="10"/>
+            <path d="M170.717 88.1871L164.187 94.7179C162.68 96.225 160.168 96.225 158.661 94.7179L152.13 88.1871C150.623 86.68 150.623 84.1682 152.13 82.6611L158.661 76.1303C160.168 74.6232 162.68 74.6232 164.187 76.1303L170.717 82.6611C172.225 84.1682 172.225 86.6242 170.717 88.1871Z" fill="var(--cros-sys-illo-color1)"/>
+          </svg>
+          No result found
+        </template>
+
+        <template is="dom-if" if="[[isGifInErrorState(status, searchResults)]]">
+          <emoji-error status="[[status]]" error-message="[[errorMessage]]">
+          </emoji-error>
+        </template>
     </div>
+    </template>
   </div>
+</template>
+
+<template is="dom-if" if="[[sealSupport]]">
+  <seal-snackbar on-seal-snackbar-confirm="onSealToastConfirmed">
+  </seal-snackbar>
 </template>
 <!--_html_template_end_-->`;
 }
@@ -5157,6 +5183,7 @@ function getTemplate$5() {
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+const SEAL_DEFAULT_STYLE_NAME = 'seal';
 class EmojiSearch extends PolymerElement {
     constructor() {
         super(...arguments);
@@ -5187,6 +5214,7 @@ class EmojiSearch extends PolymerElement {
             searchResults: { type: Array },
             needIndexing: { type: Boolean, value: false },
             gifSupport: { type: Boolean, value: false },
+            sealSupport: { type: Boolean, value: false },
             status: { type: Status, value: null },
             searchQuery: { type: String, value: '' },
             nextGifPos: { type: String, value: '' },
@@ -5195,6 +5223,7 @@ class EmojiSearch extends PolymerElement {
             useGroupedPreference: { type: Boolean, value: false },
             globalTone: { type: Number, value: null, readonly: true },
             globalGender: { type: Number, value: null, readonly: true },
+            sealMode: { type: Boolean, value: false },
         };
     }
     static get observers() {
@@ -5210,6 +5239,10 @@ class EmojiSearch extends PolymerElement {
         this.addEventListener(GIF_ERROR_TRY_AGAIN, this.onClickTryAgain);
     }
     onSearch(newSearch) {
+        this.sealMode = this.isSealMode(newSearch);
+        if (this.sealMode) {
+            return;
+        }
         const localSearchResults = this.computeLocalSearchResults(newSearch);
         if (!this.gifSupport) {
             this.set('searchResults', localSearchResults);
@@ -5405,6 +5438,10 @@ class EmojiSearch extends PolymerElement {
                 .then((searchResults) => {
                 this.push(['searchResults', gifIndex, 'emoji'], ...searchResults);
             });
+            // As part of loading more GIFs process, we also show seal snackbar.
+            if (!this.sealMode && this.sealSupport) {
+                this.shadowRoot?.querySelector('seal-snackbar')?.show();
+            }
         }
     }
     async computeInitialGifSearchResults(search) {
@@ -5488,6 +5525,34 @@ class EmojiSearch extends PolymerElement {
     }
     onClickTryAgain() {
         this.onSearch(this.$.search.getValue());
+    }
+    getSearchQuery() {
+        return this.$.search.getValue();
+    }
+    isSealMode(query) {
+        return query.includes(':');
+    }
+    onSealToastConfirmed() {
+        if (!this.sealMode && this.sealSupport) {
+            this.setSearchQuery(`${SEAL_DEFAULT_STYLE_NAME}: ${this.getSearchQuery()}`);
+        }
+    }
+    onSealQueryChange(e) {
+        this.setSearchQuery(e.detail);
+    }
+    onSealImageClick(e) {
+        this.dispatchEvent(createCustomEvent(EMOJI_IMG_BUTTON_CLICK, {
+            name: 'image',
+            category: CategoryEnum.GIF,
+            visualContent: {
+                id: 'seal',
+                url: {
+                    full: e.detail.url,
+                    preview: e.detail.url,
+                },
+                previewSize: e.detail.size,
+            },
+        }));
     }
     /**
      * Sets the search query
@@ -5652,23 +5717,23 @@ class FocusOutlineManager {
 }
 
 function getTemplate$3() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
-                                             rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
-            var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
-            var(--cr-fallback-color-primary));--hover-bg-color:transparent;--hover-border-color:var(--border-color);--active-bg:transparent;--active-shadow:none;--ink-color:var(--cr-active-background-color);--ripple-opacity:1;--disabled-bg:transparent;--disabled-border-color:var(--color-button-border-disabled,
-            var(--cr-fallback-color-disabled-background));--disabled-text-color:var(--color-button-foreground-disabled,
-            var(--cr-fallback-color-disabled-foreground));--bg-action:var(--color-button-background-prominent,
-            var(--cr-fallback-color-primary));--text-color-action:var(--color-button-foreground-prominent,
-            var(--cr-fallback-color-on-primary));--hover-bg-action:var(--bg-action);--active-shadow-action:none;--ink-color-action:var(--cr-active-background-color);--ripple-opacity-action:1;--disabled-bg-action:var(--color-button-background-prominent-disabled,
-            var(--cr-fallback-color-disabled-background));background:0 0;border-radius:100px;isolation:isolate;line-height:20px}:host([has-prefix-icon_]),:host([has-suffix-icon_]){--iron-icon-height:16px;--iron-icon-width:16px;gap:8px;padding:8px}:host-context([chrome-refresh-2023]):host([has-prefix-icon_]),:host-context([chrome-refresh-2023]):host([has-suffix-icon_]){--iron-icon-height:20px;--iron-icon-width:20px;--icon-block-padding-large:16px;--icon-block-padding-small:12px;padding-block-end:8px;padding-block-start:8px}:host-context([chrome-refresh-2023]):host([has-prefix-icon_]){padding-inline-end:var(--icon-block-padding-large);padding-inline-start:var(--icon-block-padding-small)}:host-context([chrome-refresh-2023]):host([has-suffix-icon_]){padding-inline-end:var(--icon-block-padding-small);padding-inline-start:var(--icon-block-padding-large)}:host-context(.focus-outline-visible):host(:focus){box-shadow:0 0 0 2px var(--focus-shadow-color)}@media (forced-colors:active){:host-context(.focus-outline-visible):host(:focus){outline:var(--cr-focus-outline-hcm)}:host-context([chrome-refresh-2023]):host{forced-color-adjust:none}}:host-context([chrome-refresh-2023].focus-outline-visible):host(:focus){box-shadow:none;outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host(:active){background:var(--active-bg);box-shadow:var(--active-shadow,0 1px 2px 0 rgba(var(--active-shadow-rgb),.3),0 3px 6px 2px rgba(var(--active-shadow-rgb),.15))}:host(:hover){background-color:var(--hover-bg-color)}@media (prefers-color-scheme:light){:host(:hover){border-color:var(--hover-border-color)}}#background{border-radius:inherit;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:hover) #background{background-color:var(--hover-bg-color)}:host-context([chrome-refresh-2023].focus-outline-visible):host(:focus) #background{background-clip:padding-box}:host-context([chrome-refresh-2023]):host(.action-button) #background{background-color:var(--bg-action)}:host-context([chrome-refresh-2023]):host([disabled]) #background{background-color:var(--disabled-bg)}:host-context([chrome-refresh-2023]):host(.action-button[disabled]) #background{background-color:var(--disabled-bg-action)}:host-context([chrome-refresh-2023]):host(.floating-button) #background,:host-context([chrome-refresh-2023]):host(.tonal-button) #background{background-color:var(--color-button-background-tonal,var(--cr-fallback-color-secondary-container))}:host-context([chrome-refresh-2023]):host([disabled].floating-button) #background,:host-context([chrome-refresh-2023]):host([disabled].tonal-button) #background{background-color:var(--color-button-background-tonal-disabled,var(--cr-fallback-color-disabled-background))}#content{display:contents}:host-context([chrome-refresh-2023]) #content{display:inline;z-index:2}:host-context([chrome-refresh-2023]) ::slotted(*){z-index:2}#hoverBackground{content:'';display:none;inset:0;pointer-events:none;position:absolute;z-index:1}:host-context([chrome-refresh-2023]):host(:hover) #hoverBackground{background:var(--cr-hover-background-color);display:block}:host-context([chrome-refresh-2023]):host(.action-button:hover) #hoverBackground{background:var(--cr-hover-on-prominent-background-color)}:host(.action-button){--ink-color:var(--ink-color-action);--paper-ripple-opacity:var(--ripple-opacity-action);background-color:var(--bg-action);border:none;color:var(--text-color-action)}:host-context([chrome-refresh-2023]):host(.action-button){--ink-color:var(--cr-active-on-primary-background-color);background-color:transparent}:host(.action-button:active){box-shadow:var(--active-shadow-action,0 1px 2px 0 rgba(var(--active-shadow-action-rgb),.3),0 3px 6px 2px rgba(var(--active-shadow-action-rgb),.15))}:host(.action-button:hover){background:var(--hover-bg-action)}@media (prefers-color-scheme:light){:host(.action-button:not(:active):hover){box-shadow:0 1px 2px 0 rgba(var(--hover-shadow-action-rgb),.3),0 1px 3px 1px rgba(var(--hover-shadow-action-rgb),.15)}:host-context([chrome-refresh-2023]):host(.action-button:not(:active):hover){box-shadow:none}}:host([disabled]){background-color:var(--disabled-bg);border-color:var(--disabled-border-color);color:var(--disabled-text-color);cursor:auto;pointer-events:none}:host(.action-button[disabled]){background-color:var(--disabled-bg-action);border-color:transparent}:host(.cancel-button){margin-inline-end:8px}:host(.action-button),:host(.cancel-button){line-height:154%}:host-context([chrome-refresh-2023]):host(.floating-button),:host-context([chrome-refresh-2023]):host(.tonal-button){border:none;color:var(--color-button-foreground-tonal,var(--cr-fallback-color-on-tonal-container))}:host-context([chrome-refresh-2023]):host(.floating-button[disabled]),:host-context([chrome-refresh-2023]):host(.tonal-button[disabled]){border:none;color:var(--disabled-text-color)}:host-context([chrome-refresh-2023]):host(.floating-button){border-radius:8px;height:40px;transition:box-shadow 80ms linear}:host-context([chrome-refresh-2023]):host(.floating-button:hover){box-shadow:var(--cr-elevation-3)}paper-ripple{color:var(--ink-color);height:var(--paper-ripple-height);left:var(--paper-ripple-left,0);top:var(--paper-ripple-top,0);width:var(--paper-ripple-width)}:host-context([chrome-refresh-2023]) paper-ripple{z-index:1}</style>
+    return html `<!--_html_template_start_--><style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
+                                         rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
+        var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
+        var(--cr-fallback-color-primary));--hover-bg-color:transparent;--hover-border-color:var(--border-color);--active-bg:transparent;--active-shadow:none;--ink-color:var(--cr-active-background-color);--ripple-opacity:1;--disabled-bg:transparent;--disabled-border-color:var(--color-button-border-disabled,
+        var(--cr-fallback-color-disabled-background));--disabled-text-color:var(--color-button-foreground-disabled,
+        var(--cr-fallback-color-disabled-foreground));--bg-action:var(--color-button-background-prominent,
+        var(--cr-fallback-color-primary));--text-color-action:var(--color-button-foreground-prominent,
+        var(--cr-fallback-color-on-primary));--hover-bg-action:var(--bg-action);--active-shadow-action:none;--ink-color-action:var(--cr-active-background-color);--ripple-opacity-action:1;--disabled-bg-action:var(--color-button-background-prominent-disabled,
+        var(--cr-fallback-color-disabled-background));background:0 0;border-radius:100px;isolation:isolate;line-height:20px}:host([has-prefix-icon_]),:host([has-suffix-icon_]){--iron-icon-height:16px;--iron-icon-width:16px;gap:8px;padding:8px}:host-context([chrome-refresh-2023]):host([has-prefix-icon_]),:host-context([chrome-refresh-2023]):host([has-suffix-icon_]){--iron-icon-height:20px;--iron-icon-width:20px;--icon-block-padding-large:16px;--icon-block-padding-small:12px;padding-block-end:8px;padding-block-start:8px}:host-context([chrome-refresh-2023]):host([has-prefix-icon_]){padding-inline-end:var(--icon-block-padding-large);padding-inline-start:var(--icon-block-padding-small)}:host-context([chrome-refresh-2023]):host([has-suffix-icon_]){padding-inline-end:var(--icon-block-padding-small);padding-inline-start:var(--icon-block-padding-large)}:host-context(.focus-outline-visible):host(:focus){box-shadow:0 0 0 2px var(--focus-shadow-color)}@media (forced-colors:active){:host-context(.focus-outline-visible):host(:focus){outline:var(--cr-focus-outline-hcm)}:host-context([chrome-refresh-2023]):host{forced-color-adjust:none}}:host-context([chrome-refresh-2023].focus-outline-visible):host(:focus){box-shadow:none;outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host(:active){background:var(--active-bg);box-shadow:var(--active-shadow,0 1px 2px 0 rgba(var(--active-shadow-rgb),.3),0 3px 6px 2px rgba(var(--active-shadow-rgb),.15))}:host(:hover){background-color:var(--hover-bg-color)}@media (prefers-color-scheme:light){:host(:hover){border-color:var(--hover-border-color)}}#background{border-radius:inherit;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:hover) #background{background-color:var(--hover-bg-color)}:host-context([chrome-refresh-2023].focus-outline-visible):host(:focus) #background{background-clip:padding-box}:host-context([chrome-refresh-2023]):host(.action-button) #background{background-color:var(--bg-action)}:host-context([chrome-refresh-2023]):host([disabled]) #background{background-color:var(--disabled-bg)}:host-context([chrome-refresh-2023]):host(.action-button[disabled]) #background{background-color:var(--disabled-bg-action)}:host-context([chrome-refresh-2023]):host(.floating-button) #background,:host-context([chrome-refresh-2023]):host(.tonal-button) #background{background-color:var(--color-button-background-tonal,var(--cr-fallback-color-secondary-container))}:host-context([chrome-refresh-2023]):host([disabled].floating-button) #background,:host-context([chrome-refresh-2023]):host([disabled].tonal-button) #background{background-color:var(--color-button-background-tonal-disabled,var(--cr-fallback-color-disabled-background))}#content{display:contents}:host-context([chrome-refresh-2023]) #content{display:inline;z-index:2}:host-context([chrome-refresh-2023]) ::slotted(*){z-index:2}#hoverBackground{content:'';display:none;inset:0;pointer-events:none;position:absolute;z-index:1}:host-context([chrome-refresh-2023]):host(:hover) #hoverBackground{background:var(--cr-hover-background-color);display:block}:host-context([chrome-refresh-2023]):host(.action-button:hover) #hoverBackground{background:var(--cr-hover-on-prominent-background-color)}:host(.action-button){--ink-color:var(--ink-color-action);--paper-ripple-opacity:var(--ripple-opacity-action);background-color:var(--bg-action);border:none;color:var(--text-color-action)}:host-context([chrome-refresh-2023]):host(.action-button){--ink-color:var(--cr-active-on-primary-background-color);background-color:transparent}:host(.action-button:active){box-shadow:var(--active-shadow-action,0 1px 2px 0 rgba(var(--active-shadow-action-rgb),.3),0 3px 6px 2px rgba(var(--active-shadow-action-rgb),.15))}:host(.action-button:hover){background:var(--hover-bg-action)}@media (prefers-color-scheme:light){:host(.action-button:not(:active):hover){box-shadow:0 1px 2px 0 rgba(var(--hover-shadow-action-rgb),.3),0 1px 3px 1px rgba(var(--hover-shadow-action-rgb),.15)}:host-context([chrome-refresh-2023]):host(.action-button:not(:active):hover){box-shadow:none}}:host([disabled]){background-color:var(--disabled-bg);border-color:var(--disabled-border-color);color:var(--disabled-text-color);cursor:auto;pointer-events:none}:host(.action-button[disabled]){background-color:var(--disabled-bg-action);border-color:transparent}:host(.cancel-button){margin-inline-end:8px}:host(.action-button),:host(.cancel-button){line-height:154%}:host-context([chrome-refresh-2023]):host(.floating-button),:host-context([chrome-refresh-2023]):host(.tonal-button){border:none;color:var(--color-button-foreground-tonal,var(--cr-fallback-color-on-tonal-container))}:host-context([chrome-refresh-2023]):host(.floating-button[disabled]),:host-context([chrome-refresh-2023]):host(.tonal-button[disabled]){border:none;color:var(--disabled-text-color)}:host-context([chrome-refresh-2023]):host(.floating-button){border-radius:8px;height:40px;transition:box-shadow 80ms linear}:host-context([chrome-refresh-2023]):host(.floating-button:hover){box-shadow:var(--cr-elevation-3)}paper-ripple{color:var(--ink-color);height:var(--paper-ripple-height);left:var(--paper-ripple-left,0);top:var(--paper-ripple-top,0);width:var(--paper-ripple-width)}:host-context([chrome-refresh-2023]) paper-ripple{z-index:1}</style>
 
-    <div id="background"></div>
-    <slot id="prefixIcon" name="prefix-icon" on-slotchange="onPrefixIconSlotChanged_">
-    </slot>
-    <span id="content"><slot></slot></span>
-    <slot id="suffixIcon" name="suffix-icon" on-slotchange="onSuffixIconSlotChanged_">
-    </slot>
-    <div id="hoverBackground" part="hoverBackground"></div>
+<div id="background"></div>
+<slot id="prefixIcon" name="prefix-icon" on-slotchange="onPrefixIconSlotChanged_">
+</slot>
+<span id="content"><slot></slot></span>
+<slot id="suffixIcon" name="suffix-icon" on-slotchange="onSuffixIconSlotChanged_">
+</slot>
+<div id="hoverBackground" part="hoverBackground"></div>
 <!--_html_template_end_-->`;
 }
 
@@ -5680,6 +5745,8 @@ function getTemplate$3() {
  * be interacted with like a normal button using click as well as space and
  * enter to effectively click the button and fire a 'click' event. It can also
  * style an icon inside of the button with the [has-icon] attribute.
+ *
+ * Forked from ui/webui/resources/cr_elements/cr_button/cr_button.ts
  */
 const CrButtonElementBase = PaperRippleMixin(PolymerElement);
 class CrButtonElement extends CrButtonElementBase {
@@ -5945,6 +6012,8 @@ customElements.define(TextGroupButton.is, TextGroupButton);
  *
  * NOTE: Since <cr-auto-img> may use the chrome://image data source some images
  * may be transcoded to PNG.
+ *
+ * Forked from ui/webui/resources/cr_elements/cr_auto_img/cr_auto_img.ts
  */
 const AUTO_SRC = 'auto-src';
 const CLEAR_SRC = 'clear-src';
@@ -6052,97 +6121,8 @@ class CrAutoImgElement extends HTMLImageElement {
 }
 customElements.define('cr-auto-img', CrAutoImgElement, { extends: 'img' });
 
-// Copyright 2019 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Base class for Web Components that don't use Polymer.
- * See the following file for usage:
- * chrome/test/data/webui/js/custom_element_test.js
- */
-function emptyHTML() {
-    return window.trustedTypes ? window.trustedTypes.emptyHTML : '';
-}
-class CustomElement extends HTMLElement {
-    static get template() {
-        return emptyHTML();
-    }
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-        const template = document.createElement('template');
-        template.innerHTML =
-            this.constructor.template || emptyHTML();
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
-    }
-    $(query) {
-        return this.shadowRoot.querySelector(query);
-    }
-    $all(query) {
-        return this.shadowRoot.querySelectorAll(query);
-    }
-    getRequiredElement(query) {
-        const el = this.shadowRoot.querySelector(query);
-        assert(el);
-        assert(el instanceof HTMLElement);
-        return el;
-    }
-}
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @return Whether the passed tagged template literal is a valid array.
- */
-function isValidArray(arr) {
-    if (arr instanceof Array && Object.isFrozen(arr)) {
-        return true;
-    }
-    return false;
-}
-/**
- * Checks if the passed tagged template literal only contains static string.
- * And return the string in the literal if so.
- * Throws an Error if the passed argument is not supported literals.
- */
-function getStaticString(literal) {
-    const isStaticString = isValidArray(literal) && !!literal.raw &&
-        isValidArray(literal.raw) && literal.length === literal.raw.length &&
-        literal.length === 1;
-    assert(isStaticString, 'static_types.js only allows static strings');
-    return literal.join('');
-}
-function createTypes(_ignore, literal) {
-    return getStaticString(literal);
-}
-/**
- * Rules used to enforce static literal checks.
- */
-const rules = {
-    createHTML: createTypes,
-    createScript: createTypes,
-    createScriptURL: createTypes,
-};
-/**
- * This policy returns Trusted Types if the passed literal is static.
- */
-let staticPolicy;
-if (window.trustedTypes) {
-    staticPolicy = window.trustedTypes.createPolicy('static-types', rules);
-}
-else {
-    staticPolicy = rules;
-}
-/**
- * Returns TrustedHTML if the passed literal is static.
- */
-function getTrustedHTML(literal) {
-    return staticPolicy.createHTML('', literal);
-}
-
 function getTemplate$1() {
-    return getTrustedHTML `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
+    return html `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
 
 <div id="messages" role="alert" aria-live="polite" aria-relevant="additions">
 </div>
@@ -6175,7 +6155,7 @@ function getInstance(container = document.body) {
     instances.set(container, instance);
     return instance;
 }
-class CrA11yAnnouncerElement extends CustomElement {
+class CrA11yAnnouncerElement extends PolymerElement {
     constructor() {
         super(...arguments);
         this.currentTimeout_ = null;
@@ -6188,6 +6168,7 @@ class CrA11yAnnouncerElement extends CustomElement {
         return getTemplate$1();
     }
     disconnectedCallback() {
+        super.disconnectedCallback();
         if (this.currentTimeout_ !== null) {
             clearTimeout(this.currentTimeout_);
             this.currentTimeout_ = null;
@@ -6208,7 +6189,6 @@ class CrA11yAnnouncerElement extends CustomElement {
         this.currentTimeout_ = setTimeout(() => {
             const messagesDiv = this.shadowRoot.querySelector('#messages');
             messagesDiv.innerHTML = window.trustedTypes.emptyHTML;
-            // 
             for (const message of this.messages_) {
                 const div = document.createElement('div');
                 div.textContent = message;
@@ -6236,7 +6216,7 @@ function getTemplate() {
 </div>
 
 <div id="message" class="sr-only" aria-live="polite"></div>
-  <emoji-search class="search-side-padding" id="search-container" categories-data="[[categoriesData]]" lazy-indexing="[[searchLazyIndexing]]" on-scroll="onSearchScroll" category-metadata="[[getCategoryMetadata(gifSupport, category)]]" gif-support$="[[gifSupport]]" close-gif-nudge-overlay="[[closeGifNudgeOverlay]]" use-grouped-preference="[[shouldUseGroupedPreference(false)]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]">
+  <emoji-search class="search-side-padding" id="search-container" categories-data="[[categoriesData]]" lazy-indexing="[[searchLazyIndexing]]" on-scroll="onSearchScroll" category-metadata="[[getCategoryMetadata(gifSupport, category)]]" gif-support$="[[gifSupport]]" seal-support$="[[sealSupport]]" close-gif-nudge-overlay="[[closeGifNudgeOverlay]]" use-grouped-preference="[[shouldUseGroupedPreference(false)]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]">
   </emoji-search>
 
 <div id="list-container" class$="[[computeListContainerClass(category, status)]]">

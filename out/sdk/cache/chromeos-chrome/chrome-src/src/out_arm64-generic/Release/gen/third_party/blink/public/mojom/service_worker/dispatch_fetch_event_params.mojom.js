@@ -55,6 +55,7 @@
   DispatchFetchEventParams.prototype.initDefaults_ = function() {
     this.request = null;
     this.clientId = null;
+    this.resultingClientId = null;
     this.preloadUrlLoaderClientReceiver = new bindings.InterfaceRequest();
     this.isOfflineCapabilityCheck = false;
     this.raceNetworkRequestLoaderFactory = new url_loader_factory$.URLLoaderFactoryPtr();
@@ -73,7 +74,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 40}
+      {version: 0, numBytes: 48}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -92,22 +93,28 @@
         return err;
 
 
+    // validate DispatchFetchEventParams.resultingClientId
+    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 16, false)
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
     // validate DispatchFetchEventParams.preloadUrlLoaderClientReceiver
-    err = messageValidator.validateInterfaceRequest(offset + codec.kStructHeaderSize + 16, true)
+    err = messageValidator.validateInterfaceRequest(offset + codec.kStructHeaderSize + 24, true)
     if (err !== validator.validationError.NONE)
         return err;
 
 
 
     // validate DispatchFetchEventParams.raceNetworkRequestLoaderFactory
-    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 24, true);
+    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 32, true);
     if (err !== validator.validationError.NONE)
         return err;
 
     return validator.validationError.NONE;
   };
 
-  DispatchFetchEventParams.encodedSize = codec.kStructHeaderSize + 32;
+  DispatchFetchEventParams.encodedSize = codec.kStructHeaderSize + 40;
 
   DispatchFetchEventParams.decode = function(decoder) {
     var packed;
@@ -117,6 +124,8 @@
     val.request =
         decoder.decodeStructPointer(fetch_api_request$.FetchAPIRequest);
     val.clientId =
+        decoder.decodeStruct(codec.String);
+    val.resultingClientId =
         decoder.decodeStruct(codec.String);
     val.preloadUrlLoaderClientReceiver =
         decoder.decodeStruct(codec.NullableInterfaceRequest);
@@ -136,6 +145,7 @@
     encoder.writeUint32(0);
     encoder.encodeStructPointer(fetch_api_request$.FetchAPIRequest, val.request);
     encoder.encodeStruct(codec.String, val.clientId);
+    encoder.encodeStruct(codec.String, val.resultingClientId);
     encoder.encodeStruct(codec.NullableInterfaceRequest, val.preloadUrlLoaderClientReceiver);
     packed = 0;
     packed |= (val.isOfflineCapabilityCheck & 1) << 0

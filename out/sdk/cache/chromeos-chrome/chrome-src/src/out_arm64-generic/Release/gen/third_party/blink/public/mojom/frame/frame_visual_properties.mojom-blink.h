@@ -64,7 +64,7 @@ class CORE_EXPORT FrameVisualProperties {
   template <typename... Args>
   static FrameVisualPropertiesPtr New(Args&&... args) {
     return FrameVisualPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -242,7 +242,7 @@ static_assert(
         ::gfx::mojom::RectDataView, UserType>(),
     "Attempting to read the optional `printable_area_um` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPrintableAreaUm` instead "
     "of `ReadPrintableAreaUm if you're fine with null values being "
@@ -545,7 +545,7 @@ static_assert(
         mojo::ArrayDataView<::printing::mojom::MediaTypeDataView>, UserType>(),
     "Attempting to read the optional `media_types` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMediaTypes` instead "
     "of `ReadMediaTypes if you're fine with null values being "
@@ -566,7 +566,7 @@ static_assert(
         ::printing::mojom::MediaTypeDataView, UserType>(),
     "Attempting to read the optional `default_media_type` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDefaultMediaType` instead "
     "of `ReadDefaultMediaType if you're fine with null values being "

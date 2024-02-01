@@ -596,7 +596,7 @@ class  SwitchToTabInfo {
   template <typename... Args>
   static SwitchToTabInfoPtr New(Args&&... args) {
     return SwitchToTabInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -743,7 +743,7 @@ class  ProfileData {
   template <typename... Args>
   static ProfileDataPtr New(Args&&... args) {
     return ProfileDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -897,7 +897,7 @@ class  Window {
   template <typename... Args>
   static WindowPtr New(Args&&... args) {
     return WindowPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1045,7 +1045,7 @@ class  Tab {
   template <typename... Args>
   static TabPtr New(Args&&... args) {
     return TabPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1221,7 +1221,7 @@ class  RecentlyClosedTab {
   template <typename... Args>
   static RecentlyClosedTabPtr New(Args&&... args) {
     return RecentlyClosedTabPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1376,7 +1376,7 @@ class  TabGroup {
   template <typename... Args>
   static TabGroupPtr New(Args&&... args) {
     return TabGroupPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1522,7 +1522,7 @@ class  RecentlyClosedTabGroup {
   template <typename... Args>
   static RecentlyClosedTabGroupPtr New(Args&&... args) {
     return RecentlyClosedTabGroupPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1681,7 +1681,7 @@ class  TabOrganization {
   template <typename... Args>
   static TabOrganizationPtr New(Args&&... args) {
     return TabOrganizationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1829,7 +1829,7 @@ class  TabOrganizationSession {
   template <typename... Args>
   static TabOrganizationSessionPtr New(Args&&... args) {
     return TabOrganizationSessionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1980,7 +1980,7 @@ class  TabUpdateInfo {
   template <typename... Args>
   static TabUpdateInfoPtr New(Args&&... args) {
     return TabUpdateInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2125,7 +2125,7 @@ class  TabsRemovedInfo {
   template <typename... Args>
   static TabsRemovedInfoPtr New(Args&&... args) {
     return TabsRemovedInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

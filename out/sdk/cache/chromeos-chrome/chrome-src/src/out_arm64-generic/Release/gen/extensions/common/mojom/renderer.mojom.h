@@ -361,7 +361,7 @@ class  UserScriptWorldInfo {
   template <typename... Args>
   static UserScriptWorldInfoPtr New(Args&&... args) {
     return UserScriptWorldInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -509,7 +509,7 @@ class  ExtensionLoadedParams {
   template <typename... Args>
   static ExtensionLoadedParamsPtr New(Args&&... args) {
     return ExtensionLoadedParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

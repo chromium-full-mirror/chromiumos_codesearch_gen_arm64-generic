@@ -349,7 +349,7 @@ class  Rect {
   template <typename... Args>
   static RectPtr New(Args&&... args) {
     return RectPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -498,7 +498,7 @@ class  SpanEntry {
   template <typename... Args>
   static SpanEntryPtr New(Args&&... args) {
     return SpanEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -645,7 +645,7 @@ class  AccessibilityCollectionInfoData {
   template <typename... Args>
   static AccessibilityCollectionInfoDataPtr New(Args&&... args) {
     return AccessibilityCollectionInfoDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -796,7 +796,7 @@ class  AccessibilityRangeInfoData {
   template <typename... Args>
   static AccessibilityRangeInfoDataPtr New(Args&&... args) {
     return AccessibilityRangeInfoDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -946,7 +946,7 @@ class  AccessibilityActionInAndroid {
   template <typename... Args>
   static AccessibilityActionInAndroidPtr New(Args&&... args) {
     return AccessibilityActionInAndroidPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1103,7 +1103,7 @@ class  AccessibilityWindowKey {
   static AccessibilityWindowKeyPtr
   NewWindowId(
       uint32_t value) {
-    auto result = AccessibilityWindowKeyPtr(absl::in_place);
+    auto result = AccessibilityWindowKeyPtr(std::in_place);
     result->set_window_id(std::move(value));
     return result;
   }
@@ -1111,7 +1111,7 @@ class  AccessibilityWindowKey {
   static AccessibilityWindowKeyPtr
   NewTaskId(
       uint32_t value) {
-    auto result = AccessibilityWindowKeyPtr(absl::in_place);
+    auto result = AccessibilityWindowKeyPtr(std::in_place);
     result->set_task_id(std::move(value));
     return result;
   }
@@ -1225,7 +1225,7 @@ class  AccessibilityCollectionItemInfoData {
   template <typename... Args>
   static AccessibilityCollectionItemInfoDataPtr New(Args&&... args) {
     return AccessibilityCollectionItemInfoDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1383,7 +1383,7 @@ class  AccessibilityNodeInfoData {
   template <typename... Args>
   static AccessibilityNodeInfoDataPtr New(Args&&... args) {
     return AccessibilityNodeInfoDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1629,7 +1629,7 @@ class  AccessibilityWindowInfoData {
   template <typename... Args>
   static AccessibilityWindowInfoDataPtr New(Args&&... args) {
     return AccessibilityWindowInfoDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1790,7 +1790,7 @@ class  AccessibilityEventData {
   template <typename... Args>
   static AccessibilityEventDataPtr New(Args&&... args) {
     return AccessibilityEventDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2028,7 +2028,7 @@ class  AccessibilityActionData {
   template <typename... Args>
   static AccessibilityActionDataPtr New(Args&&... args) {
     return AccessibilityActionDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

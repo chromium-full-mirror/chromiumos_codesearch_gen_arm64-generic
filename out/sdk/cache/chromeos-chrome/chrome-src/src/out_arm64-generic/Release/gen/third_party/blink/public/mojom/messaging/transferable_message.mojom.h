@@ -67,7 +67,7 @@ class BLINK_COMMON_EXPORT TransferableMessage {
   template <typename... Args>
   static TransferableMessagePtr New(Args&&... args) {
     return TransferableMessagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

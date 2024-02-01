@@ -1166,7 +1166,7 @@ class MODULES_EXPORT IDBKey {
   static IDBKeyPtr
   NewKeyArray(
       WTF::Vector<::std::unique_ptr<::blink::IDBKey>> value) {
-    auto result = IDBKeyPtr(absl::in_place);
+    auto result = IDBKeyPtr(std::in_place);
     result->set_key_array(std::move(value));
     return result;
   }
@@ -1174,7 +1174,7 @@ class MODULES_EXPORT IDBKey {
   static IDBKeyPtr
   NewBinary(
       WTF::Vector<uint8_t> value) {
-    auto result = IDBKeyPtr(absl::in_place);
+    auto result = IDBKeyPtr(std::in_place);
     result->set_binary(std::move(value));
     return result;
   }
@@ -1182,7 +1182,7 @@ class MODULES_EXPORT IDBKey {
   static IDBKeyPtr
   NewString(
       const ::WTF::String& value) {
-    auto result = IDBKeyPtr(absl::in_place);
+    auto result = IDBKeyPtr(std::in_place);
     result->set_string(std::move(value));
     return result;
   }
@@ -1190,7 +1190,7 @@ class MODULES_EXPORT IDBKey {
   static IDBKeyPtr
   NewDate(
       double value) {
-    auto result = IDBKeyPtr(absl::in_place);
+    auto result = IDBKeyPtr(std::in_place);
     result->set_date(std::move(value));
     return result;
   }
@@ -1198,7 +1198,7 @@ class MODULES_EXPORT IDBKey {
   static IDBKeyPtr
   NewNumber(
       double value) {
-    auto result = IDBKeyPtr(absl::in_place);
+    auto result = IDBKeyPtr(std::in_place);
     result->set_number(std::move(value));
     return result;
   }
@@ -1206,7 +1206,7 @@ class MODULES_EXPORT IDBKey {
   static IDBKeyPtr
   NewOtherNone(
       bool value) {
-    auto result = IDBKeyPtr(absl::in_place);
+    auto result = IDBKeyPtr(std::in_place);
     result->set_other_none(std::move(value));
     return result;
   }
@@ -1380,7 +1380,7 @@ class MODULES_EXPORT IDBKeyPathData {
   static IDBKeyPathDataPtr
   NewString(
       const ::WTF::String& value) {
-    auto result = IDBKeyPathDataPtr(absl::in_place);
+    auto result = IDBKeyPathDataPtr(std::in_place);
     result->set_string(std::move(value));
     return result;
   }
@@ -1388,7 +1388,7 @@ class MODULES_EXPORT IDBKeyPathData {
   static IDBKeyPathDataPtr
   NewStringArray(
       WTF::Vector<::WTF::String> value) {
-    auto result = IDBKeyPathDataPtr(absl::in_place);
+    auto result = IDBKeyPathDataPtr(std::in_place);
     result->set_string_array(std::move(value));
     return result;
   }
@@ -1510,7 +1510,7 @@ class MODULES_EXPORT IDBExternalObject {
   static IDBExternalObjectPtr
   NewBlobOrFile(
       IDBBlobInfoPtr value) {
-    auto result = IDBExternalObjectPtr(absl::in_place);
+    auto result = IDBExternalObjectPtr(std::in_place);
     result->set_blob_or_file(std::move(value));
     return result;
   }
@@ -1518,7 +1518,7 @@ class MODULES_EXPORT IDBExternalObject {
   static IDBExternalObjectPtr
   NewFileSystemAccessToken(
       ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessTransferToken> value) {
-    auto result = IDBExternalObjectPtr(absl::in_place);
+    auto result = IDBExternalObjectPtr(std::in_place);
     result->set_file_system_access_token(std::move(value));
     return result;
   }
@@ -1640,7 +1640,7 @@ class MODULES_EXPORT IDBCursorResult {
   static IDBCursorResultPtr
   NewErrorResult(
       IDBErrorPtr value) {
-    auto result = IDBCursorResultPtr(absl::in_place);
+    auto result = IDBCursorResultPtr(std::in_place);
     result->set_error_result(std::move(value));
     return result;
   }
@@ -1648,7 +1648,7 @@ class MODULES_EXPORT IDBCursorResult {
   static IDBCursorResultPtr
   NewEmpty(
       bool value) {
-    auto result = IDBCursorResultPtr(absl::in_place);
+    auto result = IDBCursorResultPtr(std::in_place);
     result->set_empty(std::move(value));
     return result;
   }
@@ -1656,7 +1656,7 @@ class MODULES_EXPORT IDBCursorResult {
   static IDBCursorResultPtr
   NewValues(
       IDBCursorValuePtr value) {
-    auto result = IDBCursorResultPtr(absl::in_place);
+    auto result = IDBCursorResultPtr(std::in_place);
     result->set_values(std::move(value));
     return result;
   }
@@ -1791,7 +1791,7 @@ class MODULES_EXPORT IDBTransactionPutResult {
   static IDBTransactionPutResultPtr
   NewErrorResult(
       IDBErrorPtr value) {
-    auto result = IDBTransactionPutResultPtr(absl::in_place);
+    auto result = IDBTransactionPutResultPtr(std::in_place);
     result->set_error_result(std::move(value));
     return result;
   }
@@ -1799,7 +1799,7 @@ class MODULES_EXPORT IDBTransactionPutResult {
   static IDBTransactionPutResultPtr
   NewKey(
       ::std::unique_ptr<::blink::IDBKey> value) {
-    auto result = IDBTransactionPutResultPtr(absl::in_place);
+    auto result = IDBTransactionPutResultPtr(std::in_place);
     result->set_key(std::move(value));
     return result;
   }
@@ -1921,7 +1921,7 @@ class MODULES_EXPORT IDBDatabaseGetResult {
   static IDBDatabaseGetResultPtr
   NewErrorResult(
       IDBErrorPtr value) {
-    auto result = IDBDatabaseGetResultPtr(absl::in_place);
+    auto result = IDBDatabaseGetResultPtr(std::in_place);
     result->set_error_result(std::move(value));
     return result;
   }
@@ -1929,7 +1929,7 @@ class MODULES_EXPORT IDBDatabaseGetResult {
   static IDBDatabaseGetResultPtr
   NewEmpty(
       bool value) {
-    auto result = IDBDatabaseGetResultPtr(absl::in_place);
+    auto result = IDBDatabaseGetResultPtr(std::in_place);
     result->set_empty(std::move(value));
     return result;
   }
@@ -1937,7 +1937,7 @@ class MODULES_EXPORT IDBDatabaseGetResult {
   static IDBDatabaseGetResultPtr
   NewKey(
       ::std::unique_ptr<::blink::IDBKey> value) {
-    auto result = IDBDatabaseGetResultPtr(absl::in_place);
+    auto result = IDBDatabaseGetResultPtr(std::in_place);
     result->set_key(std::move(value));
     return result;
   }
@@ -1945,7 +1945,7 @@ class MODULES_EXPORT IDBDatabaseGetResult {
   static IDBDatabaseGetResultPtr
   NewValue(
       IDBReturnValuePtr value) {
-    auto result = IDBDatabaseGetResultPtr(absl::in_place);
+    auto result = IDBDatabaseGetResultPtr(std::in_place);
     result->set_value(std::move(value));
     return result;
   }
@@ -2093,7 +2093,7 @@ class MODULES_EXPORT IDBDatabaseOpenCursorResult {
   static IDBDatabaseOpenCursorResultPtr
   NewErrorResult(
       IDBErrorPtr value) {
-    auto result = IDBDatabaseOpenCursorResultPtr(absl::in_place);
+    auto result = IDBDatabaseOpenCursorResultPtr(std::in_place);
     result->set_error_result(std::move(value));
     return result;
   }
@@ -2101,7 +2101,7 @@ class MODULES_EXPORT IDBDatabaseOpenCursorResult {
   static IDBDatabaseOpenCursorResultPtr
   NewEmpty(
       bool value) {
-    auto result = IDBDatabaseOpenCursorResultPtr(absl::in_place);
+    auto result = IDBDatabaseOpenCursorResultPtr(std::in_place);
     result->set_empty(std::move(value));
     return result;
   }
@@ -2109,7 +2109,7 @@ class MODULES_EXPORT IDBDatabaseOpenCursorResult {
   static IDBDatabaseOpenCursorResultPtr
   NewValue(
       IDBDatabaseOpenCursorValuePtr value) {
-    auto result = IDBDatabaseOpenCursorResultPtr(absl::in_place);
+    auto result = IDBDatabaseOpenCursorResultPtr(std::in_place);
     result->set_value(std::move(value));
     return result;
   }
@@ -2236,7 +2236,7 @@ class MODULES_EXPORT IDBKeyPath {
   template <typename... Args>
   static IDBKeyPathPtr New(Args&&... args) {
     return IDBKeyPathPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2378,7 +2378,7 @@ class MODULES_EXPORT IDBKeyRange {
   template <typename... Args>
   static IDBKeyRangePtr New(Args&&... args) {
     return IDBKeyRangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2529,7 +2529,7 @@ class MODULES_EXPORT IDBIndexMetadata {
   template <typename... Args>
   static IDBIndexMetadataPtr New(Args&&... args) {
     return IDBIndexMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2681,7 +2681,7 @@ class MODULES_EXPORT IDBObjectStoreMetadata {
   template <typename... Args>
   static IDBObjectStoreMetadataPtr New(Args&&... args) {
     return IDBObjectStoreMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2836,7 +2836,7 @@ class MODULES_EXPORT IDBDatabaseMetadata {
   template <typename... Args>
   static IDBDatabaseMetadataPtr New(Args&&... args) {
     return IDBDatabaseMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2991,7 +2991,7 @@ class MODULES_EXPORT IDBNameAndVersion {
   template <typename... Args>
   static IDBNameAndVersionPtr New(Args&&... args) {
     return IDBNameAndVersionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3134,7 +3134,7 @@ class MODULES_EXPORT IDBIndexKeys {
   template <typename... Args>
   static IDBIndexKeysPtr New(Args&&... args) {
     return IDBIndexKeysPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3279,7 +3279,7 @@ class MODULES_EXPORT IDBFileInfo {
   template <typename... Args>
   static IDBFileInfoPtr New(Args&&... args) {
     return IDBFileInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3422,7 +3422,7 @@ class MODULES_EXPORT IDBBlobInfo {
   template <typename... Args>
   static IDBBlobInfoPtr New(Args&&... args) {
     return IDBBlobInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3571,7 +3571,7 @@ class MODULES_EXPORT IDBValue {
   template <typename... Args>
   static IDBValuePtr New(Args&&... args) {
     return IDBValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3711,7 +3711,7 @@ class MODULES_EXPORT IDBReturnValue {
   template <typename... Args>
   static IDBReturnValuePtr New(Args&&... args) {
     return IDBReturnValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3854,7 +3854,7 @@ class MODULES_EXPORT IDBError {
   template <typename... Args>
   static IDBErrorPtr New(Args&&... args) {
     return IDBErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3997,7 +3997,7 @@ class MODULES_EXPORT IDBCursorValue {
   template <typename... Args>
   static IDBCursorValuePtr New(Args&&... args) {
     return IDBCursorValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4140,7 +4140,7 @@ class MODULES_EXPORT IDBDatabaseOpenCursorValue {
   template <typename... Args>
   static IDBDatabaseOpenCursorValuePtr New(Args&&... args) {
     return IDBDatabaseOpenCursorValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

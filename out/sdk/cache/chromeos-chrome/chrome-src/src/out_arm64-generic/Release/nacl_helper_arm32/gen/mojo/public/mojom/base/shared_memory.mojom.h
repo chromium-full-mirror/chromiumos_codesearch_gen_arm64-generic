@@ -60,7 +60,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) ReadOnlySharedMemoryRegion {
   template <typename... Args>
   static ReadOnlySharedMemoryRegionPtr New(Args&&... args) {
     return ReadOnlySharedMemoryRegionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -197,7 +197,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) WritableSharedMemoryRegion {
   template <typename... Args>
   static WritableSharedMemoryRegionPtr New(Args&&... args) {
     return WritableSharedMemoryRegionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -334,7 +334,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) UnsafeSharedMemoryRegion {
   template <typename... Args>
   static UnsafeSharedMemoryRegionPtr New(Args&&... args) {
     return UnsafeSharedMemoryRegionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

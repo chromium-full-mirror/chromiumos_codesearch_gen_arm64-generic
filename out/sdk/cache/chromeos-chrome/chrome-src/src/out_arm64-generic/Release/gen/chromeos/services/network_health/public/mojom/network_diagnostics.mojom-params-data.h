@@ -92,6 +92,9 @@ class  NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t source_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data>;
@@ -99,7 +102,7 @@ class  NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data {
   NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data();
   ~NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data) == 8,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data) == 16,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunLanConnectivity_ResponseParams_Data {
  public:
@@ -123,6 +126,9 @@ class  NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t source_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data>;
@@ -130,7 +136,7 @@ class  NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data {
   NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data();
   ~NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data) == 8,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data) == 16,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunSignalStrength_ResponseParams_Data {
  public:
@@ -154,6 +160,9 @@ class  NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t source_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data>;
@@ -161,7 +170,7 @@ class  NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data {
   NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data();
   ~NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data) == 8,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data) == 16,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ResponseParams_Data {
  public:
@@ -185,6 +194,9 @@ class  NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t source_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data>;
@@ -192,7 +204,7 @@ class  NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data {
   NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data();
   ~NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data) == 8,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data) == 16,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ResponseParams_Data {
  public:
@@ -216,6 +228,9 @@ class  NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t source_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data>;
@@ -223,7 +238,7 @@ class  NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data {
   NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data();
   ~NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data) == 8,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data) == 16,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunDnsResolverPresent_ResponseParams_Data {
  public:
@@ -247,6 +262,9 @@ class  NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t source_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data>;
@@ -254,7 +272,7 @@ class  NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data {
   NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data();
   ~NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data) == 8,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data) == 16,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunDnsLatency_ResponseParams_Data {
  public:
@@ -278,6 +296,9 @@ class  NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t source_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data>;
@@ -285,7 +306,7 @@ class  NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data {
   NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data();
   ~NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data) == 8,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data) == 16,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunDnsResolution_ResponseParams_Data {
  public:
@@ -309,6 +330,9 @@ class  NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t source_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data>;
@@ -316,7 +340,7 @@ class  NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data {
   NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data();
   ~NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data) == 8,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data) == 16,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunCaptivePortal_ResponseParams_Data {
  public:
@@ -340,6 +364,9 @@ class  NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t source_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data>;
@@ -347,7 +374,7 @@ class  NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data {
   NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data();
   ~NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data) == 8,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data) == 16,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunHttpFirewall_ResponseParams_Data {
  public:
@@ -371,6 +398,9 @@ class  NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t source_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data>;
@@ -378,7 +408,7 @@ class  NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data {
   NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data();
   ~NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data) == 8,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data) == 16,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunHttpsFirewall_ResponseParams_Data {
  public:
@@ -402,6 +432,9 @@ class  NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t source_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data>;
@@ -409,7 +442,7 @@ class  NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data {
   NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data();
   ~NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data) == 8,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data) == 16,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunHttpsLatency_ResponseParams_Data {
  public:
@@ -434,6 +467,9 @@ class  NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> stun_server_hostname;
+  uint8_t source_$flag : 1;
+  uint8_t pad1_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data>;
@@ -441,7 +477,7 @@ class  NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data {
   NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data();
   ~NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data) == 16,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data) == 24,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunVideoConferencing_ResponseParams_Data {
  public:
@@ -465,6 +501,9 @@ class  NetworkDiagnosticsRoutines_RunArcHttp_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t source_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunArcHttp_Params_Data>;
@@ -472,7 +511,7 @@ class  NetworkDiagnosticsRoutines_RunArcHttp_Params_Data {
   NetworkDiagnosticsRoutines_RunArcHttp_Params_Data();
   ~NetworkDiagnosticsRoutines_RunArcHttp_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunArcHttp_Params_Data) == 8,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunArcHttp_Params_Data) == 16,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunArcHttp_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunArcHttp_ResponseParams_Data {
  public:
@@ -496,6 +535,9 @@ class  NetworkDiagnosticsRoutines_RunArcPing_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t source_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunArcPing_Params_Data>;
@@ -503,7 +545,7 @@ class  NetworkDiagnosticsRoutines_RunArcPing_Params_Data {
   NetworkDiagnosticsRoutines_RunArcPing_Params_Data();
   ~NetworkDiagnosticsRoutines_RunArcPing_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunArcPing_Params_Data) == 8,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunArcPing_Params_Data) == 16,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunArcPing_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunArcPing_ResponseParams_Data {
  public:
@@ -527,6 +569,9 @@ class  NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t source_$flag : 1;
+  uint8_t pad0_[3];
+  int32_t source_$value;
 
  private:
   friend class mojo::internal::MessageFragment<NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data>;
@@ -534,7 +579,7 @@ class  NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data {
   NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data();
   ~NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data() = delete;
 };
-static_assert(sizeof(NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data) == 8,
+static_assert(sizeof(NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data) == 16,
               "Bad sizeof(NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data)");
 class  NetworkDiagnosticsRoutines_RunArcDnsResolution_ResponseParams_Data {
  public:
@@ -602,7 +647,7 @@ static_assert(
         ::chromeos::network_diagnostics::mojom::RoutineResultDataView, UserType>(),
     "Attempting to read the optional `result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResult` instead "
     "of `ReadResult if you're fine with null values being "
@@ -668,6 +713,30 @@ class NetworkDiagnosticsRoutines_RunLanConnectivity_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
+  }
  private:
   internal::NetworkDiagnosticsRoutines_RunLanConnectivity_Params_Data* data_ = nullptr;
 };
@@ -709,6 +778,30 @@ class NetworkDiagnosticsRoutines_RunSignalStrength_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
+  }
  private:
   internal::NetworkDiagnosticsRoutines_RunSignalStrength_Params_Data* data_ = nullptr;
 };
@@ -750,6 +843,30 @@ class NetworkDiagnosticsRoutines_RunGatewayCanBePinged_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
+  }
  private:
   internal::NetworkDiagnosticsRoutines_RunGatewayCanBePinged_Params_Data* data_ = nullptr;
 };
@@ -791,6 +908,30 @@ class NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
+  }
  private:
   internal::NetworkDiagnosticsRoutines_RunHasSecureWiFiConnection_Params_Data* data_ = nullptr;
 };
@@ -832,6 +973,30 @@ class NetworkDiagnosticsRoutines_RunDnsResolverPresent_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
+  }
  private:
   internal::NetworkDiagnosticsRoutines_RunDnsResolverPresent_Params_Data* data_ = nullptr;
 };
@@ -873,6 +1038,30 @@ class NetworkDiagnosticsRoutines_RunDnsLatency_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
+  }
  private:
   internal::NetworkDiagnosticsRoutines_RunDnsLatency_Params_Data* data_ = nullptr;
 };
@@ -914,6 +1103,30 @@ class NetworkDiagnosticsRoutines_RunDnsResolution_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
+  }
  private:
   internal::NetworkDiagnosticsRoutines_RunDnsResolution_Params_Data* data_ = nullptr;
 };
@@ -955,6 +1168,30 @@ class NetworkDiagnosticsRoutines_RunCaptivePortal_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
+  }
  private:
   internal::NetworkDiagnosticsRoutines_RunCaptivePortal_Params_Data* data_ = nullptr;
 };
@@ -996,6 +1233,30 @@ class NetworkDiagnosticsRoutines_RunHttpFirewall_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
+  }
  private:
   internal::NetworkDiagnosticsRoutines_RunHttpFirewall_Params_Data* data_ = nullptr;
 };
@@ -1037,6 +1298,30 @@ class NetworkDiagnosticsRoutines_RunHttpsFirewall_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
+  }
  private:
   internal::NetworkDiagnosticsRoutines_RunHttpsFirewall_Params_Data* data_ = nullptr;
 };
@@ -1078,6 +1363,30 @@ class NetworkDiagnosticsRoutines_RunHttpsLatency_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
+  }
  private:
   internal::NetworkDiagnosticsRoutines_RunHttpsLatency_Params_Data* data_ = nullptr;
 };
@@ -1130,7 +1439,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `stun_server_hostname` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStunServerHostname` instead "
     "of `ReadStunServerHostname if you're fine with null values being "
@@ -1138,6 +1447,30 @@ static_assert(
     auto* pointer = data_->stun_server_hostname.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
   }
  private:
   internal::NetworkDiagnosticsRoutines_RunVideoConferencing_Params_Data* data_ = nullptr;
@@ -1181,6 +1514,30 @@ class NetworkDiagnosticsRoutines_RunArcHttp_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
+  }
  private:
   internal::NetworkDiagnosticsRoutines_RunArcHttp_Params_Data* data_ = nullptr;
 };
@@ -1222,6 +1579,30 @@ class NetworkDiagnosticsRoutines_RunArcPing_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
+  }
  private:
   internal::NetworkDiagnosticsRoutines_RunArcPing_Params_Data* data_ = nullptr;
 };
@@ -1263,6 +1644,30 @@ class NetworkDiagnosticsRoutines_RunArcDnsResolution_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadSource(UserType* output) const {
+    if (data_->header_.version < 2) {
+      *output = std::nullopt;
+      return true;
+    }
+    if (!data_->source_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::chromeos::network_diagnostics::mojom::RoutineCallSource>(
+        data_->source_$value, &output->emplace());
+  }
+  std::optional<RoutineCallSource> source() const {
+    if (data_->header_.version < 2) {
+      return std::nullopt;
+    }
+    if (!data_->source_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::chromeos::network_diagnostics::mojom::RoutineCallSource>(data_->source_$value));
+  }
  private:
   internal::NetworkDiagnosticsRoutines_RunArcDnsResolution_Params_Data* data_ = nullptr;
 };

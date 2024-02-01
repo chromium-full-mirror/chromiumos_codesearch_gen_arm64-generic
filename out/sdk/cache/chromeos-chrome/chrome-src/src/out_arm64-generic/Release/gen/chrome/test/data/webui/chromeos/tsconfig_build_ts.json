@@ -53,6 +53,9 @@
       "chrome://internet-detail-dialog/*": [
         "./../../../../browser/resources/chromeos/internet_detail_dialog/tsc/*"
       ],
+      "chrome://internet-config-dialog/*": [
+        "./../../../../browser/resources/chromeos/internet_config_dialog/tsc/*"
+      ],
       "chrome://webui-test/*": [
         "./../tsc/*"
       ]
@@ -66,7 +69,7 @@
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/crostini_upgrader_app_test.js",
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/fake_network_config_mojom.js",
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/fake_passpoint_service_mojom.ts",
-    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/internet_config_dialog_test.js",
+    "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/internet_config_dialog_test.ts",
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/internet_detail_dialog_test.ts",
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/mock_controller.js",
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/chromeos/mock_controller.m.js",
@@ -125,6 +128,9 @@
   "references": [
     {
       "path": "../../../../../ash/webui/common/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../browser/resources/chromeos/internet_config_dialog/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../browser/resources/chromeos/internet_detail_dialog/tsconfig_build_ts.json"

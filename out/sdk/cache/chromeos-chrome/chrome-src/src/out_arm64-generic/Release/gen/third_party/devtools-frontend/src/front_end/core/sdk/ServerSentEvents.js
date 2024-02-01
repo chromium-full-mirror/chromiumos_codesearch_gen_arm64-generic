@@ -1,7 +1,7 @@
 // Copyright 2024 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { ContentData } from './ContentData.js';
+import * as TextUtils from '../../models/text_utils/text_utils.js';
 import { NetworkManager } from './NetworkManager.js';
 import { Events } from './NetworkRequest.js';
 import { ServerSentEventsParser } from './ServerSentEventsProtocol.js';
@@ -29,7 +29,7 @@ export class ServerSentEvents {
             this.#lastDataReceivedTime = request.pseudoWallTime(request.startTime);
             this.#parser = new ServerSentEventsParser(this.#onParserEvent.bind(this), request.charset() ?? undefined);
             void NetworkManager.streamResponseBody(this.#request).then(contentData => {
-                if (!ContentData.isError(contentData)) {
+                if (!TextUtils.ContentData.ContentData.isError(contentData)) {
                     // Partial data is always base64 encoded.
                     void this.#parser?.addBase64Chunk(contentData.base64);
                 }

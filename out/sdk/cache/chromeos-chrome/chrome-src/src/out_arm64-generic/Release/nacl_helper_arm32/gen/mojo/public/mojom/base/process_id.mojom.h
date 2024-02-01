@@ -54,7 +54,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) ProcessId {
   template <typename... Args>
   static ProcessIdPtr New(Args&&... args) {
     return ProcessIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

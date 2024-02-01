@@ -27,9 +27,11 @@ class DisplaySettingsValueDataView;
 
 enum class DisplaySettingsType : int32_t;
 
+enum class DisplaySettingsNightLightScheduleOption : int32_t;
+
 enum class DisplaySettingsOrientationOption : int32_t;
 class DisplaySettingsValue;
-using DisplaySettingsValuePtr = mojo::InlinedStructPtr<DisplaySettingsValue>;
+using DisplaySettingsValuePtr = mojo::StructPtr<DisplaySettingsValue>;
 
 class TabletModeObserver;
 

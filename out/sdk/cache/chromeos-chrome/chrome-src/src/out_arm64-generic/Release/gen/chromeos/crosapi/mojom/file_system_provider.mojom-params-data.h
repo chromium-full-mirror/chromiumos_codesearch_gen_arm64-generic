@@ -743,7 +743,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `file_system_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFileSystemId` instead "
     "of `ReadFileSystemId if you're fine with null values being "
@@ -840,7 +840,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `file_system_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFileSystemId` instead "
     "of `ReadFileSystemId if you're fine with null values being "
@@ -1089,7 +1089,7 @@ static_assert(
         ::crosapi::mojom::FileSystemInfoDataView, UserType>(),
     "Attempting to read the optional `info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInfo` instead "
     "of `ReadInfo if you're fine with null values being "
@@ -1516,7 +1516,7 @@ static_assert(
         ::gfx::mojom::ImageSkiaDataView, UserType>(),
     "Attempting to read the optional `icon16x16` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIcon16x16` instead "
     "of `ReadIcon16x16 if you're fine with null values being "
@@ -1536,7 +1536,7 @@ static_assert(
         ::gfx::mojom::ImageSkiaDataView, UserType>(),
     "Attempting to read the optional `icon32x32` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIcon32x32` instead "
     "of `ReadIcon32x32 if you're fine with null values being "

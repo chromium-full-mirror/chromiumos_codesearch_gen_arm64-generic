@@ -241,7 +241,7 @@ class  Heuristics {
   template <typename... Args>
   static HeuristicsPtr New(Args&&... args) {
     return HeuristicsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -390,7 +390,7 @@ class  Product {
   template <typename... Args>
   static ProductPtr New(Args&&... args) {
     return ProductPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -636,6 +636,7 @@ bool MediaSessionInfo_Data::Validate(
     { 14, 56 },
     { 15, 64 },
     { 16, 64 },
+    { 20, 64 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -714,7 +715,7 @@ bool MediaSessionInfo_Data::Validate(
 }
 
 MediaSessionInfo_Data::MediaSessionInfo_Data()
-    : header_({sizeof(*this), 16}) {}
+    : header_({sizeof(*this), 20}) {}
 
 
 // static

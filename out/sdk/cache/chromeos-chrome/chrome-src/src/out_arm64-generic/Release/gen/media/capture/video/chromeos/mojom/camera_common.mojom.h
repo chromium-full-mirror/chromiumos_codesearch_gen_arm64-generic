@@ -514,7 +514,7 @@ class  CameraResourceCost {
   template <typename... Args>
   static CameraResourceCostPtr New(Args&&... args) {
     return CameraResourceCostPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -659,7 +659,7 @@ class  CameraInfo {
   template <typename... Args>
   static CameraInfoPtr New(Args&&... args) {
     return CameraInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

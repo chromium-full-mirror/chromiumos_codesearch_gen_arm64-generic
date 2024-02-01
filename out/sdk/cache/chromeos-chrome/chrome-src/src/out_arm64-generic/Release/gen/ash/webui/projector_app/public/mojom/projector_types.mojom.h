@@ -54,7 +54,7 @@ class  PendingScreencast {
   template <typename... Args>
   static PendingScreencastPtr New(Args&&... args) {
     return PendingScreencastPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -204,7 +204,7 @@ class  XhrResponse {
   template <typename... Args>
   static XhrResponsePtr New(Args&&... args) {
     return XhrResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -350,7 +350,7 @@ class  Account {
   template <typename... Args>
   static AccountPtr New(Args&&... args) {
     return AccountPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -494,7 +494,7 @@ class  VideoInfo {
   template <typename... Args>
   static VideoInfoPtr New(Args&&... args) {
     return VideoInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -648,7 +648,7 @@ class  GetVideoResult {
   static GetVideoResultPtr
   NewVideo(
       VideoInfoPtr value) {
-    auto result = GetVideoResultPtr(absl::in_place);
+    auto result = GetVideoResultPtr(std::in_place);
     result->set_video(std::move(value));
     return result;
   }
@@ -656,7 +656,7 @@ class  GetVideoResult {
   static GetVideoResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = GetVideoResultPtr(absl::in_place);
+    auto result = GetVideoResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -771,7 +771,7 @@ class  NewScreencastPrecondition {
   template <typename... Args>
   static NewScreencastPreconditionPtr New(Args&&... args) {
     return NewScreencastPreconditionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

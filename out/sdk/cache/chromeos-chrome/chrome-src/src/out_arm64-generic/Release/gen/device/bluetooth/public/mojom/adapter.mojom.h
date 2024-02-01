@@ -1008,7 +1008,7 @@ class  ConnectToServiceResult {
   template <typename... Args>
   static ConnectToServiceResultPtr New(Args&&... args) {
     return ConnectToServiceResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1151,7 +1151,7 @@ class  AcceptConnectionResult {
   template <typename... Args>
   static AcceptConnectionResultPtr New(Args&&... args) {
     return AcceptConnectionResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1297,7 +1297,7 @@ class  AdapterInfo {
   template <typename... Args>
   static AdapterInfoPtr New(Args&&... args) {
     return AdapterInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

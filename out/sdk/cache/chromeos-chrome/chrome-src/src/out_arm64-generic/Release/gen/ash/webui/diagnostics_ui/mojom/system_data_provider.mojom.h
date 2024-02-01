@@ -633,7 +633,7 @@ class  DeviceCapabilities {
   template <typename... Args>
   static DeviceCapabilitiesPtr New(Args&&... args) {
     return DeviceCapabilitiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -774,7 +774,7 @@ class  VersionInfo {
   template <typename... Args>
   static VersionInfoPtr New(Args&&... args) {
     return VersionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -919,7 +919,7 @@ class  BatteryInfo {
   template <typename... Args>
   static BatteryInfoPtr New(Args&&... args) {
     return BatteryInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1064,7 +1064,7 @@ class  BatteryHealth {
   template <typename... Args>
   static BatteryHealthPtr New(Args&&... args) {
     return BatteryHealthPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1214,7 +1214,7 @@ class  MemoryUsage {
   template <typename... Args>
   static MemoryUsagePtr New(Args&&... args) {
     return MemoryUsagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1366,7 +1366,7 @@ class  SystemInfo {
   template <typename... Args>
   static SystemInfoPtr New(Args&&... args) {
     return SystemInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1531,7 +1531,7 @@ class  BatteryChargeStatus {
   template <typename... Args>
   static BatteryChargeStatusPtr New(Args&&... args) {
     return BatteryChargeStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1685,7 +1685,7 @@ class  CpuUsage {
   template <typename... Args>
   static CpuUsagePtr New(Args&&... args) {
     return CpuUsagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

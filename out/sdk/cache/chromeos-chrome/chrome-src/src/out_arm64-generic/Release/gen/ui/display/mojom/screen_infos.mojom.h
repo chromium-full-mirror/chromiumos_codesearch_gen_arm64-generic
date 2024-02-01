@@ -58,7 +58,7 @@ class  ScreenInfos {
   template <typename... Args>
   static ScreenInfosPtr New(Args&&... args) {
     return ScreenInfosPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

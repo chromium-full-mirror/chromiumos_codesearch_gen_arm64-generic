@@ -66,7 +66,7 @@ class  NotifierId {
   template <typename... Args>
   static NotifierIdPtr New(Args&&... args) {
     return NotifierIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -228,7 +228,7 @@ class  NotificationItem {
   template <typename... Args>
   static NotificationItemPtr New(Args&&... args) {
     return NotificationItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -371,7 +371,7 @@ class  ButtonInfo {
   template <typename... Args>
   static ButtonInfoPtr New(Args&&... args) {
     return ButtonInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -517,7 +517,7 @@ class  Notification {
   template <typename... Args>
   static NotificationPtr New(Args&&... args) {
     return NotificationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

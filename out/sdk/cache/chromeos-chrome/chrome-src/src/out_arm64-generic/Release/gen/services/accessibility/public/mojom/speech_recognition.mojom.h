@@ -300,7 +300,7 @@ class  SpeechRecognitionResultEvent {
   template <typename... Args>
   static SpeechRecognitionResultEventPtr New(Args&&... args) {
     return SpeechRecognitionResultEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -444,7 +444,7 @@ class  SpeechRecognitionErrorEvent {
   template <typename... Args>
   static SpeechRecognitionErrorEventPtr New(Args&&... args) {
     return SpeechRecognitionErrorEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -585,7 +585,7 @@ class  StartOptions {
   template <typename... Args>
   static StartOptionsPtr New(Args&&... args) {
     return StartOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -731,7 +731,7 @@ class  StopOptions {
   template <typename... Args>
   static StopOptionsPtr New(Args&&... args) {
     return StopOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -883,7 +883,7 @@ class  ObserverOrError {
   static ObserverOrErrorPtr
   NewObserver(
       ::mojo::PendingReceiver<SpeechRecognitionEventObserver> value) {
-    auto result = ObserverOrErrorPtr(absl::in_place);
+    auto result = ObserverOrErrorPtr(std::in_place);
     result->set_observer(std::move(value));
     return result;
   }
@@ -891,7 +891,7 @@ class  ObserverOrError {
   static ObserverOrErrorPtr
   NewError(
       const std::string& value) {
-    auto result = ObserverOrErrorPtr(absl::in_place);
+    auto result = ObserverOrErrorPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1009,7 +1009,7 @@ class  SpeechRecognitionStartInfo {
   template <typename... Args>
   static SpeechRecognitionStartInfoPtr New(Args&&... args) {
     return SpeechRecognitionStartInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

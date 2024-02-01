@@ -125,6 +125,9 @@ AppPermissionsHandler::IPCStableHashFunction AppPermissionsHandler::MessageToMet
     case internal::kAppPermissionsHandler_GetSystemAppsThatUseMicrophone_Name: {
       return &AppPermissionsHandler::GetSystemAppsThatUseMicrophone_Sym::IPCStableHash;
     }
+    case internal::kAppPermissionsHandler_OpenBrowserPermissionSettings_Name: {
+      return &AppPermissionsHandler::OpenBrowserPermissionSettings_Sym::IPCStableHash;
+    }
     case internal::kAppPermissionsHandler_OpenNativeSettings_Name: {
       return &AppPermissionsHandler::OpenNativeSettings_Sym::IPCStableHash;
     }
@@ -150,6 +153,8 @@ const char* AppPermissionsHandler::MessageToMethodName_(mojo::Message& message) 
             return "Receive ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseCamera";
       case internal::kAppPermissionsHandler_GetSystemAppsThatUseMicrophone_Name:
             return "Receive ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseMicrophone";
+      case internal::kAppPermissionsHandler_OpenBrowserPermissionSettings_Name:
+            return "Receive ash::settings::app_permission::mojom::AppPermissionsHandler::OpenBrowserPermissionSettings";
       case internal::kAppPermissionsHandler_OpenNativeSettings_Name:
             return "Receive ash::settings::app_permission::mojom::AppPermissionsHandler::OpenNativeSettings";
       case internal::kAppPermissionsHandler_SetPermission_Name:
@@ -165,6 +170,8 @@ const char* AppPermissionsHandler::MessageToMethodName_(mojo::Message& message) 
             return "Receive reply ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseCamera";
       case internal::kAppPermissionsHandler_GetSystemAppsThatUseMicrophone_Name:
             return "Receive reply ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseMicrophone";
+      case internal::kAppPermissionsHandler_OpenBrowserPermissionSettings_Name:
+            return "Receive reply ash::settings::app_permission::mojom::AppPermissionsHandler::OpenBrowserPermissionSettings";
       case internal::kAppPermissionsHandler_OpenNativeSettings_Name:
             return "Receive reply ash::settings::app_permission::mojom::AppPermissionsHandler::OpenNativeSettings";
       case internal::kAppPermissionsHandler_SetPermission_Name:
@@ -231,6 +238,19 @@ uint32_t AppPermissionsHandler::GetSystemAppsThatUseMicrophone_Sym::IPCStableHas
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::settings::app_permission::mojom::AppPermissionsHandler::GetSystemAppsThatUseMicrophone");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t AppPermissionsHandler::OpenBrowserPermissionSettings_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::settings::app_permission::mojom::AppPermissionsHandler::OpenBrowserPermissionSettings");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -461,6 +481,48 @@ void AppPermissionsHandlerProxy::GetSystemAppsThatUseMicrophone(
       new AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void AppPermissionsHandlerProxy::OpenBrowserPermissionSettings(
+    ::apps::PermissionType in_permission_type) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::settings::app_permission::mojom::AppPermissionsHandler::OpenBrowserPermissionSettings", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("permission_type"), in_permission_type,
+                        "<value of type ::apps::PermissionType>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kAppPermissionsHandler_OpenBrowserPermissionSettings_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::settings::app_permission::mojom::internal::AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::Serialize<::app_management::mojom::PermissionType>(
+      in_permission_type, &params->permission_type);
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(AppPermissionsHandler::Name_);
+  message.set_method_name("OpenBrowserPermissionSettings");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
 void AppPermissionsHandlerProxy::OpenNativeSettings(
@@ -1022,6 +1084,34 @@ bool AppPermissionsHandlerStubDispatch::Accept(
     case internal::kAppPermissionsHandler_GetSystemAppsThatUseMicrophone_Name: {
       break;
     }
+    case internal::kAppPermissionsHandler_OpenBrowserPermissionSettings_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data* params =
+          reinterpret_cast<internal::AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for AppPermissionsHandler.4
+      bool success = true;
+      ::apps::PermissionType p_permission_type{};
+      AppPermissionsHandler_OpenBrowserPermissionSettings_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadPermissionType(&p_permission_type))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            AppPermissionsHandler::Name_, 4, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->OpenBrowserPermissionSettings(        
+        std::move(p_permission_type));
+      return true;
+    }
     case internal::kAppPermissionsHandler_OpenNativeSettings_Name: {
 
       DCHECK(message->is_serialized());
@@ -1030,7 +1120,7 @@ bool AppPermissionsHandlerStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AppPermissionsHandler.4
+      // Validation for AppPermissionsHandler.5
       bool success = true;
       std::string p_app_id{};
       AppPermissionsHandler_OpenNativeSettings_ParamsDataView input_data_view(params, message);
@@ -1041,7 +1131,7 @@ bool AppPermissionsHandlerStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AppPermissionsHandler::Name_, 4, false);
+            AppPermissionsHandler::Name_, 5, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1058,7 +1148,7 @@ bool AppPermissionsHandlerStubDispatch::Accept(
               message->mutable_payload());
       
       
-      // Validation for AppPermissionsHandler.5
+      // Validation for AppPermissionsHandler.6
       bool success = true;
       std::string p_app_id{};
       ::apps::PermissionPtr p_permission{};
@@ -1072,7 +1162,7 @@ bool AppPermissionsHandlerStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            AppPermissionsHandler::Name_, 5, false);
+            AppPermissionsHandler::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -1179,6 +1269,9 @@ bool AppPermissionsHandlerStubDispatch::AcceptWithResponder(
       impl->GetSystemAppsThatUseMicrophone(std::move(callback));
       return true;
     }
+    case internal::kAppPermissionsHandler_OpenBrowserPermissionSettings_Name: {
+      break;
+    }
     case internal::kAppPermissionsHandler_OpenNativeSettings_Name: {
       break;
     }
@@ -1199,6 +1292,8 @@ static const mojo::internal::GenericValidationInfo kAppPermissionsHandlerValidat
      &internal::AppPermissionsHandler_GetSystemAppsThatUseCamera_ResponseParams_Data::Validate},
     { &internal::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_Params_Data::Validate,
      &internal::AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data::Validate},
+    { &internal::AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data::Validate,
+     nullptr /* no response */},
     { &internal::AppPermissionsHandler_OpenNativeSettings_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::AppPermissionsHandler_SetPermission_Params_Data::Validate,
@@ -1540,6 +1635,9 @@ void AppPermissionsHandlerInterceptorForTesting::GetSystemAppsThatUseCamera(GetS
 }
 void AppPermissionsHandlerInterceptorForTesting::GetSystemAppsThatUseMicrophone(GetSystemAppsThatUseMicrophoneCallback callback) {
   GetForwardingInterface()->GetSystemAppsThatUseMicrophone(std::move(callback));
+}
+void AppPermissionsHandlerInterceptorForTesting::OpenBrowserPermissionSettings(::apps::PermissionType permission_type) {
+  GetForwardingInterface()->OpenBrowserPermissionSettings(std::move(permission_type));
 }
 void AppPermissionsHandlerInterceptorForTesting::OpenNativeSettings(const std::string& app_id) {
   GetForwardingInterface()->OpenNativeSettings(std::move(app_id));

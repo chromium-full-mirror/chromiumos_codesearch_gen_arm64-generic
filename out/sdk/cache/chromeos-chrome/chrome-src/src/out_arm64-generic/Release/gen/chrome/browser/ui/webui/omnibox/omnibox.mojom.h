@@ -326,7 +326,7 @@ class  ACMatchClassification {
   template <typename... Args>
   static ACMatchClassificationPtr New(Args&&... args) {
     return ACMatchClassificationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -470,7 +470,7 @@ class  DictionaryEntry {
   template <typename... Args>
   static DictionaryEntryPtr New(Args&&... args) {
     return DictionaryEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -622,7 +622,7 @@ class  Signals {
   template <typename... Args>
   static SignalsPtr New(Args&&... args) {
     return SignalsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -831,7 +831,7 @@ class  AutocompleteMatch {
   template <typename... Args>
   static AutocompleteMatchPtr New(Args&&... args) {
     return AutocompleteMatchPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1057,7 +1057,7 @@ class  AutocompleteResultsForProvider {
   template <typename... Args>
   static AutocompleteResultsForProviderPtr New(Args&&... args) {
     return AutocompleteResultsForProviderPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1202,7 +1202,7 @@ class  OmniboxResponse {
   template <typename... Args>
   static OmniboxResponsePtr New(Args&&... args) {
     return OmniboxResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

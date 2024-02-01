@@ -455,7 +455,7 @@ static_assert(
         ::side_panel::customize_chrome::mojom::ResultDescriptorsDataView, UserType>(),
     "Attempting to read the optional `descriptors` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDescriptors` instead "
     "of `ReadDescriptors if you're fine with null values being "
@@ -491,7 +491,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `subject` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSubject` instead "
     "of `ReadSubject if you're fine with null values being "
@@ -511,7 +511,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `style` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStyle` instead "
     "of `ReadStyle if you're fine with null values being "
@@ -531,7 +531,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `mood` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMood` instead "
     "of `ReadMood if you're fine with null values being "
@@ -551,7 +551,7 @@ static_assert(
         ::side_panel::customize_chrome::mojom::DescriptorDValueDataView, UserType>(),
     "Attempting to read the optional `color` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadColor` instead "
     "of `ReadColor if you're fine with null values being "

@@ -52,7 +52,7 @@ class  DoubleValue {
   template <typename... Args>
   static DoubleValuePtr New(Args&&... args) {
     return DoubleValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -193,7 +193,7 @@ class  Int64Value {
   template <typename... Args>
   static Int64ValuePtr New(Args&&... args) {
     return Int64ValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -334,7 +334,7 @@ class  UInt8Value {
   template <typename... Args>
   static UInt8ValuePtr New(Args&&... args) {
     return UInt8ValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -475,7 +475,7 @@ class  UInt16Value {
   template <typename... Args>
   static UInt16ValuePtr New(Args&&... args) {
     return UInt16ValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -616,7 +616,7 @@ class  UInt32Value {
   template <typename... Args>
   static UInt32ValuePtr New(Args&&... args) {
     return UInt32ValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -757,7 +757,7 @@ class  UInt64Value {
   template <typename... Args>
   static UInt64ValuePtr New(Args&&... args) {
     return UInt64ValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -898,7 +898,7 @@ class  BoolValue {
   template <typename... Args>
   static BoolValuePtr New(Args&&... args) {
     return BoolValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

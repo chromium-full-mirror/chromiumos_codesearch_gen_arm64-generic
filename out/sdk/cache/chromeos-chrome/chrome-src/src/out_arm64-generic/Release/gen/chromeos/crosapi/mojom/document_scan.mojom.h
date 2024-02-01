@@ -268,7 +268,7 @@ class  ScannerEnumFilter {
   template <typename... Args>
   static ScannerEnumFilterPtr New(Args&&... args) {
     return ScannerEnumFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -412,7 +412,7 @@ class  IntRange {
   template <typename... Args>
   static IntRangePtr New(Args&&... args) {
     return IntRangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -559,7 +559,7 @@ class  FixedRange {
   template <typename... Args>
   static FixedRangePtr New(Args&&... args) {
     return FixedRangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -710,7 +710,7 @@ class  CloseScannerResponse {
   template <typename... Args>
   static CloseScannerResponsePtr New(Args&&... args) {
     return CloseScannerResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -854,7 +854,7 @@ class  StartScanOptions {
   template <typename... Args>
   static StartScanOptionsPtr New(Args&&... args) {
     return StartScanOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -995,7 +995,7 @@ class  StartPreparedScanResponse {
   template <typename... Args>
   static StartPreparedScanResponsePtr New(Args&&... args) {
     return StartPreparedScanResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1144,7 +1144,7 @@ class  SetOptionResult {
   template <typename... Args>
   static SetOptionResultPtr New(Args&&... args) {
     return SetOptionResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1290,7 +1290,7 @@ class  CancelScanResponse {
   template <typename... Args>
   static CancelScanResponsePtr New(Args&&... args) {
     return CancelScanResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1444,7 +1444,7 @@ class  OptionValue {
   static OptionValuePtr
   NewBoolValue(
       bool value) {
-    auto result = OptionValuePtr(absl::in_place);
+    auto result = OptionValuePtr(std::in_place);
     result->set_bool_value(std::move(value));
     return result;
   }
@@ -1452,7 +1452,7 @@ class  OptionValue {
   static OptionValuePtr
   NewIntValue(
       int32_t value) {
-    auto result = OptionValuePtr(absl::in_place);
+    auto result = OptionValuePtr(std::in_place);
     result->set_int_value(std::move(value));
     return result;
   }
@@ -1460,7 +1460,7 @@ class  OptionValue {
   static OptionValuePtr
   NewIntList(
       std::vector<int32_t> value) {
-    auto result = OptionValuePtr(absl::in_place);
+    auto result = OptionValuePtr(std::in_place);
     result->set_int_list(std::move(value));
     return result;
   }
@@ -1468,7 +1468,7 @@ class  OptionValue {
   static OptionValuePtr
   NewFixedValue(
       double value) {
-    auto result = OptionValuePtr(absl::in_place);
+    auto result = OptionValuePtr(std::in_place);
     result->set_fixed_value(std::move(value));
     return result;
   }
@@ -1476,7 +1476,7 @@ class  OptionValue {
   static OptionValuePtr
   NewFixedList(
       std::vector<double> value) {
-    auto result = OptionValuePtr(absl::in_place);
+    auto result = OptionValuePtr(std::in_place);
     result->set_fixed_list(std::move(value));
     return result;
   }
@@ -1484,7 +1484,7 @@ class  OptionValue {
   static OptionValuePtr
   NewStringValue(
       const std::string& value) {
-    auto result = OptionValuePtr(absl::in_place);
+    auto result = OptionValuePtr(std::in_place);
     result->set_string_value(std::move(value));
     return result;
   }
@@ -1658,7 +1658,7 @@ class  OptionConstraintRestriction {
   static OptionConstraintRestrictionPtr
   NewIntRange(
       IntRangePtr value) {
-    auto result = OptionConstraintRestrictionPtr(absl::in_place);
+    auto result = OptionConstraintRestrictionPtr(std::in_place);
     result->set_int_range(std::move(value));
     return result;
   }
@@ -1666,7 +1666,7 @@ class  OptionConstraintRestriction {
   static OptionConstraintRestrictionPtr
   NewFixedRange(
       FixedRangePtr value) {
-    auto result = OptionConstraintRestrictionPtr(absl::in_place);
+    auto result = OptionConstraintRestrictionPtr(std::in_place);
     result->set_fixed_range(std::move(value));
     return result;
   }
@@ -1674,7 +1674,7 @@ class  OptionConstraintRestriction {
   static OptionConstraintRestrictionPtr
   NewValidInt(
       std::vector<int32_t> value) {
-    auto result = OptionConstraintRestrictionPtr(absl::in_place);
+    auto result = OptionConstraintRestrictionPtr(std::in_place);
     result->set_valid_int(std::move(value));
     return result;
   }
@@ -1682,7 +1682,7 @@ class  OptionConstraintRestriction {
   static OptionConstraintRestrictionPtr
   NewValidFixed(
       std::vector<double> value) {
-    auto result = OptionConstraintRestrictionPtr(absl::in_place);
+    auto result = OptionConstraintRestrictionPtr(std::in_place);
     result->set_valid_fixed(std::move(value));
     return result;
   }
@@ -1690,7 +1690,7 @@ class  OptionConstraintRestriction {
   static OptionConstraintRestrictionPtr
   NewValidString(
       std::vector<std::string> value) {
-    auto result = OptionConstraintRestrictionPtr(absl::in_place);
+    auto result = OptionConstraintRestrictionPtr(std::in_place);
     result->set_valid_string(std::move(value));
     return result;
   }
@@ -1844,7 +1844,7 @@ class  ScannerInfo {
   template <typename... Args>
   static ScannerInfoPtr New(Args&&... args) {
     return ScannerInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2008,7 +2008,7 @@ class  OptionConstraint {
   template <typename... Args>
   static OptionConstraintPtr New(Args&&... args) {
     return OptionConstraintPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2153,7 +2153,7 @@ class  ScannerOption {
   template <typename... Args>
   static ScannerOptionPtr New(Args&&... args) {
     return ScannerOptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2334,7 +2334,7 @@ class  GetScannerListResponse {
   template <typename... Args>
   static GetScannerListResponsePtr New(Args&&... args) {
     return GetScannerListResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2479,7 +2479,7 @@ class  OpenScannerResponse {
   template <typename... Args>
   static OpenScannerResponsePtr New(Args&&... args) {
     return OpenScannerResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2633,7 +2633,7 @@ class  ReadScanDataResponse {
   template <typename... Args>
   static ReadScanDataResponsePtr New(Args&&... args) {
     return ReadScanDataResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2782,7 +2782,7 @@ class  OptionSetting {
   template <typename... Args>
   static OptionSettingPtr New(Args&&... args) {
     return OptionSettingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2930,7 +2930,7 @@ class  OptionGroup {
   template <typename... Args>
   static OptionGroupPtr New(Args&&... args) {
     return OptionGroupPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3074,7 +3074,7 @@ class  SetOptionsResponse {
   template <typename... Args>
   static SetOptionsResponsePtr New(Args&&... args) {
     return SetOptionsResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3222,7 +3222,7 @@ class  GetOptionGroupsResponse {
   template <typename... Args>
   static GetOptionGroupsResponsePtr New(Args&&... args) {
     return GetOptionGroupsResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

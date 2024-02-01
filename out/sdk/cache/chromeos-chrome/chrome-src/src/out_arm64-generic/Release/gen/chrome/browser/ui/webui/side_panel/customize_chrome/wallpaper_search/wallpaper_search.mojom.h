@@ -473,7 +473,7 @@ class  DescriptorB {
   template <typename... Args>
   static DescriptorBPtr New(Args&&... args) {
     return DescriptorBPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -632,7 +632,7 @@ class  DescriptorDValue {
   static DescriptorDValuePtr
   NewColor(
       ::SkColor value) {
-    auto result = DescriptorDValuePtr(absl::in_place);
+    auto result = DescriptorDValuePtr(std::in_place);
     result->set_color(std::move(value));
     return result;
   }
@@ -640,7 +640,7 @@ class  DescriptorDValue {
   static DescriptorDValuePtr
   NewHue(
       float value) {
-    auto result = DescriptorDValuePtr(absl::in_place);
+    auto result = DescriptorDValuePtr(std::in_place);
     result->set_hue(std::move(value));
     return result;
   }
@@ -648,7 +648,7 @@ class  DescriptorDValue {
   static DescriptorDValuePtr
   NewName(
       DescriptorDName value) {
-    auto result = DescriptorDValuePtr(absl::in_place);
+    auto result = DescriptorDValuePtr(std::in_place);
     result->set_name(std::move(value));
     return result;
   }
@@ -775,7 +775,7 @@ class  DescriptorA {
   template <typename... Args>
   static DescriptorAPtr New(Args&&... args) {
     return DescriptorAPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -919,7 +919,7 @@ class  Descriptors {
   template <typename... Args>
   static DescriptorsPtr New(Args&&... args) {
     return DescriptorsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1067,7 +1067,7 @@ class  Inspiration {
   template <typename... Args>
   static InspirationPtr New(Args&&... args) {
     return InspirationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1216,7 +1216,7 @@ class  InspirationGroup {
   template <typename... Args>
   static InspirationGroupPtr New(Args&&... args) {
     return InspirationGroupPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1361,7 +1361,7 @@ class  WallpaperSearchResult {
   template <typename... Args>
   static WallpaperSearchResultPtr New(Args&&... args) {
     return WallpaperSearchResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1509,7 +1509,7 @@ class  ResultDescriptors {
   template <typename... Args>
   static ResultDescriptorsPtr New(Args&&... args) {
     return ResultDescriptorsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

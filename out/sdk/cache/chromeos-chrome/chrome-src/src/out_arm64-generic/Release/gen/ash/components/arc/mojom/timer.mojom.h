@@ -304,7 +304,7 @@ class  CreateTimerRequest {
   template <typename... Args>
   static CreateTimerRequestPtr New(Args&&... args) {
     return CreateTimerRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

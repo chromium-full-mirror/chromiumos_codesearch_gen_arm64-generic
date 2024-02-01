@@ -554,7 +554,7 @@ class  ThirdPartyThemeInfo {
   template <typename... Args>
   static ThirdPartyThemeInfoPtr New(Args&&... args) {
     return ThirdPartyThemeInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -701,7 +701,7 @@ class  ModuleSettings {
   template <typename... Args>
   static ModuleSettingsPtr New(Args&&... args) {
     return ModuleSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -850,7 +850,7 @@ class  BackgroundImage {
   template <typename... Args>
   static BackgroundImagePtr New(Args&&... args) {
     return BackgroundImagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1009,7 +1009,7 @@ class  Theme {
   template <typename... Args>
   static ThemePtr New(Args&&... args) {
     return ThemePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1166,7 +1166,7 @@ class  BackgroundCollection {
   template <typename... Args>
   static BackgroundCollectionPtr New(Args&&... args) {
     return BackgroundCollectionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1312,7 +1312,7 @@ class  CollectionImage {
   template <typename... Args>
   static CollectionImagePtr New(Args&&... args) {
     return CollectionImagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

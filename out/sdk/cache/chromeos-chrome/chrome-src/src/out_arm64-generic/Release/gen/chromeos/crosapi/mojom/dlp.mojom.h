@@ -332,7 +332,7 @@ class  ScreenShareArea {
   template <typename... Args>
   static ScreenShareAreaPtr New(Args&&... args) {
     return ScreenShareAreaPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -480,7 +480,7 @@ class  DlpRestrictionLevelAndUrl {
   template <typename... Args>
   static DlpRestrictionLevelAndUrlPtr New(Args&&... args) {
     return DlpRestrictionLevelAndUrlPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -623,7 +623,7 @@ class  DlpRestrictionSet {
   template <typename... Args>
   static DlpRestrictionSetPtr New(Args&&... args) {
     return DlpRestrictionSetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -61,7 +61,7 @@ class BLINK_COMMON_EXPORT RendererPreferences {
   template <typename... Args>
   static RendererPreferencesPtr New(Args&&... args) {
     return RendererPreferencesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

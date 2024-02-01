@@ -290,7 +290,7 @@ class CORE_EXPORT ServiceWorkerObjectInfo {
   template <typename... Args>
   static ServiceWorkerObjectInfoPtr New(Args&&... args) {
     return ServiceWorkerObjectInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

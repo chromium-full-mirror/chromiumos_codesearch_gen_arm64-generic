@@ -166,7 +166,7 @@ static_assert(
         ::media::mojom::AudioDecoderConfigDataView, UserType>(),
     "Attempting to read the optional `audio_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAudioConfig` instead "
     "of `ReadAudioConfig if you're fine with null values being "
@@ -186,7 +186,7 @@ static_assert(
         ::media::mojom::VideoDecoderConfigDataView, UserType>(),
     "Attempting to read the optional `video_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadVideoConfig` instead "
     "of `ReadVideoConfig if you're fine with null values being "
@@ -260,7 +260,7 @@ static_assert(
         ::media::mojom::AudioDecoderConfigDataView, UserType>(),
     "Attempting to read the optional `audio_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAudioConfig` instead "
     "of `ReadAudioConfig if you're fine with null values being "
@@ -280,7 +280,7 @@ static_assert(
         ::media::mojom::VideoDecoderConfigDataView, UserType>(),
     "Attempting to read the optional `video_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadVideoConfig` instead "
     "of `ReadVideoConfig if you're fine with null values being "

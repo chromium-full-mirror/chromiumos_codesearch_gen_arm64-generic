@@ -222,7 +222,7 @@ class  ParentAccessServerMessage {
   template <typename... Args>
   static ParentAccessServerMessagePtr New(Args&&... args) {
     return ParentAccessServerMessagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -377,7 +377,7 @@ class  FlowTypeParams {
   static FlowTypeParamsPtr
   NewWebApprovalsParams(
       WebApprovalsParamsPtr value) {
-    auto result = FlowTypeParamsPtr(absl::in_place);
+    auto result = FlowTypeParamsPtr(std::in_place);
     result->set_web_approvals_params(std::move(value));
     return result;
   }
@@ -385,7 +385,7 @@ class  FlowTypeParams {
   static FlowTypeParamsPtr
   NewExtensionApprovalsParams(
       ExtensionApprovalsParamsPtr value) {
-    auto result = FlowTypeParamsPtr(absl::in_place);
+    auto result = FlowTypeParamsPtr(std::in_place);
     result->set_extension_approvals_params(std::move(value));
     return result;
   }
@@ -501,7 +501,7 @@ class  ParentAccessParams {
   template <typename... Args>
   static ParentAccessParamsPtr New(Args&&... args) {
     return ParentAccessParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -649,7 +649,7 @@ class  WebApprovalsParams {
   template <typename... Args>
   static WebApprovalsParamsPtr New(Args&&... args) {
     return WebApprovalsParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -795,7 +795,7 @@ class  ExtensionApprovalsParams {
   template <typename... Args>
   static ExtensionApprovalsParamsPtr New(Args&&... args) {
     return ExtensionApprovalsParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -946,7 +946,7 @@ class  ExtensionPermission {
   template <typename... Args>
   static ExtensionPermissionPtr New(Args&&... args) {
     return ExtensionPermissionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

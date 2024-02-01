@@ -190,7 +190,7 @@ class  SetWallpaperResult {
   static SetWallpaperResultPtr
   NewThumbnailData(
       std::vector<uint8_t> value) {
-    auto result = SetWallpaperResultPtr(absl::in_place);
+    auto result = SetWallpaperResultPtr(std::in_place);
     result->set_thumbnail_data(std::move(value));
     return result;
   }
@@ -198,7 +198,7 @@ class  SetWallpaperResult {
   static SetWallpaperResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = SetWallpaperResultPtr(absl::in_place);
+    auto result = SetWallpaperResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -312,7 +312,7 @@ class  WallpaperSettings {
   template <typename... Args>
   static WallpaperSettingsPtr New(Args&&... args) {
     return WallpaperSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -1,5 +1,6 @@
 {
   "deps": [
+    "../../../../../components/content_settings/core/common/content_settings_types.build_metadata",
     "../../../../../components/content_settings/core/common/mojo_bindings.build_metadata",
     "../../../../../mojo/public/mojom/base/base.build_metadata"
   ],

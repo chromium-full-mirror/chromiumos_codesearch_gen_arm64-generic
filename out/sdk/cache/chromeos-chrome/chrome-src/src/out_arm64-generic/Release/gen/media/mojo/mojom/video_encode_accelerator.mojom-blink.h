@@ -615,7 +615,7 @@ class BLINK_PLATFORM_EXPORT VariableBitratePeak {
   template <typename... Args>
   static VariableBitratePeakPtr New(Args&&... args) {
     return VariableBitratePeakPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -758,7 +758,7 @@ class BLINK_PLATFORM_EXPORT ConstantBitrate {
   template <typename... Args>
   static ConstantBitratePtr New(Args&&... args) {
     return ConstantBitratePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -899,7 +899,7 @@ class BLINK_PLATFORM_EXPORT VariableBitrate {
   template <typename... Args>
   static VariableBitratePtr New(Args&&... args) {
     return VariableBitratePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1043,7 +1043,7 @@ class BLINK_PLATFORM_EXPORT ExternalBitrate {
   template <typename... Args>
   static ExternalBitratePtr New(Args&&... args) {
     return ExternalBitratePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1180,7 +1180,7 @@ class BLINK_PLATFORM_EXPORT VideoEncodeOptions {
   template <typename... Args>
   static VideoEncodeOptionsPtr New(Args&&... args) {
     return VideoEncodeOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1324,7 +1324,7 @@ class BLINK_PLATFORM_EXPORT H264Metadata {
   template <typename... Args>
   static H264MetadataPtr New(Args&&... args) {
     return H264MetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1468,7 +1468,7 @@ class BLINK_PLATFORM_EXPORT H265Metadata {
   template <typename... Args>
   static H265MetadataPtr New(Args&&... args) {
     return H265MetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1609,7 +1609,7 @@ class BLINK_PLATFORM_EXPORT Vp8Metadata {
   template <typename... Args>
   static Vp8MetadataPtr New(Args&&... args) {
     return Vp8MetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1757,7 +1757,7 @@ class BLINK_PLATFORM_EXPORT Av1Metadata {
   template <typename... Args>
   static Av1MetadataPtr New(Args&&... args) {
     return Av1MetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1909,7 +1909,7 @@ class BLINK_PLATFORM_EXPORT Bitrate {
   static BitratePtr
   NewConstant(
       ConstantBitratePtr value) {
-    auto result = BitratePtr(absl::in_place);
+    auto result = BitratePtr(std::in_place);
     result->set_constant(std::move(value));
     return result;
   }
@@ -1917,7 +1917,7 @@ class BLINK_PLATFORM_EXPORT Bitrate {
   static BitratePtr
   NewVariable(
       VariableBitratePtr value) {
-    auto result = BitratePtr(absl::in_place);
+    auto result = BitratePtr(std::in_place);
     result->set_variable(std::move(value));
     return result;
   }
@@ -1925,7 +1925,7 @@ class BLINK_PLATFORM_EXPORT Bitrate {
   static BitratePtr
   NewExternal(
       ExternalBitratePtr value) {
-    auto result = BitratePtr(absl::in_place);
+    auto result = BitratePtr(std::in_place);
     result->set_external(std::move(value));
     return result;
   }
@@ -2061,7 +2061,7 @@ class BLINK_PLATFORM_EXPORT CodecMetadata {
   static CodecMetadataPtr
   NewH264(
       H264MetadataPtr value) {
-    auto result = CodecMetadataPtr(absl::in_place);
+    auto result = CodecMetadataPtr(std::in_place);
     result->set_h264(std::move(value));
     return result;
   }
@@ -2069,7 +2069,7 @@ class BLINK_PLATFORM_EXPORT CodecMetadata {
   static CodecMetadataPtr
   NewH265(
       H265MetadataPtr value) {
-    auto result = CodecMetadataPtr(absl::in_place);
+    auto result = CodecMetadataPtr(std::in_place);
     result->set_h265(std::move(value));
     return result;
   }
@@ -2077,7 +2077,7 @@ class BLINK_PLATFORM_EXPORT CodecMetadata {
   static CodecMetadataPtr
   NewVp8(
       Vp8MetadataPtr value) {
-    auto result = CodecMetadataPtr(absl::in_place);
+    auto result = CodecMetadataPtr(std::in_place);
     result->set_vp8(std::move(value));
     return result;
   }
@@ -2085,7 +2085,7 @@ class BLINK_PLATFORM_EXPORT CodecMetadata {
   static CodecMetadataPtr
   NewVp9(
       Vp9MetadataPtr value) {
-    auto result = CodecMetadataPtr(absl::in_place);
+    auto result = CodecMetadataPtr(std::in_place);
     result->set_vp9(std::move(value));
     return result;
   }
@@ -2093,7 +2093,7 @@ class BLINK_PLATFORM_EXPORT CodecMetadata {
   static CodecMetadataPtr
   NewAv1(
       Av1MetadataPtr value) {
-    auto result = CodecMetadataPtr(absl::in_place);
+    auto result = CodecMetadataPtr(std::in_place);
     result->set_av1(std::move(value));
     return result;
   }
@@ -2246,7 +2246,7 @@ class BLINK_PLATFORM_EXPORT VideoEncodeAcceleratorSupportedProfile {
   template <typename... Args>
   static VideoEncodeAcceleratorSupportedProfilePtr New(Args&&... args) {
     return VideoEncodeAcceleratorSupportedProfilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2408,7 +2408,7 @@ class BLINK_PLATFORM_EXPORT VideoBitrateAllocation {
   template <typename... Args>
   static VideoBitrateAllocationPtr New(Args&&... args) {
     return VideoBitrateAllocationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2553,7 +2553,7 @@ class BLINK_PLATFORM_EXPORT SpatialLayer {
   template <typename... Args>
   static SpatialLayerPtr New(Args&&... args) {
     return SpatialLayerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2715,7 +2715,7 @@ class BLINK_PLATFORM_EXPORT VideoEncodeAcceleratorConfig {
   template <typename... Args>
   static VideoEncodeAcceleratorConfigPtr New(Args&&... args) {
     return VideoEncodeAcceleratorConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2915,7 +2915,7 @@ class BLINK_PLATFORM_EXPORT Vp9Metadata {
   template <typename... Args>
   static Vp9MetadataPtr New(Args&&... args) {
     return Vp9MetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3083,7 +3083,7 @@ class BLINK_PLATFORM_EXPORT BitstreamBufferMetadata {
   template <typename... Args>
   static BitstreamBufferMetadataPtr New(Args&&... args) {
     return BitstreamBufferMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

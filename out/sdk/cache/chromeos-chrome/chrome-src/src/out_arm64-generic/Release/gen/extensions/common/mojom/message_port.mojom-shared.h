@@ -248,7 +248,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `extension_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadExtensionId` instead "
     "of `ReadExtensionId if you're fine with null values being "
@@ -268,7 +268,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `native_app_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNativeAppName` instead "
     "of `ReadNativeAppName if you're fine with null values being "
@@ -383,7 +383,7 @@ static_assert(
         ::url::mojom::OriginDataView, UserType>(),
     "Attempting to read the optional `source_origin` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSourceOrigin` instead "
     "of `ReadSourceOrigin if you're fine with null values being "

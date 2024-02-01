@@ -702,7 +702,7 @@ class  GpuMemoryBufferPlatformHandle {
   static GpuMemoryBufferPlatformHandlePtr
   NewSharedMemoryHandle(
       ::base::UnsafeSharedMemoryRegion value) {
-    auto result = GpuMemoryBufferPlatformHandlePtr(absl::in_place);
+    auto result = GpuMemoryBufferPlatformHandlePtr(std::in_place);
     result->set_shared_memory_handle(std::move(value));
     return result;
   }
@@ -710,7 +710,7 @@ class  GpuMemoryBufferPlatformHandle {
   static GpuMemoryBufferPlatformHandlePtr
   NewNativePixmapHandle(
       NativePixmapHandlePtr value) {
-    auto result = GpuMemoryBufferPlatformHandlePtr(absl::in_place);
+    auto result = GpuMemoryBufferPlatformHandlePtr(std::in_place);
     result->set_native_pixmap_handle(std::move(value));
     return result;
   }
@@ -832,7 +832,7 @@ class  VideoBufferHandle {
   static VideoBufferHandlePtr
   NewSharedBufferHandle(
       ::mojo::ScopedSharedBufferHandle value) {
-    auto result = VideoBufferHandlePtr(absl::in_place);
+    auto result = VideoBufferHandlePtr(std::in_place);
     result->set_shared_buffer_handle(std::move(value));
     return result;
   }
@@ -840,7 +840,7 @@ class  VideoBufferHandle {
   static VideoBufferHandlePtr
   NewGpuMemoryBufferHandle(
       GpuMemoryBufferHandlePtr value) {
-    auto result = VideoBufferHandlePtr(absl::in_place);
+    auto result = VideoBufferHandlePtr(std::in_place);
     result->set_gpu_memory_buffer_handle(std::move(value));
     return result;
   }
@@ -848,7 +848,7 @@ class  VideoBufferHandle {
   static VideoBufferHandlePtr
   NewReadOnlyShmemRegion(
       ::base::ReadOnlySharedMemoryRegion value) {
-    auto result = VideoBufferHandlePtr(absl::in_place);
+    auto result = VideoBufferHandlePtr(std::in_place);
     result->set_read_only_shmem_region(std::move(value));
     return result;
   }
@@ -975,7 +975,7 @@ class  NativePixmapHandle {
   template <typename... Args>
   static NativePixmapHandlePtr New(Args&&... args) {
     return NativePixmapHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1115,7 +1115,7 @@ class  GpuMemoryBufferHandle {
   template <typename... Args>
   static GpuMemoryBufferHandlePtr New(Args&&... args) {
     return GpuMemoryBufferHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1261,7 +1261,7 @@ class  VideoFrameInfo {
   template <typename... Args>
   static VideoFrameInfoPtr New(Args&&... args) {
     return VideoFrameInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1416,7 +1416,7 @@ class  ReadyFrameInBuffer {
   template <typename... Args>
   static ReadyFrameInBufferPtr New(Args&&... args) {
     return ReadyFrameInBufferPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

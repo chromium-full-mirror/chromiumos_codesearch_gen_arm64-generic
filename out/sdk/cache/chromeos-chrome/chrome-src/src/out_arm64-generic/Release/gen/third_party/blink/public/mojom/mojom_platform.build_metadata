@@ -87,6 +87,7 @@
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/css/preferred_contrast.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/data_transfer/data_transfer.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/device/device.mojom",
+    "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/device_posture/device_posture_provider.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/devtools/console_message.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/devtools/devtools_agent.mojom",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/blink/public/mojom/devtools/devtools_frontend.mojom",

@@ -252,7 +252,7 @@ class  RSSIWrapper {
   template <typename... Args>
   static RSSIWrapperPtr New(Args&&... args) {
     return RSSIWrapperPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -400,7 +400,7 @@ class  DeviceInfo {
   template <typename... Args>
   static DeviceInfoPtr New(Args&&... args) {
     return DeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -563,7 +563,7 @@ class  ServiceInfo {
   template <typename... Args>
   static ServiceInfoPtr New(Args&&... args) {
     return ServiceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -709,7 +709,7 @@ class  CharacteristicInfo {
   template <typename... Args>
   static CharacteristicInfoPtr New(Args&&... args) {
     return CharacteristicInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -858,7 +858,7 @@ class  DescriptorInfo {
   template <typename... Args>
   static DescriptorInfoPtr New(Args&&... args) {
     return DescriptorInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

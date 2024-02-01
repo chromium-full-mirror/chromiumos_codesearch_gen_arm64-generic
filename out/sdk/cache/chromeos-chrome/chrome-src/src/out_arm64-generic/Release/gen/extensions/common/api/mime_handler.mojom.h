@@ -287,7 +287,7 @@ class  PdfPluginAttributes {
   template <typename... Args>
   static PdfPluginAttributesPtr New(Args&&... args) {
     return PdfPluginAttributesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -433,7 +433,7 @@ class  StreamInfo {
   template <typename... Args>
   static StreamInfoPtr New(Args&&... args) {
     return StreamInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

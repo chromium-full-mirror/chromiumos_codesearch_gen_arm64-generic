@@ -2,7 +2,7 @@ crate_name = quote
 crate_type = rlib
 output_extension = .rlib
 output_dir = host_for_rust_host_build_tools/obj/third_party/rust/quote/v1/lib
-rustflags = --cfg=feature=\"proc-macro\" -Cmetadata=quote-1 --edition=2018 -Cforce-unwind-tables=yes -Crelocation-model=pic -Coverflow-checks=on -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. --color=always --target=x86_64-unknown-linux-gnu -Cembed-bitcode=no --cfg cr_rustc_revision=\"df0295f07175acc7325ce3ca4152eb05752af1f2-9-llvmorg-18-init-17730-gf670112a\" -Copt-level=3 -Zdwarf-version=5 -g --cap-lints=allow -Dunsafe_op_in_unsafe_fn -Dwarnings
+rustflags = --cfg=feature=\"proc-macro\" -Cmetadata=quote-1 --edition=2018 -Cforce-unwind-tables=yes -Crelocation-model=pic -Coverflow-checks=on -Cdefault-linker-libraries -Zdep-info-omit-d-target -Zmacro-backtrace -Zremap-cwd-prefix=. --color=always --target=x86_64-unknown-linux-gnu -Cembed-bitcode=no --cfg cr_rustc_revision=\"cd6d8f2a04528f827ad3d399581c0f3502b15a72-1-llvmorg-18-init-17730-gf670112a\" -Copt-level=3 -Zdwarf-version=5 -g --cap-lints=allow -Dunsafe_op_in_unsafe_fn -Dwarnings
 rustenv = OUT_DIR=../../../../../../../../../../var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/host_for_rust_host_build_tools/gen/third_party/rust/quote/v1/lib CARGO_PKG_AUTHORS=David\$ Tolnay\$ \<dtolnay@gmail.com\> CARGO_PKG_VERSION=1.0.33 CARGO_PKG_NAME=quote CARGO_PKG_DESCRIPTION=Quasi-quoting\$ macro\$ quote\!\(...\) CARGO_MANIFEST_DIR=../../../../../../../home/chrome-bot/chrome_root/src/third_party/rust/quote/v1/lib/crate
 label_name = lib
 target_out_dir = host_for_rust_host_build_tools/obj/third_party/rust/quote/v1

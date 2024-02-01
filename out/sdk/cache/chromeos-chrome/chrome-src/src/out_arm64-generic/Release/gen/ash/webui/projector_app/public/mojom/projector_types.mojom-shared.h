@@ -357,7 +357,7 @@ class XhrResponseDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadNetErrorCode(UserType* output) const {
     if (!data_->net_error_code_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -366,7 +366,7 @@ class XhrResponseDataView {
   }
   std::optional<JsNetErrorCode> net_error_code() const {
     if (!data_->net_error_code_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::projector::mojom::JsNetErrorCode>(data_->net_error_code_$value));

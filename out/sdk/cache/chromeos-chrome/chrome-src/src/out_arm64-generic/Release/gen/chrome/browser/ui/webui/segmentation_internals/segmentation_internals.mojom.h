@@ -404,7 +404,7 @@ class  ServiceStatus {
   template <typename... Args>
   static ServiceStatusPtr New(Args&&... args) {
     return ServiceStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -553,7 +553,7 @@ class  SegmentInfo {
   template <typename... Args>
   static SegmentInfoPtr New(Args&&... args) {
     return SegmentInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -706,7 +706,7 @@ class  ClientInfo {
   template <typename... Args>
   static ClientInfoPtr New(Args&&... args) {
     return ClientInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

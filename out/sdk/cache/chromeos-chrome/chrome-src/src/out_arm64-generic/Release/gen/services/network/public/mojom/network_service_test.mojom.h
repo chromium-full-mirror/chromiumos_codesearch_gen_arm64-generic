@@ -995,7 +995,7 @@ class  Rule {
   template <typename... Args>
   static RulePtr New(Args&&... args) {
     return RulePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1147,7 +1147,7 @@ class  SimpleCacheOpenEntryResult {
   template <typename... Args>
   static SimpleCacheOpenEntryResultPtr New(Args&&... args) {
     return SimpleCacheOpenEntryResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

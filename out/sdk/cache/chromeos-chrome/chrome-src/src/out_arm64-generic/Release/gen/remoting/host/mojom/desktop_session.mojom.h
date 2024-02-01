@@ -1276,7 +1276,7 @@ class  TextEvent {
   template <typename... Args>
   static TextEventPtr New(Args&&... args) {
     return TextEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1435,7 +1435,7 @@ class  ReadChunkResult {
   static ReadChunkResultPtr
   NewData(
       std::vector<uint8_t> value) {
-    auto result = ReadChunkResultPtr(absl::in_place);
+    auto result = ReadChunkResultPtr(std::in_place);
     result->set_data(std::move(value));
     return result;
   }
@@ -1443,7 +1443,7 @@ class  ReadChunkResult {
   static ReadChunkResultPtr
   NewError(
       const ::remoting::protocol::FileTransfer_Error& value) {
-    auto result = ReadChunkResultPtr(absl::in_place);
+    auto result = ReadChunkResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1565,7 +1565,7 @@ class  BeginFileReadResult {
   static BeginFileReadResultPtr
   NewSuccess(
       BeginFileReadSuccessPtr value) {
-    auto result = BeginFileReadResultPtr(absl::in_place);
+    auto result = BeginFileReadResultPtr(std::in_place);
     result->set_success(std::move(value));
     return result;
   }
@@ -1573,7 +1573,7 @@ class  BeginFileReadResult {
   static BeginFileReadResultPtr
   NewError(
       const ::remoting::protocol::FileTransfer_Error& value) {
-    auto result = BeginFileReadResultPtr(absl::in_place);
+    auto result = BeginFileReadResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1695,7 +1695,7 @@ class  BeginFileWriteResult {
   static BeginFileWriteResultPtr
   NewSuccess(
       BeginFileWriteSuccessPtr value) {
-    auto result = BeginFileWriteResultPtr(absl::in_place);
+    auto result = BeginFileWriteResultPtr(std::in_place);
     result->set_success(std::move(value));
     return result;
   }
@@ -1703,7 +1703,7 @@ class  BeginFileWriteResult {
   static BeginFileWriteResultPtr
   NewError(
       const ::remoting::protocol::FileTransfer_Error& value) {
-    auto result = BeginFileWriteResultPtr(absl::in_place);
+    auto result = BeginFileWriteResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1825,7 +1825,7 @@ class  CaptureResult {
   static CaptureResultPtr
   NewDesktopFrame(
       ::remoting::mojom::DesktopFramePtr value) {
-    auto result = CaptureResultPtr(absl::in_place);
+    auto result = CaptureResultPtr(std::in_place);
     result->set_desktop_frame(std::move(value));
     return result;
   }
@@ -1833,7 +1833,7 @@ class  CaptureResult {
   static CaptureResultPtr
   NewCaptureError(
       ::webrtc::DesktopCapturer::Result value) {
-    auto result = CaptureResultPtr(absl::in_place);
+    auto result = CaptureResultPtr(std::in_place);
     result->set_capture_error(std::move(value));
     return result;
   }
@@ -1951,7 +1951,7 @@ class  AudioPacket {
   template <typename... Args>
   static AudioPacketPtr New(Args&&... args) {
     return AudioPacketPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2106,7 +2106,7 @@ class  ClipboardEvent {
   template <typename... Args>
   static ClipboardEventPtr New(Args&&... args) {
     return ClipboardEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2249,7 +2249,7 @@ class  KeyEvent {
   template <typename... Args>
   static KeyEventPtr New(Args&&... args) {
     return KeyEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2403,7 +2403,7 @@ class  MouseEvent {
   template <typename... Args>
   static MouseEventPtr New(Args&&... args) {
     return MouseEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2573,7 +2573,7 @@ class  TouchEventPoint {
   template <typename... Args>
   static TouchEventPointPtr New(Args&&... args) {
     return TouchEventPointPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2725,7 +2725,7 @@ class  TouchEvent {
   template <typename... Args>
   static TouchEventPtr New(Args&&... args) {
     return TouchEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2868,7 +2868,7 @@ class  DesktopEnvironmentOptions {
   template <typename... Args>
   static DesktopEnvironmentOptionsPtr New(Args&&... args) {
     return DesktopEnvironmentOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3034,7 +3034,7 @@ class  ScreenResolution {
   template <typename... Args>
   static ScreenResolutionPtr New(Args&&... args) {
     return ScreenResolutionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3178,7 +3178,7 @@ class  FileTransferError {
   template <typename... Args>
   static FileTransferErrorPtr New(Args&&... args) {
     return FileTransferErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3332,7 +3332,7 @@ class  BeginFileReadSuccess {
   template <typename... Args>
   static BeginFileReadSuccessPtr New(Args&&... args) {
     return BeginFileReadSuccessPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3475,7 +3475,7 @@ class  BeginFileWriteSuccess {
   template <typename... Args>
   static BeginFileWriteSuccessPtr New(Args&&... args) {
     return BeginFileWriteSuccessPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3612,7 +3612,7 @@ class  VideoTrackLayout {
   template <typename... Args>
   static VideoTrackLayoutPtr New(Args&&... args) {
     return VideoTrackLayoutPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3764,7 +3764,7 @@ class  VideoLayout {
   template <typename... Args>
   static VideoLayoutPtr New(Args&&... args) {
     return VideoLayoutPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

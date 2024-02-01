@@ -587,7 +587,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `label` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLabel` instead "
     "of `ReadLabel if you're fine with null values being "
@@ -607,7 +607,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `annotation` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAnnotation` instead "
     "of `ReadAnnotation if you're fine with null values being "
@@ -674,7 +674,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `auxiliary_text` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAuxiliaryText` instead "
     "of `ReadAuxiliaryText if you're fine with null values being "
@@ -695,7 +695,7 @@ static_assert(
         ::ash::ime::mojom::HighlightedCandidateDataView, UserType>(),
     "Attempting to read the optional `highlighted_candidate` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHighlightedCandidate` instead "
     "of `ReadHighlightedCandidate if you're fine with null values being "

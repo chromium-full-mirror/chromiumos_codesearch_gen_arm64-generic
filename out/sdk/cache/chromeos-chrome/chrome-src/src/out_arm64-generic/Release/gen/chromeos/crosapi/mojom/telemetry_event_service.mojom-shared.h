@@ -687,7 +687,7 @@ static_assert(
         ::crosapi::mojom::ProbeExternalDisplayInfoDataView, UserType>(),
     "Attempting to read the optional `display_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDisplayInfo` instead "
     "of `ReadDisplayInfo if you're fine with null values being "
@@ -843,7 +843,7 @@ static_assert(
         ::crosapi::mojom::UInt32ValueDataView, UserType>(),
     "Attempting to read the optional `pressure` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPressure` instead "
     "of `ReadPressure if you're fine with null values being "
@@ -863,7 +863,7 @@ static_assert(
         ::crosapi::mojom::UInt32ValueDataView, UserType>(),
     "Attempting to read the optional `touch_major` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTouchMajor` instead "
     "of `ReadTouchMajor if you're fine with null values being "
@@ -883,7 +883,7 @@ static_assert(
         ::crosapi::mojom::UInt32ValueDataView, UserType>(),
     "Attempting to read the optional `touch_minor` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTouchMinor` instead "
     "of `ReadTouchMinor if you're fine with null values being "
@@ -998,20 +998,20 @@ class TelemetryTouchscreenConnectedEventInfoDataView {
   std::optional<uint32_t> max_x() const {
 
     return data_->max_x_$flag
-        ? absl::make_optional(data_->max_x_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->max_x_$value)
+        : std::nullopt;
   }
   std::optional<uint32_t> max_y() const {
 
     return data_->max_y_$flag
-        ? absl::make_optional(data_->max_y_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->max_y_$value)
+        : std::nullopt;
   }
   std::optional<uint32_t> max_pressure() const {
 
     return data_->max_pressure_$flag
-        ? absl::make_optional(data_->max_pressure_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->max_pressure_$value)
+        : std::nullopt;
   }
  private:
   internal::TelemetryTouchscreenConnectedEventInfo_Data* data_ = nullptr;
@@ -1031,20 +1031,20 @@ class TelemetryStylusTouchPointInfoDataView {
   std::optional<uint32_t> x() const {
 
     return data_->x_$flag
-        ? absl::make_optional(data_->x_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->x_$value)
+        : std::nullopt;
   }
   std::optional<uint32_t> y() const {
 
     return data_->y_$flag
-        ? absl::make_optional(data_->y_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->y_$value)
+        : std::nullopt;
   }
   std::optional<uint32_t> pressure() const {
 
     return data_->pressure_$flag
-        ? absl::make_optional(data_->pressure_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->pressure_$value)
+        : std::nullopt;
   }
  private:
   internal::TelemetryStylusTouchPointInfo_Data* data_ = nullptr;
@@ -1072,7 +1072,7 @@ static_assert(
         ::crosapi::mojom::TelemetryStylusTouchPointInfoDataView, UserType>(),
     "Attempting to read the optional `touch_point` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTouchPoint` instead "
     "of `ReadTouchPoint if you're fine with null values being "
@@ -1100,20 +1100,20 @@ class TelemetryStylusConnectedEventInfoDataView {
   std::optional<uint32_t> max_x() const {
 
     return data_->max_x_$flag
-        ? absl::make_optional(data_->max_x_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->max_x_$value)
+        : std::nullopt;
   }
   std::optional<uint32_t> max_y() const {
 
     return data_->max_y_$flag
-        ? absl::make_optional(data_->max_y_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->max_y_$value)
+        : std::nullopt;
   }
   std::optional<uint32_t> max_pressure() const {
 
     return data_->max_pressure_$flag
-        ? absl::make_optional(data_->max_pressure_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->max_pressure_$value)
+        : std::nullopt;
   }
  private:
   internal::TelemetryStylusConnectedEventInfo_Data* data_ = nullptr;

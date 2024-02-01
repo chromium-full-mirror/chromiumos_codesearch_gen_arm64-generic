@@ -160,7 +160,7 @@ class  GetEcTelemetryResponse {
   template <typename... Args>
   static GetEcTelemetryResponsePtr New(Args&&... args) {
     return GetEcTelemetryResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -308,7 +308,7 @@ class  EcEvent {
   template <typename... Args>
   static EcEventPtr New(Args&&... args) {
     return EcEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

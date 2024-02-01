@@ -350,7 +350,7 @@ static_assert(
         ::network::mojom::ClientSecurityStateDataView, UserType>(),
     "Attempting to read the optional `client_security_state` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadClientSecurityState` instead "
     "of `ReadClientSecurityState if you're fine with null values being "
@@ -370,7 +370,7 @@ static_assert(
         ::network::mojom::OtherPartitionInfoDataView, UserType>(),
     "Attempting to read the optional `other_partition_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOtherPartitionInfo` instead "
     "of `ReadOtherPartitionInfo if you're fine with null values being "
@@ -436,7 +436,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `raw_response_headers` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRawResponseHeaders` instead "
     "of `ReadRawResponseHeaders if you're fine with null values being "
@@ -469,7 +469,7 @@ static_assert(
         ::network::mojom::CookiePartitionKeyDataView, UserType>(),
     "Attempting to read the optional `cookie_partition_key` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCookiePartitionKey` instead "
     "of `ReadCookiePartitionKey if you're fine with null values being "
@@ -505,7 +505,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `devtool_request_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDevtoolRequestId` instead "
     "of `ReadDevtoolRequestId if you're fine with null values being "
@@ -758,7 +758,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `devtool_request_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDevtoolRequestId` instead "
     "of `ReadDevtoolRequestId if you're fine with null values being "
@@ -778,7 +778,7 @@ static_assert(
         ::url::mojom::OriginDataView, UserType>(),
     "Attempting to read the optional `initiator_origin` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInitiatorOrigin` instead "
     "of `ReadInitiatorOrigin if you're fine with null values being "
@@ -798,7 +798,7 @@ static_assert(
         ::network::mojom::ClientSecurityStateDataView, UserType>(),
     "Attempting to read the optional `client_security_state` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadClientSecurityState` instead "
     "of `ReadClientSecurityState if you're fine with null values being "
@@ -857,7 +857,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `devtools_request_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDevtoolsRequestId` instead "
     "of `ReadDevtoolsRequestId if you're fine with null values being "
@@ -995,7 +995,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `bundle_request_devtools_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBundleRequestDevtoolsId` instead "
     "of `ReadBundleRequestDevtoolsId if you're fine with null values being "
@@ -1061,7 +1061,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `bundle_request_devtools_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBundleRequestDevtoolsId` instead "
     "of `ReadBundleRequestDevtoolsId if you're fine with null values being "

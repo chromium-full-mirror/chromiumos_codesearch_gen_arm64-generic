@@ -147,7 +147,7 @@ static_assert(
         ::gfx::mojom::RectDataView, UserType>(),
     "Attempting to read the optional `end_rect` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEndRect` instead "
     "of `ReadEndRect if you're fine with null values being "
@@ -177,7 +177,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `text_to_insert` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTextToInsert` instead "
     "of `ReadTextToInsert if you're fine with null values being "

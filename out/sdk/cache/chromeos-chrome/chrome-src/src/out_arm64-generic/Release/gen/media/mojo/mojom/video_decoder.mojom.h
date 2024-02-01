@@ -468,7 +468,7 @@ class  SupportedVideoDecoderConfig {
   template <typename... Args>
   static SupportedVideoDecoderConfigPtr New(Args&&... args) {
     return SupportedVideoDecoderConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -623,7 +623,7 @@ class  CommandBufferId {
   template <typename... Args>
   static CommandBufferIdPtr New(Args&&... args) {
     return CommandBufferIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

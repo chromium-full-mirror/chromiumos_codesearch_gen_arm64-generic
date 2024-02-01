@@ -102,6 +102,7 @@ class EntitySpecifics::_Internal {
   static const ::sync_pb::IncomingPasswordSharingInvitationSpecifics& incoming_password_sharing_invitation(const EntitySpecifics* msg);
   static const ::sync_pb::OutgoingPasswordSharingInvitationSpecifics& outgoing_password_sharing_invitation(const EntitySpecifics* msg);
   static const ::sync_pb::AutofillWalletCredentialSpecifics& autofill_wallet_credential(const EntitySpecifics* msg);
+  static const ::sync_pb::SharedTabGroupDataSpecifics& shared_tab_group_data(const EntitySpecifics* msg);
   static const ::sync_pb::EmptySpecifics& app_notification(const EntitySpecifics* msg);
   static const ::sync_pb::EmptySpecifics& synced_notification(const EntitySpecifics* msg);
   static const ::sync_pb::EmptySpecifics& synced_notification_app_info(const EntitySpecifics* msg);
@@ -308,6 +309,10 @@ EntitySpecifics::_Internal::outgoing_password_sharing_invitation(const EntitySpe
 const ::sync_pb::AutofillWalletCredentialSpecifics&
 EntitySpecifics::_Internal::autofill_wallet_credential(const EntitySpecifics* msg) {
   return *msg->specifics_variant_.autofill_wallet_credential_;
+}
+const ::sync_pb::SharedTabGroupDataSpecifics&
+EntitySpecifics::_Internal::shared_tab_group_data(const EntitySpecifics* msg) {
+  return *msg->specifics_variant_.shared_tab_group_data_;
 }
 const ::sync_pb::EmptySpecifics&
 EntitySpecifics::_Internal::app_notification(const EntitySpecifics* msg) {
@@ -1501,6 +1506,30 @@ void EntitySpecifics::clear_autofill_wallet_credential() {
     clear_has_specifics_variant();
   }
 }
+void EntitySpecifics::set_allocated_shared_tab_group_data(::sync_pb::SharedTabGroupDataSpecifics* shared_tab_group_data) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  clear_specifics_variant();
+  if (shared_tab_group_data) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(
+                reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(shared_tab_group_data));
+    if (message_arena != submessage_arena) {
+      shared_tab_group_data = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, shared_tab_group_data, submessage_arena);
+    }
+    set_has_shared_tab_group_data();
+    specifics_variant_.shared_tab_group_data_ = shared_tab_group_data;
+  }
+  // @@protoc_insertion_point(field_set_allocated:sync_pb.EntitySpecifics.shared_tab_group_data)
+}
+void EntitySpecifics::clear_shared_tab_group_data() {
+  if (_internal_has_shared_tab_group_data()) {
+    if (GetArenaForAllocation() == nullptr) {
+      delete specifics_variant_.shared_tab_group_data_;
+    }
+    clear_has_specifics_variant();
+  }
+}
 void EntitySpecifics::set_allocated_app_notification(::sync_pb::EmptySpecifics* app_notification) {
   ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
   clear_specifics_variant();
@@ -1881,6 +1910,10 @@ EntitySpecifics::EntitySpecifics(const EntitySpecifics& from)
       _internal_mutable_autofill_wallet_credential()->::sync_pb::AutofillWalletCredentialSpecifics::MergeFrom(from._internal_autofill_wallet_credential());
       break;
     }
+    case kSharedTabGroupData: {
+      _internal_mutable_shared_tab_group_data()->::sync_pb::SharedTabGroupDataSpecifics::MergeFrom(from._internal_shared_tab_group_data());
+      break;
+    }
     case kAppNotification: {
       _internal_mutable_app_notification()->::sync_pb::EmptySpecifics::MergeFrom(from._internal_app_notification());
       break;
@@ -2238,6 +2271,12 @@ void EntitySpecifics::clear_specifics_variant() {
     case kAutofillWalletCredential: {
       if (GetArenaForAllocation() == nullptr) {
         delete specifics_variant_.autofill_wallet_credential_;
+      }
+      break;
+    }
+    case kSharedTabGroupData: {
+      if (GetArenaForAllocation() == nullptr) {
+        delete specifics_variant_.shared_tab_group_data_;
       }
       break;
     }
@@ -2790,6 +2829,14 @@ const char* EntitySpecifics::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
+      // .sync_pb.SharedTabGroupDataSpecifics shared_tab_group_data = 1239418;
+      case 1239418:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 210)) {
+          ptr = ctx->ParseMessage(_internal_mutable_shared_tab_group_data(), ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -3171,6 +3218,12 @@ uint8_t* EntitySpecifics::_InternalSerialize(
           _Internal::autofill_wallet_credential(this).GetCachedSize(), target, stream);
       break;
     }
+    case kSharedTabGroupData: {
+      target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(1239418, _Internal::shared_tab_group_data(this),
+          _Internal::shared_tab_group_data(this).GetCachedSize(), target, stream);
+      break;
+    }
     default: ;
   }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3534,6 +3587,13 @@ size_t EntitySpecifics::ByteSizeLong() const {
           *specifics_variant_.autofill_wallet_credential_);
       break;
     }
+    // .sync_pb.SharedTabGroupDataSpecifics shared_tab_group_data = 1239418;
+    case kSharedTabGroupData: {
+      total_size += 4 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+          *specifics_variant_.shared_tab_group_data_);
+      break;
+    }
     // .sync_pb.EmptySpecifics app_notification = 45184 [deprecated = true];
     case kAppNotification: {
       total_size += 3 +
@@ -3815,6 +3875,10 @@ void EntitySpecifics::MergeFrom(const EntitySpecifics& from) {
     }
     case kAutofillWalletCredential: {
       _internal_mutable_autofill_wallet_credential()->::sync_pb::AutofillWalletCredentialSpecifics::MergeFrom(from._internal_autofill_wallet_credential());
+      break;
+    }
+    case kSharedTabGroupData: {
+      _internal_mutable_shared_tab_group_data()->::sync_pb::SharedTabGroupDataSpecifics::MergeFrom(from._internal_shared_tab_group_data());
       break;
     }
     case kAppNotification: {

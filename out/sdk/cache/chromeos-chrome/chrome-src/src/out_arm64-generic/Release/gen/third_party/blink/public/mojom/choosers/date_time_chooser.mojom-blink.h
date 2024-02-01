@@ -184,7 +184,7 @@ class PLATFORM_EXPORT DateTimeSuggestion {
   template <typename... Args>
   static DateTimeSuggestionPtr New(Args&&... args) {
     return DateTimeSuggestionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -330,7 +330,7 @@ class PLATFORM_EXPORT DateTimeDialogValue {
   template <typename... Args>
   static DateTimeDialogValuePtr New(Args&&... args) {
     return DateTimeDialogValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -446,7 +446,7 @@ class BLINK_COMMON_EXPORT DeviceAttributeResult {
   static DeviceAttributeResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = DeviceAttributeResultPtr(absl::in_place);
+    auto result = DeviceAttributeResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -454,7 +454,7 @@ class BLINK_COMMON_EXPORT DeviceAttributeResult {
   static DeviceAttributeResultPtr
   NewAttribute(
       const std::optional<std::string>& value) {
-    auto result = DeviceAttributeResultPtr(absl::in_place);
+    auto result = DeviceAttributeResultPtr(std::in_place);
     result->set_attribute(std::move(value));
     return result;
   }

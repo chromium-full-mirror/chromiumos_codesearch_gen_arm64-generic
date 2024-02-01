@@ -178,7 +178,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) GraphExecutorOptions {
   template <typename... Args>
   static GraphExecutorOptionsPtr New(Args&&... args) {
     return GraphExecutorOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -332,7 +332,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) BuiltinModelSpec {
   template <typename... Args>
   static BuiltinModelSpecPtr New(Args&&... args) {
     return BuiltinModelSpecPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -478,7 +478,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) FlatBufferModelSpec {
   template <typename... Args>
   static FlatBufferModelSpecPtr New(Args&&... args) {
     return FlatBufferModelSpecPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

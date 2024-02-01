@@ -2,19 +2,20 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import 'chrome://os-settings/lazy_load.js';
-import { GeolocationAccessLevel, OpenWindowProxyImpl, Router, routes, setAppPermissionProviderForTesting } from 'chrome://os-settings/os_settings.js';
+import { PrivacyHubBrowserProxyImpl } from 'chrome://os-settings/lazy_load.js';
+import { GeolocationAccessLevel, Router, routes, setAppPermissionProviderForTesting } from 'chrome://os-settings/os_settings.js';
 import { PermissionType, TriState } from 'chrome://resources/cr_components/app_management/app_management.mojom-webui.js';
 import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertEquals, assertNotReached, assertNull, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { flushTasks } from 'chrome://webui-test/polymer_test_util.js';
-import { TestOpenWindowProxy } from 'chrome://webui-test/test_open_window_proxy.js';
 import { FakeAppPermissionHandler } from './fake_app_permission_handler.js';
 import { createApp, createFakeMetricsPrivate, getSystemServiceName, getSystemServicePermissionText, getSystemServicesFromSubpage } from './privacy_hub_app_permission_test_util.js';
+import { TestPrivacyHubBrowserProxy } from './test_privacy_hub_browser_proxy.js';
 suite('<settings-privacy-hub-geolocation-subpage>', () => {
     let fakeHandler;
     let metrics;
     let privacyHubGeolocationSubpage;
-    let openWindowProxy;
+    let privacyHubBrowserProxy;
     async function initPage() {
         privacyHubGeolocationSubpage =
             document.createElement('settings-privacy-hub-geolocation-subpage');
@@ -37,14 +38,13 @@ suite('<settings-privacy-hub-geolocation-subpage>', () => {
         fakeHandler = new FakeAppPermissionHandler();
         setAppPermissionProviderForTesting(fakeHandler);
         metrics = createFakeMetricsPrivate();
-        openWindowProxy = new TestOpenWindowProxy();
-        OpenWindowProxyImpl.setInstance(openWindowProxy);
+        privacyHubBrowserProxy = new TestPrivacyHubBrowserProxy();
+        PrivacyHubBrowserProxyImpl.setInstanceForTesting(privacyHubBrowserProxy);
         Router.getInstance().navigateTo(routes.PRIVACY_HUB_GEOLOCATION);
     });
     teardown(() => {
         privacyHubGeolocationSubpage.remove();
         Router.getInstance().resetRouteForTesting();
-        openWindowProxy.reset();
     });
     function histogram() {
         return 'ChromeOS.PrivacyHub.Geolocation.AccessLevelChanged.SystemSettings';
@@ -79,21 +79,20 @@ suite('<settings-privacy-hub-geolocation-subpage>', () => {
     function getAppList() {
         return privacyHubGeolocationSubpage.shadowRoot.querySelector('#appList');
     }
-    function checkService(systemService, nameVarName, expectedName, allowedTextVarName, allowedText, blockedTextVarName, blockedText) {
+    function checkService(systemService, nameVarName, expectedName, allowedTextVarName, allowedText, blockedText) {
         // Check  service name.
-        assertEquals(privacyHubGeolocationSubpage.i18n(nameVarName), expectedName);
+        assertEquals(expectedName, privacyHubGeolocationSubpage.i18n(nameVarName));
         assertEquals(expectedName, getSystemServiceName(systemService));
         // Check subtext.
         switch (getGeolocationAccessLevel()) {
             case GeolocationAccessLevel.DISALLOWED:
-                assertEquals(privacyHubGeolocationSubpage.i18n(blockedTextVarName), blockedText);
-                assertEquals(getSystemServicePermissionText(systemService), blockedText);
+                assertEquals(blockedText, getSystemServicePermissionText(systemService));
                 break;
             case GeolocationAccessLevel.ALLOWED:
             // Falls through to ONLY_ALLOWED_FOR_SYSTEM
             case GeolocationAccessLevel.ONLY_ALLOWED_FOR_SYSTEM:
-                assertEquals(privacyHubGeolocationSubpage.i18n(allowedTextVarName), allowedText);
-                assertEquals(getSystemServicePermissionText(systemService), allowedText);
+                assertEquals(allowedText, privacyHubGeolocationSubpage.i18n(allowedTextVarName));
+                assertEquals(allowedText, getSystemServicePermissionText(systemService));
                 break;
         }
     }
@@ -102,10 +101,13 @@ suite('<settings-privacy-hub-geolocation-subpage>', () => {
             .querySelector('#systemServicesSectionTitle').innerText.trim());
         const systemServices = getSystemServicesFromSubpage(privacyHubGeolocationSubpage);
         assertEquals(4, systemServices.length);
-        checkService(systemServices[0], 'privacyHubSystemServicesAutomaticTimeZoneName', 'Automatic time zone', 'privacyHubSystemServicesAllowedText', 'Allowed', 'privacyHubSystemServicesBlockedText', 'Blocked');
-        checkService(systemServices[1], 'privacyHubSystemServicesSunsetScheduleName', 'Sunset schedule', 'privacyHubSystemServicesAllowedText', 'Allowed', 'privacyHubSystemServicesBlockedText', 'Blocked');
-        checkService(systemServices[2], 'privacyHubSystemServicesLocalWeatherName', 'Local weather', 'privacyHubSystemServicesAllowedText', 'Allowed', 'privacyHubSystemServicesBlockedText', 'Blocked');
-        checkService(systemServices[3], 'privacyHubSystemServicesDarkThemeName', 'Dark theme', 'privacyHubSystemServicesAllowedText', 'Allowed', 'privacyHubSystemServicesBlockedText', 'Blocked');
+        checkService(systemServices[0], 'privacyHubSystemServicesAutomaticTimeZoneName', 'Automatic time zone', 'privacyHubSystemServicesAllowedText', 'Allowed', 'Blocked. Time zone is currently set to ' +
+            'Test Time Zone' +
+            ' and can only be updated manually.');
+        checkService(systemServices[1], 'privacyHubSystemServicesSunsetScheduleName', 'Sunset schedule', 'privacyHubSystemServicesAllowedText', 'Allowed', 'Blocked. Schedule is currently set to 7:00AM - 8:00PM' +
+            ' and can only be updated manually.');
+        checkService(systemServices[2], 'privacyHubSystemServicesLocalWeatherName', 'Local weather', 'privacyHubSystemServicesAllowedText', 'Allowed', 'Blocked');
+        checkService(systemServices[3], 'privacyHubSystemServicesDarkThemeName', 'Dark theme', 'privacyHubSystemServicesAllowedText', 'Allowed', 'Blocked');
     }
     test('App list displayed when geolocation allowed', async () => {
         await initPage();
@@ -213,15 +215,12 @@ suite('<settings-privacy-hub-geolocation-subpage>', () => {
         assertTrue(!!getManagePermissionsInChromeRow());
         assertNull(getNoWebsiteHasAccessTextRow());
     });
-    test('Clicking the link under the Websites section opens Chrome Location ' +
-        'Content Settings', async () => {
+    test('Clicking Chrome row opens Chrome browser location permission settings', async () => {
         await initPage();
-        // Geolocation is set to Allowed by default.
-        assertEquals(GeolocationAccessLevel.ALLOWED, getGeolocationAccessLevel());
-        // Click on the external link and check the location content setting is
-        // opened.
+        assertEquals(PermissionType.kUnknown, fakeHandler.getLastOpenedBrowserPermissionSettingsType());
         getManagePermissionsInChromeRow().click();
-        assertEquals('chrome://settings/content/location', await openWindowProxy.whenCalled('openUrl'));
+        await fakeHandler.whenCalled('openBrowserPermissionSettings');
+        assertEquals(PermissionType.kLocation, fakeHandler.getLastOpenedBrowserPermissionSettingsType());
     });
     test('Websites section is hidden when location is not allowed', async () => {
         await initPage();
@@ -242,5 +241,31 @@ suite('<settings-privacy-hub-geolocation-subpage>', () => {
         checkServiceSection();
         setGeolocationAccessLevel(GeolocationAccessLevel.ALLOWED);
         checkServiceSection();
+    });
+    test('Timezone update in system services section', async () => {
+        await initPage();
+        setGeolocationAccessLevel(GeolocationAccessLevel.DISALLOWED);
+        const systemServices = getSystemServicesFromSubpage(privacyHubGeolocationSubpage);
+        assertEquals(4, systemServices.length);
+        const timeZoneString = (tz) => ('Blocked. Time zone is currently set to ' + tz +
+            ' and can only be updated manually.');
+        const sunsetScheduleString = (interval) => 'Blocked. Schedule is currently set to ' + interval +
+            ' and can only be updated manually.';
+        assertEquals(timeZoneString('Test Time Zone'), getSystemServicePermissionText(systemServices[0]));
+        assertEquals(sunsetScheduleString('7:00AM - 8:00PM'), getSystemServicePermissionText(systemServices[1]));
+        // Simulate timezone-changed event.
+        const secondTimeZone = 'Some Other Time Zone';
+        const secondSunsetSchedule = '5:00AM - 10:00PM';
+        privacyHubBrowserProxy.currentTimeZoneName = secondTimeZone;
+        privacyHubBrowserProxy.currentSunRiseTime = '5:00AM';
+        privacyHubBrowserProxy.currentSunSetTime = '10:00PM';
+        privacyHubGeolocationSubpage.notifyPath('prefs.cros.system.timezone', secondTimeZone);
+        // Wait for all observers to be notified.
+        // This statement puts this currently executed async task at the end of the
+        // JS event loop.
+        await flushTasks();
+        // The warning strings should now look differently.
+        assertEquals(timeZoneString(secondTimeZone), getSystemServicePermissionText(systemServices[0]));
+        assertEquals(sunsetScheduleString(secondSunsetSchedule), getSystemServicePermissionText(systemServices[1]));
     });
 });

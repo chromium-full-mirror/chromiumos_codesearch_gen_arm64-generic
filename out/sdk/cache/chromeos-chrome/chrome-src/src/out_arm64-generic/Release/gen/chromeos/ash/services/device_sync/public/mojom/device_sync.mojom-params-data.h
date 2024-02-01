@@ -735,7 +735,7 @@ static_assert(
         mojo::ArrayDataView<::ash::multidevice::mojom::RemoteDeviceDataView>, UserType>(),
     "Attempting to read the optional `devices` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDevices` instead "
     "of `ReadDevices if you're fine with null values being "
@@ -786,7 +786,7 @@ static_assert(
         ::ash::multidevice::mojom::RemoteDeviceDataView, UserType>(),
     "Attempting to read the optional `local_device` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLocalDevice` instead "
     "of `ReadLocalDevice if you're fine with null values being "
@@ -995,7 +995,7 @@ static_assert(
         ::ash::device_sync::mojom::FindEligibleDevicesResponseDataView, UserType>(),
     "Attempting to read the optional `response` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResponse` instead "
     "of `ReadResponse if you're fine with null values being "
@@ -1127,7 +1127,7 @@ static_assert(
         mojo::ArrayDataView<::ash::device_sync::mojom::DeviceActivityStatusDataView>, UserType>(),
     "Attempting to read the optional `device_activity_statuses` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeviceActivityStatuses` instead "
     "of `ReadDeviceActivityStatuses if you're fine with null values being "
@@ -1178,7 +1178,7 @@ static_assert(
         ::ash::device_sync::mojom::DebugInfoDataView, UserType>(),
     "Attempting to read the optional `debug_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDebugInfo` instead "
     "of `ReadDebugInfo if you're fine with null values being "

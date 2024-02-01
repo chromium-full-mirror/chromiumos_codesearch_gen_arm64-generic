@@ -61,7 +61,7 @@ class PLATFORM_EXPORT NavigationApiHistoryEntry {
   template <typename... Args>
   static NavigationApiHistoryEntryPtr New(Args&&... args) {
     return NavigationApiHistoryEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -216,7 +216,7 @@ class PLATFORM_EXPORT NavigationApiHistoryEntryArrays {
   template <typename... Args>
   static NavigationApiHistoryEntryArraysPtr New(Args&&... args) {
     return NavigationApiHistoryEntryArraysPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

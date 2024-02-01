@@ -517,7 +517,7 @@ class  MidisRequest {
   template <typename... Args>
   static MidisRequestPtr New(Args&&... args) {
     return MidisRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -666,7 +666,7 @@ class  MidisDeviceInfo {
   template <typename... Args>
   static MidisDeviceInfoPtr New(Args&&... args) {
     return MidisDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

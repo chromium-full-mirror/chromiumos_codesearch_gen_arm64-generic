@@ -405,7 +405,7 @@ class COMPONENT_EXPORT(SMBFS_MOJOM) KerberosConfig {
   template <typename... Args>
   static KerberosConfigPtr New(Args&&... args) {
     return KerberosConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -556,7 +556,7 @@ class COMPONENT_EXPORT(SMBFS_MOJOM) Password {
   template <typename... Args>
   static PasswordPtr New(Args&&... args) {
     return PasswordPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -699,7 +699,7 @@ class COMPONENT_EXPORT(SMBFS_MOJOM) CredentialStorageOptions {
   template <typename... Args>
   static CredentialStorageOptionsPtr New(Args&&... args) {
     return CredentialStorageOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -842,7 +842,7 @@ class COMPONENT_EXPORT(SMBFS_MOJOM) MountOptions {
   template <typename... Args>
   static MountOptionsPtr New(Args&&... args) {
     return MountOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1013,7 +1013,7 @@ class COMPONENT_EXPORT(SMBFS_MOJOM) Credentials {
   template <typename... Args>
   static CredentialsPtr New(Args&&... args) {
     return CredentialsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

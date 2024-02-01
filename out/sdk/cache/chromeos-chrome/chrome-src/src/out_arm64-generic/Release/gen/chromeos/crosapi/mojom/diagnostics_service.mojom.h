@@ -510,7 +510,7 @@ class  DiagnosticsInteractiveRoutineUpdate {
   template <typename... Args>
   static DiagnosticsInteractiveRoutineUpdatePtr New(Args&&... args) {
     return DiagnosticsInteractiveRoutineUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -651,7 +651,7 @@ class  DiagnosticsNonInteractiveRoutineUpdate {
   template <typename... Args>
   static DiagnosticsNonInteractiveRoutineUpdatePtr New(Args&&... args) {
     return DiagnosticsNonInteractiveRoutineUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -796,7 +796,7 @@ class  DiagnosticsRunRoutineResponse {
   template <typename... Args>
   static DiagnosticsRunRoutineResponsePtr New(Args&&... args) {
     return DiagnosticsRunRoutineResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -950,7 +950,7 @@ class  DiagnosticsRoutineUpdateUnion {
   static DiagnosticsRoutineUpdateUnionPtr
   NewInteractiveUpdate(
       DiagnosticsInteractiveRoutineUpdatePtr value) {
-    auto result = DiagnosticsRoutineUpdateUnionPtr(absl::in_place);
+    auto result = DiagnosticsRoutineUpdateUnionPtr(std::in_place);
     result->set_interactive_update(std::move(value));
     return result;
   }
@@ -958,7 +958,7 @@ class  DiagnosticsRoutineUpdateUnion {
   static DiagnosticsRoutineUpdateUnionPtr
   NewNoninteractiveUpdate(
       DiagnosticsNonInteractiveRoutineUpdatePtr value) {
-    auto result = DiagnosticsRoutineUpdateUnionPtr(absl::in_place);
+    auto result = DiagnosticsRoutineUpdateUnionPtr(std::in_place);
     result->set_noninteractive_update(std::move(value));
     return result;
   }
@@ -1075,7 +1075,7 @@ class  DiagnosticsRoutineUpdate {
   template <typename... Args>
   static DiagnosticsRoutineUpdatePtr New(Args&&... args) {
     return DiagnosticsRoutineUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

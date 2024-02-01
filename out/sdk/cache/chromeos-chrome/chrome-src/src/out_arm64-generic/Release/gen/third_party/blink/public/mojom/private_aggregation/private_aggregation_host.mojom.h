@@ -169,7 +169,7 @@ class BLINK_COMMON_EXPORT DebugKey {
   template <typename... Args>
   static DebugKeyPtr New(Args&&... args) {
     return DebugKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -314,7 +314,7 @@ class BLINK_COMMON_EXPORT DebugModeDetails {
   template <typename... Args>
   static DebugModeDetailsPtr New(Args&&... args) {
     return DebugModeDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

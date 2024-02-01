@@ -59,6 +59,31 @@ struct DisplaySettingsType_Data {
   }
 };
 
+struct DisplaySettingsNightLightScheduleOption_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct DisplaySettingsOrientationOption_Data {
  public:
   static bool constexpr kIsExtensible = false;
@@ -97,9 +122,14 @@ class  DisplaySettingsValue_Data {
   uint8_t is_internal_display_$value : 1;
   uint8_t display_id_$flag : 1;
   uint8_t orientation_$flag : 1;
-  uint8_t pad3_[3];
+  uint8_t night_light_status_$flag : 1;
+  uint8_t night_light_status_$value : 1;
+  uint8_t night_light_schedule_$flag : 1;
+  uint8_t pad6_[3];
   int32_t orientation_$value;
   int64_t display_id_$value;
+  int32_t night_light_schedule_$value;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<DisplaySettingsValue_Data>;
@@ -107,7 +137,7 @@ class  DisplaySettingsValue_Data {
   DisplaySettingsValue_Data();
   ~DisplaySettingsValue_Data() = delete;
 };
-static_assert(sizeof(DisplaySettingsValue_Data) == 24,
+static_assert(sizeof(DisplaySettingsValue_Data) == 32,
               "Bad sizeof(DisplaySettingsValue_Data)");
 // Used by DisplaySettingsValue::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

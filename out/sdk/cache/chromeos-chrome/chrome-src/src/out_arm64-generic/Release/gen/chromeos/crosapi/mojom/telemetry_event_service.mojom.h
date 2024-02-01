@@ -288,7 +288,7 @@ class  TelemetryAudioJackEventInfo {
   template <typename... Args>
   static TelemetryAudioJackEventInfoPtr New(Args&&... args) {
     return TelemetryAudioJackEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -436,7 +436,7 @@ class  TelemetryLidEventInfo {
   template <typename... Args>
   static TelemetryLidEventInfoPtr New(Args&&... args) {
     return TelemetryLidEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -580,7 +580,7 @@ class  TelemetrySdCardEventInfo {
   template <typename... Args>
   static TelemetrySdCardEventInfoPtr New(Args&&... args) {
     return TelemetrySdCardEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -722,7 +722,7 @@ class  TelemetryPowerEventInfo {
   template <typename... Args>
   static TelemetryPowerEventInfoPtr New(Args&&... args) {
     return TelemetryPowerEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -864,7 +864,7 @@ class  TelemetryStylusGarageEventInfo {
   template <typename... Args>
   static TelemetryStylusGarageEventInfoPtr New(Args&&... args) {
     return TelemetryStylusGarageEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1006,7 +1006,7 @@ class  TelemetryTouchpadButtonEventInfo {
   template <typename... Args>
   static TelemetryTouchpadButtonEventInfoPtr New(Args&&... args) {
     return TelemetryTouchpadButtonEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1154,7 +1154,7 @@ class  TelemetryTouchscreenConnectedEventInfo {
   template <typename... Args>
   static TelemetryTouchscreenConnectedEventInfoPtr New(Args&&... args) {
     return TelemetryTouchscreenConnectedEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1300,7 +1300,7 @@ class  TelemetryStylusTouchPointInfo {
   template <typename... Args>
   static TelemetryStylusTouchPointInfoPtr New(Args&&... args) {
     return TelemetryStylusTouchPointInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1447,7 +1447,7 @@ class  TelemetryStylusConnectedEventInfo {
   template <typename... Args>
   static TelemetryStylusConnectedEventInfoPtr New(Args&&... args) {
     return TelemetryStylusConnectedEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1603,7 +1603,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewDefaultType(
       uint8_t value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_default_type(std::move(value));
     return result;
   }
@@ -1611,7 +1611,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewAudioJackEventInfo(
       TelemetryAudioJackEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_audio_jack_event_info(std::move(value));
     return result;
   }
@@ -1619,7 +1619,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewLidEventInfo(
       TelemetryLidEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_lid_event_info(std::move(value));
     return result;
   }
@@ -1627,7 +1627,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewUsbEventInfo(
       TelemetryUsbEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_usb_event_info(std::move(value));
     return result;
   }
@@ -1635,7 +1635,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewSdCardEventInfo(
       TelemetrySdCardEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_sd_card_event_info(std::move(value));
     return result;
   }
@@ -1643,7 +1643,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewPowerEventInfo(
       TelemetryPowerEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_power_event_info(std::move(value));
     return result;
   }
@@ -1651,7 +1651,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewKeyboardDiagnosticEventInfo(
       ::crosapi::mojom::TelemetryKeyboardDiagnosticEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_keyboard_diagnostic_event_info(std::move(value));
     return result;
   }
@@ -1659,7 +1659,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewStylusGarageEventInfo(
       TelemetryStylusGarageEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_stylus_garage_event_info(std::move(value));
     return result;
   }
@@ -1667,7 +1667,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewTouchpadButtonEventInfo(
       TelemetryTouchpadButtonEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_touchpad_button_event_info(std::move(value));
     return result;
   }
@@ -1675,7 +1675,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewTouchpadTouchEventInfo(
       TelemetryTouchpadTouchEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_touchpad_touch_event_info(std::move(value));
     return result;
   }
@@ -1683,7 +1683,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewTouchpadConnectedEventInfo(
       TelemetryTouchpadConnectedEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_touchpad_connected_event_info(std::move(value));
     return result;
   }
@@ -1691,7 +1691,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewExternalDisplayEventInfo(
       TelemetryExternalDisplayEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_external_display_event_info(std::move(value));
     return result;
   }
@@ -1699,7 +1699,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewStylusTouchEventInfo(
       TelemetryStylusTouchEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_stylus_touch_event_info(std::move(value));
     return result;
   }
@@ -1707,7 +1707,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewStylusConnectedEventInfo(
       TelemetryStylusConnectedEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_stylus_connected_event_info(std::move(value));
     return result;
   }
@@ -1715,7 +1715,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewTouchscreenTouchEventInfo(
       TelemetryTouchscreenTouchEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_touchscreen_touch_event_info(std::move(value));
     return result;
   }
@@ -1723,7 +1723,7 @@ class  TelemetryEventInfo {
   static TelemetryEventInfoPtr
   NewTouchscreenConnectedEventInfo(
       TelemetryTouchscreenConnectedEventInfoPtr value) {
-    auto result = TelemetryEventInfoPtr(absl::in_place);
+    auto result = TelemetryEventInfoPtr(std::in_place);
     result->set_touchscreen_connected_event_info(std::move(value));
     return result;
   }
@@ -2022,7 +2022,7 @@ class  TelemetryUsbEventInfo {
   template <typename... Args>
   static TelemetryUsbEventInfoPtr New(Args&&... args) {
     return TelemetryUsbEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2178,7 +2178,7 @@ class  TelemetryExternalDisplayEventInfo {
   template <typename... Args>
   static TelemetryExternalDisplayEventInfoPtr New(Args&&... args) {
     return TelemetryExternalDisplayEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2330,7 +2330,7 @@ class  TelemetryTouchPointInfo {
   template <typename... Args>
   static TelemetryTouchPointInfoPtr New(Args&&... args) {
     return TelemetryTouchPointInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2487,7 +2487,7 @@ class  TelemetryTouchpadTouchEventInfo {
   template <typename... Args>
   static TelemetryTouchpadTouchEventInfoPtr New(Args&&... args) {
     return TelemetryTouchpadTouchEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2629,7 +2629,7 @@ class  TelemetryTouchpadConnectedEventInfo {
   template <typename... Args>
   static TelemetryTouchpadConnectedEventInfoPtr New(Args&&... args) {
     return TelemetryTouchpadConnectedEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2778,7 +2778,7 @@ class  TelemetryTouchscreenTouchEventInfo {
   template <typename... Args>
   static TelemetryTouchscreenTouchEventInfoPtr New(Args&&... args) {
     return TelemetryTouchscreenTouchEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2922,7 +2922,7 @@ class  TelemetryStylusTouchEventInfo {
   template <typename... Args>
   static TelemetryStylusTouchEventInfoPtr New(Args&&... args) {
     return TelemetryStylusTouchEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

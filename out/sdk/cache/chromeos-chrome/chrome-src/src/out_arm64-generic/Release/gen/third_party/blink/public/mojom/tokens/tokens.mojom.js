@@ -1850,6 +1850,8 @@
   WebGPUExecutionContextToken.Tags = {
     documentToken: 0,
     dedicatedWorkerToken: 1,
+    sharedWorkerToken: 2,
+    serviceWorkerToken: 3,
   };
 
   WebGPUExecutionContextToken.prototype.initDefault_ = function() {
@@ -1874,6 +1876,8 @@
     var fields = [
         "documentToken",
         "dedicatedWorkerToken",
+        "sharedWorkerToken",
+        "serviceWorkerToken",
     ];
 
     if (fields.indexOf(keys[0]) < 0) {
@@ -1911,6 +1915,34 @@
       this.$data = value;
     }
   });
+  Object.defineProperty(WebGPUExecutionContextToken.prototype, "sharedWorkerToken", {
+    get: function() {
+      if (this.$tag != WebGPUExecutionContextToken.Tags.sharedWorkerToken) {
+        throw new ReferenceError(
+            "WebGPUExecutionContextToken.sharedWorkerToken is not currently set.");
+      }
+      return this.$data;
+    },
+
+    set: function(value) {
+      this.$tag = WebGPUExecutionContextToken.Tags.sharedWorkerToken;
+      this.$data = value;
+    }
+  });
+  Object.defineProperty(WebGPUExecutionContextToken.prototype, "serviceWorkerToken", {
+    get: function() {
+      if (this.$tag != WebGPUExecutionContextToken.Tags.serviceWorkerToken) {
+        throw new ReferenceError(
+            "WebGPUExecutionContextToken.serviceWorkerToken is not currently set.");
+      }
+      return this.$data;
+    },
+
+    set: function(value) {
+      this.$tag = WebGPUExecutionContextToken.Tags.serviceWorkerToken;
+      this.$data = value;
+    }
+  });
 
 
     WebGPUExecutionContextToken.encode = function(encoder, val) {
@@ -1931,6 +1963,12 @@
           break;
         case WebGPUExecutionContextToken.Tags.dedicatedWorkerToken:
           encoder.encodeStructPointer(DedicatedWorkerToken, val.dedicatedWorkerToken);
+          break;
+        case WebGPUExecutionContextToken.Tags.sharedWorkerToken:
+          encoder.encodeStructPointer(SharedWorkerToken, val.sharedWorkerToken);
+          break;
+        case WebGPUExecutionContextToken.Tags.serviceWorkerToken:
+          encoder.encodeStructPointer(ServiceWorkerToken, val.serviceWorkerToken);
           break;
       }
       encoder.align();
@@ -1953,6 +1991,12 @@
           break;
         case WebGPUExecutionContextToken.Tags.dedicatedWorkerToken:
           result.dedicatedWorkerToken = decoder.decodeStructPointer(DedicatedWorkerToken);
+          break;
+        case WebGPUExecutionContextToken.Tags.sharedWorkerToken:
+          result.sharedWorkerToken = decoder.decodeStructPointer(SharedWorkerToken);
+          break;
+        case WebGPUExecutionContextToken.Tags.serviceWorkerToken:
+          result.serviceWorkerToken = decoder.decodeStructPointer(ServiceWorkerToken);
           break;
       }
       decoder.align();
@@ -1984,6 +2028,22 @@
 
     // validate WebGPUExecutionContextToken.dedicatedWorkerToken
     err = messageValidator.validateStructPointer(data_offset, DedicatedWorkerToken, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+          break;
+        case WebGPUExecutionContextToken.Tags.sharedWorkerToken:
+          
+
+    // validate WebGPUExecutionContextToken.sharedWorkerToken
+    err = messageValidator.validateStructPointer(data_offset, SharedWorkerToken, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+          break;
+        case WebGPUExecutionContextToken.Tags.serviceWorkerToken:
+          
+
+    // validate WebGPUExecutionContextToken.serviceWorkerToken
+    err = messageValidator.validateStructPointer(data_offset, ServiceWorkerToken, false);
     if (err !== validator.validationError.NONE)
         return err;
           break;

@@ -177,7 +177,7 @@ class PLATFORM_EXPORT PrerenderAttributes {
   template <typename... Args>
   static PrerenderAttributesPtr New(Args&&... args) {
     return PrerenderAttributesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -6,8 +6,8 @@
 
 #ifndef THIRD_PARTY_BLINK_PUBLIC_MOJOM_WIDGET_DEVICE_EMULATION_PARAMS_MOJOM_IMPORT_HEADERS_H_
 #define THIRD_PARTY_BLINK_PUBLIC_MOJOM_WIDGET_DEVICE_EMULATION_PARAMS_MOJOM_IMPORT_HEADERS_H_
-#include "services/device/public/mojom/device_posture_provider.mojom.h"
-#include "services/device/public/mojom/device_posture_provider.mojom-import-headers.h"
+#include "third_party/blink/public/mojom/device_posture/device_posture_provider.mojom.h"
+#include "third_party/blink/public/mojom/device_posture/device_posture_provider.mojom-import-headers.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-import-headers.h"
 #include "ui/display/mojom/screen_orientation.mojom.h"

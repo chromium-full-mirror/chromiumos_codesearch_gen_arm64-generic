@@ -62,7 +62,7 @@ class  GammaCurve {
   template <typename... Args>
   static GammaCurvePtr New(Args&&... args) {
     return GammaCurvePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -202,7 +202,7 @@ class  ColorCalibration {
   template <typename... Args>
   static ColorCalibrationPtr New(Args&&... args) {
     return ColorCalibrationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -348,7 +348,7 @@ class  ColorTemperatureAdjustment {
   template <typename... Args>
   static ColorTemperatureAdjustmentPtr New(Args&&... args) {
     return ColorTemperatureAdjustmentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -488,7 +488,7 @@ class  GammaAdjustment {
   template <typename... Args>
   static GammaAdjustmentPtr New(Args&&... args) {
     return GammaAdjustmentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

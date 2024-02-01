@@ -60,7 +60,7 @@ class  SubsampleEntry {
   template <typename... Args>
   static SubsampleEntryPtr New(Args&&... args) {
     return SubsampleEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -214,7 +214,7 @@ class  VideoFrameMetadata {
   template <typename... Args>
   static VideoFrameMetadataPtr New(Args&&... args) {
     return VideoFrameMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -369,7 +369,7 @@ class  DecryptConfig {
   template <typename... Args>
   static DecryptConfigPtr New(Args&&... args) {
     return DecryptConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -521,7 +521,7 @@ class  ColorVolumeMetadata {
   template <typename... Args>
   static ColorVolumeMetadataPtr New(Args&&... args) {
     return ColorVolumeMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -676,7 +676,7 @@ class  HDRMetadata {
   template <typename... Args>
   static HDRMetadataPtr New(Args&&... args) {
     return HDRMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -822,7 +822,7 @@ class  VideoDecoderConfig {
   template <typename... Args>
   static VideoDecoderConfigPtr New(Args&&... args) {
     return VideoDecoderConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -992,7 +992,7 @@ class  SupportedVideoDecoderConfig {
   template <typename... Args>
   static SupportedVideoDecoderConfigPtr New(Args&&... args) {
     return SupportedVideoDecoderConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1147,7 +1147,7 @@ class  StatusData {
   template <typename... Args>
   static StatusDataPtr New(Args&&... args) {
     return StatusDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1304,7 +1304,7 @@ class  Status {
   template <typename... Args>
   static StatusPtr New(Args&&... args) {
     return StatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1444,7 +1444,7 @@ class  DecoderBufferSideData {
   template <typename... Args>
   static DecoderBufferSideDataPtr New(Args&&... args) {
     return DecoderBufferSideDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1590,7 +1590,7 @@ class  DecoderBuffer {
   template <typename... Args>
   static DecoderBufferPtr New(Args&&... args) {
     return DecoderBufferPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1770,7 +1770,7 @@ class  ColorSpace {
   template <typename... Args>
   static ColorSpacePtr New(Args&&... args) {
     return ColorSpacePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1925,7 +1925,7 @@ class  NativeGpuMemoryBufferHandle {
   template <typename... Args>
   static NativeGpuMemoryBufferHandlePtr New(Args&&... args) {
     return NativeGpuMemoryBufferHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2066,7 +2066,7 @@ class  VideoFrame {
   template <typename... Args>
   static VideoFramePtr New(Args&&... args) {
     return VideoFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2228,7 +2228,7 @@ class  MediaLogRecord {
   template <typename... Args>
   static MediaLogRecordPtr New(Args&&... args) {
     return MediaLogRecordPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

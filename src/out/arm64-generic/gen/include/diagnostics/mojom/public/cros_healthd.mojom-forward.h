@@ -37,8 +37,6 @@ class CrosHealthdProbeService;
 
 class CrosHealthdSystemService;
 
-class WilcoEcServiceController;
-
 
 
 

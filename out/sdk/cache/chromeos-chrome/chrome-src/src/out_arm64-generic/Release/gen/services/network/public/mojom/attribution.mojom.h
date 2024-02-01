@@ -53,7 +53,7 @@ class  TriggerVerification {
   template <typename... Args>
   static TriggerVerificationPtr New(Args&&... args) {
     return TriggerVerificationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -196,7 +196,7 @@ class  AttributionReportingRuntimeFeatures {
   template <typename... Args>
   static AttributionReportingRuntimeFeaturesPtr New(Args&&... args) {
     return AttributionReportingRuntimeFeaturesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

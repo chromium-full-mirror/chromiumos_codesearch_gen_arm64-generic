@@ -1,9 +1,12 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style">#currentSitesSection{align-items:center;display:flex;padding:0 var(--cr-section-padding)}#currentSitesSectionWrapper{width:100%}#currentSitesHeading{color:var(--cr-secondary-text-color);font-size:100%;font-weight:500;margin:0;padding-block-start:var(--cr-section-vertical-padding)}#currentSitesDescription{padding-block-end:var(--cr-section-vertical-padding)}#learnMoreLink{background:0 0;border:none;color:var(--cr-link-color);cursor:pointer;margin:0;padding:0;text-decoration:underline}.no-sites{padding-block-end:32px;padding-block-start:16px;padding-inline-start:40px}#blockedSitesDescription{min-height:auto;padding-block-end:16px;padding-block-start:16px}.no-blocked-sites{padding-inline-start:60px}#blockedSitesList{padding:0 var(--cr-section-padding)}#footer{padding-block-end:16px;padding-block-start:16px}#dialog p{margin:0;padding-block-end:16px;padding-block-start:4px}#footer{padding:16px var(--cr-section-padding)}a{color:var(--cr-link-color)}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style">#currentSitesSection{align-items:center;display:flex;padding:0 var(--cr-section-padding)}#currentSitesSectionWrapper{width:100%}#currentSitesHeading{color:var(--cr-secondary-text-color);font-size:100%;font-weight:500;margin:0;padding-block-start:var(--cr-section-vertical-padding)}#currentSitesDescription{padding-block-end:var(--cr-section-vertical-padding)}#learnMoreLink{background:0 0;border:none;color:var(--cr-link-color);cursor:pointer;margin:0;padding:0;text-decoration:underline}.no-sites{padding-block-end:32px;padding-block-start:16px;padding-inline-start:40px}#blockedSitesDescription{min-height:auto;padding-block-end:16px;padding-block-start:16px}.no-blocked-sites{padding-inline-start:60px}#blockedSitesList{padding:0 var(--cr-section-padding)}#footer{padding-block-end:16px;padding-block-start:16px}#dialog p{margin:0;padding-block-end:16px;padding-block-start:4px}.footer{padding:16px var(--cr-section-padding)}#secondDescription{padding:0 var(--cr-section-padding) var(--cr-section-vertical-padding)}a{color:var(--cr-link-color)}</style>
 
 <settings-toggle-button id="fledgeToggle" pref="{{prefs.privacy_sandbox.m1.fledge_enabled}}" label="$i18n{fledgePageToggleLabel}" sub-label="$i18n{fledgePageToggleSubLabel}" on-settings-boolean-control-change="onToggleChange_">
 </settings-toggle-button>
+<div id="secondDescription" class="cr-secondary-text" hidden="[[!shouldShowV2_]]">
+  $i18n{fledgePageSecondaryDescriptionV2}
+</div>
 <template is="dom-if" if="[[!isFledgePrefManaged_(
     prefs.privacy_sandbox.m1.fledge_enabled.enforcement)]]" restamp>
   <div id="currentSitesSection">
@@ -64,10 +67,12 @@ export function getTemplate() {
     </template>
   </div>
 </iron-collapse>
-<div id="footer" class="cr-secondary-text hr">
+<div id="footer" class="cr-secondary-text hr footer" hidden="[[shouldShowV2_]]">
   $i18nRaw{fledgePageFooter}
 </div>
-
+<div id="footerV2" class="cr-secondary-text hr footer" hidden="[[!shouldShowV2_]]">
+  $i18nRaw{fledgePageFooterV2}
+</div>
 <template is="dom-if" if="[[isLearnMoreDialogOpen_]]" restamp>
   <cr-dialog id="dialog" on-close="onCloseDialog_" show-on-attach>
     <div slot="title">$i18n{fledgePageLearnMoreHeading}</div>

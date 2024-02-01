@@ -62,7 +62,7 @@ class  TimingAllowOrigin {
   static TimingAllowOriginPtr
   NewSerializedOrigins(
       std::vector<std::string> value) {
-    auto result = TimingAllowOriginPtr(absl::in_place);
+    auto result = TimingAllowOriginPtr(std::in_place);
     result->set_serialized_origins(std::move(value));
     return result;
   }
@@ -70,7 +70,7 @@ class  TimingAllowOrigin {
   static TimingAllowOriginPtr
   NewAll(
       uint8_t value) {
-    auto result = TimingAllowOriginPtr(absl::in_place);
+    auto result = TimingAllowOriginPtr(std::in_place);
     result->set_all(std::move(value));
     return result;
   }

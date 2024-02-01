@@ -161,6 +161,38 @@ blink_receiver->subscribe(script_state, arg1_observer, arg2_options);
 
 }
 
+void TakeUntilOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Observable_takeUntil");
+BLINK_BINDINGS_TRACE_EVENT("Observable.takeUntil");
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "Observable";
+const char* const property_name = "takeUntil";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+if (UNLIKELY(info.Length() < 1)) {
+  exception_state.ThrowTypeError(ExceptionMessages::NotEnoughArguments(1, info.Length()));
+return;
+}
+
+
+
+v8::Local<v8::Object> v8_receiver = info.This();
+Observable* blink_receiver = V8Observable::ToWrappableUnsafe(isolate, v8_receiver);
+ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
+ScriptState* script_state = receiver_script_state;
+auto&& arg1_notifier = NativeValueTraits<Observable>::ArgumentValue(isolate, 0, info[0], exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+auto&& return_value = blink_receiver->takeUntil(script_state, arg1_notifier);
+bindings::V8SetReturnValue(info, return_value, blink_receiver);
+}
+
 void ToArrayOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_Observable_toArray");
 BLINK_BINDINGS_TRACE_EVENT("Observable.toArray");
@@ -243,6 +275,7 @@ void V8Observable::InstallUnconditionalProperties(v8::Isolate* isolate, const DO
 {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"subscribe", SubscribeOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"takeUntil", TakeUntilOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"toArray", ToArrayOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();

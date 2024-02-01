@@ -770,7 +770,7 @@ class  HostResolverHost {
   static HostResolverHostPtr
   NewSchemeHostPort(
       const ::url::SchemeHostPort& value) {
-    auto result = HostResolverHostPtr(absl::in_place);
+    auto result = HostResolverHostPtr(std::in_place);
     result->set_scheme_host_port(std::move(value));
     return result;
   }
@@ -778,7 +778,7 @@ class  HostResolverHost {
   static HostResolverHostPtr
   NewHostPortPair(
       const ::net::HostPortPair& value) {
-    auto result = HostResolverHostPtr(absl::in_place);
+    auto result = HostResolverHostPtr(std::in_place);
     result->set_host_port_pair(std::move(value));
     return result;
   }
@@ -892,7 +892,7 @@ class  DnsOverHttpsServerConfig {
   template <typename... Args>
   static DnsOverHttpsServerConfigPtr New(Args&&... args) {
     return DnsOverHttpsServerConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1035,7 +1035,7 @@ class  DnsOverHttpsConfig {
   template <typename... Args>
   static DnsOverHttpsConfigPtr New(Args&&... args) {
     return DnsOverHttpsConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1176,7 +1176,7 @@ class  DnsConfigOverrides {
   template <typename... Args>
   static DnsConfigOverridesPtr New(Args&&... args) {
     return DnsConfigOverridesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1352,7 +1352,7 @@ class  ResolveHostParameters {
   template <typename... Args>
   static ResolveHostParametersPtr New(Args&&... args) {
     return ResolveHostParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

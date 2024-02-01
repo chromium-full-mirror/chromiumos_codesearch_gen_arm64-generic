@@ -425,7 +425,7 @@ class  DeviceData {
   template <typename... Args>
   static DeviceDataPtr New(Args&&... args) {
     return DeviceDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -57,7 +57,7 @@ class  DisplayMode {
   template <typename... Args>
   static DisplayModePtr New(Args&&... args) {
     return DisplayModePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

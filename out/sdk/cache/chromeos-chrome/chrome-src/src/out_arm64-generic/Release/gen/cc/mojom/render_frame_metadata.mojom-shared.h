@@ -140,7 +140,7 @@ static_assert(
         ::gfx::mojom::PointFDataView, UserType>(),
     "Attempting to read the optional `root_scroll_offset` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRootScrollOffset` instead "
     "of `ReadRootScrollOffset if you're fine with null values being "
@@ -176,7 +176,7 @@ static_assert(
         ::cc::mojom::DelegatedInkBrowserMetadataDataView, UserType>(),
     "Attempting to read the optional `delegated_ink_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDelegatedInkMetadata` instead "
     "of `ReadDelegatedInkMetadata if you're fine with null values being "
@@ -209,7 +209,7 @@ static_assert(
         ::viz::mojom::LocalSurfaceIdDataView, UserType>(),
     "Attempting to read the optional `local_surface_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLocalSurfaceId` instead "
     "of `ReadLocalSurfaceId if you're fine with null values being "

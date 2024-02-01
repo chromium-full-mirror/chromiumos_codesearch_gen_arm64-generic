@@ -744,7 +744,7 @@ class  ContactIdentifier {
   static ContactIdentifierPtr
   NewObfuscatedGaia(
       const std::string& value) {
-    auto result = ContactIdentifierPtr(absl::in_place);
+    auto result = ContactIdentifierPtr(std::in_place);
     result->set_obfuscated_gaia(std::move(value));
     return result;
   }
@@ -752,7 +752,7 @@ class  ContactIdentifier {
   static ContactIdentifierPtr
   NewPhoneNumber(
       const std::string& value) {
-    auto result = ContactIdentifierPtr(absl::in_place);
+    auto result = ContactIdentifierPtr(std::in_place);
     result->set_phone_number(std::move(value));
     return result;
   }
@@ -760,7 +760,7 @@ class  ContactIdentifier {
   static ContactIdentifierPtr
   NewAccountName(
       const std::string& value) {
-    auto result = ContactIdentifierPtr(absl::in_place);
+    auto result = ContactIdentifierPtr(std::in_place);
     result->set_account_name(std::move(value));
     return result;
   }
@@ -888,7 +888,7 @@ class  ContactRecord {
   template <typename... Args>
   static ContactRecordPtr New(Args&&... args) {
     return ContactRecordPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

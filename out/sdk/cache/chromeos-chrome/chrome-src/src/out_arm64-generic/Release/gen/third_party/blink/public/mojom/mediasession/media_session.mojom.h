@@ -342,7 +342,7 @@ class BLINK_COMMON_EXPORT MediaSessionActionDetails {
   static MediaSessionActionDetailsPtr
   NewSeekTo(
       MediaSessionSeekToDetailsPtr value) {
-    auto result = MediaSessionActionDetailsPtr(absl::in_place);
+    auto result = MediaSessionActionDetailsPtr(std::in_place);
     result->set_seek_to(std::move(value));
     return result;
   }
@@ -443,7 +443,7 @@ class BLINK_COMMON_EXPORT MediaSessionSeekToDetails {
   template <typename... Args>
   static MediaSessionSeekToDetailsPtr New(Args&&... args) {
     return MediaSessionSeekToDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -586,7 +586,7 @@ class BLINK_COMMON_EXPORT SpecMediaMetadata {
   template <typename... Args>
   static SpecMediaMetadataPtr New(Args&&... args) {
     return SpecMediaMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

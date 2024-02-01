@@ -74,7 +74,7 @@ class BLINK_COMMON_EXPORT FetchAPIRequestHeaders {
   template <typename... Args>
   static FetchAPIRequestHeadersPtr New(Args&&... args) {
     return FetchAPIRequestHeadersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -214,7 +214,7 @@ class BLINK_COMMON_EXPORT FetchAPIRequestBody {
   template <typename... Args>
   static FetchAPIRequestBodyPtr New(Args&&... args) {
     return FetchAPIRequestBodyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -357,7 +357,7 @@ class BLINK_COMMON_EXPORT FetchAPIRequest {
   template <typename... Args>
   static FetchAPIRequestPtr New(Args&&... args) {
     return FetchAPIRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

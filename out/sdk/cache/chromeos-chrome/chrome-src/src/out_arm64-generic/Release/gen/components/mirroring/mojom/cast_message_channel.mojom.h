@@ -158,7 +158,7 @@ class  CastMessage {
   template <typename... Args>
   static CastMessagePtr New(Args&&... args) {
     return CastMessagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

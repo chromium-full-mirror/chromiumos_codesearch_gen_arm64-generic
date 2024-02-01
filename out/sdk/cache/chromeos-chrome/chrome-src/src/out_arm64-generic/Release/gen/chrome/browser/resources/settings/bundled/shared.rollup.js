@@ -1773,7 +1773,7 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$P() {
+function getTemplate$O() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -1831,7 +1831,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$P();
+        return getTemplate$O();
     }
     static get properties() {
         return {
@@ -4273,7 +4273,7 @@ class FocusOutlineManager {
     }
 }
 
-function getTemplate$O() {
+function getTemplate$N() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -4309,7 +4309,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$O();
+        return getTemplate$N();
     }
     static get properties() {
         return {
@@ -4493,7 +4493,7 @@ styleMod$6.appendChild(html `
 `.content);
 styleMod$6.register('cr-actionable-row-style');
 
-function getTemplate$N() {
+function getTemplate$M() {
     return html `<!--_html_template_start_--><style include="cr-actionable-row-style cr-shared-style cr-hidden-style">:host{box-sizing:border-box;flex:1;font-family:inherit;font-size:100%;line-height:154%;min-height:var(--cr-section-min-height);padding:0}:host(:not([embedded])){padding:0 var(--cr-section-padding)}#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
         var(--google-grey-700));display:flex;flex-shrink:0;padding-inline-end:var(--cr-icon-button-margin-start);width:var(--cr-link-row-icon-width,var(--cr-icon-size))}@media (prefers-color-scheme:dark){#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
           var(--google-grey-500))}}#labelWrapper{flex:1;flex-basis:.000000001px;padding-bottom:var(--cr-section-vertical-padding);padding-top:var(--cr-section-vertical-padding);text-align:start}#label,#subLabel{display:flex}#buttonAriaDescription{clip:rect(0,0,0,0);display:block;position:fixed}</style>
@@ -4533,7 +4533,7 @@ class CrLinkRowElement extends PolymerElement {
         return 'cr-link-row';
     }
     static get template() {
-        return getTemplate$N();
+        return getTemplate$M();
     }
     static get properties() {
         return {
@@ -5045,7 +5045,7 @@ styleMod$5.appendChild(html `
 `.content);
 styleMod$5.register('action-link');
 
-function getTemplate$M() {
+function getTemplate$L() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
                 var(--cr-fallback-color-primary));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on,
                 var(--cr-fallback-color-on-primary));--cr-toggle-unchecked-bar-color:var(--color-toggle-button-track-off,
@@ -5092,7 +5092,7 @@ class CrToggleElement extends CrToggleElementBase {
         return 'cr-toggle';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -5879,7 +5879,7 @@ Polymer({
   }
 });
 
-function getTemplate$L() {
+function getTemplate$K() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style">:host{display:flex}iron-icon{--iron-icon-width:var(--cr-icon-size);--iron-icon-height:var(--cr-icon-size);--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-700))}@media (prefers-color-scheme:dark){iron-icon{--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-500))}}</style>
     <iron-icon id="indicator" tabindex="0" aria-label$="[[iconAriaLabel]]" aria-describedby="tooltip" icon="[[iconClass]]" role="img"></iron-icon>
     <paper-tooltip id="tooltip" for="indicator" position="[[tooltipPosition]]" fit-to-visible-bounds part="tooltip">
@@ -5896,7 +5896,7 @@ class CrTooltipIconElement extends PolymerElement {
         return 'cr-tooltip-icon';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -6044,7 +6044,7 @@ const CrPolicyIndicatorMixin = dedupingMixin((superClass) => {
     return CrPolicyIndicatorMixin;
 });
 
-function getTemplate$K() {
+function getTemplate$J() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style"></style>
     <cr-tooltip-icon id="tooltipIcon" hidden$="[[!indicatorVisible]]" tooltip-text="[[indicatorTooltip]]" icon-class="[[indicatorIcon]]" icon-aria-label="[[iconAriaLabel]]" exportparts="tooltip">
     </cr-tooltip-icon>
@@ -6064,7 +6064,7 @@ class CrPolicyPrefIndicatorElement extends CrPolicyPrefIndicatorElementBase {
         return 'cr-policy-pref-indicator';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -6392,7 +6392,7 @@ const SettingsBooleanControlMixin = dedupingMixin((superClass) => {
     return SettingsBooleanControlMixin;
 });
 
-function getTemplate$J() {
+function getTemplate$I() {
     return html `<!--_html_template_start_--><style include="cr-shared-style cr-actionable-row-style iron-flex action-link cros-color-overrides">:host{--cr-icon-button-margin-end:20px;padding:0 var(--cr-section-padding)}:host([elide-label]),:host([elide-label]) #outerRow,:host([elide-label]) #outerRow>div.flex{min-width:0}:host([elide-label]) .label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#outerRow{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height);width:100%}#outerRow[noSubLabel]{min-height:var(--cr-section-min-height)}#icon{margin-inline-end:var(--cr-icon-button-margin-end)}#labelWrapper{padding:var(--cr-section-vertical-padding) 0}#labelWrapper,::slotted([slot=more-actions]){margin-inline-end:20px!important}cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}a{color:var(--cr-link-color)}</style>
 <div id="outerRow" nosublabel$="[[!subLabel]]">
   <template is="dom-if" if="[[icon]]">
@@ -6451,7 +6451,7 @@ class SettingsToggleButtonElement extends SettingsToggleButtonElementBase {
         return 'settings-toggle-button';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -6578,7 +6578,7 @@ class SettingsToggleButtonElement extends SettingsToggleButtonElementBase {
 }
 customElements.define(SettingsToggleButtonElement.is, SettingsToggleButtonElement);
 
-function getTemplate$I() {
+function getTemplate$H() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:var(--cr-toast-max-width,568px);min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
             var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
             var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
@@ -6602,7 +6602,7 @@ class CrToastElement extends PolymerElement {
         return 'cr-toast';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -7436,7 +7436,7 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
     return CrContainerShadowMixin;
 });
 
-function getTemplate$H() {
+function getTemplate$G() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
     <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
     
@@ -7491,7 +7491,7 @@ class CrDialogElement extends CrDialogElementBase {
         return 'cr-dialog';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -7919,7 +7919,7 @@ function prefToString(pref) {
     }
 }
 
-function getTemplate$G() {
+function getTemplate$F() {
     return html `<!--_html_template_start_--><style include="cr-radio-button-style cros-color-overrides">:host([disabled]){opacity:1}:host([disabled]) #labelWrapper,:host([disabled]) .disc-wrapper{opacity:var(--cr-disabled-opacity)}cr-policy-pref-indicator{margin-inline-start:var(--cr-controlled-by-spacing);pointer-events:all}</style>
 
 <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -7951,7 +7951,7 @@ class ControlledRadioButtonElement extends ControlledRadioButtonElementBase {
         return 'controlled-radio-button';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$F();
     }
     static get observers() {
         return [
@@ -8026,7 +8026,7 @@ class ExtensionControlBrowserProxyImpl {
 }
 let instance$d = null;
 
-function getTemplate$F() {
+function getTemplate$E() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{align-items:center;display:flex;margin-inline-start:36px;min-height:var(--cr-section-min-height)}img{margin-inline-end:16px}iron-icon[icon='cr:open-in-new']{fill:var(--text-color);height:var(--cr-icon-size);width:var(--cr-icon-size)}#disable{margin-inline-start:8px}:host>span{flex:1;margin-inline-end:8px}</style>
 <img role="presentation" src="chrome://extension-icon/[[extensionId]]/20/1">
 <span>[[getLabel_(extensionName)]]</span>
@@ -8048,7 +8048,7 @@ class ExtensionControlledIndicatorElement extends PolymerElement {
         return 'extension-controlled-indicator';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -8072,7 +8072,7 @@ class ExtensionControlledIndicatorElement extends PolymerElement {
 }
 customElements.define(ExtensionControlledIndicatorElement.is, ExtensionControlledIndicatorElement);
 
-function getTemplate$E() {
+function getTemplate$D() {
     return html `<!--_html_template_start_-->    <style include="cr-radio-button-style cr-hidden-style"></style>
 
     <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -8099,7 +8099,7 @@ class CrRadioButtonElement extends CrRadioButtonElementBase {
         return 'cr-radio-button';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$D();
     }
     // Overridden from CrRadioButtonMixin
     getPaperRipple() {
@@ -8180,7 +8180,7 @@ class EventTracker {
     }
 }
 
-function getTemplate$D() {
+function getTemplate$C() {
     return html `<!--_html_template_start_-->    <style>:host{display:inline-block}:host ::slotted(*){padding:var(--cr-radio-group-item-padding,12px)}:host([disabled]){cursor:initial;pointer-events:none;user-select:none}:host([disabled]) ::slotted(*){opacity:var(--cr-disabled-opacity)}</style>
     <slot></slot>
 <!--_html_template_end_-->`;
@@ -8206,7 +8206,7 @@ class CrRadioGroupElement extends PolymerElement {
         return 'cr-radio-group';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$C();
     }
     static get properties() {
         return {
@@ -8409,7 +8409,7 @@ class CrRadioGroupElement extends PolymerElement {
 }
 customElements.define(CrRadioGroupElement.is, CrRadioGroupElement);
 
-function getTemplate$C() {
+function getTemplate$B() {
     return html `<!--_html_template_start_--><style>cr-radio-group{width:100%}</style>
 <cr-radio-group selected="[[selected]]" on-selected-changed="onSelectedChanged_" aria-label$="[[groupAriaLabel]]" selectable-elements="[[selectableElements]]">
   <slot></slot>
@@ -8436,7 +8436,7 @@ class SettingsRadioGroupElement extends SettingsRadioGroupElementBase {
         return 'settings-radio-group';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$B();
     }
     static get properties() {
         return {
@@ -9415,7 +9415,7 @@ const RouteObserverMixin = dedupingMixin((superClass) => {
     return RouteObserverMixin;
 });
 
-function getTemplate$B() {
+function getTemplate$A() {
     return html `<!--_html_template_start_-->    <iron-pages id="animatedPages" attr-for-selected="route-path" on-iron-select="onIronSelect_">
       <slot></slot>
     </iron-pages>
@@ -9442,7 +9442,7 @@ class SettingsAnimatedPagesElement extends SettingsAnimatedPagesElementBase {
         return 'settings-animated-pages';
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$A();
     }
     static get properties() {
         return {
@@ -9631,13 +9631,14 @@ styleMod$2.appendChild(html `
                 var(--cr-fallback-on-surface-subtle));isolation:isolate}:host-context([chrome-refresh-2023]):host([readonly]){--cr-input-border-radius:8px 8px}@media (prefers-color-scheme:dark){:host{--cr-input-background-color:rgba(0, 0, 0, .3);--cr-input-error-color:var(--google-red-300);--cr-input-focus-color:var(--google-blue-300)}}:host-context(html:not([chrome-refresh-2023])):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-color)}:host-context([chrome-refresh-2023]) #label{color:var(--cr-input-label-color);font-size:11px;line-height:16px}:host-context([chrome-refresh-2023]):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-label-color,var(--cr-input-label-color))}#input-container{border-radius:var(--cr-input-border-radius,4px);overflow:hidden;position:relative;width:var(--cr-input-width,100%)}:host-context([chrome-refresh-2023]):host([focused_]) #input-container{outline:var(--cr-input-focus-outline,none)}#inner-input-container{background-color:var(--cr-input-background-color);box-sizing:border-box;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted(*){--cr-icon-button-fill-color:var(--color-textfield-foreground-icon,
             var(--cr-fallback-color-on-surface-subtle));--cr-icon-button-icon-size:16px;--cr-icon-button-size:24px;--cr-icon-button-margin-start:0;--cr-icon-color:var(--color-textfield-foreground-icon,
             var(--cr-fallback-color-on-surface-subtle))}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-prefix]){--cr-icon-button-margin-start:-8px}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-suffix]){--cr-icon-button-margin-end:-4px}:host-context([chrome-refresh-2023]):host([invalid]) #inner-input-content ::slotted(*){--cr-icon-color:var(--cr-input-error-color);--cr-icon-button-fill-color:var(--cr-input-error-color)}#hover-layer{display:none}:host-context([chrome-refresh-2023]) #hover-layer{background-color:var(--cr-input-hover-background-color);inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:not([readonly]):not([disabled])) #input-container:hover #hover-layer{display:block}#input{-webkit-appearance:none;background-color:transparent;border:none;box-sizing:border-box;caret-color:var(--cr-input-focus-color);color:var(--cr-input-color);font-family:inherit;font-size:inherit;font-weight:inherit;line-height:inherit;min-height:var(--cr-input-min-height,auto);outline:0;padding-bottom:var(--cr-input-padding-bottom,6px);padding-inline-end:var(--cr-input-padding-end,8px);padding-inline-start:var(--cr-input-padding-start,8px);padding-top:var(--cr-input-padding-top,6px);text-align:inherit;text-overflow:ellipsis;width:100%}:host-context([chrome-refresh-2023]) #input{font-size:12px;line-height:16px;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content{padding-bottom:var(--cr-input-padding-bottom);padding-inline-end:var(--cr-input-padding-end);padding-inline-start:var(--cr-input-padding-start);padding-top:var(--cr-input-padding-top)}#underline{border-bottom:2px solid var(--cr-input-focus-color);border-radius:var(--cr-input-underline-border-radius,0);bottom:0;box-sizing:border-box;display:var(--cr-input-underline-display);height:var(--cr-input-underline-height,0);left:0;margin:auto;opacity:0;position:absolute;right:0;transition:opacity 120ms ease-out,width 0s linear 180ms;width:0}:host([focused_]) #underline,:host([force-underline]) #underline,:host([invalid]) #underline{opacity:1;transition:opacity 120ms ease-in,width 180ms ease-out;width:100%}#underline-base{display:none}:host-context([chrome-refresh-2023]):host([readonly]) #underline{display:none}:host-context([chrome-refresh-2023]):host(:not([readonly])) #underline-base{border-bottom:var(--cr-input-border-bottom);bottom:0;display:block;left:0;position:absolute;right:0}:host-context([chrome-refresh-2023]):host([disabled]){color:var(--color-textfield-foreground-disabled,var(--cr-fallback-color-disabled-foreground));--cr-input-border-bottom:1px solid currentColor;--cr-input-placeholder-color:currentColor;--cr-input-color:currentColor;--cr-input-background-color:var(--color-textfield-background-disabled,
-            var(--cr-fallback-color-disabled-background))}:host-context([chrome-refresh-2023]):host([disabled]) #inner-input-content ::slotted(*){--cr-icon-color:currentColor;--cr-icon-button-fill-color:currentColor}
+            var(--cr-fallback-color-disabled-background))}:host-context([chrome-refresh-2023]):host([disabled]) #inner-input-content ::slotted(*){--cr-icon-color:currentColor;--cr-icon-button-fill-color:currentColor}:host-context([chrome-refresh-2023]):host(.stroked){--cr-input-background-color:transparent;--cr-input-border:1px solid var(--color-side-panel-textfield-border,
+            var(--cr-fallback-color-neutral-outline));--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-padding-bottom:9px;--cr-input-padding-end:9px;--cr-input-padding-start:9px;--cr-input-padding-top:9px;--cr-input-underline-display:none;--cr-input-min-height:36px;line-height:16px}:host-context([chrome-refresh-2023]):host(.stroked[focused_]){--cr-input-border:2px solid var(--cr-focus-outline-color);--cr-input-padding-bottom:8px;--cr-input-padding-end:8px;--cr-input-padding-start:8px;--cr-input-padding-top:8px}:host-context([chrome-refresh-2023]):host(.stroked[invalid]){--cr-input-border:1px solid var(--cr-input-error-color)}:host-context([chrome-refresh-2023]):host(.stroked[focused_][invalid]){--cr-input-border:2px solid var(--cr-input-error-color)}
     </style>
   </template>
 `.content);
 styleMod$2.register('cr-input-style');
 
-function getTemplate$A() {
+function getTemplate$z() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -9680,7 +9681,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$z();
     }
     static get properties() {
         return {
@@ -9906,7 +9907,7 @@ class CrInputElement extends PolymerElement {
 }
 customElements.define(CrInputElement.is, CrInputElement);
 
-function getTemplate$z() {
+function getTemplate$y() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
           var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
     <iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
@@ -9932,7 +9933,7 @@ class CrSearchFieldElement extends CrSearchFieldElementBase {
         return 'cr-search-field';
     }
     static get template() {
-        return getTemplate$z();
+        return getTemplate$y();
     }
     static get properties() {
         return {
@@ -10087,7 +10088,7 @@ function getFaviconForPageURL(url, isSyncedUrlForHistoryUi, remoteIconUrlForUma 
     return getImageSet(faviconUrl.toString());
 }
 
-function getTemplate$y() {
+function getTemplate$x() {
     return html `<!--_html_template_start_-->    <style>#favicon{background-repeat:no-repeat;background-size:contain;border-radius:var(--site-favicon-border-radius,inherit);display:block;height:var(--site-favicon-height,16px);width:var(--site-favicon-width,16px)}</style>
     <div id="favicon" style="background-image:[[getBackgroundImage_(faviconUrl,url,iconPath) ]]">
     </div>
@@ -10106,7 +10107,7 @@ class SiteFaviconElement extends PolymerElement {
         return 'site-favicon';
     }
     static get template() {
-        return getTemplate$y();
+        return getTemplate$x();
     }
     static get properties() {
         return {
@@ -10167,7 +10168,7 @@ class SiteFaviconElement extends PolymerElement {
 }
 customElements.define(SiteFaviconElement.is, SiteFaviconElement);
 
-function getTemplate$x() {
+function getTemplate$w() {
     return html `<!--_html_template_start_--><style include="md-select cros-color-overrides">:host{align-items:center;display:inline-flex}cr-policy-pref-indicator{height:var(--iron-icon-width,24px);margin:0 var(--cr-controlled-by-spacing);order:var(--settings-dropdown-menu-policy-order,0);width:var(--iron-icon-width,24px)}option:disabled{display:none}</style>
 <template is="dom-if" if="[[pref.controlledBy]]" restamp>
   <cr-policy-pref-indicator pref="[[pref]]"></cr-policy-pref-indicator>
@@ -10203,7 +10204,7 @@ class SettingsDropdownMenuElement extends SettingsDropdownMenuElementBase {
         return 'settings-dropdown-menu';
     }
     static get template() {
-        return getTemplate$x();
+        return getTemplate$w();
     }
     static get properties() {
         return {
@@ -10594,448 +10595,6 @@ window.addEventListener('popstate', function () {
         routerInstance.getRoutes().BASIC, new URLSearchParams(window.location.search), true);
 });
 const routes = Router.getInstance().getRoutes();
-
-function getTemplate$w() {
-    return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
-
-    <div id="label" aria-hidden="true"><slot></slot></div>
-    <cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon" iron-icon="[[icon_]]">
-    </cr-icon-button>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2015 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview
- * 'cr-expand-button' is a chrome-specific wrapper around a button that toggles
- * between an opened (expanded) and closed state.
- */
-class CrExpandButtonElement extends PolymerElement {
-    static get is() {
-        return 'cr-expand-button';
-    }
-    static get template() {
-        return getTemplate$w();
-    }
-    static get properties() {
-        return {
-            /**
-             * If true, the button is in the expanded state and will show the icon
-             * specified in the `collapseIcon` property. If false, the button shows
-             * the icon specified in the `expandIcon` property.
-             */
-            expanded: {
-                type: Boolean,
-                value: false,
-                notify: true,
-            },
-            /**
-             * If true, the button will be disabled and grayed out.
-             */
-            disabled: {
-                type: Boolean,
-                value: false,
-                reflectToAttribute: true,
-            },
-            /** A11y text descriptor for this control. */
-            ariaLabel: {
-                type: String,
-                observer: 'onAriaLabelChange_',
-            },
-            tabIndex: {
-                type: Number,
-                value: 0,
-            },
-            expandIcon: {
-                type: String,
-                value: 'cr:expand-more',
-            },
-            collapseIcon: {
-                type: String,
-                value: 'cr:expand-less',
-            },
-            icon_: String,
-            expandTitle: String,
-            collapseTitle: String,
-            tooltipText_: {
-                type: String,
-                computed: 'computeTooltipText_(expandTitle, collapseTitle, expanded)',
-                observer: 'onTooltipTextChange_',
-            },
-        };
-    }
-    static get observers() {
-        return [
-            'updateAriaExpanded_(disabled, expanded)',
-            'updateIcon_(collapseIcon, expandIcon, expanded)',
-        ];
-    }
-    ready() {
-        super.ready();
-        this.addEventListener('click', this.toggleExpand_);
-    }
-    computeTooltipText_() {
-        return this.expanded ? this.collapseTitle : this.expandTitle;
-    }
-    onTooltipTextChange_() {
-        this.title = this.tooltipText_;
-    }
-    focus() {
-        this.$.icon.focus();
-    }
-    onAriaLabelChange_() {
-        if (this.ariaLabel) {
-            this.$.icon.removeAttribute('aria-labelledby');
-            this.$.icon.setAttribute('aria-label', this.ariaLabel);
-        }
-        else {
-            this.$.icon.removeAttribute('aria-label');
-            this.$.icon.setAttribute('aria-labelledby', 'label');
-        }
-    }
-    updateIcon_() {
-        this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
-    }
-    toggleExpand_(event) {
-        // Prevent |click| event from bubbling. It can cause parents of this
-        // elements to erroneously re-toggle this control.
-        event.stopPropagation();
-        event.preventDefault();
-        this.scrollIntoViewIfNeeded();
-        this.expanded = !this.expanded;
-        focusWithoutInk(this.$.icon);
-    }
-    updateAriaExpanded_() {
-        if (this.disabled) {
-            this.$.icon.removeAttribute('aria-expanded');
-        }
-        else {
-            this.$.icon.setAttribute('aria-expanded', this.expanded ? 'true' : 'false');
-        }
-    }
-}
-customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);
-
-function getTemplate$v() {
-    return html `<!--_html_template_start_-->    <style include="settings-shared cr-radio-button-style">:host{display:block}:host([disabled]){opacity:1}:host([disabled]) cr-expand-button,cr-policy-pref-indicator{pointer-events:auto}:host([disabled]) .disc-wrapper{opacity:var(--cr-disabled-opacity)}iron-collapse{margin-inline-end:0;margin-inline-start:calc(var(--cr-radio-button-label-spacing,20px) + var(--cr-radio-button-size))}.disc-wrapper{margin-inline-end:var(--cr-radio-button-label-spacing,20px)}.separator{margin-inline-end:0;min-height:calc(var(--settings-collapse-toggle-min-height,48px)/ 2)}#borderWrapper{align-items:center;border-top:var(--settings-collapse-separator-line);display:flex;min-height:var(--settings-collapse-toggle-min-height);width:100%}#buttonIcon{padding-inline-end:6px}#labelWrapper{--cr-radio-button-label-spacing:0}#radioCollapse{align-items:center;display:flex}slot[name=noSelectionCollapse]{cursor:auto}</style>
-    <div id="radioCollapse">
-      <div aria-checked$="[[getAriaChecked_(checked)]]" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-focus="onRadioFocus_" on-keydown="onInputKeydown_">
-        <div class="disc-border"></div>
-        <div class="disc"></div>
-      </div>
-      <div id="borderWrapper">
-        <iron-icon id="buttonIcon" icon="[[icon]]" hidden$="[[!icon]]"></iron-icon>
-        <div id="labelWrapper" class="cr-padded-text">
-          <div id="label" aria-hidden="true">
-            [[label]]
-            <slot name="label"></slot>
-          </div>
-          <div hidden$="[[!subLabel]]" class="secondary">
-            [[subLabel]]
-            <slot name="sub-label"></slot>
-          </div>
-        </div>
-        <template is="dom-if" if="[[pref]]">
-          <cr-policy-pref-indicator pref="[[pref]]" icon-aria-label="[[indicatorAriaLabel]]" associated-value="[[name]]" on-focus="onNonRadioFocus_">
-          </cr-policy-pref-indicator>
-        </template>
-        <div hidden$="[[noCollapse]]" class="separator"></div>
-        <cr-expand-button id="expandButton" no-hover aria-label="[[expandAriaLabel]]" hidden$="[[noCollapse]]" expanded="{{expanded}}" on-click="onExpandClicked_" on-focus="onNonRadioFocus_">
-        </cr-expand-button>
-      </div>
-    </div>
-
-    <iron-collapse opened="[[expanded]]">
-      <slot name="collapse"></slot>
-      <slot name="noSelectionCollapse"></slot>
-    </iron-collapse>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2020 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const SettingsCollapseRadioButtonElementBase = PaperRippleMixin(CrRadioButtonMixin(PolymerElement));
-class SettingsCollapseRadioButtonElement extends SettingsCollapseRadioButtonElementBase {
-    static get is() {
-        return 'settings-collapse-radio-button';
-    }
-    static get template() {
-        return getTemplate$v();
-    }
-    static get properties() {
-        return {
-            expanded: {
-                type: Boolean,
-                notify: true,
-                value: false,
-            },
-            noAutomaticCollapse: {
-                type: Boolean,
-                value: false,
-            },
-            noCollapse: Boolean,
-            label: String,
-            indicatorAriaLabel: String,
-            icon: {
-                type: String,
-                value: null,
-            },
-            /*
-             * The Preference associated with the radio group.
-             */
-            pref: Object,
-            disabled: {
-                type: Boolean,
-                value: false,
-                reflectToAttribute: true,
-            },
-            subLabel: {
-                type: String,
-                value: '', // Allows the $hidden= binding to run without being set.
-            },
-            /*
-             * The aria-label attribute associated with the expand button. Used by
-             * screen readers when announcing the expand button.
-             */
-            expandAriaLabel: String,
-        };
-    }
-    static get observers() {
-        return [
-            'onCheckedChanged_(checked)',
-            'onPrefChanged_(pref.*)',
-        ];
-    }
-    constructor() {
-        super();
-        /**
-         * Tracks if this button was clicked but wasn't expanded.
-         */
-        this.pendingUpdateCollapsed_ = false;
-    }
-    // Overridden from CrRadioButtonMixin
-    getPaperRipple() {
-        return this.getRipple();
-    }
-    // Overridden from PaperRippleMixin
-    /* eslint-disable-next-line @typescript-eslint/naming-convention */
-    _createRipple() {
-        this._rippleContainer = this.shadowRoot.querySelector('.disc-wrapper');
-        const ripple = super._createRipple();
-        ripple.id = 'ink';
-        ripple.setAttribute('recenters', '');
-        ripple.classList.add('circle', 'toggle-ink');
-        return ripple;
-    }
-    /**
-     * Updates the collapsed status of this radio button to reflect
-     * the user selection actions.
-     */
-    updateCollapsed() {
-        if (this.pendingUpdateCollapsed_) {
-            this.pendingUpdateCollapsed_ = false;
-            this.expanded = this.checked;
-        }
-    }
-    getBubbleAnchor() {
-        const anchor = this.shadowRoot.querySelector('#button');
-        assert(anchor);
-        return anchor;
-    }
-    onCheckedChanged_() {
-        this.pendingUpdateCollapsed_ = true;
-        if (!this.noAutomaticCollapse) {
-            this.updateCollapsed();
-        }
-    }
-    onPrefChanged_() {
-        // If the preference has been set, and is managed, this control should be
-        // disabled. Unless the value associated with this control is present in
-        // |pref.userSelectableValues|. This will override the disabled set on the
-        // element externally.
-        this.disabled = !!this.pref &&
-            this.pref.enforcement === chrome.settingsPrivate.Enforcement.ENFORCED &&
-            !(!!this.pref.userSelectableValues &&
-                this.pref.userSelectableValues.includes(this.name));
-    }
-    onExpandClicked_() {
-        this.dispatchEvent(new CustomEvent('expand-clicked', { bubbles: true, composed: true }));
-    }
-    onRadioFocus_() {
-        this.getRipple().showAndHoldDown();
-    }
-    /**
-     * Clear the ripple associated with the radio button when the expand button
-     * is focused. Stop propagation to prevent the ripple being re-created.
-     */
-    onNonRadioFocus_(e) {
-        this.getRipple().clear();
-        e.stopPropagation();
-    }
-}
-customElements.define(SettingsCollapseRadioButtonElement.is, SettingsCollapseRadioButtonElement);
-
-const styleMod$1 = document.createElement('dom-module');
-styleMod$1.appendChild(html `
-  <template>
-    <style>
-.settings-columned-section{display:flex;gap:16px;padding:16px var(--cr-section-padding) 0}settings-collapse-radio-button .settings-columned-section{padding:4px 0 16px 0}.settings-columned-section .column{flex:1;min-width:0}.settings-columned-section .description-header{color:var(--google-blue-600)}.settings-columned-section h2.description-header,.settings-columned-section h3.description-header{font-size:inherit;font-weight:400;margin:0;padding:0}@media (prefers-color-scheme:dark){.settings-columned-section .description-header{color:var(--google-blue-300)}}.settings-columned-section ul{list-style-type:none;padding-inline-start:0}.settings-columned-section ul.icon-bulleted-list li{column-gap:16px;display:flex}.settings-columned-section li{margin:16px 0}
-    </style>
-  </template>
-`.content);
-styleMod$1.register('settings-columned-section');
-
-const styleMod = document.createElement('dom-module');
-styleMod.appendChild(html `
-  <template>
-    <style include="cr-shared-style settings-shared settings-columned-section">
-:host{display:block;flex:1;padding:0 24px}.headline-container{align-items:center;display:flex;flex:1;flex-direction:column;justify-content:space-between;text-align:center}.headline{color:var(--google-grey-800);font-size:22px;line-height:1.15}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}.header{align-items:center;column-gap:16px;display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-between;outline:0;padding:24px 0 16px 0}.header-phase2{align-items:center;display:flex;flex-direction:column;outline:0;padding:24px 0 16px 0}.header-label{align-self:normal;color:var(--cr-primary-text-color);flex:1;font-size:123%;font-weight:400;padding-bottom:0;padding-top:0}.header-label-phase2{align-self:center;color:var(--cr-primary-text-color);font-size:138%;font-weight:400;justify-content:center}@keyframes fade-in{0%{opacity:0}100%{opacity:1}}@keyframes slide-in{0%{transform:translateX(calc(var(--privacy-guide-v2-translate-multiplier) * 20px))}100%{transform:translateX(0)}}:host-context([is-privacy-guide-v2]) .cr-secondary-text,:host-context([is-privacy-guide-v2]) .fragment-content,:host-context([is-privacy-guide-v2]) .header-phase2 picture,:host-context([is-privacy-guide-v2]) .headline{animation:fade-in var(--privacy-guide-animation-duration),slide-in 450ms}:host-context([is-privacy-guide-v2]) .header-label-phase2{animation:fade-in var(--privacy-guide-animation-duration)}@media (prefers-color-scheme:dark){.headline{color:var(--google-grey-200)}}.embedded-setting-wrapper{border:1px solid var(--google-grey-300);border-radius:4px}@media (prefers-color-scheme:dark){.embedded-setting-wrapper{border-color:var(--google-grey-700)}}settings-toggle-button{padding-bottom:8px;padding-top:8px}picture{align-items:center;display:flex}
-    </style>
-  </template>
-`.content);
-styleMod.register('privacy-guide-fragment-shared');
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * Must be kept in sync with the C++ enum of the same name (see
- * chrome/browser/preloading/preloading_prefs.h).
- */
-var NetworkPredictionOptions;
-(function (NetworkPredictionOptions) {
-    NetworkPredictionOptions[NetworkPredictionOptions["STANDARD"] = 0] = "STANDARD";
-    NetworkPredictionOptions[NetworkPredictionOptions["WIFI_ONLY_DEPRECATED"] = 1] = "WIFI_ONLY_DEPRECATED";
-    NetworkPredictionOptions[NetworkPredictionOptions["DISABLED"] = 2] = "DISABLED";
-    NetworkPredictionOptions[NetworkPredictionOptions["EXTENDED"] = 3] = "EXTENDED";
-    NetworkPredictionOptions[NetworkPredictionOptions["DEFAULT"] = 1] = "DEFAULT";
-})(NetworkPredictionOptions || (NetworkPredictionOptions = {}));
-
-function getTemplate$u() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared privacy-guide-fragment-shared">.settings-header{padding:0 var(--cr-section-padding)}.settings-title{padding-top:var(--cr-section-vertical-padding)}settings-collapse-radio-button[hidden]+settings-collapse-radio-button{--settings-collapse-separator-line:0}.bullet-line{margin:12px 0;padding-inline-end:12px}</style>
-<div class="settings-title">$i18n{preloadingPageTitle}</div>
-<div class="secondary">$i18n{preloadingPageSummary}</div>
-<settings-radio-group id="preloadingRadioGroup" no-set-pref pref="{{prefs.net.network_prediction_options}}" selectable-elements="settings-collapse-radio-button" on-change="onPreloadingRadioChange_">
-  <settings-collapse-radio-button id="preloadingDisabled" no-collapse name="[[networkPredictionOptionsEnum_.DISABLED]]" pref="[[prefs.net.network_prediction_options]]" label="$i18n{preloadingPageNoPreloadingTitle}" sub-label="$i18n{preloadingPageNoPreloadingSummary}">
-  </settings-collapse-radio-button>
-  <settings-collapse-radio-button id="preloadingStandard" name="[[networkPredictionOptionsEnum_.STANDARD]]" pref="[[prefs.net.network_prediction_options]]" label="$i18n{preloadingPageStandardPreloadingTitle}" sub-label="$i18n{preloadingPageStandardPreloadingSummary}" info-opened="{{infoOpened_}}" no-automatic-collapse>
-    <div slot="collapse" class="description-wrapper two-column">
-      <div class="description-column description-column-first">
-        <div class="description-header">
-          $i18n{privacyGuideFeatureDescriptionHeader}
-        </div>
-        <div role="list">
-          <div class="bullet-line secondary" role="listitem">
-            $i18n{preloadingPageStandardPreloadingWhenOnBulletOne}
-          </div>
-          <div class="bullet-line secondary" role="listitem">
-            $i18n{preloadingPageStandardPreloadingWhenOnBulletTwo}
-          </div>
-        </div>
-      </div>
-      <div class="description-column">
-        <div class="description-header">
-          $i18n{privacyGuideThingsToConsider}
-        </div>
-        <div role="list">
-          <div class="bullet-line secondary" role="listitem">
-            $i18n{preloadingPageThingsToConsiderBulletOne}
-          </div>
-        </div>
-      </div>
-    </div>
-  </settings-collapse-radio-button>
-  <settings-collapse-radio-button id="preloadingExtended" name="[[networkPredictionOptionsEnum_.EXTENDED]]" pref="[[prefs.net.network_prediction_options]]" label="$i18n{preloadingPageExtendedPreloadingTitle}" sub-label="$i18n{preloadingPageExtendedPreloadingSummary}" no-automatic-collapse>
-    <div slot="collapse" class="description-wrapper two-column">
-      <div class="description-column description-column-first">
-        <div class="description-header">
-          $i18n{privacyGuideFeatureDescriptionHeader}
-        </div>
-        <div role="list">
-          <div class="bullet-line secondary" role="listitem">
-            $i18n{preloadingPageExtendedPreloadingWhenOnBulletOne}
-          </div>
-          <div class="bullet-line secondary" role="listitem">
-            $i18n{preloadingPageExtendedPreloadingWhenOnBulletTwo}
-          </div>
-        </div>
-      </div>
-      <div class="description-column">
-        <div class="description-header">
-          $i18n{privacyGuideThingsToConsider}
-        </div>
-        <div role="list">
-          <div class="bullet-line secondary" role="listitem">
-            $i18n{preloadingPageThingsToConsiderBulletOne}
-          </div>
-          <div class="bullet-line secondary" role="listitem">
-            $i18n{preloadingPageExtendedPreloadingThingsToConsiderBulletTwo}
-          </div>
-        </div>
-      </div>
-    </div>
-  </settings-collapse-radio-button>
-</settings-radio-group>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2023 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const PreloadingPageElementBase = PrefsMixin(PolymerElement);
-class PreloadingPageElement extends PreloadingPageElementBase {
-    static get is() {
-        return 'settings-preloading-page';
-    }
-    static get template() {
-        return getTemplate$u();
-    }
-    static get properties() {
-        return {
-            /** Valid network prediction options state. */
-            networkPredictionOptionsEnum_: {
-                type: Object,
-                value: NetworkPredictionOptions,
-            },
-        };
-    }
-    ready() {
-        super.ready();
-        CrSettingsPrefs.initialized.then(() => {
-            // Expand initial pref value manually because automatic
-            // expanding is disabled.
-            const prefValue = this.getPref('net.network_prediction_options')
-                .value;
-            switch (prefValue) {
-                case NetworkPredictionOptions.EXTENDED:
-                    this.$.preloadingExtended.expanded = true;
-                    return;
-                case NetworkPredictionOptions.STANDARD:
-                    this.$.preloadingStandard.expanded = true;
-                    return;
-                case NetworkPredictionOptions.WIFI_ONLY_DEPRECATED:
-                    // The default pref value is deprecated, and is treated the same as
-                    // STANDARD. See chrome/browser/preloading/preloading_prefs.h.
-                    this.setPrefValue('net.network_prediction_options', NetworkPredictionOptions.STANDARD);
-                    this.$.preloadingStandard.expanded = true;
-                    return;
-                case NetworkPredictionOptions.DISABLED:
-                    return;
-                default:
-                    assertNotReached();
-            }
-        });
-    }
-    onPreloadingRadioChange_() {
-        this.$.preloadingExtended.updateCollapsed();
-        this.$.preloadingStandard.updateCollapsed();
-        this.$.preloadingRadioGroup.sendPrefChange();
-    }
-}
-customElements.define(PreloadingPageElement.is, PreloadingPageElement);
 
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -11584,7 +11143,7 @@ const TooltipMixin = dedupingMixin((superClass) => {
     return TooltipMixin;
 });
 
-function getTemplate$t() {
+function getTemplate$v() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{display:block;--separator-line-height:16px;--cr-icon-button-margin-end:0}#header-wrapper{align-items:center;display:flex;flex:1}#header-text-wrapper{flex-direction:column;flex:1;margin-inline-end:24px}#header,#subheader,.display-name{font-size:.8125rem}#header{font-weight:500}#header-wrapper{min-height:calc(2em * 1.54)}iron-icon{--iron-icon-height:20px;--iron-icon-width:20px}iron-icon.green{--iron-icon-fill-color:var(--google-green-700)}iron-icon.blue{--iron-icon-fill-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){iron-icon.green{--iron-icon-fill-color:var(--google-green-300)}iron-icon.blue{--iron-icon-fill-color:var(--google-blue-300)}}.list-item{clip-path:polygon(0 0,0 100%,100% 100%,100% 0)}.display-name{flex:1;max-width:100%}#header-icon,.item-icon,site-favicon{padding-inline-end:16px}#line{box-sizing:border-box;height:var(--separator-line-height);border-bottom:1px solid var(--cr-separator-color);flex:1}paper-tooltip{--paper-tooltip-min-width:max-content}</style>
 
 <template is="dom-if" if="[[animated]]">
@@ -11660,7 +11219,7 @@ class SettingsSafetyHubModuleElement extends SettingsSafetyHubModuleElementBase 
         return 'settings-safety-hub-module';
     }
     static get template() {
-        return getTemplate$t();
+        return getTemplate$v();
     }
     static get properties() {
         return {
@@ -11711,6 +11270,21 @@ class SettingsSafetyHubModuleElement extends SettingsSafetyHubModuleElementBase 
         // default CSS which is "display: hidden;".
         item.style.display = visible ? 'flex' : '';
     }
+    addItemLinkClickListeners(items) {
+        // Module items might contain links. If there is any link in the module,
+        // this function adds a listener for the "Click" event on each link. 'Click'
+        // events will be handled by derived module elements. For that, add
+        // on-sh-module-item-link-click property to settings-safety-hub-module
+        // element in the html file.
+        for (const item of items) {
+            const links = item.querySelectorAll('a');
+            links.forEach((link) => {
+                link.addEventListener('click', function () {
+                    this.dispatchEvent(new CustomEvent('sh-module-item-link-click', { bubbles: true, composed: true, detail: item }));
+                });
+            });
+        }
+    }
     onSitesChanged_() {
         const items = this.shadowRoot.querySelectorAll('#siteList .list-item');
         // Polymer reuses the already rendered rows once |this.sites| changes,
@@ -11725,6 +11299,8 @@ class SettingsSafetyHubModuleElement extends SettingsSafetyHubModuleElementBase 
         if (this.sites && this.sites.length !== items.length) {
             setTimeout(this.onSitesChanged_.bind(this), 0);
         }
+        // Add an event listener to link elements of the module.
+        this.addItemLinkClickListeners(items);
     }
     /**
      * Hides |origin| and when the animation finishes, calls |callback|. If
@@ -11860,6 +11436,283 @@ class SettingsSafetyHubModuleElement extends SettingsSafetyHubModuleElementBase 
     }
 }
 customElements.define(SettingsSafetyHubModuleElement.is, SettingsSafetyHubModuleElement);
+
+function getTemplate$u() {
+    return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
+
+    <div id="label" aria-hidden="true"><slot></slot></div>
+    <cr-icon-button id="icon" aria-labelledby="label" aria-expanded="[[getAriaExpanded_(expanded)]]" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon" iron-icon="[[icon_]]">
+    </cr-icon-button>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2015 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview
+ * 'cr-expand-button' is a chrome-specific wrapper around a button that toggles
+ * between an opened (expanded) and closed state.
+ */
+class CrExpandButtonElement extends PolymerElement {
+    static get is() {
+        return 'cr-expand-button';
+    }
+    static get template() {
+        return getTemplate$u();
+    }
+    static get properties() {
+        return {
+            /**
+             * If true, the button is in the expanded state and will show the icon
+             * specified in the `collapseIcon` property. If false, the button shows
+             * the icon specified in the `expandIcon` property.
+             */
+            expanded: {
+                type: Boolean,
+                value: false,
+                notify: true,
+            },
+            /**
+             * If true, the button will be disabled and grayed out.
+             */
+            disabled: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+            /** A11y text descriptor for this control. */
+            ariaLabel: {
+                type: String,
+                observer: 'onAriaLabelChange_',
+            },
+            tabIndex: {
+                type: Number,
+                value: 0,
+            },
+            expandIcon: {
+                type: String,
+                value: 'cr:expand-more',
+            },
+            collapseIcon: {
+                type: String,
+                value: 'cr:expand-less',
+            },
+            icon_: String,
+            expandTitle: String,
+            collapseTitle: String,
+            tooltipText_: {
+                type: String,
+                computed: 'computeTooltipText_(expandTitle, collapseTitle, expanded)',
+                observer: 'onTooltipTextChange_',
+            },
+        };
+    }
+    static get observers() {
+        return [
+            'updateIcon_(collapseIcon, expandIcon, expanded)',
+        ];
+    }
+    ready() {
+        super.ready();
+        this.addEventListener('click', this.toggleExpand_);
+    }
+    computeTooltipText_() {
+        return this.expanded ? this.collapseTitle : this.expandTitle;
+    }
+    onTooltipTextChange_() {
+        this.title = this.tooltipText_;
+    }
+    focus() {
+        this.$.icon.focus();
+    }
+    onAriaLabelChange_() {
+        if (this.ariaLabel) {
+            this.$.icon.removeAttribute('aria-labelledby');
+            this.$.icon.setAttribute('aria-label', this.ariaLabel);
+        }
+        else {
+            this.$.icon.removeAttribute('aria-label');
+            this.$.icon.setAttribute('aria-labelledby', 'label');
+        }
+    }
+    updateIcon_() {
+        this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
+    }
+    toggleExpand_(event) {
+        // Prevent |click| event from bubbling. It can cause parents of this
+        // elements to erroneously re-toggle this control.
+        event.stopPropagation();
+        event.preventDefault();
+        this.scrollIntoViewIfNeeded();
+        this.expanded = !this.expanded;
+        focusWithoutInk(this.$.icon);
+    }
+    getAriaExpanded_() {
+        return this.expanded ? 'true' : 'false';
+    }
+}
+customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);
+
+function getTemplate$t() {
+    return html `<!--_html_template_start_-->    <style include="settings-shared cr-radio-button-style">:host{display:block}:host([disabled]){opacity:1}:host([disabled]) cr-expand-button,cr-policy-pref-indicator{pointer-events:auto}:host([disabled]) .disc-wrapper{opacity:var(--cr-disabled-opacity)}iron-collapse{margin-inline-end:0;margin-inline-start:calc(var(--cr-radio-button-label-spacing,20px) + var(--cr-radio-button-size))}.disc-wrapper{margin-inline-end:var(--cr-radio-button-label-spacing,20px)}.separator{margin-inline-end:0;min-height:calc(var(--settings-collapse-toggle-min-height,48px)/ 2)}#borderWrapper{align-items:center;border-top:var(--settings-collapse-separator-line);display:flex;min-height:var(--settings-collapse-toggle-min-height);width:100%}#buttonIcon{padding-inline-end:6px}#labelWrapper{--cr-radio-button-label-spacing:0}#radioCollapse{align-items:center;display:flex}slot[name=noSelectionCollapse]{cursor:auto}</style>
+    <div id="radioCollapse">
+      <div aria-checked$="[[getAriaChecked_(checked)]]" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-focus="onRadioFocus_" on-keydown="onInputKeydown_">
+        <div class="disc-border"></div>
+        <div class="disc"></div>
+      </div>
+      <div id="borderWrapper">
+        <iron-icon id="buttonIcon" icon="[[icon]]" hidden$="[[!icon]]"></iron-icon>
+        <div id="labelWrapper" class="cr-padded-text">
+          <div id="label" aria-hidden="true">
+            [[label]]
+            <slot name="label"></slot>
+          </div>
+          <div hidden$="[[!subLabel]]" class="secondary">
+            [[subLabel]]
+            <slot name="sub-label"></slot>
+          </div>
+        </div>
+        <template is="dom-if" if="[[pref]]">
+          <cr-policy-pref-indicator pref="[[pref]]" icon-aria-label="[[indicatorAriaLabel]]" associated-value="[[name]]" on-focus="onNonRadioFocus_">
+          </cr-policy-pref-indicator>
+        </template>
+        <div hidden$="[[noCollapse]]" class="separator"></div>
+        <cr-expand-button id="expandButton" no-hover aria-label="[[expandAriaLabel]]" hidden$="[[noCollapse]]" expanded="{{expanded}}" on-click="onExpandClicked_" on-focus="onNonRadioFocus_">
+        </cr-expand-button>
+      </div>
+    </div>
+
+    <iron-collapse opened="[[expanded]]">
+      <slot name="collapse"></slot>
+      <slot name="noSelectionCollapse"></slot>
+    </iron-collapse>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const SettingsCollapseRadioButtonElementBase = PaperRippleMixin(CrRadioButtonMixin(PolymerElement));
+class SettingsCollapseRadioButtonElement extends SettingsCollapseRadioButtonElementBase {
+    static get is() {
+        return 'settings-collapse-radio-button';
+    }
+    static get template() {
+        return getTemplate$t();
+    }
+    static get properties() {
+        return {
+            expanded: {
+                type: Boolean,
+                notify: true,
+                value: false,
+            },
+            noAutomaticCollapse: {
+                type: Boolean,
+                value: false,
+            },
+            noCollapse: Boolean,
+            label: String,
+            indicatorAriaLabel: String,
+            icon: {
+                type: String,
+                value: null,
+            },
+            /*
+             * The Preference associated with the radio group.
+             */
+            pref: Object,
+            disabled: {
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+            subLabel: {
+                type: String,
+                value: '', // Allows the $hidden= binding to run without being set.
+            },
+            /*
+             * The aria-label attribute associated with the expand button. Used by
+             * screen readers when announcing the expand button.
+             */
+            expandAriaLabel: String,
+        };
+    }
+    static get observers() {
+        return [
+            'onCheckedChanged_(checked)',
+            'onPrefChanged_(pref.*)',
+        ];
+    }
+    constructor() {
+        super();
+        /**
+         * Tracks if this button was clicked but wasn't expanded.
+         */
+        this.pendingUpdateCollapsed_ = false;
+    }
+    // Overridden from CrRadioButtonMixin
+    getPaperRipple() {
+        return this.getRipple();
+    }
+    // Overridden from PaperRippleMixin
+    /* eslint-disable-next-line @typescript-eslint/naming-convention */
+    _createRipple() {
+        this._rippleContainer = this.shadowRoot.querySelector('.disc-wrapper');
+        const ripple = super._createRipple();
+        ripple.id = 'ink';
+        ripple.setAttribute('recenters', '');
+        ripple.classList.add('circle', 'toggle-ink');
+        return ripple;
+    }
+    /**
+     * Updates the collapsed status of this radio button to reflect
+     * the user selection actions.
+     */
+    updateCollapsed() {
+        if (this.pendingUpdateCollapsed_) {
+            this.pendingUpdateCollapsed_ = false;
+            this.expanded = this.checked;
+        }
+    }
+    getBubbleAnchor() {
+        const anchor = this.shadowRoot.querySelector('#button');
+        assert(anchor);
+        return anchor;
+    }
+    onCheckedChanged_() {
+        this.pendingUpdateCollapsed_ = true;
+        if (!this.noAutomaticCollapse) {
+            this.updateCollapsed();
+        }
+    }
+    onPrefChanged_() {
+        // If the preference has been set, and is managed, this control should be
+        // disabled. Unless the value associated with this control is present in
+        // |pref.userSelectableValues|. This will override the disabled set on the
+        // element externally.
+        this.disabled = !!this.pref &&
+            this.pref.enforcement === chrome.settingsPrivate.Enforcement.ENFORCED &&
+            !(!!this.pref.userSelectableValues &&
+                this.pref.userSelectableValues.includes(this.name));
+    }
+    onExpandClicked_() {
+        this.dispatchEvent(new CustomEvent('expand-clicked', { bubbles: true, composed: true }));
+    }
+    onRadioFocus_() {
+        this.getRipple().showAndHoldDown();
+    }
+    /**
+     * Clear the ripple associated with the radio button when the expand button
+     * is focused. Stop propagation to prevent the ripple being re-created.
+     */
+    onNonRadioFocus_(e) {
+        this.getRipple().clear();
+        e.stopPropagation();
+    }
+}
+customElements.define(SettingsCollapseRadioButtonElement.is, SettingsCollapseRadioButtonElement);
 
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -12721,6 +12574,26 @@ class PrivacyGuideCompletionLinkRowElement extends PolymerElement {
     }
 }
 customElements.define(PrivacyGuideCompletionLinkRowElement.is, PrivacyGuideCompletionLinkRowElement);
+
+const styleMod$1 = document.createElement('dom-module');
+styleMod$1.appendChild(html `
+  <template>
+    <style>
+.settings-columned-section{display:flex;gap:16px;padding:16px var(--cr-section-padding) 0}settings-collapse-radio-button .settings-columned-section{padding:4px 0 16px 0}.settings-columned-section .column{flex:1;min-width:0}.settings-columned-section .description-header{color:var(--google-blue-600)}.settings-columned-section h2.description-header,.settings-columned-section h3.description-header{font-size:inherit;font-weight:400;margin:0;padding:0}@media (prefers-color-scheme:dark){.settings-columned-section .description-header{color:var(--google-blue-300)}}.settings-columned-section ul{list-style-type:none;padding-inline-start:0}.settings-columned-section ul.icon-bulleted-list li{column-gap:16px;display:flex}.settings-columned-section li{margin:16px 0}
+    </style>
+  </template>
+`.content);
+styleMod$1.register('settings-columned-section');
+
+const styleMod = document.createElement('dom-module');
+styleMod.appendChild(html `
+  <template>
+    <style include="cr-shared-style settings-shared settings-columned-section">
+:host{display:block;flex:1;padding:0 24px}.headline-container{align-items:center;display:flex;flex:1;flex-direction:column;justify-content:space-between;text-align:center}.headline{color:var(--google-grey-800);font-size:22px;line-height:1.15}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}.header{align-items:center;column-gap:16px;display:flex;flex-direction:row;flex-wrap:nowrap;justify-content:space-between;outline:0;padding:24px 0 16px 0}.header-phase2{align-items:center;display:flex;flex-direction:column;outline:0;padding:24px 0 16px 0}.header-label{align-self:normal;color:var(--cr-primary-text-color);flex:1;font-size:123%;font-weight:400;padding-bottom:0;padding-top:0}.header-label-phase2{align-self:center;color:var(--cr-primary-text-color);font-size:138%;font-weight:400;justify-content:center}@keyframes fade-in{0%{opacity:0}100%{opacity:1}}@keyframes slide-in{0%{transform:translateX(calc(var(--privacy-guide-v2-translate-multiplier) * 20px))}100%{transform:translateX(0)}}:host-context([is-privacy-guide-v2]) .cr-secondary-text,:host-context([is-privacy-guide-v2]) .fragment-content,:host-context([is-privacy-guide-v2]) .header-phase2 picture,:host-context([is-privacy-guide-v2]) .headline{animation:fade-in var(--privacy-guide-animation-duration),slide-in 450ms}:host-context([is-privacy-guide-v2]) .header-label-phase2{animation:fade-in var(--privacy-guide-animation-duration)}@media (prefers-color-scheme:dark){.headline{color:var(--google-grey-200)}}.embedded-setting-wrapper{border:1px solid var(--google-grey-300);border-radius:4px}@media (prefers-color-scheme:dark){.embedded-setting-wrapper{border-color:var(--google-grey-700)}}settings-toggle-button{padding-bottom:8px;padding-top:8px}picture{align-items:center;display:flex}
+    </style>
+  </template>
+`.content);
+styleMod.register('privacy-guide-fragment-shared');
 
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -17261,6 +17134,22 @@ class StepIndicator extends StepIndicatorBase {
     }
 }
 customElements.define(StepIndicator.is, StepIndicator);
+
+// Copyright 2023 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * Must be kept in sync with the C++ enum of the same name (see
+ * chrome/browser/preloading/preloading_prefs.h).
+ */
+var NetworkPredictionOptions;
+(function (NetworkPredictionOptions) {
+    NetworkPredictionOptions[NetworkPredictionOptions["STANDARD"] = 0] = "STANDARD";
+    NetworkPredictionOptions[NetworkPredictionOptions["WIFI_ONLY_DEPRECATED"] = 1] = "WIFI_ONLY_DEPRECATED";
+    NetworkPredictionOptions[NetworkPredictionOptions["DISABLED"] = 2] = "DISABLED";
+    NetworkPredictionOptions[NetworkPredictionOptions["EXTENDED"] = 3] = "EXTENDED";
+    NetworkPredictionOptions[NetworkPredictionOptions["DEFAULT"] = 1] = "DEFAULT";
+})(NetworkPredictionOptions || (NetworkPredictionOptions = {}));
 
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -22999,5 +22888,5 @@ class PrivacySandboxBrowserProxyImpl {
 }
 let instance = null;
 
-export { ChoiceMadeLocation as $, PasswordManagerImpl as A, BaseMixin as B, CrSearchFieldMixin as C, PasswordCheckReferrer as D, EventTracker as E, PasswordManagerPage as F, getInstance as G, HatsBrowserProxyImpl as H, I18nMixin as I, getTrustedScriptURL as J, FocusRowMixin as K, SyncBrowserProxyImpl as L, MetricsBrowserProxyImpl as M, isChromeOS as N, OpenWindowProxyImpl as O, PrefsMixin as P, getImage as Q, RelaunchMixin as R, SiteSettingsPrefsBrowserProxyImpl as S, TrustSafetyInteraction as T, ListPropertyUpdateMixin as U, TooltipMixin as V, WebUiListenerMixin as W, NetworkPredictionOptions as X, CrSettingsPrefs as Y, ResetBrowserProxyImpl as Z, SearchEnginesBrowserProxyImpl as _, assertNotReached as a, AllSitesDialog as a$, PromiseResolver as a0, IronSelectableBehavior as a1, FocusOutlineManager as a2, CrContainerShadowMixin as a3, pageVisibility as a4, setGlobalScrollTarget as a5, resetGlobalScrollTargetForTesting as a6, ExtensionControlledIndicatorElement as a7, DEFAULT_CHECKED_VALUE as a8, DEFAULT_UNCHECKED_VALUE as a9, PrivacyElementInteractions as aA, PrivacyGuideSettingsStates as aB, PrivacyGuideStepsEligibleAndReached as aC, SafeBrowsingInteractions as aD, SafetyCheckNotificationsModuleInteractions as aE, SafetyCheckUnusedSitePermissionsModuleInteractions as aF, SafetyHubCardState as aG, SafetyHubModuleType as aH, SafetyHubSurfaces as aI, setPageVisibilityForTesting as aJ, MAX_SIGNIN_PROMO_IMPRESSION as aK, SettingsSyncAccountControlElement as aL, PrivacySandboxBrowserProxyImpl as aM, buildRouter as aN, Route as aO, SearchEnginesInteractions as aP, SiteFaviconElement as aQ, PaperRippleMixin as aR, AnchorAlignment as aS, SettingsBooleanControlMixin as aT, ClearBrowsingDataBrowserProxyImpl as aU, GlobalScrollTargetMixin as aV, SiteSettingsMixin as aW, ContentSettingProvider as aX, CardState as aY, AllSitesAction2 as aZ, SortMethod as a_, ExtensionControlBrowserProxyImpl as aa, LifetimeBrowserProxyImpl as ab, PageStatus as ac, StatusAction as ad, syncPrefsIndividualDataTypes as ae, TrustedVaultBannerState as af, SecureDnsMode as ag, SecureDnsUiManagementMode as ah, prefToString as ai, stringToPrefValue as aj, SettingsPrefsElement as ak, CrActionMenuElement as al, CrButtonElement as am, CrDialogElement as an, CrLinkRowElement as ao, CrRadioButtonElement as ap, CrRadioGroupElement as aq, CrToggleElement as ar, getTrustedHTML as as, ControlledRadioButtonElement as at, SettingsDropdownMenuElement as au, SettingsToggleButtonElement as av, SafeBrowsingSetting$1 as aw, SecurityPageInteraction as ax, CvcDeletionUserAction as ay, DeleteBrowsingDataAction as az, assert as b, SiteSettingSource as b0, MODEL_UPDATE_DELAY_MS as b1, isUndoKeyboardEvent as b2, CookiesExceptionType as b3, SITE_EXCEPTION_WILDCARD as b4, INVALID_CATEGORY_SUBTYPE as b5, HelpBubbleMixin as b6, CrPolicyIndicatorType as b7, CookiePrimarySetting as b8, CrCheckboxElement as b9, SettingsSafetyHubEntryPointElement as bA, SettingsSafetyHubModuleElement as bB, SettingsSimpleConfirmationDialogElement as bC, SettingsCategoryDefaultRadioGroupElement as bD, CrIconButtonElement as ba, CrInputElement as bb, CrLazyRenderElement as bc, CrTextareaElement as bd, SettingsRadioGroupElement as be, SecureDnsResolverType as bf, SettingsSecureDnsElement as bg, SettingsSecureDnsDialogElement as bh, SecureDnsInputElement as bi, SettingsPageContentPageElement as bj, SettingsCollapseRadioButtonElement as bk, PreloadingPageElement as bl, PrivacyGuideStep as bm, PrivacyGuideCompletionFragmentElement as bn, PrivacyGuideCookiesFragmentElement as bo, PrivacyGuideDescriptionItemElement as bp, SettingsPrivacyGuideDialogElement as bq, PrivacyGuideHistorySyncFragmentElement as br, PrivacyGuideMsbbFragmentElement as bs, SettingsPrivacyGuidePageElement as bt, PrivacyGuideSafeBrowsingFragmentElement as bu, PrivacyGuideSearchSuggestionsFragmentElement as bv, PrivacyGuideWelcomeFragmentElement as bw, HttpsFirstModeSetting as bx, SafeBrowsingSetting as by, SettingsSecurityPageElement as bz, RestartType as c, IronResizableBehavior as d, RouteObserverMixin as e, Router as f, focusWithoutInk as g, CrPolicyPrefMixin as h, isMac as i, PrefControlMixin as j, PrivacyGuideInteractions as k, listenOnce as l, PrivacyGuideAvailabilityMixin as m, PrivacyPageBrowserProxyImpl as n, SafetyHubBrowserProxyImpl as o, SettingsState as p, ContentSettingsTypes as q, routes as r, ContentSetting as s, ChooserType as t, SafetyHubEvent as u, SafetyHubEntryPoint as v, PluralStringProxyImpl as w, CookieControlsMode as x, sanitizeInnerHtml as y, SafetyCheckInteractions as z };
+export { ChoiceMadeLocation as $, PasswordManagerImpl as A, BaseMixin as B, CrSearchFieldMixin as C, PasswordCheckReferrer as D, EventTracker as E, PasswordManagerPage as F, getInstance as G, HatsBrowserProxyImpl as H, I18nMixin as I, getTrustedScriptURL as J, FocusRowMixin as K, SyncBrowserProxyImpl as L, MetricsBrowserProxyImpl as M, isChromeOS as N, OpenWindowProxyImpl as O, PrefsMixin as P, getImage as Q, RelaunchMixin as R, SiteSettingsPrefsBrowserProxyImpl as S, TrustSafetyInteraction as T, ListPropertyUpdateMixin as U, TooltipMixin as V, WebUiListenerMixin as W, NetworkPredictionOptions as X, CrSettingsPrefs as Y, ResetBrowserProxyImpl as Z, SearchEnginesBrowserProxyImpl as _, assertNotReached as a, AllSitesDialog as a$, PromiseResolver as a0, IronSelectableBehavior as a1, FocusOutlineManager as a2, CrContainerShadowMixin as a3, pageVisibility as a4, setGlobalScrollTarget as a5, resetGlobalScrollTargetForTesting as a6, ExtensionControlledIndicatorElement as a7, DEFAULT_CHECKED_VALUE as a8, DEFAULT_UNCHECKED_VALUE as a9, PrivacyElementInteractions as aA, PrivacyGuideSettingsStates as aB, PrivacyGuideStepsEligibleAndReached as aC, SafeBrowsingInteractions as aD, SafetyCheckNotificationsModuleInteractions as aE, SafetyCheckUnusedSitePermissionsModuleInteractions as aF, SafetyHubCardState as aG, SafetyHubModuleType as aH, SafetyHubSurfaces as aI, setPageVisibilityForTesting as aJ, MAX_SIGNIN_PROMO_IMPRESSION as aK, SettingsSyncAccountControlElement as aL, PrivacySandboxBrowserProxyImpl as aM, buildRouter as aN, Route as aO, SearchEnginesInteractions as aP, SiteFaviconElement as aQ, PaperRippleMixin as aR, AnchorAlignment as aS, SettingsBooleanControlMixin as aT, ClearBrowsingDataBrowserProxyImpl as aU, GlobalScrollTargetMixin as aV, SiteSettingsMixin as aW, ContentSettingProvider as aX, CardState as aY, AllSitesAction2 as aZ, SortMethod as a_, ExtensionControlBrowserProxyImpl as aa, LifetimeBrowserProxyImpl as ab, PageStatus as ac, StatusAction as ad, syncPrefsIndividualDataTypes as ae, TrustedVaultBannerState as af, SecureDnsMode as ag, SecureDnsUiManagementMode as ah, prefToString as ai, stringToPrefValue as aj, SettingsPrefsElement as ak, CrActionMenuElement as al, CrButtonElement as am, CrDialogElement as an, CrLinkRowElement as ao, CrRadioButtonElement as ap, CrRadioGroupElement as aq, CrToggleElement as ar, getTrustedHTML as as, ControlledRadioButtonElement as at, SettingsDropdownMenuElement as au, SettingsToggleButtonElement as av, SafeBrowsingSetting$1 as aw, SecurityPageInteraction as ax, CvcDeletionUserAction as ay, DeleteBrowsingDataAction as az, assert as b, SiteSettingSource as b0, MODEL_UPDATE_DELAY_MS as b1, isUndoKeyboardEvent as b2, CookiesExceptionType as b3, SITE_EXCEPTION_WILDCARD as b4, INVALID_CATEGORY_SUBTYPE as b5, HelpBubbleMixin as b6, CrPolicyIndicatorType as b7, CookiePrimarySetting as b8, CrCheckboxElement as b9, SettingsSafetyHubEntryPointElement as bA, SettingsSafetyHubModuleElement as bB, SettingsSimpleConfirmationDialogElement as bC, SettingsCategoryDefaultRadioGroupElement as bD, CrExpandButtonElement as ba, CrIconButtonElement as bb, CrInputElement as bc, CrLazyRenderElement as bd, CrTextareaElement as be, SettingsRadioGroupElement as bf, SecureDnsResolverType as bg, SettingsSecureDnsElement as bh, SettingsSecureDnsDialogElement as bi, SecureDnsInputElement as bj, SettingsPageContentPageElement as bk, SettingsCollapseRadioButtonElement as bl, PrivacyGuideStep as bm, PrivacyGuideCompletionFragmentElement as bn, PrivacyGuideCookiesFragmentElement as bo, PrivacyGuideDescriptionItemElement as bp, SettingsPrivacyGuideDialogElement as bq, PrivacyGuideHistorySyncFragmentElement as br, PrivacyGuideMsbbFragmentElement as bs, SettingsPrivacyGuidePageElement as bt, PrivacyGuideSafeBrowsingFragmentElement as bu, PrivacyGuideSearchSuggestionsFragmentElement as bv, PrivacyGuideWelcomeFragmentElement as bw, HttpsFirstModeSetting as bx, SafeBrowsingSetting as by, SettingsSecurityPageElement as bz, RestartType as c, IronResizableBehavior as d, RouteObserverMixin as e, Router as f, focusWithoutInk as g, CrPolicyPrefMixin as h, isMac as i, PrefControlMixin as j, PrivacyGuideInteractions as k, listenOnce as l, PrivacyGuideAvailabilityMixin as m, PrivacyPageBrowserProxyImpl as n, SafetyHubBrowserProxyImpl as o, SettingsState as p, ContentSettingsTypes as q, routes as r, ContentSetting as s, ChooserType as t, SafetyHubEvent as u, SafetyHubEntryPoint as v, PluralStringProxyImpl as w, CookieControlsMode as x, sanitizeInnerHtml as y, SafetyCheckInteractions as z };
 //# sourceMappingURL=shared.rollup.js.map

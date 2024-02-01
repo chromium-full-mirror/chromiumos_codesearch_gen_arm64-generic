@@ -23,9 +23,10 @@ constexpr uint32_t kMostVisitedPageHandler_UndoMostVisitedTileAction_Name = 4;
 constexpr uint32_t kMostVisitedPageHandler_UpdateMostVisitedInfo_Name = 5;
 constexpr uint32_t kMostVisitedPageHandler_UpdateMostVisitedTile_Name = 6;
 constexpr uint32_t kMostVisitedPageHandler_PrerenderMostVisitedTile_Name = 7;
-constexpr uint32_t kMostVisitedPageHandler_CancelPrerender_Name = 8;
-constexpr uint32_t kMostVisitedPageHandler_OnMostVisitedTilesRendered_Name = 9;
-constexpr uint32_t kMostVisitedPageHandler_OnMostVisitedTileNavigation_Name = 10;
+constexpr uint32_t kMostVisitedPageHandler_PreconnectMostVisitedTile_Name = 8;
+constexpr uint32_t kMostVisitedPageHandler_CancelPrerender_Name = 9;
+constexpr uint32_t kMostVisitedPageHandler_OnMostVisitedTilesRendered_Name = 10;
+constexpr uint32_t kMostVisitedPageHandler_OnMostVisitedTileNavigation_Name = 11;
 constexpr uint32_t kMostVisitedPage_SetMostVisitedInfo_Name = 0;
 
 }  // namespace internal

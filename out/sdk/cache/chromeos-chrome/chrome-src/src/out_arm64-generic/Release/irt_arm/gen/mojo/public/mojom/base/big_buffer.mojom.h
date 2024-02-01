@@ -66,7 +66,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) BigBuffer {
   static BigBufferPtr
   NewBytes(
       std::vector<uint8_t> value) {
-    auto result = BigBufferPtr(absl::in_place);
+    auto result = BigBufferPtr(std::in_place);
     result->set_bytes(std::move(value));
     return result;
   }
@@ -74,7 +74,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) BigBuffer {
   static BigBufferPtr
   NewSharedMemory(
       BigBufferSharedMemoryRegionPtr value) {
-    auto result = BigBufferPtr(absl::in_place);
+    auto result = BigBufferPtr(std::in_place);
     result->set_shared_memory(std::move(value));
     return result;
   }
@@ -82,7 +82,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) BigBuffer {
   static BigBufferPtr
   NewInvalidBuffer(
       bool value) {
-    auto result = BigBufferPtr(absl::in_place);
+    auto result = BigBufferPtr(std::in_place);
     result->set_invalid_buffer(std::move(value));
     return result;
   }
@@ -209,7 +209,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) BigBufferSharedMemoryRegion {
   template <typename... Args>
   static BigBufferSharedMemoryRegionPtr New(Args&&... args) {
     return BigBufferSharedMemoryRegionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

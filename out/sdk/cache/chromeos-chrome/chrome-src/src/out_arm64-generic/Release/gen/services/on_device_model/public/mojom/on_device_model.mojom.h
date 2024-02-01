@@ -496,7 +496,7 @@ class  ResponseChunk {
   template <typename... Args>
   static ResponseChunkPtr New(Args&&... args) {
     return ResponseChunkPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -639,7 +639,7 @@ class  ResponseSummary {
   template <typename... Args>
   static ResponseSummaryPtr New(Args&&... args) {
     return ResponseSummaryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -779,7 +779,7 @@ class  InputOptions {
   template <typename... Args>
   static InputOptionsPtr New(Args&&... args) {
     return InputOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

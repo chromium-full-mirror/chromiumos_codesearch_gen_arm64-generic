@@ -538,7 +538,7 @@ class  AddFolderResult {
   static AddFolderResultPtr
   NewFolderId(
       const std::string& value) {
-    auto result = AddFolderResultPtr(absl::in_place);
+    auto result = AddFolderResultPtr(std::in_place);
     result->set_folder_id(std::move(value));
     return result;
   }
@@ -546,7 +546,7 @@ class  AddFolderResult {
   static AddFolderResultPtr
   NewError(
       const std::string& value) {
-    auto result = AddFolderResultPtr(absl::in_place);
+    auto result = AddFolderResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -669,7 +669,7 @@ class  AddAppResult {
   static AddAppResultPtr
   NewAppId(
       const std::string& value) {
-    auto result = AddAppResultPtr(absl::in_place);
+    auto result = AddAppResultPtr(std::in_place);
     result->set_app_id(std::move(value));
     return result;
   }
@@ -677,7 +677,7 @@ class  AddAppResult {
   static AddAppResultPtr
   NewError(
       const std::string& value) {
-    auto result = AddAppResultPtr(absl::in_place);
+    auto result = AddAppResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }

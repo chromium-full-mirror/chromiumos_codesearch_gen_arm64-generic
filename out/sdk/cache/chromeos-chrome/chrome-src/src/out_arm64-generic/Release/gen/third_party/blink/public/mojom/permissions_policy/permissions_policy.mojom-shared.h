@@ -153,7 +153,7 @@ static_assert(
         ::url::mojom::OriginDataView, UserType>(),
     "Attempting to read the optional `self_if_matches` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSelfIfMatches` instead "
     "of `ReadSelfIfMatches if you're fine with null values being "
@@ -179,7 +179,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `reporting_endpoint` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReportingEndpoint` instead "
     "of `ReadReportingEndpoint if you're fine with null values being "

@@ -171,7 +171,7 @@ class PLATFORM_EXPORT FontData {
   template <typename... Args>
   static FontDataPtr New(Args&&... args) {
     return FontDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

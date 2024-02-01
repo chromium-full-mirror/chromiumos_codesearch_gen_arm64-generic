@@ -406,7 +406,7 @@ class BLINK_PLATFORM_EXPORT VideoCaptureResult {
   static VideoCaptureResultPtr
   NewState(
       VideoCaptureState value) {
-    auto result = VideoCaptureResultPtr(absl::in_place);
+    auto result = VideoCaptureResultPtr(std::in_place);
     result->set_state(std::move(value));
     return result;
   }
@@ -414,7 +414,7 @@ class BLINK_PLATFORM_EXPORT VideoCaptureResult {
   static VideoCaptureResultPtr
   NewErrorCode(
       ::media::VideoCaptureError value) {
-    auto result = VideoCaptureResultPtr(absl::in_place);
+    auto result = VideoCaptureResultPtr(std::in_place);
     result->set_error_code(std::move(value));
     return result;
   }

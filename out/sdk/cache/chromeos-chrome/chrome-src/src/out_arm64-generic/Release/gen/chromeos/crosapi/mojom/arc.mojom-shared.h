@@ -263,7 +263,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `activity_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadActivityName` instead "
     "of `ReadActivityName if you're fine with null values being "
@@ -302,7 +302,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `icon_png_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIconPngData` instead "
     "of `ReadIconPngData if you're fine with null values being "
@@ -322,7 +322,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `foreground_icon_png_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadForegroundIconPngData` instead "
     "of `ReadForegroundIconPngData if you're fine with null values being "
@@ -342,7 +342,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `background_icon_png_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBackgroundIconPngData` instead "
     "of `ReadBackgroundIconPngData if you're fine with null values being "
@@ -404,7 +404,7 @@ static_assert(
         ::crosapi::mojom::RawIconPngDataDataView, UserType>(),
     "Attempting to read the optional `icon_png_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIconPngData` instead "
     "of `ReadIconPngData if you're fine with null values being "
@@ -475,7 +475,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `fallback_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFallbackUrl` instead "
     "of `ReadFallbackUrl if you're fine with null values being "
@@ -522,7 +522,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `categories` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCategories` instead "
     "of `ReadCategories if you're fine with null values being "
@@ -542,7 +542,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadData` instead "
     "of `ReadData if you're fine with null values being "
@@ -562,7 +562,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `type` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadType` instead "
     "of `ReadType if you're fine with null values being "
@@ -585,7 +585,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `extras` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadExtras` instead "
     "of `ReadExtras if you're fine with null values being "

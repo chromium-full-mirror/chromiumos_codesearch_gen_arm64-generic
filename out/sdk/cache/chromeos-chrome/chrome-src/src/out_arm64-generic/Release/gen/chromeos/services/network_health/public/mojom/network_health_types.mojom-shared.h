@@ -210,7 +210,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `guid` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadGuid` instead "
     "of `ReadGuid if you're fine with null values being "
@@ -230,7 +230,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadName` instead "
     "of `ReadName if you're fine with null values being "
@@ -250,7 +250,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `mac_address` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMacAddress` instead "
     "of `ReadMacAddress if you're fine with null values being "
@@ -270,7 +270,7 @@ static_assert(
         ::chromeos::network_health::mojom::UInt32ValueDataView, UserType>(),
     "Attempting to read the optional `signal_strength` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSignalStrength` instead "
     "of `ReadSignalStrength if you're fine with null values being "
@@ -290,7 +290,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `ipv4_address` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIpv4Address` instead "
     "of `ReadIpv4Address if you're fine with null values being "
@@ -330,7 +330,7 @@ static_assert(
         ::chromeos::network_health::mojom::SignalStrengthStatsDataView, UserType>(),
     "Attempting to read the optional `signal_strength_stats` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSignalStrengthStats` instead "
     "of `ReadSignalStrengthStats if you're fine with null values being "
@@ -351,7 +351,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `portal_probe_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPortalProbeUrl` instead "
     "of `ReadPortalProbeUrl if you're fine with null values being "

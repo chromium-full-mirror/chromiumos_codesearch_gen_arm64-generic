@@ -496,7 +496,7 @@ class  ReportID {
   template <typename... Args>
   static ReportIDPtr New(Args&&... args) {
     return ReportIDPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -636,7 +636,7 @@ class  WebUIReportEventLevelData {
   template <typename... Args>
   static WebUIReportEventLevelDataPtr New(Args&&... args) {
     return WebUIReportEventLevelDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -780,7 +780,7 @@ class  AggregatableHistogramContribution {
   template <typename... Args>
   static AggregatableHistogramContributionPtr New(Args&&... args) {
     return AggregatableHistogramContributionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -925,7 +925,7 @@ class  Empty {
   template <typename... Args>
   static EmptyPtr New(Args&&... args) {
     return EmptyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1078,7 +1078,7 @@ class  WebUIReportData {
   static WebUIReportDataPtr
   NewEventLevelData(
       WebUIReportEventLevelDataPtr value) {
-    auto result = WebUIReportDataPtr(absl::in_place);
+    auto result = WebUIReportDataPtr(std::in_place);
     result->set_event_level_data(std::move(value));
     return result;
   }
@@ -1086,7 +1086,7 @@ class  WebUIReportData {
   static WebUIReportDataPtr
   NewAggregatableAttributionData(
       WebUIReportAggregatableAttributionDataPtr value) {
-    auto result = WebUIReportDataPtr(absl::in_place);
+    auto result = WebUIReportDataPtr(std::in_place);
     result->set_aggregatable_attribution_data(std::move(value));
     return result;
   }
@@ -1208,7 +1208,7 @@ class  ReportStatus {
   static ReportStatusPtr
   NewPending(
       EmptyPtr value) {
-    auto result = ReportStatusPtr(absl::in_place);
+    auto result = ReportStatusPtr(std::in_place);
     result->set_pending(std::move(value));
     return result;
   }
@@ -1216,7 +1216,7 @@ class  ReportStatus {
   static ReportStatusPtr
   NewReplacedByHigherPriorityReport(
       const std::string& value) {
-    auto result = ReportStatusPtr(absl::in_place);
+    auto result = ReportStatusPtr(std::in_place);
     result->set_replaced_by_higher_priority_report(std::move(value));
     return result;
   }
@@ -1224,7 +1224,7 @@ class  ReportStatus {
   static ReportStatusPtr
   NewProhibitedByBrowserPolicy(
       EmptyPtr value) {
-    auto result = ReportStatusPtr(absl::in_place);
+    auto result = ReportStatusPtr(std::in_place);
     result->set_prohibited_by_browser_policy(std::move(value));
     return result;
   }
@@ -1232,7 +1232,7 @@ class  ReportStatus {
   static ReportStatusPtr
   NewSent(
       int32_t value) {
-    auto result = ReportStatusPtr(absl::in_place);
+    auto result = ReportStatusPtr(std::in_place);
     result->set_sent(std::move(value));
     return result;
   }
@@ -1240,7 +1240,7 @@ class  ReportStatus {
   static ReportStatusPtr
   NewNetworkError(
       const std::string& value) {
-    auto result = ReportStatusPtr(absl::in_place);
+    auto result = ReportStatusPtr(std::in_place);
     result->set_network_error(std::move(value));
     return result;
   }
@@ -1248,7 +1248,7 @@ class  ReportStatus {
   static ReportStatusPtr
   NewFailedToAssemble(
       EmptyPtr value) {
-    auto result = ReportStatusPtr(absl::in_place);
+    auto result = ReportStatusPtr(std::in_place);
     result->set_failed_to_assemble(std::move(value));
     return result;
   }
@@ -1423,7 +1423,7 @@ class  DebugReportStatus {
   static DebugReportStatusPtr
   NewHttpResponseCode(
       int32_t value) {
-    auto result = DebugReportStatusPtr(absl::in_place);
+    auto result = DebugReportStatusPtr(std::in_place);
     result->set_http_response_code(std::move(value));
     return result;
   }
@@ -1431,7 +1431,7 @@ class  DebugReportStatus {
   static DebugReportStatusPtr
   NewNetworkError(
       const std::string& value) {
-    auto result = DebugReportStatusPtr(absl::in_place);
+    auto result = DebugReportStatusPtr(std::in_place);
     result->set_network_error(std::move(value));
     return result;
   }
@@ -1549,7 +1549,7 @@ class  WebUIReportAggregatableAttributionData {
   template <typename... Args>
   static WebUIReportAggregatableAttributionDataPtr New(Args&&... args) {
     return WebUIReportAggregatableAttributionDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1701,7 +1701,7 @@ class  WebUIReport {
   template <typename... Args>
   static WebUIReportPtr New(Args&&... args) {
     return WebUIReportPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1861,7 +1861,7 @@ class  WebUIDebugReport {
   template <typename... Args>
   static WebUIDebugReportPtr New(Args&&... args) {
     return WebUIDebugReportPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2013,7 +2013,7 @@ class  WebUISource {
   template <typename... Args>
   static WebUISourcePtr New(Args&&... args) {
     return WebUISourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2213,7 +2213,7 @@ class  WebUIRegistration {
   template <typename... Args>
   static WebUIRegistrationPtr New(Args&&... args) {
     return WebUIRegistrationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2365,7 +2365,7 @@ class  WebUITrigger {
   template <typename... Args>
   static WebUITriggerPtr New(Args&&... args) {
     return WebUITriggerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2516,7 +2516,7 @@ class  WebUISourceRegistration {
   template <typename... Args>
   static WebUISourceRegistrationPtr New(Args&&... args) {
     return WebUISourceRegistrationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2664,7 +2664,7 @@ class  WebUIOsRegistration {
   template <typename... Args>
   static WebUIOsRegistrationPtr New(Args&&... args) {
     return WebUIOsRegistrationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -183,7 +183,7 @@ class  AnimationFrame {
   template <typename... Args>
   static AnimationFramePtr New(Args&&... args) {
     return AnimationFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

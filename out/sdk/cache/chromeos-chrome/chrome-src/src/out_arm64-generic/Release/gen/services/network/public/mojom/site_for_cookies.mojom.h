@@ -57,7 +57,7 @@ class  SiteForCookies {
   template <typename... Args>
   static SiteForCookiesPtr New(Args&&... args) {
     return SiteForCookiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

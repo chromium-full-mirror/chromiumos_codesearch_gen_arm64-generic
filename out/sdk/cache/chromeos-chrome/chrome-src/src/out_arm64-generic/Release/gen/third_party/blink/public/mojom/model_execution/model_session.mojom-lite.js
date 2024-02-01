@@ -30,9 +30,19 @@ blink.mojom.ModelStreamingResponseStatus = {
   
   kOngoing: 0,
   kComplete: 1,
-  kError: 2,
+  kErrorUnknown: 2,
+  kErrorInvalidRequest: 3,
+  kErrorRequestThrottled: 4,
+  kErrorPermissionDenied: 5,
+  kErrorGenericFailure: 6,
+  kErrorRetryableError: 7,
+  kErrorNonRetryableError: 8,
+  kErrorUnsupportedLanguage: 9,
+  kErrorFiltered: 10,
+  kErrorDisabled: 11,
+  kErrorCancelled: 12,
   MIN_VALUE: 0,
-  MAX_VALUE: 2,
+  MAX_VALUE: 12,
 };
 
 

@@ -2293,75 +2293,161 @@ class HEADLESS_EXPORT BlockedSetCookieWithReason {
 };
 
 
-// A cookie with was not sent with a request with the corresponding reason.
-class HEADLESS_EXPORT BlockedCookieWithReason {
+// A cookie should have been blocked by 3PCD but is exempted and stored from a response with the
+// corresponding reason. A cookie could only have at most one exemption reason.
+class HEADLESS_EXPORT ExemptedSetCookieWithReason {
  public:
-  static std::unique_ptr<BlockedCookieWithReason> Parse(const base::Value& value, ErrorReporter* errors);
+  static std::unique_ptr<ExemptedSetCookieWithReason> Parse(const base::Value& value, ErrorReporter* errors);
 
-  BlockedCookieWithReason(const BlockedCookieWithReason&) = delete;
-  BlockedCookieWithReason& operator=(const BlockedCookieWithReason&) = delete;
+  ExemptedSetCookieWithReason(const ExemptedSetCookieWithReason&) = delete;
+  ExemptedSetCookieWithReason& operator=(const ExemptedSetCookieWithReason&) = delete;
 
-  ~BlockedCookieWithReason() { }
+  ~ExemptedSetCookieWithReason() { }
 
 
-  // The reason(s) the cookie was blocked.
-  const std::vector<::headless::network::CookieBlockedReason>* GetBlockedReasons() const { return &blocked_reasons_; }
-  void SetBlockedReasons(std::vector<::headless::network::CookieBlockedReason> value) { blocked_reasons_ = std::move(value); }
+  // The reason the cookie was exempted.
+  ::headless::network::CookieExemptionReason GetExemptionReason() const { return exemption_reason_; }
+  void SetExemptionReason(::headless::network::CookieExemptionReason value) { exemption_reason_ = value; }
 
-  // The cookie object representing the cookie which was not sent.
+  // The cookie object representing the cookie.
   const ::headless::network::Cookie* GetCookie() const { return cookie_.get(); }
   void SetCookie(std::unique_ptr<::headless::network::Cookie> value) { cookie_ = std::move(value); }
 
   base::Value Serialize() const;
-  std::unique_ptr<BlockedCookieWithReason> Clone() const;
+  std::unique_ptr<ExemptedSetCookieWithReason> Clone() const;
 
   template<int STATE>
-  class BlockedCookieWithReasonBuilder {
+  class ExemptedSetCookieWithReasonBuilder {
   public:
     enum {
       kNoFieldsSet = 0,
-    kBlockedReasonsSet = 1 << 1,
+    kExemptionReasonSet = 1 << 1,
     kCookieSet = 1 << 2,
-      kAllRequiredFieldsSet = (kBlockedReasonsSet | kCookieSet | 0)
+      kAllRequiredFieldsSet = (kExemptionReasonSet | kCookieSet | 0)
     };
 
-    BlockedCookieWithReasonBuilder<STATE | kBlockedReasonsSet>& SetBlockedReasons(std::vector<::headless::network::CookieBlockedReason> value) {
-      static_assert(!(STATE & kBlockedReasonsSet), "property blockedReasons should not have already been set");
-      result_->SetBlockedReasons(std::move(value));
-      return CastState<kBlockedReasonsSet>();
+    ExemptedSetCookieWithReasonBuilder<STATE | kExemptionReasonSet>& SetExemptionReason(::headless::network::CookieExemptionReason value) {
+      static_assert(!(STATE & kExemptionReasonSet), "property exemptionReason should not have already been set");
+      result_->SetExemptionReason(value);
+      return CastState<kExemptionReasonSet>();
     }
 
-    BlockedCookieWithReasonBuilder<STATE | kCookieSet>& SetCookie(std::unique_ptr<::headless::network::Cookie> value) {
+    ExemptedSetCookieWithReasonBuilder<STATE | kCookieSet>& SetCookie(std::unique_ptr<::headless::network::Cookie> value) {
       static_assert(!(STATE & kCookieSet), "property cookie should not have already been set");
       result_->SetCookie(std::move(value));
       return CastState<kCookieSet>();
     }
 
-    std::unique_ptr<BlockedCookieWithReason> Build() {
+    std::unique_ptr<ExemptedSetCookieWithReason> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
     }
 
    private:
-    friend class BlockedCookieWithReason;
-    BlockedCookieWithReasonBuilder() : result_(new BlockedCookieWithReason()) { }
+    friend class ExemptedSetCookieWithReason;
+    ExemptedSetCookieWithReasonBuilder() : result_(new ExemptedSetCookieWithReason()) { }
 
-    template<int STEP> BlockedCookieWithReasonBuilder<STATE | STEP>& CastState() {
-      return *reinterpret_cast<BlockedCookieWithReasonBuilder<STATE | STEP>*>(this);
+    template<int STEP> ExemptedSetCookieWithReasonBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<ExemptedSetCookieWithReasonBuilder<STATE | STEP>*>(this);
     }
 
-    std::unique_ptr<BlockedCookieWithReason> result_;
+    std::unique_ptr<ExemptedSetCookieWithReason> result_;
   };
 
-  static BlockedCookieWithReasonBuilder<0> Builder() {
-    return BlockedCookieWithReasonBuilder<0>();
+  static ExemptedSetCookieWithReasonBuilder<0> Builder() {
+    return ExemptedSetCookieWithReasonBuilder<0>();
   }
 
  private:
-  BlockedCookieWithReason() { }
+  ExemptedSetCookieWithReason() { }
 
-  std::vector<::headless::network::CookieBlockedReason> blocked_reasons_;
+  ::headless::network::CookieExemptionReason exemption_reason_;
   std::unique_ptr<::headless::network::Cookie> cookie_;
+};
+
+
+// A cookie associated with the request which may or may not be sent with it.
+// Includes the cookies itself and reasons for blocking or exemption.
+class HEADLESS_EXPORT AssociatedCookie {
+ public:
+  static std::unique_ptr<AssociatedCookie> Parse(const base::Value& value, ErrorReporter* errors);
+
+  AssociatedCookie(const AssociatedCookie&) = delete;
+  AssociatedCookie& operator=(const AssociatedCookie&) = delete;
+
+  ~AssociatedCookie() { }
+
+
+  // The cookie object representing the cookie which was not sent.
+  const ::headless::network::Cookie* GetCookie() const { return cookie_.get(); }
+  void SetCookie(std::unique_ptr<::headless::network::Cookie> value) { cookie_ = std::move(value); }
+
+  // The reason(s) the cookie was blocked. If empty means the cookie is included.
+  const std::vector<::headless::network::CookieBlockedReason>* GetBlockedReasons() const { return &blocked_reasons_; }
+  void SetBlockedReasons(std::vector<::headless::network::CookieBlockedReason> value) { blocked_reasons_ = std::move(value); }
+
+  // The reason the cookie should have been blocked by 3PCD but is exempted. A cookie could
+  // only have at most one exemption reason.
+  bool HasExemptionReason() const { return !!exemption_reason_; }
+  ::headless::network::CookieExemptionReason GetExemptionReason() const { DCHECK(HasExemptionReason()); return exemption_reason_.value(); }
+  void SetExemptionReason(::headless::network::CookieExemptionReason value) { exemption_reason_ = value; }
+
+  base::Value Serialize() const;
+  std::unique_ptr<AssociatedCookie> Clone() const;
+
+  template<int STATE>
+  class AssociatedCookieBuilder {
+  public:
+    enum {
+      kNoFieldsSet = 0,
+    kCookieSet = 1 << 1,
+    kBlockedReasonsSet = 1 << 2,
+      kAllRequiredFieldsSet = (kCookieSet | kBlockedReasonsSet | 0)
+    };
+
+    AssociatedCookieBuilder<STATE | kCookieSet>& SetCookie(std::unique_ptr<::headless::network::Cookie> value) {
+      static_assert(!(STATE & kCookieSet), "property cookie should not have already been set");
+      result_->SetCookie(std::move(value));
+      return CastState<kCookieSet>();
+    }
+
+    AssociatedCookieBuilder<STATE | kBlockedReasonsSet>& SetBlockedReasons(std::vector<::headless::network::CookieBlockedReason> value) {
+      static_assert(!(STATE & kBlockedReasonsSet), "property blockedReasons should not have already been set");
+      result_->SetBlockedReasons(std::move(value));
+      return CastState<kBlockedReasonsSet>();
+    }
+
+    AssociatedCookieBuilder<STATE>& SetExemptionReason(::headless::network::CookieExemptionReason value) {
+      result_->SetExemptionReason(value);
+      return *this;
+    }
+
+    std::unique_ptr<AssociatedCookie> Build() {
+      static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
+      return std::move(result_);
+    }
+
+   private:
+    friend class AssociatedCookie;
+    AssociatedCookieBuilder() : result_(new AssociatedCookie()) { }
+
+    template<int STEP> AssociatedCookieBuilder<STATE | STEP>& CastState() {
+      return *reinterpret_cast<AssociatedCookieBuilder<STATE | STEP>*>(this);
+    }
+
+    std::unique_ptr<AssociatedCookie> result_;
+  };
+
+  static AssociatedCookieBuilder<0> Builder() {
+    return AssociatedCookieBuilder<0>();
+  }
+
+ private:
+  AssociatedCookie() { }
+
+  std::unique_ptr<::headless::network::Cookie> cookie_;
+  std::vector<::headless::network::CookieBlockedReason> blocked_reasons_;
+  absl::optional<::headless::network::CookieExemptionReason> exemption_reason_;
 };
 
 
@@ -5099,6 +5185,12 @@ class HEADLESS_EXPORT DeleteCookiesParams {
   std::string GetPath() const { DCHECK(HasPath()); return path_.value(); }
   void SetPath(const std::string& value) { path_ = value; }
 
+  // If specified, deletes only cookies with the the given name and partitionKey where domain
+  // matches provided URL.
+  bool HasPartitionKey() const { return !!partition_key_; }
+  std::string GetPartitionKey() const { DCHECK(HasPartitionKey()); return partition_key_.value(); }
+  void SetPartitionKey(const std::string& value) { partition_key_ = value; }
+
   base::Value Serialize() const;
   std::unique_ptr<DeleteCookiesParams> Clone() const;
 
@@ -5132,6 +5224,11 @@ class HEADLESS_EXPORT DeleteCookiesParams {
       return *this;
     }
 
+    DeleteCookiesParamsBuilder<STATE>& SetPartitionKey(const std::string& value) {
+      result_->SetPartitionKey(value);
+      return *this;
+    }
+
     std::unique_ptr<DeleteCookiesParams> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
@@ -5159,6 +5256,7 @@ class HEADLESS_EXPORT DeleteCookiesParams {
   absl::optional<std::string> url_;
   absl::optional<std::string> domain_;
   absl::optional<std::string> path_;
+  absl::optional<std::string> partition_key_;
 };
 
 
@@ -10358,9 +10456,9 @@ class HEADLESS_EXPORT RequestWillBeSentExtraInfoParams {
   void SetRequestId(const std::string& value) { request_id_ = value; }
 
   // A list of cookies potentially associated to the requested URL. This includes both cookies sent with
-  // the request and the ones not sent; the latter are distinguished by having blockedReason field set.
-  const std::vector<std::unique_ptr<::headless::network::BlockedCookieWithReason>>* GetAssociatedCookies() const { return &associated_cookies_; }
-  void SetAssociatedCookies(std::vector<std::unique_ptr<::headless::network::BlockedCookieWithReason>> value) { associated_cookies_ = std::move(value); }
+  // the request and the ones not sent; the latter are distinguished by having blockedReasons field set.
+  const std::vector<std::unique_ptr<::headless::network::AssociatedCookie>>* GetAssociatedCookies() const { return &associated_cookies_; }
+  void SetAssociatedCookies(std::vector<std::unique_ptr<::headless::network::AssociatedCookie>> value) { associated_cookies_ = std::move(value); }
 
   // Raw request headers as they will be sent over the wire.
   const base::Value::Dict& GetHeaders() const { return *headers_; }
@@ -10401,7 +10499,7 @@ class HEADLESS_EXPORT RequestWillBeSentExtraInfoParams {
       return CastState<kRequestIdSet>();
     }
 
-    RequestWillBeSentExtraInfoParamsBuilder<STATE | kAssociatedCookiesSet>& SetAssociatedCookies(std::vector<std::unique_ptr<::headless::network::BlockedCookieWithReason>> value) {
+    RequestWillBeSentExtraInfoParamsBuilder<STATE | kAssociatedCookiesSet>& SetAssociatedCookies(std::vector<std::unique_ptr<::headless::network::AssociatedCookie>> value) {
       static_assert(!(STATE & kAssociatedCookiesSet), "property associatedCookies should not have already been set");
       result_->SetAssociatedCookies(std::move(value));
       return CastState<kAssociatedCookiesSet>();
@@ -10453,7 +10551,7 @@ class HEADLESS_EXPORT RequestWillBeSentExtraInfoParams {
   RequestWillBeSentExtraInfoParams() { }
 
   std::string request_id_;
-  std::vector<std::unique_ptr<::headless::network::BlockedCookieWithReason>> associated_cookies_;
+  std::vector<std::unique_ptr<::headless::network::AssociatedCookie>> associated_cookies_;
   std::optional<base::Value::Dict> headers_;
   std::unique_ptr<::headless::network::ConnectTiming> connect_timing_;
   absl::optional<std::unique_ptr<::headless::network::ClientSecurityState>> client_security_state_;
@@ -10513,6 +10611,12 @@ class HEADLESS_EXPORT ResponseReceivedExtraInfoParams {
   bool HasCookiePartitionKeyOpaque() const { return !!cookie_partition_key_opaque_; }
   bool GetCookiePartitionKeyOpaque() const { DCHECK(HasCookiePartitionKeyOpaque()); return cookie_partition_key_opaque_.value(); }
   void SetCookiePartitionKeyOpaque(bool value) { cookie_partition_key_opaque_ = value; }
+
+  // A list of cookies which should have been blocked by 3PCD but are exempted and stored from
+  // the response with the corresponding reason.
+  bool HasExemptedCookies() const { return !!exempted_cookies_; }
+  const std::vector<std::unique_ptr<::headless::network::ExemptedSetCookieWithReason>>* GetExemptedCookies() const { DCHECK(HasExemptedCookies()); return &exempted_cookies_.value(); }
+  void SetExemptedCookies(std::vector<std::unique_ptr<::headless::network::ExemptedSetCookieWithReason>> value) { exempted_cookies_ = std::move(value); }
 
   base::Value Serialize() const;
   std::unique_ptr<ResponseReceivedExtraInfoParams> Clone() const;
@@ -10575,6 +10679,11 @@ class HEADLESS_EXPORT ResponseReceivedExtraInfoParams {
       return *this;
     }
 
+    ResponseReceivedExtraInfoParamsBuilder<STATE>& SetExemptedCookies(std::vector<std::unique_ptr<::headless::network::ExemptedSetCookieWithReason>> value) {
+      result_->SetExemptedCookies(std::move(value));
+      return *this;
+    }
+
     std::unique_ptr<ResponseReceivedExtraInfoParams> Build() {
       static_assert(STATE == kAllRequiredFieldsSet, "all required fields should have been set");
       return std::move(result_);
@@ -10606,6 +10715,7 @@ class HEADLESS_EXPORT ResponseReceivedExtraInfoParams {
   absl::optional<std::string> headers_text_;
   absl::optional<std::string> cookie_partition_key_;
   absl::optional<bool> cookie_partition_key_opaque_;
+  absl::optional<std::vector<std::unique_ptr<::headless::network::ExemptedSetCookieWithReason>>> exempted_cookies_;
 };
 
 

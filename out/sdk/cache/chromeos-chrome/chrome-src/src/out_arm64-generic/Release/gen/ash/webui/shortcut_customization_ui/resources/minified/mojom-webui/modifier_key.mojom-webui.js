@@ -1,0 +1,4 @@
+// Copyright 2020 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+import{mojo}from"//resources/mojo/mojo/public/js/bindings.js";export const ModifierKeySpec={$:mojo.internal.Enum()};export var ModifierKey;(function(ModifierKey){ModifierKey[ModifierKey["MIN_VALUE"]=0]="MIN_VALUE";ModifierKey[ModifierKey["MAX_VALUE"]=8]="MAX_VALUE";ModifierKey[ModifierKey["kMeta"]=0]="kMeta";ModifierKey[ModifierKey["kControl"]=1]="kControl";ModifierKey[ModifierKey["kAlt"]=2]="kAlt";ModifierKey[ModifierKey["kVoid"]=3]="kVoid";ModifierKey[ModifierKey["kCapsLock"]=4]="kCapsLock";ModifierKey[ModifierKey["kEscape"]=5]="kEscape";ModifierKey[ModifierKey["kBackspace"]=6]="kBackspace";ModifierKey[ModifierKey["kAssistant"]=7]="kAssistant";ModifierKey[ModifierKey["kIsoLevel5ShiftMod3"]=8]="kIsoLevel5ShiftMod3"})(ModifierKey||(ModifierKey={}));

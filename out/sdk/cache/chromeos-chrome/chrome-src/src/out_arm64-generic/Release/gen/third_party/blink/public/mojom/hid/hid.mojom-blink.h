@@ -212,7 +212,7 @@ class PLATFORM_EXPORT VendorAndProduct {
   template <typename... Args>
   static VendorAndProductPtr New(Args&&... args) {
     return VendorAndProductPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -367,7 +367,7 @@ class PLATFORM_EXPORT DeviceIdFilter {
   static DeviceIdFilterPtr
   NewVendor(
       uint16_t value) {
-    auto result = DeviceIdFilterPtr(absl::in_place);
+    auto result = DeviceIdFilterPtr(std::in_place);
     result->set_vendor(std::move(value));
     return result;
   }
@@ -375,7 +375,7 @@ class PLATFORM_EXPORT DeviceIdFilter {
   static DeviceIdFilterPtr
   NewVendorAndProduct(
       VendorAndProductPtr value) {
-    auto result = DeviceIdFilterPtr(absl::in_place);
+    auto result = DeviceIdFilterPtr(std::in_place);
     result->set_vendor_and_product(std::move(value));
     return result;
   }
@@ -498,7 +498,7 @@ class PLATFORM_EXPORT UsageFilter {
   static UsageFilterPtr
   NewPage(
       uint16_t value) {
-    auto result = UsageFilterPtr(absl::in_place);
+    auto result = UsageFilterPtr(std::in_place);
     result->set_page(std::move(value));
     return result;
   }
@@ -506,7 +506,7 @@ class PLATFORM_EXPORT UsageFilter {
   static UsageFilterPtr
   NewUsageAndPage(
       ::device::mojom::blink::HidUsageAndPagePtr value) {
-    auto result = UsageFilterPtr(absl::in_place);
+    auto result = UsageFilterPtr(std::in_place);
     result->set_usage_and_page(std::move(value));
     return result;
   }
@@ -622,7 +622,7 @@ class PLATFORM_EXPORT HidDeviceFilter {
   template <typename... Args>
   static HidDeviceFilterPtr New(Args&&... args) {
     return HidDeviceFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

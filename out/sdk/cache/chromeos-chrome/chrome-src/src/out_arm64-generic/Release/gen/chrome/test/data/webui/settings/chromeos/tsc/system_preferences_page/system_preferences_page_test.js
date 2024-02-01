@@ -50,6 +50,7 @@ suite('<settings-system-preferences-page>', () => {
     setup(() => {
         loadTimeData.overrideValues({
             isGuest: false,
+            showOneDriveSettings: false,
             showOfficeSettings: false,
         });
         Router.getInstance().navigateTo(routes.SYSTEM_PREFERENCES);
@@ -100,6 +101,7 @@ suite('<settings-system-preferences-page>', () => {
         suite('when office settings are available', () => {
             setup(() => {
                 recreateRoutesFromLoadTimeOverrides({
+                    showOneDriveSettings: true,
                     showOfficeSettings: true,
                 });
                 const testOneDriveBrowserProxy = new OneDriveTestBrowserProxy({ email: 'sample@google.com' });
@@ -137,6 +139,20 @@ suite('<settings-system-preferences-page>', () => {
                 await navigateToSubpage(routes[routeName]);
                 assertSubpageIsVisible(elementTagName);
             });
+        });
+    });
+    suite('Multitasking subsection', () => {
+        test('Multitasking settings card is visible if feature is allowed', async () => {
+            loadTimeData.overrideValues({ shouldShowMultitasking: true });
+            await createPage();
+            const multitaskingSettingsCard = page.shadowRoot.querySelector('multitasking-settings-card');
+            assertTrue(isVisible(multitaskingSettingsCard), 'Multitasking settings card should be visible.');
+        });
+        test('Multitasking settings card is not visible if feature is disallowed', async () => {
+            loadTimeData.overrideValues({ shouldShowMultitasking: false });
+            await createPage();
+            const multitaskingSettingsCard = page.shadowRoot.querySelector('multitasking-settings-card');
+            assertFalse(isVisible(multitaskingSettingsCard), 'Multitasking settings card should not be visible.');
         });
     });
     suite('Reset subsection', () => {

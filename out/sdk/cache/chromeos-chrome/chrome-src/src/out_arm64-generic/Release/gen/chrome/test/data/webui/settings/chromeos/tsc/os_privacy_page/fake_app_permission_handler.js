@@ -10,6 +10,7 @@ const { AppPermissionsObserverRemote } = appPermissionHandlerMojom;
 export class FakeAppPermissionHandler {
     resolverMap_;
     appPermissionsObserverRemote_;
+    lastOpenedBrowserPermissionSettingsType_;
     lastUpdatedAppPermission_;
     nativeSettingsOpenedCount_;
     constructor() {
@@ -18,6 +19,7 @@ export class FakeAppPermissionHandler {
         this.resolverMap_.set('getApps', new PromiseResolver());
         this.resolverMap_.set('getSystemAppsThatUseCamera', new PromiseResolver());
         this.resolverMap_.set('getSystemAppsThatUseMicrophone', new PromiseResolver());
+        this.resolverMap_.set('openBrowserPermissionSettings', new PromiseResolver());
         this.resolverMap_.set('openNativeSettings', new PromiseResolver());
         this.resolverMap_.set('setPermission', new PromiseResolver());
         this.appPermissionsObserverRemote_ = new AppPermissionsObserverRemote();
@@ -26,6 +28,7 @@ export class FakeAppPermissionHandler {
             isManaged: false,
             value: {},
         };
+        this.lastOpenedBrowserPermissionSettingsType_ = PermissionType.kUnknown;
         this.nativeSettingsOpenedCount_ = 0;
     }
     getResolver_(methodName) {
@@ -43,6 +46,9 @@ export class FakeAppPermissionHandler {
     }
     getObserverRemote() {
         return this.appPermissionsObserverRemote_;
+    }
+    getLastOpenedBrowserPermissionSettingsType() {
+        return this.lastOpenedBrowserPermissionSettingsType_;
     }
     getLastUpdatedPermission() {
         return this.lastUpdatedAppPermission_;
@@ -82,6 +88,11 @@ export class FakeAppPermissionHandler {
         assertTrue(!!id);
         this.nativeSettingsOpenedCount_++;
         this.methodCalled('openNativeSettings');
+        return Promise.resolve({ success: true });
+    }
+    openBrowserPermissionSettings(permissionType) {
+        this.lastOpenedBrowserPermissionSettingsType_ = permissionType;
+        this.methodCalled('openBrowserPermissionSettings');
         return Promise.resolve({ success: true });
     }
 }

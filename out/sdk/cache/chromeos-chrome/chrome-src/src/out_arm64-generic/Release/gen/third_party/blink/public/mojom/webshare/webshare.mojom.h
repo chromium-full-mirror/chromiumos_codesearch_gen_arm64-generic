@@ -173,7 +173,7 @@ class BLINK_COMMON_EXPORT SharedFile {
   template <typename... Args>
   static SharedFilePtr New(Args&&... args) {
     return SharedFilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

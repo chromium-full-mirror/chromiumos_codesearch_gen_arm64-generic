@@ -349,7 +349,7 @@ class  AudioDeviceProperties {
   template <typename... Args>
   static AudioDevicePropertiesPtr New(Args&&... args) {
     return AudioDevicePropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -492,7 +492,7 @@ class  AudioDeviceInfo {
   template <typename... Args>
   static AudioDeviceInfoPtr New(Args&&... args) {
     return AudioDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -654,7 +654,7 @@ class  DeviceFilter {
   template <typename... Args>
   static DeviceFilterPtr New(Args&&... args) {
     return DeviceFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -797,7 +797,7 @@ class  DeviceIdLists {
   template <typename... Args>
   static DeviceIdListsPtr New(Args&&... args) {
     return DeviceIdListsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

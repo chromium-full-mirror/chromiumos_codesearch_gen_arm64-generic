@@ -58,7 +58,7 @@ class  PdfRenderSettings {
   template <typename... Args>
   static PdfRenderSettingsPtr New(Args&&... args) {
     return PdfRenderSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

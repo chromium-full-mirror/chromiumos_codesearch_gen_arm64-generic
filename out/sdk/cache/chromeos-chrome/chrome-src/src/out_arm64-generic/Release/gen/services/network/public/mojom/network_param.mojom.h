@@ -62,7 +62,7 @@ class  HttpVersion {
   template <typename... Args>
   static HttpVersionPtr New(Args&&... args) {
     return HttpVersionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -205,7 +205,7 @@ class  HostPortPair {
   template <typename... Args>
   static HostPortPairPtr New(Args&&... args) {
     return HostPortPairPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -350,7 +350,7 @@ class  ResolveErrorInfo {
   template <typename... Args>
   static ResolveErrorInfoPtr New(Args&&... args) {
     return ResolveErrorInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -499,7 +499,7 @@ class  AuthChallengeInfo {
   template <typename... Args>
   static AuthChallengeInfoPtr New(Args&&... args) {
     return AuthChallengeInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -659,7 +659,7 @@ class  ProxyServer {
   template <typename... Args>
   static ProxyServerPtr New(Args&&... args) {
     return ProxyServerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -802,7 +802,7 @@ class  ProxyChain {
   template <typename... Args>
   static ProxyChainPtr New(Args&&... args) {
     return ProxyChainPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -946,7 +946,7 @@ class  SSLCertRequestInfo {
   template <typename... Args>
   static SSLCertRequestInfoPtr New(Args&&... args) {
     return SSLCertRequestInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1097,7 +1097,7 @@ class  NetLogSource {
   template <typename... Args>
   static NetLogSourcePtr New(Args&&... args) {
     return NetLogSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

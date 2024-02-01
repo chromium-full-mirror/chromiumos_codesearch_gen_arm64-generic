@@ -307,7 +307,7 @@ class  ClipValue {
   static ClipValuePtr
   NewBlob(
       std::vector<uint8_t> value) {
-    auto result = ClipValuePtr(absl::in_place);
+    auto result = ClipValuePtr(std::in_place);
     result->set_blob(std::move(value));
     return result;
   }
@@ -315,7 +315,7 @@ class  ClipValue {
   static ClipValuePtr
   NewText(
       const std::string& value) {
-    auto result = ClipValuePtr(absl::in_place);
+    auto result = ClipValuePtr(std::in_place);
     result->set_text(std::move(value));
     return result;
   }
@@ -429,7 +429,7 @@ class  ClipRepresentation {
   template <typename... Args>
   static ClipRepresentationPtr New(Args&&... args) {
     return ClipRepresentationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -574,7 +574,7 @@ class  ClipData {
   template <typename... Args>
   static ClipDataPtr New(Args&&... args) {
     return ClipDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

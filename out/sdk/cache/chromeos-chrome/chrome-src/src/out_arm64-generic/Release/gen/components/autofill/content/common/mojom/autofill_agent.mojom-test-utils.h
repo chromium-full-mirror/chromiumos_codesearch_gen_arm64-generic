@@ -28,10 +28,6 @@ class  AutofillAgentInterceptorForTesting : public AutofillAgent {
   void AcceptDataListSuggestion(::autofill::FieldRendererId field, const ::std::u16string& value) override;
   void PreviewPasswordSuggestion(const ::std::u16string& username, const ::std::u16string& password) override;
   void PreviewPasswordGenerationSuggestion(const ::std::u16string& password) override;
-  void SetUserGestureRequired(bool required) override;
-  void SetSecureContextRequired(bool required) override;
-  void SetFocusRequiresScroll(bool require) override;
-  void SetQueryPasswordSuggestion(bool query) override;
   void EnableHeavyFormDataScraping() override;
   void GetPotentialLastFourCombinationsForStandaloneCvc(GetPotentialLastFourCombinationsForStandaloneCvcCallback callback) override;
 };

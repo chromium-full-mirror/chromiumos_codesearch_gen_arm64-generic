@@ -179,7 +179,7 @@ static_assert(
         ::device::mojom::NetworkLocationResponseDataView, UserType>(),
     "Attempting to read the optional `response` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResponse` instead "
     "of `ReadResponse if you're fine with null values being "
@@ -240,7 +240,7 @@ static_assert(
         ::device::mojom::GeolocationDiagnosticsDataView, UserType>(),
     "Attempting to read the optional `diagnostics` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDiagnostics` instead "
     "of `ReadDiagnostics if you're fine with null values being "

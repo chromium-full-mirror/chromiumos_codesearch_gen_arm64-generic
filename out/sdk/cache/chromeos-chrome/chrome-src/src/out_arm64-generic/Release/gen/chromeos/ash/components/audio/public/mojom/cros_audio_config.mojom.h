@@ -339,7 +339,7 @@ class  AudioDevice {
   template <typename... Args>
   static AudioDevicePtr New(Args&&... args) {
     return AudioDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -498,7 +498,7 @@ class  AudioSystemProperties {
   template <typename... Args>
   static AudioSystemPropertiesPtr New(Args&&... args) {
     return AudioSystemPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -54,7 +54,7 @@ class  HdrMetadataCta861_3 {
   template <typename... Args>
   static HdrMetadataCta861_3Ptr New(Args&&... args) {
     return HdrMetadataCta861_3Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -198,7 +198,7 @@ class  HdrMetadataNdwl {
   template <typename... Args>
   static HdrMetadataNdwlPtr New(Args&&... args) {
     return HdrMetadataNdwlPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -338,7 +338,7 @@ class  HdrMetadataExtendedRange {
   template <typename... Args>
   static HdrMetadataExtendedRangePtr New(Args&&... args) {
     return HdrMetadataExtendedRangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -485,7 +485,7 @@ class  HdrMetadataSmpteSt2086 {
   template <typename... Args>
   static HdrMetadataSmpteSt2086Ptr New(Args&&... args) {
     return HdrMetadataSmpteSt2086Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -633,7 +633,7 @@ class  HDRMetadata {
   template <typename... Args>
   static HDRMetadataPtr New(Args&&... args) {
     return HDRMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

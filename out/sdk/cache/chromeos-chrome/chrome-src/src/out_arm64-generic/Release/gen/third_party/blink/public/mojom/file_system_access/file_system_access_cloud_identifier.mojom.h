@@ -53,7 +53,7 @@ class BLINK_COMMON_EXPORT FileSystemAccessCloudIdentifier {
   template <typename... Args>
   static FileSystemAccessCloudIdentifierPtr New(Args&&... args) {
     return FileSystemAccessCloudIdentifierPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

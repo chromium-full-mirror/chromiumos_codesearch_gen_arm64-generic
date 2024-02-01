@@ -234,7 +234,7 @@ class  AssistantInteractionMetadata {
   template <typename... Args>
   static AssistantInteractionMetadataPtr New(Args&&... args) {
     return AssistantInteractionMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -384,7 +384,7 @@ class  AssistantSuggestion {
   template <typename... Args>
   static AssistantSuggestionPtr New(Args&&... args) {
     return AssistantSuggestionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

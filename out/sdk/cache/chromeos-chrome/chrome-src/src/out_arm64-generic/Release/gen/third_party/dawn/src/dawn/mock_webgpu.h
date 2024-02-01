@@ -331,6 +331,7 @@ class ProcTableAsClass {
         virtual void SharedTextureMemoryReference(WGPUSharedTextureMemory self) = 0;
         virtual void SharedTextureMemoryRelease(WGPUSharedTextureMemory self) = 0;
 
+        virtual WGPUTextureFormat SurfaceGetPreferredFormat(WGPUSurface surface, WGPUAdapter adapter) = 0;
 
         virtual void SurfaceReference(WGPUSurface self) = 0;
         virtual void SurfaceRelease(WGPUSurface self) = 0;
@@ -642,6 +643,7 @@ class MockProcTable : public ProcTableAsClass {
         MOCK_METHOD(void, SharedTextureMemoryReference, (WGPUSharedTextureMemory self), (override));
         MOCK_METHOD(void, SharedTextureMemoryRelease, (WGPUSharedTextureMemory self), (override));
 
+        MOCK_METHOD(WGPUTextureFormat, SurfaceGetPreferredFormat, (WGPUSurface surface, WGPUAdapter adapter), (override));
 
         MOCK_METHOD(void, SurfaceReference, (WGPUSurface self), (override));
         MOCK_METHOD(void, SurfaceRelease, (WGPUSurface self), (override));

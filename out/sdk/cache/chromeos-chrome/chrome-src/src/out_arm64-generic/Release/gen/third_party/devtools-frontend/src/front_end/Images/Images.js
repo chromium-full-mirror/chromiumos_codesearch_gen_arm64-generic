@@ -168,6 +168,7 @@ style.setProperty('--image-file-layers-filled', 'url(\"' + new URL(new URL('laye
 style.setProperty('--image-file-layers', 'url(\"' + new URL(new URL('layers.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-left-panel-close', 'url(\"' + new URL(new URL('left-panel-close.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-left-panel-open', 'url(\"' + new URL(new URL('left-panel-open.svg', import.meta.url).href, import.meta.url).toString() + '\")');
+style.setProperty('--image-file-lightbulb-spark', 'url(\"' + new URL(new URL('lightbulb-spark.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-lighthouse_logo', 'url(\"' + new URL(new URL('lighthouse_logo.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-list', 'url(\"' + new URL(new URL('list.svg', import.meta.url).href, import.meta.url).toString() + '\")');
 style.setProperty('--image-file-match-whole-word', 'url(\"' + new URL(new URL('match-whole-word.svg', import.meta.url).href, import.meta.url).toString() + '\")');

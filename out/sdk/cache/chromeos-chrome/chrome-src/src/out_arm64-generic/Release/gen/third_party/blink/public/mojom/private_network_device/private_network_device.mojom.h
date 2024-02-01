@@ -57,7 +57,7 @@ class BLINK_COMMON_EXPORT PrivateNetworkDevice {
   template <typename... Args>
   static PrivateNetworkDevicePtr New(Args&&... args) {
     return PrivateNetworkDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -19,6 +19,7 @@ class  AppPermissionsHandlerInterceptorForTesting : public AppPermissionsHandler
   void GetApps(GetAppsCallback callback) override;
   void GetSystemAppsThatUseCamera(GetSystemAppsThatUseCameraCallback callback) override;
   void GetSystemAppsThatUseMicrophone(GetSystemAppsThatUseMicrophoneCallback callback) override;
+  void OpenBrowserPermissionSettings(::apps::PermissionType permission_type) override;
   void OpenNativeSettings(const std::string& app_id) override;
   void SetPermission(const std::string& app_id, ::apps::PermissionPtr permission) override;
 };

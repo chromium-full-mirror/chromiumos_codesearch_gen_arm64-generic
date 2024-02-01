@@ -56,7 +56,7 @@ class  ContentSecurityPolicyHeader {
   template <typename... Args>
   static ContentSecurityPolicyHeaderPtr New(Args&&... args) {
     return ContentSecurityPolicyHeaderPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -219,7 +219,7 @@ class  AllowCSPFromHeaderValue {
   static AllowCSPFromHeaderValuePtr
   NewAllowStar(
       bool value) {
-    auto result = AllowCSPFromHeaderValuePtr(absl::in_place);
+    auto result = AllowCSPFromHeaderValuePtr(std::in_place);
     result->set_allow_star(std::move(value));
     return result;
   }
@@ -227,7 +227,7 @@ class  AllowCSPFromHeaderValue {
   static AllowCSPFromHeaderValuePtr
   NewOrigin(
       const ::url::Origin& value) {
-    auto result = AllowCSPFromHeaderValuePtr(absl::in_place);
+    auto result = AllowCSPFromHeaderValuePtr(std::in_place);
     result->set_origin(std::move(value));
     return result;
   }
@@ -235,7 +235,7 @@ class  AllowCSPFromHeaderValue {
   static AllowCSPFromHeaderValuePtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = AllowCSPFromHeaderValuePtr(absl::in_place);
+    auto result = AllowCSPFromHeaderValuePtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -363,7 +363,7 @@ class  CSPSource {
   template <typename... Args>
   static CSPSourcePtr New(Args&&... args) {
     return CSPSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -519,7 +519,7 @@ class  CSPHashSource {
   template <typename... Args>
   static CSPHashSourcePtr New(Args&&... args) {
     return CSPHashSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -662,7 +662,7 @@ class  CSPSourceList {
   template <typename... Args>
   static CSPSourceListPtr New(Args&&... args) {
     return CSPSourceListPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -843,7 +843,7 @@ class  CSPTrustedTypes {
   template <typename... Args>
   static CSPTrustedTypesPtr New(Args&&... args) {
     return CSPTrustedTypesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -989,7 +989,7 @@ class  ContentSecurityPolicy {
   template <typename... Args>
   static ContentSecurityPolicyPtr New(Args&&... args) {
     return ContentSecurityPolicyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1167,7 +1167,7 @@ class  CSPViolation {
   template <typename... Args>
   static CSPViolationPtr New(Args&&... args) {
     return CSPViolationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

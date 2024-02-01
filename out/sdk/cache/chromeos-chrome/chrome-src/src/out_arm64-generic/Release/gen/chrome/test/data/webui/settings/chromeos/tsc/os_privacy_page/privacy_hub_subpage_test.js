@@ -468,10 +468,12 @@ async function parametrizedPrivacyHubSubpageTestsuite(privacyHubVersion, enforce
         assertTrue(getCameraCrToggle().disabled);
     });
 }
-suite('<settings-privacy-hub-subpage> Privacy Hub V0', () => parametrizedPrivacyHubSubpageTestsuite(PrivacyHubVersion.V0, false));
-suite('<settings-privacy-hub-subpage> V0 using camera LED Fallback Mechanism', () => parametrizedPrivacyHubSubpageTestsuite(PrivacyHubVersion.V0, true));
-suite('<settings-privacy-hub-subpage> Location access control with V0 features.', () => parametrizedPrivacyHubSubpageTestsuite(PrivacyHubVersion.V0AndLocation, false));
-suite('<settings-privacy-hub-subpage> app permissions', () => {
+suite('<settings-privacy-hub-subpage> AllBuilds', () => {
+    suite('Privacy Hub V0', () => parametrizedPrivacyHubSubpageTestsuite(PrivacyHubVersion.V0, false));
+    suite('V0 using camera LED Fallback Mechanism', () => parametrizedPrivacyHubSubpageTestsuite(PrivacyHubVersion.V0, true));
+    suite('Location access control with V0 features.', () => parametrizedPrivacyHubSubpageTestsuite(PrivacyHubVersion.V0AndLocation, false));
+});
+suite('<settings-privacy-hub-subpage> AllBuilds app permissions', () => {
     let metrics;
     let privacyHubSubpage;
     let privacyHubBrowserProxy;

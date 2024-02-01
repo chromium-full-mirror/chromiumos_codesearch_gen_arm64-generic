@@ -921,7 +921,7 @@ class CONTENT_EXPORT CreateMainFrameUnion {
   static CreateMainFrameUnionPtr
   NewLocalParams(
       CreateLocalMainFrameParamsPtr value) {
-    auto result = CreateMainFrameUnionPtr(absl::in_place);
+    auto result = CreateMainFrameUnionPtr(std::in_place);
     result->set_local_params(std::move(value));
     return result;
   }
@@ -929,7 +929,7 @@ class CONTENT_EXPORT CreateMainFrameUnion {
   static CreateMainFrameUnionPtr
   NewRemoteParams(
       CreateRemoteMainFrameParamsPtr value) {
-    auto result = CreateMainFrameUnionPtr(absl::in_place);
+    auto result = CreateMainFrameUnionPtr(std::in_place);
     result->set_remote_params(std::move(value));
     return result;
   }
@@ -1043,7 +1043,7 @@ class CONTENT_EXPORT CreateViewParams {
   template <typename... Args>
   static CreateViewParamsPtr New(Args&&... args) {
     return CreateViewParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1234,7 +1234,7 @@ class CONTENT_EXPORT CreateLocalMainFrameParams {
   template <typename... Args>
   static CreateLocalMainFrameParamsPtr New(Args&&... args) {
     return CreateLocalMainFrameParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1401,7 +1401,7 @@ class CONTENT_EXPORT CreateRemoteMainFrameParams {
   template <typename... Args>
   static CreateRemoteMainFrameParamsPtr New(Args&&... args) {
     return CreateRemoteMainFrameParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1544,7 +1544,7 @@ class CONTENT_EXPORT CreateFrameWidgetParams {
   template <typename... Args>
   static CreateFrameWidgetParamsPtr New(Args&&... args) {
     return CreateFrameWidgetParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1699,7 +1699,7 @@ class CONTENT_EXPORT CreateFrameParams {
   template <typename... Args>
   static CreateFrameParamsPtr New(Args&&... args) {
     return CreateFrameParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1887,7 +1887,7 @@ class CONTENT_EXPORT SnapshotAccessibilityTreeParams {
   template <typename... Args>
   static SnapshotAccessibilityTreeParamsPtr New(Args&&... args) {
     return SnapshotAccessibilityTreeParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2033,7 +2033,7 @@ class CONTENT_EXPORT CreateNewWindowParams {
   template <typename... Args>
   static CreateNewWindowParamsPtr New(Args&&... args) {
     return CreateNewWindowParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2218,7 +2218,7 @@ class CONTENT_EXPORT CreateNewWindowReply {
   template <typename... Args>
   static CreateNewWindowReplyPtr New(Args&&... args) {
     return CreateNewWindowReplyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -774,7 +774,7 @@ class BLINK_PLATFORM_EXPORT HostResolverHost {
   static HostResolverHostPtr
   NewSchemeHostPort(
       ::url::mojom::blink::SchemeHostPortPtr value) {
-    auto result = HostResolverHostPtr(absl::in_place);
+    auto result = HostResolverHostPtr(std::in_place);
     result->set_scheme_host_port(std::move(value));
     return result;
   }
@@ -782,7 +782,7 @@ class BLINK_PLATFORM_EXPORT HostResolverHost {
   static HostResolverHostPtr
   NewHostPortPair(
       const ::net::HostPortPair& value) {
-    auto result = HostResolverHostPtr(absl::in_place);
+    auto result = HostResolverHostPtr(std::in_place);
     result->set_host_port_pair(std::move(value));
     return result;
   }
@@ -896,7 +896,7 @@ class BLINK_PLATFORM_EXPORT DnsOverHttpsServerConfig {
   template <typename... Args>
   static DnsOverHttpsServerConfigPtr New(Args&&... args) {
     return DnsOverHttpsServerConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1039,7 +1039,7 @@ class BLINK_PLATFORM_EXPORT DnsOverHttpsConfig {
   template <typename... Args>
   static DnsOverHttpsConfigPtr New(Args&&... args) {
     return DnsOverHttpsConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1182,7 +1182,7 @@ class BLINK_PLATFORM_EXPORT DnsConfigOverrides {
   template <typename... Args>
   static DnsConfigOverridesPtr New(Args&&... args) {
     return DnsConfigOverridesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1360,7 +1360,7 @@ class BLINK_PLATFORM_EXPORT ResolveHostParameters {
   template <typename... Args>
   static ResolveHostParametersPtr New(Args&&... args) {
     return ResolveHostParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

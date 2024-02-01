@@ -88,7 +88,7 @@ static_assert(
         ::mojo_base::mojom::TokenDataView, UserType>(),
     "Attempting to read the optional `instance_group` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInstanceGroup` instead "
     "of `ReadInstanceGroup if you're fine with null values being "
@@ -108,7 +108,7 @@ static_assert(
         ::mojo_base::mojom::TokenDataView, UserType>(),
     "Attempting to read the optional `instance_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInstanceId` instead "
     "of `ReadInstanceId if you're fine with null values being "
@@ -128,7 +128,7 @@ static_assert(
         ::mojo_base::mojom::TokenDataView, UserType>(),
     "Attempting to read the optional `globally_unique_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadGloballyUniqueId` instead "
     "of `ReadGloballyUniqueId if you're fine with null values being "

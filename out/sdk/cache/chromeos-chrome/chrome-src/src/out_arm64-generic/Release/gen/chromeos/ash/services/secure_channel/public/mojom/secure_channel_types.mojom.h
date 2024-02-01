@@ -161,7 +161,7 @@ class  FileTransferUpdate {
   template <typename... Args>
   static FileTransferUpdatePtr New(Args&&... args) {
     return FileTransferUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -313,7 +313,7 @@ class  PayloadFiles {
   template <typename... Args>
   static PayloadFilesPtr New(Args&&... args) {
     return PayloadFilesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

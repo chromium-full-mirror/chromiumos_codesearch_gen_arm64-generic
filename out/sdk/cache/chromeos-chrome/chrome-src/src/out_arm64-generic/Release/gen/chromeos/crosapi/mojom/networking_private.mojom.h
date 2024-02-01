@@ -551,7 +551,7 @@ class  StringSuccessOrErrorReturn {
   static StringSuccessOrErrorReturnPtr
   NewError(
       const std::string& value) {
-    auto result = StringSuccessOrErrorReturnPtr(absl::in_place);
+    auto result = StringSuccessOrErrorReturnPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -559,7 +559,7 @@ class  StringSuccessOrErrorReturn {
   static StringSuccessOrErrorReturnPtr
   NewSuccessResult(
       const std::string& value) {
-    auto result = StringSuccessOrErrorReturnPtr(absl::in_place);
+    auto result = StringSuccessOrErrorReturnPtr(std::in_place);
     result->set_success_result(std::move(value));
     return result;
   }
@@ -682,7 +682,7 @@ class  DictionarySuccessOrErrorReturn {
   static DictionarySuccessOrErrorReturnPtr
   NewError(
       const std::string& value) {
-    auto result = DictionarySuccessOrErrorReturnPtr(absl::in_place);
+    auto result = DictionarySuccessOrErrorReturnPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -690,7 +690,7 @@ class  DictionarySuccessOrErrorReturn {
   static DictionarySuccessOrErrorReturnPtr
   NewSuccessResult(
       ::base::Value::Dict value) {
-    auto result = DictionarySuccessOrErrorReturnPtr(absl::in_place);
+    auto result = DictionarySuccessOrErrorReturnPtr(std::in_place);
     result->set_success_result(std::move(value));
     return result;
   }
@@ -812,7 +812,7 @@ class  ListValueSuccessOrErrorReturn {
   static ListValueSuccessOrErrorReturnPtr
   NewError(
       const std::string& value) {
-    auto result = ListValueSuccessOrErrorReturnPtr(absl::in_place);
+    auto result = ListValueSuccessOrErrorReturnPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -820,7 +820,7 @@ class  ListValueSuccessOrErrorReturn {
   static ListValueSuccessOrErrorReturnPtr
   NewSuccessResult(
       ::base::Value::List value) {
-    auto result = ListValueSuccessOrErrorReturnPtr(absl::in_place);
+    auto result = ListValueSuccessOrErrorReturnPtr(std::in_place);
     result->set_success_result(std::move(value));
     return result;
   }
@@ -942,7 +942,7 @@ class  PropertiesSuccessOrErrorReturn {
   static PropertiesSuccessOrErrorReturnPtr
   NewError(
       const std::string& value) {
-    auto result = PropertiesSuccessOrErrorReturnPtr(absl::in_place);
+    auto result = PropertiesSuccessOrErrorReturnPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -950,7 +950,7 @@ class  PropertiesSuccessOrErrorReturn {
   static PropertiesSuccessOrErrorReturnPtr
   NewSuccessResult(
       ::base::Value value) {
-    auto result = PropertiesSuccessOrErrorReturnPtr(absl::in_place);
+    auto result = PropertiesSuccessOrErrorReturnPtr(std::in_place);
     result->set_success_result(std::move(value));
     return result;
   }

@@ -57,7 +57,7 @@ class BLINK_PLATFORM_EXPORT PinSetInfo {
   template <typename... Args>
   static PinSetInfoPtr New(Args&&... args) {
     return PinSetInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -207,7 +207,7 @@ class BLINK_PLATFORM_EXPORT PinSet {
   template <typename... Args>
   static PinSetPtr New(Args&&... args) {
     return PinSetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -357,7 +357,7 @@ class BLINK_PLATFORM_EXPORT PinList {
   template <typename... Args>
   static PinListPtr New(Args&&... args) {
     return PinListPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

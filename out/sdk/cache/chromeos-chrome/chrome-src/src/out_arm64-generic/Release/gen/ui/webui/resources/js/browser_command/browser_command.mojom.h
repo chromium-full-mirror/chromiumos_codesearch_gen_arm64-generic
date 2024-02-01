@@ -284,7 +284,7 @@ class  ClickInfo {
   template <typename... Args>
   static ClickInfoPtr New(Args&&... args) {
     return ClickInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

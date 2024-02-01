@@ -184,7 +184,7 @@ static_assert(
         ::gfx::mojom::RangeDataView, UserType>(),
     "Attempting to read the optional `selection` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSelection` instead "
     "of `ReadSelection if you're fine with null values being "
@@ -214,7 +214,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `role` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRole` instead "
     "of `ReadRole if you're fine with null values being "
@@ -296,7 +296,7 @@ static_assert(
         ::ax::mojom::AssistantTreeDataView, UserType>(),
     "Attempting to read the optional `assistant_tree` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAssistantTree` instead "
     "of `ReadAssistantTree if you're fine with null values being "
@@ -316,7 +316,7 @@ static_assert(
         ::ax::mojom::AssistantExtraDataView, UserType>(),
     "Attempting to read the optional `assistant_extra` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAssistantExtra` instead "
     "of `ReadAssistantExtra if you're fine with null values being "

@@ -297,7 +297,7 @@ class BLINK_PLATFORM_EXPORT InputDeviceInfo {
   template <typename... Args>
   static InputDeviceInfoPtr New(Args&&... args) {
     return InputDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

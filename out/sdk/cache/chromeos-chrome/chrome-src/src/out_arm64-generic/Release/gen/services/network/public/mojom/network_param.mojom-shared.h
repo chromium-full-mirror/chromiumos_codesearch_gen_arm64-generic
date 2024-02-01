@@ -306,7 +306,7 @@ static_assert(
         ::network::mojom::HostPortPairDataView, UserType>(),
     "Attempting to read the optional `host_and_port` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHostAndPort` instead "
     "of `ReadHostAndPort if you're fine with null values being "
@@ -342,7 +342,7 @@ static_assert(
         mojo::ArrayDataView<::network::mojom::ProxyServerDataView>, UserType>(),
     "Attempting to read the optional `proxy_servers` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadProxyServers` instead "
     "of `ReadProxyServers if you're fine with null values being "

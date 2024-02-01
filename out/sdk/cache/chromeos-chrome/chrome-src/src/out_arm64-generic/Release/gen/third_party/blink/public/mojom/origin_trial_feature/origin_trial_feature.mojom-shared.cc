@@ -30,6 +30,8 @@ NOINLINE static const char* OriginTrialFeatureToStringHelper(OriginTrialFeature 
       return "kAddIdentityInCanMakePaymentEvent";
     case OriginTrialFeature::kAdInterestGroupAPI:
       return "kAdInterestGroupAPI";
+    case OriginTrialFeature::kAppTitle:
+      return "kAppTitle";
     case OriginTrialFeature::kAttributionReporting:
       return "kAttributionReporting";
     case OriginTrialFeature::kAttributionReportingCrossAppWeb:

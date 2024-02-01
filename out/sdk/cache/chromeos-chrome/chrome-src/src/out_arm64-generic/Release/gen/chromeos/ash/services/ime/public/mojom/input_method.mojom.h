@@ -263,7 +263,7 @@ class  SelectionRange {
   template <typename... Args>
   static SelectionRangePtr New(Args&&... args) {
     return SelectionRangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -407,7 +407,7 @@ class  InputFieldInfo {
   template <typename... Args>
   static InputFieldInfoPtr New(Args&&... args) {
     return InputFieldInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -562,7 +562,7 @@ class  KoreanSettings {
   template <typename... Args>
   static KoreanSettingsPtr New(Args&&... args) {
     return KoreanSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -706,7 +706,7 @@ class  LatinSettings {
   template <typename... Args>
   static LatinSettingsPtr New(Args&&... args) {
     return LatinSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -856,7 +856,7 @@ class  ZhuyinSettings {
   template <typename... Args>
   static ZhuyinSettingsPtr New(Args&&... args) {
     return ZhuyinSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1003,7 +1003,7 @@ class  ChineseQuickSettings {
   template <typename... Args>
   static ChineseQuickSettingsPtr New(Args&&... args) {
     return ChineseQuickSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1150,7 +1150,7 @@ class  JapaneseQuickSettings {
   template <typename... Args>
   static JapaneseQuickSettingsPtr New(Args&&... args) {
     return JapaneseQuickSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1291,7 +1291,7 @@ class  SuggestionCandidate {
   template <typename... Args>
   static SuggestionCandidatePtr New(Args&&... args) {
     return SuggestionCandidatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1445,7 +1445,7 @@ class  InputMethodMetadata {
   template <typename... Args>
   static InputMethodMetadataPtr New(Args&&... args) {
     return InputMethodMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1587,7 +1587,7 @@ class  VietnameseVniSettings {
   template <typename... Args>
   static VietnameseVniSettingsPtr New(Args&&... args) {
     return VietnameseVniSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1752,7 +1752,7 @@ class  DomKey {
   static DomKeyPtr
   NewNamedKey(
       NamedDomKey value) {
-    auto result = DomKeyPtr(absl::in_place);
+    auto result = DomKeyPtr(std::in_place);
     result->set_named_key(std::move(value));
     return result;
   }
@@ -1760,7 +1760,7 @@ class  DomKey {
   static DomKeyPtr
   NewCodepoint(
       uint32_t value) {
-    auto result = DomKeyPtr(absl::in_place);
+    auto result = DomKeyPtr(std::in_place);
     result->set_codepoint(std::move(value));
     return result;
   }
@@ -1879,7 +1879,7 @@ class  InputMethodSettings {
   static InputMethodSettingsPtr
   NewKoreanSettings(
       KoreanSettingsPtr value) {
-    auto result = InputMethodSettingsPtr(absl::in_place);
+    auto result = InputMethodSettingsPtr(std::in_place);
     result->set_korean_settings(std::move(value));
     return result;
   }
@@ -1887,7 +1887,7 @@ class  InputMethodSettings {
   static InputMethodSettingsPtr
   NewLatinSettings(
       LatinSettingsPtr value) {
-    auto result = InputMethodSettingsPtr(absl::in_place);
+    auto result = InputMethodSettingsPtr(std::in_place);
     result->set_latin_settings(std::move(value));
     return result;
   }
@@ -1895,7 +1895,7 @@ class  InputMethodSettings {
   static InputMethodSettingsPtr
   NewPinyinSettings(
       PinyinSettingsPtr value) {
-    auto result = InputMethodSettingsPtr(absl::in_place);
+    auto result = InputMethodSettingsPtr(std::in_place);
     result->set_pinyin_settings(std::move(value));
     return result;
   }
@@ -1903,7 +1903,7 @@ class  InputMethodSettings {
   static InputMethodSettingsPtr
   NewZhuyinSettings(
       ZhuyinSettingsPtr value) {
-    auto result = InputMethodSettingsPtr(absl::in_place);
+    auto result = InputMethodSettingsPtr(std::in_place);
     result->set_zhuyin_settings(std::move(value));
     return result;
   }
@@ -1911,7 +1911,7 @@ class  InputMethodSettings {
   static InputMethodSettingsPtr
   NewNullSettings(
       bool value) {
-    auto result = InputMethodSettingsPtr(absl::in_place);
+    auto result = InputMethodSettingsPtr(std::in_place);
     result->set_null_settings(std::move(value));
     return result;
   }
@@ -1919,7 +1919,7 @@ class  InputMethodSettings {
   static InputMethodSettingsPtr
   NewJapaneseSettings(
       JapaneseSettingsPtr value) {
-    auto result = InputMethodSettingsPtr(absl::in_place);
+    auto result = InputMethodSettingsPtr(std::in_place);
     result->set_japanese_settings(std::move(value));
     return result;
   }
@@ -1927,7 +1927,7 @@ class  InputMethodSettings {
   static InputMethodSettingsPtr
   NewVietnameseTelexSettings(
       VietnameseTelexSettingsPtr value) {
-    auto result = InputMethodSettingsPtr(absl::in_place);
+    auto result = InputMethodSettingsPtr(std::in_place);
     result->set_vietnamese_telex_settings(std::move(value));
     return result;
   }
@@ -1935,7 +1935,7 @@ class  InputMethodSettings {
   static InputMethodSettingsPtr
   NewVietnameseVniSettings(
       VietnameseVniSettingsPtr value) {
-    auto result = InputMethodSettingsPtr(absl::in_place);
+    auto result = InputMethodSettingsPtr(std::in_place);
     result->set_vietnamese_vni_settings(std::move(value));
     return result;
   }
@@ -2135,7 +2135,7 @@ class  InputMethodQuickSettings {
   static InputMethodQuickSettingsPtr
   NewChineseSettings(
       ChineseQuickSettingsPtr value) {
-    auto result = InputMethodQuickSettingsPtr(absl::in_place);
+    auto result = InputMethodQuickSettingsPtr(std::in_place);
     result->set_chinese_settings(std::move(value));
     return result;
   }
@@ -2143,7 +2143,7 @@ class  InputMethodQuickSettings {
   static InputMethodQuickSettingsPtr
   NewJapaneseSettings(
       JapaneseQuickSettingsPtr value) {
-    auto result = InputMethodQuickSettingsPtr(absl::in_place);
+    auto result = InputMethodQuickSettingsPtr(std::in_place);
     result->set_japanese_settings(std::move(value));
     return result;
   }
@@ -2258,7 +2258,7 @@ class  ModifierState {
   template <typename... Args>
   static ModifierStatePtr New(Args&&... args) {
     return ModifierStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2414,7 +2414,7 @@ class  PhysicalKeyEvent {
   template <typename... Args>
   static PhysicalKeyEventPtr New(Args&&... args) {
     return PhysicalKeyEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2570,7 +2570,7 @@ class  FuzzyPinyinSettings {
   template <typename... Args>
   static FuzzyPinyinSettingsPtr New(Args&&... args) {
     return FuzzyPinyinSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2744,7 +2744,7 @@ class  PinyinSettings {
   template <typename... Args>
   static PinyinSettingsPtr New(Args&&... args) {
     return PinyinSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2904,7 +2904,7 @@ class  JapaneseSettings {
   template <typename... Args>
   static JapaneseSettingsPtr New(Args&&... args) {
     return JapaneseSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3052,7 +3052,7 @@ class  AssistiveWindow {
   template <typename... Args>
   static AssistiveWindowPtr New(Args&&... args) {
     return AssistiveWindowPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3195,7 +3195,7 @@ class  VietnameseTelexSettings {
   template <typename... Args>
   static VietnameseTelexSettingsPtr New(Args&&... args) {
     return VietnameseTelexSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

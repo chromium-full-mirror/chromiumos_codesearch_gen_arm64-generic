@@ -58,7 +58,7 @@ class CONTENT_EXPORT SignalValue {
   template <typename... Args>
   static SignalValuePtr New(Args&&... args) {
     return SignalValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -217,7 +217,7 @@ class CONTENT_EXPORT ForEventSignalBucket {
   static ForEventSignalBucketPtr
   NewIdBucket(
       const ::absl::uint128& value) {
-    auto result = ForEventSignalBucketPtr(absl::in_place);
+    auto result = ForEventSignalBucketPtr(std::in_place);
     result->set_id_bucket(std::move(value));
     return result;
   }
@@ -225,7 +225,7 @@ class CONTENT_EXPORT ForEventSignalBucket {
   static ForEventSignalBucketPtr
   NewSignalBucket(
       SignalBucketPtr value) {
-    auto result = ForEventSignalBucketPtr(absl::in_place);
+    auto result = ForEventSignalBucketPtr(std::in_place);
     result->set_signal_bucket(std::move(value));
     return result;
   }
@@ -347,7 +347,7 @@ class CONTENT_EXPORT ForEventSignalValue {
   static ForEventSignalValuePtr
   NewIntValue(
       int32_t value) {
-    auto result = ForEventSignalValuePtr(absl::in_place);
+    auto result = ForEventSignalValuePtr(std::in_place);
     result->set_int_value(std::move(value));
     return result;
   }
@@ -355,7 +355,7 @@ class CONTENT_EXPORT ForEventSignalValue {
   static ForEventSignalValuePtr
   NewSignalValue(
       SignalValuePtr value) {
-    auto result = ForEventSignalValuePtr(absl::in_place);
+    auto result = ForEventSignalValuePtr(std::in_place);
     result->set_signal_value(std::move(value));
     return result;
   }
@@ -478,7 +478,7 @@ class CONTENT_EXPORT AggregatableReportContribution {
   static AggregatableReportContributionPtr
   NewHistogramContribution(
       ::blink::mojom::AggregatableReportHistogramContributionPtr value) {
-    auto result = AggregatableReportContributionPtr(absl::in_place);
+    auto result = AggregatableReportContributionPtr(std::in_place);
     result->set_histogram_contribution(std::move(value));
     return result;
   }
@@ -486,7 +486,7 @@ class CONTENT_EXPORT AggregatableReportContribution {
   static AggregatableReportContributionPtr
   NewForEventContribution(
       AggregatableReportForEventContributionPtr value) {
-    auto result = AggregatableReportContributionPtr(absl::in_place);
+    auto result = AggregatableReportContributionPtr(std::in_place);
     result->set_for_event_contribution(std::move(value));
     return result;
   }
@@ -600,7 +600,7 @@ class CONTENT_EXPORT BucketOffset {
   template <typename... Args>
   static BucketOffsetPtr New(Args&&... args) {
     return BucketOffsetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -743,7 +743,7 @@ class CONTENT_EXPORT SignalBucket {
   template <typename... Args>
   static SignalBucketPtr New(Args&&... args) {
     return SignalBucketPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -892,7 +892,7 @@ class CONTENT_EXPORT AggregatableReportForEventContribution {
   template <typename... Args>
   static AggregatableReportForEventContributionPtr New(Args&&... args) {
     return AggregatableReportForEventContributionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1040,7 +1040,7 @@ class CONTENT_EXPORT PrivateAggregationRequest {
   template <typename... Args>
   static PrivateAggregationRequestPtr New(Args&&... args) {
     return PrivateAggregationRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

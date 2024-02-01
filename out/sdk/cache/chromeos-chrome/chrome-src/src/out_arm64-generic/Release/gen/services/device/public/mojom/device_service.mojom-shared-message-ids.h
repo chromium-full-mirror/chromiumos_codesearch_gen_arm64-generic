@@ -14,27 +14,26 @@ namespace device::mojom {
 namespace internal {
 
 
-constexpr uint32_t kDeviceService_BindDevicePostureProvider_Name = 0;
-constexpr uint32_t kDeviceService_BindFingerprint_Name = 1;
-constexpr uint32_t kDeviceService_BindGeolocationConfig_Name = 2;
-constexpr uint32_t kDeviceService_BindGeolocationContext_Name = 3;
-constexpr uint32_t kDeviceService_BindGeolocationControl_Name = 4;
-constexpr uint32_t kDeviceService_BindGeolocationInternals_Name = 5;
-constexpr uint32_t kDeviceService_BindInputDeviceManager_Name = 6;
-constexpr uint32_t kDeviceService_BindBatteryMonitor_Name = 7;
-constexpr uint32_t kDeviceService_BindPressureManager_Name = 8;
-constexpr uint32_t kDeviceService_BindVibrationManager_Name = 9;
-constexpr uint32_t kDeviceService_BindHidManager_Name = 10;
-constexpr uint32_t kDeviceService_BindMtpManager_Name = 11;
-constexpr uint32_t kDeviceService_BindPowerMonitor_Name = 12;
-constexpr uint32_t kDeviceService_BindPublicIpAddressGeolocationProvider_Name = 13;
-constexpr uint32_t kDeviceService_BindScreenOrientationListener_Name = 14;
-constexpr uint32_t kDeviceService_BindSensorProvider_Name = 15;
-constexpr uint32_t kDeviceService_BindSerialPortManager_Name = 16;
-constexpr uint32_t kDeviceService_BindTimeZoneMonitor_Name = 17;
-constexpr uint32_t kDeviceService_BindWakeLockProvider_Name = 18;
-constexpr uint32_t kDeviceService_BindUsbDeviceManager_Name = 19;
-constexpr uint32_t kDeviceService_BindUsbDeviceManagerTest_Name = 20;
+constexpr uint32_t kDeviceService_BindFingerprint_Name = 0;
+constexpr uint32_t kDeviceService_BindGeolocationConfig_Name = 1;
+constexpr uint32_t kDeviceService_BindGeolocationContext_Name = 2;
+constexpr uint32_t kDeviceService_BindGeolocationControl_Name = 3;
+constexpr uint32_t kDeviceService_BindGeolocationInternals_Name = 4;
+constexpr uint32_t kDeviceService_BindInputDeviceManager_Name = 5;
+constexpr uint32_t kDeviceService_BindBatteryMonitor_Name = 6;
+constexpr uint32_t kDeviceService_BindPressureManager_Name = 7;
+constexpr uint32_t kDeviceService_BindVibrationManager_Name = 8;
+constexpr uint32_t kDeviceService_BindHidManager_Name = 9;
+constexpr uint32_t kDeviceService_BindMtpManager_Name = 10;
+constexpr uint32_t kDeviceService_BindPowerMonitor_Name = 11;
+constexpr uint32_t kDeviceService_BindPublicIpAddressGeolocationProvider_Name = 12;
+constexpr uint32_t kDeviceService_BindScreenOrientationListener_Name = 13;
+constexpr uint32_t kDeviceService_BindSensorProvider_Name = 14;
+constexpr uint32_t kDeviceService_BindSerialPortManager_Name = 15;
+constexpr uint32_t kDeviceService_BindTimeZoneMonitor_Name = 16;
+constexpr uint32_t kDeviceService_BindWakeLockProvider_Name = 17;
+constexpr uint32_t kDeviceService_BindUsbDeviceManager_Name = 18;
+constexpr uint32_t kDeviceService_BindUsbDeviceManagerTest_Name = 19;
 
 }  // namespace internal
 

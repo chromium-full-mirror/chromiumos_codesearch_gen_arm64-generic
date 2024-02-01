@@ -252,7 +252,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `title_text` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTitleText` instead "
     "of `ReadTitleText if you're fine with null values being "
@@ -292,7 +292,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `body_icon_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBodyIconName` instead "
     "of `ReadBodyIconName if you're fine with null values being "
@@ -322,7 +322,7 @@ static_assert(
         ::help_bubble::mojom::ProgressDataView, UserType>(),
     "Attempting to read the optional `progress` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadProgress` instead "
     "of `ReadProgress if you're fine with null values being "
@@ -352,7 +352,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `timeout` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTimeout` instead "
     "of `ReadTimeout if you're fine with null values being "

@@ -59,7 +59,7 @@ class BLINK_PLATFORM_EXPORT VulkanYCbCrInfo {
   template <typename... Args>
   static VulkanYCbCrInfoPtr New(Args&&... args) {
     return VulkanYCbCrInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

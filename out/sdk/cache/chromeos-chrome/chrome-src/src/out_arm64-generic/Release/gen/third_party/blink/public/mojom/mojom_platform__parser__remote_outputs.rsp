@@ -32,6 +32,7 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_par
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/css/preferred_contrast.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/data_transfer/data_transfer.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/device/device.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/device_posture/device_posture_provider.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/devtools/console_message.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/devtools/devtools_agent.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/third_party/blink/public/mojom/devtools/devtools_frontend.mojom-module

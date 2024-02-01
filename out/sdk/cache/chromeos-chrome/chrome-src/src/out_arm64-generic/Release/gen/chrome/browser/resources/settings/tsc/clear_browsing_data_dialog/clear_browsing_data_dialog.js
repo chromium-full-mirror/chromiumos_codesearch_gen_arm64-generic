@@ -369,11 +369,10 @@ export class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsin
      * supervised user. Gives information about family link controls and that they
      * will not be signed out on clearing cookies
      */
-    cookiesCheckboxLabel_(isSignedIn, shouldShowCookieException, cookiesSummary, clearCookiesSummarySignedIn, clearCookiesSummarySyncing, clearCookiesSummarySignedInSupervisedProfile) {
-        if (loadTimeData.getBoolean('isChildAccount') &&
-            loadTimeData.getBoolean('clearingCookiesKeepsSupervisedUsersSignedIn')) {
-            return clearCookiesSummarySignedInSupervisedProfile;
-        }
+    cookiesCheckboxLabel_(isSignedIn, shouldShowCookieException, cookiesSummary, clearCookiesSummarySignedIn, clearCookiesSummarySyncing, 
+    // @ts-ignore: error TS6133: unused on some platforms
+    clearCookiesSummarySignedInSupervisedProfile) {
+        // 
         if (this.unoDesktopEnabled_ && isSignedIn) {
             return clearCookiesSummarySignedIn;
         }

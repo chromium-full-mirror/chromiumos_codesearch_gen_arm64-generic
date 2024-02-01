@@ -304,7 +304,7 @@ static_assert(
         ::network::mojom::AddressListDataView, UserType>(),
     "Attempting to read the optional `resolved_addresses` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResolvedAddresses` instead "
     "of `ReadResolvedAddresses if you're fine with null values being "
@@ -324,7 +324,7 @@ static_assert(
         mojo::ArrayDataView<::network::mojom::HostResolverEndpointResultDataView>, UserType>(),
     "Attempting to read the optional `endpoint_results_with_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEndpointResultsWithMetadata` instead "
     "of `ReadEndpointResultsWithMetadata if you're fine with null values being "
@@ -605,7 +605,7 @@ static_assert(
         ::network::mojom::ResolveHostParametersDataView, UserType>(),
     "Attempting to read the optional `optional_parameters` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOptionalParameters` instead "
     "of `ReadOptionalParameters if you're fine with null values being "

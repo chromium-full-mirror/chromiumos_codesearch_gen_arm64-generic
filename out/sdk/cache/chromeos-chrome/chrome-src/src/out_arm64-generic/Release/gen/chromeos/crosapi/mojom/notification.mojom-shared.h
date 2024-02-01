@@ -198,7 +198,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUrl` instead "
     "of `ReadUrl if you're fine with null values being "
@@ -218,7 +218,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `title` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTitle` instead "
     "of `ReadTitle if you're fine with null values being "
@@ -248,7 +248,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `group_key` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadGroupKey` instead "
     "of `ReadGroupKey if you're fine with null values being "
@@ -331,7 +331,7 @@ static_assert(
         ::mojo_base::mojom::String16DataView, UserType>(),
     "Attempting to read the optional `placeholder` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPlaceholder` instead "
     "of `ReadPlaceholder if you're fine with null values being "
@@ -418,7 +418,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `origin_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOriginUrl` instead "
     "of `ReadOriginUrl if you're fine with null values being "
@@ -438,7 +438,7 @@ static_assert(
         ::crosapi::mojom::BitmapDataView, UserType>(),
     "Attempting to read the optional `deprecated_icon` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeprecatedIcon` instead "
     "of `ReadDeprecatedIcon if you're fine with null values being "
@@ -474,7 +474,7 @@ static_assert(
         ::crosapi::mojom::BitmapDataView, UserType>(),
     "Attempting to read the optional `deprecated_image` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeprecatedImage` instead "
     "of `ReadDeprecatedImage if you're fine with null values being "
@@ -494,7 +494,7 @@ static_assert(
         ::crosapi::mojom::BitmapDataView, UserType>(),
     "Attempting to read the optional `deprecated_badge` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeprecatedBadge` instead "
     "of `ReadDeprecatedBadge if you're fine with null values being "
@@ -576,7 +576,7 @@ static_assert(
         ::gfx::mojom::ImageSkiaDataView, UserType>(),
     "Attempting to read the optional `icon` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIcon` instead "
     "of `ReadIcon if you're fine with null values being "
@@ -597,7 +597,7 @@ static_assert(
         ::gfx::mojom::ImageSkiaDataView, UserType>(),
     "Attempting to read the optional `image` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadImage` instead "
     "of `ReadImage if you're fine with null values being "
@@ -618,7 +618,7 @@ static_assert(
         ::gfx::mojom::ImageSkiaDataView, UserType>(),
     "Attempting to read the optional `badge` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBadge` instead "
     "of `ReadBadge if you're fine with null values being "
@@ -649,7 +649,7 @@ static_assert(
         ::skia::mojom::SkColorDataView, UserType>(),
     "Attempting to read the optional `accent_color` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAccentColor` instead "
     "of `ReadAccentColor if you're fine with null values being "
@@ -670,7 +670,7 @@ static_assert(
         ::crosapi::mojom::NotifierIdDataView, UserType>(),
     "Attempting to read the optional `notifier_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNotifierId` instead "
     "of `ReadNotifierId if you're fine with null values being "
@@ -691,7 +691,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `image_path` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadImagePath` instead "
     "of `ReadImagePath if you're fine with null values being "

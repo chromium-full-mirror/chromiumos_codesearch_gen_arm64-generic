@@ -665,7 +665,7 @@ class  GetFileSelectorElementsRequest {
   template <typename... Args>
   static GetFileSelectorElementsRequestPtr New(Args&&... args) {
     return GetFileSelectorElementsRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -806,7 +806,7 @@ class  FileSelectorElement {
   template <typename... Args>
   static FileSelectorElementPtr New(Args&&... args) {
     return FileSelectorElementPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -948,7 +948,7 @@ class  RootSize {
   template <typename... Args>
   static RootSizePtr New(Args&&... args) {
     return RootSizePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1104,7 +1104,7 @@ class  MediaStoreMetadata {
   static MediaStoreMetadataPtr
   NewUnknown(
       uint8_t value) {
-    auto result = MediaStoreMetadataPtr(absl::in_place);
+    auto result = MediaStoreMetadataPtr(std::in_place);
     result->set_unknown(std::move(value));
     return result;
   }
@@ -1112,7 +1112,7 @@ class  MediaStoreMetadata {
   static MediaStoreMetadataPtr
   NewDownload(
       MediaStoreDownloadMetadataPtr value) {
-    auto result = MediaStoreMetadataPtr(absl::in_place);
+    auto result = MediaStoreMetadataPtr(std::in_place);
     result->set_download(std::move(value));
     return result;
   }
@@ -1226,7 +1226,7 @@ class  Document {
   template <typename... Args>
   static DocumentPtr New(Args&&... args) {
     return DocumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1431,7 +1431,7 @@ class  Root {
   template <typename... Args>
   static RootPtr New(Args&&... args) {
     return RootPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1600,7 +1600,7 @@ class  ContentUrlWithMimeType {
   template <typename... Args>
   static ContentUrlWithMimeTypePtr New(Args&&... args) {
     return ContentUrlWithMimeTypePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1743,7 +1743,7 @@ class  OpenUrlsRequest {
   template <typename... Args>
   static OpenUrlsRequestPtr New(Args&&... args) {
     return OpenUrlsRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1899,7 +1899,7 @@ class  SelectFilesRequest {
   template <typename... Args>
   static SelectFilesRequestPtr New(Args&&... args) {
     return SelectFilesRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2065,7 +2065,7 @@ class  DocumentPath {
   template <typename... Args>
   static DocumentPathPtr New(Args&&... args) {
     return DocumentPathPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2084,6 +2084,11 @@ class  DocumentPath {
   DocumentPath(
       const std::string& authority,
       std::vector<std::string> path);
+
+  DocumentPath(
+      const std::string& authority,
+      std::vector<std::string> path,
+      const std::optional<std::string>& root_id);
 
 
   ~DocumentPath();
@@ -2164,6 +2169,8 @@ class  DocumentPath {
   std::string authority;
   
   std::vector<std::string> path;
+  
+  std::optional<std::string> root_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2208,7 +2215,7 @@ class  SelectFilesResult {
   template <typename... Args>
   static SelectFilesResultPtr New(Args&&... args) {
     return SelectFilesResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2351,7 +2358,7 @@ class  FileSelectorEvent {
   template <typename... Args>
   static FileSelectorEventPtr New(Args&&... args) {
     return FileSelectorEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2502,7 +2509,7 @@ class  FileSelectorElements {
   template <typename... Args>
   static FileSelectorElementsPtr New(Args&&... args) {
     return FileSelectorElementsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2651,7 +2658,7 @@ class  FileSession {
   template <typename... Args>
   static FileSessionPtr New(Args&&... args) {
     return FileSessionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2791,7 +2798,7 @@ class  MediaStoreDownloadMetadata {
   template <typename... Args>
   static MediaStoreDownloadMetadataPtr New(Args&&... args) {
     return MediaStoreDownloadMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3283,7 +3290,8 @@ template <typename StructPtrType>
 DocumentPathPtr DocumentPath::Clone() const {
   return New(
       mojo::Clone(authority),
-      mojo::Clone(path)
+      mojo::Clone(path),
+      mojo::Clone(root_id)
   );
 }
 
@@ -3292,6 +3300,8 @@ bool DocumentPath::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->authority, other_struct.authority))
     return false;
   if (!mojo::Equals(this->path, other_struct.path))
+    return false;
+  if (!mojo::Equals(this->root_id, other_struct.root_id))
     return false;
   return true;
 }
@@ -3305,6 +3315,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.path < rhs.path)
     return true;
   if (rhs.path < lhs.path)
+    return false;
+  if (lhs.root_id < rhs.root_id)
+    return true;
+  if (rhs.root_id < lhs.root_id)
     return false;
   return false;
 }
@@ -3798,6 +3812,11 @@ struct  StructTraits<::arc::mojom::DocumentPath::DataView,
   static const decltype(::arc::mojom::DocumentPath::path)& path(
       const ::arc::mojom::DocumentPathPtr& input) {
     return input->path;
+  }
+
+  static const decltype(::arc::mojom::DocumentPath::root_id)& root_id(
+      const ::arc::mojom::DocumentPathPtr& input) {
+    return input->root_id;
   }
 
   static bool Read(::arc::mojom::DocumentPath::DataView input, ::arc::mojom::DocumentPathPtr* output);

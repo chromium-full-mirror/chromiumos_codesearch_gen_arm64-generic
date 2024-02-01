@@ -248,7 +248,7 @@ class  CookieManagerGetOptions {
   template <typename... Args>
   static CookieManagerGetOptionsPtr New(Args&&... args) {
     return CookieManagerGetOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

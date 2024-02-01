@@ -67,7 +67,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) ValueList {
   static ValueListPtr
   NewStringList(
       StringListPtr value) {
-    auto result = ValueListPtr(absl::in_place);
+    auto result = ValueListPtr(std::in_place);
     result->set_string_list(std::move(value));
     return result;
   }
@@ -75,7 +75,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) ValueList {
   static ValueListPtr
   NewFloatList(
       FloatListPtr value) {
-    auto result = ValueListPtr(absl::in_place);
+    auto result = ValueListPtr(std::in_place);
     result->set_float_list(std::move(value));
     return result;
   }
@@ -83,7 +83,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) ValueList {
   static ValueListPtr
   NewInt64List(
       Int64ListPtr value) {
-    auto result = ValueListPtr(absl::in_place);
+    auto result = ValueListPtr(std::in_place);
     result->set_int64_list(std::move(value));
     return result;
   }
@@ -210,7 +210,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) StringList {
   template <typename... Args>
   static StringListPtr New(Args&&... args) {
     return StringListPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -350,7 +350,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) FloatList {
   template <typename... Args>
   static FloatListPtr New(Args&&... args) {
     return FloatListPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -490,7 +490,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) Int64List {
   template <typename... Args>
   static Int64ListPtr New(Args&&... args) {
     return Int64ListPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -630,7 +630,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) Tensor {
   template <typename... Args>
   static TensorPtr New(Args&&... args) {
     return TensorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

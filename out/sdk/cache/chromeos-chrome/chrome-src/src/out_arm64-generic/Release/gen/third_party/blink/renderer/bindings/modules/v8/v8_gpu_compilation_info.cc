@@ -33,7 +33,7 @@ namespace blink {
 bool V8GPUCompilationInfo::IsExposed(ExecutionContext* execution_context) {
   
 const bool is_in_secure_context = execution_context->IsSecureContext();
-return is_in_secure_context && (execution_context->IsWindow() || execution_context->IsDedicatedWorkerGlobalScope());
+return is_in_secure_context && ((execution_context->IsWindow() && RuntimeEnabledFeatures::WebGPUEnabled()) || (execution_context->IsDedicatedWorkerGlobalScope() && RuntimeEnabledFeatures::WebGPUEnabled()) || (execution_context->IsSharedWorkerGlobalScope() && RuntimeEnabledFeatures::WebGPUExperimentalFeaturesEnabled()) || (execution_context->IsServiceWorkerGlobalScope() && RuntimeEnabledFeatures::WebGPUExperimentalFeaturesEnabled()));
 }
 
 // Construction of WrapperTypeInfo may require non-trivial initialization due

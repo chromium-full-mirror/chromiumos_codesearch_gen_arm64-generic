@@ -277,7 +277,7 @@ class BLINK_COMMON_EXPORT IdleState {
   template <typename... Args>
   static IdleStatePtr New(Args&&... args) {
     return IdleStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

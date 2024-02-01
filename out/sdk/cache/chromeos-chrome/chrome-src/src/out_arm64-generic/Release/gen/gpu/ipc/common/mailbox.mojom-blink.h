@@ -60,7 +60,7 @@ class BLINK_PLATFORM_EXPORT Mailbox {
   template <typename... Args>
   static MailboxPtr New(Args&&... args) {
     return MailboxPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

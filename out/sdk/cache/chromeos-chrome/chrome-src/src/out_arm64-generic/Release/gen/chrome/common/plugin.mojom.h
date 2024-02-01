@@ -404,7 +404,7 @@ class  PluginInfo {
   template <typename... Args>
   static PluginInfoPtr New(Args&&... args) {
     return PluginInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -556,7 +556,7 @@ class  PluginParam {
   template <typename... Args>
   static PluginParamPtr New(Args&&... args) {
     return PluginParamPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

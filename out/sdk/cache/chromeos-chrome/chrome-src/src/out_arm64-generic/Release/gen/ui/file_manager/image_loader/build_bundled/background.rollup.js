@@ -433,39 +433,28 @@ const EVICTION_CHUNK_SIZE = 50 * 1024 * 1024; // 50 MB.
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// @ts-nocheck
-/**
- * rotate90: clockwise degrees / 90.
- *
- * @typedef {{scaleX: number, scaleY: number, rotate90: number}}
- */
 /**
  * Class representing image orientation.
  * @final
  */
 class ImageOrientation {
+    a;
+    b;
+    c;
+    d;
     /**
      * The constructor takes 2x2 matrix value that cancels the image orientation:
      * |a, c|
      * |b, d|
-     * @param {number} a
-     * @param {number} b
-     * @param {number} c
-     * @param {number} d
      */
     constructor(a, b, c, d) {
-        /** @public @const {number} */
         this.a = a;
-        /** @public @const {number} */
         this.b = b;
-        /** @public @const {number} */
         this.c = c;
-        /** @public @const {number} */
         this.d = d;
     }
     /**
-     * @param {number} orientation 1-based orientation number defined by EXIF.
-     * @return {!ImageOrientation}
+     * @param orientation 1-based orientation number defined by EXIF.
      */
     static fromExifOrientation(orientation) {
         switch (~~orientation) {
@@ -486,13 +475,12 @@ class ImageOrientation {
             case 8:
                 return new ImageOrientation(0, -1, 1, 0);
             default:
-                console.error('Invalid orientation number.');
+                console.error(`Invalid orientation number: ${orientation}`);
                 return new ImageOrientation(1, 0, 0, 1);
         }
     }
     /**
-     * @param {number} rotation90 Clockwise degrees / 90.
-     * @return {!ImageOrientation}
+     * @param rotation90 Clockwise degrees / 90.
      */
     static fromClockwiseRotation(rotation90) {
         switch (~~(rotation90 % 4)) {
@@ -508,15 +496,11 @@ class ImageOrientation {
             case -1:
                 return new ImageOrientation(0, -1, 1, 0);
             default:
-                console.error('Invalid orientation number.');
+                console.error(`Invalid rotation number: ${rotation90}`);
                 return new ImageOrientation(1, 0, 0, 1);
         }
     }
-    /**
-     * Builds a transformation matrix from the image transform parameters.
-     * @param {!ImageTransformParam} transform
-     * @return {!ImageOrientation}
-     */
+    /** Builds a transformation matrix from the image transform parameters. */
     static fromRotationAndScale(transform) {
         const scaleX = transform.scaleX;
         const scaleY = transform.scaleY;
@@ -531,12 +515,7 @@ class ImageOrientation {
         // |b d| | 0 s_y| |y| = |b*s_x d*s_y| |y|
         return new ImageOrientation(orientation.a * scaleX, orientation.b * scaleX, orientation.c * scaleY, orientation.d * scaleY);
     }
-    /**
-     * Obtains the image size after cancelling its orientation.
-     * @param {number} imageWidth
-     * @param {number} imageHeight
-     * @return {{width:number, height:number}}
-     */
+    /** Obtains the image size after cancelling its orientation. */
     getSizeAfterCancelling(imageWidth, imageHeight) {
         const projectedX = this.a * imageWidth + this.c * imageHeight;
         const projectedY = this.b * imageWidth + this.d * imageHeight;
@@ -548,9 +527,6 @@ class ImageOrientation {
     /**
      * Applies the transformation that cancels the image orientation to the given
      * context.
-     * @param {!CanvasRenderingContext2D} context
-     * @param {number} imageWidth
-     * @param {number} imageHeight
      */
     cancelImageOrientation(context, imageWidth, imageHeight) {
         // Calculate where to project the point of (imageWidth, imageHeight).
@@ -564,7 +540,6 @@ class ImageOrientation {
     }
     /**
      * Checks if the orientation represents identity transformation or not.
-     * @return {boolean}
      */
     isIdentity() {
         return this.a === 1 && this.b === 0 && this.c === 0 && this.d === 1;
@@ -1779,7 +1754,6 @@ function getFileTypeForName(name) {
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// @ts-nocheck
 /**
  * Response status.
  *
@@ -1813,15 +1787,19 @@ class LoadImageResponse {
         // Response result defined only when status === SUCCESS.
         assert(opt_result);
         /** @type {number|undefined} */
+        // @ts-ignore: error TS18048: 'opt_result' is possibly 'undefined'.
         this.width = opt_result.width;
         /** @type {number|undefined} */
+        // @ts-ignore: error TS18048: 'opt_result' is possibly 'undefined'.
         this.height = opt_result.height;
         /** @type {?string} */
+        // @ts-ignore: error TS18048: 'opt_result' is possibly 'undefined'.
         this.ifd = opt_result.ifd;
         /**
          * The (compressed) image data as a data URL.
          * @type {string|undefined}
          */
+        // @ts-ignore: error TS18048: 'opt_result' is possibly 'undefined'.
         this.data = opt_result.data;
     }
     /**
@@ -1850,9 +1828,15 @@ class LoadImageResponse {
         assert(response.data);
         return {
             timestamp: timestamp || null,
+            // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable
+            // to type 'number'.
             width: response.width,
+            // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable
+            // to type 'number'.
             height: response.height,
             ifd: response.ifd,
+            // @ts-ignore: error TS2322: Type 'string | undefined' is not assignable
+            // to type 'string'.
             data: response.data,
         };
     }
@@ -1871,7 +1855,9 @@ class LoadImageRequest {
          * @type {string|undefined}
          */
         this.url;
-        /** @type{ImageOrientation|ImageTransformParam|undefined} */
+        /**
+         * @type{import('./image_orientation.js').ImageOrientation|import('./image_orientation.js').ImageTransformParam|undefined}
+         */
         this.orientation;
         /** @type {number|undefined} */
         this.scale;
@@ -1903,6 +1889,7 @@ class LoadImageRequest {
      * @return {?string} Cache key. It may be null if the cache does not support
      *     the request. e.g. Data URI.
      */
+    // @ts-ignore: error TS7006: Parameter 'request' implicitly has an 'any' type.
     static cacheKey(request) {
         if (/^data:/i.test(request.url)) {
             return null;
@@ -1937,7 +1924,7 @@ class LoadImageRequest {
      *   cache: boolean,
      *   priority: number,
      *   timestamp: (number|undefined),
-     *   orientation: ?ImageTransformParam,
+     *   orientation: ?import('./image_orientation.js').ImageTransformParam,
      * }} params Request parameters.
      * @return {!LoadImageRequest}
      */
@@ -1973,7 +1960,6 @@ class LoadImageRequest {
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// @ts-nocheck
 function ImageLoaderUtil() { }
 /**
  * Checks if the options on the request contain any image processing.
@@ -1990,6 +1976,8 @@ ImageLoaderUtil.shouldProcess = function (width, height, request) {
         return true;
     }
     // Orientation has to be adjusted.
+    // @ts-ignore: error TS2339: Property 'isIdentity' does not exist on type
+    // 'ImageTransformParam | ImageOrientation'.
     if (!request.orientation.isIdentity()) {
         return true;
     }
@@ -2010,7 +1998,10 @@ ImageLoaderUtil.shouldProcess = function (width, height, request) {
  */
 ImageLoaderUtil.resizeDimensions = function (width, height, request) {
     const scale = request.scale || 1;
-    const targetDimensions = request.orientation.getSizeAfterCancelling(width * scale, height * scale);
+    const targetDimensions = 
+    // @ts-ignore: error TS2339: Property 'getSizeAfterCancelling' does not
+    // exist on type 'ImageTransformParam | ImageOrientation'.
+    request.orientation.getSizeAfterCancelling(width * scale, height * scale);
     let targetWidth = targetDimensions.width;
     let targetHeight = targetDimensions.height;
     if (request.maxWidth && targetWidth > request.maxWidth) {
@@ -2036,7 +2027,7 @@ ImageLoaderUtil.resizeDimensions = function (width, height, request) {
 /**
  * Performs resizing and cropping of the source image into the target canvas.
  *
- * @param {HTMLCanvasElement|Image} source Source image or canvas.
+ * @param {HTMLCanvasElement|HTMLImageElement} source Source image or canvas.
  * @param {HTMLCanvasElement} target Target canvas.
  * @param {!LoadImageRequest} request The request, containing resizing options.
  */
@@ -2049,6 +2040,8 @@ ImageLoaderUtil.resizeAndCrop = function (source, target, request) {
     const targetContext = 
     /** @type {CanvasRenderingContext2D} */ (target.getContext('2d'));
     targetContext.save();
+    // @ts-ignore: error TS2339: Property 'cancelImageOrientation' does not exist
+    // on type 'ImageTransformParam | ImageOrientation'.
     request.orientation.cancelImageOrientation(targetContext, copyParameters.target.width, copyParameters.target.height);
     targetContext.drawImage(source, copyParameters.source.x, copyParameters.source.y, copyParameters.source.width, copyParameters.source.height, copyParameters.target.x, copyParameters.target.y, copyParameters.target.width, copyParameters.target.height);
     targetContext.restore();
@@ -2056,7 +2049,7 @@ ImageLoaderUtil.resizeAndCrop = function (source, target, request) {
 /**
  * Calculates copy parameters.
  *
- * @param {HTMLCanvasElement|Image} source Source image or canvas.
+ * @param {HTMLCanvasElement|HTMLImageElement} source Source image or canvas.
  * @param {!LoadImageRequest} request The request, containing resizing options.
  * @return {!ImageLoaderUtil.CopyParameters} Calculated copy parameters.
  */
@@ -2079,17 +2072,27 @@ ImageLoaderUtil.calculateCopyParameters = function (source, request) {
             target: {
                 x: 0,
                 y: 0,
+                // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable
+                // to type 'number'.
                 width: request.width,
+                // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable
+                // to type 'number'.
                 height: request.height,
             },
             canvas: {
+                // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable
+                // to type 'number'.
                 width: request.width,
+                // @ts-ignore: error TS2322: Type 'number | undefined' is not assignable
+                // to type 'number'.
                 height: request.height,
             },
         };
     }
     // Target dimension is calculated in the rotated(transformed) coordinate.
     const targetCanvasDimensions = ImageLoaderUtil.resizeDimensions(source.width, source.height, request);
+    // @ts-ignore: error TS2339: Property 'getSizeAfterCancelling' does not exist
+    // on type 'ImageTransformParam | ImageOrientation'.
     const targetDimensions = request.orientation.getSizeAfterCancelling(targetCanvasDimensions.width, targetCanvasDimensions.height);
     return {
         source: {
@@ -2114,7 +2117,6 @@ ImageLoaderUtil.calculateCopyParameters = function (source, request) {
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// @ts-nocheck
 /**
  * Declares the piex-wasm Module interface. The Module has many interfaces
  * but only declare the parts required for PIEX work.
@@ -2127,6 +2129,8 @@ ImageLoaderUtil.calculateCopyParameters = function (source, request) {
  *  image: function(number, number):!PiexWasmImageResult
  * }}
  */
+// @ts-ignore: error TS7005: Variable 'PiexWasmModule' implicitly has an 'any'
+// type.
 /**
  * Module defined by 'piex.js.wasm' script upon initialization.
  * @type {!PiexWasmModule}
@@ -2137,7 +2141,11 @@ let PiexModule;
  * @type {function(!ModuleInitParams): !Promise<!PiexWasmModule>}
  */
 const initPiexModule = 
-/** @type {function(!ModuleInitParams): !Promise<!PiexWasmModule>} */ (globalThis['createPiexModule']);
+/** @type {function(!ModuleInitParams): !Promise<!PiexWasmModule>} */ (
+// @ts-ignore: error TS7053: Element implicitly has an 'any' type
+// because expression of type '"createPiexModule"' can't be used to
+// index type 'typeof globalThis'.
+globalThis['createPiexModule']);
 console.log(`[PiexLoader] available [init=${typeof initPiexModule}]`);
 /**
  * Set true if the Module.onAbort() handler is called.
@@ -2157,12 +2165,12 @@ const MODULE_SETTINGS = {
         throw error;
     },
 };
-/** @type {?Promise<undefined>} */
+/** @type {?Promise<void>} */
 let initPiexModulePromise = null;
 /**
  * Returns a promise that resolves once initialization is complete. PiexModule
  * may be undefined before this promise resolves.
- * @return {!Promise<undefined>}
+ * @return {!Promise<void>}
  */
 function piexModuleInitialized() {
     if (!initPiexModulePromise) {
@@ -2546,8 +2554,14 @@ class ImageBuffer {
                     break;
             }
             for (let x = 0; x <= w; ++x, input += 3, output += dx) {
+                // @ts-ignore: error TS2345: Argument of type 'number | undefined' is
+                // not assignable to parameter of type 'number'.
                 bitmap.setUint8(output + 0, view[input + 2]); // B
+                // @ts-ignore: error TS2345: Argument of type 'number | undefined' is
+                // not assignable to parameter of type 'number'.
                 bitmap.setUint8(output + 1, view[input + 1]); // G
+                // @ts-ignore: error TS2345: Argument of type 'number | undefined' is
+                // not assignable to parameter of type 'number'.
                 bitmap.setUint8(output + 2, view[input + 0]); // R
             }
         }
@@ -2559,13 +2573,13 @@ class ImageBuffer {
                 switch (rowPad) {
                     case 3:
                         bitmap.setUint8(output++, 0);
-                    // Fall through.
+                    // Fallthrough
                     case 2:
                         bitmap.setUint8(output++, 0);
-                    // Fall through.
+                    // Fallthrough
                     case 1:
                         bitmap.setUint8(output++, 0);
-                    // Fall through.
+                    // Fallthrough
                 }
                 paddingOffset += rowStride;
             }
@@ -2620,13 +2634,19 @@ class ImageBuffer {
         const entries = Object.entries(details);
         for (const [key, value] of entries) {
             if (typeof value === 'string') {
+                // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an index
+                // type.
                 format[key] = value.replace(/\0+$/, '').trim();
             }
             else if (typeof value === 'number') {
                 if (!Number.isInteger(value)) {
+                    // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an
+                    // index type.
                     format[key] = Number(value.toFixed(3).replace(/0+$/, ''));
                 }
                 else {
+                    // @ts-ignore: error TS2538: Type 'undefined' cannot be used as an
+                    // index type.
                     format[key] = value;
                 }
             }
@@ -2664,7 +2684,7 @@ const PiexLoader = {};
  * the caller should initiate failure recovery steps.
  *
  * @param {!ArrayBuffer} buffer
- * @param {!function()} onPiexModuleFailed
+ * @param {VoidCallback} onPiexModuleFailed
  * @return {!Promise<!PiexLoaderResponse>}
  */
 PiexLoader.load = function (buffer, onPiexModuleFailed) {
@@ -3366,56 +3386,36 @@ ImageRequestTask.ExtensionContentTypeMap = {
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// @ts-nocheck
+/** Maximum download tasks to be run in parallel. */
+const MAXIMUM_IN_PARALLEL = 5;
 /**
  * Scheduler for ImageRequestTask objects. Fetches tasks from a queue and
  * processes them synchronously, taking into account priorities. The highest
  * priority is 0.
  */
 class Scheduler {
-    constructor() {
-        /**
-         * List of tasks waiting to be checked. If these items are available in
-         * cache, then they are processed immediately after starting the scheduler.
-         * However, if they have to be downloaded, then these tasks are moved
-         * to pendingTasks_.
-         *
-         * @type {Array<ImageRequestTask>}
-         * @private
-         */
-        this.newTasks_ = [];
-        /**
-         * List of pending tasks for images to be downloaded.
-         * @type {Array<ImageRequestTask>}
-         * @private
-         */
-        this.pendingTasks_ = [];
-        /**
-         * List of tasks being processed.
-         * @type {Array<ImageRequestTask>}
-         * @private
-         */
-        this.activeTasks_ = [];
-        /**
-         * Map of tasks being added to the queue, but not finalized yet. Keyed by
-         * the ImageRequestTask id.
-         * @type {Object<string, ImageRequestTask>}>
-         * @private
-         */
-        this.tasks_ = {};
-        /**
-         * If the scheduler has been started.
-         * @type {boolean}
-         * @private
-         */
-        this.started_ = false;
-    }
+    /**
+     * List of tasks waiting to be checked. If these items are available in
+     * cache, then they are processed immediately after starting the scheduler.
+     * However, if they have to be downloaded, then these tasks are moved to
+     * pendingTasks_.
+     */
+    newTasks_ = [];
+    /** List of pending tasks for images to be downloaded. */
+    pendingTasks_ = [];
+    /** List of tasks being processed. */
+    activeTasks_ = [];
+    /**
+     * Map of tasks being added to the queue, but not finalized yet. Keyed by
+     * the ImageRequestTask id.
+     */
+    tasks_ = {};
+    /** If the scheduler has been started. */
+    started_ = false;
     /**
      * Adds a task to the internal priority queue and executes it when tasks
      * with higher priorities are finished. If the result is cached, then it is
      * processed immediately once the scheduler is started.
-     *
-     * @param {ImageRequestTask} task A task to be run
      */
     add(task) {
         if (!this.started_) {
@@ -3428,10 +3428,7 @@ class Scheduler {
         this.sortPendingTasks_();
         this.continue_();
     }
-    /**
-     * Removes a task from the scheduler (if exists).
-     * @param {string} taskId Unique ID of the task.
-     */
+    /** Removes a task from the scheduler (if exists). */
     remove(taskId) {
         const task = this.tasks_[taskId];
         if (!task) {
@@ -3450,9 +3447,7 @@ class Scheduler {
         task.cancel();
         delete this.tasks_[taskId];
     }
-    /**
-     * Starts handling tasks.
-     */
+    /** Starts handling tasks. */
     start() {
         this.started_ = true;
         // Process tasks added before scheduler has been started.
@@ -3462,10 +3457,7 @@ class Scheduler {
         // Start serving enqueued tasks.
         this.continue_();
     }
-    /**
-     * Sorts pending tasks by priorities.
-     * @private
-     */
+    /** Sorts pending tasks by priorities. */
     sortPendingTasks_() {
         this.pendingTasks_.sort((a, b) => {
             return a.getPriority() - b.getPriority();
@@ -3474,27 +3466,18 @@ class Scheduler {
     /**
      * Processes pending tasks from the queue. There is no guarantee that
      * all of the tasks will be processed at once.
-     *
-     * @private
      */
     continue_() {
         // Run only up to MAXIMUM_IN_PARALLEL in the same time.
-        while (this.pendingTasks_.length &&
+        while (this.pendingTasks_.length > 0 &&
             this.activeTasks_.length < MAXIMUM_IN_PARALLEL) {
             const task = this.pendingTasks_.shift();
             this.activeTasks_.push(task);
             // Try to load from cache. If doesn't exist, then download.
-            task.loadFromCacheAndProcess(this.finish_.bind(this, task), function (currentTask) {
-                currentTask.downloadAndProcess(this.finish_.bind(this, currentTask));
-            }.bind(this, task));
+            task.loadFromCacheAndProcess(() => this.finish_(task), () => task.downloadAndProcess(() => this.finish_(task)));
         }
     }
-    /**
-     * Handles finished tasks.
-     *
-     * @param {ImageRequestTask} task Finished task.
-     * @private
-     */
+    /** Handles a finished task. */
     finish_(task) {
         const index = this.activeTasks_.indexOf(task);
         if (index < 0) {
@@ -3508,17 +3491,10 @@ class Scheduler {
         }
     }
 }
-/**
- * Maximum download tasks to be run in parallel.
- * @type {number}
- * @const
- */
-const MAXIMUM_IN_PARALLEL = 5;
 
 // Copyright 2013 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-// @ts-nocheck
 /**
  * Loads and resizes an image.
  */
@@ -3548,11 +3524,13 @@ class ImageLoader {
             }
             this.onIncomingRequest_(msg, sender.origin, sendResponse);
         });
-        chrome.runtime['onConnectNative'].addListener((port) => {
+        // @ts-ignore: error TS7006: Parameter 'port' implicitly has an 'any' type.
+        chrome.runtime.onConnectNative.addListener((port) => {
             if (port.sender.nativeApplication !== 'com.google.ash_thumbnail_loader') {
                 port.disconnect();
                 return;
             }
+            // @ts-ignore: error TS7006: Parameter 'msg' implicitly has an 'any' type.
             port.onMessage.addListener((msg) => {
                 // Each connection is expected to handle a single request only.
                 const started = this.onIncomingRequest_(msg, port.sender.nativeApplication, response => {
@@ -3576,6 +3554,8 @@ class ImageLoader {
         const request = /** @type {!LoadImageRequest} */ (request_data);
         // Sending a response may fail if the receiver already went offline.
         // This is not an error, but a normal and quite common situation.
+        // @ts-ignore: error TS7006: Parameter 'response' implicitly has an 'any'
+        // type.
         const failSafeSendResponse = function (response) {
             try {
                 sendResponse(response);
@@ -3589,6 +3569,9 @@ class ImageLoader {
         assert(!(typeof request.orientation === 'number'));
         if (request.orientation) {
             request.orientation =
+                // @ts-ignore: error TS2345: Argument of type 'ImageTransformParam |
+                // ImageOrientation' is not assignable to parameter of type
+                // 'ImageTransformParam'.
                 ImageOrientation.fromRotationAndScale(request.orientation);
         }
         else {
@@ -3602,7 +3585,7 @@ class ImageLoader {
      *
      * @param {string} senderOrigin Sender's origin.
      * @param {!LoadImageRequest} request Pre-processed request.
-     * @param {function(!LoadImageResponse)} callback Callback to be called to
+     * @param {(r: LoadImageResponse) => void} callback Callback to be called to
      *     return response.
      * @return {boolean} True if the message channel should stay alive until the
      *     callback is called.
@@ -3627,9 +3610,15 @@ class ImageLoader {
      * @return {ImageLoader} ImageLoader object.
      */
     static getInstance() {
+        // @ts-ignore: error TS2339: Property 'instance_' does not exist on type
+        // 'typeof ImageLoader'.
         if (!ImageLoader.instance_) {
+            // @ts-ignore: error TS2339: Property 'instance_' does not exist on type
+            // 'typeof ImageLoader'.
             ImageLoader.instance_ = new ImageLoader();
         }
+        // @ts-ignore: error TS2339: Property 'instance_' does not exist on type
+        // 'typeof ImageLoader'.
         return ImageLoader.instance_;
     }
 }

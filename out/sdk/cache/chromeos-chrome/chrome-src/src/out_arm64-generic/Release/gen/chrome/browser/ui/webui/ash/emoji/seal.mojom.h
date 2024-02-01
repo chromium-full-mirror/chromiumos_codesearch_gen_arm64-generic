@@ -170,7 +170,7 @@ class  Image {
   template <typename... Args>
   static ImagePtr New(Args&&... args) {
     return ImagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

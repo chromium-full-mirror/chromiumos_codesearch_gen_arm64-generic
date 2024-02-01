@@ -55,6 +55,12 @@
   ],
   "references": [
     {
+      "path": "../../../../../front_end/core/sdk/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../../../../front_end/models/text_utils/bundle-tsconfig.json"
+    },
+    {
       "path": "../../../../../front_end/panels/network/bundle-tsconfig.json"
     },
     {

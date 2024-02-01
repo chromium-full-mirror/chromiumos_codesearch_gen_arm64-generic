@@ -59,7 +59,7 @@ class BLINK_PLATFORM_EXPORT VariantsHeader {
   template <typename... Args>
   static VariantsHeaderPtr New(Args&&... args) {
     return VariantsHeaderPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

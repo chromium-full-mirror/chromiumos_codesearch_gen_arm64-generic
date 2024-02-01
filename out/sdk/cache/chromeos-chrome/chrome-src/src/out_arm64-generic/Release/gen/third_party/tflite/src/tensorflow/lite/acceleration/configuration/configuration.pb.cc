@@ -201,6 +201,8 @@ PROTOBUF_CONSTEXPR EdgeTpuSettings::EdgeTpuSettings(
 
   , qos_class_(0)
 
+  , use_layer_ir_tgc_backend_(0)
+
   , inference_priority_(-1){}
 struct EdgeTpuSettingsDefaultTypeInternal {
   PROTOBUF_CONSTEXPR EdgeTpuSettingsDefaultTypeInternal()
@@ -797,6 +799,74 @@ constexpr EdgeTpuSettings_QosClass EdgeTpuSettings::REALTIME;
 constexpr EdgeTpuSettings_QosClass EdgeTpuSettings::QosClass_MIN;
 constexpr EdgeTpuSettings_QosClass EdgeTpuSettings::QosClass_MAX;
 constexpr int EdgeTpuSettings::QosClass_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool EdgeTpuSettings_UseLayerIrTgcBackend_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> EdgeTpuSettings_UseLayerIrTgcBackend_strings[4] = {};
+
+static const char EdgeTpuSettings_UseLayerIrTgcBackend_names[] =
+  "USE_LAYER_IR_TGC_BACKEND_AUTO"
+  "USE_LAYER_IR_TGC_BACKEND_NO"
+  "USE_LAYER_IR_TGC_BACKEND_UNSPECIFIED"
+  "USE_LAYER_IR_TGC_BACKEND_YES";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry EdgeTpuSettings_UseLayerIrTgcBackend_entries[] = {
+  { {EdgeTpuSettings_UseLayerIrTgcBackend_names + 0, 29}, 3 },
+  { {EdgeTpuSettings_UseLayerIrTgcBackend_names + 29, 27}, 1 },
+  { {EdgeTpuSettings_UseLayerIrTgcBackend_names + 56, 36}, 0 },
+  { {EdgeTpuSettings_UseLayerIrTgcBackend_names + 92, 28}, 2 },
+};
+
+static const int EdgeTpuSettings_UseLayerIrTgcBackend_entries_by_number[] = {
+  2, // 0 -> USE_LAYER_IR_TGC_BACKEND_UNSPECIFIED
+  1, // 1 -> USE_LAYER_IR_TGC_BACKEND_NO
+  3, // 2 -> USE_LAYER_IR_TGC_BACKEND_YES
+  0, // 3 -> USE_LAYER_IR_TGC_BACKEND_AUTO
+};
+
+const std::string& EdgeTpuSettings_UseLayerIrTgcBackend_Name(
+    EdgeTpuSettings_UseLayerIrTgcBackend value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          EdgeTpuSettings_UseLayerIrTgcBackend_entries,
+          EdgeTpuSettings_UseLayerIrTgcBackend_entries_by_number,
+          4, EdgeTpuSettings_UseLayerIrTgcBackend_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      EdgeTpuSettings_UseLayerIrTgcBackend_entries,
+      EdgeTpuSettings_UseLayerIrTgcBackend_entries_by_number,
+      4, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     EdgeTpuSettings_UseLayerIrTgcBackend_strings[idx].get();
+}
+bool EdgeTpuSettings_UseLayerIrTgcBackend_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, EdgeTpuSettings_UseLayerIrTgcBackend* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      EdgeTpuSettings_UseLayerIrTgcBackend_entries, 4, name, &int_value);
+  if (success) {
+    *value = static_cast<EdgeTpuSettings_UseLayerIrTgcBackend>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr EdgeTpuSettings_UseLayerIrTgcBackend EdgeTpuSettings::USE_LAYER_IR_TGC_BACKEND_UNSPECIFIED;
+constexpr EdgeTpuSettings_UseLayerIrTgcBackend EdgeTpuSettings::USE_LAYER_IR_TGC_BACKEND_NO;
+constexpr EdgeTpuSettings_UseLayerIrTgcBackend EdgeTpuSettings::USE_LAYER_IR_TGC_BACKEND_YES;
+constexpr EdgeTpuSettings_UseLayerIrTgcBackend EdgeTpuSettings::USE_LAYER_IR_TGC_BACKEND_AUTO;
+constexpr EdgeTpuSettings_UseLayerIrTgcBackend EdgeTpuSettings::UseLayerIrTgcBackend_MIN;
+constexpr EdgeTpuSettings_UseLayerIrTgcBackend EdgeTpuSettings::UseLayerIrTgcBackend_MAX;
+constexpr int EdgeTpuSettings::UseLayerIrTgcBackend_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool GoogleEdgeTpuSettings_Priority_IsValid(int value) {
   switch (value) {
@@ -5003,7 +5073,7 @@ class EdgeTpuSettings::_Internal {
     (*has_bits)[0] |= 8u;
   }
   static void set_has_inference_priority(HasBits* has_bits) {
-    (*has_bits)[0] |= 64u;
+    (*has_bits)[0] |= 128u;
   }
   static const ::tflite::proto::EdgeTpuDeviceSpec& edgetpu_device_spec(const EdgeTpuSettings* msg);
   static void set_has_edgetpu_device_spec(HasBits* has_bits) {
@@ -5020,6 +5090,9 @@ class EdgeTpuSettings::_Internal {
   }
   static void set_has_public_model_id(HasBits* has_bits) {
     (*has_bits)[0] |= 2u;
+  }
+  static void set_has_use_layer_ir_tgc_backend(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
   }
 };
 
@@ -5079,8 +5152,8 @@ public_model_id_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&edgetpu_device_spec_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&qos_class_) -
-    reinterpret_cast<char*>(&edgetpu_device_spec_)) + sizeof(qos_class_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&use_layer_ir_tgc_backend_) -
+    reinterpret_cast<char*>(&edgetpu_device_spec_)) + sizeof(use_layer_ir_tgc_backend_));
 inference_priority_ = -1;
 }
 
@@ -5125,10 +5198,10 @@ void EdgeTpuSettings::Clear() {
       edgetpu_device_spec_->Clear();
     }
   }
-  if (cached_has_bits & 0x00000078u) {
+  if (cached_has_bits & 0x000000f8u) {
     ::memset(&inference_power_state_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&qos_class_) -
-        reinterpret_cast<char*>(&inference_power_state_)) + sizeof(qos_class_));
+        reinterpret_cast<char*>(&use_layer_ir_tgc_backend_) -
+        reinterpret_cast<char*>(&inference_power_state_)) + sizeof(use_layer_ir_tgc_backend_));
     inference_priority_ = -1;
   }
   _has_bits_.Clear();
@@ -5240,6 +5313,19 @@ const char* EdgeTpuSettings::_InternalParse(const char* ptr, ::_pbi::ParseContex
         } else
           goto handle_unusual;
         continue;
+      // optional .tflite.proto.EdgeTpuSettings.UseLayerIrTgcBackend use_layer_ir_tgc_backend = 10 [default = USE_LAYER_IR_TGC_BACKEND_UNSPECIFIED];
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::tflite::proto::EdgeTpuSettings_UseLayerIrTgcBackend_IsValid(val))) {
+            _internal_set_use_layer_ir_tgc_backend(static_cast<::tflite::proto::EdgeTpuSettings_UseLayerIrTgcBackend>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(10, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -5287,7 +5373,7 @@ uint8_t* EdgeTpuSettings::_InternalSerialize(
   }
 
   // optional int32 inference_priority = 3 [default = -1];
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_inference_priority(), target);
   }
@@ -5334,6 +5420,13 @@ uint8_t* EdgeTpuSettings::_InternalSerialize(
         9, this->_internal_public_model_id(), target);
   }
 
+  // optional .tflite.proto.EdgeTpuSettings.UseLayerIrTgcBackend use_layer_ir_tgc_backend = 10 [default = USE_LAYER_IR_TGC_BACKEND_UNSPECIFIED];
+  if (cached_has_bits & 0x00000040u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      10, this->_internal_use_layer_ir_tgc_backend(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -5372,7 +5465,7 @@ size_t EdgeTpuSettings::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     // optional string model_token = 5;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -5412,8 +5505,14 @@ size_t EdgeTpuSettings::ByteSizeLong() const {
         ::_pbi::WireFormatLite::EnumSize(this->_internal_qos_class());
     }
 
-    // optional int32 inference_priority = 3 [default = -1];
+    // optional .tflite.proto.EdgeTpuSettings.UseLayerIrTgcBackend use_layer_ir_tgc_backend = 10 [default = USE_LAYER_IR_TGC_BACKEND_UNSPECIFIED];
     if (cached_has_bits & 0x00000040u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_use_layer_ir_tgc_backend());
+    }
+
+    // optional int32 inference_priority = 3 [default = -1];
+    if (cached_has_bits & 0x00000080u) {
       total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_inference_priority());
     }
 
@@ -5441,7 +5540,7 @@ void EdgeTpuSettings::MergeFrom(const EdgeTpuSettings& from) {
   inactive_power_configs_.MergeFrom(from.inactive_power_configs_);
   hardware_cluster_ids_.MergeFrom(from.hardware_cluster_ids_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000007fu) {
+  if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_model_token(from._internal_model_token());
     }
@@ -5461,6 +5560,9 @@ void EdgeTpuSettings::MergeFrom(const EdgeTpuSettings& from) {
       qos_class_ = from.qos_class_;
     }
     if (cached_has_bits & 0x00000040u) {
+      use_layer_ir_tgc_backend_ = from.use_layer_ir_tgc_backend_;
+    }
+    if (cached_has_bits & 0x00000080u) {
       inference_priority_ = from.inference_priority_;
     }
     _has_bits_[0] |= cached_has_bits;
@@ -5496,8 +5598,8 @@ void EdgeTpuSettings::InternalSwap(EdgeTpuSettings* other) {
       &other->public_model_id_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(EdgeTpuSettings, qos_class_)
-      + sizeof(EdgeTpuSettings::qos_class_)
+      PROTOBUF_FIELD_OFFSET(EdgeTpuSettings, use_layer_ir_tgc_backend_)
+      + sizeof(EdgeTpuSettings::use_layer_ir_tgc_backend_)
       - PROTOBUF_FIELD_OFFSET(EdgeTpuSettings, edgetpu_device_spec_)>(
           reinterpret_cast<char*>(&edgetpu_device_spec_),
           reinterpret_cast<char*>(&other->edgetpu_device_spec_));

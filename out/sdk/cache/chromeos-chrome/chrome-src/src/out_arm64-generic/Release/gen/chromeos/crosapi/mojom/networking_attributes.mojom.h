@@ -180,7 +180,7 @@ class  GetNetworkDetailsResult {
   static GetNetworkDetailsResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = GetNetworkDetailsResultPtr(absl::in_place);
+    auto result = GetNetworkDetailsResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -188,7 +188,7 @@ class  GetNetworkDetailsResult {
   static GetNetworkDetailsResultPtr
   NewNetworkDetails(
       NetworkDetailsPtr value) {
-    auto result = GetNetworkDetailsResultPtr(absl::in_place);
+    auto result = GetNetworkDetailsResultPtr(std::in_place);
     result->set_network_details(std::move(value));
     return result;
   }
@@ -302,7 +302,7 @@ class  NetworkDetails {
   template <typename... Args>
   static NetworkDetailsPtr New(Args&&... args) {
     return NetworkDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -204,7 +204,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `reporting_endpoint` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReportingEndpoint` instead "
     "of `ReadReportingEndpoint if you're fine with null values being "
@@ -234,7 +234,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `report_only_reporting_endpoint` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReportOnlyReportingEndpoint` instead "
     "of `ReadReportOnlyReportingEndpoint if you're fine with null values being "

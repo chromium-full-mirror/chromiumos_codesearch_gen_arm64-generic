@@ -1012,7 +1012,7 @@ static_assert(
         ::arc::mojom::keymint::AttestationKeyDataView, UserType>(),
     "Attempting to read the optional `attestation_key` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAttestationKey` instead "
     "of `ReadAttestationKey if you're fine with null values being "
@@ -1078,7 +1078,7 @@ static_assert(
         ::arc::mojom::keymint::AttestationKeyDataView, UserType>(),
     "Attempting to read the optional `attestation_key` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAttestationKey` instead "
     "of `ReadAttestationKey if you're fine with null values being "
@@ -1242,7 +1242,7 @@ static_assert(
         ::arc::mojom::keymint::HardwareAuthTokenDataView, UserType>(),
     "Attempting to read the optional `auth_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAuthToken` instead "
     "of `ReadAuthToken if you're fine with null values being "
@@ -1481,7 +1481,7 @@ static_assert(
         ::arc::mojom::keymint::HardwareAuthTokenDataView, UserType>(),
     "Attempting to read the optional `auth_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAuthToken` instead "
     "of `ReadAuthToken if you're fine with null values being "
@@ -1501,7 +1501,7 @@ static_assert(
         ::arc::mojom::keymint::TimeStampTokenDataView, UserType>(),
     "Attempting to read the optional `timestamp_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTimestampToken` instead "
     "of `ReadTimestampToken if you're fine with null values being "
@@ -1540,7 +1540,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `input` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInput` instead "
     "of `ReadInput if you're fine with null values being "
@@ -1560,7 +1560,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `signature` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSignature` instead "
     "of `ReadSignature if you're fine with null values being "
@@ -1580,7 +1580,7 @@ static_assert(
         ::arc::mojom::keymint::HardwareAuthTokenDataView, UserType>(),
     "Attempting to read the optional `auth_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAuthToken` instead "
     "of `ReadAuthToken if you're fine with null values being "
@@ -1600,7 +1600,7 @@ static_assert(
         ::arc::mojom::keymint::TimeStampTokenDataView, UserType>(),
     "Attempting to read the optional `timestamp_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTimestampToken` instead "
     "of `ReadTimestampToken if you're fine with null values being "
@@ -1620,7 +1620,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `confirmation_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadConfirmationToken` instead "
     "of `ReadConfirmationToken if you're fine with null values being "

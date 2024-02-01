@@ -368,7 +368,7 @@ class  TenorGifResponse {
   template <typename... Args>
   static TenorGifResponsePtr New(Args&&... args) {
     return TenorGifResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -513,7 +513,7 @@ class  GifResponse {
   template <typename... Args>
   static GifResponsePtr New(Args&&... args) {
     return GifResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -664,7 +664,7 @@ class  GifUrls {
   template <typename... Args>
   static GifUrlsPtr New(Args&&... args) {
     return GifUrlsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

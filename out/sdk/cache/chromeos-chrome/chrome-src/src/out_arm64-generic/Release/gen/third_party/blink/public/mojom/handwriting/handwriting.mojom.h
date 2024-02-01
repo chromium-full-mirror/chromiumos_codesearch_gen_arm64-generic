@@ -293,7 +293,7 @@ class BLINK_COMMON_EXPORT HandwritingDrawingSegment {
   template <typename... Args>
   static HandwritingDrawingSegmentPtr New(Args&&... args) {
     return HandwritingDrawingSegmentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -442,7 +442,7 @@ class BLINK_COMMON_EXPORT HandwritingHints {
   template <typename... Args>
   static HandwritingHintsPtr New(Args&&... args) {
     return HandwritingHintsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -596,7 +596,7 @@ class BLINK_COMMON_EXPORT HandwritingPoint {
   template <typename... Args>
   static HandwritingPointPtr New(Args&&... args) {
     return HandwritingPointPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -739,7 +739,7 @@ class BLINK_COMMON_EXPORT HandwritingStroke {
   template <typename... Args>
   static HandwritingStrokePtr New(Args&&... args) {
     return HandwritingStrokePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -882,7 +882,7 @@ class BLINK_COMMON_EXPORT HandwritingSegment {
   template <typename... Args>
   static HandwritingSegmentPtr New(Args&&... args) {
     return HandwritingSegmentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1033,7 +1033,7 @@ class BLINK_COMMON_EXPORT HandwritingPrediction {
   template <typename... Args>
   static HandwritingPredictionPtr New(Args&&... args) {
     return HandwritingPredictionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1179,7 +1179,7 @@ class BLINK_COMMON_EXPORT HandwritingHintsQueryResult {
   template <typename... Args>
   static HandwritingHintsQueryResultPtr New(Args&&... args) {
     return HandwritingHintsQueryResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1328,7 +1328,7 @@ class BLINK_COMMON_EXPORT QueryHandwritingRecognizerResult {
   template <typename... Args>
   static QueryHandwritingRecognizerResultPtr New(Args&&... args) {
     return QueryHandwritingRecognizerResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1476,7 +1476,7 @@ class BLINK_COMMON_EXPORT HandwritingModelConstraint {
   template <typename... Args>
   static HandwritingModelConstraintPtr New(Args&&... args) {
     return HandwritingModelConstraintPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

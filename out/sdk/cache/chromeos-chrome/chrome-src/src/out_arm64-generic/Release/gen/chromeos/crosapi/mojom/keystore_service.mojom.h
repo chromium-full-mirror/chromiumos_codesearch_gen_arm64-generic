@@ -390,7 +390,7 @@ class  KeystoreECDSAParams {
   template <typename... Args>
   static KeystoreECDSAParamsPtr New(Args&&... args) {
     return KeystoreECDSAParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -542,7 +542,7 @@ class  KeystoreSigningAlgorithm {
   static KeystoreSigningAlgorithmPtr
   NewPkcs115(
       KeystorePKCS115ParamsPtr value) {
-    auto result = KeystoreSigningAlgorithmPtr(absl::in_place);
+    auto result = KeystoreSigningAlgorithmPtr(std::in_place);
     result->set_pkcs115(std::move(value));
     return result;
   }
@@ -550,7 +550,7 @@ class  KeystoreSigningAlgorithm {
   static KeystoreSigningAlgorithmPtr
   NewEcdsa(
       KeystoreECDSAParamsPtr value) {
-    auto result = KeystoreSigningAlgorithmPtr(absl::in_place);
+    auto result = KeystoreSigningAlgorithmPtr(std::in_place);
     result->set_ecdsa(std::move(value));
     return result;
   }
@@ -672,7 +672,7 @@ class  ChallengeAttestationOnlyKeystoreResult {
   static ChallengeAttestationOnlyKeystoreResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = ChallengeAttestationOnlyKeystoreResultPtr(absl::in_place);
+    auto result = ChallengeAttestationOnlyKeystoreResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -680,7 +680,7 @@ class  ChallengeAttestationOnlyKeystoreResult {
   static ChallengeAttestationOnlyKeystoreResultPtr
   NewChallengeResponse(
       std::vector<uint8_t> value) {
-    auto result = ChallengeAttestationOnlyKeystoreResultPtr(absl::in_place);
+    auto result = ChallengeAttestationOnlyKeystoreResultPtr(std::in_place);
     result->set_challenge_response(std::move(value));
     return result;
   }
@@ -802,7 +802,7 @@ class  KeystoreBinaryResult {
   static KeystoreBinaryResultPtr
   NewError(
       ::crosapi::mojom::KeystoreError value) {
-    auto result = KeystoreBinaryResultPtr(absl::in_place);
+    auto result = KeystoreBinaryResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -810,7 +810,7 @@ class  KeystoreBinaryResult {
   static KeystoreBinaryResultPtr
   NewBlob(
       std::vector<uint8_t> value) {
-    auto result = KeystoreBinaryResultPtr(absl::in_place);
+    auto result = KeystoreBinaryResultPtr(std::in_place);
     result->set_blob(std::move(value));
     return result;
   }
@@ -932,7 +932,7 @@ class  GetCertificatesResult {
   static GetCertificatesResultPtr
   NewError(
       ::crosapi::mojom::KeystoreError value) {
-    auto result = GetCertificatesResultPtr(absl::in_place);
+    auto result = GetCertificatesResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -940,7 +940,7 @@ class  GetCertificatesResult {
   static GetCertificatesResultPtr
   NewCertificates(
       std::vector<std::vector<uint8_t>> value) {
-    auto result = GetCertificatesResultPtr(absl::in_place);
+    auto result = GetCertificatesResultPtr(std::in_place);
     result->set_certificates(std::move(value));
     return result;
   }
@@ -1062,7 +1062,7 @@ class  KeystoreSelectClientCertificatesResult {
   static KeystoreSelectClientCertificatesResultPtr
   NewError(
       ::crosapi::mojom::KeystoreError value) {
-    auto result = KeystoreSelectClientCertificatesResultPtr(absl::in_place);
+    auto result = KeystoreSelectClientCertificatesResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1070,7 +1070,7 @@ class  KeystoreSelectClientCertificatesResult {
   static KeystoreSelectClientCertificatesResultPtr
   NewCertificates(
       std::vector<std::vector<uint8_t>> value) {
-    auto result = KeystoreSelectClientCertificatesResultPtr(absl::in_place);
+    auto result = KeystoreSelectClientCertificatesResultPtr(std::in_place);
     result->set_certificates(std::move(value));
     return result;
   }
@@ -1192,7 +1192,7 @@ class  GetKeyStoresResult {
   static GetKeyStoresResultPtr
   NewError(
       ::crosapi::mojom::KeystoreError value) {
-    auto result = GetKeyStoresResultPtr(absl::in_place);
+    auto result = GetKeyStoresResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1200,7 +1200,7 @@ class  GetKeyStoresResult {
   static GetKeyStoresResultPtr
   NewKeyStores(
       std::vector<KeystoreType> value) {
-    auto result = GetKeyStoresResultPtr(absl::in_place);
+    auto result = GetKeyStoresResultPtr(std::in_place);
     result->set_key_stores(std::move(value));
     return result;
   }
@@ -1322,7 +1322,7 @@ class  GetPublicKeyResult {
   static GetPublicKeyResultPtr
   NewError(
       ::crosapi::mojom::KeystoreError value) {
-    auto result = GetPublicKeyResultPtr(absl::in_place);
+    auto result = GetPublicKeyResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1330,7 +1330,7 @@ class  GetPublicKeyResult {
   static GetPublicKeyResultPtr
   NewSuccessResult(
       GetPublicKeySuccessResultPtr value) {
-    auto result = GetPublicKeyResultPtr(absl::in_place);
+    auto result = GetPublicKeyResultPtr(std::in_place);
     result->set_success_result(std::move(value));
     return result;
   }
@@ -1452,7 +1452,7 @@ class  GetKeyTagsResult {
   static GetKeyTagsResultPtr
   NewError(
       ::crosapi::mojom::KeystoreError value) {
-    auto result = GetKeyTagsResultPtr(absl::in_place);
+    auto result = GetKeyTagsResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1460,7 +1460,7 @@ class  GetKeyTagsResult {
   static GetKeyTagsResultPtr
   NewTags(
       uint64_t value) {
-    auto result = GetKeyTagsResultPtr(absl::in_place);
+    auto result = GetKeyTagsResultPtr(std::in_place);
     result->set_tags(std::move(value));
     return result;
   }
@@ -1579,7 +1579,7 @@ class  DEPRECATED_ExtensionKeystoreBinaryResult {
   static DEPRECATED_ExtensionKeystoreBinaryResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = DEPRECATED_ExtensionKeystoreBinaryResultPtr(absl::in_place);
+    auto result = DEPRECATED_ExtensionKeystoreBinaryResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -1587,7 +1587,7 @@ class  DEPRECATED_ExtensionKeystoreBinaryResult {
   static DEPRECATED_ExtensionKeystoreBinaryResultPtr
   NewBlob(
       std::vector<uint8_t> value) {
-    auto result = DEPRECATED_ExtensionKeystoreBinaryResultPtr(absl::in_place);
+    auto result = DEPRECATED_ExtensionKeystoreBinaryResultPtr(std::in_place);
     result->set_blob(std::move(value));
     return result;
   }
@@ -1709,7 +1709,7 @@ class  DEPRECATED_GetPublicKeyResult {
   static DEPRECATED_GetPublicKeyResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = DEPRECATED_GetPublicKeyResultPtr(absl::in_place);
+    auto result = DEPRECATED_GetPublicKeyResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -1717,7 +1717,7 @@ class  DEPRECATED_GetPublicKeyResult {
   static DEPRECATED_GetPublicKeyResultPtr
   NewSuccessResult(
       GetPublicKeySuccessResultPtr value) {
-    auto result = DEPRECATED_GetPublicKeyResultPtr(absl::in_place);
+    auto result = DEPRECATED_GetPublicKeyResultPtr(std::in_place);
     result->set_success_result(std::move(value));
     return result;
   }
@@ -1839,7 +1839,7 @@ class  DEPRECATED_GetKeyStoresResult {
   static DEPRECATED_GetKeyStoresResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = DEPRECATED_GetKeyStoresResultPtr(absl::in_place);
+    auto result = DEPRECATED_GetKeyStoresResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -1847,7 +1847,7 @@ class  DEPRECATED_GetKeyStoresResult {
   static DEPRECATED_GetKeyStoresResultPtr
   NewKeyStores(
       std::vector<KeystoreType> value) {
-    auto result = DEPRECATED_GetKeyStoresResultPtr(absl::in_place);
+    auto result = DEPRECATED_GetKeyStoresResultPtr(std::in_place);
     result->set_key_stores(std::move(value));
     return result;
   }
@@ -1969,7 +1969,7 @@ class  DEPRECATED_GetCertificatesResult {
   static DEPRECATED_GetCertificatesResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = DEPRECATED_GetCertificatesResultPtr(absl::in_place);
+    auto result = DEPRECATED_GetCertificatesResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -1977,7 +1977,7 @@ class  DEPRECATED_GetCertificatesResult {
   static DEPRECATED_GetCertificatesResultPtr
   NewCertificates(
       std::vector<std::vector<uint8_t>> value) {
-    auto result = DEPRECATED_GetCertificatesResultPtr(absl::in_place);
+    auto result = DEPRECATED_GetCertificatesResultPtr(std::in_place);
     result->set_certificates(std::move(value));
     return result;
   }
@@ -2099,7 +2099,7 @@ class  DEPRECATED_KeystoreStringResult {
   static DEPRECATED_KeystoreStringResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = DEPRECATED_KeystoreStringResultPtr(absl::in_place);
+    auto result = DEPRECATED_KeystoreStringResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -2107,7 +2107,7 @@ class  DEPRECATED_KeystoreStringResult {
   static DEPRECATED_KeystoreStringResultPtr
   NewChallengeResponse(
       const std::string& value) {
-    auto result = DEPRECATED_KeystoreStringResultPtr(absl::in_place);
+    auto result = DEPRECATED_KeystoreStringResultPtr(std::in_place);
     result->set_challenge_response(std::move(value));
     return result;
   }
@@ -2222,7 +2222,7 @@ class  KeystorePKCS115Params {
   template <typename... Args>
   static KeystorePKCS115ParamsPtr New(Args&&... args) {
     return KeystorePKCS115ParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2376,7 +2376,7 @@ class  GetPublicKeySuccessResult {
   template <typename... Args>
   static GetPublicKeySuccessResultPtr New(Args&&... args) {
     return GetPublicKeySuccessResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

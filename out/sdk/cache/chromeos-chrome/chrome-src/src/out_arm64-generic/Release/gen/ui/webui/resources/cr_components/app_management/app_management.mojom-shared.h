@@ -369,7 +369,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDetails` instead "
     "of `ReadDetails if you're fine with null values being "
@@ -499,7 +499,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `title` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTitle` instead "
     "of `ReadTitle if you're fine with null values being "
@@ -519,7 +519,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `description` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDescription` instead "
     "of `ReadDescription if you're fine with null values being "
@@ -531,14 +531,14 @@ static_assert(
   std::optional<bool> is_pinned() const {
 
     return data_->is_pinned_$flag
-        ? absl::make_optional(!!data_->is_pinned_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->is_pinned_$value)
+        : std::nullopt;
   }
   std::optional<bool> is_policy_pinned() const {
 
     return data_->is_policy_pinned_$flag
-        ? absl::make_optional(!!data_->is_policy_pinned_$value)
-        : absl::nullopt;
+        ? std::make_optional(!!data_->is_policy_pinned_$value)
+        : std::nullopt;
   }
   inline void GetVersionDataView(
       mojo::StringDataView* output);
@@ -551,7 +551,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `version` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadVersion` instead "
     "of `ReadVersion if you're fine with null values being "
@@ -571,7 +571,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSize` instead "
     "of `ReadSize if you're fine with null values being "
@@ -659,7 +659,7 @@ static_assert(
         ::app_management::mojom::RunOnOsLoginDataView, UserType>(),
     "Attempting to read the optional `run_on_os_login` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRunOnOsLogin` instead "
     "of `ReadRunOnOsLogin if you're fine with null values being "
@@ -679,7 +679,7 @@ static_assert(
         ::app_management::mojom::FileHandlingStateDataView, UserType>(),
     "Attempting to read the optional `file_handling_state` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFileHandlingState` instead "
     "of `ReadFileHandlingState if you're fine with null values being "
@@ -699,7 +699,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `app_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAppSize` instead "
     "of `ReadAppSize if you're fine with null values being "
@@ -719,7 +719,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `data_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDataSize` instead "
     "of `ReadDataSize if you're fine with null values being "
@@ -749,7 +749,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `formatted_origin` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFormattedOrigin` instead "
     "of `ReadFormattedOrigin if you're fine with null values being "
@@ -789,7 +789,7 @@ static_assert(
         ::app_management::mojom::LocaleDataView, UserType>(),
     "Attempting to read the optional `selected_locale` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSelectedLocale` instead "
     "of `ReadSelectedLocale if you're fine with null values being "
@@ -887,7 +887,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `learn_more_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLearnMoreUrl` instead "
     "of `ReadLearnMoreUrl if you're fine with null values being "

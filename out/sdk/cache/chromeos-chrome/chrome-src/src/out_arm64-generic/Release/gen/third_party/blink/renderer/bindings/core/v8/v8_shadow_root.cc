@@ -281,6 +281,21 @@ blink_receiver->setSerializable(arg1_value);
 
 }
 
+void ClonableAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ShadowRoot_clonable_Getter");
+BLINK_BINDINGS_TRACE_EVENT("ShadowRoot.clonable.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+ShadowRoot* blink_receiver = V8ShadowRoot::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->clonable();
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
+}
+
+
 void ActiveElementAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_ShadowRoot_activeElement_Getter");
@@ -1042,6 +1057,14 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 if (RuntimeEnabledFeatures::ElementGetHTMLEnabled()) {
   static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
 {"serializable", SerializableAttributeGetCallback, SerializableAttributeSetCallback, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+};
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototype_template, interface_template, signature, kAttributeTable);
+}
+if (RuntimeEnabledFeatures::ShadowRootClonableEnabled()) {
+  static const IDLMemberInstaller::AttributeConfig kAttributeTable[] = {
+{"clonable", ClonableAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);

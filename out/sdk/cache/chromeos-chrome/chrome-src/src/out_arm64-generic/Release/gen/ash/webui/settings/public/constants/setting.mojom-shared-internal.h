@@ -241,6 +241,7 @@ struct Setting_Data {
       case 1535:
       case 1536:
       case 1600:
+      case 1601:
       case 1700:
       case 1701:
       case 1702:
@@ -254,6 +255,7 @@ struct Setting_Data {
       case 1800:
       case 1801:
       case 1802:
+      case 1900:
         return true;
     }
     return false;

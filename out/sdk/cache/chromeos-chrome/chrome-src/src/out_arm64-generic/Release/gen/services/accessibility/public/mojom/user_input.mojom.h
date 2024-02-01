@@ -163,7 +163,7 @@ class  SyntheticKeyEvent {
   template <typename... Args>
   static SyntheticKeyEventPtr New(Args&&... args) {
     return SyntheticKeyEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

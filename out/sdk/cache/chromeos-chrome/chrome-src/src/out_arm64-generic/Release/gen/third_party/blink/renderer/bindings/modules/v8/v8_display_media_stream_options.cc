@@ -142,11 +142,9 @@ if (RuntimeEnabledFeatures::CaptureControllerEnabled()) {
 v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
 }
 }
-if (RuntimeEnabledFeatures::MonitorTypeSurfacesEnabled()) {
-  if (hasMonitorTypeSurfaces()) {
+if (hasMonitorTypeSurfaces()) {
   v8_value = ToV8Traits<V8DisplayMediaIncludeOrExclude>::ToV8(script_state, member_monitor_type_surfaces_);
 v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
-}
 }
 if (hasPreferCurrentTab()) {
   v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_prefer_current_tab_);
@@ -196,11 +194,9 @@ if (!bindings::GetDictionaryMemberFromV8Object<CaptureController, is_optional>(i
   return;
 }
 }
-if (RuntimeEnabledFeatures::MonitorTypeSurfacesEnabled()) {
-  exception_context_scope.ChangePropertyNameAsOptimizationHack("monitorTypeSurfaces");
+exception_context_scope.ChangePropertyNameAsOptimizationHack("monitorTypeSurfaces");
 if (!bindings::GetDictionaryMemberFromV8Object<V8DisplayMediaIncludeOrExclude, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[3].Get(isolate), has_monitor_type_surfaces_, member_monitor_type_surfaces_, try_block, exception_state)) {
   return;
-}
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("preferCurrentTab");
 if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[4].Get(isolate), fallback_presence_var, member_prefer_current_tab_, try_block, exception_state)) {

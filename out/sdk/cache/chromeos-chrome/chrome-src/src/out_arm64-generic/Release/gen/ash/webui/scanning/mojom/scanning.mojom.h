@@ -500,7 +500,7 @@ class  ScanSource {
   template <typename... Args>
   static ScanSourcePtr New(Args&&... args) {
     return ScanSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -652,7 +652,7 @@ class  ScannerCapabilities {
   template <typename... Args>
   static ScannerCapabilitiesPtr New(Args&&... args) {
     return ScannerCapabilitiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -794,7 +794,7 @@ class  ScanSettings {
   template <typename... Args>
   static ScanSettingsPtr New(Args&&... args) {
     return ScanSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -949,7 +949,7 @@ class  Scanner {
   template <typename... Args>
   static ScannerPtr New(Args&&... args) {
     return ScannerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

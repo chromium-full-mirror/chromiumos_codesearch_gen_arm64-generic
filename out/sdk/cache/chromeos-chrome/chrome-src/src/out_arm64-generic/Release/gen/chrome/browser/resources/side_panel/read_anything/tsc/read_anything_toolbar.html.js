@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="cr-icons md-select">iron-icon{--icon-size:20px;height:var(--icon-size);width:var(--icon-size);margin:0 8px 0 4px}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-size:24px;margin:0 4px;color:var(--color-sys-on-surface-subtle)}cr-icon-button.active{background-color:var(--cr-active-background-color)}#play-pause{--cr-icon-button-icon-size:20px;--cr-icon-button-size:28px;color:var(--color-side-panel-entry-icon);--cr-icon-button-fill-color:var(--color-sys-primary)}.audio-background-when-paused-true{--audio-controls-background:transparent;--audio-controls-right-padding:0px;--audio-controls-right-margin:2px}.audio-background-when-paused-false{--audio-controls-background:var(--color-sys-tonal-container);--audio-controls-right-padding:4px;--audio-controls-right-margin:6px}#audio-controls{border-radius:18px;display:inline-block;background:var(--audio-controls-background);height:fit-content;padding:4px var(--audio-controls-right-padding) 4px 2px;margin-right:var(--audio-controls-right-margin)}.audio-controls{margin:0 2px}.dropdown-item{align-items:center;padding-left:20px;min-width:180px;font-size:13px}#voiceSelectionMenu::part(dialog){min-width:304px;width:304px;margin-left:var(--sp-body-padding);max-height:95%}.dropdown-voice-selection{display:flex;align-items:center;justify-content:space-between}.dropdown-voice-selection cr-icon-button{margin:0}.voice-name{max-width:220px;overflow:hidden;text-overflow:ellipsis}.item-invisible-true{visibility:hidden}.display-false{display:none}#font-size-decrease{margin-left:12px}#font-size-reset{margin-right:4px}.text-button{border:none;font-size:13px}.check-mark{visibility:hidden;margin:0}.toolbar-container{padding:6px 8px;overflow:visible;white-space:nowrap;max-height:48px;display:inline-block}#more{display:none}.separator{display:inline;width:20px;height:0;transform:rotate(-90deg);margin:10px 4px;background:var(--color-sys-divider)}:host-context([chrome-refresh-2023]) .separator{background:var(--color-side-panel-divider)}.md-select{--md-select-width:fit-content;margin:4px 8px 4px 0}:host-context([chrome-refresh-2023]) .md-select{--md-select-text-color:var(--cr-primary-text-color)}:host-context([chrome-refresh-2023]) .md-select option{--md-select-option-bg-color:var(--color-sys-base-container-elevated)}.more-options-icon{margin:8px 6px}</style>
+    return html `<!--_html_template_start_--><style include="cr-icons md-select">iron-icon{--icon-size:20px;height:var(--icon-size);width:var(--icon-size);margin:0 8px 0 4px}cr-icon-button{--cr-icon-button-icon-size:16px;--cr-icon-button-size:24px;margin:0 4px;color:var(--color-sys-on-surface-subtle)}cr-icon-button.active{background-color:var(--cr-active-background-color)}#play-pause{--cr-icon-button-icon-size:20px;--cr-icon-button-size:28px;color:var(--color-side-panel-entry-icon);--cr-icon-button-fill-color:var(--color-sys-primary)}.audio-background-when-paused-true{--audio-controls-background:transparent;--audio-controls-right-padding:0px;--audio-controls-right-margin:2px}.audio-background-when-paused-false{--audio-controls-background:var(--color-sys-tonal-container);--audio-controls-right-padding:4px;--audio-controls-right-margin:6px}#audio-controls{border-radius:18px;display:inline-block;background:var(--audio-controls-background);height:fit-content;padding:4px var(--audio-controls-right-padding) 4px 2px;margin-right:var(--audio-controls-right-margin)}.audio-controls{margin:0 2px}.dropdown-item{align-items:center;padding-left:20px;min-width:180px;font-size:13px}#font-size-decrease{margin-left:12px}#font-size-reset{margin-right:4px}.text-button{border:none;font-size:13px}.check-mark{visibility:hidden;margin:0}.toolbar-container{padding:6px 8px;overflow:visible;white-space:nowrap;max-height:48px;display:inline-block}#more{display:none}.separator{display:inline;width:20px;height:0;transform:rotate(-90deg);margin:10px 4px;background:var(--color-sys-divider)}:host-context([chrome-refresh-2023]) .separator{background:var(--color-side-panel-divider)}.md-select{--md-select-width:fit-content;margin:4px 8px 4px 0}:host-context([chrome-refresh-2023]) .md-select{--md-select-text-color:var(--cr-primary-text-color)}:host-context([chrome-refresh-2023]) .md-select option{--md-select-option-bg-color:var(--color-sys-base-container-elevated)}.more-options-icon{margin:8px 6px}</style>
 <div id="toolbar-container" class="toolbar-container" role="toolbar" aria-label="$i18n{readingModeToolbarLabel}" on-keydown="onToolbarKeyDown_">
   <template id="read-aloud-container" is="dom-if" if="[[isReadAloudEnabled_]]">
     <span id="audio-controls" class$="audio-background-when-paused-[[paused]]">
@@ -15,8 +15,8 @@ export function getTemplate() {
     </span>
     <cr-icon-button class="toolbar-button" id="rate" tabindex="-1" aria-label="$i18n{voiceSpeedLabel}" aria-haspopup="menu" iron-icon="voice-rate:1" on-click="onShowRateMenuClick_">
     </cr-icon-button>
-    <cr-icon-button id="voice-selection" on-click="onVoiceSelectionMenuClick_" class="toolbar-button" tabindex="-1" aria-label="$i18n{voiceSelectionLabel}" aria-haspopup="menu" iron-icon="read-anything:voice-selection">
-    </cr-icon-button>
+    <voice-selection-menu id="voiceSelectionMenu" selected-voice="[[selectedVoice]]" available-voices="[[availableVoices]]" preview-voice-playing="[[previewVoicePlaying]]">
+    </voice-selection-menu>
     <cr-icon-button class="toolbar-button" id="highlight" tabindex="-1" iron-icon="read-anything:highlight-on" title="$i18n{turnHighlightOff}" on-click="onHighlightClick_">
     </cr-icon-button>
   </template>
@@ -37,7 +37,7 @@ export function getTemplate() {
   <hr class="separator" aria-hidden="true">
 
   <template is="dom-repeat" items="[[textStyleToggles_]]">
-    <cr-icon-button tabindex="-1" class="toolbar-button" id="[[item.id]]" aria-label="[[item.ariaLabel]]" iron-icon="[[item.icon]]" on-click="onToggleButtonClick_">
+    <cr-icon-button tabindex="-1" class="toolbar-button" disabled="[[!paused]]" id="[[item.id]]" aria-label="[[item.ariaLabel]]" iron-icon="[[item.icon]]" on-click="onToggleButtonClick_">
     </cr-icon-button>
   </template>
 
@@ -59,20 +59,6 @@ export function getTemplate() {
       <button class="dropdown-item" on-click="onRateClick_">
         <iron-icon class="button-image check-mark" icon="read-anything-20:check-mark"></iron-icon>
         [[item]]x
-      </button>
-    </template>
-  </cr-action-menu>
-  <cr-action-menu id="voiceSelectionMenu">
-    <template is="dom-repeat" items="[[voiceSelectionOptions_]]">
-      
-      <button class="dropdown-item dropdown-voice-selection" on-click="onVoiceSelectClick_">
-        <span class="voice-name">
-          <iron-icon class$="button-image item-invisible-[[!item.data.selected]]" icon="read-anything-20:check-mark"></iron-icon>
-          [[item.title]]
-        </span>
-        <cr-icon-button on-click="onVoicePreviewClick_" class$="button-image display-[[!item.data.previewPlaying]]" iron-icon="read-anything-20:play-circle"></cr-icon-button>
-        
-        <cr-icon-button on-click="onVoicePreviewClick_" class$="button-image display-[[item.data.previewPlaying]]" iron-icon="read-anything-20:pause-circle"></cr-icon-button>
       </button>
     </template>
   </cr-action-menu>

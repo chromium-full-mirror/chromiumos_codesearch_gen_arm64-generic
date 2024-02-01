@@ -194,7 +194,7 @@ class  PasskeyCreationResult {
   static PasskeyCreationResultPtr
   NewResponse(
       PasskeyCreationResponsePtr value) {
-    auto result = PasskeyCreationResultPtr(absl::in_place);
+    auto result = PasskeyCreationResultPtr(std::in_place);
     result->set_response(std::move(value));
     return result;
   }
@@ -202,7 +202,7 @@ class  PasskeyCreationResult {
   static PasskeyCreationResultPtr
   NewError(
       PasskeyCreationError value) {
-    auto result = PasskeyCreationResultPtr(absl::in_place);
+    auto result = PasskeyCreationResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -324,7 +324,7 @@ class  PasskeyAssertionResult {
   static PasskeyAssertionResultPtr
   NewResponse(
       PasskeyAssertionResponsePtr value) {
-    auto result = PasskeyAssertionResultPtr(absl::in_place);
+    auto result = PasskeyAssertionResultPtr(std::in_place);
     result->set_response(std::move(value));
     return result;
   }
@@ -332,7 +332,7 @@ class  PasskeyAssertionResult {
   static PasskeyAssertionResultPtr
   NewError(
       PasskeyAssertionError value) {
-    auto result = PasskeyAssertionResultPtr(absl::in_place);
+    auto result = PasskeyAssertionResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -446,7 +446,7 @@ class  PasskeyCreationRequest {
   template <typename... Args>
   static PasskeyCreationRequestPtr New(Args&&... args) {
     return PasskeyCreationRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -598,7 +598,7 @@ class  PasskeyCreationResponse {
   template <typename... Args>
   static PasskeyCreationResponsePtr New(Args&&... args) {
     return PasskeyCreationResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -738,7 +738,7 @@ class  PasskeyAssertionRequest {
   template <typename... Args>
   static PasskeyAssertionRequestPtr New(Args&&... args) {
     return PasskeyAssertionRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -890,7 +890,7 @@ class  PasskeyAssertionResponse {
   template <typename... Args>
   static PasskeyAssertionResponsePtr New(Args&&... args) {
     return PasskeyAssertionResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

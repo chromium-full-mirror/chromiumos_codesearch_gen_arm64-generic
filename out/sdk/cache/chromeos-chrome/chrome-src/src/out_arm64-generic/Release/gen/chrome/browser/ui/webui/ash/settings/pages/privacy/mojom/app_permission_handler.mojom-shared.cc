@@ -291,6 +291,34 @@ AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data::AppPer
 
 
 // static
+bool AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data* object =
+      static_cast<const AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data*>(data);
+
+
+  if (!::app_management::mojom::internal::PermissionType_Data
+        ::Validate(object->permission_type, validation_context))
+    return false;
+
+  return true;
+}
+
+AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data::AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool AppPermissionsHandler_OpenNativeSettings_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

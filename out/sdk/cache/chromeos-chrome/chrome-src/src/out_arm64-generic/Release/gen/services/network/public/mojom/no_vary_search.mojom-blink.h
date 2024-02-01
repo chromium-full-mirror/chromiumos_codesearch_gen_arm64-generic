@@ -67,7 +67,7 @@ class BLINK_PLATFORM_EXPORT SearchParamsVariance {
   static SearchParamsVariancePtr
   NewNoVaryParams(
       WTF::Vector<WTF::String> value) {
-    auto result = SearchParamsVariancePtr(absl::in_place);
+    auto result = SearchParamsVariancePtr(std::in_place);
     result->set_no_vary_params(std::move(value));
     return result;
   }
@@ -75,7 +75,7 @@ class BLINK_PLATFORM_EXPORT SearchParamsVariance {
   static SearchParamsVariancePtr
   NewVaryParams(
       WTF::Vector<WTF::String> value) {
-    auto result = SearchParamsVariancePtr(absl::in_place);
+    auto result = SearchParamsVariancePtr(std::in_place);
     result->set_vary_params(std::move(value));
     return result;
   }
@@ -197,7 +197,7 @@ class BLINK_PLATFORM_EXPORT NoVarySearchWithParseError {
   static NoVarySearchWithParseErrorPtr
   NewNoVarySearch(
       NoVarySearchPtr value) {
-    auto result = NoVarySearchWithParseErrorPtr(absl::in_place);
+    auto result = NoVarySearchWithParseErrorPtr(std::in_place);
     result->set_no_vary_search(std::move(value));
     return result;
   }
@@ -205,7 +205,7 @@ class BLINK_PLATFORM_EXPORT NoVarySearchWithParseError {
   static NoVarySearchWithParseErrorPtr
   NewParseError(
       NoVarySearchParseError value) {
-    auto result = NoVarySearchWithParseErrorPtr(absl::in_place);
+    auto result = NoVarySearchWithParseErrorPtr(std::in_place);
     result->set_parse_error(std::move(value));
     return result;
   }
@@ -319,7 +319,7 @@ class BLINK_PLATFORM_EXPORT NoVarySearch {
   template <typename... Args>
   static NoVarySearchPtr New(Args&&... args) {
     return NoVarySearchPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

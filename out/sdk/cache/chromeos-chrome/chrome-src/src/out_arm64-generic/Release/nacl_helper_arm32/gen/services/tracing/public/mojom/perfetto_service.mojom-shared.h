@@ -523,7 +523,7 @@ static_assert(
         ::tracing::mojom::ConsoleConfigDataView, UserType>(),
     "Attempting to read the optional `console_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadConsoleConfig` instead "
     "of `ReadConsoleConfig if you're fine with null values being "
@@ -588,7 +588,7 @@ static_assert(
         ::tracing::mojom::InterceptorConfigDataView, UserType>(),
     "Attempting to read the optional `interceptor_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInterceptorConfig` instead "
     "of `ReadInterceptorConfig if you're fine with null values being "
@@ -837,7 +837,7 @@ static_assert(
         ::mojo_base::mojom::TokenDataView, UserType>(),
     "Attempting to read the optional `trace_uuid` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTraceUuid` instead "
     "of `ReadTraceUuid if you're fine with null values being "

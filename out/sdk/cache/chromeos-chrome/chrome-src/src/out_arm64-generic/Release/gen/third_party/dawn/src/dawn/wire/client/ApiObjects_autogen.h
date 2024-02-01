@@ -276,9 +276,7 @@ namespace dawn::wire::client {
     template <>
     inline constexpr ObjectType ObjectTypeToTypeEnum<ShaderModule> = ObjectType::ShaderModule;
 
-    struct Surface final : ObjectBase {
-        using ObjectBase::ObjectBase;
-    };
+    class Surface;
 
     inline Surface* FromAPI(WGPUSurface obj) {
         return reinterpret_cast<Surface*>(obj);

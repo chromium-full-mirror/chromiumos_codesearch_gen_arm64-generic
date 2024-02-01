@@ -69,7 +69,7 @@ class  ServiceWorkerRegistrationData {
   template <typename... Args>
   static ServiceWorkerRegistrationDataPtr New(Args&&... args) {
     return ServiceWorkerRegistrationDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -268,7 +268,7 @@ class  ServiceWorkerResourceRecord {
   template <typename... Args>
   static ServiceWorkerResourceRecordPtr New(Args&&... args) {
     return ServiceWorkerResourceRecordPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

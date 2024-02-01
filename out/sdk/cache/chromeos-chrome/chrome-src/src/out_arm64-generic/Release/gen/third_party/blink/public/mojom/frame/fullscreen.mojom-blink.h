@@ -59,7 +59,7 @@ class CORE_EXPORT FullscreenOptions {
   template <typename... Args>
   static FullscreenOptionsPtr New(Args&&... args) {
     return FullscreenOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

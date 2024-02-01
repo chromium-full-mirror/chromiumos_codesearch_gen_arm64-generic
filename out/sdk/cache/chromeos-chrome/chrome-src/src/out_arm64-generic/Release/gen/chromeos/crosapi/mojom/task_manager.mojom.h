@@ -325,7 +325,7 @@ class  WebCacheResourceTypeStat {
   template <typename... Args>
   static WebCacheResourceTypeStatPtr New(Args&&... args) {
     return WebCacheResourceTypeStatPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -478,7 +478,7 @@ class  WebCacheResourceTypeStats {
   template <typename... Args>
   static WebCacheResourceTypeStatsPtr New(Args&&... args) {
     return WebCacheResourceTypeStatsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -636,7 +636,7 @@ class  Task {
   template <typename... Args>
   static TaskPtr New(Args&&... args) {
     return TaskPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -809,7 +809,7 @@ class  TaskGroup {
   template <typename... Args>
   static TaskGroupPtr New(Args&&... args) {
     return TaskGroupPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -22,7 +22,6 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/services/device/public/mojom/mojom__parser.rsp
 home/chrome-bot/chrome_root/src/services/device/public/mojom/battery_monitor.mojom
 home/chrome-bot/chrome_root/src/services/device/public/mojom/battery_status.mojom
-home/chrome-bot/chrome_root/src/services/device/public/mojom/device_posture_provider.mojom
 home/chrome-bot/chrome_root/src/services/device/public/mojom/fingerprint.mojom
 home/chrome-bot/chrome_root/src/services/device/public/mojom/geolocation.mojom
 home/chrome-bot/chrome_root/src/services/device/public/mojom/geolocation_config.mojom

@@ -32,12 +32,6 @@ class SeaPenFeedbackMetadataDataView;
 
 class SeaPenQueryDataView;
 
-enum class SeaPenTemplateId : int32_t;
-
-enum class SeaPenTemplateChip : int32_t;
-
-enum class SeaPenTemplateOption : int32_t;
-
 enum class MantaStatusCode : int32_t;
 
 constexpr uint32_t kMaximumSearchWallpaperTextBytes = 3000U;

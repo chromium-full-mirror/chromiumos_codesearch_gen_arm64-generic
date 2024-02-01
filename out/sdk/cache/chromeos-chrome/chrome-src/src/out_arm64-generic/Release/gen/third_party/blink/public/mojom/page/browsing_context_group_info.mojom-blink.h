@@ -61,7 +61,7 @@ class CORE_EXPORT BrowsingContextGroupInfo {
   template <typename... Args>
   static BrowsingContextGroupInfoPtr New(Args&&... args) {
     return BrowsingContextGroupInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

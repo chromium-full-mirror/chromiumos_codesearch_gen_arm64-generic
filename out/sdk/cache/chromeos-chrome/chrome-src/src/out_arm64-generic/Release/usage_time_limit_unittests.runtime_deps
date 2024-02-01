@@ -248,6 +248,7 @@ gen/third_party/devtools-frontend/src/front_end/Images/layers-filled.svg
 gen/third_party/devtools-frontend/src/front_end/Images/layers.svg
 gen/third_party/devtools-frontend/src/front_end/Images/left-panel-close.svg
 gen/third_party/devtools-frontend/src/front_end/Images/left-panel-open.svg
+gen/third_party/devtools-frontend/src/front_end/Images/lightbulb-spark.svg
 gen/third_party/devtools-frontend/src/front_end/Images/lighthouse_logo.svg
 gen/third_party/devtools-frontend/src/front_end/Images/list.svg
 gen/third_party/devtools-frontend/src/front_end/Images/match-whole-word.svg
@@ -322,6 +323,7 @@ gen/third_party/devtools-frontend/src/front_end/core/platform/platform.js
 gen/third_party/devtools-frontend/src/front_end/core/platform/platform.prebundle.js
 gen/third_party/devtools-frontend/src/front_end/core/platform/platform.prebundle.js.map
 gen/third_party/devtools-frontend/src/front_end/core/platform/DevToolsPath.js
+gen/third_party/devtools-frontend/src/front_end/core/platform/MimeType.js
 gen/third_party/devtools-frontend/src/front_end/core/platform/Timing.js
 gen/third_party/devtools-frontend/src/front_end/core/platform/UIString.js
 gen/third_party/devtools-frontend/src/front_end/core/platform/UserVisibleError.js
@@ -337,6 +339,7 @@ gen/third_party/devtools-frontend/src/front_end/core/platform/set-utilities.js
 gen/third_party/devtools-frontend/src/front_end/core/platform/string-utilities.js
 gen/third_party/devtools-frontend/src/front_end/core/platform/typescript-utilities.js
 gen/third_party/devtools-frontend/src/front_end/core/platform/DevToolsPath.js.map
+gen/third_party/devtools-frontend/src/front_end/core/platform/MimeType.js.map
 gen/third_party/devtools-frontend/src/front_end/core/platform/Timing.js.map
 gen/third_party/devtools-frontend/src/front_end/core/platform/UIString.js.map
 gen/third_party/devtools-frontend/src/front_end/core/platform/UserVisibleError.js.map
@@ -507,7 +510,6 @@ gen/third_party/devtools-frontend/src/front_end/core/sdk/CompilerSourceMappingCo
 gen/third_party/devtools-frontend/src/front_end/core/sdk/Connections.js
 gen/third_party/devtools-frontend/src/front_end/core/sdk/ConsoleModel.js
 gen/third_party/devtools-frontend/src/front_end/core/sdk/ConsoleModelTypes.js
-gen/third_party/devtools-frontend/src/front_end/core/sdk/ContentData.js
 gen/third_party/devtools-frontend/src/front_end/core/sdk/Cookie.js
 gen/third_party/devtools-frontend/src/front_end/core/sdk/CookieModel.js
 gen/third_party/devtools-frontend/src/front_end/core/sdk/CookieParser.js
@@ -525,7 +527,6 @@ gen/third_party/devtools-frontend/src/front_end/core/sdk/IsolateManager.js
 gen/third_party/devtools-frontend/src/front_end/core/sdk/IssuesModel.js
 gen/third_party/devtools-frontend/src/front_end/core/sdk/LayerTreeBase.js
 gen/third_party/devtools-frontend/src/front_end/core/sdk/LogModel.js
-gen/third_party/devtools-frontend/src/front_end/core/sdk/MimeType.js
 gen/third_party/devtools-frontend/src/front_end/core/sdk/NetworkManager.js
 gen/third_party/devtools-frontend/src/front_end/core/sdk/NetworkRequest.js
 gen/third_party/devtools-frontend/src/front_end/core/sdk/OverlayColorGenerator.js
@@ -583,7 +584,6 @@ gen/third_party/devtools-frontend/src/front_end/core/sdk/CompilerSourceMappingCo
 gen/third_party/devtools-frontend/src/front_end/core/sdk/Connections.js.map
 gen/third_party/devtools-frontend/src/front_end/core/sdk/ConsoleModel.js.map
 gen/third_party/devtools-frontend/src/front_end/core/sdk/ConsoleModelTypes.js.map
-gen/third_party/devtools-frontend/src/front_end/core/sdk/ContentData.js.map
 gen/third_party/devtools-frontend/src/front_end/core/sdk/Cookie.js.map
 gen/third_party/devtools-frontend/src/front_end/core/sdk/CookieModel.js.map
 gen/third_party/devtools-frontend/src/front_end/core/sdk/CookieParser.js.map
@@ -601,7 +601,6 @@ gen/third_party/devtools-frontend/src/front_end/core/sdk/IsolateManager.js.map
 gen/third_party/devtools-frontend/src/front_end/core/sdk/IssuesModel.js.map
 gen/third_party/devtools-frontend/src/front_end/core/sdk/LayerTreeBase.js.map
 gen/third_party/devtools-frontend/src/front_end/core/sdk/LogModel.js.map
-gen/third_party/devtools-frontend/src/front_end/core/sdk/MimeType.js.map
 gen/third_party/devtools-frontend/src/front_end/core/sdk/NetworkManager.js.map
 gen/third_party/devtools-frontend/src/front_end/core/sdk/NetworkRequest.js.map
 gen/third_party/devtools-frontend/src/front_end/core/sdk/OverlayColorGenerator.js.map
@@ -661,6 +660,7 @@ gen/third_party/devtools-frontend/src/front_end/models/text_utils/text_utils.js
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/text_utils.prebundle.js
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/text_utils.prebundle.js.map
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/CodeMirrorUtils.js
+gen/third_party/devtools-frontend/src/front_end/models/text_utils/ContentData.js
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/ContentProvider.js
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/StaticContentProvider.js
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/Text.js
@@ -668,6 +668,7 @@ gen/third_party/devtools-frontend/src/front_end/models/text_utils/TextCursor.js
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/TextRange.js
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/TextUtils.js
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/CodeMirrorUtils.js.map
+gen/third_party/devtools-frontend/src/front_end/models/text_utils/ContentData.js.map
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/ContentProvider.js.map
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/StaticContentProvider.js.map
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/Text.js.map
@@ -4756,6 +4757,7 @@ gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/Dat
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/DevToolsPath_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/KeyboardUtilities_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/MapUtilities_test.js
+gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/MimeType_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/NumberUtilities_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/SetUtilities_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/StringUtilities_test.js
@@ -4765,6 +4767,7 @@ gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/Dat
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/DevToolsPath_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/KeyboardUtilities_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/MapUtilities_test.js.map
+gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/MimeType_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/NumberUtilities_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/SetUtilities_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/platform/StringUtilities_test.js.map
@@ -4783,7 +4786,6 @@ gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/CSSStyle
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/CSSStyleSheetHeader_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/ChildTargetManager_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/ConsoleModel_test.js
-gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/ContentData_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/CookieModel_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/CookieParser_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/Cookie_test.js
@@ -4791,7 +4793,6 @@ gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/DOMModel
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/DebuggerModel_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/EmulationModel_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/FrameManager_test.js
-gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/MimeType_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/NetworkManager_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/NetworkRequest_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/OverlayColorGenerator_test.js
@@ -4822,7 +4823,6 @@ gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/CSSStyle
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/CSSStyleSheetHeader_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/ChildTargetManager_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/ConsoleModel_test.js.map
-gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/ContentData_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/CookieModel_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/CookieParser_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/Cookie_test.js.map
@@ -4830,7 +4830,6 @@ gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/DOMModel
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/DebuggerModel_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/EmulationModel_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/FrameManager_test.js.map
-gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/MimeType_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/NetworkManager_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/NetworkRequest_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/OverlayColorGenerator_test.js.map
@@ -4974,11 +4973,13 @@ gen/third_party/devtools-frontend/src/test/unittests/front_end/models/source_map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/source_map_scopes/ScopeTreeCache_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/source_map_scopes/NamesResolver_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/source_map_scopes/ScopeTreeCache_test.js.map
+gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/ContentData_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/StaticContentProvider_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/TextCursor_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/TextRange_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/TextUtils_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/Text_test.js
+gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/ContentData_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/StaticContentProvider_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/TextCursor_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/TextRange_test.js.map

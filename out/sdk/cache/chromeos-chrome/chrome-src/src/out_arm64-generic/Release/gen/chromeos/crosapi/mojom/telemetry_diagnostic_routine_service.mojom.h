@@ -405,7 +405,7 @@ class  TelemetryDiagnosticMemoryRoutineArgument {
   template <typename... Args>
   static TelemetryDiagnosticMemoryRoutineArgumentPtr New(Args&&... args) {
     return TelemetryDiagnosticMemoryRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -546,7 +546,7 @@ class  TelemetryDiagnosticFanRoutineArgument {
   template <typename... Args>
   static TelemetryDiagnosticFanRoutineArgumentPtr New(Args&&... args) {
     return TelemetryDiagnosticFanRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -682,7 +682,7 @@ class  TelemetryDiagnosticRoutineStateInitialized {
   template <typename... Args>
   static TelemetryDiagnosticRoutineStateInitializedPtr New(Args&&... args) {
     return TelemetryDiagnosticRoutineStateInitializedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -818,7 +818,7 @@ class  TelemetryDiagnosticRoutineStateRunning {
   template <typename... Args>
   static TelemetryDiagnosticRoutineStateRunningPtr New(Args&&... args) {
     return TelemetryDiagnosticRoutineStateRunningPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -955,7 +955,7 @@ class  TelemetryDiagnosticRoutineStateWaiting {
   template <typename... Args>
   static TelemetryDiagnosticRoutineStateWaitingPtr New(Args&&... args) {
     return TelemetryDiagnosticRoutineStateWaitingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1101,7 +1101,7 @@ class  TelemetryDiagnosticVolumeButtonRoutineDetail {
   template <typename... Args>
   static TelemetryDiagnosticVolumeButtonRoutineDetailPtr New(Args&&... args) {
     return TelemetryDiagnosticVolumeButtonRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1250,7 +1250,7 @@ class  TelemetryDiagnosticRoutineArgument {
   static TelemetryDiagnosticRoutineArgumentPtr
   NewUnrecognizedArgument(
       bool value) {
-    auto result = TelemetryDiagnosticRoutineArgumentPtr(absl::in_place);
+    auto result = TelemetryDiagnosticRoutineArgumentPtr(std::in_place);
     result->set_unrecognizedArgument(std::move(value));
     return result;
   }
@@ -1258,7 +1258,7 @@ class  TelemetryDiagnosticRoutineArgument {
   static TelemetryDiagnosticRoutineArgumentPtr
   NewMemory(
       TelemetryDiagnosticMemoryRoutineArgumentPtr value) {
-    auto result = TelemetryDiagnosticRoutineArgumentPtr(absl::in_place);
+    auto result = TelemetryDiagnosticRoutineArgumentPtr(std::in_place);
     result->set_memory(std::move(value));
     return result;
   }
@@ -1266,7 +1266,7 @@ class  TelemetryDiagnosticRoutineArgument {
   static TelemetryDiagnosticRoutineArgumentPtr
   NewVolumeButton(
       TelemetryDiagnosticVolumeButtonRoutineArgumentPtr value) {
-    auto result = TelemetryDiagnosticRoutineArgumentPtr(absl::in_place);
+    auto result = TelemetryDiagnosticRoutineArgumentPtr(std::in_place);
     result->set_volume_button(std::move(value));
     return result;
   }
@@ -1274,7 +1274,7 @@ class  TelemetryDiagnosticRoutineArgument {
   static TelemetryDiagnosticRoutineArgumentPtr
   NewFan(
       TelemetryDiagnosticFanRoutineArgumentPtr value) {
-    auto result = TelemetryDiagnosticRoutineArgumentPtr(absl::in_place);
+    auto result = TelemetryDiagnosticRoutineArgumentPtr(std::in_place);
     result->set_fan(std::move(value));
     return result;
   }
@@ -1422,7 +1422,7 @@ class  TelemetryDiagnosticRoutineDetail {
   static TelemetryDiagnosticRoutineDetailPtr
   NewUnrecognizedArgument(
       bool value) {
-    auto result = TelemetryDiagnosticRoutineDetailPtr(absl::in_place);
+    auto result = TelemetryDiagnosticRoutineDetailPtr(std::in_place);
     result->set_unrecognizedArgument(std::move(value));
     return result;
   }
@@ -1430,7 +1430,7 @@ class  TelemetryDiagnosticRoutineDetail {
   static TelemetryDiagnosticRoutineDetailPtr
   NewMemory(
       TelemetryDiagnosticMemoryRoutineDetailPtr value) {
-    auto result = TelemetryDiagnosticRoutineDetailPtr(absl::in_place);
+    auto result = TelemetryDiagnosticRoutineDetailPtr(std::in_place);
     result->set_memory(std::move(value));
     return result;
   }
@@ -1438,7 +1438,7 @@ class  TelemetryDiagnosticRoutineDetail {
   static TelemetryDiagnosticRoutineDetailPtr
   NewVolumeButton(
       TelemetryDiagnosticVolumeButtonRoutineDetailPtr value) {
-    auto result = TelemetryDiagnosticRoutineDetailPtr(absl::in_place);
+    auto result = TelemetryDiagnosticRoutineDetailPtr(std::in_place);
     result->set_volume_button(std::move(value));
     return result;
   }
@@ -1446,7 +1446,7 @@ class  TelemetryDiagnosticRoutineDetail {
   static TelemetryDiagnosticRoutineDetailPtr
   NewFan(
       TelemetryDiagnosticFanRoutineDetailPtr value) {
-    auto result = TelemetryDiagnosticRoutineDetailPtr(absl::in_place);
+    auto result = TelemetryDiagnosticRoutineDetailPtr(std::in_place);
     result->set_fan(std::move(value));
     return result;
   }
@@ -1594,7 +1594,7 @@ class  TelemetryDiagnosticRoutineStateUnion {
   static TelemetryDiagnosticRoutineStateUnionPtr
   NewUnrecognizedArgument(
       bool value) {
-    auto result = TelemetryDiagnosticRoutineStateUnionPtr(absl::in_place);
+    auto result = TelemetryDiagnosticRoutineStateUnionPtr(std::in_place);
     result->set_unrecognizedArgument(std::move(value));
     return result;
   }
@@ -1602,7 +1602,7 @@ class  TelemetryDiagnosticRoutineStateUnion {
   static TelemetryDiagnosticRoutineStateUnionPtr
   NewInitialized(
       TelemetryDiagnosticRoutineStateInitializedPtr value) {
-    auto result = TelemetryDiagnosticRoutineStateUnionPtr(absl::in_place);
+    auto result = TelemetryDiagnosticRoutineStateUnionPtr(std::in_place);
     result->set_initialized(std::move(value));
     return result;
   }
@@ -1610,7 +1610,7 @@ class  TelemetryDiagnosticRoutineStateUnion {
   static TelemetryDiagnosticRoutineStateUnionPtr
   NewRunning(
       TelemetryDiagnosticRoutineStateRunningPtr value) {
-    auto result = TelemetryDiagnosticRoutineStateUnionPtr(absl::in_place);
+    auto result = TelemetryDiagnosticRoutineStateUnionPtr(std::in_place);
     result->set_running(std::move(value));
     return result;
   }
@@ -1618,7 +1618,7 @@ class  TelemetryDiagnosticRoutineStateUnion {
   static TelemetryDiagnosticRoutineStateUnionPtr
   NewWaiting(
       TelemetryDiagnosticRoutineStateWaitingPtr value) {
-    auto result = TelemetryDiagnosticRoutineStateUnionPtr(absl::in_place);
+    auto result = TelemetryDiagnosticRoutineStateUnionPtr(std::in_place);
     result->set_waiting(std::move(value));
     return result;
   }
@@ -1626,7 +1626,7 @@ class  TelemetryDiagnosticRoutineStateUnion {
   static TelemetryDiagnosticRoutineStateUnionPtr
   NewFinished(
       TelemetryDiagnosticRoutineStateFinishedPtr value) {
-    auto result = TelemetryDiagnosticRoutineStateUnionPtr(absl::in_place);
+    auto result = TelemetryDiagnosticRoutineStateUnionPtr(std::in_place);
     result->set_finished(std::move(value));
     return result;
   }
@@ -1781,7 +1781,7 @@ class  TelemetryDiagnosticVolumeButtonRoutineArgument {
   template <typename... Args>
   static TelemetryDiagnosticVolumeButtonRoutineArgumentPtr New(Args&&... args) {
     return TelemetryDiagnosticVolumeButtonRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1928,7 +1928,7 @@ class  TelemetryDiagnosticMemtesterResult {
   template <typename... Args>
   static TelemetryDiagnosticMemtesterResultPtr New(Args&&... args) {
     return TelemetryDiagnosticMemtesterResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2071,7 +2071,7 @@ class  TelemetryDiagnosticMemoryRoutineDetail {
   template <typename... Args>
   static TelemetryDiagnosticMemoryRoutineDetailPtr New(Args&&... args) {
     return TelemetryDiagnosticMemoryRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2217,7 +2217,7 @@ class  TelemetryDiagnosticFanRoutineDetail {
   template <typename... Args>
   static TelemetryDiagnosticFanRoutineDetailPtr New(Args&&... args) {
     return TelemetryDiagnosticFanRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2363,7 +2363,7 @@ class  TelemetryDiagnosticRoutineStateFinished {
   template <typename... Args>
   static TelemetryDiagnosticRoutineStateFinishedPtr New(Args&&... args) {
     return TelemetryDiagnosticRoutineStateFinishedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2508,7 +2508,7 @@ class  TelemetryDiagnosticRoutineState {
   template <typename... Args>
   static TelemetryDiagnosticRoutineStatePtr New(Args&&... args) {
     return TelemetryDiagnosticRoutineStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

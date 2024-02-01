@@ -162,7 +162,7 @@ class COMPONENTS_DOWNLOAD_EXPORT DownloadStreamHandle {
   template <typename... Args>
   static DownloadStreamHandlePtr New(Args&&... args) {
     return DownloadStreamHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

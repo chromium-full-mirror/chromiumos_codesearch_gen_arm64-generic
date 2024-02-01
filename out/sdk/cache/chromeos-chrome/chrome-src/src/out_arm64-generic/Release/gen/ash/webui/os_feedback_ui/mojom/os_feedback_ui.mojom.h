@@ -401,7 +401,7 @@ class  HelpContent {
   template <typename... Args>
   static HelpContentPtr New(Args&&... args) {
     return HelpContentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -547,7 +547,7 @@ class  SearchRequest {
   template <typename... Args>
   static SearchRequestPtr New(Args&&... args) {
     return SearchRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -690,7 +690,7 @@ class  SearchResponse {
   template <typename... Args>
   static SearchResponsePtr New(Args&&... args) {
     return SearchResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -835,7 +835,7 @@ class  FeedbackContext {
   template <typename... Args>
   static FeedbackContextPtr New(Args&&... args) {
     return FeedbackContextPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1011,7 +1011,7 @@ class  AttachedFile {
   template <typename... Args>
   static AttachedFilePtr New(Args&&... args) {
     return AttachedFilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1151,7 +1151,7 @@ class  Report {
   template <typename... Args>
   static ReportPtr New(Args&&... args) {
     return ReportPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

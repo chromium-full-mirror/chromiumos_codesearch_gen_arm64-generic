@@ -305,7 +305,7 @@ class BLINK_PLATFORM_EXPORT OtherPartitionInfo {
   template <typename... Args>
   static OtherPartitionInfoPtr New(Args&&... args) {
     return OtherPartitionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -448,7 +448,7 @@ class BLINK_PLATFORM_EXPORT URLRequestDevToolsInfo {
   template <typename... Args>
   static URLRequestDevToolsInfoPtr New(Args&&... args) {
     return URLRequestDevToolsInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -608,7 +608,7 @@ class BLINK_PLATFORM_EXPORT URLResponseHeadDevToolsInfo {
   template <typename... Args>
   static URLResponseHeadDevToolsInfoPtr New(Args&&... args) {
     return URLResponseHeadDevToolsInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

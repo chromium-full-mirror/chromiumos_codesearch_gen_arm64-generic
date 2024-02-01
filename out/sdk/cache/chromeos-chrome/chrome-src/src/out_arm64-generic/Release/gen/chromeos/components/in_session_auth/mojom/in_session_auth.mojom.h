@@ -192,7 +192,7 @@ class  RequestTokenReply {
   template <typename... Args>
   static RequestTokenReplyPtr New(Args&&... args) {
     return RequestTokenReplyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

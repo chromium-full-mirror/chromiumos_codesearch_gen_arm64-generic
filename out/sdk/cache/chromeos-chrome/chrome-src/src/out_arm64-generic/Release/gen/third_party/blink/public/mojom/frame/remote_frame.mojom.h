@@ -969,7 +969,7 @@ class BLINK_COMMON_EXPORT RemoteMainFrameInterfaces {
   template <typename... Args>
   static RemoteMainFrameInterfacesPtr New(Args&&... args) {
     return RemoteMainFrameInterfacesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1109,7 +1109,7 @@ class BLINK_COMMON_EXPORT RemoteFrameInterfacesFromRenderer {
   template <typename... Args>
   static RemoteFrameInterfacesFromRendererPtr New(Args&&... args) {
     return RemoteFrameInterfacesFromRendererPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1249,7 +1249,7 @@ class BLINK_COMMON_EXPORT RemoteFrameInterfacesFromBrowser {
   template <typename... Args>
   static RemoteFrameInterfacesFromBrowserPtr New(Args&&... args) {
     return RemoteFrameInterfacesFromBrowserPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1389,7 +1389,7 @@ class BLINK_COMMON_EXPORT CreateRemoteChildParams {
   template <typename... Args>
   static CreateRemoteChildParamsPtr New(Args&&... args) {
     return CreateRemoteChildParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1550,7 +1550,7 @@ class BLINK_COMMON_EXPORT OpenURLParams {
   template <typename... Args>
   static OpenURLParamsPtr New(Args&&... args) {
     return OpenURLParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

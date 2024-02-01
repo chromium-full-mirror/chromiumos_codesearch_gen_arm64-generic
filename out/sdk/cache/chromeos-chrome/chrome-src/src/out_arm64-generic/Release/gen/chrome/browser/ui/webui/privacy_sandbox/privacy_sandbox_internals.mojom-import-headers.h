@@ -8,6 +8,8 @@
 #define CHROME_BROWSER_UI_WEBUI_PRIVACY_SANDBOX_PRIVACY_SANDBOX_INTERNALS_MOJOM_IMPORT_HEADERS_H_
 #include "mojo/public/mojom/base/values.mojom.h"
 #include "mojo/public/mojom/base/values.mojom-import-headers.h"
+#include "components/content_settings/core/common/content_settings_types.mojom.h"
+#include "components/content_settings/core/common/content_settings_types.mojom-import-headers.h"
 #include "components/content_settings/core/common/content_settings.mojom.h"
 #include "components/content_settings/core/common/content_settings.mojom-import-headers.h"
 

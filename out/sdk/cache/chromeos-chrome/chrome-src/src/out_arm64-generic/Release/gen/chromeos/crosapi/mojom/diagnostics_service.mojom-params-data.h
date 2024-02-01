@@ -1252,7 +1252,7 @@ static_assert(
         ::crosapi::mojom::UInt32ValueDataView, UserType>(),
     "Attempting to read the optional `percentage_used_threshold` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPercentageUsedThreshold` instead "
     "of `ReadPercentageUsedThreshold if you're fine with null values being "
@@ -1325,7 +1325,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `expected_power_type` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadExpectedPowerType` instead "
     "of `ReadExpectedPowerType if you're fine with null values being "

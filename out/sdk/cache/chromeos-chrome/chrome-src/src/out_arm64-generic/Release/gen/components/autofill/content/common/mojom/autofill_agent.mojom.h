@@ -84,10 +84,6 @@ class AutofillAgent
     kAcceptDataListSuggestionMinVersion = 0,
     kPreviewPasswordSuggestionMinVersion = 0,
     kPreviewPasswordGenerationSuggestionMinVersion = 0,
-    kSetUserGestureRequiredMinVersion = 0,
-    kSetSecureContextRequiredMinVersion = 0,
-    kSetFocusRequiresScrollMinVersion = 0,
-    kSetQueryPasswordSuggestionMinVersion = 0,
     kEnableHeavyFormDataScrapingMinVersion = 0,
     kGetPotentialLastFourCombinationsForStandaloneCvcMinVersion = 0,
   };
@@ -132,18 +128,6 @@ class AutofillAgent
     NOINLINE static uint32_t IPCStableHash();
   };
   struct PreviewPasswordGenerationSuggestion_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct SetUserGestureRequired_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct SetSecureContextRequired_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct SetFocusRequiresScroll_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct SetQueryPasswordSuggestion_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct EnableHeavyFormDataScraping_Sym {
@@ -197,18 +181,6 @@ class AutofillAgent
 
   
   virtual void PreviewPasswordGenerationSuggestion(const ::std::u16string& password) = 0;
-
-  
-  virtual void SetUserGestureRequired(bool required) = 0;
-
-  
-  virtual void SetSecureContextRequired(bool required) = 0;
-
-  
-  virtual void SetFocusRequiresScroll(bool require) = 0;
-
-  
-  virtual void SetQueryPasswordSuggestion(bool query) = 0;
 
   
   virtual void EnableHeavyFormDataScraping() = 0;
@@ -402,14 +374,6 @@ class  AutofillAgentProxy
   void PreviewPasswordSuggestion(const ::std::u16string& username, const ::std::u16string& password) final;
   
   void PreviewPasswordGenerationSuggestion(const ::std::u16string& password) final;
-  
-  void SetUserGestureRequired(bool required) final;
-  
-  void SetSecureContextRequired(bool required) final;
-  
-  void SetFocusRequiresScroll(bool require) final;
-  
-  void SetQueryPasswordSuggestion(bool query) final;
   
   void EnableHeavyFormDataScraping() final;
   

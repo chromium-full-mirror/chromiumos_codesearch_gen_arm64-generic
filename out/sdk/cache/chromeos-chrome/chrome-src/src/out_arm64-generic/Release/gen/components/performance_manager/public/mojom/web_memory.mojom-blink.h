@@ -57,7 +57,7 @@ class COMPONENT_EXPORT(PERFORMANCE_MANAGER_PUBLIC_MOJOM_BLINK) WebMemoryAttribut
   template <typename... Args>
   static WebMemoryAttributionPtr New(Args&&... args) {
     return WebMemoryAttributionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -206,7 +206,7 @@ class COMPONENT_EXPORT(PERFORMANCE_MANAGER_PUBLIC_MOJOM_BLINK) WebMemoryUsage {
   template <typename... Args>
   static WebMemoryUsagePtr New(Args&&... args) {
     return WebMemoryUsagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -353,7 +353,7 @@ class COMPONENT_EXPORT(PERFORMANCE_MANAGER_PUBLIC_MOJOM_BLINK) WebMemoryBreakdow
   template <typename... Args>
   static WebMemoryBreakdownEntryPtr New(Args&&... args) {
     return WebMemoryBreakdownEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -502,7 +502,7 @@ class COMPONENT_EXPORT(PERFORMANCE_MANAGER_PUBLIC_MOJOM_BLINK) WebMemoryMeasurem
   template <typename... Args>
   static WebMemoryMeasurementPtr New(Args&&... args) {
     return WebMemoryMeasurementPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

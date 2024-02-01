@@ -438,7 +438,7 @@ class  FileSystemId {
   template <typename... Args>
   static FileSystemIdPtr New(Args&&... args) {
     return FileSystemIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -583,7 +583,7 @@ class  OpenedFile {
   template <typename... Args>
   static OpenedFilePtr New(Args&&... args) {
     return OpenedFilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -736,7 +736,7 @@ class  FileSystemMetadata {
   template <typename... Args>
   static FileSystemMetadataPtr New(Args&&... args) {
     return FileSystemMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -892,7 +892,7 @@ class  FSPWatcher {
   template <typename... Args>
   static FSPWatcherPtr New(Args&&... args) {
     return FSPWatcherPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1038,7 +1038,7 @@ class  FileSystemInfo {
   template <typename... Args>
   static FileSystemInfoPtr New(Args&&... args) {
     return FileSystemInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1186,7 +1186,7 @@ class  FSPChange {
   template <typename... Args>
   static FSPChangePtr New(Args&&... args) {
     return FSPChangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

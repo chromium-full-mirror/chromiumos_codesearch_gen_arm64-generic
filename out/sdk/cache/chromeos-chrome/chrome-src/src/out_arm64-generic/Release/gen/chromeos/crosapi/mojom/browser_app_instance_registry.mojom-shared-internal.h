@@ -66,7 +66,8 @@ class  BrowserWindowInstanceUpdate_Data {
   uint8_t pad3_[3];
   uint32_t browser_session_id;
   uint32_t restored_browser_session_id;
-  uint8_t padfinal_[4];
+  uint8_t pad5_[4];
+  uint64_t lacros_profile_id;
 
  private:
   friend class mojo::internal::MessageFragment<BrowserWindowInstanceUpdate_Data>;
@@ -74,7 +75,7 @@ class  BrowserWindowInstanceUpdate_Data {
   BrowserWindowInstanceUpdate_Data();
   ~BrowserWindowInstanceUpdate_Data() = delete;
 };
-static_assert(sizeof(BrowserWindowInstanceUpdate_Data) == 40,
+static_assert(sizeof(BrowserWindowInstanceUpdate_Data) == 48,
               "Bad sizeof(BrowserWindowInstanceUpdate_Data)");
 // Used by BrowserWindowInstanceUpdate::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

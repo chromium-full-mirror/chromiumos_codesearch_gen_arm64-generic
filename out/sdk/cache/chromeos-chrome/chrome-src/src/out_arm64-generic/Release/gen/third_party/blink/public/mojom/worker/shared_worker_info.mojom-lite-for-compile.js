@@ -19,6 +19,26 @@ goog.require('blink.mojom.WorkerOptions');
 
 
 
+goog.provide('blink.mojom.SharedWorkerSameSiteCookies');
+goog.provide('blink.mojom.SharedWorkerSameSiteCookiesSpec');
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ * @export
+ */
+blink.mojom.SharedWorkerSameSiteCookiesSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ * @export
+ */
+blink.mojom.SharedWorkerSameSiteCookies = {
+  
+  kAll: 0,
+  kNone: 1,
+  MIN_VALUE: 0,
+  MAX_VALUE: 1,
+};
+
 
 
 goog.provide('blink.mojom.SharedWorkerInfoSpec');
@@ -68,8 +88,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'sameSiteCookies', 32,
+        0,
+        blink.mojom.SharedWorkerSameSiteCookiesSpec.$,
+        blink.mojom.SharedWorkerSameSiteCookies.kNone,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 40],]);
+    [[0, 48],]);
 
 
 
@@ -86,6 +114,8 @@ blink.mojom.SharedWorkerInfo = class {
     this.contentSecurityPolicies;
     /** @export { !blink.mojom.FetchClientSettingsObject } */
     this.outsideFetchClientSettingsObject;
+    /** @export { !blink.mojom.SharedWorkerSameSiteCookies } */
+    this.sameSiteCookies;
   }
 };
 

@@ -381,7 +381,7 @@ class  ClassificationStats {
   template <typename... Args>
   static ClassificationStatsPtr New(Args&&... args) {
     return ClassificationStatsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -534,7 +534,7 @@ class  VisualQuerySuggestion {
   template <typename... Args>
   static VisualQuerySuggestionPtr New(Args&&... args) {
     return VisualQuerySuggestionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

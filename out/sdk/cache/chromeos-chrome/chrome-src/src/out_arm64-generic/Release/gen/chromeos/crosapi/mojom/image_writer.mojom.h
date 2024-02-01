@@ -331,7 +331,7 @@ class  RemovableStorageDevice {
   template <typename... Args>
   static RemovableStorageDevicePtr New(Args&&... args) {
     return RemovableStorageDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

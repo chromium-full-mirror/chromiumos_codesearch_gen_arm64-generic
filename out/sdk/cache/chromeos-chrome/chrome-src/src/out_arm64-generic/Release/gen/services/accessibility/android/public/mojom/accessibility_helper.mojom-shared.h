@@ -1232,7 +1232,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `label` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLabel` instead "
     "of `ReadLabel if you're fine with null values being "
@@ -1283,7 +1283,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::AccessibilityBooleanProperty, bool>, UserType>(),
     "Attempting to read the optional `boolean_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBooleanProperties` instead "
     "of `ReadBooleanProperties if you're fine with null values being "
@@ -1304,7 +1304,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::AccessibilityStringProperty, mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `string_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStringProperties` instead "
     "of `ReadStringProperties if you're fine with null values being "
@@ -1325,7 +1325,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::AccessibilityIntProperty, int32_t>, UserType>(),
     "Attempting to read the optional `int_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIntProperties` instead "
     "of `ReadIntProperties if you're fine with null values being "
@@ -1346,7 +1346,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::AccessibilityIntListProperty, mojo::ArrayDataView<int32_t>>, UserType>(),
     "Attempting to read the optional `int_list_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIntListProperties` instead "
     "of `ReadIntListProperties if you're fine with null values being "
@@ -1367,7 +1367,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::AccessibilityStringListProperty, mojo::ArrayDataView<mojo::StringDataView>>, UserType>(),
     "Attempting to read the optional `string_list_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStringListProperties` instead "
     "of `ReadStringListProperties if you're fine with null values being "
@@ -1388,7 +1388,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::AccessibilityStringProperty, mojo::ArrayDataView<::ax::android::mojom::SpanEntryDataView>>, UserType>(),
     "Attempting to read the optional `spannable_string_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSpannableStringProperties` instead "
     "of `ReadSpannableStringProperties if you're fine with null values being "
@@ -1409,7 +1409,7 @@ static_assert(
         ::ax::android::mojom::AccessibilityCollectionInfoDataDataView, UserType>(),
     "Attempting to read the optional `collection_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCollectionInfo` instead "
     "of `ReadCollectionInfo if you're fine with null values being "
@@ -1430,7 +1430,7 @@ static_assert(
         ::ax::android::mojom::AccessibilityCollectionItemInfoDataDataView, UserType>(),
     "Attempting to read the optional `collection_item_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCollectionItemInfo` instead "
     "of `ReadCollectionItemInfo if you're fine with null values being "
@@ -1451,7 +1451,7 @@ static_assert(
         ::ax::android::mojom::AccessibilityRangeInfoDataDataView, UserType>(),
     "Attempting to read the optional `range_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRangeInfo` instead "
     "of `ReadRangeInfo if you're fine with null values being "
@@ -1482,7 +1482,7 @@ static_assert(
         mojo::ArrayDataView<::ax::android::mojom::AccessibilityActionInAndroidDataView>, UserType>(),
     "Attempting to read the optional `standard_actions` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStandardActions` instead "
     "of `ReadStandardActions if you're fine with null values being "
@@ -1503,7 +1503,7 @@ static_assert(
         mojo::ArrayDataView<::ax::android::mojom::AccessibilityActionInAndroidDataView>, UserType>(),
     "Attempting to read the optional `custom_actions` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCustomActions` instead "
     "of `ReadCustomActions if you're fine with null values being "
@@ -1566,7 +1566,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::AccessibilityWindowBooleanProperty, bool>, UserType>(),
     "Attempting to read the optional `boolean_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBooleanProperties` instead "
     "of `ReadBooleanProperties if you're fine with null values being "
@@ -1586,7 +1586,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::AccessibilityWindowStringProperty, mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `string_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStringProperties` instead "
     "of `ReadStringProperties if you're fine with null values being "
@@ -1606,7 +1606,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::AccessibilityWindowIntProperty, int32_t>, UserType>(),
     "Attempting to read the optional `int_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIntProperties` instead "
     "of `ReadIntProperties if you're fine with null values being "
@@ -1626,7 +1626,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::AccessibilityWindowIntListProperty, mojo::ArrayDataView<int32_t>>, UserType>(),
     "Attempting to read the optional `int_list_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIntListProperties` instead "
     "of `ReadIntListProperties if you're fine with null values being "
@@ -1685,7 +1685,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `notification_key` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNotificationKey` instead "
     "of `ReadNotificationKey if you're fine with null values being "
@@ -1716,7 +1716,7 @@ static_assert(
         mojo::ArrayDataView<::ax::android::mojom::AccessibilityWindowInfoDataDataView>, UserType>(),
     "Attempting to read the optional `window_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWindowData` instead "
     "of `ReadWindowData if you're fine with null values being "
@@ -1742,7 +1742,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `event_text` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEventText` instead "
     "of `ReadEventText if you're fine with null values being "
@@ -1763,7 +1763,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::AccessibilityEventIntProperty, int32_t>, UserType>(),
     "Attempting to read the optional `int_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIntProperties` instead "
     "of `ReadIntProperties if you're fine with null values being "
@@ -1784,7 +1784,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::AccessibilityEventStringProperty, mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `string_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStringProperties` instead "
     "of `ReadStringProperties if you're fine with null values being "
@@ -1805,7 +1805,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::AccessibilityEventIntListProperty, mojo::ArrayDataView<int32_t>>, UserType>(),
     "Attempting to read the optional `int_list_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIntListProperties` instead "
     "of `ReadIntListProperties if you're fine with null values being "
@@ -1873,7 +1873,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::ActionIntArgumentType, int32_t>, UserType>(),
     "Attempting to read the optional `int_parameters` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIntParameters` instead "
     "of `ReadIntParameters if you're fine with null values being "
@@ -1894,7 +1894,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::ActionStringArgumentType, mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `string_parameters` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStringParameters` instead "
     "of `ReadStringParameters if you're fine with null values being "
@@ -1915,7 +1915,7 @@ static_assert(
         mojo::MapDataView<::ax::android::mojom::ActionFloatArgumentType, float>, UserType>(),
     "Attempting to read the optional `float_parameters` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFloatParameters` instead "
     "of `ReadFloatParameters if you're fine with null values being "

@@ -56,7 +56,7 @@ class PLATFORM_EXPORT RelatedApplication {
   template <typename... Args>
   static RelatedApplicationPtr New(Args&&... args) {
     return RelatedApplicationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

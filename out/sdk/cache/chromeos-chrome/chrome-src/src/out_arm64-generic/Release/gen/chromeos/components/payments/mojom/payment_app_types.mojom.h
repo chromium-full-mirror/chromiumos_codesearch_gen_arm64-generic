@@ -55,7 +55,7 @@ class  InvokePaymentAppValidResult {
   template <typename... Args>
   static InvokePaymentAppValidResultPtr New(Args&&... args) {
     return InvokePaymentAppValidResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -209,7 +209,7 @@ class  IsPaymentImplementedResult {
   static IsPaymentImplementedResultPtr
   NewValid(
       IsPaymentImplementedValidResultPtr value) {
-    auto result = IsPaymentImplementedResultPtr(absl::in_place);
+    auto result = IsPaymentImplementedResultPtr(std::in_place);
     result->set_valid(std::move(value));
     return result;
   }
@@ -217,7 +217,7 @@ class  IsPaymentImplementedResult {
   static IsPaymentImplementedResultPtr
   NewError(
       const std::string& value) {
-    auto result = IsPaymentImplementedResultPtr(absl::in_place);
+    auto result = IsPaymentImplementedResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -339,7 +339,7 @@ class  IsReadyToPayResult {
   static IsReadyToPayResultPtr
   NewResponse(
       bool value) {
-    auto result = IsReadyToPayResultPtr(absl::in_place);
+    auto result = IsReadyToPayResultPtr(std::in_place);
     result->set_response(std::move(value));
     return result;
   }
@@ -347,7 +347,7 @@ class  IsReadyToPayResult {
   static IsReadyToPayResultPtr
   NewError(
       const std::string& value) {
-    auto result = IsReadyToPayResultPtr(absl::in_place);
+    auto result = IsReadyToPayResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -470,7 +470,7 @@ class  InvokePaymentAppResult {
   static InvokePaymentAppResultPtr
   NewValid(
       InvokePaymentAppValidResultPtr value) {
-    auto result = InvokePaymentAppResultPtr(absl::in_place);
+    auto result = InvokePaymentAppResultPtr(std::in_place);
     result->set_valid(std::move(value));
     return result;
   }
@@ -478,7 +478,7 @@ class  InvokePaymentAppResult {
   static InvokePaymentAppResultPtr
   NewError(
       const std::string& value) {
-    auto result = InvokePaymentAppResultPtr(absl::in_place);
+    auto result = InvokePaymentAppResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -593,7 +593,7 @@ class  IsPaymentImplementedValidResult {
   template <typename... Args>
   static IsPaymentImplementedValidResultPtr New(Args&&... args) {
     return IsPaymentImplementedValidResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -736,7 +736,7 @@ class  PaymentParameters {
   template <typename... Args>
   static PaymentParametersPtr New(Args&&... args) {
     return PaymentParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

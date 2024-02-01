@@ -270,7 +270,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `lookback_window` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLookbackWindow` instead "
     "of `ReadLookbackWindow if you're fine with null values being "
@@ -589,8 +589,8 @@ class SourceRegistrationDataView {
   std::optional<uint64_t> debug_key() const {
 
     return data_->debug_key_$flag
-        ? absl::make_optional(data_->debug_key_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->debug_key_$value)
+        : std::nullopt;
   }
   inline void GetFilterDataDataView(
       FilterDataDataView* output);
@@ -653,8 +653,8 @@ class EventTriggerDataDataView {
   std::optional<uint64_t> dedup_key() const {
 
     return data_->dedup_key_$flag
-        ? absl::make_optional(data_->dedup_key_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->dedup_key_$value)
+        : std::nullopt;
   }
   inline void GetFiltersDataView(
       FilterPairDataView* output);
@@ -685,8 +685,8 @@ class AggregatableDedupKeyDataView {
   std::optional<uint64_t> dedup_key() const {
 
     return data_->dedup_key_$flag
-        ? absl::make_optional(data_->dedup_key_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->dedup_key_$value)
+        : std::nullopt;
   }
   inline void GetFiltersDataView(
       FilterPairDataView* output);
@@ -757,8 +757,8 @@ class TriggerRegistrationDataView {
   std::optional<uint64_t> debug_key() const {
 
     return data_->debug_key_$flag
-        ? absl::make_optional(data_->debug_key_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->debug_key_$value)
+        : std::nullopt;
   }
   inline void GetAggregatableDedupKeysDataView(
       mojo::ArrayDataView<AggregatableDedupKeyDataView>* output);
@@ -784,7 +784,7 @@ static_assert(
         ::attribution_reporting::mojom::SuitableOriginDataView, UserType>(),
     "Attempting to read the optional `aggregation_coordinator_origin` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAggregationCoordinatorOrigin` instead "
     "of `ReadAggregationCoordinatorOrigin if you're fine with null values being "
@@ -814,7 +814,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `trigger_context_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTriggerContextId` instead "
     "of `ReadTriggerContextId if you're fine with null values being "

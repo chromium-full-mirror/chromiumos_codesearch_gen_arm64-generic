@@ -53,7 +53,7 @@ class  AudioDeviceDescription {
   template <typename... Args>
   static AudioDeviceDescriptionPtr New(Args&&... args) {
     return AudioDeviceDescriptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

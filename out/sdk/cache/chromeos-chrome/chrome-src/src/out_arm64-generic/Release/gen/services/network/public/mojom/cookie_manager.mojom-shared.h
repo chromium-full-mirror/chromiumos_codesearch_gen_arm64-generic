@@ -800,7 +800,7 @@ static_assert(
         ::network::mojom::CookiePartitionKeyDataView, UserType>(),
     "Attempting to read the optional `partition_key` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPartitionKey` instead "
     "of `ReadPartitionKey if you're fine with null values being "
@@ -860,7 +860,7 @@ static_assert(
         ::network::mojom::CanonicalCookieDataView, UserType>(),
     "Attempting to read the optional `cookie` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCookie` instead "
     "of `ReadCookie if you're fine with null values being "
@@ -1083,7 +1083,7 @@ static_assert(
         ::mojo_base::mojom::TimeDataView, UserType>(),
     "Attempting to read the optional `created_after_time` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCreatedAfterTime` instead "
     "of `ReadCreatedAfterTime if you're fine with null values being "
@@ -1103,7 +1103,7 @@ static_assert(
         ::mojo_base::mojom::TimeDataView, UserType>(),
     "Attempting to read the optional `created_before_time` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCreatedBeforeTime` instead "
     "of `ReadCreatedBeforeTime if you're fine with null values being "
@@ -1123,7 +1123,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `excluding_domains` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadExcludingDomains` instead "
     "of `ReadExcludingDomains if you're fine with null values being "
@@ -1143,7 +1143,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `including_domains` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIncludingDomains` instead "
     "of `ReadIncludingDomains if you're fine with null values being "
@@ -1163,7 +1163,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `cookie_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCookieName` instead "
     "of `ReadCookieName if you're fine with null values being "
@@ -1183,7 +1183,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `host_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHostName` instead "
     "of `ReadHostName if you're fine with null values being "
@@ -1203,7 +1203,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUrl` instead "
     "of `ReadUrl if you're fine with null values being "
@@ -1233,7 +1233,7 @@ static_assert(
         ::network::mojom::CookiePartitionKeyCollectionDataView, UserType>(),
     "Attempting to read the optional `cookie_partition_key_collection` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCookiePartitionKeyCollection` instead "
     "of `ReadCookiePartitionKeyCollection if you're fine with null values being "

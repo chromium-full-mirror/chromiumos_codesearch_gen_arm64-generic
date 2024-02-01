@@ -329,7 +329,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUrl` instead "
     "of `ReadUrl if you're fine with null values being "
@@ -493,7 +493,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `url_pattern` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUrlPattern` instead "
     "of `ReadUrlPattern if you're fine with null values being "
@@ -505,7 +505,7 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadComponent(UserType* output) const {
     if (!data_->component_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -514,7 +514,7 @@ static_assert(
   }
   std::optional<EventDestination_Component> component() const {
     if (!data_->component_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::dlp_internals::mojom::EventDestination_Component>(data_->component_$value));
@@ -546,7 +546,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `source_pattern` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSourcePattern` instead "
     "of `ReadSourcePattern if you're fine with null values being "
@@ -566,7 +566,7 @@ static_assert(
         ::dlp_internals::mojom::EventDestinationDataView, UserType>(),
     "Attempting to read the optional `destination` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDestination` instead "
     "of `ReadDestination if you're fine with null values being "
@@ -578,7 +578,7 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadRestriction(UserType* output) const {
     if (!data_->restriction_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -587,7 +587,7 @@ static_assert(
   }
   std::optional<DlpEvent_Restriction> restriction() const {
     if (!data_->restriction_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::dlp_internals::mojom::DlpEvent_Restriction>(data_->restriction_$value));
@@ -595,7 +595,7 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadMode(UserType* output) const {
     if (!data_->mode_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -604,7 +604,7 @@ static_assert(
   }
   std::optional<DlpEvent_Mode> mode() const {
     if (!data_->mode_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::dlp_internals::mojom::DlpEvent_Mode>(data_->mode_$value));
@@ -612,13 +612,13 @@ static_assert(
   std::optional<int64_t> timestamp_micro() const {
 
     return data_->timestamp_micro_$flag
-        ? absl::make_optional(data_->timestamp_micro_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->timestamp_micro_$value)
+        : std::nullopt;
   }
   template <typename UserType>
   [[nodiscard]] bool ReadUserType(UserType* output) const {
     if (!data_->user_type_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -627,7 +627,7 @@ static_assert(
   }
   std::optional<DlpEvent_UserType> user_type() const {
     if (!data_->user_type_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::dlp_internals::mojom::DlpEvent_UserType>(data_->user_type_$value));
@@ -643,7 +643,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `content_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadContentName` instead "
     "of `ReadContentName if you're fine with null values being "
@@ -663,7 +663,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `triggered_rule_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTriggeredRuleName` instead "
     "of `ReadTriggeredRuleName if you're fine with null values being "
@@ -683,7 +683,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `triggered_rule_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTriggeredRuleId` instead "
     "of `ReadTriggeredRuleId if you're fine with null values being "
@@ -711,14 +711,14 @@ class FileDatabaseEntryDataView {
   std::optional<uint64_t> inode() const {
 
     return data_->inode_$flag
-        ? absl::make_optional(data_->inode_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->inode_$value)
+        : std::nullopt;
   }
   std::optional<uint64_t> crtime() const {
 
     return data_->crtime_$flag
-        ? absl::make_optional(data_->crtime_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->crtime_$value)
+        : std::nullopt;
   }
   inline void GetSourceUrlDataView(
       mojo::StringDataView* output);
@@ -731,7 +731,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `source_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSourceUrl` instead "
     "of `ReadSourceUrl if you're fine with null values being "
@@ -751,7 +751,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `referrer_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReferrerUrl` instead "
     "of `ReadReferrerUrl if you're fine with null values being "

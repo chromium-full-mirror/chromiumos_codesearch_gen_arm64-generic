@@ -267,7 +267,7 @@ class PLATFORM_EXPORT DetectionArgs {
   template <typename... Args>
   static DetectionArgsPtr New(Args&&... args) {
     return DetectionArgsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

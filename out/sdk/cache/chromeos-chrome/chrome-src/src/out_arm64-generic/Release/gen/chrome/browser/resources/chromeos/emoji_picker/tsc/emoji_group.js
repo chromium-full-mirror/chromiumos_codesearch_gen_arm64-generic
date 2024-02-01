@@ -1,7 +1,7 @@
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_icon_button/cr_icon_button.js';
 import 'chrome://resources/polymer/v3_0/paper-tooltip/paper-tooltip.js';
 import './emoji_variants.js';
 import { assertInstanceof } from 'chrome://resources/js/assert.js';
@@ -201,11 +201,14 @@ export class EmojiGroupComponent extends PolymerElement {
         });
     }
     /**
-     * Returns HTML class attribute of an emoji button.
+     * Returns whether the emoji has variants or not.
+     * Does not use `this`.
      */
-    getEmojiButtonClassName(emoji) {
-        return emoji.alternates && emoji.alternates.length > 0 ? 'has-variants' :
-            '';
+    hasVariants(emoji) {
+        // TODO: b/322909764 - The type of `EmojiVariants.alternates` cannot be
+        // null/undefined, so the `!== undefined` check should be redundant. Either
+        // add undefined to the type, or remove the below check.
+        return emoji.alternates !== undefined && emoji.alternates.length > 0;
     }
     /**
      * Returns HTML class attribute of an emoji groups.
@@ -299,8 +302,13 @@ export class EmojiGroupComponent extends PolymerElement {
     isVisual(category) {
         return category === CategoryEnum.GIF;
     }
-    hasVariants(data) {
-        return data.some(t => !(t.alternates === undefined || t.alternates.length === 0));
+    /**
+     * Returns whether any emoji in the array has variants or not.
+     */
+    hasAnyVariants(data) {
+        // `hasVariants` does not use `this`, so there is no need to bind `this`
+        // here.
+        return data.some(this.hasVariants);
     }
     /**
      * Filters visual content to be displayed in the given column based on '

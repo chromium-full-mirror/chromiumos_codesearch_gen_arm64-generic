@@ -58,7 +58,7 @@ class PLATFORM_EXPORT FixedPattern {
   template <typename... Args>
   static FixedPatternPtr New(Args&&... args) {
     return FixedPatternPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -198,7 +198,7 @@ class PLATFORM_EXPORT WildcardPattern {
   template <typename... Args>
   static WildcardPatternPtr New(Args&&... args) {
     return WildcardPatternPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -348,7 +348,7 @@ class PLATFORM_EXPORT SafeUrlPatternOptions {
   template <typename... Args>
   static SafeUrlPatternOptionsPtr New(Args&&... args) {
     return SafeUrlPatternOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -499,7 +499,7 @@ class PLATFORM_EXPORT PatternTemplate {
   static PatternTemplatePtr
   NewFixed(
       const ::liburlpattern::Part& value) {
-    auto result = PatternTemplatePtr(absl::in_place);
+    auto result = PatternTemplatePtr(std::in_place);
     result->set_fixed(std::move(value));
     return result;
   }
@@ -507,7 +507,7 @@ class PLATFORM_EXPORT PatternTemplate {
   static PatternTemplatePtr
   NewFullWildcard(
       const ::liburlpattern::Part& value) {
-    auto result = PatternTemplatePtr(absl::in_place);
+    auto result = PatternTemplatePtr(std::in_place);
     result->set_full_wildcard(std::move(value));
     return result;
   }
@@ -515,7 +515,7 @@ class PLATFORM_EXPORT PatternTemplate {
   static PatternTemplatePtr
   NewSegmentWildcard(
       const ::liburlpattern::Part& value) {
-    auto result = PatternTemplatePtr(absl::in_place);
+    auto result = PatternTemplatePtr(std::in_place);
     result->set_segment_wildcard(std::move(value));
     return result;
   }
@@ -642,7 +642,7 @@ class PLATFORM_EXPORT SafeUrlPattern {
   template <typename... Args>
   static SafeUrlPatternPtr New(Args&&... args) {
     return SafeUrlPatternPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -810,7 +810,7 @@ class PLATFORM_EXPORT SafeUrlPatternPart {
   template <typename... Args>
   static SafeUrlPatternPartPtr New(Args&&... args) {
     return SafeUrlPatternPartPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

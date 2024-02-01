@@ -423,7 +423,7 @@ class  ArcAccountInfo {
   template <typename... Args>
   static ArcAccountInfoPtr New(Args&&... args) {
     return ArcAccountInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -577,7 +577,7 @@ class  ArcSignInError {
   static ArcSignInErrorPtr
   NewCloudProvisionFlowError(
       CloudProvisionFlowError value) {
-    auto result = ArcSignInErrorPtr(absl::in_place);
+    auto result = ArcSignInErrorPtr(std::in_place);
     result->set_cloud_provision_flow_error(std::move(value));
     return result;
   }
@@ -585,7 +585,7 @@ class  ArcSignInError {
   static ArcSignInErrorPtr
   NewGeneralError(
       GeneralSignInError value) {
-    auto result = ArcSignInErrorPtr(absl::in_place);
+    auto result = ArcSignInErrorPtr(std::in_place);
     result->set_general_error(std::move(value));
     return result;
   }
@@ -593,7 +593,7 @@ class  ArcSignInError {
   static ArcSignInErrorPtr
   NewSignInError(
       GMSSignInError value) {
-    auto result = ArcSignInErrorPtr(absl::in_place);
+    auto result = ArcSignInErrorPtr(std::in_place);
     result->set_sign_in_error(std::move(value));
     return result;
   }
@@ -601,7 +601,7 @@ class  ArcSignInError {
   static ArcSignInErrorPtr
   NewCheckInError(
       GMSCheckInError value) {
-    auto result = ArcSignInErrorPtr(absl::in_place);
+    auto result = ArcSignInErrorPtr(std::in_place);
     result->set_check_in_error(std::move(value));
     return result;
   }
@@ -746,7 +746,7 @@ class  ArcSignInResult {
   static ArcSignInResultPtr
   NewSuccess(
       ArcSignInSuccess value) {
-    auto result = ArcSignInResultPtr(absl::in_place);
+    auto result = ArcSignInResultPtr(std::in_place);
     result->set_success(std::move(value));
     return result;
   }
@@ -754,7 +754,7 @@ class  ArcSignInResult {
   static ArcSignInResultPtr
   NewError(
       ArcSignInErrorPtr value) {
-    auto result = ArcSignInResultPtr(absl::in_place);
+    auto result = ArcSignInResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -876,7 +876,7 @@ class  ArcSignInAccount {
   static ArcSignInAccountPtr
   NewInitialSignin(
       uint8_t value) {
-    auto result = ArcSignInAccountPtr(absl::in_place);
+    auto result = ArcSignInAccountPtr(std::in_place);
     result->set_initial_signin(std::move(value));
     return result;
   }
@@ -884,7 +884,7 @@ class  ArcSignInAccount {
   static ArcSignInAccountPtr
   NewAccountName(
       const std::optional<std::string>& value) {
-    auto result = ArcSignInAccountPtr(absl::in_place);
+    auto result = ArcSignInAccountPtr(std::in_place);
     result->set_account_name(std::move(value));
     return result;
   }
@@ -998,7 +998,7 @@ class  AccountInfo {
   template <typename... Args>
   static AccountInfoPtr New(Args&&... args) {
     return AccountInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

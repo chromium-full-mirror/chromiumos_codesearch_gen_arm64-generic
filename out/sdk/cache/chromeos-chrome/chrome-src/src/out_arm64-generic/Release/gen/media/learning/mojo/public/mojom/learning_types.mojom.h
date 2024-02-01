@@ -53,7 +53,7 @@ class  FeatureValue {
   template <typename... Args>
   static FeatureValuePtr New(Args&&... args) {
     return FeatureValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -193,7 +193,7 @@ class  TargetValue {
   template <typename... Args>
   static TargetValuePtr New(Args&&... args) {
     return TargetValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -341,7 +341,7 @@ class  LabelledExample {
   template <typename... Args>
   static LabelledExamplePtr New(Args&&... args) {
     return LabelledExamplePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -484,7 +484,7 @@ class  ObservationCompletion {
   template <typename... Args>
   static ObservationCompletionPtr New(Args&&... args) {
     return ObservationCompletionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -627,7 +627,7 @@ class  TargetHistogramPair {
   template <typename... Args>
   static TargetHistogramPairPtr New(Args&&... args) {
     return TargetHistogramPairPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -770,7 +770,7 @@ class  TargetHistogram {
   template <typename... Args>
   static TargetHistogramPtr New(Args&&... args) {
     return TargetHistogramPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

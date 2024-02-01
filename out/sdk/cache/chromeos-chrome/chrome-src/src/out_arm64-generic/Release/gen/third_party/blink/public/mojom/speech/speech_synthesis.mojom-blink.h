@@ -466,7 +466,7 @@ class PLATFORM_EXPORT SpeechSynthesisUtterance {
   template <typename... Args>
   static SpeechSynthesisUtterancePtr New(Args&&... args) {
     return SpeechSynthesisUtterancePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -622,7 +622,7 @@ class PLATFORM_EXPORT SpeechSynthesisVoice {
   template <typename... Args>
   static SpeechSynthesisVoicePtr New(Args&&... args) {
     return SpeechSynthesisVoicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

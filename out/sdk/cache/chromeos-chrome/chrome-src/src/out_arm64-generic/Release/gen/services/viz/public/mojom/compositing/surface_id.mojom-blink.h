@@ -62,7 +62,7 @@ class BLINK_PLATFORM_EXPORT SurfaceId {
   template <typename... Args>
   static SurfaceIdPtr New(Args&&... args) {
     return SurfaceIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

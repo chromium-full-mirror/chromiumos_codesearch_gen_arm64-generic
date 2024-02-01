@@ -173,7 +173,7 @@ class  TextDetectionResult {
   template <typename... Args>
   static TextDetectionResultPtr New(Args&&... args) {
     return TextDetectionResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -176,7 +176,7 @@ class  Int32Value {
   template <typename... Args>
   static Int32ValuePtr New(Args&&... args) {
     return Int32ValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -319,7 +319,7 @@ class  ConsentMetadata {
   template <typename... Args>
   static ConsentMetadataPtr New(Args&&... args) {
     return ConsentMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -467,7 +467,7 @@ class  LoadedKeyInfo {
   template <typename... Args>
   static LoadedKeyInfoPtr New(Args&&... args) {
     return LoadedKeyInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -618,7 +618,7 @@ class  KeyInfo {
   template <typename... Args>
   static KeyInfoPtr New(Args&&... args) {
     return KeyInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -767,7 +767,7 @@ class  DeviceTrustState {
   template <typename... Args>
   static DeviceTrustStatePtr New(Args&&... args) {
     return DeviceTrustStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

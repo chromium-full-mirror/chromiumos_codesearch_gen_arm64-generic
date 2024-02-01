@@ -317,7 +317,7 @@ static_assert(
         ::gfx::mojom::ImageSkiaDataView, UserType>(),
     "Attempting to read the optional `icon` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIcon` instead "
     "of `ReadIcon if you're fine with null values being "
@@ -356,7 +356,7 @@ static_assert(
         ::crosapi::mojom::WebCacheResourceTypeStatsDataView, UserType>(),
     "Attempting to read the optional `web_cache_stats` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWebCacheStats` instead "
     "of `ReadWebCacheStats if you're fine with null values being "

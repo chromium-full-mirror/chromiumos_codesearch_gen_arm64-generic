@@ -48,211 +48,213 @@ enum class OriginTrialFeature : int32_t {
   
   kAdInterestGroupAPI = 2,
   
-  kAttributionReporting = 3,
+  kAppTitle = 3,
   
-  kAttributionReportingCrossAppWeb = 4,
+  kAttributionReporting = 4,
   
-  kAttributionReportingInterface = 5,
+  kAttributionReportingCrossAppWeb = 5,
   
-  kAutoDarkMode = 6,
+  kAttributionReportingInterface = 6,
   
-  kBackForwardCacheExperimentHTTPHeader = 7,
+  kAutoDarkMode = 7,
   
-  kBackForwardCacheNotRestoredReasons = 8,
+  kBackForwardCacheExperimentHTTPHeader = 8,
   
-  kCacheStorageCodeCacheHint = 9,
+  kBackForwardCacheNotRestoredReasons = 9,
   
-  kCapturedSurfaceControl = 10,
+  kCacheStorageCodeCacheHint = 10,
   
-  kCompressionDictionaryTransport = 11,
+  kCapturedSurfaceControl = 11,
   
-  kComputePressure = 12,
+  kCompressionDictionaryTransport = 12,
   
-  kCoopRestrictProperties = 13,
+  kComputePressure = 13,
   
-  kDatabase = 14,
+  kCoopRestrictProperties = 14,
   
-  kDeprecateUnloadOptOut = 15,
+  kDatabase = 15,
   
-  kDigitalGoods = 16,
+  kDeprecateUnloadOptOut = 16,
   
-  kDisableDifferentOriginSubframeDialogSuppression = 17,
+  kDigitalGoods = 17,
   
-  kDisableHardwareNoiseSuppression = 18,
+  kDisableDifferentOriginSubframeDialogSuppression = 18,
   
-  kDisableThirdPartySessionStoragePartitioningAfterGeneralPartitioning = 19,
+  kDisableHardwareNoiseSuppression = 19,
   
-  kDisableThirdPartyStoragePartitioning = 20,
+  kDisableThirdPartySessionStoragePartitioningAfterGeneralPartitioning = 20,
   
-  kDocumentPolicyNegotiation = 21,
+  kDisableThirdPartyStoragePartitioning = 21,
   
-  kEditContext = 22,
+  kDocumentPolicyNegotiation = 22,
   
-  kElementCapture = 23,
+  kEditContext = 23,
   
-  kFencedFrames = 24,
+  kElementCapture = 24,
   
-  kFencedFramesAPIChanges = 25,
+  kFencedFrames = 25,
   
-  kFetchLaterAPI = 26,
+  kFencedFramesAPIChanges = 26,
   
-  kFledge = 27,
+  kFetchLaterAPI = 27,
   
-  kFledgeBiddingAndAuctionServerAPI = 28,
+  kFledge = 28,
   
-  kFocusgroup = 29,
+  kFledgeBiddingAndAuctionServerAPI = 29,
   
-  kFullscreenPopupWindows = 30,
+  kFocusgroup = 30,
   
-  kGetAllScreensMedia = 31,
+  kFullscreenPopupWindows = 31,
   
-  kHrefTranslate = 32,
+  kGetAllScreensMedia = 32,
   
-  kJavaScriptCompileHintsMagicRuntime = 33,
+  kHrefTranslate = 33,
   
-  kMediaCaptureBackgroundBlur = 34,
+  kJavaScriptCompileHintsMagicRuntime = 34,
   
-  kMediaCaptureConfigurationChange = 35,
+  kMediaCaptureBackgroundBlur = 35,
   
-  kMediaSourceExtensionsForWebCodecs = 36,
+  kMediaCaptureConfigurationChange = 36,
   
-  kNavigationId = 37,
+  kMediaSourceExtensionsForWebCodecs = 37,
   
-  kNotificationTriggers = 38,
+  kNavigationId = 38,
   
-  kNoVarySearchPrefetch = 39,
+  kNotificationTriggers = 39,
   
-  kOriginTrialsSampleAPI = 40,
+  kNoVarySearchPrefetch = 40,
   
-  kOriginTrialsSampleAPIBrowserReadWrite = 41,
+  kOriginTrialsSampleAPI = 41,
   
-  kOriginTrialsSampleAPIDeprecation = 42,
+  kOriginTrialsSampleAPIBrowserReadWrite = 42,
   
-  kOriginTrialsSampleAPIExpiryGracePeriod = 43,
+  kOriginTrialsSampleAPIDeprecation = 43,
   
-  kOriginTrialsSampleAPIExpiryGracePeriodThirdParty = 44,
+  kOriginTrialsSampleAPIExpiryGracePeriod = 44,
   
-  kOriginTrialsSampleAPIImplied = 45,
+  kOriginTrialsSampleAPIExpiryGracePeriodThirdParty = 45,
   
-  kOriginTrialsSampleAPIInvalidOS = 46,
+  kOriginTrialsSampleAPIImplied = 46,
   
-  kOriginTrialsSampleAPINavigation = 47,
+  kOriginTrialsSampleAPIInvalidOS = 47,
   
-  kOriginTrialsSampleAPIPersistentExpiryGracePeriod = 48,
+  kOriginTrialsSampleAPINavigation = 48,
   
-  kOriginTrialsSampleAPIPersistentFeature = 49,
+  kOriginTrialsSampleAPIPersistentExpiryGracePeriod = 49,
   
-  kOriginTrialsSampleAPIPersistentInvalidOS = 50,
+  kOriginTrialsSampleAPIPersistentFeature = 50,
   
-  kOriginTrialsSampleAPIPersistentThirdPartyDeprecationFeature = 51,
+  kOriginTrialsSampleAPIPersistentInvalidOS = 51,
   
-  kOriginTrialsSampleAPIThirdParty = 52,
+  kOriginTrialsSampleAPIPersistentThirdPartyDeprecationFeature = 52,
   
-  kPageFreezeOptIn = 53,
+  kOriginTrialsSampleAPIThirdParty = 53,
   
-  kPageFreezeOptOut = 54,
+  kPageFreezeOptIn = 54,
   
-  kParakeet = 55,
+  kPageFreezeOptOut = 55,
   
-  kPartitionedCookies = 56,
+  kParakeet = 56,
   
-  kPaymentHandlerMinimalHeaderUX = 57,
+  kPartitionedCookies = 57,
   
-  kPendingBeaconAPI = 58,
+  kPaymentHandlerMinimalHeaderUX = 58,
   
-  kPerMethodCanMakePaymentQuota = 59,
+  kPendingBeaconAPI = 59,
   
-  kPNaCl = 60,
+  kPerMethodCanMakePaymentQuota = 60,
   
-  kPrivacySandboxAdsAPIs = 61,
+  kPNaCl = 61,
   
-  kPrivateNetworkAccessNonSecureContextsAllowed = 62,
+  kPrivacySandboxAdsAPIs = 62,
   
-  kPrivateNetworkAccessPermissionPrompt = 63,
+  kPrivateNetworkAccessNonSecureContextsAllowed = 63,
   
-  kPrivateStateTokens = 64,
+  kPrivateNetworkAccessPermissionPrompt = 64,
   
-  kReduceAcceptLanguage = 65,
+  kPrivateStateTokens = 65,
   
-  kRtcAudioJitterBufferMaxPackets = 66,
+  kReduceAcceptLanguage = 66,
   
-  kRTCEncodedFrameSetMetadata = 67,
+  kRtcAudioJitterBufferMaxPackets = 67,
   
-  kRTCLegacyCallbackBasedGetStats = 68,
+  kRTCEncodedFrameSetMetadata = 68,
   
-  kRTCStatsRelativePacketArrivalDelay = 69,
+  kRTCLegacyCallbackBasedGetStats = 69,
   
-  kSchedulerYield = 70,
+  kRTCStatsRelativePacketArrivalDelay = 70,
   
-  kSecurePaymentConfirmationOptOut = 71,
+  kSchedulerYield = 71,
   
-  kServiceWorkerBypassFetchHandler = 72,
+  kSecurePaymentConfirmationOptOut = 72,
   
-  kServiceWorkerRaceNetworkRequest = 73,
+  kServiceWorkerBypassFetchHandler = 73,
   
-  kServiceWorkerStaticRouter = 74,
+  kServiceWorkerRaceNetworkRequest = 74,
   
-  kSharedStorageAPI = 75,
+  kServiceWorkerStaticRouter = 75,
   
-  kSignatureBasedIntegrity = 76,
+  kSharedStorageAPI = 76,
   
-  kSoftNavigationHeuristics = 77,
+  kSignatureBasedIntegrity = 77,
   
-  kSpeculationRulesDocumentRules = 78,
+  kSoftNavigationHeuristics = 78,
   
-  kSpeculationRulesDocumentRulesSelectorMatches = 79,
+  kSpeculationRulesDocumentRules = 79,
   
-  kSpeculationRulesEagerness = 80,
+  kSpeculationRulesDocumentRulesSelectorMatches = 80,
   
-  kSpeculationRulesFetchFromHeader = 81,
+  kSpeculationRulesEagerness = 81,
   
-  kSpeculationRulesNoVarySearchHint = 82,
+  kSpeculationRulesFetchFromHeader = 82,
   
-  kSpeculationRulesPrefetchFuture = 83,
+  kSpeculationRulesNoVarySearchHint = 83,
   
-  kSpeculationRulesRelativeToDocument = 84,
+  kSpeculationRulesPrefetchFuture = 84,
   
-  kStorageAccessAPIBeyondCookies = 85,
+  kSpeculationRulesRelativeToDocument = 85,
   
-  kTextFragmentIdentifiers = 86,
+  kStorageAccessAPIBeyondCookies = 86,
   
-  kTopicsAPI = 87,
+  kTextFragmentIdentifiers = 87,
   
-  kTopicsDocumentAPI = 88,
+  kTopicsAPI = 88,
   
-  kTopLevelTpcd = 89,
+  kTopicsDocumentAPI = 89,
   
-  kTouchEventFeatureDetection = 90,
+  kTopLevelTpcd = 90,
   
-  kTpcd = 91,
+  kTouchEventFeatureDetection = 91,
   
-  kUnrestrictedSharedArrayBuffer = 92,
+  kTpcd = 92,
   
-  kWebAppDarkMode = 93,
+  kUnrestrictedSharedArrayBuffer = 93,
   
-  kWebAppLaunchHandler = 94,
+  kWebAppDarkMode = 94,
   
-  kWebAppLaunchQueue = 95,
+  kWebAppLaunchHandler = 95,
   
-  kWebAppScopeExtensions = 96,
+  kWebAppLaunchQueue = 96,
   
-  kWebAppTabStrip = 97,
+  kWebAppScopeExtensions = 97,
   
-  kWebAppTabStripCustomizations = 98,
+  kWebAppTabStrip = 98,
   
-  kWebAppUrlHandling = 99,
+  kWebAppTabStripCustomizations = 99,
   
-  kWebAssemblyJSStringBuiltins = 100,
+  kWebAppUrlHandling = 100,
   
-  kWebTransportCustomCertificates = 101,
+  kWebAssemblyJSStringBuiltins = 101,
   
-  kWebViewXRequestedWithDeprecation = 102,
+  kWebTransportCustomCertificates = 102,
   
-  kWebXRImageTracking = 103,
+  kWebViewXRequestedWithDeprecation = 103,
   
-  kWebXRPlaneDetection = 104,
+  kWebXRImageTracking = 104,
+  
+  kWebXRPlaneDetection = 105,
   kMinValue = 0,
-  kMaxValue = 104,
+  kMaxValue = 105,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, OriginTrialFeature value);

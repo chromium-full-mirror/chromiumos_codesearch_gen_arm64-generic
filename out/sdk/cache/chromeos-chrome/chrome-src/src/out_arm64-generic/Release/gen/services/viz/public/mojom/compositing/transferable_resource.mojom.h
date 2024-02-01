@@ -63,7 +63,7 @@ class  TransferableResource {
   template <typename... Args>
   static TransferableResourcePtr New(Args&&... args) {
     return TransferableResourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

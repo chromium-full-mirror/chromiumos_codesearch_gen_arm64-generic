@@ -204,7 +204,7 @@ class  WebUIModelInfo {
   template <typename... Args>
   static WebUIModelInfoPtr New(Args&&... args) {
     return WebUIModelInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -358,7 +358,7 @@ class  WebUIGetBrowsingTopicsStateResult {
   static WebUIGetBrowsingTopicsStateResultPtr
   NewOverrideStatusMessage(
       const std::string& value) {
-    auto result = WebUIGetBrowsingTopicsStateResultPtr(absl::in_place);
+    auto result = WebUIGetBrowsingTopicsStateResultPtr(std::in_place);
     result->set_override_status_message(std::move(value));
     return result;
   }
@@ -366,7 +366,7 @@ class  WebUIGetBrowsingTopicsStateResult {
   static WebUIGetBrowsingTopicsStateResultPtr
   NewBrowsingTopicsState(
       WebUIBrowsingTopicsStatePtr value) {
-    auto result = WebUIGetBrowsingTopicsStateResultPtr(absl::in_place);
+    auto result = WebUIGetBrowsingTopicsStateResultPtr(std::in_place);
     result->set_browsing_topics_state(std::move(value));
     return result;
   }
@@ -488,7 +488,7 @@ class  WebUIGetModelInfoResult {
   static WebUIGetModelInfoResultPtr
   NewOverrideStatusMessage(
       const std::string& value) {
-    auto result = WebUIGetModelInfoResultPtr(absl::in_place);
+    auto result = WebUIGetModelInfoResultPtr(std::in_place);
     result->set_override_status_message(std::move(value));
     return result;
   }
@@ -496,7 +496,7 @@ class  WebUIGetModelInfoResult {
   static WebUIGetModelInfoResultPtr
   NewModelInfo(
       WebUIModelInfoPtr value) {
-    auto result = WebUIGetModelInfoResultPtr(absl::in_place);
+    auto result = WebUIGetModelInfoResultPtr(std::in_place);
     result->set_model_info(std::move(value));
     return result;
   }
@@ -611,7 +611,7 @@ class  WebUIBrowsingTopicsConfiguration {
   template <typename... Args>
   static WebUIBrowsingTopicsConfigurationPtr New(Args&&... args) {
     return WebUIBrowsingTopicsConfigurationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -802,7 +802,7 @@ class  WebUITopic {
   template <typename... Args>
   static WebUITopicPtr New(Args&&... args) {
     return WebUITopicPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -951,7 +951,7 @@ class  WebUIEpoch {
   template <typename... Args>
   static WebUIEpochPtr New(Args&&... args) {
     return WebUIEpochPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1102,7 +1102,7 @@ class  WebUIBrowsingTopicsState {
   template <typename... Args>
   static WebUIBrowsingTopicsStatePtr New(Args&&... args) {
     return WebUIBrowsingTopicsStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

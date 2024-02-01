@@ -13,7 +13,7 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { stringToMojoString16 } from 'chrome://resources/js/mojo_type_util.js';
 import { afterNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { SearchResultsAvailabilityObserverReceiver } from '../../mojom-webui/ash/webui/shortcut_customization_ui/backend/search/search.mojom-webui.js';
+import { SearchResultsAvailabilityObserverReceiver } from '../../mojom-webui/search.mojom-webui.js';
 import { AcceleratorState } from '../shortcut_types.js';
 import { isCustomizationAllowed } from '../shortcut_utils.js';
 import { getTemplate } from './search_box.html.js';

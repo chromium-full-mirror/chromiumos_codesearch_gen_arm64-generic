@@ -172,7 +172,7 @@ class PLATFORM_EXPORT LeakDetectionResult {
   template <typename... Args>
   static LeakDetectionResultPtr New(Args&&... args) {
     return LeakDetectionResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

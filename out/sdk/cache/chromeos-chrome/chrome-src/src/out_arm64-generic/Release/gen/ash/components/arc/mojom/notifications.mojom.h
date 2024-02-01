@@ -461,7 +461,7 @@ class  ArcNotificationButton {
   template <typename... Args>
   static ArcNotificationButtonPtr New(Args&&... args) {
     return ArcNotificationButtonPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -609,7 +609,7 @@ class  ArcNotificationFlags {
   template <typename... Args>
   static ArcNotificationFlagsPtr New(Args&&... args) {
     return ArcNotificationFlagsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -751,7 +751,7 @@ class  ArcDoNotDisturbStatus {
   template <typename... Args>
   static ArcDoNotDisturbStatusPtr New(Args&&... args) {
     return ArcDoNotDisturbStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -892,7 +892,7 @@ class  ArcNotificationUserActionData {
   template <typename... Args>
   static ArcNotificationUserActionDataPtr New(Args&&... args) {
     return ArcNotificationUserActionDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1042,7 +1042,7 @@ class  ArcLockScreenNotificationSetting {
   template <typename... Args>
   static ArcLockScreenNotificationSettingPtr New(Args&&... args) {
     return ArcLockScreenNotificationSettingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1186,7 +1186,7 @@ class  NotificationConfiguration {
   template <typename... Args>
   static NotificationConfigurationPtr New(Args&&... args) {
     return NotificationConfigurationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1331,7 +1331,7 @@ class  ArcNotificationData {
   template <typename... Args>
   static ArcNotificationDataPtr New(Args&&... args) {
     return ArcNotificationDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

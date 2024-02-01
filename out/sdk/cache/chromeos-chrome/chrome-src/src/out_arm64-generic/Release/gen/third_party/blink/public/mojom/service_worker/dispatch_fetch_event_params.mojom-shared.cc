@@ -31,7 +31,7 @@ bool DispatchFetchEventParams_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
@@ -55,6 +55,17 @@ bool DispatchFetchEventParams_Data::Validate(
       mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->client_id, validation_context,
                                          &client_id_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->resulting_client_id, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& resulting_client_id_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->resulting_client_id, validation_context,
+                                         &resulting_client_id_validate_params)) {
     return false;
   }
 

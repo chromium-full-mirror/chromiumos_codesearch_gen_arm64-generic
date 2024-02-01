@@ -133,6 +133,7 @@ struct OriginTrialFeature_Data {
       case 102:
       case 103:
       case 104:
+      case 105:
         return true;
     }
     return false;

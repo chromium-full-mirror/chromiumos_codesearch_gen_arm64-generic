@@ -58,7 +58,7 @@ class  AXNodeData {
   template <typename... Args>
   static AXNodeDataPtr New(Args&&... args) {
     return AXNodeDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

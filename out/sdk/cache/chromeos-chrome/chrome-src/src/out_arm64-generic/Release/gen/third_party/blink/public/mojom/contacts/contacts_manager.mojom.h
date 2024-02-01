@@ -171,7 +171,7 @@ class BLINK_COMMON_EXPORT ContactIconBlob {
   template <typename... Args>
   static ContactIconBlobPtr New(Args&&... args) {
     return ContactIconBlobPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -314,7 +314,7 @@ class BLINK_COMMON_EXPORT ContactInfo {
   template <typename... Args>
   static ContactInfoPtr New(Args&&... args) {
     return ContactInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

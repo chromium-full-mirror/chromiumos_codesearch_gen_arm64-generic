@@ -453,7 +453,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM_BLINK) GamepadQuaternion {
   template <typename... Args>
   static GamepadQuaternionPtr New(Args&&... args) {
     return GamepadQuaternionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -602,7 +602,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM_BLINK) GamepadVector {
   template <typename... Args>
   static GamepadVectorPtr New(Args&&... args) {
     return GamepadVectorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -748,7 +748,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM_BLINK) GamepadButton {
   template <typename... Args>
   static GamepadButtonPtr New(Args&&... args) {
     return GamepadButtonPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -895,7 +895,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM_BLINK) AxisChange {
   template <typename... Args>
   static AxisChangePtr New(Args&&... args) {
     return AxisChangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1042,7 +1042,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM_BLINK) GamepadHapticActuator {
   template <typename... Args>
   static GamepadHapticActuatorPtr New(Args&&... args) {
     return GamepadHapticActuatorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1189,7 +1189,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM_BLINK) ButtonChange {
   template <typename... Args>
   static ButtonChangePtr New(Args&&... args) {
     return ButtonChangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1342,7 +1342,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM_BLINK) GamepadChanges {
   template <typename... Args>
   static GamepadChangesPtr New(Args&&... args) {
     return GamepadChangesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1493,7 +1493,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM_BLINK) GamepadTouch {
   template <typename... Args>
   static GamepadTouchPtr New(Args&&... args) {
     return GamepadTouchPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1651,7 +1651,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM_BLINK) GamepadPose {
   template <typename... Args>
   static GamepadPosePtr New(Args&&... args) {
     return GamepadPosePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1807,7 +1807,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM_BLINK) Gamepad {
   template <typename... Args>
   static GamepadPtr New(Args&&... args) {
     return GamepadPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1977,7 +1977,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM_BLINK) GamepadEffectParameters {
   template <typename... Args>
   static GamepadEffectParametersPtr New(Args&&... args) {
     return GamepadEffectParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

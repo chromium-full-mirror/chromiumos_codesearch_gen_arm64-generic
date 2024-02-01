@@ -58,7 +58,7 @@ class PLATFORM_EXPORT WorkerOptions {
   template <typename... Args>
   static WorkerOptionsPtr New(Args&&... args) {
     return WorkerOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

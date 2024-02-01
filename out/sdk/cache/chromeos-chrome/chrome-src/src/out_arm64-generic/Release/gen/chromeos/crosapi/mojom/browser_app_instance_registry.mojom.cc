@@ -50,7 +50,8 @@ BrowserWindowInstanceUpdate::BrowserWindowInstanceUpdate()
       is_active(),
       browser_session_id(),
       restored_browser_session_id(),
-      is_incognito() {}
+      is_incognito(),
+      lacros_profile_id() {}
 
 BrowserWindowInstanceUpdate::BrowserWindowInstanceUpdate(
     const ::base::UnguessableToken& id_in,
@@ -61,7 +62,8 @@ BrowserWindowInstanceUpdate::BrowserWindowInstanceUpdate(
       is_active(std::move(is_active_in)),
       browser_session_id(),
       restored_browser_session_id(),
-      is_incognito() {}
+      is_incognito(),
+      lacros_profile_id() {}
 
 BrowserWindowInstanceUpdate::BrowserWindowInstanceUpdate(
     const ::base::UnguessableToken& id_in,
@@ -74,7 +76,8 @@ BrowserWindowInstanceUpdate::BrowserWindowInstanceUpdate(
       is_active(std::move(is_active_in)),
       browser_session_id(std::move(browser_session_id_in)),
       restored_browser_session_id(std::move(restored_browser_session_id_in)),
-      is_incognito() {}
+      is_incognito(),
+      lacros_profile_id() {}
 
 BrowserWindowInstanceUpdate::BrowserWindowInstanceUpdate(
     const ::base::UnguessableToken& id_in,
@@ -88,7 +91,24 @@ BrowserWindowInstanceUpdate::BrowserWindowInstanceUpdate(
       is_active(std::move(is_active_in)),
       browser_session_id(std::move(browser_session_id_in)),
       restored_browser_session_id(std::move(restored_browser_session_id_in)),
-      is_incognito(std::move(is_incognito_in)) {}
+      is_incognito(std::move(is_incognito_in)),
+      lacros_profile_id() {}
+
+BrowserWindowInstanceUpdate::BrowserWindowInstanceUpdate(
+    const ::base::UnguessableToken& id_in,
+    const std::string& window_id_in,
+    bool is_active_in,
+    uint32_t browser_session_id_in,
+    uint32_t restored_browser_session_id_in,
+    bool is_incognito_in,
+    uint64_t lacros_profile_id_in)
+    : id(std::move(id_in)),
+      window_id(std::move(window_id_in)),
+      is_active(std::move(is_active_in)),
+      browser_session_id(std::move(browser_session_id_in)),
+      restored_browser_session_id(std::move(restored_browser_session_id_in)),
+      is_incognito(std::move(is_incognito_in)),
+      lacros_profile_id(std::move(lacros_profile_id_in)) {}
 
 BrowserWindowInstanceUpdate::~BrowserWindowInstanceUpdate() = default;
 
@@ -145,6 +165,15 @@ void BrowserWindowInstanceUpdate::WriteIntoTrace(
       "is_incognito"), this->is_incognito,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "lacros_profile_id"), this->lacros_profile_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1296,6 +1325,8 @@ bool StructTraits<::crosapi::mojom::BrowserWindowInstanceUpdate::DataView, ::cro
         result->restored_browser_session_id = input.restored_browser_session_id();
       if (success)
         result->is_incognito = input.is_incognito();
+      if (success)
+        result->lacros_profile_id = input.lacros_profile_id();
   *output = std::move(result);
   return success;
 }

@@ -197,7 +197,7 @@ static_assert(
         ::mojo_base::mojom::TokenDataView, UserType>(),
     "Attempting to read the optional `local_background_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLocalBackgroundId` instead "
     "of `ReadLocalBackgroundId if you're fine with null values being "
@@ -292,7 +292,7 @@ static_assert(
         ::side_panel::mojom::BackgroundImageDataView, UserType>(),
     "Attempting to read the optional `background_image` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBackgroundImage` instead "
     "of `ReadBackgroundImage if you're fine with null values being "
@@ -312,7 +312,7 @@ static_assert(
         ::side_panel::mojom::ThirdPartyThemeInfoDataView, UserType>(),
     "Attempting to read the optional `third_party_theme_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadThirdPartyThemeInfo` instead "
     "of `ReadThirdPartyThemeInfo if you're fine with null values being "
@@ -342,7 +342,7 @@ static_assert(
         ::skia::mojom::SkColorDataView, UserType>(),
     "Attempting to read the optional `foreground_color` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadForegroundColor` instead "
     "of `ReadForegroundColor if you're fine with null values being "

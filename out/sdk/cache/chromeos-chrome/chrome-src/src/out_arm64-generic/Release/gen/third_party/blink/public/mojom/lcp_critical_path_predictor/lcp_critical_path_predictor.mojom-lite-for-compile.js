@@ -68,6 +68,12 @@ blink.mojom.LCPCriticalPathPredictorHostInterface = class {
   setLcpInfluencerScriptUrls(lcpInfluencerScripts) {}
   
   /**
+   * @param { !Array<!url.mojom.Url> } origins
+   */
+
+  setPreconnectOrigins(origins) {}
+  
+  /**
    * @param { !url.mojom.Url } fontUrl
    */
 
@@ -142,13 +148,29 @@ blink.mojom.LCPCriticalPathPredictorHostRemote = class {
 
   
   /**
+   * @param { !Array<!url.mojom.Url> } origins
+   */
+
+  setPreconnectOrigins(
+      origins) {
+    this.proxy.sendMessage(
+        2,
+        blink.mojom.LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsSpec.$,
+        null,
+        [
+          origins
+        ]);
+  }
+
+  
+  /**
    * @param { !url.mojom.Url } fontUrl
    */
 
   notifyFetchedFont(
       fontUrl) {
     this.proxy.sendMessage(
-        2,
+        3,
         blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsSpec.$,
         null,
         [
@@ -166,7 +188,7 @@ blink.mojom.LCPCriticalPathPredictorHostRemote = class {
       subresourceUrl,
       subresourceLoadStart) {
     this.proxy.sendMessage(
-        3,
+        4,
         blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec.$,
         null,
         [
@@ -210,11 +232,16 @@ blink.mojom.LCPCriticalPathPredictorHostReceiver = class {
         impl.setLcpInfluencerScriptUrls.bind(impl));
     this.helper_internal_.registerHandler(
         2,
+        blink.mojom.LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsSpec.$,
+        null,
+        impl.setPreconnectOrigins.bind(impl));
+    this.helper_internal_.registerHandler(
+        3,
         blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsSpec.$,
         null,
         impl.notifyFetchedFont.bind(impl));
     this.helper_internal_.registerHandler(
-        3,
+        4,
         blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec.$,
         null,
         impl.notifyFetchedSubresource.bind(impl));
@@ -297,12 +324,24 @@ blink.mojom.LCPCriticalPathPredictorHostCallbackRouter = class {
     /**
      * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
      */
-    this.notifyFetchedFont =
+    this.setPreconnectOrigins =
         new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
             this.router_);
 
     this.helper_internal_.registerHandler(
         2,
+        blink.mojom.LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsSpec.$,
+        null,
+        this.setPreconnectOrigins.createReceiverHandler(false /* expectsResponse */));
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.notifyFetchedFont =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        3,
         blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsSpec.$,
         null,
         this.notifyFetchedFont.createReceiverHandler(false /* expectsResponse */));
@@ -314,7 +353,7 @@ blink.mojom.LCPCriticalPathPredictorHostCallbackRouter = class {
             this.router_);
 
     this.helper_internal_.registerHandler(
-        3,
+        4,
         blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedSubresource_ParamsSpec.$,
         null,
         this.notifyFetchedSubresource.createReceiverHandler(false /* expectsResponse */));
@@ -355,6 +394,14 @@ goog.provide('blink.mojom.LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrl
  * @export
  */
 blink.mojom.LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('blink.mojom.LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('blink.mojom.LCPCriticalPathPredictorHost_NotifyFetchedFont_ParamsSpec');
@@ -404,8 +451,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'preconnectOrigins', 24,
+        0,
+        mojo.internal.Array(url.mojom.UrlSpec.$, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 32],]);
+    [[0, 40],]);
 
 
 
@@ -420,6 +475,8 @@ blink.mojom.LCPCriticalPathPredictorNavigationTimeHint = class {
     this.lcpInfluencerScripts;
     /** @export { !Array<!url.mojom.Url> } */
     this.fetchedFonts;
+    /** @export { !Array<!url.mojom.Url> } */
+    this.preconnectOrigins;
   }
 };
 
@@ -505,6 +562,35 @@ blink.mojom.LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Params = cla
   constructor() {
     /** @export { !Array<!url.mojom.Url> } */
     this.lcpInfluencerScripts;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.LCPCriticalPathPredictorHost_SetPreconnectOrigins_ParamsSpec.$,
+    'LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params',
+    [
+      mojo.internal.StructField(
+        'origins', 0,
+        0,
+        mojo.internal.Array(url.mojom.UrlSpec.$, false),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+    ],
+    [[0, 16],]);
+
+
+
+goog.provide('blink.mojom.LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params');
+
+/** @record */
+blink.mojom.LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params = class {
+  constructor() {
+    /** @export { !Array<!url.mojom.Url> } */
+    this.origins;
   }
 };
 

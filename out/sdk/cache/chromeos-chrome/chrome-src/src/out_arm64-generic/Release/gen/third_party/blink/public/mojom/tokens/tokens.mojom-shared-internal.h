@@ -326,6 +326,10 @@ class COMPONENT_EXPORT(TOKENS_MOJOM_SHARED) WebGPUExecutionContextToken_Data {
     kDocumentToken,
     
     kDedicatedWorkerToken,
+    
+    kSharedWorkerToken,
+    
+    kServiceWorkerToken,
   };
 
   // A note on layout:
@@ -335,6 +339,8 @@ class COMPONENT_EXPORT(TOKENS_MOJOM_SHARED) WebGPUExecutionContextToken_Data {
     Union_() : unknown(0) {}
     mojo::internal::Pointer<internal::DocumentToken_Data> f_document_token;
     mojo::internal::Pointer<internal::DedicatedWorkerToken_Data> f_dedicated_worker_token;
+    mojo::internal::Pointer<internal::SharedWorkerToken_Data> f_shared_worker_token;
+    mojo::internal::Pointer<internal::ServiceWorkerToken_Data> f_service_worker_token;
     uint64_t unknown;
   };
 

@@ -63,7 +63,7 @@ class  AssistantTree {
   template <typename... Args>
   static AssistantTreePtr New(Args&&... args) {
     return AssistantTreePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -205,7 +205,7 @@ class  AssistantNode {
   template <typename... Args>
   static AssistantNodePtr New(Args&&... args) {
     return AssistantNodePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -381,7 +381,7 @@ class  AssistantExtra {
   template <typename... Args>
   static AssistantExtraPtr New(Args&&... args) {
     return AssistantExtraPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -527,7 +527,7 @@ class  AssistantStructure {
   template <typename... Args>
   static AssistantStructurePtr New(Args&&... args) {
     return AssistantStructurePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

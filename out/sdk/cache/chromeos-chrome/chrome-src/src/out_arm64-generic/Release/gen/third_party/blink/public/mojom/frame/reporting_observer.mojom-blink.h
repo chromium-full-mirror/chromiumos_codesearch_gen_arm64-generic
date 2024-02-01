@@ -163,7 +163,7 @@ class CORE_EXPORT ReportBodyElement {
   template <typename... Args>
   static ReportBodyElementPtr New(Args&&... args) {
     return ReportBodyElementPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -312,7 +312,7 @@ class CORE_EXPORT ReportBody {
   template <typename... Args>
   static ReportBodyPtr New(Args&&... args) {
     return ReportBodyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -454,7 +454,7 @@ class CORE_EXPORT Report {
   template <typename... Args>
   static ReportPtr New(Args&&... args) {
     return ReportPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

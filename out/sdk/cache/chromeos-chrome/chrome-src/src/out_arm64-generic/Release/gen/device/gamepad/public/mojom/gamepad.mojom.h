@@ -450,7 +450,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM) GamepadQuaternion {
   template <typename... Args>
   static GamepadQuaternionPtr New(Args&&... args) {
     return GamepadQuaternionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -599,7 +599,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM) GamepadVector {
   template <typename... Args>
   static GamepadVectorPtr New(Args&&... args) {
     return GamepadVectorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -745,7 +745,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM) GamepadButton {
   template <typename... Args>
   static GamepadButtonPtr New(Args&&... args) {
     return GamepadButtonPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -892,7 +892,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM) AxisChange {
   template <typename... Args>
   static AxisChangePtr New(Args&&... args) {
     return AxisChangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1039,7 +1039,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM) GamepadHapticActuator {
   template <typename... Args>
   static GamepadHapticActuatorPtr New(Args&&... args) {
     return GamepadHapticActuatorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1186,7 +1186,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM) ButtonChange {
   template <typename... Args>
   static ButtonChangePtr New(Args&&... args) {
     return ButtonChangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1339,7 +1339,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM) GamepadChanges {
   template <typename... Args>
   static GamepadChangesPtr New(Args&&... args) {
     return GamepadChangesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1490,7 +1490,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM) GamepadTouch {
   template <typename... Args>
   static GamepadTouchPtr New(Args&&... args) {
     return GamepadTouchPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1648,7 +1648,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM) GamepadPose {
   template <typename... Args>
   static GamepadPosePtr New(Args&&... args) {
     return GamepadPosePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1804,7 +1804,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM) Gamepad {
   template <typename... Args>
   static GamepadPtr New(Args&&... args) {
     return GamepadPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1974,7 +1974,7 @@ class COMPONENT_EXPORT(GAMEPAD_MOJOM) GamepadEffectParameters {
   template <typename... Args>
   static GamepadEffectParametersPtr New(Args&&... args) {
     return GamepadEffectParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

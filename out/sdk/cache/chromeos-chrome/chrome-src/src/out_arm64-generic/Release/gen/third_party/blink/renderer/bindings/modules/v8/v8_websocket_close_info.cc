@@ -67,7 +67,7 @@ void WebSocketCloseInfo::setReason(String&& value) {
 
 
 void WebSocketCloseInfo::Trace(Visitor* visitor) const {
-  TraceIfNeeded<uint16_t>::Trace(visitor, member_code_);
+  TraceIfNeeded<uint16_t>::Trace(visitor, member_close_code_);
 TraceIfNeeded<String>::Trace(visitor, member_reason_);
 bindings::DictionaryBase::Trace(visitor);
 }
@@ -77,8 +77,8 @@ bool WebSocketCloseInfo::FillV8ObjectWithMembers(ScriptState* script_state, v8::
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-if (hasCode()) {
-  v8_value = ToV8Traits<IDLUnsignedShortClamp>::ToV8(script_state, member_code_);
+if (hasCloseCode()) {
+  v8_value = ToV8Traits<IDLUnsignedShortClamp>::ToV8(script_state, member_close_code_);
 v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
 }
 if (hasReason()) {
@@ -91,12 +91,12 @@ return true;
 void WebSocketCloseInfo::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
   const char* const class_like_name = "WebSocketCloseInfo";
 ExceptionState::ContextScope exception_context_scope(ExceptionContext(ExceptionContextType::kDictionaryMemberGet, class_like_name, ""), exception_state);
-exception_context_scope.ChangePropertyNameAsOptimizationHack("code");
+exception_context_scope.ChangePropertyNameAsOptimizationHack("closeCode");
 constexpr bool is_optional = false;
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
 v8::TryCatch try_block(isolate);
-if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedShortClamp, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_code_, member_code_, try_block, exception_state)) {
+if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedShortClamp, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[0].Get(isolate), has_close_code_, member_close_code_, try_block, exception_state)) {
   return;
 }
 exception_context_scope.ChangePropertyNameAsOptimizationHack("reason");
@@ -108,7 +108,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolat
 
 const base::span<const v8::Eternal<v8::Name>> WebSocketCloseInfo::GetV8OwnMemberNames(v8::Isolate* isolate) {
   static const char* const kOwnMemberNames[] = {
-"code",
+"closeCode",
 "reason",
 };
 return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);

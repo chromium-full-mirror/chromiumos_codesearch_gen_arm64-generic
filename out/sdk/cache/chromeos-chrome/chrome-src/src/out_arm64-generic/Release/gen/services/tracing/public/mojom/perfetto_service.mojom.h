@@ -828,7 +828,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) ChunksToMove {
   template <typename... Args>
   static ChunksToMovePtr New(Args&&... args) {
     return ChunksToMovePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -974,7 +974,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) ChunkPatch {
   template <typename... Args>
   static ChunkPatchPtr New(Args&&... args) {
     return ChunkPatchPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1119,7 +1119,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) ChromeConfig {
   template <typename... Args>
   static ChromeConfigPtr New(Args&&... args) {
     return ChromeConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1268,7 +1268,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) ConsoleConfig {
   template <typename... Args>
   static ConsoleConfigPtr New(Args&&... args) {
     return ConsoleConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1414,7 +1414,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) DataSourceRegistration {
   template <typename... Args>
   static DataSourceRegistrationPtr New(Args&&... args) {
     return DataSourceRegistrationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1563,7 +1563,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) BufferConfig {
   template <typename... Args>
   static BufferConfigPtr New(Args&&... args) {
     return BufferConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1708,7 +1708,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) IncrementalStateConfig {
   template <typename... Args>
   static IncrementalStateConfigPtr New(Args&&... args) {
     return IncrementalStateConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1853,7 +1853,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) ChunksToPatch {
   template <typename... Args>
   static ChunksToPatchPtr New(Args&&... args) {
     return ChunksToPatchPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2005,7 +2005,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) CommitDataRequest {
   template <typename... Args>
   static CommitDataRequestPtr New(Args&&... args) {
     return CommitDataRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2155,7 +2155,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) InterceptorConfig {
   template <typename... Args>
   static InterceptorConfigPtr New(Args&&... args) {
     return InterceptorConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2300,7 +2300,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) DataSourceConfig {
   template <typename... Args>
   static DataSourceConfigPtr New(Args&&... args) {
     return DataSourceConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2465,7 +2465,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) DataSource {
   template <typename... Args>
   static DataSourcePtr New(Args&&... args) {
     return DataSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2608,7 +2608,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) PerfettoBuiltinDataSource {
   template <typename... Args>
   static PerfettoBuiltinDataSourcePtr New(Args&&... args) {
     return PerfettoBuiltinDataSourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2761,7 +2761,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) TraceConfig {
   template <typename... Args>
   static TraceConfigPtr New(Args&&... args) {
     return TraceConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

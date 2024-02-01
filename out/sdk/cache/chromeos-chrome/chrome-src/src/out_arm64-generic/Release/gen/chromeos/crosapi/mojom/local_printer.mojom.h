@@ -690,7 +690,7 @@ class  StatusReason {
   template <typename... Args>
   static StatusReasonPtr New(Args&&... args) {
     return StatusReasonPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -839,7 +839,7 @@ class  PrintJobUpdate {
   template <typename... Args>
   static PrintJobUpdatePtr New(Args&&... args) {
     return PrintJobUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -983,7 +983,7 @@ class  OAuthNotNeeded {
   template <typename... Args>
   static OAuthNotNeededPtr New(Args&&... args) {
     return OAuthNotNeededPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1119,7 +1119,7 @@ class  OAuthError {
   template <typename... Args>
   static OAuthErrorPtr New(Args&&... args) {
     return OAuthErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1255,7 +1255,7 @@ class  OAuthAccessToken {
   template <typename... Args>
   static OAuthAccessTokenPtr New(Args&&... args) {
     return OAuthAccessTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1406,7 +1406,7 @@ class  GetOAuthAccessTokenResult {
   static GetOAuthAccessTokenResultPtr
   NewNone(
       OAuthNotNeededPtr value) {
-    auto result = GetOAuthAccessTokenResultPtr(absl::in_place);
+    auto result = GetOAuthAccessTokenResultPtr(std::in_place);
     result->set_none(std::move(value));
     return result;
   }
@@ -1414,7 +1414,7 @@ class  GetOAuthAccessTokenResult {
   static GetOAuthAccessTokenResultPtr
   NewError(
       OAuthErrorPtr value) {
-    auto result = GetOAuthAccessTokenResultPtr(absl::in_place);
+    auto result = GetOAuthAccessTokenResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1422,7 +1422,7 @@ class  GetOAuthAccessTokenResult {
   static GetOAuthAccessTokenResultPtr
   NewToken(
       OAuthAccessTokenPtr value) {
-    auto result = GetOAuthAccessTokenResultPtr(absl::in_place);
+    auto result = GetOAuthAccessTokenResultPtr(std::in_place);
     result->set_token(std::move(value));
     return result;
   }
@@ -1550,7 +1550,7 @@ class  LocalDestinationInfo {
   template <typename... Args>
   static LocalDestinationInfoPtr New(Args&&... args) {
     return LocalDestinationInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1720,7 +1720,7 @@ class  PrinterStatus {
   template <typename... Args>
   static PrinterStatusPtr New(Args&&... args) {
     return PrinterStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1871,7 +1871,7 @@ class  PrintJob {
   template <typename... Args>
   static PrintJobPtr New(Args&&... args) {
     return PrintJobPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2042,7 +2042,7 @@ class  PrintServersConfig {
   template <typename... Args>
   static PrintServersConfigPtr New(Args&&... args) {
     return PrintServersConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2187,7 +2187,7 @@ class  PrintServer {
   template <typename... Args>
   static PrintServerPtr New(Args&&... args) {
     return PrintServerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2333,7 +2333,7 @@ class  CapabilitiesResponse {
   template <typename... Args>
   static CapabilitiesResponsePtr New(Args&&... args) {
     return CapabilitiesResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2515,7 +2515,7 @@ class  Policies {
   template <typename... Args>
   static PoliciesPtr New(Args&&... args) {
     return PoliciesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

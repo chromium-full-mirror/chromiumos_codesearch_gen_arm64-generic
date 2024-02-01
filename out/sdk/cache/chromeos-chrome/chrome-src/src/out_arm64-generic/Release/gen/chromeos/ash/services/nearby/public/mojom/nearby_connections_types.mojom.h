@@ -59,7 +59,7 @@ class  MediumSelection {
   template <typename... Args>
   static MediumSelectionPtr New(Args&&... args) {
     return MediumSelectionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -215,7 +215,7 @@ class  PayloadTransferUpdate {
   template <typename... Args>
   static PayloadTransferUpdatePtr New(Args&&... args) {
     return PayloadTransferUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -365,7 +365,7 @@ class  InitialConnectionInfoV3 {
   template <typename... Args>
   static InitialConnectionInfoV3Ptr New(Args&&... args) {
     return InitialConnectionInfoV3Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -515,7 +515,7 @@ class  BandwidthInfo {
   template <typename... Args>
   static BandwidthInfoPtr New(Args&&... args) {
     return BandwidthInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -669,7 +669,7 @@ class  PayloadContent {
   static PayloadContentPtr
   NewBytes(
       BytesPayloadPtr value) {
-    auto result = PayloadContentPtr(absl::in_place);
+    auto result = PayloadContentPtr(std::in_place);
     result->set_bytes(std::move(value));
     return result;
   }
@@ -677,7 +677,7 @@ class  PayloadContent {
   static PayloadContentPtr
   NewFile(
       FilePayloadPtr value) {
-    auto result = PayloadContentPtr(absl::in_place);
+    auto result = PayloadContentPtr(std::in_place);
     result->set_file(std::move(value));
     return result;
   }
@@ -791,7 +791,7 @@ class  ConnectionInfo {
   template <typename... Args>
   static ConnectionInfoPtr New(Args&&... args) {
     return ConnectionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -940,7 +940,7 @@ class  DiscoveredEndpointInfo {
   template <typename... Args>
   static DiscoveredEndpointInfoPtr New(Args&&... args) {
     return DiscoveredEndpointInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1084,7 +1084,7 @@ class  AdvertisingOptions {
   template <typename... Args>
   static AdvertisingOptionsPtr New(Args&&... args) {
     return AdvertisingOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1244,7 +1244,7 @@ class  DiscoveryOptions {
   template <typename... Args>
   static DiscoveryOptionsPtr New(Args&&... args) {
     return DiscoveryOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1395,7 +1395,7 @@ class  ConnectionOptions {
   template <typename... Args>
   static ConnectionOptionsPtr New(Args&&... args) {
     return ConnectionOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1546,7 +1546,7 @@ class  BytesPayload {
   template <typename... Args>
   static BytesPayloadPtr New(Args&&... args) {
     return BytesPayloadPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1686,7 +1686,7 @@ class  FilePayload {
   template <typename... Args>
   static FilePayloadPtr New(Args&&... args) {
     return FilePayloadPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1823,7 +1823,7 @@ class  Payload {
   template <typename... Args>
   static PayloadPtr New(Args&&... args) {
     return PayloadPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

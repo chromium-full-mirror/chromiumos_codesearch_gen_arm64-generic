@@ -269,7 +269,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerInstalledScriptsInfo {
   template <typename... Args>
   static ServiceWorkerInstalledScriptsInfoPtr New(Args&&... args) {
     return ServiceWorkerInstalledScriptsInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -412,7 +412,7 @@ class BLINK_COMMON_EXPORT ServiceWorkerScriptInfo {
   template <typename... Args>
   static ServiceWorkerScriptInfoPtr New(Args&&... args) {
     return ServiceWorkerScriptInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -341,7 +341,7 @@ class  BundledFrameSubmissionData {
   static BundledFrameSubmissionDataPtr
   NewFrame(
       BundledCompositorFramePtr value) {
-    auto result = BundledFrameSubmissionDataPtr(absl::in_place);
+    auto result = BundledFrameSubmissionDataPtr(std::in_place);
     result->set_frame(std::move(value));
     return result;
   }
@@ -349,7 +349,7 @@ class  BundledFrameSubmissionData {
   static BundledFrameSubmissionDataPtr
   NewDidNotProduceFrame(
       const ::viz::BeginFrameAck& value) {
-    auto result = BundledFrameSubmissionDataPtr(absl::in_place);
+    auto result = BundledFrameSubmissionDataPtr(std::in_place);
     result->set_did_not_produce_frame(std::move(value));
     return result;
   }
@@ -357,7 +357,7 @@ class  BundledFrameSubmissionData {
   static BundledFrameSubmissionDataPtr
   NewDidDeleteSharedBitmap(
       const ::gpu::Mailbox& value) {
-    auto result = BundledFrameSubmissionDataPtr(absl::in_place);
+    auto result = BundledFrameSubmissionDataPtr(std::in_place);
     result->set_did_delete_shared_bitmap(std::move(value));
     return result;
   }
@@ -484,7 +484,7 @@ class  BundledFrameSubmission {
   template <typename... Args>
   static BundledFrameSubmissionPtr New(Args&&... args) {
     return BundledFrameSubmissionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -624,7 +624,7 @@ class  BundledCompositorFrame {
   template <typename... Args>
   static BundledCompositorFramePtr New(Args&&... args) {
     return BundledCompositorFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -770,7 +770,7 @@ class  BundledReturnedResources {
   template <typename... Args>
   static BundledReturnedResourcesPtr New(Args&&... args) {
     return BundledReturnedResourcesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -910,7 +910,7 @@ class  BeginFrameInfo {
   template <typename... Args>
   static BeginFrameInfoPtr New(Args&&... args) {
     return BeginFrameInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -58,7 +58,7 @@ class  ReadWriteAudioDataPipe {
   template <typename... Args>
   static ReadWriteAudioDataPipePtr New(Args&&... args) {
     return ReadWriteAudioDataPipePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -198,7 +198,7 @@ class  ReadOnlyAudioDataPipe {
   template <typename... Args>
   static ReadOnlyAudioDataPipePtr New(Args&&... args) {
     return ReadOnlyAudioDataPipePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

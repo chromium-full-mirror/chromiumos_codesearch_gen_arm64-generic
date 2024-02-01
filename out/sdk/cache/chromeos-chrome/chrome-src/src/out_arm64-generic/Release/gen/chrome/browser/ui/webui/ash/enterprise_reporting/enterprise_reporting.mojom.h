@@ -397,7 +397,7 @@ class  ErpHistoryEventParameter {
   template <typename... Args>
   static ErpHistoryEventParameterPtr New(Args&&... args) {
     return ErpHistoryEventParameterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -543,7 +543,7 @@ class  ErpHistoryData {
   template <typename... Args>
   static ErpHistoryDataPtr New(Args&&... args) {
     return ErpHistoryDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -685,7 +685,7 @@ class  ErpHistoryEvent {
   template <typename... Args>
   static ErpHistoryEventPtr New(Args&&... args) {
     return ErpHistoryEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

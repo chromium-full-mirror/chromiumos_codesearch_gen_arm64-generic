@@ -605,7 +605,7 @@ class PLATFORM_EXPORT PresentationError {
   template <typename... Args>
   static PresentationErrorPtr New(Args&&... args) {
     return PresentationErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -760,7 +760,7 @@ class PLATFORM_EXPORT PresentationConnectionMessage {
   static PresentationConnectionMessagePtr
   NewMessage(
       const WTF::String& value) {
-    auto result = PresentationConnectionMessagePtr(absl::in_place);
+    auto result = PresentationConnectionMessagePtr(std::in_place);
     result->set_message(std::move(value));
     return result;
   }
@@ -768,7 +768,7 @@ class PLATFORM_EXPORT PresentationConnectionMessage {
   static PresentationConnectionMessagePtr
   NewData(
       WTF::Vector<uint8_t> value) {
-    auto result = PresentationConnectionMessagePtr(absl::in_place);
+    auto result = PresentationConnectionMessagePtr(std::in_place);
     result->set_data(std::move(value));
     return result;
   }
@@ -882,7 +882,7 @@ class PLATFORM_EXPORT PresentationInfo {
   template <typename... Args>
   static PresentationInfoPtr New(Args&&... args) {
     return PresentationInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1026,7 +1026,7 @@ class PLATFORM_EXPORT PresentationConnectionResult {
   template <typename... Args>
   static PresentationConnectionResultPtr New(Args&&... args) {
     return PresentationConnectionResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

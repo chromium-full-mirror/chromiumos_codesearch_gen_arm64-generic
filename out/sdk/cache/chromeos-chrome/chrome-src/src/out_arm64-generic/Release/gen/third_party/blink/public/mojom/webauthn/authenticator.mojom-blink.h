@@ -221,7 +221,7 @@ class PLATFORM_EXPORT PublicKeyCredentialRpEntity {
   template <typename... Args>
   static PublicKeyCredentialRpEntityPtr New(Args&&... args) {
     return PublicKeyCredentialRpEntityPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -366,7 +366,7 @@ class PLATFORM_EXPORT PublicKeyCredentialParameters {
   template <typename... Args>
   static PublicKeyCredentialParametersPtr New(Args&&... args) {
     return PublicKeyCredentialParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -518,7 +518,7 @@ class PLATFORM_EXPORT AuthenticatorSelectionCriteria {
   template <typename... Args>
   static AuthenticatorSelectionCriteriaPtr New(Args&&... args) {
     return AuthenticatorSelectionCriteriaPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -667,7 +667,7 @@ class PLATFORM_EXPORT WebAuthnDOMExceptionDetails {
   template <typename... Args>
   static WebAuthnDOMExceptionDetailsPtr New(Args&&... args) {
     return WebAuthnDOMExceptionDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -813,7 +813,7 @@ class PLATFORM_EXPORT CommonCredentialInfo {
   template <typename... Args>
   static CommonCredentialInfoPtr New(Args&&... args) {
     return CommonCredentialInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -962,7 +962,7 @@ class PLATFORM_EXPORT SupplementalPubKeysResponse {
   template <typename... Args>
   static SupplementalPubKeysResponsePtr New(Args&&... args) {
     return SupplementalPubKeysResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1102,7 +1102,7 @@ class PLATFORM_EXPORT MakeCredentialAuthenticatorResponse {
   template <typename... Args>
   static MakeCredentialAuthenticatorResponsePtr New(Args&&... args) {
     return MakeCredentialAuthenticatorResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1298,7 +1298,7 @@ class PLATFORM_EXPORT GetAssertionAuthenticatorResponse {
   template <typename... Args>
   static GetAssertionAuthenticatorResponsePtr New(Args&&... args) {
     return GetAssertionAuthenticatorResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1452,7 +1452,7 @@ class PLATFORM_EXPORT AuthenticationExtensionsClientOutputs {
   template <typename... Args>
   static AuthenticationExtensionsClientOutputsPtr New(Args&&... args) {
     return AuthenticationExtensionsClientOutputsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1625,7 +1625,7 @@ class PLATFORM_EXPORT PublicKeyCredentialUserEntity {
   template <typename... Args>
   static PublicKeyCredentialUserEntityPtr New(Args&&... args) {
     return PublicKeyCredentialUserEntityPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1772,7 +1772,7 @@ class PLATFORM_EXPORT CableAuthentication {
   template <typename... Args>
   static CableAuthenticationPtr New(Args&&... args) {
     return CableAuthenticationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1927,7 +1927,7 @@ class PLATFORM_EXPORT PRFValues {
   template <typename... Args>
   static PRFValuesPtr New(Args&&... args) {
     return PRFValuesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2073,7 +2073,7 @@ class PLATFORM_EXPORT PaymentOptions {
   template <typename... Args>
   static PaymentOptionsPtr New(Args&&... args) {
     return PaymentOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2224,7 +2224,7 @@ class PLATFORM_EXPORT PaymentCredentialInstrument {
   template <typename... Args>
   static PaymentCredentialInstrumentPtr New(Args&&... args) {
     return PaymentCredentialInstrumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2370,7 +2370,7 @@ class PLATFORM_EXPORT RemoteDesktopClientOverride {
   template <typename... Args>
   static RemoteDesktopClientOverridePtr New(Args&&... args) {
     return RemoteDesktopClientOverridePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2513,7 +2513,7 @@ class PLATFORM_EXPORT SupplementalPubKeysRequest {
   template <typename... Args>
   static SupplementalPubKeysRequestPtr New(Args&&... args) {
     return SupplementalPubKeysRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2662,7 +2662,7 @@ class PLATFORM_EXPORT PublicKeyCredentialRequestOptions {
   template <typename... Args>
   static PublicKeyCredentialRequestOptionsPtr New(Args&&... args) {
     return PublicKeyCredentialRequestOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2825,7 +2825,7 @@ class PLATFORM_EXPORT AuthenticationExtensionsClientInputs {
   template <typename... Args>
   static AuthenticationExtensionsClientInputsPtr New(Args&&... args) {
     return AuthenticationExtensionsClientInputsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2995,7 +2995,7 @@ class PLATFORM_EXPORT PublicKeyCredentialCreationOptions {
   template <typename... Args>
   static PublicKeyCredentialCreationOptionsPtr New(Args&&... args) {
     return PublicKeyCredentialCreationOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3200,7 +3200,7 @@ class PLATFORM_EXPORT PublicKeyCredentialDescriptor {
   template <typename... Args>
   static PublicKeyCredentialDescriptorPtr New(Args&&... args) {
     return PublicKeyCredentialDescriptorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

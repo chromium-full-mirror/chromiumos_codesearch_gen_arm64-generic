@@ -125,6 +125,7 @@ class MostVisitedPageHandler
     kUpdateMostVisitedInfoMinVersion = 0,
     kUpdateMostVisitedTileMinVersion = 0,
     kPrerenderMostVisitedTileMinVersion = 0,
+    kPreconnectMostVisitedTileMinVersion = 0,
     kCancelPrerenderMinVersion = 0,
     kOnMostVisitedTilesRenderedMinVersion = 0,
     kOnMostVisitedTileNavigationMinVersion = 0,
@@ -155,6 +156,9 @@ class MostVisitedPageHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct PrerenderMostVisitedTile_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct PreconnectMostVisitedTile_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct CancelPrerender_Sym {
@@ -196,6 +200,9 @@ class MostVisitedPageHandler
 
   
   virtual void PrerenderMostVisitedTile(MostVisitedTilePtr tile, bool is_hover_trigger) = 0;
+
+  
+  virtual void PreconnectMostVisitedTile(MostVisitedTilePtr tile) = 0;
 
   
   virtual void CancelPrerender() = 0;
@@ -291,6 +298,8 @@ class  MostVisitedPageHandlerProxy
   void UpdateMostVisitedTile(const ::GURL& url, const ::GURL& new_url, const std::string& new_title, UpdateMostVisitedTileCallback callback) final;
   
   void PrerenderMostVisitedTile(MostVisitedTilePtr tile, bool is_hover_trigger) final;
+  
+  void PreconnectMostVisitedTile(MostVisitedTilePtr tile) final;
   
   void CancelPrerender() final;
   
@@ -475,7 +484,7 @@ class  MostVisitedTile {
   template <typename... Args>
   static MostVisitedTilePtr New(Args&&... args) {
     return MostVisitedTilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -630,7 +639,7 @@ class  MostVisitedTheme {
   template <typename... Args>
   static MostVisitedThemePtr New(Args&&... args) {
     return MostVisitedThemePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -776,7 +785,7 @@ class  MostVisitedInfo {
   template <typename... Args>
   static MostVisitedInfoPtr New(Args&&... args) {
     return MostVisitedInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

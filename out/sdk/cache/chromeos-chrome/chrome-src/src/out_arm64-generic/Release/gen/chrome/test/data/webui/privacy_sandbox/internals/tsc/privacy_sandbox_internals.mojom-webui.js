@@ -4,6 +4,7 @@
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
 import { ContentSettingPatternSourceSpec as contentSettings_mojom_ContentSettingPatternSourceSpec, ContentSettingsPatternSpec as contentSettings_mojom_ContentSettingsPatternSpec } from './content_settings.mojom-webui.js';
+import { ContentSettingsTypeSpec as contentSettings_mojom_ContentSettingsTypeSpec } from './content_settings_types.mojom-webui.js';
 import { ValueSpec as mojoBase_mojom_ValueSpec } from '//resources/mojo/mojo/public/mojom/base/values.mojom-webui.js';
 export class PageHandlerPendingReceiver {
     handle;
@@ -29,28 +30,21 @@ export class PageHandlerRemote {
             prefName
         ]);
     }
-    getCookieSettings() {
-        return this.proxy.sendMessage(1, PageHandler_GetCookieSettings_ParamsSpec.$, PageHandler_GetCookieSettings_ResponseParamsSpec.$, []);
+    readContentSettings(type) {
+        return this.proxy.sendMessage(1, PageHandler_ReadContentSettings_ParamsSpec.$, PageHandler_ReadContentSettings_ResponseParamsSpec.$, [
+            type
+        ]);
     }
     getTpcdMetadataGrants() {
         return this.proxy.sendMessage(2, PageHandler_GetTpcdMetadataGrants_ParamsSpec.$, PageHandler_GetTpcdMetadataGrants_ResponseParamsSpec.$, []);
     }
-    getTpcdHeuristicsGrants() {
-        return this.proxy.sendMessage(3, PageHandler_GetTpcdHeuristicsGrants_ParamsSpec.$, PageHandler_GetTpcdHeuristicsGrants_ResponseParamsSpec.$, []);
-    }
-    getTpcdTrial() {
-        return this.proxy.sendMessage(4, PageHandler_GetTpcdTrial_ParamsSpec.$, PageHandler_GetTpcdTrial_ResponseParamsSpec.$, []);
-    }
-    getTopLevelTpcdTrial() {
-        return this.proxy.sendMessage(5, PageHandler_GetTopLevelTpcdTrial_ParamsSpec.$, PageHandler_GetTopLevelTpcdTrial_ResponseParamsSpec.$, []);
-    }
     contentSettingsPatternToString(pattern) {
-        return this.proxy.sendMessage(6, PageHandler_ContentSettingsPatternToString_ParamsSpec.$, PageHandler_ContentSettingsPatternToString_ResponseParamsSpec.$, [
+        return this.proxy.sendMessage(3, PageHandler_ContentSettingsPatternToString_ParamsSpec.$, PageHandler_ContentSettingsPatternToString_ResponseParamsSpec.$, [
             pattern
         ]);
     }
     stringToContentSettingsPattern(s) {
-        return this.proxy.sendMessage(7, PageHandler_StringToContentSettingsPattern_ParamsSpec.$, PageHandler_StringToContentSettingsPattern_ResponseParamsSpec.$, [
+        return this.proxy.sendMessage(4, PageHandler_StringToContentSettingsPattern_ParamsSpec.$, PageHandler_StringToContentSettingsPattern_ResponseParamsSpec.$, [
             s
         ]);
     }
@@ -69,13 +63,10 @@ export class PageHandlerReceiver {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, PageHandler_ReadPref_ParamsSpec.$, PageHandler_ReadPref_ResponseParamsSpec.$, impl.readPref.bind(impl));
-        this.helper_internal_.registerHandler(1, PageHandler_GetCookieSettings_ParamsSpec.$, PageHandler_GetCookieSettings_ResponseParamsSpec.$, impl.getCookieSettings.bind(impl));
+        this.helper_internal_.registerHandler(1, PageHandler_ReadContentSettings_ParamsSpec.$, PageHandler_ReadContentSettings_ResponseParamsSpec.$, impl.readContentSettings.bind(impl));
         this.helper_internal_.registerHandler(2, PageHandler_GetTpcdMetadataGrants_ParamsSpec.$, PageHandler_GetTpcdMetadataGrants_ResponseParamsSpec.$, impl.getTpcdMetadataGrants.bind(impl));
-        this.helper_internal_.registerHandler(3, PageHandler_GetTpcdHeuristicsGrants_ParamsSpec.$, PageHandler_GetTpcdHeuristicsGrants_ResponseParamsSpec.$, impl.getTpcdHeuristicsGrants.bind(impl));
-        this.helper_internal_.registerHandler(4, PageHandler_GetTpcdTrial_ParamsSpec.$, PageHandler_GetTpcdTrial_ResponseParamsSpec.$, impl.getTpcdTrial.bind(impl));
-        this.helper_internal_.registerHandler(5, PageHandler_GetTopLevelTpcdTrial_ParamsSpec.$, PageHandler_GetTopLevelTpcdTrial_ResponseParamsSpec.$, impl.getTopLevelTpcdTrial.bind(impl));
-        this.helper_internal_.registerHandler(6, PageHandler_ContentSettingsPatternToString_ParamsSpec.$, PageHandler_ContentSettingsPatternToString_ResponseParamsSpec.$, impl.contentSettingsPatternToString.bind(impl));
-        this.helper_internal_.registerHandler(7, PageHandler_StringToContentSettingsPattern_ParamsSpec.$, PageHandler_StringToContentSettingsPattern_ResponseParamsSpec.$, impl.stringToContentSettingsPattern.bind(impl));
+        this.helper_internal_.registerHandler(3, PageHandler_ContentSettingsPatternToString_ParamsSpec.$, PageHandler_ContentSettingsPatternToString_ResponseParamsSpec.$, impl.contentSettingsPatternToString.bind(impl));
+        this.helper_internal_.registerHandler(4, PageHandler_StringToContentSettingsPattern_ParamsSpec.$, PageHandler_StringToContentSettingsPattern_ResponseParamsSpec.$, impl.stringToContentSettingsPattern.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -105,11 +96,8 @@ export class PageHandlerCallbackRouter {
     $;
     router_;
     readPref;
-    getCookieSettings;
+    readContentSettings;
     getTpcdMetadataGrants;
-    getTpcdHeuristicsGrants;
-    getTpcdTrial;
-    getTopLevelTpcdTrial;
     contentSettingsPatternToString;
     stringToContentSettingsPattern;
     onConnectionError;
@@ -120,27 +108,18 @@ export class PageHandlerCallbackRouter {
         this.readPref =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(0, PageHandler_ReadPref_ParamsSpec.$, PageHandler_ReadPref_ResponseParamsSpec.$, this.readPref.createReceiverHandler(true /* expectsResponse */));
-        this.getCookieSettings =
+        this.readContentSettings =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(1, PageHandler_GetCookieSettings_ParamsSpec.$, PageHandler_GetCookieSettings_ResponseParamsSpec.$, this.getCookieSettings.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(1, PageHandler_ReadContentSettings_ParamsSpec.$, PageHandler_ReadContentSettings_ResponseParamsSpec.$, this.readContentSettings.createReceiverHandler(true /* expectsResponse */));
         this.getTpcdMetadataGrants =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(2, PageHandler_GetTpcdMetadataGrants_ParamsSpec.$, PageHandler_GetTpcdMetadataGrants_ResponseParamsSpec.$, this.getTpcdMetadataGrants.createReceiverHandler(true /* expectsResponse */));
-        this.getTpcdHeuristicsGrants =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(3, PageHandler_GetTpcdHeuristicsGrants_ParamsSpec.$, PageHandler_GetTpcdHeuristicsGrants_ResponseParamsSpec.$, this.getTpcdHeuristicsGrants.createReceiverHandler(true /* expectsResponse */));
-        this.getTpcdTrial =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(4, PageHandler_GetTpcdTrial_ParamsSpec.$, PageHandler_GetTpcdTrial_ResponseParamsSpec.$, this.getTpcdTrial.createReceiverHandler(true /* expectsResponse */));
-        this.getTopLevelTpcdTrial =
-            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(5, PageHandler_GetTopLevelTpcdTrial_ParamsSpec.$, PageHandler_GetTopLevelTpcdTrial_ResponseParamsSpec.$, this.getTopLevelTpcdTrial.createReceiverHandler(true /* expectsResponse */));
         this.contentSettingsPatternToString =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(6, PageHandler_ContentSettingsPatternToString_ParamsSpec.$, PageHandler_ContentSettingsPatternToString_ResponseParamsSpec.$, this.contentSettingsPatternToString.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(3, PageHandler_ContentSettingsPatternToString_ParamsSpec.$, PageHandler_ContentSettingsPatternToString_ResponseParamsSpec.$, this.contentSettingsPatternToString.createReceiverHandler(true /* expectsResponse */));
         this.stringToContentSettingsPattern =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(7, PageHandler_StringToContentSettingsPattern_ParamsSpec.$, PageHandler_StringToContentSettingsPattern_ResponseParamsSpec.$, this.stringToContentSettingsPattern.createReceiverHandler(true /* expectsResponse */));
+        this.helper_internal_.registerHandler(4, PageHandler_StringToContentSettingsPattern_ParamsSpec.$, PageHandler_StringToContentSettingsPattern_ResponseParamsSpec.$, this.stringToContentSettingsPattern.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -229,16 +208,10 @@ export class PageCallbackRouter {
 }
 export const PageHandler_ReadPref_ParamsSpec = { $: {} };
 export const PageHandler_ReadPref_ResponseParamsSpec = { $: {} };
-export const PageHandler_GetCookieSettings_ParamsSpec = { $: {} };
-export const PageHandler_GetCookieSettings_ResponseParamsSpec = { $: {} };
+export const PageHandler_ReadContentSettings_ParamsSpec = { $: {} };
+export const PageHandler_ReadContentSettings_ResponseParamsSpec = { $: {} };
 export const PageHandler_GetTpcdMetadataGrants_ParamsSpec = { $: {} };
 export const PageHandler_GetTpcdMetadataGrants_ResponseParamsSpec = { $: {} };
-export const PageHandler_GetTpcdHeuristicsGrants_ParamsSpec = { $: {} };
-export const PageHandler_GetTpcdHeuristicsGrants_ResponseParamsSpec = { $: {} };
-export const PageHandler_GetTpcdTrial_ParamsSpec = { $: {} };
-export const PageHandler_GetTpcdTrial_ResponseParamsSpec = { $: {} };
-export const PageHandler_GetTopLevelTpcdTrial_ParamsSpec = { $: {} };
-export const PageHandler_GetTopLevelTpcdTrial_ResponseParamsSpec = { $: {} };
 export const PageHandler_ContentSettingsPatternToString_ParamsSpec = { $: {} };
 export const PageHandler_ContentSettingsPatternToString_ResponseParamsSpec = { $: {} };
 export const PageHandler_StringToContentSettingsPattern_ParamsSpec = { $: {} };
@@ -249,24 +222,14 @@ mojo.internal.Struct(PageHandler_ReadPref_ParamsSpec.$, 'PageHandler_ReadPref_Pa
 mojo.internal.Struct(PageHandler_ReadPref_ResponseParamsSpec.$, 'PageHandler_ReadPref_ResponseParams', [
     mojo.internal.StructField('s', 0, 0, mojoBase_mojom_ValueSpec.$, null, false /* nullable */, 0),
 ], [[0, 24],]);
-mojo.internal.Struct(PageHandler_GetCookieSettings_ParamsSpec.$, 'PageHandler_GetCookieSettings_Params', [], [[0, 8],]);
-mojo.internal.Struct(PageHandler_GetCookieSettings_ResponseParamsSpec.$, 'PageHandler_GetCookieSettings_ResponseParams', [
+mojo.internal.Struct(PageHandler_ReadContentSettings_ParamsSpec.$, 'PageHandler_ReadContentSettings_Params', [
+    mojo.internal.StructField('type', 0, 0, contentSettings_mojom_ContentSettingsTypeSpec.$, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(PageHandler_ReadContentSettings_ResponseParamsSpec.$, 'PageHandler_ReadContentSettings_ResponseParams', [
     mojo.internal.StructField('contentSettings', 0, 0, mojo.internal.Array(contentSettings_mojom_ContentSettingPatternSourceSpec.$, false), null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_GetTpcdMetadataGrants_ParamsSpec.$, 'PageHandler_GetTpcdMetadataGrants_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandler_GetTpcdMetadataGrants_ResponseParamsSpec.$, 'PageHandler_GetTpcdMetadataGrants_ResponseParams', [
-    mojo.internal.StructField('contentSettings', 0, 0, mojo.internal.Array(contentSettings_mojom_ContentSettingPatternSourceSpec.$, false), null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(PageHandler_GetTpcdHeuristicsGrants_ParamsSpec.$, 'PageHandler_GetTpcdHeuristicsGrants_Params', [], [[0, 8],]);
-mojo.internal.Struct(PageHandler_GetTpcdHeuristicsGrants_ResponseParamsSpec.$, 'PageHandler_GetTpcdHeuristicsGrants_ResponseParams', [
-    mojo.internal.StructField('contentSettings', 0, 0, mojo.internal.Array(contentSettings_mojom_ContentSettingPatternSourceSpec.$, false), null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(PageHandler_GetTpcdTrial_ParamsSpec.$, 'PageHandler_GetTpcdTrial_Params', [], [[0, 8],]);
-mojo.internal.Struct(PageHandler_GetTpcdTrial_ResponseParamsSpec.$, 'PageHandler_GetTpcdTrial_ResponseParams', [
-    mojo.internal.StructField('contentSettings', 0, 0, mojo.internal.Array(contentSettings_mojom_ContentSettingPatternSourceSpec.$, false), null, false /* nullable */, 0),
-], [[0, 16],]);
-mojo.internal.Struct(PageHandler_GetTopLevelTpcdTrial_ParamsSpec.$, 'PageHandler_GetTopLevelTpcdTrial_Params', [], [[0, 8],]);
-mojo.internal.Struct(PageHandler_GetTopLevelTpcdTrial_ResponseParamsSpec.$, 'PageHandler_GetTopLevelTpcdTrial_ResponseParams', [
     mojo.internal.StructField('contentSettings', 0, 0, mojo.internal.Array(contentSettings_mojom_ContentSettingPatternSourceSpec.$, false), null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_ContentSettingsPatternToString_ParamsSpec.$, 'PageHandler_ContentSettingsPatternToString_Params', [

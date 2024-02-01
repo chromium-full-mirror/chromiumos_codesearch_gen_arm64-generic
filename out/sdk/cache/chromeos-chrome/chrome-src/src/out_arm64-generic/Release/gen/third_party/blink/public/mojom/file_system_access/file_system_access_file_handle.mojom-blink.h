@@ -311,7 +311,7 @@ class PLATFORM_EXPORT FileSystemAccessAccessHandleFile {
   static FileSystemAccessAccessHandleFilePtr
   NewRegularFile(
       FileSystemAccessRegularFilePtr value) {
-    auto result = FileSystemAccessAccessHandleFilePtr(absl::in_place);
+    auto result = FileSystemAccessAccessHandleFilePtr(std::in_place);
     result->set_regular_file(std::move(value));
     return result;
   }
@@ -319,7 +319,7 @@ class PLATFORM_EXPORT FileSystemAccessAccessHandleFile {
   static FileSystemAccessAccessHandleFilePtr
   NewIncognitoFileDelegate(
       ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessFileDelegateHost> value) {
-    auto result = FileSystemAccessAccessHandleFilePtr(absl::in_place);
+    auto result = FileSystemAccessAccessHandleFilePtr(std::in_place);
     result->set_incognito_file_delegate(std::move(value));
     return result;
   }
@@ -433,7 +433,7 @@ class PLATFORM_EXPORT FileSystemAccessRegularFile {
   template <typename... Args>
   static FileSystemAccessRegularFilePtr New(Args&&... args) {
     return FileSystemAccessRegularFilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

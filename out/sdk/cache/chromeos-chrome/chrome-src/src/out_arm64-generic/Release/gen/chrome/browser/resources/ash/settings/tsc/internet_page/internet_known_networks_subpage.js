@@ -304,11 +304,11 @@ export class SettingsInternetKnownNetworksPageElement extends SettingsInternetKn
     }
     async onSubscriptionForgetClick_() {
         this.$.subscriptionDotsMenu.close();
-        this.selectedSubscriptionId_ = '';
         const response = await this.passpointService_.deletePasspointSubscription(this.selectedSubscriptionId_);
         if (!response.success) {
             console.warn('Forget subscription failed for: ' + this.selectedSubscriptionId_);
         }
+        this.selectedSubscriptionId_ = '';
     }
     async onPasspointSubscriptionAdded(subscription) {
         this.push('passpointSubscriptionsList_', subscription);

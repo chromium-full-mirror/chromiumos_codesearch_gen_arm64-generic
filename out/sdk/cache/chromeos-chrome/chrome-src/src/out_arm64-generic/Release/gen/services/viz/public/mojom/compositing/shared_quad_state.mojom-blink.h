@@ -63,7 +63,7 @@ class BLINK_PLATFORM_EXPORT SharedQuadState {
   template <typename... Args>
   static SharedQuadStatePtr New(Args&&... args) {
     return SharedQuadStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

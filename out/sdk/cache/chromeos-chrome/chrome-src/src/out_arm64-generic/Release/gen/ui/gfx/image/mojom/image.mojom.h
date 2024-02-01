@@ -59,7 +59,7 @@ class  ImageSkiaRep {
   template <typename... Args>
   static ImageSkiaRepPtr New(Args&&... args) {
     return ImageSkiaRepPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -197,7 +197,7 @@ class  ImageSkia {
   template <typename... Args>
   static ImageSkiaPtr New(Args&&... args) {
     return ImageSkiaPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

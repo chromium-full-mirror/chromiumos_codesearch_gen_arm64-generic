@@ -880,6 +880,28 @@ void WebGPUExecutionContextToken::set_dedicated_worker_token(
         std::move(dedicated_worker_token));
   }
 }
+void WebGPUExecutionContextToken::set_shared_worker_token(
+    const ::blink::SharedWorkerToken& shared_worker_token) {
+  if (tag_ == Tag::kSharedWorkerToken) {
+    *(data_.shared_worker_token) = std::move(shared_worker_token);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kSharedWorkerToken;
+    data_.shared_worker_token = new ::blink::SharedWorkerToken(
+        std::move(shared_worker_token));
+  }
+}
+void WebGPUExecutionContextToken::set_service_worker_token(
+    const ::blink::ServiceWorkerToken& service_worker_token) {
+  if (tag_ == Tag::kServiceWorkerToken) {
+    *(data_.service_worker_token) = std::move(service_worker_token);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kServiceWorkerToken;
+    data_.service_worker_token = new ::blink::ServiceWorkerToken(
+        std::move(service_worker_token));
+  }
+}
 
 void WebGPUExecutionContextToken::DestroyActive() {
   switch (tag_) {
@@ -891,6 +913,14 @@ void WebGPUExecutionContextToken::DestroyActive() {
     case Tag::kDedicatedWorkerToken:
 
       delete data_.dedicated_worker_token;
+      break;
+    case Tag::kSharedWorkerToken:
+
+      delete data_.shared_worker_token;
+      break;
+    case Tag::kServiceWorkerToken:
+
+      delete data_.service_worker_token;
       break;
   }
 }
@@ -1381,6 +1411,24 @@ bool UnionTraits<::blink::mojom::blink::WebGPUExecutionContextToken::DataView, :
 
       *output = UnionType::NewDedicatedWorkerToken(
           std::move(result_dedicated_worker_token));
+      break;
+    }
+    case Tag::kSharedWorkerToken: {
+      ::blink::SharedWorkerToken result_shared_worker_token;
+      if (!input.ReadSharedWorkerToken(&result_shared_worker_token))
+        return false;
+
+      *output = UnionType::NewSharedWorkerToken(
+          std::move(result_shared_worker_token));
+      break;
+    }
+    case Tag::kServiceWorkerToken: {
+      ::blink::ServiceWorkerToken result_service_worker_token;
+      if (!input.ReadServiceWorkerToken(&result_service_worker_token))
+        return false;
+
+      *output = UnionType::NewServiceWorkerToken(
+          std::move(result_service_worker_token));
       break;
     }
     default:

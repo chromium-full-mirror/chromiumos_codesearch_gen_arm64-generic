@@ -69,7 +69,6 @@ export class CrExpandButtonElement extends PolymerElement {
     }
     static get observers() {
         return [
-            'updateAriaExpanded_(disabled, expanded)',
             'updateIcon_(collapseIcon, expandIcon, expanded)',
         ];
     }
@@ -108,13 +107,8 @@ export class CrExpandButtonElement extends PolymerElement {
         this.expanded = !this.expanded;
         focusWithoutInk(this.$.icon);
     }
-    updateAriaExpanded_() {
-        if (this.disabled) {
-            this.$.icon.removeAttribute('aria-expanded');
-        }
-        else {
-            this.$.icon.setAttribute('aria-expanded', this.expanded ? 'true' : 'false');
-        }
+    getAriaExpanded_() {
+        return this.expanded ? 'true' : 'false';
     }
 }
 customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);

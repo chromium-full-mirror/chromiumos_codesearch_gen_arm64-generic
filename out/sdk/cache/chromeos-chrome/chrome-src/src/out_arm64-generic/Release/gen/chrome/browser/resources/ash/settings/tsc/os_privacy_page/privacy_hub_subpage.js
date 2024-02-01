@@ -56,16 +56,13 @@ export class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
                 },
             },
             cameraSubLabel_: String,
-            /**
-             * The list of connected cameras.
-             */
-            camerasConnected_: {
+            connectedCameraNames_: {
                 type: Array,
                 value: [],
             },
             isCameraListEmpty_: {
                 type: Boolean,
-                computed: 'computeIsCameraListEmpty_(camerasConnected_)',
+                computed: 'computeIsCameraListEmpty_(connectedCameraNames_)',
             },
             isHatsSurveyEnabled_: {
                 type: Boolean,
@@ -74,16 +71,13 @@ export class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
                     return loadTimeData.getBoolean('isPrivacyHubHatsEnabled');
                 },
             },
-            /**
-             * The list of connected microphones.
-             */
-            microphonesConnected_: {
+            connectedMicrophoneNames_: {
                 type: Array,
                 value: [],
             },
             isMicListEmpty_: {
                 type: Boolean,
-                computed: 'computeIsMicListEmpty_(microphonesConnected_)',
+                computed: 'computeIsMicListEmpty_(connectedMicrophoneNames_)',
             },
             microphoneHardwareToggleActive_: {
                 type: Boolean,
@@ -204,13 +198,13 @@ export class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
      * @return Whether the list of cameras displayed in this page is empty.
      */
     computeIsCameraListEmpty_() {
-        return this.camerasConnected_.length === 0;
+        return this.connectedCameraNames_.length === 0;
     }
     /**
      * @return Whether the list of microphones displayed in this page is empty.
      */
     computeIsMicListEmpty_() {
-        return this.microphonesConnected_.length === 0;
+        return this.connectedMicrophoneNames_.length === 0;
     }
     setMicrophoneHardwareToggleState_(enabled) {
         if (enabled) {
@@ -243,18 +237,18 @@ export class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
     }
     updateMediaDeviceLists_() {
         MediaDevicesProxy.getMediaDevices().enumerateDevices().then((devices) => {
-            const connectedCameras = [];
-            const connectedMicrophones = [];
+            const connectedCameraNames = [];
+            const connectedMicrophoneNames = [];
             devices.forEach((device) => {
                 if (device.kind === 'videoinput') {
-                    connectedCameras.push(device.label);
+                    connectedCameraNames.push(device.label);
                 }
                 else if (device.kind === 'audioinput' && device.deviceId !== 'default') {
-                    connectedMicrophones.push(device.label);
+                    connectedMicrophoneNames.push(device.label);
                 }
             });
-            this.camerasConnected_ = connectedCameras;
-            this.microphonesConnected_ = connectedMicrophones;
+            this.connectedCameraNames_ = connectedCameraNames;
+            this.connectedMicrophoneNames_ = connectedMicrophoneNames;
         });
     }
     onCameraToggleChanged_(event) {

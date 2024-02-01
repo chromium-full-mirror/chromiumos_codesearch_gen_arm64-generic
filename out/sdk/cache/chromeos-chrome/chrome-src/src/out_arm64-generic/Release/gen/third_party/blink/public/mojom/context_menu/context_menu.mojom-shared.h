@@ -324,7 +324,7 @@ static_assert(
         ::blink::mojom::ImpressionDataView, UserType>(),
     "Attempting to read the optional `impression` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadImpression` instead "
     "of `ReadImpression if you're fine with null values being "
@@ -509,7 +509,7 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadFormControlType(UserType* output) const {
     if (!data_->form_control_type_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -518,7 +518,7 @@ static_assert(
   }
   std::optional<::blink::mojom::FormControlType> form_control_type() const {
     if (!data_->form_control_type_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::blink::mojom::FormControlType>(data_->form_control_type_$value));

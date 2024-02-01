@@ -60,7 +60,7 @@ class  FilterOperation {
   template <typename... Args>
   static FilterOperationPtr New(Args&&... args) {
     return FilterOperationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -189,5 +189,8 @@ export class TraceReportElement extends PolymerElement {
             detail: new Notification(NotificationTypeEnum.ERROR, message),
         }));
     }
+    isDownloadDisabled_(isLoading, uploadState) {
+        return isLoading || uploadState === UploadState.UPLOADED;
+    }
 }
 customElements.define(TraceReportElement.is, TraceReportElement);

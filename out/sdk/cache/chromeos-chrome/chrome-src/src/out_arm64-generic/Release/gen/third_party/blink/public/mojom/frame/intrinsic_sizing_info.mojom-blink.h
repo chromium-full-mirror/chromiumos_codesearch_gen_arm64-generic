@@ -60,7 +60,7 @@ class CORE_EXPORT IntrinsicSizingInfo {
   template <typename... Args>
   static IntrinsicSizingInfoPtr New(Args&&... args) {
     return IntrinsicSizingInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

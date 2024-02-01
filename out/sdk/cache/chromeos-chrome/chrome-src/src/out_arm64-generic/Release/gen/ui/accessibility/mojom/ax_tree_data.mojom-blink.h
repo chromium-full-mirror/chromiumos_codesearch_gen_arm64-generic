@@ -60,7 +60,7 @@ class  AXTreeData {
   template <typename... Args>
   static AXTreeDataPtr New(Args&&... args) {
     return AXTreeDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

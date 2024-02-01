@@ -63,7 +63,7 @@ class BLINK_PLATFORM_EXPORT CompositorFrameTransitionDirectiveSharedElement {
   template <typename... Args>
   static CompositorFrameTransitionDirectiveSharedElementPtr New(Args&&... args) {
     return CompositorFrameTransitionDirectiveSharedElementPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -209,7 +209,7 @@ class BLINK_PLATFORM_EXPORT CompositorFrameTransitionDirective {
   template <typename... Args>
   static CompositorFrameTransitionDirectivePtr New(Args&&... args) {
     return CompositorFrameTransitionDirectivePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

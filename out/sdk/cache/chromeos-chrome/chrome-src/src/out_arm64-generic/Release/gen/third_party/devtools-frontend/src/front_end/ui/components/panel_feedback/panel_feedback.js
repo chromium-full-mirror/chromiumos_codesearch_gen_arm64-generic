@@ -10,14 +10,14 @@ import*as e from"../../../core/host/host.js";import*as t from"../../../core/i18n
         <h2 class="flex">
           <${s.Icon.Icon.litTagName} .data=${{iconPath:f,width:"20px",height:"20px",color:"var(--icon-primary)"}}></${s.Icon.Icon.litTagName}> ${v(g.previewFeature)}
         </h2>
-        <p>${v(g.previewText)} <x-link href=${this.#n.feedbackUrl} jslog=${a.link().track({click:!0}).context("feedback")}>${v(g.previewTextFeedbackLink)}</x-link></p>
+        <p>${v(g.previewText)} <x-link href=${this.#n.feedbackUrl} jslog=${a.link("feedback").track({click:!0})}>${v(g.previewTextFeedbackLink)}</x-link></p>
         <div class="video">
           <div class="thumbnail">
             <img src=${w} role="presentation" />
           </div>
           <div class="video-description">
             <h3>${v(g.videoAndDocumentation)}</h3>
-            <x-link class="quick-start-link" href=${this.#n.quickStartUrl} jslog=${a.link().track({click:!0}).context("css-overview.quick-start")}>${this.#n.quickStartLinkText}</x-link>
+            <x-link class="quick-start-link" href=${this.#n.quickStartUrl} jslog=${a.link("css-overview.quick-start").track({click:!0})}>${this.#n.quickStartLinkText}</x-link>
           </div>
         </div>
       </div>

@@ -604,7 +604,7 @@ class  CertVerifierConfig {
   template <typename... Args>
   static CertVerifierConfigPtr New(Args&&... args) {
     return CertVerifierConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -756,7 +756,7 @@ class  RequestParams {
   template <typename... Args>
   static RequestParamsPtr New(Args&&... args) {
     return RequestParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -909,7 +909,7 @@ class  AdditionalCertificates {
   template <typename... Args>
   static AdditionalCertificatesPtr New(Args&&... args) {
     return AdditionalCertificatesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

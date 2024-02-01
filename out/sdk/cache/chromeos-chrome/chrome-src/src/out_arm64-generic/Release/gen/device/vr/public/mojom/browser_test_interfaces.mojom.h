@@ -461,7 +461,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS) Color {
   template <typename... Args>
   static ColorPtr New(Args&&... args) {
     return ColorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -613,7 +613,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS) ProjectionRaw {
   template <typename... Args>
   static ProjectionRawPtr New(Args&&... args) {
     return ProjectionRawPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -764,7 +764,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS) ControllerAxisData {
   template <typename... Args>
   static ControllerAxisDataPtr New(Args&&... args) {
     return ControllerAxisDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -912,7 +912,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS) EventData {
   template <typename... Args>
   static EventDataPtr New(Args&&... args) {
     return EventDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1059,7 +1059,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS) ViewData {
   template <typename... Args>
   static ViewDataPtr New(Args&&... args) {
     return ViewDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1207,7 +1207,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS) PoseFrameData {
   template <typename... Args>
   static PoseFrameDataPtr New(Args&&... args) {
     return PoseFrameDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1348,7 +1348,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS) DeviceConfig {
   template <typename... Args>
   static DeviceConfigPtr New(Args&&... args) {
     return DeviceConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1498,7 +1498,7 @@ class COMPONENT_EXPORT(DEVICE_VR_TEST_MOJO_BINDINGS) ControllerFrameData {
   template <typename... Args>
   static ControllerFrameDataPtr New(Args&&... args) {
     return ControllerFrameDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

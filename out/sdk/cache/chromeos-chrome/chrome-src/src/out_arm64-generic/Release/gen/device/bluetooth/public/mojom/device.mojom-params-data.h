@@ -361,7 +361,7 @@ static_assert(
         ::bluetooth::mojom::DeviceInfoDataView, UserType>(),
     "Attempting to read the optional `info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInfo` instead "
     "of `ReadInfo if you're fine with null values being "
@@ -464,7 +464,7 @@ static_assert(
         mojo::ArrayDataView<::bluetooth::mojom::CharacteristicInfoDataView>, UserType>(),
     "Attempting to read the optional `characteristics` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCharacteristics` instead "
     "of `ReadCharacteristics if you're fine with null values being "
@@ -546,7 +546,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `value` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadValue` instead "
     "of `ReadValue if you're fine with null values being "
@@ -689,7 +689,7 @@ static_assert(
         mojo::ArrayDataView<::bluetooth::mojom::DescriptorInfoDataView>, UserType>(),
     "Attempting to read the optional `descriptors` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDescriptors` instead "
     "of `ReadDescriptors if you're fine with null values being "
@@ -781,7 +781,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `value` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadValue` instead "
     "of `ReadValue if you're fine with null values being "

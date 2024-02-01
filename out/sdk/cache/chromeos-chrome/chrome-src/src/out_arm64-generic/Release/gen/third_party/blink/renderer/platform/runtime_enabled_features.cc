@@ -78,7 +78,6 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_browser_verified_user_activation_mouse_enabled_(RuntimeEnabledFeaturesBase::is_browser_verified_user_activation_mouse_enabled_),
     is_byob_fetch_enabled_(RuntimeEnabledFeaturesBase::is_byob_fetch_enabled_),
     is_cache_storage_code_cache_hint_enabled_(RuntimeEnabledFeaturesBase::is_cache_storage_code_cache_hint_enabled_),
-    is_canonicalize_whitespace_strings_enabled_(RuntimeEnabledFeaturesBase::is_canonicalize_whitespace_strings_enabled_),
     is_canvas_2d_canvas_filter_enabled_(RuntimeEnabledFeaturesBase::is_canvas_2d_canvas_filter_enabled_),
     is_canvas_2d_image_chromium_enabled_(RuntimeEnabledFeaturesBase::is_canvas_2d_image_chromium_enabled_),
     is_canvas_2d_layers_enabled_(RuntimeEnabledFeaturesBase::is_canvas_2d_layers_enabled_),
@@ -151,6 +150,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_css_font_size_adjust_enabled_(RuntimeEnabledFeaturesBase::is_css_font_size_adjust_enabled_),
     is_css_hex_alpha_color_enabled_(RuntimeEnabledFeaturesBase::is_css_hex_alpha_color_enabled_),
     is_css_layout_api_enabled_(RuntimeEnabledFeaturesBase::is_css_layout_api_enabled_),
+    is_css_light_dark_colors_enabled_(RuntimeEnabledFeaturesBase::is_css_light_dark_colors_enabled_),
     is_css_linear_timing_function_enabled_(RuntimeEnabledFeaturesBase::is_css_linear_timing_function_enabled_),
     is_css_logical_overflow_enabled_(RuntimeEnabledFeaturesBase::is_css_logical_overflow_enabled_),
     is_css_marker_nested_pseudo_element_enabled_(RuntimeEnabledFeaturesBase::is_css_marker_nested_pseudo_element_enabled_),
@@ -179,7 +179,6 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_css_scroll_start_enabled_(RuntimeEnabledFeaturesBase::is_css_scroll_start_enabled_),
     is_css_scroll_state_container_queries_enabled_(RuntimeEnabledFeaturesBase::is_css_scroll_state_container_queries_enabled_),
     is_css_selector_fragment_anchor_enabled_(RuntimeEnabledFeaturesBase::is_css_selector_fragment_anchor_enabled_),
-    is_css_selector_nth_child_complex_selector_enabled_(RuntimeEnabledFeaturesBase::is_css_selector_nth_child_complex_selector_enabled_),
     is_css_sign_related_functions_enabled_(RuntimeEnabledFeaturesBase::is_css_sign_related_functions_enabled_),
     is_css_snap_changed_event_enabled_(RuntimeEnabledFeaturesBase::is_css_snap_changed_event_enabled_),
     is_css_snap_changing_event_enabled_(RuntimeEnabledFeaturesBase::is_css_snap_changing_event_enabled_),
@@ -256,7 +255,6 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_enforce_anonymity_exposure_enabled_(RuntimeEnabledFeaturesBase::is_enforce_anonymity_exposure_enabled_),
     is_escape_lt_gt_in_attributes_enabled_(RuntimeEnabledFeaturesBase::is_escape_lt_gt_in_attributes_enabled_),
     is_event_timing_interaction_count_enabled_(RuntimeEnabledFeaturesBase::is_event_timing_interaction_count_enabled_),
-    is_exclude_broken_image_icon_from_being_lcp_eligible_enabled_(RuntimeEnabledFeaturesBase::is_exclude_broken_image_icon_from_being_lcp_eligible_enabled_),
     is_experimental_content_security_policy_features_enabled_(RuntimeEnabledFeaturesBase::is_experimental_content_security_policy_features_enabled_),
     is_experimental_js_profiler_markers_enabled_(RuntimeEnabledFeaturesBase::is_experimental_js_profiler_markers_enabled_),
     is_experimental_policies_enabled_(RuntimeEnabledFeaturesBase::is_experimental_policies_enabled_),
@@ -373,9 +371,6 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_layout_align_for_positioned_enabled_(RuntimeEnabledFeaturesBase::is_layout_align_for_positioned_enabled_),
     is_layout_flex_new_row_algorithm_v_3_enabled_(RuntimeEnabledFeaturesBase::is_layout_flex_new_row_algorithm_v_3_enabled_),
     is_layout_ignore_margins_for_sticky_enabled_(RuntimeEnabledFeaturesBase::is_layout_ignore_margins_for_sticky_enabled_),
-    is_layout_new_containing_block_enabled_(RuntimeEnabledFeaturesBase::is_layout_new_containing_block_enabled_),
-    is_layout_new_measure_cache_enabled_(RuntimeEnabledFeaturesBase::is_layout_new_measure_cache_enabled_),
-    is_layout_new_min_max_cache_enabled_(RuntimeEnabledFeaturesBase::is_layout_new_min_max_cache_enabled_),
     is_layout_ng_shape_cache_enabled_(RuntimeEnabledFeaturesBase::is_layout_ng_shape_cache_enabled_),
     is_lazy_initialize_media_controls_enabled_(RuntimeEnabledFeaturesBase::is_lazy_initialize_media_controls_enabled_),
     is_lazy_load_scroll_margin_enabled_(RuntimeEnabledFeaturesBase::is_lazy_load_scroll_margin_enabled_),
@@ -422,7 +417,6 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_model_execution_api_enabled_(RuntimeEnabledFeaturesBase::is_model_execution_api_enabled_),
     is_mojo_js_enabled_(RuntimeEnabledFeaturesBase::is_mojo_js_enabled_),
     is_mojo_js_test_enabled_(RuntimeEnabledFeaturesBase::is_mojo_js_test_enabled_),
-    is_monitor_type_surfaces_enabled_(RuntimeEnabledFeaturesBase::is_monitor_type_surfaces_enabled_),
     is_mouse_drag_from_iframe_on_cancelled_mouse_down_enabled_(RuntimeEnabledFeaturesBase::is_mouse_drag_from_iframe_on_cancelled_mouse_down_enabled_),
     is_mouse_drag_on_cancelled_mouse_move_enabled_(RuntimeEnabledFeaturesBase::is_mouse_drag_on_cancelled_mouse_move_enabled_),
     is_mutation_events_enabled_(RuntimeEnabledFeaturesBase::is_mutation_events_enabled_),
@@ -529,7 +523,6 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_reduce_user_agent_android_version_device_model_enabled_(RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_model_enabled_),
     is_reduce_user_agent_minor_version_enabled_(RuntimeEnabledFeaturesBase::is_reduce_user_agent_minor_version_enabled_),
     is_reduce_user_agent_platform_os_cpu_enabled_(RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_),
-    is_reference_box_no_pixel_snapping_enabled_(RuntimeEnabledFeaturesBase::is_reference_box_no_pixel_snapping_enabled_),
     is_region_capture_enabled_(RuntimeEnabledFeaturesBase::is_region_capture_enabled_),
     is_remote_playback_enabled_(RuntimeEnabledFeaturesBase::is_remote_playback_enabled_),
     is_remote_playback_backend_enabled_(RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_),
@@ -540,6 +533,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_render_blocking_inline_module_script_enabled_(RuntimeEnabledFeaturesBase::is_render_blocking_inline_module_script_enabled_),
     is_render_blocking_status_enabled_(RuntimeEnabledFeaturesBase::is_render_blocking_status_enabled_),
     is_render_priority_attribute_enabled_(RuntimeEnabledFeaturesBase::is_render_priority_attribute_enabled_),
+    is_report_visible_line_bounds_enabled_(RuntimeEnabledFeaturesBase::is_report_visible_line_bounds_enabled_),
     is_resource_timing_content_type_enabled_(RuntimeEnabledFeaturesBase::is_resource_timing_content_type_enabled_),
     is_resource_timing_use_cors_for_body_sizes_enabled_(RuntimeEnabledFeaturesBase::is_resource_timing_use_cors_for_body_sizes_enabled_),
     is_restrict_gamepad_access_enabled_(RuntimeEnabledFeaturesBase::is_restrict_gamepad_access_enabled_),
@@ -584,6 +578,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_service_worker_static_router_enabled_(RuntimeEnabledFeaturesBase::is_service_worker_static_router_enabled_),
     is_set_sequential_focus_starting_point_enabled_(RuntimeEnabledFeaturesBase::is_set_sequential_focus_starting_point_enabled_),
     is_shadow_root_attachment_new_behavior_enabled_(RuntimeEnabledFeaturesBase::is_shadow_root_attachment_new_behavior_enabled_),
+    is_shadow_root_clonable_enabled_(RuntimeEnabledFeaturesBase::is_shadow_root_clonable_enabled_),
     is_shared_array_buffer_enabled_(RuntimeEnabledFeaturesBase::is_shared_array_buffer_enabled_),
     is_shared_array_buffer_on_desktop_enabled_(RuntimeEnabledFeaturesBase::is_shared_array_buffer_on_desktop_enabled_),
     is_shared_array_buffer_unrestricted_access_allowed_enabled_(RuntimeEnabledFeaturesBase::is_shared_array_buffer_unrestricted_access_allowed_enabled_),
@@ -717,6 +712,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_webgl_draft_extensions_enabled_(RuntimeEnabledFeaturesBase::is_webgl_draft_extensions_enabled_),
     is_webgl_drawing_buffer_storage_enabled_(RuntimeEnabledFeaturesBase::is_webgl_drawing_buffer_storage_enabled_),
     is_webgl_image_chromium_enabled_(RuntimeEnabledFeaturesBase::is_webgl_image_chromium_enabled_),
+    is_webgpu_enabled_(RuntimeEnabledFeaturesBase::is_webgpu_enabled_),
     is_webgpu_developer_features_enabled_(RuntimeEnabledFeaturesBase::is_webgpu_developer_features_enabled_),
     is_webgpu_experimental_features_enabled_(RuntimeEnabledFeaturesBase::is_webgpu_experimental_features_enabled_),
     is_web_hid_enabled_(RuntimeEnabledFeaturesBase::is_web_hid_enabled_),
@@ -813,7 +809,6 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_browser_verified_user_activation_mouse_enabled_ = is_browser_verified_user_activation_mouse_enabled_;
   RuntimeEnabledFeaturesBase::is_byob_fetch_enabled_ = is_byob_fetch_enabled_;
   RuntimeEnabledFeaturesBase::is_cache_storage_code_cache_hint_enabled_ = is_cache_storage_code_cache_hint_enabled_;
-  RuntimeEnabledFeaturesBase::is_canonicalize_whitespace_strings_enabled_ = is_canonicalize_whitespace_strings_enabled_;
   RuntimeEnabledFeaturesBase::is_canvas_2d_canvas_filter_enabled_ = is_canvas_2d_canvas_filter_enabled_;
   RuntimeEnabledFeaturesBase::is_canvas_2d_image_chromium_enabled_ = is_canvas_2d_image_chromium_enabled_;
   RuntimeEnabledFeaturesBase::is_canvas_2d_layers_enabled_ = is_canvas_2d_layers_enabled_;
@@ -886,6 +881,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_css_font_size_adjust_enabled_ = is_css_font_size_adjust_enabled_;
   RuntimeEnabledFeaturesBase::is_css_hex_alpha_color_enabled_ = is_css_hex_alpha_color_enabled_;
   RuntimeEnabledFeaturesBase::is_css_layout_api_enabled_ = is_css_layout_api_enabled_;
+  RuntimeEnabledFeaturesBase::is_css_light_dark_colors_enabled_ = is_css_light_dark_colors_enabled_;
   RuntimeEnabledFeaturesBase::is_css_linear_timing_function_enabled_ = is_css_linear_timing_function_enabled_;
   RuntimeEnabledFeaturesBase::is_css_logical_overflow_enabled_ = is_css_logical_overflow_enabled_;
   RuntimeEnabledFeaturesBase::is_css_marker_nested_pseudo_element_enabled_ = is_css_marker_nested_pseudo_element_enabled_;
@@ -914,7 +910,6 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_css_scroll_start_enabled_ = is_css_scroll_start_enabled_;
   RuntimeEnabledFeaturesBase::is_css_scroll_state_container_queries_enabled_ = is_css_scroll_state_container_queries_enabled_;
   RuntimeEnabledFeaturesBase::is_css_selector_fragment_anchor_enabled_ = is_css_selector_fragment_anchor_enabled_;
-  RuntimeEnabledFeaturesBase::is_css_selector_nth_child_complex_selector_enabled_ = is_css_selector_nth_child_complex_selector_enabled_;
   RuntimeEnabledFeaturesBase::is_css_sign_related_functions_enabled_ = is_css_sign_related_functions_enabled_;
   RuntimeEnabledFeaturesBase::is_css_snap_changed_event_enabled_ = is_css_snap_changed_event_enabled_;
   RuntimeEnabledFeaturesBase::is_css_snap_changing_event_enabled_ = is_css_snap_changing_event_enabled_;
@@ -991,7 +986,6 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_enforce_anonymity_exposure_enabled_ = is_enforce_anonymity_exposure_enabled_;
   RuntimeEnabledFeaturesBase::is_escape_lt_gt_in_attributes_enabled_ = is_escape_lt_gt_in_attributes_enabled_;
   RuntimeEnabledFeaturesBase::is_event_timing_interaction_count_enabled_ = is_event_timing_interaction_count_enabled_;
-  RuntimeEnabledFeaturesBase::is_exclude_broken_image_icon_from_being_lcp_eligible_enabled_ = is_exclude_broken_image_icon_from_being_lcp_eligible_enabled_;
   RuntimeEnabledFeaturesBase::is_experimental_content_security_policy_features_enabled_ = is_experimental_content_security_policy_features_enabled_;
   RuntimeEnabledFeaturesBase::is_experimental_js_profiler_markers_enabled_ = is_experimental_js_profiler_markers_enabled_;
   RuntimeEnabledFeaturesBase::is_experimental_policies_enabled_ = is_experimental_policies_enabled_;
@@ -1108,9 +1102,6 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_layout_align_for_positioned_enabled_ = is_layout_align_for_positioned_enabled_;
   RuntimeEnabledFeaturesBase::is_layout_flex_new_row_algorithm_v_3_enabled_ = is_layout_flex_new_row_algorithm_v_3_enabled_;
   RuntimeEnabledFeaturesBase::is_layout_ignore_margins_for_sticky_enabled_ = is_layout_ignore_margins_for_sticky_enabled_;
-  RuntimeEnabledFeaturesBase::is_layout_new_containing_block_enabled_ = is_layout_new_containing_block_enabled_;
-  RuntimeEnabledFeaturesBase::is_layout_new_measure_cache_enabled_ = is_layout_new_measure_cache_enabled_;
-  RuntimeEnabledFeaturesBase::is_layout_new_min_max_cache_enabled_ = is_layout_new_min_max_cache_enabled_;
   RuntimeEnabledFeaturesBase::is_layout_ng_shape_cache_enabled_ = is_layout_ng_shape_cache_enabled_;
   RuntimeEnabledFeaturesBase::is_lazy_initialize_media_controls_enabled_ = is_lazy_initialize_media_controls_enabled_;
   RuntimeEnabledFeaturesBase::is_lazy_load_scroll_margin_enabled_ = is_lazy_load_scroll_margin_enabled_;
@@ -1157,7 +1148,6 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_model_execution_api_enabled_ = is_model_execution_api_enabled_;
   RuntimeEnabledFeaturesBase::is_mojo_js_enabled_ = is_mojo_js_enabled_;
   RuntimeEnabledFeaturesBase::is_mojo_js_test_enabled_ = is_mojo_js_test_enabled_;
-  RuntimeEnabledFeaturesBase::is_monitor_type_surfaces_enabled_ = is_monitor_type_surfaces_enabled_;
   RuntimeEnabledFeaturesBase::is_mouse_drag_from_iframe_on_cancelled_mouse_down_enabled_ = is_mouse_drag_from_iframe_on_cancelled_mouse_down_enabled_;
   RuntimeEnabledFeaturesBase::is_mouse_drag_on_cancelled_mouse_move_enabled_ = is_mouse_drag_on_cancelled_mouse_move_enabled_;
   RuntimeEnabledFeaturesBase::is_mutation_events_enabled_ = is_mutation_events_enabled_;
@@ -1264,7 +1254,6 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_model_enabled_ = is_reduce_user_agent_android_version_device_model_enabled_;
   RuntimeEnabledFeaturesBase::is_reduce_user_agent_minor_version_enabled_ = is_reduce_user_agent_minor_version_enabled_;
   RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = is_reduce_user_agent_platform_os_cpu_enabled_;
-  RuntimeEnabledFeaturesBase::is_reference_box_no_pixel_snapping_enabled_ = is_reference_box_no_pixel_snapping_enabled_;
   RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = is_region_capture_enabled_;
   RuntimeEnabledFeaturesBase::is_remote_playback_enabled_ = is_remote_playback_enabled_;
   RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = is_remote_playback_backend_enabled_;
@@ -1275,6 +1264,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_render_blocking_inline_module_script_enabled_ = is_render_blocking_inline_module_script_enabled_;
   RuntimeEnabledFeaturesBase::is_render_blocking_status_enabled_ = is_render_blocking_status_enabled_;
   RuntimeEnabledFeaturesBase::is_render_priority_attribute_enabled_ = is_render_priority_attribute_enabled_;
+  RuntimeEnabledFeaturesBase::is_report_visible_line_bounds_enabled_ = is_report_visible_line_bounds_enabled_;
   RuntimeEnabledFeaturesBase::is_resource_timing_content_type_enabled_ = is_resource_timing_content_type_enabled_;
   RuntimeEnabledFeaturesBase::is_resource_timing_use_cors_for_body_sizes_enabled_ = is_resource_timing_use_cors_for_body_sizes_enabled_;
   RuntimeEnabledFeaturesBase::is_restrict_gamepad_access_enabled_ = is_restrict_gamepad_access_enabled_;
@@ -1319,6 +1309,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_service_worker_static_router_enabled_ = is_service_worker_static_router_enabled_;
   RuntimeEnabledFeaturesBase::is_set_sequential_focus_starting_point_enabled_ = is_set_sequential_focus_starting_point_enabled_;
   RuntimeEnabledFeaturesBase::is_shadow_root_attachment_new_behavior_enabled_ = is_shadow_root_attachment_new_behavior_enabled_;
+  RuntimeEnabledFeaturesBase::is_shadow_root_clonable_enabled_ = is_shadow_root_clonable_enabled_;
   RuntimeEnabledFeaturesBase::is_shared_array_buffer_enabled_ = is_shared_array_buffer_enabled_;
   RuntimeEnabledFeaturesBase::is_shared_array_buffer_on_desktop_enabled_ = is_shared_array_buffer_on_desktop_enabled_;
   RuntimeEnabledFeaturesBase::is_shared_array_buffer_unrestricted_access_allowed_enabled_ = is_shared_array_buffer_unrestricted_access_allowed_enabled_;
@@ -1452,6 +1443,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_webgl_draft_extensions_enabled_ = is_webgl_draft_extensions_enabled_;
   RuntimeEnabledFeaturesBase::is_webgl_drawing_buffer_storage_enabled_ = is_webgl_drawing_buffer_storage_enabled_;
   RuntimeEnabledFeaturesBase::is_webgl_image_chromium_enabled_ = is_webgl_image_chromium_enabled_;
+  RuntimeEnabledFeaturesBase::is_webgpu_enabled_ = is_webgpu_enabled_;
   RuntimeEnabledFeaturesBase::is_webgpu_developer_features_enabled_ = is_webgpu_developer_features_enabled_;
   RuntimeEnabledFeaturesBase::is_webgpu_experimental_features_enabled_ = is_webgpu_experimental_features_enabled_;
   RuntimeEnabledFeaturesBase::is_web_hid_enabled_ = is_web_hid_enabled_;
@@ -1505,7 +1497,6 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetBeforeunloadEventCancelByPreventDefaultEnabled(enable);
   SetBlockRubyWrappingInlineRubyEnabled(enable);
   SetByobFetchEnabled(enable);
-  SetCanonicalizeWhitespaceStringsEnabled(enable);
   SetCheckVisibilityExtraPropertiesEnabled(enable);
   SetClipboardSupportedTypesEnabled(enable);
   SetClipboardUnsanitizedContentEnabled(enable);
@@ -1523,6 +1514,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetCSSExponentialFunctionsEnabled(enable);
   SetCSSFirstLetterNoNewLineAsPrecedingCharEnabled(enable);
   SetCSSHexAlphaColorEnabled(enable);
+  SetCSSLightDarkColorsEnabled(enable);
   SetCSSLinearTimingFunctionEnabled(enable);
   SetCSSMaskingInteropEnabled(enable);
   SetCSSMPCImprovementsEnabled(enable);
@@ -1540,7 +1532,6 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetCSSRelativeColorEnabled(enable);
   SetCSSResizeAutoEnabled(enable);
   SetCSSScopeEnabled(enable);
-  SetCSSSelectorNthChildComplexSelectorEnabled(enable);
   SetCSSSpellingGrammarErrorsEnabled(enable);
   SetCSSSupportsForImportRulesEnabled(enable);
   SetCSSTextWrapBalanceByScoreEnabled(enable);
@@ -1567,7 +1558,6 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetElementGetInnerHTMLEnabled(enable);
   SetEmptyClipboardReadEnabled(enable);
   SetEnforceAnonymityExposureEnabled(enable);
-  SetExcludeBrokenImageIconFromBeingLcpEligibleEnabled(enable);
   SetFedCmEnabled(enable);
   SetFedCmAutoSelectedFlagEnabled(enable);
   SetFedCmDisconnectEnabled(enable);
@@ -1605,9 +1595,6 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetIntersectionObserverScrollMarginEnabled(enable);
   SetInvisibleSVGAnimationThrottlingEnabled(enable);
   SetLayoutAlignForPositionedEnabled(enable);
-  SetLayoutNewContainingBlockEnabled(enable);
-  SetLayoutNewMeasureCacheEnabled(enable);
-  SetLayoutNewMinMaxCacheEnabled(enable);
   SetLazyLoadScrollMarginEnabled(enable);
   SetLongAnimationFrameTimingEnabled(enable);
   SetMacFontsDeprecateFontTraitsWorkaroundEnabled(enable);
@@ -1618,7 +1605,6 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetMediaSessionEnabled(enable);
   SetMediaSessionEnterPictureInPictureEnabled(enable);
   SetMessagePortCloseEventEnabled(enable);
-  SetMonitorTypeSurfacesEnabled(enable);
   SetMouseDragFromIframeOnCancelledMouseDownEnabled(enable);
   SetMutationEventsEnabled(enable);
   SetNextSiblingPositionUseNextCandidateEnabled(enable);
@@ -1629,6 +1615,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetNotificationsEnabled(enable);
   SetOffMainThreadCSSPaintEnabled(enable);
   SetOffsetMappingUnitVariableEnabled(enable);
+  SetOnePassRasterInvalidationEnabled(enable);
   SetOptionElementAlwaysUseLabelEnabled(enable);
   SetOriginIsolationHeaderEnabled(enable);
   SetPastingBlocksSVGUseNonLocalHrefsEnabled(enable);
@@ -1649,7 +1636,6 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetQuickIntensiveWakeUpThrottlingAfterLoadingEnabled(enable);
   SetReadableStreamTeeCloneForBranch2Enabled(enable);
   SetReduceUserAgentMinorVersionEnabled(enable);
-  SetReferenceBoxNoPixelSnappingEnabled(enable);
   SetRemotePlaybackEnabled(enable);
   SetRemoveDanglingMarkupInTargetEnabled(enable);
   SetRemoveDataUrlInSvgUseEnabled(enable);
@@ -1716,6 +1702,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetWebAuthenticationPRFEnabled(enable);
   SetWebCodecsContentHintEnabled(enable);
   SetWebGLDrawingBufferStorageEnabled(enable);
+  SetWebGPUEnabled(enable);
   SetWebIDLBigIntUsesToBigIntEnabled(enable);
   SetWebOTPEnabled(enable);
   SetWebOTPAssertionFeaturePolicyEnabled(enable);
@@ -1747,6 +1734,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetOrientationEventEnabled(enable);
   SetReduceUserAgentAndroidVersionDeviceModelEnabled(enable);
   SetRemotePlaybackBackendEnabled(enable);
+  SetReportVisibleLineBoundsEnabled(enable);
   SetTextFragmentTapOpensContextMenuEnabled(enable);
   SetWebBluetoothEnabled(enable);
   SetWebNFCEnabled(enable);
@@ -2044,7 +2032,6 @@ void RuntimeEnabledFeaturesBase::SetExperimentalFeaturesEnabled(bool enable) {
   SetNotificationTriggersEnabled(enable);
   SetObservableAPIEnabled(enable);
   SetOffscreenCanvasCommitEnabled(enable);
-  SetOnePassRasterInvalidationEnabled(enable);
   SetOriginPolicyEnabled(enable);
   SetOverscrollCustomizationEnabled(enable);
   SetPageRevealEventEnabled(enable);
@@ -2080,6 +2067,7 @@ void RuntimeEnabledFeaturesBase::SetExperimentalFeaturesEnabled(bool enable) {
   SetSensorExtraClassesEnabled(enable);
   SetServiceWorkerClientLifecycleStateEnabled(enable);
   SetSetSequentialFocusStartingPointEnabled(enable);
+  SetShadowRootClonableEnabled(enable);
   SetSignatureBasedIntegrityEnabled(enable);
   SetSiteInitiatedMirroringEnabled(enable);
   SetSkipAdEnabled(enable);
@@ -2355,6 +2343,7 @@ void RuntimeEnabledFeaturesBase::SetTestFeaturesEnabled(bool enable) {
 void RuntimeEnabledFeaturesBase::SetOriginTrialControlledFeaturesEnabled(bool enable) {
   SetAddIdentityInCanMakePaymentEventEnabled(enable);
   SetAdInterestGroupAPIEnabled(enable);
+  SetAppTitleEnabled(enable);
   SetAttributionReportingEnabled(enable);
   SetAttributionReportingCrossAppWebEnabled(enable);
   SetAttributionReportingInterfaceEnabled(enable);
@@ -2545,6 +2534,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"CSSFontSizeAdjust", &is_css_font_size_adjust_enabled_},
     {"CSSHexAlphaColor", &is_css_hex_alpha_color_enabled_},
     {"CSSLayoutAPI", &is_css_layout_api_enabled_},
+    {"CSSLightDarkColors", &is_css_light_dark_colors_enabled_},
     {"CSSLinearTimingFunction", &is_css_linear_timing_function_enabled_},
     {"CSSLogicalOverflow", &is_css_logical_overflow_enabled_},
     {"CSSMPCImprovements", &is_css_mpc_improvements_enabled_},
@@ -2573,7 +2563,6 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"CSSScrollStart", &is_css_scroll_start_enabled_},
     {"CSSScrollStateContainerQueries", &is_css_scroll_state_container_queries_enabled_},
     {"CSSSelectorFragmentAnchor", &is_css_selector_fragment_anchor_enabled_},
-    {"CSSSelectorNthChildComplexSelector", &is_css_selector_nth_child_complex_selector_enabled_},
     {"CSSSignRelatedFunctions", &is_css_sign_related_functions_enabled_},
     {"CSSSnapChangedEvent", &is_css_snap_changed_event_enabled_},
     {"CSSSnapChangingEvent", &is_css_snap_changing_event_enabled_},
@@ -2600,7 +2589,6 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"CSSViewTimelineInsetShorthand", &is_css_view_timeline_inset_shorthand_enabled_},
     {"CSSViewTransitionClass", &is_css_view_transition_class_enabled_},
     {"CacheStorageCodeCacheHint", &is_cache_storage_code_cache_hint_enabled_},
-    {"CanonicalizeWhitespaceStrings", &is_canonicalize_whitespace_strings_enabled_},
     {"Canvas2dCanvasFilter", &is_canvas_2d_canvas_filter_enabled_},
     {"Canvas2dImageChromium", &is_canvas_2d_image_chromium_enabled_},
     {"Canvas2dLayers", &is_canvas_2d_layers_enabled_},
@@ -2701,7 +2689,6 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"EnforceAnonymityExposure", &is_enforce_anonymity_exposure_enabled_},
     {"EscapeLtGtInAttributes", &is_escape_lt_gt_in_attributes_enabled_},
     {"EventTimingInteractionCount", &is_event_timing_interaction_count_enabled_},
-    {"ExcludeBrokenImageIconFromBeingLcpEligible", &is_exclude_broken_image_icon_from_being_lcp_eligible_enabled_},
     {"ExperimentalContentSecurityPolicyFeatures", &is_experimental_content_security_policy_features_enabled_},
     {"ExperimentalJSProfilerMarkers", &is_experimental_js_profiler_markers_enabled_},
     {"ExperimentalPolicies", &is_experimental_policies_enabled_},
@@ -2822,9 +2809,6 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"LayoutFlexNewRowAlgorithmV3", &is_layout_flex_new_row_algorithm_v_3_enabled_},
     {"LayoutIgnoreMarginsForSticky", &is_layout_ignore_margins_for_sticky_enabled_},
     {"LayoutNGShapeCache", &is_layout_ng_shape_cache_enabled_},
-    {"LayoutNewContainingBlock", &is_layout_new_containing_block_enabled_},
-    {"LayoutNewMeasureCache", &is_layout_new_measure_cache_enabled_},
-    {"LayoutNewMinMaxCache", &is_layout_new_min_max_cache_enabled_},
     {"LazyInitializeMediaControls", &is_lazy_initialize_media_controls_enabled_},
     {"LazyLoadScrollMargin", &is_lazy_load_scroll_margin_enabled_},
     {"LegacyWindowsDWriteFontFallback", &is_legacy_windows_d_write_font_fallback_enabled_},
@@ -2867,7 +2851,6 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"ModelExecutionAPI", &is_model_execution_api_enabled_},
     {"MojoJS", &is_mojo_js_enabled_},
     {"MojoJSTest", &is_mojo_js_test_enabled_},
-    {"MonitorTypeSurfaces", &is_monitor_type_surfaces_enabled_},
     {"MouseDragFromIframeOnCancelledMouseDown", &is_mouse_drag_from_iframe_on_cancelled_mouse_down_enabled_},
     {"MouseDragOnCancelledMouseMove", &is_mouse_drag_on_cancelled_mouse_move_enabled_},
     {"MutationEvents", &is_mutation_events_enabled_},
@@ -2982,7 +2965,6 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"ReduceUserAgentAndroidVersionDeviceModel", &is_reduce_user_agent_android_version_device_model_enabled_},
     {"ReduceUserAgentMinorVersion", &is_reduce_user_agent_minor_version_enabled_},
     {"ReduceUserAgentPlatformOsCpu", &is_reduce_user_agent_platform_os_cpu_enabled_},
-    {"ReferenceBoxNoPixelSnapping", &is_reference_box_no_pixel_snapping_enabled_},
     {"RegionCapture", &is_region_capture_enabled_},
     {"RemotePlayback", &is_remote_playback_enabled_},
     {"RemotePlaybackBackend", &is_remote_playback_backend_enabled_},
@@ -2993,6 +2975,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"RenderBlockingInlineModuleScript", &is_render_blocking_inline_module_script_enabled_},
     {"RenderBlockingStatus", &is_render_blocking_status_enabled_},
     {"RenderPriorityAttribute", &is_render_priority_attribute_enabled_},
+    {"ReportVisibleLineBounds", &is_report_visible_line_bounds_enabled_},
     {"ResourceTimingContentType", &is_resource_timing_content_type_enabled_},
     {"ResourceTimingUseCORSForBodySizes", &is_resource_timing_use_cors_for_body_sizes_enabled_},
     {"RestrictGamepadAccess", &is_restrict_gamepad_access_enabled_},
@@ -3029,6 +3012,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"ServiceWorkerStaticRouter", &is_service_worker_static_router_enabled_},
     {"SetSequentialFocusStartingPoint", &is_set_sequential_focus_starting_point_enabled_},
     {"ShadowRootAttachmentNewBehavior", &is_shadow_root_attachment_new_behavior_enabled_},
+    {"ShadowRootClonable", &is_shadow_root_clonable_enabled_},
     {"SharedArrayBuffer", &is_shared_array_buffer_enabled_},
     {"SharedArrayBufferOnDesktop", &is_shared_array_buffer_on_desktop_enabled_},
     {"SharedArrayBufferUnrestrictedAccessAllowed", &is_shared_array_buffer_unrestricted_access_allowed_enabled_},
@@ -3163,6 +3147,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"WebGLDraftExtensions", &is_webgl_draft_extensions_enabled_},
     {"WebGLDrawingBufferStorage", &is_webgl_drawing_buffer_storage_enabled_},
     {"WebGLImageChromium", &is_webgl_image_chromium_enabled_},
+    {"WebGPU", &is_webgpu_enabled_},
     {"WebGPUDeveloperFeatures", &is_webgpu_developer_features_enabled_},
     {"WebGPUExperimentalFeatures", &is_webgpu_experimental_features_enabled_},
     {"WebHID", &is_web_hid_enabled_},
@@ -3227,7 +3212,7 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
      false},
     {blink::features::kAlignContentForBlocks, SetAlignContentForBlocksEnabled,
      false},
-    {blink::features::kAppTitle, SetAppTitleEnabled,
+    {blink::features::kWebAppEnableAppTitle, SetAppTitleEnabled,
      false},
     {blink::features::kAsyncClipboardImplicitPermission, SetAsyncClipboardImplicitPermissionEnabled,
      false},
@@ -3257,6 +3242,8 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
      false},
     {blink::features::kCCTNewRFMPushBehavior, SetCCTNewRFMPushBehaviorEnabled,
      false},
+    {blink::features::kCSSAnchorPositioning, SetCSSAnchorPositioningEnabled,
+     false},
     {blink::features::kCSSAnchorPositioningCascadeFallback, SetCSSAnchorPositioningCascadeFallbackEnabled,
      false},
     {blink::features::kCSSAnimationDelayStartEnd, SetCSSAnimationDelayStartEndEnabled,
@@ -3276,6 +3263,8 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
     {blink::features::kCSSExponentialFunctions, SetCSSExponentialFunctionsEnabled,
      false},
     {blink::features::kCSSFirstLetterNoNewLineAsPrecedingChar, SetCSSFirstLetterNoNewLineAsPrecedingCharEnabled,
+     false},
+    {blink::features::kCSSLightDarkColors, SetCSSLightDarkColorsEnabled,
      false},
     {blink::features::kCSSLinearTimingFunction, SetCSSLinearTimingFunctionEnabled,
      false},
@@ -3366,8 +3355,6 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
     {blink::features::kCSSViewTimelineInsetShorthand, SetCSSViewTimelineInsetShorthandEnabled,
      false},
     {blink::features::kCSSViewTransitionClass, SetCSSViewTransitionClassEnabled,
-     false},
-    {blink::features::kCanonicalizeWhitespaceStrings, SetCanonicalizeWhitespaceStringsEnabled,
      false},
     {blink::features::kCapabilityDelegationDisplayCaptureRequest, SetCapabilityDelegationDisplayCaptureRequestEnabled,
      false},
@@ -3464,8 +3451,6 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
     {blink::features::kEnforceAnonymityExposure, SetEnforceAnonymityExposureEnabled,
      false},
     {blink::features::kEscapeLtGtInAttributes, SetEscapeLtGtInAttributesEnabled,
-     false},
-    {blink::features::kExcludeBrokenImageIconFromBeingLcpEligible, SetExcludeBrokenImageIconFromBeingLcpEligibleEnabled,
      false},
     {blink::features::kFastPositionIterator, SetFastPositionIteratorEnabled,
      false},
@@ -3591,12 +3576,6 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
      false},
     {blink::features::kLayoutNGShapeCache, SetLayoutNGShapeCacheEnabled,
      false},
-    {blink::features::kLayoutNewContainingBlock, SetLayoutNewContainingBlockEnabled,
-     false},
-    {blink::features::kLayoutNewMeasureCache, SetLayoutNewMeasureCacheEnabled,
-     false},
-    {blink::features::kLayoutNewMinMaxCache, SetLayoutNewMinMaxCacheEnabled,
-     false},
     {blink::features::kLazyLoadScrollMargin, SetLazyLoadScrollMarginEnabled,
      false},
     {blink::features::kLockedMode, SetLockedModeEnabled,
@@ -3624,8 +3603,6 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
     {blink::features::kMessagePortCloseEvent, SetMessagePortCloseEventEnabled,
      false},
     {blink::features::kEnableModelExecutionAPI, SetModelExecutionAPIEnabled,
-     false},
-    {blink::features::kMonitorTypeSurfaces, SetMonitorTypeSurfacesEnabled,
      false},
     {blink::features::kMouseDragFromIframeOnCancelledMouseDown, SetMouseDragFromIframeOnCancelledMouseDownEnabled,
      false},
@@ -3721,8 +3698,6 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
      false},
     {blink::features::kReduceUserAgentPlatformOsCpu, SetReduceUserAgentPlatformOsCpuEnabled,
      false},
-    {blink::features::kReferenceBoxNoPixelSnapping, SetReferenceBoxNoPixelSnappingEnabled,
-     false},
     {blink::features::kRemotePlaybackBackend, SetRemotePlaybackBackendEnabled,
      false},
     {blink::features::kRemoveDanglingMarkupInTarget, SetRemoveDanglingMarkupInTargetEnabled,
@@ -3730,6 +3705,8 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
     {blink::features::kRemoveDataUrlInSvgUse, SetRemoveDataUrlInSvgUseEnabled,
      false},
     {blink::features::kRemoveZoomAdjustmentOfBoundingBox, SetRemoveZoomAdjustmentOfBoundingBoxEnabled,
+     false},
+    {blink::features::kReportVisibleLineBounds, SetReportVisibleLineBoundsEnabled,
      false},
     {blink::features::kRewindFloats, SetRewindFloatsEnabled,
      false},
@@ -3764,6 +3741,8 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
     {blink::features::kSetSequentialFocusStartingPoint, SetSetSequentialFocusStartingPointEnabled,
      false},
     {blink::features::kShadowRootAttachmentNewBehavior, SetShadowRootAttachmentNewBehaviorEnabled,
+     false},
+    {blink::features::kShadowRootClonable, SetShadowRootClonableEnabled,
      false},
     {blink::features::kSkipTouchEventFilter, SetSkipTouchEventFilterEnabled,
      false},
@@ -3988,6 +3967,13 @@ bool RuntimeEnabledFeaturesBase::AdInterestGroupAPIEnabled(const FeatureContext*
   if (is_ad_interest_group_api_enabled_)
     return true;
   return context && context->FeatureEnabled(mojom::blink::OriginTrialFeature::kAdInterestGroupAPI);
+}
+
+
+bool RuntimeEnabledFeaturesBase::AppTitleEnabled(const FeatureContext* context) {
+  if (is_app_title_enabled_)
+    return true;
+  return context && context->FeatureEnabled(mojom::blink::OriginTrialFeature::kAppTitle);
 }
 
 
@@ -4819,7 +4805,6 @@ bool RuntimeEnabledFeaturesBase::is_browser_verified_user_activation_keyboard_en
 bool RuntimeEnabledFeaturesBase::is_browser_verified_user_activation_mouse_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_byob_fetch_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_cache_storage_code_cache_hint_enabled_ = false;
-bool RuntimeEnabledFeaturesBase::is_canonicalize_whitespace_strings_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_canvas_2d_canvas_filter_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_canvas_2d_image_chromium_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_canvas_2d_layers_enabled_ = false;
@@ -4883,6 +4868,7 @@ bool RuntimeEnabledFeaturesBase::is_css_first_letter_no_new_line_as_preceding_ch
 bool RuntimeEnabledFeaturesBase::is_css_font_size_adjust_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_hex_alpha_color_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_css_layout_api_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_css_light_dark_colors_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_css_linear_timing_function_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_css_logical_overflow_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_marker_nested_pseudo_element_enabled_ = false;
@@ -4911,7 +4897,6 @@ bool RuntimeEnabledFeaturesBase::is_css_scroll_snap_events_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_scroll_start_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_scroll_state_container_queries_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_selector_fragment_anchor_enabled_ = false;
-bool RuntimeEnabledFeaturesBase::is_css_selector_nth_child_complex_selector_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_css_sign_related_functions_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_snap_changed_event_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_snap_changing_event_enabled_ = false;
@@ -4983,7 +4968,6 @@ bool RuntimeEnabledFeaturesBase::is_empty_clipboard_read_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_enforce_anonymity_exposure_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_escape_lt_gt_in_attributes_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_event_timing_interaction_count_enabled_ = false;
-bool RuntimeEnabledFeaturesBase::is_exclude_broken_image_icon_from_being_lcp_eligible_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_experimental_content_security_policy_features_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_experimental_js_profiler_markers_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_experimental_policies_enabled_ = false;
@@ -5088,9 +5072,6 @@ bool RuntimeEnabledFeaturesBase::is_lang_attribute_aware_form_control_ui_enabled
 bool RuntimeEnabledFeaturesBase::is_layout_align_for_positioned_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_layout_flex_new_row_algorithm_v_3_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_layout_ignore_margins_for_sticky_enabled_ = false;
-bool RuntimeEnabledFeaturesBase::is_layout_new_containing_block_enabled_ = true;
-bool RuntimeEnabledFeaturesBase::is_layout_new_measure_cache_enabled_ = true;
-bool RuntimeEnabledFeaturesBase::is_layout_new_min_max_cache_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_layout_ng_shape_cache_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_lazy_initialize_media_controls_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_lazy_load_scroll_margin_enabled_ = true;
@@ -5134,7 +5115,6 @@ bool RuntimeEnabledFeaturesBase::is_mobile_layout_theme_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_model_execution_api_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_mojo_js_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_mojo_js_test_enabled_ = false;
-bool RuntimeEnabledFeaturesBase::is_monitor_type_surfaces_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_mouse_drag_from_iframe_on_cancelled_mouse_down_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_mouse_drag_on_cancelled_mouse_move_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_mutation_events_enabled_ = true;
@@ -5157,7 +5137,7 @@ bool RuntimeEnabledFeaturesBase::is_observable_api_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_off_main_thread_css_paint_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_offscreen_canvas_commit_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_offset_mapping_unit_variable_enabled_ = true;
-bool RuntimeEnabledFeaturesBase::is_one_pass_raster_invalidation_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_one_pass_raster_invalidation_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_option_element_always_use_label_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_origin_isolation_header_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_origin_policy_enabled_ = false;
@@ -5232,7 +5212,6 @@ bool RuntimeEnabledFeaturesBase::is_readable_stream_tee_clone_for_branch_2_enabl
 bool RuntimeEnabledFeaturesBase::is_reduce_accept_language_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_reduce_cookie_ip_cs_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_minor_version_enabled_ = true;
-bool RuntimeEnabledFeaturesBase::is_reference_box_no_pixel_snapping_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remove_dangling_markup_in_target_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remove_data_url_in_svg_use_enabled_ = true;
@@ -5284,6 +5263,7 @@ bool RuntimeEnabledFeaturesBase::is_service_worker_race_network_request_enabled_
 bool RuntimeEnabledFeaturesBase::is_service_worker_static_router_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_set_sequential_focus_starting_point_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_shadow_root_attachment_new_behavior_enabled_ = true;
+bool RuntimeEnabledFeaturesBase::is_shadow_root_clonable_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_shared_array_buffer_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_shared_array_buffer_on_desktop_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_shared_array_buffer_unrestricted_access_allowed_enabled_ = false;
@@ -5410,6 +5390,7 @@ bool RuntimeEnabledFeaturesBase::is_webgl_developer_extensions_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_webgl_draft_extensions_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_webgl_drawing_buffer_storage_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_webgl_image_chromium_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_webgpu_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_webgpu_developer_features_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_webgpu_experimental_features_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_web_hid_on_service_workers_enabled_ = false;
@@ -5489,6 +5470,7 @@ bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_mod
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = true;
+bool RuntimeEnabledFeaturesBase::is_report_visible_line_bounds_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_serial_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_smart_card_enabled_ = false;
@@ -5545,6 +5527,7 @@ bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_mod
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = true;
+bool RuntimeEnabledFeaturesBase::is_report_visible_line_bounds_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_serial_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_smart_card_enabled_ = false;
@@ -5601,6 +5584,7 @@ bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_mod
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_report_visible_line_bounds_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_serial_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_smart_card_enabled_ = false;
@@ -5657,6 +5641,7 @@ bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_mod
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_report_visible_line_bounds_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_serial_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_smart_card_enabled_ = false;
@@ -5713,6 +5698,7 @@ bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_mod
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = true;
+bool RuntimeEnabledFeaturesBase::is_report_visible_line_bounds_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_serial_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_smart_card_enabled_ = false;
@@ -5769,6 +5755,7 @@ bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_mod
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = true;
+bool RuntimeEnabledFeaturesBase::is_report_visible_line_bounds_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_serial_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_smart_card_enabled_ = false;
@@ -5826,6 +5813,7 @@ bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_android_version_device_mod
 bool RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_region_capture_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_remote_playback_backend_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_report_visible_line_bounds_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_serial_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_shared_worker_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_smart_card_enabled_ = false;

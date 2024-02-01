@@ -64,7 +64,7 @@ class BLINK_PLATFORM_EXPORT BlockedByResponseReasonWrapper {
   template <typename... Args>
   static BlockedByResponseReasonWrapperPtr New(Args&&... args) {
     return BlockedByResponseReasonWrapperPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -209,7 +209,7 @@ class BLINK_PLATFORM_EXPORT URLLoaderCompletionStatus {
   template <typename... Args>
   static URLLoaderCompletionStatusPtr New(Args&&... args) {
     return URLLoaderCompletionStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

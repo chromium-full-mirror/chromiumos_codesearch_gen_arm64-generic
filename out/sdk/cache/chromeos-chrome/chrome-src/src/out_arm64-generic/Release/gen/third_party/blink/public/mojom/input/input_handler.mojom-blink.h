@@ -882,7 +882,7 @@ class PLATFORM_EXPORT ScrollUpdate {
   template <typename... Args>
   static ScrollUpdatePtr New(Args&&... args) {
     return ScrollUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1027,7 +1027,7 @@ class PLATFORM_EXPORT PinchBeginData {
   template <typename... Args>
   static PinchBeginDataPtr New(Args&&... args) {
     return PinchBeginDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1168,7 +1168,7 @@ class PLATFORM_EXPORT PinchUpdateData {
   template <typename... Args>
   static PinchUpdateDataPtr New(Args&&... args) {
     return PinchUpdateDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1315,7 +1315,7 @@ class PLATFORM_EXPORT PinchEndData {
   template <typename... Args>
   static PinchEndDataPtr New(Args&&... args) {
     return PinchEndDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1456,7 +1456,7 @@ class PLATFORM_EXPORT FlingData {
   template <typename... Args>
   static FlingDataPtr New(Args&&... args) {
     return FlingDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1606,7 +1606,7 @@ class PLATFORM_EXPORT TapData {
   template <typename... Args>
   static TapDataPtr New(Args&&... args) {
     return TapDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1750,7 +1750,7 @@ class PLATFORM_EXPORT TapDownData {
   template <typename... Args>
   static TapDownDataPtr New(Args&&... args) {
     return TapDownDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1896,7 +1896,7 @@ class PLATFORM_EXPORT TouchActionOptional {
   template <typename... Args>
   static TouchActionOptionalPtr New(Args&&... args) {
     return TouchActionOptionalPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2036,7 +2036,7 @@ class PLATFORM_EXPORT EditCommand {
   template <typename... Args>
   static EditCommandPtr New(Args&&... args) {
     return EditCommandPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2180,7 +2180,7 @@ class PLATFORM_EXPORT SelectAroundCaretResult {
   template <typename... Args>
   static SelectAroundCaretResultPtr New(Args&&... args) {
     return SelectAroundCaretResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2332,7 +2332,7 @@ class PLATFORM_EXPORT KeyData {
   template <typename... Args>
   static KeyDataPtr New(Args&&... args) {
     return KeyDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2493,7 +2493,7 @@ class PLATFORM_EXPORT PointerData {
   template <typename... Args>
   static PointerDataPtr New(Args&&... args) {
     return PointerDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2677,7 +2677,7 @@ class PLATFORM_EXPORT WheelData {
   template <typename... Args>
   static WheelDataPtr New(Args&&... args) {
     return WheelDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2848,7 +2848,7 @@ class PLATFORM_EXPORT MouseData {
   template <typename... Args>
   static MouseDataPtr New(Args&&... args) {
     return MouseDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2994,7 +2994,7 @@ class PLATFORM_EXPORT ScrollData {
   template <typename... Args>
   static ScrollDataPtr New(Args&&... args) {
     return ScrollDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3166,7 +3166,7 @@ class PLATFORM_EXPORT GestureData {
   template <typename... Args>
   static GestureDataPtr New(Args&&... args) {
     return GestureDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3350,7 +3350,7 @@ class PLATFORM_EXPORT TouchPoint {
   template <typename... Args>
   static TouchPointPtr New(Args&&... args) {
     return TouchPointPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3504,7 +3504,7 @@ class PLATFORM_EXPORT TouchData {
   template <typename... Args>
   static TouchDataPtr New(Args&&... args) {
     return TouchDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3661,7 +3661,7 @@ class PLATFORM_EXPORT Event {
   template <typename... Args>
   static EventPtr New(Args&&... args) {
     return EventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3827,7 +3827,7 @@ class PLATFORM_EXPORT DidOverscrollParams {
   template <typename... Args>
   static DidOverscrollParamsPtr New(Args&&... args) {
     return DidOverscrollParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -28,10 +28,10 @@ build obj/ui/views/views/view_accessibility_utils.o: cxx ../../../../../../../ho
 build obj/ui/views/views/accessible_pane_view.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/ui/views/accessible_pane_view.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/ui/views/views.inputdeps.stamp
   source_file_part = accessible_pane_view.cc
   source_name_part = accessible_pane_view
-build obj/ui/views/views/action_view_controller.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/ui/views/action_view_controller.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/ui/views/views.inputdeps.stamp
+build obj/ui/views/views/action_view_controller.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/ui/views/actions/action_view_controller.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/ui/views/views.inputdeps.stamp
   source_file_part = action_view_controller.cc
   source_name_part = action_view_controller
-build obj/ui/views/views/action_view_interface.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/ui/views/action_view_interface.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/ui/views/views.inputdeps.stamp
+build obj/ui/views/views/action_view_interface.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/ui/views/actions/action_view_interface.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/ui/views/views.inputdeps.stamp
   source_file_part = action_view_interface.cc
   source_name_part = action_view_interface
 build obj/ui/views/views/animation_abort_handle.o: cxx ../../../../../../../home/chrome-bot/chrome_root/src/ui/views/animation/animation_abort_handle.cc | ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/profiles/arm.afdo.prof || obj/ui/views/views.inputdeps.stamp

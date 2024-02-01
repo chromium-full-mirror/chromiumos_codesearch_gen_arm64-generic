@@ -10,12 +10,6 @@
       "chrome://resources/cros_components/*": [
         "./../../../../../../ui/webui/resources/tsc/cros_components/to_be_rewritten/*"
       ],
-      "//resources/cr_elements/*": [
-        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
-      ],
-      "chrome://resources/cr_elements/*": [
-        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
-      ],
       "//resources/js/*": [
         "./../../../../../../ui/webui/resources/tsc/js/*"
       ],
@@ -46,9 +40,6 @@
     },
     {
       "path": "../../../../../../third_party/cros-components/tsconfig_cros_components_ts.json"
-    },
-    {
-      "path": "../../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../../ui/webui/resources/js/tsconfig_build_ts.json"

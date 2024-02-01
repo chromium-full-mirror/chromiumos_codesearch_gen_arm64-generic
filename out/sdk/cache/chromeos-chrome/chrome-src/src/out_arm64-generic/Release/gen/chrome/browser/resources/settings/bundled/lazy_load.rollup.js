@@ -1,5 +1,5 @@
 import { aR as PaperRippleMixin, E as EventTracker, b as assert, h as CrPolicyPrefMixin, I as I18nMixin, g as focusWithoutInk, G as getInstance, a as assertNotReached, aS as AnchorAlignment, O as OpenWindowProxyImpl, M as MetricsBrowserProxyImpl, aA as PrivacyElementInteractions, ay as CvcDeletionUserAction, aT as SettingsBooleanControlMixin, y as sanitizeInnerHtml, e as RouteObserverMixin, W as WebUiListenerMixin, P as PrefsMixin, aU as ClearBrowsingDataBrowserProxyImpl, L as SyncBrowserProxyImpl, a2 as FocusOutlineManager, r as routes, ad as StatusAction, _ as SearchEnginesBrowserProxyImpl, $ as ChoiceMadeLocation, K as FocusRowMixin, aa as ExtensionControlBrowserProxyImpl, aV as GlobalScrollTargetMixin, aP as SearchEnginesInteractions, aW as SiteSettingsMixin, q as ContentSettingsTypes, aX as ContentSettingProvider, s as ContentSetting, H as HatsBrowserProxyImpl, T as TrustSafetyInteraction, aM as PrivacySandboxBrowserProxyImpl, f as Router, w as PluralStringProxyImpl, aY as CardState, R as RelaunchMixin, o as SafetyHubBrowserProxyImpl, aI as SafetyHubSurfaces, u as SafetyHubEvent, A as PasswordManagerImpl, F as PasswordManagerPage, c as RestartType, aH as SafetyHubModuleType, B as BaseMixin, aZ as AllSitesAction2, a_ as SortMethod, az as DeleteBrowsingDataAction, a$ as AllSitesDialog, V as TooltipMixin, b0 as SiteSettingSource, aF as SafetyCheckUnusedSitePermissionsModuleInteractions, b1 as MODEL_UPDATE_DELAY_MS, b2 as isUndoKeyboardEvent, v as SafetyHubEntryPoint, b3 as CookiesExceptionType, b4 as SITE_EXCEPTION_WILDCARD, S as SiteSettingsPrefsBrowserProxyImpl, t as ChooserType, U as ListPropertyUpdateMixin, b5 as INVALID_CATEGORY_SUBTYPE, ae as syncPrefsIndividualDataTypes, b6 as HelpBubbleMixin, n as PrivacyPageBrowserProxyImpl, ac as PageStatus, b7 as CrPolicyIndicatorType, j as PrefControlMixin, l as listenOnce, Z as ResetBrowserProxyImpl, b8 as CookiePrimarySetting, x as CookieControlsMode, X as NetworkPredictionOptions, aE as SafetyCheckNotificationsModuleInteractions, p as SettingsState } from './shared.rollup.js';
-export { b9 as CrCheckboxElement, an as CrDialogElement, ba as CrIconButtonElement, bb as CrInputElement, bc as CrLazyRenderElement, bd as CrTextareaElement, bx as HttpsFirstModeSetting, bl as PreloadingPageElement, bn as PrivacyGuideCompletionFragmentElement, bo as PrivacyGuideCookiesFragmentElement, bp as PrivacyGuideDescriptionItemElement, br as PrivacyGuideHistorySyncFragmentElement, bs as PrivacyGuideMsbbFragmentElement, bu as PrivacyGuideSafeBrowsingFragmentElement, bv as PrivacyGuideSearchSuggestionsFragmentElement, bm as PrivacyGuideStep, bw as PrivacyGuideWelcomeFragmentElement, by as SafeBrowsingSetting, bi as SecureDnsInputElement, bf as SecureDnsResolverType, bD as SettingsCategoryDefaultRadioGroupElement, bk as SettingsCollapseRadioButtonElement, bj as SettingsPageContentPageElement, bq as SettingsPrivacyGuideDialogElement, bt as SettingsPrivacyGuidePageElement, be as SettingsRadioGroupElement, bA as SettingsSafetyHubEntryPointElement, bB as SettingsSafetyHubModuleElement, bh as SettingsSecureDnsDialogElement, bg as SettingsSecureDnsElement, bz as SettingsSecurityPageElement, bC as SettingsSimpleConfirmationDialogElement, av as SettingsToggleButtonElement } from './shared.rollup.js';
+export { b9 as CrCheckboxElement, an as CrDialogElement, ba as CrExpandButtonElement, bb as CrIconButtonElement, bc as CrInputElement, bd as CrLazyRenderElement, be as CrTextareaElement, bx as HttpsFirstModeSetting, bn as PrivacyGuideCompletionFragmentElement, bo as PrivacyGuideCookiesFragmentElement, bp as PrivacyGuideDescriptionItemElement, br as PrivacyGuideHistorySyncFragmentElement, bs as PrivacyGuideMsbbFragmentElement, bu as PrivacyGuideSafeBrowsingFragmentElement, bv as PrivacyGuideSearchSuggestionsFragmentElement, bm as PrivacyGuideStep, bw as PrivacyGuideWelcomeFragmentElement, by as SafeBrowsingSetting, bj as SecureDnsInputElement, bg as SecureDnsResolverType, bD as SettingsCategoryDefaultRadioGroupElement, bl as SettingsCollapseRadioButtonElement, bk as SettingsPageContentPageElement, bq as SettingsPrivacyGuideDialogElement, bt as SettingsPrivacyGuidePageElement, bf as SettingsRadioGroupElement, bA as SettingsSafetyHubEntryPointElement, bB as SettingsSafetyHubModuleElement, bi as SettingsSecureDnsDialogElement, bh as SettingsSecureDnsElement, bz as SettingsSecurityPageElement, bC as SettingsSimpleConfirmationDialogElement, av as SettingsToggleButtonElement } from './shared.rollup.js';
 import { html, PolymerElement, Debouncer, microTask, flush, afterNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { sendWithPromise } from 'chrome://resources/js/cr.js';
@@ -1345,11 +1345,17 @@ class AutofillManagerImpl {
 let instance$6 = null;
 
 function getTemplate$1v() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared passwords-shared iron-flex">#addressList .start{display:flex;overflow:hidden}#addressSummary{display:flex;flex:1;overflow:hidden}</style>
+    return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared passwords-shared iron-flex">#autofillSyncToggleWrapper{align-items:center;cursor:pointer;display:flex;min-height:var(--cr-section-two-line-min-height);padding:0 var(--cr-section-padding)}#autofillSyncToggleWrapper:hover{background-color:var(--cr-hover-background-color)}#addressList .start{display:flex;overflow:hidden}#addressSummary{display:flex;flex:1;overflow:hidden}</style>
     <settings-toggle-button id="autofillProfileToggle" no-extension-indicator label="$i18n{enableProfilesLabel}" sub-label="$i18n{enableProfilesSublabel}" pref="{{prefs.autofill.profile_enabled}}">
     </settings-toggle-button>
-    <settings-toggle-button id="autofillSyncToggle" hidden$="[[!isAutofillSyncToggleVisible_(accountInfo_)]]" checked="[[accountInfo_.isAutofillSyncToggleEnabled]]" label="$i18n{autofillSyncToggleLabel}" sub-label="[[accountInfo_.email]]" on-change="onAutofillSyncEnabledChange_" no-extension-indicator no-set-pref>
-    </settings-toggle-button>
+    <div id="autofillSyncToggleWrapper" hidden$="[[!isAutofillSyncToggleVisible_(accountInfo_)]]">
+      <div class="flex">
+        <div class="label">$i18n{autofillSyncToggleLabel}</div>
+        <div class="label cr-secondary-text">[[accountInfo_.email]]</div>
+      </div>
+      <cr-toggle id="autofillSyncToggle" checked="[[accountInfo_.isAutofillSyncToggleEnabled]]" on-change="onAutofillSyncEnabledChange_">
+      </cr-toggle>
+    </div>
     <template is="dom-if" if="[[prefs.autofill.profile_enabled.extensionId]]">
       <div class="cr-row continuation">
         <extension-controlled-indicator class="flex" id="autofillExtensionIndicator" extension-id="[[prefs.autofill.profile_enabled.extensionId]]" extension-name="[[prefs.autofill.profile_enabled.controlledByName]]" extension-can-be-disabled="[[
@@ -1439,6 +1445,10 @@ class SettingsAutofillSectionElement extends SettingsAutofillSectionElementBase 
     ready() {
         super.ready();
         this.addEventListener('save-address', this.saveAddress_);
+        // This is to mimic the behaviour of <settings-toggle-button>.
+        this.$.autofillSyncToggleWrapper.addEventListener('click', () => {
+            this.$.autofillSyncToggle.click();
+        });
     }
     connectedCallback() {
         super.connectedCallback();
@@ -3884,11 +3894,10 @@ class SettingsClearBrowsingDataDialogElement extends SettingsClearBrowsingDataDi
      * supervised user. Gives information about family link controls and that they
      * will not be signed out on clearing cookies
      */
-    cookiesCheckboxLabel_(isSignedIn, shouldShowCookieException, cookiesSummary, clearCookiesSummarySignedIn, clearCookiesSummarySyncing, clearCookiesSummarySignedInSupervisedProfile) {
-        if (loadTimeData.getBoolean('isChildAccount') &&
-            loadTimeData.getBoolean('clearingCookiesKeepsSupervisedUsersSignedIn')) {
-            return clearCookiesSummarySignedInSupervisedProfile;
-        }
+    cookiesCheckboxLabel_(isSignedIn, shouldShowCookieException, cookiesSummary, clearCookiesSummarySignedIn, clearCookiesSummarySyncing, 
+    // @ts-ignore: error TS6133: unused on some platforms
+    clearCookiesSummarySignedInSupervisedProfile) {
+        // 
         if (this.unoDesktopEnabled_ && isSignedIn) {
             return clearCookiesSummarySignedIn;
         }
@@ -5096,7 +5105,10 @@ class PrivacySandboxInterestItemElement extends PrivacySandboxInterestItemElemen
     getButtonLabel_() {
         if (this.interest.topic !== undefined) {
             assert(!this.interest.site);
-            return this.i18n(this.interest.removed ? 'topicsPageAllowTopic' :
+            return this.i18n(this.interest.removed ?
+                ((loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled')) ?
+                    'unblockTopicButtonTextV2' :
+                    'topicsPageAllowTopic') :
                 'topicsPageBlockTopic');
         }
         else {
@@ -5125,10 +5137,13 @@ class PrivacySandboxInterestItemElement extends PrivacySandboxInterestItemElemen
 customElements.define(PrivacySandboxInterestItemElement.is, PrivacySandboxInterestItemElement);
 
 function getTemplate$1b() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style">#currentSitesSection{align-items:center;display:flex;padding:0 var(--cr-section-padding)}#currentSitesSectionWrapper{width:100%}#currentSitesHeading{color:var(--cr-secondary-text-color);font-size:100%;font-weight:500;margin:0;padding-block-start:var(--cr-section-vertical-padding)}#currentSitesDescription{padding-block-end:var(--cr-section-vertical-padding)}#learnMoreLink{background:0 0;border:none;color:var(--cr-link-color);cursor:pointer;margin:0;padding:0;text-decoration:underline}.no-sites{padding-block-end:32px;padding-block-start:16px;padding-inline-start:40px}#blockedSitesDescription{min-height:auto;padding-block-end:16px;padding-block-start:16px}.no-blocked-sites{padding-inline-start:60px}#blockedSitesList{padding:0 var(--cr-section-padding)}#footer{padding-block-end:16px;padding-block-start:16px}#dialog p{margin:0;padding-block-end:16px;padding-block-start:4px}#footer{padding:16px var(--cr-section-padding)}a{color:var(--cr-link-color)}</style>
+    return html `<!--_html_template_start_--><style include="cr-shared-style">#currentSitesSection{align-items:center;display:flex;padding:0 var(--cr-section-padding)}#currentSitesSectionWrapper{width:100%}#currentSitesHeading{color:var(--cr-secondary-text-color);font-size:100%;font-weight:500;margin:0;padding-block-start:var(--cr-section-vertical-padding)}#currentSitesDescription{padding-block-end:var(--cr-section-vertical-padding)}#learnMoreLink{background:0 0;border:none;color:var(--cr-link-color);cursor:pointer;margin:0;padding:0;text-decoration:underline}.no-sites{padding-block-end:32px;padding-block-start:16px;padding-inline-start:40px}#blockedSitesDescription{min-height:auto;padding-block-end:16px;padding-block-start:16px}.no-blocked-sites{padding-inline-start:60px}#blockedSitesList{padding:0 var(--cr-section-padding)}#footer{padding-block-end:16px;padding-block-start:16px}#dialog p{margin:0;padding-block-end:16px;padding-block-start:4px}.footer{padding:16px var(--cr-section-padding)}#secondDescription{padding:0 var(--cr-section-padding) var(--cr-section-vertical-padding)}a{color:var(--cr-link-color)}</style>
 
 <settings-toggle-button id="fledgeToggle" pref="{{prefs.privacy_sandbox.m1.fledge_enabled}}" label="$i18n{fledgePageToggleLabel}" sub-label="$i18n{fledgePageToggleSubLabel}" on-settings-boolean-control-change="onToggleChange_">
 </settings-toggle-button>
+<div id="secondDescription" class="cr-secondary-text" hidden="[[!shouldShowV2_]]">
+  $i18n{fledgePageSecondaryDescriptionV2}
+</div>
 <template is="dom-if" if="[[!isFledgePrefManaged_(
     prefs.privacy_sandbox.m1.fledge_enabled.enforcement)]]" restamp>
   <div id="currentSitesSection">
@@ -5189,10 +5204,12 @@ function getTemplate$1b() {
     </template>
   </div>
 </iron-collapse>
-<div id="footer" class="cr-secondary-text hr">
+<div id="footer" class="cr-secondary-text hr footer" hidden="[[shouldShowV2_]]">
   $i18nRaw{fledgePageFooter}
 </div>
-
+<div id="footerV2" class="cr-secondary-text hr footer" hidden="[[!shouldShowV2_]]">
+  $i18nRaw{fledgePageFooterV2}
+</div>
 <template is="dom-if" if="[[isLearnMoreDialogOpen_]]" restamp>
   <cr-dialog id="dialog" on-close="onCloseDialog_" show-on-attach>
     <div slot="title">$i18n{fledgePageLearnMoreHeading}</div>
@@ -5295,6 +5312,10 @@ class SettingsPrivacySandboxFledgeSubpageElement extends SettingsPrivacySandboxF
                 value: false,
                 observer: 'onBlockedSitesExpanded_',
             },
+            shouldShowV2_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled'),
+            },
         };
     }
     static get maxFledgeSites() {
@@ -5304,6 +5325,7 @@ class SettingsPrivacySandboxFledgeSubpageElement extends SettingsPrivacySandboxF
         super.ready();
         this.privacySandboxBrowserProxy_.getFledgeState().then(state => this.onFledgeStateChanged_(state));
         this.$.footer.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
+        this.$.footerV2.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
     }
     currentRouteChanged(newRoute) {
         if (newRoute === routes.PRIVACY_SANDBOX_FLEDGE) {
@@ -5526,83 +5548,315 @@ class SettingsPrivacySandboxPageElement extends SettingsPrivacySandboxPageElemen
 }
 customElements.define(SettingsPrivacySandboxPageElement.is, SettingsPrivacySandboxPageElement);
 
-function getTemplate$19() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style">#currentTopicsSection{align-items:center;display:flex;padding:0 var(--cr-section-padding)}#currentTopicsDescriptionEmpty{align-items:center}#currentTopicsSectionWrapper{width:100%}#currentTopicsHeading{color:var(--cr-secondary-text-color);font-size:100%;font-weight:500;margin:0;padding-block-start:var(--cr-section-vertical-padding)}#currentTopicsDescription{padding-block-end:var(--cr-section-vertical-padding)}#disclaimer{padding:0 var(--cr-section-padding);padding-bottom:var(--cr-section-vertical-padding);color:var(--cr-secondary-text-color)}#learnMoreLink{background:0 0;border:none;color:var(--cr-link-color);cursor:pointer;margin:0;padding:0;text-decoration:underline}.no-topics{padding-block-end:32px;padding-block-start:16px;padding-inline-start:40px}#blockedTopicsDescription{min-height:auto;padding-block-end:16px;padding-block-start:16px}#blockedTopicsDescriptionPTB{color:var(--cr-secondary-text-color)}.no-blocked-topics{padding-inline-start:60px}#blockedTopicsList{padding:0 var(--cr-section-padding)}#footer,#footerPTB{padding:16px var(--cr-section-padding)}a{color:var(--cr-link-color)}#dialog p{margin:0;padding-block-end:16px;padding-block-start:4px}</style>
+const template$2 = html `<iron-iconset-svg name="firstLevelTopics20" size="20">
+    <svg>
+      <defs>
+        <g id="artist" viewBox="0 -960 960 960"><path d="M740-560h140v80h-80v220q0 42-29 71t-71 29q-42 0-71-29t-29-71q0-42 29-71t71-29q8 0 18 1.5t22 6.5v-208ZM120-160v-112q0-35 17.5-63t46.5-43q62-31 126-46.5T440-440q42 0 83.5 6.5T607-414q-20 12-36 29t-28 37q-26-6-51.5-9t-51.5-3q-57 0-112 14t-108 40q-9 5-14.5 14t-5.5 20v32h321q2 20 9.5 40t20.5 40H120Zm320-320q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T520-640q0-33-23.5-56.5T440-720q-33 0-56.5 23.5T360-640q0 33 23.5 56.5T440-560Zm0-80Zm0 400Z"></path></g>
+        <g id="bigtop-updates" viewBox="0 -960 960 960"><path d="M198-278q-57-57-87.5-129.5T80-560q0-80 30.5-152.5T198-842l48 48q-47 47-72.5 107.5T148-560q0 66 25.5 126.5T246-326l-48 48Zm92-92q-38-38-58-87t-20-103q0-54 20-103t58-87l48 48q-29 29-43.5 65.5T280-560q0 40 14.5 76.5T338-418l-48 48Zm150 250v-348q-27-12-43.5-37T380-560q0-42 29-71t71-29q42 0 71 29t29 71q0 30-16.5 55T520-468v348h-80Zm230-250-48-48q29-29 43.5-65.5T680-560q0-40-14.5-76.5T622-702l48-48q38 38 58 87t20 103q0 54-20 103t-58 87Zm92 92-48-48q47-47 72.5-107.5T812-560q0-66-25.5-126.5T714-794l48-48q57 57 87.5 129.5T880-560q0 80-30.5 152.5T762-278Z"></path></g>
+        <g id="business-center" viewBox="0 -960 960 960"><path d="M160-120q-33 0-56.5-23.5T80-200v-440q0-33 23.5-56.5T160-720h160v-80q0-33 23.5-56.5T400-880h160q33 0 56.5 23.5T640-800v80h160q33 0 56.5 23.5T880-640v440q0 33-23.5 56.5T800-120H160Zm240-600h160v-80H400v80Zm400 360H600v80H360v-80H160v160h640v-160Zm-360 0h80v-80h-80v80Zm-280-80h200v-80h240v80h200v-200H160v200Zm320 40Z"></path></g>
+        <g id="category" viewBox="0 -960 960 960"><path d="m260-520 220-360 220 360H260ZM700-80q-75 0-127.5-52.5T520-260q0-75 52.5-127.5T700-440q75 0 127.5 52.5T880-260q0 75-52.5 127.5T700-80Zm-580-20v-320h320v320H120Zm580-60q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Zm-500-20h160v-160H200v160Zm202-420h156l-78-126-78 126Zm78 0ZM360-340Zm340 80Z"></path></g>
+        <g id="communities" viewBox="0 -960 960 960"><path d="M360-320q33 0 56.5-23.5T440-400q0-33-23.5-56.5T360-480q-33 0-56.5 23.5T280-400q0 33 23.5 56.5T360-320Zm240 0q33 0 56.5-23.5T680-400q0-33-23.5-56.5T600-480q-33 0-56.5 23.5T520-400q0 33 23.5 56.5T600-320ZM480-520q33 0 56.5-23.5T560-600q0-33-23.5-56.5T480-680q-33 0-56.5 23.5T400-600q0 33 23.5 56.5T480-520Zm0 440q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path></g>
+        <g id="crowdsource" viewBox="0 -960 960 960"><path d="M660-570q-25 0-42.5-17.5T600-630q0-25 17.5-42.5T660-690q25 0 42.5 17.5T720-630q0 25-17.5 42.5T660-570Zm-360 0q-25 0-42.5-17.5T240-630q0-25 17.5-42.5T300-690q25 0 42.5 17.5T360-630q0 25-17.5 42.5T300-570Zm180 110q-25 0-42.5-17.5T420-520q0-25 17.5-42.5T480-580q25 0 42.5 17.5T540-520q0 25-17.5 42.5T480-460Zm0-220q-25 0-42.5-17.5T420-740q0-25 17.5-42.5T480-800q25 0 42.5 17.5T540-740q0 25-17.5 42.5T480-680Zm0 520q-20 0-40.5-3t-39.5-8v-143q0-35 23.5-60.5T480-400q33 0 56.5 25.5T560-314v143q-19 5-39.5 8t-40.5 3Zm-140-32q-20-8-38.5-18T266-232q-28-20-44.5-52T205-352q0-26-5.5-48.5T180-443q-10-13-37.5-39.5T92-532q-11-11-11-28t11-28q11-11 28-11t28 11l153 145q20 18 29.5 42.5T340-350v158Zm280 0v-158q0-26 10-51t29-42l153-145q12-11 28.5-11t27.5 11q11 11 11 28t-11 28q-23 23-50.5 49T780-443q-14 20-19.5 42.5T755-352q0 36-16.5 68.5T693-231q-16 11-34.5 21T620-192Z"></path></g>
+        <g id="directions-car" viewBox="0 -960 960 960"><path d="M240-200v40q0 17-11.5 28.5T200-120h-40q-17 0-28.5-11.5T120-160v-320l84-240q6-18 21.5-29t34.5-11h440q19 0 34.5 11t21.5 29l84 240v320q0 17-11.5 28.5T800-120h-40q-17 0-28.5-11.5T720-160v-40H240Zm-8-360h496l-42-120H274l-42 120Zm-32 80v200-200Zm100 160q25 0 42.5-17.5T360-380q0-25-17.5-42.5T300-440q-25 0-42.5 17.5T240-380q0 25 17.5 42.5T300-320Zm360 0q25 0 42.5-17.5T720-380q0-25-17.5-42.5T660-440q-25 0-42.5 17.5T600-380q0 25 17.5 42.5T660-320Zm-460 40h560v-200H200v200Z"></path></g>
+        <g id="keyboard" viewBox="0 -960 960 960"><path d="M160-200q-33 0-56.5-23.5T80-280v-400q0-33 23.5-56.5T160-760h640q33 0 56.5 23.5T880-680v400q0 33-23.5 56.5T800-200H160Zm0-80h640v-400H160v400Zm160-40h320v-80H320v80ZM200-440h80v-80h-80v80Zm120 0h80v-80h-80v80Zm120 0h80v-80h-80v80Zm120 0h80v-80h-80v80Zm120 0h80v-80h-80v80ZM200-560h80v-80h-80v80Zm120 0h80v-80h-80v80Zm120 0h80v-80h-80v80Zm120 0h80v-80h-80v80Zm120 0h80v-80h-80v80ZM160-280v-400 400Z"></path></g>
+        <g id="menu-book" viewBox="0 -960 960 960"><path d="M560-564v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-600q-38 0-73 9.5T560-564Zm0 220v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-380q-38 0-73 9t-67 27Zm0-110v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-490q-38 0-73 9.5T560-454ZM260-320q47 0 91.5 10.5T440-278v-394q-41-24-87-36t-93-12q-36 0-71.5 7T120-692v396q35-12 69.5-18t70.5-6Zm260 42q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 118q-48-38-104-59t-116-21q-42 0-82.5 11T100-198q-21 11-40.5-1T40-234v-482q0-11 5.5-21T62-752q46-24 96-36t102-12q58 0 113.5 15T480-740q51-30 106.5-45T700-800q52 0 102 12t96 36q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-60 0-116 21t-104 59ZM280-494Z"></path></g>
+        <g id="fastfood" viewBox="0 -960 960 960"><path d="M533-440q-32-45-84.5-62.5T340-520q-56 0-108.5 17.5T147-440h386ZM40-360q0-109 91-174.5T340-600q118 0 209 65.5T640-360H40Zm0 160v-80h600v80H40ZM720-40v-80h56l56-560H450l-10-80h200v-160h80v160h200L854-98q-3 25-22 41.5T788-40h-68Zm0-80h56-56ZM80-40q-17 0-28.5-11.5T40-80v-40h600v40q0 17-11.5 28.5T600-40H80Zm260-400Z"></path></g>
+        <g id="finance-mode" viewBox="0 -960 960 960"><path d="M320-414v-306h120v306l-60-56-60 56Zm200 60v-526h120v406L520-354ZM120-216v-344h120v224L120-216Zm0 98 258-258 142 122 224-224h-64v-80h200v200h-80v-64L524-146 382-268 232-118H120Z"></path></g>
+        <g id="gavel" viewBox="0 -960 960 960"><path d="M160-120v-80h480v80H160Zm226-194L160-540l84-86 228 226-86 86Zm254-254L414-796l86-84 226 226-86 86Zm184 408L302-682l56-56 522 522-56 56Z"></path></g>
+        <g id="health-and-beauty" viewBox="0 -960 960 960"><path d="M200-80 40-520l200-120v-240h160v240l200 120L440-80H200Zm480 0q-17 0-28.5-11.5T640-120q0-17 11.5-28.5T680-160h120v-80H680q-17 0-28.5-11.5T640-280q0-17 11.5-28.5T680-320h120v-80H680q-17 0-28.5-11.5T640-440q0-17 11.5-28.5T680-480h120v-80H680q-17 0-28.5-11.5T640-600q0-17 11.5-28.5T680-640h120v-80H680q-17 0-28.5-11.5T640-760q0-17 11.5-28.5T680-800h160q33 0 56.5 23.5T920-720v560q0 33-23.5 56.5T840-80H680Zm-424-80h128l118-326-124-74H262l-124 74 118 326Zm64-200Z"></path></g>
+        <g id="home-and-garden" viewBox="0 -960 960 960"><path d="M641-26q-20 12-41.5 19T555 0q-64 0-109-45.5T401-156q0-23 6.5-44t19.5-40q-13-19-19.5-41t-6.5-45q0-64 45-109t109-45q23 0 45 6.5t41 19.5q19-13 41-19.5t45-6.5q64 0 109 44.5T881-328q0 23-6.5 45T855-242q13 20 19.5 42.5T881-154q0 64-45.5 109T725 0q-23 0-44-7t-40-19Zm134-183-36-32 40-34q11-9 16.5-22.5T801-326q0-31-21.5-52.5T727-400q-16 0-29.5 5.5T675-378l-35 40-34-40q-9-11-22.5-16.5T554-400q-30 0-51.5 22T481-324q0 15 6.5 28.5T506-271l36 30-40 34q-10 9-15.5 22t-5.5 29q0 32 21.5 54T554-80q15 0 29.5-7t26.5-21l30-34 35 40q9 11 22.5 16.5T727-80q31 0 52.5-22t21.5-54q0-14-6.5-28T775-209Zm-134 25q23 0 39.5-16.5T697-240q0-23-16.5-39.5T641-296q-23 0-39.5 16.5T585-240q0 23 16.5 39.5T641-184Zm-481 24v-402H40l440-358 440 358H800v42h-80v-102L480-818 240-622v382h120v80H160Zm481-80Z"></path></g>
+        <g id="newsmode" viewBox="0 -960 960 960"><path d="M160-120q-33 0-56.5-23.5T80-200v-560q0-33 23.5-56.5T160-840h640q33 0 56.5 23.5T880-760v560q0 33-23.5 56.5T800-120H160Zm0-80h640v-560H160v560Zm80-80h480v-80H240v80Zm0-160h160v-240H240v240Zm240 0h240v-80H480v80Zm0-160h240v-80H480v80ZM160-200v-560 560Z"></path></g>
+        <g id="pets" viewBox="0 -960 960 960"><path d="M180-475q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Zm180-160q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Zm240 0q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Zm180 160q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM266-75q-45 0-75.5-34.5T160-191q0-52 35.5-91t70.5-77q29-31 50-67.5t50-68.5q22-26 51-43t63-17q34 0 63 16t51 42q28 32 49.5 69t50.5 69q35 38 70.5 77t35.5 91q0 47-30.5 81.5T694-75q-54 0-107-9t-107-9q-54 0-107 9t-107 9Z"></path></g>
+        <g id="real-estate-agent" viewBox="0 -960 960 960"><path d="M760-400v-260L560-800 360-660v60h-80v-100l280-200 280 200v300h-80ZM560-800Zm20 160h40v-40h-40v40Zm-80 0h40v-40h-40v40Zm80 80h40v-40h-40v40Zm-80 0h40v-40h-40v40ZM280-220l278 76 238-74q-5-9-14.5-15.5T760-240H558q-27 0-43-2t-33-8l-93-31 22-78 81 27q17 5 40 8t68 4q0-11-6.5-21T578-354l-234-86h-64v220ZM40-80v-440h304q7 0 14 1.5t13 3.5l235 87q33 12 53.5 42t20.5 66h80q50 0 85 33t35 87v40L560-60l-280-78v58H40Zm80-80h80v-280h-80v280Z"></path></g>
+        <g id="sailing" viewBox="0 -960 960 960"><path d="m120-420 320-460v460H120Zm153-80h87v-125l-87 125Zm227 80q12-28 26-98t14-142q0-72-13.5-148T500-920q61 18 121.5 67t109 117q48.5 68 79 149.5T840-420H500Zm104-80h148q-17-77-55.5-141T615-750q2 21 3.5 43.5T620-660q0 47-4.5 87T604-500ZM360-200q-36 0-67-17t-53-43q-14 15-30.5 28T173-211q-35-26-59.5-64.5T80-360h800q-9 46-33.5 84.5T787-211q-20-8-36.5-21T720-260q-23 26-53.5 43T600-200q-36 0-67-17t-53-43q-22 26-53 43t-67 17ZM80-40v-80h40q32 0 62.5-10t57.5-30q27 20 57.5 29.5T360-121q32 0 62-9.5t58-29.5q27 20 57.5 29.5T600-121q32 0 62-9.5t58-29.5q28 20 58 30t62 10h40v80h-40q-31 0-61-7.5T720-70q-29 15-59 22.5T600-40q-31 0-61-7.5T480-70q-29 15-59 22.5T360-40q-31 0-61-7.5T240-70q-29 15-59 22.5T120-40H80Zm280-460Zm244 0Z"></path></g>
+        <g id="school" viewBox="0 -960 960 960"><path d="M480-120 200-272v-240L40-600l440-240 440 240v320h-80v-276l-80 44v240L480-120Zm0-332 274-148-274-148-274 148 274 148Zm0 241 200-108v-151L480-360 280-470v151l200 108Zm0-241Zm0 90Zm0 0Z"></path></g>
+        <g id="shopping-bag" viewBox="0 -960 960 960"><path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"></path></g>
+        <g id="sports-and-outdoors" viewBox="0 -960 960 960"><path d="m414-168 12-56q3-13 12.5-21.5T462-256l124-10q13-2 24 5t16 19l16 38q39-23 70-55.5t52-72.5l-12-6q-11-8-16-19.5t-2-24.5l28-122q3-12 12.5-20t21.5-10q-5-25-12.5-48.5T764-628q-9 5-19.5 4.5T726-630l-106-64q-11-7-16-19t-2-25l8-34q-31-14-63.5-21t-66.5-7q-14 0-29 1.5t-29 4.5l30 68q5 12 2.5 25T442-680l-94 82q-10 9-23.5 10t-24.5-6l-92-56q-23 38-35.5 81.5T160-480q0 16 4 52l88-8q14-2 25.5 4.5T294-412l48 114q5 12 2.5 25T332-252l-38 32q27 20 57.5 33t62.5 19Zm72-172q-13 2-24-5t-16-19l-54-124q-5-12-1.5-25t13.5-21l102-86q9-9 22-10t24 6l112 66q11 7 17 19t3 25l-32 130q-3 13-12 21.5T618-352l-132 12Zm-6 260q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z"></path></g>
+        <g id="travel" viewBox="0 -960 960 960"><path d="m274-274-128-70 42-42 100 14 156-156-312-170 56-56 382 98 157-155q17-17 42.5-17t42.5 17q17 17 17 42.5T812-726L656-570l98 382-56 56-170-312-156 156 14 100-42 42-70-128Z"></path></g>
+        <g id="videogame-asset" viewBox="0 -960 960 960"><path d="M160-240q-33 0-56.5-23.5T80-320v-320q0-33 23.5-56.5T160-720h640q33 0 56.5 23.5T880-640v320q0 33-23.5 56.5T800-240H160Zm0-80h640v-320H160v320Zm120-40h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80Zm300 0q25 0 42.5-17.5T640-420q0-25-17.5-42.5T580-480q-25 0-42.5 17.5T520-420q0 25 17.5 42.5T580-360Zm120-120q25 0 42.5-17.5T760-540q0-25-17.5-42.5T700-600q-25 0-42.5 17.5T640-540q0 25 17.5 42.5T700-480ZM160-320v-320 320Z"></path></g>
+      </defs>
+    </svg>
+</iron-iconset-svg>`;
+document.head.appendChild(template$2.content);
 
-<settings-toggle-button id="topicsToggle" pref="{{prefs.privacy_sandbox.m1.topics_enabled}}" label="$i18n{topicsPageToggleLabel}" sub-label="[[computeTopicsPageToggleSubLabel_(
-      isProactiveTopicsBlockingEnabled_)]]" on-settings-boolean-control-change="onToggleChange_">
-</settings-toggle-button>
-<template is="dom-if" if="[[isProactiveTopicsBlockingEnabled_]]">
-  <div id="disclaimer">
-    $i18n{topicsPageDisclaimer}
+function getTemplate$19() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">#explanationText{padding:0 var(--cr-section-padding)}.outer-row{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height);--cr-icon-button-margin-end:20px;padding:0 var(--cr-section-padding);width:100%}.topic-toggle{align-items:center;display:flex;width:100%}.icon{margin-inline-end:var(--cr-icon-button-margin-end)}.label-wrapper{padding:var(--cr-section-vertical-padding) 0;margin-inline-end:20px}</style>
+<div id="explanationText">
+  $i18nRaw{manageTopicsPageDescription}
+</div>
+<template is="dom-repeat" items="[[firstLevelTopicsList_]]">
+  <div class="topic-toggle">
+    <div class="outer-row">
+      <span class="icon">
+        <iron-icon slot="icon" icon="[[computeTopicIcon_(item.topic.topicId)]]">
+        </iron-icon>
+      </span>
+      <div class="flex label-wrapper">
+        <div class="label">[[item.topic.displayString]]</div>
+        <div class="cr-secondary-text sub-label">
+          <span class="sub-label-text">[[item.topic.description]]</span>
+        </div>
+      </div>
+      <cr-toggle id="toggle-[[item.topic.topicId]]" on-change="onToggleChange_" checked="[[!item.removed]]"></cr-toggle>
+    </div>
   </div>
 </template>
-<template is="dom-if" if="[[!isTopicsPrefManaged_(
-    prefs.privacy_sandbox.m1.topics_enabled.enforcement)]]" restamp>
-  <div id="currentTopicsSection">
-    <div id="currentTopicsSectionWrapper" class="hr">
-      <h2 id="currentTopicsHeading">
-       [[computeTopicsPageCurrentTopicsHeading_(
-          isProactiveTopicsBlockingEnabled_)]]
-      </h2>
-      <div id="currentTopicsDescription" class="cr-secondary-text">
-        [[computeTopicsPageCurrentTopicsDescription_(
-            isProactiveTopicsBlockingEnabled_)]]
-        
-        <button id="learnMoreLink" on-click="onLearnMoreClick_" aria-label="$i18n{topicsPageCurrentTopicsDescriptionLearnMoreA11yLabel}" hidden="[[isProactiveTopicsBlockingEnabled_]]">
-          $i18n{topicsPageCurrentTopicsDescriptionLearnMoreLink}
-        </button>
-      </div>
-      <template is="dom-if" if="[[isTopicsEnabledAndLoaded_(
-          prefs.privacy_sandbox.m1.topics_enabled.value, isTopicsListLoaded_)]]" restamp>
+<template is="dom-if" if="[[shouldShowBlockTopicDialog_]]" restamp>
+  <settings-simple-confirmation-dialog id="blockTopicDialog" title-text="[[blockTopicDialogTitle_]]" body-text="[[blockTopicDialogBody_]]" confirm-text="$i18n{manageTopicDialogBlockButtonText}" on-close="onBlockTopicDialogClose_">
+  </settings-simple-confirmation-dialog>
+</template>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2024 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+const SettingsPrivacySandboxManageTopicsSubpageElementBase = RouteObserverMixin(I18nMixin(PolymerElement));
+// First Level Topics for Taxonomy v2
+// This list comes from here:
+// https://github.com/patcg-individual-drafts/topics/blob/main/taxonomy_v2.md
+const topicIdToIconName = new Map([
+    [1, 'firstLevelTopics20:artist'],
+    [57, 'firstLevelTopics20:directions-car'],
+    [86, 'firstLevelTopics20:health-and-beauty'],
+    [100, 'firstLevelTopics20:menu-book'],
+    [103, 'firstLevelTopics20:business-center'],
+    [126, 'firstLevelTopics20:keyboard'],
+    [149, 'firstLevelTopics20:finance-mode'],
+    [172, 'firstLevelTopics20:fastfood'],
+    [180, 'firstLevelTopics20:videogame-asset'],
+    [196, 'firstLevelTopics20:sailing'],
+    [207, 'firstLevelTopics20:home-and-garden'],
+    [215, 'firstLevelTopics20:bigtop-updates'],
+    [226, 'firstLevelTopics20:school'],
+    [239, 'firstLevelTopics20:gavel'],
+    [243, 'firstLevelTopics20:newsmode'],
+    [250, 'firstLevelTopics20:communities'],
+    [254, 'firstLevelTopics20:crowdsource'],
+    [263, 'firstLevelTopics20:pets'],
+    [272, 'firstLevelTopics20:real-estate-agent'],
+    [289, 'firstLevelTopics20:shopping-bag'],
+    [299, 'firstLevelTopics20:sports-and-outdoors'],
+    [332, 'firstLevelTopics20:travel'],
+]);
+class SettingsPrivacySandboxManageTopicsSubpageElement extends SettingsPrivacySandboxManageTopicsSubpageElementBase {
+    constructor() {
+        super(...arguments);
+        this.privacySandboxBrowserProxy_ = PrivacySandboxBrowserProxyImpl.getInstance();
+    }
+    static get is() {
+        return 'settings-privacy-sandbox-manage-topics-subpage';
+    }
+    static get template() {
+        return getTemplate$19();
+    }
+    static get properties() {
+        return {
+            firstLevelTopicsList_: {
+                type: Array,
+                value() {
+                    return [];
+                },
+            },
+            blockTopicDialogTitle_: {
+                type: String,
+                value: '',
+            },
+            blockTopicDialogBody_: {
+                type: String,
+                value: '',
+            },
+            shouldShowBlockTopicDialog_: {
+                type: Boolean,
+                value: false,
+            },
+        };
+    }
+    ready() {
+        super.ready();
+        this.$.explanationText.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
+        this.privacySandboxBrowserProxy_.getFirstLevelTopics().then(state => this.onFirstLevelTopicsStateChanged_(state));
+    }
+    currentRouteChanged(newRoute) {
+        if (newRoute === routes.PRIVACY_SANDBOX_MANAGE_TOPICS) {
+            // Updating the FirstLevelTopicsState because it can be changed by being
+            // blocked/unblocked in the Ad Topics Page. Need to keep the data between
+            // the two pages up to date.
+            this.privacySandboxBrowserProxy_.getFirstLevelTopics().then(state => this.onFirstLevelTopicsStateChanged_(state));
+        }
+    }
+    onFirstLevelTopicsStateChanged_(state) {
+        const blockedTopicsList = state.blockedTopics.map(topic => {
+            return { topic, removed: true };
+        });
+        this.firstLevelTopicsList_ = state.firstLevelTopics.map(firstLevelTopic => {
+            return {
+                topic: firstLevelTopic,
+                removed: blockedTopicsList.some(interest => interest.topic?.topicId === firstLevelTopic.topicId),
+            };
+        });
+    }
+    async onToggleChange_(e) {
+        this.topicBeingToggled_ = e.model.item;
+        assert(this.topicBeingToggled_);
+        assert(this.topicBeingToggled_.topic);
+        const toggleId = `#toggle-${this.topicBeingToggled_.topic.topicId}`;
+        const toggleBeingChanged = this.shadowRoot.querySelector(toggleId);
+        assert(toggleBeingChanged);
+        // If the toggle is checked, then the First Level Topic needs to be
+        // updated to be unblocked.
+        if (toggleBeingChanged.checked) {
+            this.updateTopicState_({ blocked: false });
+            return;
+        }
+        // Check if the attempted blocked topic has active child topics
+        const childTopics = await this.privacySandboxBrowserProxy_.getChildTopicsCurrentlyAssigned(this.topicBeingToggled_.topic);
+        if (childTopics.length !== 0) {
+            this.blockTopicDialogTitle_ = loadTimeData.getStringF('manageTopicsDialogTitle', this.topicBeingToggled_.topic.displayString);
+            this.blockTopicDialogBody_ = loadTimeData.getStringF('manageTopicsDialogBody', this.topicBeingToggled_.topic.displayString);
+            this.shouldShowBlockTopicDialog_ = true;
+            return;
+        }
+        // Blocking a topic without any assigned children. Should update the new
+        // blocked state with the privacySandboxProxy.
+        this.updateTopicState_({ blocked: true });
+    }
+    // Changes the state of the first level topic being toggled to be
+    // blocked/unblocked. Calls the privacySandboxProxy to set the topic to
+    // allowed/disallowed.
+    updateTopicState_(blockedOptions) {
+        assert(this.topicBeingToggled_);
+        assert(this.topicBeingToggled_.topic);
+        this.topicBeingToggled_.removed = blockedOptions.blocked;
+        this.firstLevelTopicsList_ = this.firstLevelTopicsList_.slice();
+        this.privacySandboxBrowserProxy_.setTopicAllowed(this.topicBeingToggled_.topic, !blockedOptions.blocked);
+        this.topicBeingToggled_ = undefined;
+    }
+    onBlockTopicDialogClose_() {
+        const dialog = this.shadowRoot.querySelector('settings-simple-confirmation-dialog');
+        assert(dialog);
+        if (dialog.wasConfirmed()) {
+            this.onBlockButtonDialogHandler_();
+        }
+        else {
+            this.onCancelButtonDialogHandler_();
+        }
+        this.blockTopicDialogBody_ = '';
+        this.blockTopicDialogTitle_ = '';
+        this.topicBeingToggled_ = undefined;
+        this.shouldShowBlockTopicDialog_ = false;
+    }
+    onCancelButtonDialogHandler_() {
+        // This causes the list to be fully re-rendered, in order to revert the
+        // toggle back to being checked after the user decides to block the topic.
+        this.firstLevelTopicsList_ = this.firstLevelTopicsList_.map(topic => {
+            return {
+                ...topic,
+            };
+        });
+    }
+    onBlockButtonDialogHandler_() {
+        this.updateTopicState_({ blocked: true });
+    }
+    // TODO(b/321007722): Add test to make sure there is always a icon based on
+    // the variability of different taxonomies.
+    computeTopicIcon_(topicId) {
+        return topicIdToIconName.get(topicId) || 'firstLevelTopics20:category';
+    }
+}
+customElements.define(SettingsPrivacySandboxManageTopicsSubpageElement.is, SettingsPrivacySandboxManageTopicsSubpageElement);
+
+function getTemplate$18() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style">#currentTopicsSection{align-items:center;display:flex;padding:0 var(--cr-section-padding)}#currentTopicsDescriptionEmpty{align-items:center}.topics-empty-text-v2{width:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding-top:48px;padding-bottom:48px}#currentTopicsSectionWrapper{width:100%}#currentTopicsHeading{color:var(--cr-secondary-text-color);font-size:100%;font-weight:500;margin:0;padding-block-start:var(--cr-section-vertical-padding)}#currentTopicsDescription{padding-block-end:var(--cr-section-vertical-padding)}#disclaimer{padding:0 var(--cr-section-padding);padding-bottom:var(--cr-section-vertical-padding);color:var(--cr-secondary-text-color)}#learnMoreLink{background:0 0;border:none;color:var(--cr-link-color);cursor:pointer;margin:0;padding:0;text-decoration:underline}.no-topics{padding-block-end:32px;padding-block-start:16px;padding-inline-start:40px}#blockedTopicsDescription{min-height:auto;padding-block-end:16px;padding-block-start:16px}#blockedTopicsDescriptionV2{color:var(--cr-secondary-text-color)}.no-blocked-topics{padding-inline-start:60px}#blockedTopicsList{padding:0 var(--cr-section-padding)}.footer{padding:16px var(--cr-section-padding)}a{color:var(--cr-link-color)}#dialog p{margin:0;padding-block-end:16px;padding-block-start:4px}</style>
+
+<settings-toggle-button id="topicsToggle" pref="{{prefs.privacy_sandbox.m1.topics_enabled}}" label="$i18n{topicsPageToggleLabel}" sub-label="[[computeTopicsPageToggleSubLabel_(shouldShowV2_)]]" on-settings-boolean-control-change="onToggleChange_">
+</settings-toggle-button>
+<div id="disclaimer" hidden="[[!shouldShowV2_]]">
+  $i18n{topicsPageDisclaimer}
+</div>
+<template is="dom-if" if="[[!shouldShowV2EmptyState_]]" restamp>
+  <template is="dom-if" if="[[!isTopicsPrefManaged_(
+      prefs.privacy_sandbox.m1.topics_enabled.enforcement)]]" restamp>
+    <div id="currentTopicsSection">
+      <div id="currentTopicsSectionWrapper" class="hr">
+        <h2 id="currentTopicsHeading">
+          [[computeTopicsPageCurrentTopicsHeading_(shouldShowV2_)]]
+        </h2>
+        <div id="currentTopicsDescription" class="cr-secondary-text">
+          [[computeTopicsPageCurrentTopicsDescription_(shouldShowV2_)]]
+          
+          <button id="learnMoreLink" on-click="onLearnMoreClick_" aria-label="$i18n{topicsPageCurrentTopicsDescriptionLearnMoreA11yLabel}" hidden="[[shouldShowV2_]]">
+            $i18n{topicsPageCurrentTopicsDescriptionLearnMoreLink}
+          </button>
+        </div>
+        <template is="dom-if" if="[[isTopicsEnabledAndLoaded_(
+            prefs.privacy_sandbox.m1.topics_enabled.value,
+            isTopicsListLoaded_)]]" restamp>
           <div role="region" aria-label="$i18n{topicsPageCurrentTopicsRegionA11yDescription}">
             <template is="dom-repeat" items="[[topicsList_]]">
               <privacy-sandbox-interest-item interest="[[item]]" on-interest-changed="onInterestChanged_">
               </privacy-sandbox-interest-item>
             </template>
           </div>
-          <div id="currentTopicsDescriptionEmpty" class="no-topics cr-secondary-text" hidden="[[!isTopicsListEmpty_(topicsList_.length)]]">
-            [[computeTopicsPageCurrentTopicsDescriptionEmpty_(
-                isProactiveTopicsBlockingEnabled_)]]
+          <div id="currentTopicsDescriptionEmpty" class="no-topics cr-secondary-text" hidden="[[!isTopicsListEmpty_(topicsList_.length,
+              shouldShowV2_)]]">
+            $i18n{topicsPageCurrentTopicsDescriptionEmpty}
           </div>
-      </template>
-      <div id="currentTopicsDescriptionDisabled" class="no-topics cr-secondary-text" hidden="[[prefs.privacy_sandbox.m1.topics_enabled.value]]">
-        $i18n{topicsPageCurrentTopicsDescriptionDisabled}
+          <div id="currentTopicsEmptyTextV2" class="topics-empty-text-v2" hidden="[[!isTopicsListEmptyV2_(topicsList_.length,
+              shouldShowV2_)]]">
+            <span id="currentTopicsDescriptionEmptyTopText">
+              $i18n{topicsPageCurrentTopicsDescriptionEmptyTopText}
+            </span>
+            <span id="currentTopicsDescriptionEmptyBottomText" class="cr-secondary-text">
+              $i18n{topicsPageCurrentTopicsDescriptionEmptyPtb}
+            </span>
+          </div>
+        </template>
+        <div id="currentTopicsDescriptionDisabled" class="no-topics cr-secondary-text" hidden="[[prefs.privacy_sandbox.m1.topics_enabled.value]]">
+          $i18n{topicsPageCurrentTopicsDescriptionDisabled}
+        </div>
       </div>
     </div>
-  </div>
-</template>
-<cr-expand-button id="blockedTopicsRow" class="cr-row" expanded="{{blockedTopicsExpanded_}}">
-  [[computeTopicsPageBlockedTopicsHeading_(isProactiveTopicsBlockingEnabled_)]]
-  <template is="dom-if" if="[[isProactiveTopicsBlockingEnabled_]]">
-    <div id="blockedTopicsDescriptionPTB">
-      $i18n{topicsPageBlockedTopicsDescriptionPTB}
+  </template>
+  <cr-expand-button id="blockedTopicsRow" class="cr-row" expanded="{{blockedTopicsExpanded_}}">
+    [[computeTopicsPageBlockedTopicsHeading_(shouldShowV2_)]]
+    <div id="blockedTopicsDescriptionV2" hidden="[[!shouldShowV2_]]">
+      $i18n{topicsPageBlockedTopicsDescriptionV2}
+    </div>
+  </cr-expand-button>
+  <iron-collapse opened="[[blockedTopicsExpanded_]]">
+    <div id="blockedTopicsDescription" class$="[[getBlockedTopicsDescriptionClass_(
+        blockedTopicsList_.length)]]" hidden="[[shouldShowV2_]]">
+      [[computeBlockedTopicsDescription_(blockedTopicsList_.length)]]
+    </div>
+    <div id="blockedTopicsEmptyText" class="topics-empty-text-v2" hidden="[[!isBlockedTopicsListEmptyV2_(blockedTopicsList_.length,
+        shouldShowV2_)]]">
+      <span id="blockedTopicsDescriptionEmptyTopText">
+          $i18n{topicsPageBlockedTopicsDescriptionEmptyTopText}
+      </span>
+      <span id="blockedTopicsDescriptionEmptyBottomText" class="cr-secondary-text">
+        $i18n{topicsPageBlockedTopicsDescriptionEmptyPtb}
+      </span>
+    </div>
+    <div id="blockedTopicsList" role="region" aria-label="$i18n{topicsPageBlockedTopicsRegionA11yDescription}">
+      <template is="dom-repeat" items="[[blockedTopicsList_]]">
+        <privacy-sandbox-interest-item interest="[[item]]" on-interest-changed="onInterestChanged_">
+        </privacy-sandbox-interest-item>
+      </template>
+    </div>
+  </iron-collapse>
+  <template is="dom-if" if="[[shouldShowV2_]]">
+    <div id="manageTopicsSection" class="hr">
+        <cr-link-row id="privacySandboxManageTopicsLinkRow" label="$i18n{manageTopicsHeading}" sub-label="$i18n{manageTopicsDescription}" on-click="onPrivacySandboxManageTopicsClick_">
+        </cr-link-row>
     </div>
   </template>
-</cr-expand-button>
-<iron-collapse opened="[[blockedTopicsExpanded_]]">
-  <div id="blockedTopicsDescription" class$="[[getBlockedTopicsDescriptionClass_(blockedTopicsList_.length)]]" hidden="[[isProactiveTopicsBlockingEnabled_]]">
-      [[computeBlockedTopicsDescription_(blockedTopicsList_.length)]]
-  </div>
-  <div id="blockedTopicsList" role="region" aria-label="$i18n{topicsPageBlockedTopicsRegionA11yDescription}">
-    <template is="dom-repeat" items="[[blockedTopicsList_]]">
-      <privacy-sandbox-interest-item interest="[[item]]" on-interest-changed="onInterestChanged_">
-      </privacy-sandbox-interest-item>
-    </template>
-  </div>
-</iron-collapse>
-<div id="manageTopicsSection" class="hr">
-  <template is="dom-if" if="[[shouldShowManageTopics_(
-      isProactiveTopicsBlockingEnabled_)]]">
-    <cr-link-row id="privacySandboxManageTopicsLinkRow" label="$i18n{manageTopicsHeading}" sub-label="$i18n{manageTopicsDescription}" on-click="onPrivacySandboxManageTopicsClick_">
-    </cr-link-row>
-  </template>
-</div>
-<div id="footer" class="cr-secondary-text hr" hidden="[[isProactiveTopicsBlockingEnabled_]]">
+</template>
+<div id="footer" class="cr-secondary-text hr footer" hidden="[[shouldShowV2_]]">
   $i18nRaw{topicsPageFooter}
 </div>
-<div id="footerPTB" class="cr-secondary-text hr" hidden="[[!isProactiveTopicsBlockingEnabled_]]">
-  $i18nRaw{topicsPageFooterPTB}
+<div id="footerV2" class="cr-secondary-text hr footer" hidden="[[!shouldShowV2_]]">
+  $i18nRaw{topicsPageFooterV2}
 </div>
 <template is="dom-if" if="[[isLearnMoreDialogOpen_]]" restamp>
   <cr-dialog id="dialog" on-close="onCloseDialog_" show-on-attach>
@@ -5618,6 +5872,18 @@ function getTemplate$19() {
       </cr-button>
     </div>
   </cr-dialog>
+</template>
+<template is="dom-if" if="[[shouldShowV2_]]">
+  <cr-toast id="unblockTopicToast" duration="10000">
+    <div id="unblockTopicToastBody">$i18n{unblockTopicToastBody}</div>
+    <cr-button id="closeToastButton" on-click="onHideToastClick_">
+      $i18n{unblockTopicToastButtonText}
+    </cr-button>
+  </cr-toast>
+</template>
+<template is="dom-if" if="[[shouldShowBlockTopicDialog_]]" restamp>
+  <settings-simple-confirmation-dialog id="blockTopicDialog" title-text="[[blockTopicDialogTitle_]]" body-text="[[blockTopicDialogBody_]]" confirm-text="$i18n{manageTopicDialogBlockButtonText}" on-close="onBlockTopicDialogClose_">
+  </settings-simple-confirmation-dialog>
 </template>
 <!--_html_template_end_-->`;
 }
@@ -5636,7 +5902,7 @@ class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacySandboxT
         return 'settings-privacy-sandbox-topics-subpage';
     }
     static get template() {
-        return getTemplate$19();
+        return getTemplate$18();
     }
     static get properties() {
         return {
@@ -5683,9 +5949,28 @@ class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacySandboxT
                 type: Object,
                 observer: 'focusConfigChanged_',
             },
-            isProactiveTopicsBlockingEnabled_: {
+            // Version 2 of Ad Topics Page should be displayed when Proactive Topics
+            // Blocking is enabled.
+            shouldShowV2_: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled'),
+            },
+            blockTopicDialogTitle_: {
+                type: String,
+                value: '',
+            },
+            blockTopicDialogBody_: {
+                type: String,
+                value: '',
+            },
+            shouldShowBlockTopicDialog_: {
+                type: Boolean,
+                value: false,
+            },
+            shouldShowV2EmptyState_: {
+                type: Boolean,
+                computed: 'computeShouldShowV2EmptyState_(' +
+                    'shouldShowV2, prefs.privacy_sandbox.m1.topics_enabled.value)',
             },
         };
     }
@@ -5693,11 +5978,23 @@ class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacySandboxT
         super.ready();
         this.privacySandboxBrowserProxy_.getTopicsState().then(state => this.onTopicsStateChanged_(state));
         this.$.footer.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
-        this.$.footerPTB.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
+        this.$.footerV2.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
+    }
+    // Goal is to not show anything but the toggle and disclaimer when we
+    // should show V2 and the pref is false.
+    computeShouldShowV2EmptyState_() {
+        return (this.shouldShowV2_ &&
+            !this.getPref('privacy_sandbox.m1.topics_enabled').value);
     }
     currentRouteChanged(newRoute) {
         if (newRoute === routes.PRIVACY_SANDBOX_TOPICS) {
             HatsBrowserProxyImpl.getInstance().trustSafetyInteractionOccurred(TrustSafetyInteraction.OPENED_TOPICS_SUBPAGE);
+            // Updating the TopicsState because it can be changed by being
+            // blocked/unblocked in the Manage Topics Page. Need to keep the data
+            // between the two pages up to date.
+            if (this.shouldShowV2_) {
+                this.privacySandboxBrowserProxy_.getTopicsState().then(state => this.onTopicsStateChanged_(state));
+            }
         }
     }
     isTopicsPrefManaged_() {
@@ -5723,7 +6020,13 @@ class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacySandboxT
             this.isTopicsListLoaded_;
     }
     isTopicsListEmpty_() {
-        return this.topicsList_.length === 0;
+        return this.topicsList_.length === 0 && !this.shouldShowV2_;
+    }
+    isTopicsListEmptyV2_() {
+        return this.topicsList_.length === 0 && this.shouldShowV2_;
+    }
+    isBlockedTopicsListEmptyV2_() {
+        return this.blockedTopicsList_.length === 0 && this.shouldShowV2_;
     }
     computeBlockedTopicsDescription_() {
         return this.i18n(this.blockedTopicsList_.length === 0 ?
@@ -5758,27 +6061,45 @@ class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacySandboxT
             this.shadowRoot.querySelector('#learnMoreLink')?.focus();
         });
     }
-    onInterestChanged_(e) {
-        const interest = e.detail;
-        assert(!interest.site);
-        if (interest.removed) {
-            this.blockedTopicsList_.splice(this.blockedTopicsList_.indexOf(interest), 1);
+    onBlockTopicDialogClose_() {
+        const dialog = this.shadowRoot.querySelector('settings-simple-confirmation-dialog');
+        assert(dialog);
+        assert(this.currentInterest_);
+        if (dialog.wasConfirmed()) {
+            this.onBlockButtonDialogHandler_(this.currentInterest_);
         }
-        else {
-            this.topicsList_.splice(this.topicsList_.indexOf(interest), 1);
-            // Move the blocked topic to the blocked section.
-            this.blockedTopicsList_.push({ topic: interest.topic, removed: true });
-            this.blockedTopicsList_.sort((first, second) => first.topic.displayString < second.topic.displayString ? -1 :
-                1);
-        }
+        this.blockTopicDialogBody_ = '';
+        this.blockTopicDialogTitle_ = '';
+        this.currentChildTopics_ = [];
+        this.shouldShowBlockTopicDialog_ = false;
+        this.currentInterest_ = undefined;
+    }
+    onBlockButtonDialogHandler_(currentSelectedInterest) {
+        // Remove the selected topic's active child topics from the topics list.
+        this.topicsList_ = this.topicsList_.filter(activeTopic => !this.currentChildTopics_.some(childTopic => activeTopic.topic?.topicId === childTopic.topicId));
+        assert(currentSelectedInterest);
+        this.blockCurrentSelectedTopic_(currentSelectedInterest);
+        this.updateTopicsStateForSelectedTopic_(currentSelectedInterest);
+        this.blockedTopicsExpanded_ = true;
+    }
+    blockCurrentSelectedTopic_(currentSelectedInterest) {
+        // Remove current selected topic from active topics list.
+        this.topicsList_.splice(this.topicsList_.indexOf(currentSelectedInterest), 1);
+        // Move the blocked topic to the blocked section.
+        this.blockedTopicsList_.push({ topic: currentSelectedInterest.topic, removed: true });
+        this.blockedTopicsList_.sort((first, second) => first.topic.displayString < second.topic.displayString ? -1 : 1);
+    }
+    updateTopicsStateForSelectedTopic_(currentSelectedInterest) {
         // This causes the lists to be fully re-rendered, in order to reflect the
         /// interest changes.
         this.topicsList_ = this.topicsList_.slice();
         this.blockedTopicsList_ = this.blockedTopicsList_.slice();
         // If the interest was previously removed, set it to allowed, and vice
         // versa.
-        this.privacySandboxBrowserProxy_.setTopicAllowed(interest.topic, /*allowed=*/ interest.removed);
-        this.metricsBrowserProxy_.recordAction(interest.removed ? 'Settings.PrivacySandbox.Topics.TopicAdded' :
+        this.privacySandboxBrowserProxy_.setTopicAllowed(currentSelectedInterest.topic, 
+        /*allowed=*/ currentSelectedInterest.removed);
+        this.metricsBrowserProxy_.recordAction(currentSelectedInterest.removed ?
+            'Settings.PrivacySandbox.Topics.TopicAdded' :
             'Settings.PrivacySandbox.Topics.TopicRemoved');
         // After allowing or blocking the last item, the focus is lost after the
         // item is removed. Set the focus to the #blockedTopicsRow element.
@@ -5788,6 +6109,58 @@ class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacySandboxT
                     ?.focus();
             }
         });
+    }
+    // In the V2 of the ad topics page, this function is invoked by
+    // onInterestedChanged_ to handle the blocking/allowing and updating state.
+    async onInterestChangedV2_() {
+        assert(this.currentInterest_.topic);
+        assert(this.currentInterest_.topic.displayString);
+        // If topic is being unblocked, show toast and remove from blocked topics
+        // list.
+        if (this.currentInterest_.removed) {
+            const toast = this.shadowRoot.querySelector('cr-toast');
+            assert(toast);
+            toast.show();
+            this.blockedTopicsList_.splice(this.blockedTopicsList_.indexOf(this.currentInterest_), 1);
+            this.updateTopicsStateForSelectedTopic_(this.currentInterest_);
+            return;
+        }
+        this.currentChildTopics_ =
+            await this.privacySandboxBrowserProxy_.getChildTopicsCurrentlyAssigned(this.currentInterest_.topic);
+        // Check if currently selected topic to block has active child topics
+        // if it does, show simple confirmation dialog.
+        if (this.currentChildTopics_.length !== 0) {
+            this.blockTopicDialogTitle_ = loadTimeData.getStringF('manageTopicsDialogTitle', this.currentInterest_.topic.displayString);
+            this.blockTopicDialogBody_ = loadTimeData.getStringF('manageTopicsDialogBody', this.currentInterest_.topic.displayString);
+            this.shouldShowBlockTopicDialog_ = true;
+            return;
+        }
+        // Currently selected topic doesn't have active child topics.
+        // Block topic and update state.
+        this.blockCurrentSelectedTopic_(this.currentInterest_);
+        this.updateTopicsStateForSelectedTopic_(this.currentInterest_);
+        this.blockedTopicsExpanded_ = true;
+    }
+    // TODO(b/322545308) - Clean up Ad Topics Subpage UI so that it does not need
+    // to rely on updating the state of blocked/active topics. Just rely on the
+    // backend API functions to be the source of truth.
+    // This function is run anytime the interest item changes. Which means that it
+    // runs when a user blocks/allows a topic.
+    onInterestChanged_(e) {
+        this.currentInterest_ = e.detail;
+        assert(!this.currentInterest_.site);
+        if (this.shouldShowV2_) {
+            this.onInterestChangedV2_();
+            return;
+        }
+        if (this.currentInterest_.removed) {
+            // Topic is being allowed
+            this.blockedTopicsList_.splice(this.blockedTopicsList_.indexOf(this.currentInterest_), 1);
+        }
+        else {
+            this.blockCurrentSelectedTopic_(this.currentInterest_);
+        }
+        this.updateTopicsStateForSelectedTopic_(this.currentInterest_);
     }
     onBlockedTopicsExpanded_() {
         if (this.blockedTopicsExpanded_) {
@@ -5808,38 +6181,35 @@ class SettingsPrivacySandboxTopicsSubpageElement extends SettingsPrivacySandboxT
             });
         }
     }
+    onHideToastClick_() {
+        const toast = this.shadowRoot.querySelector('cr-toast');
+        assert(toast);
+        toast.hide();
+    }
     computeTopicsPageToggleSubLabel_() {
-        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ? 'topicsPageToggleSubLabelPTB' :
+        return this.i18n(this.shouldShowV2_ ? 'topicsPageToggleSubLabelV2' :
             'topicsPageToggleSubLabel');
     }
     computeTopicsPageCurrentTopicsHeading_() {
-        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ?
-            'topicsPageCurrentTopicsHeadingPTB' :
+        return this.i18n(this.shouldShowV2_ ? 'topicsPageCurrentTopicsHeadingV2' :
             'topicsPageCurrentTopicsHeading');
     }
     computeTopicsPageCurrentTopicsDescription_() {
-        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ?
-            'topicsPageCurrentTopicsDescriptionPTB' :
+        return this.i18n(this.shouldShowV2_ ? 'topicsPageCurrentTopicsDescriptionV2' :
             'topicsPageCurrentTopicsDescription');
     }
     computeTopicsPageCurrentTopicsDescriptionEmpty_() {
-        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ?
-            'topicsPageCurrentTopicsDescriptionEmptyPTB' :
+        return this.i18n(this.shouldShowV2_ ? 'topicsPageCurrentTopicsDescriptionEmptyPTB' :
             'topicsPageCurrentTopicsDescriptionEmpty');
     }
     computeTopicsPageBlockedTopicsHeading_() {
-        return this.i18n(this.isProactiveTopicsBlockingEnabled_ ?
-            'topicsPageBlockedTopicsHeadingPTB' :
+        return this.i18n(this.shouldShowV2_ ? 'topicsPageBlockedTopicsHeadingV2' :
             'topicsPageBlockedTopicsHeading');
-    }
-    shouldShowManageTopics_() {
-        return this.isProactiveTopicsBlockingEnabled_ &&
-            !loadTimeData.getBoolean('isPrivacySandboxRestricted');
     }
 }
 customElements.define(SettingsPrivacySandboxTopicsSubpageElement.is, SettingsPrivacySandboxTopicsSubpageElement);
 
-function getTemplate$18() {
+function getTemplate$17() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">cr-input{display:inline-block;padding-inline-end:2em;--cr-input-width:8em}</style>
 
     <p>$i18n{securityKeysPINPrompt}</p>
@@ -5862,7 +6232,7 @@ class SettingsSecurityKeysPinFieldElement extends SettingsSecurityKeysPinFieldEl
         return 'settings-security-keys-pin-field';
     }
     static get template() {
-        return getTemplate$18();
+        return getTemplate$17();
     }
     static get properties() {
         return {
@@ -6161,7 +6531,7 @@ class SecurityKeysPhonesBrowserProxyImpl {
 }
 let phonesProxyInstance = null;
 
-function getTemplate$17() {
+function getTemplate$16() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">paper-spinner-lite{padding-bottom:12px}#header{display:flex;justify-content:flex-start}site-favicon{margin-inline-end:2px;min-width:16px}.icon-placeholder{margin-inline-end:var(--cr-icon-button-margin-end);margin-inline-start:var(--cr-icon-button-margin-start);width:var(--cr-icon-ripple-size)}.site{flex:1}.user-name{flex:1}.user-display-name{flex:.8}.site,.user-display-name,.user-name{align-items:center;display:inline-block;overflow:hidden;overflow-wrap:break-word;padding-inline-start:.3rem;text-align:start}#site-header,#user-display-name-header,#user-name-header{font-weight:700}#site-header{margin-inline-start:1rem}.edit{display:flex;flex-direction:column}#title{user-select:none}</style>
 
     <cr-dialog id="dialog" close-text="$i18n{cancel}" ignore-popstate on-close="onDialogClosed_">
@@ -6274,7 +6644,7 @@ class SettingsSecurityKeysCredentialManagementDialogElement extends SettingsSecu
         return 'settings-security-keys-credential-management-dialog';
     }
     static get template() {
-        return getTemplate$17();
+        return getTemplate$16();
     }
     static get properties() {
         return {
@@ -6554,7 +6924,7 @@ class SettingsSecurityKeysCredentialManagementDialogElement extends SettingsSecu
 }
 customElements.define(SettingsSecurityKeysCredentialManagementDialogElement.is, SettingsSecurityKeysCredentialManagementDialogElement);
 
-const template$2 = html `<iron-iconset-svg name="cr-fingerprint-icon" size="32">
+const template$1 = html `<iron-iconset-svg name="cr-fingerprint-icon" size="32">
   <svg>
     <defs>
       <g id="fingerprint-scanned-dark" viewBox="0 0 93 104">
@@ -6585,9 +6955,9 @@ const template$2 = html `<iron-iconset-svg name="cr-fingerprint-icon" size="32">
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$2.content);
+document.head.appendChild(template$1.content);
 
-function getTemplate$16() {
+function getTemplate$15() {
     return html `<!--_html_template_start_-->    <style>canvas{height:100%;width:100%}</style>
     <canvas id="canvas" hidden="[[hidden]]"></canvas>
 <!--_html_template_end_-->`;
@@ -6670,7 +7040,7 @@ class CrLottieElement extends PolymerElement {
         return 'cr-lottie';
     }
     static get template() {
-        return getTemplate$16();
+        return getTemplate$15();
     }
     static get properties() {
         return {
@@ -6910,7 +7280,7 @@ class CrLottieElement extends PolymerElement {
 }
 customElements.define(CrLottieElement.is, CrLottieElement);
 
-function getTemplate$15() {
+function getTemplate$14() {
     return html `<!--_html_template_start_-->    <style>:host{user-select:none}.translucent{opacity:.3}#canvasDiv{height:240px;overflow:hidden;position:relative;width:460px}cr-lottie{display:inline-block;position:absolute}#fingerprintScanned{position:absolute}</style>
 
     <div id="canvasDiv">
@@ -7005,7 +7375,7 @@ class CrFingerprintProgressArcElement extends PolymerElement {
         return 'cr-fingerprint-progress-arc';
     }
     static get template() {
-        return getTemplate$15();
+        return getTemplate$14();
     }
     static get properties() {
         return {
@@ -7290,7 +7660,7 @@ class CrFingerprintProgressArcElement extends PolymerElement {
 }
 customElements.define(CrFingerprintProgressArcElement.is, CrFingerprintProgressArcElement);
 
-function getTemplate$14() {
+function getTemplate$13() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">div[slot=body]{padding-inline-end:16px}#header{display:flex}#header .header-label{flex:auto}h3{font-size:inherit;font-weight:500;margin:0;padding-bottom:12px;padding-top:32px}iron-icon{padding-inline-end:12px}.list-item .name{word-break:break-word}.name{flex:3}#container{padding-inline-start:var(--cr-section-padding)}@media (prefers-color-scheme:dark){#lightIcon{display:none}}@media (prefers-color-scheme:light){#darkIcon{display:none}}</style>
 
     <cr-dialog id="dialog" close-text="$i18n{cancel}" ignore-popstate on-close="onDialogClosed_">
@@ -7397,7 +7767,7 @@ class SettingsSecurityKeysBioEnrollDialogElement extends SettingsSecurityKeysBio
         return 'settings-security-keys-bio-enroll-dialog';
     }
     static get template() {
-        return getTemplate$14();
+        return getTemplate$13();
     }
     static get properties() {
         return {
@@ -7689,7 +8059,7 @@ class SettingsSecurityKeysBioEnrollDialogElement extends SettingsSecurityKeysBio
 }
 customElements.define(SettingsSecurityKeysBioEnrollDialogElement.is, SettingsSecurityKeysBioEnrollDialogElement);
 
-function getTemplate$13() {
+function getTemplate$12() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">cr-input{display:inline-block;--cr-input-width:8em}#newPIN{padding-inline-end:2em}#newPINRow{display:flex;flex-direction:row}#newPINRow cr-input{width:8em;--cr-input-error-white-space:nowrap}paper-spinner-lite{padding-bottom:12px}</style>
 
     <cr-dialog id="dialog" close-text="$i18n{close}" ignore-popstate on-close="closeDialog_">
@@ -7787,7 +8157,7 @@ class SettingsSecurityKeysSetPinDialogElement extends SettingsSecurityKeysSetPin
         return 'settings-security-keys-set-pin-dialog';
     }
     static get template() {
-        return getTemplate$13();
+        return getTemplate$12();
     }
     static get properties() {
         return {
@@ -8187,7 +8557,7 @@ class SettingsSecurityKeysSetPinDialogElement extends SettingsSecurityKeysSetPin
 }
 customElements.define(SettingsSecurityKeysSetPinDialogElement.is, SettingsSecurityKeysSetPinDialogElement);
 
-function getTemplate$12() {
+function getTemplate$11() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">paper-spinner-lite{padding-bottom:12px}</style>
     <cr-dialog id="dialog" close-text="$i18n{close}" ignore-popstate on-close="closeDialog_">
       <div slot="title">[[title_]]</div>
@@ -8254,7 +8624,7 @@ class SettingsSecurityKeysResetDialogElement extends SettingsSecurityKeysResetDi
         return 'settings-security-keys-reset-dialog';
     }
     static get template() {
-        return getTemplate$12();
+        return getTemplate$11();
     }
     static get properties() {
         return {
@@ -8359,7 +8729,7 @@ class SettingsSecurityKeysResetDialogElement extends SettingsSecurityKeysResetDi
 }
 customElements.define(SettingsSecurityKeysResetDialogElement.is, SettingsSecurityKeysResetDialogElement);
 
-function getTemplate$11() {
+function getTemplate$10() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 
 <cr-link-row id="managePhonesButton" label="$i18n{securityKeysPhonesManage}" sub-label="$i18n{securityKeysPhonesManageDesc}" on-click="onManagePhonesClick_"></cr-link-row>
@@ -8405,7 +8775,7 @@ class SecurityKeysSubpageElement extends PolymerElement {
         return 'security-keys-subpage';
     }
     static get template() {
-        return getTemplate$11();
+        return getTemplate$10();
     }
     static get properties() {
         return {
@@ -8472,7 +8842,7 @@ class SecurityKeysSubpageElement extends PolymerElement {
 }
 customElements.define(SecurityKeysSubpageElement.is, SecurityKeysSubpageElement);
 
-function getTemplate$10() {
+function getTemplate$$() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared"></style>
 
 <style>h2:first-of-type{padding-top:0}</style>
@@ -8520,7 +8890,7 @@ class SecurityKeysPhonesSubpageElement extends PolymerElement {
         return 'security-keys-phones-subpage';
     }
     static get template() {
-        return getTemplate$10();
+        return getTemplate$$();
     }
     ready() {
         super.ready();
@@ -8569,7 +8939,7 @@ class SecurityKeysPhonesSubpageElement extends PolymerElement {
 }
 customElements.define(SecurityKeysPhonesSubpageElement.is, SecurityKeysPhonesSubpageElement);
 
-function getTemplate$$() {
+function getTemplate$_() {
     return html `<!--_html_template_start_--><style include="settings-shared">.list-item{justify-content:space-between}#table .cr-row:first-child{border-top:none}</style>
 <div id="outer" class="list-frame" role="table">
   <div role="rowgroup" id="table">
@@ -8610,7 +8980,7 @@ class SecurityKeysPhonesListElement extends PolymerElement {
         return 'security-keys-phones-list';
     }
     static get template() {
-        return getTemplate$$();
+        return getTemplate$_();
     }
     static get properties() {
         return {
@@ -8646,7 +9016,7 @@ class SecurityKeysPhonesListElement extends PolymerElement {
 }
 customElements.define(SecurityKeysPhonesListElement.is, SecurityKeysPhonesListElement);
 
-function getTemplate$_() {
+function getTemplate$Z() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
   <div slot="title">$i18n{securityKeysPhoneEditDialogTitle}</div>
@@ -8681,7 +9051,7 @@ class SecurityKeysPhonesDialog extends PolymerElement {
         return 'security-keys-phones-dialog';
     }
     static get template() {
-        return getTemplate$_();
+        return getTemplate$Z();
     }
     static get properties() {
         return {
@@ -8709,7 +9079,7 @@ class SecurityKeysPhonesDialog extends PolymerElement {
 }
 customElements.define(SecurityKeysPhonesDialog.is, SecurityKeysPhonesDialog);
 
-function getTemplate$Z() {
+function getTemplate$Y() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{flex-direction:column;display:flex;flex:1;padding:14px 16px}#header{font-weight:500;font-size:.75rem;user-select:none}#subheader{font-size:.6875rem;line-height:18px;user-select:none}iron-icon{height:var(--cr-icon-size);margin-bottom:10px;width:var(--cr-icon-size)}iron-icon.green{--iron-icon-fill-color:var(--google-green-700)}iron-icon.yellow{--iron-icon-fill-color:var(--google-yellow-700)}iron-icon.red{--iron-icon-fill-color:var(--google-red-600)}@media (prefers-color-scheme:dark){iron-icon.green{--iron-icon-fill-color:var(--google-green-300)}iron-icon.yellow{--iron-icon-fill-color:var(--google-yellow-300)}iron-icon.red{--iron-icon-fill-color:var(--google-red-300)}}</style>
 
 <iron-icon id="icon" icon$="[[getStatusIcon(data.state)]]" class$="[[getColorClass(data.state)]]">
@@ -8732,7 +9102,7 @@ class SettingsSafetyHubCardElement extends PolymerElement {
         return 'settings-safety-hub-card';
     }
     static get template() {
-        return getTemplate$Z();
+        return getTemplate$Y();
     }
     static get properties() {
         return {
@@ -8772,7 +9142,7 @@ class SettingsSafetyHubCardElement extends PolymerElement {
 }
 customElements.define(SettingsSafetyHubCardElement.is, SettingsSafetyHubCardElement);
 
-function getTemplate$Y() {
+function getTemplate$X() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{display:flex;flex-direction:column}.box{background-color:var(--cr-card-background-color);border-radius:var(--cr-card-border-radius);box-shadow:var(--cr-card-shadow)}.card-container{align-items:stretch;display:flex;gap:16px;justify-content:space-between;width:100%}.card:hover{background-color:var(--cr-hover-background-color);cursor:pointer}.module{height:fit-content;margin-bottom:16px;padding:12px 20px}.section-header{color:var(--cr-primary-text-color);flex:1;font-size:108%;font-weight:400;letter-spacing:.25px;margin-bottom:16px;margin-top:30px;width:100%;user-select:none}.section-header.first{margin-top:0}</style>
 
 <h2 class="section-header cr-secondary-text first">
@@ -8804,7 +9174,7 @@ function getTemplate$Y() {
 <template is="dom-if" if="[[showNoRecommendationsState_]]">
   <settings-safety-hub-module id="emptyStateModule" class="module box" header="$i18n{safetyHubEmptyStateModuleHeader}" subheader="$i18n{safetyHubEmptyStateModuleSubheader}" header-icon="cr:check">
   </settings-safety-hub-module>
-  <settings-safety-hub-module id="userEducationModule" class="module box" header="$i18n{safetyHubUserEduModuleHeader}" header-icon="settings20:lightbulb" sites="[[userEducationItemList_]]">
+  <settings-safety-hub-module id="userEducationModule" on-sh-module-item-link-click="onEducationLinkClick_" class="module box" header="$i18n{safetyHubUserEduModuleHeader}" header-icon="settings20:lightbulb" sites="[[userEducationItemList_]]">
   </settings-safety-hub-module>
 </template>
 
@@ -8832,7 +9202,7 @@ class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBase {
         return 'settings-safety-hub-page';
     }
     static get template() {
-        return getTemplate$Y();
+        return getTemplate$X();
     }
     static get properties() {
         return {
@@ -8953,6 +9323,22 @@ class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBase {
             /* removeSearch= */ true);
         }
     }
+    onEducationLinkClick_(event) {
+        const headerString = event.detail.querySelector('.site-representation').textContent;
+        switch (headerString) {
+            case this.i18n('safetyHubUserEduDataHeader'):
+                this.metricsBrowserProxy_.recordAction('Settings.SafetyHub.SafetyToolsLinkClicked');
+                break;
+            case this.i18n('safetyHubUserEduIncognitoHeader'):
+                this.metricsBrowserProxy_.recordAction('Settings.SafetyHub.IncognitoLinkClicked');
+                break;
+            case this.i18n('safetyHubUserEduSafeBrowsingHeader'):
+                this.metricsBrowserProxy_.recordAction('Settings.SafetyHub.SafeBrowsingLinkClicked');
+                break;
+            default:
+                assertNotReached();
+        }
+    }
     onVersionKeyPress_(e) {
         e.stopPropagation();
         if (this.isEnterOrSpaceClicked_(e)) {
@@ -9043,7 +9429,7 @@ class SettingsSafetyHubPageElement extends SettingsSafetyHubPageElementBase {
 }
 customElements.define(SettingsSafetyHubPageElement.is, SettingsSafetyHubPageElement);
 
-const template$1 = html `<iron-iconset-svg name="all-sites" size="20">
+const template = html `<iron-iconset-svg name="all-sites" size="20">
   <svg>
     <defs>
       <g id="logout" width="24px" height="24px" viewBox="0 0 24 24" fill="#757575"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"></path><path d="M0 0h24v24H0z" fill="none"></path></g>
@@ -9053,7 +9439,7 @@ const template$1 = html `<iron-iconset-svg name="all-sites" size="20">
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$1.content);
+document.head.appendChild(template.content);
 
 const styleMod$2 = document.createElement('dom-module');
 styleMod$2.appendChild(html `
@@ -9065,7 +9451,7 @@ styleMod$2.appendChild(html `
 `.content);
 styleMod$2.register('clear-storage-dialog-shared');
 
-function getTemplate$X() {
+function getTemplate$W() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">:host{padding:0 var(--cr-section-padding)}.row-aligned{align-items:center;display:flex}#toggleButton{min-height:var(--cr-section-min-height)}.site-representation{display:flex}.second-line{margin-top:.1em;min-height:1.54em}.data-unit{direction:ltr;unicode-bidi:isolate}.list-frame{padding-inline-end:0}.origin-link{overflow:hidden}.spacing{padding-inline-start:1ch}</style>
     <div id="collapseParent" focus-row-container>
       <div class$="list-item [[getClassForIndex_(listIndex)]]">
@@ -9188,7 +9574,7 @@ class SiteEntryElement extends SiteEntryElementBase {
         return 'site-entry';
     }
     static get template() {
-        return getTemplate$X();
+        return getTemplate$W();
     }
     static get properties() {
         return {
@@ -9651,7 +10037,7 @@ class SiteEntryElement extends SiteEntryElementBase {
 }
 customElements.define(SiteEntryElement.is, SiteEntryElement);
 
-function getTemplate$W() {
+function getTemplate$V() {
     return html `<!--_html_template_start_-->    <style include="settings-shared md-select clear-storage-dialog-shared">cr-dialog div[slot=title]{line-height:20px}#sort{align-items:center;display:flex;margin:0 var(--cr-icon-button-margin-start);margin-bottom:8px;padding:0 var(--cr-section-padding)}#sortMethod{margin-inline-start:1em}.list-frame.without-heading{padding-inline-start:var(--cr-section-padding)}#clearAllContainer{align-items:center;display:flex;height:var(--cr-section-two-line-min-height);justify-content:space-between;margin:0 var(--cr-icon-button-margin-start);padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}#fpsLearnMore{margin:0 var(--cr-icon-button-margin-start);padding-bottom:16px;padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding);width:60%}</style>
     <div id="sort">
       <label id="sortLabel">$i18n{siteSettingsAllSitesSort}</label>
@@ -9799,7 +10185,7 @@ class AllSitesElement extends AllSitesElementBase {
         return 'all-sites';
     }
     static get template() {
-        return getTemplate$W();
+        return getTemplate$V();
     }
     static get properties() {
         return {
@@ -10450,7 +10836,7 @@ class AllSitesElement extends AllSitesElementBase {
 }
 customElements.define(AllSitesElement.is, AllSitesElement);
 
-function getTemplate$V() {
+function getTemplate$U() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.file-system{padding-inline-start:20px;padding-inline-end:20px}</style>
 <div class="list-item file-system">
   <div id="fileTypeIcon" class$="cr-icon [[getClassForListItem_(grant)]]">
@@ -10479,7 +10865,7 @@ class FileSystemSiteEntryItemElement extends FileSystemSiteEntryItemElementBase 
         return 'file-system-site-entry-item';
     }
     static get template() {
-        return getTemplate$V();
+        return getTemplate$U();
     }
     static get properties() {
         return {
@@ -10498,7 +10884,7 @@ class FileSystemSiteEntryItemElement extends FileSystemSiteEntryItemElementBase 
 }
 customElements.define(FileSystemSiteEntryItemElement.is, FileSystemSiteEntryItemElement);
 
-function getTemplate$U() {
+function getTemplate$T() {
     return html `<!--_html_template_start_--><style>.grants-list-header{padding-inline-start:20px;padding-bottom:20px}.view-grants{padding-top:20px}</style>
 
 <div class="grants-list-header" hidden$="[[!grantsPerOrigin.editGrants.length]]">
@@ -10531,7 +10917,7 @@ class FileSystemSiteDetailsElement extends FileSystemSiteDetailsElementBase {
         return 'file-system-site-details';
     }
     static get template() {
-        return getTemplate$U();
+        return getTemplate$T();
     }
     static get properties() {
         return {
@@ -10606,7 +10992,7 @@ class FileSystemSiteDetailsElement extends FileSystemSiteDetailsElementBase {
 }
 customElements.define(FileSystemSiteDetailsElement.is, FileSystemSiteDetailsElement);
 
-function getTemplate$T() {
+function getTemplate$S() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.origin{flex-grow:1;padding-inline-start:20px}.origin-row{align-items:center;display:flex;padding-bottom:5px;padding-inline-end:10px;padding-top:5px}.subpage-arrow{margin-inline-end:2px}.separator{padding-inline-end:25px}</style>
 
 <div class="list-frame">
@@ -10638,7 +11024,7 @@ class FileSystemSiteEntryElement extends FileSystemSiteEntryElementBase {
         return 'file-system-site-entry';
     }
     static get template() {
-        return getTemplate$T();
+        return getTemplate$S();
     }
     static get properties() {
         return {
@@ -10660,7 +11046,7 @@ class FileSystemSiteEntryElement extends FileSystemSiteEntryElementBase {
 }
 customElements.define(FileSystemSiteEntryElement.is, FileSystemSiteEntryElement);
 
-function getTemplate$S() {
+function getTemplate$R() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared"></style>
 
 <div class="cr-row first">
@@ -10691,7 +11077,7 @@ class FileSystemSiteListElement extends FileSystemSiteListElementBase {
         return 'file-system-site-list';
     }
     static get template() {
-        return getTemplate$S();
+        return getTemplate$R();
     }
     static get properties() {
         return {
@@ -10760,7 +11146,7 @@ class FileSystemSiteListElement extends FileSystemSiteListElementBase {
 }
 customElements.define(FileSystemSiteListElement.is, FileSystemSiteListElement);
 
-function getTemplate$R() {
+function getTemplate$Q() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">site-favicon{padding-inline-end:24px}.link-button[disabled]{cursor:auto;pointer-events:none}.incognito-icon{cursor:auto;pointer-events:auto}.display-name{flex:1;max-width:100%}</style>
     <div id="noPermissionsText" class="list-frame" hidden$="[[!noRecentPermissions]]">
       <div class="list-item secondary">$i18n{noRecentPermissions}</div>
@@ -10894,7 +11280,7 @@ class SettingsRecentSitePermissionsElement extends SettingsRecentSitePermissions
         return 'settings-recent-site-permissions';
     }
     static get template() {
-        return getTemplate$R();
+        return getTemplate$Q();
     }
     static get properties() {
         return {
@@ -11117,7 +11503,7 @@ paper-tooltip{--paper-tooltip-min-width:max-content}site-favicon{padding-inline-
 `.content);
 styleMod$1.register('site-review-shared');
 
-function getTemplate$Q() {
+function getTemplate$P() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared site-review-shared">:host{display:block;padding:0 var(--cr-section-padding)}</style>
 <template is="dom-if" if="[[!shouldShowCompletionInfo_]]">
   <div class="header-with-icon">
@@ -11190,7 +11576,7 @@ class SettingsUnusedSitePermissionsElement extends SettingsUnusedSitePermissions
         return 'settings-unused-site-permissions';
     }
     static get template() {
-        return getTemplate$Q();
+        return getTemplate$P();
     }
     static get properties() {
         return {
@@ -11433,7 +11819,7 @@ class SettingsUnusedSitePermissionsElement extends SettingsUnusedSitePermissions
 }
 customElements.define(SettingsUnusedSitePermissionsElement.is, SettingsUnusedSitePermissionsElement);
 
-function getTemplate$P() {
+function getTemplate$O() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">.no-min-height{min-height:0}img{width:100%}#safetyHubModule{padding:0 var(--cr-section-padding)}</style>
     <picture>
       <source srcset="chrome://settings/images/permissions_banner_dark.svg" media="(prefers-color-scheme: dark)">
@@ -11876,7 +12262,7 @@ class SettingsSiteSettingsPageElement extends SettingsSiteSettingsPageElementBas
         return 'settings-site-settings-page';
     }
     static get template() {
-        return getTemplate$P();
+        return getTemplate$O();
     }
     static get properties() {
         return {
@@ -12029,7 +12415,7 @@ class SettingsSiteSettingsPageElement extends SettingsSiteSettingsPageElementBas
 }
 customElements.define(SettingsSiteSettingsPageElement.is, SettingsSiteSettingsPageElement);
 
-function getTemplate$O() {
+function getTemplate$N() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">#incognito{padding-bottom:10px}</style>
     <cr-dialog id="dialog" close-text="$i18n{close}">
       <div slot="title">$i18n{addSiteTitle}</div>
@@ -12066,7 +12452,7 @@ class AddSiteDialogElement extends AddSiteDialogElementBase {
         return 'add-site-dialog';
     }
     static get template() {
-        return getTemplate$O();
+        return getTemplate$N();
     }
     static get properties() {
         return {
@@ -12154,7 +12540,7 @@ class AddSiteDialogElement extends AddSiteDialogElementBase {
 }
 customElements.define(AddSiteDialogElement.is, AddSiteDialogElement);
 
-function getTemplate$N() {
+function getTemplate$M() {
     return html `<!--_html_template_start_-->    <style include="settings-shared"></style>
     <cr-dialog id="dialog">
       <div slot="title">$i18n{editSiteTitle}</div>
@@ -12188,7 +12574,7 @@ class SettingsEditExceptionDialogElement extends PolymerElement {
         return 'settings-edit-exception-dialog';
     }
     static get template() {
-        return getTemplate$N();
+        return getTemplate$M();
     }
     static get properties() {
         return {
@@ -12245,7 +12631,7 @@ class SettingsEditExceptionDialogElement extends PolymerElement {
 }
 customElements.define(SettingsEditExceptionDialogElement.is, SettingsEditExceptionDialogElement);
 
-function getTemplate$M() {
+function getTemplate$L() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">:host{padding-inline-end:4px}.settings-row{flex:1}cr-policy-pref-indicator::part(tooltip){clip:rect(0 0 0 0);height:1px;overflow:hidden;width:1px}</style>
     <div class="list-item" focus-row-container>
       <div class="settings-row" actionable$="[[allowNavigateToSiteDetail_]]" on-click="onOriginClick_">
@@ -12291,7 +12677,7 @@ class SiteListEntryElement extends SiteListEntryElementBase {
         return 'site-list-entry';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -12496,7 +12882,7 @@ class SiteListEntryElement extends SiteListEntryElementBase {
 }
 customElements.define(SiteListEntryElement.is, SiteListEntryElement);
 
-function getTemplate$L() {
+function getTemplate$K() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex"></style>
     <div id="category">
       <div class="cr-row first">
@@ -12569,7 +12955,7 @@ class SiteListElement extends SiteListElementBase {
         return 'site-list';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -12882,7 +13268,7 @@ class SiteListElement extends SiteListElementBase {
 }
 customElements.define(SiteListElement.is, SiteListElement);
 
-function getTemplate$K() {
+function getTemplate$J() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">#exceptionHeader{padding:0 var(--cr-section-padding)}</style>
     <div id="exceptionHeader">
       <h2>$i18n{siteSettingsCustomizedBehaviors}</h2>
@@ -12913,7 +13299,7 @@ class CategorySettingExceptionsElement extends CategorySettingExceptionsElementB
         return 'category-setting-exceptions';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -13006,7 +13392,7 @@ class CategorySettingExceptionsElement extends CategorySettingExceptionsElementB
 }
 customElements.define(CategorySettingExceptionsElement.is, CategorySettingExceptionsElement);
 
-function getTemplate$J() {
+function getTemplate$I() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex"></style>
 
     <div class="cr-row first">
@@ -13037,7 +13423,7 @@ class ChooserExceptionListEntryElement extends PolymerElement {
         return 'chooser-exception-list-entry';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -13051,7 +13437,7 @@ class ChooserExceptionListEntryElement extends PolymerElement {
 }
 customElements.define(ChooserExceptionListEntryElement.is, ChooserExceptionListEntryElement);
 
-function getTemplate$I() {
+function getTemplate$H() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">#empty-list-message{padding:0 var(--cr-section-padding);padding-top:30px}#exception-list{padding-top:0}#resetSettingsButton{margin:0 var(--cr-section-padding);margin-top:24px}</style>
 
     
@@ -13102,7 +13488,7 @@ class ChooserExceptionListElement extends ChooserExceptionListElementBase {
         return 'chooser-exception-list';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -13266,7 +13652,7 @@ class ChooserExceptionListElement extends ChooserExceptionListElementBase {
 }
 customElements.define(ChooserExceptionListElement.is, ChooserExceptionListElement);
 
-function getTemplate$H() {
+function getTemplate$G() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host{align-items:center;position:relative;vertical-align:middle}.policy-icon{margin-inline-start:16px;padding:8px}.settings-row{flex:1}</style>
 
 <div class="list-item focus-row-active">
@@ -13296,7 +13682,7 @@ class SiteDetailsPermissionDeviceEntryElement extends PolymerElement {
         return 'site-details-permission-device-entry';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -13327,7 +13713,7 @@ class SiteDetailsPermissionDeviceEntryElement extends PolymerElement {
 }
 customElements.define(SiteDetailsPermissionDeviceEntryElement.is, SiteDetailsPermissionDeviceEntryElement);
 
-function getTemplate$G() {
+function getTemplate$F() {
     return html `<!--_html_template_start_-->    <style include="settings-shared md-select">:host{display:block}</style>
     <div class="cr-row first" id="picker" hidden>
       <select id="mediaPicker" class="md-select" on-change="onChange_" aria-label$="[[label]]">
@@ -13353,7 +13739,7 @@ class MediaPickerElement extends MediaPickerElementBase {
         return 'media-picker';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -13402,7 +13788,7 @@ class MediaPickerElement extends MediaPickerElementBase {
 }
 customElements.define(MediaPickerElement.is, MediaPickerElement);
 
-function getTemplate$F() {
+function getTemplate$E() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">.secondary{margin-top:0}</style>
     <settings-toggle-button id="toggle" class="two-line" label="$i18n{siteSettingsPdfDownloadPdfs}" pref="{{prefs.plugins.always_open_pdf_externally}}">
     </settings-toggle-button>
@@ -13422,7 +13808,7 @@ class SettingsPdfDocumentsElement extends PolymerElement {
         return 'settings-pdf-documents';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -13435,7 +13821,7 @@ class SettingsPdfDocumentsElement extends PolymerElement {
 }
 customElements.define(SettingsPdfDocumentsElement.is, SettingsPdfDocumentsElement);
 
-function getTemplate$E() {
+function getTemplate$D() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex">:host{display:block}.column-header{margin-bottom:15px;margin-inline-start:20px;margin-top:15px}#radioGroup{padding:0 var(--cr-section-padding)}#radioGroupSubHeading{padding-bottom:10px}#appHandlerSubHeading{padding-bottom:10px}#appIcon{width:16px;height:16px;background-repeat:no-repeat;background-size:contain}settings-collapse-radio-button{--settings-collapse-toggle-min-height:var(--cr-section-min-height)}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}</style>
     <div id="radioGroup">
       <div class="secondary">
@@ -13573,7 +13959,7 @@ class ProtocolHandlersElement extends ProtocolHandlersElementBase {
         return 'protocol-handlers';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$D();
     }
     static get properties() {
         return {
@@ -13753,7 +14139,7 @@ class ProtocolHandlersElement extends ProtocolHandlersElementBase {
 }
 customElements.define(ProtocolHandlersElement.is, ProtocolHandlersElement);
 
-function getTemplate$D() {
+function getTemplate$C() {
     return html `<!--_html_template_start_--><style include="settings-shared">.content-settings-header,.radio-group{padding:0 var(--cr-section-padding)}.radio-group-sub-heading{padding-bottom:10px}settings-collapse-radio-button{--settings-collapse-toggle-min-height:var(--cr-section-min-height)}settings-collapse-radio-button.two-line{--settings-collapse-toggle-min-height:var(--cr-section-two-line-min-height)}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}#exceptionHeader{padding:0 var(--cr-section-padding)}#exceptionHeaderSubLabel{padding-bottom:10px}</style>
 <div class="content-settings-header secondary">
   $i18n{siteDataPageDescription}
@@ -13815,7 +14201,7 @@ class SettingsSiteDataElement extends SettingsSiteDataElementBase {
         return 'settings-site-data';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$C();
     }
     static get properties() {
         return {
@@ -13882,7 +14268,7 @@ class SettingsSiteDataElement extends SettingsSiteDataElementBase {
 }
 customElements.define(SettingsSiteDataElement.is, SettingsSiteDataElement);
 
-function getTemplate$C() {
+function getTemplate$B() {
     return html `<!--_html_template_start_-->    <style include="settings-shared md-select"></style>
     <div id="details" hidden$="[[shouldHideCategory_(site)]]">
       <div id="permissionItem" class$="list-item [[permissionInfoStringClass_(site.source,
@@ -13963,7 +14349,7 @@ class SiteDetailsPermissionElement extends SiteDetailsPermissionElementBase {
         return 'site-details-permission';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$B();
     }
     static get properties() {
         return {
@@ -14343,7 +14729,7 @@ class SiteDetailsPermissionElement extends SiteDetailsPermissionElementBase {
 }
 customElements.define(SiteDetailsPermissionElement.is, SiteDetailsPermissionElement);
 
-function getTemplate$B() {
+function getTemplate$A() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared action-link iron-flex">.favicon-image{margin:2px}#storage{padding-inline-end:0}#storageText{display:flex}#resetSettingsButton{margin-top:24px}#usageHeader{padding:0 var(--cr-section-padding)}#usageDetails{align-items:center;display:flex;flex:1;flex-direction:row}#fpsPolicyContainer{display:flex;padding:8px}</style>
 
     
@@ -14562,7 +14948,7 @@ class SiteDetailsElement extends SiteDetailsElementBase {
         return 'site-details';
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$A();
     }
     static get properties() {
         return {
@@ -14802,7 +15188,7 @@ class SiteDetailsElement extends SiteDetailsElementBase {
 }
 customElements.define(SiteDetailsElement.is, SiteDetailsElement);
 
-function getTemplate$A() {
+function getTemplate$z() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">:host{display:block}.zoom-label{color:var(--cr-secondary-text-color);margin-inline-end:16px}#empty{margin-top:15px}.list-item site-favicon{flex-shrink:0}.list-item .middle{overflow-x:hidden;text-overflow:ellipsis}</style>
     <div class="list-frame vertical-list" id="listContainer">
       <iron-list id="list" preserve-focus items="[[sites_]]" class="cr-separators" risk-selection>
@@ -14838,7 +15224,7 @@ class ZoomLevelsElement extends ZoomLevelsElementBase {
         return 'zoom-levels';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$z();
     }
     static get properties() {
         return {
@@ -14878,7 +15264,7 @@ class ZoomLevelsElement extends ZoomLevelsElementBase {
 }
 customElements.define(ZoomLevelsElement.is, ZoomLevelsElement);
 
-function getTemplate$z() {
+function getTemplate$y() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex">.delete-profile-warning{padding-bottom:10px;padding-inline-end:var(--cr-section-padding);padding-inline-start:calc(var(--cr-section-padding) + 32px);padding-top:10px}#wideFooter{padding:0}#dialog-body{padding-bottom:2px}</style>
 
     <cr-dialog id="dialog" ignore-enter-key close-text="$i18n{close}">
@@ -14917,7 +15303,7 @@ class SettingsSignoutDialogElement extends SettingsSignoutDialogElementBase {
         return 'settings-signout-dialog';
     }
     static get template() {
-        return getTemplate$z();
+        return getTemplate$y();
     }
     static get properties() {
         return {
@@ -15020,7 +15406,7 @@ class SettingsSignoutDialogElement extends SettingsSignoutDialogElementBase {
 }
 customElements.define(SettingsSignoutDialogElement.is, SettingsSignoutDialogElement);
 
-function getTemplate$y() {
+function getTemplate$x() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{--cr-localized-link-display:inline;display:block}:host([link-disabled]){cursor:pointer;opacity:var(--cr-disabled-opacity);pointer-events:none}a{display:var(--cr-localized-link-display)}a[href]{color:var(--cr-link-color)}a[is=action-link]{user-select:none}#container{display:contents}</style>
 
 <div id="container"></div>
@@ -15052,7 +15438,7 @@ class LocalizedLinkElement extends PolymerElement {
         return 'localized-link';
     }
     static get template() {
-        return getTemplate$y();
+        return getTemplate$x();
     }
     static get properties() {
         return {
@@ -15183,7 +15569,7 @@ class LocalizedLinkElement extends PolymerElement {
 }
 customElements.define(LocalizedLinkElement.is, LocalizedLinkElement);
 
-function getTemplate$x() {
+function getTemplate$w() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex">#sync-data-types .list-item:not([hidden])~.list-item:not([hidden]){border-top:var(--cr-separator-line)}.list-item{display:flex}.list-item>div:not(.separator){flex:1}cr-policy-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}</style>
 
 
@@ -15385,7 +15771,7 @@ class SettingsSyncControlsElement extends SettingsSyncControlsElementBase {
         return 'settings-sync-controls';
     }
     static get template() {
-        return getTemplate$x();
+        return getTemplate$w();
     }
     static get properties() {
         return {
@@ -15545,7 +15931,7 @@ class SettingsSyncControlsElement extends SettingsSyncControlsElementBase {
 }
 customElements.define(SettingsSyncControlsElement.is, SettingsSyncControlsElement);
 
-function getTemplate$w() {
+function getTemplate$v() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">#create-password-box{margin-bottom:1em}#create-password-box .list-item{margin-bottom:var(--cr-form-field-bottom-spacing)}cr-input{--cr-input-width:var(--cr-default-input-max-width)}.passphrase-reset-icon{margin-inline-end:8px}cr-radio-button[name=encrypt-with-passphrase]{align-items:start}</style>
 
     <template is="dom-if" if="[[!syncPrefs.passphraseRequired]]">
@@ -15601,7 +15987,7 @@ class SettingsSyncEncryptionOptionsElement extends PolymerElement {
         return 'settings-sync-encryption-options';
     }
     static get template() {
-        return getTemplate$w();
+        return getTemplate$v();
     }
     static get properties() {
         return {
@@ -15765,7 +16151,7 @@ class SettingsSyncEncryptionOptionsElement extends PolymerElement {
 }
 customElements.define(SettingsSyncEncryptionOptionsElement.is, SettingsSyncEncryptionOptionsElement);
 
-function getTemplate$v() {
+function getTemplate$u() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">:host(.list-frame) settings-toggle-button{padding-inline-end:0;padding-inline-start:0}:host(.list-frame) settings-toggle-button:first-of-type{border-top:none}:host(.list-frame) cr-link-row{padding-inline-end:8px;padding-inline-start:0}</style>
 
 
@@ -15822,7 +16208,7 @@ class SettingsPersonalizationOptionsElement extends SettingsPersonalizationOptio
         return 'settings-personalization-options';
     }
     static get template() {
-        return getTemplate$v();
+        return getTemplate$u();
     }
     static get properties() {
         return {
@@ -15971,7 +16357,7 @@ class SettingsPersonalizationOptionsElement extends SettingsPersonalizationOptio
 }
 customElements.define(SettingsPersonalizationOptionsElement.is, SettingsPersonalizationOptionsElement);
 
-function getTemplate$u() {
+function getTemplate$t() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex">#sync-separator{border-bottom:var(--cr-separator-line)}#create-password-box{margin-inline-start:var(--cr-section-indent-width)}#create-password-box{margin-bottom:1em}#create-password-box .list-item{margin-bottom:var(--cr-form-field-bottom-spacing)}cr-input{--cr-input-width:var(--cr-default-input-max-width)}#existingPassphrase{border-bottom:var(--cr-separator-line);border-top:var(--cr-separator-line);padding-inline-start:var(--cr-section-padding)}#submitExistingPassphrase{margin-inline-start:16px}#passphraseRecoverHint{align-items:center}#other-sync-items{padding-bottom:8px}.passphrase-reset-icon{margin-inline-end:8px}#disabled-by-admin-icon{text-align:center;width:40px}#toast{left:0;z-index:1}:host-context([dir=rtl]) #toast{left:auto;right:0}cr-link-row{padding-inline-end:0;padding-inline-start:0}</style>
 
     <template is="dom-if" if="[[shouldShowSyncAccountControl_(
@@ -16078,7 +16464,7 @@ class SettingsSyncPageElement extends SettingsSyncPageElementBase {
         return 'settings-sync-page';
     }
     static get template() {
-        return getTemplate$u();
+        return getTemplate$t();
     }
     static get properties() {
         return {
@@ -16510,7 +16896,7 @@ styleMod.appendChild(html `
 `.content);
 styleMod.register('certificate-shared');
 
-function getTemplate$t() {
+function getTemplate$s() {
     return html `<!--_html_template_start_-->    <style include="certificate-shared">#description,cr-checkbox{margin:15px 0}</style>
 
     <cr-dialog id="dialog" close-text="[[i18n('close')]]">
@@ -16635,7 +17021,7 @@ class CaTrustEditDialogElement extends CaTrustEditDialogElementBase {
         return 'ca-trust-edit-dialog';
     }
     static get template() {
-        return getTemplate$t();
+        return getTemplate$s();
     }
     static get properties() {
         return {
@@ -16691,7 +17077,7 @@ class CaTrustEditDialogElement extends CaTrustEditDialogElementBase {
 }
 customElements.define(CaTrustEditDialogElement.is, CaTrustEditDialogElement);
 
-function getTemplate$s() {
+function getTemplate$r() {
     return html `<!--_html_template_start_-->    <style include="certificate-shared"></style>
     <cr-dialog id="dialog" show-on-attach close-text="[[i18n('close')]]">
       <div slot="title">
@@ -16725,7 +17111,7 @@ class CertificateDeleteConfirmationDialogElement extends CertificateDeleteConfir
         return 'certificate-delete-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$s();
+        return getTemplate$r();
     }
     static get properties() {
         return {
@@ -16812,7 +17198,7 @@ const CertificateActionEvent = 'certificate-action';
  */
 const CertificateProvisioningViewDetailsActionEvent = 'certificate-provisioning-view-details-action';
 
-function getTemplate$r() {
+function getTemplate$q() {
     return html `<!--_html_template_start_-->    <style include="certificate-shared cr-icons">.name{flex:auto}.untrusted{color:var(--paper-red-700);font-weight:500;margin-inline-end:16px;text-transform:uppercase}:host([is-last]) .list-item{border-bottom:none}</style>
     <div class="list-item underbar">
       <div class="untrusted" hidden$="[[!model.untrusted]]">
@@ -16861,7 +17247,7 @@ class CertificateSubentryElement extends CertificateSubentryElementBase {
         return 'certificate-subentry';
     }
     static get template() {
-        return getTemplate$r();
+        return getTemplate$q();
     }
     static get properties() {
         return {
@@ -16961,7 +17347,7 @@ class CertificateSubentryElement extends CertificateSubentryElementBase {
 }
 customElements.define(CertificateSubentryElement.is, CertificateSubentryElement);
 
-function getTemplate$q() {
+function getTemplate$p() {
     return html `<!--_html_template_start_-->    <style include="certificate-shared iron-flex">.expand-box{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:48px;padding:0 20px}</style>
     <div class="expand-box">
       <div class="flex">[[model.id]]</div>
@@ -16993,7 +17379,7 @@ class CertificateEntryElement extends CertificateEntryElementBase {
         return 'certificate-entry';
     }
     static get template() {
-        return getTemplate$q();
+        return getTemplate$p();
     }
     static get properties() {
         return {
@@ -17014,7 +17400,7 @@ class CertificateEntryElement extends CertificateEntryElementBase {
 }
 customElements.define(CertificateEntryElement.is, CertificateEntryElement);
 
-function getTemplate$p() {
+function getTemplate$o() {
     return html `<!--_html_template_start_-->    <style include="certificate-shared iron-flex">.button-box{align-items:center;display:flex;margin-bottom:24px;min-height:48px;padding:0 20px}#importAndBind{margin-inline-start:8px}</style>
     <div class="button-box">
       <span class="flex">
@@ -17047,7 +17433,7 @@ class CertificateListElement extends CertificateListElementBase {
         return 'certificate-list';
     }
     static get template() {
-        return getTemplate$p();
+        return getTemplate$o();
     }
     static get properties() {
         return {
@@ -17167,7 +17553,7 @@ class CertificateListElement extends CertificateListElementBase {
 }
 customElements.define(CertificateListElement.is, CertificateListElement);
 
-function getTemplate$o() {
+function getTemplate$n() {
     return html `<!--_html_template_start_-->    <style include="certificate-shared">cr-input{--cr-input-error-display:none}</style>
     <cr-dialog id="dialog" show-on-attach close-text="[[i18n('close')]]">
       <div slot="title">
@@ -17202,7 +17588,7 @@ class CertificatePasswordDecryptionDialogElement extends CertificatePasswordDecr
         return 'certificate-password-decryption-dialog';
     }
     static get template() {
-        return getTemplate$o();
+        return getTemplate$n();
     }
     static get properties() {
         return {
@@ -17235,7 +17621,7 @@ class CertificatePasswordDecryptionDialogElement extends CertificatePasswordDecr
 }
 customElements.define(CertificatePasswordDecryptionDialogElement.is, CertificatePasswordDecryptionDialogElement);
 
-function getTemplate$n() {
+function getTemplate$m() {
     return html `<!--_html_template_start_-->    <style include="certificate-shared">cr-input{--cr-input-error-display:none;margin-top:var(--cr-form-field-bottom-spacing)}.password-buttons{margin-bottom:20px}</style>
     <cr-dialog id="dialog" close-text="[[i18n('close')]]">
       <div slot="title">
@@ -17273,7 +17659,7 @@ class CertificatePasswordEncryptionDialogElement extends CertificatePasswordEncr
         return 'certificate-password-encryption-dialog';
     }
     static get template() {
-        return getTemplate$n();
+        return getTemplate$m();
     }
     static get properties() {
         return {
@@ -17318,7 +17704,7 @@ class CertificatePasswordEncryptionDialogElement extends CertificatePasswordEncr
 }
 customElements.define(CertificatePasswordEncryptionDialogElement.is, CertificatePasswordEncryptionDialogElement);
 
-function getTemplate$m() {
+function getTemplate$l() {
     return html `<!--_html_template_start_-->    <style include="certificate-shared"></style>
     <cr-dialog id="dialog" show-on-attach close-text="[[i18n('close')]]">
       <div slot="title">[[model.title]]</div>
@@ -17352,7 +17738,7 @@ class CertificatesErrorDialogElement extends CertificatesErrorDialogElementBase 
         return 'certificates-error-dialog';
     }
     static get template() {
-        return getTemplate$m();
+        return getTemplate$l();
     }
     static get properties() {
         return {
@@ -17393,7 +17779,7 @@ class CertificateProvisioningBrowserProxyImpl {
 // during testing.
 let instance$2 = null;
 
-function getTemplate$l() {
+function getTemplate$k() {
     return html `<!--_html_template_start_--><style include="iron-flex">.button-box{align-items:center;display:flex;min-height:48px}.label{color:var(--cr-secondary-text-color);font-size:85%}.two-line{min-height:var(--settings-row-two-line-min-height)}.value{color:var(--cr-primary-text-color)}</style>
 <cr-dialog id="dialog" show-on-attach show-close-button close-text="[[i18n('close')]]">
   <div slot="title">
@@ -17487,7 +17873,7 @@ class CertificateProvisioningDetailsDialogElement extends CertificateProvisionin
         return 'certificate-provisioning-details-dialog';
     }
     static get template() {
-        return getTemplate$l();
+        return getTemplate$k();
     }
     static get properties() {
         return {
@@ -17518,7 +17904,7 @@ class CertificateProvisioningDetailsDialogElement extends CertificateProvisionin
 }
 customElements.define(CertificateProvisioningDetailsDialogElement.is, CertificateProvisioningDetailsDialogElement);
 
-function getTemplate$k() {
+function getTemplate$j() {
     return html `<!--_html_template_start_--><style include="certificate-shared iron-flex">.cert-box{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:48px;padding:0 20px}</style>
 <div class="cert-box">
   <div class="flex" tabindex="0">[[model.certProfileName]]</div>
@@ -17550,7 +17936,7 @@ class CertificateProvisioningEntryElement extends CertificateProvisioningEntryEl
         return 'certificate-provisioning-entry';
     }
     static get template() {
-        return getTemplate$k();
+        return getTemplate$j();
     }
     static get properties() {
         return {
@@ -17577,7 +17963,7 @@ class CertificateProvisioningEntryElement extends CertificateProvisioningEntryEl
 }
 customElements.define(CertificateProvisioningEntryElement.is, CertificateProvisioningEntryElement);
 
-function getTemplate$j() {
+function getTemplate$i() {
     return html `<!--_html_template_start_--><style include="cr-shared-style iron-flex ">.header-box{align-items:center;display:flex;margin-top:16px;min-height:24px;padding:0 20px}.hidden{display:none}</style>
 
 <template is="dom-if" if="[[showProvisioningDetailsDialog_]]" restamp>
@@ -17614,7 +18000,7 @@ class CertificateProvisioningListElement extends CertificateProvisioningListElem
         return 'certificate-provisioning-list';
     }
     static get template() {
-        return getTemplate$j();
+        return getTemplate$i();
     }
     static get properties() {
         return {
@@ -17689,7 +18075,7 @@ class CertificateProvisioningListElement extends CertificateProvisioningListElem
 }
 customElements.define(CertificateProvisioningListElement.is, CertificateProvisioningListElement);
 
-function getTemplate$i() {
+function getTemplate$h() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">cr-tabs{--cr-tabs-font-size:inherit;--cr-tabs-height:40px;margin-bottom:24px}</style>
 
     <template is="dom-if" if="[[showCaTrustEditDialog_]]" restamp>
@@ -17756,7 +18142,7 @@ class CertificateManagerElement extends CertificateManagerElementBase {
         return 'certificate-manager';
     }
     static get template() {
-        return getTemplate$i();
+        return getTemplate$h();
     }
     static get properties() {
         return {
@@ -17964,7 +18350,7 @@ class AccessibilityBrowserProxyImpl {
 }
 let instance$1 = null;
 
-function getTemplate$h() {
+function getTemplate$g() {
     return html `<!--_html_template_start_-->    <style include="settings-shared"></style>
     <settings-animated-pages id="pages" current-route="{{currentRoute}}" section="a11y" focus-config="[[focusConfig_]]">
       <div route-path="default">
@@ -18010,7 +18396,7 @@ class SettingsA11yPageElement extends SettingsA11yPageElementBase {
         return 'settings-a11y-page';
     }
     static get template() {
-        return getTemplate$h();
+        return getTemplate$g();
     }
     static get properties() {
         return {
@@ -18116,7 +18502,7 @@ class SettingsA11yPageElement extends SettingsA11yPageElementBase {
 }
 customElements.define(SettingsA11yPageElement.is, SettingsA11yPageElement);
 
-function getTemplate$g() {
+function getTemplate$f() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{--justify-margin:8px;align-items:center;display:flex}:host([enforced_]){pointer-events:none}cr-policy-pref-indicator{pointer-events:all}:host(:not([end-justified])) cr-policy-pref-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}:host([end-justified]) cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing);margin-inline-start:calc(var(--cr-controlled-by-spacing) - var(--justify-margin));order:-1}</style>
 
 <cr-button class$="[[actionClass_]]" disabled="[[!buttonEnabled_(enforced_, disabled)]]">
@@ -18139,7 +18525,7 @@ class ControlledButtonElement extends ControlledButtonElementBase {
         return 'controlled-button';
     }
     static get template() {
-        return getTemplate$g();
+        return getTemplate$f();
     }
     static get properties() {
         return {
@@ -18211,7 +18597,7 @@ class DownloadsBrowserProxyImpl {
 }
 let instance = null;
 
-function getTemplate$f() {
+function getTemplate$e() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared iron-flex">#defaultDownloadPath{word-break:break-word}</style>
     <div class="cr-row first">
       <div class="flex cr-padded-text">
@@ -18265,7 +18651,7 @@ class SettingsDownloadsPageElement extends SettingsDownloadsPageElementBase {
         return 'settings-downloads-page';
     }
     static get template() {
-        return getTemplate$f();
+        return getTemplate$e();
     }
     static get properties() {
         return {
@@ -18331,7 +18717,7 @@ class SettingsDownloadsPageElement extends SettingsDownloadsPageElementBase {
 }
 customElements.define(SettingsDownloadsPageElement.is, SettingsDownloadsPageElement);
 
-function getTemplate$e() {
+function getTemplate$d() {
     return html `<!--_html_template_start_-->    <style include="settings-shared action-link">paper-spinner-lite{margin:0 8px}#dialog-body{padding-bottom:2px}</style>
     <cr-dialog id="dialog" close-text="$i18n{close}" ignore-popstate ignore-enter-key>
       <div slot="title">
@@ -18382,7 +18768,7 @@ class SettingsResetProfileDialogElement extends SettingsResetProfileDialogElemen
         return 'settings-reset-profile-dialog';
     }
     static get template() {
-        return getTemplate$e();
+        return getTemplate$d();
     }
     static get properties() {
         return {
@@ -18479,7 +18865,7 @@ class SettingsResetProfileDialogElement extends SettingsResetProfileDialogElemen
 }
 customElements.define(SettingsResetProfileDialogElement.is, SettingsResetProfileDialogElement);
 
-function getTemplate$d() {
+function getTemplate$c() {
     return html `<!--_html_template_start_-->    <style include="settings-shared"></style>
     <settings-animated-pages id="reset-pages" section="reset">
       <div route-path="default">
@@ -18511,7 +18897,7 @@ class SettingsResetPageElement extends SettingsResetPageElementBase {
         return 'settings-reset-page';
     }
     static get template() {
-        return getTemplate$d();
+        return getTemplate$c();
     }
     static get properties() {
         return {
@@ -18547,7 +18933,7 @@ class SettingsResetPageElement extends SettingsResetPageElementBase {
 }
 customElements.define(SettingsResetPageElement.is, SettingsResetPageElement);
 
-function getTemplate$c() {
+function getTemplate$b() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">#content{display:flex;flex:1}.collapsible{overflow:hidden;text-overflow:ellipsis}span{white-space:pre}.elided-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}</style>
     <cr-toast id="toast" duration="[[duration]]">
       <div id="content" class="elided-text"></div>
@@ -18574,7 +18960,7 @@ class CrToastManagerElement extends PolymerElement {
         return 'cr-toast-manager';
     }
     static get template() {
-        return getTemplate$c();
+        return getTemplate$b();
     }
     static get properties() {
         return {
@@ -18634,7 +19020,7 @@ class CrToastManagerElement extends PolymerElement {
 }
 customElements.define(CrToastManagerElement.is, CrToastManagerElement);
 
-function getTemplate$b() {
+function getTemplate$a() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">.toggle{padding:0 var(--cr-section-padding);margin-bottom:var(--cr-section-vertical-padding)}</style>
     <template is="dom-if" if="[[!is3pcdRedesignEnabled_]]">
       <settings-toggle-button id="toggle" class="hr" label="$i18n{doNotTrack}" pref="{{prefs.enable_do_not_track}}" on-settings-boolean-control-change="onToggleChange_" no-set-pref>
@@ -18673,7 +19059,7 @@ class SettingsDoNotTrackToggleElement extends PolymerElement {
         return 'settings-do-not-track-toggle';
     }
     static get template() {
-        return getTemplate$b();
+        return getTemplate$a();
     }
     static get properties() {
         return {
@@ -18741,7 +19127,7 @@ class SettingsDoNotTrackToggleElement extends PolymerElement {
 }
 customElements.define(SettingsDoNotTrackToggleElement.is, SettingsDoNotTrackToggleElement);
 
-function getTemplate$a() {
+function getTemplate$9() {
     return html `<!--_html_template_start_-->    <style include="settings-shared">img{width:100%}#exceptionHeader,#explanationText,#generalControls{padding:0 var(--cr-section-padding)}#exceptionHeader3pcd{padding:0 var(--cr-section-padding);margin-bottom:-32px}#explanationText{padding-top:16px;padding-bottom:var(--cr-section-vertical-padding)}#blockThirdPartyToggle{padding:0 var(--cr-section-padding)}#advancedHeader{padding-top:16px;padding-bottom:8px;padding-left:var(--cr-section-padding)}#rollbackNotice{padding:16px var(--cr-section-padding);background:var(--cr-hover-background-color)}#picture{display:flex}.radio-group-sub-heading{padding-bottom:10px}.bullet-row{align-items:center;display:flex;padding:var(--cr-section-vertical-padding) var(--cr-section-padding)}.bullet-row>div{padding-left:var(--cr-section-padding);padding-right:40px}.bullet-line{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height)}.bullet-line.one-line{min-height:var(--cr-section-min-height)}.bullet-line>div{padding-inline-start:var(--cr-radio-button-size)}settings-collapse-radio-button{--settings-collapse-toggle-min-height:var(--cr-section-min-height)}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}settings-collapse-radio-button .bullet-line:last-child{padding-bottom:12px}#firstPartySetsToggle{padding-inline-end:0;padding-inline-start:0}#toastText{align-items:center;display:flex;max-width:300px;min-height:var(--cr-section-two-line-min-height)}</style>
     <picture id="picture" hidden="[[is3pcdRedesignEnabled_]]">
       <source srcset="chrome://settings/images/cookies_banner_dark.svg" media="(prefers-color-scheme: dark)">
@@ -18911,7 +19297,7 @@ class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
         return 'settings-cookies-page';
     }
     static get template() {
-        return getTemplate$a();
+        return getTemplate$9();
     }
     static get properties() {
         return {
@@ -19087,7 +19473,7 @@ class SettingsCookiesPageElement extends SettingsCookiesPageElementBase {
 }
 customElements.define(SettingsCookiesPageElement.is, SettingsCookiesPageElement);
 
-function getTemplate$9() {
+function getTemplate$8() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared"></style>
 <div class="header-phase2" focus-element tabindex="-1">
   <picture>
@@ -19143,7 +19529,7 @@ class PrivacyGuidePreloadFragmentElement extends PrivacyGuidePreloadFragmentBase
         return 'privacy-guide-preload-fragment';
     }
     static get template() {
-        return getTemplate$9();
+        return getTemplate$8();
     }
     static get properties() {
         return {
@@ -19173,216 +19559,6 @@ class PrivacyGuidePreloadFragmentElement extends PrivacyGuidePreloadFragmentBase
     }
 }
 customElements.define(PrivacyGuidePreloadFragmentElement.is, PrivacyGuidePreloadFragmentElement);
-
-const template = html `<iron-iconset-svg name="firstLevelTopics20" size="20">
-    <svg>
-      <defs>
-        <g id="artist" viewBox="0 -960 960 960"><path d="M740-560h140v80h-80v220q0 42-29 71t-71 29q-42 0-71-29t-29-71q0-42 29-71t71-29q8 0 18 1.5t22 6.5v-208ZM120-160v-112q0-35 17.5-63t46.5-43q62-31 126-46.5T440-440q42 0 83.5 6.5T607-414q-20 12-36 29t-28 37q-26-6-51.5-9t-51.5-3q-57 0-112 14t-108 40q-9 5-14.5 14t-5.5 20v32h321q2 20 9.5 40t20.5 40H120Zm320-320q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T520-640q0-33-23.5-56.5T440-720q-33 0-56.5 23.5T360-640q0 33 23.5 56.5T440-560Zm0-80Zm0 400Z"></path></g>
-        <g id="bigtop-updates" viewBox="0 -960 960 960"><path d="M198-278q-57-57-87.5-129.5T80-560q0-80 30.5-152.5T198-842l48 48q-47 47-72.5 107.5T148-560q0 66 25.5 126.5T246-326l-48 48Zm92-92q-38-38-58-87t-20-103q0-54 20-103t58-87l48 48q-29 29-43.5 65.5T280-560q0 40 14.5 76.5T338-418l-48 48Zm150 250v-348q-27-12-43.5-37T380-560q0-42 29-71t71-29q42 0 71 29t29 71q0 30-16.5 55T520-468v348h-80Zm230-250-48-48q29-29 43.5-65.5T680-560q0-40-14.5-76.5T622-702l48-48q38 38 58 87t20 103q0 54-20 103t-58 87Zm92 92-48-48q47-47 72.5-107.5T812-560q0-66-25.5-126.5T714-794l48-48q57 57 87.5 129.5T880-560q0 80-30.5 152.5T762-278Z"></path></g>
-        <g id="business-center" viewBox="0 -960 960 960"><path d="M160-120q-33 0-56.5-23.5T80-200v-440q0-33 23.5-56.5T160-720h160v-80q0-33 23.5-56.5T400-880h160q33 0 56.5 23.5T640-800v80h160q33 0 56.5 23.5T880-640v440q0 33-23.5 56.5T800-120H160Zm240-600h160v-80H400v80Zm400 360H600v80H360v-80H160v160h640v-160Zm-360 0h80v-80h-80v80Zm-280-80h200v-80h240v80h200v-200H160v200Zm320 40Z"></path></g>
-        <g id="category" viewBox="0 -960 960 960"><path d="m260-520 220-360 220 360H260ZM700-80q-75 0-127.5-52.5T520-260q0-75 52.5-127.5T700-440q75 0 127.5 52.5T880-260q0 75-52.5 127.5T700-80Zm-580-20v-320h320v320H120Zm580-60q42 0 71-29t29-71q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 42 29 71t71 29Zm-500-20h160v-160H200v160Zm202-420h156l-78-126-78 126Zm78 0ZM360-340Zm340 80Z"></path></g>
-        <g id="communities" viewBox="0 -960 960 960"><path d="M360-320q33 0 56.5-23.5T440-400q0-33-23.5-56.5T360-480q-33 0-56.5 23.5T280-400q0 33 23.5 56.5T360-320Zm240 0q33 0 56.5-23.5T680-400q0-33-23.5-56.5T600-480q-33 0-56.5 23.5T520-400q0 33 23.5 56.5T600-320ZM480-520q33 0 56.5-23.5T560-600q0-33-23.5-56.5T480-680q-33 0-56.5 23.5T400-600q0 33 23.5 56.5T480-520Zm0 440q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"></path></g>
-        <g id="crowdsource" viewBox="0 -960 960 960"><path d="M660-570q-25 0-42.5-17.5T600-630q0-25 17.5-42.5T660-690q25 0 42.5 17.5T720-630q0 25-17.5 42.5T660-570Zm-360 0q-25 0-42.5-17.5T240-630q0-25 17.5-42.5T300-690q25 0 42.5 17.5T360-630q0 25-17.5 42.5T300-570Zm180 110q-25 0-42.5-17.5T420-520q0-25 17.5-42.5T480-580q25 0 42.5 17.5T540-520q0 25-17.5 42.5T480-460Zm0-220q-25 0-42.5-17.5T420-740q0-25 17.5-42.5T480-800q25 0 42.5 17.5T540-740q0 25-17.5 42.5T480-680Zm0 520q-20 0-40.5-3t-39.5-8v-143q0-35 23.5-60.5T480-400q33 0 56.5 25.5T560-314v143q-19 5-39.5 8t-40.5 3Zm-140-32q-20-8-38.5-18T266-232q-28-20-44.5-52T205-352q0-26-5.5-48.5T180-443q-10-13-37.5-39.5T92-532q-11-11-11-28t11-28q11-11 28-11t28 11l153 145q20 18 29.5 42.5T340-350v158Zm280 0v-158q0-26 10-51t29-42l153-145q12-11 28.5-11t27.5 11q11 11 11 28t-11 28q-23 23-50.5 49T780-443q-14 20-19.5 42.5T755-352q0 36-16.5 68.5T693-231q-16 11-34.5 21T620-192Z"></path></g>
-        <g id="directions-car" viewBox="0 -960 960 960"><path d="M240-200v40q0 17-11.5 28.5T200-120h-40q-17 0-28.5-11.5T120-160v-320l84-240q6-18 21.5-29t34.5-11h440q19 0 34.5 11t21.5 29l84 240v320q0 17-11.5 28.5T800-120h-40q-17 0-28.5-11.5T720-160v-40H240Zm-8-360h496l-42-120H274l-42 120Zm-32 80v200-200Zm100 160q25 0 42.5-17.5T360-380q0-25-17.5-42.5T300-440q-25 0-42.5 17.5T240-380q0 25 17.5 42.5T300-320Zm360 0q25 0 42.5-17.5T720-380q0-25-17.5-42.5T660-440q-25 0-42.5 17.5T600-380q0 25 17.5 42.5T660-320Zm-460 40h560v-200H200v200Z"></path></g>
-        <g id="keyboard" viewBox="0 -960 960 960"><path d="M160-200q-33 0-56.5-23.5T80-280v-400q0-33 23.5-56.5T160-760h640q33 0 56.5 23.5T880-680v400q0 33-23.5 56.5T800-200H160Zm0-80h640v-400H160v400Zm160-40h320v-80H320v80ZM200-440h80v-80h-80v80Zm120 0h80v-80h-80v80Zm120 0h80v-80h-80v80Zm120 0h80v-80h-80v80Zm120 0h80v-80h-80v80ZM200-560h80v-80h-80v80Zm120 0h80v-80h-80v80Zm120 0h80v-80h-80v80Zm120 0h80v-80h-80v80Zm120 0h80v-80h-80v80ZM160-280v-400 400Z"></path></g>
-        <g id="menu-book" viewBox="0 -960 960 960"><path d="M560-564v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-600q-38 0-73 9.5T560-564Zm0 220v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-380q-38 0-73 9t-67 27Zm0-110v-68q33-14 67.5-21t72.5-7q26 0 51 4t49 10v64q-24-9-48.5-13.5T700-490q-38 0-73 9.5T560-454ZM260-320q47 0 91.5 10.5T440-278v-394q-41-24-87-36t-93-12q-36 0-71.5 7T120-692v396q35-12 69.5-18t70.5-6Zm260 42q44-21 88.5-31.5T700-320q36 0 70.5 6t69.5 18v-396q-33-14-68.5-21t-71.5-7q-47 0-93 12t-87 36v394Zm-40 118q-48-38-104-59t-116-21q-42 0-82.5 11T100-198q-21 11-40.5-1T40-234v-482q0-11 5.5-21T62-752q46-24 96-36t102-12q58 0 113.5 15T480-740q51-30 106.5-45T700-800q52 0 102 12t96 36q11 5 16.5 15t5.5 21v482q0 23-19.5 35t-40.5 1q-37-20-77.5-31T700-240q-60 0-116 21t-104 59ZM280-494Z"></path></g>
-        <g id="fastfood" viewBox="0 -960 960 960"><path d="M533-440q-32-45-84.5-62.5T340-520q-56 0-108.5 17.5T147-440h386ZM40-360q0-109 91-174.5T340-600q118 0 209 65.5T640-360H40Zm0 160v-80h600v80H40ZM720-40v-80h56l56-560H450l-10-80h200v-160h80v160h200L854-98q-3 25-22 41.5T788-40h-68Zm0-80h56-56ZM80-40q-17 0-28.5-11.5T40-80v-40h600v40q0 17-11.5 28.5T600-40H80Zm260-400Z"></path></g>
-        <g id="finance-mode" viewBox="0 -960 960 960"><path d="M320-414v-306h120v306l-60-56-60 56Zm200 60v-526h120v406L520-354ZM120-216v-344h120v224L120-216Zm0 98 258-258 142 122 224-224h-64v-80h200v200h-80v-64L524-146 382-268 232-118H120Z"></path></g>
-        <g id="gavel" viewBox="0 -960 960 960"><path d="M160-120v-80h480v80H160Zm226-194L160-540l84-86 228 226-86 86Zm254-254L414-796l86-84 226 226-86 86Zm184 408L302-682l56-56 522 522-56 56Z"></path></g>
-        <g id="health-and-beauty" viewBox="0 -960 960 960"><path d="M200-80 40-520l200-120v-240h160v240l200 120L440-80H200Zm480 0q-17 0-28.5-11.5T640-120q0-17 11.5-28.5T680-160h120v-80H680q-17 0-28.5-11.5T640-280q0-17 11.5-28.5T680-320h120v-80H680q-17 0-28.5-11.5T640-440q0-17 11.5-28.5T680-480h120v-80H680q-17 0-28.5-11.5T640-600q0-17 11.5-28.5T680-640h120v-80H680q-17 0-28.5-11.5T640-760q0-17 11.5-28.5T680-800h160q33 0 56.5 23.5T920-720v560q0 33-23.5 56.5T840-80H680Zm-424-80h128l118-326-124-74H262l-124 74 118 326Zm64-200Z"></path></g>
-        <g id="home-and-garden" viewBox="0 -960 960 960"><path d="M641-26q-20 12-41.5 19T555 0q-64 0-109-45.5T401-156q0-23 6.5-44t19.5-40q-13-19-19.5-41t-6.5-45q0-64 45-109t109-45q23 0 45 6.5t41 19.5q19-13 41-19.5t45-6.5q64 0 109 44.5T881-328q0 23-6.5 45T855-242q13 20 19.5 42.5T881-154q0 64-45.5 109T725 0q-23 0-44-7t-40-19Zm134-183-36-32 40-34q11-9 16.5-22.5T801-326q0-31-21.5-52.5T727-400q-16 0-29.5 5.5T675-378l-35 40-34-40q-9-11-22.5-16.5T554-400q-30 0-51.5 22T481-324q0 15 6.5 28.5T506-271l36 30-40 34q-10 9-15.5 22t-5.5 29q0 32 21.5 54T554-80q15 0 29.5-7t26.5-21l30-34 35 40q9 11 22.5 16.5T727-80q31 0 52.5-22t21.5-54q0-14-6.5-28T775-209Zm-134 25q23 0 39.5-16.5T697-240q0-23-16.5-39.5T641-296q-23 0-39.5 16.5T585-240q0 23 16.5 39.5T641-184Zm-481 24v-402H40l440-358 440 358H800v42h-80v-102L480-818 240-622v382h120v80H160Zm481-80Z"></path></g>
-        <g id="newsmode" viewBox="0 -960 960 960"><path d="M160-120q-33 0-56.5-23.5T80-200v-560q0-33 23.5-56.5T160-840h640q33 0 56.5 23.5T880-760v560q0 33-23.5 56.5T800-120H160Zm0-80h640v-560H160v560Zm80-80h480v-80H240v80Zm0-160h160v-240H240v240Zm240 0h240v-80H480v80Zm0-160h240v-80H480v80ZM160-200v-560 560Z"></path></g>
-        <g id="pets" viewBox="0 -960 960 960"><path d="M180-475q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Zm180-160q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Zm240 0q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29Zm180 160q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM266-75q-45 0-75.5-34.5T160-191q0-52 35.5-91t70.5-77q29-31 50-67.5t50-68.5q22-26 51-43t63-17q34 0 63 16t51 42q28 32 49.5 69t50.5 69q35 38 70.5 77t35.5 91q0 47-30.5 81.5T694-75q-54 0-107-9t-107-9q-54 0-107 9t-107 9Z"></path></g>
-        <g id="real-estate-agent" viewBox="0 -960 960 960"><path d="M760-400v-260L560-800 360-660v60h-80v-100l280-200 280 200v300h-80ZM560-800Zm20 160h40v-40h-40v40Zm-80 0h40v-40h-40v40Zm80 80h40v-40h-40v40Zm-80 0h40v-40h-40v40ZM280-220l278 76 238-74q-5-9-14.5-15.5T760-240H558q-27 0-43-2t-33-8l-93-31 22-78 81 27q17 5 40 8t68 4q0-11-6.5-21T578-354l-234-86h-64v220ZM40-80v-440h304q7 0 14 1.5t13 3.5l235 87q33 12 53.5 42t20.5 66h80q50 0 85 33t35 87v40L560-60l-280-78v58H40Zm80-80h80v-280h-80v280Z"></path></g>
-        <g id="sailing" viewBox="0 -960 960 960"><path d="m120-420 320-460v460H120Zm153-80h87v-125l-87 125Zm227 80q12-28 26-98t14-142q0-72-13.5-148T500-920q61 18 121.5 67t109 117q48.5 68 79 149.5T840-420H500Zm104-80h148q-17-77-55.5-141T615-750q2 21 3.5 43.5T620-660q0 47-4.5 87T604-500ZM360-200q-36 0-67-17t-53-43q-14 15-30.5 28T173-211q-35-26-59.5-64.5T80-360h800q-9 46-33.5 84.5T787-211q-20-8-36.5-21T720-260q-23 26-53.5 43T600-200q-36 0-67-17t-53-43q-22 26-53 43t-67 17ZM80-40v-80h40q32 0 62.5-10t57.5-30q27 20 57.5 29.5T360-121q32 0 62-9.5t58-29.5q27 20 57.5 29.5T600-121q32 0 62-9.5t58-29.5q28 20 58 30t62 10h40v80h-40q-31 0-61-7.5T720-70q-29 15-59 22.5T600-40q-31 0-61-7.5T480-70q-29 15-59 22.5T360-40q-31 0-61-7.5T240-70q-29 15-59 22.5T120-40H80Zm280-460Zm244 0Z"></path></g>
-        <g id="school" viewBox="0 -960 960 960"><path d="M480-120 200-272v-240L40-600l440-240 440 240v320h-80v-276l-80 44v240L480-120Zm0-332 274-148-274-148-274 148 274 148Zm0 241 200-108v-151L480-360 280-470v151l200 108Zm0-241Zm0 90Zm0 0Z"></path></g>
-        <g id="shopping-bag" viewBox="0 -960 960 960"><path d="M240-80q-33 0-56.5-23.5T160-160v-480q0-33 23.5-56.5T240-720h80q0-66 47-113t113-47q66 0 113 47t47 113h80q33 0 56.5 23.5T800-640v480q0 33-23.5 56.5T720-80H240Zm0-80h480v-480h-80v80q0 17-11.5 28.5T600-520q-17 0-28.5-11.5T560-560v-80H400v80q0 17-11.5 28.5T360-520q-17 0-28.5-11.5T320-560v-80h-80v480Zm160-560h160q0-33-23.5-56.5T480-800q-33 0-56.5 23.5T400-720ZM240-160v-480 480Z"></path></g>
-        <g id="sports-and-outdoors" viewBox="0 -960 960 960"><path d="m414-168 12-56q3-13 12.5-21.5T462-256l124-10q13-2 24 5t16 19l16 38q39-23 70-55.5t52-72.5l-12-6q-11-8-16-19.5t-2-24.5l28-122q3-12 12.5-20t21.5-10q-5-25-12.5-48.5T764-628q-9 5-19.5 4.5T726-630l-106-64q-11-7-16-19t-2-25l8-34q-31-14-63.5-21t-66.5-7q-14 0-29 1.5t-29 4.5l30 68q5 12 2.5 25T442-680l-94 82q-10 9-23.5 10t-24.5-6l-92-56q-23 38-35.5 81.5T160-480q0 16 4 52l88-8q14-2 25.5 4.5T294-412l48 114q5 12 2.5 25T332-252l-38 32q27 20 57.5 33t62.5 19Zm72-172q-13 2-24-5t-16-19l-54-124q-5-12-1.5-25t13.5-21l102-86q9-9 22-10t24 6l112 66q11 7 17 19t3 25l-32 130q-3 13-12 21.5T618-352l-132 12Zm-6 260q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z"></path></g>
-        <g id="travel" viewBox="0 -960 960 960"><path d="m274-274-128-70 42-42 100 14 156-156-312-170 56-56 382 98 157-155q17-17 42.5-17t42.5 17q17 17 17 42.5T812-726L656-570l98 382-56 56-170-312-156 156 14 100-42 42-70-128Z"></path></g>
-        <g id="videogame-asset" viewBox="0 -960 960 960"><path d="M160-240q-33 0-56.5-23.5T80-320v-320q0-33 23.5-56.5T160-720h640q33 0 56.5 23.5T880-640v320q0 33-23.5 56.5T800-240H160Zm0-80h640v-320H160v320Zm120-40h80v-80h80v-80h-80v-80h-80v80h-80v80h80v80Zm300 0q25 0 42.5-17.5T640-420q0-25-17.5-42.5T580-480q-25 0-42.5 17.5T520-420q0 25 17.5 42.5T580-360Zm120-120q25 0 42.5-17.5T760-540q0-25-17.5-42.5T700-600q-25 0-42.5 17.5T640-540q0 25 17.5 42.5T700-480ZM160-320v-320 320Z"></path></g>
-      </defs>
-    </svg>
-</iron-iconset-svg>`;
-document.head.appendChild(template.content);
-
-function getTemplate$8() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex">#explanationText{padding:0 var(--cr-section-padding)}.outer-row{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height);--cr-icon-button-margin-end:20px;padding:0 var(--cr-section-padding);width:100%}.topic-toggle{align-items:center;display:flex;width:100%}.icon{margin-inline-end:var(--cr-icon-button-margin-end)}.label-wrapper{padding:var(--cr-section-vertical-padding) 0;margin-inline-end:20px}</style>
-<div id="explanationText">
-  $i18nRaw{manageTopicsPageDescription}
-</div>
-<template is="dom-repeat" items="[[firstLevelTopicsList_]]">
-  <div class="topic-toggle">
-    <div class="outer-row">
-      <span class="icon">
-        <iron-icon slot="icon" icon="[[computeTopicIcon_(item.topic.topicId)]]">
-        </iron-icon>
-      </span>
-      <div class="flex label-wrapper">
-        <div class="label">[[item.topic.displayString]]</div>
-        <div class="cr-secondary-text sub-label">
-          <span class="sub-label-text">[[item.topic.description]]</span>
-        </div>
-      </div>
-      <cr-toggle id="toggle-[[item.topic.topicId]]" on-change="onToggleChange_" checked="[[!item.removed]]"></cr-toggle>
-    </div>
-  </div>
-</template>
-<template is="dom-if" if="[[shouldShowBlockTopicDialog_]]" restamp>
-  <settings-simple-confirmation-dialog id="blockTopicDialog" title-text="[[blockTopicDialogTitle_]]" body-text="[[blockTopicDialogBody_]]" confirm-text="$i18n{manageTopicDialogBlockButtonText}" on-close="onBlockTopicDialogClose_">
-  </settings-simple-confirmation-dialog>
-</template>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2024 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-const SettingsPrivacySandboxManageTopicsSubpageElementBase = I18nMixin(PolymerElement);
-// First Level Topics for Taxonomy v2
-// This list comes from here:
-// https://github.com/patcg-individual-drafts/topics/blob/main/taxonomy_v2.md
-const topicIdToIconName = new Map([
-    [1, 'firstLevelTopics20:artist'],
-    [57, 'firstLevelTopics20:directions-car'],
-    [86, 'firstLevelTopics20:health-and-beauty'],
-    [100, 'firstLevelTopics20:menu-book'],
-    [103, 'firstLevelTopics20:business-center'],
-    [126, 'firstLevelTopics20:keyboard'],
-    [149, 'firstLevelTopics20:finance-mode'],
-    [172, 'firstLevelTopics20:fastfood'],
-    [180, 'firstLevelTopics20:videogame-asset'],
-    [196, 'firstLevelTopics20:sailing'],
-    [207, 'firstLevelTopics20:home-and-garden'],
-    [215, 'firstLevelTopics20:bigtop-updates'],
-    [226, 'firstLevelTopics20:school'],
-    [239, 'firstLevelTopics20:gavel'],
-    [243, 'firstLevelTopics20:newsmode'],
-    [250, 'firstLevelTopics20:communities'],
-    [254, 'firstLevelTopics20:crowdsource'],
-    [263, 'firstLevelTopics20:pets'],
-    [272, 'firstLevelTopics20:real-estate-agent'],
-    [289, 'firstLevelTopics20:shopping-bag'],
-    [299, 'firstLevelTopics20:sports-and-outdoors'],
-    [332, 'firstLevelTopics20:travel'],
-]);
-class SettingsPrivacySandboxManageTopicsSubpageElement extends SettingsPrivacySandboxManageTopicsSubpageElementBase {
-    constructor() {
-        super(...arguments);
-        this.privacySandboxBrowserProxy_ = PrivacySandboxBrowserProxyImpl.getInstance();
-    }
-    static get is() {
-        return 'settings-privacy-sandbox-manage-topics-subpage';
-    }
-    static get template() {
-        return getTemplate$8();
-    }
-    static get properties() {
-        return {
-            firstLevelTopicsList_: {
-                type: Array,
-                value() {
-                    return [];
-                },
-            },
-            blockTopicDialogTitle_: {
-                type: String,
-                value: '',
-            },
-            blockTopicDialogBody_: {
-                type: String,
-                value: '',
-            },
-            shouldShowBlockTopicDialog_: {
-                type: Boolean,
-                value: false,
-            },
-        };
-    }
-    ready() {
-        super.ready();
-        this.$.explanationText.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
-        this.privacySandboxBrowserProxy_.getFirstLevelTopics().then(state => this.onFirstLevelTopicsStateChanged_(state));
-    }
-    onFirstLevelTopicsStateChanged_(state) {
-        const blockedTopicsList = state.blockedTopics.map(topic => {
-            return { topic, removed: true };
-        });
-        this.firstLevelTopicsList_ = state.firstLevelTopics.map(firstLevelTopic => {
-            return {
-                topic: firstLevelTopic,
-                removed: blockedTopicsList.some(interest => interest.topic?.topicId === firstLevelTopic.topicId),
-            };
-        });
-    }
-    async onToggleChange_(e) {
-        this.topicBeingToggled_ = e.model.item;
-        assert(this.topicBeingToggled_);
-        assert(this.topicBeingToggled_.topic);
-        const toggleId = `#toggle-${this.topicBeingToggled_.topic.topicId}`;
-        const toggleBeingChanged = this.shadowRoot.querySelector(toggleId);
-        assert(toggleBeingChanged);
-        // If the toggle is checked, then the First Level Topic needs to be
-        // updated to be unblocked.
-        if (toggleBeingChanged.checked) {
-            this.updateTopicState_({ blocked: false });
-            return;
-        }
-        // Check if the attempted blocked topic has active child topics
-        const childTopics = await this.privacySandboxBrowserProxy_.getChildTopicsCurrentlyAssigned(this.topicBeingToggled_.topic);
-        if (childTopics.length !== 0) {
-            this.blockTopicDialogTitle_ = loadTimeData.getStringF('manageTopicsDialogTitle', this.topicBeingToggled_.topic.displayString);
-            this.blockTopicDialogBody_ = loadTimeData.getStringF('manageTopicsDialogBody', this.topicBeingToggled_.topic.displayString);
-            this.shouldShowBlockTopicDialog_ = true;
-            return;
-        }
-        // Blocking a topic without any assigned children. Should update the new
-        // blocked state with the privacySandboxProxy.
-        this.updateTopicState_({ blocked: true });
-    }
-    // Changes the state of the first level topic being toggled to be
-    // blocked/unblocked. Calls the privacySandboxProxy to set the topic to
-    // allowed/disallowed.
-    updateTopicState_(blockedOptions) {
-        assert(this.topicBeingToggled_);
-        assert(this.topicBeingToggled_.topic);
-        this.topicBeingToggled_.removed = blockedOptions.blocked;
-        this.firstLevelTopicsList_ = this.firstLevelTopicsList_.slice();
-        this.privacySandboxBrowserProxy_.setTopicAllowed(this.topicBeingToggled_.topic, !blockedOptions.blocked);
-        this.topicBeingToggled_ = undefined;
-    }
-    onBlockTopicDialogClose_() {
-        const dialog = this.shadowRoot.querySelector('settings-simple-confirmation-dialog');
-        assert(dialog);
-        if (dialog.wasConfirmed()) {
-            this.onBlockButtonDialogHandler_();
-        }
-        else {
-            this.onCancelButtonDialogHandler_();
-        }
-        this.blockTopicDialogBody_ = '';
-        this.blockTopicDialogTitle_ = '';
-        this.topicBeingToggled_ = undefined;
-        this.shouldShowBlockTopicDialog_ = false;
-    }
-    onCancelButtonDialogHandler_() {
-        // This causes the list to be fully re-rendered, in order to revert the
-        // toggle back to being checked after the user decides to block the topic.
-        this.firstLevelTopicsList_ = this.firstLevelTopicsList_.map(topic => {
-            return {
-                ...topic,
-            };
-        });
-    }
-    onBlockButtonDialogHandler_() {
-        this.updateTopicState_({ blocked: true });
-    }
-    // TODO(b/321007722): Add test to make sure there is always a icon based on
-    // the variability of different taxonomies.
-    computeTopicIcon_(topicId) {
-        return topicIdToIconName.get(topicId) || 'firstLevelTopics20:category';
-    }
-}
-customElements.define(SettingsPrivacySandboxManageTopicsSubpageElement.is, SettingsPrivacySandboxManageTopicsSubpageElement);
 
 function getTemplate$7() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{display:block}.icon-blue{fill:var(--google-blue-600)}@media (prefers-color-scheme:dark){.icon-blue{fill:var(--google-blue-300)}}</style>

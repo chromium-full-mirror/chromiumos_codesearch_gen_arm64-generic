@@ -300,7 +300,7 @@ static_assert(
         ::ui::mojom::GestureDataDetailsDataView, UserType>(),
     "Attempting to read the optional `details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDetails` instead "
     "of `ReadDetails if you're fine with null values being "
@@ -586,7 +586,7 @@ static_assert(
         ::ui::mojom::KeyDataDataView, UserType>(),
     "Attempting to read the optional `key_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadKeyData` instead "
     "of `ReadKeyData if you're fine with null values being "
@@ -606,7 +606,7 @@ static_assert(
         ::ui::mojom::GestureDataDataView, UserType>(),
     "Attempting to read the optional `gesture_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadGestureData` instead "
     "of `ReadGestureData if you're fine with null values being "
@@ -626,7 +626,7 @@ static_assert(
         ::ui::mojom::ScrollDataDataView, UserType>(),
     "Attempting to read the optional `scroll_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadScrollData` instead "
     "of `ReadScrollData if you're fine with null values being "
@@ -646,7 +646,7 @@ static_assert(
         ::ui::mojom::TouchDataDataView, UserType>(),
     "Attempting to read the optional `touch_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTouchData` instead "
     "of `ReadTouchData if you're fine with null values being "
@@ -666,7 +666,7 @@ static_assert(
         ::ui::mojom::MouseDataDataView, UserType>(),
     "Attempting to read the optional `mouse_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMouseData` instead "
     "of `ReadMouseData if you're fine with null values being "
@@ -686,7 +686,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, mojo::ArrayDataView<uint8_t>>, UserType>(),
     "Attempting to read the optional `properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadProperties` instead "
     "of `ReadProperties if you're fine with null values being "

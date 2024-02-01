@@ -54,9 +54,29 @@ enum class ModelStreamingResponseStatus : int32_t {
   
   kComplete = 1,
   
-  kError = 2,
+  kErrorUnknown = 2,
+  
+  kErrorInvalidRequest = 3,
+  
+  kErrorRequestThrottled = 4,
+  
+  kErrorPermissionDenied = 5,
+  
+  kErrorGenericFailure = 6,
+  
+  kErrorRetryableError = 7,
+  
+  kErrorNonRetryableError = 8,
+  
+  kErrorUnsupportedLanguage = 9,
+  
+  kErrorFiltered = 10,
+  
+  kErrorDisabled = 11,
+  
+  kErrorCancelled = 12,
   kMinValue = 0,
-  kMaxValue = 2,
+  kMaxValue = 12,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, ModelStreamingResponseStatus value);

@@ -216,7 +216,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `sha256_script_checksum` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSha256ScriptChecksum` instead "
     "of `ReadSha256ScriptChecksum if you're fine with null values being "
@@ -236,7 +236,7 @@ static_assert(
         ::blink::mojom::ServiceWorkerRouterDataDataView, UserType>(),
     "Attempting to read the optional `router_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRouterData` instead "
     "of `ReadRouterData if you're fine with null values being "
@@ -275,7 +275,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `fetch_request_window_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFetchRequestWindowId` instead "
     "of `ReadFetchRequestWindowId if you're fine with null values being "
@@ -295,7 +295,7 @@ static_assert(
         ::blink::mojom::ServiceWorkerObjectInfoDataView, UserType>(),
     "Attempting to read the optional `object_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadObjectInfo` instead "
     "of `ReadObjectInfo if you're fine with null values being "

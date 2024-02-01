@@ -294,7 +294,7 @@ class  SearchResultIdentifier {
   static SearchResultIdentifierPtr
   NewSection(
       ::chromeos::settings::mojom::Section value) {
-    auto result = SearchResultIdentifierPtr(absl::in_place);
+    auto result = SearchResultIdentifierPtr(std::in_place);
     result->set_section(std::move(value));
     return result;
   }
@@ -302,7 +302,7 @@ class  SearchResultIdentifier {
   static SearchResultIdentifierPtr
   NewSubpage(
       ::chromeos::settings::mojom::Subpage value) {
-    auto result = SearchResultIdentifierPtr(absl::in_place);
+    auto result = SearchResultIdentifierPtr(std::in_place);
     result->set_subpage(std::move(value));
     return result;
   }
@@ -310,7 +310,7 @@ class  SearchResultIdentifier {
   static SearchResultIdentifierPtr
   NewSetting(
       ::chromeos::settings::mojom::Setting value) {
-    auto result = SearchResultIdentifierPtr(absl::in_place);
+    auto result = SearchResultIdentifierPtr(std::in_place);
     result->set_setting(std::move(value));
     return result;
   }
@@ -434,7 +434,7 @@ class  SearchResult {
   template <typename... Args>
   static SearchResultPtr New(Args&&... args) {
     return SearchResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

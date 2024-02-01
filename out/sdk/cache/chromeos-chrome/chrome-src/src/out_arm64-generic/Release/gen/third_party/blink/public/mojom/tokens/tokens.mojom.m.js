@@ -720,12 +720,22 @@ mojo.internal.Union(
         'ordinal': 1,
         'type': DedicatedWorkerTokenSpec.$,
       },
+      'sharedWorkerToken': {
+        'ordinal': 2,
+        'type': SharedWorkerTokenSpec.$,
+      },
+      'serviceWorkerToken': {
+        'ordinal': 3,
+        'type': ServiceWorkerTokenSpec.$,
+      },
     });
 
 /**
  * @typedef { {
  *   documentToken: (!DocumentToken|undefined),
  *   dedicatedWorkerToken: (!DedicatedWorkerToken|undefined),
+ *   sharedWorkerToken: (!SharedWorkerToken|undefined),
+ *   serviceWorkerToken: (!ServiceWorkerToken|undefined),
  * } }
  */
 export const WebGPUExecutionContextToken = {};

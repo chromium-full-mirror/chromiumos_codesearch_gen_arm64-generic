@@ -61,7 +61,7 @@ class PLATFORM_EXPORT StylusWritingGestureData {
   template <typename... Args>
   static StylusWritingGestureDataPtr New(Args&&... args) {
     return StylusWritingGestureDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

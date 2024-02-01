@@ -133,7 +133,7 @@ static_assert(
         mojo::ArrayDataView<::mojo_base::mojom::ByteStringDataView>, UserType>(),
     "Attempting to read the optional `public_keys_hashes` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPublicKeysHashes` instead "
     "of `ReadPublicKeysHashes if you're fine with null values being "
@@ -153,7 +153,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `product_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadProductName` instead "
     "of `ReadProductName if you're fine with null values being "
@@ -173,7 +173,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `version` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadVersion` instead "
     "of `ReadVersion if you're fine with null values being "
@@ -196,7 +196,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `subject_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSubjectName` instead "
     "of `ReadSubjectName if you're fine with null values being "
@@ -252,7 +252,7 @@ static_assert(
         ::mojo_base::mojom::ByteStringDataView, UserType>(),
     "Attempting to read the optional `sha256_hash` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSha256Hash` instead "
     "of `ReadSha256Hash if you're fine with null values being "
@@ -272,7 +272,7 @@ static_assert(
         ::device_signals::mojom::ExecutableMetadataDataView, UserType>(),
     "Attempting to read the optional `executable_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadExecutableMetadata` instead "
     "of `ReadExecutableMetadata if you're fine with null values being "

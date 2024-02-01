@@ -236,7 +236,7 @@ class CONTENT_EXPORT SyntheticSmoothDrag {
   template <typename... Args>
   static SyntheticSmoothDragPtr New(Args&&... args) {
     return SyntheticSmoothDragPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -385,7 +385,7 @@ class CONTENT_EXPORT SyntheticSmoothScroll {
   template <typename... Args>
   static SyntheticSmoothScrollPtr New(Args&&... args) {
     return SyntheticSmoothScrollPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -549,7 +549,7 @@ class CONTENT_EXPORT SyntheticPinch {
   template <typename... Args>
   static SyntheticPinchPtr New(Args&&... args) {
     return SyntheticPinchPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -695,7 +695,7 @@ class CONTENT_EXPORT SyntheticTap {
   template <typename... Args>
   static SyntheticTapPtr New(Args&&... args) {
     return SyntheticTapPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -841,7 +841,7 @@ class CONTENT_EXPORT SyntheticPointerActionParams {
   template <typename... Args>
   static SyntheticPointerActionParamsPtr New(Args&&... args) {
     return SyntheticPointerActionParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1020,7 +1020,7 @@ class CONTENT_EXPORT SyntheticPointerAction {
   template <typename... Args>
   static SyntheticPointerActionPtr New(Args&&... args) {
     return SyntheticPointerActionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

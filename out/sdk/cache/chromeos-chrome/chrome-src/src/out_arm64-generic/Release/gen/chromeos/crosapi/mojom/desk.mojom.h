@@ -438,7 +438,7 @@ class  DeskModel {
   template <typename... Args>
   static DeskModelPtr New(Args&&... args) {
     return DeskModelPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -582,7 +582,7 @@ class  SavedDeskModel {
   template <typename... Args>
   static SavedDeskModelPtr New(Args&&... args) {
     return SavedDeskModelPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -729,7 +729,7 @@ class  GUID {
   template <typename... Args>
   static GUIDPtr New(Args&&... args) {
     return GUIDPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -879,7 +879,7 @@ class  LaunchEmptyDeskResult {
   static LaunchEmptyDeskResultPtr
   NewError(
       DeskCrosApiError value) {
-    auto result = LaunchEmptyDeskResultPtr(absl::in_place);
+    auto result = LaunchEmptyDeskResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -887,7 +887,7 @@ class  LaunchEmptyDeskResult {
   static LaunchEmptyDeskResultPtr
   NewDeskId(
       const ::base::Uuid& value) {
-    auto result = LaunchEmptyDeskResultPtr(absl::in_place);
+    auto result = LaunchEmptyDeskResultPtr(std::in_place);
     result->set_desk_id(std::move(value));
     return result;
   }
@@ -1009,7 +1009,7 @@ class  RemoveDeskResult {
   static RemoveDeskResultPtr
   NewError(
       DeskCrosApiError value) {
-    auto result = RemoveDeskResultPtr(absl::in_place);
+    auto result = RemoveDeskResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1017,7 +1017,7 @@ class  RemoveDeskResult {
   static RemoveDeskResultPtr
   NewSucceeded(
       bool value) {
-    auto result = RemoveDeskResultPtr(absl::in_place);
+    auto result = RemoveDeskResultPtr(std::in_place);
     result->set_succeeded(std::move(value));
     return result;
   }
@@ -1136,7 +1136,7 @@ class  GetTemplateJsonResult {
   static GetTemplateJsonResultPtr
   NewError(
       DeskCrosApiError value) {
-    auto result = GetTemplateJsonResultPtr(absl::in_place);
+    auto result = GetTemplateJsonResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1144,7 +1144,7 @@ class  GetTemplateJsonResult {
   static GetTemplateJsonResultPtr
   NewTemplateJson(
       ::base::Value value) {
-    auto result = GetTemplateJsonResultPtr(absl::in_place);
+    auto result = GetTemplateJsonResultPtr(std::in_place);
     result->set_template_json(std::move(value));
     return result;
   }
@@ -1266,7 +1266,7 @@ class  GetAllDesksResult {
   static GetAllDesksResultPtr
   NewError(
       DeskCrosApiError value) {
-    auto result = GetAllDesksResultPtr(absl::in_place);
+    auto result = GetAllDesksResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1274,7 +1274,7 @@ class  GetAllDesksResult {
   static GetAllDesksResultPtr
   NewDesks(
       std::vector<DeskModelPtr> value) {
-    auto result = GetAllDesksResultPtr(absl::in_place);
+    auto result = GetAllDesksResultPtr(std::in_place);
     result->set_desks(std::move(value));
     return result;
   }
@@ -1396,7 +1396,7 @@ class  SaveActiveDeskResult {
   static SaveActiveDeskResultPtr
   NewError(
       DeskCrosApiError value) {
-    auto result = SaveActiveDeskResultPtr(absl::in_place);
+    auto result = SaveActiveDeskResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1404,7 +1404,7 @@ class  SaveActiveDeskResult {
   static SaveActiveDeskResultPtr
   NewSavedDesk(
       DeskModelPtr value) {
-    auto result = SaveActiveDeskResultPtr(absl::in_place);
+    auto result = SaveActiveDeskResultPtr(std::in_place);
     result->set_saved_desk(std::move(value));
     return result;
   }
@@ -1527,7 +1527,7 @@ class  RecallSavedDeskResult {
   static RecallSavedDeskResultPtr
   NewError(
       DeskCrosApiError value) {
-    auto result = RecallSavedDeskResultPtr(absl::in_place);
+    auto result = RecallSavedDeskResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1535,7 +1535,7 @@ class  RecallSavedDeskResult {
   static RecallSavedDeskResultPtr
   NewDeskId(
       const ::base::Uuid& value) {
-    auto result = RecallSavedDeskResultPtr(absl::in_place);
+    auto result = RecallSavedDeskResultPtr(std::in_place);
     result->set_desk_id(std::move(value));
     return result;
   }
@@ -1657,7 +1657,7 @@ class  DeleteSavedDeskResult {
   static DeleteSavedDeskResultPtr
   NewError(
       DeskCrosApiError value) {
-    auto result = DeleteSavedDeskResultPtr(absl::in_place);
+    auto result = DeleteSavedDeskResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1665,7 +1665,7 @@ class  DeleteSavedDeskResult {
   static DeleteSavedDeskResultPtr
   NewSucceeded(
       bool value) {
-    auto result = DeleteSavedDeskResultPtr(absl::in_place);
+    auto result = DeleteSavedDeskResultPtr(std::in_place);
     result->set_succeeded(std::move(value));
     return result;
   }
@@ -1784,7 +1784,7 @@ class  SetAllDesksPropertyResult {
   static SetAllDesksPropertyResultPtr
   NewError(
       DeskCrosApiError value) {
-    auto result = SetAllDesksPropertyResultPtr(absl::in_place);
+    auto result = SetAllDesksPropertyResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1792,7 +1792,7 @@ class  SetAllDesksPropertyResult {
   static SetAllDesksPropertyResultPtr
   NewSucceeded(
       bool value) {
-    auto result = SetAllDesksPropertyResultPtr(absl::in_place);
+    auto result = SetAllDesksPropertyResultPtr(std::in_place);
     result->set_succeeded(std::move(value));
     return result;
   }
@@ -1911,7 +1911,7 @@ class  GetSavedDesksResult {
   static GetSavedDesksResultPtr
   NewError(
       DeskCrosApiError value) {
-    auto result = GetSavedDesksResultPtr(absl::in_place);
+    auto result = GetSavedDesksResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1919,7 +1919,7 @@ class  GetSavedDesksResult {
   static GetSavedDesksResultPtr
   NewSavedDesks(
       std::vector<SavedDeskModelPtr> value) {
-    auto result = GetSavedDesksResultPtr(absl::in_place);
+    auto result = GetSavedDesksResultPtr(std::in_place);
     result->set_saved_desks(std::move(value));
     return result;
   }
@@ -2041,7 +2041,7 @@ class  GetActiveDeskResult {
   static GetActiveDeskResultPtr
   NewError(
       DeskCrosApiError value) {
-    auto result = GetActiveDeskResultPtr(absl::in_place);
+    auto result = GetActiveDeskResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -2049,7 +2049,7 @@ class  GetActiveDeskResult {
   static GetActiveDeskResultPtr
   NewDeskId(
       const ::base::Uuid& value) {
-    auto result = GetActiveDeskResultPtr(absl::in_place);
+    auto result = GetActiveDeskResultPtr(std::in_place);
     result->set_desk_id(std::move(value));
     return result;
   }
@@ -2171,7 +2171,7 @@ class  SwitchDeskResult {
   static SwitchDeskResultPtr
   NewError(
       DeskCrosApiError value) {
-    auto result = SwitchDeskResultPtr(absl::in_place);
+    auto result = SwitchDeskResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -2179,7 +2179,7 @@ class  SwitchDeskResult {
   static SwitchDeskResultPtr
   NewSucceeded(
       bool value) {
-    auto result = SwitchDeskResultPtr(absl::in_place);
+    auto result = SwitchDeskResultPtr(std::in_place);
     result->set_succeeded(std::move(value));
     return result;
   }
@@ -2298,7 +2298,7 @@ class  GetDeskByIDResult {
   static GetDeskByIDResultPtr
   NewError(
       DeskCrosApiError value) {
-    auto result = GetDeskByIDResultPtr(absl::in_place);
+    auto result = GetDeskByIDResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -2306,7 +2306,7 @@ class  GetDeskByIDResult {
   static GetDeskByIDResultPtr
   NewDesk(
       DeskModelPtr value) {
-    auto result = GetDeskByIDResultPtr(absl::in_place);
+    auto result = GetDeskByIDResultPtr(std::in_place);
     result->set_desk(std::move(value));
     return result;
   }

@@ -67,7 +67,7 @@ class  Values {
   static ValuesPtr
   NewBoolValues(
       WTF::Vector<bool> value) {
-    auto result = ValuesPtr(absl::in_place);
+    auto result = ValuesPtr(std::in_place);
     result->set_bool_values(std::move(value));
     return result;
   }
@@ -75,7 +75,7 @@ class  Values {
   static ValuesPtr
   NewLongValues(
       WTF::Vector<int64_t> value) {
-    auto result = ValuesPtr(absl::in_place);
+    auto result = ValuesPtr(std::in_place);
     result->set_long_values(std::move(value));
     return result;
   }
@@ -83,7 +83,7 @@ class  Values {
   static ValuesPtr
   NewStringValues(
       WTF::Vector<WTF::String> value) {
-    auto result = ValuesPtr(absl::in_place);
+    auto result = ValuesPtr(std::in_place);
     result->set_string_values(std::move(value));
     return result;
   }
@@ -91,7 +91,7 @@ class  Values {
   static ValuesPtr
   NewEntityValues(
       WTF::Vector<EntityPtr> value) {
-    auto result = ValuesPtr(absl::in_place);
+    auto result = ValuesPtr(std::in_place);
     result->set_entity_values(std::move(value));
     return result;
   }
@@ -231,7 +231,7 @@ class  Property {
   template <typename... Args>
   static PropertyPtr New(Args&&... args) {
     return PropertyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -376,7 +376,7 @@ class  Entity {
   template <typename... Args>
   static EntityPtr New(Args&&... args) {
     return EntityPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

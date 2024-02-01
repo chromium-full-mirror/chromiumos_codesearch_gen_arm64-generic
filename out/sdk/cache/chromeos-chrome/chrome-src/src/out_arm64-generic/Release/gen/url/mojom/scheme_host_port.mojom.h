@@ -53,7 +53,7 @@ class  SchemeHostPort {
   template <typename... Args>
   static SchemeHostPortPtr New(Args&&... args) {
     return SchemeHostPortPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

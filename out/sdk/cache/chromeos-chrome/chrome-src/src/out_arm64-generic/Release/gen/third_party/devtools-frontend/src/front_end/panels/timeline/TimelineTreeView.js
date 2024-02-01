@@ -225,7 +225,7 @@ export class TimelineTreeView extends UI.Widget.VBox {
         this.currentThreadSetting.addChangeListener(this.refreshTree, this);
         const columns = [];
         this.populateColumns(columns);
-        this.splitWidget = new UI.SplitWidget.SplitWidget(true, true, 'timelineTreeViewDetailsSplitWidget');
+        this.splitWidget = new UI.SplitWidget.SplitWidget(true, true, 'timeline-tree-view-details-split-widget');
         const mainView = new UI.Widget.VBox();
         const toolbar = new UI.Toolbar.Toolbar('', mainView.element);
         toolbar.makeWrappable(true);

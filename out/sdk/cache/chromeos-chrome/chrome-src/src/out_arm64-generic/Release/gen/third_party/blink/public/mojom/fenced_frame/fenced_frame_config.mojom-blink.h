@@ -79,7 +79,7 @@ class PLATFORM_EXPORT PotentiallyOpaqueURL {
   static PotentiallyOpaqueURLPtr
   NewTransparent(
       const ::blink::KURL& value) {
-    auto result = PotentiallyOpaqueURLPtr(absl::in_place);
+    auto result = PotentiallyOpaqueURLPtr(std::in_place);
     result->set_transparent(std::move(value));
     return result;
   }
@@ -87,7 +87,7 @@ class PLATFORM_EXPORT PotentiallyOpaqueURL {
   static PotentiallyOpaqueURLPtr
   NewOpaque(
       ::blink::FencedFrame::Opaque value) {
-    auto result = PotentiallyOpaqueURLPtr(absl::in_place);
+    auto result = PotentiallyOpaqueURLPtr(std::in_place);
     result->set_opaque(std::move(value));
     return result;
   }
@@ -209,7 +209,7 @@ class PLATFORM_EXPORT PotentiallyOpaqueSize {
   static PotentiallyOpaqueSizePtr
   NewTransparent(
       const ::gfx::Size& value) {
-    auto result = PotentiallyOpaqueSizePtr(absl::in_place);
+    auto result = PotentiallyOpaqueSizePtr(std::in_place);
     result->set_transparent(std::move(value));
     return result;
   }
@@ -217,7 +217,7 @@ class PLATFORM_EXPORT PotentiallyOpaqueSize {
   static PotentiallyOpaqueSizePtr
   NewOpaque(
       ::blink::FencedFrame::Opaque value) {
-    auto result = PotentiallyOpaqueSizePtr(absl::in_place);
+    auto result = PotentiallyOpaqueSizePtr(std::in_place);
     result->set_opaque(std::move(value));
     return result;
   }
@@ -339,7 +339,7 @@ class PLATFORM_EXPORT PotentiallyOpaqueBool {
   static PotentiallyOpaqueBoolPtr
   NewTransparent(
       bool value) {
-    auto result = PotentiallyOpaqueBoolPtr(absl::in_place);
+    auto result = PotentiallyOpaqueBoolPtr(std::in_place);
     result->set_transparent(std::move(value));
     return result;
   }
@@ -347,7 +347,7 @@ class PLATFORM_EXPORT PotentiallyOpaqueBool {
   static PotentiallyOpaqueBoolPtr
   NewOpaque(
       ::blink::FencedFrame::Opaque value) {
-    auto result = PotentiallyOpaqueBoolPtr(absl::in_place);
+    auto result = PotentiallyOpaqueBoolPtr(std::in_place);
     result->set_opaque(std::move(value));
     return result;
   }
@@ -465,7 +465,7 @@ class PLATFORM_EXPORT PotentiallyOpaqueAdAuctionData {
   static PotentiallyOpaqueAdAuctionDataPtr
   NewTransparent(
       const ::blink::FencedFrame::AdAuctionData& value) {
-    auto result = PotentiallyOpaqueAdAuctionDataPtr(absl::in_place);
+    auto result = PotentiallyOpaqueAdAuctionDataPtr(std::in_place);
     result->set_transparent(std::move(value));
     return result;
   }
@@ -473,7 +473,7 @@ class PLATFORM_EXPORT PotentiallyOpaqueAdAuctionData {
   static PotentiallyOpaqueAdAuctionDataPtr
   NewOpaque(
       ::blink::FencedFrame::Opaque value) {
-    auto result = PotentiallyOpaqueAdAuctionDataPtr(absl::in_place);
+    auto result = PotentiallyOpaqueAdAuctionDataPtr(std::in_place);
     result->set_opaque(std::move(value));
     return result;
   }
@@ -595,7 +595,7 @@ class PLATFORM_EXPORT PotentiallyOpaqueConfigVector {
   static PotentiallyOpaqueConfigVectorPtr
   NewTransparent(
       WTF::Vector<::blink::FencedFrame::RedactedFencedFrameConfig> value) {
-    auto result = PotentiallyOpaqueConfigVectorPtr(absl::in_place);
+    auto result = PotentiallyOpaqueConfigVectorPtr(std::in_place);
     result->set_transparent(std::move(value));
     return result;
   }
@@ -603,7 +603,7 @@ class PLATFORM_EXPORT PotentiallyOpaqueConfigVector {
   static PotentiallyOpaqueConfigVectorPtr
   NewOpaque(
       ::blink::FencedFrame::Opaque value) {
-    auto result = PotentiallyOpaqueConfigVectorPtr(absl::in_place);
+    auto result = PotentiallyOpaqueConfigVectorPtr(std::in_place);
     result->set_opaque(std::move(value));
     return result;
   }
@@ -725,7 +725,7 @@ class PLATFORM_EXPORT PotentiallyOpaqueURNConfigVector {
   static PotentiallyOpaqueURNConfigVectorPtr
   NewTransparent(
       WTF::Vector<URNConfigPairPtr> value) {
-    auto result = PotentiallyOpaqueURNConfigVectorPtr(absl::in_place);
+    auto result = PotentiallyOpaqueURNConfigVectorPtr(std::in_place);
     result->set_transparent(std::move(value));
     return result;
   }
@@ -733,7 +733,7 @@ class PLATFORM_EXPORT PotentiallyOpaqueURNConfigVector {
   static PotentiallyOpaqueURNConfigVectorPtr
   NewOpaque(
       ::blink::FencedFrame::Opaque value) {
-    auto result = PotentiallyOpaqueURNConfigVectorPtr(absl::in_place);
+    auto result = PotentiallyOpaqueURNConfigVectorPtr(std::in_place);
     result->set_opaque(std::move(value));
     return result;
   }
@@ -855,7 +855,7 @@ class PLATFORM_EXPORT PotentiallyOpaqueSharedStorageBudgetMetadata {
   static PotentiallyOpaqueSharedStorageBudgetMetadataPtr
   NewTransparent(
       const ::blink::FencedFrame::SharedStorageBudgetMetadata& value) {
-    auto result = PotentiallyOpaqueSharedStorageBudgetMetadataPtr(absl::in_place);
+    auto result = PotentiallyOpaqueSharedStorageBudgetMetadataPtr(std::in_place);
     result->set_transparent(std::move(value));
     return result;
   }
@@ -863,7 +863,7 @@ class PLATFORM_EXPORT PotentiallyOpaqueSharedStorageBudgetMetadata {
   static PotentiallyOpaqueSharedStorageBudgetMetadataPtr
   NewOpaque(
       ::blink::FencedFrame::Opaque value) {
-    auto result = PotentiallyOpaqueSharedStorageBudgetMetadataPtr(absl::in_place);
+    auto result = PotentiallyOpaqueSharedStorageBudgetMetadataPtr(std::in_place);
     result->set_opaque(std::move(value));
     return result;
   }
@@ -977,7 +977,7 @@ class PLATFORM_EXPORT AdAuctionData {
   template <typename... Args>
   static AdAuctionDataPtr New(Args&&... args) {
     return AdAuctionDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1120,7 +1120,7 @@ class PLATFORM_EXPORT URNConfigPair {
   template <typename... Args>
   static URNConfigPairPtr New(Args&&... args) {
     return URNConfigPairPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1263,7 +1263,7 @@ class PLATFORM_EXPORT SharedStorageBudgetMetadata {
   template <typename... Args>
   static SharedStorageBudgetMetadataPtr New(Args&&... args) {
     return SharedStorageBudgetMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1409,7 +1409,7 @@ class PLATFORM_EXPORT ParentPermissionsInfo {
   template <typename... Args>
   static ParentPermissionsInfoPtr New(Args&&... args) {
     return ParentPermissionsInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1552,7 +1552,7 @@ class PLATFORM_EXPORT FencedFrameConfig {
   template <typename... Args>
   static FencedFrameConfigPtr New(Args&&... args) {
     return FencedFrameConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1724,7 +1724,7 @@ class PLATFORM_EXPORT FencedFrameProperties {
   template <typename... Args>
   static FencedFramePropertiesPtr New(Args&&... args) {
     return FencedFramePropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

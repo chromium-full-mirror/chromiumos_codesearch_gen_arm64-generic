@@ -174,7 +174,7 @@ class BLINK_PLATFORM_EXPORT CrossOriginEmbedderPolicy {
   template <typename... Args>
   static CrossOriginEmbedderPolicyPtr New(Args&&... args) {
     return CrossOriginEmbedderPolicyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

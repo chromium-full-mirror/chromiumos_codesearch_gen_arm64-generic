@@ -291,6 +291,7 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_webgl_uniform_location.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_webgl_vertex_array_object.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_websocket.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_websocket_error.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_websocket_stream.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_wgsl_language_features.h"
 #include "third_party/blink/renderer/core/context_features/context_feature_settings.h"
@@ -2206,6 +2207,13 @@ BLINK_BINDINGS_TRACE_EVENT("DedicatedWorkerGlobalScope.WebSocket");
 bindings::V8SetReturnValue(info, V8WebSocket::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
 }
 
+void WebSocketErrorExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DedicatedWorkerGlobalScope_WebSocketError_ConstructorGetterCallback");
+BLINK_BINDINGS_TRACE_EVENT("DedicatedWorkerGlobalScope.WebSocketError");
+
+bindings::V8SetReturnValue(info, V8WebSocketError::GetWrapperTypeInfo(), bindings::V8ReturnValue::kInterfaceObject);
+}
+
 void WebSocketStreamExposedConstructCallback(v8::Local<v8::Name> v8_property_name, const v8::PropertyCallbackInfo<v8::Value>& info) {
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_DedicatedWorkerGlobalScope_WebSocketStream_ConstructorGetterCallback");
 BLINK_BINDINGS_TRACE_EVENT("DedicatedWorkerGlobalScope.WebSocketStream");
@@ -3033,6 +3041,7 @@ IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_template, 
 }
 if (RuntimeEnabledFeatures::WebSocketStreamEnabled()) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"WebSocketError", WebSocketErrorExposedConstructCallback}, 
 {"WebSocketStream", WebSocketStreamExposedConstructCallback}, 
 };
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
@@ -3076,46 +3085,6 @@ if (is_in_secure_context && feature_selector.IsAll()) {
 {"CacheStorage", CacheStorageExposedConstructCallback}, 
 {"CryptoKey", CryptoKeyExposedConstructCallback}, 
 {"FileSystemSyncAccessHandle", FileSystemSyncAccessHandleExposedConstructCallback}, 
-{"GPU", GPUExposedConstructCallback}, 
-{"GPUAdapter", GPUAdapterExposedConstructCallback}, 
-{"GPUAdapterInfo", GPUAdapterInfoExposedConstructCallback}, 
-{"GPUBindGroup", GPUBindGroupExposedConstructCallback}, 
-{"GPUBindGroupLayout", GPUBindGroupLayoutExposedConstructCallback}, 
-{"GPUBuffer", GPUBufferExposedConstructCallback}, 
-{"GPUBufferUsage", GPUBufferUsageExposedConstructCallback}, 
-{"GPUCanvasContext", GPUCanvasContextExposedConstructCallback}, 
-{"GPUColorWrite", GPUColorWriteExposedConstructCallback}, 
-{"GPUCommandBuffer", GPUCommandBufferExposedConstructCallback}, 
-{"GPUCommandEncoder", GPUCommandEncoderExposedConstructCallback}, 
-{"GPUCompilationInfo", GPUCompilationInfoExposedConstructCallback}, 
-{"GPUCompilationMessage", GPUCompilationMessageExposedConstructCallback}, 
-{"GPUComputePassEncoder", GPUComputePassEncoderExposedConstructCallback}, 
-{"GPUComputePipeline", GPUComputePipelineExposedConstructCallback}, 
-{"GPUDevice", GPUDeviceExposedConstructCallback}, 
-{"GPUDeviceLostInfo", GPUDeviceLostInfoExposedConstructCallback}, 
-{"GPUError", GPUErrorExposedConstructCallback}, 
-{"GPUExternalTexture", GPUExternalTextureExposedConstructCallback}, 
-{"GPUInternalError", GPUInternalErrorExposedConstructCallback}, 
-{"GPUMapMode", GPUMapModeExposedConstructCallback}, 
-{"GPUOutOfMemoryError", GPUOutOfMemoryErrorExposedConstructCallback}, 
-{"GPUPipelineError", GPUPipelineErrorExposedConstructCallback}, 
-{"GPUPipelineLayout", GPUPipelineLayoutExposedConstructCallback}, 
-{"GPUQuerySet", GPUQuerySetExposedConstructCallback}, 
-{"GPUQueue", GPUQueueExposedConstructCallback}, 
-{"GPURenderBundle", GPURenderBundleExposedConstructCallback}, 
-{"GPURenderBundleEncoder", GPURenderBundleEncoderExposedConstructCallback}, 
-{"GPURenderPassEncoder", GPURenderPassEncoderExposedConstructCallback}, 
-{"GPURenderPipeline", GPURenderPipelineExposedConstructCallback}, 
-{"GPUSampler", GPUSamplerExposedConstructCallback}, 
-{"GPUShaderModule", GPUShaderModuleExposedConstructCallback}, 
-{"GPUShaderStage", GPUShaderStageExposedConstructCallback}, 
-{"GPUSupportedFeatures", GPUSupportedFeaturesExposedConstructCallback}, 
-{"GPUSupportedLimits", GPUSupportedLimitsExposedConstructCallback}, 
-{"GPUTexture", GPUTextureExposedConstructCallback}, 
-{"GPUTextureUsage", GPUTextureUsageExposedConstructCallback}, 
-{"GPUTextureView", GPUTextureViewExposedConstructCallback}, 
-{"GPUUncapturedErrorEvent", GPUUncapturedErrorEventExposedConstructCallback}, 
-{"GPUValidationError", GPUValidationErrorExposedConstructCallback}, 
 {"IdleDetector", IdleDetectorExposedConstructCallback}, 
 {"ImageDecoder", ImageDecoderExposedConstructCallback}, 
 {"Lock", LockExposedConstructCallback}, 
@@ -3126,7 +3095,6 @@ if (is_in_secure_context && feature_selector.IsAll()) {
 {"SubtleCrypto", SubtleCryptoExposedConstructCallback}, 
 {"VideoDecoder", VideoDecoderExposedConstructCallback}, 
 {"VideoEncoder", VideoEncoderExposedConstructCallback}, 
-{"WGSLLanguageFeatures", WGSLLanguageFeaturesExposedConstructCallback}, 
 {"WebTransport", WebTransportExposedConstructCallback}, 
 {"WebTransportBidirectionalStream", WebTransportBidirectionalStreamExposedConstructCallback}, 
 {"WebTransportDatagramDuplexStream", WebTransportDatagramDuplexStreamExposedConstructCallback}, 
@@ -3177,7 +3145,56 @@ v8::Local<v8::FunctionTemplate> interface_function_template = interface_template
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
 IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
 }
-if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled())) {
+if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::WebGPUEnabled())) {
+  static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
+{"GPU", GPUExposedConstructCallback}, 
+{"GPUAdapter", GPUAdapterExposedConstructCallback}, 
+{"GPUAdapterInfo", GPUAdapterInfoExposedConstructCallback}, 
+{"GPUBindGroup", GPUBindGroupExposedConstructCallback}, 
+{"GPUBindGroupLayout", GPUBindGroupLayoutExposedConstructCallback}, 
+{"GPUBuffer", GPUBufferExposedConstructCallback}, 
+{"GPUBufferUsage", GPUBufferUsageExposedConstructCallback}, 
+{"GPUCanvasContext", GPUCanvasContextExposedConstructCallback}, 
+{"GPUColorWrite", GPUColorWriteExposedConstructCallback}, 
+{"GPUCommandBuffer", GPUCommandBufferExposedConstructCallback}, 
+{"GPUCommandEncoder", GPUCommandEncoderExposedConstructCallback}, 
+{"GPUCompilationInfo", GPUCompilationInfoExposedConstructCallback}, 
+{"GPUCompilationMessage", GPUCompilationMessageExposedConstructCallback}, 
+{"GPUComputePassEncoder", GPUComputePassEncoderExposedConstructCallback}, 
+{"GPUComputePipeline", GPUComputePipelineExposedConstructCallback}, 
+{"GPUDevice", GPUDeviceExposedConstructCallback}, 
+{"GPUDeviceLostInfo", GPUDeviceLostInfoExposedConstructCallback}, 
+{"GPUError", GPUErrorExposedConstructCallback}, 
+{"GPUExternalTexture", GPUExternalTextureExposedConstructCallback}, 
+{"GPUInternalError", GPUInternalErrorExposedConstructCallback}, 
+{"GPUMapMode", GPUMapModeExposedConstructCallback}, 
+{"GPUOutOfMemoryError", GPUOutOfMemoryErrorExposedConstructCallback}, 
+{"GPUPipelineError", GPUPipelineErrorExposedConstructCallback}, 
+{"GPUPipelineLayout", GPUPipelineLayoutExposedConstructCallback}, 
+{"GPUQuerySet", GPUQuerySetExposedConstructCallback}, 
+{"GPUQueue", GPUQueueExposedConstructCallback}, 
+{"GPURenderBundle", GPURenderBundleExposedConstructCallback}, 
+{"GPURenderBundleEncoder", GPURenderBundleEncoderExposedConstructCallback}, 
+{"GPURenderPassEncoder", GPURenderPassEncoderExposedConstructCallback}, 
+{"GPURenderPipeline", GPURenderPipelineExposedConstructCallback}, 
+{"GPUSampler", GPUSamplerExposedConstructCallback}, 
+{"GPUShaderModule", GPUShaderModuleExposedConstructCallback}, 
+{"GPUShaderStage", GPUShaderStageExposedConstructCallback}, 
+{"GPUSupportedFeatures", GPUSupportedFeaturesExposedConstructCallback}, 
+{"GPUSupportedLimits", GPUSupportedLimitsExposedConstructCallback}, 
+{"GPUTexture", GPUTextureExposedConstructCallback}, 
+{"GPUTextureUsage", GPUTextureUsageExposedConstructCallback}, 
+{"GPUTextureView", GPUTextureViewExposedConstructCallback}, 
+{"GPUUncapturedErrorEvent", GPUUncapturedErrorEventExposedConstructCallback}, 
+{"GPUValidationError", GPUValidationErrorExposedConstructCallback}, 
+{"WGSLLanguageFeatures", WGSLLanguageFeaturesExposedConstructCallback}, 
+};
+v8::Isolate* isolate = context->GetIsolate();
+v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
+v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
+IDLMemberInstaller::InstallExposedConstructs(isolate, world, instance_object, prototype_object, interface_object, signature, kExposedConstructTable);
+}
+if (is_in_secure_context && (feature_selector.IsAll() && RuntimeEnabledFeatures::WebGPUEnabled() && RuntimeEnabledFeatures::WebGPUDeveloperFeaturesEnabled())) {
   static const IDLMemberInstaller::ExposedConstructConfig kExposedConstructTable[] = {
 {"GPUHeapProperty", GPUHeapPropertyExposedConstructCallback}, 
 {"GPUMemoryHeapInfo", GPUMemoryHeapInfoExposedConstructCallback}, 

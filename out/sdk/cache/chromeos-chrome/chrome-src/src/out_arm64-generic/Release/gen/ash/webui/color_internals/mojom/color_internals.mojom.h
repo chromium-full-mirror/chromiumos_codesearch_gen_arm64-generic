@@ -268,7 +268,7 @@ class  WallpaperCalculatedColors {
   template <typename... Args>
   static WallpaperCalculatedColorsPtr New(Args&&... args) {
     return WallpaperCalculatedColorsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

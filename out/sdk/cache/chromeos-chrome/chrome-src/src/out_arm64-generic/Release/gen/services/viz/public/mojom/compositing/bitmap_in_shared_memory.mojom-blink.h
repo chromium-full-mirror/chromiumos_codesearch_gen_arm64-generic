@@ -62,7 +62,7 @@ class BLINK_PLATFORM_EXPORT BitmapInSharedMemory {
   template <typename... Args>
   static BitmapInSharedMemoryPtr New(Args&&... args) {
     return BitmapInSharedMemoryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

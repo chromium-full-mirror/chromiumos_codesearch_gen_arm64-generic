@@ -34,22 +34,22 @@ static WebSocketCloseInfo* Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_
 explicit  WebSocketCloseInfo();
 explicit  WebSocketCloseInfo(v8::Isolate* isolate);
 
-bool hasCode() const {
-  return has_code_;
+bool hasCloseCode() const {
+  return has_close_code_;
 }
-uint16_t code() const {
-  DCHECK(hasCode());
-return member_code_;
+uint16_t closeCode() const {
+  DCHECK(hasCloseCode());
+return member_close_code_;
 }
-uint16_t getCodeOr(uint16_t fallback_value) const {
-  if (!hasCode()) {
+uint16_t getCloseCodeOr(uint16_t fallback_value) const {
+  if (!hasCloseCode()) {
   return fallback_value;
 }
-return member_code_;
+return member_close_code_;
 }
-void setCode(uint16_t value) {
-  member_code_ = value;
-has_code_ = true;
+void setCloseCode(uint16_t value) {
+  member_close_code_ = value;
+has_close_code_ = true;
 }
 
 bool hasReason() const {
@@ -76,9 +76,9 @@ void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dict
   private:
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
-bool has_code_ = false;
+bool has_close_code_ = false;
 
-uint16_t member_code_;
+uint16_t member_close_code_;
 String member_reason_{""};
 
 

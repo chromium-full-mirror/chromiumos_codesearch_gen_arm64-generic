@@ -343,7 +343,7 @@ class  BrowserWindowInstanceUpdate {
   template <typename... Args>
   static BrowserWindowInstanceUpdatePtr New(Args&&... args) {
     return BrowserWindowInstanceUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -378,6 +378,15 @@ class  BrowserWindowInstanceUpdate {
       uint32_t browser_session_id,
       uint32_t restored_browser_session_id,
       bool is_incognito);
+
+  BrowserWindowInstanceUpdate(
+      const ::base::UnguessableToken& id,
+      const std::string& window_id,
+      bool is_active,
+      uint32_t browser_session_id,
+      uint32_t restored_browser_session_id,
+      bool is_incognito,
+      uint64_t lacros_profile_id);
 
 
   ~BrowserWindowInstanceUpdate();
@@ -466,6 +475,8 @@ class  BrowserWindowInstanceUpdate {
   uint32_t restored_browser_session_id;
   
   bool is_incognito;
+  
+  uint64_t lacros_profile_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -510,7 +521,7 @@ class  BrowserAppInstanceUpdate {
   template <typename... Args>
   static BrowserAppInstanceUpdatePtr New(Args&&... args) {
     return BrowserAppInstanceUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -677,7 +688,8 @@ BrowserWindowInstanceUpdatePtr BrowserWindowInstanceUpdate::Clone() const {
       mojo::Clone(is_active),
       mojo::Clone(browser_session_id),
       mojo::Clone(restored_browser_session_id),
-      mojo::Clone(is_incognito)
+      mojo::Clone(is_incognito),
+      mojo::Clone(lacros_profile_id)
   );
 }
 
@@ -694,6 +706,8 @@ bool BrowserWindowInstanceUpdate::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->restored_browser_session_id, other_struct.restored_browser_session_id))
     return false;
   if (!mojo::Equals(this->is_incognito, other_struct.is_incognito))
+    return false;
+  if (!mojo::Equals(this->lacros_profile_id, other_struct.lacros_profile_id))
     return false;
   return true;
 }
@@ -723,6 +737,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.is_incognito < rhs.is_incognito)
     return true;
   if (rhs.is_incognito < lhs.is_incognito)
+    return false;
+  if (lhs.lacros_profile_id < rhs.lacros_profile_id)
+    return true;
+  if (rhs.lacros_profile_id < lhs.lacros_profile_id)
     return false;
   return false;
 }
@@ -845,6 +863,11 @@ struct  StructTraits<::crosapi::mojom::BrowserWindowInstanceUpdate::DataView,
   static decltype(::crosapi::mojom::BrowserWindowInstanceUpdate::is_incognito) is_incognito(
       const ::crosapi::mojom::BrowserWindowInstanceUpdatePtr& input) {
     return input->is_incognito;
+  }
+
+  static decltype(::crosapi::mojom::BrowserWindowInstanceUpdate::lacros_profile_id) lacros_profile_id(
+      const ::crosapi::mojom::BrowserWindowInstanceUpdatePtr& input) {
+    return input->lacros_profile_id;
   }
 
   static bool Read(::crosapi::mojom::BrowserWindowInstanceUpdate::DataView input, ::crosapi::mojom::BrowserWindowInstanceUpdatePtr* output);

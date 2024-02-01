@@ -25,32 +25,6 @@ namespace internal {
 
 
 // static
-bool AutofillDriver_SetFormToBeProbablySubmitted_Params_Data::Validate(
-    const void* data,
-    mojo::internal::ValidationContext* validation_context) {
-  if (!data)
-    return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 16, validation_context)) {
-    return false;
-  }
-
-  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
-  // the message comes from an older version.
-  [[maybe_unused]] const AutofillDriver_SetFormToBeProbablySubmitted_Params_Data* object =
-      static_cast<const AutofillDriver_SetFormToBeProbablySubmitted_Params_Data*>(data);
-
-  if (!mojo::internal::ValidateStruct(object->form, validation_context))
-    return false;
-
-  return true;
-}
-
-AutofillDriver_SetFormToBeProbablySubmitted_Params_Data::AutofillDriver_SetFormToBeProbablySubmitted_Params_Data()
-    : header_({sizeof(*this), 0}) {}
-
-
-// static
 bool AutofillDriver_FormsSeen_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

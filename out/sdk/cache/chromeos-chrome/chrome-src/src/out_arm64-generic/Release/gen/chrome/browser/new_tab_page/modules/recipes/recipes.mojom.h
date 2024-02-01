@@ -207,7 +207,7 @@ class  Recipe {
   template <typename... Args>
   static RecipePtr New(Args&&... args) {
     return RecipePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -359,7 +359,7 @@ class  RelatedSearch {
   template <typename... Args>
   static RelatedSearchPtr New(Args&&... args) {
     return RelatedSearchPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -502,7 +502,7 @@ class  Task {
   template <typename... Args>
   static TaskPtr New(Args&&... args) {
     return TaskPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

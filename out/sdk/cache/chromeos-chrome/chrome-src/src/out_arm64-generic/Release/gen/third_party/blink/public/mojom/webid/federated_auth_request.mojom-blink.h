@@ -267,7 +267,7 @@ class PLATFORM_EXPORT DigitalCredentialFieldRequirement {
   template <typename... Args>
   static DigitalCredentialFieldRequirementPtr New(Args&&... args) {
     return DigitalCredentialFieldRequirementPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -413,7 +413,7 @@ class PLATFORM_EXPORT IdentityUserInfo {
   template <typename... Args>
   static IdentityUserInfoPtr New(Args&&... args) {
     return IdentityUserInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -564,7 +564,7 @@ class PLATFORM_EXPORT TokenError {
   template <typename... Args>
   static TokenErrorPtr New(Args&&... args) {
     return TokenErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -717,7 +717,7 @@ class PLATFORM_EXPORT IdentityProvider {
   static IdentityProviderPtr
   NewFederated(
       IdentityProviderRequestOptionsPtr value) {
-    auto result = IdentityProviderPtr(absl::in_place);
+    auto result = IdentityProviderPtr(std::in_place);
     result->set_federated(std::move(value));
     return result;
   }
@@ -725,7 +725,7 @@ class PLATFORM_EXPORT IdentityProvider {
   static IdentityProviderPtr
   NewHolder(
       DigitalCredentialProviderPtr value) {
-    auto result = IdentityProviderPtr(absl::in_place);
+    auto result = IdentityProviderPtr(std::in_place);
     result->set_holder(std::move(value));
     return result;
   }
@@ -839,7 +839,7 @@ class PLATFORM_EXPORT DigitalCredentialProvider {
   template <typename... Args>
   static DigitalCredentialProviderPtr New(Args&&... args) {
     return DigitalCredentialProviderPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -993,7 +993,7 @@ class PLATFORM_EXPORT DigitalCredentialSelector {
   template <typename... Args>
   static DigitalCredentialSelectorPtr New(Args&&... args) {
     return DigitalCredentialSelectorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1142,7 +1142,7 @@ class PLATFORM_EXPORT IdentityProviderConfig {
   template <typename... Args>
   static IdentityProviderConfigPtr New(Args&&... args) {
     return IdentityProviderConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1288,7 +1288,7 @@ class PLATFORM_EXPORT IdentityProviderRequestOptions {
   template <typename... Args>
   static IdentityProviderRequestOptionsPtr New(Args&&... args) {
     return IdentityProviderRequestOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1448,7 +1448,7 @@ class PLATFORM_EXPORT IdentityCredentialDisconnectOptions {
   template <typename... Args>
   static IdentityCredentialDisconnectOptionsPtr New(Args&&... args) {
     return IdentityCredentialDisconnectOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1594,7 +1594,7 @@ class PLATFORM_EXPORT IdentityProviderGetParameters {
   template <typename... Args>
   static IdentityProviderGetParametersPtr New(Args&&... args) {
     return IdentityProviderGetParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

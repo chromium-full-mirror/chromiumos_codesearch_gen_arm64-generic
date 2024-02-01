@@ -57,7 +57,7 @@ class BLINK_COMMON_EXPORT ServerTimingInfo {
   template <typename... Args>
   static ServerTimingInfoPtr New(Args&&... args) {
     return ServerTimingInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -208,7 +208,7 @@ class BLINK_COMMON_EXPORT ResourceTimingInfo {
   template <typename... Args>
   static ResourceTimingInfoPtr New(Args&&... args) {
     return ResourceTimingInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

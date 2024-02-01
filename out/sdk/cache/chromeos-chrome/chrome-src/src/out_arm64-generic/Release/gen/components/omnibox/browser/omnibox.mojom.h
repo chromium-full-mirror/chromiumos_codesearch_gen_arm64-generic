@@ -357,7 +357,7 @@ class  ACMatchClassification {
   template <typename... Args>
   static ACMatchClassificationPtr New(Args&&... args) {
     return ACMatchClassificationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -506,7 +506,7 @@ class  OmniboxPopupSelection {
   template <typename... Args>
   static OmniboxPopupSelectionPtr New(Args&&... args) {
     return OmniboxPopupSelectionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -656,7 +656,7 @@ class  Action {
   template <typename... Args>
   static ActionPtr New(Args&&... args) {
     return ActionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -805,7 +805,7 @@ class  SuggestionAnswer {
   template <typename... Args>
   static SuggestionAnswerPtr New(Args&&... args) {
     return SuggestionAnswerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -948,7 +948,7 @@ class  AutocompleteMatch {
   template <typename... Args>
   static AutocompleteMatchPtr New(Args&&... args) {
     return AutocompleteMatchPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1156,7 +1156,7 @@ class  SuggestionGroup {
   template <typename... Args>
   static SuggestionGroupPtr New(Args&&... args) {
     return SuggestionGroupPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1308,7 +1308,7 @@ class  AutocompleteResult {
   template <typename... Args>
   static AutocompleteResultPtr New(Args&&... args) {
     return AutocompleteResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

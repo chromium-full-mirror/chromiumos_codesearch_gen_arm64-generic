@@ -579,7 +579,7 @@ class BLINK_PLATFORM_EXPORT P2PReceivedPacket {
   template <typename... Args>
   static P2PReceivedPacketPtr New(Args&&... args) {
     return P2PReceivedPacketPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -725,7 +725,7 @@ class BLINK_PLATFORM_EXPORT P2PSendPacket {
   template <typename... Args>
   static P2PSendPacketPtr New(Args&&... args) {
     return P2PSendPacketPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

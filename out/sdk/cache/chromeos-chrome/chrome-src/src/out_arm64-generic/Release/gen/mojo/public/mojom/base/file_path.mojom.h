@@ -54,7 +54,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) FilePath {
   template <typename... Args>
   static FilePathPtr New(Args&&... args) {
     return FilePathPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -194,7 +194,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) RelativeFilePath {
   template <typename... Args>
   static RelativeFilePathPtr New(Args&&... args) {
     return RelativeFilePathPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

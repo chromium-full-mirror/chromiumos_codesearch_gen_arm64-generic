@@ -176,7 +176,7 @@ class  SelectFileTypeInfo {
   template <typename... Args>
   static SelectFileTypeInfoPtr New(Args&&... args) {
     return SelectFileTypeInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -328,7 +328,7 @@ class  SelectFileOptions {
   template <typename... Args>
   static SelectFileOptionsPtr New(Args&&... args) {
     return SelectFileOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -492,7 +492,7 @@ class  SelectedFileInfo {
   template <typename... Args>
   static SelectedFileInfoPtr New(Args&&... args) {
     return SelectedFileInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

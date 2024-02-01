@@ -60,7 +60,7 @@ class  VulkanPhysicalDeviceInfo {
   template <typename... Args>
   static VulkanPhysicalDeviceInfoPtr New(Args&&... args) {
     return VulkanPhysicalDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -217,7 +217,7 @@ class  VulkanInfo {
   template <typename... Args>
   static VulkanInfoPtr New(Args&&... args) {
     return VulkanInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

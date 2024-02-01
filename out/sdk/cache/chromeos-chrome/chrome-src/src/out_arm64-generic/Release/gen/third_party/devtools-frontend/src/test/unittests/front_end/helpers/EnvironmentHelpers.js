@@ -93,7 +93,7 @@ const REGISTERED_EXPERIMENTS = [
     'timelineInvalidationTracking',
     'ignoreListJSFramesOnTimeline',
     'instrumentationBreakpoints',
-    'cssTypeComponentLength',
+    'cssTypeComponentLengthDeprecate',
     'stylesPaneCSSChanges',
     'timelineAsConsoleProfileResultPanel',
     'headerOverrides',
@@ -187,7 +187,7 @@ export async function initializeGlobalVars({ reset = true } = {}) {
         createSettingValue("CONSOLE" /* Common.Settings.SettingCategory.CONSOLE */, 'consoleEagerEval', false, "boolean" /* Common.Settings.SettingType.BOOLEAN */),
         createSettingValue("CONSOLE" /* Common.Settings.SettingCategory.CONSOLE */, 'consoleUserActivationEval', false, "boolean" /* Common.Settings.SettingType.BOOLEAN */),
         createSettingValue("CONSOLE" /* Common.Settings.SettingCategory.CONSOLE */, 'consoleTraceExpand', false, "boolean" /* Common.Settings.SettingType.BOOLEAN */),
-        createSettingValue("PERFORMANCE" /* Common.Settings.SettingCategory.PERFORMANCE */, 'flamechartMouseWheelAction', false, "enum" /* Common.Settings.SettingType.ENUM */),
+        createSettingValue("PERFORMANCE" /* Common.Settings.SettingCategory.PERFORMANCE */, 'flamechart-mouse-wheel-action', false, "enum" /* Common.Settings.SettingType.ENUM */),
     ];
     Common.Settings.registerSettingsForTest(settings, reset);
     // Instantiate the storage.

@@ -181,7 +181,7 @@ class PLATFORM_EXPORT BadgeValue {
   static BadgeValuePtr
   NewFlag(
       uint8_t value) {
-    auto result = BadgeValuePtr(absl::in_place);
+    auto result = BadgeValuePtr(std::in_place);
     result->set_flag(std::move(value));
     return result;
   }
@@ -189,7 +189,7 @@ class PLATFORM_EXPORT BadgeValue {
   static BadgeValuePtr
   NewNumber(
       uint64_t value) {
-    auto result = BadgeValuePtr(absl::in_place);
+    auto result = BadgeValuePtr(std::in_place);
     result->set_number(std::move(value));
     return result;
   }

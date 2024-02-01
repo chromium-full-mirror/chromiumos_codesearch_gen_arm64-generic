@@ -272,7 +272,7 @@ class  NonLidAngleUpdateInfo {
   template <typename... Args>
   static NonLidAngleUpdateInfoPtr New(Args&&... args) {
     return NonLidAngleUpdateInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -422,7 +422,7 @@ class  LidAngleUpdateInfo {
   template <typename... Args>
   static LidAngleUpdateInfoPtr New(Args&&... args) {
     return LidAngleUpdateInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -576,7 +576,7 @@ class  SensorUpdateInfo {
   static SensorUpdateInfoPtr
   NewLidAngleUpdateInfo(
       LidAngleUpdateInfoPtr value) {
-    auto result = SensorUpdateInfoPtr(absl::in_place);
+    auto result = SensorUpdateInfoPtr(std::in_place);
     result->set_lid_angle_update_info(std::move(value));
     return result;
   }
@@ -584,7 +584,7 @@ class  SensorUpdateInfo {
   static SensorUpdateInfoPtr
   NewUpdateInfo(
       NonLidAngleUpdateInfoPtr value) {
-    auto result = SensorUpdateInfoPtr(absl::in_place);
+    auto result = SensorUpdateInfoPtr(std::in_place);
     result->set_update_info(std::move(value));
     return result;
   }

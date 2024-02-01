@@ -271,7 +271,7 @@ class  EventListenerOwner {
   static EventListenerOwnerPtr
   NewExtensionId(
       const std::string& value) {
-    auto result = EventListenerOwnerPtr(absl::in_place);
+    auto result = EventListenerOwnerPtr(std::in_place);
     result->set_extension_id(std::move(value));
     return result;
   }
@@ -279,7 +279,7 @@ class  EventListenerOwner {
   static EventListenerOwnerPtr
   NewListenerUrl(
       const ::GURL& value) {
-    auto result = EventListenerOwnerPtr(absl::in_place);
+    auto result = EventListenerOwnerPtr(std::in_place);
     result->set_listener_url(std::move(value));
     return result;
   }
@@ -393,7 +393,7 @@ class  ServiceWorkerContext {
   template <typename... Args>
   static ServiceWorkerContextPtr New(Args&&... args) {
     return ServiceWorkerContextPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -539,7 +539,7 @@ class  EventListener {
   template <typename... Args>
   static EventListenerPtr New(Args&&... args) {
     return EventListenerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

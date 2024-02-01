@@ -1995,7 +1995,7 @@ class  StateResult {
   template <typename... Args>
   static StateResultPtr New(Args&&... args) {
     return StateResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2145,7 +2145,7 @@ class  Component {
   template <typename... Args>
   static ComponentPtr New(Args&&... args) {
     return ComponentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2291,7 +2291,7 @@ class  CalibrationComponentStatus {
   template <typename... Args>
   static CalibrationComponentStatusPtr New(Args&&... args) {
     return CalibrationComponentStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2437,7 +2437,7 @@ class  Shimless3pDiagnosticsAppInfo {
   template <typename... Args>
   static Shimless3pDiagnosticsAppInfoPtr New(Args&&... args) {
     return Shimless3pDiagnosticsAppInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2583,7 +2583,7 @@ class  QrCode {
   template <typename... Args>
   static QrCodePtr New(Args&&... args) {
     return QrCodePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -295,7 +295,7 @@ class  AssistantTimer {
   template <typename... Args>
   static AssistantTimerPtr New(Args&&... args) {
     return AssistantTimerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

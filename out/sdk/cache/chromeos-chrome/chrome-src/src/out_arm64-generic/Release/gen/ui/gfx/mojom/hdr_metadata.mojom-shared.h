@@ -205,7 +205,7 @@ static_assert(
         ::gfx::mojom::HdrMetadataSmpteSt2086DataView, UserType>(),
     "Attempting to read the optional `smpte_st_2086` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSmpteSt2086` instead "
     "of `ReadSmpteSt2086 if you're fine with null values being "
@@ -225,7 +225,7 @@ static_assert(
         ::gfx::mojom::HdrMetadataCta861_3DataView, UserType>(),
     "Attempting to read the optional `cta_861_3` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCta8613` instead "
     "of `ReadCta8613 if you're fine with null values being "
@@ -245,7 +245,7 @@ static_assert(
         ::gfx::mojom::HdrMetadataNdwlDataView, UserType>(),
     "Attempting to read the optional `ndwl` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNdwl` instead "
     "of `ReadNdwl if you're fine with null values being "
@@ -265,7 +265,7 @@ static_assert(
         ::gfx::mojom::HdrMetadataExtendedRangeDataView, UserType>(),
     "Attempting to read the optional `extended_range` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadExtendedRange` instead "
     "of `ReadExtendedRange if you're fine with null values being "

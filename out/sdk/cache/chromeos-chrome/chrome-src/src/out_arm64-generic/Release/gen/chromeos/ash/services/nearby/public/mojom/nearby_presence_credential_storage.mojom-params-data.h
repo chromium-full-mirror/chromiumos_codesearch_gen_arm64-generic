@@ -290,7 +290,7 @@ static_assert(
         mojo::ArrayDataView<::ash::nearby::presence::mojom::SharedCredentialDataView>, UserType>(),
     "Attempting to read the optional `shared_credentials` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSharedCredentials` instead "
     "of `ReadSharedCredentials if you're fine with null values being "
@@ -351,7 +351,7 @@ static_assert(
         mojo::ArrayDataView<::ash::nearby::presence::mojom::LocalCredentialDataView>, UserType>(),
     "Attempting to read the optional `local_credentials` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLocalCredentials` instead "
     "of `ReadLocalCredentials if you're fine with null values being "

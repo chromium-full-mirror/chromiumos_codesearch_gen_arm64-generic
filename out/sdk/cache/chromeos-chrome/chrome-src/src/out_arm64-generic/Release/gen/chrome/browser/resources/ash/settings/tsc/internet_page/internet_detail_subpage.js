@@ -1505,7 +1505,7 @@ export class SettingsInternetDetailPageElement extends SettingsInternetDetailPag
         else if (isSecondaryUser) {
             first = 'secondary';
         }
-        else if (this.showShared_(managedProperties, globalPolicy, managedNetworkAvailable)) {
+        else if (this.showShared_(managedProperties, globalPolicy, managedNetworkAvailable, deviceState)) {
             first = 'shared';
         }
         else if (this.showSynced_(managedProperties, globalPolicy, managedNetworkAvailable, isWifiSyncEnabled)) {
@@ -1521,7 +1521,10 @@ export class SettingsInternetDetailPageElement extends SettingsInternetDetailPag
         return !this.propertiesMissingOrBlockedByPolicy_() && isWifiSyncEnabled &&
             !!managedProperties.typeProperties.wifi;
     }
-    showShared_(managedProperties, _globalPolicy, _managedNetworkAvailable) {
+    showShared_(managedProperties, _globalPolicy, _managedNetworkAvailable, deviceState) {
+        if (this.isCarrierLockedActiveSim_(managedProperties, deviceState)) {
+            return false;
+        }
         return !this.propertiesMissingOrBlockedByPolicy_() &&
             (managedProperties.source === OncSource.kDevice ||
                 managedProperties.source === OncSource.kDevicePolicy);

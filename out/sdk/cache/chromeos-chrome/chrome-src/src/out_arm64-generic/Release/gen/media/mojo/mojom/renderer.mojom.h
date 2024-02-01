@@ -411,7 +411,7 @@ class  MediaUrlParams {
   template <typename... Args>
   static MediaUrlParamsPtr New(Args&&... args) {
     return MediaUrlParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

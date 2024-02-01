@@ -303,7 +303,7 @@ class  CreateContextOptions {
   template <typename... Args>
   static CreateContextOptionsPtr New(Args&&... args) {
     return CreateContextOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -454,7 +454,7 @@ class  CreateGraphResult {
   static CreateGraphResultPtr
   NewGraphRemote(
       ::mojo::PendingRemote<::webnn::mojom::blink::WebNNGraph> value) {
-    auto result = CreateGraphResultPtr(absl::in_place);
+    auto result = CreateGraphResultPtr(std::in_place);
     result->set_graph_remote(std::move(value));
     return result;
   }
@@ -462,7 +462,7 @@ class  CreateGraphResult {
   static CreateGraphResultPtr
   NewError(
       ::webnn::mojom::blink::ErrorPtr value) {
-    auto result = CreateGraphResultPtr(absl::in_place);
+    auto result = CreateGraphResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -584,7 +584,7 @@ class  CreateContextResult {
   static CreateContextResultPtr
   NewContextRemote(
       ::mojo::PendingRemote<WebNNContext> value) {
-    auto result = CreateContextResultPtr(absl::in_place);
+    auto result = CreateContextResultPtr(std::in_place);
     result->set_context_remote(std::move(value));
     return result;
   }
@@ -592,7 +592,7 @@ class  CreateContextResult {
   static CreateContextResultPtr
   NewError(
       ::webnn::mojom::blink::ErrorPtr value) {
-    auto result = CreateContextResultPtr(absl::in_place);
+    auto result = CreateContextResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }

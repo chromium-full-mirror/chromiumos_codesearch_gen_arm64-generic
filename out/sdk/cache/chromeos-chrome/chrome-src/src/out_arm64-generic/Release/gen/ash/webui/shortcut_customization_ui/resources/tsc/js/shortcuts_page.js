@@ -168,6 +168,7 @@ export class ShortcutsPageElement extends PolymerElement {
                 // Focus on the matching accelerator row.
                 strictQuery('#container', matchingAcceleratorRow.shadowRoot, HTMLTableRowElement)
                     .focus();
+                this.lookupManager.setSearchResultRowFocused(true);
                 // The scroll event did happen, so return true.
                 return true;
             }

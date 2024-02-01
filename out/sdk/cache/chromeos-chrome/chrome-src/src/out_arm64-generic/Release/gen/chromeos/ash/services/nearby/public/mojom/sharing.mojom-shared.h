@@ -171,7 +171,7 @@ static_assert(
         ::sharing::mojom::WifiLanDependenciesDataView, UserType>(),
     "Attempting to read the optional `wifilan_dependencies` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWifilanDependencies` instead "
     "of `ReadWifilanDependencies if you're fine with null values being "

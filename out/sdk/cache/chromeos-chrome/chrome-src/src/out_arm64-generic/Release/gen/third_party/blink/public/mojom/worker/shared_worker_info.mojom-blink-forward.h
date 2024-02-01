@@ -7,7 +7,7 @@
 #ifndef THIRD_PARTY_BLINK_PUBLIC_MOJOM_WORKER_SHARED_WORKER_INFO_MOJOM_BLINK_FORWARD_H_
 #define THIRD_PARTY_BLINK_PUBLIC_MOJOM_WORKER_SHARED_WORKER_INFO_MOJOM_BLINK_FORWARD_H_
 
-
+#include <stdint.h>
 
 #include "mojo/public/cpp/bindings/struct_forward.h"
 
@@ -22,11 +22,14 @@
 
 namespace blink::mojom {
 
+enum class SharedWorkerSameSiteCookies : int32_t;
+
 
 }  // blink::mojom
 
 
 namespace blink::mojom::blink {
+using SharedWorkerSameSiteCookies = SharedWorkerSameSiteCookies;
 class SharedWorkerInfo;
 using SharedWorkerInfoPtr = mojo::StructPtr<SharedWorkerInfo>;
 

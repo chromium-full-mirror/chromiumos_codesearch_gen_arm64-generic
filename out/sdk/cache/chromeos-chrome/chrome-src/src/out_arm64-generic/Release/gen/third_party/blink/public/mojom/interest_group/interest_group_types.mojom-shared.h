@@ -321,7 +321,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `size_group` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSizeGroup` instead "
     "of `ReadSizeGroup if you're fine with null values being "
@@ -341,7 +341,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `buyer_reporting_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBuyerReportingId` instead "
     "of `ReadBuyerReportingId if you're fine with null values being "
@@ -361,7 +361,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `buyer_and_seller_reporting_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBuyerAndSellerReportingId` instead "
     "of `ReadBuyerAndSellerReportingId if you're fine with null values being "
@@ -381,7 +381,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMetadata` instead "
     "of `ReadMetadata if you're fine with null values being "
@@ -401,7 +401,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `ad_render_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAdRenderId` instead "
     "of `ReadAdRenderId if you're fine with null values being "
@@ -421,7 +421,7 @@ static_assert(
         mojo::ArrayDataView<::url::mojom::OriginDataView>, UserType>(),
     "Attempting to read the optional `allowed_reporting_origins` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAllowedReportingOrigins` instead "
     "of `ReadAllowedReportingOrigins if you're fine with null values being "
@@ -535,7 +535,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, double>, UserType>(),
     "Attempting to read the optional `priority_vector` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPriorityVector` instead "
     "of `ReadPriorityVector if you're fine with null values being "
@@ -555,7 +555,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, double>, UserType>(),
     "Attempting to read the optional `priority_signals_overrides` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPrioritySignalsOverrides` instead "
     "of `ReadPrioritySignalsOverrides if you're fine with null values being "
@@ -575,7 +575,7 @@ static_assert(
         mojo::MapDataView<::url::mojom::OriginDataView, ::blink::mojom::SellerCapabilitiesDataView>, UserType>(),
     "Attempting to read the optional `seller_capabilities` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSellerCapabilities` instead "
     "of `ReadSellerCapabilities if you're fine with null values being "
@@ -625,7 +625,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `bidding_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBiddingUrl` instead "
     "of `ReadBiddingUrl if you're fine with null values being "
@@ -645,7 +645,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `bidding_wasm_helper_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBiddingWasmHelperUrl` instead "
     "of `ReadBiddingWasmHelperUrl if you're fine with null values being "
@@ -665,7 +665,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `update_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUpdateUrl` instead "
     "of `ReadUpdateUrl if you're fine with null values being "
@@ -685,7 +685,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `trusted_bidding_signals_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTrustedBiddingSignalsUrl` instead "
     "of `ReadTrustedBiddingSignalsUrl if you're fine with null values being "
@@ -705,7 +705,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `trusted_bidding_signals_keys` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTrustedBiddingSignalsKeys` instead "
     "of `ReadTrustedBiddingSignalsKeys if you're fine with null values being "
@@ -728,7 +728,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `user_bidding_signals` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUserBiddingSignals` instead "
     "of `ReadUserBiddingSignals if you're fine with null values being "
@@ -748,7 +748,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::InterestGroupAdDataView>, UserType>(),
     "Attempting to read the optional `ads` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAds` instead "
     "of `ReadAds if you're fine with null values being "
@@ -768,7 +768,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::InterestGroupAdDataView>, UserType>(),
     "Attempting to read the optional `ad_components` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAdComponents` instead "
     "of `ReadAdComponents if you're fine with null values being "
@@ -788,7 +788,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, ::blink::mojom::AdSizeDataView>, UserType>(),
     "Attempting to read the optional `ad_sizes` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAdSizes` instead "
     "of `ReadAdSizes if you're fine with null values being "
@@ -808,7 +808,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, mojo::ArrayDataView<mojo::StringDataView>>, UserType>(),
     "Attempting to read the optional `size_groups` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSizeGroups` instead "
     "of `ReadSizeGroups if you're fine with null values being "
@@ -838,7 +838,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `additional_bid_key` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAdditionalBidKey` instead "
     "of `ReadAdditionalBidKey if you're fine with null values being "
@@ -858,7 +858,7 @@ static_assert(
         ::url::mojom::OriginDataView, UserType>(),
     "Attempting to read the optional `aggregation_coordinator_origin` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAggregationCoordinatorOrigin` instead "
     "of `ReadAggregationCoordinatorOrigin if you're fine with null values being "
@@ -950,7 +950,7 @@ static_assert(
         ::blink::mojom::DirectFromSellerSignalsSubresourceDataView, UserType>(),
     "Attempting to read the optional `seller_signals` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSellerSignals` instead "
     "of `ReadSellerSignals if you're fine with null values being "
@@ -970,7 +970,7 @@ static_assert(
         ::blink::mojom::DirectFromSellerSignalsSubresourceDataView, UserType>(),
     "Attempting to read the optional `auction_signals` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAuctionSignals` instead "
     "of `ReadAuctionSignals if you're fine with null values being "
@@ -1006,7 +1006,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `all_buyers_timeout` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAllBuyersTimeout` instead "
     "of `ReadAllBuyersTimeout if you're fine with null values being "
@@ -1026,7 +1026,7 @@ static_assert(
         mojo::MapDataView<::url::mojom::OriginDataView, ::mojo_base::mojom::TimeDeltaDataView>, UserType>(),
     "Attempting to read the optional `per_buyer_timeouts` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPerBuyerTimeouts` instead "
     "of `ReadPerBuyerTimeouts if you're fine with null values being "
@@ -1088,7 +1088,7 @@ static_assert(
         ::blink::mojom::AdCurrencyDataView, UserType>(),
     "Attempting to read the optional `all_buyers_currency` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAllBuyersCurrency` instead "
     "of `ReadAllBuyersCurrency if you're fine with null values being "
@@ -1108,7 +1108,7 @@ static_assert(
         mojo::MapDataView<::url::mojom::OriginDataView, ::blink::mojom::AdCurrencyDataView>, UserType>(),
     "Attempting to read the optional `per_buyer_currencies` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPerBuyerCurrencies` instead "
     "of `ReadPerBuyerCurrencies if you're fine with null values being "
@@ -1165,8 +1165,8 @@ class AuctionReportBuyerDebugModeConfigDataView {
   std::optional<uint64_t> debug_key() const {
 
     return data_->debug_key_$flag
-        ? absl::make_optional(data_->debug_key_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->debug_key_$value)
+        : std::nullopt;
   }
  private:
   internal::AuctionReportBuyerDebugModeConfig_Data* data_ = nullptr;
@@ -1223,7 +1223,7 @@ static_assert(
         mojo::ArrayDataView<::url::mojom::OriginDataView>, UserType>(),
     "Attempting to read the optional `interest_group_buyers` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInterestGroupBuyers` instead "
     "of `ReadInterestGroupBuyers if you're fine with null values being "
@@ -1263,7 +1263,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `seller_timeout` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSellerTimeout` instead "
     "of `ReadSellerTimeout if you're fine with null values being "
@@ -1303,7 +1303,7 @@ static_assert(
         ::blink::mojom::AdCurrencyDataView, UserType>(),
     "Attempting to read the optional `seller_currency` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSellerCurrency` instead "
     "of `ReadSellerCurrency if you're fine with null values being "
@@ -1353,7 +1353,7 @@ static_assert(
         mojo::MapDataView<::url::mojom::OriginDataView, mojo::MapDataView<mojo::StringDataView, double>>, UserType>(),
     "Attempting to read the optional `per_buyer_priority_signals` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPerBuyerPrioritySignals` instead "
     "of `ReadPerBuyerPrioritySignals if you're fine with null values being "
@@ -1373,7 +1373,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, double>, UserType>(),
     "Attempting to read the optional `all_buyers_priority_signals` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAllBuyersPrioritySignals` instead "
     "of `ReadAllBuyersPrioritySignals if you're fine with null values being "
@@ -1396,7 +1396,7 @@ static_assert(
         mojo::ArrayDataView<::mojo_base::mojom::Uint128DataView>, UserType>(),
     "Attempting to read the optional `auction_report_buyer_keys` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAuctionReportBuyerKeys` instead "
     "of `ReadAuctionReportBuyerKeys if you're fine with null values being "
@@ -1416,7 +1416,7 @@ static_assert(
         mojo::MapDataView<::blink::mojom::AuctionAdConfigNonSharedParams_BuyerReportType, ::blink::mojom::AuctionReportBuyersConfigDataView>, UserType>(),
     "Attempting to read the optional `auction_report_buyers` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAuctionReportBuyers` instead "
     "of `ReadAuctionReportBuyers if you're fine with null values being "
@@ -1436,7 +1436,7 @@ static_assert(
         ::blink::mojom::AuctionReportBuyerDebugModeConfigDataView, UserType>(),
     "Attempting to read the optional `auction_report_buyer_debug_mode_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAuctionReportBuyerDebugModeConfig` instead "
     "of `ReadAuctionReportBuyerDebugModeConfig if you're fine with null values being "
@@ -1466,7 +1466,7 @@ static_assert(
         ::blink::mojom::AdSizeDataView, UserType>(),
     "Attempting to read the optional `requested_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRequestedSize` instead "
     "of `ReadRequestedSize if you're fine with null values being "
@@ -1486,7 +1486,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::AdSizeDataView>, UserType>(),
     "Attempting to read the optional `all_slots_requested_sizes` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAllSlotsRequestedSizes` instead "
     "of `ReadAllSlotsRequestedSizes if you're fine with null values being "
@@ -1506,7 +1506,7 @@ static_assert(
         ::mojo_base::mojom::UuidDataView, UserType>(),
     "Attempting to read the optional `auction_nonce` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAuctionNonce` instead "
     "of `ReadAuctionNonce if you're fine with null values being "
@@ -1562,7 +1562,7 @@ static_assert(
         ::blink::mojom::AuctionAdServerResponseConfigDataView, UserType>(),
     "Attempting to read the optional `server_response` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadServerResponse` instead "
     "of `ReadServerResponse if you're fine with null values being "
@@ -1582,7 +1582,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `decision_logic_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDecisionLogicUrl` instead "
     "of `ReadDecisionLogicUrl if you're fine with null values being "
@@ -1602,7 +1602,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `trusted_scoring_signals_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTrustedScoringSignalsUrl` instead "
     "of `ReadTrustedScoringSignalsUrl if you're fine with null values being "
@@ -1673,7 +1673,7 @@ static_assert(
         ::url::mojom::OriginDataView, UserType>(),
     "Attempting to read the optional `aggregation_coordinator_origin` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAggregationCoordinatorOrigin` instead "
     "of `ReadAggregationCoordinatorOrigin if you're fine with null values being "
@@ -1723,7 +1723,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `value` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadValue` instead "
     "of `ReadValue if you're fine with null values being "
@@ -1775,7 +1775,7 @@ static_assert(
         mojo::MapDataView<::url::mojom::OriginDataView, mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `value` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadValue` instead "
     "of `ReadValue if you're fine with null values being "
@@ -1911,7 +1911,7 @@ static_assert(
         ::blink::mojom::DirectFromSellerSignalsDataView, UserType>(),
     "Attempting to read the optional `value` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadValue` instead "
     "of `ReadValue if you're fine with null values being "

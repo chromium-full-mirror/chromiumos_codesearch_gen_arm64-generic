@@ -734,7 +734,7 @@ static_assert(
         ::crosapi::mojom::OptionValueDataView, UserType>(),
     "Attempting to read the optional `value` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadValue` instead "
     "of `ReadValue if you're fine with null values being "
@@ -754,7 +754,7 @@ static_assert(
         ::crosapi::mojom::OptionConstraintDataView, UserType>(),
     "Attempting to read the optional `constraint` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadConstraint` instead "
     "of `ReadConstraint if you're fine with null values being "
@@ -874,7 +874,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `scanner_handle` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadScannerHandle` instead "
     "of `ReadScannerHandle if you're fine with null values being "
@@ -894,7 +894,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, ::crosapi::mojom::ScannerOptionDataView>, UserType>(),
     "Attempting to read the optional `options` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOptions` instead "
     "of `ReadOptions if you're fine with null values being "
@@ -1012,7 +1012,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `job_handle` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadJobHandle` instead "
     "of `ReadJobHandle if you're fine with null values being "
@@ -1068,7 +1068,7 @@ static_assert(
         mojo::ArrayDataView<int8_t>, UserType>(),
     "Attempting to read the optional `data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadData` instead "
     "of `ReadData if you're fine with null values being "
@@ -1080,8 +1080,8 @@ static_assert(
   std::optional<uint32_t> estimated_completion() const {
 
     return data_->estimated_completion_$flag
-        ? absl::make_optional(data_->estimated_completion_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->estimated_completion_$value)
+        : std::nullopt;
   }
  private:
   internal::ReadScanDataResponse_Data* data_ = nullptr;
@@ -1130,7 +1130,7 @@ static_assert(
         ::crosapi::mojom::OptionValueDataView, UserType>(),
     "Attempting to read the optional `value` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadValue` instead "
     "of `ReadValue if you're fine with null values being "
@@ -1258,7 +1258,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, ::crosapi::mojom::ScannerOptionDataView>, UserType>(),
     "Attempting to read the optional `options` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOptions` instead "
     "of `ReadOptions if you're fine with null values being "
@@ -1314,7 +1314,7 @@ static_assert(
         mojo::ArrayDataView<::crosapi::mojom::OptionGroupDataView>, UserType>(),
     "Attempting to read the optional `groups` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadGroups` instead "
     "of `ReadGroups if you're fine with null values being "

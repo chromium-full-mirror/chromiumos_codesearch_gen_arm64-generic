@@ -653,7 +653,7 @@ class  Timestamp {
   template <typename... Args>
   static TimestampPtr New(Args&&... args) {
     return TimestampPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -808,7 +808,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewInvalid(
       uint32_t value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_invalid(std::move(value));
     return result;
   }
@@ -816,7 +816,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewAlgorithm(
       Algorithm value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_algorithm(std::move(value));
     return result;
   }
@@ -824,7 +824,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewBlockMode(
       BlockMode value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_block_mode(std::move(value));
     return result;
   }
@@ -832,7 +832,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewPaddingMode(
       PaddingMode value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_padding_mode(std::move(value));
     return result;
   }
@@ -840,7 +840,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewDigest(
       Digest value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_digest(std::move(value));
     return result;
   }
@@ -848,7 +848,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewEcCurve(
       EcCurve value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_ec_curve(std::move(value));
     return result;
   }
@@ -856,7 +856,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewOrigin(
       KeyOrigin value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_origin(std::move(value));
     return result;
   }
@@ -864,7 +864,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewKeyPurpose(
       KeyPurpose value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_key_purpose(std::move(value));
     return result;
   }
@@ -872,7 +872,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewHardwareAuthenticatorType(
       HardwareAuthenticatorType value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_hardware_authenticator_type(std::move(value));
     return result;
   }
@@ -880,7 +880,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewSecurityLevel(
       SecurityLevel value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_security_level(std::move(value));
     return result;
   }
@@ -888,7 +888,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewBoolValue(
       bool value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_bool_value(std::move(value));
     return result;
   }
@@ -896,7 +896,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewInteger(
       uint32_t value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_integer(std::move(value));
     return result;
   }
@@ -904,7 +904,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewLongInteger(
       uint64_t value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_long_integer(std::move(value));
     return result;
   }
@@ -912,7 +912,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewDateTime(
       uint64_t value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_date_time(std::move(value));
     return result;
   }
@@ -920,7 +920,7 @@ class  KeyParameterValue {
   static KeyParameterValuePtr
   NewBlob(
       std::vector<uint8_t> value) {
-    auto result = KeyParameterValuePtr(absl::in_place);
+    auto result = KeyParameterValuePtr(std::in_place);
     result->set_blob(std::move(value));
     return result;
   }
@@ -1211,7 +1211,7 @@ class  KeyCharacteristicsArrayOrError {
   static KeyCharacteristicsArrayOrErrorPtr
   NewKeyCharacteristics(
       std::vector<KeyCharacteristicsPtr> value) {
-    auto result = KeyCharacteristicsArrayOrErrorPtr(absl::in_place);
+    auto result = KeyCharacteristicsArrayOrErrorPtr(std::in_place);
     result->set_key_characteristics(std::move(value));
     return result;
   }
@@ -1219,7 +1219,7 @@ class  KeyCharacteristicsArrayOrError {
   static KeyCharacteristicsArrayOrErrorPtr
   NewError(
       int32_t value) {
-    auto result = KeyCharacteristicsArrayOrErrorPtr(absl::in_place);
+    auto result = KeyCharacteristicsArrayOrErrorPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1341,7 +1341,7 @@ class  BeginResultOrError {
   static BeginResultOrErrorPtr
   NewBeginResult(
       BeginResultPtr value) {
-    auto result = BeginResultOrErrorPtr(absl::in_place);
+    auto result = BeginResultOrErrorPtr(std::in_place);
     result->set_begin_result(std::move(value));
     return result;
   }
@@ -1349,7 +1349,7 @@ class  BeginResultOrError {
   static BeginResultOrErrorPtr
   NewError(
       int32_t value) {
-    auto result = BeginResultOrErrorPtr(absl::in_place);
+    auto result = BeginResultOrErrorPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1471,7 +1471,7 @@ class  KeyCreationResultOrError {
   static KeyCreationResultOrErrorPtr
   NewKeyCreationResult(
       KeyCreationResultPtr value) {
-    auto result = KeyCreationResultOrErrorPtr(absl::in_place);
+    auto result = KeyCreationResultOrErrorPtr(std::in_place);
     result->set_key_creation_result(std::move(value));
     return result;
   }
@@ -1479,7 +1479,7 @@ class  KeyCreationResultOrError {
   static KeyCreationResultOrErrorPtr
   NewError(
       int32_t value) {
-    auto result = KeyCreationResultOrErrorPtr(absl::in_place);
+    auto result = KeyCreationResultOrErrorPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1601,7 +1601,7 @@ class  ByteArrayOrError {
   static ByteArrayOrErrorPtr
   NewOutput(
       std::vector<uint8_t> value) {
-    auto result = ByteArrayOrErrorPtr(absl::in_place);
+    auto result = ByteArrayOrErrorPtr(std::in_place);
     result->set_output(std::move(value));
     return result;
   }
@@ -1609,7 +1609,7 @@ class  ByteArrayOrError {
   static ByteArrayOrErrorPtr
   NewError(
       int32_t value) {
-    auto result = ByteArrayOrErrorPtr(absl::in_place);
+    auto result = ByteArrayOrErrorPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1731,7 +1731,7 @@ class  SharedSecretParametersOrError {
   static SharedSecretParametersOrErrorPtr
   NewSecretParameters(
       SharedSecretParametersPtr value) {
-    auto result = SharedSecretParametersOrErrorPtr(absl::in_place);
+    auto result = SharedSecretParametersOrErrorPtr(std::in_place);
     result->set_secret_parameters(std::move(value));
     return result;
   }
@@ -1739,7 +1739,7 @@ class  SharedSecretParametersOrError {
   static SharedSecretParametersOrErrorPtr
   NewError(
       int32_t value) {
-    auto result = SharedSecretParametersOrErrorPtr(absl::in_place);
+    auto result = SharedSecretParametersOrErrorPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1861,7 +1861,7 @@ class  TimeStampTokenOrError {
   static TimeStampTokenOrErrorPtr
   NewTimestampToken(
       TimeStampTokenPtr value) {
-    auto result = TimeStampTokenOrErrorPtr(absl::in_place);
+    auto result = TimeStampTokenOrErrorPtr(std::in_place);
     result->set_timestamp_token(std::move(value));
     return result;
   }
@@ -1869,7 +1869,7 @@ class  TimeStampTokenOrError {
   static TimeStampTokenOrErrorPtr
   NewError(
       int32_t value) {
-    auto result = TimeStampTokenOrErrorPtr(absl::in_place);
+    auto result = TimeStampTokenOrErrorPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1983,7 +1983,7 @@ class  AttestationKey {
   template <typename... Args>
   static AttestationKeyPtr New(Args&&... args) {
     return AttestationKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2131,7 +2131,7 @@ class  KeyParameter {
   template <typename... Args>
   static KeyParameterPtr New(Args&&... args) {
     return KeyParameterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2276,7 +2276,7 @@ class  SharedSecretParameters {
   template <typename... Args>
   static SharedSecretParametersPtr New(Args&&... args) {
     return SharedSecretParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2419,7 +2419,7 @@ class  KeyCreationResult {
   template <typename... Args>
   static KeyCreationResultPtr New(Args&&... args) {
     return KeyCreationResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2567,7 +2567,7 @@ class  Certificate {
   template <typename... Args>
   static CertificatePtr New(Args&&... args) {
     return CertificatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2707,7 +2707,7 @@ class  KeyCharacteristics {
   template <typename... Args>
   static KeyCharacteristicsPtr New(Args&&... args) {
     return KeyCharacteristicsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2852,7 +2852,7 @@ class  GenerateKeyRequest {
   template <typename... Args>
   static GenerateKeyRequestPtr New(Args&&... args) {
     return GenerateKeyRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2997,7 +2997,7 @@ class  ImportKeyRequest {
   template <typename... Args>
   static ImportKeyRequestPtr New(Args&&... args) {
     return ImportKeyRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3148,7 +3148,7 @@ class  ImportWrappedKeyRequest {
   template <typename... Args>
   static ImportWrappedKeyRequestPtr New(Args&&... args) {
     return ImportWrappedKeyRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3305,7 +3305,7 @@ class  UpgradeKeyRequest {
   template <typename... Args>
   static UpgradeKeyRequestPtr New(Args&&... args) {
     return UpgradeKeyRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3450,7 +3450,7 @@ class  BeginRequest {
   template <typename... Args>
   static BeginRequestPtr New(Args&&... args) {
     return BeginRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3601,7 +3601,7 @@ class  BeginResult {
   template <typename... Args>
   static BeginResultPtr New(Args&&... args) {
     return BeginResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3749,7 +3749,7 @@ class  HardwareAuthToken {
   template <typename... Args>
   static HardwareAuthTokenPtr New(Args&&... args) {
     return HardwareAuthTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3907,7 +3907,7 @@ class  TimeStampToken {
   template <typename... Args>
   static TimeStampTokenPtr New(Args&&... args) {
     return TimeStampTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4055,7 +4055,7 @@ class  GetKeyCharacteristicsRequest {
   template <typename... Args>
   static GetKeyCharacteristicsRequestPtr New(Args&&... args) {
     return GetKeyCharacteristicsRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4201,7 +4201,7 @@ class  UpdateRequest {
   template <typename... Args>
   static UpdateRequestPtr New(Args&&... args) {
     return UpdateRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4352,7 +4352,7 @@ class  FinishRequest {
   template <typename... Args>
   static FinishRequestPtr New(Args&&... args) {
     return FinishRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

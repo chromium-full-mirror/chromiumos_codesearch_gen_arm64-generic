@@ -78,7 +78,7 @@ class CORE_EXPORT Element {
   static ElementPtr
   NewBlobUuid(
       const WTF::String& value) {
-    auto result = ElementPtr(absl::in_place);
+    auto result = ElementPtr(std::in_place);
     result->set_blob_uuid(std::move(value));
     return result;
   }
@@ -86,7 +86,7 @@ class CORE_EXPORT Element {
   static ElementPtr
   NewBytes(
       WTF::Vector<uint8_t> value) {
-    auto result = ElementPtr(absl::in_place);
+    auto result = ElementPtr(std::in_place);
     result->set_bytes(std::move(value));
     return result;
   }
@@ -94,7 +94,7 @@ class CORE_EXPORT Element {
   static ElementPtr
   NewFile(
       FilePtr value) {
-    auto result = ElementPtr(absl::in_place);
+    auto result = ElementPtr(std::in_place);
     result->set_file(std::move(value));
     return result;
   }
@@ -102,7 +102,7 @@ class CORE_EXPORT Element {
   static ElementPtr
   NewDeprecatedFileSystemFile(
       DEPRECATED_FileSystemFilePtr value) {
-    auto result = ElementPtr(absl::in_place);
+    auto result = ElementPtr(std::in_place);
     result->set_DEPRECATED_file_system_file(std::move(value));
     return result;
   }
@@ -242,7 +242,7 @@ class CORE_EXPORT DEPRECATED_FileSystemFile {
   template <typename... Args>
   static DEPRECATED_FileSystemFilePtr New(Args&&... args) {
     return DEPRECATED_FileSystemFilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -391,7 +391,7 @@ class CORE_EXPORT File {
   template <typename... Args>
   static FilePtr New(Args&&... args) {
     return FilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -540,7 +540,7 @@ class CORE_EXPORT RequestBody {
   template <typename... Args>
   static RequestBodyPtr New(Args&&... args) {
     return RequestBodyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -688,7 +688,7 @@ class CORE_EXPORT HttpBody {
   template <typename... Args>
   static HttpBodyPtr New(Args&&... args) {
     return HttpBodyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -836,7 +836,7 @@ class CORE_EXPORT ViewState {
   template <typename... Args>
   static ViewStatePtr New(Args&&... args) {
     return ViewStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -996,7 +996,7 @@ class CORE_EXPORT FrameState {
   template <typename... Args>
   static FrameStatePtr New(Args&&... args) {
     return FrameStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1272,7 +1272,7 @@ class CORE_EXPORT PageState {
   template <typename... Args>
   static PageStatePtr New(Args&&... args) {
     return PageStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

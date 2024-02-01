@@ -293,7 +293,7 @@ class  ClipboardHistoryItemDescriptor {
   template <typename... Args>
   static ClipboardHistoryItemDescriptorPtr New(Args&&... args) {
     return ClipboardHistoryItemDescriptorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

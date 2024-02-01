@@ -215,7 +215,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `interests` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInterests` instead "
     "of `ReadInterests if you're fine with null values being "
@@ -235,7 +235,7 @@ static_assert(
         ::blink::mojom::AdGeolocationDataView, UserType>(),
     "Attempting to read the optional `geolocation` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadGeolocation` instead "
     "of `ReadGeolocation if you're fine with null values being "
@@ -291,7 +291,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `publisher_code` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPublisherCode` instead "
     "of `ReadPublisherCode if you're fine with null values being "
@@ -311,7 +311,7 @@ static_assert(
         ::blink::mojom::AdTargetingDataView, UserType>(),
     "Attempting to read the optional `targeting` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTargeting` instead "
     "of `ReadTargeting if you're fine with null values being "
@@ -331,7 +331,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::AdSignals>, UserType>(),
     "Attempting to read the optional `anonymized_proxied_signals` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAnonymizedProxiedSignals` instead "
     "of `ReadAnonymizedProxiedSignals if you're fine with null values being "
@@ -351,7 +351,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `fallback_source` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFallbackSource` instead "
     "of `ReadFallbackSource if you're fine with null values being "

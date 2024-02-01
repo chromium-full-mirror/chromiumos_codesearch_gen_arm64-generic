@@ -310,7 +310,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, double>, UserType>(),
     "Attempting to read the optional `priority_vector` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPriorityVector` instead "
     "of `ReadPriorityVector if you're fine with null values being "
@@ -340,7 +340,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `update_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUpdateUrl` instead "
     "of `ReadUpdateUrl if you're fine with null values being "
@@ -360,7 +360,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `trusted_bidding_signals_keys` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTrustedBiddingSignalsKeys` instead "
     "of `ReadTrustedBiddingSignalsKeys if you're fine with null values being "
@@ -380,7 +380,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `user_bidding_signals` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUserBiddingSignals` instead "
     "of `ReadUserBiddingSignals if you're fine with null values being "
@@ -400,7 +400,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::InterestGroupAdDataView>, UserType>(),
     "Attempting to read the optional `ads` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAds` instead "
     "of `ReadAds if you're fine with null values being "
@@ -420,7 +420,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::InterestGroupAdDataView>, UserType>(),
     "Attempting to read the optional `ad_components` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAdComponents` instead "
     "of `ReadAdComponents if you're fine with null values being "
@@ -514,7 +514,7 @@ static_assert(
         ::blink::mojom::AdCurrencyDataView, UserType>(),
     "Attempting to read the optional `bid_currency` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBidCurrency` instead "
     "of `ReadBidCurrency if you're fine with null values being "
@@ -526,8 +526,8 @@ static_assert(
   std::optional<double> ad_cost() const {
 
     return data_->ad_cost_$flag
-        ? absl::make_optional(data_->ad_cost_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->ad_cost_$value)
+        : std::nullopt;
   }
   inline void GetAdDescriptorDataView(
       ::blink::mojom::AdDescriptorDataView* output);
@@ -550,7 +550,7 @@ static_assert(
         mojo::ArrayDataView<::blink::mojom::AdDescriptorDataView>, UserType>(),
     "Attempting to read the optional `ad_component_descriptors` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAdComponentDescriptors` instead "
     "of `ReadAdComponentDescriptors if you're fine with null values being "
@@ -562,8 +562,8 @@ static_assert(
   std::optional<uint16_t> modeling_signals() const {
 
     return data_->modeling_signals_$flag
-        ? absl::make_optional(data_->modeling_signals_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->modeling_signals_$value)
+        : std::nullopt;
   }
   inline void GetBidDurationDataView(
       ::mojo_base::mojom::TimeDeltaDataView* output);
@@ -635,7 +635,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `code_ready_latency` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCodeReadyLatency` instead "
     "of `ReadCodeReadyLatency if you're fine with null values being "
@@ -655,7 +655,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `config_promises_latency` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadConfigPromisesLatency` instead "
     "of `ReadConfigPromisesLatency if you're fine with null values being "
@@ -675,7 +675,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `direct_from_seller_signals_latency` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDirectFromSellerSignalsLatency` instead "
     "of `ReadDirectFromSellerSignalsLatency if you're fine with null values being "
@@ -695,7 +695,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `trusted_bidding_signals_latency` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTrustedBiddingSignalsLatency` instead "
     "of `ReadTrustedBiddingSignalsLatency if you're fine with null values being "
@@ -740,7 +740,7 @@ static_assert(
         ::auction_worklet::mojom::BidderWorklerKAnonBidSameAsNonEnforcedDataView, UserType>(),
     "Attempting to read the optional `same_as_non_enforced` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSameAsNonEnforced` instead "
     "of `ReadSameAsNonEnforced if you're fine with null values being "

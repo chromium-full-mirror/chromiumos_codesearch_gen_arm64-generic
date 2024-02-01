@@ -183,7 +183,7 @@ class BLINK_COMMON_EXPORT SpeculationCandidate {
   template <typename... Args>
   static SpeculationCandidatePtr New(Args&&... args) {
     return SpeculationCandidatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

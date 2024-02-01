@@ -428,7 +428,7 @@ static_assert(
         ::blink::mojom::FetchAPIResponseDataView, UserType>(),
     "Attempting to read the optional `response` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResponse` instead "
     "of `ReadResponse if you're fine with null values being "
@@ -497,7 +497,7 @@ static_assert(
         ::skia::mojom::BitmapN32DataView, UserType>(),
     "Attempting to read the optional `icon` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIcon` instead "
     "of `ReadIcon if you're fine with null values being "
@@ -553,7 +553,7 @@ static_assert(
         ::blink::mojom::BackgroundFetchRegistrationDataView, UserType>(),
     "Attempting to read the optional `registration` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRegistration` instead "
     "of `ReadRegistration if you're fine with null values being "
@@ -628,7 +628,7 @@ static_assert(
         ::blink::mojom::BackgroundFetchRegistrationDataView, UserType>(),
     "Attempting to read the optional `registration` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRegistration` instead "
     "of `ReadRegistration if you're fine with null values being "
@@ -759,7 +759,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `title` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTitle` instead "
     "of `ReadTitle if you're fine with null values being "
@@ -779,7 +779,7 @@ static_assert(
         ::skia::mojom::BitmapN32DataView, UserType>(),
     "Attempting to read the optional `icon` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIcon` instead "
     "of `ReadIcon if you're fine with null values being "
@@ -880,7 +880,7 @@ static_assert(
         ::blink::mojom::FetchAPIRequestDataView, UserType>(),
     "Attempting to read the optional `request_to_match` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRequestToMatch` instead "
     "of `ReadRequestToMatch if you're fine with null values being "
@@ -900,7 +900,7 @@ static_assert(
         ::blink::mojom::CacheQueryOptionsDataView, UserType>(),
     "Attempting to read the optional `cache_query_options` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCacheQueryOptions` instead "
     "of `ReadCacheQueryOptions if you're fine with null values being "

@@ -58,7 +58,7 @@ class  GpuPreferences {
   template <typename... Args>
   static GpuPreferencesPtr New(Args&&... args) {
     return GpuPreferencesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

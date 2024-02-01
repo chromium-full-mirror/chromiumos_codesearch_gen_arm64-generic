@@ -178,7 +178,7 @@ class BLINK_PLATFORM_EXPORT SharedDictionaryAccessDetails {
   template <typename... Args>
   static SharedDictionaryAccessDetailsPtr New(Args&&... args) {
     return SharedDictionaryAccessDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

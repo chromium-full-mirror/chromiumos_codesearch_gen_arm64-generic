@@ -60,7 +60,7 @@ class  Key {
   template <typename... Args>
   static KeyPtr New(Args&&... args) {
     return KeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -203,7 +203,7 @@ class  Encryptor {
   template <typename... Args>
   static EncryptorPtr New(Args&&... args) {
     return EncryptorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

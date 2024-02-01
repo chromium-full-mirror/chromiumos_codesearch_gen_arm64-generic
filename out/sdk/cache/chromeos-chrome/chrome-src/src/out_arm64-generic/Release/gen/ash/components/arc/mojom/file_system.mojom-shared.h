@@ -325,7 +325,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `android_file_system_path` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAndroidFileSystemPath` instead "
     "of `ReadAndroidFileSystemPath if you're fine with null values being "
@@ -437,7 +437,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `summary` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSummary` instead "
     "of `ReadSummary if you're fine with null values being "
@@ -457,7 +457,7 @@ static_assert(
         ::arc::mojom::ArcBitmapDataView, UserType>(),
     "Attempting to read the optional `icon` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIcon` instead "
     "of `ReadIcon if you're fine with null values being "
@@ -482,7 +482,7 @@ static_assert(
         mojo::ArrayDataView<mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `mime_types` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMimeTypes` instead "
     "of `ReadMimeTypes if you're fine with null values being "
@@ -585,7 +585,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `extras` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadExtras` instead "
     "of `ReadExtras if you're fine with null values being "
@@ -668,7 +668,7 @@ static_assert(
         ::arc::mojom::DocumentPathDataView, UserType>(),
     "Attempting to read the optional `initial_document_path` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInitialDocumentPath` instead "
     "of `ReadInitialDocumentPath if you're fine with null values being "
@@ -691,7 +691,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `search_query` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSearchQuery` instead "
     "of `ReadSearchQuery if you're fine with null values being "
@@ -736,6 +736,27 @@ class DocumentPathDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
+  inline void GetRootIdDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRootId(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `root_id` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadRootId` instead "
+    "of `ReadRootId if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 24
+                    ? data_->root_id.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::DocumentPath_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -773,7 +794,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `picker_activity` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPickerActivity` instead "
     "of `ReadPickerActivity if you're fine with null values being "
@@ -912,7 +933,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `search_query` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSearchQuery` instead "
     "of `ReadSearchQuery if you're fine with null values being "
@@ -1584,6 +1605,14 @@ struct Serializer<::arc::mojom::DocumentPathDataView, MaybeConstUserType> {
         fragment->path.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null path in DocumentPath struct");
+    decltype(Traits::root_id(input)) in_root_id = Traits::root_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->root_id)::BaseType> root_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_root_id, root_id_fragment);
+    fragment->root_id.Set(
+        root_id_fragment.is_null() ? nullptr : root_id_fragment.data());
   }
 
   static bool Deserialize(::arc::mojom::internal::DocumentPath_Data* input,
@@ -2169,6 +2198,12 @@ inline void DocumentPathDataView::GetPathDataView(
     mojo::ArrayDataView<mojo::StringDataView>* output) {
   auto pointer = data_->path.Get();
   *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
+}
+inline void DocumentPathDataView::GetRootIdDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->header_.version >= 24
+                 ? data_->root_id.Get() : nullptr;
+  *output = mojo::StringDataView(pointer, message_);
 }
 
 

@@ -209,7 +209,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `method` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMethod` instead "
     "of `ReadMethod if you're fine with null values being "
@@ -297,7 +297,7 @@ static_assert(
         ::blink::mojom::SafeUrlPatternDataView, UserType>(),
     "Attempting to read the optional `url_pattern` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUrlPattern` instead "
     "of `ReadUrlPattern if you're fine with null values being "
@@ -317,7 +317,7 @@ static_assert(
         ::blink::mojom::ServiceWorkerRouterRequestConditionDataView, UserType>(),
     "Attempting to read the optional `request` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRequest` instead "
     "of `ReadRequest if you're fine with null values being "
@@ -337,7 +337,7 @@ static_assert(
         ::blink::mojom::ServiceWorkerRouterRunningStatusConditionDataView, UserType>(),
     "Attempting to read the optional `running_status` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRunningStatus` instead "
     "of `ReadRunningStatus if you're fine with null values being "
@@ -357,7 +357,7 @@ static_assert(
         ::blink::mojom::ServiceWorkerRouterOrConditionDataView, UserType>(),
     "Attempting to read the optional `or_condition` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOrCondition` instead "
     "of `ReadOrCondition if you're fine with null values being "
@@ -438,7 +438,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `cache_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCacheName` instead "
     "of `ReadCacheName if you're fine with null values being "

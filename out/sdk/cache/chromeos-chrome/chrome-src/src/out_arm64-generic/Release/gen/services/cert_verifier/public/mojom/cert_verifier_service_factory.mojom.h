@@ -216,7 +216,7 @@ class  ChromeRootCertInfo {
   template <typename... Args>
   static ChromeRootCertInfoPtr New(Args&&... args) {
     return ChromeRootCertInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -363,7 +363,7 @@ class  CertVerifierCreationParams {
   template <typename... Args>
   static CertVerifierCreationParamsPtr New(Args&&... args) {
     return CertVerifierCreationParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -511,7 +511,7 @@ class  ChromeRootStore {
   template <typename... Args>
   static ChromeRootStorePtr New(Args&&... args) {
     return ChromeRootStorePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -649,7 +649,7 @@ class  ChromeRootStoreInfo {
   template <typename... Args>
   static ChromeRootStoreInfoPtr New(Args&&... args) {
     return ChromeRootStoreInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

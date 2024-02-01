@@ -435,7 +435,7 @@ class  FindEligibleDevicesResponse {
   template <typename... Args>
   static FindEligibleDevicesResponsePtr New(Args&&... args) {
     return FindEligibleDevicesResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -578,7 +578,7 @@ class  DeviceActivityStatus {
   template <typename... Args>
   static DeviceActivityStatusPtr New(Args&&... args) {
     return DeviceActivityStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -727,7 +727,7 @@ class  DebugInfo {
   template <typename... Args>
   static DebugInfoPtr New(Args&&... args) {
     return DebugInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -443,7 +443,7 @@ static_assert(
         ::media::mojom::VariableBitratePeakDataView, UserType>(),
     "Attempting to read the optional `variable_bitrate_peak` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadVariableBitratePeak` instead "
     "of `ReadVariableBitratePeak if you're fine with null values being "
@@ -886,7 +886,7 @@ static_assert(
         ::media::mojom::CodecMetadataDataView, UserType>(),
     "Attempting to read the optional `codec_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCodecMetadata` instead "
     "of `ReadCodecMetadata if you're fine with null values being "
@@ -906,7 +906,7 @@ static_assert(
         ::gfx::mojom::SizeDataView, UserType>(),
     "Attempting to read the optional `encoded_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEncodedSize` instead "
     "of `ReadEncodedSize if you're fine with null values being "
@@ -926,7 +926,7 @@ static_assert(
         ::gfx::mojom::ColorSpaceDataView, UserType>(),
     "Attempting to read the optional `encoded_color_space` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEncodedColorSpace` instead "
     "of `ReadEncodedColorSpace if you're fine with null values being "

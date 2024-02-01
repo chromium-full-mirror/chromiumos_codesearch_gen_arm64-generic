@@ -651,13 +651,23 @@ bool SelectFilesRequest::Validate(
 }
 DocumentPath::DocumentPath()
     : authority(),
-      path() {}
+      path(),
+      root_id() {}
 
 DocumentPath::DocumentPath(
     const std::string& authority_in,
     std::vector<std::string> path_in)
     : authority(std::move(authority_in)),
-      path(std::move(path_in)) {}
+      path(std::move(path_in)),
+      root_id() {}
+
+DocumentPath::DocumentPath(
+    const std::string& authority_in,
+    std::vector<std::string> path_in,
+    const std::optional<std::string>& root_id_in)
+    : authority(std::move(authority_in)),
+      path(std::move(path_in)),
+      root_id(std::move(root_id_in)) {}
 
 DocumentPath::~DocumentPath() = default;
 
@@ -678,6 +688,15 @@ void DocumentPath::WriteIntoTrace(
       "path"), this->path,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::vector<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "root_id"), this->root_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -9847,6 +9866,8 @@ bool StructTraits<::arc::mojom::DocumentPath::DataView, ::arc::mojom::DocumentPa
       if (success && !input.ReadAuthority(&result->authority))
         success = false;
       if (success && !input.ReadPath(&result->path))
+        success = false;
+      if (success && !input.ReadRootId(&result->root_id))
         success = false;
   *output = std::move(result);
   return success;

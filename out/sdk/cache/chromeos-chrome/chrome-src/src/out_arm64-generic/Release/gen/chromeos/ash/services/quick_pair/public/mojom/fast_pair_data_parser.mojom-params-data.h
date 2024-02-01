@@ -236,7 +236,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `model_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadModelId` instead "
     "of `ReadModelId if you're fine with null values being "
@@ -308,7 +308,7 @@ static_assert(
         ::ash::quick_pair::mojom::DecryptedResponseDataView, UserType>(),
     "Attempting to read the optional `response` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResponse` instead "
     "of `ReadResponse if you're fine with null values being "
@@ -380,7 +380,7 @@ static_assert(
         ::ash::quick_pair::mojom::DecryptedPasskeyDataView, UserType>(),
     "Attempting to read the optional `passkey` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPasskey` instead "
     "of `ReadPasskey if you're fine with null values being "
@@ -452,7 +452,7 @@ static_assert(
         ::ash::quick_pair::mojom::NotDiscoverableAdvertisementDataView, UserType>(),
     "Attempting to read the optional `advertisement` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAdvertisement` instead "
     "of `ReadAdvertisement if you're fine with null values being "

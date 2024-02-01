@@ -355,7 +355,7 @@ static_assert(
         ::blink::mojom::LocalFrameTokenDataView, UserType>(),
     "Attempting to read the optional `frame_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFrameToken` instead "
     "of `ReadFrameToken if you're fine with null values being "
@@ -618,7 +618,7 @@ static_assert(
         ::mojo_base::mojom::ReadOnlyFileDataView, UserType>(),
     "Attempting to read the optional `tflite_model` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTfliteModel` instead "
     "of `ReadTfliteModel if you're fine with null values being "
@@ -638,7 +638,7 @@ static_assert(
         ::mojo_base::mojom::ReadOnlyFileDataView, UserType>(),
     "Attempting to read the optional `image_embedding_model` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadImageEmbeddingModel` instead "
     "of `ReadImageEmbeddingModel if you're fine with null values being "
@@ -674,7 +674,7 @@ static_assert(
         ::mojo_base::mojom::ReadOnlyFileDataView, UserType>(),
     "Attempting to read the optional `image_embedding_model` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadImageEmbeddingModel` instead "
     "of `ReadImageEmbeddingModel if you're fine with null values being "
@@ -720,7 +720,7 @@ static_assert(
         ::mojo_base::mojom::ReadOnlyFileDataView, UserType>(),
     "Attempting to read the optional `tflite_model` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTfliteModel` instead "
     "of `ReadTfliteModel if you're fine with null values being "

@@ -195,7 +195,7 @@ class BLINK_COMMON_EXPORT FileChooserFileInfo {
   static FileChooserFileInfoPtr
   NewNativeFile(
       NativeFileInfoPtr value) {
-    auto result = FileChooserFileInfoPtr(absl::in_place);
+    auto result = FileChooserFileInfoPtr(std::in_place);
     result->set_native_file(std::move(value));
     return result;
   }
@@ -203,7 +203,7 @@ class BLINK_COMMON_EXPORT FileChooserFileInfo {
   static FileChooserFileInfoPtr
   NewFileSystem(
       FileSystemFileInfoPtr value) {
-    auto result = FileChooserFileInfoPtr(absl::in_place);
+    auto result = FileChooserFileInfoPtr(std::in_place);
     result->set_file_system(std::move(value));
     return result;
   }
@@ -318,7 +318,7 @@ class BLINK_COMMON_EXPORT FileChooserParams {
   template <typename... Args>
   static FileChooserParamsPtr New(Args&&... args) {
     return FileChooserParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -479,7 +479,7 @@ class BLINK_COMMON_EXPORT NativeFileInfo {
   template <typename... Args>
   static NativeFileInfoPtr New(Args&&... args) {
     return NativeFileInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -622,7 +622,7 @@ class BLINK_COMMON_EXPORT FileSystemFileInfo {
   template <typename... Args>
   static FileSystemFileInfoPtr New(Args&&... args) {
     return FileSystemFileInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -768,7 +768,7 @@ class BLINK_COMMON_EXPORT FileChooserResult {
   template <typename... Args>
   static FileChooserResultPtr New(Args&&... args) {
     return FileChooserResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

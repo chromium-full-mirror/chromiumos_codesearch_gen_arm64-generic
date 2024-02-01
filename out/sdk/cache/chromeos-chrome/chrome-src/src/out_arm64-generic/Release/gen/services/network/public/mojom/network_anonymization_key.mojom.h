@@ -55,7 +55,7 @@ class  EmptyNetworkAnonymizationKey {
   template <typename... Args>
   static EmptyNetworkAnonymizationKeyPtr New(Args&&... args) {
     return EmptyNetworkAnonymizationKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -202,7 +202,7 @@ class  NetworkAnonymizationKey {
   static NetworkAnonymizationKeyPtr
   NewEmpty(
       EmptyNetworkAnonymizationKeyPtr value) {
-    auto result = NetworkAnonymizationKeyPtr(absl::in_place);
+    auto result = NetworkAnonymizationKeyPtr(std::in_place);
     result->set_empty(std::move(value));
     return result;
   }
@@ -210,7 +210,7 @@ class  NetworkAnonymizationKey {
   static NetworkAnonymizationKeyPtr
   NewNonEmpty(
       NonEmptyNetworkAnonymizationKeyPtr value) {
-    auto result = NetworkAnonymizationKeyPtr(absl::in_place);
+    auto result = NetworkAnonymizationKeyPtr(std::in_place);
     result->set_non_empty(std::move(value));
     return result;
   }
@@ -325,7 +325,7 @@ class  NonEmptyNetworkAnonymizationKey {
   template <typename... Args>
   static NonEmptyNetworkAnonymizationKeyPtr New(Args&&... args) {
     return NonEmptyNetworkAnonymizationKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

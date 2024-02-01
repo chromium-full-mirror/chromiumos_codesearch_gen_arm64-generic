@@ -830,7 +830,7 @@ enum class CSSValueID {
   kOklab = 813,
   kLch = 814,
   kOklch = 815,
-  kInternalLightDark = 816,
+  kLightDark = 816,
   kSRGBLinear = 817,
   kDisplayP3 = 818,
   kA98Rgb = 819,

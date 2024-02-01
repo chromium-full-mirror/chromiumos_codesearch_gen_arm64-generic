@@ -252,7 +252,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `guid` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadGuid` instead "
     "of `ReadGuid if you're fine with null values being "
@@ -273,7 +273,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `full_path` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFullPath` instead "
     "of `ReadFullPath if you're fine with null values being "
@@ -334,7 +334,7 @@ static_assert(
         ::mojo_base::mojom::TimeDataView, UserType>(),
     "Attempting to read the optional `start_time` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStartTime` instead "
     "of `ReadStartTime if you're fine with null values being "

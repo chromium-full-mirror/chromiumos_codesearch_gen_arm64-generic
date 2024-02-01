@@ -166,7 +166,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) NextWordCompletionCandidate {
   template <typename... Args>
   static NextWordCompletionCandidatePtr New(Args&&... args) {
     return NextWordCompletionCandidatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -311,7 +311,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) MultiWordSuggestionCandidate {
   template <typename... Args>
   static MultiWordSuggestionCandidatePtr New(Args&&... args) {
     return MultiWordSuggestionCandidatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -456,7 +456,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextSuggesterSpec {
   template <typename... Args>
   static TextSuggesterSpecPtr New(Args&&... args) {
     return TextSuggesterSpecPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -607,7 +607,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextSuggestionCandidate {
   static TextSuggestionCandidatePtr
   NewMultiWord(
       MultiWordSuggestionCandidatePtr value) {
-    auto result = TextSuggestionCandidatePtr(absl::in_place);
+    auto result = TextSuggestionCandidatePtr(std::in_place);
     result->set_multi_word(std::move(value));
     return result;
   }
@@ -710,7 +710,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextSuggesterQuery {
   template <typename... Args>
   static TextSuggesterQueryPtr New(Args&&... args) {
     return TextSuggesterQueryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -864,7 +864,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) TextSuggesterResult {
   template <typename... Args>
   static TextSuggesterResultPtr New(Args&&... args) {
     return TextSuggesterResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

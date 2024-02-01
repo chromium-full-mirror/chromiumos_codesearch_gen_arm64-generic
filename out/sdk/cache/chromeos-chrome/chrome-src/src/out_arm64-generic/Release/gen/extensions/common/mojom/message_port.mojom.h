@@ -296,7 +296,7 @@ class  MessagingEndpoint {
   template <typename... Args>
   static MessagingEndpointPtr New(Args&&... args) {
     return MessagingEndpointPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -444,7 +444,7 @@ class  Message {
   template <typename... Args>
   static MessagePtr New(Args&&... args) {
     return MessagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -595,7 +595,7 @@ class  PortId {
   template <typename... Args>
   static PortIdPtr New(Args&&... args) {
     return PortIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -745,7 +745,7 @@ class  TabConnectionInfo {
   template <typename... Args>
   static TabConnectionInfoPtr New(Args&&... args) {
     return TabConnectionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -896,7 +896,7 @@ class  ExternalConnectionInfo {
   template <typename... Args>
   static ExternalConnectionInfoPtr New(Args&&... args) {
     return ExternalConnectionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -178,7 +178,7 @@ class  Article {
   template <typename... Args>
   static ArticlePtr New(Args&&... args) {
     return ArticlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

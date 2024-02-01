@@ -185,7 +185,7 @@ class BLINK_PLATFORM_EXPORT TrustTokenAccessDetails {
   static TrustTokenAccessDetailsPtr
   NewIssuance(
       TrustTokenIssuanceDetailsPtr value) {
-    auto result = TrustTokenAccessDetailsPtr(absl::in_place);
+    auto result = TrustTokenAccessDetailsPtr(std::in_place);
     result->set_issuance(std::move(value));
     return result;
   }
@@ -193,7 +193,7 @@ class BLINK_PLATFORM_EXPORT TrustTokenAccessDetails {
   static TrustTokenAccessDetailsPtr
   NewRedemption(
       TrustTokenRedemptionDetailsPtr value) {
-    auto result = TrustTokenAccessDetailsPtr(absl::in_place);
+    auto result = TrustTokenAccessDetailsPtr(std::in_place);
     result->set_redemption(std::move(value));
     return result;
   }
@@ -201,7 +201,7 @@ class BLINK_PLATFORM_EXPORT TrustTokenAccessDetails {
   static TrustTokenAccessDetailsPtr
   NewSigning(
       TrustTokenSigningDetailsPtr value) {
-    auto result = TrustTokenAccessDetailsPtr(absl::in_place);
+    auto result = TrustTokenAccessDetailsPtr(std::in_place);
     result->set_signing(std::move(value));
     return result;
   }
@@ -328,7 +328,7 @@ class BLINK_PLATFORM_EXPORT TrustTokenIssuanceDetails {
   template <typename... Args>
   static TrustTokenIssuanceDetailsPtr New(Args&&... args) {
     return TrustTokenIssuanceDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -474,7 +474,7 @@ class BLINK_PLATFORM_EXPORT TrustTokenRedemptionDetails {
   template <typename... Args>
   static TrustTokenRedemptionDetailsPtr New(Args&&... args) {
     return TrustTokenRedemptionDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -620,7 +620,7 @@ class BLINK_PLATFORM_EXPORT TrustTokenSigningDetails {
   template <typename... Args>
   static TrustTokenSigningDetailsPtr New(Args&&... args) {
     return TrustTokenSigningDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

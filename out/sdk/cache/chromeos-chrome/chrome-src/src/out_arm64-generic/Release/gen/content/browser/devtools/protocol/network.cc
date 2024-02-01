@@ -564,6 +564,19 @@ const char NameValuePairExceedsMaxSize[] = "NameValuePairExceedsMaxSize";
 } // namespace CookieBlockedReasonEnum
 
 
+namespace CookieExemptionReasonEnum {
+const char None[] = "None";
+const char UserSetting[] = "UserSetting";
+const char TPCDMetadata[] = "TPCDMetadata";
+const char TPCDDeprecationTrial[] = "TPCDDeprecationTrial";
+const char TPCDHeuristics[] = "TPCDHeuristics";
+const char EnterprisePolicy[] = "EnterprisePolicy";
+const char StorageAccess[] = "StorageAccess";
+const char TopLevelStorageAccess[] = "TopLevelStorageAccess";
+const char BrowserHeuristics[] = "BrowserHeuristics";
+} // namespace CookieExemptionReasonEnum
+
+
 CRDTP_BEGIN_DESERIALIZER(BlockedSetCookieWithReason)
     CRDTP_DESERIALIZE_FIELD("blockedReasons", m_blockedReasons),
     CRDTP_DESERIALIZE_FIELD_OPT("cookie", m_cookie),
@@ -577,14 +590,27 @@ CRDTP_BEGIN_SERIALIZER(BlockedSetCookieWithReason)
 CRDTP_END_SERIALIZER();
 
 
-CRDTP_BEGIN_DESERIALIZER(BlockedCookieWithReason)
-    CRDTP_DESERIALIZE_FIELD("blockedReasons", m_blockedReasons),
+CRDTP_BEGIN_DESERIALIZER(ExemptedSetCookieWithReason)
     CRDTP_DESERIALIZE_FIELD("cookie", m_cookie),
+    CRDTP_DESERIALIZE_FIELD("exemptionReason", m_exemptionReason),
 CRDTP_END_DESERIALIZER()
 
-CRDTP_BEGIN_SERIALIZER(BlockedCookieWithReason)
-    CRDTP_SERIALIZE_FIELD("blockedReasons", m_blockedReasons);
+CRDTP_BEGIN_SERIALIZER(ExemptedSetCookieWithReason)
+    CRDTP_SERIALIZE_FIELD("exemptionReason", m_exemptionReason);
     CRDTP_SERIALIZE_FIELD("cookie", m_cookie);
+CRDTP_END_SERIALIZER();
+
+
+CRDTP_BEGIN_DESERIALIZER(AssociatedCookie)
+    CRDTP_DESERIALIZE_FIELD("blockedReasons", m_blockedReasons),
+    CRDTP_DESERIALIZE_FIELD("cookie", m_cookie),
+    CRDTP_DESERIALIZE_FIELD_OPT("exemptionReason", m_exemptionReason),
+CRDTP_END_DESERIALIZER()
+
+CRDTP_BEGIN_SERIALIZER(AssociatedCookie)
+    CRDTP_SERIALIZE_FIELD("cookie", m_cookie);
+    CRDTP_SERIALIZE_FIELD("blockedReasons", m_blockedReasons);
+    CRDTP_SERIALIZE_FIELD("exemptionReason", m_exemptionReason);
 CRDTP_END_SERIALIZER();
 
 
@@ -1071,7 +1097,7 @@ void Frontend::ResponseReceived(const String& requestId, const String& loaderId,
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Network.responseReceived", serializer.Finish()));
 }
 
-void Frontend::RequestWillBeSentExtraInfo(const String& requestId, std::unique_ptr<protocol::Array<protocol::Network::BlockedCookieWithReason>> associatedCookies, std::unique_ptr<protocol::Network::Headers> headers, std::unique_ptr<protocol::Network::ConnectTiming> connectTiming, Maybe<protocol::Network::ClientSecurityState> clientSecurityState, Maybe<bool> siteHasCookieInOtherPartition)
+void Frontend::RequestWillBeSentExtraInfo(const String& requestId, std::unique_ptr<protocol::Array<protocol::Network::AssociatedCookie>> associatedCookies, std::unique_ptr<protocol::Network::Headers> headers, std::unique_ptr<protocol::Network::ConnectTiming> connectTiming, Maybe<protocol::Network::ClientSecurityState> clientSecurityState, Maybe<bool> siteHasCookieInOtherPartition)
 {
     if (!frontend_channel_)
         return;
@@ -1085,7 +1111,7 @@ void Frontend::RequestWillBeSentExtraInfo(const String& requestId, std::unique_p
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Network.requestWillBeSentExtraInfo", serializer.Finish()));
 }
 
-void Frontend::ResponseReceivedExtraInfo(const String& requestId, std::unique_ptr<protocol::Array<protocol::Network::BlockedSetCookieWithReason>> blockedCookies, std::unique_ptr<protocol::Network::Headers> headers, const String& resourceIPAddressSpace, int statusCode, Maybe<String> headersText, Maybe<String> cookiePartitionKey, Maybe<bool> cookiePartitionKeyOpaque)
+void Frontend::ResponseReceivedExtraInfo(const String& requestId, std::unique_ptr<protocol::Array<protocol::Network::BlockedSetCookieWithReason>> blockedCookies, std::unique_ptr<protocol::Network::Headers> headers, const String& resourceIPAddressSpace, int statusCode, Maybe<String> headersText, Maybe<String> cookiePartitionKey, Maybe<bool> cookiePartitionKeyOpaque, Maybe<protocol::Array<protocol::Network::ExemptedSetCookieWithReason>> exemptedCookies)
 {
     if (!frontend_channel_)
         return;
@@ -1098,6 +1124,7 @@ void Frontend::ResponseReceivedExtraInfo(const String& requestId, std::unique_pt
     serializer.AddField(crdtp::MakeSpan("headersText"), headersText);
     serializer.AddField(crdtp::MakeSpan("cookiePartitionKey"), cookiePartitionKey);
     serializer.AddField(crdtp::MakeSpan("cookiePartitionKeyOpaque"), cookiePartitionKeyOpaque);
+    serializer.AddField(crdtp::MakeSpan("exemptedCookies"), exemptedCookies);
     frontend_channel_->SendProtocolNotification(crdtp::CreateNotification("Network.responseReceivedExtraInfo", serializer.Finish()));
 }
 
@@ -1610,12 +1637,14 @@ struct deleteCookiesParams : public crdtp::DeserializableProtocolObject<deleteCo
     Maybe<String> url;
     Maybe<String> domain;
     Maybe<String> path;
+    Maybe<String> partitionKey;
     DECLARE_DESERIALIZATION_SUPPORT();
 };
 
 CRDTP_BEGIN_DESERIALIZER(deleteCookiesParams)
     CRDTP_DESERIALIZE_FIELD_OPT("domain", domain),
     CRDTP_DESERIALIZE_FIELD("name", name),
+    CRDTP_DESERIALIZE_FIELD_OPT("partitionKey", partitionKey),
     CRDTP_DESERIALIZE_FIELD_OPT("path", path),
     CRDTP_DESERIALIZE_FIELD_OPT("url", url),
 CRDTP_END_DESERIALIZER()
@@ -1632,7 +1661,7 @@ void DomainDispatcherImpl::deleteCookies(const crdtp::Dispatchable& dispatchable
       return;
     }
 
-    m_backend->DeleteCookies(params.name, std::move(params.url), std::move(params.domain), std::move(params.path), std::make_unique<DeleteCookiesCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
+    m_backend->DeleteCookies(params.name, std::move(params.url), std::move(params.domain), std::move(params.path), std::move(params.partitionKey), std::make_unique<DeleteCookiesCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
 }
 
 namespace {

@@ -27,6 +27,7 @@
 #include "chromeos/services/machine_learning/public/mojom/document_scanner.mojom-shared.h"
 #include "chromeos/services/machine_learning/public/mojom/grammar_checker.mojom-shared.h"
 #include "chromeos/services/machine_learning/public/mojom/handwriting_recognizer.mojom-shared.h"
+#include "chromeos/services/machine_learning/public/mojom/heatmap_palm_rejection.mojom-shared.h"
 #include "chromeos/services/machine_learning/public/mojom/image_content_annotation.mojom-shared.h"
 #include "chromeos/services/machine_learning/public/mojom/model.mojom-shared.h"
 #include "chromeos/services/machine_learning/public/mojom/soda.mojom-shared.h"

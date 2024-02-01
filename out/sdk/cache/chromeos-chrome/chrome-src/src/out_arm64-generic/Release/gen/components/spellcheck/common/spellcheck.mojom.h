@@ -400,7 +400,7 @@ class  SpellCheckBDictLanguage {
   template <typename... Args>
   static SpellCheckBDictLanguagePtr New(Args&&... args) {
     return SpellCheckBDictLanguagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -540,7 +540,7 @@ class  SpellCheckResult {
   template <typename... Args>
   static SpellCheckResultPtr New(Args&&... args) {
     return SpellCheckResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

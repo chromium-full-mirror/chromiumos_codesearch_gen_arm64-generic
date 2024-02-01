@@ -219,7 +219,7 @@ class PLATFORM_EXPORT ContentIconDefinition {
   template <typename... Args>
   static ContentIconDefinitionPtr New(Args&&... args) {
     return ContentIconDefinitionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -369,7 +369,7 @@ class PLATFORM_EXPORT ContentDescription {
   template <typename... Args>
   static ContentDescriptionPtr New(Args&&... args) {
     return ContentDescriptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

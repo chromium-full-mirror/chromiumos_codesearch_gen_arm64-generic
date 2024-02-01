@@ -57,7 +57,7 @@ class BLINK_COMMON_EXPORT SpeechRecognitionGrammar {
   template <typename... Args>
   static SpeechRecognitionGrammarPtr New(Args&&... args) {
     return SpeechRecognitionGrammarPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

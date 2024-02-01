@@ -325,7 +325,7 @@ class  TtsVoice {
   template <typename... Args>
   static TtsVoicePtr New(Args&&... args) {
     return TtsVoicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -477,7 +477,7 @@ class  TtsOptions {
   template <typename... Args>
   static TtsOptionsPtr New(Args&&... args) {
     return TtsOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -638,7 +638,7 @@ class  TtsEvent {
   template <typename... Args>
   static TtsEventPtr New(Args&&... args) {
     return TtsEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -790,7 +790,7 @@ class  TtsSpeakResult {
   template <typename... Args>
   static TtsSpeakResultPtr New(Args&&... args) {
     return TtsSpeakResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

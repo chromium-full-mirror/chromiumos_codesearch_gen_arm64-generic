@@ -566,7 +566,7 @@ class  TCPKeepAliveOptions {
   template <typename... Args>
   static TCPKeepAliveOptionsPtr New(Args&&... args) {
     return TCPKeepAliveOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -715,7 +715,7 @@ class  TCPConnectedSocketOptions {
   template <typename... Args>
   static TCPConnectedSocketOptionsPtr New(Args&&... args) {
     return TCPConnectedSocketOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -866,7 +866,7 @@ class  TCPServerSocketOptions {
   template <typename... Args>
   static TCPServerSocketOptionsPtr New(Args&&... args) {
     return TCPServerSocketOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

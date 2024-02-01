@@ -6,11 +6,11 @@ import * as SDKModule from '../../../../../front_end/core/sdk/sdk.js';
 import * as Common from '../../../../../front_end/core/common/common.js';
 import { describeWithEnvironment } from '../../helpers/EnvironmentHelpers.js';
 function resetSavedSetting(forcedState = []) {
-    const setting = Common.Settings.Settings.instance().createLocalSetting('persistentHighlightSetting', []);
+    const setting = Common.Settings.Settings.instance().createLocalSetting('persistent-highlight-setting', []);
     setting.set(forcedState);
 }
 function assertSavedSettingState(expected) {
-    const setting = Common.Settings.Settings.instance().createLocalSetting('persistentHighlightSetting', []);
+    const setting = Common.Settings.Settings.instance().createLocalSetting('persistent-highlight-setting', []);
     assert.deepEqual(setting.get(), expected);
 }
 const NON_RELATED_DOCUMENT_URL_FOR_TEST = 'https://notexample.com/';

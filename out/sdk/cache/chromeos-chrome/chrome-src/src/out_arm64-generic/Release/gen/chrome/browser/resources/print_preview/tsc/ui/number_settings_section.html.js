@@ -5,7 +5,7 @@ export function getTemplate() {
   <span slot="title" id="sectionTitle">[[inputLabel]]</span>
   <div slot="controls" id="controls">
     <span class="input-wrapper">
-      <cr-input id="userValue" type="number" max="[[maxValue]]" min="[[minValue]]" data-timeout-delay="250" disabled$="[[getDisabled_(disabled)]]" on-keydown="onKeydown_" on-blur="onBlur_" aria-label="[[inputAriaLabel]]" error-message="[[errorMessage_]]" auto-validate>
+      <cr-input id="userValue" type="number" class="stroked" max="[[maxValue]]" min="[[minValue]]" data-timeout-delay="250" disabled$="[[getDisabled_(disabled)]]" on-keydown="onKeydown_" on-blur="onBlur_" aria-label="[[inputAriaLabel]]" error-message="[[errorMessage_]]" auto-validate>
         <span slot="suffix">
           <slot name="opt-inside-content"></slot>
         </span>

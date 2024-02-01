@@ -387,7 +387,7 @@ class  CompositionSegment {
   template <typename... Args>
   static CompositionSegmentPtr New(Args&&... args) {
     return CompositionSegmentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -546,7 +546,7 @@ class  KeyEventData {
   template <typename... Args>
   static KeyEventDataPtr New(Args&&... args) {
     return KeyEventDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

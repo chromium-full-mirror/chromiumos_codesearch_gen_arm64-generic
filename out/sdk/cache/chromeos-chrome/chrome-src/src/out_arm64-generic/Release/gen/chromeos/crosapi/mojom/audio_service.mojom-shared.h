@@ -274,7 +274,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `stableDeviceId` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStableDeviceId` instead "
     "of `ReadStableDeviceId if you're fine with null values being "
@@ -330,7 +330,7 @@ static_assert(
         mojo::ArrayDataView<::crosapi::mojom::StreamType>, UserType>(),
     "Attempting to read the optional `includedStreamTypes` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIncludedStreamTypes` instead "
     "of `ReadIncludedStreamTypes if you're fine with null values being "

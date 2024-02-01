@@ -457,7 +457,7 @@ class PLATFORM_EXPORT ClipboardFiles {
   template <typename... Args>
   static ClipboardFilesPtr New(Args&&... args) {
     return ClipboardFilesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -12,6 +12,12 @@ export class FakeDisplaySettingsProvider {
     // First key indicates internal or external display. Second key indicates the
     // orientation. The value indicates the histogram count.
     displayOrientationHistogram = new Map();
+    // First key indicates internal or external display. Second key indicates the
+    // night light status. The value indicates the histogram count.
+    displayNightLightStatusHistogram = new Map();
+    // First key indicates internal or external display. Second key indicates the
+    // night light schedule. The value indicates the histogram count.
+    displayNightLightScheduleHistogram = new Map();
     // Implement DisplaySettingsProviderInterface.
     observeTabletMode(observer) {
         this.tabletModeObservers.push(observer);
@@ -56,6 +62,22 @@ export class FakeDisplaySettingsProvider {
             orientationHistogram.set(value.orientation, (orientationHistogram.get(value.orientation) || 0) + 1);
             this.displayOrientationHistogram.set(value.isInternalDisplay, orientationHistogram);
         }
+        else if (type === displaySettingsProviderMojom.DisplaySettingsType.kNightLight &&
+            value.isInternalDisplay !== undefined &&
+            value.nightLightStatus !== undefined) {
+            const nightLightStatusHistogram = this.getDisplayNightLightStatusHistogram(value.isInternalDisplay);
+            nightLightStatusHistogram.set(value.nightLightStatus, (nightLightStatusHistogram.get(value.nightLightStatus) || 0) + 1);
+            this.displayNightLightStatusHistogram.set(value.isInternalDisplay, nightLightStatusHistogram);
+        }
+        else if (type ===
+            displaySettingsProviderMojom.DisplaySettingsType
+                .kNightLightSchedule &&
+            value.isInternalDisplay !== undefined &&
+            value.nightLightSchedule !== undefined) {
+            const nightLightScheduleHistogram = this.getDisplayNightLightScheduleHistogram(value.isInternalDisplay);
+            nightLightScheduleHistogram.set(value.nightLightSchedule, (nightLightScheduleHistogram.get(value.nightLightSchedule) || 0) + 1);
+            this.displayNightLightScheduleHistogram.set(value.isInternalDisplay, nightLightScheduleHistogram);
+        }
     }
     getInternalDisplayHistogram() {
         return this.internalDisplayHistogram;
@@ -68,6 +90,14 @@ export class FakeDisplaySettingsProvider {
     }
     getDisplayOrientationHistogram(isInternalDisplay) {
         return this.displayOrientationHistogram.get(isInternalDisplay) ||
+            new Map();
+    }
+    getDisplayNightLightStatusHistogram(isInternalDisplay) {
+        return this.displayNightLightStatusHistogram.get(isInternalDisplay) ||
+            new Map();
+    }
+    getDisplayNightLightScheduleHistogram(isInternalDisplay) {
+        return this.displayNightLightScheduleHistogram.get(isInternalDisplay) ||
             new Map();
     }
 }

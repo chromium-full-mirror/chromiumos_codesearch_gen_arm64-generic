@@ -57,7 +57,7 @@ class  CorsOriginPattern {
   template <typename... Args>
   static CorsOriginPatternPtr New(Args&&... args) {
     return CorsOriginPatternPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -213,7 +213,7 @@ class  CorsOriginAccessPatterns {
   template <typename... Args>
   static CorsOriginAccessPatternsPtr New(Args&&... args) {
     return CorsOriginAccessPatternsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

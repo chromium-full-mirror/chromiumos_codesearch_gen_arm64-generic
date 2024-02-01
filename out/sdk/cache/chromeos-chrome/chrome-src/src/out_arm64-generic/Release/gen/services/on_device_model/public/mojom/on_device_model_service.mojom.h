@@ -187,7 +187,7 @@ class  ModelAssets {
   template <typename... Args>
   static ModelAssetsPtr New(Args&&... args) {
     return ModelAssetsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -336,7 +336,7 @@ class  LoadModelParams {
   template <typename... Args>
   static LoadModelParamsPtr New(Args&&... args) {
     return LoadModelParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

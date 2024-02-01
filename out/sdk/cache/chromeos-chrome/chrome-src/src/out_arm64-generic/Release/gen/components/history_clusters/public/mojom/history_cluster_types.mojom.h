@@ -54,7 +54,7 @@ class  MatchPosition {
   template <typename... Args>
   static MatchPositionPtr New(Args&&... args) {
     return MatchPositionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -205,7 +205,7 @@ class  SearchQuery {
   template <typename... Args>
   static SearchQueryPtr New(Args&&... args) {
     return SearchQueryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -348,7 +348,7 @@ class  RawVisitData {
   template <typename... Args>
   static RawVisitDataPtr New(Args&&... args) {
     return RawVisitDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -491,7 +491,7 @@ class  URLVisit {
   template <typename... Args>
   static URLVisitPtr New(Args&&... args) {
     return URLVisitPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -669,7 +669,7 @@ class  Cluster {
   template <typename... Args>
   static ClusterPtr New(Args&&... args) {
     return ClusterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

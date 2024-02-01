@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { parseTemplateText } from './constants.js';
-import { SeaPenTemplateId } from './sea_pen.mojom-webui.js';
+import { SeaPenTemplateId } from './sea_pen_generated.mojom-webui.js';
 // Returns true if `maybeDataUrl` is a Url that contains a base64 encoded image.
 export function isImageDataUrl(maybeDataUrl) {
     return !!maybeDataUrl && typeof maybeDataUrl === 'object' &&

@@ -945,7 +945,7 @@ static_assert(
         mojo::ArrayDataView<::gfx::mojom::SizeDataView>, UserType>(),
     "Attempting to read the optional `DEPRECATED_mapped_sizes` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeprecatedMappedSizes` instead "
     "of `ReadDeprecatedMappedSizes if you're fine with null values being "
@@ -1080,11 +1080,11 @@ class VideoCaptureDeviceDescriptorDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadAvailability(UserType* output) const {
     if (data_->header_.version < 1) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
     if (!data_->availability_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -1093,10 +1093,10 @@ class VideoCaptureDeviceDescriptorDataView {
   }
   std::optional<CameraAvailability> availability() const {
     if (data_->header_.version < 1) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     if (!data_->availability_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::media::mojom::CameraAvailability>(data_->availability_$value));

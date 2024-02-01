@@ -327,7 +327,7 @@ class CONTENT_EXPORT UpdateScrollbarThemeParams {
   template <typename... Args>
   static UpdateScrollbarThemeParamsPtr New(Args&&... args) {
     return UpdateScrollbarThemeParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -489,7 +489,7 @@ class CONTENT_EXPORT UpdateSystemColorInfoParams {
   template <typename... Args>
   static UpdateSystemColorInfoParamsPtr New(Args&&... args) {
     return UpdateSystemColorInfoParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

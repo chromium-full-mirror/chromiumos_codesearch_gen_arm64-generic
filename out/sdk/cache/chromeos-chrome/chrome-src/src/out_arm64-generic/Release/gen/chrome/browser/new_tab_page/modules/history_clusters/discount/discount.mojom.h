@@ -56,7 +56,7 @@ class  Discount {
   template <typename... Args>
   static DiscountPtr New(Args&&... args) {
     return DiscountPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

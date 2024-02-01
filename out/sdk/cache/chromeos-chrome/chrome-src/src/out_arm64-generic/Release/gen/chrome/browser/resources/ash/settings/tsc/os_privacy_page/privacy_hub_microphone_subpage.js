@@ -51,19 +51,16 @@ export class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicro
                 type: Array,
                 value: [],
             },
-            /**
-             * The list of microphones connected to the device.
-             */
-            connectedMicrophones_: {
+            connectedMicrophoneNames_: {
                 type: Array,
                 value: [],
             },
             /**
-             * Indicates whether `connectedMicrophones_` is empty.
+             * Indicates whether `connectedMicrophoneNames_` is empty.
              */
             isMicListEmpty_: {
                 type: Boolean,
-                computed: 'computeIsMicListEmpty_(connectedMicrophones_)',
+                computed: 'computeIsMicListEmpty_(connectedMicrophoneNames_)',
             },
             /**
              * Indicates whether the microphone hardware toggle is active.
@@ -133,17 +130,17 @@ export class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicro
         return first.name.localeCompare(second.name);
     }
     async updateMicrophoneList_() {
-        const connectedMicrophones = [];
+        const connectedMicrophoneNames = [];
         const devices = await MediaDevicesProxy.getMediaDevices().enumerateDevices();
         devices.forEach((device) => {
             if (device.kind === 'audioinput' && device.deviceId !== 'default') {
-                connectedMicrophones.push(device.label);
+                connectedMicrophoneNames.push(device.label);
             }
         });
-        this.connectedMicrophones_ = connectedMicrophones;
+        this.connectedMicrophoneNames_ = connectedMicrophoneNames;
     }
     computeIsMicListEmpty_() {
-        return this.connectedMicrophones_.length === 0;
+        return this.connectedMicrophoneNames_.length === 0;
     }
     computeOnOffText_() {
         const microphoneAllowed = this.getPref('ash.user.microphone_allowed').value;
@@ -160,7 +157,7 @@ export class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicro
     }
     onManagePermissionsInChromeRowClick_() {
         chrome.metricsPrivate.recordEnumerationValue(MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, PrivacyHubSensorSubpageUserAction.WEBSITE_PERMISSION_LINK_CLICKED, NUMBER_OF_POSSIBLE_USER_ACTIONS);
-        window.open('chrome://settings/content/microphone');
+        this.mojoInterfaceProvider_.openBrowserPermissionSettings(PermissionType.kMicrophone);
     }
     /**
      * Returns true if the microphone permission of the app is in Allowed or

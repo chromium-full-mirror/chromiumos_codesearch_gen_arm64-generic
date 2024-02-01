@@ -53,7 +53,7 @@ class  URLPattern {
   template <typename... Args>
   static URLPatternPtr New(Args&&... args) {
     return URLPatternPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -200,7 +200,7 @@ class  URLPatternSet {
   template <typename... Args>
   static URLPatternSetPtr New(Args&&... args) {
     return URLPatternSetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

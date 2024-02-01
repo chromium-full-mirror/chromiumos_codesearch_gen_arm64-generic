@@ -985,7 +985,7 @@ class  PayloadPreview {
   template <typename... Args>
   static PayloadPreviewPtr New(Args&&... args) {
     return PayloadPreviewPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1137,7 +1137,7 @@ class  ShareTarget {
   template <typename... Args>
   static ShareTargetPtr New(Args&&... args) {
     return ShareTargetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1294,7 +1294,7 @@ class  TransferMetadata {
   template <typename... Args>
   static TransferMetadataPtr New(Args&&... args) {
     return TransferMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

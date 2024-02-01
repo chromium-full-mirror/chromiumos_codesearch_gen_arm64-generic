@@ -70,7 +70,7 @@ class BLINK_PLATFORM_EXPORT GpuDevice {
   template <typename... Args>
   static GpuDevicePtr New(Args&&... args) {
     return GpuDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -238,7 +238,7 @@ class BLINK_PLATFORM_EXPORT VideoDecodeAcceleratorSupportedProfile {
   template <typename... Args>
   static VideoDecodeAcceleratorSupportedProfilePtr New(Args&&... args) {
     return VideoDecodeAcceleratorSupportedProfilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -387,7 +387,7 @@ class BLINK_PLATFORM_EXPORT VideoDecodeAcceleratorCapabilities {
   template <typename... Args>
   static VideoDecodeAcceleratorCapabilitiesPtr New(Args&&... args) {
     return VideoDecodeAcceleratorCapabilitiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -532,7 +532,7 @@ class BLINK_PLATFORM_EXPORT VideoEncodeAcceleratorSupportedProfile {
   template <typename... Args>
   static VideoEncodeAcceleratorSupportedProfilePtr New(Args&&... args) {
     return VideoEncodeAcceleratorSupportedProfilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -684,7 +684,7 @@ class BLINK_PLATFORM_EXPORT ImageDecodeAcceleratorSupportedProfile {
   template <typename... Args>
   static ImageDecodeAcceleratorSupportedProfilePtr New(Args&&... args) {
     return ImageDecodeAcceleratorSupportedProfilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -833,7 +833,7 @@ class BLINK_PLATFORM_EXPORT GpuInfo {
   template <typename... Args>
   static GpuInfoPtr New(Args&&... args) {
     return GpuInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

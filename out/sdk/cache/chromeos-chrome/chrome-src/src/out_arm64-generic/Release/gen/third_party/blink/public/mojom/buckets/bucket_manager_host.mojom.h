@@ -412,7 +412,7 @@ class BLINK_COMMON_EXPORT BucketPolicies {
   template <typename... Args>
   static BucketPoliciesPtr New(Args&&... args) {
     return BucketPoliciesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

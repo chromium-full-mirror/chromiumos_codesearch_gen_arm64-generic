@@ -52,9 +52,9 @@ describeWithMockConnection('AdvancedApp', () => {
     it('updates colors node link on ColorThemeChanged', async () => {
         const advancedApp = Emulation.AdvancedApp.AdvancedApp.instance();
         Platform.assertNotNullOrUndefined(advancedApp);
-        const refetchColorsSpy = sinon.spy(UI.Utils.DynamicTheming, 'refetchColors');
+        const fetchColorsSpy = sinon.spy(UI.Utils.DynamicTheming, 'fetchColors');
         Host.InspectorFrontendHost.InspectorFrontendHostInstance.events.dispatchEventToListeners(Host.InspectorFrontendHostAPI.Events.ColorThemeChanged);
-        assert.isTrue(refetchColorsSpy.called);
+        assert.isTrue(fetchColorsSpy.called);
     });
 });
 //# sourceMappingURL=AdvancedApp_test.js.map

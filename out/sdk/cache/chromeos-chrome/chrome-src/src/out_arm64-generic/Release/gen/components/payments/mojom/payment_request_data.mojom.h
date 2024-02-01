@@ -53,7 +53,7 @@ class  PaymentCurrencyAmount {
   template <typename... Args>
   static PaymentCurrencyAmountPtr New(Args&&... args) {
     return PaymentCurrencyAmountPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -198,7 +198,7 @@ class  PayerErrors {
   template <typename... Args>
   static PayerErrorsPtr New(Args&&... args) {
     return PayerErrorsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -348,7 +348,7 @@ class  PaymentAddress {
   template <typename... Args>
   static PaymentAddressPtr New(Args&&... args) {
     return PaymentAddressPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -516,7 +516,7 @@ class  PaymentValidationErrors {
   template <typename... Args>
   static PaymentValidationErrorsPtr New(Args&&... args) {
     return PaymentValidationErrorsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -666,7 +666,7 @@ class  AddressErrors {
   template <typename... Args>
   static AddressErrorsPtr New(Args&&... args) {
     return AddressErrorsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

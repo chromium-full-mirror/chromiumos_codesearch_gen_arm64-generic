@@ -299,7 +299,7 @@ class  WebAuthnExceptionDetails {
   template <typename... Args>
   static WebAuthnExceptionDetailsPtr New(Args&&... args) {
     return WebAuthnExceptionDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -453,7 +453,7 @@ class  WebAuthnCreateResponse {
   static WebAuthnCreateResponsePtr
   NewErrorDetails(
       WebAuthnExceptionDetailsPtr value) {
-    auto result = WebAuthnCreateResponsePtr(absl::in_place);
+    auto result = WebAuthnCreateResponsePtr(std::in_place);
     result->set_error_details(std::move(value));
     return result;
   }
@@ -461,7 +461,7 @@ class  WebAuthnCreateResponse {
   static WebAuthnCreateResponsePtr
   NewResponseData(
       const std::string& value) {
-    auto result = WebAuthnCreateResponsePtr(absl::in_place);
+    auto result = WebAuthnCreateResponsePtr(std::in_place);
     result->set_response_data(std::move(value));
     return result;
   }
@@ -584,7 +584,7 @@ class  WebAuthnGetResponse {
   static WebAuthnGetResponsePtr
   NewErrorDetails(
       WebAuthnExceptionDetailsPtr value) {
-    auto result = WebAuthnGetResponsePtr(absl::in_place);
+    auto result = WebAuthnGetResponsePtr(std::in_place);
     result->set_error_details(std::move(value));
     return result;
   }
@@ -592,7 +592,7 @@ class  WebAuthnGetResponse {
   static WebAuthnGetResponsePtr
   NewResponseData(
       const std::string& value) {
-    auto result = WebAuthnGetResponsePtr(absl::in_place);
+    auto result = WebAuthnGetResponsePtr(std::in_place);
     result->set_response_data(std::move(value));
     return result;
   }

@@ -865,7 +865,7 @@ static const char valueListStringPool[] = {
   "oklab\0"
   "lch\0"
   "oklch\0"
-  "-internal-light-dark\0"
+  "light-dark\0"
   "srgb-linear\0"
   "display-p3\0"
   "a98-rgb\0"
@@ -1870,191 +1870,191 @@ static const uint16_t valueListStringOffsets[] = {
   8638,
   8642,
   8648,
-  8669,
-  8681,
-  8692,
-  8700,
-  8713,
-  8717,
-  8725,
-  8733,
-  8741,
-  8748,
-  8759,
-  8770,
+  8659,
+  8671,
+  8682,
+  8690,
+  8703,
+  8707,
+  8715,
+  8723,
+  8731,
+  8738,
+  8749,
+  8760,
+  8763,
   8773,
-  8783,
+  8778,
+  8780,
+  8782,
+  8784,
+  8786,
   8788,
   8790,
   8792,
   8794,
   8796,
-  8798,
-  8800,
-  8802,
-  8804,
-  8806,
-  8813,
-  8822,
-  8834,
-  8841,
-  8849,
-  8857,
-  8865,
-  8874,
-  8880,
-  8887,
-  8894,
-  8901,
-  8909,
-  8914,
-  8920,
+  8803,
+  8812,
+  8824,
+  8831,
+  8839,
+  8847,
+  8855,
+  8864,
+  8870,
+  8877,
+  8884,
+  8891,
+  8899,
+  8904,
+  8910,
+  8916,
   8926,
-  8936,
-  8947,
-  8958,
-  8969,
-  8981,
-  8983,
-  8985,
-  8987,
+  8937,
+  8948,
+  8959,
+  8971,
+  8973,
+  8975,
+  8977,
+  8982,
+  8986,
   8992,
-  8996,
-  9002,
-  9013,
-  9018,
-  9031,
+  9003,
+  9008,
+  9021,
+  9025,
+  9029,
   9035,
   9039,
-  9045,
-  9049,
+  9043,
+  9048,
   9053,
-  9058,
-  9063,
-  9069,
-  9074,
-  9078,
-  9082,
-  9085,
-  9090,
-  9098,
-  9103,
-  9107,
-  9111,
+  9059,
+  9064,
+  9068,
+  9072,
+  9075,
+  9080,
+  9088,
+  9093,
+  9097,
+  9101,
+  9106,
+  9112,
   9116,
-  9122,
-  9126,
-  9130,
+  9120,
+  9129,
   9139,
-  9149,
-  9153,
-  9156,
+  9143,
+  9146,
+  9148,
   9158,
   9168,
-  9178,
-  9184,
-  9189,
-  9200,
-  9212,
-  9225,
-  9243,
-  9259,
-  9278,
+  9174,
+  9179,
+  9190,
+  9202,
+  9215,
+  9233,
+  9249,
+  9268,
+  9285,
   9295,
-  9305,
-  9314,
-  9318,
-  9343,
-  9347,
-  9358,
-  9363,
-  9369,
-  9375,
-  9388,
-  9391,
-  9399,
-  9403,
-  9412,
-  9417,
-  9423,
-  9437,
-  9442,
-  9448,
-  9453,
-  9460,
-  9467,
-  9489,
-  9501,
-  9512,
-  9521,
-  9532,
-  9539,
-  9546,
+  9304,
+  9308,
+  9333,
+  9337,
+  9348,
+  9353,
+  9359,
+  9365,
+  9378,
+  9381,
+  9389,
+  9393,
+  9402,
+  9407,
+  9413,
+  9427,
+  9432,
+  9438,
+  9443,
+  9450,
+  9457,
+  9479,
+  9491,
+  9502,
+  9511,
+  9522,
+  9529,
+  9536,
+  9547,
+  9552,
   9557,
-  9562,
-  9567,
-  9574,
-  9581,
-  9590,
-  9598,
-  9607,
-  9615,
-  9647,
-  9677,
-  9709,
-  9739,
-  9770,
-  9802,
-  9832,
-  9849,
-  9874,
-  9899,
-  9926,
-  9934,
-  9942,
-  9948,
-  9957,
-  9962,
-  9979,
-  10003,
-  10009,
-  10018,
-  10033,
-  10036,
-  10039,
-  10048,
+  9564,
+  9571,
+  9580,
+  9588,
+  9597,
+  9605,
+  9637,
+  9667,
+  9699,
+  9729,
+  9760,
+  9792,
+  9822,
+  9839,
+  9864,
+  9889,
+  9916,
+  9924,
+  9932,
+  9938,
+  9947,
+  9952,
+  9969,
+  9993,
+  9999,
+  10008,
+  10023,
+  10026,
+  10029,
+  10038,
+  10042,
   10052,
-  10062,
-  10067,
-  10073,
-  10078,
+  10057,
+  10063,
+  10068,
+  10075,
   10085,
-  10095,
-  10107,
-  10113,
-  10120,
-  10131,
-  10143,
-  10152,
-  10158,
-  10163,
-  10178,
-  10192,
-  10197,
-  10205,
-  10210,
-  10225,
-  10234,
-  10242,
-  10255,
-  10263,
-  10269,
-  10277,
-  10283,
-  10296,
-  10307,
-  10320,
-  10331,
+  10097,
+  10103,
+  10110,
+  10121,
+  10133,
+  10142,
+  10148,
+  10153,
+  10168,
+  10182,
+  10187,
+  10195,
+  10200,
+  10215,
+  10224,
+  10232,
+  10245,
+  10253,
+  10259,
+  10267,
+  10273,
+  10286,
+  10297,
+  10310,
+  10321,
 };
 
 /* maximum key range = 8489, duplicates = 0 */
@@ -2872,145 +2872,145 @@ struct CSSValueStringPool_t
     char CSSValueStringPool_str634[sizeof("opentype")];
     char CSSValueStringPool_str635[sizeof("scroll-state")];
     char CSSValueStringPool_str636[sizeof("row")];
-    char CSSValueStringPool_str637[sizeof("manual")];
-    char CSSValueStringPool_str638[sizeof("inline-grid")];
-    char CSSValueStringPool_str639[sizeof("lightgrey")];
-    char CSSValueStringPool_str640[sizeof("lightgray")];
-    char CSSValueStringPool_str641[sizeof("context-menu")];
-    char CSSValueStringPool_str642[sizeof("margin-box")];
-    char CSSValueStringPool_str643[sizeof("aqua")];
-    char CSSValueStringPool_str644[sizeof("stacked-fractions")];
-    char CSSValueStringPool_str645[sizeof("no-historical-ligatures")];
-    char CSSValueStringPool_str646[sizeof("gold")];
-    char CSSValueStringPool_str647[sizeof("scrollbar")];
-    char CSSValueStringPool_str648[sizeof("exit")];
-    char CSSValueStringPool_str649[sizeof("progressive")];
-    char CSSValueStringPool_str650[sizeof("words")];
-    char CSSValueStringPool_str651[sizeof("isolate-override")];
-    char CSSValueStringPool_str652[sizeof("listbox")];
-    char CSSValueStringPool_str653[sizeof("auto-same")];
-    char CSSValueStringPool_str654[sizeof("inline-end")];
-    char CSSValueStringPool_str655[sizeof("menulist")];
-    char CSSValueStringPool_str656[sizeof("azure")];
-    char CSSValueStringPool_str657[sizeof("aquamarine")];
-    char CSSValueStringPool_str658[sizeof("translatex")];
-    char CSSValueStringPool_str659[sizeof("extends")];
-    char CSSValueStringPool_str660[sizeof("ivory")];
-    char CSSValueStringPool_str661[sizeof("fill-box")];
-    char CSSValueStringPool_str662[sizeof("difference")];
-    char CSSValueStringPool_str663[sizeof("inline-start")];
-    char CSSValueStringPool_str664[sizeof("translatez")];
-    char CSSValueStringPool_str665[sizeof("lightpink")];
-    char CSSValueStringPool_str666[sizeof("auto-add")];
-    char CSSValueStringPool_str667[sizeof("column")];
-    char CSSValueStringPool_str668[sizeof("captiontext")];
-    char CSSValueStringPool_str669[sizeof("hard-light")];
-    char CSSValueStringPool_str670[sizeof("verso")];
-    char CSSValueStringPool_str671[sizeof("document")];
-    char CSSValueStringPool_str672[sizeof("goldenrod")];
-    char CSSValueStringPool_str673[sizeof("text-top")];
-    char CSSValueStringPool_str674[sizeof("farthest-corner")];
-    char CSSValueStringPool_str675[sizeof("lightcyan")];
-    char CSSValueStringPool_str676[sizeof("e-resize")];
-    char CSSValueStringPool_str677[sizeof("break-spaces")];
-    char CSSValueStringPool_str678[sizeof("color-burn")];
-    char CSSValueStringPool_str679[sizeof("searchfield")];
-    char CSSValueStringPool_str680[sizeof("reduce")];
-    char CSSValueStringPool_str681[sizeof("anchor-center")];
-    char CSSValueStringPool_str682[sizeof("lowercase")];
-    char CSSValueStringPool_str683[sizeof("self-inline")];
-    char CSSValueStringPool_str684[sizeof("ultra-expanded")];
-    char CSSValueStringPool_str685[sizeof("ruby-text")];
-    char CSSValueStringPool_str686[sizeof("pan-y")];
-    char CSSValueStringPool_str687[sizeof("color-cbdt")];
-    char CSSValueStringPool_str688[sizeof("pretty")];
-    char CSSValueStringPool_str689[sizeof("down")];
-    char CSSValueStringPool_str690[sizeof("exp")];
-    char CSSValueStringPool_str691[sizeof("features-graphite")];
-    char CSSValueStringPool_str692[sizeof("gainsboro")];
-    char CSSValueStringPool_str693[sizeof("lawngreen")];
-    char CSSValueStringPool_str694[sizeof("lavenderblush")];
-    char CSSValueStringPool_str695[sizeof("mediumslateblue")];
-    char CSSValueStringPool_str696[sizeof("inset-block-start")];
-    char CSSValueStringPool_str697[sizeof("inset-block-end")];
-    char CSSValueStringPool_str698[sizeof("soft-light")];
-    char CSSValueStringPool_str699[sizeof("minimized")];
-    char CSSValueStringPool_str700[sizeof("vertical")];
-    char CSSValueStringPool_str701[sizeof("thick")];
-    char CSSValueStringPool_str702[sizeof("conic-gradient")];
-    char CSSValueStringPool_str703[sizeof("color-dodge")];
-    char CSSValueStringPool_str704[sizeof("nowrap")];
-    char CSSValueStringPool_str705[sizeof("above")];
-    char CSSValueStringPool_str706[sizeof("inner-spin-button")];
-    char CSSValueStringPool_str707[sizeof("proportional-nums")];
-    char CSSValueStringPool_str708[sizeof("geometricprecision")];
-    char CSSValueStringPool_str709[sizeof("show")];
-    char CSSValueStringPool_str710[sizeof("not-allowed")];
-    char CSSValueStringPool_str711[sizeof("olivedrab")];
-    char CSSValueStringPool_str712[sizeof("infinite")];
-    char CSSValueStringPool_str713[sizeof("hwb")];
-    char CSSValueStringPool_str714[sizeof("scale-down")];
-    char CSSValueStringPool_str715[sizeof("table-caption")];
-    char CSSValueStringPool_str716[sizeof("text-bottom")];
-    char CSSValueStringPool_str717[sizeof("initial-only")];
-    char CSSValueStringPool_str718[sizeof("selecteditemtext")];
-    char CSSValueStringPool_str719[sizeof("justify")];
-    char CSSValueStringPool_str720[sizeof("activeborder")];
-    char CSSValueStringPool_str721[sizeof("layout")];
-    char CSSValueStringPool_str722[sizeof("horizontal")];
-    char CSSValueStringPool_str723[sizeof("-infinity")];
-    char CSSValueStringPool_str724[sizeof("skewy")];
-    char CSSValueStringPool_str725[sizeof("bidi-override")];
-    char CSSValueStringPool_str726[sizeof("threedface")];
-    char CSSValueStringPool_str727[sizeof("midnightblue")];
-    char CSSValueStringPool_str728[sizeof("progress-bar")];
-    char CSSValueStringPool_str729[sizeof("palette-mix")];
-    char CSSValueStringPool_str730[sizeof("exclude")];
-    char CSSValueStringPool_str731[sizeof("-internal-textarea-auto")];
-    char CSSValueStringPool_str732[sizeof("textfield")];
-    char CSSValueStringPool_str733[sizeof("blanchedalmond")];
-    char CSSValueStringPool_str734[sizeof("backwards")];
-    char CSSValueStringPool_str735[sizeof("absolute")];
-    char CSSValueStringPool_str736[sizeof("vertical-rl")];
-    char CSSValueStringPool_str737[sizeof("exclusion")];
-    char CSSValueStringPool_str738[sizeof("path")];
-    char CSSValueStringPool_str739[sizeof("table-footer-group")];
-    char CSSValueStringPool_str740[sizeof("inline-table")];
-    char CSSValueStringPool_str741[sizeof("hypot")];
-    char CSSValueStringPool_str742[sizeof("y-self-end")];
-    char CSSValueStringPool_str743[sizeof("xx-large")];
-    char CSSValueStringPool_str744[sizeof("mediumaquamarine")];
-    char CSSValueStringPool_str745[sizeof("oklch")];
-    char CSSValueStringPool_str746[sizeof("alphabetic")];
-    char CSSValueStringPool_str747[sizeof("y-self-start")];
-    char CSSValueStringPool_str748[sizeof("upright")];
-    char CSSValueStringPool_str749[sizeof("open-quote")];
-    char CSSValueStringPool_str750[sizeof("-internal-grammar-error-color")];
-    char CSSValueStringPool_str751[sizeof("auto-fit")];
-    char CSSValueStringPool_str752[sizeof("close-quote")];
-    char CSSValueStringPool_str753[sizeof("text-after-edge")];
-    char CSSValueStringPool_str754[sizeof("subpixel-antialiased")];
-    char CSSValueStringPool_str755[sizeof("vertical-lr")];
-    char CSSValueStringPool_str756[sizeof("rosybrown")];
-    char CSSValueStringPool_str757[sizeof("-internal-lower-armenian")];
-    char CSSValueStringPool_str758[sizeof("perspective")];
-    char CSSValueStringPool_str759[sizeof("petite-caps")];
-    char CSSValueStringPool_str760[sizeof("expanded")];
-    char CSSValueStringPool_str761[sizeof("inherit")];
-    char CSSValueStringPool_str762[sizeof("square-button")];
-    char CSSValueStringPool_str763[sizeof("block-axis")];
-    char CSSValueStringPool_str764[sizeof("accentcolortext")];
-    char CSSValueStringPool_str765[sizeof("read-write")];
-    char CSSValueStringPool_str766[sizeof("capitalize")];
-    char CSSValueStringPool_str767[sizeof("mediumturquoise")];
-    char CSSValueStringPool_str768[sizeof("block-size")];
-    char CSSValueStringPool_str769[sizeof("semi-expanded")];
-    char CSSValueStringPool_str770[sizeof("rebeccapurple")];
-    char CSSValueStringPool_str771[sizeof("auto-fill")];
-    char CSSValueStringPool_str772[sizeof("highlight")];
-    char CSSValueStringPool_str773[sizeof("table-row")];
-    char CSSValueStringPool_str774[sizeof("before-edge")];
-    char CSSValueStringPool_str775[sizeof("-internal-light-dark")];
+    char CSSValueStringPool_str637[sizeof("light-dark")];
+    char CSSValueStringPool_str638[sizeof("manual")];
+    char CSSValueStringPool_str639[sizeof("inline-grid")];
+    char CSSValueStringPool_str640[sizeof("lightgrey")];
+    char CSSValueStringPool_str641[sizeof("lightgray")];
+    char CSSValueStringPool_str642[sizeof("context-menu")];
+    char CSSValueStringPool_str643[sizeof("margin-box")];
+    char CSSValueStringPool_str644[sizeof("aqua")];
+    char CSSValueStringPool_str645[sizeof("stacked-fractions")];
+    char CSSValueStringPool_str646[sizeof("no-historical-ligatures")];
+    char CSSValueStringPool_str647[sizeof("gold")];
+    char CSSValueStringPool_str648[sizeof("scrollbar")];
+    char CSSValueStringPool_str649[sizeof("exit")];
+    char CSSValueStringPool_str650[sizeof("progressive")];
+    char CSSValueStringPool_str651[sizeof("words")];
+    char CSSValueStringPool_str652[sizeof("isolate-override")];
+    char CSSValueStringPool_str653[sizeof("listbox")];
+    char CSSValueStringPool_str654[sizeof("auto-same")];
+    char CSSValueStringPool_str655[sizeof("inline-end")];
+    char CSSValueStringPool_str656[sizeof("menulist")];
+    char CSSValueStringPool_str657[sizeof("azure")];
+    char CSSValueStringPool_str658[sizeof("aquamarine")];
+    char CSSValueStringPool_str659[sizeof("translatex")];
+    char CSSValueStringPool_str660[sizeof("extends")];
+    char CSSValueStringPool_str661[sizeof("ivory")];
+    char CSSValueStringPool_str662[sizeof("fill-box")];
+    char CSSValueStringPool_str663[sizeof("difference")];
+    char CSSValueStringPool_str664[sizeof("inline-start")];
+    char CSSValueStringPool_str665[sizeof("translatez")];
+    char CSSValueStringPool_str666[sizeof("lightpink")];
+    char CSSValueStringPool_str667[sizeof("auto-add")];
+    char CSSValueStringPool_str668[sizeof("column")];
+    char CSSValueStringPool_str669[sizeof("captiontext")];
+    char CSSValueStringPool_str670[sizeof("hard-light")];
+    char CSSValueStringPool_str671[sizeof("verso")];
+    char CSSValueStringPool_str672[sizeof("document")];
+    char CSSValueStringPool_str673[sizeof("goldenrod")];
+    char CSSValueStringPool_str674[sizeof("text-top")];
+    char CSSValueStringPool_str675[sizeof("farthest-corner")];
+    char CSSValueStringPool_str676[sizeof("lightcyan")];
+    char CSSValueStringPool_str677[sizeof("e-resize")];
+    char CSSValueStringPool_str678[sizeof("break-spaces")];
+    char CSSValueStringPool_str679[sizeof("color-burn")];
+    char CSSValueStringPool_str680[sizeof("searchfield")];
+    char CSSValueStringPool_str681[sizeof("reduce")];
+    char CSSValueStringPool_str682[sizeof("anchor-center")];
+    char CSSValueStringPool_str683[sizeof("lowercase")];
+    char CSSValueStringPool_str684[sizeof("self-inline")];
+    char CSSValueStringPool_str685[sizeof("ultra-expanded")];
+    char CSSValueStringPool_str686[sizeof("ruby-text")];
+    char CSSValueStringPool_str687[sizeof("pan-y")];
+    char CSSValueStringPool_str688[sizeof("color-cbdt")];
+    char CSSValueStringPool_str689[sizeof("pretty")];
+    char CSSValueStringPool_str690[sizeof("down")];
+    char CSSValueStringPool_str691[sizeof("exp")];
+    char CSSValueStringPool_str692[sizeof("features-graphite")];
+    char CSSValueStringPool_str693[sizeof("gainsboro")];
+    char CSSValueStringPool_str694[sizeof("lawngreen")];
+    char CSSValueStringPool_str695[sizeof("lavenderblush")];
+    char CSSValueStringPool_str696[sizeof("mediumslateblue")];
+    char CSSValueStringPool_str697[sizeof("inset-block-start")];
+    char CSSValueStringPool_str698[sizeof("inset-block-end")];
+    char CSSValueStringPool_str699[sizeof("soft-light")];
+    char CSSValueStringPool_str700[sizeof("minimized")];
+    char CSSValueStringPool_str701[sizeof("vertical")];
+    char CSSValueStringPool_str702[sizeof("thick")];
+    char CSSValueStringPool_str703[sizeof("conic-gradient")];
+    char CSSValueStringPool_str704[sizeof("color-dodge")];
+    char CSSValueStringPool_str705[sizeof("nowrap")];
+    char CSSValueStringPool_str706[sizeof("above")];
+    char CSSValueStringPool_str707[sizeof("inner-spin-button")];
+    char CSSValueStringPool_str708[sizeof("proportional-nums")];
+    char CSSValueStringPool_str709[sizeof("geometricprecision")];
+    char CSSValueStringPool_str710[sizeof("show")];
+    char CSSValueStringPool_str711[sizeof("not-allowed")];
+    char CSSValueStringPool_str712[sizeof("olivedrab")];
+    char CSSValueStringPool_str713[sizeof("infinite")];
+    char CSSValueStringPool_str714[sizeof("hwb")];
+    char CSSValueStringPool_str715[sizeof("scale-down")];
+    char CSSValueStringPool_str716[sizeof("table-caption")];
+    char CSSValueStringPool_str717[sizeof("text-bottom")];
+    char CSSValueStringPool_str718[sizeof("initial-only")];
+    char CSSValueStringPool_str719[sizeof("selecteditemtext")];
+    char CSSValueStringPool_str720[sizeof("justify")];
+    char CSSValueStringPool_str721[sizeof("activeborder")];
+    char CSSValueStringPool_str722[sizeof("layout")];
+    char CSSValueStringPool_str723[sizeof("horizontal")];
+    char CSSValueStringPool_str724[sizeof("-infinity")];
+    char CSSValueStringPool_str725[sizeof("skewy")];
+    char CSSValueStringPool_str726[sizeof("bidi-override")];
+    char CSSValueStringPool_str727[sizeof("threedface")];
+    char CSSValueStringPool_str728[sizeof("midnightblue")];
+    char CSSValueStringPool_str729[sizeof("progress-bar")];
+    char CSSValueStringPool_str730[sizeof("palette-mix")];
+    char CSSValueStringPool_str731[sizeof("exclude")];
+    char CSSValueStringPool_str732[sizeof("-internal-textarea-auto")];
+    char CSSValueStringPool_str733[sizeof("textfield")];
+    char CSSValueStringPool_str734[sizeof("blanchedalmond")];
+    char CSSValueStringPool_str735[sizeof("backwards")];
+    char CSSValueStringPool_str736[sizeof("absolute")];
+    char CSSValueStringPool_str737[sizeof("vertical-rl")];
+    char CSSValueStringPool_str738[sizeof("exclusion")];
+    char CSSValueStringPool_str739[sizeof("path")];
+    char CSSValueStringPool_str740[sizeof("table-footer-group")];
+    char CSSValueStringPool_str741[sizeof("inline-table")];
+    char CSSValueStringPool_str742[sizeof("hypot")];
+    char CSSValueStringPool_str743[sizeof("y-self-end")];
+    char CSSValueStringPool_str744[sizeof("xx-large")];
+    char CSSValueStringPool_str745[sizeof("mediumaquamarine")];
+    char CSSValueStringPool_str746[sizeof("oklch")];
+    char CSSValueStringPool_str747[sizeof("alphabetic")];
+    char CSSValueStringPool_str748[sizeof("y-self-start")];
+    char CSSValueStringPool_str749[sizeof("upright")];
+    char CSSValueStringPool_str750[sizeof("open-quote")];
+    char CSSValueStringPool_str751[sizeof("-internal-grammar-error-color")];
+    char CSSValueStringPool_str752[sizeof("auto-fit")];
+    char CSSValueStringPool_str753[sizeof("close-quote")];
+    char CSSValueStringPool_str754[sizeof("text-after-edge")];
+    char CSSValueStringPool_str755[sizeof("subpixel-antialiased")];
+    char CSSValueStringPool_str756[sizeof("vertical-lr")];
+    char CSSValueStringPool_str757[sizeof("rosybrown")];
+    char CSSValueStringPool_str758[sizeof("-internal-lower-armenian")];
+    char CSSValueStringPool_str759[sizeof("perspective")];
+    char CSSValueStringPool_str760[sizeof("petite-caps")];
+    char CSSValueStringPool_str761[sizeof("expanded")];
+    char CSSValueStringPool_str762[sizeof("inherit")];
+    char CSSValueStringPool_str763[sizeof("square-button")];
+    char CSSValueStringPool_str764[sizeof("block-axis")];
+    char CSSValueStringPool_str765[sizeof("accentcolortext")];
+    char CSSValueStringPool_str766[sizeof("read-write")];
+    char CSSValueStringPool_str767[sizeof("capitalize")];
+    char CSSValueStringPool_str768[sizeof("mediumturquoise")];
+    char CSSValueStringPool_str769[sizeof("block-size")];
+    char CSSValueStringPool_str770[sizeof("semi-expanded")];
+    char CSSValueStringPool_str771[sizeof("rebeccapurple")];
+    char CSSValueStringPool_str772[sizeof("auto-fill")];
+    char CSSValueStringPool_str773[sizeof("highlight")];
+    char CSSValueStringPool_str774[sizeof("table-row")];
+    char CSSValueStringPool_str775[sizeof("before-edge")];
     char CSSValueStringPool_str776[sizeof("variations")];
     char CSSValueStringPool_str777[sizeof("-internal-hebrew")];
     char CSSValueStringPool_str778[sizeof("menulist-button")];
@@ -3876,6 +3876,7 @@ static const struct CSSValueStringPool_t CSSValueStringPool_contents =
     "opentype",
     "scroll-state",
     "row",
+    "light-dark",
     "manual",
     "inline-grid",
     "lightgrey",
@@ -4014,7 +4015,6 @@ static const struct CSSValueStringPool_t CSSValueStringPool_contents =
     "highlight",
     "table-row",
     "before-edge",
-    "-internal-light-dark",
     "variations",
     "-internal-hebrew",
     "menulist-button",
@@ -4893,145 +4893,145 @@ CSSValueKeywordsHash::findValueImpl (const char *str, size_t len)
       {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str634, static_cast<int>(CSSValueID::kOpentype)},
       {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str635, static_cast<int>(CSSValueID::kScrollState)},
       {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str636, static_cast<int>(CSSValueID::kRow)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str637, static_cast<int>(CSSValueID::kManual)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str638, static_cast<int>(CSSValueID::kInlineGrid)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str639, static_cast<int>(CSSValueID::kLightgrey)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str640, static_cast<int>(CSSValueID::kLightgray)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str641, static_cast<int>(CSSValueID::kContextMenu)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str642, static_cast<int>(CSSValueID::kMarginBox)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str643, static_cast<int>(CSSValueID::kAqua)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str644, static_cast<int>(CSSValueID::kStackedFractions)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str645, static_cast<int>(CSSValueID::kNoHistoricalLigatures)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str646, static_cast<int>(CSSValueID::kGold)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str647, static_cast<int>(CSSValueID::kScrollbar)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str648, static_cast<int>(CSSValueID::kExit)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str649, static_cast<int>(CSSValueID::kProgressive)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str650, static_cast<int>(CSSValueID::kWords)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str651, static_cast<int>(CSSValueID::kIsolateOverride)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str652, static_cast<int>(CSSValueID::kListbox)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str653, static_cast<int>(CSSValueID::kAutoSame)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str654, static_cast<int>(CSSValueID::kInlineEnd)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str655, static_cast<int>(CSSValueID::kMenulist)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str656, static_cast<int>(CSSValueID::kAzure)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str657, static_cast<int>(CSSValueID::kAquamarine)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str658, static_cast<int>(CSSValueID::kTranslateX)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str659, static_cast<int>(CSSValueID::kExtends)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str660, static_cast<int>(CSSValueID::kIvory)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str661, static_cast<int>(CSSValueID::kFillBox)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str662, static_cast<int>(CSSValueID::kDifference)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str663, static_cast<int>(CSSValueID::kInlineStart)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str664, static_cast<int>(CSSValueID::kTranslateZ)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str665, static_cast<int>(CSSValueID::kLightpink)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str666, static_cast<int>(CSSValueID::kAutoAdd)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str667, static_cast<int>(CSSValueID::kColumn)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str668, static_cast<int>(CSSValueID::kCaptiontext)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str669, static_cast<int>(CSSValueID::kHardLight)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str670, static_cast<int>(CSSValueID::kVerso)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str671, static_cast<int>(CSSValueID::kDocument)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str672, static_cast<int>(CSSValueID::kGoldenrod)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str673, static_cast<int>(CSSValueID::kTextTop)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str674, static_cast<int>(CSSValueID::kFarthestCorner)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str675, static_cast<int>(CSSValueID::kLightcyan)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str676, static_cast<int>(CSSValueID::kEResize)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str677, static_cast<int>(CSSValueID::kBreakSpaces)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str678, static_cast<int>(CSSValueID::kColorBurn)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str679, static_cast<int>(CSSValueID::kSearchfield)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str680, static_cast<int>(CSSValueID::kReduce)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str681, static_cast<int>(CSSValueID::kAnchorCenter)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str682, static_cast<int>(CSSValueID::kLowercase)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str683, static_cast<int>(CSSValueID::kSelfInline)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str684, static_cast<int>(CSSValueID::kUltraExpanded)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str685, static_cast<int>(CSSValueID::kRubyText)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str686, static_cast<int>(CSSValueID::kPanY)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str687, static_cast<int>(CSSValueID::kColorCBDT)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str688, static_cast<int>(CSSValueID::kPretty)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str689, static_cast<int>(CSSValueID::kDown)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str690, static_cast<int>(CSSValueID::kExp)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str691, static_cast<int>(CSSValueID::kFeaturesGraphite)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str692, static_cast<int>(CSSValueID::kGainsboro)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str693, static_cast<int>(CSSValueID::kLawngreen)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str694, static_cast<int>(CSSValueID::kLavenderblush)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str695, static_cast<int>(CSSValueID::kMediumslateblue)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str696, static_cast<int>(CSSValueID::kInsetBlockStart)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str697, static_cast<int>(CSSValueID::kInsetBlockEnd)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str698, static_cast<int>(CSSValueID::kSoftLight)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str699, static_cast<int>(CSSValueID::kMinimized)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str700, static_cast<int>(CSSValueID::kVertical)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str701, static_cast<int>(CSSValueID::kThick)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str702, static_cast<int>(CSSValueID::kConicGradient)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str703, static_cast<int>(CSSValueID::kColorDodge)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str704, static_cast<int>(CSSValueID::kNowrap)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str705, static_cast<int>(CSSValueID::kAbove)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str706, static_cast<int>(CSSValueID::kInnerSpinButton)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str707, static_cast<int>(CSSValueID::kProportionalNums)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str708, static_cast<int>(CSSValueID::kGeometricprecision)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str709, static_cast<int>(CSSValueID::kShow)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str710, static_cast<int>(CSSValueID::kNotAllowed)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str711, static_cast<int>(CSSValueID::kOlivedrab)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str712, static_cast<int>(CSSValueID::kInfinite)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str713, static_cast<int>(CSSValueID::kHwb)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str714, static_cast<int>(CSSValueID::kScaleDown)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str715, static_cast<int>(CSSValueID::kTableCaption)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str716, static_cast<int>(CSSValueID::kTextBottom)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str717, static_cast<int>(CSSValueID::kInitialOnly)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str718, static_cast<int>(CSSValueID::kSelecteditemtext)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str719, static_cast<int>(CSSValueID::kJustify)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str720, static_cast<int>(CSSValueID::kActiveborder)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str721, static_cast<int>(CSSValueID::kLayout)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str722, static_cast<int>(CSSValueID::kHorizontal)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str723, static_cast<int>(CSSValueID::kNegativeInfinity)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str724, static_cast<int>(CSSValueID::kSkewY)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str725, static_cast<int>(CSSValueID::kBidiOverride)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str726, static_cast<int>(CSSValueID::kThreedface)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str727, static_cast<int>(CSSValueID::kMidnightblue)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str728, static_cast<int>(CSSValueID::kProgressBar)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str729, static_cast<int>(CSSValueID::kPaletteMix)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str730, static_cast<int>(CSSValueID::kExclude)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str731, static_cast<int>(CSSValueID::kInternalTextareaAuto)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str732, static_cast<int>(CSSValueID::kTextfield)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str733, static_cast<int>(CSSValueID::kBlanchedalmond)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str734, static_cast<int>(CSSValueID::kBackwards)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str735, static_cast<int>(CSSValueID::kAbsolute)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str736, static_cast<int>(CSSValueID::kVerticalRl)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str737, static_cast<int>(CSSValueID::kExclusion)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str738, static_cast<int>(CSSValueID::kPath)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str739, static_cast<int>(CSSValueID::kTableFooterGroup)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str740, static_cast<int>(CSSValueID::kInlineTable)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str741, static_cast<int>(CSSValueID::kHypot)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str742, static_cast<int>(CSSValueID::kYSelfEnd)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str743, static_cast<int>(CSSValueID::kXxLarge)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str744, static_cast<int>(CSSValueID::kMediumaquamarine)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str745, static_cast<int>(CSSValueID::kOklch)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str746, static_cast<int>(CSSValueID::kAlphabetic)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str747, static_cast<int>(CSSValueID::kYSelfStart)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str748, static_cast<int>(CSSValueID::kUpright)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str749, static_cast<int>(CSSValueID::kOpenQuote)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str750, static_cast<int>(CSSValueID::kInternalGrammarErrorColor)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str751, static_cast<int>(CSSValueID::kAutoFit)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str752, static_cast<int>(CSSValueID::kCloseQuote)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str753, static_cast<int>(CSSValueID::kTextAfterEdge)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str754, static_cast<int>(CSSValueID::kSubpixelAntialiased)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str755, static_cast<int>(CSSValueID::kVerticalLr)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str756, static_cast<int>(CSSValueID::kRosybrown)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str757, static_cast<int>(CSSValueID::kInternalLowerArmenian)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str758, static_cast<int>(CSSValueID::kPerspective)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str759, static_cast<int>(CSSValueID::kPetiteCaps)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str760, static_cast<int>(CSSValueID::kExpanded)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str761, static_cast<int>(CSSValueID::kInherit)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str762, static_cast<int>(CSSValueID::kSquareButton)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str763, static_cast<int>(CSSValueID::kBlockAxis)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str764, static_cast<int>(CSSValueID::kAccentcolortext)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str765, static_cast<int>(CSSValueID::kReadWrite)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str766, static_cast<int>(CSSValueID::kCapitalize)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str767, static_cast<int>(CSSValueID::kMediumturquoise)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str768, static_cast<int>(CSSValueID::kBlockSize)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str769, static_cast<int>(CSSValueID::kSemiExpanded)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str770, static_cast<int>(CSSValueID::kRebeccapurple)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str771, static_cast<int>(CSSValueID::kAutoFill)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str772, static_cast<int>(CSSValueID::kHighlight)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str773, static_cast<int>(CSSValueID::kTableRow)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str774, static_cast<int>(CSSValueID::kBeforeEdge)},
-      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str775, static_cast<int>(CSSValueID::kInternalLightDark)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str637, static_cast<int>(CSSValueID::kLightDark)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str638, static_cast<int>(CSSValueID::kManual)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str639, static_cast<int>(CSSValueID::kInlineGrid)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str640, static_cast<int>(CSSValueID::kLightgrey)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str641, static_cast<int>(CSSValueID::kLightgray)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str642, static_cast<int>(CSSValueID::kContextMenu)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str643, static_cast<int>(CSSValueID::kMarginBox)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str644, static_cast<int>(CSSValueID::kAqua)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str645, static_cast<int>(CSSValueID::kStackedFractions)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str646, static_cast<int>(CSSValueID::kNoHistoricalLigatures)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str647, static_cast<int>(CSSValueID::kGold)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str648, static_cast<int>(CSSValueID::kScrollbar)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str649, static_cast<int>(CSSValueID::kExit)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str650, static_cast<int>(CSSValueID::kProgressive)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str651, static_cast<int>(CSSValueID::kWords)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str652, static_cast<int>(CSSValueID::kIsolateOverride)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str653, static_cast<int>(CSSValueID::kListbox)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str654, static_cast<int>(CSSValueID::kAutoSame)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str655, static_cast<int>(CSSValueID::kInlineEnd)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str656, static_cast<int>(CSSValueID::kMenulist)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str657, static_cast<int>(CSSValueID::kAzure)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str658, static_cast<int>(CSSValueID::kAquamarine)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str659, static_cast<int>(CSSValueID::kTranslateX)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str660, static_cast<int>(CSSValueID::kExtends)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str661, static_cast<int>(CSSValueID::kIvory)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str662, static_cast<int>(CSSValueID::kFillBox)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str663, static_cast<int>(CSSValueID::kDifference)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str664, static_cast<int>(CSSValueID::kInlineStart)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str665, static_cast<int>(CSSValueID::kTranslateZ)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str666, static_cast<int>(CSSValueID::kLightpink)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str667, static_cast<int>(CSSValueID::kAutoAdd)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str668, static_cast<int>(CSSValueID::kColumn)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str669, static_cast<int>(CSSValueID::kCaptiontext)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str670, static_cast<int>(CSSValueID::kHardLight)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str671, static_cast<int>(CSSValueID::kVerso)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str672, static_cast<int>(CSSValueID::kDocument)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str673, static_cast<int>(CSSValueID::kGoldenrod)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str674, static_cast<int>(CSSValueID::kTextTop)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str675, static_cast<int>(CSSValueID::kFarthestCorner)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str676, static_cast<int>(CSSValueID::kLightcyan)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str677, static_cast<int>(CSSValueID::kEResize)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str678, static_cast<int>(CSSValueID::kBreakSpaces)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str679, static_cast<int>(CSSValueID::kColorBurn)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str680, static_cast<int>(CSSValueID::kSearchfield)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str681, static_cast<int>(CSSValueID::kReduce)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str682, static_cast<int>(CSSValueID::kAnchorCenter)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str683, static_cast<int>(CSSValueID::kLowercase)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str684, static_cast<int>(CSSValueID::kSelfInline)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str685, static_cast<int>(CSSValueID::kUltraExpanded)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str686, static_cast<int>(CSSValueID::kRubyText)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str687, static_cast<int>(CSSValueID::kPanY)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str688, static_cast<int>(CSSValueID::kColorCBDT)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str689, static_cast<int>(CSSValueID::kPretty)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str690, static_cast<int>(CSSValueID::kDown)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str691, static_cast<int>(CSSValueID::kExp)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str692, static_cast<int>(CSSValueID::kFeaturesGraphite)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str693, static_cast<int>(CSSValueID::kGainsboro)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str694, static_cast<int>(CSSValueID::kLawngreen)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str695, static_cast<int>(CSSValueID::kLavenderblush)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str696, static_cast<int>(CSSValueID::kMediumslateblue)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str697, static_cast<int>(CSSValueID::kInsetBlockStart)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str698, static_cast<int>(CSSValueID::kInsetBlockEnd)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str699, static_cast<int>(CSSValueID::kSoftLight)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str700, static_cast<int>(CSSValueID::kMinimized)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str701, static_cast<int>(CSSValueID::kVertical)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str702, static_cast<int>(CSSValueID::kThick)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str703, static_cast<int>(CSSValueID::kConicGradient)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str704, static_cast<int>(CSSValueID::kColorDodge)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str705, static_cast<int>(CSSValueID::kNowrap)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str706, static_cast<int>(CSSValueID::kAbove)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str707, static_cast<int>(CSSValueID::kInnerSpinButton)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str708, static_cast<int>(CSSValueID::kProportionalNums)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str709, static_cast<int>(CSSValueID::kGeometricprecision)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str710, static_cast<int>(CSSValueID::kShow)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str711, static_cast<int>(CSSValueID::kNotAllowed)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str712, static_cast<int>(CSSValueID::kOlivedrab)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str713, static_cast<int>(CSSValueID::kInfinite)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str714, static_cast<int>(CSSValueID::kHwb)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str715, static_cast<int>(CSSValueID::kScaleDown)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str716, static_cast<int>(CSSValueID::kTableCaption)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str717, static_cast<int>(CSSValueID::kTextBottom)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str718, static_cast<int>(CSSValueID::kInitialOnly)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str719, static_cast<int>(CSSValueID::kSelecteditemtext)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str720, static_cast<int>(CSSValueID::kJustify)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str721, static_cast<int>(CSSValueID::kActiveborder)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str722, static_cast<int>(CSSValueID::kLayout)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str723, static_cast<int>(CSSValueID::kHorizontal)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str724, static_cast<int>(CSSValueID::kNegativeInfinity)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str725, static_cast<int>(CSSValueID::kSkewY)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str726, static_cast<int>(CSSValueID::kBidiOverride)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str727, static_cast<int>(CSSValueID::kThreedface)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str728, static_cast<int>(CSSValueID::kMidnightblue)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str729, static_cast<int>(CSSValueID::kProgressBar)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str730, static_cast<int>(CSSValueID::kPaletteMix)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str731, static_cast<int>(CSSValueID::kExclude)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str732, static_cast<int>(CSSValueID::kInternalTextareaAuto)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str733, static_cast<int>(CSSValueID::kTextfield)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str734, static_cast<int>(CSSValueID::kBlanchedalmond)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str735, static_cast<int>(CSSValueID::kBackwards)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str736, static_cast<int>(CSSValueID::kAbsolute)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str737, static_cast<int>(CSSValueID::kVerticalRl)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str738, static_cast<int>(CSSValueID::kExclusion)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str739, static_cast<int>(CSSValueID::kPath)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str740, static_cast<int>(CSSValueID::kTableFooterGroup)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str741, static_cast<int>(CSSValueID::kInlineTable)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str742, static_cast<int>(CSSValueID::kHypot)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str743, static_cast<int>(CSSValueID::kYSelfEnd)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str744, static_cast<int>(CSSValueID::kXxLarge)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str745, static_cast<int>(CSSValueID::kMediumaquamarine)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str746, static_cast<int>(CSSValueID::kOklch)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str747, static_cast<int>(CSSValueID::kAlphabetic)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str748, static_cast<int>(CSSValueID::kYSelfStart)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str749, static_cast<int>(CSSValueID::kUpright)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str750, static_cast<int>(CSSValueID::kOpenQuote)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str751, static_cast<int>(CSSValueID::kInternalGrammarErrorColor)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str752, static_cast<int>(CSSValueID::kAutoFit)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str753, static_cast<int>(CSSValueID::kCloseQuote)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str754, static_cast<int>(CSSValueID::kTextAfterEdge)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str755, static_cast<int>(CSSValueID::kSubpixelAntialiased)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str756, static_cast<int>(CSSValueID::kVerticalLr)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str757, static_cast<int>(CSSValueID::kRosybrown)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str758, static_cast<int>(CSSValueID::kInternalLowerArmenian)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str759, static_cast<int>(CSSValueID::kPerspective)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str760, static_cast<int>(CSSValueID::kPetiteCaps)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str761, static_cast<int>(CSSValueID::kExpanded)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str762, static_cast<int>(CSSValueID::kInherit)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str763, static_cast<int>(CSSValueID::kSquareButton)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str764, static_cast<int>(CSSValueID::kBlockAxis)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str765, static_cast<int>(CSSValueID::kAccentcolortext)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str766, static_cast<int>(CSSValueID::kReadWrite)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str767, static_cast<int>(CSSValueID::kCapitalize)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str768, static_cast<int>(CSSValueID::kMediumturquoise)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str769, static_cast<int>(CSSValueID::kBlockSize)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str770, static_cast<int>(CSSValueID::kSemiExpanded)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str771, static_cast<int>(CSSValueID::kRebeccapurple)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str772, static_cast<int>(CSSValueID::kAutoFill)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str773, static_cast<int>(CSSValueID::kHighlight)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str774, static_cast<int>(CSSValueID::kTableRow)},
+      {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str775, static_cast<int>(CSSValueID::kBeforeEdge)},
       {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str776, static_cast<int>(CSSValueID::kVariations)},
       {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str777, static_cast<int>(CSSValueID::kInternalHebrew)},
       {(int)(size_t)&((struct CSSValueStringPool_t *)0)->CSSValueStringPool_str778, static_cast<int>(CSSValueID::kMenulistButton)},
@@ -5571,112 +5571,112 @@ CSSValueKeywordsHash::findValueImpl (const char *str, size_t len)
         -1,   -1,   -1,   -1,   -1,  635,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,  636,   -1,
-        -1,   -1,   -1,   -1,   -1,   -1,   -1,  637,
-        -1,   -1,   -1,  638,  639,  640,   -1,   -1,
-        -1,   -1,   -1,  641,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,  642,   -1,   -1,
-       643,  644,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,  645,  646,  647,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,  648,   -1,   -1,
-        -1,   -1,   -1,   -1,  649,   -1,  650,   -1,
-        -1,   -1,  651,   -1,  652,   -1,  653,   -1,
-        -1,   -1,   -1,   -1,  654,  655,   -1,   -1,
-       656,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-       657,   -1,   -1,   -1,  658,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,  637,  638,
+        -1,   -1,   -1,  639,  640,  641,   -1,   -1,
+        -1,   -1,   -1,  642,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,  643,   -1,   -1,
+       644,  645,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,  646,  647,  648,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,  649,   -1,   -1,
+        -1,   -1,   -1,   -1,  650,   -1,  651,   -1,
+        -1,   -1,  652,   -1,  653,   -1,  654,   -1,
+        -1,   -1,   -1,   -1,  655,  656,   -1,   -1,
+       657,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+       658,   -1,   -1,   -1,  659,   -1,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,  659,   -1,   -1,  660,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,   -1,  661,   -1,
+        -1,   -1,  660,   -1,   -1,  661,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,  662,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,  662,  663,   -1,   -1,  664,   -1,  665,
-        -1,   -1,  666,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,   -1,   -1,  667,
+        -1,  663,  664,   -1,   -1,  665,   -1,  666,
+        -1,   -1,  667,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,   -1,  668,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,  668,   -1,   -1,  669,   -1,
-       670,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,  671,   -1,   -1,
+        -1,   -1,   -1,  669,   -1,   -1,  670,   -1,
+       671,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,  672,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,  672,   -1,   -1,   -1,   -1,   -1,
-       673,   -1,  674,   -1,   -1,  675,   -1,   -1,
-       676,   -1,   -1,   -1,   -1,  677,   -1,   -1,
+        -1,   -1,  673,   -1,   -1,   -1,   -1,   -1,
+       674,   -1,  675,   -1,   -1,  676,   -1,   -1,
+       677,   -1,   -1,   -1,   -1,  678,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-       678,   -1,   -1,  679,   -1,   -1,   -1,   -1,
+       679,   -1,   -1,  680,   -1,   -1,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,  680,   -1,   -1,   -1,
-        -1,   -1,   -1,  681,   -1,   -1,   -1,   -1,
-        -1,   -1,  682,   -1,   -1,   -1,  683,   -1,
-       684,   -1,  685,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,  686,   -1,   -1,  687,   -1,   -1,
-        -1,   -1,  688,   -1,   -1,   -1,  689,  690,
-       691,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-       692,  693,  694,   -1,   -1,   -1,   -1,  695,
-       696,   -1,   -1,   -1,  697,   -1,   -1,   -1,
-        -1,  698,   -1,   -1,   -1,   -1,  699,   -1,
-        -1,   -1,   -1,   -1,   -1,  700,  701,   -1,
-       702,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,  703,  704,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,  705,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,   -1,  706,  707,
-        -1,   -1,  708,  709,   -1,   -1,  710,   -1,
-       711,  712,   -1,   -1,   -1,   -1,  713,   -1,
-        -1,   -1,   -1,   -1,  714,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,  715,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,  716,   -1,  717,
-        -1,   -1,  718,   -1,   -1,  719,   -1,   -1,
-        -1,   -1,   -1,  720,   -1,  721,   -1,  722,
-        -1,   -1,   -1,   -1,   -1,  723,   -1,   -1,
-        -1,   -1,  724,  725,   -1,   -1,   -1,   -1,
-       726,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,  727,   -1,   -1,   -1,  728,
-        -1,   -1,   -1,   -1,  729,   -1,   -1,   -1,
-        -1,   -1,  730,   -1,   -1,  731,   -1,   -1,
+        -1,   -1,   -1,   -1,  681,   -1,   -1,   -1,
+        -1,   -1,   -1,  682,   -1,   -1,   -1,   -1,
+        -1,   -1,  683,   -1,   -1,   -1,  684,   -1,
+       685,   -1,  686,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,  687,   -1,   -1,  688,   -1,   -1,
+        -1,   -1,  689,   -1,   -1,   -1,  690,  691,
+       692,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+       693,  694,  695,   -1,   -1,   -1,   -1,  696,
+       697,   -1,   -1,   -1,  698,   -1,   -1,   -1,
+        -1,  699,   -1,   -1,   -1,   -1,  700,   -1,
+        -1,   -1,   -1,   -1,   -1,  701,  702,   -1,
+       703,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,  704,  705,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,  706,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,  707,  708,
+        -1,   -1,  709,  710,   -1,   -1,  711,   -1,
+       712,  713,   -1,   -1,   -1,   -1,  714,   -1,
+        -1,   -1,   -1,   -1,  715,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,  716,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,  717,   -1,  718,
+        -1,   -1,  719,   -1,   -1,  720,   -1,   -1,
+        -1,   -1,   -1,  721,   -1,  722,   -1,  723,
+        -1,   -1,   -1,   -1,   -1,  724,   -1,   -1,
+        -1,   -1,  725,  726,   -1,   -1,   -1,   -1,
+       727,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,  728,   -1,   -1,   -1,  729,
+        -1,   -1,   -1,   -1,  730,   -1,   -1,   -1,
+        -1,   -1,  731,   -1,   -1,  732,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-       732,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,  733,   -1,   -1,   -1,   -1,  734,
-        -1,   -1,   -1,   -1,   -1,   -1,  735,   -1,
-        -1,  736,   -1,  737,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,  738,  739,  740,
-        -1,  741,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,  742,   -1,   -1,   -1,  743,
-        -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,   -1,  744,   -1,
-       745,   -1,   -1,   -1,   -1,   -1,   -1,  746,
+       733,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,  734,   -1,   -1,   -1,   -1,  735,
+        -1,   -1,   -1,   -1,   -1,   -1,  736,   -1,
+        -1,  737,   -1,  738,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,  739,  740,  741,
+        -1,  742,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,  743,   -1,   -1,   -1,  744,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,  747,   -1,  748,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,   -1,  749,   -1,
-       750,  751,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,  752,   -1,   -1,   -1,   -1,
-       753,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,   -1,  754,   -1,
-       755,   -1,   -1,   -1,   -1,   -1,  756,   -1,
-        -1,   -1,  757,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,  758,   -1,   -1,   -1,  759,   -1,
-        -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,  760,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,  745,   -1,
+       746,   -1,   -1,   -1,   -1,   -1,   -1,  747,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,  761,   -1,   -1,  762,   -1,   -1,
+        -1,  748,   -1,  749,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,  750,   -1,
+       751,  752,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,  753,   -1,   -1,   -1,   -1,
+       754,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,  755,   -1,
+       756,   -1,   -1,   -1,   -1,   -1,  757,   -1,
+        -1,   -1,  758,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,  759,   -1,   -1,   -1,  760,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,  761,   -1,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,  763,   -1,   -1,
+        -1,   -1,  762,   -1,   -1,  763,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,  764,   -1,   -1,
-        -1,   -1,   -1,   -1,  765,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,   -1,   -1,  766,
+        -1,   -1,   -1,   -1,   -1,  765,   -1,   -1,
+        -1,   -1,   -1,   -1,  766,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,   -1,  767,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,  767,  768,   -1,   -1,
+        -1,   -1,   -1,   -1,  768,  769,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,  769,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,  770,   -1,   -1,   -1,   -1,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,   -1,   -1,  770,
-        -1,   -1,   -1,   -1,   -1,  771,   -1,  772,
-        -1,   -1,   -1,  773,  774,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-        -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,   -1,  771,
+        -1,   -1,   -1,   -1,   -1,  772,   -1,  773,
+        -1,   -1,   -1,  774,  775,   -1,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-       775,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+        -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,  776,   -1,
         -1,   -1,   -1,  777,   -1,   -1,   -1,   -1,
         -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
@@ -6368,7 +6368,6 @@ bool isValueAllowedInMode(CSSValueID id, CSSParserMode mode) {
     case CSSValueID::kInternalCenter:
     case CSSValueID::kInternalMediaControl:
     case CSSValueID::kInternalExtendToZoom:
-    case CSSValueID::kInternalLightDark:
     case CSSValueID::kInternalVariableValue:
     case CSSValueID::kInternalSimpChineseInformal:
     case CSSValueID::kInternalSimpChineseFormal:

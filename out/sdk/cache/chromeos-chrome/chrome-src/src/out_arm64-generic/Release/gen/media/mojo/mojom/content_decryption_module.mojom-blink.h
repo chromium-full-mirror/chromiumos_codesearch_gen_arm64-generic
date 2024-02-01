@@ -495,7 +495,7 @@ class BLINK_PLATFORM_EXPORT CdmPromiseResult {
   template <typename... Args>
   static CdmPromiseResultPtr New(Args&&... args) {
     return CdmPromiseResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -651,7 +651,7 @@ class BLINK_PLATFORM_EXPORT CdmKeyInformation {
   template <typename... Args>
   static CdmKeyInformationPtr New(Args&&... args) {
     return CdmKeyInformationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -797,7 +797,7 @@ class BLINK_PLATFORM_EXPORT CdmContext {
   template <typename... Args>
   static CdmContextPtr New(Args&&... args) {
     return CdmContextPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

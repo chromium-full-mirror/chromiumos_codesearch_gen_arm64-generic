@@ -99,9 +99,6 @@ PROTOBUF_CONSTEXPR ContactInfoSpecifics::ContactInfoSpecifics(
   , address_apt_num_(nullptr)
   , address_floor_(nullptr)
   , phone_home_whole_number_(nullptr)
-  , birthdate_day_(nullptr)
-  , birthdate_month_(nullptr)
-  , birthdate_year_(nullptr)
   , address_landmark_(nullptr)
   , address_between_streets_(nullptr)
   , address_admin_level_2_(nullptr)
@@ -1201,13 +1198,13 @@ class ContactInfoSpecifics::_Internal {
     (*has_bits)[0] |= 1u;
   }
   static void set_has_use_count(HasBits* has_bits) {
-    (*has_bits)[1] |= 128u;
+    (*has_bits)[1] |= 16u;
   }
   static void set_has_use_date_unix_epoch_seconds(HasBits* has_bits) {
-    (*has_bits)[1] |= 256u;
+    (*has_bits)[1] |= 32u;
   }
   static void set_has_date_modified_unix_epoch_seconds(HasBits* has_bits) {
-    (*has_bits)[1] |= 512u;
+    (*has_bits)[1] |= 64u;
   }
   static void set_has_language_code(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
@@ -1216,10 +1213,10 @@ class ContactInfoSpecifics::_Internal {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_initial_creator_id(HasBits* has_bits) {
-    (*has_bits)[1] |= 1024u;
+    (*has_bits)[1] |= 128u;
   }
   static void set_has_last_modifier_id(HasBits* has_bits) {
-    (*has_bits)[1] |= 2048u;
+    (*has_bits)[1] |= 256u;
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& name_first(const ContactInfoSpecifics* msg);
   static void set_has_name_first(HasBits* has_bits) {
@@ -1275,7 +1272,7 @@ class ContactInfoSpecifics::_Internal {
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& address_admin_level_2(const ContactInfoSpecifics* msg);
   static void set_has_address_admin_level_2(HasBits* has_bits) {
-    (*has_bits)[0] |= 1073741824u;
+    (*has_bits)[0] |= 134217728u;
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& address_street_address(const ContactInfoSpecifics* msg);
   static void set_has_address_street_address(HasBits* has_bits) {
@@ -1303,7 +1300,7 @@ class ContactInfoSpecifics::_Internal {
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& address_apt(const ContactInfoSpecifics* msg);
   static void set_has_address_apt(HasBits* has_bits) {
-    (*has_bits)[1] |= 32u;
+    (*has_bits)[1] |= 4u;
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& address_apt_num(const ContactInfoSpecifics* msg);
   static void set_has_address_apt_num(HasBits* has_bits) {
@@ -1311,7 +1308,7 @@ class ContactInfoSpecifics::_Internal {
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& address_apt_type(const ContactInfoSpecifics* msg);
   static void set_has_address_apt_type(HasBits* has_bits) {
-    (*has_bits)[1] |= 64u;
+    (*has_bits)[1] |= 8u;
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& address_floor(const ContactInfoSpecifics* msg);
   static void set_has_address_floor(HasBits* has_bits) {
@@ -1319,51 +1316,39 @@ class ContactInfoSpecifics::_Internal {
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& address_street_location(const ContactInfoSpecifics* msg);
   static void set_has_address_street_location(HasBits* has_bits) {
-    (*has_bits)[0] |= 2147483648u;
+    (*has_bits)[0] |= 268435456u;
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& address_landmark(const ContactInfoSpecifics* msg);
   static void set_has_address_landmark(HasBits* has_bits) {
-    (*has_bits)[0] |= 268435456u;
+    (*has_bits)[0] |= 33554432u;
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& address_overflow(const ContactInfoSpecifics* msg);
   static void set_has_address_overflow(HasBits* has_bits) {
-    (*has_bits)[1] |= 1u;
+    (*has_bits)[0] |= 536870912u;
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& address_between_streets(const ContactInfoSpecifics* msg);
   static void set_has_address_between_streets(HasBits* has_bits) {
-    (*has_bits)[0] |= 536870912u;
+    (*has_bits)[0] |= 67108864u;
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& address_between_streets_1(const ContactInfoSpecifics* msg);
   static void set_has_address_between_streets_1(HasBits* has_bits) {
-    (*has_bits)[1] |= 2u;
+    (*has_bits)[0] |= 1073741824u;
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& address_between_streets_2(const ContactInfoSpecifics* msg);
   static void set_has_address_between_streets_2(HasBits* has_bits) {
-    (*has_bits)[1] |= 4u;
+    (*has_bits)[0] |= 2147483648u;
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& address_between_streets_or_landmark(const ContactInfoSpecifics* msg);
   static void set_has_address_between_streets_or_landmark(HasBits* has_bits) {
-    (*has_bits)[1] |= 8u;
+    (*has_bits)[1] |= 1u;
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& address_overflow_and_landmark(const ContactInfoSpecifics* msg);
   static void set_has_address_overflow_and_landmark(HasBits* has_bits) {
-    (*has_bits)[1] |= 16u;
+    (*has_bits)[1] |= 2u;
   }
   static const ::sync_pb::ContactInfoSpecifics_StringToken& phone_home_whole_number(const ContactInfoSpecifics* msg);
   static void set_has_phone_home_whole_number(HasBits* has_bits) {
     (*has_bits)[0] |= 16777216u;
-  }
-  static const ::sync_pb::ContactInfoSpecifics_IntegerToken& birthdate_day(const ContactInfoSpecifics* msg);
-  static void set_has_birthdate_day(HasBits* has_bits) {
-    (*has_bits)[0] |= 33554432u;
-  }
-  static const ::sync_pb::ContactInfoSpecifics_IntegerToken& birthdate_month(const ContactInfoSpecifics* msg);
-  static void set_has_birthdate_month(HasBits* has_bits) {
-    (*has_bits)[0] |= 67108864u;
-  }
-  static const ::sync_pb::ContactInfoSpecifics_IntegerToken& birthdate_year(const ContactInfoSpecifics* msg);
-  static void set_has_birthdate_year(HasBits* has_bits) {
-    (*has_bits)[0] |= 134217728u;
   }
 };
 
@@ -1498,18 +1483,6 @@ ContactInfoSpecifics::_Internal::address_overflow_and_landmark(const ContactInfo
 const ::sync_pb::ContactInfoSpecifics_StringToken&
 ContactInfoSpecifics::_Internal::phone_home_whole_number(const ContactInfoSpecifics* msg) {
   return *msg->phone_home_whole_number_;
-}
-const ::sync_pb::ContactInfoSpecifics_IntegerToken&
-ContactInfoSpecifics::_Internal::birthdate_day(const ContactInfoSpecifics* msg) {
-  return *msg->birthdate_day_;
-}
-const ::sync_pb::ContactInfoSpecifics_IntegerToken&
-ContactInfoSpecifics::_Internal::birthdate_month(const ContactInfoSpecifics* msg) {
-  return *msg->birthdate_month_;
-}
-const ::sync_pb::ContactInfoSpecifics_IntegerToken&
-ContactInfoSpecifics::_Internal::birthdate_year(const ContactInfoSpecifics* msg) {
-  return *msg->birthdate_year_;
 }
 ContactInfoSpecifics::ContactInfoSpecifics(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
@@ -1655,21 +1628,6 @@ ContactInfoSpecifics::ContactInfoSpecifics(const ContactInfoSpecifics& from)
   } else {
     phone_home_whole_number_ = nullptr;
   }
-  if (from._internal_has_birthdate_day()) {
-    birthdate_day_ = new ::sync_pb::ContactInfoSpecifics_IntegerToken(*from.birthdate_day_);
-  } else {
-    birthdate_day_ = nullptr;
-  }
-  if (from._internal_has_birthdate_month()) {
-    birthdate_month_ = new ::sync_pb::ContactInfoSpecifics_IntegerToken(*from.birthdate_month_);
-  } else {
-    birthdate_month_ = nullptr;
-  }
-  if (from._internal_has_birthdate_year()) {
-    birthdate_year_ = new ::sync_pb::ContactInfoSpecifics_IntegerToken(*from.birthdate_year_);
-  } else {
-    birthdate_year_ = nullptr;
-  }
   if (from._internal_has_address_landmark()) {
     address_landmark_ = new ::sync_pb::ContactInfoSpecifics_StringToken(*from.address_landmark_);
   } else {
@@ -1786,9 +1744,6 @@ inline void ContactInfoSpecifics::SharedDtor() {
   if (this != internal_default_instance()) delete address_apt_num_;
   if (this != internal_default_instance()) delete address_floor_;
   if (this != internal_default_instance()) delete phone_home_whole_number_;
-  if (this != internal_default_instance()) delete birthdate_day_;
-  if (this != internal_default_instance()) delete birthdate_month_;
-  if (this != internal_default_instance()) delete birthdate_year_;
   if (this != internal_default_instance()) delete address_landmark_;
   if (this != internal_default_instance()) delete address_between_streets_;
   if (this != internal_default_instance()) delete address_admin_level_2_;
@@ -1918,71 +1873,59 @@ void ContactInfoSpecifics::Clear() {
       phone_home_whole_number_->Clear();
     }
     if (cached_has_bits & 0x02000000u) {
-      GOOGLE_DCHECK(birthdate_day_ != nullptr);
-      birthdate_day_->Clear();
-    }
-    if (cached_has_bits & 0x04000000u) {
-      GOOGLE_DCHECK(birthdate_month_ != nullptr);
-      birthdate_month_->Clear();
-    }
-    if (cached_has_bits & 0x08000000u) {
-      GOOGLE_DCHECK(birthdate_year_ != nullptr);
-      birthdate_year_->Clear();
-    }
-    if (cached_has_bits & 0x10000000u) {
       GOOGLE_DCHECK(address_landmark_ != nullptr);
       address_landmark_->Clear();
     }
-    if (cached_has_bits & 0x20000000u) {
+    if (cached_has_bits & 0x04000000u) {
       GOOGLE_DCHECK(address_between_streets_ != nullptr);
       address_between_streets_->Clear();
     }
-    if (cached_has_bits & 0x40000000u) {
+    if (cached_has_bits & 0x08000000u) {
       GOOGLE_DCHECK(address_admin_level_2_ != nullptr);
       address_admin_level_2_->Clear();
     }
-    if (cached_has_bits & 0x80000000u) {
+    if (cached_has_bits & 0x10000000u) {
       GOOGLE_DCHECK(address_street_location_ != nullptr);
       address_street_location_->Clear();
     }
-  }
-  cached_has_bits = _has_bits_[1];
-  if (cached_has_bits & 0x0000007fu) {
-    if (cached_has_bits & 0x00000001u) {
+    if (cached_has_bits & 0x20000000u) {
       GOOGLE_DCHECK(address_overflow_ != nullptr);
       address_overflow_->Clear();
     }
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x40000000u) {
       GOOGLE_DCHECK(address_between_streets_1_ != nullptr);
       address_between_streets_1_->Clear();
     }
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x80000000u) {
       GOOGLE_DCHECK(address_between_streets_2_ != nullptr);
       address_between_streets_2_->Clear();
     }
-    if (cached_has_bits & 0x00000008u) {
+  }
+  cached_has_bits = _has_bits_[1];
+  if (cached_has_bits & 0x0000000fu) {
+    if (cached_has_bits & 0x00000001u) {
       GOOGLE_DCHECK(address_between_streets_or_landmark_ != nullptr);
       address_between_streets_or_landmark_->Clear();
     }
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000002u) {
       GOOGLE_DCHECK(address_overflow_and_landmark_ != nullptr);
       address_overflow_and_landmark_->Clear();
     }
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000004u) {
       GOOGLE_DCHECK(address_apt_ != nullptr);
       address_apt_->Clear();
     }
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000008u) {
       GOOGLE_DCHECK(address_apt_type_ != nullptr);
       address_apt_type_->Clear();
     }
   }
-  use_count_ = int64_t{0};
-  if (cached_has_bits & 0x00000f00u) {
-    ::memset(&use_date_unix_epoch_seconds_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&last_modifier_id_) -
-        reinterpret_cast<char*>(&use_date_unix_epoch_seconds_)) + sizeof(last_modifier_id_));
+  if (cached_has_bits & 0x000000f0u) {
+    ::memset(&use_count_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&initial_creator_id_) -
+        reinterpret_cast<char*>(&use_count_)) + sizeof(initial_creator_id_));
   }
+  last_modifier_id_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -2205,30 +2148,6 @@ const char* ContactInfoSpecifics::_InternalParse(const char* ptr, ::_pbi::ParseC
         } else
           goto handle_unusual;
         continue;
-      // optional .sync_pb.ContactInfoSpecifics.IntegerToken birthdate_day = 34;
-      case 34:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_birthdate_day(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional .sync_pb.ContactInfoSpecifics.IntegerToken birthdate_month = 35;
-      case 35:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
-          ptr = ctx->ParseMessage(_internal_mutable_birthdate_month(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional .sync_pb.ContactInfoSpecifics.IntegerToken birthdate_year = 36;
-      case 36:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 34)) {
-          ptr = ctx->ParseMessage(_internal_mutable_birthdate_year(), ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // optional int64 date_modified_unix_epoch_seconds = 37;
       case 37:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 40)) {
@@ -2391,13 +2310,13 @@ uint8_t* ContactInfoSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional int64 use_count = 3;
-  if (cached_has_bits & 0x00000080u) {
+  if (cached_has_bits & 0x00000010u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(3, this->_internal_use_count(), target);
   }
 
   // optional int64 use_date_unix_epoch_seconds = 4;
-  if (cached_has_bits & 0x00000100u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(4, this->_internal_use_date_unix_epoch_seconds(), target);
   }
@@ -2563,30 +2482,9 @@ uint8_t* ContactInfoSpecifics::_InternalSerialize(
         _Internal::phone_home_whole_number(this).GetCachedSize(), target, stream);
   }
 
-  // optional .sync_pb.ContactInfoSpecifics.IntegerToken birthdate_day = 34;
-  if (cached_has_bits & 0x02000000u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(34, _Internal::birthdate_day(this),
-        _Internal::birthdate_day(this).GetCachedSize(), target, stream);
-  }
-
-  // optional .sync_pb.ContactInfoSpecifics.IntegerToken birthdate_month = 35;
-  if (cached_has_bits & 0x04000000u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(35, _Internal::birthdate_month(this),
-        _Internal::birthdate_month(this).GetCachedSize(), target, stream);
-  }
-
-  // optional .sync_pb.ContactInfoSpecifics.IntegerToken birthdate_year = 36;
-  if (cached_has_bits & 0x08000000u) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(36, _Internal::birthdate_year(this),
-        _Internal::birthdate_year(this).GetCachedSize(), target, stream);
-  }
-
   cached_has_bits = _has_bits_[1];
   // optional int64 date_modified_unix_epoch_seconds = 37;
-  if (cached_has_bits & 0x00000200u) {
+  if (cached_has_bits & 0x00000040u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt64ToArray(37, this->_internal_date_modified_unix_epoch_seconds(), target);
   }
@@ -2600,91 +2498,91 @@ uint8_t* ContactInfoSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional int32 initial_creator_id = 39;
-  if (cached_has_bits & 0x00000400u) {
+  if (cached_has_bits & 0x00000080u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(39, this->_internal_initial_creator_id(), target);
   }
 
   // optional int32 last_modifier_id = 40;
-  if (cached_has_bits & 0x00000800u) {
+  if (cached_has_bits & 0x00000100u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteInt32ToArray(40, this->_internal_last_modifier_id(), target);
   }
 
   cached_has_bits = _has_bits_[0];
   // optional .sync_pb.ContactInfoSpecifics.StringToken address_landmark = 41;
-  if (cached_has_bits & 0x10000000u) {
+  if (cached_has_bits & 0x02000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(41, _Internal::address_landmark(this),
         _Internal::address_landmark(this).GetCachedSize(), target, stream);
   }
 
   // optional .sync_pb.ContactInfoSpecifics.StringToken address_between_streets = 42;
-  if (cached_has_bits & 0x20000000u) {
+  if (cached_has_bits & 0x04000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(42, _Internal::address_between_streets(this),
         _Internal::address_between_streets(this).GetCachedSize(), target, stream);
   }
 
   // optional .sync_pb.ContactInfoSpecifics.StringToken address_admin_level_2 = 43;
-  if (cached_has_bits & 0x40000000u) {
+  if (cached_has_bits & 0x08000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(43, _Internal::address_admin_level_2(this),
         _Internal::address_admin_level_2(this).GetCachedSize(), target, stream);
   }
 
   // optional .sync_pb.ContactInfoSpecifics.StringToken address_street_location = 44;
-  if (cached_has_bits & 0x80000000u) {
+  if (cached_has_bits & 0x10000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(44, _Internal::address_street_location(this),
         _Internal::address_street_location(this).GetCachedSize(), target, stream);
   }
 
-  cached_has_bits = _has_bits_[1];
   // optional .sync_pb.ContactInfoSpecifics.StringToken address_overflow = 45;
-  if (cached_has_bits & 0x00000001u) {
+  if (cached_has_bits & 0x20000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(45, _Internal::address_overflow(this),
         _Internal::address_overflow(this).GetCachedSize(), target, stream);
   }
 
   // optional .sync_pb.ContactInfoSpecifics.StringToken address_between_streets_1 = 46;
-  if (cached_has_bits & 0x00000002u) {
+  if (cached_has_bits & 0x40000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(46, _Internal::address_between_streets_1(this),
         _Internal::address_between_streets_1(this).GetCachedSize(), target, stream);
   }
 
   // optional .sync_pb.ContactInfoSpecifics.StringToken address_between_streets_2 = 47;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x80000000u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(47, _Internal::address_between_streets_2(this),
         _Internal::address_between_streets_2(this).GetCachedSize(), target, stream);
   }
 
+  cached_has_bits = _has_bits_[1];
   // optional .sync_pb.ContactInfoSpecifics.StringToken address_between_streets_or_landmark = 48;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000001u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(48, _Internal::address_between_streets_or_landmark(this),
         _Internal::address_between_streets_or_landmark(this).GetCachedSize(), target, stream);
   }
 
   // optional .sync_pb.ContactInfoSpecifics.StringToken address_overflow_and_landmark = 49;
-  if (cached_has_bits & 0x00000010u) {
+  if (cached_has_bits & 0x00000002u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(49, _Internal::address_overflow_and_landmark(this),
         _Internal::address_overflow_and_landmark(this).GetCachedSize(), target, stream);
   }
 
   // optional .sync_pb.ContactInfoSpecifics.StringToken address_apt = 50;
-  if (cached_has_bits & 0x00000020u) {
+  if (cached_has_bits & 0x00000004u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(50, _Internal::address_apt(this),
         _Internal::address_apt(this).GetCachedSize(), target, stream);
   }
 
   // optional .sync_pb.ContactInfoSpecifics.StringToken address_apt_type = 51;
-  if (cached_has_bits & 0x00000040u) {
+  if (cached_has_bits & 0x00000008u) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
       InternalWriteMessage(51, _Internal::address_apt_type(this),
         _Internal::address_apt_type(this).GetCachedSize(), target, stream);
@@ -2889,141 +2787,118 @@ size_t ContactInfoSpecifics::ByteSizeLong() const {
           *phone_home_whole_number_);
     }
 
-    // optional .sync_pb.ContactInfoSpecifics.IntegerToken birthdate_day = 34;
-    if (cached_has_bits & 0x02000000u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *birthdate_day_);
-    }
-
-    // optional .sync_pb.ContactInfoSpecifics.IntegerToken birthdate_month = 35;
-    if (cached_has_bits & 0x04000000u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *birthdate_month_);
-    }
-
-    // optional .sync_pb.ContactInfoSpecifics.IntegerToken birthdate_year = 36;
-    if (cached_has_bits & 0x08000000u) {
-      total_size += 2 +
-        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-          *birthdate_year_);
-    }
-
     // optional .sync_pb.ContactInfoSpecifics.StringToken address_landmark = 41;
-    if (cached_has_bits & 0x10000000u) {
+    if (cached_has_bits & 0x02000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *address_landmark_);
     }
 
     // optional .sync_pb.ContactInfoSpecifics.StringToken address_between_streets = 42;
-    if (cached_has_bits & 0x20000000u) {
+    if (cached_has_bits & 0x04000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *address_between_streets_);
     }
 
     // optional .sync_pb.ContactInfoSpecifics.StringToken address_admin_level_2 = 43;
-    if (cached_has_bits & 0x40000000u) {
+    if (cached_has_bits & 0x08000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *address_admin_level_2_);
     }
 
     // optional .sync_pb.ContactInfoSpecifics.StringToken address_street_location = 44;
-    if (cached_has_bits & 0x80000000u) {
+    if (cached_has_bits & 0x10000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *address_street_location_);
     }
 
-  }
-  cached_has_bits = _has_bits_[1];
-  if (cached_has_bits & 0x000000ffu) {
     // optional .sync_pb.ContactInfoSpecifics.StringToken address_overflow = 45;
-    if (cached_has_bits & 0x00000001u) {
+    if (cached_has_bits & 0x20000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *address_overflow_);
     }
 
     // optional .sync_pb.ContactInfoSpecifics.StringToken address_between_streets_1 = 46;
-    if (cached_has_bits & 0x00000002u) {
+    if (cached_has_bits & 0x40000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *address_between_streets_1_);
     }
 
     // optional .sync_pb.ContactInfoSpecifics.StringToken address_between_streets_2 = 47;
-    if (cached_has_bits & 0x00000004u) {
+    if (cached_has_bits & 0x80000000u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *address_between_streets_2_);
     }
 
+  }
+  cached_has_bits = _has_bits_[1];
+  if (cached_has_bits & 0x000000ffu) {
     // optional .sync_pb.ContactInfoSpecifics.StringToken address_between_streets_or_landmark = 48;
-    if (cached_has_bits & 0x00000008u) {
+    if (cached_has_bits & 0x00000001u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *address_between_streets_or_landmark_);
     }
 
     // optional .sync_pb.ContactInfoSpecifics.StringToken address_overflow_and_landmark = 49;
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000002u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *address_overflow_and_landmark_);
     }
 
     // optional .sync_pb.ContactInfoSpecifics.StringToken address_apt = 50;
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000004u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *address_apt_);
     }
 
     // optional .sync_pb.ContactInfoSpecifics.StringToken address_apt_type = 51;
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000008u) {
       total_size += 2 +
         ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
           *address_apt_type_);
     }
 
     // optional int64 use_count = 3;
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000010u) {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_use_count());
     }
 
-  }
-  if (cached_has_bits & 0x00000f00u) {
     // optional int64 use_date_unix_epoch_seconds = 4;
-    if (cached_has_bits & 0x00000100u) {
+    if (cached_has_bits & 0x00000020u) {
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_use_date_unix_epoch_seconds());
     }
 
     // optional int64 date_modified_unix_epoch_seconds = 37;
-    if (cached_has_bits & 0x00000200u) {
+    if (cached_has_bits & 0x00000040u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int64Size(
           this->_internal_date_modified_unix_epoch_seconds());
     }
 
     // optional int32 initial_creator_id = 39;
-    if (cached_has_bits & 0x00000400u) {
+    if (cached_has_bits & 0x00000080u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::Int32Size(
           this->_internal_initial_creator_id());
     }
 
-    // optional int32 last_modifier_id = 40;
-    if (cached_has_bits & 0x00000800u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::Int32Size(
-          this->_internal_last_modifier_id());
-    }
-
   }
+  // optional int32 last_modifier_id = 40;
+  if (cached_has_bits & 0x00000100u) {
+    total_size += 2 +
+      ::_pbi::WireFormatLite::Int32Size(
+        this->_internal_last_modifier_id());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -3128,69 +3003,57 @@ void ContactInfoSpecifics::MergeFrom(const ContactInfoSpecifics& from) {
       _internal_mutable_phone_home_whole_number()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_phone_home_whole_number());
     }
     if (cached_has_bits & 0x02000000u) {
-      _internal_mutable_birthdate_day()->::sync_pb::ContactInfoSpecifics_IntegerToken::MergeFrom(from._internal_birthdate_day());
-    }
-    if (cached_has_bits & 0x04000000u) {
-      _internal_mutable_birthdate_month()->::sync_pb::ContactInfoSpecifics_IntegerToken::MergeFrom(from._internal_birthdate_month());
-    }
-    if (cached_has_bits & 0x08000000u) {
-      _internal_mutable_birthdate_year()->::sync_pb::ContactInfoSpecifics_IntegerToken::MergeFrom(from._internal_birthdate_year());
-    }
-    if (cached_has_bits & 0x10000000u) {
       _internal_mutable_address_landmark()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_address_landmark());
     }
-    if (cached_has_bits & 0x20000000u) {
+    if (cached_has_bits & 0x04000000u) {
       _internal_mutable_address_between_streets()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_address_between_streets());
     }
-    if (cached_has_bits & 0x40000000u) {
+    if (cached_has_bits & 0x08000000u) {
       _internal_mutable_address_admin_level_2()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_address_admin_level_2());
     }
-    if (cached_has_bits & 0x80000000u) {
+    if (cached_has_bits & 0x10000000u) {
       _internal_mutable_address_street_location()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_address_street_location());
+    }
+    if (cached_has_bits & 0x20000000u) {
+      _internal_mutable_address_overflow()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_address_overflow());
+    }
+    if (cached_has_bits & 0x40000000u) {
+      _internal_mutable_address_between_streets_1()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_address_between_streets_1());
+    }
+    if (cached_has_bits & 0x80000000u) {
+      _internal_mutable_address_between_streets_2()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_address_between_streets_2());
     }
   }
   cached_has_bits = from._has_bits_[1];
   if (cached_has_bits & 0x000000ffu) {
     if (cached_has_bits & 0x00000001u) {
-      _internal_mutable_address_overflow()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_address_overflow());
-    }
-    if (cached_has_bits & 0x00000002u) {
-      _internal_mutable_address_between_streets_1()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_address_between_streets_1());
-    }
-    if (cached_has_bits & 0x00000004u) {
-      _internal_mutable_address_between_streets_2()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_address_between_streets_2());
-    }
-    if (cached_has_bits & 0x00000008u) {
       _internal_mutable_address_between_streets_or_landmark()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_address_between_streets_or_landmark());
     }
-    if (cached_has_bits & 0x00000010u) {
+    if (cached_has_bits & 0x00000002u) {
       _internal_mutable_address_overflow_and_landmark()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_address_overflow_and_landmark());
     }
-    if (cached_has_bits & 0x00000020u) {
+    if (cached_has_bits & 0x00000004u) {
       _internal_mutable_address_apt()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_address_apt());
     }
-    if (cached_has_bits & 0x00000040u) {
+    if (cached_has_bits & 0x00000008u) {
       _internal_mutable_address_apt_type()->::sync_pb::ContactInfoSpecifics_StringToken::MergeFrom(from._internal_address_apt_type());
     }
-    if (cached_has_bits & 0x00000080u) {
+    if (cached_has_bits & 0x00000010u) {
       use_count_ = from.use_count_;
+    }
+    if (cached_has_bits & 0x00000020u) {
+      use_date_unix_epoch_seconds_ = from.use_date_unix_epoch_seconds_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      date_modified_unix_epoch_seconds_ = from.date_modified_unix_epoch_seconds_;
+    }
+    if (cached_has_bits & 0x00000080u) {
+      initial_creator_id_ = from.initial_creator_id_;
     }
     _has_bits_[1] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x00000f00u) {
-    if (cached_has_bits & 0x00000100u) {
-      use_date_unix_epoch_seconds_ = from.use_date_unix_epoch_seconds_;
-    }
-    if (cached_has_bits & 0x00000200u) {
-      date_modified_unix_epoch_seconds_ = from.date_modified_unix_epoch_seconds_;
-    }
-    if (cached_has_bits & 0x00000400u) {
-      initial_creator_id_ = from.initial_creator_id_;
-    }
-    if (cached_has_bits & 0x00000800u) {
-      last_modifier_id_ = from.last_modifier_id_;
-    }
-    _has_bits_[1] |= cached_has_bits;
+  if (cached_has_bits & 0x00000100u) {
+    _internal_set_last_modifier_id(from._internal_last_modifier_id());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }

@@ -74,6 +74,7 @@ class BLINK_COMMON_EXPORT LCPCriticalPathPredictorHost
   enum MethodMinVersions : uint32_t {
     kSetLcpElementLocatorMinVersion = 0,
     kSetLcpInfluencerScriptUrlsMinVersion = 0,
+    kSetPreconnectOriginsMinVersion = 0,
     kNotifyFetchedFontMinVersion = 0,
     kNotifyFetchedSubresourceMinVersion = 0,
   };
@@ -85,6 +86,9 @@ class BLINK_COMMON_EXPORT LCPCriticalPathPredictorHost
     NOINLINE static uint32_t IPCStableHash();
   };
   struct SetLcpInfluencerScriptUrls_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct SetPreconnectOrigins_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct NotifyFetchedFont_Sym {
@@ -101,6 +105,9 @@ class BLINK_COMMON_EXPORT LCPCriticalPathPredictorHost
 
   
   virtual void SetLcpInfluencerScriptUrls(const std::vector<::GURL>& lcp_influencer_scripts) = 0;
+
+  
+  virtual void SetPreconnectOrigins(const std::vector<::GURL>& origins) = 0;
 
   
   virtual void NotifyFetchedFont(const ::GURL& font_url) = 0;
@@ -121,6 +128,8 @@ class BLINK_COMMON_EXPORT LCPCriticalPathPredictorHostProxy
   void SetLcpElementLocator(const std::string& lcp_element_locator, std::optional<uint32_t> predicted_lcp_index) final;
   
   void SetLcpInfluencerScriptUrls(const std::vector<::GURL>& lcp_influencer_scripts) final;
+  
+  void SetPreconnectOrigins(const std::vector<::GURL>& origins) final;
   
   void NotifyFetchedFont(const ::GURL& font_url) final;
   
@@ -192,7 +201,7 @@ class BLINK_COMMON_EXPORT LCPCriticalPathPredictorNavigationTimeHint {
   template <typename... Args>
   static LCPCriticalPathPredictorNavigationTimeHintPtr New(Args&&... args) {
     return LCPCriticalPathPredictorNavigationTimeHintPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -211,7 +220,8 @@ class BLINK_COMMON_EXPORT LCPCriticalPathPredictorNavigationTimeHint {
   LCPCriticalPathPredictorNavigationTimeHint(
       std::vector<std::string> lcp_element_locators,
       std::vector<::GURL> lcp_influencer_scripts,
-      std::vector<::GURL> fetched_fonts);
+      std::vector<::GURL> fetched_fonts,
+      std::vector<::GURL> preconnect_origins);
 
 
   ~LCPCriticalPathPredictorNavigationTimeHint();
@@ -294,6 +304,8 @@ class BLINK_COMMON_EXPORT LCPCriticalPathPredictorNavigationTimeHint {
   std::vector<::GURL> lcp_influencer_scripts;
   
   std::vector<::GURL> fetched_fonts;
+  
+  std::vector<::GURL> preconnect_origins;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -329,7 +341,8 @@ LCPCriticalPathPredictorNavigationTimeHintPtr LCPCriticalPathPredictorNavigation
   return New(
       mojo::Clone(lcp_element_locators),
       mojo::Clone(lcp_influencer_scripts),
-      mojo::Clone(fetched_fonts)
+      mojo::Clone(fetched_fonts),
+      mojo::Clone(preconnect_origins)
   );
 }
 
@@ -340,6 +353,8 @@ bool LCPCriticalPathPredictorNavigationTimeHint::Equals(const T& other_struct) c
   if (!mojo::Equals(this->lcp_influencer_scripts, other_struct.lcp_influencer_scripts))
     return false;
   if (!mojo::Equals(this->fetched_fonts, other_struct.fetched_fonts))
+    return false;
+  if (!mojo::Equals(this->preconnect_origins, other_struct.preconnect_origins))
     return false;
   return true;
 }
@@ -357,6 +372,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.fetched_fonts < rhs.fetched_fonts)
     return true;
   if (rhs.fetched_fonts < lhs.fetched_fonts)
+    return false;
+  if (lhs.preconnect_origins < rhs.preconnect_origins)
+    return true;
+  if (rhs.preconnect_origins < lhs.preconnect_origins)
     return false;
   return false;
 }
@@ -386,6 +405,11 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::LCPCriticalPathPredictor
   static const decltype(::blink::mojom::LCPCriticalPathPredictorNavigationTimeHint::fetched_fonts)& fetched_fonts(
       const ::blink::mojom::LCPCriticalPathPredictorNavigationTimeHintPtr& input) {
     return input->fetched_fonts;
+  }
+
+  static const decltype(::blink::mojom::LCPCriticalPathPredictorNavigationTimeHint::preconnect_origins)& preconnect_origins(
+      const ::blink::mojom::LCPCriticalPathPredictorNavigationTimeHintPtr& input) {
+    return input->preconnect_origins;
   }
 
   static bool Read(::blink::mojom::LCPCriticalPathPredictorNavigationTimeHint::DataView input, ::blink::mojom::LCPCriticalPathPredictorNavigationTimeHintPtr* output);

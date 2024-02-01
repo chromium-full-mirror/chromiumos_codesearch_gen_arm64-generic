@@ -471,7 +471,7 @@ class  ReadLaterEntriesByStatus {
   template <typename... Args>
   static ReadLaterEntriesByStatusPtr New(Args&&... args) {
     return ReadLaterEntriesByStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -616,7 +616,7 @@ class  ReadLaterEntry {
   template <typename... Args>
   static ReadLaterEntryPtr New(Args&&... args) {
     return ReadLaterEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

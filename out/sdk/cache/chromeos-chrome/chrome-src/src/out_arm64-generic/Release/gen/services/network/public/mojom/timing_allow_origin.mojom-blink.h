@@ -66,7 +66,7 @@ class BLINK_PLATFORM_EXPORT TimingAllowOrigin {
   static TimingAllowOriginPtr
   NewSerializedOrigins(
       WTF::Vector<WTF::String> value) {
-    auto result = TimingAllowOriginPtr(absl::in_place);
+    auto result = TimingAllowOriginPtr(std::in_place);
     result->set_serialized_origins(std::move(value));
     return result;
   }
@@ -74,7 +74,7 @@ class BLINK_PLATFORM_EXPORT TimingAllowOrigin {
   static TimingAllowOriginPtr
   NewAll(
       uint8_t value) {
-    auto result = TimingAllowOriginPtr(absl::in_place);
+    auto result = TimingAllowOriginPtr(std::in_place);
     result->set_all(std::move(value));
     return result;
   }

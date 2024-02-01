@@ -235,7 +235,7 @@ static_assert(
         ::crosapi::mojom::UsbDetachableAllowlistDataView, UserType>(),
     "Attempting to read the optional `usb_detachable_allow_list` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUsbDetachableAllowList` instead "
     "of `ReadUsbDetachableAllowList if you're fine with null values being "
@@ -294,7 +294,7 @@ static_assert(
         ::crosapi::mojom::NullableInt64DataView, UserType>(),
     "Attempting to read the optional `report_upload_frequency` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReportUploadFrequency` instead "
     "of `ReadReportUploadFrequency if you're fine with null values being "
@@ -315,7 +315,7 @@ static_assert(
         ::crosapi::mojom::NullableInt64DataView, UserType>(),
     "Attempting to read the optional `report_device_network_telemetry_collection_rate_ms` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReportDeviceNetworkTelemetryCollectionRateMs` instead "
     "of `ReadReportDeviceNetworkTelemetryCollectionRateMs if you're fine with null values being "
@@ -336,7 +336,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `device_variations_restrict_parameter` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeviceVariationsRestrictParameter` instead "
     "of `ReadDeviceVariationsRestrictParameter if you're fine with null values being "
@@ -349,11 +349,11 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadDeviceGuestModeEnabled(UserType* output) const {
     if (data_->header_.version < 5) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
     if (!data_->device_guest_mode_enabled_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -362,10 +362,10 @@ static_assert(
   }
   std::optional<DeviceSettings_OptionalBool> device_guest_mode_enabled() const {
     if (data_->header_.version < 5) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     if (!data_->device_guest_mode_enabled_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::crosapi::mojom::DeviceSettings_OptionalBool>(data_->device_guest_mode_enabled_$value));

@@ -619,7 +619,7 @@ class  EuiccProperties {
   template <typename... Args>
   static EuiccPropertiesPtr New(Args&&... args) {
     return EuiccPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -768,7 +768,7 @@ class  ESimProfileProperties {
   template <typename... Args>
   static ESimProfilePropertiesPtr New(Args&&... args) {
     return ESimProfilePropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -926,7 +926,7 @@ class  QRCode {
   template <typename... Args>
   static QRCodePtr New(Args&&... args) {
     return QRCodePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

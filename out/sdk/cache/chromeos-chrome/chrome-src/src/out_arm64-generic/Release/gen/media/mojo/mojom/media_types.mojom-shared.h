@@ -860,7 +860,7 @@ static_assert(
         ::gfx::mojom::HDRMetadataDataView, UserType>(),
     "Attempting to read the optional `hdr_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHdrMetadata` instead "
     "of `ReadHdrMetadata if you're fine with null values being "
@@ -936,7 +936,7 @@ static_assert(
         ::media::mojom::EncryptionPatternDataView, UserType>(),
     "Attempting to read the optional `encryption_pattern` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEncryptionPattern` instead "
     "of `ReadEncryptionPattern if you're fine with null values being "
@@ -1040,7 +1040,7 @@ static_assert(
         ::media::mojom::DecryptConfigDataView, UserType>(),
     "Attempting to read the optional `decrypt_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDecryptConfig` instead "
     "of `ReadDecryptConfig if you're fine with null values being "
@@ -1080,7 +1080,7 @@ static_assert(
         ::media::mojom::DecoderBufferSideDataDataView, UserType>(),
     "Attempting to read the optional `side_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSideData` instead "
     "of `ReadSideData if you're fine with null values being "
@@ -1187,7 +1187,7 @@ static_assert(
         ::mojo_base::mojom::TimeTicksDataView, UserType>(),
     "Attempting to read the optional `capture_begin_time` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCaptureBeginTime` instead "
     "of `ReadCaptureBeginTime if you're fine with null values being "
@@ -1207,7 +1207,7 @@ static_assert(
         ::mojo_base::mojom::TimeTicksDataView, UserType>(),
     "Attempting to read the optional `capture_end_time` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCaptureEndTime` instead "
     "of `ReadCaptureEndTime if you're fine with null values being "
@@ -1233,7 +1233,7 @@ static_assert(
         ::gfx::mojom::RectDataView, UserType>(),
     "Attempting to read the optional `capture_update_rect` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCaptureUpdateRect` instead "
     "of `ReadCaptureUpdateRect if you're fine with null values being "
@@ -1253,7 +1253,7 @@ static_assert(
         ::gfx::mojom::SizeDataView, UserType>(),
     "Attempting to read the optional `source_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSourceSize` instead "
     "of `ReadSourceSize if you're fine with null values being "
@@ -1273,7 +1273,7 @@ static_assert(
         ::gfx::mojom::RectDataView, UserType>(),
     "Attempting to read the optional `region_capture_rect` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRegionCaptureRect` instead "
     "of `ReadRegionCaptureRect if you're fine with null values being "
@@ -1302,7 +1302,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `frame_duration` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFrameDuration` instead "
     "of `ReadFrameDuration if you're fine with null values being "
@@ -1331,7 +1331,7 @@ static_assert(
         ::mojo_base::mojom::TimeTicksDataView, UserType>(),
     "Attempting to read the optional `reference_time` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReferenceTime` instead "
     "of `ReadReferenceTime if you're fine with null values being "
@@ -1354,7 +1354,7 @@ static_assert(
         ::media::mojom::VideoTransformationDataView, UserType>(),
     "Attempting to read the optional `transformation` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTransformation` instead "
     "of `ReadTransformation if you're fine with null values being "
@@ -1392,7 +1392,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `overlay_plane_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOverlayPlaneId` instead "
     "of `ReadOverlayPlaneId if you're fine with null values being "
@@ -1448,7 +1448,7 @@ static_assert(
         ::mojo_base::mojom::TimeTicksDataView, UserType>(),
     "Attempting to read the optional `decode_begin_time` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDecodeBeginTime` instead "
     "of `ReadDecodeBeginTime if you're fine with null values being "
@@ -1468,7 +1468,7 @@ static_assert(
         ::mojo_base::mojom::TimeTicksDataView, UserType>(),
     "Attempting to read the optional `decode_end_time` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDecodeEndTime` instead "
     "of `ReadDecodeEndTime if you're fine with null values being "
@@ -1488,7 +1488,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `processing_time` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadProcessingTime` instead "
     "of `ReadProcessingTime if you're fine with null values being "
@@ -1514,7 +1514,7 @@ static_assert(
         ::mojo_base::mojom::TimeTicksDataView, UserType>(),
     "Attempting to read the optional `receive_time` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReceiveTime` instead "
     "of `ReadReceiveTime if you're fine with null values being "
@@ -1534,7 +1534,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `wallclock_frame_duration` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWallclockFrameDuration` instead "
     "of `ReadWallclockFrameDuration if you're fine with null values being "
@@ -1546,8 +1546,8 @@ static_assert(
   std::optional<uint64_t> frame_sequence() const {
 
     return data_->frame_sequence_$flag
-        ? absl::make_optional(data_->frame_sequence_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->frame_sequence_$value)
+        : std::nullopt;
   }
  private:
   internal::VideoFrameMetadata_Data* data_ = nullptr;
@@ -1656,7 +1656,7 @@ static_assert(
         ::gfx::mojom::HDRMetadataDataView, UserType>(),
     "Attempting to read the optional `hdr_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHdrMetadata` instead "
     "of `ReadHdrMetadata if you're fine with null values being "
@@ -1809,7 +1809,7 @@ static_assert(
         ::gpu::mojom::VulkanYCbCrInfoDataView, UserType>(),
     "Attempting to read the optional `ycbcr_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadYcbcrData` instead "
     "of `ReadYcbcrData if you're fine with null values being "
@@ -2069,7 +2069,7 @@ static_assert(
         ::media::mojom::StatusDataDataView, UserType>(),
     "Attempting to read the optional `cause` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCause` instead "
     "of `ReadCause if you're fine with null values being "
@@ -2118,7 +2118,7 @@ static_assert(
         ::media::mojom::StatusDataDataView, UserType>(),
     "Attempting to read the optional `internal` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInternal` instead "
     "of `ReadInternal if you're fine with null values being "
@@ -2154,7 +2154,7 @@ static_assert(
         ::media::mojom::StatusDataDataView, UserType>(),
     "Attempting to read the optional `internal` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInternal` instead "
     "of `ReadInternal if you're fine with null values being "
@@ -2190,7 +2190,7 @@ static_assert(
         ::media::mojom::StatusDataDataView, UserType>(),
     "Attempting to read the optional `internal` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInternal` instead "
     "of `ReadInternal if you're fine with null values being "

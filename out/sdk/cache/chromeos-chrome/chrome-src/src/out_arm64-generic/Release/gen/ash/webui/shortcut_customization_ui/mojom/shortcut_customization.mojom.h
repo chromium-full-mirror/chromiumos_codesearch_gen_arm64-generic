@@ -568,7 +568,7 @@ class  SimpleAccelerator {
   template <typename... Args>
   static SimpleAcceleratorPtr New(Args&&... args) {
     return SimpleAcceleratorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -716,7 +716,7 @@ class  AcceleratorResultData {
   template <typename... Args>
   static AcceleratorResultDataPtr New(Args&&... args) {
     return AcceleratorResultDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

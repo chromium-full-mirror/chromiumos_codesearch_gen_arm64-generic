@@ -294,6 +294,8 @@ NOINLINE static const char* Pool2d_KindToStringHelper(Pool2d_Kind value) {
   switch(value) {
     case Pool2d_Kind::kAveragePool2d:
       return "kAveragePool2d";
+    case Pool2d_Kind::kL2Pool2d:
+      return "kL2Pool2d";
     case Pool2d_Kind::kMaxPool2d:
       return "kMaxPool2d";
     default:

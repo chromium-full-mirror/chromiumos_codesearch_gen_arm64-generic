@@ -55,7 +55,7 @@ class  BufferUsageAndFormat {
   template <typename... Args>
   static BufferUsageAndFormatPtr New(Args&&... args) {
     return BufferUsageAndFormatPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -198,7 +198,7 @@ class  GpuMemoryBufferId {
   template <typename... Args>
   static GpuMemoryBufferIdPtr New(Args&&... args) {
     return GpuMemoryBufferIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -343,7 +343,7 @@ class  GpuMemoryBufferHandle {
   template <typename... Args>
   static GpuMemoryBufferHandlePtr New(Args&&... args) {
     return GpuMemoryBufferHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

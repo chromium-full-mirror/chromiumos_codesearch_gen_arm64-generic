@@ -58,7 +58,7 @@ class BLINK_COMMON_EXPORT AffectedCookie {
   template <typename... Args>
   static AffectedCookiePtr New(Args&&... args) {
     return AffectedCookiePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -205,7 +205,7 @@ class BLINK_COMMON_EXPORT AffectedRequest {
   template <typename... Args>
   static AffectedRequestPtr New(Args&&... args) {
     return AffectedRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -348,7 +348,7 @@ class BLINK_COMMON_EXPORT AffectedFrame {
   template <typename... Args>
   static AffectedFramePtr New(Args&&... args) {
     return AffectedFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -489,7 +489,7 @@ class BLINK_COMMON_EXPORT AffectedLocation {
   template <typename... Args>
   static AffectedLocationPtr New(Args&&... args) {
     return AffectedLocationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -646,7 +646,7 @@ class BLINK_COMMON_EXPORT FederatedAuthRequestIssueDetails {
   template <typename... Args>
   static FederatedAuthRequestIssueDetailsPtr New(Args&&... args) {
     return FederatedAuthRequestIssueDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -787,7 +787,7 @@ class BLINK_COMMON_EXPORT FederatedAuthUserInfoRequestIssueDetails {
   template <typename... Args>
   static FederatedAuthUserInfoRequestIssueDetailsPtr New(Args&&... args) {
     return FederatedAuthUserInfoRequestIssueDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -930,7 +930,7 @@ class BLINK_COMMON_EXPORT GenericIssueDetails {
   template <typename... Args>
   static GenericIssueDetailsPtr New(Args&&... args) {
     return GenericIssueDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1088,7 +1088,7 @@ class BLINK_COMMON_EXPORT BlockedByResponseIssueDetails {
   template <typename... Args>
   static BlockedByResponseIssueDetailsPtr New(Args&&... args) {
     return BlockedByResponseIssueDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1239,7 +1239,7 @@ class BLINK_COMMON_EXPORT HeavyAdIssueDetails {
   template <typename... Args>
   static HeavyAdIssueDetailsPtr New(Args&&... args) {
     return HeavyAdIssueDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1388,7 +1388,7 @@ class BLINK_COMMON_EXPORT AttributionReportingIssueDetails {
   template <typename... Args>
   static AttributionReportingIssueDetailsPtr New(Args&&... args) {
     return AttributionReportingIssueDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1536,7 +1536,7 @@ class BLINK_COMMON_EXPORT MixedContentIssueDetails {
   template <typename... Args>
   static MixedContentIssueDetailsPtr New(Args&&... args) {
     return MixedContentIssueDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1693,7 +1693,7 @@ class BLINK_COMMON_EXPORT ContentSecurityPolicyIssueDetails {
   template <typename... Args>
   static ContentSecurityPolicyIssueDetailsPtr New(Args&&... args) {
     return ContentSecurityPolicyIssueDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1853,7 +1853,7 @@ class BLINK_COMMON_EXPORT CookieIssueDetails {
   template <typename... Args>
   static CookieIssueDetailsPtr New(Args&&... args) {
     return CookieIssueDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2013,7 +2013,7 @@ class BLINK_COMMON_EXPORT SharedArrayBufferIssueDetails {
   template <typename... Args>
   static SharedArrayBufferIssueDetailsPtr New(Args&&... args) {
     return SharedArrayBufferIssueDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2161,7 +2161,7 @@ class BLINK_COMMON_EXPORT LowTextContrastIssue {
   template <typename... Args>
   static LowTextContrastIssuePtr New(Args&&... args) {
     return LowTextContrastIssuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2322,7 +2322,7 @@ class BLINK_COMMON_EXPORT BounceTrackingIssueDetails {
   template <typename... Args>
   static BounceTrackingIssueDetailsPtr New(Args&&... args) {
     return BounceTrackingIssueDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2462,7 +2462,7 @@ class BLINK_COMMON_EXPORT CookieDeprecationMetadataIssueDetails {
   template <typename... Args>
   static CookieDeprecationMetadataIssueDetailsPtr New(Args&&... args) {
     return CookieDeprecationMetadataIssueDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2603,7 +2603,7 @@ class BLINK_COMMON_EXPORT DeprecationIssueDetails {
   template <typename... Args>
   static DeprecationIssueDetailsPtr New(Args&&... args) {
     return DeprecationIssueDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2748,7 +2748,7 @@ class BLINK_COMMON_EXPORT InspectorIssueDetails {
   template <typename... Args>
   static InspectorIssueDetailsPtr New(Args&&... args) {
     return InspectorIssueDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2932,7 +2932,7 @@ class BLINK_COMMON_EXPORT InspectorIssueInfo {
   template <typename... Args>
   static InspectorIssueInfoPtr New(Args&&... args) {
     return InspectorIssueInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

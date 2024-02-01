@@ -258,7 +258,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `initiator_base_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInitiatorBaseUrl` instead "
     "of `ReadInitiatorBaseUrl if you're fine with null values being "
@@ -344,7 +344,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `embedding_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEmbeddingToken` instead "
     "of `ReadEmbeddingToken if you're fine with null values being "
@@ -364,7 +364,7 @@ static_assert(
         ::mojo_base::mojom::TimeTicksDataView, UserType>(),
     "Attempting to read the optional `unload_start` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUnloadStart` instead "
     "of `ReadUnloadStart if you're fine with null values being "
@@ -384,7 +384,7 @@ static_assert(
         ::mojo_base::mojom::TimeTicksDataView, UserType>(),
     "Attempting to read the optional `unload_end` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUnloadEnd` instead "
     "of `ReadUnloadEnd if you're fine with null values being "
@@ -404,7 +404,7 @@ static_assert(
         ::mojo_base::mojom::TimeTicksDataView, UserType>(),
     "Attempting to read the optional `commit_navigation_end` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCommitNavigationEnd` instead "
     "of `ReadCommitNavigationEnd if you're fine with null values being "

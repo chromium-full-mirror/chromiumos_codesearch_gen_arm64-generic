@@ -202,6 +202,7 @@
     "DeviceVariationsRestrictParameter": "variations_parameter.parameter",
     "DeviceWallpaperImage": "device_wallpaper_image.device_wallpaper_image",
     "DeviceWebBasedAttestationAllowedUrls": "device_web_based_attestation_allowed_urls.value",
+    "DeviceWeeklyScheduledSuspend": "DeviceWeeklyScheduledSuspend.value",
     "DeviceWiFiAllowed": "device_wifi_allowed.device_wifi_allowed",
     "DeviceWiFiFastTransitionEnabled": "device_wifi_fast_transition_enabled.device_wifi_fast_transition_enabled",
     "DeviceWilcoDtcAllowed": "device_wilco_dtc_allowed.device_wilco_dtc_allowed",
@@ -267,7 +268,7 @@
     "VirtualMachinesAllowed": "virtual_machines_allowed.virtual_machines_allowed"
   },
   "highest_atomic_group_id_currently_used": 50,
-  "highest_id_currently_used": 1207,
+  "highest_id_currently_used": 1209,
   "legacy_device_policy_proto_map": [
     [
       "",
@@ -13864,6 +13865,94 @@
       "type": "list"
     },
     {
+      "caption": "Schedule weekly suspend intervals",
+      "desc": "This policy establishes a series of weekly intervals for scheduling automated suspend. When an interval starts, the <ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> device will enter suspend mode, and wake up when the interval ends.\n\nSchedules with overlaping intervals are not supported. This policy will not have any effect if it contains any two overlapping intervals.\n\n<ph name=\"PRODUCT_OS_NAME\">$2<ex>Google ChromeOS</ex></ph> devices will use the system timezone to apply these intervals.",
+      "device_only": true,
+      "example_value": [
+        {
+          "end": {
+            "day_of_week": "TUESDAY",
+            "time": 21720000
+          },
+          "start": {
+            "day_of_week": "TUESDAY",
+            "time": 12840000
+          }
+        },
+        {
+          "end": {
+            "day_of_week": "MONDAY",
+            "time": 57600000
+          },
+          "start": {
+            "day_of_week": "FRIDAY",
+            "time": 38640000
+          }
+        }
+      ],
+      "features": {
+        "dynamic_refresh": true
+      },
+      "future_on": [
+        "chrome_os"
+      ],
+      "id": 1209,
+      "name": "DeviceWeeklyScheduledSuspend",
+      "owners": [
+        "file://chrome/browser/ash/app_mode/OWNERS"
+      ],
+      "schema": {
+        "items": {
+          "properties": {
+            "end": {
+              "properties": {
+                "day_of_week": {
+                  "enum": [
+                    "MONDAY",
+                    "TUESDAY",
+                    "WEDNESDAY",
+                    "THURSDAY",
+                    "FRIDAY",
+                    "SATURDAY",
+                    "SUNDAY"
+                  ],
+                  "type": "string"
+                },
+                "time": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "start": {
+              "properties": {
+                "day_of_week": {
+                  "enum": [
+                    "MONDAY",
+                    "TUESDAY",
+                    "WEDNESDAY",
+                    "THURSDAY",
+                    "FRIDAY",
+                    "SATURDAY",
+                    "SUNDAY"
+                  ],
+                  "type": "string"
+                },
+                "time": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "type": "array"
+      },
+      "tags": [],
+      "type": "dict"
+    },
+    {
       "caption": "Enable Kiosk troubleshooting tools",
       "default": false,
       "desc": "Setting the policy to Enabled means Kiosk troubleshooting tools are available\nto be used in a Kiosk session:\n- Chrome developer tools\n- Chrome browser window\n- Task manager\nLeaving this policy unset or setting to Disabled means Kiosk troubleshooting tools are disabled.\n\nPlease remember not to keep this policy enabled at all times, especially in production deployments.",
@@ -26568,9 +26657,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "android"
-      ],
       "id": 1189,
       "items": [
         {
@@ -26590,6 +26676,9 @@
       "schema": {
         "type": "boolean"
       },
+      "supported_on": [
+        "android:122-"
+      ],
       "tags": [
         "google-sharing"
       ],
@@ -33841,12 +33930,12 @@
     },
     {
       "caption": "List of types that should be excluded from synchronization",
-      "desc": "If this policy is set all specified data types will be excluded from synchronization both for <ph name=\"CHROME_SYNC_NAME\">Chrome Sync</ph> as well as for roaming profile synchronization. This can be beneficial to reduce the size of the roaming profile or limit the type of data uploaded to the <ph name=\"CHROME_SYNC_NAME\">Chrome Sync</ph> Servers.\n\n      The current data types for this policy are: \"bookmarks\", \"readingList\", \"preferences\", \"passwords\", \"autofill\", \"themes\", \"typedUrls\", \"extensions\", \"apps\", \"tabs\", \"wifiConfigurations\", \"savedTabGroups\". Those names are case sensitive!",
+      "desc": "If this policy is set all specified data types will be excluded from synchronization both for <ph name=\"CHROME_SYNC_NAME\">Chrome Sync</ph> as well as for roaming profile synchronization. This can be beneficial to reduce the size of the roaming profile or limit the type of data uploaded to the <ph name=\"CHROME_SYNC_NAME\">Chrome Sync</ph> Servers.\n\n      The current data types for this policy are: \"apps\", \"autofill\", \"bookmarks\", \"extensions\", \"preferences\", \"passwords\", \"payments\", \"readingList\", \"savedTabGroups\", \"tabs\", \"themes\", \"typedUrls\", \"wifiConfigurations\". Those names are case sensitive!\n\n      Notes: Dynamic Policy Refresh is supported only in <ph name=\"PRODUCT_NAME\">$1<ex>Google Chrome</ex></ph> version 123 and later. Disabling \"autofill\" also disables \"payments\". \"typedUrls\" refers to all browsing history.",
       "example_value": [
         "bookmarks"
       ],
       "features": {
-        "dynamic_refresh": false,
+        "dynamic_refresh": true,
         "per_profile": true
       },
       "future_on": [
@@ -34399,6 +34488,46 @@
       ],
       "tags": [],
       "type": "main"
+    },
+    {
+      "caption": "Managed toolbar avatar label setting",
+      "default": 0,
+      "deprecated": false,
+      "desc": "Leaving this policy unset or setting it to <ph name=\"DISPLAY_MANAGEMENT_LABEL_PERMAMENT_VALUE\">display_management_label_permanent</ph> (value 0) will show a Work or School label next to the toolbar avatar.\nThese labels will only be shown if the signed in account is managed.\n\nSetting it to <ph name=\"DISPLAY_MANAGEMENT_LABEL_TRANSIENT_VALUE\">display_management_label_transient</ph> (value 1) will show a Work or School label next to the toolbar avatar for 30 seconds after opening the profile.",
+      "example_value": 1,
+      "features": {
+        "dynamic_refresh": true,
+        "per_profile": false
+      },
+      "future_on": [
+        "chrome.*"
+      ],
+      "id": 1208,
+      "items": [
+        {
+          "caption": "Always display management label",
+          "name": "display_management_label_permanent",
+          "value": 0
+        },
+        {
+          "caption": "Display management labels for 30s",
+          "name": "display_management_label_transient",
+          "value": 1
+        }
+      ],
+      "name": "ToolbarAvatarLabelSettings",
+      "owners": [
+        "ydago@chromium.org"
+      ],
+      "schema": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer"
+      },
+      "tags": [],
+      "type": "int-enum"
     },
     {
       "caption": "Configuring the ToS behavior during first-run for CCT",
@@ -49703,6 +49832,7 @@
         "DeviceLocalAccountAutoLoginId",
         "DeviceLocalAccountPromptForNetworkWhenOffline",
         "DeviceLocalAccounts",
+        "DeviceWeeklyScheduledSuspend",
         "KioskTroubleshootingToolsEnabled",
         "NewWindowsInKioskAllowed"
       ],
@@ -50204,6 +50334,7 @@
         "TermsOfServiceURL",
         "ThirdPartyBlockingEnabled",
         "ThrottleNonVisibleCrossOriginIframesAllowed",
+        "ToolbarAvatarLabelSettings",
         "TosDialogBehavior",
         "TotalMemoryLimitMb",
         "TouchVirtualKeyboardEnabled",

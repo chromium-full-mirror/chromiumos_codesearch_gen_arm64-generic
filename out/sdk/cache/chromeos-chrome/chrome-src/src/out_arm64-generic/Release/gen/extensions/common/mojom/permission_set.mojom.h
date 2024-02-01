@@ -63,7 +63,7 @@ class  APIPermission {
   template <typename... Args>
   static APIPermissionPtr New(Args&&... args) {
     return APIPermissionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -208,7 +208,7 @@ class  APIPermissionSet {
   template <typename... Args>
   static APIPermissionSetPtr New(Args&&... args) {
     return APIPermissionSetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -350,7 +350,7 @@ class  ManifestPermission {
   template <typename... Args>
   static ManifestPermissionPtr New(Args&&... args) {
     return ManifestPermissionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -495,7 +495,7 @@ class  ManifestPermissionSet {
   template <typename... Args>
   static ManifestPermissionSetPtr New(Args&&... args) {
     return ManifestPermissionSetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -637,7 +637,7 @@ class  PermissionSet {
   template <typename... Args>
   static PermissionSetPtr New(Args&&... args) {
     return PermissionSetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

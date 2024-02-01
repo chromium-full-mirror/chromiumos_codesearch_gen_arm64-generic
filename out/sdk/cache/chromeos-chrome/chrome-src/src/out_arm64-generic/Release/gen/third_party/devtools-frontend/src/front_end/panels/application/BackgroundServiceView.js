@@ -446,7 +446,7 @@ export class EventDataNode extends DataGrid.DataGrid.DataGridNode {
     createPreview() {
         const preview = new UI.Widget.VBox();
         preview.element.classList.add('background-service-metadata');
-        preview.element.setAttribute('jslog', `${VisualLogging.section().context('metadata')}`);
+        preview.element.setAttribute('jslog', `${VisualLogging.section('metadata')}`);
         for (const entry of this.eventMetadata) {
             const div = document.createElement('div');
             div.classList.add('background-service-metadata-entry');

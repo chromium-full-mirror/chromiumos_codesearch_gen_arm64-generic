@@ -589,7 +589,7 @@ class  Data {
   template <typename... Args>
   static DataPtr New(Args&&... args) {
     return DataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

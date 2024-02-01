@@ -8,6 +8,7 @@
 import 'chrome://resources/cr_components/settings_prefs/prefs.js';
 import 'chrome://resources/cr_elements/cr_action_menu/cr_action_menu.js';
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/cr_elements/cr_toggle/cr_toggle.js';
 import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
 import 'chrome://resources/cr_elements/cr_shared_style.css.js';
 import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
@@ -54,6 +55,10 @@ export class SettingsAutofillSectionElement extends SettingsAutofillSectionEleme
     ready() {
         super.ready();
         this.addEventListener('save-address', this.saveAddress_);
+        // This is to mimic the behaviour of <settings-toggle-button>.
+        this.$.autofillSyncToggleWrapper.addEventListener('click', () => {
+            this.$.autofillSyncToggle.click();
+        });
     }
     connectedCallback() {
         super.connectedCallback();

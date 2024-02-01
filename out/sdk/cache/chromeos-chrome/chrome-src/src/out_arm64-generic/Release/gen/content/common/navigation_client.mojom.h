@@ -228,7 +228,7 @@ class CONTENT_EXPORT DidCommitSameDocumentNavigationParams {
   template <typename... Args>
   static DidCommitSameDocumentNavigationParamsPtr New(Args&&... args) {
     return DidCommitSameDocumentNavigationParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -383,7 +383,7 @@ class CONTENT_EXPORT DidCommitProvisionalLoadParams {
   template <typename... Args>
   static DidCommitProvisionalLoadParamsPtr New(Args&&... args) {
     return DidCommitProvisionalLoadParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -613,7 +613,7 @@ class CONTENT_EXPORT CookieManagerInfo {
   template <typename... Args>
   static CookieManagerInfoPtr New(Args&&... args) {
     return CookieManagerInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -753,7 +753,7 @@ class CONTENT_EXPORT StorageInfo {
   template <typename... Args>
   static StorageInfoPtr New(Args&&... args) {
     return StorageInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

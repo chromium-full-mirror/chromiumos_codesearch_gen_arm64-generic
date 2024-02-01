@@ -56,7 +56,7 @@ class  ArcBitmap {
   template <typename... Args>
   static ArcBitmapPtr New(Args&&... args) {
     return ArcBitmapPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

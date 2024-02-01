@@ -52,7 +52,7 @@ class  Bool {
   template <typename... Args>
   static BoolPtr New(Args&&... args) {
     return BoolPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -193,7 +193,7 @@ class  Float {
   template <typename... Args>
   static FloatPtr New(Args&&... args) {
     return FloatPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -334,7 +334,7 @@ class  Int32 {
   template <typename... Args>
   static Int32Ptr New(Args&&... args) {
     return Int32Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -475,7 +475,7 @@ class  UInt32 {
   template <typename... Args>
   static UInt32Ptr New(Args&&... args) {
     return UInt32Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

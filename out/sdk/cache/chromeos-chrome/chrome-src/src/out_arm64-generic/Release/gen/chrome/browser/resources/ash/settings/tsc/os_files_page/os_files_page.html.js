@@ -20,7 +20,7 @@ export function getTemplate() {
     </os-settings-subpage>
   </template>
 
-  <template is="dom-if" if="[[shouldShowOfficeSettings_]]">
+  <template is="dom-if" if="[[shouldShowOneDriveSettings_]]">
     <template is="dom-if" route-path="/oneDrive">
       <os-settings-subpage page-title="$i18n{oneDriveLabel}">
         <settings-one-drive-subpage prefs="{{prefs}}">

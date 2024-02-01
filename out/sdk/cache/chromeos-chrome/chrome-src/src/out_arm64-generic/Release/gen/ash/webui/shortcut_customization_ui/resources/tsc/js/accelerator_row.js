@@ -10,6 +10,7 @@ import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/strict_query.js';
 import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { AcceleratorLookupManager } from './accelerator_lookup_manager.js';
 import { getTemplate } from './accelerator_row.html.js';
 import { getShortcutProvider } from './mojo_interface_provider.js';
 import { LayoutStyle } from './shortcut_types.js';
@@ -24,6 +25,7 @@ const AcceleratorRowElementBase = I18nMixin(PolymerElement);
 export class AcceleratorRowElement extends AcceleratorRowElementBase {
     constructor() {
         super(...arguments);
+        this.lookupManager = AcceleratorLookupManager.getInstance();
         this.shortcutInterfaceProvider = getShortcutProvider();
     }
     static get is() {
@@ -57,6 +59,10 @@ export class AcceleratorRowElement extends AcceleratorRowElementBase {
                 observer: AcceleratorRowElement.prototype.onSourceChanged,
             },
         };
+    }
+    async connectedCallback() {
+        super.connectedCallback();
+        this.subcategoryIsLocked = this.lookupManager.isSubcategoryLocked(this.lookupManager.getAcceleratorSubcategory(this.source, this.action));
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -107,28 +113,42 @@ export class AcceleratorRowElement extends AcceleratorRowElementBase {
     onEditIconClicked() {
         this.dispatchEvent(new CustomEvent('edit-icon-clicked', { bubbles: true, composed: true }));
     }
-    getTabIndex() {
-        // If customization is disabled, this element should not be tab-focusable.
-        return !isCustomizationAllowed() ? -1 : 0;
-    }
     onFocusOrMouseEnter() {
+        if (this.lookupManager.getSearchResultRowFocused()) {
+            return;
+        }
         strictQuery('#container', this.shadowRoot, HTMLTableRowElement).focus();
     }
-    getAriaLabel() {
-        let acceleratorText;
+    onBlur() {
+        this.lookupManager.setSearchResultRowFocused(false);
+    }
+    rowIsLocked() {
+        // Accelerator row is locked if the subcategory or the source is locked or
+        // it is text accelerator or if all accelerator infos are locked.
+        return this.subcategoryIsLocked || this.isLocked || this.isTextLayout() ||
+            (this.acceleratorInfos.length > 0 &&
+                this.acceleratorInfos.every(info => info.locked));
+    }
+    getAcceleratorText() {
+        // No shortcut assigned case:
         if (this.acceleratorInfos.length === 0) {
-            // No shortcut assigned case:
-            acceleratorText = this.i18n('noShortcutAssigned');
+            return this.i18n('noShortcutAssigned');
         }
-        else if (this.isDefaultLayout()) {
-            // Default accelerator:
-            acceleratorText = getAriaLabelForStandardAccelerators(this.acceleratorInfos, this.i18n('acceleratorTextDivider'));
+        return this.isDefaultLayout() ?
+            getAriaLabelForStandardAccelerators(this.acceleratorInfos, this.i18n('acceleratorTextDivider')) :
+            getAriaLabelForTextAccelerators(this.acceleratorInfos);
+    }
+    getAriaLabel() {
+        if (!isCustomizationAllowed()) {
+            return this.i18n('acceleratorRowAriaLabelReadOnly', this.description, this.getAcceleratorText());
         }
         else {
-            // Text accelerator:
-            acceleratorText = getAriaLabelForTextAccelerators(this.acceleratorInfos);
+            const rowStatus = this.rowIsLocked() ? this.i18n('locked') : this.i18n('editable');
+            return this.i18n('acceleratorRowAriaLabel', this.description, this.getAcceleratorText(), rowStatus);
         }
-        return this.i18n('acceleratorRowAriaLabel', this.description, acceleratorText);
+    }
+    getEditButtonAriaLabel() {
+        return this.i18n('editButtonForRow', this.description);
     }
     static get template() {
         return getTemplate();

@@ -64,7 +64,7 @@ class BLINK_COMMON_EXPORT NotificationAction {
   template <typename... Args>
   static NotificationActionPtr New(Args&&... args) {
     return NotificationActionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -218,7 +218,7 @@ class BLINK_COMMON_EXPORT NotificationData {
   template <typename... Args>
   static NotificationDataPtr New(Args&&... args) {
     return NotificationDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -408,7 +408,7 @@ class BLINK_COMMON_EXPORT NotificationResources {
   template <typename... Args>
   static NotificationResourcesPtr New(Args&&... args) {
     return NotificationResourcesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

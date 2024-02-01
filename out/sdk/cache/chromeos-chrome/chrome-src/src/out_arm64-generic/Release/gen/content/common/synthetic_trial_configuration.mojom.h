@@ -168,7 +168,7 @@ class CONTENT_EXPORT SyntheticTrialGroup {
   template <typename... Args>
   static SyntheticTrialGroupPtr New(Args&&... args) {
     return SyntheticTrialGroupPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -57,7 +57,7 @@ class  StackFrame {
   template <typename... Args>
   static StackFramePtr New(Args&&... args) {
     return StackFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

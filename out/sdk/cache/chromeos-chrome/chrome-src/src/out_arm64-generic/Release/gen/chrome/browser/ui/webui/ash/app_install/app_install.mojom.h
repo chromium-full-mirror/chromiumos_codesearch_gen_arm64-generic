@@ -303,7 +303,7 @@ class  DialogArgs {
   template <typename... Args>
   static DialogArgsPtr New(Args&&... args) {
     return DialogArgsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

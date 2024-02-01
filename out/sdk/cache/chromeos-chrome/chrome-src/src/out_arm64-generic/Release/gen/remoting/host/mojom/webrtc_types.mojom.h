@@ -53,7 +53,7 @@ class  DesktopCaptureOptions {
   template <typename... Args>
   static DesktopCaptureOptionsPtr New(Args&&... args) {
     return DesktopCaptureOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -197,7 +197,7 @@ class  DesktopRect {
   template <typename... Args>
   static DesktopRectPtr New(Args&&... args) {
     return DesktopRectPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -346,7 +346,7 @@ class  DesktopSize {
   template <typename... Args>
   static DesktopSizePtr New(Args&&... args) {
     return DesktopSizePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -489,7 +489,7 @@ class  DesktopVector {
   template <typename... Args>
   static DesktopVectorPtr New(Args&&... args) {
     return DesktopVectorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -636,7 +636,7 @@ class  DesktopFrame {
   template <typename... Args>
   static DesktopFramePtr New(Args&&... args) {
     return DesktopFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -797,7 +797,7 @@ class  MouseCursor {
   template <typename... Args>
   static MouseCursorPtr New(Args&&... args) {
     return MouseCursorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -58,7 +58,7 @@ class  BeaconSeed {
   template <typename... Args>
   static BeaconSeedPtr New(Args&&... args) {
     return BeaconSeedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -204,7 +204,7 @@ class  RemoteDevice {
   template <typename... Args>
   static RemoteDevicePtr New(Args&&... args) {
     return RemoteDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

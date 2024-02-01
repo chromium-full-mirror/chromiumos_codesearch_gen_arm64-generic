@@ -1405,6 +1405,7 @@ namespace wgpu {
         using ObjectBase::ObjectBase;
         using ObjectBase::operator=;
 
+        TextureFormat GetPreferredFormat(Adapter const& adapter) const;
 
       private:
         friend ObjectBase<Surface, WGPUSurface>;

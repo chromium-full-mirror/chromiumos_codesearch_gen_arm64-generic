@@ -56,7 +56,7 @@ class  CacheItem {
   template <typename... Args>
   static CacheItemPtr New(Args&&... args) {
     return CacheItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

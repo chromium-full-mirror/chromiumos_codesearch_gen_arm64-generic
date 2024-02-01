@@ -33,8 +33,8 @@ BASE_FEATURE(kAlignContentForBlocks,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kAppTitle,
-    "AppTitle",
+BASE_FEATURE(kWebAppEnableAppTitle,
+    "WebAppEnableAppTitle",
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
@@ -100,11 +100,6 @@ BASE_FEATURE(kBoundaryEventDispatchTracksNodeRemoval,
 
 BASE_FEATURE(kByobFetch,
     "ByobFetch",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kCanonicalizeWhitespaceStrings,
-    "CanonicalizeWhitespaceStrings",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -253,6 +248,11 @@ BASE_FEATURE(kCrossFramePerformanceTimeline,
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kCSSAnchorPositioning,
+    "CSSAnchorPositioning",
+    base::FEATURE_DISABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kCSSAnchorPositioningCascadeFallback,
     "CSSAnchorPositioningCascadeFallback",
     base::FEATURE_DISABLED_BY_DEFAULT
@@ -310,6 +310,11 @@ BASE_FEATURE(kCssFieldSizing,
 
 BASE_FEATURE(kCSSFirstLetterNoNewLineAsPrecedingChar,
     "CSSFirstLetterNoNewLineAsPrecedingChar",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kCSSLightDarkColors,
+    "CSSLightDarkColors",
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
@@ -728,11 +733,6 @@ BASE_FEATURE(kEscapeLtGtInAttributes,
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kExcludeBrokenImageIconFromBeingLcpEligible,
-    "ExcludeBrokenImageIconFromBeingLcpEligible",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
 BASE_FEATURE(kFastPositionIterator,
     "FastPositionIterator",
     base::FEATURE_DISABLED_BY_DEFAULT
@@ -1108,21 +1108,6 @@ BASE_FEATURE(kLayoutIgnoreMarginsForSticky,
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kLayoutNewContainingBlock,
-    "LayoutNewContainingBlock",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kLayoutNewMeasureCache,
-    "LayoutNewMeasureCache",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kLayoutNewMinMaxCache,
-    "LayoutNewMinMaxCache",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
 BASE_FEATURE(kLayoutNGShapeCache,
     "LayoutNGShapeCache",
     base::FEATURE_DISABLED_BY_DEFAULT
@@ -1208,11 +1193,6 @@ BASE_FEATURE(kEnableModelExecutionAPI,
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kMonitorTypeSurfaces,
-    "MonitorTypeSurfaces",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
 BASE_FEATURE(kMouseDragFromIframeOnCancelledMouseDown,
     "MouseDragFromIframeOnCancelledMouseDown",
     base::FEATURE_ENABLED_BY_DEFAULT
@@ -1295,7 +1275,7 @@ BASE_FEATURE(kOffsetMappingUnitVariable,
 
 BASE_FEATURE(kOnePassRasterInvalidation,
     "OnePassRasterInvalidation",
-    base::FEATURE_DISABLED_BY_DEFAULT
+    base::FEATURE_ENABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kOptionElementAlwaysUseLabel,
@@ -1458,11 +1438,6 @@ BASE_FEATURE(kReduceUserAgentPlatformOsCpu,
 #endif
 );
 
-BASE_FEATURE(kReferenceBoxNoPixelSnapping,
-    "ReferenceBoxNoPixelSnapping",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
 BASE_FEATURE(kRemotePlaybackBackend,
     "RemotePlaybackBackend",
 #if BUILDFLAG(IS_ANDROID)
@@ -1501,6 +1476,31 @@ BASE_FEATURE(kRemoveDataUrlInSvgUse,
 BASE_FEATURE(kRemoveZoomAdjustmentOfBoundingBox,
     "RemoveZoomAdjustmentOfBoundingBox",
     base::FEATURE_DISABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kReportVisibleLineBounds,
+    "ReportVisibleLineBounds",
+#if BUILDFLAG(IS_ANDROID)
+    base::FEATURE_ENABLED_BY_DEFAULT
+#endif
+#if BUILDFLAG(IS_WIN)
+    base::FEATURE_DISABLED_BY_DEFAULT
+#endif
+#if BUILDFLAG(IS_CHROMEOS_ASH)
+    base::FEATURE_DISABLED_BY_DEFAULT
+#endif
+#if BUILDFLAG(IS_CHROMEOS_LACROS)
+    base::FEATURE_DISABLED_BY_DEFAULT
+#endif
+#if BUILDFLAG(IS_MAC)
+    base::FEATURE_DISABLED_BY_DEFAULT
+#endif
+#if BUILDFLAG(IS_LINUX)
+    base::FEATURE_DISABLED_BY_DEFAULT
+#endif
+#if !BUILDFLAG(IS_ANDROID) && !BUILDFLAG(IS_WIN) && !BUILDFLAG(IS_CHROMEOS_ASH) && !BUILDFLAG(IS_CHROMEOS_LACROS) && !BUILDFLAG(IS_MAC) && !BUILDFLAG(IS_LINUX)
+    base::FEATURE_DISABLED_BY_DEFAULT
+#endif
 );
 
 BASE_FEATURE(kRewindFloats,
@@ -1616,6 +1616,11 @@ BASE_FEATURE(kSetSequentialFocusStartingPoint,
 BASE_FEATURE(kShadowRootAttachmentNewBehavior,
     "ShadowRootAttachmentNewBehavior",
     base::FEATURE_ENABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kShadowRootClonable,
+    "ShadowRootClonable",
+    base::FEATURE_DISABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kSkipTouchEventFilter,

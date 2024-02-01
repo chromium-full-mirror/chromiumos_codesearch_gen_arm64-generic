@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10\x64lcservice.proto\x12\ndlcservice\"@\n\x0eInstallRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tomaha_url\x18\x02 \x01(\t\x12\x0f\n\x07reserve\x18\x03 \x01(\x08\"\xb5\x01\n\x0f\x44lcsWithContent\x12\x36\n\tdlc_infos\x18\x01 \x03(\x0b\x32#.dlcservice.DlcsWithContent.DlcInfo\x1aj\n\x07\x44lcInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x1a\n\x12used_bytes_on_disk\x18\x04 \x01(\x04\x12\x14\n\x0cis_removable\x18\x05 \x01(\x08\"\xcf\x01\n\x08\x44lcState\x12)\n\x05state\x18\x01 \x01(\x0e\x32\x1a.dlcservice.DlcState.State\x12\n\n\x02id\x18\x02 \x01(\t\x12\x11\n\troot_path\x18\x03 \x01(\t\x12\x10\n\x08progress\x18\x04 \x01(\x01\x12\x17\n\x0flast_error_code\x18\x05 \x01(\t\x12\x13\n\x0bis_verified\x18\x06 \x01(\x08\"9\n\x05State\x12\x11\n\rNOT_INSTALLED\x10\x00\x12\x0e\n\nINSTALLING\x10\x01\x12\r\n\tINSTALLED\x10\x02\x42*H\x03Z&chromiumos/system_api/dlcservice_protob\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10\x64lcservice.proto\x12\ndlcservice\"@\n\x0eInstallRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x11\n\tomaha_url\x18\x02 \x01(\t\x12\x0f\n\x07reserve\x18\x03 \x01(\x08\"\xb5\x01\n\x0f\x44lcsWithContent\x12\x36\n\tdlc_infos\x18\x01 \x03(\x0b\x32#.dlcservice.DlcsWithContent.DlcInfo\x1aj\n\x07\x44lcInfo\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x03 \x01(\t\x12\x1a\n\x12used_bytes_on_disk\x18\x04 \x01(\x04\x12\x14\n\x0cis_removable\x18\x05 \x01(\x08\"\xe3\x01\n\x08\x44lcState\x12)\n\x05state\x18\x01 \x01(\x0e\x32\x1a.dlcservice.DlcState.State\x12\n\n\x02id\x18\x02 \x01(\t\x12\x11\n\troot_path\x18\x03 \x01(\t\x12\x10\n\x08progress\x18\x04 \x01(\x01\x12\x17\n\x0flast_error_code\x18\x05 \x01(\t\x12\x13\n\x0bis_verified\x18\x06 \x01(\x08\x12\x12\n\nimage_path\x18\x07 \x01(\t\"9\n\x05State\x12\x11\n\rNOT_INSTALLED\x10\x00\x12\x0e\n\nINSTALLING\x10\x01\x12\r\n\tINSTALLED\x10\x02\x42*H\x03Z&chromiumos/system_api/dlcservice_protob\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'dlcservice_pb2', globals())
@@ -28,7 +28,7 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _DLCSWITHCONTENT_DLCINFO._serialized_start=174
   _DLCSWITHCONTENT_DLCINFO._serialized_end=280
   _DLCSTATE._serialized_start=283
-  _DLCSTATE._serialized_end=490
-  _DLCSTATE_STATE._serialized_start=433
-  _DLCSTATE_STATE._serialized_end=490
+  _DLCSTATE._serialized_end=510
+  _DLCSTATE_STATE._serialized_start=453
+  _DLCSTATE_STATE._serialized_end=510
 # @@protoc_insertion_point(module_scope)

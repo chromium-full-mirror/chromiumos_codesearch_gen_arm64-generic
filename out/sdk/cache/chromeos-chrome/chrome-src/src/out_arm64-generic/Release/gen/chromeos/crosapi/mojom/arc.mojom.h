@@ -345,7 +345,7 @@ class  ActivityName {
   template <typename... Args>
   static ActivityNamePtr New(Args&&... args) {
     return ActivityNamePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -496,7 +496,7 @@ class  RawIconPngData {
   template <typename... Args>
   static RawIconPngDataPtr New(Args&&... args) {
     return RawIconPngDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -645,7 +645,7 @@ class  ActivityIcon {
   template <typename... Args>
   static ActivityIconPtr New(Args&&... args) {
     return ActivityIconPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -799,7 +799,7 @@ class  IntentHandlerInfo {
   template <typename... Args>
   static IntentHandlerInfoPtr New(Args&&... args) {
     return IntentHandlerInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -956,7 +956,7 @@ class  IntentInfo {
   template <typename... Args>
   static IntentInfoPtr New(Args&&... args) {
     return IntentInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1111,7 +1111,7 @@ class  TextSelectionAction {
   template <typename... Args>
   static TextSelectionActionPtr New(Args&&... args) {
     return TextSelectionActionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

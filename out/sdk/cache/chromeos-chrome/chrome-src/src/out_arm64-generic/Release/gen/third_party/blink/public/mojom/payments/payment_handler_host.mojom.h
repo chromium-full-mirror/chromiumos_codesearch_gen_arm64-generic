@@ -190,7 +190,7 @@ class BLINK_COMMON_EXPORT PaymentHandlerMethodData {
   template <typename... Args>
   static PaymentHandlerMethodDataPtr New(Args&&... args) {
     return PaymentHandlerMethodDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -338,7 +338,7 @@ class BLINK_COMMON_EXPORT PaymentHandlerModifier {
   template <typename... Args>
   static PaymentHandlerModifierPtr New(Args&&... args) {
     return PaymentHandlerModifierPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -483,7 +483,7 @@ class BLINK_COMMON_EXPORT PaymentRequestDetailsUpdate {
   template <typename... Args>
   static PaymentRequestDetailsUpdatePtr New(Args&&... args) {
     return PaymentRequestDetailsUpdatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

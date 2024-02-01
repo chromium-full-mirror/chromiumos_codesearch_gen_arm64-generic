@@ -64,7 +64,7 @@ class BLINK_PLATFORM_EXPORT CompositorFrame {
   template <typename... Args>
   static CompositorFramePtr New(Args&&... args) {
     return CompositorFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

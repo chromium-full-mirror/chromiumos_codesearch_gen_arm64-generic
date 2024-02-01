@@ -429,7 +429,7 @@ class CONTENT_EXPORT KAnonKey {
   template <typename... Args>
   static KAnonKeyPtr New(Args&&... args) {
     return KAnonKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -573,7 +573,7 @@ class CONTENT_EXPORT BidderWorklerKAnonBidSameAsNonEnforced {
   template <typename... Args>
   static BidderWorklerKAnonBidSameAsNonEnforcedPtr New(Args&&... args) {
     return BidderWorklerKAnonBidSameAsNonEnforcedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -709,7 +709,7 @@ class CONTENT_EXPORT PrioritySignalsDouble {
   template <typename... Args>
   static PrioritySignalsDoublePtr New(Args&&... args) {
     return PrioritySignalsDoublePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -861,7 +861,7 @@ class CONTENT_EXPORT BidderWorkletKAnonEnforcedBid {
   static BidderWorkletKAnonEnforcedBidPtr
   NewSameAsNonEnforced(
       BidderWorklerKAnonBidSameAsNonEnforcedPtr value) {
-    auto result = BidderWorkletKAnonEnforcedBidPtr(absl::in_place);
+    auto result = BidderWorkletKAnonEnforcedBidPtr(std::in_place);
     result->set_same_as_non_enforced(std::move(value));
     return result;
   }
@@ -869,7 +869,7 @@ class CONTENT_EXPORT BidderWorkletKAnonEnforcedBid {
   static BidderWorkletKAnonEnforcedBidPtr
   NewBid(
       BidderWorkletBidPtr value) {
-    auto result = BidderWorkletKAnonEnforcedBidPtr(absl::in_place);
+    auto result = BidderWorkletKAnonEnforcedBidPtr(std::in_place);
     result->set_bid(std::move(value));
     return result;
   }
@@ -983,7 +983,7 @@ class CONTENT_EXPORT PreviousWin {
   template <typename... Args>
   static PreviousWinPtr New(Args&&... args) {
     return PreviousWinPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1127,7 +1127,7 @@ class CONTENT_EXPORT BidderWorkletNonSharedParams {
   template <typename... Args>
   static BidderWorkletNonSharedParamsPtr New(Args&&... args) {
     return BidderWorkletNonSharedParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1299,7 +1299,7 @@ class CONTENT_EXPORT BiddingBrowserSignals {
   template <typename... Args>
   static BiddingBrowserSignalsPtr New(Args&&... args) {
     return BiddingBrowserSignalsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1450,7 +1450,7 @@ class CONTENT_EXPORT BidderWorkletBid {
   template <typename... Args>
   static BidderWorkletBidPtr New(Args&&... args) {
     return BidderWorkletBidPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1613,7 +1613,7 @@ class CONTENT_EXPORT GenerateBidDependencyLatencies {
   template <typename... Args>
   static GenerateBidDependencyLatenciesPtr New(Args&&... args) {
     return GenerateBidDependencyLatenciesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

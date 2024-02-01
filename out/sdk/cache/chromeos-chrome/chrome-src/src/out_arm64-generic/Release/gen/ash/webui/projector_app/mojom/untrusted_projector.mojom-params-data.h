@@ -846,7 +846,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `request_body` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRequestBody` instead "
     "of `ReadRequestBody if you're fine with null values being "
@@ -872,7 +872,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, mojo::StringDataView>, UserType>(),
     "Attempting to read the optional `headers` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHeaders` instead "
     "of `ReadHeaders if you're fine with null values being "
@@ -892,7 +892,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `account_email` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAccountEmail` instead "
     "of `ReadAccountEmail if you're fine with null values being "
@@ -1005,7 +1005,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `resource_key` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResourceKey` instead "
     "of `ReadResourceKey if you're fine with null values being "

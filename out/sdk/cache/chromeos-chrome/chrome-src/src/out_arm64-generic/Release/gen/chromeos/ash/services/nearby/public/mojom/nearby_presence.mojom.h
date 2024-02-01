@@ -439,7 +439,7 @@ class  PresenceScanFilter {
   template <typename... Args>
   static PresenceScanFilterPtr New(Args&&... args) {
     return PresenceScanFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -586,7 +586,7 @@ class  ScanRequest {
   template <typename... Args>
   static ScanRequestPtr New(Args&&... args) {
     return ScanRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -734,7 +734,7 @@ class  PrivateKey {
   template <typename... Args>
   static PrivateKeyPtr New(Args&&... args) {
     return PrivateKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -878,7 +878,7 @@ class  Metadata {
   template <typename... Args>
   static MetadataPtr New(Args&&... args) {
     return MetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1033,7 +1033,7 @@ class  PresenceDevice {
   template <typename... Args>
   static PresenceDevicePtr New(Args&&... args) {
     return PresenceDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1184,7 +1184,7 @@ class  SharedCredential {
   template <typename... Args>
   static SharedCredentialPtr New(Args&&... args) {
     return SharedCredentialPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1351,7 +1351,7 @@ class  LocalCredential {
   template <typename... Args>
   static LocalCredentialPtr New(Args&&... args) {
     return LocalCredentialPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

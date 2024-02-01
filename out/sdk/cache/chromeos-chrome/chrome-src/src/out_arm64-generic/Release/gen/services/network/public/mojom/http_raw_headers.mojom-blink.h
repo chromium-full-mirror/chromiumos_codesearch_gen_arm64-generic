@@ -56,7 +56,7 @@ class BLINK_PLATFORM_EXPORT HttpRawHeaderPair {
   template <typename... Args>
   static HttpRawHeaderPairPtr New(Args&&... args) {
     return HttpRawHeaderPairPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

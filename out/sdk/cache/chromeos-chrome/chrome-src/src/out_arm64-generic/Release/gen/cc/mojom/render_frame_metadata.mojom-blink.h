@@ -282,7 +282,7 @@ class BLINK_PLATFORM_EXPORT DelegatedInkBrowserMetadata {
   template <typename... Args>
   static DelegatedInkBrowserMetadataPtr New(Args&&... args) {
     return DelegatedInkBrowserMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -427,7 +427,7 @@ class BLINK_PLATFORM_EXPORT RenderFrameMetadata {
   template <typename... Args>
   static RenderFrameMetadataPtr New(Args&&... args) {
     return RenderFrameMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

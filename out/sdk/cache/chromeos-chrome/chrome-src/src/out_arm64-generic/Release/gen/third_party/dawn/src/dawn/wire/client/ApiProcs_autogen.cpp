@@ -2415,6 +2415,12 @@ namespace dawn::wire::client {
     }
 
 
+    static
+    WGPUTextureFormat ClientSurfaceGetPreferredFormat(WGPUSurface cSelf, WGPUAdapter adapter) {
+        auto self = reinterpret_cast<Surface*>(cSelf);
+        return self->GetPreferredFormat( adapter);
+    }
+
     void ClientSurfaceRelease(WGPUSurface cObj) {
         Surface* obj = reinterpret_cast<Surface*>(cObj);
 
@@ -2850,6 +2856,7 @@ namespace dawn::wire::client {
             { reinterpret_cast<WGPUProc>(ClientShaderModuleReference), "wgpuShaderModuleReference" },
             { reinterpret_cast<WGPUProc>(ClientShaderModuleRelease), "wgpuShaderModuleRelease" },
             { reinterpret_cast<WGPUProc>(ClientShaderModuleSetLabel), "wgpuShaderModuleSetLabel" },
+            { reinterpret_cast<WGPUProc>(ClientSurfaceGetPreferredFormat), "wgpuSurfaceGetPreferredFormat" },
             { reinterpret_cast<WGPUProc>(ClientSurfaceReference), "wgpuSurfaceReference" },
             { reinterpret_cast<WGPUProc>(ClientSurfaceRelease), "wgpuSurfaceRelease" },
             { reinterpret_cast<WGPUProc>(ClientSwapChainGetCurrentTexture), "wgpuSwapChainGetCurrentTexture" },
@@ -3135,6 +3142,7 @@ namespace dawn::wire::client {
         , std::make_pair(&DawnProcTable::shaderModuleSetLabel, ClientShaderModuleSetLabel)
         , std::make_pair(&DawnProcTable::shaderModuleReference, ClientShaderModuleReference)
         , std::make_pair(&DawnProcTable::shaderModuleRelease, ClientShaderModuleRelease)
+        , std::make_pair(&DawnProcTable::surfaceGetPreferredFormat, ClientSurfaceGetPreferredFormat)
         , std::make_pair(&DawnProcTable::surfaceReference, ClientSurfaceReference)
         , std::make_pair(&DawnProcTable::surfaceRelease, ClientSurfaceRelease)
         , std::make_pair(&DawnProcTable::swapChainGetCurrentTexture, ClientSwapChainGetCurrentTexture)

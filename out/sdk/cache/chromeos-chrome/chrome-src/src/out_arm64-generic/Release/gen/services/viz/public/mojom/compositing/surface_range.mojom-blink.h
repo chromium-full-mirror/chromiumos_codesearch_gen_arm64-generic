@@ -60,7 +60,7 @@ class BLINK_PLATFORM_EXPORT SurfaceRange {
   template <typename... Args>
   static SurfaceRangePtr New(Args&&... args) {
     return SurfaceRangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

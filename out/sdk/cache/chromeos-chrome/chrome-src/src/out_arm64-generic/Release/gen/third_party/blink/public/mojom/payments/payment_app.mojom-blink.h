@@ -384,7 +384,7 @@ class PLATFORM_EXPORT CanMakePaymentResponse {
   template <typename... Args>
   static CanMakePaymentResponsePtr New(Args&&... args) {
     return CanMakePaymentResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -531,7 +531,7 @@ class PLATFORM_EXPORT PaymentInstrument {
   template <typename... Args>
   static PaymentInstrumentPtr New(Args&&... args) {
     return PaymentInstrumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -685,7 +685,7 @@ class PLATFORM_EXPORT CanMakePaymentEventData {
   template <typename... Args>
   static CanMakePaymentEventDataPtr New(Args&&... args) {
     return CanMakePaymentEventDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -836,7 +836,7 @@ class PLATFORM_EXPORT PaymentRequestEventData {
   template <typename... Args>
   static PaymentRequestEventDataPtr New(Args&&... args) {
     return PaymentRequestEventDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1001,7 +1001,7 @@ class PLATFORM_EXPORT PaymentHandlerResponse {
   template <typename... Args>
   static PaymentHandlerResponsePtr New(Args&&... args) {
     return PaymentHandlerResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

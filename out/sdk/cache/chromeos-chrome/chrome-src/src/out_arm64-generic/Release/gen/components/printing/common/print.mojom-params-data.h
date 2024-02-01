@@ -798,7 +798,7 @@ static_assert(
         ::mojo_base::mojom::ReadOnlySharedMemoryRegionDataView, UserType>(),
     "Attempting to read the optional `preview_document_region` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPreviewDocumentRegion` instead "
     "of `ReadPreviewDocumentRegion if you're fine with null values being "
@@ -1394,7 +1394,7 @@ static_assert(
         ::printing::mojom::PrintParamsDataView, UserType>(),
     "Attempting to read the optional `default_settings` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDefaultSettings` instead "
     "of `ReadDefaultSettings if you're fine with null values being "
@@ -1548,7 +1548,7 @@ static_assert(
         ::printing::mojom::PrintPagesParamsDataView, UserType>(),
     "Attempting to read the optional `settings` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSettings` instead "
     "of `ReadSettings if you're fine with null values being "
@@ -1638,7 +1638,7 @@ static_assert(
         ::printing::mojom::PrintPagesParamsDataView, UserType>(),
     "Attempting to read the optional `current_settings` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCurrentSettings` instead "
     "of `ReadCurrentSettings if you're fine with null values being "

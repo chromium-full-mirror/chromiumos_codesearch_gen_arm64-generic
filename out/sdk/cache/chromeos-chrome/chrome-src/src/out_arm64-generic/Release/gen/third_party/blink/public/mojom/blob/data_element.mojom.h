@@ -203,7 +203,7 @@ class BLINK_COMMON_EXPORT DataElement {
   static DataElementPtr
   NewBytes(
       DataElementBytesPtr value) {
-    auto result = DataElementPtr(absl::in_place);
+    auto result = DataElementPtr(std::in_place);
     result->set_bytes(std::move(value));
     return result;
   }
@@ -211,7 +211,7 @@ class BLINK_COMMON_EXPORT DataElement {
   static DataElementPtr
   NewFile(
       DataElementFilePtr value) {
-    auto result = DataElementPtr(absl::in_place);
+    auto result = DataElementPtr(std::in_place);
     result->set_file(std::move(value));
     return result;
   }
@@ -219,7 +219,7 @@ class BLINK_COMMON_EXPORT DataElement {
   static DataElementPtr
   NewBlob(
       DataElementBlobPtr value) {
-    auto result = DataElementPtr(absl::in_place);
+    auto result = DataElementPtr(std::in_place);
     result->set_blob(std::move(value));
     return result;
   }
@@ -348,7 +348,7 @@ class BLINK_COMMON_EXPORT DataElementBytes {
   template <typename... Args>
   static DataElementBytesPtr New(Args&&... args) {
     return DataElementBytesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -491,7 +491,7 @@ class BLINK_COMMON_EXPORT DataElementFile {
   template <typename... Args>
   static DataElementFilePtr New(Args&&... args) {
     return DataElementFilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -640,7 +640,7 @@ class BLINK_COMMON_EXPORT DataElementBlob {
   template <typename... Args>
   static DataElementBlobPtr New(Args&&... args) {
     return DataElementBlobPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

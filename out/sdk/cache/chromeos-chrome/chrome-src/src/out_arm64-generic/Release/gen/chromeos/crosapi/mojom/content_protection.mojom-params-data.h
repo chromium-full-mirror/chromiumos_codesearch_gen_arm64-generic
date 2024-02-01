@@ -236,7 +236,7 @@ static_assert(
         ::crosapi::mojom::ContentProtectionWindowStatusDataView, UserType>(),
     "Attempting to read the optional `status` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStatus` instead "
     "of `ReadStatus if you're fine with null values being "
@@ -396,7 +396,7 @@ static_assert(
         ::crosapi::mojom::ChallengePlatformResultDataView, UserType>(),
     "Attempting to read the optional `result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResult` instead "
     "of `ReadResult if you're fine with null values being "

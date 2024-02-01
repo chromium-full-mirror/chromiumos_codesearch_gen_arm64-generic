@@ -53,7 +53,7 @@ class BLINK_COMMON_EXPORT MediaPlayerAction {
   template <typename... Args>
   static MediaPlayerActionPtr New(Args&&... args) {
     return MediaPlayerActionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

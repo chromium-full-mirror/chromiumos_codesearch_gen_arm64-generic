@@ -78,7 +78,7 @@ export function getTemplate() {
 
 
 <template is="dom-if" if="[[showShared_(managedProperties_, globalPolicy,
-        managedNetworkAvailable)]]">
+        managedNetworkAvailable, deviceState_)]]">
   
   <div class$="settings-box settings-box-text
               [[messagesDividerClass_('shared', managedProperties_,

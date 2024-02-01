@@ -56,7 +56,7 @@ class BLINK_PLATFORM_EXPORT BatteryStatus {
   template <typename... Args>
   static BatteryStatusPtr New(Args&&... args) {
     return BatteryStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

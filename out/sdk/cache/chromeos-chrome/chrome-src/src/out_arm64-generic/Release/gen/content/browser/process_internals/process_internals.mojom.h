@@ -221,7 +221,7 @@ class  ProcessCountInfo {
   template <typename... Args>
   static ProcessCountInfoPtr New(Args&&... args) {
     return ProcessCountInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -371,7 +371,7 @@ class  IsolatedOriginInfo {
   template <typename... Args>
   static IsolatedOriginInfoPtr New(Args&&... args) {
     return IsolatedOriginInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -518,7 +518,7 @@ class  SiteInstanceInfo {
   template <typename... Args>
   static SiteInstanceInfoPtr New(Args&&... args) {
     return SiteInstanceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -689,7 +689,7 @@ class  FrameInfo {
   template <typename... Args>
   static FrameInfoPtr New(Args&&... args) {
     return FrameInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -849,7 +849,7 @@ class  WebContentsInfo {
   template <typename... Args>
   static WebContentsInfoPtr New(Args&&... args) {
     return WebContentsInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -61,7 +61,7 @@ class BLINK_PLATFORM_EXPORT SchemefulSite {
   template <typename... Args>
   static SchemefulSitePtr New(Args&&... args) {
     return SchemefulSitePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

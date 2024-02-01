@@ -58,7 +58,7 @@ class  AXRelativeBounds {
   template <typename... Args>
   static AXRelativeBoundsPtr New(Args&&... args) {
     return AXRelativeBoundsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

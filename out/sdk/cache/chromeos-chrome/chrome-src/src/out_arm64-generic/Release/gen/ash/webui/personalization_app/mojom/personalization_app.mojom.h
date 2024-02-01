@@ -1929,7 +1929,7 @@ class  UserInfo {
   template <typename... Args>
   static UserInfoPtr New(Args&&... args) {
     return UserInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2074,7 +2074,7 @@ class  ProfileImage {
   template <typename... Args>
   static ProfileImagePtr New(Args&&... args) {
     return ProfileImagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2210,7 +2210,7 @@ class  InvalidImage {
   template <typename... Args>
   static InvalidImagePtr New(Args&&... args) {
     return InvalidImagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2357,7 +2357,7 @@ class  UserImage {
   static UserImagePtr
   NewDefaultImage(
       ::ash::default_user_image::DefaultUserImage value) {
-    auto result = UserImagePtr(absl::in_place);
+    auto result = UserImagePtr(std::in_place);
     result->set_default_image(std::move(value));
     return result;
   }
@@ -2365,7 +2365,7 @@ class  UserImage {
   static UserImagePtr
   NewExternalImage(
       ::mojo_base::BigBuffer value) {
-    auto result = UserImagePtr(absl::in_place);
+    auto result = UserImagePtr(std::in_place);
     result->set_external_image(std::move(value));
     return result;
   }
@@ -2373,7 +2373,7 @@ class  UserImage {
   static UserImagePtr
   NewProfileImage(
       ProfileImagePtr value) {
-    auto result = UserImagePtr(absl::in_place);
+    auto result = UserImagePtr(std::in_place);
     result->set_profile_image(std::move(value));
     return result;
   }
@@ -2381,7 +2381,7 @@ class  UserImage {
   static UserImagePtr
   NewInvalidImage(
       InvalidImagePtr value) {
-    auto result = UserImagePtr(absl::in_place);
+    auto result = UserImagePtr(std::in_place);
     result->set_invalid_image(std::move(value));
     return result;
   }
@@ -2529,7 +2529,7 @@ class  CurrentBacklightState {
   static CurrentBacklightStatePtr
   NewColor(
       BacklightColor value) {
-    auto result = CurrentBacklightStatePtr(absl::in_place);
+    auto result = CurrentBacklightStatePtr(std::in_place);
     result->set_color(std::move(value));
     return result;
   }
@@ -2537,7 +2537,7 @@ class  CurrentBacklightState {
   static CurrentBacklightStatePtr
   NewZoneColors(
       std::vector<BacklightColor> value) {
-    auto result = CurrentBacklightStatePtr(absl::in_place);
+    auto result = CurrentBacklightStatePtr(std::in_place);
     result->set_zone_colors(std::move(value));
     return result;
   }
@@ -2651,7 +2651,7 @@ class  WallpaperCollection {
   template <typename... Args>
   static WallpaperCollectionPtr New(Args&&... args) {
     return WallpaperCollectionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2800,7 +2800,7 @@ class  GooglePhotosAlbum {
   template <typename... Args>
   static GooglePhotosAlbumPtr New(Args&&... args) {
     return GooglePhotosAlbumPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2955,7 +2955,7 @@ class  FetchGooglePhotosAlbumsResponse {
   template <typename... Args>
   static FetchGooglePhotosAlbumsResponsePtr New(Args&&... args) {
     return FetchGooglePhotosAlbumsResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3100,7 +3100,7 @@ class  WallpaperImage {
   template <typename... Args>
   static WallpaperImagePtr New(Args&&... args) {
     return WallpaperImagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3252,7 +3252,7 @@ class  GooglePhotosPhoto {
   template <typename... Args>
   static GooglePhotosPhotoPtr New(Args&&... args) {
     return GooglePhotosPhotoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3407,7 +3407,7 @@ class  FetchGooglePhotosPhotosResponse {
   template <typename... Args>
   static FetchGooglePhotosPhotosResponsePtr New(Args&&... args) {
     return FetchGooglePhotosPhotosResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3552,7 +3552,7 @@ class  CurrentAttribution {
   template <typename... Args>
   static CurrentAttributionPtr New(Args&&... args) {
     return CurrentAttributionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3695,7 +3695,7 @@ class  CurrentWallpaper {
   template <typename... Args>
   static CurrentWallpaperPtr New(Args&&... args) {
     return CurrentWallpaperPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3847,7 +3847,7 @@ class  SampleColorScheme {
   template <typename... Args>
   static SampleColorSchemePtr New(Args&&... args) {
     return SampleColorSchemePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3997,7 +3997,7 @@ class  DeprecatedSourceInfo {
   template <typename... Args>
   static DeprecatedSourceInfoPtr New(Args&&... args) {
     return DeprecatedSourceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4140,7 +4140,7 @@ class  DefaultUserImage {
   template <typename... Args>
   static DefaultUserImagePtr New(Args&&... args) {
     return DefaultUserImagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4293,7 +4293,7 @@ class  AmbientModeAlbum {
   template <typename... Args>
   static AmbientModeAlbumPtr New(Args&&... args) {
     return AmbientModeAlbumPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

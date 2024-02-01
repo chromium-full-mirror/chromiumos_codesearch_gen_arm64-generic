@@ -74,7 +74,7 @@ export class TimelineFlameChartView extends UI.Widget.VBox {
         this.#traceEngineData = null;
         this.showMemoryGraphSetting = Common.Settings.Settings.instance().createSetting('timelineShowMemory', false);
         // Create main and network flamecharts.
-        this.networkSplitWidget = new UI.SplitWidget.SplitWidget(false, false, 'timelineFlamechartMainView', 150);
+        this.networkSplitWidget = new UI.SplitWidget.SplitWidget(false, false, 'timeline-flamechart-main-view', 150);
         // Ensure that the network panel & resizer appears above the main thread.
         this.networkSplitWidget.sidebarElement().style.zIndex = '120';
         const mainViewGroupExpansionSetting = Common.Settings.Settings.instance().createSetting('timelineFlamechartMainViewGroupExpansion', {});
@@ -98,7 +98,7 @@ export class TimelineFlameChartView extends UI.Widget.VBox {
         this.networkSplitWidget.setMainWidget(this.mainFlameChart);
         this.networkSplitWidget.setSidebarWidget(this.networkPane);
         // Create counters chart splitter.
-        this.chartSplitWidget = new UI.SplitWidget.SplitWidget(false, true, 'timelineCountersSplitViewState');
+        this.chartSplitWidget = new UI.SplitWidget.SplitWidget(false, true, 'timeline-counters-split-view-state');
         this.countersView = new CountersGraph(this.delegate);
         this.chartSplitWidget.setMainWidget(this.networkSplitWidget);
         this.chartSplitWidget.setSidebarWidget(this.countersView);
@@ -106,7 +106,7 @@ export class TimelineFlameChartView extends UI.Widget.VBox {
         this.chartSplitWidget.installResizer(this.countersView.resizerElement());
         this.updateCountersGraphToggle();
         // Create top level properties splitter.
-        this.detailsSplitWidget = new UI.SplitWidget.SplitWidget(false, true, 'timelinePanelDetailsSplitViewState');
+        this.detailsSplitWidget = new UI.SplitWidget.SplitWidget(false, true, 'timeline-panel-details-split-view-state');
         this.detailsSplitWidget.element.classList.add('timeline-details-split');
         this.detailsView = new TimelineDetailsView(delegate);
         this.detailsSplitWidget.installResizer(this.detailsView.headerElement());

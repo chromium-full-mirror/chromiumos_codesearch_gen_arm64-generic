@@ -356,7 +356,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `session_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSessionId` instead "
     "of `ReadSessionId if you're fine with null values being "
@@ -425,7 +425,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `group_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadGroupId` instead "
     "of `ReadGroupId if you're fine with null values being "
@@ -445,7 +445,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `matched_output_device_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMatchedOutputDeviceId` instead "
     "of `ReadMatchedOutputDeviceId if you're fine with null values being "
@@ -485,7 +485,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `session_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSessionId` instead "
     "of `ReadSessionId if you're fine with null values being "
@@ -505,7 +505,7 @@ static_assert(
         ::media::mojom::DisplayMediaInformationDataView, UserType>(),
     "Attempting to read the optional `display_media_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDisplayMediaInfo` instead "
     "of `ReadDisplayMediaInfo if you're fine with null values being "
@@ -716,7 +716,7 @@ static_assert(
         ::blink::mojom::MediaStreamDeviceDataView, UserType>(),
     "Attempting to read the optional `audio_device` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAudioDevice` instead "
     "of `ReadAudioDevice if you're fine with null values being "
@@ -736,7 +736,7 @@ static_assert(
         ::blink::mojom::MediaStreamDeviceDataView, UserType>(),
     "Attempting to read the optional `video_device` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadVideoDevice` instead "
     "of `ReadVideoDevice if you're fine with null values being "

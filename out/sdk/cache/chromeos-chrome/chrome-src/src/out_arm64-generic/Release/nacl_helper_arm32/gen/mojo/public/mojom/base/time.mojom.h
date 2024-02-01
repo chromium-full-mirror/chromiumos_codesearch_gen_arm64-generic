@@ -54,7 +54,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) Time {
   template <typename... Args>
   static TimePtr New(Args&&... args) {
     return TimePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -194,7 +194,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) TimeDelta {
   template <typename... Args>
   static TimeDeltaPtr New(Args&&... args) {
     return TimeDeltaPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -334,7 +334,7 @@ class COMPONENT_EXPORT(MOJO_BASE_MOJOM) TimeTicks {
   template <typename... Args>
   static TimeTicksPtr New(Args&&... args) {
     return TimeTicksPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

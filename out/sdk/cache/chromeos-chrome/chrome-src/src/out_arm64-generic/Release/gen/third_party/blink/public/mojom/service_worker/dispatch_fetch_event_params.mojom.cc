@@ -50,6 +50,7 @@ namespace blink::mojom {
 DispatchFetchEventParams::DispatchFetchEventParams()
     : request(),
       client_id(),
+      resulting_client_id(),
       preload_url_loader_client_receiver(),
       is_offline_capability_check(false),
       race_network_request_loader_factory() {}
@@ -57,11 +58,13 @@ DispatchFetchEventParams::DispatchFetchEventParams()
 DispatchFetchEventParams::DispatchFetchEventParams(
     ::blink::mojom::FetchAPIRequestPtr request_in,
     const std::string& client_id_in,
+    const std::string& resulting_client_id_in,
     ::mojo::PendingReceiver<::network::mojom::URLLoaderClient> preload_url_loader_client_receiver_in,
     bool is_offline_capability_check_in,
     ::mojo::PendingRemote<::network::mojom::URLLoaderFactory> race_network_request_loader_factory_in)
     : request(std::move(request_in)),
       client_id(std::move(client_id_in)),
+      resulting_client_id(std::move(resulting_client_id_in)),
       preload_url_loader_client_receiver(std::move(preload_url_loader_client_receiver_in)),
       is_offline_capability_check(std::move(is_offline_capability_check_in)),
       race_network_request_loader_factory(std::move(race_network_request_loader_factory_in)) {}
@@ -83,6 +86,15 @@ void DispatchFetchEventParams::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "client_id"), this->client_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "resulting_client_id"), this->resulting_client_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
 #else
@@ -141,6 +153,8 @@ bool StructTraits<::blink::mojom::DispatchFetchEventParams::DataView, ::blink::m
       if (success && !input.ReadRequest(&result->request))
         success = false;
       if (success && !input.ReadClientId(&result->client_id))
+        success = false;
+      if (success && !input.ReadResultingClientId(&result->resulting_client_id))
         success = false;
       if (success) {
         result->preload_url_loader_client_receiver =

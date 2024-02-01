@@ -528,7 +528,7 @@ class  ImeInfo {
   template <typename... Args>
   static ImeInfoPtr New(Args&&... args) {
     return ImeInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -687,7 +687,7 @@ class  TextInputState {
   template <typename... Args>
   static TextInputStatePtr New(Args&&... args) {
     return TextInputStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

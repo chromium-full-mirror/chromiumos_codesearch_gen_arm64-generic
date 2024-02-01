@@ -56,7 +56,7 @@ class  EventIntent {
   template <typename... Args>
   static EventIntentPtr New(Args&&... args) {
     return EventIntentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

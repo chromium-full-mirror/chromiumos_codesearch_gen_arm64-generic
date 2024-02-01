@@ -53,7 +53,7 @@ class  Error {
   template <typename... Args>
   static ErrorPtr New(Args&&... args) {
     return ErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

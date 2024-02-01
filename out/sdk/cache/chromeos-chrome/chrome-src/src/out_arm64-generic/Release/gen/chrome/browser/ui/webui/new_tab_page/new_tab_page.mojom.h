@@ -790,7 +790,7 @@ class  PromoTextPart {
   template <typename... Args>
   static PromoTextPartPtr New(Args&&... args) {
     return PromoTextPartPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -932,7 +932,7 @@ class  ModuleIdName {
   template <typename... Args>
   static ModuleIdNamePtr New(Args&&... args) {
     return ModuleIdNamePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1086,7 +1086,7 @@ class  PromoPart {
   static PromoPartPtr
   NewImage(
       PromoImagePartPtr value) {
-    auto result = PromoPartPtr(absl::in_place);
+    auto result = PromoPartPtr(std::in_place);
     result->set_image(std::move(value));
     return result;
   }
@@ -1094,7 +1094,7 @@ class  PromoPart {
   static PromoPartPtr
   NewLink(
       PromoLinkPartPtr value) {
-    auto result = PromoPartPtr(absl::in_place);
+    auto result = PromoPartPtr(std::in_place);
     result->set_link(std::move(value));
     return result;
   }
@@ -1102,7 +1102,7 @@ class  PromoPart {
   static PromoPartPtr
   NewText(
       PromoTextPartPtr value) {
-    auto result = PromoPartPtr(absl::in_place);
+    auto result = PromoPartPtr(std::in_place);
     result->set_text(std::move(value));
     return result;
   }
@@ -1229,7 +1229,7 @@ class  BackgroundCollection {
   template <typename... Args>
   static BackgroundCollectionPtr New(Args&&... args) {
     return BackgroundCollectionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1375,7 +1375,7 @@ class  CollectionImage {
   template <typename... Args>
   static CollectionImagePtr New(Args&&... args) {
     return CollectionImagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1530,7 +1530,7 @@ class  BackgroundImage {
   template <typename... Args>
   static BackgroundImagePtr New(Args&&... args) {
     return BackgroundImagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1694,7 +1694,7 @@ class  Theme {
   template <typename... Args>
   static ThemePtr New(Args&&... args) {
     return ThemePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1872,7 +1872,7 @@ class  DoodleShareButton {
   template <typename... Args>
   static DoodleShareButtonPtr New(Args&&... args) {
     return DoodleShareButtonPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2021,7 +2021,7 @@ class  ImageDoodle {
   template <typename... Args>
   static ImageDoodlePtr New(Args&&... args) {
     return ImageDoodlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2184,7 +2184,7 @@ class  AllModeImageDoodle {
   template <typename... Args>
   static AllModeImageDoodlePtr New(Args&&... args) {
     return AllModeImageDoodlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2335,7 +2335,7 @@ class  InteractiveDoodle {
   template <typename... Args>
   static InteractiveDoodlePtr New(Args&&... args) {
     return InteractiveDoodlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2481,7 +2481,7 @@ class  Doodle {
   template <typename... Args>
   static DoodlePtr New(Args&&... args) {
     return DoodlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2629,7 +2629,7 @@ class  PromoImagePart {
   template <typename... Args>
   static PromoImagePartPtr New(Args&&... args) {
     return PromoImagePartPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2772,7 +2772,7 @@ class  PromoLinkPart {
   template <typename... Args>
   static PromoLinkPartPtr New(Args&&... args) {
     return PromoLinkPartPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2916,7 +2916,7 @@ class  Promo {
   template <typename... Args>
   static PromoPtr New(Args&&... args) {
     return PromoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

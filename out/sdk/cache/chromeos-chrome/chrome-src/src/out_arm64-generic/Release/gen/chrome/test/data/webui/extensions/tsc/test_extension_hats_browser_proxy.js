@@ -5,15 +5,15 @@ import { TestBrowserProxy } from 'chrome://webui-test/test_browser_proxy.js';
 export class TestExtensionsHatsBrowserProxy extends TestBrowserProxy {
     constructor() {
         super([
-            'triggerSurvey',
+            'panelShown',
             'extensionKeptAction',
             'extensionRemovedAction',
             'nonTriggerExtensionRemovedAction',
             'removeAllAction',
         ]);
     }
-    triggerSurvey() {
-        this.methodCalled('triggerSurvey');
+    panelShown() {
+        this.methodCalled('panelShown');
     }
     extensionKeptAction() {
         this.methodCalled('extensionKeptAction');

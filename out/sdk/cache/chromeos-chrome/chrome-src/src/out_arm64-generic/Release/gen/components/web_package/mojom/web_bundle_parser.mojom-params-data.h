@@ -350,7 +350,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `base_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBaseUrl` instead "
     "of `ReadBaseUrl if you're fine with null values being "
@@ -445,7 +445,7 @@ static_assert(
         ::web_package::mojom::BundleIntegrityBlockDataView, UserType>(),
     "Attempting to read the optional `Result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResult` instead "
     "of `ReadResult if you're fine with null values being "
@@ -465,7 +465,7 @@ static_assert(
         ::web_package::mojom::BundleIntegrityBlockParseErrorDataView, UserType>(),
     "Attempting to read the optional `error` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadError` instead "
     "of `ReadError if you're fine with null values being "
@@ -493,8 +493,8 @@ class WebBundleParser_ParseMetadata_ParamsDataView {
   std::optional<uint64_t> offset() const {
 
     return data_->offset_$flag
-        ? absl::make_optional(data_->offset_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->offset_$value)
+        : std::nullopt;
   }
  private:
   internal::WebBundleParser_ParseMetadata_Params_Data* data_ = nullptr;
@@ -522,7 +522,7 @@ static_assert(
         ::web_package::mojom::BundleMetadataDataView, UserType>(),
     "Attempting to read the optional `Result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResult` instead "
     "of `ReadResult if you're fine with null values being "
@@ -542,7 +542,7 @@ static_assert(
         ::web_package::mojom::BundleMetadataParseErrorDataView, UserType>(),
     "Attempting to read the optional `error` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadError` instead "
     "of `ReadError if you're fine with null values being "
@@ -599,7 +599,7 @@ static_assert(
         ::web_package::mojom::BundleResponseDataView, UserType>(),
     "Attempting to read the optional `Result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResult` instead "
     "of `ReadResult if you're fine with null values being "
@@ -619,7 +619,7 @@ static_assert(
         ::web_package::mojom::BundleResponseParseErrorDataView, UserType>(),
     "Attempting to read the optional `error` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadError` instead "
     "of `ReadError if you're fine with null values being "
@@ -706,7 +706,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `buffer` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBuffer` instead "
     "of `ReadBuffer if you're fine with null values being "

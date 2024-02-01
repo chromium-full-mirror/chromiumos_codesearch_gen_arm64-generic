@@ -57,7 +57,7 @@ class  SwapTimings {
   template <typename... Args>
   static SwapTimingsPtr New(Args&&... args) {
     return SwapTimingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -169,7 +169,7 @@ static_assert(
         mojo::ArrayDataView<float>, UserType>(),
     "Attempting to read the optional `matrix` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMatrix` instead "
     "of `ReadMatrix if you're fine with null values being "
@@ -202,7 +202,7 @@ static_assert(
         mojo::ArrayDataView<::gfx::mojom::RectDataView>, UserType>(),
     "Attempting to read the optional `shape` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadShape` instead "
     "of `ReadShape if you're fine with null values being "

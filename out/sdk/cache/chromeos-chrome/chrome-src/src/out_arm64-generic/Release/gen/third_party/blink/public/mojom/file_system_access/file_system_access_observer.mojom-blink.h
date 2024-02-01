@@ -163,7 +163,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeTypeCreated {
   template <typename... Args>
   static FileSystemAccessChangeTypeCreatedPtr New(Args&&... args) {
     return FileSystemAccessChangeTypeCreatedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -299,7 +299,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeTypeDeleted {
   template <typename... Args>
   static FileSystemAccessChangeTypeDeletedPtr New(Args&&... args) {
     return FileSystemAccessChangeTypeDeletedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -435,7 +435,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeTypeErrored {
   template <typename... Args>
   static FileSystemAccessChangeTypeErroredPtr New(Args&&... args) {
     return FileSystemAccessChangeTypeErroredPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -571,7 +571,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeTypeModified {
   template <typename... Args>
   static FileSystemAccessChangeTypeModifiedPtr New(Args&&... args) {
     return FileSystemAccessChangeTypeModifiedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -708,7 +708,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeTypeUnsupported {
   template <typename... Args>
   static FileSystemAccessChangeTypeUnsupportedPtr New(Args&&... args) {
     return FileSystemAccessChangeTypeUnsupportedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -856,7 +856,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeType {
   static FileSystemAccessChangeTypePtr
   NewCreated(
       FileSystemAccessChangeTypeCreatedPtr value) {
-    auto result = FileSystemAccessChangeTypePtr(absl::in_place);
+    auto result = FileSystemAccessChangeTypePtr(std::in_place);
     result->set_created(std::move(value));
     return result;
   }
@@ -864,7 +864,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeType {
   static FileSystemAccessChangeTypePtr
   NewDeleted(
       FileSystemAccessChangeTypeDeletedPtr value) {
-    auto result = FileSystemAccessChangeTypePtr(absl::in_place);
+    auto result = FileSystemAccessChangeTypePtr(std::in_place);
     result->set_deleted(std::move(value));
     return result;
   }
@@ -872,7 +872,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeType {
   static FileSystemAccessChangeTypePtr
   NewErrored(
       FileSystemAccessChangeTypeErroredPtr value) {
-    auto result = FileSystemAccessChangeTypePtr(absl::in_place);
+    auto result = FileSystemAccessChangeTypePtr(std::in_place);
     result->set_errored(std::move(value));
     return result;
   }
@@ -880,7 +880,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeType {
   static FileSystemAccessChangeTypePtr
   NewModified(
       FileSystemAccessChangeTypeModifiedPtr value) {
-    auto result = FileSystemAccessChangeTypePtr(absl::in_place);
+    auto result = FileSystemAccessChangeTypePtr(std::in_place);
     result->set_modified(std::move(value));
     return result;
   }
@@ -888,7 +888,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeType {
   static FileSystemAccessChangeTypePtr
   NewMoved(
       FileSystemAccessChangeTypeMovedPtr value) {
-    auto result = FileSystemAccessChangeTypePtr(absl::in_place);
+    auto result = FileSystemAccessChangeTypePtr(std::in_place);
     result->set_moved(std::move(value));
     return result;
   }
@@ -896,7 +896,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeType {
   static FileSystemAccessChangeTypePtr
   NewUnsupported(
       FileSystemAccessChangeTypeUnsupportedPtr value) {
-    auto result = FileSystemAccessChangeTypePtr(absl::in_place);
+    auto result = FileSystemAccessChangeTypePtr(std::in_place);
     result->set_unsupported(std::move(value));
     return result;
   }
@@ -1066,7 +1066,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeTypeMoved {
   template <typename... Args>
   static FileSystemAccessChangeTypeMovedPtr New(Args&&... args) {
     return FileSystemAccessChangeTypeMovedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1207,7 +1207,7 @@ class PLATFORM_EXPORT FileSystemAccessChangeMetadata {
   template <typename... Args>
   static FileSystemAccessChangeMetadataPtr New(Args&&... args) {
     return FileSystemAccessChangeMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1350,7 +1350,7 @@ class PLATFORM_EXPORT FileSystemAccessChange {
   template <typename... Args>
   static FileSystemAccessChangePtr New(Args&&... args) {
     return FileSystemAccessChangePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

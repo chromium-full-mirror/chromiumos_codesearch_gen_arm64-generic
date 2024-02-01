@@ -15,7 +15,7 @@ import{html}from"//resources/polymer/v3_0/polymer/polymer_bundled.min.js";export
 
 <template is="dom-if" if="[[!isLoading]]">
   <div class="utility-bar">
-    <cr-button class="floating-button" disabled$="[[hasTraces_(traces)]]" on-click="onDeleteAllTracesClick_">
+    <cr-button class="floating-button" disabled$="[[!hasTraces_(traces)]]" on-click="onDeleteAllTracesClick_">
       <iron-icon icon="cr:delete" aria-hidden="true"></iron-icon>
       Delete All Traces
     </cr-button>

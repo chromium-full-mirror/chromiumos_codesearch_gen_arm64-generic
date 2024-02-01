@@ -61,7 +61,7 @@ class BLINK_PLATFORM_EXPORT UsbDeviceFilter {
   template <typename... Args>
   static UsbDeviceFilterPtr New(Args&&... args) {
     return UsbDeviceFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -231,7 +231,7 @@ class BLINK_PLATFORM_EXPORT UsbEnumerationOptions {
   template <typename... Args>
   static UsbEnumerationOptionsPtr New(Args&&... args) {
     return UsbEnumerationOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

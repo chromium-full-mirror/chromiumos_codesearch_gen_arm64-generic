@@ -208,7 +208,7 @@ static_assert(
         ::blink::mojom::MediaSessionActionDetailsDataView, UserType>(),
     "Attempting to read the optional `details` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDetails` instead "
     "of `ReadDetails if you're fine with null values being "
@@ -294,7 +294,7 @@ static_assert(
         ::media_session::mojom::MediaPositionDataView, UserType>(),
     "Attempting to read the optional `position` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPosition` instead "
     "of `ReadPosition if you're fine with null values being "
@@ -330,7 +330,7 @@ static_assert(
         ::blink::mojom::SpecMediaMetadataDataView, UserType>(),
     "Attempting to read the optional `metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMetadata` instead "
     "of `ReadMetadata if you're fine with null values being "

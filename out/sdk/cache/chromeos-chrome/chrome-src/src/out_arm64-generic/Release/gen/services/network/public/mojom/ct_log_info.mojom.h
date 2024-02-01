@@ -57,7 +57,7 @@ class  PreviousOperatorEntry {
   template <typename... Args>
   static PreviousOperatorEntryPtr New(Args&&... args) {
     return PreviousOperatorEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -200,7 +200,7 @@ class  CTLogInfo {
   template <typename... Args>
   static CTLogInfoPtr New(Args&&... args) {
     return CTLogInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

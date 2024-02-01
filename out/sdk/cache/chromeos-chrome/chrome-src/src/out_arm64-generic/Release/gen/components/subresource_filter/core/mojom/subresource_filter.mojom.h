@@ -164,7 +164,7 @@ class  ActivationState {
   template <typename... Args>
   static ActivationStatePtr New(Args&&... args) {
     return ActivationStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -317,7 +317,7 @@ class  DocumentLoadStatistics {
   template <typename... Args>
   static DocumentLoadStatisticsPtr New(Args&&... args) {
     return DocumentLoadStatisticsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

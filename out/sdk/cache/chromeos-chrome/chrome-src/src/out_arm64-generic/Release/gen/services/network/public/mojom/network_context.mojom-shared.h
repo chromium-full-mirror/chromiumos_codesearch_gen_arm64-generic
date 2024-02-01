@@ -536,7 +536,7 @@ static_assert(
         ::network::mojom::TransferableDirectoryDataView, UserType>(),
     "Attempting to read the optional `shared_dictionary_directory` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSharedDictionaryDirectory` instead "
     "of `ReadSharedDictionaryDirectory if you're fine with null values being "
@@ -556,7 +556,7 @@ static_assert(
         ::network::mojom::TransferableDirectoryDataView, UserType>(),
     "Attempting to read the optional `http_cache_directory` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHttpCacheDirectory` instead "
     "of `ReadHttpCacheDirectory if you're fine with null values being "
@@ -586,7 +586,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `unsandboxed_data_path` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUnsandboxedDataPath` instead "
     "of `ReadUnsandboxedDataPath if you're fine with null values being "
@@ -606,7 +606,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `cookie_database_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCookieDatabaseName` instead "
     "of `ReadCookieDatabaseName if you're fine with null values being "
@@ -626,7 +626,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `trust_token_database_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTrustTokenDatabaseName` instead "
     "of `ReadTrustTokenDatabaseName if you're fine with null values being "
@@ -646,7 +646,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `http_server_properties_file_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHttpServerPropertiesFileName` instead "
     "of `ReadHttpServerPropertiesFileName if you're fine with null values being "
@@ -666,7 +666,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `transport_security_persister_file_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTransportSecurityPersisterFileName` instead "
     "of `ReadTransportSecurityPersisterFileName if you're fine with null values being "
@@ -686,7 +686,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `reporting_and_nel_store_database_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReportingAndNelStoreDatabaseName` instead "
     "of `ReadReportingAndNelStoreDatabaseName if you're fine with null values being "
@@ -706,7 +706,7 @@ static_assert(
         ::mojo_base::mojom::FilePathDataView, UserType>(),
     "Attempting to read the optional `sct_auditing_pending_reports_file_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSctAuditingPendingReportsFileName` instead "
     "of `ReadSctAuditingPendingReportsFileName if you're fine with null values being "
@@ -822,7 +822,7 @@ static_assert(
         ::network::mojom::SSLConfigDataView, UserType>(),
     "Attempting to read the optional `initial_ssl_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInitialSslConfig` instead "
     "of `ReadInitialSslConfig if you're fine with null values being "
@@ -851,7 +851,7 @@ static_assert(
         ::network::mojom::ProxyConfigWithAnnotationDataView, UserType>(),
     "Attempting to read the optional `initial_proxy_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInitialProxyConfig` instead "
     "of `ReadInitialProxyConfig if you're fine with null values being "
@@ -880,7 +880,7 @@ static_assert(
         ::network::mojom::CustomProxyConfigDataView, UserType>(),
     "Attempting to read the optional `initial_custom_proxy_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInitialCustomProxyConfig` instead "
     "of `ReadInitialCustomProxyConfig if you're fine with null values being "
@@ -973,7 +973,7 @@ static_assert(
         ::network::mojom::CTPolicyDataView, UserType>(),
     "Attempting to read the optional `ct_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCtPolicy` instead "
     "of `ReadCtPolicy if you're fine with null values being "
@@ -1003,7 +1003,7 @@ static_assert(
         ::network::mojom::CookieManagerParamsDataView, UserType>(),
     "Attempting to read the optional `cookie_manager_params` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCookieManagerParams` instead "
     "of `ReadCookieManagerParams if you're fine with null values being "
@@ -1039,7 +1039,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `reporting_delivery_interval` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReportingDeliveryInterval` instead "
     "of `ReadReportingDeliveryInterval if you're fine with null values being "
@@ -1095,7 +1095,7 @@ static_assert(
         ::network::mojom::HttpAuthStaticNetworkContextParamsDataView, UserType>(),
     "Attempting to read the optional `http_auth_static_network_context_params` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHttpAuthStaticNetworkContextParams` instead "
     "of `ReadHttpAuthStaticNetworkContextParams if you're fine with null values being "
@@ -1124,7 +1124,7 @@ static_assert(
         ::network::mojom::NetworkContextFilePathsDataView, UserType>(),
     "Attempting to read the optional `file_paths` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFilePaths` instead "
     "of `ReadFilePaths if you're fine with null values being "
@@ -1153,7 +1153,7 @@ static_assert(
         ::network::mojom::FirstPartySetsAccessDelegateParamsDataView, UserType>(),
     "Attempting to read the optional `first_party_sets_access_delegate_params` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFirstPartySetsAccessDelegateParams` instead "
     "of `ReadFirstPartySetsAccessDelegateParams if you're fine with null values being "
@@ -1185,7 +1185,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `cookie_deprecation_label` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCookieDeprecationLabel` instead "
     "of `ReadCookieDeprecationLabel if you're fine with null values being "
@@ -1499,7 +1499,7 @@ static_assert(
         ::url::mojom::OriginDataView, UserType>(),
     "Attempting to read the optional `request_initiator_origin_lock` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRequestInitiatorOriginLock` instead "
     "of `ReadRequestInitiatorOriginLock if you're fine with null values being "
@@ -1562,7 +1562,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `top_frame_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTopFrameId` instead "
     "of `ReadTopFrameId if you're fine with null values being "
@@ -1582,7 +1582,7 @@ static_assert(
         ::network::mojom::URLLoaderFactoryOverrideDataView, UserType>(),
     "Attempting to read the optional `factory_override` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFactoryOverride` instead "
     "of `ReadFactoryOverride if you're fine with null values being "
@@ -1602,7 +1602,7 @@ static_assert(
         ::network::mojom::ClientSecurityStateDataView, UserType>(),
     "Attempting to read the optional `client_security_state` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadClientSecurityState` instead "
     "of `ReadClientSecurityState if you're fine with null values being "

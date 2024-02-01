@@ -110,7 +110,7 @@ bool DeviceEmulationParams_Data::Validate(
   }
 
 
-  if (!::device::mojom::internal::DevicePostureType_Data
+  if (!::blink::mojom::internal::DevicePostureType_Data
         ::Validate(object->device_posture, validation_context))
     return false;
 

@@ -119,7 +119,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `stringified_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStringifiedData` instead "
     "of `ReadStringifiedData if you're fine with null values being "
@@ -155,7 +155,7 @@ static_assert(
         ::payments::mojom::PaymentCurrencyAmountDataView, UserType>(),
     "Attempting to read the optional `total` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTotal` instead "
     "of `ReadTotal if you're fine with null values being "
@@ -201,7 +201,7 @@ static_assert(
         ::payments::mojom::PaymentCurrencyAmountDataView, UserType>(),
     "Attempting to read the optional `total` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTotal` instead "
     "of `ReadTotal if you're fine with null values being "
@@ -221,7 +221,7 @@ static_assert(
         mojo::ArrayDataView<::payments::mojom::PaymentShippingOptionDataView>, UserType>(),
     "Attempting to read the optional `shipping_options` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadShippingOptions` instead "
     "of `ReadShippingOptions if you're fine with null values being "
@@ -241,7 +241,7 @@ static_assert(
         mojo::ArrayDataView<::payments::mojom::PaymentHandlerModifierDataView>, UserType>(),
     "Attempting to read the optional `modifiers` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadModifiers` instead "
     "of `ReadModifiers if you're fine with null values being "
@@ -271,7 +271,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `stringified_payment_method_errors` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStringifiedPaymentMethodErrors` instead "
     "of `ReadStringifiedPaymentMethodErrors if you're fine with null values being "
@@ -291,7 +291,7 @@ static_assert(
         ::payments::mojom::AddressErrorsDataView, UserType>(),
     "Attempting to read the optional `shipping_address_errors` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadShippingAddressErrors` instead "
     "of `ReadShippingAddressErrors if you're fine with null values being "

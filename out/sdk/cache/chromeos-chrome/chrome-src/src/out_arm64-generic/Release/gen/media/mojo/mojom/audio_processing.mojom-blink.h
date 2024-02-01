@@ -179,7 +179,7 @@ class BLINK_PLATFORM_EXPORT AudioProcessingStats {
   template <typename... Args>
   static AudioProcessingStatsPtr New(Args&&... args) {
     return AudioProcessingStatsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -333,7 +333,7 @@ class BLINK_PLATFORM_EXPORT AudioProcessingSettings {
   template <typename... Args>
   static AudioProcessingSettingsPtr New(Args&&... args) {
     return AudioProcessingSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -494,7 +494,7 @@ class BLINK_PLATFORM_EXPORT AudioProcessingConfig {
   template <typename... Args>
   static AudioProcessingConfigPtr New(Args&&... args) {
     return AudioProcessingConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

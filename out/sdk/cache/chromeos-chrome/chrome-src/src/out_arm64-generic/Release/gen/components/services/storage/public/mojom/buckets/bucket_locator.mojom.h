@@ -61,7 +61,7 @@ class  BucketLocator {
   template <typename... Args>
   static BucketLocatorPtr New(Args&&... args) {
     return BucketLocatorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

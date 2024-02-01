@@ -501,7 +501,7 @@ class  AccountKey {
   template <typename... Args>
   static AccountKeyPtr New(Args&&... args) {
     return AccountKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -647,7 +647,7 @@ class  AccountAdditionOptions {
   template <typename... Args>
   static AccountAdditionOptionsPtr New(Args&&... args) {
     return AccountAdditionOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -803,7 +803,7 @@ class  AccessTokenResult {
   static AccessTokenResultPtr
   NewAccessTokenInfo(
       AccessTokenInfoPtr value) {
-    auto result = AccessTokenResultPtr(absl::in_place);
+    auto result = AccessTokenResultPtr(std::in_place);
     result->set_access_token_info(std::move(value));
     return result;
   }
@@ -811,7 +811,7 @@ class  AccessTokenResult {
   static AccessTokenResultPtr
   NewError(
       GoogleServiceAuthErrorPtr value) {
-    auto result = AccessTokenResultPtr(absl::in_place);
+    auto result = AccessTokenResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -926,7 +926,7 @@ class  Account {
   template <typename... Args>
   static AccountPtr New(Args&&... args) {
     return AccountPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1074,7 +1074,7 @@ class  GoogleServiceAuthError {
   template <typename... Args>
   static GoogleServiceAuthErrorPtr New(Args&&... args) {
     return GoogleServiceAuthErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1234,7 +1234,7 @@ class  AccountUpsertionResult {
   template <typename... Args>
   static AccountUpsertionResultPtr New(Args&&... args) {
     return AccountUpsertionResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1382,7 +1382,7 @@ class  AccessTokenInfo {
   template <typename... Args>
   static AccessTokenInfoPtr New(Args&&... args) {
     return AccessTokenInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

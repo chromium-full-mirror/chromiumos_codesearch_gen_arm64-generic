@@ -131,6 +131,23 @@ class  AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data 
 };
 static_assert(sizeof(AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data) == 16,
               "Bad sizeof(AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParams_Data)");
+class  AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t permission_type;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data>;
+
+  AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data();
+  ~AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data() = delete;
+};
+static_assert(sizeof(AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data) == 16,
+              "Bad sizeof(AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data)");
 class  AppPermissionsHandler_OpenNativeSettings_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -348,6 +365,31 @@ class AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsDataVie
 };
 
 
+class AppPermissionsHandler_OpenBrowserPermissionSettings_ParamsDataView {
+ public:
+  AppPermissionsHandler_OpenBrowserPermissionSettings_ParamsDataView() = default;
+
+  AppPermissionsHandler_OpenBrowserPermissionSettings_ParamsDataView(
+      internal::AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadPermissionType(UserType* output) const {
+    auto data_value = data_->permission_type;
+    return mojo::internal::Deserialize<::app_management::mojom::PermissionType>(
+        data_value, output);
+  }
+  ::app_management::mojom::PermissionType permission_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::app_management::mojom::PermissionType>(data_->permission_type));
+  }
+ private:
+  internal::AppPermissionsHandler_OpenBrowserPermissionSettings_Params_Data* data_ = nullptr;
+};
+
+
 class AppPermissionsHandler_OpenNativeSettings_ParamsDataView {
  public:
   AppPermissionsHandler_OpenNativeSettings_ParamsDataView() = default;
@@ -488,6 +530,8 @@ inline void AppPermissionsHandler_GetSystemAppsThatUseMicrophone_ResponseParamsD
   auto pointer = data_->apps.Get();
   *output = mojo::ArrayDataView<AppDataView>(pointer, message_);
 }
+
+
 
 
 inline void AppPermissionsHandler_OpenNativeSettings_ParamsDataView::GetAppIdDataView(

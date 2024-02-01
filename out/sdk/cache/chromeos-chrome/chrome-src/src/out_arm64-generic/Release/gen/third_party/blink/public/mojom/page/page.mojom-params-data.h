@@ -274,7 +274,7 @@ static_assert(
         ::blink::mojom::PageRestoreParamsDataView, UserType>(),
     "Attempting to read the optional `page_restore_params` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPageRestoreParams` instead "
     "of `ReadPageRestoreParams if you're fine with null values being "
@@ -457,7 +457,7 @@ static_assert(
         ::skia::mojom::SkColorDataView, UserType>(),
     "Attempting to read the optional `color` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadColor` instead "
     "of `ReadColor if you're fine with null values being "
@@ -503,7 +503,7 @@ static_assert(
         ::blink::mojom::FrameTokenDataView, UserType>(),
     "Attempting to read the optional `opener_frame_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOpenerFrameToken` instead "
     "of `ReadOpenerFrameToken if you're fine with null values being "

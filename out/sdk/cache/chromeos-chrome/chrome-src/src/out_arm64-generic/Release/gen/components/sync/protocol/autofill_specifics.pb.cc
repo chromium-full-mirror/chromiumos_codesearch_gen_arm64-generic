@@ -98,9 +98,6 @@ PROTOBUF_CONSTEXPR AutofillProfileSpecifics::AutofillProfileSpecifics(
 
   , address_home_floor_status_(0)
 
-  , birthdate_day_(0)
-  , birthdate_month_(0)
-  , birthdate_year_(0)
   , address_home_landmark_status_(0)
 
   , address_home_between_streets_status_(0)
@@ -1325,28 +1322,28 @@ class AutofillProfileSpecifics::_Internal {
     (*has_bits)[1] |= 128u;
   }
   static void set_has_address_home_landmark_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 1048576u;
+    (*has_bits)[1] |= 131072u;
   }
   static void set_has_address_home_between_streets_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 2097152u;
+    (*has_bits)[1] |= 262144u;
   }
   static void set_has_address_home_between_streets_1_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 33554432u;
-  }
-  static void set_has_address_home_between_streets_2_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 67108864u;
-  }
-  static void set_has_address_home_admin_level_2_status(HasBits* has_bits) {
     (*has_bits)[1] |= 4194304u;
   }
+  static void set_has_address_home_between_streets_2_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 8388608u;
+  }
+  static void set_has_address_home_admin_level_2_status(HasBits* has_bits) {
+    (*has_bits)[1] |= 524288u;
+  }
   static void set_has_address_home_overflow_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 16777216u;
+    (*has_bits)[1] |= 2097152u;
   }
   static void set_has_address_home_between_streets_or_landmark_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 134217728u;
+    (*has_bits)[1] |= 16777216u;
   }
   static void set_has_address_home_overflow_and_landmark_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 268435456u;
+    (*has_bits)[1] |= 33554432u;
   }
   static void set_has_address_home_street_address_status(HasBits* has_bits) {
     (*has_bits)[1] |= 256u;
@@ -1367,31 +1364,22 @@ class AutofillProfileSpecifics::_Internal {
     (*has_bits)[1] |= 8192u;
   }
   static void set_has_address_home_street_location_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 8388608u;
+    (*has_bits)[1] |= 1048576u;
   }
   static void set_has_address_home_subpremise_name_status(HasBits* has_bits) {
     (*has_bits)[1] |= 16384u;
   }
   static void set_has_address_home_apt_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 536870912u;
+    (*has_bits)[1] |= 67108864u;
   }
   static void set_has_address_home_apt_num_status(HasBits* has_bits) {
     (*has_bits)[1] |= 32768u;
   }
   static void set_has_address_home_apt_type_status(HasBits* has_bits) {
-    (*has_bits)[1] |= 1073741824u;
+    (*has_bits)[1] |= 134217728u;
   }
   static void set_has_address_home_floor_status(HasBits* has_bits) {
     (*has_bits)[1] |= 65536u;
-  }
-  static void set_has_birthdate_day(HasBits* has_bits) {
-    (*has_bits)[1] |= 131072u;
-  }
-  static void set_has_birthdate_month(HasBits* has_bits) {
-    (*has_bits)[1] |= 262144u;
-  }
-  static void set_has_birthdate_year(HasBits* has_bits) {
-    (*has_bits)[1] |= 524288u;
   }
   static void set_has_deprecated_label(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
@@ -2035,13 +2023,13 @@ void AutofillProfileSpecifics::Clear() {
   }
   if (cached_has_bits & 0x00ff0000u) {
     ::memset(&address_home_floor_status_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&address_home_street_location_status_) -
-        reinterpret_cast<char*>(&address_home_floor_status_)) + sizeof(address_home_street_location_status_));
+        reinterpret_cast<char*>(&address_home_between_streets_2_status_) -
+        reinterpret_cast<char*>(&address_home_floor_status_)) + sizeof(address_home_between_streets_2_status_));
   }
-  if (cached_has_bits & 0x7f000000u) {
-    ::memset(&address_home_overflow_status_, 0, static_cast<size_t>(
+  if (cached_has_bits & 0x0f000000u) {
+    ::memset(&address_home_between_streets_or_landmark_status_, 0, static_cast<size_t>(
         reinterpret_cast<char*>(&address_home_apt_type_status_) -
-        reinterpret_cast<char*>(&address_home_overflow_status_)) + sizeof(address_home_apt_type_status_));
+        reinterpret_cast<char*>(&address_home_between_streets_or_landmark_status_)) + sizeof(address_home_apt_type_status_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -2720,33 +2708,6 @@ const char* AutofillProfileSpecifics::_InternalParse(const char* ptr, ::_pbi::Pa
         } else
           goto handle_unusual;
         continue;
-      // optional int32 birthdate_day = 64;
-      case 64:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 0)) {
-          _Internal::set_has_birthdate_day(&_has_bits_);
-          birthdate_day_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional int32 birthdate_month = 65;
-      case 65:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _Internal::set_has_birthdate_month(&_has_bits_);
-          birthdate_month_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
-      // optional int32 birthdate_year = 66;
-      case 66:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _Internal::set_has_birthdate_year(&_has_bits_);
-          birthdate_year_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else
-          goto handle_unusual;
-        continue;
       // optional string address_home_landmark = 67;
       case 67:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
@@ -3369,26 +3330,6 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
         62, this->_internal_profile_label(), target);
   }
 
-  cached_has_bits = _has_bits_[1];
-  // optional int32 birthdate_day = 64;
-  if (cached_has_bits & 0x00020000u) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(64, this->_internal_birthdate_day(), target);
-  }
-
-  // optional int32 birthdate_month = 65;
-  if (cached_has_bits & 0x00040000u) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(65, this->_internal_birthdate_month(), target);
-  }
-
-  // optional int32 birthdate_year = 66;
-  if (cached_has_bits & 0x00080000u) {
-    target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteInt32ToArray(66, this->_internal_birthdate_year(), target);
-  }
-
-  cached_has_bits = _has_bits_[0];
   // optional string address_home_landmark = 67;
   if (cached_has_bits & 0x00200000u) {
     target = stream->WriteStringMaybeAliased(
@@ -3397,7 +3338,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_landmark_status = 68;
-  if (cached_has_bits & 0x00100000u) {
+  if (cached_has_bits & 0x00020000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       68, this->_internal_address_home_landmark_status(), target);
@@ -3412,7 +3353,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_status = 70;
-  if (cached_has_bits & 0x00200000u) {
+  if (cached_has_bits & 0x00040000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       70, this->_internal_address_home_between_streets_status(), target);
@@ -3427,7 +3368,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_admin_level_2_status = 72;
-  if (cached_has_bits & 0x00400000u) {
+  if (cached_has_bits & 0x00080000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       72, this->_internal_address_home_admin_level_2_status(), target);
@@ -3442,7 +3383,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_street_location_status = 74;
-  if (cached_has_bits & 0x00800000u) {
+  if (cached_has_bits & 0x00100000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       74, this->_internal_address_home_street_location_status(), target);
@@ -3457,7 +3398,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_overflow_status = 76;
-  if (cached_has_bits & 0x01000000u) {
+  if (cached_has_bits & 0x00200000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       76, this->_internal_address_home_overflow_status(), target);
@@ -3472,7 +3413,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_1_status = 78;
-  if (cached_has_bits & 0x02000000u) {
+  if (cached_has_bits & 0x00400000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       78, this->_internal_address_home_between_streets_1_status(), target);
@@ -3487,7 +3428,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_2_status = 80;
-  if (cached_has_bits & 0x04000000u) {
+  if (cached_has_bits & 0x00800000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       80, this->_internal_address_home_between_streets_2_status(), target);
@@ -3502,7 +3443,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_or_landmark_status = 82;
-  if (cached_has_bits & 0x08000000u) {
+  if (cached_has_bits & 0x01000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       82, this->_internal_address_home_between_streets_or_landmark_status(), target);
@@ -3517,7 +3458,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_overflow_and_landmark_status = 84;
-  if (cached_has_bits & 0x10000000u) {
+  if (cached_has_bits & 0x02000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       84, this->_internal_address_home_overflow_and_landmark_status(), target);
@@ -3532,7 +3473,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_apt_status = 86;
-  if (cached_has_bits & 0x20000000u) {
+  if (cached_has_bits & 0x04000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       86, this->_internal_address_home_apt_status(), target);
@@ -3547,7 +3488,7 @@ uint8_t* AutofillProfileSpecifics::_InternalSerialize(
 
   cached_has_bits = _has_bits_[1];
   // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_apt_type_status = 88;
-  if (cached_has_bits & 0x40000000u) {
+  if (cached_has_bits & 0x08000000u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       88, this->_internal_address_home_apt_type_status(), target);
@@ -4054,91 +3995,70 @@ size_t AutofillProfileSpecifics::ByteSizeLong() const {
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_floor_status());
     }
 
-    // optional int32 birthdate_day = 64;
-    if (cached_has_bits & 0x00020000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::Int32Size(
-          this->_internal_birthdate_day());
-    }
-
-    // optional int32 birthdate_month = 65;
-    if (cached_has_bits & 0x00040000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::Int32Size(
-          this->_internal_birthdate_month());
-    }
-
-    // optional int32 birthdate_year = 66;
-    if (cached_has_bits & 0x00080000u) {
-      total_size += 2 +
-        ::_pbi::WireFormatLite::Int32Size(
-          this->_internal_birthdate_year());
-    }
-
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_landmark_status = 68;
-    if (cached_has_bits & 0x00100000u) {
+    if (cached_has_bits & 0x00020000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_landmark_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_status = 70;
-    if (cached_has_bits & 0x00200000u) {
+    if (cached_has_bits & 0x00040000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_between_streets_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_admin_level_2_status = 72;
-    if (cached_has_bits & 0x00400000u) {
+    if (cached_has_bits & 0x00080000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_admin_level_2_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_street_location_status = 74;
-    if (cached_has_bits & 0x00800000u) {
+    if (cached_has_bits & 0x00100000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_street_location_status());
     }
 
-  }
-  if (cached_has_bits & 0x7f000000u) {
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_overflow_status = 76;
-    if (cached_has_bits & 0x01000000u) {
+    if (cached_has_bits & 0x00200000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_overflow_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_1_status = 78;
-    if (cached_has_bits & 0x02000000u) {
+    if (cached_has_bits & 0x00400000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_between_streets_1_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_2_status = 80;
-    if (cached_has_bits & 0x04000000u) {
+    if (cached_has_bits & 0x00800000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_between_streets_2_status());
     }
 
+  }
+  if (cached_has_bits & 0x0f000000u) {
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_between_streets_or_landmark_status = 82;
-    if (cached_has_bits & 0x08000000u) {
+    if (cached_has_bits & 0x01000000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_between_streets_or_landmark_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_overflow_and_landmark_status = 84;
-    if (cached_has_bits & 0x10000000u) {
+    if (cached_has_bits & 0x02000000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_overflow_and_landmark_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_apt_status = 86;
-    if (cached_has_bits & 0x20000000u) {
+    if (cached_has_bits & 0x04000000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_apt_status());
     }
 
     // optional .sync_pb.AutofillProfileSpecifics.VerificationStatus address_home_apt_type_status = 88;
-    if (cached_has_bits & 0x40000000u) {
+    if (cached_has_bits & 0x08000000u) {
       total_size += 2 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_address_home_apt_type_status());
     }
@@ -4345,48 +4265,39 @@ void AutofillProfileSpecifics::MergeFrom(const AutofillProfileSpecifics& from) {
       address_home_floor_status_ = from.address_home_floor_status_;
     }
     if (cached_has_bits & 0x00020000u) {
-      birthdate_day_ = from.birthdate_day_;
-    }
-    if (cached_has_bits & 0x00040000u) {
-      birthdate_month_ = from.birthdate_month_;
-    }
-    if (cached_has_bits & 0x00080000u) {
-      birthdate_year_ = from.birthdate_year_;
-    }
-    if (cached_has_bits & 0x00100000u) {
       address_home_landmark_status_ = from.address_home_landmark_status_;
     }
-    if (cached_has_bits & 0x00200000u) {
+    if (cached_has_bits & 0x00040000u) {
       address_home_between_streets_status_ = from.address_home_between_streets_status_;
     }
-    if (cached_has_bits & 0x00400000u) {
+    if (cached_has_bits & 0x00080000u) {
       address_home_admin_level_2_status_ = from.address_home_admin_level_2_status_;
     }
-    if (cached_has_bits & 0x00800000u) {
+    if (cached_has_bits & 0x00100000u) {
       address_home_street_location_status_ = from.address_home_street_location_status_;
+    }
+    if (cached_has_bits & 0x00200000u) {
+      address_home_overflow_status_ = from.address_home_overflow_status_;
+    }
+    if (cached_has_bits & 0x00400000u) {
+      address_home_between_streets_1_status_ = from.address_home_between_streets_1_status_;
+    }
+    if (cached_has_bits & 0x00800000u) {
+      address_home_between_streets_2_status_ = from.address_home_between_streets_2_status_;
     }
     _has_bits_[1] |= cached_has_bits;
   }
-  if (cached_has_bits & 0x7f000000u) {
+  if (cached_has_bits & 0x0f000000u) {
     if (cached_has_bits & 0x01000000u) {
-      address_home_overflow_status_ = from.address_home_overflow_status_;
-    }
-    if (cached_has_bits & 0x02000000u) {
-      address_home_between_streets_1_status_ = from.address_home_between_streets_1_status_;
-    }
-    if (cached_has_bits & 0x04000000u) {
-      address_home_between_streets_2_status_ = from.address_home_between_streets_2_status_;
-    }
-    if (cached_has_bits & 0x08000000u) {
       address_home_between_streets_or_landmark_status_ = from.address_home_between_streets_or_landmark_status_;
     }
-    if (cached_has_bits & 0x10000000u) {
+    if (cached_has_bits & 0x02000000u) {
       address_home_overflow_and_landmark_status_ = from.address_home_overflow_and_landmark_status_;
     }
-    if (cached_has_bits & 0x20000000u) {
+    if (cached_has_bits & 0x04000000u) {
       address_home_apt_status_ = from.address_home_apt_status_;
     }
-    if (cached_has_bits & 0x40000000u) {
+    if (cached_has_bits & 0x08000000u) {
       address_home_apt_type_status_ = from.address_home_apt_type_status_;
     }
     _has_bits_[1] |= cached_has_bits;

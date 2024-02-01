@@ -149,8 +149,8 @@ class InnerTextParamsDataView {
   std::optional<int32_t> node_id() const {
 
     return data_->node_id_$flag
-        ? absl::make_optional(data_->node_id_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->node_id_$value)
+        : std::nullopt;
   }
  private:
   internal::InnerTextParams_Data* data_ = nullptr;

@@ -57,7 +57,7 @@ class COMPONENT_EXPORT(SMBFS_MOJOM) IPAddress {
   template <typename... Args>
   static IPAddressPtr New(Args&&... args) {
     return IPAddressPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

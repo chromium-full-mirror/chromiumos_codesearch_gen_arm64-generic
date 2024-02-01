@@ -793,7 +793,7 @@ class PLATFORM_EXPORT FileSystemInfo {
   template <typename... Args>
   static FileSystemInfoPtr New(Args&&... args) {
     return FileSystemInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

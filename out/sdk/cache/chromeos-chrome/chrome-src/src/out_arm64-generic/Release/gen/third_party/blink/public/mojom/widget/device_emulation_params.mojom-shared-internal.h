@@ -10,7 +10,7 @@
 #include "mojo/public/cpp/bindings/lib/bindings_internal.h"
 #include "mojo/public/cpp/bindings/lib/map_data_internal.h"
 #include "mojo/public/cpp/bindings/lib/buffer.h"
-#include "services/device/public/mojom/device_posture_provider.mojom-shared-internal.h"
+#include "third_party/blink/public/mojom/device_posture/device_posture_provider.mojom-shared-internal.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom-shared-internal.h"
 #include "ui/display/mojom/screen_orientation.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"

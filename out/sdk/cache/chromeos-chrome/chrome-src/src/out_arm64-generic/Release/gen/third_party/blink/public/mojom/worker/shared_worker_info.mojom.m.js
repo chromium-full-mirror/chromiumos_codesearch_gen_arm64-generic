@@ -27,6 +27,22 @@ import {
 } from './worker_options.mojom.m.js';
 
 
+/**
+ * @const { {$: !mojo.internal.MojomType} }
+ */
+export const SharedWorkerSameSiteCookiesSpec = { $: mojo.internal.Enum() };
+
+/**
+ * @enum {number}
+ */
+export const SharedWorkerSameSiteCookies = {
+  
+  kAll: 0,
+  kNone: 1,
+  MIN_VALUE: 0,
+  MAX_VALUE: 1,
+};
+
 
 /**
  * @const { {$:!mojo.internal.MojomType}}
@@ -73,8 +89,16 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'sameSiteCookies', 32,
+        0,
+        SharedWorkerSameSiteCookiesSpec.$,
+        SharedWorkerSameSiteCookies.kNone,
+        false /* nullable */,
+        0,
+      ),
     ],
-    [[0, 40],]);
+    [[0, 48],]);
 
 
 
@@ -91,6 +115,8 @@ export class SharedWorkerInfo {
     this.contentSecurityPolicies;
     /** @type { !blink_mojom_FetchClientSettingsObject } */
     this.outsideFetchClientSettingsObject;
+    /** @type { !SharedWorkerSameSiteCookies } */
+    this.sameSiteCookies;
   }
 }
 

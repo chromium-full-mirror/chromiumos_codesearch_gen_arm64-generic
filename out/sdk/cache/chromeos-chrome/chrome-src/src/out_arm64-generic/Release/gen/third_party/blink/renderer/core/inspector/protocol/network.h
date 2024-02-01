@@ -53,8 +53,10 @@ class Initiator;
 class Cookie;
 using SetCookieBlockedReason = String;
 using CookieBlockedReason = String;
+using CookieExemptionReason = String;
 class BlockedSetCookieWithReason;
-class BlockedCookieWithReason;
+class ExemptedSetCookieWithReason;
+class AssociatedCookie;
 class CookieParam;
 class AuthChallenge;
 class SignedExchangeSignature;
@@ -275,6 +277,18 @@ CORE_EXPORT extern const char SchemefulSameSiteUnspecifiedTreatedAsLax[];
 CORE_EXPORT extern const char SamePartyFromCrossPartyContext[];
 CORE_EXPORT extern const char NameValuePairExceedsMaxSize[];
 } // namespace CookieBlockedReasonEnum
+
+namespace CookieExemptionReasonEnum {
+CORE_EXPORT extern const char None[];
+CORE_EXPORT extern const char UserSetting[];
+CORE_EXPORT extern const char TPCDMetadata[];
+CORE_EXPORT extern const char TPCDDeprecationTrial[];
+CORE_EXPORT extern const char TPCDHeuristics[];
+CORE_EXPORT extern const char EnterprisePolicy[];
+CORE_EXPORT extern const char StorageAccess[];
+CORE_EXPORT extern const char TopLevelStorageAccess[];
+CORE_EXPORT extern const char BrowserHeuristics[];
+} // namespace CookieExemptionReasonEnum
 
 namespace SignedExchangeErrorFieldEnum {
 CORE_EXPORT extern const char SignatureSig[];
@@ -2589,72 +2603,154 @@ private:
 };
 
 
-class CORE_EXPORT BlockedCookieWithReason : public ::crdtp::ProtocolObject<BlockedCookieWithReason> {
+class CORE_EXPORT ExemptedSetCookieWithReason : public ::crdtp::ProtocolObject<ExemptedSetCookieWithReason> {
 public:
-    ~BlockedCookieWithReason() override { }
+    ~ExemptedSetCookieWithReason() override { }
 
-    protocol::Array<String>* getBlockedReasons() { return m_blockedReasons.get(); }
-    void setBlockedReasons(std::unique_ptr<protocol::Array<String>> value) { m_blockedReasons = std::move(value); }
+    String getExemptionReason() { return m_exemptionReason; }
+    void setExemptionReason(const String& value) { m_exemptionReason = value; }
 
     protocol::Network::Cookie* getCookie() { return m_cookie.get(); }
     void setCookie(std::unique_ptr<protocol::Network::Cookie> value) { m_cookie = std::move(value); }
 
     template<int STATE>
-    class BlockedCookieWithReasonBuilder {
+    class ExemptedSetCookieWithReasonBuilder {
     public:
         enum {
             NoFieldsSet = 0,
-            BlockedReasonsSet = 1 << 1,
+            ExemptionReasonSet = 1 << 1,
             CookieSet = 1 << 2,
-            AllFieldsSet = (BlockedReasonsSet | CookieSet | 0)};
+            AllFieldsSet = (ExemptionReasonSet | CookieSet | 0)};
 
 
-        BlockedCookieWithReasonBuilder<STATE | BlockedReasonsSet>& setBlockedReasons(std::unique_ptr<protocol::Array<String>> value)
+        ExemptedSetCookieWithReasonBuilder<STATE | ExemptionReasonSet>& setExemptionReason(const String& value)
         {
-            static_assert(!(STATE & BlockedReasonsSet), "property blockedReasons should not be set yet");
-            m_result->setBlockedReasons(std::move(value));
-            return castState<BlockedReasonsSet>();
+            static_assert(!(STATE & ExemptionReasonSet), "property exemptionReason should not be set yet");
+            m_result->setExemptionReason(value);
+            return castState<ExemptionReasonSet>();
         }
 
-        BlockedCookieWithReasonBuilder<STATE | CookieSet>& setCookie(std::unique_ptr<protocol::Network::Cookie> value)
+        ExemptedSetCookieWithReasonBuilder<STATE | CookieSet>& setCookie(std::unique_ptr<protocol::Network::Cookie> value)
         {
             static_assert(!(STATE & CookieSet), "property cookie should not be set yet");
             m_result->setCookie(std::move(value));
             return castState<CookieSet>();
         }
 
-        std::unique_ptr<BlockedCookieWithReason> build()
+        std::unique_ptr<ExemptedSetCookieWithReason> build()
         {
             static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
             return std::move(m_result);
         }
 
     private:
-        friend class BlockedCookieWithReason;
-        BlockedCookieWithReasonBuilder() : m_result(new BlockedCookieWithReason()) { }
+        friend class ExemptedSetCookieWithReason;
+        ExemptedSetCookieWithReasonBuilder() : m_result(new ExemptedSetCookieWithReason()) { }
 
-        template<int STEP> BlockedCookieWithReasonBuilder<STATE | STEP>& castState()
+        template<int STEP> ExemptedSetCookieWithReasonBuilder<STATE | STEP>& castState()
         {
-            return *reinterpret_cast<BlockedCookieWithReasonBuilder<STATE | STEP>*>(this);
+            return *reinterpret_cast<ExemptedSetCookieWithReasonBuilder<STATE | STEP>*>(this);
         }
 
-        std::unique_ptr<protocol::Network::BlockedCookieWithReason> m_result;
+        std::unique_ptr<protocol::Network::ExemptedSetCookieWithReason> m_result;
     };
 
-    static BlockedCookieWithReasonBuilder<0> create()
+    static ExemptedSetCookieWithReasonBuilder<0> create()
     {
-        return BlockedCookieWithReasonBuilder<0>();
+        return ExemptedSetCookieWithReasonBuilder<0>();
     }
 
 private:
     DECLARE_SERIALIZATION_SUPPORT();
 
-    BlockedCookieWithReason()
+    ExemptedSetCookieWithReason()
     {
     }
 
-    std::unique_ptr<protocol::Array<String>> m_blockedReasons;
+    String m_exemptionReason;
     std::unique_ptr<protocol::Network::Cookie> m_cookie;
+};
+
+
+class CORE_EXPORT AssociatedCookie : public ::crdtp::ProtocolObject<AssociatedCookie> {
+public:
+    ~AssociatedCookie() override { }
+
+    protocol::Network::Cookie* getCookie() { return m_cookie.get(); }
+    void setCookie(std::unique_ptr<protocol::Network::Cookie> value) { m_cookie = std::move(value); }
+
+    protocol::Array<String>* getBlockedReasons() { return m_blockedReasons.get(); }
+    void setBlockedReasons(std::unique_ptr<protocol::Array<String>> value) { m_blockedReasons = std::move(value); }
+
+    bool hasExemptionReason() { return m_exemptionReason.has_value(); }
+    String getExemptionReason(const String& defaultValue) const {
+       return m_exemptionReason.value_or(defaultValue);
+    }
+    void setExemptionReason(const String& value) { m_exemptionReason = value; }
+
+    template<int STATE>
+    class AssociatedCookieBuilder {
+    public:
+        enum {
+            NoFieldsSet = 0,
+            CookieSet = 1 << 1,
+            BlockedReasonsSet = 1 << 2,
+            AllFieldsSet = (CookieSet | BlockedReasonsSet | 0)};
+
+
+        AssociatedCookieBuilder<STATE | CookieSet>& setCookie(std::unique_ptr<protocol::Network::Cookie> value)
+        {
+            static_assert(!(STATE & CookieSet), "property cookie should not be set yet");
+            m_result->setCookie(std::move(value));
+            return castState<CookieSet>();
+        }
+
+        AssociatedCookieBuilder<STATE | BlockedReasonsSet>& setBlockedReasons(std::unique_ptr<protocol::Array<String>> value)
+        {
+            static_assert(!(STATE & BlockedReasonsSet), "property blockedReasons should not be set yet");
+            m_result->setBlockedReasons(std::move(value));
+            return castState<BlockedReasonsSet>();
+        }
+
+        AssociatedCookieBuilder<STATE>& setExemptionReason(const String& value)
+        {
+            m_result->setExemptionReason(value);
+            return *this;
+        }
+
+        std::unique_ptr<AssociatedCookie> build()
+        {
+            static_assert(STATE == AllFieldsSet, "state should be AllFieldsSet");
+            return std::move(m_result);
+        }
+
+    private:
+        friend class AssociatedCookie;
+        AssociatedCookieBuilder() : m_result(new AssociatedCookie()) { }
+
+        template<int STEP> AssociatedCookieBuilder<STATE | STEP>& castState()
+        {
+            return *reinterpret_cast<AssociatedCookieBuilder<STATE | STEP>*>(this);
+        }
+
+        std::unique_ptr<protocol::Network::AssociatedCookie> m_result;
+    };
+
+    static AssociatedCookieBuilder<0> create()
+    {
+        return AssociatedCookieBuilder<0>();
+    }
+
+private:
+    DECLARE_SERIALIZATION_SUPPORT();
+
+    AssociatedCookie()
+    {
+    }
+
+    std::unique_ptr<protocol::Network::Cookie> m_cookie;
+    std::unique_ptr<protocol::Array<String>> m_blockedReasons;
+    Maybe<String> m_exemptionReason;
 };
 
 
@@ -3856,8 +3952,8 @@ public:
     void webTransportCreated(const String& transportId, const String& url, double timestamp, Maybe<protocol::Network::Initiator> initiator = Maybe<protocol::Network::Initiator>());
     void webTransportConnectionEstablished(const String& transportId, double timestamp);
     void webTransportClosed(const String& transportId, double timestamp);
-    void requestWillBeSentExtraInfo(const String& requestId, std::unique_ptr<protocol::Array<protocol::Network::BlockedCookieWithReason>> associatedCookies, std::unique_ptr<protocol::Network::Headers> headers, std::unique_ptr<protocol::Network::ConnectTiming> connectTiming, Maybe<protocol::Network::ClientSecurityState> clientSecurityState = Maybe<protocol::Network::ClientSecurityState>(), Maybe<bool> siteHasCookieInOtherPartition = Maybe<bool>());
-    void responseReceivedExtraInfo(const String& requestId, std::unique_ptr<protocol::Array<protocol::Network::BlockedSetCookieWithReason>> blockedCookies, std::unique_ptr<protocol::Network::Headers> headers, const String& resourceIPAddressSpace, int statusCode, Maybe<String> headersText = Maybe<String>(), Maybe<String> cookiePartitionKey = Maybe<String>(), Maybe<bool> cookiePartitionKeyOpaque = Maybe<bool>());
+    void requestWillBeSentExtraInfo(const String& requestId, std::unique_ptr<protocol::Array<protocol::Network::AssociatedCookie>> associatedCookies, std::unique_ptr<protocol::Network::Headers> headers, std::unique_ptr<protocol::Network::ConnectTiming> connectTiming, Maybe<protocol::Network::ClientSecurityState> clientSecurityState = Maybe<protocol::Network::ClientSecurityState>(), Maybe<bool> siteHasCookieInOtherPartition = Maybe<bool>());
+    void responseReceivedExtraInfo(const String& requestId, std::unique_ptr<protocol::Array<protocol::Network::BlockedSetCookieWithReason>> blockedCookies, std::unique_ptr<protocol::Network::Headers> headers, const String& resourceIPAddressSpace, int statusCode, Maybe<String> headersText = Maybe<String>(), Maybe<String> cookiePartitionKey = Maybe<String>(), Maybe<bool> cookiePartitionKeyOpaque = Maybe<bool>(), Maybe<protocol::Array<protocol::Network::ExemptedSetCookieWithReason>> exemptedCookies = Maybe<protocol::Array<protocol::Network::ExemptedSetCookieWithReason>>());
     void trustTokenOperationDone(const String& status, const String& type, const String& requestId, Maybe<String> topLevelOrigin = Maybe<String>(), Maybe<String> issuerOrigin = Maybe<String>(), Maybe<int> issuedTokenCount = Maybe<int>());
     void subresourceWebBundleMetadataReceived(const String& requestId, std::unique_ptr<protocol::Array<String>> urls);
     void subresourceWebBundleMetadataError(const String& requestId, const String& errorMessage);

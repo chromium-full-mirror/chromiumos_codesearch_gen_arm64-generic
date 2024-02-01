@@ -299,7 +299,7 @@ class  PrivacyApplication {
   template <typename... Args>
   static PrivacyApplicationPtr New(Args&&... args) {
     return PrivacyApplicationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -447,7 +447,7 @@ class  PrivacyItem {
   template <typename... Args>
   static PrivacyItemPtr New(Args&&... args) {
     return PrivacyItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -479,7 +479,7 @@ class  TtsVoice {
   template <typename... Args>
   static TtsVoicePtr New(Args&&... args) {
     return TtsVoicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -637,7 +637,7 @@ class  TtsUtterance {
   template <typename... Args>
   static TtsUtterancePtr New(Args&&... args) {
     return TtsUtterancePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

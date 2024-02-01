@@ -57,7 +57,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) SerializedHandle {
   template <typename... Args>
   static SerializedHandlePtr New(Args&&... args) {
     return SerializedHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -197,7 +197,7 @@ class COMPONENT_EXPORT(MOJO_MOJOM_BINDINGS) NativeStruct {
   template <typename... Args>
   static NativeStructPtr New(Args&&... args) {
     return NativeStructPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

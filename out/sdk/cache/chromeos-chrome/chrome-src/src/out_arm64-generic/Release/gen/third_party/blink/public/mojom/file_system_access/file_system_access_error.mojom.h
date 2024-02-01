@@ -54,7 +54,7 @@ class BLINK_COMMON_EXPORT FileSystemAccessError {
   template <typename... Args>
   static FileSystemAccessErrorPtr New(Args&&... args) {
     return FileSystemAccessErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

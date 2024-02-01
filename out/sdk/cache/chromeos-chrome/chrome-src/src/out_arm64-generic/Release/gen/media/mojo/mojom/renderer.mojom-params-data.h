@@ -367,7 +367,7 @@ static_assert(
         mojo::ArrayDataView<mojo::InterfacePtrDataView<::media::mojom::DemuxerStreamInterfaceBase>>, UserType>(),
     "Attempting to read the optional `streams` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStreams` instead "
     "of `ReadStreams if you're fine with null values being "
@@ -387,7 +387,7 @@ static_assert(
         ::media::mojom::MediaUrlParamsDataView, UserType>(),
     "Attempting to read the optional `media_url_params` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMediaUrlParams` instead "
     "of `ReadMediaUrlParams if you're fine with null values being "
@@ -533,7 +533,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `cdm_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCdmId` instead "
     "of `ReadCdmId if you're fine with null values being "

@@ -57,7 +57,7 @@ class  AddressList {
   template <typename... Args>
   static AddressListPtr New(Args&&... args) {
     return AddressListPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

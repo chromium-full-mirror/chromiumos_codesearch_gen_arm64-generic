@@ -1108,7 +1108,7 @@ class  BatteryProperties {
   template <typename... Args>
   static BatteryPropertiesPtr New(Args&&... args) {
     return BatteryPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1258,7 +1258,7 @@ class  DeviceBatteryInfo {
   template <typename... Args>
   static DeviceBatteryInfoPtr New(Args&&... args) {
     return DeviceBatteryInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1409,7 +1409,7 @@ class  TrueWirelessImageInfo {
   template <typename... Args>
   static TrueWirelessImageInfoPtr New(Args&&... args) {
     return TrueWirelessImageInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1555,7 +1555,7 @@ class  DeviceImageInfo {
   template <typename... Args>
   static DeviceImageInfoPtr New(Args&&... args) {
     return DeviceImageInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1700,7 +1700,7 @@ class  BluetoothDeviceProperties {
   template <typename... Args>
   static BluetoothDevicePropertiesPtr New(Args&&... args) {
     return BluetoothDevicePropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1866,7 +1866,7 @@ class  PairedBluetoothDeviceProperties {
   template <typename... Args>
   static PairedBluetoothDevicePropertiesPtr New(Args&&... args) {
     return PairedBluetoothDevicePropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2014,7 +2014,7 @@ class  BluetoothSystemProperties {
   template <typename... Args>
   static BluetoothSystemPropertiesPtr New(Args&&... args) {
     return BluetoothSystemPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

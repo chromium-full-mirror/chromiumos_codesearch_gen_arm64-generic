@@ -632,7 +632,7 @@ static_assert(
         ::ash::mojom::InputDeviceSettingsPolicyDataView, UserType>(),
     "Attempting to read the optional `top_row_are_fkeys_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTopRowAreFkeysPolicy` instead "
     "of `ReadTopRowAreFkeysPolicy if you're fine with null values being "
@@ -652,7 +652,7 @@ static_assert(
         ::ash::mojom::InputDeviceSettingsPolicyDataView, UserType>(),
     "Attempting to read the optional `enable_meta_fkey_rewrites_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEnableMetaFkeyRewritesPolicy` instead "
     "of `ReadEnableMetaFkeyRewritesPolicy if you're fine with null values being "
@@ -672,7 +672,7 @@ static_assert(
         ::ash::mojom::InputDeviceSettingsFkeyPolicyDataView, UserType>(),
     "Attempting to read the optional `f11_key_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadF11KeyPolicy` instead "
     "of `ReadF11KeyPolicy if you're fine with null values being "
@@ -692,7 +692,7 @@ static_assert(
         ::ash::mojom::InputDeviceSettingsFkeyPolicyDataView, UserType>(),
     "Attempting to read the optional `f12_key_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadF12KeyPolicy` instead "
     "of `ReadF12KeyPolicy if you're fine with null values being "
@@ -712,7 +712,7 @@ static_assert(
         ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView, UserType>(),
     "Attempting to read the optional `home_and_end_keys_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHomeAndEndKeysPolicy` instead "
     "of `ReadHomeAndEndKeysPolicy if you're fine with null values being "
@@ -732,7 +732,7 @@ static_assert(
         ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView, UserType>(),
     "Attempting to read the optional `page_up_and_page_down_keys_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPageUpAndPageDownKeysPolicy` instead "
     "of `ReadPageUpAndPageDownKeysPolicy if you're fine with null values being "
@@ -752,7 +752,7 @@ static_assert(
         ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView, UserType>(),
     "Attempting to read the optional `delete_key_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeleteKeyPolicy` instead "
     "of `ReadDeleteKeyPolicy if you're fine with null values being "
@@ -772,7 +772,7 @@ static_assert(
         ::ash::mojom::InputDeviceSettingsSixPackKeyPolicyDataView, UserType>(),
     "Attempting to read the optional `insert_key_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInsertKeyPolicy` instead "
     "of `ReadInsertKeyPolicy if you're fine with null values being "
@@ -808,7 +808,7 @@ static_assert(
         ::ash::mojom::InputDeviceSettingsPolicyDataView, UserType>(),
     "Attempting to read the optional `swap_right_policy` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSwapRightPolicy` instead "
     "of `ReadSwapRightPolicy if you're fine with null values being "
@@ -942,7 +942,7 @@ static_assert(
         ::ash::mojom::SixPackKeyInfoDataView, UserType>(),
     "Attempting to read the optional `six_pack_key_remappings` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSixPackKeyRemappings` instead "
     "of `ReadSixPackKeyRemappings if you're fine with null values being "
@@ -954,7 +954,7 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadF11(UserType* output) const {
     if (!data_->f11_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -963,7 +963,7 @@ static_assert(
   }
   std::optional<::ui::mojom::ExtendedFkeysModifier> f11() const {
     if (!data_->f11_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ui::mojom::ExtendedFkeysModifier>(data_->f11_$value));
@@ -971,7 +971,7 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadF12(UserType* output) const {
     if (!data_->f12_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -980,7 +980,7 @@ static_assert(
   }
   std::optional<::ui::mojom::ExtendedFkeysModifier> f12() const {
     if (!data_->f12_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ui::mojom::ExtendedFkeysModifier>(data_->f12_$value));
@@ -1444,7 +1444,7 @@ static_assert(
         ::ash::mojom::RemappingActionDataView, UserType>(),
     "Attempting to read the optional `remapping_action` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRemappingAction` instead "
     "of `ReadRemappingAction if you're fine with null values being "

@@ -402,7 +402,7 @@ class  MemoryRoutineArgument {
   template <typename... Args>
   static MemoryRoutineArgumentPtr New(Args&&... args) {
     return MemoryRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -543,7 +543,7 @@ class  FanRoutineArgument {
   template <typename... Args>
   static FanRoutineArgumentPtr New(Args&&... args) {
     return FanRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -680,7 +680,7 @@ class  RoutineStateInitialized {
   template <typename... Args>
   static RoutineStateInitializedPtr New(Args&&... args) {
     return RoutineStateInitializedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -816,7 +816,7 @@ class  RoutineStateRunning {
   template <typename... Args>
   static RoutineStateRunningPtr New(Args&&... args) {
     return RoutineStateRunningPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -953,7 +953,7 @@ class  RoutineStateWaiting {
   template <typename... Args>
   static RoutineStateWaitingPtr New(Args&&... args) {
     return RoutineStateWaitingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1100,7 +1100,7 @@ class  VolumeButtonRoutineDetail {
   template <typename... Args>
   static VolumeButtonRoutineDetailPtr New(Args&&... args) {
     return VolumeButtonRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1247,7 +1247,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewUnrecognizedArgument(
       bool value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_unrecognizedArgument(std::move(value));
     return result;
   }
@@ -1255,7 +1255,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewMemory(
       MemoryRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_memory(std::move(value));
     return result;
   }
@@ -1263,7 +1263,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewVolumeButton(
       VolumeButtonRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_volume_button(std::move(value));
     return result;
   }
@@ -1271,7 +1271,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewFan(
       FanRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_fan(std::move(value));
     return result;
   }
@@ -1419,7 +1419,7 @@ class  RoutineStateUnion {
   static RoutineStateUnionPtr
   NewUnrecognizedArgument(
       bool value) {
-    auto result = RoutineStateUnionPtr(absl::in_place);
+    auto result = RoutineStateUnionPtr(std::in_place);
     result->set_unrecognizedArgument(std::move(value));
     return result;
   }
@@ -1427,7 +1427,7 @@ class  RoutineStateUnion {
   static RoutineStateUnionPtr
   NewInitialized(
       RoutineStateInitializedPtr value) {
-    auto result = RoutineStateUnionPtr(absl::in_place);
+    auto result = RoutineStateUnionPtr(std::in_place);
     result->set_initialized(std::move(value));
     return result;
   }
@@ -1435,7 +1435,7 @@ class  RoutineStateUnion {
   static RoutineStateUnionPtr
   NewRunning(
       RoutineStateRunningPtr value) {
-    auto result = RoutineStateUnionPtr(absl::in_place);
+    auto result = RoutineStateUnionPtr(std::in_place);
     result->set_running(std::move(value));
     return result;
   }
@@ -1443,7 +1443,7 @@ class  RoutineStateUnion {
   static RoutineStateUnionPtr
   NewWaiting(
       RoutineStateWaitingPtr value) {
-    auto result = RoutineStateUnionPtr(absl::in_place);
+    auto result = RoutineStateUnionPtr(std::in_place);
     result->set_waiting(std::move(value));
     return result;
   }
@@ -1451,7 +1451,7 @@ class  RoutineStateUnion {
   static RoutineStateUnionPtr
   NewFinished(
       RoutineStateFinishedPtr value) {
-    auto result = RoutineStateUnionPtr(absl::in_place);
+    auto result = RoutineStateUnionPtr(std::in_place);
     result->set_finished(std::move(value));
     return result;
   }
@@ -1612,7 +1612,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewUnrecognizedArgument(
       bool value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_unrecognizedArgument(std::move(value));
     return result;
   }
@@ -1620,7 +1620,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewMemory(
       MemoryRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_memory(std::move(value));
     return result;
   }
@@ -1628,7 +1628,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewVolumeButton(
       VolumeButtonRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_volume_button(std::move(value));
     return result;
   }
@@ -1636,7 +1636,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewFan(
       FanRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_fan(std::move(value));
     return result;
   }
@@ -1778,7 +1778,7 @@ class  VolumeButtonRoutineArgument {
   template <typename... Args>
   static VolumeButtonRoutineArgumentPtr New(Args&&... args) {
     return VolumeButtonRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1922,7 +1922,7 @@ class  RoutineState {
   template <typename... Args>
   static RoutineStatePtr New(Args&&... args) {
     return RoutineStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2070,7 +2070,7 @@ class  RoutineStateFinished {
   template <typename... Args>
   static RoutineStateFinishedPtr New(Args&&... args) {
     return RoutineStateFinishedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2215,7 +2215,7 @@ class  MemoryRoutineDetail {
   template <typename... Args>
   static MemoryRoutineDetailPtr New(Args&&... args) {
     return MemoryRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2360,7 +2360,7 @@ class  MemtesterResult {
   template <typename... Args>
   static MemtesterResultPtr New(Args&&... args) {
     return MemtesterResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2504,7 +2504,7 @@ class  FanRoutineDetail {
   template <typename... Args>
   static FanRoutineDetailPtr New(Args&&... args) {
     return FanRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

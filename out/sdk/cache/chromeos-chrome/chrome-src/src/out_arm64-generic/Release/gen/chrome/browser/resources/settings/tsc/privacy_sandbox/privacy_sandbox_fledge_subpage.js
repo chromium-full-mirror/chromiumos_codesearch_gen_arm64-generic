@@ -14,6 +14,7 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { afterNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { HatsBrowserProxyImpl, TrustSafetyInteraction } from '../hats_browser_proxy.js';
+import { loadTimeData } from '../i18n_setup.js';
 import { MetricsBrowserProxyImpl } from '../metrics_browser_proxy.js';
 import { routes } from '../route.js';
 import { RouteObserverMixin } from '../router.js';
@@ -100,6 +101,10 @@ export class SettingsPrivacySandboxFledgeSubpageElement extends SettingsPrivacyS
                 value: false,
                 observer: 'onBlockedSitesExpanded_',
             },
+            shouldShowV2_: {
+                type: Boolean,
+                value: () => loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled'),
+            },
         };
     }
     static get maxFledgeSites() {
@@ -109,6 +114,7 @@ export class SettingsPrivacySandboxFledgeSubpageElement extends SettingsPrivacyS
         super.ready();
         this.privacySandboxBrowserProxy_.getFledgeState().then(state => this.onFledgeStateChanged_(state));
         this.$.footer.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
+        this.$.footerV2.querySelectorAll('a').forEach(link => link.setAttribute('aria-description', this.i18n('opensInNewTab')));
     }
     currentRouteChanged(newRoute) {
         if (newRoute === routes.PRIVACY_SANDBOX_FLEDGE) {

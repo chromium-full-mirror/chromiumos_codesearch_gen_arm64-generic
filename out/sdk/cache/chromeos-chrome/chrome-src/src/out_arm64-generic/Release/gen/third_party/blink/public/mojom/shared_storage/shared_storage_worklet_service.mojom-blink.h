@@ -530,7 +530,7 @@ class MODULES_EXPORT SharedStorageKeyAndOrValue {
   template <typename... Args>
   static SharedStorageKeyAndOrValuePtr New(Args&&... args) {
     return SharedStorageKeyAndOrValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

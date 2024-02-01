@@ -1006,7 +1006,7 @@ static_assert(
         ::gfx::mojom::RectDataView, UserType>(),
     "Attempting to read the optional `focused_edit_bounds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadFocusedEditBounds` instead "
     "of `ReadFocusedEditBounds if you're fine with null values being "
@@ -1026,7 +1026,7 @@ static_assert(
         ::gfx::mojom::RectDataView, UserType>(),
     "Attempting to read the optional `caret_bounds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCaretBounds` instead "
     "of `ReadCaretBounds if you're fine with null values being "
@@ -1327,7 +1327,7 @@ static_assert(
         ::blink::mojom::VisualPropertiesDataView, UserType>(),
     "Attempting to read the optional `visual_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadVisualProperties` instead "
     "of `ReadVisualProperties if you're fine with null values being "

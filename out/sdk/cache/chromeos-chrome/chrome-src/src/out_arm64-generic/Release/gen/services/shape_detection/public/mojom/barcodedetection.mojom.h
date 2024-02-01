@@ -170,7 +170,7 @@ class  BarcodeDetectionResult {
   template <typename... Args>
   static BarcodeDetectionResultPtr New(Args&&... args) {
     return BarcodeDetectionResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

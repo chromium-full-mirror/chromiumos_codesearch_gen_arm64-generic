@@ -16,7 +16,7 @@ namespace blink::mojom {
 
 class BLINK_COMMON_EXPORT BackForwardCacheControllerHostInterceptorForTesting : public BackForwardCacheControllerHost {
   virtual BackForwardCacheControllerHost* GetForwardingInterface() = 0;
-  void EvictFromBackForwardCache(::blink::mojom::RendererEvictionReason reason) override;
+  void EvictFromBackForwardCache(::blink::mojom::RendererEvictionReason reason, BlockingDetailsPtr details) override;
   void DidChangeBackForwardCacheDisablingFeatures(std::vector<BlockingDetailsPtr> details) override;
 };
 class BLINK_COMMON_EXPORT BackForwardCacheControllerHostAsyncWaiter {

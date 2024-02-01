@@ -655,7 +655,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) RequestArgs {
   template <typename... Args>
   static RequestArgsPtr New(Args&&... args) {
     return RequestArgsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -804,7 +804,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) RawAllocatorDumpEdge {
   template <typename... Args>
   static RawAllocatorDumpEdgePtr New(Args&&... args) {
     return RawAllocatorDumpEdgePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -962,7 +962,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) AggregatedMetrics {
   template <typename... Args>
   static AggregatedMetricsPtr New(Args&&... args) {
     return AggregatedMetricsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1121,7 +1121,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) RawAllocatorDumpEntryV
   static RawAllocatorDumpEntryValuePtr
   NewValueUint64(
       uint64_t value) {
-    auto result = RawAllocatorDumpEntryValuePtr(absl::in_place);
+    auto result = RawAllocatorDumpEntryValuePtr(std::in_place);
     result->set_value_uint64(std::move(value));
     return result;
   }
@@ -1129,7 +1129,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) RawAllocatorDumpEntryV
   static RawAllocatorDumpEntryValuePtr
   NewValueString(
       const std::string& value) {
-    auto result = RawAllocatorDumpEntryValuePtr(absl::in_place);
+    auto result = RawAllocatorDumpEntryValuePtr(std::in_place);
     result->set_value_string(std::move(value));
     return result;
   }
@@ -1246,7 +1246,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) RawAllocatorDumpEntry 
   template <typename... Args>
   static RawAllocatorDumpEntryPtr New(Args&&... args) {
     return RawAllocatorDumpEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1394,7 +1394,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) RawAllocatorDump {
   template <typename... Args>
   static RawAllocatorDumpPtr New(Args&&... args) {
     return RawAllocatorDumpPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1548,7 +1548,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) RawProcessMemoryDump {
   template <typename... Args>
   static RawProcessMemoryDumpPtr New(Args&&... args) {
     return RawProcessMemoryDumpPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1704,7 +1704,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) VmRegion {
   template <typename... Args>
   static VmRegionPtr New(Args&&... args) {
     return VmRegionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1884,7 +1884,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) PlatformPrivateFootpri
   template <typename... Args>
   static PlatformPrivateFootprintPtr New(Args&&... args) {
     return PlatformPrivateFootprintPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2040,7 +2040,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) RawOSMemDump {
   template <typename... Args>
   static RawOSMemDumpPtr New(Args&&... args) {
     return RawOSMemDumpPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2197,7 +2197,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) OSMemDump {
   template <typename... Args>
   static OSMemDumpPtr New(Args&&... args) {
     return OSMemDumpPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2353,7 +2353,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) AllocatorMemDump {
   template <typename... Args>
   static AllocatorMemDumpPtr New(Args&&... args) {
     return AllocatorMemDumpPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2498,7 +2498,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) ProcessMemoryDump {
   template <typename... Args>
   static ProcessMemoryDumpPtr New(Args&&... args) {
     return ProcessMemoryDumpPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2653,7 +2653,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) GlobalMemoryDump {
   template <typename... Args>
   static GlobalMemoryDumpPtr New(Args&&... args) {
     return GlobalMemoryDumpPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2801,7 +2801,7 @@ class COMPONENT_EXPORT(RESOURCE_COORDINATOR_PUBLIC_MOJOM) HeapProfileResult {
   template <typename... Args>
   static HeapProfileResultPtr New(Args&&... args) {
     return HeapProfileResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -100,7 +100,7 @@ class BLINK_COMMON_EXPORT BeginNavigationParams {
   template <typename... Args>
   static BeginNavigationParamsPtr New(Args&&... args) {
     return BeginNavigationParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -302,7 +302,7 @@ class BLINK_COMMON_EXPORT CommonNavigationParams {
   template <typename... Args>
   static CommonNavigationParamsPtr New(Args&&... args) {
     return CommonNavigationParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -502,7 +502,7 @@ class BLINK_COMMON_EXPORT NavigationTiming {
   template <typename... Args>
   static NavigationTimingPtr New(Args&&... args) {
     return NavigationTimingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -654,7 +654,7 @@ class BLINK_COMMON_EXPORT OldPageInfo {
   template <typename... Args>
   static OldPageInfoPtr New(Args&&... args) {
     return OldPageInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -799,7 +799,7 @@ class BLINK_COMMON_EXPORT CommitNavigationParams {
   template <typename... Args>
   static CommitNavigationParamsPtr New(Args&&... args) {
     return CommitNavigationParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

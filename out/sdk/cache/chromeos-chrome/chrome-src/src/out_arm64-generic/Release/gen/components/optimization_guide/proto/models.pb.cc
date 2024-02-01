@@ -164,18 +164,20 @@ bool OptimizationTarget_IsValid(int value) {
     case 39:
     case 40:
     case 41:
+    case 42:
       return true;
     default:
       return false;
   }
 }
 
-static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OptimizationTarget_strings[41] = {};
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> OptimizationTarget_strings[42] = {};
 
 static const char OptimizationTarget_names[] =
   "OPTIMIZATION_TARGET_AUTOFILL_FIELD_CLASSIFICATION"
   "OPTIMIZATION_TARGET_CLIENT_SIDE_PHISHING"
   "OPTIMIZATION_TARGET_CLIENT_SIDE_PHISHING_IMAGE_EMBEDDER"
+  "OPTIMIZATION_TARGET_COMPOSE"
   "OPTIMIZATION_TARGET_CONTEXTUAL_PAGE_ACTION_PRICE_TRACKING"
   "OPTIMIZATION_TARGET_GEOLOCATION_PERMISSION_PREDICTIONS"
   "OPTIMIZATION_TARGET_LANGUAGE_DETECTION"
@@ -219,88 +221,90 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry OptimizationTarget_ent
   { {OptimizationTarget_names + 0, 49}, 36 },
   { {OptimizationTarget_names + 49, 40}, 25 },
   { {OptimizationTarget_names + 89, 55}, 30 },
-  { {OptimizationTarget_names + 144, 57}, 18 },
-  { {OptimizationTarget_names + 201, 54}, 20 },
-  { {OptimizationTarget_names + 255, 38}, 2 },
-  { {OptimizationTarget_names + 293, 36}, 7 },
-  { {OptimizationTarget_names + 329, 64}, 31 },
-  { {OptimizationTarget_names + 393, 55}, 9 },
-  { {OptimizationTarget_names + 448, 50}, 24 },
-  { {OptimizationTarget_names + 498, 39}, 26 },
-  { {OptimizationTarget_names + 537, 33}, 8 },
-  { {OptimizationTarget_names + 570, 31}, 3 },
-  { {OptimizationTarget_names + 601, 34}, 15 },
-  { {OptimizationTarget_names + 635, 35}, 13 },
-  { {OptimizationTarget_names + 670, 37}, 1 },
-  { {OptimizationTarget_names + 707, 41}, 39 },
-  { {OptimizationTarget_names + 748, 49}, 28 },
-  { {OptimizationTarget_names + 797, 59}, 41 },
-  { {OptimizationTarget_names + 856, 47}, 35 },
-  { {OptimizationTarget_names + 903, 59}, 16 },
-  { {OptimizationTarget_names + 962, 53}, 11 },
-  { {OptimizationTarget_names + 1015, 56}, 22 },
-  { {OptimizationTarget_names + 1071, 51}, 38 },
-  { {OptimizationTarget_names + 1122, 48}, 27 },
-  { {OptimizationTarget_names + 1170, 38}, 10 },
-  { {OptimizationTarget_names + 1208, 42}, 17 },
-  { {OptimizationTarget_names + 1250, 50}, 37 },
-  { {OptimizationTarget_names + 1300, 40}, 4 },
-  { {OptimizationTarget_names + 1340, 44}, 12 },
-  { {OptimizationTarget_names + 1384, 44}, 23 },
-  { {OptimizationTarget_names + 1428, 38}, 5 },
-  { {OptimizationTarget_names + 1466, 46}, 21 },
-  { {OptimizationTarget_names + 1512, 57}, 29 },
-  { {OptimizationTarget_names + 1569, 38}, 6 },
-  { {OptimizationTarget_names + 1607, 35}, 19 },
-  { {OptimizationTarget_names + 1642, 33}, 33 },
-  { {OptimizationTarget_names + 1675, 31}, 40 },
-  { {OptimizationTarget_names + 1706, 27}, 0 },
-  { {OptimizationTarget_names + 1733, 48}, 34 },
-  { {OptimizationTarget_names + 1781, 46}, 32 },
+  { {OptimizationTarget_names + 144, 27}, 42 },
+  { {OptimizationTarget_names + 171, 57}, 18 },
+  { {OptimizationTarget_names + 228, 54}, 20 },
+  { {OptimizationTarget_names + 282, 38}, 2 },
+  { {OptimizationTarget_names + 320, 36}, 7 },
+  { {OptimizationTarget_names + 356, 64}, 31 },
+  { {OptimizationTarget_names + 420, 55}, 9 },
+  { {OptimizationTarget_names + 475, 50}, 24 },
+  { {OptimizationTarget_names + 525, 39}, 26 },
+  { {OptimizationTarget_names + 564, 33}, 8 },
+  { {OptimizationTarget_names + 597, 31}, 3 },
+  { {OptimizationTarget_names + 628, 34}, 15 },
+  { {OptimizationTarget_names + 662, 35}, 13 },
+  { {OptimizationTarget_names + 697, 37}, 1 },
+  { {OptimizationTarget_names + 734, 41}, 39 },
+  { {OptimizationTarget_names + 775, 49}, 28 },
+  { {OptimizationTarget_names + 824, 59}, 41 },
+  { {OptimizationTarget_names + 883, 47}, 35 },
+  { {OptimizationTarget_names + 930, 59}, 16 },
+  { {OptimizationTarget_names + 989, 53}, 11 },
+  { {OptimizationTarget_names + 1042, 56}, 22 },
+  { {OptimizationTarget_names + 1098, 51}, 38 },
+  { {OptimizationTarget_names + 1149, 48}, 27 },
+  { {OptimizationTarget_names + 1197, 38}, 10 },
+  { {OptimizationTarget_names + 1235, 42}, 17 },
+  { {OptimizationTarget_names + 1277, 50}, 37 },
+  { {OptimizationTarget_names + 1327, 40}, 4 },
+  { {OptimizationTarget_names + 1367, 44}, 12 },
+  { {OptimizationTarget_names + 1411, 44}, 23 },
+  { {OptimizationTarget_names + 1455, 38}, 5 },
+  { {OptimizationTarget_names + 1493, 46}, 21 },
+  { {OptimizationTarget_names + 1539, 57}, 29 },
+  { {OptimizationTarget_names + 1596, 38}, 6 },
+  { {OptimizationTarget_names + 1634, 35}, 19 },
+  { {OptimizationTarget_names + 1669, 33}, 33 },
+  { {OptimizationTarget_names + 1702, 31}, 40 },
+  { {OptimizationTarget_names + 1733, 27}, 0 },
+  { {OptimizationTarget_names + 1760, 48}, 34 },
+  { {OptimizationTarget_names + 1808, 46}, 32 },
 };
 
 static const int OptimizationTarget_entries_by_number[] = {
-  38, // 0 -> OPTIMIZATION_TARGET_UNKNOWN
-  15, // 1 -> OPTIMIZATION_TARGET_PAINFUL_PAGE_LOAD
-  5, // 2 -> OPTIMIZATION_TARGET_LANGUAGE_DETECTION
-  12, // 3 -> OPTIMIZATION_TARGET_PAGE_TOPICS
-  28, // 4 -> OPTIMIZATION_TARGET_SEGMENTATION_NEW_TAB
-  31, // 5 -> OPTIMIZATION_TARGET_SEGMENTATION_SHARE
-  34, // 6 -> OPTIMIZATION_TARGET_SEGMENTATION_VOICE
-  6, // 7 -> OPTIMIZATION_TARGET_MODEL_VALIDATION
-  11, // 8 -> OPTIMIZATION_TARGET_PAGE_ENTITIES
-  8, // 9 -> OPTIMIZATION_TARGET_NOTIFICATION_PERMISSION_PREDICTIONS
-  25, // 10 -> OPTIMIZATION_TARGET_SEGMENTATION_DUMMY
-  21, // 11 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_START_ANDROID
-  29, // 12 -> OPTIMIZATION_TARGET_SEGMENTATION_QUERY_TILES
-  14, // 13 -> OPTIMIZATION_TARGET_PAGE_VISIBILITY
-  13, // 15 -> OPTIMIZATION_TARGET_PAGE_TOPICS_V2
-  20, // 16 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_LOW_USER_ENGAGEMENT
-  26, // 17 -> OPTIMIZATION_TARGET_SEGMENTATION_FEED_USER
-  3, // 18 -> OPTIMIZATION_TARGET_CONTEXTUAL_PAGE_ACTION_PRICE_TRACKING
-  35, // 19 -> OPTIMIZATION_TARGET_TEXT_CLASSIFIER
-  4, // 20 -> OPTIMIZATION_TARGET_GEOLOCATION_PERMISSION_PREDICTIONS
-  32, // 21 -> OPTIMIZATION_TARGET_SEGMENTATION_SHOPPING_USER
-  22, // 22 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_START_ANDROID_V2
-  30, // 23 -> OPTIMIZATION_TARGET_SEGMENTATION_SEARCH_USER
-  9, // 24 -> OPTIMIZATION_TARGET_OMNIBOX_ON_DEVICE_TAIL_SUGGEST
+  39, // 0 -> OPTIMIZATION_TARGET_UNKNOWN
+  16, // 1 -> OPTIMIZATION_TARGET_PAINFUL_PAGE_LOAD
+  6, // 2 -> OPTIMIZATION_TARGET_LANGUAGE_DETECTION
+  13, // 3 -> OPTIMIZATION_TARGET_PAGE_TOPICS
+  29, // 4 -> OPTIMIZATION_TARGET_SEGMENTATION_NEW_TAB
+  32, // 5 -> OPTIMIZATION_TARGET_SEGMENTATION_SHARE
+  35, // 6 -> OPTIMIZATION_TARGET_SEGMENTATION_VOICE
+  7, // 7 -> OPTIMIZATION_TARGET_MODEL_VALIDATION
+  12, // 8 -> OPTIMIZATION_TARGET_PAGE_ENTITIES
+  9, // 9 -> OPTIMIZATION_TARGET_NOTIFICATION_PERMISSION_PREDICTIONS
+  26, // 10 -> OPTIMIZATION_TARGET_SEGMENTATION_DUMMY
+  22, // 11 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_START_ANDROID
+  30, // 12 -> OPTIMIZATION_TARGET_SEGMENTATION_QUERY_TILES
+  15, // 13 -> OPTIMIZATION_TARGET_PAGE_VISIBILITY
+  14, // 15 -> OPTIMIZATION_TARGET_PAGE_TOPICS_V2
+  21, // 16 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_LOW_USER_ENGAGEMENT
+  27, // 17 -> OPTIMIZATION_TARGET_SEGMENTATION_FEED_USER
+  4, // 18 -> OPTIMIZATION_TARGET_CONTEXTUAL_PAGE_ACTION_PRICE_TRACKING
+  36, // 19 -> OPTIMIZATION_TARGET_TEXT_CLASSIFIER
+  5, // 20 -> OPTIMIZATION_TARGET_GEOLOCATION_PERMISSION_PREDICTIONS
+  33, // 21 -> OPTIMIZATION_TARGET_SEGMENTATION_SHOPPING_USER
+  23, // 22 -> OPTIMIZATION_TARGET_SEGMENTATION_CHROME_START_ANDROID_V2
+  31, // 23 -> OPTIMIZATION_TARGET_SEGMENTATION_SEARCH_USER
+  10, // 24 -> OPTIMIZATION_TARGET_OMNIBOX_ON_DEVICE_TAIL_SUGGEST
   1, // 25 -> OPTIMIZATION_TARGET_CLIENT_SIDE_PHISHING
-  10, // 26 -> OPTIMIZATION_TARGET_OMNIBOX_URL_SCORING
-  24, // 27 -> OPTIMIZATION_TARGET_SEGMENTATION_DEVICE_SWITCHER
-  17, // 28 -> OPTIMIZATION_TARGET_SEGMENTATION_ADAPTIVE_TOOLBAR
-  33, // 29 -> OPTIMIZATION_TARGET_SEGMENTATION_TABLET_PRODUCTIVITY_USER
+  11, // 26 -> OPTIMIZATION_TARGET_OMNIBOX_URL_SCORING
+  25, // 27 -> OPTIMIZATION_TARGET_SEGMENTATION_DEVICE_SWITCHER
+  18, // 28 -> OPTIMIZATION_TARGET_SEGMENTATION_ADAPTIVE_TOOLBAR
+  34, // 29 -> OPTIMIZATION_TARGET_SEGMENTATION_TABLET_PRODUCTIVITY_USER
   2, // 30 -> OPTIMIZATION_TARGET_CLIENT_SIDE_PHISHING_IMAGE_EMBEDDER
-  7, // 31 -> OPTIMIZATION_TARGET_NEW_TAB_PAGE_HISTORY_CLUSTERS_MODULE_RANKING
-  40, // 32 -> OPTIMIZATION_TARGET_WEB_APP_INSTALLATION_PROMO
-  36, // 33 -> OPTIMIZATION_TARGET_TEXT_EMBEDDER
-  39, // 34 -> OPTIMIZATION_TARGET_VISUAL_SEARCH_CLASSIFICATION
-  19, // 35 -> OPTIMIZATION_TARGET_SEGMENTATION_BOTTOM_TOOLBAR
+  8, // 31 -> OPTIMIZATION_TARGET_NEW_TAB_PAGE_HISTORY_CLUSTERS_MODULE_RANKING
+  41, // 32 -> OPTIMIZATION_TARGET_WEB_APP_INSTALLATION_PROMO
+  37, // 33 -> OPTIMIZATION_TARGET_TEXT_EMBEDDER
+  40, // 34 -> OPTIMIZATION_TARGET_VISUAL_SEARCH_CLASSIFICATION
+  20, // 35 -> OPTIMIZATION_TARGET_SEGMENTATION_BOTTOM_TOOLBAR
   0, // 36 -> OPTIMIZATION_TARGET_AUTOFILL_FIELD_CLASSIFICATION
-  27, // 37 -> OPTIMIZATION_TARGET_SEGMENTATION_IOS_MODULE_RANKER
-  23, // 38 -> OPTIMIZATION_TARGET_SEGMENTATION_DESKTOP_NTP_MODULE
-  16, // 39 -> OPTIMIZATION_TARGET_PRELOADING_HEURISTICS
-  37, // 40 -> OPTIMIZATION_TARGET_TEXT_SAFETY
-  18, // 41 -> OPTIMIZATION_TARGET_SEGMENTATION_ANDROID_HOME_MODULE_RANKER
+  28, // 37 -> OPTIMIZATION_TARGET_SEGMENTATION_IOS_MODULE_RANKER
+  24, // 38 -> OPTIMIZATION_TARGET_SEGMENTATION_DESKTOP_NTP_MODULE
+  17, // 39 -> OPTIMIZATION_TARGET_PRELOADING_HEURISTICS
+  38, // 40 -> OPTIMIZATION_TARGET_TEXT_SAFETY
+  19, // 41 -> OPTIMIZATION_TARGET_SEGMENTATION_ANDROID_HOME_MODULE_RANKER
+  3, // 42 -> OPTIMIZATION_TARGET_COMPOSE
 };
 
 const std::string& OptimizationTarget_Name(
@@ -309,12 +313,12 @@ const std::string& OptimizationTarget_Name(
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           OptimizationTarget_entries,
           OptimizationTarget_entries_by_number,
-          41, OptimizationTarget_strings);
+          42, OptimizationTarget_strings);
   (void) dummy;
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
       OptimizationTarget_entries,
       OptimizationTarget_entries_by_number,
-      41, value);
+      42, value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
                      OptimizationTarget_strings[idx].get();
 }
@@ -322,7 +326,7 @@ bool OptimizationTarget_Parse(
     ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, OptimizationTarget* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      OptimizationTarget_entries, 41, name, &int_value);
+      OptimizationTarget_entries, 42, name, &int_value);
   if (success) {
     *value = static_cast<OptimizationTarget>(int_value);
   }

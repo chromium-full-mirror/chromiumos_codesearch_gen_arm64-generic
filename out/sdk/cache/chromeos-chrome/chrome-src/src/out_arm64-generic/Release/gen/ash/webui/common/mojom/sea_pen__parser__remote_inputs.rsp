@@ -21,3 +21,4 @@ home/chrome-bot/chrome_root/src/third_party/ply/yacc.py
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/common/mojom/sea_pen.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/common/mojom/sea_pen__parser.rsp
 home/chrome-bot/chrome_root/src/ash/webui/common/mojom/sea_pen.mojom
+home/chrome-bot/chrome_root/src/ash/webui/common/mojom/sea_pen_generated.mojom

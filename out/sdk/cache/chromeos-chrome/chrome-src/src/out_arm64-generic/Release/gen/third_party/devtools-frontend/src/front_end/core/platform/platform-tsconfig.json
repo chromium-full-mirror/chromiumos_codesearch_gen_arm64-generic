@@ -30,6 +30,7 @@
   },
   "files": [
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/platform/DevToolsPath.ts",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/platform/MimeType.ts",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/platform/Timing.ts",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/platform/UIString.ts",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/front_end/core/platform/UserVisibleError.ts",

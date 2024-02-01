@@ -292,7 +292,7 @@ static_assert(
         ::crosapi::mojom::UInt32ValueDataView, UserType>(),
     "Attempting to read the optional `id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadId` instead "
     "of `ReadId if you're fine with null values being "
@@ -322,7 +322,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadName` instead "
     "of `ReadName if you're fine with null values being "
@@ -362,7 +362,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `region_code` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRegionCode` instead "
     "of `ReadRegionCode if you're fine with null values being "
@@ -392,7 +392,7 @@ static_assert(
         mojo::ArrayDataView<::crosapi::mojom::TelemetryKeyboardTopRowKey>, UserType>(),
     "Attempting to read the optional `top_row_keys` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTopRowKeys` instead "
     "of `ReadTopRowKeys if you're fine with null values being "
@@ -422,7 +422,7 @@ static_assert(
         ::crosapi::mojom::BoolValueDataView, UserType>(),
     "Attempting to read the optional `has_assistant_key` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHasAssistantKey` instead "
     "of `ReadHasAssistantKey if you're fine with null values being "
@@ -468,7 +468,7 @@ static_assert(
         mojo::ArrayDataView<uint32_t>, UserType>(),
     "Attempting to read the optional `tested_keys` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTestedKeys` instead "
     "of `ReadTestedKeys if you're fine with null values being "
@@ -488,7 +488,7 @@ static_assert(
         mojo::ArrayDataView<uint32_t>, UserType>(),
     "Attempting to read the optional `tested_top_row_keys` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTestedTopRowKeys` instead "
     "of `ReadTestedTopRowKeys if you're fine with null values being "

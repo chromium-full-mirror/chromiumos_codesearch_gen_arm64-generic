@@ -194,7 +194,7 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM) BindSourceInfo {
   template <typename... Args>
   static BindSourceInfoPtr New(Args&&... args) {
     return BindSourceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

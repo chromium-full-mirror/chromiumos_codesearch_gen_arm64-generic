@@ -231,7 +231,7 @@ class  ArcMemoryDump {
   template <typename... Args>
   static ArcMemoryDumpPtr New(Args&&... args) {
     return ArcMemoryDumpPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -381,7 +381,7 @@ class  RunningAppProcessInfo {
   template <typename... Args>
   static RunningAppProcessInfoPtr New(Args&&... args) {
     return RunningAppProcessInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -537,7 +537,7 @@ class  LowMemoryKillCounts {
   template <typename... Args>
   static LowMemoryKillCountsPtr New(Args&&... args) {
     return LowMemoryKillCountsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

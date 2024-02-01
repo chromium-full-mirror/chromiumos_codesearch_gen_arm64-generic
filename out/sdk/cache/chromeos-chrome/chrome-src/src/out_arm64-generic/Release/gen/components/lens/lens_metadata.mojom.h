@@ -57,7 +57,7 @@ class  LatencyLog {
   template <typename... Args>
   static LatencyLogPtr New(Args&&... args) {
     return LatencyLogPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

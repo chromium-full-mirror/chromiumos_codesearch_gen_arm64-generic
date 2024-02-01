@@ -57,7 +57,7 @@ class  TransferableSocket {
   template <typename... Args>
   static TransferableSocketPtr New(Args&&... args) {
     return TransferableSocketPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

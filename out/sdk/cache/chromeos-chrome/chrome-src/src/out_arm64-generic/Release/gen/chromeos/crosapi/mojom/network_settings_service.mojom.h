@@ -329,7 +329,7 @@ class  ProxyLocation {
   template <typename... Args>
   static ProxyLocationPtr New(Args&&... args) {
     return ProxyLocationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -480,7 +480,7 @@ class  ExtensionControllingProxy {
   template <typename... Args>
   static ExtensionControllingProxyPtr New(Args&&... args) {
     return ExtensionControllingProxyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -631,7 +631,7 @@ class  ProxySettingsDirect {
   template <typename... Args>
   static ProxySettingsDirectPtr New(Args&&... args) {
     return ProxySettingsDirectPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -781,7 +781,7 @@ class  ProxySettings {
   static ProxySettingsPtr
   NewDirect(
       ProxySettingsDirectPtr value) {
-    auto result = ProxySettingsPtr(absl::in_place);
+    auto result = ProxySettingsPtr(std::in_place);
     result->set_direct(std::move(value));
     return result;
   }
@@ -789,7 +789,7 @@ class  ProxySettings {
   static ProxySettingsPtr
   NewManual(
       ProxySettingsManualPtr value) {
-    auto result = ProxySettingsPtr(absl::in_place);
+    auto result = ProxySettingsPtr(std::in_place);
     result->set_manual(std::move(value));
     return result;
   }
@@ -797,7 +797,7 @@ class  ProxySettings {
   static ProxySettingsPtr
   NewPac(
       ProxySettingsPacPtr value) {
-    auto result = ProxySettingsPtr(absl::in_place);
+    auto result = ProxySettingsPtr(std::in_place);
     result->set_pac(std::move(value));
     return result;
   }
@@ -805,7 +805,7 @@ class  ProxySettings {
   static ProxySettingsPtr
   NewWpad(
       ProxySettingsWpadPtr value) {
-    auto result = ProxySettingsPtr(absl::in_place);
+    auto result = ProxySettingsPtr(std::in_place);
     result->set_wpad(std::move(value));
     return result;
   }
@@ -948,7 +948,7 @@ class  ProxySettingsManual {
   template <typename... Args>
   static ProxySettingsManualPtr New(Args&&... args) {
     return ProxySettingsManualPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1099,7 +1099,7 @@ class  ProxySettingsPac {
   template <typename... Args>
   static ProxySettingsPacPtr New(Args&&... args) {
     return ProxySettingsPacPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1242,7 +1242,7 @@ class  ProxySettingsWpad {
   template <typename... Args>
   static ProxySettingsWpadPtr New(Args&&... args) {
     return ProxySettingsWpadPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1382,7 +1382,7 @@ class  ProxyConfig {
   template <typename... Args>
   static ProxyConfigPtr New(Args&&... args) {
     return ProxyConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

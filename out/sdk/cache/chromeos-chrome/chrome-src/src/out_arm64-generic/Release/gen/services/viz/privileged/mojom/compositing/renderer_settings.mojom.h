@@ -60,7 +60,7 @@ class  RendererSettings {
   template <typename... Args>
   static RendererSettingsPtr New(Args&&... args) {
     return RendererSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -230,7 +230,7 @@ class  DebugRendererSettings {
   template <typename... Args>
   static DebugRendererSettingsPtr New(Args&&... args) {
     return DebugRendererSettingsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

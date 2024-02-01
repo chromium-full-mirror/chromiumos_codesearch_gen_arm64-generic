@@ -187,7 +187,7 @@ class COMPONENT_EXPORT(TRACING_MOJOM) ClientInfo {
   template <typename... Args>
   static ClientInfoPtr New(Args&&... args) {
     return ClientInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

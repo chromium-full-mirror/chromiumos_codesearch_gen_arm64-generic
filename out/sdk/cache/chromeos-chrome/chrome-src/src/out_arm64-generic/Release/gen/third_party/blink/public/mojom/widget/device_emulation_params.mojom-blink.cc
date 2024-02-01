@@ -71,7 +71,7 @@ DeviceEmulationParams::DeviceEmulationParams(
     ::display::mojom::blink::ScreenOrientation screen_orientation_type_in,
     uint32_t screen_orientation_angle_in,
     WTF::Vector<::gfx::Rect> window_segments_in,
-    ::device::mojom::blink::DevicePostureType device_posture_in)
+    ::blink::mojom::blink::DevicePostureType device_posture_in)
     : screen_type(std::move(screen_type_in)),
       screen_size(std::move(screen_size_in)),
       view_position(std::move(view_position_in)),
@@ -193,7 +193,7 @@ void DeviceEmulationParams::WriteIntoTrace(
     dict.AddItem(
       "device_posture"), this->device_posture,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type ::device::mojom::blink::DevicePostureType>"
+      "<value of type ::blink::mojom::blink::DevicePostureType>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

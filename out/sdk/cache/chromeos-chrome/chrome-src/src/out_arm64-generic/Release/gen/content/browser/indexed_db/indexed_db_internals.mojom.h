@@ -194,7 +194,7 @@ class COMPONENT_EXPORT(INDEXED_DB_INTERFACES) IdbPartitionMetadata {
   template <typename... Args>
   static IdbPartitionMetadataPtr New(Args&&... args) {
     return IdbPartitionMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

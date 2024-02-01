@@ -177,7 +177,7 @@ class BLINK_COMMON_EXPORT GetBrowsingTopicsResult {
   static GetBrowsingTopicsResultPtr
   NewErrorMessage(
       const std::string& value) {
-    auto result = GetBrowsingTopicsResultPtr(absl::in_place);
+    auto result = GetBrowsingTopicsResultPtr(std::in_place);
     result->set_error_message(std::move(value));
     return result;
   }
@@ -185,7 +185,7 @@ class BLINK_COMMON_EXPORT GetBrowsingTopicsResult {
   static GetBrowsingTopicsResultPtr
   NewBrowsingTopics(
       std::vector<EpochTopicPtr> value) {
-    auto result = GetBrowsingTopicsResultPtr(absl::in_place);
+    auto result = GetBrowsingTopicsResultPtr(std::in_place);
     result->set_browsing_topics(std::move(value));
     return result;
   }
@@ -299,7 +299,7 @@ class BLINK_COMMON_EXPORT EpochTopic {
   template <typename... Args>
   static EpochTopicPtr New(Args&&... args) {
     return EpochTopicPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

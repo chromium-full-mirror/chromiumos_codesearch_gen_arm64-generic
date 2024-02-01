@@ -66,7 +66,7 @@ class  SerializedRecording {
   static SerializedRecordingPtr
   NewFile(
       ::base::File value) {
-    auto result = SerializedRecordingPtr(absl::in_place);
+    auto result = SerializedRecordingPtr(std::in_place);
     result->set_file(std::move(value));
     return result;
   }
@@ -74,7 +74,7 @@ class  SerializedRecording {
   static SerializedRecordingPtr
   NewBuffer(
       ::mojo_base::BigBuffer value) {
-    auto result = SerializedRecordingPtr(absl::in_place);
+    auto result = SerializedRecordingPtr(std::in_place);
     result->set_buffer(std::move(value));
     return result;
   }

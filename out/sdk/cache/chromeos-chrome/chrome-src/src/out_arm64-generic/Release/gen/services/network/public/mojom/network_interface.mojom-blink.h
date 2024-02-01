@@ -62,7 +62,7 @@ class BLINK_PLATFORM_EXPORT NetworkInterface {
   template <typename... Args>
   static NetworkInterfacePtr New(Args&&... args) {
     return NetworkInterfacePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -589,7 +589,7 @@ class WebPrinterAttributesDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadSidesDefault(UserType* output) const {
     if (!data_->sides_default_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -598,7 +598,7 @@ class WebPrinterAttributesDataView {
   }
   std::optional<WebPrintingSides> sides_default() const {
     if (!data_->sides_default_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::blink::mojom::WebPrintingSides>(data_->sides_default_$value));
@@ -645,7 +645,7 @@ class WebPrintJobTemplateAttributesDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadMultipleDocumentHandling(UserType* output) const {
     if (!data_->multiple_document_handling_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -654,7 +654,7 @@ class WebPrintJobTemplateAttributesDataView {
   }
   std::optional<WebPrintingMultipleDocumentHandling> multiple_document_handling() const {
     if (!data_->multiple_document_handling_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::blink::mojom::WebPrintingMultipleDocumentHandling>(data_->multiple_document_handling_$value));
@@ -662,7 +662,7 @@ class WebPrintJobTemplateAttributesDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadOrientationRequested(UserType* output) const {
     if (!data_->orientation_requested_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -671,7 +671,7 @@ class WebPrintJobTemplateAttributesDataView {
   }
   std::optional<WebPrintingOrientationRequested> orientation_requested() const {
     if (!data_->orientation_requested_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::blink::mojom::WebPrintingOrientationRequested>(data_->orientation_requested_$value));
@@ -687,7 +687,7 @@ static_assert(
         ::gfx::mojom::SizeDataView, UserType>(),
     "Attempting to read the optional `printer_resolution` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPrinterResolution` instead "
     "of `ReadPrinterResolution if you're fine with null values being "
@@ -699,7 +699,7 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadPrintColorMode(UserType* output) const {
     if (!data_->print_color_mode_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -708,7 +708,7 @@ static_assert(
   }
   std::optional<WebPrintColorMode> print_color_mode() const {
     if (!data_->print_color_mode_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::blink::mojom::WebPrintColorMode>(data_->print_color_mode_$value));
@@ -716,7 +716,7 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadSides(UserType* output) const {
     if (!data_->sides_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -725,7 +725,7 @@ static_assert(
   }
   std::optional<WebPrintingSides> sides() const {
     if (!data_->sides_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::blink::mojom::WebPrintingSides>(data_->sides_$value));

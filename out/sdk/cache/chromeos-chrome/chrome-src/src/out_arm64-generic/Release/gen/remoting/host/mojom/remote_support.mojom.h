@@ -245,7 +245,7 @@ class  NatPolicyState {
   template <typename... Args>
   static NatPolicyStatePtr New(Args&&... args) {
     return NatPolicyStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -399,7 +399,7 @@ class  StartSupportSessionResponse {
   static StartSupportSessionResponsePtr
   NewObserver(
       ::mojo::PendingReceiver<SupportHostObserver> value) {
-    auto result = StartSupportSessionResponsePtr(absl::in_place);
+    auto result = StartSupportSessionResponsePtr(std::in_place);
     result->set_observer(std::move(value));
     return result;
   }
@@ -407,7 +407,7 @@ class  StartSupportSessionResponse {
   static StartSupportSessionResponsePtr
   NewSupportSessionError(
       StartSupportSessionError value) {
-    auto result = StartSupportSessionResponsePtr(absl::in_place);
+    auto result = StartSupportSessionResponsePtr(std::in_place);
     result->set_support_session_error(std::move(value));
     return result;
   }
@@ -521,7 +521,7 @@ class  SupportHostDetails {
   template <typename... Args>
   static SupportHostDetailsPtr New(Args&&... args) {
     return SupportHostDetailsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -664,7 +664,7 @@ class  SupportSessionParams {
   template <typename... Args>
   static SupportSessionParamsPtr New(Args&&... args) {
     return SupportSessionParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

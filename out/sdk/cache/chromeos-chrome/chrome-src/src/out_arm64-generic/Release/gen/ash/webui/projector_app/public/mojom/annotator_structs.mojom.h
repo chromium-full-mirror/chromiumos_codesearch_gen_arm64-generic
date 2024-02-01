@@ -52,7 +52,7 @@ class  AnnotatorTool {
   template <typename... Args>
   static AnnotatorToolPtr New(Args&&... args) {
     return AnnotatorToolPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

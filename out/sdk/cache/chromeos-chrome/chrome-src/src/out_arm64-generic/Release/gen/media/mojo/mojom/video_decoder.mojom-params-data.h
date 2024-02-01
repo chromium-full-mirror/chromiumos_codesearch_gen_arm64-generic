@@ -299,7 +299,7 @@ static_assert(
         ::gpu::mojom::SyncTokenDataView, UserType>(),
     "Attempting to read the optional `release_sync_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReleaseSyncToken` instead "
     "of `ReadReleaseSyncToken if you're fine with null values being "
@@ -421,7 +421,7 @@ static_assert(
         ::media::mojom::CommandBufferIdDataView, UserType>(),
     "Attempting to read the optional `command_buffer_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCommandBufferId` instead "
     "of `ReadCommandBufferId if you're fine with null values being "
@@ -480,7 +480,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `cdm_id` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCdmId` instead "
     "of `ReadCdmId if you're fine with null values being "
@@ -679,7 +679,7 @@ static_assert(
         ::mojo_base::mojom::UnguessableTokenDataView, UserType>(),
     "Attempting to read the optional `release_token` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReleaseToken` instead "
     "of `ReadReleaseToken if you're fine with null values being "

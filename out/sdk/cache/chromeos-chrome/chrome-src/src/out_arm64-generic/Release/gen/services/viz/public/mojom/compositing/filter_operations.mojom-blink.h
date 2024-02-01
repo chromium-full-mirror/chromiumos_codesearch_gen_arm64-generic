@@ -60,7 +60,7 @@ class BLINK_PLATFORM_EXPORT FilterOperations {
   template <typename... Args>
   static FilterOperationsPtr New(Args&&... args) {
     return FilterOperationsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

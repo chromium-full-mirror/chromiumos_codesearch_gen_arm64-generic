@@ -322,7 +322,7 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM_BLINK) ServiceInfo {
   template <typename... Args>
   static ServiceInfoPtr New(Args&&... args) {
     return ServiceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -465,7 +465,7 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM_BLINK) Identity {
   template <typename... Args>
   static IdentityPtr New(Args&&... args) {
     return IdentityPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -169,7 +169,7 @@ class BLINK_COMMON_EXPORT AnchorElementPointerData {
   template <typename... Args>
   static AnchorElementPointerDataPtr New(Args&&... args) {
     return AnchorElementPointerDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

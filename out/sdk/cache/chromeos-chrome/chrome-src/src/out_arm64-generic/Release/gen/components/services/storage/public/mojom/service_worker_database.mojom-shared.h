@@ -215,7 +215,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, mojo::ArrayDataView<mojo::StringDataView>>, UserType>(),
     "Attempting to read the optional `origin_trial_tokens` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOriginTrialTokens` instead "
     "of `ReadOriginTrialTokens if you're fine with null values being "
@@ -258,7 +258,7 @@ static_assert(
         ::blink::mojom::PolicyContainerPoliciesDataView, UserType>(),
     "Attempting to read the optional `policy_container_policies` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPolicyContainerPolicies` instead "
     "of `ReadPolicyContainerPolicies if you're fine with null values being "
@@ -288,7 +288,7 @@ static_assert(
         ::blink::mojom::ServiceWorkerRouterRulesDataView, UserType>(),
     "Attempting to read the optional `router_rules` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRouterRules` instead "
     "of `ReadRouterRules if you're fine with null values being "
@@ -346,7 +346,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `sha256_checksum` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSha256Checksum` instead "
     "of `ReadSha256Checksum if you're fine with null values being "

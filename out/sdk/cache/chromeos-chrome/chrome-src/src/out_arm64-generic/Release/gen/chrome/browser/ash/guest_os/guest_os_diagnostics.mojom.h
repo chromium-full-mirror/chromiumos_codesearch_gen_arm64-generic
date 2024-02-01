@@ -58,7 +58,7 @@ class  DiagnosticMessage {
   template <typename... Args>
   static DiagnosticMessagePtr New(Args&&... args) {
     return DiagnosticMessagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -202,7 +202,7 @@ class  DiagnosticEntry {
   template <typename... Args>
   static DiagnosticEntryPtr New(Args&&... args) {
     return DiagnosticEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -350,7 +350,7 @@ class  Diagnostics {
   template <typename... Args>
   static DiagnosticsPtr New(Args&&... args) {
     return DiagnosticsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -59,7 +59,7 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM) InterfaceSet {
   template <typename... Args>
   static InterfaceSetPtr New(Args&&... args) {
     return InterfaceSetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -199,7 +199,7 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM) CapabilitySet {
   template <typename... Args>
   static CapabilitySetPtr New(Args&&... args) {
     return CapabilitySetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -339,7 +339,7 @@ class COMPONENT_EXPORT(SERVICE_MANAGER_MOJOM) InterfaceProviderSpec {
   template <typename... Args>
   static InterfaceProviderSpecPtr New(Args&&... args) {
     return InterfaceProviderSpecPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

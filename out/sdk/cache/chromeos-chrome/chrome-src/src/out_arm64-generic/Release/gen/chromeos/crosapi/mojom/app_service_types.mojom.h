@@ -76,7 +76,7 @@ class  ConditionValue {
   template <typename... Args>
   static ConditionValuePtr New(Args&&... args) {
     return ConditionValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -222,7 +222,7 @@ class  CapabilityAccess {
   template <typename... Args>
   static CapabilityAccessPtr New(Args&&... args) {
     return CapabilityAccessPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -379,7 +379,7 @@ class  REMOVED_01 {
   template <typename... Args>
   static REMOVED_01Ptr New(Args&&... args) {
     return REMOVED_01Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -527,7 +527,7 @@ class  InstallAppParams {
   template <typename... Args>
   static InstallAppParamsPtr New(Args&&... args) {
     return InstallAppParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -670,7 +670,7 @@ class  AppInstallResult {
   template <typename... Args>
   static AppInstallResultPtr New(Args&&... args) {
     return AppInstallResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -816,7 +816,7 @@ class  IconUpdateVersion {
   static IconUpdateVersionPtr
   NewRawIconUpdated(
       bool value) {
-    auto result = IconUpdateVersionPtr(absl::in_place);
+    auto result = IconUpdateVersionPtr(std::in_place);
     result->set_raw_icon_updated(std::move(value));
     return result;
   }
@@ -824,7 +824,7 @@ class  IconUpdateVersion {
   static IconUpdateVersionPtr
   NewTimeline(
       int32_t value) {
-    auto result = IconUpdateVersionPtr(absl::in_place);
+    auto result = IconUpdateVersionPtr(std::in_place);
     result->set_timeline(std::move(value));
     return result;
   }
@@ -943,7 +943,7 @@ class  PermissionValue {
   static PermissionValuePtr
   NewBoolValue(
       bool value) {
-    auto result = PermissionValuePtr(absl::in_place);
+    auto result = PermissionValuePtr(std::in_place);
     result->set_bool_value(std::move(value));
     return result;
   }
@@ -951,7 +951,7 @@ class  PermissionValue {
   static PermissionValuePtr
   NewTristateValue(
       TriState value) {
-    auto result = PermissionValuePtr(absl::in_place);
+    auto result = PermissionValuePtr(std::in_place);
     result->set_tristate_value(std::move(value));
     return result;
   }
@@ -1062,7 +1062,7 @@ class  App {
   template <typename... Args>
   static AppPtr New(Args&&... args) {
     return AppPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1586,7 +1586,7 @@ class  IconKey {
   template <typename... Args>
   static IconKeyPtr New(Args&&... args) {
     return IconKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1747,7 +1747,7 @@ class  Condition {
   template <typename... Args>
   static ConditionPtr New(Args&&... args) {
     return ConditionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1892,7 +1892,7 @@ class  IntentFilter {
   template <typename... Args>
   static IntentFilterPtr New(Args&&... args) {
     return IntentFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2041,7 +2041,7 @@ class  IconValue {
   template <typename... Args>
   static IconValuePtr New(Args&&... args) {
     return IconValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2194,7 +2194,7 @@ class  MenuItems {
   template <typename... Args>
   static MenuItemsPtr New(Args&&... args) {
     return MenuItemsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2331,7 +2331,7 @@ class  MenuItem {
   template <typename... Args>
   static MenuItemPtr New(Args&&... args) {
     return MenuItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2476,7 +2476,7 @@ class  IntentFile {
   template <typename... Args>
   static IntentFilePtr New(Args&&... args) {
     return IntentFilePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2622,7 +2622,7 @@ class  Intent {
   template <typename... Args>
   static IntentPtr New(Args&&... args) {
     return IntentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2825,7 +2825,7 @@ class  LaunchResult {
   template <typename... Args>
   static LaunchResultPtr New(Args&&... args) {
     return LaunchResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2978,7 +2978,7 @@ class  LaunchParams {
   template <typename... Args>
   static LaunchParamsPtr New(Args&&... args) {
     return LaunchParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3147,7 +3147,7 @@ class  Permission {
   template <typename... Args>
   static PermissionPtr New(Args&&... args) {
     return PermissionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3295,7 +3295,7 @@ class  PreferredAppChanges {
   template <typename... Args>
   static PreferredAppChangesPtr New(Args&&... args) {
     return PreferredAppChangesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3440,7 +3440,7 @@ class  PreferredApp {
   template <typename... Args>
   static PreferredAppPtr New(Args&&... args) {
     return PreferredAppPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3585,7 +3585,7 @@ class  AppShortcut {
   template <typename... Args>
   static AppShortcutPtr New(Args&&... args) {
     return AppShortcutPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

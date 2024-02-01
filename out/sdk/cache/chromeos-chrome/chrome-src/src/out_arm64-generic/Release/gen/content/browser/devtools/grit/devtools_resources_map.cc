@@ -165,6 +165,7 @@ const webui::ResourcePath kDevtoolsResources[] = {
   {"Images/layers.svg", IMAGES_LAYERS_SVG},
   {"Images/left-panel-close.svg", IMAGES_LEFT_PANEL_CLOSE_SVG},
   {"Images/left-panel-open.svg", IMAGES_LEFT_PANEL_OPEN_SVG},
+  {"Images/lightbulb-spark.svg", IMAGES_LIGHTBULB_SPARK_SVG},
   {"Images/lighthouse_logo.svg", IMAGES_LIGHTHOUSE_LOGO_SVG},
   {"Images/list.svg", IMAGES_LIST_SVG},
   {"Images/match-whole-word.svg", IMAGES_MATCH_WHOLE_WORD_SVG},

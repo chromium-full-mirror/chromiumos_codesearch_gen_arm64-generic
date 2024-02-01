@@ -1896,7 +1896,7 @@ class  EntropySource {
   template <typename... Args>
   static EntropySourcePtr New(Args&&... args) {
     return EntropySourcePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2047,7 +2047,7 @@ class  OpenUrlParams {
   template <typename... Args>
   static OpenUrlParamsPtr New(Args&&... args) {
     return OpenUrlParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2203,7 +2203,7 @@ class  BrowserInfo {
   template <typename... Args>
   static BrowserInfoPtr New(Args&&... args) {
     return BrowserInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2349,7 +2349,7 @@ class  DefaultPaths {
   template <typename... Args>
   static DefaultPathsPtr New(Args&&... args) {
     return DefaultPathsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2564,7 +2564,7 @@ class  DeviceProperties {
   template <typename... Args>
   static DevicePropertiesPtr New(Args&&... args) {
     return DevicePropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2760,7 +2760,7 @@ class  BrowserInitParams {
   template <typename... Args>
   static BrowserInitParamsPtr New(Args&&... args) {
     return BrowserInitParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6087,7 +6087,7 @@ class  BrowserPostLoginParams {
   template <typename... Args>
   static BrowserPostLoginParamsPtr New(Args&&... args) {
     return BrowserPostLoginParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

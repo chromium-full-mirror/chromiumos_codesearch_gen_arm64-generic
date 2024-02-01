@@ -285,7 +285,7 @@ class  WebRtcLoggingMessage {
   template <typename... Args>
   static WebRtcLoggingMessagePtr New(Args&&... args) {
     return WebRtcLoggingMessagePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -418,40 +418,6 @@ async function waitForHistogramEvent(expected, expectedCount = 1) {
             },
         ]);
     });
-    // TODO(crbug/1520446): Flaky timeouts
-    mocha_extensions_js_1.it.skipOnPlatforms(['mac'], '[crbug.com/1520446] Learn More" link is clicked', async () => {
-        const { browser } = (0, helper_js_1.getBrowserAndPages)();
-        await (0, helper_js_1.goToResource)('elements/element-reveal-inline-issue.html');
-        await (0, helper_js_1.click)('.issue');
-        await (0, helper_js_1.waitFor)('.link-list x-link');
-        await (0, helper_js_1.scrollElementIntoView)('.link-list x-link');
-        await (0, helper_js_1.click)('.link-list x-link');
-        try {
-            await assertHistogramEventsInclude([
-                {
-                    actionName: 'DevTools.IssueCreated',
-                    actionCode: 1, // ContentSecurityPolicyIssue
-                },
-                {
-                    actionName: 'DevTools.IssueCreated',
-                    actionCode: 1, // ContentSecurityPolicyIssue
-                },
-                {
-                    actionName: 'DevTools.IssuesPanelIssueExpanded',
-                    actionCode: 4, // ContentSecurityPolicy
-                },
-                {
-                    actionName: 'DevTools.IssuesPanelResourceOpened',
-                    actionCode: 12, // ContentSecurityPolicyLearnMore
-                },
-            ]);
-        }
-        finally {
-            const target = await browser.waitForTarget(target => target.url().includes('web.dev'));
-            const page = await target.page();
-            await page?.close();
-        }
-    });
     (0, mocha_extensions_js_1.it)('dispatches events when Quirks Mode issues are created', async () => {
         await (0, helper_js_1.goToResource)('elements/quirks-mode-iframes.html');
         await (0, helper_js_1.waitFor)('.issue');

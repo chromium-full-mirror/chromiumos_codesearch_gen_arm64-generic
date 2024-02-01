@@ -53,7 +53,7 @@ class  MutableNetworkTrafficAnnotationTag {
   template <typename... Args>
   static MutableNetworkTrafficAnnotationTagPtr New(Args&&... args) {
     return MutableNetworkTrafficAnnotationTagPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

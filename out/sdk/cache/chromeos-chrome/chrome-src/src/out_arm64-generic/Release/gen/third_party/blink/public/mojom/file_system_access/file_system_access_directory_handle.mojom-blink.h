@@ -418,7 +418,7 @@ class PLATFORM_EXPORT FileSystemAccessHandle {
   static FileSystemAccessHandlePtr
   NewFile(
       ::mojo::PendingRemote<::blink::mojom::blink::FileSystemAccessFileHandle> value) {
-    auto result = FileSystemAccessHandlePtr(absl::in_place);
+    auto result = FileSystemAccessHandlePtr(std::in_place);
     result->set_file(std::move(value));
     return result;
   }
@@ -426,7 +426,7 @@ class PLATFORM_EXPORT FileSystemAccessHandle {
   static FileSystemAccessHandlePtr
   NewDirectory(
       ::mojo::PendingRemote<FileSystemAccessDirectoryHandle> value) {
-    auto result = FileSystemAccessHandlePtr(absl::in_place);
+    auto result = FileSystemAccessHandlePtr(std::in_place);
     result->set_directory(std::move(value));
     return result;
   }
@@ -540,7 +540,7 @@ class PLATFORM_EXPORT FileSystemAccessEntry {
   template <typename... Args>
   static FileSystemAccessEntryPtr New(Args&&... args) {
     return FileSystemAccessEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

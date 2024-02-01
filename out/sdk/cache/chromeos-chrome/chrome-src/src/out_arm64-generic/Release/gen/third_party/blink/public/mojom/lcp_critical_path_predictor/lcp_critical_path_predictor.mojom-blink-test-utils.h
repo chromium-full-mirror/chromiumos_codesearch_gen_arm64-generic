@@ -18,6 +18,7 @@ class PLATFORM_EXPORT LCPCriticalPathPredictorHostInterceptorForTesting : public
   virtual LCPCriticalPathPredictorHost* GetForwardingInterface() = 0;
   void SetLcpElementLocator(const std::string& lcp_element_locator, std::optional<uint32_t> predicted_lcp_index) override;
   void SetLcpInfluencerScriptUrls(const WTF::Vector<::blink::KURL>& lcp_influencer_scripts) override;
+  void SetPreconnectOrigins(const WTF::Vector<::blink::KURL>& origins) override;
   void NotifyFetchedFont(const ::blink::KURL& font_url) override;
   void NotifyFetchedSubresource(const ::blink::KURL& subresource_url, ::base::TimeDelta subresource_load_start) override;
 };

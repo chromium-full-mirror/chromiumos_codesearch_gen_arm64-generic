@@ -397,7 +397,7 @@ class BLINK_PLATFORM_EXPORT UDPSocketOptions {
   template <typename... Args>
   static UDPSocketOptionsPtr New(Args&&... args) {
     return UDPSocketOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -66,7 +66,7 @@ class  DisplaySnapshotColorInfo {
   template <typename... Args>
   static DisplaySnapshotColorInfoPtr New(Args&&... args) {
     return DisplaySnapshotColorInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -221,7 +221,7 @@ class  DisplaySnapshot {
   template <typename... Args>
   static DisplaySnapshotPtr New(Args&&... args) {
     return DisplaySnapshotPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

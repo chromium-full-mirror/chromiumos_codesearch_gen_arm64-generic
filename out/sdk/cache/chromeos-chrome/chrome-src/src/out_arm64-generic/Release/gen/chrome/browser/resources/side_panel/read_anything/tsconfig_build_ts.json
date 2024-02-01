@@ -54,8 +54,10 @@
   "files": [
     "preprocessed/app.ts",
     "preprocessed/read_anything_toolbar.ts",
+    "preprocessed/voice_selection_menu.ts",
     "preprocessed/app.html.ts",
     "preprocessed/read_anything_toolbar.html.ts",
+    "preprocessed/voice_selection_menu.html.ts",
     "preprocessed/icons.html.ts",
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/browser/resources/side_panel/read_anything/read_anything.d.ts",
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/pending.d.ts",

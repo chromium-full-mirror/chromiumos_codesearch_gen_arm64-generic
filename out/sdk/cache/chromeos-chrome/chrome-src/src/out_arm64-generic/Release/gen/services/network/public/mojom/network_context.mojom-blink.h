@@ -1908,7 +1908,7 @@ class BLINK_PLATFORM_EXPORT HttpAuthStaticNetworkContextParams {
   template <typename... Args>
   static HttpAuthStaticNetworkContextParamsPtr New(Args&&... args) {
     return HttpAuthStaticNetworkContextParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2060,7 +2060,7 @@ class BLINK_PLATFORM_EXPORT CustomProxyConfig {
   template <typename... Args>
   static CustomProxyConfigPtr New(Args&&... args) {
     return CustomProxyConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2211,7 +2211,7 @@ class BLINK_PLATFORM_EXPORT CertVerifierServiceRemoteParams {
   template <typename... Args>
   static CertVerifierServiceRemoteParamsPtr New(Args&&... args) {
     return CertVerifierServiceRemoteParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2352,7 +2352,7 @@ class BLINK_PLATFORM_EXPORT CTPolicy {
   template <typename... Args>
   static CTPolicyPtr New(Args&&... args) {
     return CTPolicyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2498,7 +2498,7 @@ class BLINK_PLATFORM_EXPORT NetworkContextFilePaths {
   template <typename... Args>
   static NetworkContextFilePathsPtr New(Args&&... args) {
     return NetworkContextFilePathsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2665,7 +2665,7 @@ class BLINK_PLATFORM_EXPORT NetworkContextParams {
   template <typename... Args>
   static NetworkContextParamsPtr New(Args&&... args) {
     return NetworkContextParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2967,7 +2967,7 @@ class BLINK_PLATFORM_EXPORT NetworkConditions {
   template <typename... Args>
   static NetworkConditionsPtr New(Args&&... args) {
     return NetworkConditionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3116,7 +3116,7 @@ class BLINK_PLATFORM_EXPORT SharedDictionaryInfo {
   template <typename... Args>
   static SharedDictionaryInfoPtr New(Args&&... args) {
     return SharedDictionaryInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3276,7 +3276,7 @@ class BLINK_PLATFORM_EXPORT SignedExchangeReport {
   template <typename... Args>
   static SignedExchangeReportPtr New(Args&&... args) {
     return SignedExchangeReportPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3446,7 +3446,7 @@ class BLINK_PLATFORM_EXPORT URLLoaderFactoryOverride {
   template <typename... Args>
   static URLLoaderFactoryOverridePtr New(Args&&... args) {
     return URLLoaderFactoryOverridePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3589,7 +3589,7 @@ class BLINK_PLATFORM_EXPORT URLLoaderFactoryParams {
   template <typename... Args>
   static URLLoaderFactoryParamsPtr New(Args&&... args) {
     return URLLoaderFactoryParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3798,7 +3798,7 @@ class BLINK_PLATFORM_EXPORT BlindSignedAuthToken {
   template <typename... Args>
   static BlindSignedAuthTokenPtr New(Args&&... args) {
     return BlindSignedAuthTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

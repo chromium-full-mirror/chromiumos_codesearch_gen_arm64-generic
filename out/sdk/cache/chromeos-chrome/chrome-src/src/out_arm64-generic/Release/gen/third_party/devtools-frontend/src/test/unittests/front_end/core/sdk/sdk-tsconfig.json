@@ -48,7 +48,6 @@
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/CSSStyleSheetHeader_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/ChildTargetManager_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/ConsoleModel_test.ts",
-    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/ContentData_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/CookieModel_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/CookieParser_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/Cookie_test.ts",
@@ -56,7 +55,6 @@
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/DebuggerModel_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/EmulationModel_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/FrameManager_test.ts",
-    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/MimeType_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/NetworkManager_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/NetworkRequest_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/core/sdk/OverlayColorGenerator_test.ts",
@@ -100,6 +98,9 @@
     },
     {
       "path": "../../../../../front_end/models/persistence/bundle-tsconfig.json"
+    },
+    {
+      "path": "../../../../../front_end/models/text_utils/bundle-tsconfig.json"
     },
     {
       "path": "../../../../../front_end/models/trace/bundle-tsconfig.json"

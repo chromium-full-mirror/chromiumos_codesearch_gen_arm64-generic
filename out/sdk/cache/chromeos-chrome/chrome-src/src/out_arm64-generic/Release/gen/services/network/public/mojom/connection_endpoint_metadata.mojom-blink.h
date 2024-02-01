@@ -58,7 +58,7 @@ class  ConnectionEndpointMetadata {
   template <typename... Args>
   static ConnectionEndpointMetadataPtr New(Args&&... args) {
     return ConnectionEndpointMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -465,7 +465,7 @@ class BLINK_PLATFORM_EXPORT CookieSameSiteContextMetadata {
   template <typename... Args>
   static CookieSameSiteContextMetadataPtr New(Args&&... args) {
     return CookieSameSiteContextMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -615,7 +615,7 @@ class BLINK_PLATFORM_EXPORT CookieInclusionStatus {
   template <typename... Args>
   static CookieInclusionStatusPtr New(Args&&... args) {
     return CookieInclusionStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -774,7 +774,7 @@ class BLINK_PLATFORM_EXPORT CookieOrLine {
   static CookieOrLinePtr
   NewCookie(
       const ::net::CanonicalCookie& value) {
-    auto result = CookieOrLinePtr(absl::in_place);
+    auto result = CookieOrLinePtr(std::in_place);
     result->set_cookie(std::move(value));
     return result;
   }
@@ -782,7 +782,7 @@ class BLINK_PLATFORM_EXPORT CookieOrLine {
   static CookieOrLinePtr
   NewCookieString(
       const WTF::String& value) {
-    auto result = CookieOrLinePtr(absl::in_place);
+    auto result = CookieOrLinePtr(std::in_place);
     result->set_cookie_string(std::move(value));
     return result;
   }
@@ -896,7 +896,7 @@ class BLINK_PLATFORM_EXPORT CookieManagerParams {
   template <typename... Args>
   static CookieManagerParamsPtr New(Args&&... args) {
     return CookieManagerParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1066,7 +1066,7 @@ class BLINK_PLATFORM_EXPORT CookieSameSiteContext {
   template <typename... Args>
   static CookieSameSiteContextPtr New(Args&&... args) {
     return CookieSameSiteContextPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1218,7 +1218,7 @@ class BLINK_PLATFORM_EXPORT CookieOptions {
   template <typename... Args>
   static CookieOptionsPtr New(Args&&... args) {
     return CookieOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1370,7 +1370,7 @@ class BLINK_PLATFORM_EXPORT CanonicalCookie {
   template <typename... Args>
   static CanonicalCookiePtr New(Args&&... args) {
     return CanonicalCookiePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1555,7 +1555,7 @@ class BLINK_PLATFORM_EXPORT CookieAndLineWithAccessResult {
   template <typename... Args>
   static CookieAndLineWithAccessResultPtr New(Args&&... args) {
     return CookieAndLineWithAccessResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1703,7 +1703,7 @@ class BLINK_PLATFORM_EXPORT CookieOrLineWithAccessResult {
   template <typename... Args>
   static CookieOrLineWithAccessResultPtr New(Args&&... args) {
     return CookieOrLineWithAccessResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1848,7 +1848,7 @@ class BLINK_PLATFORM_EXPORT CookieAccessResult {
   template <typename... Args>
   static CookieAccessResultPtr New(Args&&... args) {
     return CookieAccessResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1999,7 +1999,7 @@ class BLINK_PLATFORM_EXPORT CookieWithAccessResult {
   template <typename... Args>
   static CookieWithAccessResultPtr New(Args&&... args) {
     return CookieWithAccessResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2144,7 +2144,7 @@ class BLINK_PLATFORM_EXPORT CookieChangeInfo {
   template <typename... Args>
   static CookieChangeInfoPtr New(Args&&... args) {
     return CookieChangeInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2292,7 +2292,7 @@ class BLINK_PLATFORM_EXPORT CookieDeletionFilter {
   template <typename... Args>
   static CookieDeletionFilterPtr New(Args&&... args) {
     return CookieDeletionFilterPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

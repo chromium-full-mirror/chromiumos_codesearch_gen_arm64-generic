@@ -736,7 +736,7 @@ class  InstallationResult {
   template <typename... Args>
   static InstallationResultPtr New(Args&&... args) {
     return InstallationResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -887,7 +887,7 @@ class  AppStorage {
   template <typename... Args>
   static AppStoragePtr New(Args&&... args) {
     return AppStoragePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1036,7 +1036,7 @@ class  ShortcutInfo {
   template <typename... Args>
   static ShortcutInfoPtr New(Args&&... args) {
     return ShortcutInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1194,7 +1194,7 @@ class  AppInfo {
   template <typename... Args>
   static AppInfoPtr New(Args&&... args) {
     return AppInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1450,7 +1450,7 @@ class  WebAppInfo {
   template <typename... Args>
   static WebAppInfoPtr New(Args&&... args) {
     return WebAppInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1618,7 +1618,7 @@ class  WindowLayout {
   template <typename... Args>
   static WindowLayoutPtr New(Args&&... args) {
     return WindowLayoutPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1764,7 +1764,7 @@ class  PackageLocaleInfo {
   template <typename... Args>
   static PackageLocaleInfoPtr New(Args&&... args) {
     return PackageLocaleInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1907,7 +1907,7 @@ class  ArcPackageInfo {
   template <typename... Args>
   static ArcPackageInfoPtr New(Args&&... args) {
     return ArcPackageInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2207,7 +2207,7 @@ class  RawIconPngData {
   template <typename... Args>
   static RawIconPngDataPtr New(Args&&... args) {
     return RawIconPngDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2356,7 +2356,7 @@ class  WindowInfo {
   template <typename... Args>
   static WindowInfoPtr New(Args&&... args) {
     return WindowInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2505,7 +2505,7 @@ class  AppDiscoveryResult {
   template <typename... Args>
   static AppDiscoveryResultPtr New(Args&&... args) {
     return AppDiscoveryResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2700,7 +2700,7 @@ class  AppShortcutItem {
   template <typename... Args>
   static AppShortcutItemPtr New(Args&&... args) {
     return AppShortcutItemPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

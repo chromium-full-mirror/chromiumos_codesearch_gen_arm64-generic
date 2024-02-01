@@ -278,7 +278,7 @@ class  IceServer {
   template <typename... Args>
   static IceServerPtr New(Args&&... args) {
     return IceServerPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -424,7 +424,7 @@ class  WebRtcDependencies {
   template <typename... Args>
   static WebRtcDependenciesPtr New(Args&&... args) {
     return WebRtcDependenciesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

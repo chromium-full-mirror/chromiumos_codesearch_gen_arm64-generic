@@ -932,7 +932,7 @@ static_assert(
         ::device::mojom::XRDepthConfigDataView, UserType>(),
     "Attempting to read the optional `depth_configuration` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDepthConfiguration` instead "
     "of `ReadDepthConfiguration if you're fine with null values being "
@@ -986,7 +986,7 @@ static_assert(
         ::device::mojom::XRPresentationConnectionDataView, UserType>(),
     "Attempting to read the optional `submit_frame_sink` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSubmitFrameSink` instead "
     "of `ReadSubmitFrameSink if you're fine with null values being "
@@ -1126,7 +1126,7 @@ static_assert(
         ::gfx::mojom::TransformDataView, UserType>(),
     "Attempting to read the optional `input_from_pointer` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInputFromPointer` instead "
     "of `ReadInputFromPointer if you're fine with null values being "
@@ -1182,7 +1182,7 @@ static_assert(
         ::gfx::mojom::TransformDataView, UserType>(),
     "Attempting to read the optional `mojo_from_joint` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMojoFromJoint` instead "
     "of `ReadMojoFromJoint if you're fine with null values being "
@@ -1250,7 +1250,7 @@ static_assert(
         ::device::mojom::XRInputSourceDescriptionDataView, UserType>(),
     "Attempting to read the optional `description` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDescription` instead "
     "of `ReadDescription if you're fine with null values being "
@@ -1270,7 +1270,7 @@ static_assert(
         ::gfx::mojom::TransformDataView, UserType>(),
     "Attempting to read the optional `mojo_from_input` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMojoFromInput` instead "
     "of `ReadMojoFromInput if you're fine with null values being "
@@ -1308,7 +1308,7 @@ static_assert(
         ::device::mojom::GamepadDataView, UserType>(),
     "Attempting to read the optional `gamepad` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadGamepad` instead "
     "of `ReadGamepad if you're fine with null values being "
@@ -1328,7 +1328,7 @@ static_assert(
         ::gfx::mojom::PointFDataView, UserType>(),
     "Attempting to read the optional `overlay_pointer_position` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOverlayPointerPosition` instead "
     "of `ReadOverlayPointerPosition if you're fine with null values being "
@@ -1348,7 +1348,7 @@ static_assert(
         ::device::mojom::XRHandTrackingDataDataView, UserType>(),
     "Attempting to read the optional `hand_tracking_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHandTrackingData` instead "
     "of `ReadHandTrackingData if you're fine with null values being "
@@ -1411,7 +1411,7 @@ static_assert(
         ::gfx::mojom::QuaternionDataView, UserType>(),
     "Attempting to read the optional `orientation` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOrientation` instead "
     "of `ReadOrientation if you're fine with null values being "
@@ -1431,7 +1431,7 @@ static_assert(
         ::gfx::mojom::Point3FDataView, UserType>(),
     "Attempting to read the optional `position` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPosition` instead "
     "of `ReadPosition if you're fine with null values being "
@@ -1640,7 +1640,7 @@ static_assert(
         mojo::ArrayDataView<::gfx::mojom::Point3FDataView>, UserType>(),
     "Attempting to read the optional `bounds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBounds` instead "
     "of `ReadBounds if you're fine with null values being "
@@ -1807,7 +1807,7 @@ static_assert(
         ::device::mojom::PoseDataView, UserType>(),
     "Attempting to read the optional `mojo_from_plane` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMojoFromPlane` instead "
     "of `ReadMojoFromPlane if you're fine with null values being "
@@ -1892,7 +1892,7 @@ static_assert(
         ::device::mojom::PoseDataView, UserType>(),
     "Attempting to read the optional `mojo_from_anchor` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMojoFromAnchor` instead "
     "of `ReadMojoFromAnchor if you're fine with null values being "
@@ -2286,7 +2286,7 @@ static_assert(
         ::device::mojom::XRLightProbeDataView, UserType>(),
     "Attempting to read the optional `light_probe` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLightProbe` instead "
     "of `ReadLightProbe if you're fine with null values being "
@@ -2306,7 +2306,7 @@ static_assert(
         ::device::mojom::XRReflectionProbeDataView, UserType>(),
     "Attempting to read the optional `reflection_probe` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadReflectionProbe` instead "
     "of `ReadReflectionProbe if you're fine with null values being "
@@ -2461,7 +2461,7 @@ static_assert(
         mojo::ArrayDataView<bool>, UserType>(),
     "Attempting to read the optional `image_trackable_scores` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadImageTrackableScores` instead "
     "of `ReadImageTrackableScores if you're fine with null values being "
@@ -2497,7 +2497,7 @@ static_assert(
         ::device::mojom::VRPoseDataView, UserType>(),
     "Attempting to read the optional `mojo_from_viewer` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMojoFromViewer` instead "
     "of `ReadMojoFromViewer if you're fine with null values being "
@@ -2527,7 +2527,7 @@ static_assert(
         ::gpu::mojom::MailboxHolderDataView, UserType>(),
     "Attempting to read the optional `buffer_holder` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBufferHolder` instead "
     "of `ReadBufferHolder if you're fine with null values being "
@@ -2547,7 +2547,7 @@ static_assert(
         ::gpu::mojom::MailboxHolderDataView, UserType>(),
     "Attempting to read the optional `camera_image_buffer_holder` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCameraImageBufferHolder` instead "
     "of `ReadCameraImageBufferHolder if you're fine with null values being "
@@ -2567,7 +2567,7 @@ static_assert(
         ::gfx::mojom::SizeDataView, UserType>(),
     "Attempting to read the optional `camera_image_size` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCameraImageSize` instead "
     "of `ReadCameraImageSize if you're fine with null values being "
@@ -2587,7 +2587,7 @@ static_assert(
         ::device::mojom::XRDepthDataDataView, UserType>(),
     "Attempting to read the optional `depth_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDepthData` instead "
     "of `ReadDepthData if you're fine with null values being "
@@ -2623,7 +2623,7 @@ static_assert(
         mojo::ArrayDataView<::device::mojom::XRInputSourceStateDataView>, UserType>(),
     "Attempting to read the optional `input_state` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadInputState` instead "
     "of `ReadInputState if you're fine with null values being "
@@ -2646,7 +2646,7 @@ static_assert(
         ::device::mojom::VRStageParametersDataView, UserType>(),
     "Attempting to read the optional `stage_parameters` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStageParameters` instead "
     "of `ReadStageParameters if you're fine with null values being "
@@ -2666,7 +2666,7 @@ static_assert(
         ::device::mojom::XRPlaneDetectionDataDataView, UserType>(),
     "Attempting to read the optional `detected_planes_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDetectedPlanesData` instead "
     "of `ReadDetectedPlanesData if you're fine with null values being "
@@ -2686,7 +2686,7 @@ static_assert(
         ::device::mojom::XRAnchorsDataDataView, UserType>(),
     "Attempting to read the optional `anchors_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAnchorsData` instead "
     "of `ReadAnchorsData if you're fine with null values being "
@@ -2706,7 +2706,7 @@ static_assert(
         ::device::mojom::XRLightEstimationDataDataView, UserType>(),
     "Attempting to read the optional `light_estimation_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLightEstimationData` instead "
     "of `ReadLightEstimationData if you're fine with null values being "
@@ -2726,7 +2726,7 @@ static_assert(
         ::device::mojom::XRHitTestSubscriptionResultsDataDataView, UserType>(),
     "Attempting to read the optional `hit_test_subscription_results` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHitTestSubscriptionResults` instead "
     "of `ReadHitTestSubscriptionResults if you're fine with null values being "
@@ -2749,7 +2749,7 @@ static_assert(
         ::device::mojom::XRTrackedImagesDataDataView, UserType>(),
     "Attempting to read the optional `tracked_images` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTrackedImages` instead "
     "of `ReadTrackedImages if you're fine with null values being "

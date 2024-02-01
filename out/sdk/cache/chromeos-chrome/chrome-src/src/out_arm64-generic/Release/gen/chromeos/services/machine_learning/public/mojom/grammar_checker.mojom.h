@@ -166,7 +166,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) GrammarCheckerQuery {
   template <typename... Args>
   static GrammarCheckerQueryPtr New(Args&&... args) {
     return GrammarCheckerQueryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -310,7 +310,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) GrammarCorrectionFragment {
   template <typename... Args>
   static GrammarCorrectionFragmentPtr New(Args&&... args) {
     return GrammarCorrectionFragmentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -463,7 +463,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) GrammarCheckerCandidate {
   template <typename... Args>
   static GrammarCheckerCandidatePtr New(Args&&... args) {
     return GrammarCheckerCandidatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -612,7 +612,7 @@ class COMPONENT_EXPORT(MLSERVICE_MOJOM) GrammarCheckerResult {
   template <typename... Args>
   static GrammarCheckerResultPtr New(Args&&... args) {
     return GrammarCheckerResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

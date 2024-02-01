@@ -376,7 +376,7 @@ class BLINK_COMMON_EXPORT KeyValue {
   template <typename... Args>
   static KeyValuePtr New(Args&&... args) {
     return KeyValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

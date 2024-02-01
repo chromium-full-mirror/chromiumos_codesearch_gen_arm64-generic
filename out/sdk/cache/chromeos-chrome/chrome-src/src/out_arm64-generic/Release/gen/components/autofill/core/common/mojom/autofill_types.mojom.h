@@ -61,7 +61,7 @@ class  FormRendererId {
   template <typename... Args>
   static FormRendererIdPtr New(Args&&... args) {
     return FormRendererIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -201,7 +201,7 @@ class  FieldRendererId {
   template <typename... Args>
   static FieldRendererIdPtr New(Args&&... args) {
     return FieldRendererIdPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -342,7 +342,7 @@ class  SectionAutocomplete {
   template <typename... Args>
   static SectionAutocompletePtr New(Args&&... args) {
     return SectionAutocompletePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -488,7 +488,7 @@ class  AutocompleteParsingResult {
   template <typename... Args>
   static AutocompleteParsingResultPtr New(Args&&... args) {
     return AutocompleteParsingResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -657,7 +657,7 @@ class  SectionValue {
   static SectionValuePtr
   NewDefaultSection(
       bool value) {
-    auto result = SectionValuePtr(absl::in_place);
+    auto result = SectionValuePtr(std::in_place);
     result->set_default_section(std::move(value));
     return result;
   }
@@ -665,7 +665,7 @@ class  SectionValue {
   static SectionValuePtr
   NewAutocomplete(
       SectionAutocompletePtr value) {
-    auto result = SectionValuePtr(absl::in_place);
+    auto result = SectionValuePtr(std::in_place);
     result->set_autocomplete(std::move(value));
     return result;
   }
@@ -673,7 +673,7 @@ class  SectionValue {
   static SectionValuePtr
   NewFieldIdentifier(
       SectionFieldIdentifierPtr value) {
-    auto result = SectionValuePtr(absl::in_place);
+    auto result = SectionValuePtr(std::in_place);
     result->set_field_identifier(std::move(value));
     return result;
   }
@@ -800,7 +800,7 @@ class  FrameToken {
   template <typename... Args>
   static FrameTokenPtr New(Args&&... args) {
     return FrameTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -943,7 +943,7 @@ class  FrameTokenWithPredecessor {
   template <typename... Args>
   static FrameTokenWithPredecessorPtr New(Args&&... args) {
     return FrameTokenWithPredecessorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1090,7 +1090,7 @@ class  SelectOption {
   template <typename... Args>
   static SelectOptionPtr New(Args&&... args) {
     return SelectOptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1234,7 +1234,7 @@ class  SectionFieldIdentifier {
   template <typename... Args>
   static SectionFieldIdentifierPtr New(Args&&... args) {
     return SectionFieldIdentifierPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1380,7 +1380,7 @@ class  Section {
   template <typename... Args>
   static SectionPtr New(Args&&... args) {
     return SectionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1526,7 +1526,7 @@ class  FormFieldData {
   template <typename... Args>
   static FormFieldDataPtr New(Args&&... args) {
     return FormFieldDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1556,7 +1556,7 @@ class  FormFieldData {
       const ::std::u16string& css_classes,
       const ::std::u16string& aria_label,
       const ::std::u16string& aria_description,
-      ::autofill::FieldRendererId unique_renderer_id,
+      ::autofill::FieldRendererId renderer_id,
       ::autofill::FormRendererId host_form_id,
       uint32_t properties_mask,
       int32_t form_control_ax_id,
@@ -1683,7 +1683,7 @@ FormFieldData& operator=(const FormFieldData&) = delete;
   
   ::std::u16string aria_description;
   
-  ::autofill::FieldRendererId unique_renderer_id;
+  ::autofill::FieldRendererId renderer_id;
   
   ::autofill::FormRendererId host_form_id;
   
@@ -1770,7 +1770,7 @@ class  FormFieldData_FillData {
   template <typename... Args>
   static FormFieldData_FillDataPtr New(Args&&... args) {
     return FormFieldData_FillDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1788,7 +1788,7 @@ class  FormFieldData_FillData {
 
   FormFieldData_FillData(
       const ::std::u16string& value,
-      ::autofill::FieldRendererId unique_renderer_id,
+      ::autofill::FieldRendererId renderer_id,
       bool is_autofilled,
       const ::autofill::Section& section,
       bool force_override);
@@ -1871,7 +1871,7 @@ class  FormFieldData_FillData {
   
   ::std::u16string value;
   
-  ::autofill::FieldRendererId unique_renderer_id;
+  ::autofill::FieldRendererId renderer_id;
   
   bool is_autofilled;
   
@@ -1922,7 +1922,7 @@ class  ButtonTitleInfo {
   template <typename... Args>
   static ButtonTitleInfoPtr New(Args&&... args) {
     return ButtonTitleInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2065,7 +2065,7 @@ class  FormData {
   template <typename... Args>
   static FormDataPtr New(Args&&... args) {
     return FormDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2089,7 +2089,7 @@ class  FormData {
       const ::GURL& action,
       bool is_action_empty,
       bool is_form_tag,
-      ::autofill::FormRendererId unique_renderer_id,
+      ::autofill::FormRendererId renderer_id,
       std::vector<FrameTokenWithPredecessorPtr> child_frames,
       SubmissionIndicatorEvent submission_event,
       std::vector<::autofill::FormFieldData> fields,
@@ -2188,7 +2188,7 @@ FormData& operator=(const FormData&) = delete;
   
   bool is_form_tag;
   
-  ::autofill::FormRendererId unique_renderer_id;
+  ::autofill::FormRendererId renderer_id;
   
   std::vector<FrameTokenWithPredecessorPtr> child_frames;
   
@@ -2243,7 +2243,7 @@ class  FormData_FillData {
   template <typename... Args>
   static FormData_FillDataPtr New(Args&&... args) {
     return FormData_FillDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2260,7 +2260,7 @@ class  FormData_FillData {
   FormData_FillData();
 
   FormData_FillData(
-      ::autofill::FormRendererId unique_renderer_id,
+      ::autofill::FormRendererId renderer_id,
       std::vector<::autofill::FormFieldData::FillData> fields);
 
 
@@ -2339,7 +2339,7 @@ class  FormData_FillData {
   }
 
   
-  ::autofill::FormRendererId unique_renderer_id;
+  ::autofill::FormRendererId renderer_id;
   
   std::vector<::autofill::FormFieldData::FillData> fields;
 
@@ -2386,7 +2386,7 @@ class  FormFieldDataPredictions {
   template <typename... Args>
   static FormFieldDataPredictionsPtr New(Args&&... args) {
     return FormFieldDataPredictionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2559,7 +2559,7 @@ class  FormDataPredictions {
   template <typename... Args>
   static FormDataPredictionsPtr New(Args&&... args) {
     return FormDataPredictionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2708,7 +2708,7 @@ class  PasswordAndMetadata {
   template <typename... Args>
   static PasswordAndMetadataPtr New(Args&&... args) {
     return PasswordAndMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2857,7 +2857,7 @@ class  PasswordFormFillData {
   template <typename... Args>
   static PasswordFormFillDataPtr New(Args&&... args) {
     return PasswordFormFillDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3018,7 +3018,7 @@ class  PasswordFormGenerationData {
   template <typename... Args>
   static PasswordFormGenerationDataPtr New(Args&&... args) {
     return PasswordFormGenerationDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3161,7 +3161,7 @@ class  PasswordGenerationUIData {
   template <typename... Args>
   static PasswordGenerationUIDataPtr New(Args&&... args) {
     return PasswordGenerationUIDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3322,7 +3322,7 @@ class  ParsingResult {
   template <typename... Args>
   static ParsingResultPtr New(Args&&... args) {
     return ParsingResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3761,7 +3761,7 @@ FormFieldDataPtr FormFieldData::Clone() const {
       mojo::Clone(css_classes),
       mojo::Clone(aria_label),
       mojo::Clone(aria_description),
-      mojo::Clone(unique_renderer_id),
+      mojo::Clone(renderer_id),
       mojo::Clone(host_form_id),
       mojo::Clone(properties_mask),
       mojo::Clone(form_control_ax_id),
@@ -3814,7 +3814,7 @@ bool FormFieldData::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->aria_description, other_struct.aria_description))
     return false;
-  if (!mojo::Equals(this->unique_renderer_id, other_struct.unique_renderer_id))
+  if (!mojo::Equals(this->renderer_id, other_struct.renderer_id))
     return false;
   if (!mojo::Equals(this->host_form_id, other_struct.host_form_id))
     return false;
@@ -3915,9 +3915,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.aria_description < lhs.aria_description)
     return false;
-  if (lhs.unique_renderer_id < rhs.unique_renderer_id)
+  if (lhs.renderer_id < rhs.renderer_id)
     return true;
-  if (rhs.unique_renderer_id < lhs.unique_renderer_id)
+  if (rhs.renderer_id < lhs.renderer_id)
     return false;
   if (lhs.host_form_id < rhs.host_form_id)
     return true;
@@ -4009,7 +4009,7 @@ template <typename StructPtrType>
 FormFieldData_FillDataPtr FormFieldData_FillData::Clone() const {
   return New(
       mojo::Clone(value),
-      mojo::Clone(unique_renderer_id),
+      mojo::Clone(renderer_id),
       mojo::Clone(is_autofilled),
       mojo::Clone(section),
       mojo::Clone(force_override)
@@ -4020,7 +4020,7 @@ template <typename T, FormFieldData_FillData::EnableIfSame<T>*>
 bool FormFieldData_FillData::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->value, other_struct.value))
     return false;
-  if (!mojo::Equals(this->unique_renderer_id, other_struct.unique_renderer_id))
+  if (!mojo::Equals(this->renderer_id, other_struct.renderer_id))
     return false;
   if (!mojo::Equals(this->is_autofilled, other_struct.is_autofilled))
     return false;
@@ -4037,9 +4037,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.value < lhs.value)
     return false;
-  if (lhs.unique_renderer_id < rhs.unique_renderer_id)
+  if (lhs.renderer_id < rhs.renderer_id)
     return true;
-  if (rhs.unique_renderer_id < lhs.unique_renderer_id)
+  if (rhs.renderer_id < lhs.renderer_id)
     return false;
   if (lhs.is_autofilled < rhs.is_autofilled)
     return true;
@@ -4094,7 +4094,7 @@ FormDataPtr FormData::Clone() const {
       mojo::Clone(action),
       mojo::Clone(is_action_empty),
       mojo::Clone(is_form_tag),
-      mojo::Clone(unique_renderer_id),
+      mojo::Clone(renderer_id),
       mojo::Clone(child_frames),
       mojo::Clone(submission_event),
       mojo::Clone(fields),
@@ -4119,7 +4119,7 @@ bool FormData::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->is_form_tag, other_struct.is_form_tag))
     return false;
-  if (!mojo::Equals(this->unique_renderer_id, other_struct.unique_renderer_id))
+  if (!mojo::Equals(this->renderer_id, other_struct.renderer_id))
     return false;
   if (!mojo::Equals(this->child_frames, other_struct.child_frames))
     return false;
@@ -4164,9 +4164,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.is_form_tag < lhs.is_form_tag)
     return false;
-  if (lhs.unique_renderer_id < rhs.unique_renderer_id)
+  if (lhs.renderer_id < rhs.renderer_id)
     return true;
-  if (rhs.unique_renderer_id < lhs.unique_renderer_id)
+  if (rhs.renderer_id < lhs.renderer_id)
     return false;
   if (lhs.child_frames < rhs.child_frames)
     return true;
@@ -4193,14 +4193,14 @@ bool operator<(const T& lhs, const T& rhs) {
 template <typename StructPtrType>
 FormData_FillDataPtr FormData_FillData::Clone() const {
   return New(
-      mojo::Clone(unique_renderer_id),
+      mojo::Clone(renderer_id),
       mojo::Clone(fields)
   );
 }
 
 template <typename T, FormData_FillData::EnableIfSame<T>*>
 bool FormData_FillData::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->unique_renderer_id, other_struct.unique_renderer_id))
+  if (!mojo::Equals(this->renderer_id, other_struct.renderer_id))
     return false;
   if (!mojo::Equals(this->fields, other_struct.fields))
     return false;
@@ -4209,9 +4209,9 @@ bool FormData_FillData::Equals(const T& other_struct) const {
 
 template <typename T, FormData_FillData::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.unique_renderer_id < rhs.unique_renderer_id)
+  if (lhs.renderer_id < rhs.renderer_id)
     return true;
-  if (rhs.unique_renderer_id < lhs.unique_renderer_id)
+  if (rhs.renderer_id < lhs.renderer_id)
     return false;
   if (lhs.fields < rhs.fields)
     return true;
@@ -4871,9 +4871,9 @@ struct  StructTraits<::autofill::mojom::FormFieldData::DataView,
     return input->aria_description;
   }
 
-  static const decltype(::autofill::mojom::FormFieldData::unique_renderer_id)& unique_renderer_id(
+  static const decltype(::autofill::mojom::FormFieldData::renderer_id)& renderer_id(
       const ::autofill::mojom::FormFieldDataPtr& input) {
-    return input->unique_renderer_id;
+    return input->renderer_id;
   }
 
   static const decltype(::autofill::mojom::FormFieldData::host_form_id)& host_form_id(
@@ -4996,9 +4996,9 @@ struct  StructTraits<::autofill::mojom::FormFieldData_FillData::DataView,
     return input->value;
   }
 
-  static const decltype(::autofill::mojom::FormFieldData_FillData::unique_renderer_id)& unique_renderer_id(
+  static const decltype(::autofill::mojom::FormFieldData_FillData::renderer_id)& renderer_id(
       const ::autofill::mojom::FormFieldData_FillDataPtr& input) {
-    return input->unique_renderer_id;
+    return input->renderer_id;
   }
 
   static decltype(::autofill::mojom::FormFieldData_FillData::is_autofilled) is_autofilled(
@@ -5081,9 +5081,9 @@ struct  StructTraits<::autofill::mojom::FormData::DataView,
     return input->is_form_tag;
   }
 
-  static const decltype(::autofill::mojom::FormData::unique_renderer_id)& unique_renderer_id(
+  static const decltype(::autofill::mojom::FormData::renderer_id)& renderer_id(
       const ::autofill::mojom::FormDataPtr& input) {
-    return input->unique_renderer_id;
+    return input->renderer_id;
   }
 
   static const decltype(::autofill::mojom::FormData::child_frames)& child_frames(
@@ -5121,9 +5121,9 @@ struct  StructTraits<::autofill::mojom::FormData_FillData::DataView,
   static bool IsNull(const ::autofill::mojom::FormData_FillDataPtr& input) { return !input; }
   static void SetToNull(::autofill::mojom::FormData_FillDataPtr* output) { output->reset(); }
 
-  static const decltype(::autofill::mojom::FormData_FillData::unique_renderer_id)& unique_renderer_id(
+  static const decltype(::autofill::mojom::FormData_FillData::renderer_id)& renderer_id(
       const ::autofill::mojom::FormData_FillDataPtr& input) {
-    return input->unique_renderer_id;
+    return input->renderer_id;
   }
 
   static const decltype(::autofill::mojom::FormData_FillData::fields)& fields(

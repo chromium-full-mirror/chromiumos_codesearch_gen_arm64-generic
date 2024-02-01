@@ -551,7 +551,7 @@ class  LinkOpenMetadata {
   template <typename... Args>
   static LinkOpenMetadataPtr New(Args&&... args) {
     return LinkOpenMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -695,7 +695,7 @@ class  VisualSearchResult {
   template <typename... Args>
   static VisualSearchResultPtr New(Args&&... args) {
     return VisualSearchResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -841,7 +841,7 @@ class  ImageQuery {
   template <typename... Args>
   static ImageQueryPtr New(Args&&... args) {
     return ImageQueryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

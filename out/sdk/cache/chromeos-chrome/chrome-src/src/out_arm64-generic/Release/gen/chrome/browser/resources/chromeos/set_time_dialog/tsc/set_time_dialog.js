@@ -10,13 +10,13 @@
  * update them as the system time or timezone changes, and notifies Chrome
  * when the user changes the time or timezone.
  */
-import 'chrome://resources/cr_elements/chromeos/cros_color_overrides.css.js';
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
-import 'chrome://resources/cr_elements/cr_page_host_style.css.js';
-import 'chrome://resources/cr_elements/md_select.css.js';
-import 'chrome://resources/cr_elements/cr_shared_style.css.js';
-import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
+import 'chrome://resources/ash/common/cr_elements/cros_color_overrides.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_page_host_style.css.js';
+import 'chrome://resources/ash/common/cr_elements/md_select.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_style.css.js';
+import { WebUiListenerMixin } from 'chrome://resources/ash/common/cr_elements/web_ui_listener_mixin.js';
 import { assert, assertInstanceof } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';

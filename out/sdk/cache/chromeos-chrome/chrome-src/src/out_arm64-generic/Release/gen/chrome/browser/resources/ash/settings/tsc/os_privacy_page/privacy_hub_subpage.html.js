@@ -13,7 +13,7 @@ export function getTemplate() {
         </div>
       </template>
       <template is="dom-if" if="[[!isCameraListEmpty_]]" restamp>
-        <template id="cameraList" is="dom-repeat" items="[[camerasConnected_]]">
+        <template id="cameraList" is="dom-repeat" items="[[connectedCameraNames_]]">
           <div class="list-item">
             [[item]]
           </div>
@@ -51,7 +51,7 @@ export function getTemplate() {
         </div>
       </template>
       <template is="dom-if" if="[[!isMicListEmpty_]]" restamp>
-        <template id="micList" is="dom-repeat" items="[[microphonesConnected_]]">
+        <template id="micList" is="dom-repeat" items="[[connectedMicrophoneNames_]]">
           <div class="list-item">
             [[item]]
           </div>

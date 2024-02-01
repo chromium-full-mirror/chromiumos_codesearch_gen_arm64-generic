@@ -2373,7 +2373,7 @@ static_assert(
         ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `length_seconds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLengthSeconds` instead "
     "of `ReadLengthSeconds if you're fine with null values being "
@@ -2517,7 +2517,7 @@ static_assert(
         ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `percentage_used_threshold` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPercentageUsedThreshold` instead "
     "of `ReadPercentageUsedThreshold if you're fine with null values being "
@@ -2590,7 +2590,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `expected_power_type` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadExpectedPowerType` instead "
     "of `ReadExpectedPowerType if you're fine with null values being "
@@ -2652,7 +2652,7 @@ static_assert(
         ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `length_seconds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLengthSeconds` instead "
     "of `ReadLengthSeconds if you're fine with null values being "
@@ -2714,7 +2714,7 @@ static_assert(
         ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `length_seconds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLengthSeconds` instead "
     "of `ReadLengthSeconds if you're fine with null values being "
@@ -2776,7 +2776,7 @@ static_assert(
         ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `length_seconds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLengthSeconds` instead "
     "of `ReadLengthSeconds if you're fine with null values being "
@@ -2882,7 +2882,7 @@ static_assert(
         ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `wear_level_threshold` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWearLevelThreshold` instead "
     "of `ReadWearLevelThreshold if you're fine with null values being "
@@ -3052,7 +3052,7 @@ static_assert(
         ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `length_seconds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLengthSeconds` instead "
     "of `ReadLengthSeconds if you're fine with null values being "
@@ -3199,12 +3199,12 @@ class CrosHealthdDiagnosticsService_RunMemoryRoutine_ParamsDataView {
   bool is_null() const { return !data_; }
   std::optional<uint32_t> max_testing_mem_kib() const {
     if (data_->header_.version < 10) {
-      return absl::nullopt;
+      return std::nullopt;
     }
 
     return data_->max_testing_mem_kib_$flag
-        ? absl::make_optional(data_->max_testing_mem_kib_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->max_testing_mem_kib_$value)
+        : std::nullopt;
   }
  private:
   internal::CrosHealthdDiagnosticsService_RunMemoryRoutine_Params_Data* data_ = nullptr;
@@ -3709,7 +3709,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `stun_server_hostname` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadStunServerHostname` instead "
     "of `ReadStunServerHostname if you're fine with null values being "
@@ -4355,7 +4355,7 @@ static_assert(
         ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `length_seconds` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLengthSeconds` instead "
     "of `ReadLengthSeconds if you're fine with null values being "
@@ -4993,7 +4993,7 @@ static_assert(
         mojo::ArrayDataView<uint32_t>, UserType>(),
     "Attempting to read the optional `process_ids` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadProcessIds` instead "
     "of `ReadProcessIds if you're fine with null values being "

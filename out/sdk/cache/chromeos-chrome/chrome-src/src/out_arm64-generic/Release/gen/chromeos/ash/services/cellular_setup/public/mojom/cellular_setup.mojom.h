@@ -388,7 +388,7 @@ class  CellularMetadata {
   template <typename... Args>
   static CellularMetadataPtr New(Args&&... args) {
     return CellularMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

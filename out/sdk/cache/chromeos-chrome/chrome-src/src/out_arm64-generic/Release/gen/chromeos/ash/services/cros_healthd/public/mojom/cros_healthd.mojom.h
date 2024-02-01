@@ -1430,7 +1430,7 @@ class  ServiceStatus {
   template <typename... Args>
   static ServiceStatusPtr New(Args&&... args) {
     return ServiceStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

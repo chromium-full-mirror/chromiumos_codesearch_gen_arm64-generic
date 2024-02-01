@@ -52,7 +52,15 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'preloadUrlLoaderClientReceiver', 16,
+        'resultingClientId', 16,
+        0,
+        mojo.internal.String,
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
+      mojo.internal.StructField(
+        'preloadUrlLoaderClientReceiver', 24,
         0,
         mojo.internal.InterfaceRequest(network.mojom.URLLoaderClientPendingReceiver),
         null,
@@ -60,7 +68,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'isOfflineCapabilityCheck', 20,
+        'isOfflineCapabilityCheck', 28,
         0,
         mojo.internal.Bool,
         false,
@@ -68,7 +76,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'raceNetworkRequestLoaderFactory', 24,
+        'raceNetworkRequestLoaderFactory', 32,
         0,
         mojo.internal.InterfaceProxy(network.mojom.URLLoaderFactoryRemote),
         null,
@@ -76,7 +84,7 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
     ],
-    [[0, 40],]);
+    [[0, 48],]);
 
 
 
@@ -89,6 +97,8 @@ blink.mojom.DispatchFetchEventParams = class {
     this.request;
     /** @export { !string } */
     this.clientId;
+    /** @export { !string } */
+    this.resultingClientId;
     /** @export { (network.mojom.URLLoaderClientPendingReceiver|undefined) } */
     this.preloadUrlLoaderClientReceiver;
     /** @export { !boolean } */

@@ -59,7 +59,7 @@ class  Values {
   template <typename... Args>
   static ValuesPtr New(Args&&... args) {
     return ValuesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -222,7 +222,7 @@ class  Property {
   template <typename... Args>
   static PropertyPtr New(Args&&... args) {
     return PropertyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -367,7 +367,7 @@ class  Entity {
   template <typename... Args>
   static EntityPtr New(Args&&... args) {
     return EntityPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

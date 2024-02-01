@@ -146,7 +146,7 @@ static_assert(
         ::blink::mojom::AdCurrencyDataView, UserType>(),
     "Attempting to read the optional `bid_currency` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBidCurrency` instead "
     "of `ReadBidCurrency if you're fine with null values being "
@@ -217,7 +217,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `code_ready_latency` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCodeReadyLatency` instead "
     "of `ReadCodeReadyLatency if you're fine with null values being "
@@ -237,7 +237,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `direct_from_seller_signals_latency` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDirectFromSellerSignalsLatency` instead "
     "of `ReadDirectFromSellerSignalsLatency if you're fine with null values being "
@@ -257,7 +257,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `trusted_scoring_signals_latency` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTrustedScoringSignalsLatency` instead "
     "of `ReadTrustedScoringSignalsLatency if you're fine with null values being "

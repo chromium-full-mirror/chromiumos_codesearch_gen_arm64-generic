@@ -368,7 +368,7 @@ class PLATFORM_EXPORT MediaDeviceInfo {
   template <typename... Args>
   static MediaDeviceInfoPtr New(Args&&... args) {
     return MediaDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -523,7 +523,7 @@ class PLATFORM_EXPORT VideoInputDeviceCapabilities {
   template <typename... Args>
   static VideoInputDeviceCapabilitiesPtr New(Args&&... args) {
     return VideoInputDeviceCapabilitiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -678,7 +678,7 @@ class PLATFORM_EXPORT AudioInputDeviceCapabilities {
   template <typename... Args>
   static AudioInputDeviceCapabilitiesPtr New(Args&&... args) {
     return AudioInputDeviceCapabilitiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

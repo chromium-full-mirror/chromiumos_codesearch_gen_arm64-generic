@@ -11017,15 +11017,17 @@ bool CertProvBackendError_Error_IsValid(int value) {
     case 11:
     case 12:
     case 13:
+    case 14:
       return true;
     default:
       return false;
   }
 }
 static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
-    CertProvBackendError_Error_strings[14] = {};
+    CertProvBackendError_Error_strings[15] = {};
 
 static const char CertProvBackendError_Error_names[] = {
+    "BAD_ADAPTER_CERTIFICATE_RECEIVED"
     "BAD_PUBLIC_KEY"
     "CA_CONNECTION_NOT_FOUND"
     "CA_FAILURE"
@@ -11044,48 +11046,50 @@ static const char CertProvBackendError_Error_names[] = {
 
 static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry CertProvBackendError_Error_entries[] =
     {
-        {{&CertProvBackendError_Error_names[0], 14}, 5},
-        {{&CertProvBackendError_Error_names[14], 23}, 12},
-        {{&CertProvBackendError_Error_names[37], 10}, 9},
-        {{&CertProvBackendError_Error_names[47], 14}, 8},
-        {{&CertProvBackendError_Error_names[61], 18}, 4},
-        {{&CertProvBackendError_Error_names[79], 17}, 0},
-        {{&CertProvBackendError_Error_names[96], 27}, 3},
-        {{&CertProvBackendError_Error_names[123], 17}, 2},
-        {{&CertProvBackendError_Error_names[140], 29}, 7},
-        {{&CertProvBackendError_Error_names[169], 17}, 1},
-        {{&CertProvBackendError_Error_names[186], 17}, 6},
-        {{&CertProvBackendError_Error_names[203], 17}, 10},
-        {{&CertProvBackendError_Error_names[220], 22}, 13},
-        {{&CertProvBackendError_Error_names[242], 28}, 11},
+        {{&CertProvBackendError_Error_names[0], 32}, 14},
+        {{&CertProvBackendError_Error_names[32], 14}, 5},
+        {{&CertProvBackendError_Error_names[46], 23}, 12},
+        {{&CertProvBackendError_Error_names[69], 10}, 9},
+        {{&CertProvBackendError_Error_names[79], 14}, 8},
+        {{&CertProvBackendError_Error_names[93], 18}, 4},
+        {{&CertProvBackendError_Error_names[111], 17}, 0},
+        {{&CertProvBackendError_Error_names[128], 27}, 3},
+        {{&CertProvBackendError_Error_names[155], 17}, 2},
+        {{&CertProvBackendError_Error_names[172], 29}, 7},
+        {{&CertProvBackendError_Error_names[201], 17}, 1},
+        {{&CertProvBackendError_Error_names[218], 17}, 6},
+        {{&CertProvBackendError_Error_names[235], 17}, 10},
+        {{&CertProvBackendError_Error_names[252], 22}, 13},
+        {{&CertProvBackendError_Error_names[274], 28}, 11},
 };
 
 static const int CertProvBackendError_Error_entries_by_number[] = {
-    5,  // 0 -> ERROR_UNSPECIFIED
-    9,  // 1 -> INVALID_OPERATION
-    7,  // 2 -> INCONSISTENT_DATA
-    6,  // 3 -> IDENTITY_VERIFICATION_ERROR
-    4,  // 4 -> CPP_ALREADY_EXISTS
-    0,  // 5 -> BAD_PUBLIC_KEY
-    10,  // 6 -> INVALID_SIGNATURE
-    8,  // 7 -> INSTRUCTION_NOT_YET_AVAILABLE
-    3,  // 8 -> CA_UNAVAILABLE
-    2,  // 9 -> CA_FAILURE
-    11,  // 10 -> PROFILE_NOT_FOUND
-    13,  // 11 -> USER_PRIMARY_EMAIL_NOT_FOUND
-    1,  // 12 -> CA_CONNECTION_NOT_FOUND
-    12,  // 13 -> PUBSUB_TOPIC_NOT_FOUND
+    6,  // 0 -> ERROR_UNSPECIFIED
+    10,  // 1 -> INVALID_OPERATION
+    8,  // 2 -> INCONSISTENT_DATA
+    7,  // 3 -> IDENTITY_VERIFICATION_ERROR
+    5,  // 4 -> CPP_ALREADY_EXISTS
+    1,  // 5 -> BAD_PUBLIC_KEY
+    11,  // 6 -> INVALID_SIGNATURE
+    9,  // 7 -> INSTRUCTION_NOT_YET_AVAILABLE
+    4,  // 8 -> CA_UNAVAILABLE
+    3,  // 9 -> CA_FAILURE
+    12,  // 10 -> PROFILE_NOT_FOUND
+    14,  // 11 -> USER_PRIMARY_EMAIL_NOT_FOUND
+    2,  // 12 -> CA_CONNECTION_NOT_FOUND
+    13,  // 13 -> PUBSUB_TOPIC_NOT_FOUND
+    0,  // 14 -> BAD_ADAPTER_CERTIFICATE_RECEIVED
 };
 
 const std::string& CertProvBackendError_Error_Name(CertProvBackendError_Error value) {
   static const bool kDummy =
       ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
           CertProvBackendError_Error_entries, CertProvBackendError_Error_entries_by_number,
-          14, CertProvBackendError_Error_strings);
+          15, CertProvBackendError_Error_strings);
   (void)kDummy;
 
   int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
-      CertProvBackendError_Error_entries, CertProvBackendError_Error_entries_by_number, 14,
+      CertProvBackendError_Error_entries, CertProvBackendError_Error_entries_by_number, 15,
       value);
   return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString()
                    : CertProvBackendError_Error_strings[idx].get();
@@ -11094,7 +11098,7 @@ const std::string& CertProvBackendError_Error_Name(CertProvBackendError_Error va
 bool CertProvBackendError_Error_Parse(absl::string_view name, CertProvBackendError_Error* value) {
   int int_value;
   bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
-      CertProvBackendError_Error_entries, 14, name, &int_value);
+      CertProvBackendError_Error_entries, 15, name, &int_value);
   if (success) {
     *value = static_cast<CertProvBackendError_Error>(int_value);
   }
@@ -11117,6 +11121,7 @@ constexpr CertProvBackendError_Error CertProvBackendError::PROFILE_NOT_FOUND;
 constexpr CertProvBackendError_Error CertProvBackendError::USER_PRIMARY_EMAIL_NOT_FOUND;
 constexpr CertProvBackendError_Error CertProvBackendError::CA_CONNECTION_NOT_FOUND;
 constexpr CertProvBackendError_Error CertProvBackendError::PUBSUB_TOPIC_NOT_FOUND;
+constexpr CertProvBackendError_Error CertProvBackendError::BAD_ADAPTER_CERTIFICATE_RECEIVED;
 constexpr CertProvBackendError_Error CertProvBackendError::Error_MIN;
 constexpr CertProvBackendError_Error CertProvBackendError::Error_MAX;
 constexpr int CertProvBackendError::Error_ARRAYSIZE;

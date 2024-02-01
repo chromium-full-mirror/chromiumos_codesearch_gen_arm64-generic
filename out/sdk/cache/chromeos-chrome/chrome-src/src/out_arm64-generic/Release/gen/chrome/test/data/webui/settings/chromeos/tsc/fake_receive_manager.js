@@ -5,15 +5,19 @@
  * @fileoverview Fake implementation of ReceiveManagerInterface for testing.
  */
 import { nearbyShareMojom } from 'chrome://os-settings/os_settings.js';
-import { UnguessableToken } from 'chrome://resources/mojo/mojo/public/mojom/base/unguessable_token.mojom-webui.js';
 import { TestBrowserProxy } from 'chrome://webui-test/test_browser_proxy.js';
-const { ReceiveManagerInterface, ReceiveObserverInterface, ReceiveObserverRemote, RegisterReceiveSurfaceResult, TransferStatus, } = nearbyShareMojom;
+const { RegisterReceiveSurfaceResult, TransferStatus, } = nearbyShareMojom;
 /**
  * Fake implementation of ReceiveManagerInterface
- *
- * @implements {ReceiveManagerInterface}
  */
 export class FakeReceiveManager extends TestBrowserProxy {
+    inHighVisibility_ = false;
+    nextResult_ = true;
+    observer_ = null;
+    // Make this look like a closable mojo pipe
+    $ = {
+        close() { },
+    };
     constructor() {
         super([
             'addReceiveObserver',
@@ -24,59 +28,40 @@ export class FakeReceiveManager extends TestBrowserProxy {
             'reject',
             'recordFastInitiationNotificationUsage',
         ]);
-        /** @private {!ReceiveObserverInterface} */
-        this.observer_;
-        /** @private {!boolean} */
-        this.inHighVisibility_ = false;
-        /** @private {?UnguessableToken} */
-        this.lastToken_ = null;
-        /** @private {!boolean} */
-        this.nextResult_ = true;
-        // Make this look like a closable mojo pipe
-        /** @private {Object} */
-        this.$ = {
-            close() { },
-        };
     }
-    simulateShareTargetArrival(name, connectionToken, payloadDescription = '', payloadType = 0) {
+    simulateShareTargetArrival(name, connectionToken, _payloadDescription = '', _payloadType = 0) {
         const target = {
-            id: { low: 1, high: 2 },
-            name: name,
+            id: {
+                low: BigInt(1),
+                high: BigInt(2),
+            },
+            name,
             type: 1,
             payloadPreview: {
                 description: '',
                 fileCount: 0,
                 shareType: 0,
             },
+            forSelfShare: false,
         };
         const metadata = {
-            'status': TransferStatus.kAwaitingLocalConfirmation,
+            status: TransferStatus.kAwaitingLocalConfirmation,
             progress: 0.0,
             token: connectionToken,
-            is_original: true,
-            is_final_status: false,
+            isOriginal: true,
+            isFinalStatus: false,
         };
         this.observer_.onTransferUpdate(target, metadata);
         return target;
     }
-    /**
-     * @param {!nearbyShareMojom.ReceiveObserverRemote} observer
-     */
     addReceiveObserver(observer) {
         this.methodCalled('addReceiveObserver');
         this.observer_ = observer;
     }
-    /**
-     * @return {!Promise<{inHighVisibility: !boolean}>}
-     */
     async isInHighVisibility() {
         this.methodCalled('isInHighVisibility');
         return { inHighVisibility: this.inHighVisibility_ };
     }
-    /**
-     * @return {!Promise<{result:
-     *     !nearbyShareMojom.RegisterReceiveSurfaceResult}>}
-     */
     async registerForegroundReceiveSurface() {
         this.inHighVisibility_ = true;
         if (this.observer_) {
@@ -85,11 +70,8 @@ export class FakeReceiveManager extends TestBrowserProxy {
         this.methodCalled('registerForegroundReceiveSurface');
         const result = this.nextResult_ ? RegisterReceiveSurfaceResult.kSuccess :
             RegisterReceiveSurfaceResult.kFailure;
-        return { result: result };
+        return { result };
     }
-    /**
-     * @return {!Promise<{success: !boolean}>}
-     */
     async unregisterForegroundReceiveSurface() {
         this.inHighVisibility_ = false;
         if (this.observer_) {
@@ -98,39 +80,20 @@ export class FakeReceiveManager extends TestBrowserProxy {
         this.methodCalled('unregisterForegroundReceiveSurface');
         return { success: this.nextResult_ };
     }
-    /**
-     * @param {!UnguessableToken} shareTargetId
-     * @return {!Promise<{success: !boolean}>}
-     */
     async accept(shareTargetId) {
-        this.lastToken_ = shareTargetId;
         this.methodCalled('accept', shareTargetId);
         return { success: this.nextResult_ };
     }
-    /**
-     * @param {!UnguessableToken} shareTargetId
-     * @return {!Promise<{success: !boolean}>}
-     */
     async reject(shareTargetId) {
-        this.lastToken_ = shareTargetId;
         this.methodCalled('reject', shareTargetId);
         return { success: this.nextResult_ };
     }
-    /**
-     * @param {!boolean} success
-     */
     recordFastInitiationNotificationUsage(success) {
         this.methodCalled('recordFastInitiationNotificationUsage', success);
     }
-    /**
-     * @return {boolean}
-     */
     getInHighVisibilityForTest() {
         return this.inHighVisibility_;
     }
-    /**
-     * @param {boolean} inHighVisibility
-     */
     setInHighVisibilityForTest(inHighVisibility) {
         this.inHighVisibility_ = inHighVisibility;
         if (this.observer_) {

@@ -54,7 +54,7 @@ class GPU_EXPORT VkExtensionProperties {
   template <typename... Args>
   static VkExtensionPropertiesPtr New(Args&&... args) {
     return VkExtensionPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -197,7 +197,7 @@ class GPU_EXPORT VkLayerProperties {
   template <typename... Args>
   static VkLayerPropertiesPtr New(Args&&... args) {
     return VkLayerPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -350,7 +350,7 @@ class GPU_EXPORT VkExtent3D {
   template <typename... Args>
   static VkExtent3DPtr New(Args&&... args) {
     return VkExtent3DPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -501,7 +501,7 @@ class GPU_EXPORT VkPhysicalDeviceLimits {
   template <typename... Args>
   static VkPhysicalDeviceLimitsPtr New(Args&&... args) {
     return VkPhysicalDeviceLimitsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -956,7 +956,7 @@ class GPU_EXPORT VkPhysicalDeviceSparseProperties {
   template <typename... Args>
   static VkPhysicalDeviceSparsePropertiesPtr New(Args&&... args) {
     return VkPhysicalDeviceSparsePropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1108,7 +1108,7 @@ class GPU_EXPORT VkPhysicalDeviceProperties {
   template <typename... Args>
   static VkPhysicalDevicePropertiesPtr New(Args&&... args) {
     return VkPhysicalDevicePropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1272,7 +1272,7 @@ class GPU_EXPORT VkPhysicalDeviceFeatures {
   template <typename... Args>
   static VkPhysicalDeviceFeaturesPtr New(Args&&... args) {
     return VkPhysicalDeviceFeaturesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1575,7 +1575,7 @@ class GPU_EXPORT VkQueueFamilyProperties {
   template <typename... Args>
   static VkQueueFamilyPropertiesPtr New(Args&&... args) {
     return VkQueueFamilyPropertiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

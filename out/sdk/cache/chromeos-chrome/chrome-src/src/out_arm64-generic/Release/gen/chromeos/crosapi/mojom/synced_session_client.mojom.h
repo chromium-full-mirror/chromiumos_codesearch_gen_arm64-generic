@@ -297,7 +297,7 @@ class  SyncedSessionTab {
   template <typename... Args>
   static SyncedSessionTabPtr New(Args&&... args) {
     return SyncedSessionTabPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -443,7 +443,7 @@ class  SyncedSessionWindow {
   template <typename... Args>
   static SyncedSessionWindowPtr New(Args&&... args) {
     return SyncedSessionWindowPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -585,7 +585,7 @@ class  SyncedSession {
   template <typename... Args>
   static SyncedSessionPtr New(Args&&... args) {
     return SyncedSessionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

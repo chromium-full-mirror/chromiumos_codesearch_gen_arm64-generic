@@ -31,6 +31,30 @@ namespace blink::mojom {
 namespace internal {
 class SharedWorkerInfo_Data;
 
+struct SharedWorkerSameSiteCookies_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 #pragma pack(push, 1)
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SharedWorkerInfo_Data {
  public:
@@ -42,6 +66,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SharedWorkerInfo_Data {
   mojo::internal::Pointer<::blink::mojom::internal::WorkerOptions_Data> options;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::ContentSecurityPolicy_Data>>> content_security_policies;
   mojo::internal::Pointer<::blink::mojom::internal::FetchClientSettingsObject_Data> outside_fetch_client_settings_object;
+  int32_t same_site_cookies;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<SharedWorkerInfo_Data>;
@@ -49,7 +75,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) SharedWorkerInfo_Data {
   SharedWorkerInfo_Data();
   ~SharedWorkerInfo_Data() = delete;
 };
-static_assert(sizeof(SharedWorkerInfo_Data) == 40,
+static_assert(sizeof(SharedWorkerInfo_Data) == 48,
               "Bad sizeof(SharedWorkerInfo_Data)");
 // Used by SharedWorkerInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

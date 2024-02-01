@@ -50,6 +50,7 @@
     this.lcpElementLocators = null;
     this.lcpInfluencerScripts = null;
     this.fetchedFonts = null;
+    this.preconnectOrigins = null;
   };
   LCPCriticalPathPredictorNavigationTimeHint.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -65,7 +66,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 32}
+      {version: 0, numBytes: 40}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -89,10 +90,16 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+    // validate LCPCriticalPathPredictorNavigationTimeHint.preconnectOrigins
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 24, 8, new codec.PointerTo(url$.Url), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  LCPCriticalPathPredictorNavigationTimeHint.encodedSize = codec.kStructHeaderSize + 24;
+  LCPCriticalPathPredictorNavigationTimeHint.encodedSize = codec.kStructHeaderSize + 32;
 
   LCPCriticalPathPredictorNavigationTimeHint.decode = function(decoder) {
     var packed;
@@ -105,6 +112,8 @@
         decoder.decodeArrayPointer(new codec.PointerTo(url$.Url));
     val.fetchedFonts =
         decoder.decodeArrayPointer(new codec.PointerTo(url$.Url));
+    val.preconnectOrigins =
+        decoder.decodeArrayPointer(new codec.PointerTo(url$.Url));
     return val;
   };
 
@@ -115,6 +124,7 @@
     encoder.encodeArrayPointer(new codec.PointerTo(byte_string$.ByteString), val.lcpElementLocators);
     encoder.encodeArrayPointer(new codec.PointerTo(url$.Url), val.lcpInfluencerScripts);
     encoder.encodeArrayPointer(new codec.PointerTo(url$.Url), val.fetchedFonts);
+    encoder.encodeArrayPointer(new codec.PointerTo(url$.Url), val.preconnectOrigins);
   };
   function LCPCriticalPathPredictorHost_SetLcpElementLocator_Params(values) {
     this.initDefaults_();
@@ -246,6 +256,62 @@
     encoder.writeUint32(0);
     encoder.encodeArrayPointer(new codec.PointerTo(url$.Url), val.lcpInfluencerScripts);
   };
+  function LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params.prototype.initDefaults_ = function() {
+    this.origins = null;
+  };
+  LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 16}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+
+    // validate LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params.origins
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(url$.Url), false, [0], 0);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params.encodedSize = codec.kStructHeaderSize + 8;
+
+  LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params.decode = function(decoder) {
+    var packed;
+    var val = new LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    val.origins =
+        decoder.decodeArrayPointer(new codec.PointerTo(url$.Url));
+    return val;
+  };
+
+  LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params.encodedSize);
+    encoder.writeUint32(0);
+    encoder.encodeArrayPointer(new codec.PointerTo(url$.Url), val.origins);
+  };
   function LCPCriticalPathPredictorHost_NotifyFetchedFont_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -370,8 +436,9 @@
   };
   var kLCPCriticalPathPredictorHost_SetLcpElementLocator_Name = 0;
   var kLCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Name = 1;
-  var kLCPCriticalPathPredictorHost_NotifyFetchedFont_Name = 2;
-  var kLCPCriticalPathPredictorHost_NotifyFetchedSubresource_Name = 3;
+  var kLCPCriticalPathPredictorHost_SetPreconnectOrigins_Name = 2;
+  var kLCPCriticalPathPredictorHost_NotifyFetchedFont_Name = 3;
+  var kLCPCriticalPathPredictorHost_NotifyFetchedSubresource_Name = 4;
 
   function LCPCriticalPathPredictorHostPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(LCPCriticalPathPredictorHost,
@@ -422,6 +489,21 @@
     var message = builder.finish();
     this.receiver_.accept(message);
   };
+  LCPCriticalPathPredictorHostPtr.prototype.setPreconnectOrigins = function() {
+    return LCPCriticalPathPredictorHostProxy.prototype.setPreconnectOrigins
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  LCPCriticalPathPredictorHostProxy.prototype.setPreconnectOrigins = function(origins) {
+    var params_ = new LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params();
+    params_.origins = origins;
+    var builder = new codec.MessageV0Builder(
+        kLCPCriticalPathPredictorHost_SetPreconnectOrigins_Name,
+        codec.align(LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params.encodedSize));
+    builder.encodeStruct(LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
   LCPCriticalPathPredictorHostPtr.prototype.notifyFetchedFont = function() {
     return LCPCriticalPathPredictorHostProxy.prototype.notifyFetchedFont
         .apply(this.ptr.getProxy(), arguments);
@@ -463,6 +545,9 @@
   LCPCriticalPathPredictorHostStub.prototype.setLcpInfluencerScriptUrls = function(lcpInfluencerScripts) {
     return this.delegate_ && this.delegate_.setLcpInfluencerScriptUrls && this.delegate_.setLcpInfluencerScriptUrls(lcpInfluencerScripts);
   }
+  LCPCriticalPathPredictorHostStub.prototype.setPreconnectOrigins = function(origins) {
+    return this.delegate_ && this.delegate_.setPreconnectOrigins && this.delegate_.setPreconnectOrigins(origins);
+  }
   LCPCriticalPathPredictorHostStub.prototype.notifyFetchedFont = function(fontUrl) {
     return this.delegate_ && this.delegate_.notifyFetchedFont && this.delegate_.notifyFetchedFont(fontUrl);
   }
@@ -480,6 +565,10 @@
     case kLCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Name:
       var params = reader.decodeStruct(LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Params);
       this.setLcpInfluencerScriptUrls(params.lcpInfluencerScripts);
+      return true;
+    case kLCPCriticalPathPredictorHost_SetPreconnectOrigins_Name:
+      var params = reader.decodeStruct(LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params);
+      this.setPreconnectOrigins(params.origins);
       return true;
     case kLCPCriticalPathPredictorHost_NotifyFetchedFont_Name:
       var params = reader.decodeStruct(LCPCriticalPathPredictorHost_NotifyFetchedFont_Params);
@@ -514,6 +603,10 @@
       case kLCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Name:
         if (!message.expectsResponse() && !message.isResponse())
           paramsClass = LCPCriticalPathPredictorHost_SetLcpInfluencerScriptUrls_Params;
+      break;
+      case kLCPCriticalPathPredictorHost_SetPreconnectOrigins_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = LCPCriticalPathPredictorHost_SetPreconnectOrigins_Params;
       break;
       case kLCPCriticalPathPredictorHost_NotifyFetchedFont_Name:
         if (!message.expectsResponse() && !message.isResponse())

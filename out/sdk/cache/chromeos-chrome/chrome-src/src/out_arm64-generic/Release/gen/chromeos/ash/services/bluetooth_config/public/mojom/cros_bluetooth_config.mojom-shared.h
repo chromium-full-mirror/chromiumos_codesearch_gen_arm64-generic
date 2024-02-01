@@ -372,7 +372,7 @@ static_assert(
         ::ash::bluetooth_config::mojom::BatteryPropertiesDataView, UserType>(),
     "Attempting to read the optional `default_properties` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDefaultProperties` instead "
     "of `ReadDefaultProperties if you're fine with null values being "
@@ -392,7 +392,7 @@ static_assert(
         ::ash::bluetooth_config::mojom::BatteryPropertiesDataView, UserType>(),
     "Attempting to read the optional `left_bud_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLeftBudInfo` instead "
     "of `ReadLeftBudInfo if you're fine with null values being "
@@ -412,7 +412,7 @@ static_assert(
         ::ash::bluetooth_config::mojom::BatteryPropertiesDataView, UserType>(),
     "Attempting to read the optional `right_bud_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRightBudInfo` instead "
     "of `ReadRightBudInfo if you're fine with null values being "
@@ -432,7 +432,7 @@ static_assert(
         ::ash::bluetooth_config::mojom::BatteryPropertiesDataView, UserType>(),
     "Attempting to read the optional `case_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCaseInfo` instead "
     "of `ReadCaseInfo if you're fine with null values being "
@@ -514,7 +514,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `default_image_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDefaultImageUrl` instead "
     "of `ReadDefaultImageUrl if you're fine with null values being "
@@ -534,7 +534,7 @@ static_assert(
         ::ash::bluetooth_config::mojom::TrueWirelessImageInfoDataView, UserType>(),
     "Attempting to read the optional `true_wireless_images` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTrueWirelessImages` instead "
     "of `ReadTrueWirelessImages if you're fine with null values being "
@@ -620,7 +620,7 @@ static_assert(
         ::ash::bluetooth_config::mojom::DeviceBatteryInfoDataView, UserType>(),
     "Attempting to read the optional `battery_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadBatteryInfo` instead "
     "of `ReadBatteryInfo if you're fine with null values being "
@@ -640,7 +640,7 @@ static_assert(
         ::ash::bluetooth_config::mojom::DeviceImageInfoDataView, UserType>(),
     "Attempting to read the optional `image_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadImageInfo` instead "
     "of `ReadImageInfo if you're fine with null values being "
@@ -699,7 +699,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `nickname` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadNickname` instead "
     "of `ReadNickname if you're fine with null values being "
@@ -711,7 +711,7 @@ static_assert(
   template <typename UserType>
   [[nodiscard]] bool ReadFastPairableDevicePairingState(UserType* output) const {
     if (!data_->fast_pairable_device_pairing_state_$flag) {
-      *output = absl::nullopt;
+      *output = std::nullopt;
       return true;
     }
 
@@ -720,7 +720,7 @@ static_assert(
   }
   std::optional<FastPairableDevicePairingState> fast_pairable_device_pairing_state() const {
     if (!data_->fast_pairable_device_pairing_state_$flag) {
-      return absl::nullopt;
+      return std::nullopt;
     }
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::bluetooth_config::mojom::FastPairableDevicePairingState>(data_->fast_pairable_device_pairing_state_$value));

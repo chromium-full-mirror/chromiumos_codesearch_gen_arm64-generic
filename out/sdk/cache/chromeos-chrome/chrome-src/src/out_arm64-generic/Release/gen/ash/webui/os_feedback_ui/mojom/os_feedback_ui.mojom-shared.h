@@ -385,7 +385,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `email` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadEmail` instead "
     "of `ReadEmail if you're fine with null values being "
@@ -426,7 +426,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `autofill_metadata` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAutofillMetadata` instead "
     "of `ReadAutofillMetadata if you're fine with null values being "
@@ -446,7 +446,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `page_url` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPageUrl` instead "
     "of `ReadPageUrl if you're fine with null values being "
@@ -466,7 +466,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `extra_diagnostics` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadExtraDiagnostics` instead "
     "of `ReadExtraDiagnostics if you're fine with null values being "
@@ -486,7 +486,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `category_tag` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadCategoryTag` instead "
     "of `ReadCategoryTag if you're fine with null values being "
@@ -581,7 +581,7 @@ static_assert(
         ::ash::os_feedback_ui::mojom::AttachedFileDataView, UserType>(),
     "Attempting to read the optional `attached_file` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAttachedFile` instead "
     "of `ReadAttachedFile if you're fine with null values being "

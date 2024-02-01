@@ -167,7 +167,7 @@ class BLINK_COMMON_EXPORT WorkletGlobalScopeCreationParams {
   template <typename... Args>
   static WorkletGlobalScopeCreationParamsPtr New(Args&&... args) {
     return WorkletGlobalScopeCreationParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

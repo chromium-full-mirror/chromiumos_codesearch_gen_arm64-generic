@@ -1,6 +1,6 @@
 import './strings.m.js';
 import { T as TERMINA_VM_TYPE, r as recordSettingChange, a as assertNotReached, D as DeepLinkingMixin, R as RouteObserverMixin, W as WebUiListenerMixin, I as I18nMixin, S as Setting, b as routes, C as CrPolicyIndicatorType, e as equalContainerId, V as VM_DEVICE_MICROPHONE, c as assert, d as cast, P as PrefsMixin, f as containerLabel, g as SettingsGuestOsSharedUsbDevicesElement, h as castExists, i as RouteOriginMixin, j as Router, k as isCrostiniSupported, l as isCrostiniAllowed, m as isRevampWayfindingEnabled, n as Section, A as AboutPageBrowserProxyImpl, U as UpdateStatus, L as LifetimeBrowserProxyImpl, s as sanitizeInnerHtml, o as browserChannelToI18nId, p as PrinterSetupResult, q as PrintServerResult, N as NetworkListenerBehavior, t as CupsPrintersBrowserProxyImpl, O as OncMojo, F as FocusRowMixin, u as focusWithoutInk$1, G as GeolocationAccessLevel, v as LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME, w as GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE, x as TimeZoneBrowserProxyImpl, y as isChild, z as I18nBehavior, B as getApnDisplayName, E as assert$1, H as ApnDetailDialogMode, J as processDeviceState, K as getInstance, M as CrPolicyNetworkBehaviorMojo, Q as FAKE_CREDENTIAL, X as isActiveSim, Y as InternetPageBrowserProxyImpl, Z as OsSyncBrowserProxyImpl, _ as assertExists, $ as assertInstanceof, a0 as getESimProfileProperties, a1 as mojoString16ToString, a2 as CellularSetupPageName, a3 as ESimManagerListenerMixin, a4 as MultiDeviceBrowserProxyImpl, a5 as getEuicc, a6 as getSimSlotCount, a7 as getPendingESimProfiles, a8 as MultiDeviceFeatureState, a9 as CrToggleElement, aa as BrowserProxy, ab as getImage, ac as ChromeVoxSubpageBrowserProxyImpl, ad as assertExhaustive, ae as DevicePageBrowserProxyImpl, af as SettingsToggleButtonElement, ag as SelectToSpeakSubpageBrowserProxyImpl, ah as LanguagesBrowserProxyImpl, ai as SwitchAccessSubpageBrowserProxyImpl, aj as TextToSpeechSubpageBrowserProxyImpl, ak as TtsVoiceSubpageBrowserProxyImpl, al as BrowserChannel, am as isTargetChannelMoreStable, an as DeviceNameBrowserProxyImpl, ao as SetDeviceNameResult, ap as DeviceNameState, aq as AccountManagerBrowserProxyImpl, ar as ParentalControlsBrowserProxyImpl, as as assertInstanceof$1, at as fireAuthTokenInvalidEvent, au as LockStateMixin, av as MultiDeviceFeatureMixin, aw as MultiDeviceFeature, ax as MultiDeviceSettingsMode, ay as CrInputElement, az as CrButtonElement, aA as CrDialogElement, aB as CrIconButtonElement, aC as CrActionMenuElement, aD as recordLockScreenProgress, aE as LockScreenProgress, aF as PluralStringProxyImpl, aG as SyncBrowserProxyImpl, aH as PageStatus, aI as StatusAction, aJ as CrScrollableMixin, aK as PrivacyHubBrowserProxyImpl, aL as getAppPermissionProvider, aM as MediaDevicesProxy, aN as AppPermissionsObserverReceiver, aO as isPermissionEnabled, aP as CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, aQ as PrivacyHubSensorSubpageUserAction, aR as NUMBER_OF_POSSIBLE_USER_ACTIONS, aS as MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, aT as AppLanguageSelectionDialogEntryPoint, aU as OneDriveBrowserProxy, aV as AppManagementStoreMixin, aW as getAppIcon, aX as AppManagementBrowserProxy, aY as alphabeticalSort$1, aZ as GlobalScrollTargetMixin, a_ as OsSettingsSubpageElement, a$ as FindShortcutMixin, b0 as ACCESSIBILITY_COMMON_IME_ID, b1 as IronA11yKeysBehavior, b2 as PrivacyPageBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, b5 as StaticShortcutAction$1, b6 as EventTracker$1, b7 as getInputDeviceSettingsProvider, b8 as FakeInputDeviceSettingsProvider, b9 as ButtonPressObserverReceiver, ba as buttonsAreEqual, bb as getShortcutInputProvider, bc as keyEventsAreEqual, bd as AudioAndCaptionsPageBrowserProxyImpl } from './shared.rollup.js';
-export { bi as AppLanguageSelectionDialogElement, bj as AppLanguageSelectionItemElement, bK as AppManagementAppDetailViewElement, bL as AppManagementAppDetailsItem, bM as AppManagementAppItemElement, bO as AppManagementArcDetailViewElement, bP as AppManagementBorealisDetailViewElement, bQ as AppManagementChromeAppDetailViewElement, bR as AppManagementDomSwitchElement, bS as AppManagementMainViewElement, bT as AppManagementPermissionHeadingElement, bU as AppManagementPinToShelfItemElement, bV as AppManagementPluginVmDetailViewElement, bW as AppManagementPwaDetailViewElement, bX as AppManagementResizeLockItemElement, bY as AppManagementSubAppsItemElement, bg as AppManagementSupportedLinksItemElement, bh as AppManagementSupportedLinksOverlappingAppsDialogElement, b_ as AppNotificationsSubpage, bv as CROSTINI_TYPE, by as ContainerSelectElement, bl as DateTimeSettingsCardElement, c7 as FilesSettingsCardElement, bw as GuestOsBrowserProxyImpl, c9 as LanguageSettingsCardElement, bH as NearbyShareReceiveDialogElement, cf as OsResetBrowserProxyImpl, ce as OsSettingsPowerwashDialogElement, bx as PLUGIN_VM_TYPE, cb as PrintingSettingsCardElement, cg as ResetSettingsCardElement, bJ as SettingsAndroidAppsSubpageElement, bN as SettingsAppManagementPageElement, bZ as SettingsAppNotificationsManagerSubpage, b$ as SettingsBluetoothChangeDeviceNameDialogElement, c0 as SettingsBluetoothDeviceDetailSubpageElement, c1 as SettingsBluetoothDevicesSubpageElement, c2 as SettingsBluetoothSavedDevicesSubpageElement, c3 as SettingsBluetoothTrueWirelessImagesElement, bn as SettingsCustomizeMouseButtonsSubpageElement, bo as SettingsCustomizePenButtonsSubpageElement, bp as SettingsCustomizeTabletButtonsSubpageElement, c8 as SettingsGoogleDriveSubpageElement, bz as SettingsGuestOsSharedPathsElement, bq as SettingsKeyboardElement, ca as SettingsLanguagesElement, bA as SettingsMultideviceCombinedSetupItemElement, bB as SettingsMultideviceFeatureItemElement, bC as SettingsMultideviceFeatureToggleElement, bD as SettingsMultideviceSubpageElement, bE as SettingsMultideviceTaskContinuationDisabledLinkElement, bF as SettingsMultideviceTaskContinuationItemElement, bG as SettingsMultideviceWifiSyncDisabledLinkElement, bI as SettingsNearbyShareSubpageElement, c4 as SettingsPairedBluetoothListElement, c5 as SettingsPairedBluetoothListItemElement, br as SettingsPointersElement, bs as SettingsPowerElement, cc as SettingsPrivacyHubGeolocationSubpage, cd as SettingsPrivacyHubSubpage, bk as SettingsRadioGroupElement, c6 as SettingsSavedDevicesListElement, bt as SettingsStorageElement, bu as SettingsStylusElement, be as SmbBrowserProxyImpl, bf as SmbMountResult, bm as TimezoneSelectorElement } from './shared.rollup.js';
+export { bi as AppLanguageSelectionDialogElement, bj as AppLanguageSelectionItemElement, bK as AppManagementAppDetailViewElement, bL as AppManagementAppDetailsItem, bM as AppManagementAppItemElement, bO as AppManagementArcDetailViewElement, bP as AppManagementBorealisDetailViewElement, bQ as AppManagementChromeAppDetailViewElement, bR as AppManagementDomSwitchElement, bS as AppManagementMainViewElement, bT as AppManagementPermissionHeadingElement, bU as AppManagementPinToShelfItemElement, bV as AppManagementPluginVmDetailViewElement, bW as AppManagementPwaDetailViewElement, bX as AppManagementResizeLockItemElement, bY as AppManagementSubAppsItemElement, bg as AppManagementSupportedLinksItemElement, bh as AppManagementSupportedLinksOverlappingAppsDialogElement, bZ as AppNotificationRowElement, b$ as AppNotificationsSubpage, bv as CROSTINI_TYPE, by as ContainerSelectElement, bl as DateTimeSettingsCardElement, c8 as FilesSettingsCardElement, bw as GuestOsBrowserProxyImpl, ca as LanguageSettingsCardElement, bH as NearbyShareReceiveDialogElement, cg as OsResetBrowserProxyImpl, cf as OsSettingsPowerwashDialogElement, ch as OsSettingsSanitizeDialogElement, bx as PLUGIN_VM_TYPE, cc as PrintingSettingsCardElement, ci as ResetSettingsCardElement, bJ as SettingsAndroidAppsSubpageElement, bN as SettingsAppManagementPageElement, b_ as SettingsAppNotificationsManagerSubpage, c0 as SettingsBluetoothChangeDeviceNameDialogElement, c1 as SettingsBluetoothDeviceDetailSubpageElement, c2 as SettingsBluetoothDevicesSubpageElement, c3 as SettingsBluetoothSavedDevicesSubpageElement, c4 as SettingsBluetoothTrueWirelessImagesElement, bn as SettingsCustomizeMouseButtonsSubpageElement, bo as SettingsCustomizePenButtonsSubpageElement, bp as SettingsCustomizeTabletButtonsSubpageElement, c9 as SettingsGoogleDriveSubpageElement, bz as SettingsGuestOsSharedPathsElement, bq as SettingsKeyboardElement, cb as SettingsLanguagesElement, bA as SettingsMultideviceCombinedSetupItemElement, bB as SettingsMultideviceFeatureItemElement, bC as SettingsMultideviceFeatureToggleElement, bD as SettingsMultideviceSubpageElement, bE as SettingsMultideviceTaskContinuationDisabledLinkElement, bF as SettingsMultideviceTaskContinuationItemElement, bG as SettingsMultideviceWifiSyncDisabledLinkElement, bI as SettingsNearbyShareSubpageElement, c5 as SettingsPairedBluetoothListElement, c6 as SettingsPairedBluetoothListItemElement, br as SettingsPointersElement, bs as SettingsPowerElement, cd as SettingsPrivacyHubGeolocationSubpage, ce as SettingsPrivacyHubSubpage, bk as SettingsRadioGroupElement, c7 as SettingsSavedDevicesListElement, bt as SettingsStorageElement, bu as SettingsStylusElement, be as SmbBrowserProxyImpl, bf as SmbMountResult, bm as TimezoneSelectorElement } from './shared.rollup.js';
 import { html, PolymerElement, microTask, mixinBehaviors, dedupingMixin, calculateSplices, afterNextRender, Polymer, flush, beforeNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { sendWithPromise, addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
@@ -3818,7 +3818,7 @@ function getTemplate$20() {
     </os-settings-subpage>
   </template>
 
-  <template is="dom-if" if="[[shouldShowOfficeSettings_]]">
+  <template is="dom-if" if="[[shouldShowOneDriveSettings_]]">
     <template is="dom-if" route-path="/oneDrive">
       <os-settings-subpage page-title="$i18n{oneDriveLabel}">
         <settings-one-drive-subpage prefs="{{prefs}}">
@@ -3861,6 +3861,12 @@ class OsSettingsFilesPageElement extends PolymerElement {
                 type: Number,
                 value: Section.kFiles,
                 readOnly: true,
+            },
+            shouldShowOneDriveSettings_: {
+                type: Boolean,
+                value() {
+                    return loadTimeData.getBoolean('showOneDriveSettings');
+                },
             },
             shouldShowOfficeSettings_: {
                 type: Boolean,
@@ -13947,7 +13953,7 @@ function getTemplate$1r() {
 
 
 <template is="dom-if" if="[[showShared_(managedProperties_, globalPolicy,
-        managedNetworkAvailable)]]">
+        managedNetworkAvailable, deviceState_)]]">
   
   <div class$="settings-box settings-box-text
               [[messagesDividerClass_('shared', managedProperties_,
@@ -15676,7 +15682,7 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
         else if (isSecondaryUser) {
             first = 'secondary';
         }
-        else if (this.showShared_(managedProperties, globalPolicy, managedNetworkAvailable)) {
+        else if (this.showShared_(managedProperties, globalPolicy, managedNetworkAvailable, deviceState)) {
             first = 'shared';
         }
         else if (this.showSynced_(managedProperties, globalPolicy, managedNetworkAvailable, isWifiSyncEnabled)) {
@@ -15692,7 +15698,10 @@ class SettingsInternetDetailPageElement extends SettingsInternetDetailPageElemen
         return !this.propertiesMissingOrBlockedByPolicy_() && isWifiSyncEnabled &&
             !!managedProperties.typeProperties.wifi;
     }
-    showShared_(managedProperties, _globalPolicy, _managedNetworkAvailable) {
+    showShared_(managedProperties, _globalPolicy, _managedNetworkAvailable, deviceState) {
+        if (this.isCarrierLockedActiveSim_(managedProperties, deviceState)) {
+            return false;
+        }
         return !this.propertiesMissingOrBlockedByPolicy_() &&
             (managedProperties.source === OncSource.kDevice ||
                 managedProperties.source === OncSource.kDevicePolicy);
@@ -16508,11 +16517,11 @@ class SettingsInternetKnownNetworksPageElement extends SettingsInternetKnownNetw
     }
     async onSubscriptionForgetClick_() {
         this.$.subscriptionDotsMenu.close();
-        this.selectedSubscriptionId_ = '';
         const response = await this.passpointService_.deletePasspointSubscription(this.selectedSubscriptionId_);
         if (!response.success) {
             console.warn('Forget subscription failed for: ' + this.selectedSubscriptionId_);
         }
+        this.selectedSubscriptionId_ = '';
     }
     async onPasspointSubscriptionAdded(subscription) {
         this.push('passpointSubscriptionsList_', subscription);
@@ -24135,7 +24144,45 @@ class SettingsDisplayAndMagnificationSubpageElement extends SettingsDisplayAndMa
 customElements.define(SettingsDisplayAndMagnificationSubpageElement.is, SettingsDisplayAndMagnificationSubpageElement);
 
 function getTemplate$1a() {
-    return html `<!--_html_template_start_--><style include="settings-shared"></style>
+    return html `<!--_html_template_start_--><style include="settings-shared">:host{--cr-section-indent-width:60px}.sub-item{padding-inline-start:var(--cr-section-indent-width)}cr-link-row,settings-toggle-button{padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-padding)}</style>
+
+<div class="settings-box first">
+  <div class="start settings-box-text" aria-hidden="true">
+    $i18n{faceGazeCursorUpSpeedLabel}
+  </div>
+  <settings-slider id="speedUpSlider" pref="{{prefs.settings.a11y.face_gaze.cursor_speed_up}}" min="1" max="100" label-aria="$i18n{faceGazeCursorUpSpeedLabel}" label-min="$i18n{sliderLabel1}" label-max="$i18n{sliderLabel100}">
+  </settings-slider>
+</div>
+<div class="settings-box">
+  <div class="start settings-box-text" aria-hidden="true">
+    $i18n{faceGazeCursorDownSpeedLabel}
+  </div>
+  <settings-slider id="speedDownSlider" pref="{{prefs.settings.a11y.face_gaze.cursor_speed_down}}" min="1" max="100" label-aria="$i18n{faceGazeCursorDownSpeedLabel}" label-min="$i18n{sliderLabel1}" label-max="$i18n{sliderLabel100}">
+  </settings-slider>
+</div>
+<div class="settings-box">
+  <div class="start settings-box-text" aria-hidden="true">
+    $i18n{faceGazeCursorLeftSpeedLabel}
+  </div>
+  <settings-slider id="speedLeftSlider" pref="{{prefs.settings.a11y.face_gaze.cursor_speed_left}}" min="1" max="100" label-aria="$i18n{faceGazeCursorLeftSpeedLabel}" label-min="$i18n{sliderLabel1}" label-max="$i18n{sliderLabel100}">
+  </settings-slider>
+</div>
+<div class="settings-box">
+  <div class="start settings-box-text" aria-hidden="true">
+    $i18n{faceGazeCursorRightSpeedLabel}
+  </div>
+  <settings-slider id="speedRightSlider" pref="{{prefs.settings.a11y.face_gaze.cursor_speed_right}}" min="1" max="100" label-aria="$i18n{faceGazeCursorRightSpeedLabel}" label-min="$i18n{sliderLabel1}" label-max="$i18n{sliderLabel100}">
+  </settings-slider>
+</div>
+<div class="settings-box">
+  <div class="start settings-box-text" aria-hidden="true">
+    $i18n{faceGazeCursorSmoothingLabel}
+  </div>
+  <settings-slider id="cursorSmoothingSlider" pref="{{prefs.settings.a11y.face_gaze.cursor_smoothing}}" min="1" max="100" label-min="$i18n{sliderLabel1}" label-max="$i18n{sliderLabel100}">
+  </settings-slider>
+</div>
+<settings-toggle-button class="hr" id="accelerationButton" label="$i18n{faceGazeCursorAccelerationLabel}" pref="{{prefs.settings.a11y.face_gaze.cursor_use_acceleration}}">
+</settings-toggle-button>
 <!--_html_template_end_-->`;
 }
 
@@ -33108,7 +33155,7 @@ function getTemplate$C() {
     </div>
   </template>
   <template is="dom-if" if="[[!isCameraListEmpty_]]" restamp>
-    <template id="cameraList" is="dom-repeat" items="[[connectedCameras_]]">
+    <template id="cameraList" is="dom-repeat" items="[[connectedCameraNames_]]">
       <div class="list-item">
         <span id="cameraName" hidden$="[[!prefs.ash.user.camera_allowed.value]]">
           [[item]]
@@ -33203,13 +33250,13 @@ class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSubpageBas
                 type: Array,
                 value: [],
             },
-            connectedCameras_: {
+            connectedCameraNames_: {
                 type: Array,
                 value: [],
             },
             isCameraListEmpty_: {
                 type: Boolean,
-                computed: 'computeIsCameraListEmpty_(connectedCameras_)',
+                computed: 'computeIsCameraListEmpty_(connectedCameraNames_)',
             },
             /**
              * Tracks if the Chrome code wants the camera switch to be disabled.
@@ -33312,17 +33359,17 @@ class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSubpageBas
         }
     }
     async updateCameraList_() {
-        const connectedCameras = [];
+        const connectedCameraNames = [];
         const devices = await MediaDevicesProxy.getMediaDevices().enumerateDevices();
         devices.forEach((device) => {
             if (device.kind === 'videoinput') {
-                connectedCameras.push(device.label);
+                connectedCameraNames.push(device.label);
             }
         });
-        this.connectedCameras_ = connectedCameras;
+        this.connectedCameraNames_ = connectedCameraNames;
     }
     computeIsCameraListEmpty_() {
-        return this.connectedCameras_.length === 0;
+        return this.connectedCameraNames_.length === 0;
     }
     computeOnOffText_() {
         return this.isCameraAllowed_() ? this.i18n('deviceOn') :
@@ -33352,7 +33399,7 @@ class SettingsPrivacyHubCameraSubpage extends SettingsPrivacyHubCameraSubpageBas
     }
     onManagePermissionsInChromeRowClick_() {
         chrome.metricsPrivate.recordEnumerationValue(CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, PrivacyHubSensorSubpageUserAction.WEBSITE_PERMISSION_LINK_CLICKED, NUMBER_OF_POSSIBLE_USER_ACTIONS);
-        window.open('chrome://settings/content/camera');
+        this.mojoInterfaceProvider_.openBrowserPermissionSettings(PermissionType.kCamera);
     }
     onCameraToggleClick_() {
         chrome.metricsPrivate.recordEnumerationValue(CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, PrivacyHubSensorSubpageUserAction.SYSTEM_ACCESS_CHANGED, NUMBER_OF_POSSIBLE_USER_ACTIONS);
@@ -33410,7 +33457,7 @@ function getTemplate$A() {
     </div>
   </template>
   <template is="dom-if" if="[[!isMicListEmpty_]]" restamp>
-    <template id="microphoneList" is="dom-repeat" items="[[connectedMicrophones_]]">
+    <template id="microphoneList" is="dom-repeat" items="[[connectedMicrophoneNames_]]">
       <div class="list-item">
         <span id="microphoneName" hidden$="[[!prefs.ash.user.microphone_allowed.value]]">
           [[item]]
@@ -33501,19 +33548,16 @@ class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicrophoneSu
                 type: Array,
                 value: [],
             },
-            /**
-             * The list of microphones connected to the device.
-             */
-            connectedMicrophones_: {
+            connectedMicrophoneNames_: {
                 type: Array,
                 value: [],
             },
             /**
-             * Indicates whether `connectedMicrophones_` is empty.
+             * Indicates whether `connectedMicrophoneNames_` is empty.
              */
             isMicListEmpty_: {
                 type: Boolean,
-                computed: 'computeIsMicListEmpty_(connectedMicrophones_)',
+                computed: 'computeIsMicListEmpty_(connectedMicrophoneNames_)',
             },
             /**
              * Indicates whether the microphone hardware toggle is active.
@@ -33583,17 +33627,17 @@ class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicrophoneSu
         return first.name.localeCompare(second.name);
     }
     async updateMicrophoneList_() {
-        const connectedMicrophones = [];
+        const connectedMicrophoneNames = [];
         const devices = await MediaDevicesProxy.getMediaDevices().enumerateDevices();
         devices.forEach((device) => {
             if (device.kind === 'audioinput' && device.deviceId !== 'default') {
-                connectedMicrophones.push(device.label);
+                connectedMicrophoneNames.push(device.label);
             }
         });
-        this.connectedMicrophones_ = connectedMicrophones;
+        this.connectedMicrophoneNames_ = connectedMicrophoneNames;
     }
     computeIsMicListEmpty_() {
-        return this.connectedMicrophones_.length === 0;
+        return this.connectedMicrophoneNames_.length === 0;
     }
     computeOnOffText_() {
         const microphoneAllowed = this.getPref('ash.user.microphone_allowed').value;
@@ -33610,7 +33654,7 @@ class SettingsPrivacyHubMicrophoneSubpage extends SettingsPrivacyHubMicrophoneSu
     }
     onManagePermissionsInChromeRowClick_() {
         chrome.metricsPrivate.recordEnumerationValue(MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME, PrivacyHubSensorSubpageUserAction.WEBSITE_PERMISSION_LINK_CLICKED, NUMBER_OF_POSSIBLE_USER_ACTIONS);
-        window.open('chrome://settings/content/microphone');
+        this.mojoInterfaceProvider_.openBrowserPermissionSettings(PermissionType.kMicrophone);
     }
     /**
      * Returns true if the microphone permission of the app is in Allowed or
@@ -39780,13 +39824,12 @@ function getTemplate$9() {
 
 <div id="key" class="key-container">
   <template is="dom-if" if="[[getIconIdForKey(key)]]">
-    <div aria-describedby="icon-description">
-      <iron-icon icon="[[getIconIdForKey(key)]]" id="key-icon" aria-hidden="true"></iron-icon>
+    <div id="keyIcon" aria-label="[[getAriaLabelForIcon(key)]]" role="img">
+      <iron-icon icon="[[getIconIdForKey(key)]]" id="key-icon"></iron-icon>
     </div>
-    <div id="icon-description" hidden>[[getAriaLabelForIcon(key)]]</div>
   </template>
   <template is="dom-if" if="[[!getIconIdForKey(key)]]">
-    <span id="key-text" aria-hidden="[[getAriaHidden(key, keyState)]]">[[key]]</span>
+    <span id="key-text">[[key]]</span>
   </template>
 </div>
 <!--_html_template_end_-->`;
@@ -39980,9 +40023,6 @@ class ShortcutInputKeyElement extends ShortcutInputKeyElementBase {
         const ariaLabelStringId = ShortcutInputKeyElement.getAriaLabelStringId(this.key, this.hasLauncherButton);
         assert(this.i18nExists(ariaLabelStringId), `String ID ${ariaLabelStringId} should exist, but it doesn't.`);
         return this.i18n(ariaLabelStringId);
-    }
-    getAriaHidden() {
-        return this.keyState === KeyInputState.NOT_SELECTED;
     }
     onKeyChanged() {
         this.hasIcon = this.key in KeyToIconNameMap;
@@ -43384,5 +43424,5 @@ class ManageIsolatedWebAppsSubpageElement extends ManageIsolatedWebAppsSubpageBa
 }
 customElements.define(ManageIsolatedWebAppsSubpageElement.is, ManageIsolatedWebAppsSubpageElement);
 
-export { AccountManagerBrowserProxyImpl, AddPrintServerDialogElement, AddPrinterManuallyDialogElement, AddPrinterManufacturerModelDialogElement, AppManagementAppLanguageItemElement, BluetoothBrailleDisplayManager, BluetoothBrailleDisplayUiElement, BruschettaSubpageElement, CellularNetworksListElement, CellularRoamingToggleButtonElement, ChangeDictationLocaleDialog, ConsentStatus, CrCheckboxWithPolicyElement, CrostiniBrowserProxyImpl, CrostiniPortForwardingElement, CrostiniPortProtocol, CrostiniSettingsCardElement, CrostiniSharedUsbDevicesElement, CupsPrintersBrowserProxyImpl, CupsPrintersEntryManager, CustomizeButtonDropdownItemElement, CustomizeButtonRowElement, CustomizeButtonSelectElement, CustomizeButtonsSubsectionElement, DragAndDropManager, DspHotwordState, EsimInstallErrorDialogElement, ExtraContainersCreateDialog, ExtraContainersElement, FingerprintBrowserProxyImpl, FingerprintResultType, FingerprintSetupStep, GoogleAssistantBrowserProxyImpl, InputsShortcutReminderState, KerberosAccountsBrowserProxyImpl, KerberosAddAccountDialogElement, KerberosConfigErrorCode, KerberosErrorType, KeyCombinationInputDialogElement, KeyboardShortcutBanner, LanguagesBrowserProxyImpl, LanguagesMetricsProxyImpl, LanguagesPageInteraction, LifetimeBrowserProxyImpl, ManageIsolatedWebAppsSubpageElement, MediaDevicesProxy, NetworkAlwaysOnVpnElement, NetworkDeviceInfoDialogElement, NetworkProxySectionElement, OsSettingsAddItemsDialogElement, OsSettingsAppLanguagesPageElement, OsSettingsChangeDeviceLanguageDialogElement, OsSettingsClearPersonalizedDataDialogElement, OsSettingsEditDictionaryPageElement, OsSettingsFilesPageElement, OsSettingsInputPageElement, OsSettingsLanguagesPageV2Element, OsSettingsPersonalizationOptionsElement, OsSettingsPrintingPageElement, OsSettingsResetPageElement, OsSettingsSubpageElement, OsSyncBrowserProxyImpl, OsSyncControlsSubpageElement, PasspointRemoveDialogElement, PdfOcrUserSelection, PrintServerResult, PrinterDialogErrorElement, PrinterSettingsUserAction, PrinterSetupResult, PrinterState, PrinterStatusReason, PrinterStatusSeverity, PrinterType, PrivacyHubBrowserProxyImpl, ScreenAiInstallStatus, SecureDnsInputElement, SecureDnsResolverType, SettingsAccountManagerSubpageElement, SettingsAudioAndCaptionsPageElement, SettingsChromeVoxSubpageElement, SettingsCrostiniArcAdbElement, SettingsCrostiniConfirmationDialogElement, SettingsCrostiniDiskResizeDialogElement, SettingsCrostiniExportImportElement, SettingsCrostiniPageElement, SettingsCrostiniSubpageElement, SettingsCupsAddPrinterDialogElement, SettingsCupsEditPrinterDialogElement, SettingsCupsEnterprisePrintersElement, SettingsCupsNearbyPrintersElement, SettingsCupsPrintersElement, SettingsCupsPrintersEntryElement, SettingsCupsSavedPrintersElement, SettingsCursorAndTouchpadPageElement, SettingsDateTimePageElement, SettingsDisplayAndMagnificationSubpageElement, SettingsFaceGazeCursorSubpageElement, SettingsFaceGazeFacialExpressionSubpageElement, SettingsFingerprintListSubpageElement, SettingsGoogleAssistantSubpageElement, SettingsGuestOsSharedUsbDevicesElement, SettingsHotspotSubpageElement, SettingsInputMethodOptionsPageElement, SettingsInternetDetailPageElement, SettingsInternetKnownNetworksPageElement, SettingsInternetSubpageElement, SettingsInternetSubpageMenuElement, SettingsKerberosAccountsSubpageElement, SettingsKeyboardAndTextInputPageElement, SettingsLockScreenElement, SettingsManageUsersSubpageElement, SettingsMultideviceSmartlockItemElement, SettingsOfficePageElement, SettingsOneDriveSubpageElement, SettingsPasspointSubpageElement, SettingsPrivacyHubCameraSubpage, SettingsPrivacyHubGeolocationAdvancedSubpage, SettingsPrivacyHubMicrophoneSubpage, SettingsSearchSubpageElement, SettingsSecureDnsDialogElement, SettingsSecureDnsElement, SettingsSelectToSpeakSubpageElement, SettingsSetupFingerprintDialogElement, SettingsSmartPrivacySubpage, SettingsSmbSharesPageElement, SettingsSwitchAccessActionAssignmentDialogElement, SettingsSwitchAccessActionAssignmentPaneElement, SettingsSwitchAccessSetupGuideDialogElement, SettingsSwitchAccessSubpageElement, SettingsTextToSpeechSubpageElement, SettingsTrafficCountersElement, SettingsTtsVoiceSubpageElement, SettingsUserListElement, SettingsUsersAddUserDialogElement, SwitchAccessCommand, TetherConnectionDialogElement, TimeZoneAutoDetectMethod, TimeZoneBrowserProxyImpl, TimezoneSubpageElement, computePrinterState, getDataTransferOriginIndex, getStatusReasonFromPrinterStatus, sanitizeInnerHtml, setDataTransferOriginIndex };
+export { AccountManagerBrowserProxyImpl, AddPrintServerDialogElement, AddPrinterManuallyDialogElement, AddPrinterManufacturerModelDialogElement, ApnSubpageElement, AppManagementAppLanguageItemElement, BluetoothBrailleDisplayManager, BluetoothBrailleDisplayUiElement, BruschettaSubpageElement, CellularNetworksListElement, CellularRoamingToggleButtonElement, ChangeDictationLocaleDialog, ConsentStatus, CrCheckboxWithPolicyElement, CrostiniBrowserProxyImpl, CrostiniPortForwardingElement, CrostiniPortProtocol, CrostiniSettingsCardElement, CrostiniSharedUsbDevicesElement, CupsPrintersBrowserProxyImpl, CupsPrintersEntryManager, CustomizeButtonDropdownItemElement, CustomizeButtonRowElement, CustomizeButtonSelectElement, CustomizeButtonsSubsectionElement, DragAndDropManager, DspHotwordState, EsimInstallErrorDialogElement, ExtraContainersCreateDialog, ExtraContainersElement, FingerprintBrowserProxyImpl, FingerprintResultType, FingerprintSetupStep, GoogleAssistantBrowserProxyImpl, InputsShortcutReminderState, KerberosAccountsBrowserProxyImpl, KerberosAddAccountDialogElement, KerberosConfigErrorCode, KerberosErrorType, KeyCombinationInputDialogElement, KeyboardShortcutBanner, LanguagesBrowserProxyImpl, LanguagesMetricsProxyImpl, LanguagesPageInteraction, LifetimeBrowserProxyImpl, ManageIsolatedWebAppsSubpageElement, MediaDevicesProxy, NetworkAlwaysOnVpnElement, NetworkDeviceInfoDialogElement, NetworkProxySectionElement, OsSettingsAddItemsDialogElement, OsSettingsAppLanguagesPageElement, OsSettingsChangeDeviceLanguageDialogElement, OsSettingsClearPersonalizedDataDialogElement, OsSettingsEditDictionaryPageElement, OsSettingsFilesPageElement, OsSettingsInputPageElement, OsSettingsLanguagesPageV2Element, OsSettingsPersonalizationOptionsElement, OsSettingsPrintingPageElement, OsSettingsResetPageElement, OsSettingsSubpageElement, OsSyncBrowserProxyImpl, OsSyncControlsSubpageElement, PasspointRemoveDialogElement, PdfOcrUserSelection, PrintServerResult, PrinterDialogErrorElement, PrinterSettingsUserAction, PrinterSetupResult, PrinterState, PrinterStatusReason, PrinterStatusSeverity, PrinterType, PrivacyHubBrowserProxyImpl, ScreenAiInstallStatus, SecureDnsInputElement, SecureDnsResolverType, SettingsAccountManagerSubpageElement, SettingsAudioAndCaptionsPageElement, SettingsChromeVoxSubpageElement, SettingsCrostiniArcAdbElement, SettingsCrostiniConfirmationDialogElement, SettingsCrostiniDiskResizeDialogElement, SettingsCrostiniExportImportElement, SettingsCrostiniPageElement, SettingsCrostiniSubpageElement, SettingsCupsAddPrinterDialogElement, SettingsCupsEditPrinterDialogElement, SettingsCupsEnterprisePrintersElement, SettingsCupsNearbyPrintersElement, SettingsCupsPrintersElement, SettingsCupsPrintersEntryElement, SettingsCupsSavedPrintersElement, SettingsCursorAndTouchpadPageElement, SettingsDateTimePageElement, SettingsDisplayAndMagnificationSubpageElement, SettingsFaceGazeCursorSubpageElement, SettingsFaceGazeFacialExpressionSubpageElement, SettingsFingerprintListSubpageElement, SettingsGoogleAssistantSubpageElement, SettingsGuestOsSharedUsbDevicesElement, SettingsHotspotSubpageElement, SettingsInputMethodOptionsPageElement, SettingsInternetDetailPageElement, SettingsInternetKnownNetworksPageElement, SettingsInternetSubpageElement, SettingsInternetSubpageMenuElement, SettingsKerberosAccountsSubpageElement, SettingsKeyboardAndTextInputPageElement, SettingsLockScreenElement, SettingsManageUsersSubpageElement, SettingsMultideviceSmartlockItemElement, SettingsOfficePageElement, SettingsOneDriveSubpageElement, SettingsPasspointSubpageElement, SettingsPrivacyHubCameraSubpage, SettingsPrivacyHubGeolocationAdvancedSubpage, SettingsPrivacyHubMicrophoneSubpage, SettingsSearchSubpageElement, SettingsSecureDnsDialogElement, SettingsSecureDnsElement, SettingsSelectToSpeakSubpageElement, SettingsSetupFingerprintDialogElement, SettingsSmartPrivacySubpage, SettingsSmbSharesPageElement, SettingsSwitchAccessActionAssignmentDialogElement, SettingsSwitchAccessActionAssignmentPaneElement, SettingsSwitchAccessSetupGuideDialogElement, SettingsSwitchAccessSubpageElement, SettingsTextToSpeechSubpageElement, SettingsTrafficCountersElement, SettingsTtsVoiceSubpageElement, SettingsUserListElement, SettingsUsersAddUserDialogElement, SwitchAccessCommand, TetherConnectionDialogElement, TimeZoneAutoDetectMethod, TimeZoneBrowserProxyImpl, TimezoneSubpageElement, computePrinterState, getDataTransferOriginIndex, getStatusReasonFromPrinterStatus, sanitizeInnerHtml, setDataTransferOriginIndex };
 //# sourceMappingURL=lazy_load.rollup.js.map

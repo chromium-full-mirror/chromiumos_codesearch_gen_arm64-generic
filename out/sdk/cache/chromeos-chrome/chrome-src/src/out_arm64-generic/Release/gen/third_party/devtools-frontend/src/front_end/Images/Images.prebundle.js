@@ -169,6 +169,7 @@ style.setProperty('--image-file-layers-filled', 'url(\"' + new URL('./src/layers
 style.setProperty('--image-file-layers', 'url(\"' + new URL('./src/layers.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-left-panel-close', 'url(\"' + new URL('./src/left-panel-close.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-left-panel-open', 'url(\"' + new URL('./src/left-panel-open.svg', import.meta.url).toString() + '\")');
+style.setProperty('--image-file-lightbulb-spark', 'url(\"' + new URL('./src/lightbulb-spark.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-lighthouse_logo', 'url(\"' + new URL('./src/lighthouse_logo.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-list', 'url(\"' + new URL('./src/list.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-match-whole-word', 'url(\"' + new URL('./src/match-whole-word.svg', import.meta.url).toString() + '\")');

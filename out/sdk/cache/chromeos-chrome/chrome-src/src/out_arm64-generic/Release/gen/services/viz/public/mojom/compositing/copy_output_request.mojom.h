@@ -167,7 +167,7 @@ class  CopyOutputRequest {
   template <typename... Args>
   static CopyOutputRequestPtr New(Args&&... args) {
     return CopyOutputRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -418,7 +418,7 @@ class  UnzipOptions {
   template <typename... Args>
   static UnzipOptionsPtr New(Args&&... args) {
     return UnzipOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -562,7 +562,7 @@ class  Info {
   template <typename... Args>
   static InfoPtr New(Args&&... args) {
     return InfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

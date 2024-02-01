@@ -1,6 +1,7 @@
 // Copyright 2023 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+import * as Host from '../../../../../front_end/core/host/host.js';
 import * as Root from '../../../../../front_end/core/root/root.js';
 import * as Explain from '../../../../../front_end/panels/explain/explain.js';
 const { assert } = chai;
@@ -89,6 +90,18 @@ describe('InsightProvider', () => {
             },
         });
         stub.restore();
+    });
+    it('handles subsequent code chunks', async () => {
+        sinon.stub(Host.InspectorFrontendHost.InspectorFrontendHostInstance, 'doAidaConversation').callsArgWith(1, {
+            response: JSON.stringify([
+                { textChunk: { text: 'hello ' } },
+                { codeChunk: { code: 'brave ' } },
+                { codeChunk: { code: 'new World()' } },
+            ]),
+        });
+        const provider = new Explain.InsightProvider();
+        const result = await provider.getInsights('foo');
+        assert.strictEqual(result, 'hello \n`````\nbrave new World()\n`````\n');
     });
 });
 //# sourceMappingURL=InsightProvider_test.js.map

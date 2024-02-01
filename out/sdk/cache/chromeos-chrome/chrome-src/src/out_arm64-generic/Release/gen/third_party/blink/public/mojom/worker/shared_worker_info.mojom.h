@@ -60,7 +60,7 @@ class BLINK_COMMON_EXPORT SharedWorkerInfo {
   template <typename... Args>
   static SharedWorkerInfoPtr New(Args&&... args) {
     return SharedWorkerInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -80,7 +80,8 @@ class BLINK_COMMON_EXPORT SharedWorkerInfo {
       const ::GURL& url,
       ::blink::mojom::WorkerOptionsPtr options,
       std::vector<::network::mojom::ContentSecurityPolicyPtr> content_security_policies,
-      ::blink::mojom::FetchClientSettingsObjectPtr outside_fetch_client_settings_object);
+      ::blink::mojom::FetchClientSettingsObjectPtr outside_fetch_client_settings_object,
+      SharedWorkerSameSiteCookies same_site_cookies);
 
 SharedWorkerInfo(const SharedWorkerInfo&) = delete;
 SharedWorkerInfo& operator=(const SharedWorkerInfo&) = delete;
@@ -167,6 +168,8 @@ SharedWorkerInfo& operator=(const SharedWorkerInfo&) = delete;
   std::vector<::network::mojom::ContentSecurityPolicyPtr> content_security_policies;
   
   ::blink::mojom::FetchClientSettingsObjectPtr outside_fetch_client_settings_object;
+  
+  SharedWorkerSameSiteCookies same_site_cookies;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -203,7 +206,8 @@ SharedWorkerInfoPtr SharedWorkerInfo::Clone() const {
       mojo::Clone(url),
       mojo::Clone(options),
       mojo::Clone(content_security_policies),
-      mojo::Clone(outside_fetch_client_settings_object)
+      mojo::Clone(outside_fetch_client_settings_object),
+      mojo::Clone(same_site_cookies)
   );
 }
 
@@ -216,6 +220,8 @@ bool SharedWorkerInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->content_security_policies, other_struct.content_security_policies))
     return false;
   if (!mojo::Equals(this->outside_fetch_client_settings_object, other_struct.outside_fetch_client_settings_object))
+    return false;
+  if (!mojo::Equals(this->same_site_cookies, other_struct.same_site_cookies))
     return false;
   return true;
 }
@@ -237,6 +243,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.outside_fetch_client_settings_object < rhs.outside_fetch_client_settings_object)
     return true;
   if (rhs.outside_fetch_client_settings_object < lhs.outside_fetch_client_settings_object)
+    return false;
+  if (lhs.same_site_cookies < rhs.same_site_cookies)
+    return true;
+  if (rhs.same_site_cookies < lhs.same_site_cookies)
     return false;
   return false;
 }
@@ -271,6 +281,11 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::SharedWorkerInfo::DataVi
   static const decltype(::blink::mojom::SharedWorkerInfo::outside_fetch_client_settings_object)& outside_fetch_client_settings_object(
       const ::blink::mojom::SharedWorkerInfoPtr& input) {
     return input->outside_fetch_client_settings_object;
+  }
+
+  static decltype(::blink::mojom::SharedWorkerInfo::same_site_cookies) same_site_cookies(
+      const ::blink::mojom::SharedWorkerInfoPtr& input) {
+    return input->same_site_cookies;
   }
 
   static bool Read(::blink::mojom::SharedWorkerInfo::DataView input, ::blink::mojom::SharedWorkerInfoPtr* output);

@@ -1507,6 +1507,13 @@ static void ThreadDispatchSharedTextureMemoryRelease(WGPUSharedTextureMemory sha
     }
     proc(sharedTextureMemory);
 }
+static WGPUTextureFormat ThreadDispatchSurfaceGetPreferredFormat(WGPUSurface surface, WGPUAdapter adapter) {
+    auto* proc = perThreadProcs.surfaceGetPreferredFormat;
+    if (!proc) {
+        proc = defaultProc.surfaceGetPreferredFormat;
+    }
+return     proc(surface, adapter);
+}
 static void ThreadDispatchSurfaceReference(WGPUSurface surface) {
     auto* proc = perThreadProcs.surfaceReference;
     if (!proc) {
@@ -1890,6 +1897,7 @@ extern "C" {
         ThreadDispatchSharedTextureMemorySetLabel,
         ThreadDispatchSharedTextureMemoryReference,
         ThreadDispatchSharedTextureMemoryRelease,
+        ThreadDispatchSurfaceGetPreferredFormat,
         ThreadDispatchSurfaceReference,
         ThreadDispatchSurfaceRelease,
         ThreadDispatchSwapChainGetCurrentTexture,

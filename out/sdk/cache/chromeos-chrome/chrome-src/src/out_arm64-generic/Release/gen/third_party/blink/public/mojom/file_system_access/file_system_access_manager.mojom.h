@@ -226,7 +226,7 @@ class BLINK_COMMON_EXPORT DirectoryPickerOptions {
   template <typename... Args>
   static DirectoryPickerOptionsPtr New(Args&&... args) {
     return DirectoryPickerOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -378,7 +378,7 @@ class BLINK_COMMON_EXPORT TypeSpecificFilePickerOptionsUnion {
   static TypeSpecificFilePickerOptionsUnionPtr
   NewOpenFilePickerOptions(
       OpenFilePickerOptionsPtr value) {
-    auto result = TypeSpecificFilePickerOptionsUnionPtr(absl::in_place);
+    auto result = TypeSpecificFilePickerOptionsUnionPtr(std::in_place);
     result->set_open_file_picker_options(std::move(value));
     return result;
   }
@@ -386,7 +386,7 @@ class BLINK_COMMON_EXPORT TypeSpecificFilePickerOptionsUnion {
   static TypeSpecificFilePickerOptionsUnionPtr
   NewSaveFilePickerOptions(
       SaveFilePickerOptionsPtr value) {
-    auto result = TypeSpecificFilePickerOptionsUnionPtr(absl::in_place);
+    auto result = TypeSpecificFilePickerOptionsUnionPtr(std::in_place);
     result->set_save_file_picker_options(std::move(value));
     return result;
   }
@@ -394,7 +394,7 @@ class BLINK_COMMON_EXPORT TypeSpecificFilePickerOptionsUnion {
   static TypeSpecificFilePickerOptionsUnionPtr
   NewDirectoryPickerOptions(
       DirectoryPickerOptionsPtr value) {
-    auto result = TypeSpecificFilePickerOptionsUnionPtr(absl::in_place);
+    auto result = TypeSpecificFilePickerOptionsUnionPtr(std::in_place);
     result->set_directory_picker_options(std::move(value));
     return result;
   }
@@ -529,7 +529,7 @@ class BLINK_COMMON_EXPORT FilePickerStartInOptionsUnion {
   static FilePickerStartInOptionsUnionPtr
   NewWellKnownDirectory(
       WellKnownDirectory value) {
-    auto result = FilePickerStartInOptionsUnionPtr(absl::in_place);
+    auto result = FilePickerStartInOptionsUnionPtr(std::in_place);
     result->set_well_known_directory(std::move(value));
     return result;
   }
@@ -537,7 +537,7 @@ class BLINK_COMMON_EXPORT FilePickerStartInOptionsUnion {
   static FilePickerStartInOptionsUnionPtr
   NewDirectoryToken(
       ::mojo::PendingRemote<::blink::mojom::FileSystemAccessTransferToken> value) {
-    auto result = FilePickerStartInOptionsUnionPtr(absl::in_place);
+    auto result = FilePickerStartInOptionsUnionPtr(std::in_place);
     result->set_directory_token(std::move(value));
     return result;
   }
@@ -651,7 +651,7 @@ class BLINK_COMMON_EXPORT ChooseFileSystemEntryAcceptsOption {
   template <typename... Args>
   static ChooseFileSystemEntryAcceptsOptionPtr New(Args&&... args) {
     return ChooseFileSystemEntryAcceptsOptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -797,7 +797,7 @@ class BLINK_COMMON_EXPORT AcceptsTypesInfo {
   template <typename... Args>
   static AcceptsTypesInfoPtr New(Args&&... args) {
     return AcceptsTypesInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -942,7 +942,7 @@ class BLINK_COMMON_EXPORT OpenFilePickerOptions {
   template <typename... Args>
   static OpenFilePickerOptionsPtr New(Args&&... args) {
     return OpenFilePickerOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1087,7 +1087,7 @@ class BLINK_COMMON_EXPORT SaveFilePickerOptions {
   template <typename... Args>
   static SaveFilePickerOptionsPtr New(Args&&... args) {
     return SaveFilePickerOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1233,7 +1233,7 @@ class BLINK_COMMON_EXPORT FilePickerOptions {
   template <typename... Args>
   static FilePickerOptionsPtr New(Args&&... args) {
     return FilePickerOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

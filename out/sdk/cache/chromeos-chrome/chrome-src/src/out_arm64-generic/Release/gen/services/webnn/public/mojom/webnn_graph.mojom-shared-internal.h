@@ -311,6 +311,7 @@ struct Pool2d_Kind_Data {
     switch (value) {
       case 0:
       case 1:
+      case 2:
         return true;
     }
     return false;

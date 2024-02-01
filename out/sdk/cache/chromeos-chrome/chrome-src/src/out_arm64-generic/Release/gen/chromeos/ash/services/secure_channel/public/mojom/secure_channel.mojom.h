@@ -675,7 +675,7 @@ class  BluetoothConnectionMetadata {
   template <typename... Args>
   static BluetoothConnectionMetadataPtr New(Args&&... args) {
     return BluetoothConnectionMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -820,7 +820,7 @@ class  ConnectionMetadata {
   template <typename... Args>
   static ConnectionMetadataPtr New(Args&&... args) {
     return ConnectionMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

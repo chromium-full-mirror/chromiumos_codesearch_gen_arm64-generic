@@ -57,7 +57,7 @@ class  ImageInfo {
   template <typename... Args>
   static ImageInfoPtr New(Args&&... args) {
     return ImageInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -212,7 +212,7 @@ class  BitmapN32ImageInfo {
   template <typename... Args>
   static BitmapN32ImageInfoPtr New(Args&&... args) {
     return BitmapN32ImageInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

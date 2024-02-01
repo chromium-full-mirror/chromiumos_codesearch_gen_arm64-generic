@@ -2079,6 +2079,16 @@ namespace dawn::native {
         self->APIRelease();
     }
 
+    WGPUTextureFormat NativeSurfaceGetPreferredFormat(WGPUSurface cSelf, WGPUAdapter adapter) {
+        auto self = FromAPI(cSelf);
+
+        auto adapter_ = reinterpret_cast<AdapterBase* >(adapter);
+        // This method is specified to not use AutoLock in json script.
+
+        auto result =        self->APIGetPreferredFormat(adapter_);
+        return ToAPI(result);
+    }
+
     void NativeSurfaceReference(WGPUSurface cSelf) {
         auto self = FromAPI(cSelf);
 
@@ -2539,6 +2549,7 @@ namespace dawn::native {
             { reinterpret_cast<WGPUProc>(NativeSharedTextureMemoryReference), "wgpuSharedTextureMemoryReference" },
             { reinterpret_cast<WGPUProc>(NativeSharedTextureMemoryRelease), "wgpuSharedTextureMemoryRelease" },
             { reinterpret_cast<WGPUProc>(NativeSharedTextureMemorySetLabel), "wgpuSharedTextureMemorySetLabel" },
+            { reinterpret_cast<WGPUProc>(NativeSurfaceGetPreferredFormat), "wgpuSurfaceGetPreferredFormat" },
             { reinterpret_cast<WGPUProc>(NativeSurfaceReference), "wgpuSurfaceReference" },
             { reinterpret_cast<WGPUProc>(NativeSurfaceRelease), "wgpuSurfaceRelease" },
             { reinterpret_cast<WGPUProc>(NativeSwapChainGetCurrentTexture), "wgpuSwapChainGetCurrentTexture" },
@@ -2845,6 +2856,7 @@ namespace dawn::native {
         , std::make_pair(&DawnProcTable::sharedTextureMemorySetLabel, NativeSharedTextureMemorySetLabel)
         , std::make_pair(&DawnProcTable::sharedTextureMemoryReference, NativeSharedTextureMemoryReference)
         , std::make_pair(&DawnProcTable::sharedTextureMemoryRelease, NativeSharedTextureMemoryRelease)
+        , std::make_pair(&DawnProcTable::surfaceGetPreferredFormat, NativeSurfaceGetPreferredFormat)
         , std::make_pair(&DawnProcTable::surfaceReference, NativeSurfaceReference)
         , std::make_pair(&DawnProcTable::surfaceRelease, NativeSurfaceRelease)
         , std::make_pair(&DawnProcTable::swapChainGetCurrentTexture, NativeSwapChainGetCurrentTexture)

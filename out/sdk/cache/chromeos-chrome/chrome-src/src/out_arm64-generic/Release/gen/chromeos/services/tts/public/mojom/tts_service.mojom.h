@@ -637,7 +637,7 @@ class  AudioParameters {
   template <typename... Args>
   static AudioParametersPtr New(Args&&... args) {
     return AudioParametersPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

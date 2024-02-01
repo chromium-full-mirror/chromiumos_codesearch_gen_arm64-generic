@@ -191,7 +191,7 @@ class  WifiLanDependencies {
   template <typename... Args>
   static WifiLanDependenciesPtr New(Args&&... args) {
     return WifiLanDependenciesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -334,7 +334,7 @@ class  NearbyDependencies {
   template <typename... Args>
   static NearbyDependenciesPtr New(Args&&... args) {
     return NearbyDependenciesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

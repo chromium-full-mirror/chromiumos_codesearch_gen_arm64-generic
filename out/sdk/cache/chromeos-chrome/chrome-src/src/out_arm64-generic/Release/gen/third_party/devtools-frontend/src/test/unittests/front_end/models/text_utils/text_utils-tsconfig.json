@@ -37,6 +37,7 @@
     "useUnknownInCatchVariables": false
   },
   "files": [
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/ContentData_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/StaticContentProvider_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/TextCursor_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/TextRange_test.ts",
@@ -49,6 +50,9 @@
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/node_modules/@webgpu/types/dist/index.d.ts"
   ],
   "references": [
+    {
+      "path": "../../../../../front_end/core/platform/bundle-tsconfig.json"
+    },
     {
       "path": "../../../../../front_end/models/text_utils/bundle-tsconfig.json"
     }

@@ -123,7 +123,7 @@ static_assert(
         ::url::mojom::UrlDataView, UserType>(),
     "Attempting to read the optional `learn_more_link` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLearnMoreLink` instead "
     "of `ReadLearnMoreLink if you're fine with null values being "
@@ -179,7 +179,7 @@ static_assert(
         ::guest_os::mojom::DiagnosticMessageDataView, UserType>(),
     "Attempting to read the optional `explanation` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadExplanation` instead "
     "of `ReadExplanation if you're fine with null values being "
@@ -225,7 +225,7 @@ static_assert(
         ::guest_os::mojom::DiagnosticMessageDataView, UserType>(),
     "Attempting to read the optional `top_error` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTopError` instead "
     "of `ReadTopError if you're fine with null values being "

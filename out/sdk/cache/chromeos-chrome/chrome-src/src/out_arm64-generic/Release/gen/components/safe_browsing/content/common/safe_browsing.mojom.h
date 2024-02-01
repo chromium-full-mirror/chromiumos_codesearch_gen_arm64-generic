@@ -885,7 +885,7 @@ class  AttributeNameValue {
   template <typename... Args>
   static AttributeNameValuePtr New(Args&&... args) {
     return AttributeNameValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1033,7 +1033,7 @@ class  ThreatDOMDetailsNode {
   template <typename... Args>
   static ThreatDOMDetailsNodePtr New(Args&&... args) {
     return ThreatDOMDetailsNodePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

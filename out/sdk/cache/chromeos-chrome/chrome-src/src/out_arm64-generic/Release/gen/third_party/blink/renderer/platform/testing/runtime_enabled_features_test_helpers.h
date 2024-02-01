@@ -147,8 +147,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_byob_fetch_enabled_>;
   using ScopedCacheStorageCodeCacheHint = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_cache_storage_code_cache_hint_enabled_>;
-  using ScopedCanonicalizeWhitespaceStrings = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_canonicalize_whitespace_strings_enabled_>;
   using ScopedCanvas2dCanvasFilter = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_canvas_2d_canvas_filter_enabled_>;
   using ScopedCanvas2dImageChromium = ScopedRuntimeEnabledFeature<
@@ -293,6 +291,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_css_hex_alpha_color_enabled_>;
   using ScopedCSSLayoutAPI = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_layout_api_enabled_>;
+  using ScopedCSSLightDarkColors = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_css_light_dark_colors_enabled_>;
   using ScopedCSSLinearTimingFunction = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_linear_timing_function_enabled_>;
   using ScopedCSSLogicalOverflow = ScopedRuntimeEnabledFeature<
@@ -349,8 +349,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_css_scroll_state_container_queries_enabled_>;
   using ScopedCSSSelectorFragmentAnchor = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_selector_fragment_anchor_enabled_>;
-  using ScopedCSSSelectorNthChildComplexSelector = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_css_selector_nth_child_complex_selector_enabled_>;
   using ScopedCSSSignRelatedFunctions = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_sign_related_functions_enabled_>;
   using ScopedCSSSnapChangedEvent = ScopedRuntimeEnabledFeature<
@@ -503,8 +501,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_escape_lt_gt_in_attributes_enabled_>;
   using ScopedEventTimingInteractionCount = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_event_timing_interaction_count_enabled_>;
-  using ScopedExcludeBrokenImageIconFromBeingLcpEligible = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_exclude_broken_image_icon_from_being_lcp_eligible_enabled_>;
   using ScopedExperimentalContentSecurityPolicyFeatures = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_experimental_content_security_policy_features_enabled_>;
   using ScopedExperimentalJSProfilerMarkers = ScopedRuntimeEnabledFeature<
@@ -737,12 +733,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_layout_flex_new_row_algorithm_v_3_enabled_>;
   using ScopedLayoutIgnoreMarginsForSticky = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_layout_ignore_margins_for_sticky_enabled_>;
-  using ScopedLayoutNewContainingBlock = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_layout_new_containing_block_enabled_>;
-  using ScopedLayoutNewMeasureCache = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_layout_new_measure_cache_enabled_>;
-  using ScopedLayoutNewMinMaxCache = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_layout_new_min_max_cache_enabled_>;
   using ScopedLayoutNGShapeCache = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_layout_ng_shape_cache_enabled_>;
   using ScopedLazyInitializeMediaControls = ScopedRuntimeEnabledFeature<
@@ -835,8 +825,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_mojo_js_enabled_>;
   using ScopedMojoJSTest = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_mojo_js_test_enabled_>;
-  using ScopedMonitorTypeSurfaces = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_monitor_type_surfaces_enabled_>;
   using ScopedMouseDragFromIframeOnCancelledMouseDown = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_mouse_drag_from_iframe_on_cancelled_mouse_down_enabled_>;
   using ScopedMouseDragOnCancelledMouseMove = ScopedRuntimeEnabledFeature<
@@ -1049,8 +1037,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_reduce_user_agent_minor_version_enabled_>;
   using ScopedReduceUserAgentPlatformOsCpu = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_reduce_user_agent_platform_os_cpu_enabled_>;
-  using ScopedReferenceBoxNoPixelSnapping = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_reference_box_no_pixel_snapping_enabled_>;
   using ScopedRegionCapture = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_region_capture_enabled_>;
   using ScopedRemotePlayback = ScopedRuntimeEnabledFeature<
@@ -1071,6 +1057,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_render_blocking_status_enabled_>;
   using ScopedRenderPriorityAttribute = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_render_priority_attribute_enabled_>;
+  using ScopedReportVisibleLineBounds = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_report_visible_line_bounds_enabled_>;
   using ScopedResourceTimingContentType = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_resource_timing_content_type_enabled_>;
   using ScopedResourceTimingUseCORSForBodySizes = ScopedRuntimeEnabledFeature<
@@ -1159,6 +1147,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_set_sequential_focus_starting_point_enabled_>;
   using ScopedShadowRootAttachmentNewBehavior = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_shadow_root_attachment_new_behavior_enabled_>;
+  using ScopedShadowRootClonable = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_shadow_root_clonable_enabled_>;
   using ScopedSharedArrayBuffer = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_shared_array_buffer_enabled_>;
   using ScopedSharedArrayBufferOnDesktop = ScopedRuntimeEnabledFeature<
@@ -1425,6 +1415,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_webgl_drawing_buffer_storage_enabled_>;
   using ScopedWebGLImageChromium = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_webgl_image_chromium_enabled_>;
+  using ScopedWebGPU = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_webgpu_enabled_>;
   using ScopedWebGPUDeveloperFeatures = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_webgpu_developer_features_enabled_>;
   using ScopedWebGPUExperimentalFeatures = ScopedRuntimeEnabledFeature<
@@ -1615,8 +1607,6 @@ using ScopedByobFetchForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedByobFetch;
 using ScopedCacheStorageCodeCacheHintForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCacheStorageCodeCacheHint;
-using ScopedCanonicalizeWhitespaceStringsForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedCanonicalizeWhitespaceStrings;
 using ScopedCanvas2dCanvasFilterForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCanvas2dCanvasFilter;
 using ScopedCanvas2dImageChromiumForTest =
@@ -1761,6 +1751,8 @@ using ScopedCSSHexAlphaColorForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSHexAlphaColor;
 using ScopedCSSLayoutAPIForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSLayoutAPI;
+using ScopedCSSLightDarkColorsForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedCSSLightDarkColors;
 using ScopedCSSLinearTimingFunctionForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSLinearTimingFunction;
 using ScopedCSSLogicalOverflowForTest =
@@ -1817,8 +1809,6 @@ using ScopedCSSScrollStateContainerQueriesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSScrollStateContainerQueries;
 using ScopedCSSSelectorFragmentAnchorForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSSelectorFragmentAnchor;
-using ScopedCSSSelectorNthChildComplexSelectorForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedCSSSelectorNthChildComplexSelector;
 using ScopedCSSSignRelatedFunctionsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSSignRelatedFunctions;
 using ScopedCSSSnapChangedEventForTest =
@@ -1971,8 +1961,6 @@ using ScopedEscapeLtGtInAttributesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedEscapeLtGtInAttributes;
 using ScopedEventTimingInteractionCountForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedEventTimingInteractionCount;
-using ScopedExcludeBrokenImageIconFromBeingLcpEligibleForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedExcludeBrokenImageIconFromBeingLcpEligible;
 using ScopedExperimentalContentSecurityPolicyFeaturesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedExperimentalContentSecurityPolicyFeatures;
 using ScopedExperimentalJSProfilerMarkersForTest =
@@ -2205,12 +2193,6 @@ using ScopedLayoutFlexNewRowAlgorithmV3ForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedLayoutFlexNewRowAlgorithmV3;
 using ScopedLayoutIgnoreMarginsForStickyForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedLayoutIgnoreMarginsForSticky;
-using ScopedLayoutNewContainingBlockForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedLayoutNewContainingBlock;
-using ScopedLayoutNewMeasureCacheForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedLayoutNewMeasureCache;
-using ScopedLayoutNewMinMaxCacheForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedLayoutNewMinMaxCache;
 using ScopedLayoutNGShapeCacheForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedLayoutNGShapeCache;
 using ScopedLazyInitializeMediaControlsForTest =
@@ -2303,8 +2285,6 @@ using ScopedMojoJSForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedMojoJS;
 using ScopedMojoJSTestForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedMojoJSTest;
-using ScopedMonitorTypeSurfacesForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedMonitorTypeSurfaces;
 using ScopedMouseDragFromIframeOnCancelledMouseDownForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedMouseDragFromIframeOnCancelledMouseDown;
 using ScopedMouseDragOnCancelledMouseMoveForTest =
@@ -2517,8 +2497,6 @@ using ScopedReduceUserAgentMinorVersionForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedReduceUserAgentMinorVersion;
 using ScopedReduceUserAgentPlatformOsCpuForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedReduceUserAgentPlatformOsCpu;
-using ScopedReferenceBoxNoPixelSnappingForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedReferenceBoxNoPixelSnapping;
 using ScopedRegionCaptureForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedRegionCapture;
 using ScopedRemotePlaybackForTest =
@@ -2539,6 +2517,8 @@ using ScopedRenderBlockingStatusForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedRenderBlockingStatus;
 using ScopedRenderPriorityAttributeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedRenderPriorityAttribute;
+using ScopedReportVisibleLineBoundsForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedReportVisibleLineBounds;
 using ScopedResourceTimingContentTypeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedResourceTimingContentType;
 using ScopedResourceTimingUseCORSForBodySizesForTest =
@@ -2627,6 +2607,8 @@ using ScopedSetSequentialFocusStartingPointForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSetSequentialFocusStartingPoint;
 using ScopedShadowRootAttachmentNewBehaviorForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedShadowRootAttachmentNewBehavior;
+using ScopedShadowRootClonableForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedShadowRootClonable;
 using ScopedSharedArrayBufferForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSharedArrayBuffer;
 using ScopedSharedArrayBufferOnDesktopForTest =
@@ -2893,6 +2875,8 @@ using ScopedWebGLDrawingBufferStorageForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebGLDrawingBufferStorage;
 using ScopedWebGLImageChromiumForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebGLImageChromium;
+using ScopedWebGPUForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedWebGPU;
 using ScopedWebGPUDeveloperFeaturesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebGPUDeveloperFeatures;
 using ScopedWebGPUExperimentalFeaturesForTest =

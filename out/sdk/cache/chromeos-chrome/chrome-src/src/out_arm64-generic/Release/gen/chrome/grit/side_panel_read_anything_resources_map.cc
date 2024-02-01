@@ -13,8 +13,10 @@ const webui::ResourcePath kSidePanelReadAnythingResources[] = {
   {"read_anything.html", IDR_SIDE_PANEL_READ_ANYTHING_READ_ANYTHING_HTML},
   {"app.js", IDR_SIDE_PANEL_READ_ANYTHING_APP_JS},
   {"read_anything_toolbar.js", IDR_SIDE_PANEL_READ_ANYTHING_READ_ANYTHING_TOOLBAR_JS},
+  {"voice_selection_menu.js", IDR_SIDE_PANEL_READ_ANYTHING_VOICE_SELECTION_MENU_JS},
   {"app.html.js", IDR_SIDE_PANEL_READ_ANYTHING_APP_HTML_JS},
   {"read_anything_toolbar.html.js", IDR_SIDE_PANEL_READ_ANYTHING_READ_ANYTHING_TOOLBAR_HTML_JS},
+  {"voice_selection_menu.html.js", IDR_SIDE_PANEL_READ_ANYTHING_VOICE_SELECTION_MENU_HTML_JS},
   {"icons.html.js", IDR_SIDE_PANEL_READ_ANYTHING_ICONS_HTML_JS},
 };
 

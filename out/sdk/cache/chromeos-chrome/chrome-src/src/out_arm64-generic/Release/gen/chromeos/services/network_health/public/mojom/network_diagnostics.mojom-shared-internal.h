@@ -92,6 +92,34 @@ struct RoutineVerdict_Data {
   }
 };
 
+struct RoutineCallSource_Data {
+ public:
+  static bool constexpr kIsExtensible = true;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 5:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct LanConnectivityProblem_Data {
  public:
   static bool constexpr kIsExtensible = true;
@@ -673,7 +701,7 @@ class  RoutineResult_Data {
 
   mojo::internal::StructHeader header_;
   int32_t verdict;
-  uint8_t pad0_[4];
+  int32_t source;
   internal::RoutineProblems_Data problems;
   mojo::internal::Pointer<::mojo_base::mojom::internal::Time_Data> timestamp;
   internal::RoutineResultValue_Data result_value;

@@ -460,7 +460,7 @@ class  BundleIntegrityBlockParseError {
   template <typename... Args>
   static BundleIntegrityBlockParseErrorPtr New(Args&&... args) {
     return BundleIntegrityBlockParseErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -604,7 +604,7 @@ class  BundleMetadataParseError {
   template <typename... Args>
   static BundleMetadataParseErrorPtr New(Args&&... args) {
     return BundleMetadataParseErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -748,7 +748,7 @@ class  BundleResponseParseError {
   template <typename... Args>
   static BundleResponseParseErrorPtr New(Args&&... args) {
     return BundleResponseParseErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -897,7 +897,7 @@ class  BundleResponseLocation {
   template <typename... Args>
   static BundleResponseLocationPtr New(Args&&... args) {
     return BundleResponseLocationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1047,7 +1047,7 @@ class  BundleIntegrityBlock {
   template <typename... Args>
   static BundleIntegrityBlockPtr New(Args&&... args) {
     return BundleIntegrityBlockPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1192,7 +1192,7 @@ class  Ed25519PublicKey {
   template <typename... Args>
   static Ed25519PublicKeyPtr New(Args&&... args) {
     return Ed25519PublicKeyPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1332,7 +1332,7 @@ class  Ed25519Signature {
   template <typename... Args>
   static Ed25519SignaturePtr New(Args&&... args) {
     return Ed25519SignaturePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1472,7 +1472,7 @@ class  BundleIntegrityBlockSignatureStackEntry {
   template <typename... Args>
   static BundleIntegrityBlockSignatureStackEntryPtr New(Args&&... args) {
     return BundleIntegrityBlockSignatureStackEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1621,7 +1621,7 @@ class  BundleMetadata {
   template <typename... Args>
   static BundleMetadataPtr New(Args&&... args) {
     return BundleMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1770,7 +1770,7 @@ class  BundleResponse {
   template <typename... Args>
   static BundleResponsePtr New(Args&&... args) {
     return BundleResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

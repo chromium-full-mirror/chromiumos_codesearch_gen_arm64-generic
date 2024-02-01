@@ -215,7 +215,7 @@ class PLATFORM_EXPORT WebUsbRequestDeviceOptions {
   template <typename... Args>
   static WebUsbRequestDeviceOptionsPtr New(Args&&... args) {
     return WebUsbRequestDeviceOptionsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

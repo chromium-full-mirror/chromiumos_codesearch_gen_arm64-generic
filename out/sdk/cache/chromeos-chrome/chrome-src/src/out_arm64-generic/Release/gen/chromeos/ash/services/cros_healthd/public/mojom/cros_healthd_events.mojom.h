@@ -1034,7 +1034,7 @@ class  ThunderboltEventInfo {
   template <typename... Args>
   static ThunderboltEventInfoPtr New(Args&&... args) {
     return ThunderboltEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1176,7 +1176,7 @@ class  LidEventInfo {
   template <typename... Args>
   static LidEventInfoPtr New(Args&&... args) {
     return LidEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1318,7 +1318,7 @@ class  BluetoothEventInfo {
   template <typename... Args>
   static BluetoothEventInfoPtr New(Args&&... args) {
     return BluetoothEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1460,7 +1460,7 @@ class  PowerEventInfo {
   template <typename... Args>
   static PowerEventInfoPtr New(Args&&... args) {
     return PowerEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1602,7 +1602,7 @@ class  AudioEventInfo {
   template <typename... Args>
   static AudioEventInfoPtr New(Args&&... args) {
     return AudioEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1745,7 +1745,7 @@ class  AudioJackEventInfo {
   template <typename... Args>
   static AudioJackEventInfoPtr New(Args&&... args) {
     return AudioJackEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1893,7 +1893,7 @@ class  SdCardEventInfo {
   template <typename... Args>
   static SdCardEventInfoPtr New(Args&&... args) {
     return SdCardEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2034,7 +2034,7 @@ class  TouchpadButtonEvent {
   template <typename... Args>
   static TouchpadButtonEventPtr New(Args&&... args) {
     return TouchpadButtonEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2183,7 +2183,7 @@ class  TouchscreenConnectedEvent {
   template <typename... Args>
   static TouchscreenConnectedEventPtr New(Args&&... args) {
     return TouchscreenConnectedEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2331,7 +2331,7 @@ class  StylusGarageEventInfo {
   template <typename... Args>
   static StylusGarageEventInfoPtr New(Args&&... args) {
     return StylusGarageEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2474,7 +2474,7 @@ class  StylusConnectedEvent {
   template <typename... Args>
   static StylusConnectedEventPtr New(Args&&... args) {
     return StylusConnectedEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2633,7 +2633,7 @@ class  TouchpadEventInfo {
   static TouchpadEventInfoPtr
   NewDefaultType(
       uint8_t value) {
-    auto result = TouchpadEventInfoPtr(absl::in_place);
+    auto result = TouchpadEventInfoPtr(std::in_place);
     result->set_default_type(std::move(value));
     return result;
   }
@@ -2641,7 +2641,7 @@ class  TouchpadEventInfo {
   static TouchpadEventInfoPtr
   NewButtonEvent(
       TouchpadButtonEventPtr value) {
-    auto result = TouchpadEventInfoPtr(absl::in_place);
+    auto result = TouchpadEventInfoPtr(std::in_place);
     result->set_button_event(std::move(value));
     return result;
   }
@@ -2649,7 +2649,7 @@ class  TouchpadEventInfo {
   static TouchpadEventInfoPtr
   NewTouchEvent(
       TouchpadTouchEventPtr value) {
-    auto result = TouchpadEventInfoPtr(absl::in_place);
+    auto result = TouchpadEventInfoPtr(std::in_place);
     result->set_touch_event(std::move(value));
     return result;
   }
@@ -2657,7 +2657,7 @@ class  TouchpadEventInfo {
   static TouchpadEventInfoPtr
   NewConnectedEvent(
       TouchpadConnectedEventPtr value) {
-    auto result = TouchpadEventInfoPtr(absl::in_place);
+    auto result = TouchpadEventInfoPtr(std::in_place);
     result->set_connected_event(std::move(value));
     return result;
   }
@@ -2805,7 +2805,7 @@ class  TouchscreenEventInfo {
   static TouchscreenEventInfoPtr
   NewDefaultType(
       uint8_t value) {
-    auto result = TouchscreenEventInfoPtr(absl::in_place);
+    auto result = TouchscreenEventInfoPtr(std::in_place);
     result->set_default_type(std::move(value));
     return result;
   }
@@ -2813,7 +2813,7 @@ class  TouchscreenEventInfo {
   static TouchscreenEventInfoPtr
   NewTouchEvent(
       TouchscreenTouchEventPtr value) {
-    auto result = TouchscreenEventInfoPtr(absl::in_place);
+    auto result = TouchscreenEventInfoPtr(std::in_place);
     result->set_touch_event(std::move(value));
     return result;
   }
@@ -2821,7 +2821,7 @@ class  TouchscreenEventInfo {
   static TouchscreenEventInfoPtr
   NewConnectedEvent(
       TouchscreenConnectedEventPtr value) {
-    auto result = TouchscreenEventInfoPtr(absl::in_place);
+    auto result = TouchscreenEventInfoPtr(std::in_place);
     result->set_connected_event(std::move(value));
     return result;
   }
@@ -2956,7 +2956,7 @@ class  StylusEventInfo {
   static StylusEventInfoPtr
   NewDefaultType(
       uint8_t value) {
-    auto result = StylusEventInfoPtr(absl::in_place);
+    auto result = StylusEventInfoPtr(std::in_place);
     result->set_default_type(std::move(value));
     return result;
   }
@@ -2964,7 +2964,7 @@ class  StylusEventInfo {
   static StylusEventInfoPtr
   NewTouchEvent(
       StylusTouchEventPtr value) {
-    auto result = StylusEventInfoPtr(absl::in_place);
+    auto result = StylusEventInfoPtr(std::in_place);
     result->set_touch_event(std::move(value));
     return result;
   }
@@ -2972,7 +2972,7 @@ class  StylusEventInfo {
   static StylusEventInfoPtr
   NewConnectedEvent(
       StylusConnectedEventPtr value) {
-    auto result = StylusEventInfoPtr(absl::in_place);
+    auto result = StylusEventInfoPtr(std::in_place);
     result->set_connected_event(std::move(value));
     return result;
   }
@@ -3107,7 +3107,7 @@ class  EventInfo {
   static EventInfoPtr
   NewDefaultType(
       uint8_t value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_default_type(std::move(value));
     return result;
   }
@@ -3115,7 +3115,7 @@ class  EventInfo {
   static EventInfoPtr
   NewUsbEventInfo(
       UsbEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_usb_event_info(std::move(value));
     return result;
   }
@@ -3123,7 +3123,7 @@ class  EventInfo {
   static EventInfoPtr
   NewThunderboltEventInfo(
       ThunderboltEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_thunderbolt_event_info(std::move(value));
     return result;
   }
@@ -3131,7 +3131,7 @@ class  EventInfo {
   static EventInfoPtr
   NewLidEventInfo(
       LidEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_lid_event_info(std::move(value));
     return result;
   }
@@ -3139,7 +3139,7 @@ class  EventInfo {
   static EventInfoPtr
   NewBluetoothEventInfo(
       BluetoothEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_bluetooth_event_info(std::move(value));
     return result;
   }
@@ -3147,7 +3147,7 @@ class  EventInfo {
   static EventInfoPtr
   NewPowerEventInfo(
       PowerEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_power_event_info(std::move(value));
     return result;
   }
@@ -3155,7 +3155,7 @@ class  EventInfo {
   static EventInfoPtr
   NewAudioEventInfo(
       AudioEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_audio_event_info(std::move(value));
     return result;
   }
@@ -3163,7 +3163,7 @@ class  EventInfo {
   static EventInfoPtr
   NewAudioJackEventInfo(
       AudioJackEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_audio_jack_event_info(std::move(value));
     return result;
   }
@@ -3171,7 +3171,7 @@ class  EventInfo {
   static EventInfoPtr
   NewSdCardEventInfo(
       SdCardEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_sd_card_event_info(std::move(value));
     return result;
   }
@@ -3179,7 +3179,7 @@ class  EventInfo {
   static EventInfoPtr
   NewKeyboardDiagnosticEventInfo(
       ::ash::diagnostics::mojom::KeyboardDiagnosticEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_keyboard_diagnostic_event_info(std::move(value));
     return result;
   }
@@ -3187,7 +3187,7 @@ class  EventInfo {
   static EventInfoPtr
   NewTouchpadEventInfo(
       TouchpadEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_touchpad_event_info(std::move(value));
     return result;
   }
@@ -3195,7 +3195,7 @@ class  EventInfo {
   static EventInfoPtr
   NewExternalDisplayEventInfo(
       ExternalDisplayEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_external_display_event_info(std::move(value));
     return result;
   }
@@ -3203,7 +3203,7 @@ class  EventInfo {
   static EventInfoPtr
   NewTouchscreenEventInfo(
       TouchscreenEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_touchscreen_event_info(std::move(value));
     return result;
   }
@@ -3211,7 +3211,7 @@ class  EventInfo {
   static EventInfoPtr
   NewStylusGarageEventInfo(
       StylusGarageEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_stylus_garage_event_info(std::move(value));
     return result;
   }
@@ -3219,7 +3219,7 @@ class  EventInfo {
   static EventInfoPtr
   NewStylusEventInfo(
       StylusEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_stylus_event_info(std::move(value));
     return result;
   }
@@ -3227,7 +3227,7 @@ class  EventInfo {
   static EventInfoPtr
   NewCrashEventInfo(
       CrashEventInfoPtr value) {
-    auto result = EventInfoPtr(absl::in_place);
+    auto result = EventInfoPtr(std::in_place);
     result->set_crash_event_info(std::move(value));
     return result;
   }
@@ -3524,7 +3524,7 @@ class  UsbEventInfo {
   template <typename... Args>
   static UsbEventInfoPtr New(Args&&... args) {
     return UsbEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3694,7 +3694,7 @@ class  TouchPointInfo {
   template <typename... Args>
   static TouchPointInfoPtr New(Args&&... args) {
     return TouchPointInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3851,7 +3851,7 @@ class  TouchpadTouchEvent {
   template <typename... Args>
   static TouchpadTouchEventPtr New(Args&&... args) {
     return TouchpadTouchEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3993,7 +3993,7 @@ class  TouchpadConnectedEvent {
   template <typename... Args>
   static TouchpadConnectedEventPtr New(Args&&... args) {
     return TouchpadConnectedEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4143,7 +4143,7 @@ class  ExternalDisplayEventInfo {
   template <typename... Args>
   static ExternalDisplayEventInfoPtr New(Args&&... args) {
     return ExternalDisplayEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4291,7 +4291,7 @@ class  TouchscreenTouchEvent {
   template <typename... Args>
   static TouchscreenTouchEventPtr New(Args&&... args) {
     return TouchscreenTouchEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4435,7 +4435,7 @@ class  StylusTouchPointInfo {
   template <typename... Args>
   static StylusTouchPointInfoPtr New(Args&&... args) {
     return StylusTouchPointInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4583,7 +4583,7 @@ class  StylusTouchEvent {
   template <typename... Args>
   static StylusTouchEventPtr New(Args&&... args) {
     return StylusTouchEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4726,7 +4726,7 @@ class  CrashUploadInfo {
   template <typename... Args>
   static CrashUploadInfoPtr New(Args&&... args) {
     return CrashUploadInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -4873,7 +4873,7 @@ class  CrashEventInfo {
   template <typename... Args>
   static CrashEventInfoPtr New(Args&&... args) {
     return CrashEventInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -607,7 +607,7 @@ class BLINK_PLATFORM_EXPORT CertVerifierConfig {
   template <typename... Args>
   static CertVerifierConfigPtr New(Args&&... args) {
     return CertVerifierConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -760,7 +760,7 @@ class BLINK_PLATFORM_EXPORT RequestParams {
   template <typename... Args>
   static RequestParamsPtr New(Args&&... args) {
     return RequestParamsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -915,7 +915,7 @@ class BLINK_PLATFORM_EXPORT AdditionalCertificates {
   template <typename... Args>
   static AdditionalCertificatesPtr New(Args&&... args) {
     return AdditionalCertificatesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

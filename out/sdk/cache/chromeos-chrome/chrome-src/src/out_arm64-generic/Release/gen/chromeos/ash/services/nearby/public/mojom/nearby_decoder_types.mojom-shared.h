@@ -322,7 +322,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `device_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDeviceName` instead "
     "of `ReadDeviceName if you're fine with null values being "
@@ -378,7 +378,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `required_package` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadRequiredPackage` instead "
     "of `ReadRequiredPackage if you're fine with null values being "
@@ -611,7 +611,7 @@ static_assert(
         mojo::ArrayDataView<uint8_t>, UserType>(),
     "Attempting to read the optional `optional_signed_data` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOptionalSignedData` instead "
     "of `ReadOptionalSignedData if you're fine with null values being "

@@ -59,7 +59,7 @@ class  DelegatedInkMetadata {
   template <typename... Args>
   static DelegatedInkMetadataPtr New(Args&&... args) {
     return DelegatedInkMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

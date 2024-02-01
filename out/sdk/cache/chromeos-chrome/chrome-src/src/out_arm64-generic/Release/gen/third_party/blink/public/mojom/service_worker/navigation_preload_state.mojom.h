@@ -53,7 +53,7 @@ class COMPONENT_EXPORT(SERVICE_WORKER_STORAGE_MOJOM) NavigationPreloadState {
   template <typename... Args>
   static NavigationPreloadStatePtr New(Args&&... args) {
     return NavigationPreloadStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -376,7 +376,7 @@ class  ReadyFrameInBuffer {
   template <typename... Args>
   static ReadyFrameInBufferPtr New(Args&&... args) {
     return ReadyFrameInBufferPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -295,7 +295,7 @@ class  NetworkLocationResponse {
   template <typename... Args>
   static NetworkLocationResponsePtr New(Args&&... args) {
     return NetworkLocationResponsePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -443,7 +443,7 @@ class  AccessPointData {
   template <typename... Args>
   static AccessPointDataPtr New(Args&&... args) {
     return AccessPointDataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -595,7 +595,7 @@ class  NetworkLocationDiagnostics {
   template <typename... Args>
   static NetworkLocationDiagnosticsPtr New(Args&&... args) {
     return NetworkLocationDiagnosticsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -740,7 +740,7 @@ class  PositionCacheDiagnostics {
   template <typename... Args>
   static PositionCacheDiagnosticsPtr New(Args&&... args) {
     return PositionCacheDiagnosticsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -894,7 +894,7 @@ class  WifiPollingPolicyDiagnostics {
   template <typename... Args>
   static WifiPollingPolicyDiagnosticsPtr New(Args&&... args) {
     return WifiPollingPolicyDiagnosticsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1053,7 +1053,7 @@ class  GeolocationDiagnostics {
   template <typename... Args>
   static GeolocationDiagnosticsPtr New(Args&&... args) {
     return GeolocationDiagnosticsPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

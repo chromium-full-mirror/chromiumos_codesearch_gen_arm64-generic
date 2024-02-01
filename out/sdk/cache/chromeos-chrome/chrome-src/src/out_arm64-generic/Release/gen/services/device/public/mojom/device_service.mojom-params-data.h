@@ -22,23 +22,6 @@ class ValidationContext;
 
 namespace device::mojom {
 namespace internal {
-class  DeviceService_BindDevicePostureProvider_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  mojo::internal::Handle_Data receiver;
-  uint8_t padfinal_[4];
-
- private:
-  friend class mojo::internal::MessageFragment<DeviceService_BindDevicePostureProvider_Params_Data>;
-
-  DeviceService_BindDevicePostureProvider_Params_Data();
-  ~DeviceService_BindDevicePostureProvider_Params_Data() = delete;
-};
-static_assert(sizeof(DeviceService_BindDevicePostureProvider_Params_Data) == 16,
-              "Bad sizeof(DeviceService_BindDevicePostureProvider_Params_Data)");
 class  DeviceService_BindFingerprint_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -381,31 +364,6 @@ static_assert(sizeof(DeviceService_BindUsbDeviceManagerTest_Params_Data) == 16,
               "Bad sizeof(DeviceService_BindUsbDeviceManagerTest_Params_Data)");
 
 }  // namespace internal
-
-
-class DeviceService_BindDevicePostureProvider_ParamsDataView {
- public:
-  DeviceService_BindDevicePostureProvider_ParamsDataView() = default;
-
-  DeviceService_BindDevicePostureProvider_ParamsDataView(
-      internal::DeviceService_BindDevicePostureProvider_Params_Data* data,
-      mojo::Message* message)
-      : data_(data), message_(message) {}
-
-  bool is_null() const { return !data_; }
-  template <typename UserType>
-  UserType TakeReceiver() {
-    UserType result;
-    bool ret =
-        mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::device::mojom::DevicePostureProviderInterfaceBase>>(
-            &data_->receiver, &result, message_);
-    DCHECK(ret);
-    return result;
-  }
- private:
-  internal::DeviceService_BindDevicePostureProvider_Params_Data* data_ = nullptr;
-  mojo::Message* message_ = nullptr;
-};
 
 
 class DeviceService_BindFingerprint_ParamsDataView {
@@ -906,8 +864,6 @@ class DeviceService_BindUsbDeviceManagerTest_ParamsDataView {
   internal::DeviceService_BindUsbDeviceManagerTest_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
-
-
 
 
 

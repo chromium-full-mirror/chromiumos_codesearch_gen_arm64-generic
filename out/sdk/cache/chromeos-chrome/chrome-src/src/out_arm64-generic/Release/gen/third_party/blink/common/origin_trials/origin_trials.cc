@@ -35,6 +35,7 @@ static constexpr struct TrialToFeature {
 } kTrialToFeaturesMap[] = {
     { "AddIdentityInCanMakePaymentEvent", 1, {mojom::OriginTrialFeature::kAddIdentityInCanMakePaymentEvent, } },
     { "AdInterestGroupAPI", 1, {mojom::OriginTrialFeature::kAdInterestGroupAPI, } },
+    { "AppTitle", 1, {mojom::OriginTrialFeature::kAppTitle, } },
     { "PrivacySandboxAdsAPIs", 8, {mojom::OriginTrialFeature::kAttributionReporting,mojom::OriginTrialFeature::kFencedFrames,mojom::OriginTrialFeature::kFencedFramesAPIChanges,mojom::OriginTrialFeature::kFledge,mojom::OriginTrialFeature::kPrivacySandboxAdsAPIs,mojom::OriginTrialFeature::kSharedStorageAPI,mojom::OriginTrialFeature::kTopicsAPI,mojom::OriginTrialFeature::kTopicsDocumentAPI, } },
     { "AttributionReportingCrossAppWeb", 1, {mojom::OriginTrialFeature::kAttributionReportingCrossAppWeb, } },
     { "AttributionReportingInterface", 1, {mojom::OriginTrialFeature::kAttributionReportingInterface, } },
@@ -281,6 +282,12 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
       return true;
     case mojom::OriginTrialFeature::kAdInterestGroupAPI:
       return true;
+    case mojom::OriginTrialFeature::kAppTitle:
+#if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC) || BUILDFLAG(IS_LINUX) || BUILDFLAG(IS_CHROMEOS)
+      return true;
+#else
+      return false;
+#endif
     case mojom::OriginTrialFeature::kAttributionReporting:
       return true;
     case mojom::OriginTrialFeature::kAttributionReportingCrossAppWeb:

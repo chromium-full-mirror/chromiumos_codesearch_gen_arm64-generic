@@ -1364,7 +1364,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadName` instead "
     "of `ReadName if you're fine with null values being "
@@ -1385,7 +1385,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `intent` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadIntent` instead "
     "of `ReadIntent if you're fine with null values being "
@@ -1606,7 +1606,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `package_name` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPackageName` instead "
     "of `ReadPackageName if you're fine with null values being "
@@ -1643,7 +1643,7 @@ static_assert(
         ::arc::mojom::InstallationResultDataView, UserType>(),
     "Attempting to read the optional `result` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadResult` instead "
     "of `ReadResult if you're fine with null values being "
@@ -2893,7 +2893,7 @@ static_assert(
         ::ax::mojom::AssistantExtraDataView, UserType>(),
     "Attempting to read the optional `assistant_extra` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAssistantExtra` instead "
     "of `ReadAssistantExtra if you're fine with null values being "
@@ -2913,7 +2913,7 @@ static_assert(
         ::ax::mojom::AssistantTreeDataView, UserType>(),
     "Attempting to read the optional `assistant_tree` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadAssistantTree` instead "
     "of `ReadAssistantTree if you're fine with null values being "
