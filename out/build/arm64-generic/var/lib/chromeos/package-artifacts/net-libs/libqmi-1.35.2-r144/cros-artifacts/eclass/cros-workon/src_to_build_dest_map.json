@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/libqmi",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/net-libs/libqmi-1.35.2-r144/work/libqmi-1.35.2"
+    }
+  ]
+}

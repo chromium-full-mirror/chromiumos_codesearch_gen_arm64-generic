@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "net-libs", "name": "libqmi", "version": "1.35.1", "revision": 143, "fullname": "net-libs/libqmi", "fullnamerev": "net-libs/libqmi-1.35.1-r143", "license_names": ["GPL-2"], "license_text_scanned": [], "homepages": ["http://cgit.freedesktop.org/libqmi/"], "skip": false, "tainted": false, "ebuild_path": null}

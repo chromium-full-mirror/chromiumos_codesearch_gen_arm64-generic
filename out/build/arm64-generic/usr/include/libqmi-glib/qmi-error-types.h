@@ -9,7 +9,7 @@
 
 G_BEGIN_DECLS
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-errors.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-errors.h" */
 GQuark qmi_core_error_quark    (void);
 GType  qmi_core_error_get_type (void) G_GNUC_CONST;
 #define QMI_CORE_ERROR (qmi_core_error_quark ())

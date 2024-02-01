@@ -30,7 +30,7 @@
 
 G_BEGIN_DECLS
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-device.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-device.h" */
 GType qmi_device_expected_data_format_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_DEVICE_EXPECTED_DATA_FORMAT (qmi_device_expected_data_format_get_type ())
 
@@ -48,7 +48,7 @@ GType qmi_device_expected_data_format_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_device_expected_data_format_get_string (QmiDeviceExpectedDataFormat val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-dms.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-dms.h" */
 GType qmi_dms_data_service_capability_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_DMS_DATA_SERVICE_CAPABILITY (qmi_dms_data_service_capability_get_type ())
 
@@ -354,7 +354,7 @@ GType qmi_dms_foxconn_firmware_version_type_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_dms_foxconn_firmware_version_type_get_string (QmiDmsFoxconnFirmwareVersionType val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-dsd.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-dsd.h" */
 GType qmi_dsd_apn_type_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_DSD_APN_TYPE (qmi_dsd_apn_type_get_type ())
 
@@ -404,7 +404,7 @@ GType qmi_dsd_radio_access_technology_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_dsd_radio_access_technology_get_string (QmiDsdRadioAccessTechnology val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-fox.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-fox.h" */
 GType qmi_fox_firmware_version_type_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_FOX_FIRMWARE_VERSION_TYPE (qmi_fox_firmware_version_type_get_type ())
 
@@ -422,7 +422,7 @@ GType qmi_fox_firmware_version_type_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_fox_firmware_version_type_get_string (QmiFoxFirmwareVersionType val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-gas.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-gas.h" */
 GType qmi_gas_firmware_listing_mode_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_GAS_FIRMWARE_LISTING_MODE (qmi_gas_firmware_listing_mode_get_type ())
 
@@ -456,7 +456,7 @@ GType qmi_gas_usb_composition_endpoint_type_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_gas_usb_composition_endpoint_type_get_string (QmiGasUsbCompositionEndpointType val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-imsa.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-imsa.h" */
 GType qmi_imsa_ims_registration_status_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_IMSA_IMS_REGISTRATION_STATUS (qmi_imsa_ims_registration_status_get_type ())
 
@@ -506,7 +506,7 @@ GType qmi_imsa_registration_technology_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_imsa_registration_technology_get_string (QmiImsaRegistrationTechnology val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-imsp.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-imsp.h" */
 GType qmi_imsp_enabler_state_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_IMSP_ENABLER_STATE (qmi_imsp_enabler_state_get_type ())
 
@@ -524,7 +524,7 @@ GType qmi_imsp_enabler_state_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_imsp_enabler_state_get_string (QmiImspEnablerState val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-loc.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-loc.h" */
 GType qmi_loc_intermediate_report_state_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_LOC_INTERMEDIATE_REPORT_STATE (qmi_loc_intermediate_report_state_get_type ())
 
@@ -766,7 +766,7 @@ GType qmi_loc_lock_type_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_loc_lock_type_get_string (QmiLocLockType val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-nas.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-nas.h" */
 GType qmi_nas_radio_interface_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_NAS_RADIO_INTERFACE (qmi_nas_radio_interface_get_type ())
 
@@ -1648,7 +1648,7 @@ GType qmi_nas_reject_cause_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_nas_reject_cause_get_string (QmiNasRejectCause val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-oma.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-oma.h" */
 GType qmi_oma_session_type_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_OMA_SESSION_TYPE (qmi_oma_session_type_get_type ())
 
@@ -1714,7 +1714,7 @@ GType qmi_oma_hfa_feature_done_state_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_oma_hfa_feature_done_state_get_string (QmiOmaHfaFeatureDoneState val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-pbm.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-pbm.h" */
 GType qmi_pbm_session_type_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_PBM_SESSION_TYPE (qmi_pbm_session_type_get_type ())
 
@@ -1732,7 +1732,7 @@ GType qmi_pbm_session_type_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_pbm_session_type_get_string (QmiPbmSessionType val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-pdc.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-pdc.h" */
 GType qmi_pdc_configuration_type_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_PDC_CONFIGURATION_TYPE (qmi_pdc_configuration_type_get_type ())
 
@@ -1766,7 +1766,7 @@ GType qmi_pdc_refresh_event_type_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_pdc_refresh_event_type_get_string (QmiPdcRefreshEventType val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-pds.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-pds.h" */
 GType qmi_pds_operation_mode_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_PDS_OPERATION_MODE (qmi_pds_operation_mode_get_type ())
 
@@ -1848,7 +1848,7 @@ GType qmi_pds_network_mode_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_pds_network_mode_get_string (QmiPdsNetworkMode val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-qos.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-qos.h" */
 GType qmi_qos_status_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_QOS_STATUS (qmi_qos_status_get_type ())
 
@@ -1882,7 +1882,7 @@ GType qmi_qos_event_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_qos_event_get_string (QmiQosEvent val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-sar.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-sar.h" */
 GType qmi_sar_rf_state_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_SAR_RF_STATE (qmi_sar_rf_state_get_type ())
 
@@ -1900,7 +1900,7 @@ GType qmi_sar_rf_state_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_sar_rf_state_get_string (QmiSarRfState val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-ssc.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-ssc.h" */
 GType qmi_ssc_report_type_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_SSC_REPORT_TYPE (qmi_ssc_report_type_get_type ())
 
@@ -1918,7 +1918,7 @@ GType qmi_ssc_report_type_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_ssc_report_type_get_string (QmiSscReportType val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-uim.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-uim.h" */
 GType qmi_uim_session_type_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_UIM_SESSION_TYPE (qmi_uim_session_type_get_type ())
 
@@ -2208,7 +2208,7 @@ GType qmi_uim_depersonalization_operation_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_uim_depersonalization_operation_get_string (QmiUimDepersonalizationOperation val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-voice.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-voice.h" */
 GType qmi_voice_call_state_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_VOICE_CALL_STATE (qmi_voice_call_state_get_type ())
 
@@ -2530,7 +2530,7 @@ GType qmi_voice_supplementary_service_reason_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_voice_supplementary_service_reason_get_string (QmiVoiceSupplementaryServiceReason val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-wda.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-wda.h" */
 GType qmi_wda_link_layer_protocol_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_WDA_LINK_LAYER_PROTOCOL (qmi_wda_link_layer_protocol_get_type ())
 
@@ -2564,7 +2564,7 @@ GType qmi_wda_data_aggregation_protocol_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_wda_data_aggregation_protocol_get_string (QmiWdaDataAggregationProtocol val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-wds.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-wds.h" */
 GType qmi_wds_ip_family_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_WDS_IP_FAMILY (qmi_wds_ip_family_get_type ())
 
@@ -3206,7 +3206,7 @@ GType qmi_wds_profile_change_event_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_wds_profile_change_event_get_string (QmiWdsProfileChangeEvent val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-wms.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-wms.h" */
 GType qmi_wms_storage_type_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_WMS_STORAGE_TYPE (qmi_wms_storage_type_get_type ())
 
@@ -3496,7 +3496,7 @@ GType qmi_wms_ack_failure_cause_get_type (void) G_GNUC_CONST;
  */
 const gchar *qmi_wms_ack_failure_cause_get_string (QmiWmsAckFailureCause val);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums.h" */
 GType qmi_service_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_SERVICE (qmi_service_get_type ())
 

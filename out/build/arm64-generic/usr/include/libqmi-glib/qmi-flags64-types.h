@@ -13,7 +13,7 @@
 
 G_BEGIN_DECLS
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-flags64-dms.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-flags64-dms.h" */
 
 #define __QMI_DMS_BAND_CAPABILITY_IS_FLAGS__
 
@@ -51,7 +51,7 @@ gchar *qmi_dms_band_capability_build_string_from_mask (QmiDmsBandCapability mask
  */
 gchar *qmi_dms_lte_band_capability_build_string_from_mask (QmiDmsLteBandCapability mask);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-flags64-dsd.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-flags64-dsd.h" */
 
 #define __QMI_DSD_APN_TYPE_PREFERENCE_IS_FLAGS__
 
@@ -89,7 +89,7 @@ gchar *qmi_dsd_apn_type_preference_build_string_from_mask (QmiDsdApnTypePreferen
  */
 gchar *qmi_dsd_so_mask_build_string_from_mask (QmiDsdSoMask mask);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-flags64-loc.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-flags64-loc.h" */
 
 #define __QMI_LOC_EVENT_REGISTRATION_FLAG_IS_FLAGS__
 
@@ -145,7 +145,7 @@ gchar *qmi_loc_sensor_data_usage_build_string_from_mask (QmiLocSensorDataUsage m
  */
 gchar *qmi_loc_delete_gnss_data_build_string_from_mask (QmiLocDeleteGnssData mask);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-flags64-nas.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-flags64-nas.h" */
 
 #define __QMI_NAS_BAND_PREFERENCE_IS_FLAGS__
 
@@ -183,7 +183,7 @@ gchar *qmi_nas_band_preference_build_string_from_mask (QmiNasBandPreference mask
  */
 gchar *qmi_nas_lte_band_preference_build_string_from_mask (QmiNasLteBandPreference mask);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-flags64-wds.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-flags64-wds.h" */
 
 #define __QMI_WDS_APN_TYPE_MASK_IS_FLAGS__
 

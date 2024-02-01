@@ -57,7 +57,7 @@
  *
  * Since: 1.6
  */
-#define QMI_MICRO_VERSION (1)
+#define QMI_MICRO_VERSION (2)
 
 /**
  * QMI_CHECK_VERSION:

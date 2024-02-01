@@ -28,7 +28,7 @@
 
 G_BEGIN_DECLS
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-device.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-device.h" */
 GType qmi_device_open_flags_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_DEVICE_OPEN_FLAGS (qmi_device_open_flags_get_type ())
 
@@ -81,7 +81,7 @@ GType qmi_device_add_link_flags_get_type (void) G_GNUC_CONST;
  */
 gchar *qmi_device_add_link_flags_build_string_from_mask (QmiDeviceAddLinkFlags mask);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-dms.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-dms.h" */
 GType qmi_dms_power_state_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_DMS_POWER_STATE (qmi_dms_power_state_get_type ())
 
@@ -117,7 +117,7 @@ GType qmi_dms_offline_reason_get_type (void) G_GNUC_CONST;
  */
 gchar *qmi_dms_offline_reason_build_string_from_mask (QmiDmsOfflineReason mask);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-loc.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-loc.h" */
 GType qmi_loc_technology_used_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_LOC_TECHNOLOGY_USED (qmi_loc_technology_used_get_type ())
 
@@ -238,7 +238,7 @@ GType qmi_loc_nmea_type_get_type (void) G_GNUC_CONST;
  */
 gchar *qmi_loc_nmea_type_build_string_from_mask (QmiLocNmeaType mask);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-nas.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-nas.h" */
 GType qmi_nas_signal_strength_request_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_NAS_SIGNAL_STRENGTH_REQUEST (qmi_nas_signal_strength_request_get_type ())
 
@@ -376,7 +376,7 @@ GType qmi_nas_network_name_display_condition_get_type (void) G_GNUC_CONST;
  */
 gchar *qmi_nas_network_name_display_condition_build_string_from_mask (QmiNasNetworkNameDisplayCondition mask);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-pbm.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-pbm.h" */
 GType qmi_pbm_event_registration_flag_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_PBM_EVENT_REGISTRATION_FLAG (qmi_pbm_event_registration_flag_get_type ())
 
@@ -412,7 +412,7 @@ GType qmi_pbm_phonebook_type_get_type (void) G_GNUC_CONST;
  */
 gchar *qmi_pbm_phonebook_type_build_string_from_mask (QmiPbmPhonebookType mask);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-pds.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-pds.h" */
 GType qmi_pds_data_valid_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_PDS_DATA_VALID (qmi_pds_data_valid_get_type ())
 
@@ -431,7 +431,7 @@ GType qmi_pds_data_valid_get_type (void) G_GNUC_CONST;
  */
 gchar *qmi_pds_data_valid_build_string_from_mask (QmiPdsDataValid mask);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-uim.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-uim.h" */
 GType qmi_uim_event_registration_flag_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_UIM_EVENT_REGISTRATION_FLAG (qmi_uim_event_registration_flag_get_type ())
 
@@ -484,7 +484,7 @@ GType qmi_uim_configuration_get_type (void) G_GNUC_CONST;
  */
 gchar *qmi_uim_configuration_build_string_from_mask (QmiUimConfiguration mask);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-voice.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-voice.h" */
 GType qmi_voice_wcdma_amr_status_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_VOICE_WCDMA_AMR_STATUS (qmi_voice_wcdma_amr_status_get_type ())
 
@@ -503,7 +503,7 @@ GType qmi_voice_wcdma_amr_status_get_type (void) G_GNUC_CONST;
  */
 gchar *qmi_voice_wcdma_amr_status_build_string_from_mask (QmiVoiceWcdmaAmrStatus mask);
 
-/* enumerations from "../libqmi-1.35.1/src/libqmi-glib/qmi-enums-wds.h" */
+/* enumerations from "../libqmi-1.35.2/src/libqmi-glib/qmi-enums-wds.h" */
 GType qmi_wds_technology_preference_get_type (void) G_GNUC_CONST;
 #define QMI_TYPE_WDS_TECHNOLOGY_PREFERENCE (qmi_wds_technology_preference_get_type ())
 
