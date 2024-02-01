@@ -166,6 +166,30 @@ impl dbus::message::SignalArgs for OrgChromiumUserDataAuthInterfacePrepareAuthFa
 }
 
 #[derive(Debug)]
+pub struct OrgChromiumUserDataAuthInterfaceAuthenticateStarted {
+    pub status: Vec<u8>,
+}
+
+impl arg::AppendAll for OrgChromiumUserDataAuthInterfaceAuthenticateStarted {
+    fn append(&self, i: &mut arg::IterAppend) {
+        arg::RefArg::append(&self.status, i);
+    }
+}
+
+impl arg::ReadAll for OrgChromiumUserDataAuthInterfaceAuthenticateStarted {
+    fn read(i: &mut arg::Iter) -> Result<Self, arg::TypeMismatchError> {
+        Ok(OrgChromiumUserDataAuthInterfaceAuthenticateStarted {
+            status: i.read()?,
+        })
+    }
+}
+
+impl dbus::message::SignalArgs for OrgChromiumUserDataAuthInterfaceAuthenticateStarted {
+    const NAME: &'static str = "AuthenticateStarted";
+    const INTERFACE: &'static str = "org.chromium.UserDataAuthInterface";
+}
+
+#[derive(Debug)]
 pub struct OrgChromiumUserDataAuthInterfaceAuthenticateAuthFactorCompleted {
     pub status: Vec<u8>,
 }

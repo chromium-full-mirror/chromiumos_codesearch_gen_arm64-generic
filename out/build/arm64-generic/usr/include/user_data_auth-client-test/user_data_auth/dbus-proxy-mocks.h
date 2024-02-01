@@ -647,6 +647,16 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
               (const base::RepeatingCallback<void(const user_data_auth::PrepareAuthFactorProgress&)>& /*signal_callback*/,
                dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
 
+  void RegisterAuthenticateStartedSignalHandler(
+    const base::RepeatingCallback<void(const user_data_auth::AuthenticateStarted&)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    DoRegisterAuthenticateStartedSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD(void,
+              DoRegisterAuthenticateStartedSignalHandler,
+              (const base::RepeatingCallback<void(const user_data_auth::AuthenticateStarted&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
   void RegisterAuthenticateAuthFactorCompletedSignalHandler(
     const base::RepeatingCallback<void(const user_data_auth::AuthenticateAuthFactorCompleted&)>& signal_callback,
     dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {

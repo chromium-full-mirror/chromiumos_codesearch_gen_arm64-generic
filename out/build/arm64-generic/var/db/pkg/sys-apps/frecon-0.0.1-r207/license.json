@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "sys-apps", "name": "frecon", "version": "0.0.1", "revision": 207, "fullname": "sys-apps/frecon", "fullnamerev": "sys-apps/frecon-0.0.1-r207", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://chromium.googlesource.com/chromiumos/platform/frecon"], "skip": false, "tainted": false, "ebuild_path": null}

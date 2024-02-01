@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/platform/empty-project",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/chromeos-test-root-1-r4/work/chromeos-test-root-1"
+    }
+  ]
+}

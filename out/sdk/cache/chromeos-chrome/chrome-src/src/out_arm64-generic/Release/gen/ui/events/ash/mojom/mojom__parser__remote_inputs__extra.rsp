@@ -24,8 +24,8 @@ home/chrome-bot/chrome_root/src/ui/events/ash/mojom/extended_fkeys_modifier.mojo
 home/chrome-bot/chrome_root/src/ui/events/ash/mojom/modifier_key.mojom
 home/chrome-bot/chrome_root/src/ui/events/ash/mojom/simulate_right_click_modifier.mojom
 home/chrome-bot/chrome_root/src/ui/events/ash/mojom/six_pack_shortcut_modifier.mojom
-home/chrome-bot/chrome_root/src/ui/events/ash/mojom/modifier_key.mojom
 home/chrome-bot/chrome_root/src/ui/events/ash/mojom/extended_fkeys_modifier.mojom
+home/chrome-bot/chrome_root/src/ui/events/ash/mojom/modifier_key.mojom
+home/chrome-bot/chrome_root/src/ui/events/ash/mojom/simulate_right_click_modifier.mojom
 home/chrome-bot/chrome_root/src/ui/events/ash/mojom/six_pack_shortcut_modifier.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/events/ash/mojom/mojom.build_metadata
-home/chrome-bot/chrome_root/src/ui/events/ash/mojom/simulate_right_click_modifier.mojom

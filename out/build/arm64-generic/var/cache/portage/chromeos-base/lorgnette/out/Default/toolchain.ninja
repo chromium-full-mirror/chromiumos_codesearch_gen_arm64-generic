@@ -44,20 +44,20 @@ subninja obj/lorgnette/liblorgnette.ninja
 subninja obj/lorgnette/liblorgnette_cli.ninja
 subninja obj/lorgnette/lorgnette.ninja
 rule __lorgnette_lorgnette-adaptors___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/lorgnette-0.0.1-r3674/work/lorgnette-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/lorgnette/out/Default/gen/include/lorgnette/dbus_adaptors/${source_name_part}.h -service-config= ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/lorgnette-0.0.1-r3676/work/lorgnette-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/lorgnette/out/Default/gen/include/lorgnette/dbus_adaptors/${source_name_part}.h -service-config= ${in}
   description = ACTION //lorgnette:lorgnette-adaptors(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/lorgnette/dbus_adaptors/org.chromium.lorgnette.Manager.h: __lorgnette_lorgnette-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/lorgnette-0.0.1-r3674/work/lorgnette-0.0.1/lorgnette/dbus_bindings/org.chromium.lorgnette.Manager.xml | ../../../../../../../tmp/portage/chromeos-base/lorgnette-0.0.1-r3674/work/lorgnette-0.0.1/common-mk/file_generator_wrapper.py
+build gen/include/lorgnette/dbus_adaptors/org.chromium.lorgnette.Manager.h: __lorgnette_lorgnette-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/lorgnette-0.0.1-r3676/work/lorgnette-0.0.1/lorgnette/dbus_bindings/org.chromium.lorgnette.Manager.xml | ../../../../../../../tmp/portage/chromeos-base/lorgnette-0.0.1-r3676/work/lorgnette-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.lorgnette.Manager
 
 build obj/lorgnette/lorgnette-adaptors.stamp: stamp gen/include/lorgnette/dbus_adaptors/org.chromium.lorgnette.Manager.h
 rule __lorgnette_lorgnette-proxies___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/lorgnette-0.0.1-r3674/work/lorgnette-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config= -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/lorgnette/out/Default/gen/include/lorgnette/dbus-proxies.h ../../../../../../../tmp/portage/chromeos-base/lorgnette-0.0.1-r3674/work/lorgnette-0.0.1/lorgnette/dbus_bindings/org.chromium.lorgnette.Manager.xml
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/lorgnette-0.0.1-r3676/work/lorgnette-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config= -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/lorgnette/out/Default/gen/include/lorgnette/dbus-proxies.h ../../../../../../../tmp/portage/chromeos-base/lorgnette-0.0.1-r3676/work/lorgnette-0.0.1/lorgnette/dbus_bindings/org.chromium.lorgnette.Manager.xml
   description = ACTION //lorgnette:lorgnette-proxies(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/lorgnette/dbus-proxies.h: __lorgnette_lorgnette-proxies___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/lorgnette-0.0.1-r3674/work/lorgnette-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/lorgnette-0.0.1-r3674/work/lorgnette-0.0.1/lorgnette/dbus_bindings/org.chromium.lorgnette.Manager.xml
+build gen/include/lorgnette/dbus-proxies.h: __lorgnette_lorgnette-proxies___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/lorgnette-0.0.1-r3676/work/lorgnette-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/lorgnette-0.0.1-r3676/work/lorgnette-0.0.1/lorgnette/dbus_bindings/org.chromium.lorgnette.Manager.xml
 
 build obj/lorgnette/lorgnette-proxies.stamp: stamp gen/include/lorgnette/dbus-proxies.h
 subninja obj/lorgnette/lorgnette_cli.ninja

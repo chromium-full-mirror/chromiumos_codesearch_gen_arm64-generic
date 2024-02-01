@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5668/work/cryptohome-0.0.2/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5671/work/cryptohome-0.0.2/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -18,11 +18,20 @@ build build.ninja: phony build.ninja.stamp
 
 subninja toolchain.ninja
 
+build _cryptohome-install_config: phony obj/cryptohome/_cryptohome-install_config.stamp
+build _cryptohome-namespace-mounter-install_config: phony obj/cryptohome/_cryptohome-namespace-mounter-install_config.stamp
+build _cryptohome-path-install_config: phony obj/cryptohome/_cryptohome-path-install_config.stamp
+build _cryptohomed-install_config: phony obj/cryptohome/_cryptohomed-install_config.stamp
+build _encrypted-reboot-vault-install_config: phony obj/cryptohome/_encrypted-reboot-vault-install_config.stamp
+build _homedirs_initializer-install_config: phony obj/cryptohome/_homedirs_initializer-install_config.stamp
 build _libcryptohome_data_migrator-install_config: phony obj/cryptohome/libs/_libcryptohome_data_migrator-install_config.stamp
 build _libcryptohome_data_migrator_pc-install_config: phony obj/cryptohome/libs/_libcryptohome_data_migrator_pc-install_config.stamp
 build _libcryptohome_platform-install_config: phony obj/cryptohome/libs/_libcryptohome_platform-install_config.stamp
 build _libcryptohome_platform_pc-install_config: phony obj/cryptohome/libs/_libcryptohome_platform_pc-install_config.stamp
+build _lockbox-cache-install_config: phony obj/cryptohome/_lockbox-cache-install_config.stamp
 build _lockbox-cache-manager-install_config: phony obj/cryptohome/_lockbox-cache-manager-install_config.stamp
+build _mount-encrypted-install_config: phony obj/cryptohome/_mount-encrypted-install_config.stamp
+build _stateful-recovery-install_config: phony obj/cryptohome/_stateful-recovery-install_config.stamp
 build auth-block-state-flatbuffers-binding-binary: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-binary.stamp
 build auth-block-state-flatbuffers-binding-binary_gen: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-binary_gen.stamp
 build auth-block-state-flatbuffers-binding-generate: phony obj/cryptohome/libs/auth-block-state-flatbuffers-binding-generate.stamp
@@ -45,8 +54,11 @@ build flatbuffers-binding-generator: phony obj/cryptohome/libs/flatbuffers-bindi
 build install_attributes-proto: phony ./libinstall_attributes-proto.a
 build install_attributes-proto_gen: phony obj/common-mk/external_dependencies/install_attributes-proto_gen.stamp
 build install_data_migrator_headers: phony obj/cryptohome/libs/install_data_migrator_headers.stamp
+build install_dbus_config: phony obj/cryptohome/install_dbus_config.stamp
 build install_platform_headers: phony obj/cryptohome/libs/install_platform_headers.stamp
-build install_tmpfilesd: phony obj/cryptohome/install_tmpfilesd.stamp
+build install_tmpfilesd_cryptohome: phony obj/cryptohome/install_tmpfilesd_cryptohome.stamp
+build install_tmpfilesd_freezer: phony obj/cryptohome/install_tmpfilesd_freezer.stamp
+build install_udev_rule: phony obj/cryptohome/install_udev_rule.stamp
 build libcrosplatform: phony ./libcrosplatform.a
 build libcrostpm: phony ./libcrostpm.a
 build libcryptohome: phony ./libcryptohome.a
@@ -100,7 +112,16 @@ build common-mk/external_dependencies$:rlwe_goprotos: phony obj/common-mk/extern
 build common-mk/external_dependencies$:user_policy-protos: phony ./libuser_policy-protos.a
 build common-mk/external_dependencies$:user_policy-protos_gen: phony obj/common-mk/external_dependencies/user_policy-protos_gen.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build cryptohome$:_cryptohome-install_config: phony obj/cryptohome/_cryptohome-install_config.stamp
+build cryptohome$:_cryptohome-namespace-mounter-install_config: phony obj/cryptohome/_cryptohome-namespace-mounter-install_config.stamp
+build cryptohome$:_cryptohome-path-install_config: phony obj/cryptohome/_cryptohome-path-install_config.stamp
+build cryptohome$:_cryptohomed-install_config: phony obj/cryptohome/_cryptohomed-install_config.stamp
+build cryptohome$:_encrypted-reboot-vault-install_config: phony obj/cryptohome/_encrypted-reboot-vault-install_config.stamp
+build cryptohome$:_homedirs_initializer-install_config: phony obj/cryptohome/_homedirs_initializer-install_config.stamp
+build cryptohome$:_lockbox-cache-install_config: phony obj/cryptohome/_lockbox-cache-install_config.stamp
 build cryptohome$:_lockbox-cache-manager-install_config: phony obj/cryptohome/_lockbox-cache-manager-install_config.stamp
+build cryptohome$:_mount-encrypted-install_config: phony obj/cryptohome/_mount-encrypted-install_config.stamp
+build cryptohome$:_stateful-recovery-install_config: phony obj/cryptohome/_stateful-recovery-install_config.stamp
 build cryptohome$:all: phony obj/cryptohome/all.stamp
 build cryptohome$:cryptohome: phony ./cryptohome
 build cryptohome$:cryptohome-namespace-mounter: phony ./cryptohome-namespace-mounter
@@ -109,7 +130,10 @@ build cryptohome$:cryptohomed: phony ./cryptohomed
 build cryptohome$:encrypted-reboot-vault: phony ./encrypted-reboot-vault
 build cryptohome$:error_location_check: phony obj/cryptohome/error_location_check.stamp
 build cryptohome$:homedirs_initializer: phony ./homedirs_initializer
-build cryptohome$:install_tmpfilesd: phony obj/cryptohome/install_tmpfilesd.stamp
+build cryptohome$:install_dbus_config: phony obj/cryptohome/install_dbus_config.stamp
+build cryptohome$:install_tmpfilesd_cryptohome: phony obj/cryptohome/install_tmpfilesd_cryptohome.stamp
+build cryptohome$:install_tmpfilesd_freezer: phony obj/cryptohome/install_tmpfilesd_freezer.stamp
+build cryptohome$:install_udev_rule: phony obj/cryptohome/install_udev_rule.stamp
 build cryptohome$:lockbox-cache: phony ./lockbox-cache
 build cryptohome$:lockbox-cache-manager: phony ./lockbox-cache-manager
 build cryptohome$:mount-encrypted: phony ./mount-encrypted
@@ -179,7 +203,16 @@ build all: phony $
     ./libuser_policy-protos.a $
     obj/common-mk/external_dependencies/user_policy-protos_gen.stamp $
     obj/common-mk/gn_root/root.stamp $
+    obj/cryptohome/_cryptohome-install_config.stamp $
+    obj/cryptohome/_cryptohome-namespace-mounter-install_config.stamp $
+    obj/cryptohome/_cryptohome-path-install_config.stamp $
+    obj/cryptohome/_cryptohomed-install_config.stamp $
+    obj/cryptohome/_encrypted-reboot-vault-install_config.stamp $
+    obj/cryptohome/_homedirs_initializer-install_config.stamp $
+    obj/cryptohome/_lockbox-cache-install_config.stamp $
     obj/cryptohome/_lockbox-cache-manager-install_config.stamp $
+    obj/cryptohome/_mount-encrypted-install_config.stamp $
+    obj/cryptohome/_stateful-recovery-install_config.stamp $
     obj/cryptohome/all.stamp $
     ./cryptohome $
     ./cryptohome-namespace-mounter $
@@ -188,7 +221,10 @@ build all: phony $
     ./encrypted-reboot-vault $
     obj/cryptohome/error_location_check.stamp $
     ./homedirs_initializer $
-    obj/cryptohome/install_tmpfilesd.stamp $
+    obj/cryptohome/install_dbus_config.stamp $
+    obj/cryptohome/install_tmpfilesd_cryptohome.stamp $
+    obj/cryptohome/install_tmpfilesd_freezer.stamp $
+    obj/cryptohome/install_udev_rule.stamp $
     ./lockbox-cache $
     ./lockbox-cache-manager $
     ./mount-encrypted $

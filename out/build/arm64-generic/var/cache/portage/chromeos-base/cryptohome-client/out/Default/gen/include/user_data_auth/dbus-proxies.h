@@ -510,6 +510,10 @@ class UserDataAuthInterfaceProxyInterface {
       const base::RepeatingCallback<void(const user_data_auth::PrepareAuthFactorProgress&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
 
+  virtual void RegisterAuthenticateStartedSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::AuthenticateStarted&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
+
   virtual void RegisterAuthenticateAuthFactorCompletedSignalHandler(
       const base::RepeatingCallback<void(const user_data_auth::AuthenticateAuthFactorCompleted&)>& signal_callback,
       dbus::ObjectProxy::OnConnectedCallback on_connected_callback) = 0;
@@ -610,6 +614,17 @@ class UserDataAuthInterfaceProxy final : public UserDataAuthInterfaceProxyInterf
         dbus_object_proxy_,
         "org.chromium.UserDataAuthInterface",
         "PrepareAuthFactorProgress",
+        signal_callback,
+        std::move(on_connected_callback));
+  }
+
+  void RegisterAuthenticateStartedSignalHandler(
+      const base::RepeatingCallback<void(const user_data_auth::AuthenticateStarted&)>& signal_callback,
+      dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    brillo::dbus_utils::ConnectToSignal(
+        dbus_object_proxy_,
+        "org.chromium.UserDataAuthInterface",
+        "AuthenticateStarted",
         signal_callback,
         std::move(on_connected_callback));
   }

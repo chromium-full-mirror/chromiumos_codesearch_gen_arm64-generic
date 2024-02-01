@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/toolchain-utils",
+      "build_dest_path": "/var/tmp/portage/dev-util/toolchain-utils-0.0.1-r1155/work/toolchain-utils-0.0.1"
+    }
+  ]
+}

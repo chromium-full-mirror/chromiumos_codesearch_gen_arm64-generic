@@ -310,6 +310,7 @@ class UserDataAuthInterfaceAdaptor {
     signal_LowDiskSpace_ = itf->RegisterSignalOfType<SignalLowDiskSpaceType>("LowDiskSpace");
     signal_AuthScanResult_ = itf->RegisterSignalOfType<SignalAuthScanResultType>("AuthScanResult");
     signal_PrepareAuthFactorProgress_ = itf->RegisterSignalOfType<SignalPrepareAuthFactorProgressType>("PrepareAuthFactorProgress");
+    signal_AuthenticateStarted_ = itf->RegisterSignalOfType<SignalAuthenticateStartedType>("AuthenticateStarted");
     signal_AuthenticateAuthFactorCompleted_ = itf->RegisterSignalOfType<SignalAuthenticateAuthFactorCompletedType>("AuthenticateAuthFactorCompleted");
     signal_AuthFactorAdded_ = itf->RegisterSignalOfType<SignalAuthFactorAddedType>("AuthFactorAdded");
     signal_AuthFactorRemoved_ = itf->RegisterSignalOfType<SignalAuthFactorRemovedType>("AuthFactorRemoved");
@@ -345,6 +346,12 @@ class UserDataAuthInterfaceAdaptor {
   void SendPrepareAuthFactorProgressSignal(
       const user_data_auth::PrepareAuthFactorProgress& in_status) {
     auto signal = signal_PrepareAuthFactorProgress_.lock();
+    if (signal)
+      signal->Send(in_status);
+  }
+  void SendAuthenticateStartedSignal(
+      const user_data_auth::AuthenticateStarted& in_status) {
+    auto signal = signal_AuthenticateStarted_.lock();
     if (signal)
       signal->Send(in_status);
   }
@@ -559,6 +566,9 @@ class UserDataAuthInterfaceAdaptor {
         "    <signal name=\"PrepareAuthFactorProgress\">\n"
         "      <arg name=\"status\" type=\"ay\"/>\n"
         "    </signal>\n"
+        "    <signal name=\"AuthenticateStarted\">\n"
+        "      <arg name=\"status\" type=\"ay\"/>\n"
+        "    </signal>\n"
         "    <signal name=\"AuthenticateAuthFactorCompleted\">\n"
         "      <arg name=\"status\" type=\"ay\"/>\n"
         "    </signal>\n"
@@ -600,6 +610,10 @@ class UserDataAuthInterfaceAdaptor {
   using SignalPrepareAuthFactorProgressType = brillo::dbus_utils::DBusSignal<
       user_data_auth::PrepareAuthFactorProgress /*status*/>;
   std::weak_ptr<SignalPrepareAuthFactorProgressType> signal_PrepareAuthFactorProgress_;
+
+  using SignalAuthenticateStartedType = brillo::dbus_utils::DBusSignal<
+      user_data_auth::AuthenticateStarted /*status*/>;
+  std::weak_ptr<SignalAuthenticateStartedType> signal_AuthenticateStarted_;
 
   using SignalAuthenticateAuthFactorCompletedType = brillo::dbus_utils::DBusSignal<
       user_data_auth::AuthenticateAuthFactorCompleted /*status*/>;
