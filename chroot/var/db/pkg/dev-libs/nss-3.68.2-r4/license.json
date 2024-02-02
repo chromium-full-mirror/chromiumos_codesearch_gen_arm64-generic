@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-libs", "name": "nss", "version": "3.68.2", "revision": 4, "fullname": "dev-libs/nss", "fullnamerev": "dev-libs/nss-3.68.2-r4", "license_names": ["MPL-2.0"], "license_text_scanned": [], "homepages": ["https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS"], "skip": false, "tainted": false, "ebuild_path": null}

@@ -300,8 +300,9 @@ const char descriptor_table_protodef_hardware_5fverifier_2eproto[] PROTOBUF_SECT
     "ROR_INVALID_HW_VERIFICATION_SPEC_FILE\020\n\022"
     "#\n\037ERROR_INVALID_PROBE_RESULT_FILE\020\013\022\024\n\020"
     "ERROR_PROBE_FAIL\020\014\0228\n4ERROR_PROBE_RESULT"
-    "_HW_VERIFICATION_SPEC_MISALIGNMENT\020\rB H\001"
-    "Z\034chromiumos/hardware_verifierb\006proto3"
+    "_HW_VERIFICATION_SPEC_MISALIGNMENT\020\rB0H\001"
+    "Z,go.chromium.org/chromiumos/hardware_ve"
+    "rifierb\006proto3"
 };
 static const ::_pbi::DescriptorTable* const descriptor_table_hardware_5fverifier_2eproto_deps[1] =
     {
@@ -311,7 +312,7 @@ static ::absl::once_flag descriptor_table_hardware_5fverifier_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_hardware_5fverifier_2eproto = {
     false,
     false,
-    2038,
+    2054,
     descriptor_table_protodef_hardware_5fverifier_2eproto,
     "hardware_verifier.proto",
     &descriptor_table_hardware_5fverifier_2eproto_once,

@@ -42,6 +42,17 @@ PK11SlotInfo *PK11_GetInternalKeySlot(void);
 PK11SlotInfo *PK11_GetInternalSlot(void);
 SECStatus PK11_Logout(PK11SlotInfo *slot);
 void PK11_LogoutAll(void);
+/*
+ * Clears the cache with certs for the slot. This is mainly needed when a cert
+ * is deleted from the slot outside of NSS (or using NSS in another process).
+ * Without clearing the cache the deleted cert will still be found by
+ * PK11_ListCerts* methods, even though the cert is not actually usable. Should
+ * be used carefully, certs returned from previous calls to PK11_ListCerts* are
+ * refcounted and will not cause use-after-free, but might not interact
+ * correctly with other methods (e.g. PK11_GetAllSlotsForCert might not return
+ * any slots for an old pointer).
+ */
+SECStatus PK11_ClearCertsCache(PK11SlotInfo *slot);
 
 /************************************************************
  *  Slot Password Management
