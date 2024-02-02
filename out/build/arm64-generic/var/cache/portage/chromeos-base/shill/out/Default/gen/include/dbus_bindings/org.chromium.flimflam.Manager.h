@@ -110,6 +110,9 @@ class ManagerInterface {
   virtual bool ListDebugTags(
       brillo::ErrorPtr* error,
       std::string* out_1) = 0;
+  virtual bool PersistDebugConfig(
+      brillo::ErrorPtr* error,
+      bool in_1) = 0;
   virtual bool GetNetworksForGeolocation(
       brillo::ErrorPtr* error,
       brillo::VariantDictionary* out_1) = 0;
@@ -286,6 +289,10 @@ class ManagerAdaptor {
         "ListDebugTags",
         base::Unretained(interface_),
         &ManagerInterface::ListDebugTags);
+    itf->AddSimpleMethodHandlerWithError(
+        "PersistDebugConfig",
+        base::Unretained(interface_),
+        &ManagerInterface::PersistDebugConfig);
     itf->AddSimpleMethodHandlerWithError(
         "GetNetworksForGeolocation",
         base::Unretained(interface_),
@@ -474,6 +481,9 @@ class ManagerAdaptor {
         "    </method>\n"
         "    <method name=\"ListDebugTags\">\n"
         "      <arg name=\"\" type=\"s\" direction=\"out\"/>\n"
+        "    </method>\n"
+        "    <method name=\"PersistDebugConfig\">\n"
+        "      <arg name=\"\" type=\"b\" direction=\"in\"/>\n"
         "    </method>\n"
         "    <method name=\"GetNetworksForGeolocation\">\n"
         "      <arg name=\"\" type=\"a{sv}\" direction=\"out\"/>\n"

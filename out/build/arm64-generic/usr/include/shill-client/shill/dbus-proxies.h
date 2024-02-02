@@ -1184,6 +1184,17 @@ class ManagerProxyInterface {
       base::OnceCallback<void(brillo::Error*)> error_callback,
       int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
 
+  virtual bool PersistDebugConfig(
+      bool in_1,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
+  virtual void PersistDebugConfigAsync(
+      bool in_1,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) = 0;
+
   virtual bool GetNetworksForGeolocation(
       brillo::VariantDictionary* out_1,
       brillo::ErrorPtr* error,
@@ -2243,6 +2254,36 @@ class ManagerProxy final : public ManagerProxyInterface {
         "ListDebugTags",
         std::move(success_callback),
         std::move(error_callback));
+  }
+
+  bool PersistDebugConfig(
+      bool in_1,
+      brillo::ErrorPtr* error,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    auto response = brillo::dbus_utils::CallMethodAndBlockWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "PersistDebugConfig",
+        error,
+        in_1);
+    return response && brillo::dbus_utils::ExtractMethodCallResults(
+        response.get(), error);
+  }
+
+  void PersistDebugConfigAsync(
+      bool in_1,
+      base::OnceCallback<void()> success_callback,
+      base::OnceCallback<void(brillo::Error*)> error_callback,
+      int timeout_ms = dbus::ObjectProxy::TIMEOUT_USE_DEFAULT) override {
+    brillo::dbus_utils::CallMethodWithTimeout(
+        timeout_ms,
+        dbus_object_proxy_,
+        "org.chromium.flimflam.Manager",
+        "PersistDebugConfig",
+        std::move(success_callback),
+        std::move(error_callback),
+        in_1);
   }
 
   bool GetNetworksForGeolocation(

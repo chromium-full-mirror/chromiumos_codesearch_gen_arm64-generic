@@ -1,29 +1,29 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DFUSE_USE_VERSION=26
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r466/work/fusebox-0.0.2 -I/build/arm64-generic/usr/include
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r467/work/fusebox-0.0.2 -I/build/arm64-generic/usr/include
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1253750 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/fuse -D_FILE_OFFSET_BITS=64
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libfusebox
 
-build obj/fusebox/libfusebox.built_in.o: cxx ../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r466/work/fusebox-0.0.2/fusebox/built_in.cc
+build obj/fusebox/libfusebox.built_in.o: cxx ../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r467/work/fusebox-0.0.2/fusebox/built_in.cc
   source_file_part = built_in.cc
   source_name_part = built_in
-build obj/fusebox/libfusebox.file_system.o: cxx ../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r466/work/fusebox-0.0.2/fusebox/file_system.cc
+build obj/fusebox/libfusebox.file_system.o: cxx ../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r467/work/fusebox-0.0.2/fusebox/file_system.cc
   source_file_part = file_system.cc
   source_name_part = file_system
-build obj/fusebox/libfusebox.file_system_fuse.o: cxx ../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r466/work/fusebox-0.0.2/fusebox/file_system_fuse.cc
+build obj/fusebox/libfusebox.file_system_fuse.o: cxx ../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r467/work/fusebox-0.0.2/fusebox/file_system_fuse.cc
   source_file_part = file_system_fuse.cc
   source_name_part = file_system_fuse
-build obj/fusebox/libfusebox.fuse_path_inodes.o: cxx ../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r466/work/fusebox-0.0.2/fusebox/fuse_path_inodes.cc
+build obj/fusebox/libfusebox.fuse_path_inodes.o: cxx ../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r467/work/fusebox-0.0.2/fusebox/fuse_path_inodes.cc
   source_file_part = fuse_path_inodes.cc
   source_name_part = fuse_path_inodes
-build obj/fusebox/libfusebox.fuse_request.o: cxx ../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r466/work/fusebox-0.0.2/fusebox/fuse_request.cc
+build obj/fusebox/libfusebox.fuse_request.o: cxx ../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r467/work/fusebox-0.0.2/fusebox/fuse_request.cc
   source_file_part = fuse_request.cc
   source_name_part = fuse_request
-build obj/fusebox/libfusebox.make_stat.o: cxx ../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r466/work/fusebox-0.0.2/fusebox/make_stat.cc
+build obj/fusebox/libfusebox.make_stat.o: cxx ../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r467/work/fusebox-0.0.2/fusebox/make_stat.cc
   source_file_part = make_stat.cc
   source_name_part = make_stat
-build obj/fusebox/libfusebox.util.o: cxx ../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r466/work/fusebox-0.0.2/fusebox/util.cc
+build obj/fusebox/libfusebox.util.o: cxx ../../../../../../../tmp/portage/chromeos-base/fusebox-0.0.2-r467/work/fusebox-0.0.2/fusebox/util.cc
   source_file_part = util.cc
   source_name_part = util
 

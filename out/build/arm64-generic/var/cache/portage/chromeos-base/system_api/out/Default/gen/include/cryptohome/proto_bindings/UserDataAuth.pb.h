@@ -24183,8 +24183,24 @@ class MountCompleted final :
   // accessors -------------------------------------------------------
 
   enum : int {
+    kErrorInfoFieldNumber = 3,
     kOperationIdFieldNumber = 1,
+    kErrorFieldNumber = 2,
   };
+  // .user_data_auth.CryptohomeErrorInfo error_info = 3;
+  bool has_error_info() const;
+  void clear_error_info() ;
+  const ::user_data_auth::CryptohomeErrorInfo& error_info() const;
+  PROTOBUF_NODISCARD ::user_data_auth::CryptohomeErrorInfo* release_error_info();
+  ::user_data_auth::CryptohomeErrorInfo* mutable_error_info();
+  void set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info);
+  private:
+  const ::user_data_auth::CryptohomeErrorInfo& _internal_error_info() const;
+  ::user_data_auth::CryptohomeErrorInfo* _internal_mutable_error_info();
+  public:
+  void unsafe_arena_set_allocated_error_info(
+      ::user_data_auth::CryptohomeErrorInfo* error_info);
+  ::user_data_auth::CryptohomeErrorInfo* unsafe_arena_release_error_info();
   // uint64 operation_id = 1;
   void clear_operation_id() ;
   ::uint64_t operation_id() const;
@@ -24195,6 +24211,16 @@ class MountCompleted final :
   void _internal_set_operation_id(::uint64_t value);
 
   public:
+  // .user_data_auth.CryptohomeErrorCode error = 2;
+  void clear_error() ;
+  ::user_data_auth::CryptohomeErrorCode error() const;
+  void set_error(::user_data_auth::CryptohomeErrorCode value);
+
+  private:
+  ::user_data_auth::CryptohomeErrorCode _internal_error() const;
+  void _internal_set_error(::user_data_auth::CryptohomeErrorCode value);
+
+  public:
   // @@protoc_insertion_point(class_scope:user_data_auth.MountCompleted)
  private:
   class _Internal;
@@ -24203,8 +24229,11 @@ class MountCompleted final :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   struct Impl_ {
-    ::uint64_t operation_id_;
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::user_data_auth::CryptohomeErrorInfo* error_info_;
+    ::uint64_t operation_id_;
+    int error_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_UserDataAuth_2eproto;
@@ -39205,6 +39234,113 @@ inline ::uint64_t MountCompleted::_internal_operation_id() const {
 inline void MountCompleted::_internal_set_operation_id(::uint64_t value) {
   ;
   _impl_.operation_id_ = value;
+}
+
+// .user_data_auth.CryptohomeErrorCode error = 2;
+inline void MountCompleted::clear_error() {
+  _impl_.error_ = 0;
+}
+inline ::user_data_auth::CryptohomeErrorCode MountCompleted::error() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.MountCompleted.error)
+  return _internal_error();
+}
+inline void MountCompleted::set_error(::user_data_auth::CryptohomeErrorCode value) {
+   _internal_set_error(value);
+  // @@protoc_insertion_point(field_set:user_data_auth.MountCompleted.error)
+}
+inline ::user_data_auth::CryptohomeErrorCode MountCompleted::_internal_error() const {
+  return static_cast<::user_data_auth::CryptohomeErrorCode>(_impl_.error_);
+}
+inline void MountCompleted::_internal_set_error(::user_data_auth::CryptohomeErrorCode value) {
+  ;
+  _impl_.error_ = value;
+}
+
+// .user_data_auth.CryptohomeErrorInfo error_info = 3;
+inline bool MountCompleted::has_error_info() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  PROTOBUF_ASSUME(!value || _impl_.error_info_ != nullptr);
+  return value;
+}
+inline void MountCompleted::clear_error_info() {
+  if (_impl_.error_info_ != nullptr) _impl_.error_info_->Clear();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const ::user_data_auth::CryptohomeErrorInfo& MountCompleted::_internal_error_info() const {
+  const ::user_data_auth::CryptohomeErrorInfo* p = _impl_.error_info_;
+  return p != nullptr ? *p : reinterpret_cast<const ::user_data_auth::CryptohomeErrorInfo&>(
+      ::user_data_auth::_CryptohomeErrorInfo_default_instance_);
+}
+inline const ::user_data_auth::CryptohomeErrorInfo& MountCompleted::error_info() const {
+  // @@protoc_insertion_point(field_get:user_data_auth.MountCompleted.error_info)
+  return _internal_error_info();
+}
+inline void MountCompleted::unsafe_arena_set_allocated_error_info(
+    ::user_data_auth::CryptohomeErrorInfo* error_info) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(_impl_.error_info_);
+  }
+  _impl_.error_info_ = error_info;
+  if (error_info) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:user_data_auth.MountCompleted.error_info)
+}
+inline ::user_data_auth::CryptohomeErrorInfo* MountCompleted::release_error_info() {
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::user_data_auth::CryptohomeErrorInfo* temp = _impl_.error_info_;
+  _impl_.error_info_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* MountCompleted::unsafe_arena_release_error_info() {
+  // @@protoc_insertion_point(field_release:user_data_auth.MountCompleted.error_info)
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  ::user_data_auth::CryptohomeErrorInfo* temp = _impl_.error_info_;
+  _impl_.error_info_ = nullptr;
+  return temp;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* MountCompleted::_internal_mutable_error_info() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  if (_impl_.error_info_ == nullptr) {
+    auto* p = CreateMaybeMessage<::user_data_auth::CryptohomeErrorInfo>(GetArenaForAllocation());
+    _impl_.error_info_ = p;
+  }
+  return _impl_.error_info_;
+}
+inline ::user_data_auth::CryptohomeErrorInfo* MountCompleted::mutable_error_info() {
+  ::user_data_auth::CryptohomeErrorInfo* _msg = _internal_mutable_error_info();
+  // @@protoc_insertion_point(field_mutable:user_data_auth.MountCompleted.error_info)
+  return _msg;
+}
+inline void MountCompleted::set_allocated_error_info(::user_data_auth::CryptohomeErrorInfo* error_info) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete _impl_.error_info_;
+  }
+  if (error_info) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalGetOwningArena(error_info);
+    if (message_arena != submessage_arena) {
+      error_info = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, error_info, submessage_arena);
+    }
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.error_info_ = error_info;
+  // @@protoc_insertion_point(field_set_allocated:user_data_auth.MountCompleted.error_info)
 }
 
 // -------------------------------------------------------------------

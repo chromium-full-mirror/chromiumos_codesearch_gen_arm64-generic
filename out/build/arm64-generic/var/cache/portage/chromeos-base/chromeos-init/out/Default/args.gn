@@ -12,7 +12,7 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/chromeos-init"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/chromeos-init-0.0.26-r5169/work/chromeos-init-0.0.26"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/chromeos-init-0.0.26-r5171/work/chromeos-init-0.0.26"
 libbase_ver = "1253750"
 enable_exceptions = false
 external_cflags = [
@@ -107,6 +107,7 @@ use = {
   enterprise_rollback_reven = false
   factory_runtime_probe = false
   fake_drivefs_launcher = false
+  fbpreprocessord = false
   feature_management = false
   feedback = false
   flex_internal = false

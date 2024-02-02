@@ -43,11 +43,11 @@ build obj/swap_management/install_tmpfiles_config.stamp: stamp
 build obj/swap_management/install_udev_rule.stamp: stamp
 subninja obj/swap_management/libswapmanagement.ninja
 rule __swap_management_swap-management-adaptors___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/swap_management-0.0.1-r272/work/swap_management-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/swap_management/out/Default/gen/include/swap_management/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/swap_management-0.0.1-r272/work/swap_management-0.0.1/swap_management/dbus_bindings/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/swap_management-0.0.1-r273/work/swap_management-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/swap_management/out/Default/gen/include/swap_management/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/swap_management-0.0.1-r273/work/swap_management-0.0.1/swap_management/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //swap_management:swap-management-adaptors(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/swap_management/dbus_adaptors/org.chromium.SwapManagement.h: __swap_management_swap-management-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/swap_management-0.0.1-r272/work/swap_management-0.0.1/swap_management/dbus_bindings/org.chromium.SwapManagement.xml | ../../../../../../../tmp/portage/chromeos-base/swap_management-0.0.1-r272/work/swap_management-0.0.1/common-mk/file_generator_wrapper.py
+build gen/include/swap_management/dbus_adaptors/org.chromium.SwapManagement.h: __swap_management_swap-management-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/swap_management-0.0.1-r273/work/swap_management-0.0.1/swap_management/dbus_bindings/org.chromium.SwapManagement.xml | ../../../../../../../tmp/portage/chromeos-base/swap_management-0.0.1-r273/work/swap_management-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.SwapManagement
 
 build obj/swap_management/swap-management-adaptors.stamp: stamp gen/include/swap_management/dbus_adaptors/org.chromium.SwapManagement.h

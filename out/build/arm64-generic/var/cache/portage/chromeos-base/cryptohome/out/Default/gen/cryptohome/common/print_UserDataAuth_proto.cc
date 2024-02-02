@@ -4,7 +4,7 @@
 
 // THIS CODE IS GENERATED.
 // Generated with command:
-// ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5672/work/cryptohome-0.0.2/platform2/libhwsec-foundation/utility/proto_print.py
+// ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5674/work/cryptohome-0.0.2/platform2/libhwsec-foundation/utility/proto_print.py
 // --package-dir cryptohome --subdir common --proto-include
 // cryptohome/proto_bindings --output-dir
 // /build/arm64-generic/var/cache/portage/chromeos-base/cryptohome/out/Default/gen/cryptohome/common
@@ -6350,6 +6350,33 @@ std::string GetProtoDebugStringWithIndent(const MountCompleted& value,
     output += indent + "  operation_id: ";
     base::StringAppendF(&output, "%" PRIu64 " (0x%016" PRIX64 ")",
                         value.operation_id(), value.operation_id());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error(); }) {
+      if (!value.has_error()) {
+        return;
+      }
+    }
+    output += indent + "  error: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error(), indent_size + 2).c_str());
+    output += "\n";
+  }(value, indent_size, indent, output);
+  []<typename T>(const T& value, int indent_size, const std::string& indent,
+                 std::string& output) {
+    if constexpr (requires(T t) { t.has_error_info(); }) {
+      if (!value.has_error_info()) {
+        return;
+      }
+    }
+    output += indent + "  error_info: ";
+    base::StringAppendF(
+        &output, "%s",
+        GetProtoDebugStringWithIndent(value.error_info(), indent_size + 2)
+            .c_str());
     output += "\n";
   }(value, indent_size, indent, output);
   output += indent + "}";

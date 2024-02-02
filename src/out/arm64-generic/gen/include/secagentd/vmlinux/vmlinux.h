@@ -6333,6 +6333,8 @@ struct blk_trace;
 
 struct blk_flush_queue;
 
+struct throtl_data;
+
 struct blk_mq_tag_set;
 
 struct request_queue {
@@ -6387,6 +6389,7 @@ struct request_queue {
 	struct list_head unused_hctx_list;
 	spinlock_t unused_hctx_lock;
 	int mq_freeze_depth;
+	struct throtl_data *td;
 	struct callback_head callback_head;
 	wait_queue_head_t mq_freeze_wq;
 	struct mutex mq_freeze_lock;
@@ -48915,6 +48918,102 @@ struct blkg_rwstat {
 
 struct blkg_rwstat_sample {
 	u64 cnt[5];
+};
+
+struct throtl_service_queue {
+	struct throtl_service_queue *parent_sq;
+	struct list_head queued[2];
+	unsigned int nr_queued[2];
+	struct rb_root_cached pending_tree;
+	unsigned int nr_pending;
+	unsigned long first_pending_disptime;
+	struct timer_list pending_timer;
+};
+
+struct latency_bucket {
+	unsigned long total_latency;
+	int samples;
+};
+
+struct avg_latency_bucket {
+	unsigned long latency;
+	bool valid;
+};
+
+struct throtl_data {
+	struct throtl_service_queue service_queue;
+	struct request_queue *queue;
+	unsigned int nr_queued[2];
+	unsigned int throtl_slice;
+	struct work_struct dispatch_work;
+	unsigned int limit_index;
+	bool limit_valid[2];
+	unsigned long low_upgrade_time;
+	unsigned long low_downgrade_time;
+	unsigned int scale;
+	struct latency_bucket tmp_buckets[18];
+	struct avg_latency_bucket avg_buckets[18];
+	struct latency_bucket *latency_buckets[2];
+	unsigned long last_calculate_time;
+	unsigned long filtered_latency;
+	bool track_bio_latency;
+};
+
+enum tg_state_flags {
+	THROTL_TG_PENDING = 1,
+	THROTL_TG_WAS_EMPTY = 2,
+};
+
+enum {
+	LIMIT_LOW = 0,
+	LIMIT_MAX = 1,
+	LIMIT_CNT = 2,
+};
+
+struct throtl_grp;
+
+struct throtl_qnode {
+	struct list_head node;
+	struct bio_list bios;
+	struct throtl_grp *tg;
+};
+
+struct throtl_grp {
+	struct blkg_policy_data pd;
+	struct rb_node rb_node;
+	struct throtl_data *td;
+	struct throtl_service_queue service_queue;
+	struct throtl_qnode qnode_on_self[2];
+	struct throtl_qnode qnode_on_parent[2];
+	unsigned long disptime;
+	unsigned int flags;
+	bool has_rules[2];
+	uint64_t bps[4];
+	uint64_t bps_conf[4];
+	unsigned int iops[4];
+	unsigned int iops_conf[4];
+	uint64_t bytes_disp[2];
+	unsigned int io_disp[2];
+	unsigned long last_low_overflow_time[2];
+	uint64_t last_bytes_disp[2];
+	unsigned int last_io_disp[2];
+	unsigned long last_check_time;
+	unsigned long latency_target;
+	unsigned long latency_target_conf;
+	unsigned long slice_start[2];
+	unsigned long slice_end[2];
+	unsigned long last_finish_time;
+	unsigned long checked_last_finish_time;
+	unsigned long avg_idletime;
+	unsigned long idletime_threshold;
+	unsigned long idletime_threshold_conf;
+	unsigned int bio_cnt;
+	unsigned int bad_bio_cnt;
+	unsigned long bio_cnt_reset_time;
+	atomic_t io_split_cnt[2];
+	atomic_t last_io_split_cnt[2];
+	struct blkg_rwstat stat_bytes;
+	struct blkg_rwstat stat_ios;
 };
 
 enum dd_prio {

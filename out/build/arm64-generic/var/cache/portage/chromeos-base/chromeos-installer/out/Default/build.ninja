@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4173/work/chromeos-installer-0.0.3 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/chromeos-installer-0.0.3-r4174/work/chromeos-installer-0.0.3 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 

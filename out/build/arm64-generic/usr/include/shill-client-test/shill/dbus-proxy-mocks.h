@@ -699,6 +699,20 @@ class ManagerProxyMock : public ManagerProxyInterface {
               (override));
 
   MOCK_METHOD(bool,
+              PersistDebugConfig,
+              (bool,
+               brillo::ErrorPtr* /*error*/,
+               int /*timeout_ms*/),
+              (override));
+  MOCK_METHOD(void,
+              PersistDebugConfigAsync,
+              (bool,
+               base::OnceCallback<void()> /*success_callback*/,
+               base::OnceCallback<void(brillo::Error*)> /*error_callback*/,
+               int /*timeout_ms*/),
+              (override));
+
+  MOCK_METHOD(bool,
               GetNetworksForGeolocation,
               (brillo::VariantDictionary*,
                brillo::ErrorPtr* /*error*/,

@@ -1,147 +1,147 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DBUILD_LIBHWSEC -DENABLE_PROFILING=false -DUSE_TPM_DYNAMIC=false -DUSE_TPM1=false\|\|false -DUSE_TPM2=true\|\|false -DUSE_FUZZER=false
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1 -I/build/arm64-generic/usr/include -Igen
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1 -I/build/arm64-generic/usr/include -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -Wconsumed -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1253750 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/tpm_manager-client -fPIC -pthread
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = hardware_abstraction_internal_library
 
 build obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp: stamp obj/libhwsec/oobe_config_encrypted_data_proto_gen.stamp obj/libhwsec/pinweaver_manager_proto_gen.stamp obj/libhwsec/signature-sealed-data-flatbuffers-binding-generate.stamp
-build obj/libhwsec/backend/hardware_abstraction_internal_library.digest_algorithms.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/digest_algorithms.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/hardware_abstraction_internal_library.digest_algorithms.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/digest_algorithms.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = digest_algorithms.cc
   source_name_part = digest_algorithms
-build obj/libhwsec/backend/pinweaver_manager/hardware_abstraction_internal_library.persistent_lookup_table.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/pinweaver_manager/persistent_lookup_table.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/pinweaver_manager/hardware_abstraction_internal_library.persistent_lookup_table.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/pinweaver_manager/persistent_lookup_table.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = persistent_lookup_table.cc
   source_name_part = persistent_lookup_table
-build obj/libhwsec/backend/pinweaver_manager/hardware_abstraction_internal_library.pinweaver_manager_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/pinweaver_manager/pinweaver_manager_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/pinweaver_manager/hardware_abstraction_internal_library.pinweaver_manager_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/pinweaver_manager/pinweaver_manager_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = pinweaver_manager_impl.cc
   source_name_part = pinweaver_manager_impl
-build obj/libhwsec/backend/pinweaver_manager/hardware_abstraction_internal_library.sign_in_hash_tree.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/pinweaver_manager/sign_in_hash_tree.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/pinweaver_manager/hardware_abstraction_internal_library.sign_in_hash_tree.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/pinweaver_manager/sign_in_hash_tree.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = sign_in_hash_tree.cc
   source_name_part = sign_in_hash_tree
-build obj/libhwsec/error/hardware_abstraction_internal_library.tpm_retry_handler.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/error/tpm_retry_handler.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/error/hardware_abstraction_internal_library.tpm_retry_handler.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/error/tpm_retry_handler.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = tpm_retry_handler.cc
   source_name_part = tpm_retry_handler
-build obj/libhwsec/frontend/arc_attestation/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/frontend/arc_attestation/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/frontend/arc_attestation/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/arc_attestation/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = frontend_impl.cc
   source_name_part = frontend_impl
-build obj/libhwsec/frontend/attestation/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/frontend/attestation/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/frontend/attestation/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/attestation/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = frontend_impl.cc
   source_name_part = frontend_impl
-build obj/libhwsec/frontend/bootlockbox/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/frontend/bootlockbox/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/frontend/bootlockbox/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/bootlockbox/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = frontend_impl.cc
   source_name_part = frontend_impl
-build obj/libhwsec/frontend/chaps/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/frontend/chaps/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/frontend/chaps/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/chaps/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = frontend_impl.cc
   source_name_part = frontend_impl
-build obj/libhwsec/frontend/client/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/frontend/client/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/frontend/client/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/client/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = frontend_impl.cc
   source_name_part = frontend_impl
-build obj/libhwsec/frontend/cryptohome/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/frontend/cryptohome/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/frontend/cryptohome/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/cryptohome/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = frontend_impl.cc
   source_name_part = frontend_impl
-build obj/libhwsec/frontend/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/frontend/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/frontend/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = frontend_impl.cc
   source_name_part = frontend_impl
-build obj/libhwsec/frontend/local_data_migration/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/frontend/local_data_migration/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/frontend/local_data_migration/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/local_data_migration/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = frontend_impl.cc
   source_name_part = frontend_impl
-build obj/libhwsec/frontend/oobe_config/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/frontend/oobe_config/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/frontend/oobe_config/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/oobe_config/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = frontend_impl.cc
   source_name_part = frontend_impl
-build obj/libhwsec/frontend/optee-plugin/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/frontend/optee-plugin/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/frontend/optee-plugin/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/optee-plugin/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = frontend_impl.cc
   source_name_part = frontend_impl
-build obj/libhwsec/frontend/pinweaver_manager/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/frontend/pinweaver_manager/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/frontend/pinweaver_manager/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/pinweaver_manager/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = frontend_impl.cc
   source_name_part = frontend_impl
-build obj/libhwsec/frontend/recovery_crypto/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/frontend/recovery_crypto/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/frontend/recovery_crypto/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/recovery_crypto/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = frontend_impl.cc
   source_name_part = frontend_impl
-build obj/libhwsec/frontend/u2fd/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/frontend/u2fd/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/frontend/u2fd/hardware_abstraction_internal_library.frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/u2fd/frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = frontend_impl.cc
   source_name_part = frontend_impl
-build obj/libhwsec/frontend/u2fd/hardware_abstraction_internal_library.vendor_frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/frontend/u2fd/vendor_frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/frontend/u2fd/hardware_abstraction_internal_library.vendor_frontend_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/u2fd/vendor_frontend_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = vendor_frontend_impl.cc
   source_name_part = vendor_frontend_impl
-build obj/libhwsec/middleware/hardware_abstraction_internal_library.function_name.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/middleware/function_name.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/middleware/hardware_abstraction_internal_library.function_name.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/middleware/function_name.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = function_name.cc
   source_name_part = function_name
-build obj/libhwsec/middleware/hardware_abstraction_internal_library.metrics.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/middleware/metrics.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/middleware/hardware_abstraction_internal_library.metrics.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/middleware/metrics.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = metrics.cc
   source_name_part = metrics
-build obj/libhwsec/platform/hardware_abstraction_internal_library.platform_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/platform/platform_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/platform/hardware_abstraction_internal_library.platform_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/platform/platform_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = platform_impl.cc
   source_name_part = platform_impl
-build obj/libhwsec/proxy/hardware_abstraction_internal_library.proxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/proxy/proxy.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/proxy/hardware_abstraction_internal_library.proxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/proxy/proxy.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = proxy.cc
   source_name_part = proxy
-build obj/libhwsec/proxy/hardware_abstraction_internal_library.proxy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/proxy/proxy_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/proxy/hardware_abstraction_internal_library.proxy_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/proxy/proxy_impl.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = proxy_impl.cc
   source_name_part = proxy_impl
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.attestation.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/attestation.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.attestation.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/attestation.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = attestation.cc
   source_name_part = attestation
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.backend.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/backend.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.backend.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/backend.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = backend.cc
   source_name_part = backend
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.config.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/config.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.config.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/config.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = config.cc
   source_name_part = config
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.da_mitigation.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/da_mitigation.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.da_mitigation.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/da_mitigation.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = da_mitigation.cc
   source_name_part = da_mitigation
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.deriving.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/deriving.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.deriving.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/deriving.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = deriving.cc
   source_name_part = deriving
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.encryption.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/encryption.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.encryption.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/encryption.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = encryption.cc
   source_name_part = encryption
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.event_management.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/event_management.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.event_management.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/event_management.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = event_management.cc
   source_name_part = event_management
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.key_management.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/key_management.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.key_management.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/key_management.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = key_management.cc
   source_name_part = key_management
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.pinweaver.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/pinweaver.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.pinweaver.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/pinweaver.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = pinweaver.cc
   source_name_part = pinweaver
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.random.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/random.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.random.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/random.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = random.cc
   source_name_part = random
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.recovery_crypto.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/recovery_crypto.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.recovery_crypto.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/recovery_crypto.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = recovery_crypto.cc
   source_name_part = recovery_crypto
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.ro_data.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/ro_data.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.ro_data.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/ro_data.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = ro_data.cc
   source_name_part = ro_data
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.sealing.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/sealing.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.sealing.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/sealing.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = sealing.cc
   source_name_part = sealing
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.session_management.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/session_management.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.session_management.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/session_management.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = session_management.cc
   source_name_part = session_management
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.signature_sealing.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/signature_sealing.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.signature_sealing.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/signature_sealing.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = signature_sealing.cc
   source_name_part = signature_sealing
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.signing.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/signing.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.signing.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/signing.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = signing.cc
   source_name_part = signing
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.state.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/state.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.state.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/state.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = state.cc
   source_name_part = state
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.static_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/static_utils.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.static_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/static_utils.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = static_utils.cc
   source_name_part = static_utils
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.storage.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/storage.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.storage.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/storage.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = storage.cc
   source_name_part = storage
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.u2f.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/u2f.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.u2f.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/u2f.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = u2f.cc
   source_name_part = u2f
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.vendor.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/vendor.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.vendor.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/vendor.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = vendor.cc
   source_name_part = vendor
-build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.version_attestation.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1064/work/libhwsec-0.0.1/libhwsec/backend/tpm2/version_attestation.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
+build obj/libhwsec/backend/tpm2/hardware_abstraction_internal_library.version_attestation.o: cxx ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/tpm2/version_attestation.cc || obj/libhwsec/hardware_abstraction_internal_library.inputdeps.stamp
   source_file_part = version_attestation.cc
   source_name_part = version_attestation
 

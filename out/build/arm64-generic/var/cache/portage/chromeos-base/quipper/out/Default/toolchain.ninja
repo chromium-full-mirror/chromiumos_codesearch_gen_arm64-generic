@@ -40,29 +40,29 @@ subninja obj/chromiumos-wide-profiling/conversion_utils.ninja
 subninja obj/chromiumos-wide-profiling/perf_converter.ninja
 subninja obj/chromiumos-wide-profiling/perf_data_proto.ninja
 rule __chromiumos-wide-profiling_perf_data_proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py protoc perf_data.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/quipper/out/Default/gen/include
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2990/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py protoc perf_data.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/quipper-0.0.1-r2990/work/quipper-0.0.1/platform2/chromiumos-wide-profiling --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/quipper/out/Default/gen/include
   description = ACTION //chromiumos-wide-profiling:perf_data_proto_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/perf_data.pb.cc gen/include/perf_data.pb.h: __chromiumos-wide-profiling_perf_data_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_data.proto
+build gen/include/perf_data.pb.cc gen/include/perf_data.pb.h: __chromiumos-wide-profiling_perf_data_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2990/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2990/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_data.proto
 
 build obj/chromiumos-wide-profiling/perf_data_proto_gen.stamp: stamp gen/include/perf_data.pb.cc gen/include/perf_data.pb.h
 subninja obj/chromiumos-wide-profiling/perf_parser_options_proto.ninja
 rule __chromiumos-wide-profiling_perf_parser_options_proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py protoc perf_parser_options.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/quipper/out/Default/gen/include
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2990/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py protoc perf_parser_options.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/quipper-0.0.1-r2990/work/quipper-0.0.1/platform2/chromiumos-wide-profiling --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/quipper/out/Default/gen/include
   description = ACTION //chromiumos-wide-profiling:perf_parser_options_proto_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/perf_parser_options.pb.cc gen/include/perf_parser_options.pb.h: __chromiumos-wide-profiling_perf_parser_options_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_parser_options.proto
+build gen/include/perf_parser_options.pb.cc gen/include/perf_parser_options.pb.h: __chromiumos-wide-profiling_perf_parser_options_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2990/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2990/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_parser_options.proto
 
 build obj/chromiumos-wide-profiling/perf_parser_options_proto_gen.stamp: stamp gen/include/perf_parser_options.pb.cc gen/include/perf_parser_options.pb.h
 subninja obj/chromiumos-wide-profiling/perf_stat_proto.ninja
 rule __chromiumos-wide-profiling_perf_stat_proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py protoc perf_stat.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/quipper/out/Default/gen/include
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2990/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py protoc perf_stat.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/quipper-0.0.1-r2990/work/quipper-0.0.1/platform2/chromiumos-wide-profiling --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/quipper/out/Default/gen/include
   description = ACTION //chromiumos-wide-profiling:perf_stat_proto_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/perf_stat.pb.cc gen/include/perf_stat.pb.h: __chromiumos-wide-profiling_perf_stat_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2989/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_stat.proto
+build gen/include/perf_stat.pb.cc gen/include/perf_stat.pb.h: __chromiumos-wide-profiling_perf_stat_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2990/work/quipper-0.0.1/platform2/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/quipper-0.0.1-r2990/work/quipper-0.0.1/platform2/chromiumos-wide-profiling/perf_stat.proto
 
 build obj/chromiumos-wide-profiling/perf_stat_proto_gen.stamp: stamp gen/include/perf_stat.pb.cc gen/include/perf_stat.pb.h
 subninja obj/chromiumos-wide-profiling/quipper.ninja

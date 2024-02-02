@@ -11,7 +11,7 @@ OS = "linux"
 sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root = "/build/arm64-generic/var/cache/portage/chromeos-base/u2fd"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/u2fd-0.0.1-r2175/work/u2fd-0.0.1"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/u2fd-0.0.1-r2176/work/u2fd-0.0.1"
 libbase_ver = "1253750"
 enable_exceptions = false
 external_cflags = [
@@ -37,7 +37,7 @@ external_cxxflags = [
   "-fdata-sections",
 ]
 external_cppflags = [
-  "-DVCSID=\"0.0.1-r2175-d2b8d833d3519584f706a164fd34bc676e8cedec\"",
+  "-DVCSID=\"0.0.1-r2176-7a86a3d277cbbe7fda053f5fe38808058730c17d\"",
   "-D_FILE_OFFSET_BITS=64",
   "-D_LARGEFILE_SOURCE",
   "-D_LARGEFILE64_SOURCE",
@@ -107,6 +107,7 @@ use = {
   enterprise_rollback_reven = false
   factory_runtime_probe = false
   fake_drivefs_launcher = false
+  fbpreprocessord = false
   feature_management = false
   feedback = false
   flex_internal = false

@@ -1,24 +1,24 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r640/work/system-proxy-0.0.1 -I/build/arm64-generic/usr/include -Igen
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r641/work/system-proxy-0.0.1 -I/build/arm64-generic/usr/include -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1253750 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libsystemproxy
 
 build obj/system-proxy/libsystemproxy.inputdeps.stamp: stamp obj/system-proxy/dbus_code_generator.stamp obj/system-proxy/worker-protos_gen.stamp
-build obj/system-proxy/libsystemproxy.kerberos_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r640/work/system-proxy-0.0.1/system-proxy/kerberos_client.cc || obj/system-proxy/libsystemproxy.inputdeps.stamp
+build obj/system-proxy/libsystemproxy.kerberos_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r641/work/system-proxy-0.0.1/system-proxy/kerberos_client.cc || obj/system-proxy/libsystemproxy.inputdeps.stamp
   source_file_part = kerberos_client.cc
   source_name_part = kerberos_client
-build obj/system-proxy/libsystemproxy.protobuf_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r640/work/system-proxy-0.0.1/system-proxy/protobuf_util.cc || obj/system-proxy/libsystemproxy.inputdeps.stamp
+build obj/system-proxy/libsystemproxy.protobuf_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r641/work/system-proxy-0.0.1/system-proxy/protobuf_util.cc || obj/system-proxy/libsystemproxy.inputdeps.stamp
   source_file_part = protobuf_util.cc
   source_name_part = protobuf_util
-build obj/system-proxy/libsystemproxy.sandboxed_worker.o: cxx ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r640/work/system-proxy-0.0.1/system-proxy/sandboxed_worker.cc || obj/system-proxy/libsystemproxy.inputdeps.stamp
+build obj/system-proxy/libsystemproxy.sandboxed_worker.o: cxx ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r641/work/system-proxy-0.0.1/system-proxy/sandboxed_worker.cc || obj/system-proxy/libsystemproxy.inputdeps.stamp
   source_file_part = sandboxed_worker.cc
   source_name_part = sandboxed_worker
-build obj/system-proxy/libsystemproxy.system_proxy_adaptor.o: cxx ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r640/work/system-proxy-0.0.1/system-proxy/system_proxy_adaptor.cc || obj/system-proxy/libsystemproxy.inputdeps.stamp
+build obj/system-proxy/libsystemproxy.system_proxy_adaptor.o: cxx ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r641/work/system-proxy-0.0.1/system-proxy/system_proxy_adaptor.cc || obj/system-proxy/libsystemproxy.inputdeps.stamp
   source_file_part = system_proxy_adaptor.cc
   source_name_part = system_proxy_adaptor
-build obj/system-proxy/libsystemproxy.system_proxy_daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r640/work/system-proxy-0.0.1/system-proxy/system_proxy_daemon.cc || obj/system-proxy/libsystemproxy.inputdeps.stamp
+build obj/system-proxy/libsystemproxy.system_proxy_daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r641/work/system-proxy-0.0.1/system-proxy/system_proxy_daemon.cc || obj/system-proxy/libsystemproxy.inputdeps.stamp
   source_file_part = system_proxy_daemon.cc
   source_name_part = system_proxy_daemon
 

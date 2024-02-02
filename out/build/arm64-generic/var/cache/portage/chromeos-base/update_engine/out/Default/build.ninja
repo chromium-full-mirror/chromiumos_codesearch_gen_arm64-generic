@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4938/work/update_engine-0.0.3 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/update_engine-0.0.3-r4940/work/update_engine-0.0.3 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -21,6 +21,7 @@ subninja toolchain.ninja
 build _delta_generator-install_config: phony obj/update_engine/_delta_generator-install_config.stamp
 build _update_engine-install_config: phony obj/update_engine/_update_engine-install_config.stamp
 build _update_engine_client-install_config: phony obj/update_engine/_update_engine_client-install_config.stamp
+build install_subtool: phony obj/update_engine/install_subtool.stamp
 build libpayload_consumer: phony ./libpayload_consumer.a
 build libpayload_generator: phony ./libpayload_generator.a
 build libupdate_engine: phony ./libupdate_engine.a
@@ -36,6 +37,7 @@ build update_engine$:_update_engine-install_config: phony obj/update_engine/_upd
 build update_engine$:_update_engine_client-install_config: phony obj/update_engine/_update_engine_client-install_config.stamp
 build update_engine$:all: phony obj/update_engine/all.stamp
 build update_engine$:delta_generator: phony ./delta_generator
+build update_engine$:install_subtool: phony obj/update_engine/install_subtool.stamp
 build update_engine$:libpayload_consumer: phony ./libpayload_consumer.a
 build update_engine$:libpayload_generator: phony ./libpayload_generator.a
 build update_engine$:libupdate_engine: phony ./libupdate_engine.a
@@ -54,6 +56,7 @@ build all: phony $
     obj/update_engine/_update_engine_client-install_config.stamp $
     obj/update_engine/all.stamp $
     ./delta_generator $
+    obj/update_engine/install_subtool.stamp $
     ./libpayload_consumer.a $
     ./libpayload_generator.a $
     ./libupdate_engine.a $

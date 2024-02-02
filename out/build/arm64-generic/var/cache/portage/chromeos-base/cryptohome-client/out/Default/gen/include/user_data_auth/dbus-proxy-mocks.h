@@ -667,6 +667,26 @@ class UserDataAuthInterfaceProxyMock : public UserDataAuthInterfaceProxyInterfac
               (const base::RepeatingCallback<void(const user_data_auth::AuthenticateAuthFactorCompleted&)>& /*signal_callback*/,
                dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
 
+  void RegisterMountStartedSignalHandler(
+    const base::RepeatingCallback<void(const user_data_auth::MountStarted&)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    DoRegisterMountStartedSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD(void,
+              DoRegisterMountStartedSignalHandler,
+              (const base::RepeatingCallback<void(const user_data_auth::MountStarted&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
+  void RegisterMountCompletedSignalHandler(
+    const base::RepeatingCallback<void(const user_data_auth::MountCompleted&)>& signal_callback,
+    dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {
+    DoRegisterMountCompletedSignalHandler(signal_callback, &on_connected_callback);
+  }
+  MOCK_METHOD(void,
+              DoRegisterMountCompletedSignalHandler,
+              (const base::RepeatingCallback<void(const user_data_auth::MountCompleted&)>& /*signal_callback*/,
+               dbus::ObjectProxy::OnConnectedCallback* /*on_connected_callback*/));
+
   void RegisterAuthFactorAddedSignalHandler(
     const base::RepeatingCallback<void(const user_data_auth::AuthFactorAdded&)>& signal_callback,
     dbus::ObjectProxy::OnConnectedCallback on_connected_callback) override {

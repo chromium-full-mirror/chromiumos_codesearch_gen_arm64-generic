@@ -1,86 +1,86 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1 -I/build/arm64-generic/usr/include
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1 -I/build/arm64-generic/usr/include
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1253750 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libpermission_broker
 
-build obj/permission_broker/libpermission_broker.allow_external_tagged_usb_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/allow_external_tagged_usb_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.allow_external_tagged_usb_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/allow_external_tagged_usb_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = allow_external_tagged_usb_device_rule.cc
   source_name_part = allow_external_tagged_usb_device_rule
-build obj/permission_broker/libpermission_broker.allow_group_tty_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/allow_group_tty_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.allow_group_tty_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/allow_group_tty_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = allow_group_tty_device_rule.cc
   source_name_part = allow_group_tty_device_rule
-build obj/permission_broker/libpermission_broker.allow_hidraw_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/allow_hidraw_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.allow_hidraw_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/allow_hidraw_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = allow_hidraw_device_rule.cc
   source_name_part = allow_hidraw_device_rule
-build obj/permission_broker/libpermission_broker.allow_tty_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/allow_tty_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.allow_tty_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/allow_tty_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = allow_tty_device_rule.cc
   source_name_part = allow_tty_device_rule
-build obj/permission_broker/libpermission_broker.allow_usb_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/allow_usb_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.allow_usb_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/allow_usb_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = allow_usb_device_rule.cc
   source_name_part = allow_usb_device_rule
-build obj/permission_broker/libpermission_broker.deny_claimed_hidraw_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/deny_claimed_hidraw_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.deny_claimed_hidraw_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/deny_claimed_hidraw_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = deny_claimed_hidraw_device_rule.cc
   source_name_part = deny_claimed_hidraw_device_rule
-build obj/permission_broker/libpermission_broker.deny_claimed_usb_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/deny_claimed_usb_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.deny_claimed_usb_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/deny_claimed_usb_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = deny_claimed_usb_device_rule.cc
   source_name_part = deny_claimed_usb_device_rule
-build obj/permission_broker/libpermission_broker.deny_fwupdate_hidraw_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/deny_fwupdate_hidraw_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.deny_fwupdate_hidraw_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/deny_fwupdate_hidraw_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = deny_fwupdate_hidraw_device_rule.cc
   source_name_part = deny_fwupdate_hidraw_device_rule
-build obj/permission_broker/libpermission_broker.deny_group_tty_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/deny_group_tty_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.deny_group_tty_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/deny_group_tty_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = deny_group_tty_device_rule.cc
   source_name_part = deny_group_tty_device_rule
-build obj/permission_broker/libpermission_broker.deny_hammer_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/deny_hammer_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.deny_hammer_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/deny_hammer_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = deny_hammer_device_rule.cc
   source_name_part = deny_hammer_device_rule
-build obj/permission_broker/libpermission_broker.deny_uninitialized_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/deny_uninitialized_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.deny_uninitialized_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/deny_uninitialized_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = deny_uninitialized_device_rule.cc
   source_name_part = deny_uninitialized_device_rule
-build obj/permission_broker/libpermission_broker.deny_unsafe_hidraw_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/deny_unsafe_hidraw_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.deny_unsafe_hidraw_device_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/deny_unsafe_hidraw_device_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = deny_unsafe_hidraw_device_rule.cc
   source_name_part = deny_unsafe_hidraw_device_rule
-build obj/permission_broker/libpermission_broker.deny_usb_device_class_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/deny_usb_device_class_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.deny_usb_device_class_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/deny_usb_device_class_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = deny_usb_device_class_rule.cc
   source_name_part = deny_usb_device_class_rule
-build obj/permission_broker/libpermission_broker.deny_usb_vendor_id_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/deny_usb_vendor_id_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.deny_usb_vendor_id_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/deny_usb_vendor_id_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = deny_usb_vendor_id_rule.cc
   source_name_part = deny_usb_vendor_id_rule
-build obj/permission_broker/libpermission_broker.hidraw_subsystem_udev_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/hidraw_subsystem_udev_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.hidraw_subsystem_udev_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/hidraw_subsystem_udev_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = hidraw_subsystem_udev_rule.cc
   source_name_part = hidraw_subsystem_udev_rule
-build obj/permission_broker/libpermission_broker.libusb_wrapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/libusb_wrapper.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.libusb_wrapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/libusb_wrapper.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = libusb_wrapper.cc
   source_name_part = libusb_wrapper
-build obj/permission_broker/libpermission_broker.permission_broker.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/permission_broker.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.permission_broker.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/permission_broker.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = permission_broker.cc
   source_name_part = permission_broker
-build obj/permission_broker/libpermission_broker.port_tracker.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/port_tracker.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.port_tracker.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/port_tracker.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = port_tracker.cc
   source_name_part = port_tracker
-build obj/permission_broker/libpermission_broker.rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = rule.cc
   source_name_part = rule
-build obj/permission_broker/libpermission_broker.rule_engine.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/rule_engine.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.rule_engine.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/rule_engine.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = rule_engine.cc
   source_name_part = rule_engine
-build obj/permission_broker/libpermission_broker.rule_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/rule_utils.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.rule_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/rule_utils.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = rule_utils.cc
   source_name_part = rule_utils
-build obj/permission_broker/libpermission_broker.tty_subsystem_udev_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/tty_subsystem_udev_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.tty_subsystem_udev_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/tty_subsystem_udev_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = tty_subsystem_udev_rule.cc
   source_name_part = tty_subsystem_udev_rule
-build obj/permission_broker/libpermission_broker.udev_scopers.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/udev_scopers.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.udev_scopers.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/udev_scopers.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = udev_scopers.cc
   source_name_part = udev_scopers
-build obj/permission_broker/libpermission_broker.usb_control.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/usb_control.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.usb_control.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/usb_control.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = usb_control.cc
   source_name_part = usb_control
-build obj/permission_broker/libpermission_broker.usb_driver_tracker.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/usb_driver_tracker.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.usb_driver_tracker.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/usb_driver_tracker.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = usb_driver_tracker.cc
   source_name_part = usb_driver_tracker
-build obj/permission_broker/libpermission_broker.usb_subsystem_udev_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3625/work/permission_broker-0.0.1/permission_broker/usb_subsystem_udev_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
+build obj/permission_broker/libpermission_broker.usb_subsystem_udev_rule.o: cxx ../../../../../../../tmp/portage/chromeos-base/permission_broker-0.0.1-r3626/work/permission_broker-0.0.1/permission_broker/usb_subsystem_udev_rule.cc || obj/permission_broker/permission_broker_adaptors.stamp
   source_file_part = usb_subsystem_udev_rule.cc
   source_name_part = usb_subsystem_udev_rule
 

@@ -22,6 +22,6 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/settings/public/constants/mojom__parser.rsp
 home/chrome-bot/chrome_root/src/ash/webui/settings/public/constants/routes.mojom
 home/chrome-bot/chrome_root/src/ash/webui/settings/public/constants/setting.mojom
-home/chrome-bot/chrome_root/src/ash/webui/settings/public/constants/setting.mojom
 home/chrome-bot/chrome_root/src/ash/webui/settings/public/constants/routes.mojom
+home/chrome-bot/chrome_root/src/ash/webui/settings/public/constants/setting.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/settings/public/constants/mojom.build_metadata

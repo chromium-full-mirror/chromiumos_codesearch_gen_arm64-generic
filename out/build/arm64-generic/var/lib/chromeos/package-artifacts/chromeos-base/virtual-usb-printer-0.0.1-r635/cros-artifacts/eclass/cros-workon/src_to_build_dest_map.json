@@ -1,0 +1,13 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/platform2",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/virtual-usb-printer-0.0.1-r635/work/virtual-usb-printer-0.0.1/platform2"
+    },
+    {
+      "src_path": "src/third_party/virtual-usb-printer",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/virtual-usb-printer-0.0.1-r635/work/virtual-usb-printer-0.0.1/platform2/virtual-usb-printer"
+    }
+  ]
+}

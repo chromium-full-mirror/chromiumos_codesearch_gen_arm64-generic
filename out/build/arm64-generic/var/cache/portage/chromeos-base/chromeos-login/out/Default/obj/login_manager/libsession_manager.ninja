@@ -1,141 +1,141 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DOS_CHROMEOS -DUSE_ARC_ADB_SIDELOADING=false -DUSE_CHEETS=false -DUSE_NSS_CERTS=1 -DUSE_SYSTEMD=false -DUSE_APPLY_LANDLOCK_POLICY=true -DUSE_APPLY_NO_NEW_PRIVS=true -DUSE_ENABLE_CROSH_SUDO=false -DUSE_USER_SESSION_ISOLATION=false
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2 -I/build/arm64-generic/usr/include -Igen
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2 -I/build/arm64-generic/usr/include -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1253750 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -DUSE_RTTI_FOR_TYPE_TAGS=1
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libsession_manager
 
 build obj/login_manager/libsession_manager.inputdeps.stamp: stamp obj/common-mk/external_dependencies/install_attributes-proto_gen.stamp obj/common-mk/external_dependencies/policy-protos_gen.stamp obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp obj/login_manager/login_manager-login_screen_storage-protos_gen.stamp obj/login_manager/session_manager-adaptors.stamp
-build obj/login_manager/libsession_manager.android_oci_wrapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/android_oci_wrapper.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.android_oci_wrapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/android_oci_wrapper.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = android_oci_wrapper.cc
   source_name_part = android_oci_wrapper
-build obj/login_manager/libsession_manager.blob_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/blob_util.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.blob_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/blob_util.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = blob_util.cc
   source_name_part = blob_util
-build obj/login_manager/libsession_manager.browser_job.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/browser_job.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.browser_job.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/browser_job.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = browser_job.cc
   source_name_part = browser_job
-build obj/login_manager/libsession_manager.child_exit_dispatcher.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/child_exit_dispatcher.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.child_exit_dispatcher.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/child_exit_dispatcher.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = child_exit_dispatcher.cc
   source_name_part = child_exit_dispatcher
-build obj/login_manager/libsession_manager.child_exit_handler.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/child_exit_handler.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.child_exit_handler.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/child_exit_handler.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = child_exit_handler.cc
   source_name_part = child_exit_handler
-build obj/login_manager/libsession_manager.child_job.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/child_job.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.child_job.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/child_job.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = child_job.cc
   source_name_part = child_job
-build obj/login_manager/libsession_manager.chrome_features_service_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/chrome_features_service_client.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.chrome_features_service_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/chrome_features_service_client.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = chrome_features_service_client.cc
   source_name_part = chrome_features_service_client
-build obj/login_manager/libsession_manager.chrome_setup.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/chrome_setup.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.chrome_setup.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/chrome_setup.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = chrome_setup.cc
   source_name_part = chrome_setup
-build obj/login_manager/libsession_manager.container_manager_interface.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/container_manager_interface.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.container_manager_interface.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/container_manager_interface.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = container_manager_interface.cc
   source_name_part = container_manager_interface
-build obj/login_manager/libsession_manager.cumulative_use_time_metric.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/cumulative_use_time_metric.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.cumulative_use_time_metric.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/cumulative_use_time_metric.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = cumulative_use_time_metric.cc
   source_name_part = cumulative_use_time_metric
-build obj/login_manager/libsession_manager.dbus_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/dbus_util.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.dbus_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/dbus_util.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = dbus_util.cc
   source_name_part = dbus_util
-build obj/login_manager/libsession_manager.dev_mode_unblock_broker.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/dev_mode_unblock_broker.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.dev_mode_unblock_broker.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/dev_mode_unblock_broker.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = dev_mode_unblock_broker.cc
   source_name_part = dev_mode_unblock_broker
-build obj/login_manager/libsession_manager.device_identifier_generator.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/device_identifier_generator.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.device_identifier_generator.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/device_identifier_generator.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = device_identifier_generator.cc
   source_name_part = device_identifier_generator
-build obj/login_manager/libsession_manager.device_local_account_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/device_local_account_manager.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.device_local_account_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/device_local_account_manager.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = device_local_account_manager.cc
   source_name_part = device_local_account_manager
-build obj/login_manager/libsession_manager.device_policy_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/device_policy_service.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.device_policy_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/device_policy_service.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = device_policy_service.cc
   source_name_part = device_policy_service
-build obj/login_manager/libsession_manager.feature_flags_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/feature_flags_util.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.feature_flags_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/feature_flags_util.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = feature_flags_util.cc
   source_name_part = feature_flags_util
-build obj/login_manager/libsession_manager.file_checker.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/file_checker.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.file_checker.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/file_checker.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = file_checker.cc
   source_name_part = file_checker
-build obj/login_manager/libsession_manager.generator_job.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/generator_job.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.generator_job.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/generator_job.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = generator_job.cc
   source_name_part = generator_job
-build obj/login_manager/libsession_manager.key_generator.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/key_generator.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.key_generator.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/key_generator.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = key_generator.cc
   source_name_part = key_generator
-build obj/login_manager/libsession_manager.landlock_policy.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/landlock_policy.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.landlock_policy.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/landlock_policy.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = landlock_policy.cc
   source_name_part = landlock_policy
-build obj/login_manager/libsession_manager.liveness_checker_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/liveness_checker_impl.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.liveness_checker_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/liveness_checker_impl.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = liveness_checker_impl.cc
   source_name_part = liveness_checker_impl
-build obj/login_manager/libsession_manager.login_metrics.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/login_metrics.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.login_metrics.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/login_metrics.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = login_metrics.cc
   source_name_part = login_metrics
-build obj/login_manager/libsession_manager.login_screen_storage.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/login_screen_storage.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.login_screen_storage.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/login_screen_storage.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = login_screen_storage.cc
   source_name_part = login_screen_storage
-build obj/login_manager/libsession_manager.nss_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/nss_util.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.nss_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/nss_util.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = nss_util.cc
   source_name_part = nss_util
-build obj/login_manager/libsession_manager.owner_key_loss_mitigator.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/owner_key_loss_mitigator.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.owner_key_loss_mitigator.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/owner_key_loss_mitigator.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = owner_key_loss_mitigator.cc
   source_name_part = owner_key_loss_mitigator
-build obj/login_manager/libsession_manager.policy_key.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/policy_key.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.policy_key.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/policy_key.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = policy_key.cc
   source_name_part = policy_key
-build obj/login_manager/libsession_manager.policy_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/policy_service.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.policy_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/policy_service.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = policy_service.cc
   source_name_part = policy_service
-build obj/login_manager/libsession_manager.policy_service_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/policy_service_util.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.policy_service_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/policy_service_util.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = policy_service_util.cc
   source_name_part = policy_service_util
-build obj/login_manager/libsession_manager.policy_store.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/policy_store.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.policy_store.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/policy_store.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = policy_store.cc
   source_name_part = policy_store
-build obj/login_manager/libsession_manager.regen_mitigator.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/regen_mitigator.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.regen_mitigator.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/regen_mitigator.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = regen_mitigator.cc
   source_name_part = regen_mitigator
-build obj/login_manager/libsession_manager.resilient_policy_store.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/resilient_policy_store.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.resilient_policy_store.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/resilient_policy_store.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = resilient_policy_store.cc
   source_name_part = resilient_policy_store
-build obj/login_manager/libsession_manager.scheduler_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/scheduler_util.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.scheduler_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/scheduler_util.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = scheduler_util.cc
   source_name_part = scheduler_util
-build obj/login_manager/libsession_manager.secret_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/secret_util.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.secret_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/secret_util.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = secret_util.cc
   source_name_part = secret_util
-build obj/login_manager/libsession_manager.session_manager_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/session_manager_impl.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.session_manager_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/session_manager_impl.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = session_manager_impl.cc
   source_name_part = session_manager_impl
-build obj/login_manager/libsession_manager.session_manager_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/session_manager_service.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.session_manager_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/session_manager_service.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = session_manager_service.cc
   source_name_part = session_manager_service
-build obj/login_manager/libsession_manager.subprocess.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/subprocess.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.subprocess.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/subprocess.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = subprocess.cc
   source_name_part = subprocess
-build obj/login_manager/libsession_manager.system_utils_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/system_utils_impl.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.system_utils_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/system_utils_impl.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = system_utils_impl.cc
   source_name_part = system_utils_impl
-build obj/login_manager/libsession_manager.systemd_unit_starter.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/systemd_unit_starter.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.systemd_unit_starter.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/systemd_unit_starter.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = systemd_unit_starter.cc
   source_name_part = systemd_unit_starter
-build obj/login_manager/libsession_manager.upstart_signal_emitter.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/upstart_signal_emitter.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.upstart_signal_emitter.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/upstart_signal_emitter.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = upstart_signal_emitter.cc
   source_name_part = upstart_signal_emitter
-build obj/login_manager/libsession_manager.user_policy_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/user_policy_service.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.user_policy_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/user_policy_service.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = user_policy_service.cc
   source_name_part = user_policy_service
-build obj/login_manager/libsession_manager.user_policy_service_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/user_policy_service_factory.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.user_policy_service_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/user_policy_service_factory.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = user_policy_service_factory.cc
   source_name_part = user_policy_service_factory
-build obj/login_manager/libsession_manager.validator_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/validator_utils.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.validator_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/validator_utils.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = validator_utils.cc
   source_name_part = validator_utils
-build obj/login_manager/libsession_manager.vpd_process_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/vpd_process_impl.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.vpd_process_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/vpd_process_impl.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = vpd_process_impl.cc
   source_name_part = vpd_process_impl
-build obj/login_manager/libsession_manager.arc_sideload_status_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5705/work/chromeos-login-0.0.2/login_manager/arc_sideload_status_stub.cc || obj/login_manager/libsession_manager.inputdeps.stamp
+build obj/login_manager/libsession_manager.arc_sideload_status_stub.o: cxx ../../../../../../../tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2/login_manager/arc_sideload_status_stub.cc || obj/login_manager/libsession_manager.inputdeps.stamp
   source_file_part = arc_sideload_status_stub.cc
   source_name_part = arc_sideload_status_stub
 

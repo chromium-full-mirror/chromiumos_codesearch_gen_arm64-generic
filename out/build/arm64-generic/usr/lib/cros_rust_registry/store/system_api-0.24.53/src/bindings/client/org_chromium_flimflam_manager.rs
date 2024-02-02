@@ -31,6 +31,7 @@ pub trait OrgChromiumFlimflamManager {
     fn get_debug_tags(&self) -> Result<String, dbus::Error>;
     fn set_debug_tags(&self, arg0: &str) -> Result<(), dbus::Error>;
     fn list_debug_tags(&self) -> Result<String, dbus::Error>;
+    fn persist_debug_config(&self, arg0: bool) -> Result<(), dbus::Error>;
     fn get_networks_for_geolocation(&self) -> Result<arg::PropMap, dbus::Error>;
     fn get_wi_fi_networks_for_geolocation(&self) -> Result<arg::PropMap, dbus::Error>;
     fn get_cellular_networks_for_geolocation(&self) -> Result<arg::PropMap, dbus::Error>;
@@ -220,6 +221,10 @@ impl<'a, T: blocking::BlockingSender, C: ::std::ops::Deref<Target=T>> OrgChromiu
     fn list_debug_tags(&self) -> Result<String, dbus::Error> {
         self.method_call("org.chromium.flimflam.Manager", "ListDebugTags", ())
             .and_then(|r: (String, )| Ok(r.0, ))
+    }
+
+    fn persist_debug_config(&self, arg0: bool) -> Result<(), dbus::Error> {
+        self.method_call("org.chromium.flimflam.Manager", "PersistDebugConfig", (arg0, ))
     }
 
     fn get_networks_for_geolocation(&self) -> Result<arg::PropMap, dbus::Error> {

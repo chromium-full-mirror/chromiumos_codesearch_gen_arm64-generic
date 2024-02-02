@@ -214,6 +214,54 @@ impl dbus::message::SignalArgs for OrgChromiumUserDataAuthInterfaceAuthenticateA
 }
 
 #[derive(Debug)]
+pub struct OrgChromiumUserDataAuthInterfaceMountStarted {
+    pub status: Vec<u8>,
+}
+
+impl arg::AppendAll for OrgChromiumUserDataAuthInterfaceMountStarted {
+    fn append(&self, i: &mut arg::IterAppend) {
+        arg::RefArg::append(&self.status, i);
+    }
+}
+
+impl arg::ReadAll for OrgChromiumUserDataAuthInterfaceMountStarted {
+    fn read(i: &mut arg::Iter) -> Result<Self, arg::TypeMismatchError> {
+        Ok(OrgChromiumUserDataAuthInterfaceMountStarted {
+            status: i.read()?,
+        })
+    }
+}
+
+impl dbus::message::SignalArgs for OrgChromiumUserDataAuthInterfaceMountStarted {
+    const NAME: &'static str = "MountStarted";
+    const INTERFACE: &'static str = "org.chromium.UserDataAuthInterface";
+}
+
+#[derive(Debug)]
+pub struct OrgChromiumUserDataAuthInterfaceMountCompleted {
+    pub status: Vec<u8>,
+}
+
+impl arg::AppendAll for OrgChromiumUserDataAuthInterfaceMountCompleted {
+    fn append(&self, i: &mut arg::IterAppend) {
+        arg::RefArg::append(&self.status, i);
+    }
+}
+
+impl arg::ReadAll for OrgChromiumUserDataAuthInterfaceMountCompleted {
+    fn read(i: &mut arg::Iter) -> Result<Self, arg::TypeMismatchError> {
+        Ok(OrgChromiumUserDataAuthInterfaceMountCompleted {
+            status: i.read()?,
+        })
+    }
+}
+
+impl dbus::message::SignalArgs for OrgChromiumUserDataAuthInterfaceMountCompleted {
+    const NAME: &'static str = "MountCompleted";
+    const INTERFACE: &'static str = "org.chromium.UserDataAuthInterface";
+}
+
+#[derive(Debug)]
 pub struct OrgChromiumUserDataAuthInterfaceAuthFactorAdded {
     pub status: Vec<u8>,
 }

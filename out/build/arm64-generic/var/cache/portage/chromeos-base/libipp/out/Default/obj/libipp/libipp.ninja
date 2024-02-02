@@ -1,35 +1,35 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r495/work/libipp-0.0.1 -I/build/arm64-generic/usr/include
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r496/work/libipp-0.0.1 -I/build/arm64-generic/usr/include
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libipp
 
-build obj/libipp/libipp.builder.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r495/work/libipp-0.0.1/libipp/builder.cc
+build obj/libipp/libipp.builder.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r496/work/libipp-0.0.1/libipp/builder.cc
   source_file_part = builder.cc
   source_name_part = builder
-build obj/libipp/libipp.colls_view.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r495/work/libipp-0.0.1/libipp/colls_view.cc
+build obj/libipp/libipp.colls_view.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r496/work/libipp-0.0.1/libipp/colls_view.cc
   source_file_part = colls_view.cc
   source_name_part = colls_view
-build obj/libipp/libipp.errors.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r495/work/libipp-0.0.1/libipp/errors.cc
+build obj/libipp/libipp.errors.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r496/work/libipp-0.0.1/libipp/errors.cc
   source_file_part = errors.cc
   source_name_part = errors
-build obj/libipp/libipp.frame.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r495/work/libipp-0.0.1/libipp/frame.cc
+build obj/libipp/libipp.frame.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r496/work/libipp-0.0.1/libipp/frame.cc
   source_file_part = frame.cc
   source_name_part = frame
-build obj/libipp/libipp.ipp_attribute.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r495/work/libipp-0.0.1/libipp/ipp_attribute.cc
+build obj/libipp/libipp.ipp_attribute.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r496/work/libipp-0.0.1/libipp/ipp_attribute.cc
   source_file_part = ipp_attribute.cc
   source_name_part = ipp_attribute
-build obj/libipp/libipp.ipp_enums.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r495/work/libipp-0.0.1/libipp/ipp_enums.cc
+build obj/libipp/libipp.ipp_enums.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r496/work/libipp-0.0.1/libipp/ipp_enums.cc
   source_file_part = ipp_enums.cc
   source_name_part = ipp_enums
-build obj/libipp/libipp.ipp_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r495/work/libipp-0.0.1/libipp/ipp_parser.cc
+build obj/libipp/libipp.ipp_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r496/work/libipp-0.0.1/libipp/ipp_parser.cc
   source_file_part = ipp_parser.cc
   source_name_part = ipp_parser
-build obj/libipp/libipp.parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r495/work/libipp-0.0.1/libipp/parser.cc
+build obj/libipp/libipp.parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r496/work/libipp-0.0.1/libipp/parser.cc
   source_file_part = parser.cc
   source_name_part = parser
-build obj/libipp/libipp.validator.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r495/work/libipp-0.0.1/libipp/validator.cc
+build obj/libipp/libipp.validator.o: cxx ../../../../../../../tmp/portage/chromeos-base/libipp-0.0.1-r496/work/libipp-0.0.1/libipp/validator.cc
   source_file_part = validator.cc
   source_name_part = validator
 

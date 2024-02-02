@@ -38,11 +38,11 @@ build obj/system-proxy/_system_proxy-install_config.stamp: stamp
 build obj/system-proxy/_system_proxy_worker-install_config.stamp: stamp
 build obj/system-proxy/all.stamp: stamp obj/system-proxy/dbus_code_generator.stamp obj/system-proxy/install_dbus_config.stamp obj/system-proxy/install_init.stamp obj/system-proxy/install_minijail_conf.stamp obj/system-proxy/install_policy.stamp obj/system-proxy/install_services.stamp ./libsystemproxy.a ./system_proxy ./system_proxy_worker ./libworker-protos.a
 rule __system-proxy_dbus_code_generator___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r640/work/system-proxy-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/system-proxy/out/Default/gen/include/system_proxy/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/system-proxy-0.0.1-r640/work/system-proxy-0.0.1/system-proxy/dbus_bindings/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r641/work/system-proxy-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/system-proxy/out/Default/gen/include/system_proxy/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/system-proxy-0.0.1-r641/work/system-proxy-0.0.1/system-proxy/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //system-proxy:dbus_code_generator(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/system_proxy/org.chromium.SystemProxy.h: __system-proxy_dbus_code_generator___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r640/work/system-proxy-0.0.1/system-proxy/dbus_bindings/org.chromium.SystemProxy.xml | ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r640/work/system-proxy-0.0.1/common-mk/file_generator_wrapper.py
+build gen/include/system_proxy/org.chromium.SystemProxy.h: __system-proxy_dbus_code_generator___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r641/work/system-proxy-0.0.1/system-proxy/dbus_bindings/org.chromium.SystemProxy.xml | ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r641/work/system-proxy-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.SystemProxy
 
 build obj/system-proxy/dbus_code_generator.stamp: stamp gen/include/system_proxy/org.chromium.SystemProxy.h
@@ -57,10 +57,10 @@ subninja obj/system-proxy/system_proxy.ninja
 subninja obj/system-proxy/system_proxy_worker.ninja
 subninja obj/system-proxy/worker-protos.ninja
 rule __system-proxy_worker-protos_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r640/work/system-proxy-0.0.1/common-mk/file_generator_wrapper.py protoc worker_common.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/system-proxy-0.0.1-r640/work/system-proxy-0.0.1/system-proxy/proto --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/system-proxy/out/Default/gen/include/bindings
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r641/work/system-proxy-0.0.1/common-mk/file_generator_wrapper.py protoc worker_common.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/system-proxy-0.0.1-r641/work/system-proxy-0.0.1/system-proxy/proto --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/system-proxy/out/Default/gen/include/bindings
   description = ACTION //system-proxy:worker-protos_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/bindings/worker_common.pb.cc gen/include/bindings/worker_common.pb.h: __system-proxy_worker-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r640/work/system-proxy-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r640/work/system-proxy-0.0.1/system-proxy/proto/worker_common.proto
+build gen/include/bindings/worker_common.pb.cc gen/include/bindings/worker_common.pb.h: __system-proxy_worker-protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r641/work/system-proxy-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/system-proxy-0.0.1-r641/work/system-proxy-0.0.1/system-proxy/proto/worker_common.proto
 
 build obj/system-proxy/worker-protos_gen.stamp: stamp gen/include/bindings/worker_common.pb.cc gen/include/bindings/worker_common.pb.h

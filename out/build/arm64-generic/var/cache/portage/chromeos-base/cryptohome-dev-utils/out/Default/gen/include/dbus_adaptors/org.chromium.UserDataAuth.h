@@ -312,6 +312,8 @@ class UserDataAuthInterfaceAdaptor {
     signal_PrepareAuthFactorProgress_ = itf->RegisterSignalOfType<SignalPrepareAuthFactorProgressType>("PrepareAuthFactorProgress");
     signal_AuthenticateStarted_ = itf->RegisterSignalOfType<SignalAuthenticateStartedType>("AuthenticateStarted");
     signal_AuthenticateAuthFactorCompleted_ = itf->RegisterSignalOfType<SignalAuthenticateAuthFactorCompletedType>("AuthenticateAuthFactorCompleted");
+    signal_MountStarted_ = itf->RegisterSignalOfType<SignalMountStartedType>("MountStarted");
+    signal_MountCompleted_ = itf->RegisterSignalOfType<SignalMountCompletedType>("MountCompleted");
     signal_AuthFactorAdded_ = itf->RegisterSignalOfType<SignalAuthFactorAddedType>("AuthFactorAdded");
     signal_AuthFactorRemoved_ = itf->RegisterSignalOfType<SignalAuthFactorRemovedType>("AuthFactorRemoved");
     signal_AuthFactorUpdated_ = itf->RegisterSignalOfType<SignalAuthFactorUpdatedType>("AuthFactorUpdated");
@@ -358,6 +360,18 @@ class UserDataAuthInterfaceAdaptor {
   void SendAuthenticateAuthFactorCompletedSignal(
       const user_data_auth::AuthenticateAuthFactorCompleted& in_status) {
     auto signal = signal_AuthenticateAuthFactorCompleted_.lock();
+    if (signal)
+      signal->Send(in_status);
+  }
+  void SendMountStartedSignal(
+      const user_data_auth::MountStarted& in_status) {
+    auto signal = signal_MountStarted_.lock();
+    if (signal)
+      signal->Send(in_status);
+  }
+  void SendMountCompletedSignal(
+      const user_data_auth::MountCompleted& in_status) {
+    auto signal = signal_MountCompleted_.lock();
     if (signal)
       signal->Send(in_status);
   }
@@ -572,6 +586,12 @@ class UserDataAuthInterfaceAdaptor {
         "    <signal name=\"AuthenticateAuthFactorCompleted\">\n"
         "      <arg name=\"status\" type=\"ay\"/>\n"
         "    </signal>\n"
+        "    <signal name=\"MountStarted\">\n"
+        "      <arg name=\"status\" type=\"ay\"/>\n"
+        "    </signal>\n"
+        "    <signal name=\"MountCompleted\">\n"
+        "      <arg name=\"status\" type=\"ay\"/>\n"
+        "    </signal>\n"
         "    <signal name=\"AuthFactorAdded\">\n"
         "      <arg name=\"status\" type=\"ay\"/>\n"
         "    </signal>\n"
@@ -618,6 +638,14 @@ class UserDataAuthInterfaceAdaptor {
   using SignalAuthenticateAuthFactorCompletedType = brillo::dbus_utils::DBusSignal<
       user_data_auth::AuthenticateAuthFactorCompleted /*status*/>;
   std::weak_ptr<SignalAuthenticateAuthFactorCompletedType> signal_AuthenticateAuthFactorCompleted_;
+
+  using SignalMountStartedType = brillo::dbus_utils::DBusSignal<
+      user_data_auth::MountStarted /*status*/>;
+  std::weak_ptr<SignalMountStartedType> signal_MountStarted_;
+
+  using SignalMountCompletedType = brillo::dbus_utils::DBusSignal<
+      user_data_auth::MountCompleted /*status*/>;
+  std::weak_ptr<SignalMountCompletedType> signal_MountCompleted_;
 
   using SignalAuthFactorAddedType = brillo::dbus_utils::DBusSignal<
       user_data_auth::AuthFactorAdded /*status*/>;

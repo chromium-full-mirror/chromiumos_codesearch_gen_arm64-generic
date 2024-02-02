@@ -15667,6 +15667,10 @@ pub struct MountCompleted {
     // message fields
     // @@protoc_insertion_point(field:user_data_auth.MountCompleted.operation_id)
     pub operation_id: u64,
+    // @@protoc_insertion_point(field:user_data_auth.MountCompleted.error)
+    pub error: ::protobuf::EnumOrUnknown<CryptohomeErrorCode>,
+    // @@protoc_insertion_point(field:user_data_auth.MountCompleted.error_info)
+    pub error_info: ::protobuf::MessageField<CryptohomeErrorInfo>,
     // special fields
     // @@protoc_insertion_point(special_field:user_data_auth.MountCompleted.special_fields)
     pub special_fields: ::protobuf::SpecialFields,
@@ -15697,6 +15701,12 @@ impl ::protobuf::Message for MountCompleted {
                 8 => {
                     self.operation_id = is.read_uint64()?;
                 },
+                16 => {
+                    self.error = is.read_enum_or_unknown()?;
+                },
+                26 => {
+                    ::protobuf::rt::read_singular_message_into_field(is, &mut self.error_info)?;
+                },
                 tag => {
                     ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
                 },
@@ -15712,6 +15722,13 @@ impl ::protobuf::Message for MountCompleted {
         if self.operation_id != 0 {
             my_size += ::protobuf::rt::uint64_size(1, self.operation_id);
         }
+        if self.error != ::protobuf::EnumOrUnknown::new(CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET) {
+            my_size += ::protobuf::rt::int32_size(2, self.error.value());
+        }
+        if let Some(v) = self.error_info.as_ref() {
+            let len = v.compute_size();
+            my_size += 1 + ::protobuf::rt::compute_raw_varint64_size(len) + len;
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
         self.special_fields.cached_size().set(my_size as u32);
         my_size
@@ -15720,6 +15737,12 @@ impl ::protobuf::Message for MountCompleted {
     fn write_to_with_cached_sizes(&self, os: &mut ::protobuf::CodedOutputStream<'_>) -> ::protobuf::Result<()> {
         if self.operation_id != 0 {
             os.write_uint64(1, self.operation_id)?;
+        }
+        if self.error != ::protobuf::EnumOrUnknown::new(CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET) {
+            os.write_enum(2, ::protobuf::EnumOrUnknown::value(&self.error))?;
+        }
+        if let Some(v) = self.error_info.as_ref() {
+            ::protobuf::rt::write_message_field_with_cached_size(3, v, os)?;
         }
         os.write_unknown_fields(self.special_fields.unknown_fields())?;
         ::std::result::Result::Ok(())
@@ -15739,12 +15762,16 @@ impl ::protobuf::Message for MountCompleted {
 
     fn clear(&mut self) {
         self.operation_id = 0;
+        self.error = ::protobuf::EnumOrUnknown::new(CryptohomeErrorCode::CRYPTOHOME_ERROR_NOT_SET);
+        self.error_info.clear();
         self.special_fields.clear();
     }
 
     fn default_instance() -> &'static MountCompleted {
         static instance: MountCompleted = MountCompleted {
             operation_id: 0,
+            error: ::protobuf::EnumOrUnknown::from_i32(0),
+            error_info: ::protobuf::MessageField::none(),
             special_fields: ::protobuf::SpecialFields::new(),
         };
         &instance

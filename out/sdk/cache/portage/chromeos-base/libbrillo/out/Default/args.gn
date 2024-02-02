@@ -12,7 +12,7 @@ sysroot = "/"
 libdir = "/usr/lib64"
 build_root = "/var/cache/portage/chromeos-base/libbrillo"
 platform2_root =
-    "/var/tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1"
+    "/var/tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1"
 libbase_ver = "1253750"
 enable_exceptions = false
 external_cflags = [
@@ -93,6 +93,7 @@ use = {
   enterprise_rollback_reven = false
   factory_runtime_probe = false
   fake_drivefs_launcher = false
+  fbpreprocessord = false
   feature_management = false
   feedback = false
   flex_internal = false

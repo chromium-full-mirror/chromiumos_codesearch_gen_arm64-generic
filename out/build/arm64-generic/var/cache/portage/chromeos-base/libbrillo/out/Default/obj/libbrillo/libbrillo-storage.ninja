@@ -1,44 +1,44 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_DBUS=true -DUSE_RTTI_FOR_TYPE_TAGS=1 -DUSE_ENTERPRISE_ROLLBACK_REVEN=false
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1/libbrillo
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1253750 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libbrillo-storage
 
-build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.disk_iostat.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/disk_iostat.cc
+build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.disk_iostat.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/disk_iostat.cc
   source_file_part = disk_iostat.cc
   source_name_part = disk_iostat
-build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.emmc.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/emmc.cc
+build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.emmc.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/emmc.cc
   source_file_part = emmc.cc
   source_name_part = emmc
-build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.loop_device.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/loop_device.cc
+build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.loop_device.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/loop_device.cc
   source_file_part = loop_device.cc
   source_name_part = loop_device
-build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.storage_device.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/storage_device.cc
+build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.storage_device.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/storage_device.cc
   source_file_part = storage_device.cc
   source_name_part = storage_device
-build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.storage_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/storage_utils.cc
+build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.storage_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/storage_utils.cc
   source_file_part = storage_utils.cc
   source_name_part = storage_utils
-build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.ufs.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/ufs.cc
+build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.ufs.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/ufs.cc
   source_file_part = ufs.cc
   source_name_part = ufs
-build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.get_backing_block_device.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/get_backing_block_device.cc
+build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.get_backing_block_device.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/get_backing_block_device.cc
   source_file_part = get_backing_block_device.cc
   source_name_part = get_backing_block_device
-build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.device_mapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/device_mapper.cc
+build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.device_mapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/device_mapper.cc
   source_file_part = device_mapper.cc
   source_name_part = device_mapper
-build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.device_mapper_task.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/device_mapper_task.cc
+build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.device_mapper_task.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/device_mapper_task.cc
   source_file_part = device_mapper_task.cc
   source_name_part = device_mapper_task
-build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.lvm.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/lvm.cc
+build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.lvm.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/lvm.cc
   source_file_part = lvm.cc
   source_name_part = lvm
-build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.lvm_device.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/lvm_device.cc
+build obj/libbrillo/brillo/blkdev_utils/libbrillo-storage.lvm_device.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1/libbrillo/brillo/blkdev_utils/lvm_device.cc
   source_file_part = lvm_device.cc
   source_name_part = lvm_device
-build obj/libbrillo/brillo/libbrillo-storage.storage_balloon.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2402/work/libbrillo-0.0.1/libbrillo/brillo/storage_balloon.cc
+build obj/libbrillo/brillo/libbrillo-storage.storage_balloon.o: cxx ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2403/work/libbrillo-0.0.1/libbrillo/brillo/storage_balloon.cc
   source_file_part = storage_balloon.cc
   source_name_part = storage_balloon
 

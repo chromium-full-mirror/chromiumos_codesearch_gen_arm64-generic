@@ -23,7 +23,7 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/b
 home/chrome-bot/chrome_root/src/content/browser/attribution_reporting/aggregatable_result.mojom
 home/chrome-bot/chrome_root/src/content/browser/attribution_reporting/event_level_result.mojom
 home/chrome-bot/chrome_root/src/content/browser/attribution_reporting/store_source_result.mojom
-home/chrome-bot/chrome_root/src/content/browser/attribution_reporting/aggregatable_result.mojom
-home/chrome-bot/chrome_root/src/content/browser/attribution_reporting/store_source_result.mojom
-home/chrome-bot/chrome_root/src/content/browser/attribution_reporting/event_level_result.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/content/browser/attribution_reporting/registration_result_mojom.build_metadata
+home/chrome-bot/chrome_root/src/content/browser/attribution_reporting/aggregatable_result.mojom
+home/chrome-bot/chrome_root/src/content/browser/attribution_reporting/event_level_result.mojom
+home/chrome-bot/chrome_root/src/content/browser/attribution_reporting/store_source_result.mojom
