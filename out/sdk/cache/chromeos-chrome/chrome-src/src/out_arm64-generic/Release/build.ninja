@@ -916,6 +916,8 @@ build base_test_support: phony obj/third_party/crashpad/crashpad/third_party/min
 build base_unittests__runner: phony obj/base/base_unittests__runner.stamp
 build base_unittests_filters: phony obj/testing/buildbot/filters/base_unittests_filters.stamp
 build base_unittests_filters_bundle_data: phony obj/testing/buildbot/filters/base_unittests_filters_bundle_data.stamp
+build base_unsafe_buffers_nocompile_tests: phony obj/base/base_unsafe_buffers_nocompile_tests.stamp
+build base_unsafe_buffers_unittest_sources: phony obj/base/base_unsafe_buffers_unittest_sources.stamp
 build base_webui_grdp: phony obj/mojo/public/mojom/base/base_webui_grdp.stamp
 build base_webui_js: phony obj/mojo/public/mojom/base/base_webui_js.stamp
 build basic_async_resolver_factory: phony obj/third_party/webrtc/p2p/libbasic_async_resolver_factory.a
@@ -2130,7 +2132,7 @@ build credential_ui_entry: phony obj/components/password_manager/core/browser/ui
 build credentialmanagement: phony obj/third_party/blink/renderer/modules/credentialmanagement/libcredentialmanagement.a
 build credentials: phony obj/chromeos/ash/components/nearby/presence/credentials/libcredentials.a
 build criticalsection: phony obj/third_party/webrtc/rtc_base/libcriticalsection.a
-build cronet: phony ./libcronet.123.0.6275.0.so.TOC
+build cronet: phony ./libcronet.123.0.6276.0.so.TOC
 build cronet_common: phony obj/components/cronet/cronet_common.stamp
 build cronet_common_unittests: phony obj/components/cronet/cronet_common_unittests.stamp
 build cronet_native_headers: phony obj/components/cronet/native/cronet_native_headers.stamp
@@ -4124,6 +4126,7 @@ build interfaces_ts__generator: phony obj/components/optimization_guide/core/int
 build interleaved_reassembly_streams: phony obj/third_party/webrtc/net/dcsctp/rx/libinterleaved_reassembly_streams.a
 build intern_map: phony obj/third_party/perfetto/src/shared_lib/intern_map.stamp
 build internal_module: phony obj/ppapi/cpp/private/internal_module.stamp
+build internal_structs: phony obj/remoting/proto/internal_structs.stamp
 build internal_stubs: phony obj/remoting/proto/internal_stubs.stamp
 build internal_types: phony obj/third_party/webrtc/net/dcsctp/common/internal_types.stamp
 build internals: phony obj/components/commerce/core/internals/internals.stamp
@@ -11044,7 +11047,15 @@ build ash/webui/common/resources/post_message_api$:closure_compile: phony obj/as
 build ash/webui/common/resources/post_message_api$:post_message_api_client: phony obj/ash/webui/common/resources/post_message_api/post_message_api_client.stamp
 build ash/webui/common/resources/post_message_api$:post_message_api_request_handler: phony obj/ash/webui/common/resources/post_message_api/post_message_api_request_handler.stamp
 build ash/webui/common/resources/post_message_api$:post_message_api_server: phony obj/ash/webui/common/resources/post_message_api/post_message_api_server.stamp
-build ash/webui/common/resources/sea_pen$:copy_mojo_files: phony obj/ash/webui/common/resources/sea_pen/copy_mojo_files.stamp
+build ash/webui/common/resources/sea_pen$:build_grdp: phony obj/ash/webui/common/resources/sea_pen/build_grdp.stamp
+build ash/webui/common/resources/sea_pen$:build_min_js: phony obj/ash/webui/common/resources/sea_pen/build_min_js.stamp
+build ash/webui/common/resources/sea_pen$:build_ts: phony obj/ash/webui/common/resources/sea_pen/build_ts.stamp
+build ash/webui/common/resources/sea_pen$:copy_mojo: phony obj/ash/webui/common/resources/sea_pen/copy_mojo.stamp
+build ash/webui/common/resources/sea_pen$:css_wrapper_files: phony obj/ash/webui/common/resources/sea_pen/css_wrapper_files.stamp
+build ash/webui/common/resources/sea_pen$:html_wrapper_files: phony obj/ash/webui/common/resources/sea_pen/html_wrapper_files.stamp
+build ash/webui/common/resources/sea_pen$:preprocess_html_css_files: phony obj/ash/webui/common/resources/sea_pen/preprocess_html_css_files.stamp
+build ash/webui/common/resources/sea_pen$:preprocess_static_files: phony obj/ash/webui/common/resources/sea_pen/preprocess_static_files.stamp
+build ash/webui/common/resources/sea_pen$:preprocess_ts_files: phony obj/ash/webui/common/resources/sea_pen/preprocess_ts_files.stamp
 build ash/webui/common/resources/shortcut_input_ui$:copy_mojo_files: phony obj/ash/webui/common/resources/shortcut_input_ui/copy_mojo_files.stamp
 build ash/webui/common/resources/smb_shares$:add_smb_share_dialog: phony obj/ash/webui/common/resources/smb_shares/add_smb_share_dialog.stamp
 build ash/webui/common/resources/smb_shares$:closure_compile_module: phony obj/ash/webui/common/resources/smb_shares/closure_compile_module.stamp
@@ -11906,6 +11917,8 @@ build base$:base_stack_sampling_profiler_test_util: phony obj/base/base_stack_sa
 build base$:base_static: phony obj/base/libbase_static.a
 build base$:base_unittests: phony ./base_unittests
 build base$:base_unittests__runner: phony obj/base/base_unittests__runner.stamp
+build base$:base_unsafe_buffers_nocompile_tests: phony obj/base/base_unsafe_buffers_nocompile_tests.stamp
+build base$:base_unsafe_buffers_unittest_sources: phony obj/base/base_unsafe_buffers_unittest_sources.stamp
 build base$:build_date: phony obj/base/build_date.stamp
 build base$:build_utf8_validator_tables: phony ./build_utf8_validator_tables
 build base$:cfi_buildflags: phony obj/base/cfi_buildflags.stamp
@@ -19545,8 +19558,8 @@ build components/crash/core/common$:crash_key: phony obj/components/crash/core/c
 build components/crash/core/common$:crash_key_lib: phony obj/components/crash/core/common/libcrash_key_lib.a
 build components/crash/core/common$:crash_key_utils: phony obj/components/crash/core/common/libcrash_key_utils.a
 build components/crash/core/common$:unit_tests: phony obj/components/crash/core/common/unit_tests.stamp
-build components/cronet$:cronet: phony ./libcronet.123.0.6275.0.so.TOC
-build components/cronet: phony ./libcronet.123.0.6275.0.so.TOC
+build components/cronet$:cronet: phony ./libcronet.123.0.6276.0.so.TOC
+build components/cronet: phony ./libcronet.123.0.6276.0.so.TOC
 build components/cronet$:cronet_buildflags: phony obj/components/cronet/cronet_buildflags.stamp
 build components/cronet$:cronet_common: phony obj/components/cronet/cronet_common.stamp
 build components/cronet$:cronet_common_unittests: phony obj/components/cronet/cronet_common_unittests.stamp
@@ -23010,6 +23023,7 @@ build components/sync_user_events$:test_support: phony obj/components/sync_user_
 build components/sync_user_events$:unit_tests: phony obj/components/sync_user_events/unit_tests.stamp
 build components/system_cpu$:system_cpu: phony obj/components/system_cpu/system_cpu.stamp
 build components/system_cpu: phony obj/components/system_cpu/system_cpu.stamp
+build components/system_cpu$:test_support: phony obj/components/system_cpu/test_support.stamp
 build components/system_cpu$:unit_tests: phony obj/components/system_cpu/unit_tests.stamp
 build components/system_media_controls$:system_media_controls: phony obj/components/system_media_controls/libsystem_media_controls.a
 build components/system_media_controls: phony obj/components/system_media_controls/libsystem_media_controls.a
@@ -27055,6 +27069,7 @@ build remoting/host/webauthn$:remote_webauthn_main_headers: phony obj/remoting/h
 build remoting/host/webauthn$:unit_tests: phony obj/remoting/host/webauthn/unit_tests.stamp
 build remoting/host/webauthn$:webauthn: phony obj/remoting/host/webauthn/webauthn.stamp
 build remoting/host/webauthn: phony obj/remoting/host/webauthn/webauthn.stamp
+build remoting/proto$:internal_structs: phony obj/remoting/proto/internal_structs.stamp
 build remoting/proto$:internal_stubs: phony obj/remoting/proto/internal_stubs.stamp
 build remoting/proto$:proto: phony obj/remoting/proto/libproto.a
 build remoting/proto: phony obj/remoting/proto/libproto.a
@@ -37513,8 +37528,6 @@ build ui/webui/resources/cr_components/app_management$:build_grdp: phony obj/ui/
 build ui/webui/resources/cr_components/app_management$:build_min_js: phony obj/ui/webui/resources/cr_components/app_management/build_min_js.stamp
 build ui/webui/resources/cr_components/app_management$:build_ts: phony obj/ui/webui/resources/cr_components/app_management/build_ts.stamp
 build ui/webui/resources/cr_components/app_management$:copy_mojo: phony obj/ui/webui/resources/cr_components/app_management/copy_mojo.stamp
-build ui/webui/resources/cr_components/app_management$:css_wrapper_files: phony obj/ui/webui/resources/cr_components/app_management/css_wrapper_files.stamp
-build ui/webui/resources/cr_components/app_management$:html_wrapper_files: phony obj/ui/webui/resources/cr_components/app_management/html_wrapper_files.stamp
 build ui/webui/resources/cr_components/app_management$:mojo_bindings: phony obj/ui/webui/resources/cr_components/app_management/mojo_bindings.stamp
 build ui/webui/resources/cr_components/app_management$:mojo_bindings__check_deps_are_all_mojom: phony obj/ui/webui/resources/cr_components/app_management/mojo_bindings__check_deps_are_all_mojom.stamp
 build ui/webui/resources/cr_components/app_management$:mojo_bindings__generate_message_ids: phony obj/ui/webui/resources/cr_components/app_management/mojo_bindings__generate_message_ids.stamp
@@ -37533,7 +37546,6 @@ build ui/webui/resources/cr_components/app_management$:mojo_bindings_shared: pho
 build ui/webui/resources/cr_components/app_management$:mojo_bindings_shared__generator: phony obj/ui/webui/resources/cr_components/app_management/mojo_bindings_shared__generator.stamp
 build ui/webui/resources/cr_components/app_management$:mojo_bindings_shared_cpp_sources: phony obj/ui/webui/resources/cr_components/app_management/mojo_bindings_shared_cpp_sources.stamp
 build ui/webui/resources/cr_components/app_management$:mojo_bindings_ts__generator: phony obj/ui/webui/resources/cr_components/app_management/mojo_bindings_ts__generator.stamp
-build ui/webui/resources/cr_components/app_management$:preprocess_html_css_files: phony obj/ui/webui/resources/cr_components/app_management/preprocess_html_css_files.stamp
 build ui/webui/resources/cr_components/app_management$:preprocess_ts_files: phony obj/ui/webui/resources/cr_components/app_management/preprocess_ts_files.stamp
 build ui/webui/resources/cr_components/app_management$:unit_tests: phony obj/ui/webui/resources/cr_components/app_management/unit_tests.stamp
 build ui/webui/resources/cr_components/certificate_manager$:build_grdp: phony obj/ui/webui/resources/cr_components/certificate_manager/build_grdp.stamp
@@ -38744,7 +38756,15 @@ build all: phony $
     obj/ash/webui/common/resources/post_message_api/post_message_api_client.stamp $
     obj/ash/webui/common/resources/post_message_api/post_message_api_request_handler.stamp $
     obj/ash/webui/common/resources/post_message_api/post_message_api_server.stamp $
-    obj/ash/webui/common/resources/sea_pen/copy_mojo_files.stamp $
+    obj/ash/webui/common/resources/sea_pen/build_grdp.stamp $
+    obj/ash/webui/common/resources/sea_pen/build_min_js.stamp $
+    obj/ash/webui/common/resources/sea_pen/build_ts.stamp $
+    obj/ash/webui/common/resources/sea_pen/copy_mojo.stamp $
+    obj/ash/webui/common/resources/sea_pen/css_wrapper_files.stamp $
+    obj/ash/webui/common/resources/sea_pen/html_wrapper_files.stamp $
+    obj/ash/webui/common/resources/sea_pen/preprocess_html_css_files.stamp $
+    obj/ash/webui/common/resources/sea_pen/preprocess_static_files.stamp $
+    obj/ash/webui/common/resources/sea_pen/preprocess_ts_files.stamp $
     obj/ash/webui/common/resources/shortcut_input_ui/copy_mojo_files.stamp $
     obj/ash/webui/common/resources/smb_shares/add_smb_share_dialog.stamp $
     obj/ash/webui/common/resources/smb_shares/closure_compile_module.stamp $
@@ -39554,6 +39574,8 @@ build all: phony $
     obj/base/libbase_static.a $
     ./base_unittests $
     obj/base/base_unittests__runner.stamp $
+    obj/base/base_unsafe_buffers_nocompile_tests.stamp $
+    obj/base/base_unsafe_buffers_unittest_sources.stamp $
     obj/base/build_date.stamp $
     ./build_utf8_validator_tables $
     obj/base/cfi_buildflags.stamp $
@@ -46586,7 +46608,7 @@ build all: phony $
     obj/components/crash/core/common/libcrash_key_lib.a $
     obj/components/crash/core/common/libcrash_key_utils.a $
     obj/components/crash/core/common/unit_tests.stamp $
-    ./libcronet.123.0.6275.0.so.TOC $
+    ./libcronet.123.0.6276.0.so.TOC $
     obj/components/cronet/cronet_buildflags.stamp $
     obj/components/cronet/cronet_common.stamp $
     obj/components/cronet/cronet_common_unittests.stamp $
@@ -49642,6 +49664,7 @@ build all: phony $
     obj/components/sync_user_events/libtest_support.a $
     obj/components/sync_user_events/unit_tests.stamp $
     obj/components/system_cpu/system_cpu.stamp $
+    obj/components/system_cpu/test_support.stamp $
     obj/components/system_cpu/unit_tests.stamp $
     obj/components/system_media_controls/libsystem_media_controls.a $
     obj/components/system_media_controls/libtest_support.a $
@@ -53371,6 +53394,7 @@ build all: phony $
     obj/remoting/host/webauthn/remote_webauthn_main_headers.stamp $
     obj/remoting/host/webauthn/unit_tests.stamp $
     obj/remoting/host/webauthn/webauthn.stamp $
+    obj/remoting/proto/internal_structs.stamp $
     obj/remoting/proto/internal_stubs.stamp $
     obj/remoting/proto/libproto.a $
     obj/remoting/proto/proto_gen.stamp $
@@ -62637,8 +62661,6 @@ build all: phony $
     obj/ui/webui/resources/cr_components/app_management/build_min_js.stamp $
     obj/ui/webui/resources/cr_components/app_management/build_ts.stamp $
     obj/ui/webui/resources/cr_components/app_management/copy_mojo.stamp $
-    obj/ui/webui/resources/cr_components/app_management/css_wrapper_files.stamp $
-    obj/ui/webui/resources/cr_components/app_management/html_wrapper_files.stamp $
     obj/ui/webui/resources/cr_components/app_management/mojo_bindings.stamp $
     obj/ui/webui/resources/cr_components/app_management/mojo_bindings__check_deps_are_all_mojom.stamp $
     obj/ui/webui/resources/cr_components/app_management/mojo_bindings__generate_message_ids.stamp $
@@ -62657,7 +62679,6 @@ build all: phony $
     obj/ui/webui/resources/cr_components/app_management/mojo_bindings_shared__generator.stamp $
     obj/ui/webui/resources/cr_components/app_management/mojo_bindings_shared_cpp_sources.stamp $
     obj/ui/webui/resources/cr_components/app_management/mojo_bindings_ts__generator.stamp $
-    obj/ui/webui/resources/cr_components/app_management/preprocess_html_css_files.stamp $
     obj/ui/webui/resources/cr_components/app_management/preprocess_ts_files.stamp $
     obj/ui/webui/resources/cr_components/app_management/unit_tests.stamp $
     obj/ui/webui/resources/cr_components/certificate_manager/build_grdp.stamp $

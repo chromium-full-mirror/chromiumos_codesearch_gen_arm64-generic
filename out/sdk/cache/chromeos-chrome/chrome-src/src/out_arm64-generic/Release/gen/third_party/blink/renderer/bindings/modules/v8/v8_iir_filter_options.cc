@@ -21,6 +21,16 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"feedback",
+"feedforward",
+};
+
+
+}  // namespace 
+
 IIRFilterOptions* IIRFilterOptions::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   IIRFilterOptions* dictionary = MakeGarbageCollected<IIRFilterOptions>(isolate);
 if (!v8_value->IsObject()) {
@@ -73,24 +83,38 @@ TraceIfNeeded<Vector<double>>::Trace(visitor, member_feedforward_);
 AudioNodeOptions::Trace(visitor);
 }
 
-bool IIRFilterOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!AudioNodeOptions::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void IIRFilterOptions::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  AudioNodeOptions::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void IIRFilterOptions::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  AudioNodeOptions::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasFeedback()) {
-  v8_value = ToV8Traits<IDLSequence<IDLDouble>>::ToV8(script_state, member_feedback_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLSequence<IDLDouble>>::ToV8(script_state, member_feedback_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasFeedforward()) {
-  v8_value = ToV8Traits<IDLSequence<IDLDouble>>::ToV8(script_state, member_feedforward_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLSequence<IDLDouble>>::ToV8(script_state, member_feedforward_);
+DCHECK(!values[1].IsEmpty());
 }
-return true;
+}
+
+const void* IIRFilterOptions::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> IIRFilterOptions::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void IIRFilterOptions::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -117,11 +141,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLDouble>, is_requir
 }
 
 const base::span<const v8::Eternal<v8::Name>> IIRFilterOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"feedback",
-"feedforward",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

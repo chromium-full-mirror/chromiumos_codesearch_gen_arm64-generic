@@ -101,6 +101,7 @@ export class FakePageHandler {
     apps_;
     receiver_;
     resolverMap_;
+    callCountMap_;
     constructor(page) {
         this.receiver_ = new PageHandlerReceiver(this);
         this.guid = 0;
@@ -108,22 +109,37 @@ export class FakePageHandler {
         this.page = page;
         this.apps_ = [];
         this.resolverMap_ = new Map();
+        this.callCountMap_ = new Map();
         this.resolverMap_.set('setPreferredApp', new PromiseResolver());
+        this.resolverMap_.set('setPermission', new PromiseResolver());
         this.resolverMap_.set('getOverlappingPreferredApps', new PromiseResolver());
         this.resolverMap_.set('setAppLocale', new PromiseResolver());
+        this.resolverMap_.set('uninstall', new PromiseResolver());
     }
     getResolver_(methodName) {
         const method = this.resolverMap_.get(methodName);
         assert(method, `Method '${methodName}' not found.`);
         return method;
     }
-    methodCalled(methodName) {
-        this.getResolver_(methodName).resolve();
+    getCallCount(methodName) {
+        const count = this.callCountMap_.get(methodName);
+        return count ? count : 0;
+    }
+    methodCalled(methodName, returnValue) {
+        const count = this.callCountMap_.get(methodName);
+        if (count) {
+            this.callCountMap_.set(methodName, count + 1);
+        }
+        else {
+            this.callCountMap_.set(methodName, 1);
+        }
+        this.getResolver_(methodName).resolve(returnValue);
     }
     async whenCalled(methodName) {
-        await this.getResolver_(methodName).promise;
+        const promise = await this.getResolver_(methodName).promise;
         // Support sequential calls to whenCalled by replacing the promise.
         this.resolverMap_.set(methodName, new PromiseResolver());
+        return promise;
     }
     getRemote() {
         return this.receiver_.$.bindNewPipeAndPassRemote();
@@ -161,6 +177,7 @@ export class FakePageHandler {
         newPermissions[permission.permissionType] = permission;
         const newApp = { ...app, permissions: newPermissions };
         this.page.onAppChanged(newApp);
+        this.methodCalled('setPermission', [appId, permission]);
     }
     setResizeLocked(appId, resizeLocked) {
         const app = AppManagementStore.getInstance().data.apps[appId];
@@ -175,6 +192,7 @@ export class FakePageHandler {
         this.page.onAppChanged(newApp);
     }
     uninstall(appId) {
+        this.methodCalled('uninstall', appId);
         this.page.onAppRemoved(appId);
     }
     setPreferredApp(appId, isPreferredApp) {

@@ -55,11 +55,13 @@ export class SeaPenTemplateQueryElement extends WithSeaPenStore {
             options_: {
                 type: Array,
             },
+            thumbnails_: Object,
             thumbnailsLoading_: Boolean,
         };
     }
     connectedCallback() {
         super.connectedCallback();
+        this.watch('thumbnails_', state => state.thumbnails);
         this.watch('thumbnailsLoading_', state => state.loading.thumbnails);
         this.updateFromStore();
     }
@@ -172,7 +174,11 @@ export class SeaPenTemplateQueryElement extends WithSeaPenStore {
         logGenerateSeaPenWallpaper(this.getSeaPenTemplateId_());
         SeaPenRouterElement.instance().goToRoute(SeaPenPaths.RESULTS, { seaPenTemplateId: this.templateId.toString() });
     }
-    getSearchButtonText_(path) {
+    getSearchButtonText_(path, thumbnails) {
+        if (!thumbnails) {
+            // The thumbnails are not loaded yet.
+            return this.i18n('seaPenCreateButton');
+        }
         switch (path) {
             case SeaPenPaths.RESULTS:
                 return this.i18n('seaPenRecreateButton');
@@ -181,7 +187,11 @@ export class SeaPenTemplateQueryElement extends WithSeaPenStore {
                 return this.i18n('seaPenCreateButton');
         }
     }
-    getSearchButtonIcon_(path) {
+    getSearchButtonIcon_(path, thumbnails) {
+        if (!thumbnails) {
+            // The thumbnails are not loaded yet.
+            return 'sea-pen:photo-spark';
+        }
         switch (path) {
             case SeaPenPaths.RESULTS:
                 return 'personalization-shared:refresh';

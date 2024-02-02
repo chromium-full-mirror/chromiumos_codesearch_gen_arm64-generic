@@ -21,6 +21,20 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"audioLevel",
+"captureTimestamp",
+"rtpTimestamp",
+"senderCaptureTimeOffset",
+"source",
+"timestamp",
+};
+
+
+}  // namespace 
+
 RTCRtpContributingSource* RTCRtpContributingSource::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   RTCRtpContributingSource* dictionary = MakeGarbageCollected<RTCRtpContributingSource>(isolate);
 if (!v8_value->IsObject()) {
@@ -91,36 +105,48 @@ TraceIfNeeded<double>::Trace(visitor, member_timestamp_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool RTCRtpContributingSource::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void RTCRtpContributingSource::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void RTCRtpContributingSource::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasAudioLevel()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_audio_level_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLDouble>::ToV8(script_state, member_audio_level_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasCaptureTimestamp()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_capture_timestamp_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLDouble>::ToV8(script_state, member_capture_timestamp_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasRtpTimestamp()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_rtp_timestamp_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_rtp_timestamp_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasSenderCaptureTimeOffset()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_sender_capture_time_offset_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLDouble>::ToV8(script_state, member_sender_capture_time_offset_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasSource()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_source_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_source_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasTimestamp()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_timestamp_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLDouble>::ToV8(script_state, member_timestamp_);
+DCHECK(!values[5].IsEmpty());
 }
-return true;
+}
+
+const void* RTCRtpContributingSource::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> RTCRtpContributingSource::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void RTCRtpContributingSource::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -159,15 +185,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_required>(isolate, 
 }
 
 const base::span<const v8::Eternal<v8::Name>> RTCRtpContributingSource::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"audioLevel",
-"captureTimestamp",
-"rtpTimestamp",
-"senderCaptureTimeOffset",
-"source",
-"timestamp",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

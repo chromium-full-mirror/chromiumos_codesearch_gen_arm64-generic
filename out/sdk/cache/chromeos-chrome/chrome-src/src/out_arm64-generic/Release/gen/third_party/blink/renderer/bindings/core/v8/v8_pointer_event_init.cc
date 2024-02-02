@@ -22,6 +22,29 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"altitudeAngle",
+"azimuthAngle",
+"coalescedEvents",
+"deviceId",
+"height",
+"isPrimary",
+"pointerId",
+"pointerType",
+"predictedEvents",
+"pressure",
+"tangentialPressure",
+"tiltX",
+"tiltY",
+"twist",
+"width",
+};
+
+
+}  // namespace 
+
 PointerEventInit* PointerEventInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   PointerEventInit* dictionary = MakeGarbageCollected<PointerEventInit>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -169,76 +192,90 @@ TraceIfNeeded<double>::Trace(visitor, member_width_);
 MouseEventInit::Trace(visitor);
 }
 
-bool PointerEventInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!MouseEventInit::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void PointerEventInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  MouseEventInit::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void PointerEventInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  MouseEventInit::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasAltitudeAngle()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_altitude_angle_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLDouble>::ToV8(script_state, member_altitude_angle_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasAzimuthAngle()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_azimuth_angle_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLDouble>::ToV8(script_state, member_azimuth_angle_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasCoalescedEvents()) {
-  v8_value = ToV8Traits<IDLSequence<PointerEvent>>::ToV8(script_state, member_coalesced_events_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLSequence<PointerEvent>>::ToV8(script_state, member_coalesced_events_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasDeviceId()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_device_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLLong>::ToV8(script_state, member_device_id_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasHeight()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_height_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLDouble>::ToV8(script_state, member_height_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasIsPrimary()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_primary_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_primary_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasPointerId()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_pointer_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLLong>::ToV8(script_state, member_pointer_id_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasPointerType()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_pointer_type_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLString>::ToV8(script_state, member_pointer_type_);
+DCHECK(!values[7].IsEmpty());
 }
 if (hasPredictedEvents()) {
-  v8_value = ToV8Traits<IDLSequence<PointerEvent>>::ToV8(script_state, member_predicted_events_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<IDLSequence<PointerEvent>>::ToV8(script_state, member_predicted_events_);
+DCHECK(!values[8].IsEmpty());
 }
 if (hasPressure()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_pressure_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<IDLFloat>::ToV8(script_state, member_pressure_);
+DCHECK(!values[9].IsEmpty());
 }
 if (hasTangentialPressure()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_tangential_pressure_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
+  values[10] = ToV8Traits<IDLFloat>::ToV8(script_state, member_tangential_pressure_);
+DCHECK(!values[10].IsEmpty());
 }
 if (hasTiltX()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_tilt_x_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[11].Get(isolate), v8_value).ToChecked();
+  values[11] = ToV8Traits<IDLLong>::ToV8(script_state, member_tilt_x_);
+DCHECK(!values[11].IsEmpty());
 }
 if (hasTiltY()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_tilt_y_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[12].Get(isolate), v8_value).ToChecked();
+  values[12] = ToV8Traits<IDLLong>::ToV8(script_state, member_tilt_y_);
+DCHECK(!values[12].IsEmpty());
 }
 if (hasTwist()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_twist_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[13].Get(isolate), v8_value).ToChecked();
+  values[13] = ToV8Traits<IDLLong>::ToV8(script_state, member_twist_);
+DCHECK(!values[13].IsEmpty());
 }
 if (hasWidth()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_width_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[14].Get(isolate), v8_value).ToChecked();
+  values[14] = ToV8Traits<IDLDouble>::ToV8(script_state, member_width_);
+DCHECK(!values[14].IsEmpty());
 }
-return true;
+}
+
+const void* PointerEventInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> PointerEventInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void PointerEventInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -317,24 +354,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, 
 }
 
 const base::span<const v8::Eternal<v8::Name>> PointerEventInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"altitudeAngle",
-"azimuthAngle",
-"coalescedEvents",
-"deviceId",
-"height",
-"isPrimary",
-"pointerId",
-"pointerType",
-"predictedEvents",
-"pressure",
-"tangentialPressure",
-"tiltX",
-"tiltY",
-"twist",
-"width",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

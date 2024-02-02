@@ -31,6 +31,17 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"flipY",
+"origin",
+"source",
+};
+
+
+}  // namespace 
+
 GPUImageCopyExternalImage* GPUImageCopyExternalImage::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   GPUImageCopyExternalImage* dictionary = MakeGarbageCollected<GPUImageCopyExternalImage>(isolate);
 if (!v8_value->IsObject()) {
@@ -77,24 +88,36 @@ TraceIfNeeded<Member<V8UnionHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElemen
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool GPUImageCopyExternalImage::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void GPUImageCopyExternalImage::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void GPUImageCopyExternalImage::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasFlipY()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_flip_y_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_flip_y_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasOrigin()) {
-  v8_value = ToV8Traits<V8UnionGPUOrigin2DDictOrUnsignedLongEnforceRangeSequence>::ToV8(script_state, member_origin_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<V8UnionGPUOrigin2DDictOrUnsignedLongEnforceRangeSequence>::ToV8(script_state, member_origin_.Get());
+DCHECK(!values[1].IsEmpty());
 }
 if (hasSource()) {
-  v8_value = ToV8Traits<V8UnionHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrImageDataOrOffscreenCanvasOrVideoFrame>::ToV8(script_state, member_source_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<V8UnionHTMLCanvasElementOrHTMLImageElementOrHTMLVideoElementOrImageBitmapOrImageDataOrOffscreenCanvasOrVideoFrame>::ToV8(script_state, member_source_.Get());
+DCHECK(!values[2].IsEmpty());
 }
-return true;
+}
+
+const void* GPUImageCopyExternalImage::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> GPUImageCopyExternalImage::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void GPUImageCopyExternalImage::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -121,12 +144,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8UnionHTMLCanvasElementOrHTMLIma
 }
 
 const base::span<const v8::Eternal<v8::Name>> GPUImageCopyExternalImage::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"flipY",
-"origin",
-"source",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

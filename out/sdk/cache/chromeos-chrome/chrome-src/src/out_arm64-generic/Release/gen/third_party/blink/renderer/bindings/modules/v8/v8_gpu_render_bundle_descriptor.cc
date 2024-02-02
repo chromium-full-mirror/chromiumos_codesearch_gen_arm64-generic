@@ -21,6 +21,15 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+
+};
+
+
+}  // namespace 
+
 GPURenderBundleDescriptor* GPURenderBundleDescriptor::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   GPURenderBundleDescriptor* dictionary = MakeGarbageCollected<GPURenderBundleDescriptor>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -53,12 +62,27 @@ void GPURenderBundleDescriptor::Trace(Visitor* visitor) const {
   GPUObjectDescriptorBase::Trace(visitor);
 }
 
-bool GPURenderBundleDescriptor::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!GPUObjectDescriptorBase::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void GPURenderBundleDescriptor::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  GPUObjectDescriptorBase::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
 }
 
-return true;
+void GPURenderBundleDescriptor::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  GPUObjectDescriptorBase::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
+}
+
+const void* GPURenderBundleDescriptor::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> GPURenderBundleDescriptor::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void GPURenderBundleDescriptor::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {

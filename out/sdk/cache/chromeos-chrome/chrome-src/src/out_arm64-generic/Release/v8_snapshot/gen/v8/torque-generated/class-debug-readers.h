@@ -806,14 +806,14 @@ class TqBytecodeArray : public TqExposedTrustedObject {
   bool IsSuperclassOf(const TqObject* other) const override;
   uintptr_t GetLengthAddress() const;
   Value<uintptr_t> GetLengthValue(d::MemoryAccessor accessor ) const;
-  uintptr_t GetConstantPoolAddress() const;
-  Value<uintptr_t> GetConstantPoolValue(d::MemoryAccessor accessor ) const;
   uintptr_t GetWrapperAddress() const;
   Value<uintptr_t> GetWrapperValue(d::MemoryAccessor accessor ) const;
   uintptr_t GetSourcePositionTableAddress() const;
   Value<uintptr_t> GetSourcePositionTableValue(d::MemoryAccessor accessor ) const;
   uintptr_t GetHandlerTableAddress() const;
   Value<uintptr_t> GetHandlerTableValue(d::MemoryAccessor accessor ) const;
+  uintptr_t GetConstantPoolAddress() const;
+  Value<uintptr_t> GetConstantPoolValue(d::MemoryAccessor accessor ) const;
   uintptr_t GetFrameSizeAddress() const;
   Value<int32_t /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/> GetFrameSizeValue(d::MemoryAccessor accessor ) const;
   uintptr_t GetParameterSizeAddress() const;
@@ -1160,6 +1160,20 @@ class TqFeedbackVector : public TqHeapObject {
 class TqTrustedFixedArray : public TqTrustedObject {
  public:
   inline TqTrustedFixedArray(uintptr_t address) : TqTrustedObject(address) {}
+  std::vector<std::unique_ptr<ObjectProperty>> GetProperties(
+      d::MemoryAccessor accessor) const override;
+  const char* GetName() const override;
+  void Visit(TqObjectVisitor* visitor) const override;
+  bool IsSuperclassOf(const TqObject* other) const override;
+  uintptr_t GetLengthAddress() const;
+  Value<uintptr_t> GetLengthValue(d::MemoryAccessor accessor ) const;
+  uintptr_t GetObjectsAddress() const;
+  Value<uintptr_t> GetObjectsValue(d::MemoryAccessor accessor , size_t offset) const;
+};
+
+class TqProtectedFixedArray : public TqTrustedObject {
+ public:
+  inline TqProtectedFixedArray(uintptr_t address) : TqTrustedObject(address) {}
   std::vector<std::unique_ptr<ObjectProperty>> GetProperties(
       d::MemoryAccessor accessor) const override;
   const char* GetName() const override;
@@ -4226,6 +4240,9 @@ class TqObjectVisitor {
     VisitHeapObject(object);
   }
   virtual void VisitTrustedFixedArray(const TqTrustedFixedArray* object) {
+    VisitTrustedObject(object);
+  }
+  virtual void VisitProtectedFixedArray(const TqProtectedFixedArray* object) {
     VisitTrustedObject(object);
   }
   virtual void VisitByteArray(const TqByteArray* object) {

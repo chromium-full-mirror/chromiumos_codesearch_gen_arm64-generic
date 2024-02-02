@@ -200,6 +200,7 @@ const webui::ResourcePath kDevtoolsResources[] = {
   {"Images/review.svg", IMAGES_REVIEW_SVG},
   {"Images/right-panel-close.svg", IMAGES_RIGHT_PANEL_CLOSE_SVG},
   {"Images/right-panel-open.svg", IMAGES_RIGHT_PANEL_OPEN_SVG},
+  {"Images/scissors.svg", IMAGES_SCISSORS_SVG},
   {"Images/screen-rotation.svg", IMAGES_SCREEN_ROTATION_SVG},
   {"Images/search.svg", IMAGES_SEARCH_SVG},
   {"Images/securityIcons.svg", IMAGES_SECURITYICONS_SVG},

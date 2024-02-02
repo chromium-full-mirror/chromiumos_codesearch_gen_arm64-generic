@@ -22,6 +22,26 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"contributingSources",
+"dependencies",
+"frameId",
+"height",
+"mimeType",
+"payloadType",
+"rtpTimestamp",
+"spatialIndex",
+"synchronizationSource",
+"temporalIndex",
+"timestamp",
+"width",
+};
+
+
+}  // namespace 
+
 RTCEncodedVideoFrameMetadata* RTCEncodedVideoFrameMetadata::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   RTCEncodedVideoFrameMetadata* dictionary = MakeGarbageCollected<RTCEncodedVideoFrameMetadata>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -209,65 +229,79 @@ TraceIfNeeded<uint16_t>::Trace(visitor, member_width_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool RTCEncodedVideoFrameMetadata::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void RTCEncodedVideoFrameMetadata::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void RTCEncodedVideoFrameMetadata::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasContributingSources()) {
-  v8_value = ToV8Traits<IDLSequence<IDLUnsignedLong>>::ToV8(script_state, member_contributing_sources_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLSequence<IDLUnsignedLong>>::ToV8(script_state, member_contributing_sources_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasDependencies()) {
-  v8_value = ToV8Traits<IDLSequence<IDLLongLong>>::ToV8(script_state, member_dependencies_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLSequence<IDLLongLong>>::ToV8(script_state, member_dependencies_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasFrameId()) {
-  v8_value = ToV8Traits<IDLLongLong>::ToV8(script_state, member_frame_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLLongLong>::ToV8(script_state, member_frame_id_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasHeight()) {
-  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_height_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_height_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasMimeType()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_mime_type_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLString>::ToV8(script_state, member_mime_type_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasPayloadType()) {
-  v8_value = ToV8Traits<IDLOctet>::ToV8(script_state, member_payload_type_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLOctet>::ToV8(script_state, member_payload_type_);
+DCHECK(!values[5].IsEmpty());
 }
+v8::Isolate* isolate = script_state->GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ExecutionContext* execution_context = ExecutionContext::From(current_context);
 if (RuntimeEnabledFeatures::RTCEncodedFrameSetMetadataEnabled(execution_context)) {
   if (hasRtpTimestamp()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_rtp_timestamp_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_rtp_timestamp_);
+DCHECK(!values[6].IsEmpty());
 }
 }
 if (hasSpatialIndex()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_spatial_index_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLLong>::ToV8(script_state, member_spatial_index_);
+DCHECK(!values[7].IsEmpty());
 }
 if (hasSynchronizationSource()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_synchronization_source_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_synchronization_source_);
+DCHECK(!values[8].IsEmpty());
 }
 if (hasTemporalIndex()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_temporal_index_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<IDLLong>::ToV8(script_state, member_temporal_index_);
+DCHECK(!values[9].IsEmpty());
 }
 if (RuntimeEnabledFeatures::RTCEncodedVideoFrameAdditionalMetadataEnabled()) {
   if (hasTimestamp()) {
-  v8_value = ToV8Traits<IDLLongLong>::ToV8(script_state, member_timestamp_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
+  values[10] = ToV8Traits<IDLLongLong>::ToV8(script_state, member_timestamp_);
+DCHECK(!values[10].IsEmpty());
 }
 }
 if (hasWidth()) {
-  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_width_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[11].Get(isolate), v8_value).ToChecked();
+  values[11] = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_width_);
+DCHECK(!values[11].IsEmpty());
 }
-return true;
+}
+
+const void* RTCEncodedVideoFrameMetadata::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> RTCEncodedVideoFrameMetadata::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void RTCEncodedVideoFrameMetadata::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -333,21 +367,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedShort, is_optional>(is
 }
 
 const base::span<const v8::Eternal<v8::Name>> RTCEncodedVideoFrameMetadata::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"contributingSources",
-"dependencies",
-"frameId",
-"height",
-"mimeType",
-"payloadType",
-"rtpTimestamp",
-"spatialIndex",
-"synchronizationSource",
-"temporalIndex",
-"timestamp",
-"width",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

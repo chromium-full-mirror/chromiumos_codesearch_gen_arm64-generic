@@ -22,6 +22,17 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"degradationPreference",
+"encodings",
+"transactionId",
+};
+
+
+}  // namespace 
+
 RTCRtpSendParameters* RTCRtpSendParameters::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   RTCRtpSendParameters* dictionary = MakeGarbageCollected<RTCRtpSendParameters>(isolate);
 if (!v8_value->IsObject()) {
@@ -82,28 +93,42 @@ TraceIfNeeded<String>::Trace(visitor, member_transaction_id_);
 RTCRtpParameters::Trace(visitor);
 }
 
-bool RTCRtpSendParameters::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!RTCRtpParameters::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void RTCRtpSendParameters::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  RTCRtpParameters::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void RTCRtpSendParameters::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  RTCRtpParameters::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasDegradationPreference()) {
-  v8_value = ToV8Traits<V8RTCDegradationPreference>::ToV8(script_state, member_degradation_preference_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<V8RTCDegradationPreference>::ToV8(script_state, member_degradation_preference_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasEncodings()) {
-  v8_value = ToV8Traits<IDLSequence<RTCRtpEncodingParameters>>::ToV8(script_state, member_encodings_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLSequence<RTCRtpEncodingParameters>>::ToV8(script_state, member_encodings_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasTransactionId()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_transaction_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLString>::ToV8(script_state, member_transaction_id_);
+DCHECK(!values[2].IsEmpty());
 }
-return true;
+}
+
+const void* RTCRtpSendParameters::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> RTCRtpSendParameters::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void RTCRtpSendParameters::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -135,12 +160,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_required>(isolate, 
 }
 
 const base::span<const v8::Eternal<v8::Name>> RTCRtpSendParameters::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"degradationPreference",
-"encodings",
-"transactionId",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

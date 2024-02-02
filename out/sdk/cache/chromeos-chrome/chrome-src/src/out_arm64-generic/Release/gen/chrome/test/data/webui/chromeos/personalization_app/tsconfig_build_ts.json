@@ -10,6 +10,12 @@
       "chrome://resources/ash/common/*": [
         "./../../../../../../ash/webui/common/resources/preprocessed/*"
       ],
+      "//resources/ash/common/sea_pen/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/sea_pen/*"
+      ],
+      "chrome://resources/ash/common/sea_pen/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/sea_pen/*"
+      ],
       "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
         "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
       ],
@@ -110,6 +116,9 @@
     },
     {
       "path": "../../../../../../ash/webui/common/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ash/webui/common/resources/sea_pen/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../../ash/webui/personalization_app/resources/tsconfig_build_ts.json"

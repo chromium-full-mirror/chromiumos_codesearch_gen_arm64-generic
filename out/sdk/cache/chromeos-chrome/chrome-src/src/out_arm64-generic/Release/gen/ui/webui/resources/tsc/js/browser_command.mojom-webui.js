@@ -7,7 +7,7 @@ export const CommandSpec = { $: mojo.internal.Enum() };
 export var Command;
 (function (Command) {
     Command[Command["MIN_VALUE"] = 0] = "MIN_VALUE";
-    Command[Command["MAX_VALUE"] = 11] = "MAX_VALUE";
+    Command[Command["MAX_VALUE"] = 12] = "MAX_VALUE";
     Command[Command["kUnknownCommand"] = 0] = "kUnknownCommand";
     Command[Command["kOpenSafetyCheck"] = 1] = "kOpenSafetyCheck";
     Command[Command["kOpenSafeBrowsingEnhancedProtectionSettings"] = 2] = "kOpenSafeBrowsingEnhancedProtectionSettings";
@@ -20,6 +20,7 @@ export var Command;
     Command[Command["kOpenNTPAndStartCustomizeChromeTutorial"] = 9] = "kOpenNTPAndStartCustomizeChromeTutorial";
     Command[Command["kStartPasswordManagerTutorial"] = 10] = "kStartPasswordManagerTutorial";
     Command[Command["kStartSavedTabGroupTutorial"] = 11] = "kStartSavedTabGroupTutorial";
+    Command[Command["kOpenAISettings"] = 12] = "kOpenAISettings";
 })(Command || (Command = {}));
 export class CommandHandlerFactoryPendingReceiver {
     handle;

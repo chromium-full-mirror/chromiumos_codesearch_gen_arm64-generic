@@ -23,6 +23,19 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"activeDuration",
+"currentIteration",
+"endTime",
+"localTime",
+"progress",
+};
+
+
+}  // namespace 
+
 ComputedEffectTiming* ComputedEffectTiming::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   ComputedEffectTiming* dictionary = MakeGarbageCollected<ComputedEffectTiming>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -94,36 +107,50 @@ TraceIfNeeded<absl::optional<double>>::Trace(visitor, member_progress_);
 EffectTiming::Trace(visitor);
 }
 
-bool ComputedEffectTiming::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!EffectTiming::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void ComputedEffectTiming::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  EffectTiming::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void ComputedEffectTiming::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  EffectTiming::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasActiveDuration()) {
-  v8_value = ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, member_active_duration_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, member_active_duration_.Get());
+DCHECK(!values[0].IsEmpty());
 }
 if (hasCurrentIteration()) {
-  v8_value = ToV8Traits<IDLNullable<IDLUnrestrictedDouble>>::ToV8(script_state, member_current_iteration_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLNullable<IDLUnrestrictedDouble>>::ToV8(script_state, member_current_iteration_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasEndTime()) {
-  v8_value = ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, member_end_time_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, member_end_time_.Get());
+DCHECK(!values[2].IsEmpty());
 }
 if (hasLocalTime()) {
-  v8_value = ToV8Traits<IDLNullable<V8UnionCSSNumericValueOrDouble>>::ToV8(script_state, member_local_time_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLNullable<V8UnionCSSNumericValueOrDouble>>::ToV8(script_state, member_local_time_.Get());
+DCHECK(!values[3].IsEmpty());
 }
 if (hasProgress()) {
-  v8_value = ToV8Traits<IDLNullable<IDLDouble>>::ToV8(script_state, member_progress_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLNullable<IDLDouble>>::ToV8(script_state, member_progress_);
+DCHECK(!values[4].IsEmpty());
 }
-return true;
+}
+
+const void* ComputedEffectTiming::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> ComputedEffectTiming::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void ComputedEffectTiming::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -161,14 +188,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<IDLDouble>, is_option
 }
 
 const base::span<const v8::Eternal<v8::Name>> ComputedEffectTiming::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"activeDuration",
-"currentIteration",
-"endTime",
-"localTime",
-"progress",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

@@ -642,7 +642,7 @@ IndexedDBControlProxy::IndexedDBControlProxy(mojo::MessageReceiverWithResponder*
 }
 
 void IndexedDBControlProxy::BindIndexedDB(
-    const ::storage::BucketLocator& in_bucket_locator, ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> in_client_state_checker_remote, ::mojo::PendingReceiver<::blink::mojom::IDBFactory> in_receiver) {
+    const ::storage::BucketLocator& in_bucket_locator, ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> in_client_state_checker_remote, const ::base::UnguessableToken& in_client_token, ::mojo::PendingReceiver<::blink::mojom::IDBFactory> in_receiver) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send storage::mojom::IndexedDBControl::BindIndexedDB", "input_parameters",
@@ -654,6 +654,9 @@ void IndexedDBControlProxy::BindIndexedDB(
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("client_state_checker_remote"), in_client_state_checker_remote,
                         "<value of type ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker>>");
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("client_token"), in_client_token,
+                        "<value of type const ::base::UnguessableToken&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("receiver"), in_receiver,
                         "<value of type ::mojo::PendingReceiver<::blink::mojom::IDBFactory>>");
@@ -694,6 +697,17 @@ void IndexedDBControlProxy::BindIndexedDB(
       !mojo::internal::IsHandleOrInterfaceValid(params->client_state_checker_remote),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
       "invalid client_state_checker_remote in IndexedDBControl.BindIndexedDB request");
+  mojo::internal::MessageFragment<
+      typename decltype(params->client_token)::BaseType> client_token_fragment(
+          params.message());
+  mojo::internal::Serialize<::mojo_base::mojom::UnguessableTokenDataView>(
+      in_client_token, client_token_fragment);
+  params->client_token.Set(
+      client_token_fragment.is_null() ? nullptr : client_token_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->client_token.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null client_token in IndexedDBControl.BindIndexedDB request");
   mojo::internal::Serialize<mojo::InterfaceRequestDataView<::blink::mojom::IDBFactoryInterfaceBase>>(
       in_receiver, &params->receiver, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -1628,6 +1642,7 @@ bool IndexedDBControlStubDispatch::Accept(
       bool success = true;
       ::storage::BucketLocator p_bucket_locator{};
       ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> p_client_state_checker_remote{};
+      ::base::UnguessableToken p_client_token{};
       ::mojo::PendingReceiver<::blink::mojom::IDBFactory> p_receiver{};
       IndexedDBControl_BindIndexedDB_ParamsDataView input_data_view(params, message);
       
@@ -1637,6 +1652,8 @@ bool IndexedDBControlStubDispatch::Accept(
         p_client_state_checker_remote =
             input_data_view.TakeClientStateCheckerRemote<decltype(p_client_state_checker_remote)>();
       }
+      if (success && !input_data_view.ReadClientToken(&p_client_token))
+        success = false;
       if (success) {
         p_receiver =
             input_data_view.TakeReceiver<decltype(p_receiver)>();
@@ -1653,6 +1670,7 @@ bool IndexedDBControlStubDispatch::Accept(
       impl->BindIndexedDB(        
         std::move(p_bucket_locator), 
         std::move(p_client_state_checker_remote), 
+        std::move(p_client_token), 
         std::move(p_receiver));
       return true;
     }
@@ -1998,8 +2016,8 @@ IndexedDBObserverAsyncWaiter::~IndexedDBObserverAsyncWaiter() = default;
 
 
 
-void IndexedDBControlInterceptorForTesting::BindIndexedDB(const ::storage::BucketLocator& bucket_locator, ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> client_state_checker_remote, ::mojo::PendingReceiver<::blink::mojom::IDBFactory> receiver) {
-  GetForwardingInterface()->BindIndexedDB(std::move(bucket_locator), std::move(client_state_checker_remote), std::move(receiver));
+void IndexedDBControlInterceptorForTesting::BindIndexedDB(const ::storage::BucketLocator& bucket_locator, ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> client_state_checker_remote, const ::base::UnguessableToken& client_token, ::mojo::PendingReceiver<::blink::mojom::IDBFactory> receiver) {
+  GetForwardingInterface()->BindIndexedDB(std::move(bucket_locator), std::move(client_state_checker_remote), std::move(client_token), std::move(receiver));
 }
 void IndexedDBControlInterceptorForTesting::DeleteForStorageKey(const ::blink::StorageKey& storage_key, DeleteForStorageKeyCallback callback) {
   GetForwardingInterface()->DeleteForStorageKey(std::move(storage_key), std::move(callback));

@@ -1,10 +1,11 @@
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { Destination, DestinationErrorType, DestinationOrigin, DestinationStoreEventType, GooglePromotedDestinationId, makeRecentDestination, NativeLayerImpl, PrinterType } from 'chrome://print/print_preview.js';
+import { Destination, DestinationErrorType, DestinationOrigin, DestinationStoreEventType, GooglePromotedDestinationId, makeRecentDestination, NativeLayerImpl, 
 // 
-import { PrinterStatusReason, PrinterStatusSeverity } from 'chrome://print/print_preview.js';
+PrinterStatusReason, PrinterStatusSeverity, 
 // 
+PrinterType } from 'chrome://print/print_preview.js';
 // 
 // 
 import { webUIListenerCallback } from 'chrome://resources/js/cr.js';
@@ -12,7 +13,6 @@ import { webUIListenerCallback } from 'chrome://resources/js/cr.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { assertEquals, assertFalse, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { eventToPromise } from 'chrome://webui-test/test_util.js';
-// 
 import { setNativeLayerCrosInstance } from './native_layer_cros_stub.js';
 // 
 import { NativeLayerStub } from './native_layer_stub.js';

@@ -28,6 +28,7 @@
 #include "ui/accessibility/mojom/ax_event_intent.mojom-shared.h"
 #include "ui/accessibility/mojom/ax_node_data.mojom-shared.h"
 #include "ui/accessibility/mojom/ax_tree_data.mojom-shared.h"
+#include "ui/accessibility/mojom/ax_tree_checks.mojom-shared.h"
 
 
 
@@ -128,6 +129,27 @@ class AXTreeUpdateDataView {
     return mojo::internal::Deserialize<mojo::ArrayDataView<::ax::mojom::EventIntentDataView>>(
         pointer, output, message_);
   }
+  inline void GetTreeChecksDataView(
+      ::ax::mojom::AXTreeChecksDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTreeChecks(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::ax::mojom::AXTreeChecksDataView, UserType>(),
+    "Attempting to read the optional `tree_checks` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadTreeChecks` instead "
+    "of `ReadTreeChecks if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 2
+                    ? data_->tree_checks.Get() : nullptr;
+    return mojo::internal::Deserialize<::ax::mojom::AXTreeChecksDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::AXTreeUpdate_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -203,6 +225,14 @@ struct Serializer<::ax::mojom::AXTreeUpdateDataView, MaybeConstUserType> {
         fragment->event_intents.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null event_intents in AXTreeUpdate struct");
+    decltype(Traits::tree_checks(input)) in_tree_checks = Traits::tree_checks(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->tree_checks)::BaseType> tree_checks_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::ax::mojom::AXTreeChecksDataView>(
+        in_tree_checks, tree_checks_fragment);
+    fragment->tree_checks.Set(
+        tree_checks_fragment.is_null() ? nullptr : tree_checks_fragment.data());
   }
 
   static bool Deserialize(::ax::mojom::internal::AXTreeUpdate_Data* input,
@@ -237,6 +267,12 @@ inline void AXTreeUpdateDataView::GetEventIntentsDataView(
     mojo::ArrayDataView<::ax::mojom::EventIntentDataView>* output) {
   auto pointer = data_->event_intents.Get();
   *output = mojo::ArrayDataView<::ax::mojom::EventIntentDataView>(pointer, message_);
+}
+inline void AXTreeUpdateDataView::GetTreeChecksDataView(
+    ::ax::mojom::AXTreeChecksDataView* output) {
+  auto pointer = data_->header_.version >= 2
+                 ? data_->tree_checks.Get() : nullptr;
+  *output = ::ax::mojom::AXTreeChecksDataView(pointer, message_);
 }
 
 

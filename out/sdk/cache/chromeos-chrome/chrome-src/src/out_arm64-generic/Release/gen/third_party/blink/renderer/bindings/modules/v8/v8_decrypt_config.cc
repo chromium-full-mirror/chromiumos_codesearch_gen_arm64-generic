@@ -24,6 +24,19 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"encryptionPattern",
+"encryptionScheme",
+"initializationVector",
+"keyId",
+"subsampleLayout",
+};
+
+
+}  // namespace 
+
 DecryptConfig* DecryptConfig::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   DecryptConfig* dictionary = MakeGarbageCollected<DecryptConfig>(isolate);
 if (!v8_value->IsObject()) {
@@ -96,32 +109,44 @@ TraceIfNeeded<HeapVector<Member<SubsampleEntry>>>::Trace(visitor, member_subsamp
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool DecryptConfig::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void DecryptConfig::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void DecryptConfig::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasEncryptionPattern()) {
-  v8_value = ToV8Traits<EncryptionPattern>::ToV8(script_state, member_encryption_pattern_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<EncryptionPattern>::ToV8(script_state, member_encryption_pattern_.Get());
+DCHECK(!values[0].IsEmpty());
 }
 if (hasEncryptionScheme()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_encryption_scheme_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLString>::ToV8(script_state, member_encryption_scheme_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasInitializationVector()) {
-  v8_value = ToV8Traits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared>::ToV8(script_state, member_initialization_vector_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared>::ToV8(script_state, member_initialization_vector_.Get());
+DCHECK(!values[2].IsEmpty());
 }
 if (hasKeyId()) {
-  v8_value = ToV8Traits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared>::ToV8(script_state, member_key_id_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared>::ToV8(script_state, member_key_id_.Get());
+DCHECK(!values[3].IsEmpty());
 }
 if (hasSubsampleLayout()) {
-  v8_value = ToV8Traits<IDLSequence<SubsampleEntry>>::ToV8(script_state, member_subsample_layout_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLSequence<SubsampleEntry>>::ToV8(script_state, member_subsample_layout_);
+DCHECK(!values[4].IsEmpty());
 }
-return true;
+}
+
+const void* DecryptConfig::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> DecryptConfig::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void DecryptConfig::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -156,14 +181,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<SubsampleEntry>, is_r
 }
 
 const base::span<const v8::Eternal<v8::Name>> DecryptConfig::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"encryptionPattern",
-"encryptionScheme",
-"initializationVector",
-"keyId",
-"subsampleLayout",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

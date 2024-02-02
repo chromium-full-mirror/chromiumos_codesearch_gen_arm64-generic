@@ -14,6 +14,7 @@ goog.require('mojo.internal');
 goog.require('ax.mojom.Action');
 goog.require('ax.mojom.EventFrom');
 goog.require('ax.mojom.AXNodeData');
+goog.require('ax.mojom.AXTreeChecks');
 goog.require('ax.mojom.AXTreeData');
 goog.require('ax.mojom.EventIntent');
 
@@ -101,8 +102,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'treeChecks', 48,
+        0,
+        ax.mojom.AXTreeChecksSpec.$,
+        null,
+        true, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 56],]);
+    [[0, 56],[2, 64],]);
 
 
 
@@ -127,6 +136,8 @@ ax.mojom.AXTreeUpdate = class {
     this.eventFromAction;
     /** @export { !Array<!ax.mojom.EventIntent> } */
     this.eventIntents;
+    /** @export { (ax.mojom.AXTreeChecks|undefined) } */
+    this.treeChecks;
   }
 };
 

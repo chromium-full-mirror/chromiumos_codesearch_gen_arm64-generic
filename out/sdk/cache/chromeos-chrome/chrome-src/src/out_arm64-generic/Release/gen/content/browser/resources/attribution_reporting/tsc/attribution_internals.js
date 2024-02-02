@@ -280,7 +280,7 @@ class SourceTableModel extends ArrayTableModel {
             urlColumn('Source Origin', (e) => e.sourceOrigin),
             new ListColumn('Destinations', (e) => e.destinations, renderUrl),
             urlColumn('Reporting Origin', (e) => e.reportingOrigin),
-            dateColumn('Source Registration Time', (e) => e.sourceTime),
+            dateColumn('Registration Time', (e) => e.sourceTime),
             dateColumn('Expiry Time', (e) => e.expiryTime),
             new CodeColumn('Trigger Specs', (e) => e.triggerSpecs),
             dateColumn('Aggregatable Report Window Time', (e) => e.aggregatableReportWindowTime),
@@ -296,7 +296,7 @@ class SourceTableModel extends ArrayTableModel {
             stringOrBoolColumn('Debug Cookie Set', (e) => e.debugCookieSet),
             new ListColumn('Dedup Keys', (e) => e.dedupKeys, setInnerText, numberClass),
             new ListColumn('Aggregatable Dedup Keys', (e) => e.aggregatableDedupKeys, setInnerText, numberClass),
-        ], 5, // Sort by source registration time by default.
+        ], 5, // Sort by registration time by default.
         'No sources.');
     }
 }
@@ -599,7 +599,7 @@ class OsRegistrationTableModel extends ArrayTableModel {
             stringOrBoolColumn('Debug Key Allowed', (e) => e.debugKeyAllowed),
             stringOrBoolColumn('Debug Reporting', (e) => e.debugReporting),
             stringOrBoolColumn('Result', (e) => e.result),
-        ], 0, 'No OS Registrations');
+        ], 0, 'No OS registrations.');
     }
 }
 class DebugReport {
@@ -825,10 +825,9 @@ class AttributionInternals {
     }
     refresh() {
         this.handler.isAttributionReportingEnabled().then((response) => {
-            const featureStatusContent = document.querySelector('#feature-status-content');
-            featureStatusContent.innerText =
-                response.enabled ? 'enabled' : 'disabled';
-            featureStatusContent.classList.toggle('disabled', !response.enabled);
+            const featureStatus = document.querySelector('#feature-status');
+            featureStatus.innerText = response.enabled ? 'enabled' : 'disabled';
+            featureStatus.classList.toggle('disabled', !response.enabled);
             const reportDelaysContent = document.querySelector('#report-delays');
             const noiseContent = document.querySelector('#noise');
             if (response.debugMode) {

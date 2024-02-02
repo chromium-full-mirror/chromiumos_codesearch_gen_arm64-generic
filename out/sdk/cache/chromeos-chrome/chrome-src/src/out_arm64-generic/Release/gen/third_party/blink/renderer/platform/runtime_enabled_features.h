@@ -475,7 +475,6 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_offscreen_canvas_commit_enabled_;
     bool is_offset_mapping_unit_variable_enabled_;
     bool is_on_device_change_enabled_;
-    bool is_one_pass_raster_invalidation_enabled_;
     bool is_option_element_always_use_label_enabled_;
     bool is_orientation_event_enabled_;
     bool is_origin_isolation_header_enabled_;
@@ -560,7 +559,6 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_remove_dangling_markup_in_target_enabled_;
     bool is_remove_data_url_in_svg_use_enabled_;
     bool is_remove_mobile_viewport_double_tap_enabled_;
-    bool is_remove_zoom_adjustment_of_bounding_box_enabled_;
     bool is_render_blocking_inline_module_script_enabled_;
     bool is_render_blocking_status_enabled_;
     bool is_render_priority_attribute_enabled_;
@@ -644,6 +642,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_spell_checker_replace_range_use_insert_text_enabled_;
     bool is_srcset_max_density_enabled_;
     bool is_stable_blink_features_enabled_;
+    bool is_standardized_browser_zoom_enabled_;
     bool is_storage_access_api_beyond_cookies_enabled_;
     bool is_storage_buckets_enabled_;
     bool is_storage_buckets_durability_enabled_;
@@ -3171,12 +3170,6 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
 
   static bool OnDeviceChangeEnabled(const FeatureContext*) { return OnDeviceChangeEnabled(); }
 
-  static bool OnePassRasterInvalidationEnabled() {
-    return is_one_pass_raster_invalidation_enabled_;
-  }
-
-  static bool OnePassRasterInvalidationEnabled(const FeatureContext*) { return OnePassRasterInvalidationEnabled(); }
-
   static bool OptionElementAlwaysUseLabelEnabled() {
     return is_option_element_always_use_label_enabled_;
   }
@@ -3530,12 +3523,6 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   }
 
   static bool RemoveMobileViewportDoubleTapEnabled(const FeatureContext*) { return RemoveMobileViewportDoubleTapEnabled(); }
-
-  static bool RemoveZoomAdjustmentOfBoundingBoxEnabled() {
-    return is_remove_zoom_adjustment_of_bounding_box_enabled_;
-  }
-
-  static bool RemoveZoomAdjustmentOfBoundingBoxEnabled(const FeatureContext*) { return RemoveZoomAdjustmentOfBoundingBoxEnabled(); }
 
   static bool RenderBlockingInlineModuleScriptEnabled() {
     return is_render_blocking_inline_module_script_enabled_;
@@ -3930,6 +3917,12 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   }
 
   static bool StableBlinkFeaturesEnabled(const FeatureContext*) { return StableBlinkFeaturesEnabled(); }
+
+  static bool StandardizedBrowserZoomEnabled() {
+    return is_standardized_browser_zoom_enabled_;
+  }
+
+  static bool StandardizedBrowserZoomEnabled(const FeatureContext*) { return StandardizedBrowserZoomEnabled(); }
 
   static bool StorageBucketsEnabled() {
     return is_storage_buckets_enabled_;
@@ -5435,7 +5428,6 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetOffscreenCanvasCommitEnabled(bool enabled) { is_offscreen_canvas_commit_enabled_ = enabled; }
   static void SetOffsetMappingUnitVariableEnabled(bool enabled) { is_offset_mapping_unit_variable_enabled_ = enabled; }
   static void SetOnDeviceChangeEnabled(bool enabled) { is_on_device_change_enabled_ = enabled; }
-  static void SetOnePassRasterInvalidationEnabled(bool enabled) { is_one_pass_raster_invalidation_enabled_ = enabled; }
   static void SetOptionElementAlwaysUseLabelEnabled(bool enabled) { is_option_element_always_use_label_enabled_ = enabled; }
   static void SetOrientationEventEnabled(bool enabled) { is_orientation_event_enabled_ = enabled; }
   static void SetOriginIsolationHeaderEnabled(bool enabled) { is_origin_isolation_header_enabled_ = enabled; }
@@ -5520,7 +5512,6 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetRemoveDanglingMarkupInTargetEnabled(bool enabled) { is_remove_dangling_markup_in_target_enabled_ = enabled; }
   static void SetRemoveDataUrlInSvgUseEnabled(bool enabled) { is_remove_data_url_in_svg_use_enabled_ = enabled; }
   static void SetRemoveMobileViewportDoubleTapEnabled(bool enabled) { is_remove_mobile_viewport_double_tap_enabled_ = enabled; }
-  static void SetRemoveZoomAdjustmentOfBoundingBoxEnabled(bool enabled) { is_remove_zoom_adjustment_of_bounding_box_enabled_ = enabled; }
   static void SetRenderBlockingInlineModuleScriptEnabled(bool enabled) { is_render_blocking_inline_module_script_enabled_ = enabled; }
   static void SetRenderBlockingStatusEnabled(bool enabled) { is_render_blocking_status_enabled_ = enabled; }
   static void SetRenderPriorityAttributeEnabled(bool enabled) { is_render_priority_attribute_enabled_ = enabled; }
@@ -5604,6 +5595,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetSpellCheckerReplaceRangeUseInsertTextEnabled(bool enabled) { is_spell_checker_replace_range_use_insert_text_enabled_ = enabled; }
   static void SetSrcsetMaxDensityEnabled(bool enabled) { is_srcset_max_density_enabled_ = enabled; }
   static void SetStableBlinkFeaturesEnabled(bool enabled) { is_stable_blink_features_enabled_ = enabled; }
+  static void SetStandardizedBrowserZoomEnabled(bool enabled) { is_standardized_browser_zoom_enabled_ = enabled; }
   static void SetStorageAccessAPIBeyondCookiesEnabled(bool enabled) { is_storage_access_api_beyond_cookies_enabled_ = enabled; }
   static void SetStorageBucketsEnabled(bool enabled) { is_storage_buckets_enabled_ = enabled; }
   static void SetStorageBucketsDurabilityEnabled(bool enabled) { is_storage_buckets_durability_enabled_ = enabled; }
@@ -6171,7 +6163,6 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_offscreen_canvas_commit_enabled_;
   static bool is_offset_mapping_unit_variable_enabled_;
   static bool is_on_device_change_enabled_;
-  static bool is_one_pass_raster_invalidation_enabled_;
   static bool is_option_element_always_use_label_enabled_;
   static bool is_orientation_event_enabled_;
   static bool is_origin_isolation_header_enabled_;
@@ -6256,7 +6247,6 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_remove_dangling_markup_in_target_enabled_;
   static bool is_remove_data_url_in_svg_use_enabled_;
   static bool is_remove_mobile_viewport_double_tap_enabled_;
-  static bool is_remove_zoom_adjustment_of_bounding_box_enabled_;
   static bool is_render_blocking_inline_module_script_enabled_;
   static bool is_render_blocking_status_enabled_;
   static bool is_render_priority_attribute_enabled_;
@@ -6340,6 +6330,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_spell_checker_replace_range_use_insert_text_enabled_;
   static bool is_srcset_max_density_enabled_;
   static bool is_stable_blink_features_enabled_;
+  static bool is_standardized_browser_zoom_enabled_;
   static bool is_storage_access_api_beyond_cookies_enabled_;
   static bool is_storage_buckets_enabled_;
   static bool is_storage_buckets_durability_enabled_;

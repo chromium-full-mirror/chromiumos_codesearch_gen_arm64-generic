@@ -1,5 +1,5 @@
-import { a as assertNotReached, l as listenOnce, C as CrSearchFieldMixin, I as I18nMixin, W as WebUiListenerMixin, b as assert, R as RelaunchMixin, c as RestartType, P as PrefsMixin, i as isMac, d as IronResizableBehavior, e as RouteObserverMixin, E as EventTracker, f as Router, g as focusWithoutInk, h as CrPolicyPrefMixin, j as PrefControlMixin, B as BaseMixin, r as routes, M as MetricsBrowserProxyImpl, k as PrivacyGuideInteractions, m as PrivacyGuideAvailabilityMixin, n as PrivacyPageBrowserProxyImpl, S as SiteSettingsPrefsBrowserProxyImpl, o as SafetyHubBrowserProxyImpl, p as SettingsState, q as ContentSettingsTypes, s as ContentSetting, t as ChooserType, u as SafetyHubEvent, v as SafetyHubEntryPoint, w as PluralStringProxyImpl, H as HatsBrowserProxyImpl, T as TrustSafetyInteraction, x as CookieControlsMode, y as sanitizeInnerHtml, z as SafetyCheckInteractions, O as OpenWindowProxyImpl, A as PasswordManagerImpl, D as PasswordCheckReferrer, F as PasswordManagerPage, G as getInstance, J as getTrustedScriptURL, K as FocusRowMixin, L as SyncBrowserProxyImpl, N as isChromeOS, Q as getImage, U as ListPropertyUpdateMixin, V as TooltipMixin, X as NetworkPredictionOptions, Y as CrSettingsPrefs, Z as ResetBrowserProxyImpl, _ as SearchEnginesBrowserProxyImpl, $ as ChoiceMadeLocation, a0 as PromiseResolver, a1 as IronSelectableBehavior, a2 as FocusOutlineManager, a3 as CrContainerShadowMixin, a4 as pageVisibility, a5 as setGlobalScrollTarget, a6 as resetGlobalScrollTargetForTesting } from './shared.rollup.js';
-export { at as ControlledRadioButtonElement, al as CrActionMenuElement, am as CrButtonElement, an as CrDialogElement, ao as CrLinkRowElement, ap as CrRadioButtonElement, aq as CrRadioGroupElement, ar as CrToggleElement, ay as CvcDeletionUserAction, a8 as DEFAULT_CHECKED_VALUE, a9 as DEFAULT_UNCHECKED_VALUE, az as DeleteBrowsingDataAction, aa as ExtensionControlBrowserProxyImpl, a7 as ExtensionControlledIndicatorElement, ab as LifetimeBrowserProxyImpl, aK as MAX_SIGNIN_PROMO_IMPRESSION, ac as PageStatus, aA as PrivacyElementInteractions, aB as PrivacyGuideSettingsStates, aC as PrivacyGuideStepsEligibleAndReached, aM as PrivacySandboxBrowserProxyImpl, aO as Route, aD as SafeBrowsingInteractions, aw as SafeBrowsingSetting, aE as SafetyCheckNotificationsModuleInteractions, aF as SafetyCheckUnusedSitePermissionsModuleInteractions, aG as SafetyHubCardState, aH as SafetyHubModuleType, aI as SafetyHubSurfaces, aP as SearchEnginesInteractions, ag as SecureDnsMode, ah as SecureDnsUiManagementMode, ax as SecurityPageInteraction, au as SettingsDropdownMenuElement, ak as SettingsPrefsElement, aL as SettingsSyncAccountControlElement, av as SettingsToggleButtonElement, aQ as SiteFaviconElement, ad as StatusAction, af as TrustedVaultBannerState, aN as buildRouter, as as getTrustedHTML, ai as prefToString, aJ as setPageVisibilityForTesting, aj as stringToPrefValue, ae as syncPrefsIndividualDataTypes } from './shared.rollup.js';
+import { a as assertNotReached, l as listenOnce, C as CrSearchFieldMixin, I as I18nMixin, W as WebUiListenerMixin, b as assert, R as RelaunchMixin, c as RestartType, P as PrefsMixin, i as isMac, d as IronResizableBehavior, e as RouteObserverMixin, E as EventTracker, f as Router, g as focusWithoutInk, h as CrPolicyPrefMixin, j as PrefControlMixin, B as BaseMixin, r as routes, M as MetricsBrowserProxyImpl, k as PrivacyGuideInteractions, m as PrivacyGuideAvailabilityMixin, n as PrivacyPageBrowserProxyImpl, S as SiteSettingsPrefsBrowserProxyImpl, o as SafetyHubBrowserProxyImpl, p as SettingsState, q as ContentSettingsTypes, s as ContentSetting, t as ChooserType, u as SafetyHubEvent, v as SafetyHubEntryPoint, w as PluralStringProxyImpl, H as HatsBrowserProxyImpl, T as TrustSafetyInteraction, x as CookieControlsMode, y as sanitizeInnerHtml, z as SafetyCheckInteractions, O as OpenWindowProxyImpl, A as PasswordManagerImpl, D as PasswordCheckReferrer, F as PasswordManagerPage, G as getInstance, J as getTrustedScriptURL, K as FocusRowMixin, L as SyncBrowserProxyImpl, N as isChromeOS, Q as getImage, U as ListPropertyUpdateMixin, V as TooltipMixin, X as NetworkPredictionOptions, Y as CrSettingsPrefs, Z as ResetBrowserProxyImpl, _ as SearchEnginesBrowserProxyImpl, $ as ChoiceMadeLocation, a0 as PromiseResolver, a1 as IronSelectableBehavior, a2 as FocusOutlineManager, a3 as pageVisibility, a4 as setGlobalScrollTarget, a5 as resetGlobalScrollTargetForTesting } from './shared.rollup.js';
+export { as as ControlledRadioButtonElement, ak as CrActionMenuElement, al as CrButtonElement, am as CrDialogElement, an as CrLinkRowElement, ao as CrRadioButtonElement, ap as CrRadioGroupElement, aq as CrToggleElement, ax as CvcDeletionUserAction, a7 as DEFAULT_CHECKED_VALUE, a8 as DEFAULT_UNCHECKED_VALUE, ay as DeleteBrowsingDataAction, a9 as ExtensionControlBrowserProxyImpl, a6 as ExtensionControlledIndicatorElement, aa as LifetimeBrowserProxyImpl, aJ as MAX_SIGNIN_PROMO_IMPRESSION, ab as PageStatus, az as PrivacyElementInteractions, aA as PrivacyGuideSettingsStates, aB as PrivacyGuideStepsEligibleAndReached, aL as PrivacySandboxBrowserProxyImpl, aN as Route, aC as SafeBrowsingInteractions, av as SafeBrowsingSetting, aD as SafetyCheckNotificationsModuleInteractions, aE as SafetyCheckUnusedSitePermissionsModuleInteractions, aF as SafetyHubCardState, aG as SafetyHubModuleType, aH as SafetyHubSurfaces, aO as SearchEnginesInteractions, af as SecureDnsMode, ag as SecureDnsUiManagementMode, aw as SecurityPageInteraction, at as SettingsDropdownMenuElement, aj as SettingsPrefsElement, aK as SettingsSyncAccountControlElement, au as SettingsToggleButtonElement, aP as SiteFaviconElement, ac as StatusAction, ae as TrustedVaultBannerState, aM as buildRouter, ar as getTrustedHTML, ah as prefToString, aI as setPageVisibilityForTesting, ai as stringToPrefValue, ad as syncPrefsIndividualDataTypes } from './shared.rollup.js';
 import { html, PolymerElement, dedupingMixin, mixinBehaviors, afterNextRender, flush, templatize, beforeNextRender, microTask, DomIf } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 export { loadTimeData } from 'chrome://resources/js/load_time_data.js';
@@ -9245,6 +9245,140 @@ class SettingsMenuElement extends SettingsMenuElementBase {
     }
 }
 customElements.define(SettingsMenuElement.is, SettingsMenuElement);
+
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview CrContainerShadowMixin holds logic for showing a drop shadow
+ * near the top of a container element, when the content has scrolled.
+ *
+ * Elements using this mixin are expected to define a #container element,
+ * which is the element being scrolled. If the #container element has a
+ * show-bottom-shadow attribute, a drop shadow will also be shown near the
+ * bottom of the container element, when there is additional content to scroll
+ * to. Examples:
+ *
+ * For both top and bottom shadows:
+ * <div id="container" show-bottom-shadow>...</div>
+ *
+ * For top shadow only:
+ * <div id="container">...</div>
+ *
+ * The mixin will take care of inserting an element with ID
+ * 'cr-container-shadow-top' which holds the drop shadow effect, and,
+ * optionally, an element with ID 'cr-container-shadow-bottom' which holds the
+ * same effect. A 'has-shadow' CSS class is automatically added to/removed from
+ * both elements while scrolling, as necessary. Note that the show-bottom-shadow
+ * attribute is inspected only during attached(), and any changes to it that
+ * occur after that point will not be respected.
+ *
+ * Clients should either use the existing shared styling in
+ * cr_shared_style.css, '#cr-container-shadow-[top/bottom]' and
+ * '#cr-container-shadow-[top/bottom].has-shadow', or define their own styles.
+ */
+var CrContainerShadowSide;
+(function (CrContainerShadowSide) {
+    CrContainerShadowSide["TOP"] = "top";
+    CrContainerShadowSide["BOTTOM"] = "bottom";
+})(CrContainerShadowSide || (CrContainerShadowSide = {}));
+const CrContainerShadowMixin = dedupingMixin((superClass) => {
+    class CrContainerShadowMixin extends superClass {
+        constructor() {
+            super(...arguments);
+            this.intersectionObserver_ = null;
+            this.dropShadows_ = new Map();
+            this.intersectionProbes_ = new Map();
+            this.sides_ = null;
+        }
+        connectedCallback() {
+            super.connectedCallback();
+            const hasBottomShadow = this.getContainer_().hasAttribute('show-bottom-shadow');
+            this.sides_ = hasBottomShadow ?
+                [CrContainerShadowSide.TOP, CrContainerShadowSide.BOTTOM] :
+                [CrContainerShadowSide.TOP];
+            this.sides_.forEach(side => {
+                // The element holding the drop shadow effect to be shown.
+                const shadow = document.createElement('div');
+                shadow.id = `cr-container-shadow-${side}`;
+                shadow.classList.add('cr-container-shadow');
+                this.dropShadows_.set(side, shadow);
+                this.intersectionProbes_.set(side, document.createElement('div'));
+            });
+            this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.TOP), this.getContainer_());
+            this.getContainer_().prepend(this.intersectionProbes_.get(CrContainerShadowSide.TOP));
+            if (hasBottomShadow) {
+                this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.BOTTOM), this.getContainer_().nextSibling);
+                this.getContainer_().append(this.intersectionProbes_.get(CrContainerShadowSide.BOTTOM));
+            }
+            this.enableShadowBehavior(true);
+        }
+        disconnectedCallback() {
+            super.disconnectedCallback();
+            this.enableShadowBehavior(false);
+        }
+        getContainer_() {
+            return this.shadowRoot.querySelector('#container');
+        }
+        getIntersectionObserver_() {
+            const callback = (entries) => {
+                // In some rare cases, there could be more than one entry per
+                // observed element, in which case the last entry's result
+                // stands.
+                for (const entry of entries) {
+                    const target = entry.target;
+                    this.sides_.forEach(side => {
+                        if (target === this.intersectionProbes_.get(side)) {
+                            this.dropShadows_.get(side).classList.toggle('has-shadow', entry.intersectionRatio === 0);
+                        }
+                    });
+                }
+            };
+            return new IntersectionObserver(callback, { root: this.getContainer_(), threshold: 0 });
+        }
+        /**
+         * @param enable Whether to enable the mixin or disable it.
+         *     This function does nothing if the mixin is already in the
+         *     requested state.
+         */
+        enableShadowBehavior(enable) {
+            // Behavior is already enabled/disabled. Return early.
+            if (enable === !!this.intersectionObserver_) {
+                return;
+            }
+            if (!enable) {
+                this.intersectionObserver_.disconnect();
+                this.intersectionObserver_ = null;
+                return;
+            }
+            this.intersectionObserver_ = this.getIntersectionObserver_();
+            // Need to register the observer within a setTimeout() callback,
+            // otherwise the drop shadow flashes once on startup, because of the
+            // DOM modifications earlier in this function causing a relayout.
+            window.setTimeout(() => {
+                if (this.intersectionObserver_) {
+                    // In case this is already detached.
+                    this.intersectionProbes_.forEach(probe => {
+                        this.intersectionObserver_.observe(probe);
+                    });
+                }
+            });
+        }
+        /**
+         * Shows the shadows. The shadow mixin must be disabled before
+         * calling this method, otherwise the intersection observer might
+         * show the shadows again.
+         */
+        showDropShadows() {
+            assert(!this.intersectionObserver_);
+            assert(this.sides_);
+            for (const side of this.sides_) {
+                this.dropShadows_.get(side).classList.toggle('has-shadow', true);
+            }
+        }
+    }
+    return CrContainerShadowMixin;
+});
 
 function getTemplate$4() {
     return html `<!--_html_template_start_-->    <style include="cr-page-host-style settings-shared">:host{display:flex;flex-direction:column;height:100%;--settings-menu-width:250px;--settings-main-basis:calc(var(--cr-centered-card-max-width) /

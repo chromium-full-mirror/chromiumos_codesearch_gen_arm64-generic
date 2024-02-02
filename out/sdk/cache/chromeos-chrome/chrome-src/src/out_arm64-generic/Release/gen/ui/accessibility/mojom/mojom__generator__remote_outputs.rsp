@@ -28,6 +28,11 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/access
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_relative_bounds.mojom-test-utils.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_relative_bounds.mojom.cc
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_relative_bounds.mojom.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_tree_checks.mojom-forward.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_tree_checks.mojom-import-headers.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_tree_checks.mojom-test-utils.h
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_tree_checks.mojom.cc
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_tree_checks.mojom.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_tree_data.mojom-forward.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_tree_data.mojom-import-headers.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_tree_data.mojom-test-utils.h

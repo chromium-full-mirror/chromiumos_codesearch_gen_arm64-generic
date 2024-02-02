@@ -1796,6 +1796,25 @@ class  MediaSessionInfo {
       RemotePlaybackMetadataPtr remote_playback_metadata,
       bool hide_metadata);
 
+  MediaSessionInfo(
+      MediaSessionInfo::SessionState state,
+      bool force_duck,
+      MediaPlaybackState playback_state,
+      bool is_controllable,
+      bool prefer_stop_for_gain_focus_loss,
+      bool is_sensitive,
+      MediaPictureInPictureState picture_in_picture_state,
+      MediaAudioVideoState deprecated_audio_video_state,
+      const std::optional<std::string>& audio_sink_id,
+      std::optional<std::vector<MediaAudioVideoState>> audio_video_states,
+      MicrophoneState microphone_state,
+      CameraState camera_state,
+      bool muted,
+      bool has_presentation,
+      RemotePlaybackMetadataPtr remote_playback_metadata,
+      bool hide_metadata,
+      bool ignore_for_active_session);
+
 MediaSessionInfo(const MediaSessionInfo&) = delete;
 MediaSessionInfo& operator=(const MediaSessionInfo&) = delete;
 
@@ -1905,6 +1924,8 @@ MediaSessionInfo& operator=(const MediaSessionInfo&) = delete;
   RemotePlaybackMetadataPtr remote_playback_metadata;
   
   bool hide_metadata;
+  
+  bool ignore_for_active_session;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2219,7 +2240,8 @@ MediaSessionInfoPtr MediaSessionInfo::Clone() const {
       mojo::Clone(muted),
       mojo::Clone(has_presentation),
       mojo::Clone(remote_playback_metadata),
-      mojo::Clone(hide_metadata)
+      mojo::Clone(hide_metadata),
+      mojo::Clone(ignore_for_active_session)
   );
 }
 
@@ -2256,6 +2278,8 @@ bool MediaSessionInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->remote_playback_metadata, other_struct.remote_playback_metadata))
     return false;
   if (!mojo::Equals(this->hide_metadata, other_struct.hide_metadata))
+    return false;
+  if (!mojo::Equals(this->ignore_for_active_session, other_struct.ignore_for_active_session))
     return false;
   return true;
 }
@@ -2325,6 +2349,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.hide_metadata < rhs.hide_metadata)
     return true;
   if (rhs.hide_metadata < lhs.hide_metadata)
+    return false;
+  if (lhs.ignore_for_active_session < rhs.ignore_for_active_session)
+    return true;
+  if (rhs.ignore_for_active_session < lhs.ignore_for_active_session)
     return false;
   return false;
 }
@@ -2640,6 +2668,11 @@ struct  StructTraits<::media_session::mojom::MediaSessionInfo::DataView,
   static decltype(::media_session::mojom::MediaSessionInfo::hide_metadata) hide_metadata(
       const ::media_session::mojom::MediaSessionInfoPtr& input) {
     return input->hide_metadata;
+  }
+
+  static decltype(::media_session::mojom::MediaSessionInfo::ignore_for_active_session) ignore_for_active_session(
+      const ::media_session::mojom::MediaSessionInfoPtr& input) {
+    return input->ignore_for_active_session;
   }
 
   static bool Read(::media_session::mojom::MediaSessionInfo::DataView input, ::media_session::mojom::MediaSessionInfoPtr* output);

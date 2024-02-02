@@ -272,7 +272,7 @@
     "VirtualMachinesAllowed": "virtual_machines_allowed.virtual_machines_allowed"
   },
   "highest_atomic_group_id_currently_used": 50,
-  "highest_id_currently_used": 1209,
+  "highest_id_currently_used": 1210,
   "legacy_device_policy_proto_map": [
     [
       "",
@@ -1051,7 +1051,8 @@
         "RemoteAccessHostClipboardSizeBytes",
         "RemoteAccessHostAllowRemoteSupportConnections",
         "RemoteAccessHostAllowEnterpriseRemoteSupportConnections",
-        "RemoteAccessHostAllowEnterpriseFileTransfer"
+        "RemoteAccessHostAllowEnterpriseFileTransfer",
+        "RemoteAccessHostAllowUrlForwarding"
       ]
     },
     {
@@ -44258,6 +44259,42 @@
       "type": "main"
     },
     {
+      "caption": "Allow remote access users to open host-side URLs in their local client browser",
+      "default": true,
+      "desc": "Setting the policy to Enabled or leaving it unset may allow users connected to a remote access host to open host-side URLs in their local client browser.\n\nSetting the policy to Disabled will prevent the remote access host from sending URLs to the client.\n\nThis setting doesn't apply to remote assistance connections as the feature is not supported for that connection mode.\n\nNote: This feature is not yet generally available so enabling it does not mean that the feature will be visible in the client UI.",
+      "example_value": false,
+      "features": {
+        "dynamic_refresh": true,
+        "per_profile": false,
+        "platform_only": true
+      },
+      "id": 1210,
+      "items": [
+        {
+          "caption": "Enable remote access users to open host-side URLs in their local client browser",
+          "value": true
+        },
+        {
+          "caption": "Disable remote access users from opening host-side URLs in their local client browser",
+          "value": false
+        }
+      ],
+      "name": "RemoteAccessHostAllowUrlForwarding",
+      "owners": [
+        "file://remoting/OWNERS",
+        "jamiewalch@chromium.org",
+        "joedow@chromium.org"
+      ],
+      "schema": {
+        "type": "boolean"
+      },
+      "supported_on": [
+        "chrome.*:123-"
+      ],
+      "tags": [],
+      "type": "main"
+    },
+    {
       "caption": "Configure the required domain name for remote access clients",
       "deprecated": true,
       "desc": "This policy is deprecated. Please use <ph name=\"REMOTE_ACCESS_HOST_CLIENT_DOMAIN_LIST_POLICY_NAME\">RemoteAccessHostClientDomainList</ph> instead.",
@@ -50595,6 +50632,7 @@
         "RemoteAccessHostAllowRemoteAccessConnections",
         "RemoteAccessHostAllowRemoteSupportConnections",
         "RemoteAccessHostAllowUiAccessForRemoteAssistance",
+        "RemoteAccessHostAllowUrlForwarding",
         "RemoteAccessHostClientDomain",
         "RemoteAccessHostClientDomainList",
         "RemoteAccessHostClipboardSizeBytes",

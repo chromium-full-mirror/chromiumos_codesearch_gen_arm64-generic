@@ -1,18 +1,29 @@
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { Destination, DestinationOrigin, DuplexMode, makeRecentDestination, MarginsType, PrinterType, ScalingType, Size } from 'chrome://print/print_preview.js';
+import { 
 // 
-import { ColorModeRestriction, DuplexModeRestriction, GooglePromotedDestinationId, PinModeRestriction, PrinterStatusReason } from 'chrome://print/print_preview.js';
+ColorModeRestriction, 
 // 
+Destination, DestinationOrigin, DuplexMode, 
+// 
+DuplexModeRestriction, GooglePromotedDestinationId, 
+// 
+makeRecentDestination, MarginsType, 
+// 
+PinModeRestriction, PrinterStatusReason, 
+// 
+PrinterType, ScalingType, Size } from 'chrome://print/print_preview.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { flush } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertDeepEquals, assertEquals, assertFalse, assertNotEquals, assertTrue } from 'chrome://webui-test/chai_assert.js';
 import { eventToPromise } from 'chrome://webui-test/test_util.js';
-import { getCddTemplateWithAdvancedSettings } from './print_preview_test_utils.js';
+import { 
 // 
-import { getCddTemplate } from './print_preview_test_utils.js';
+getCddTemplate, 
 // 
+getCddTemplateWithAdvancedSettings } from './print_preview_test_utils.js';
+// </if>
 suite('ModelTest', function () {
     let model;
     setup(function () {

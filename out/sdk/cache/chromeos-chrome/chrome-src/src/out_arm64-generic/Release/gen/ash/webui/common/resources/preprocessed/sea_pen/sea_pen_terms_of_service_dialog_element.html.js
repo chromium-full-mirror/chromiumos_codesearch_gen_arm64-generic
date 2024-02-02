@@ -1,19 +1,10 @@
-import {html} from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-  return html`<!--_html_template_start_--><style include="common cros-button-style">
-  h3,
-  p {
-    margin: 0;
-  }
-
-  cr-button + cr-button {
-    margin-inline-start: 8px;
-  }
-</style>
+    return html `<!--_html_template_start_--><style include="common cros-button-style">h3,p{margin:0}cr-button+cr-button{margin-inline-start:8px}</style>
 <cr-dialog id="dialog" show-on-attach no-cancel>
   <h3 slot="title">[[i18n('seaPenWallpaperTermsDialogTitle')]]</h3>
   <div slot="body">
-    <!-- TODO(b/317235695): add the real content and header image. -->
+    
     <span id="termsOfServiceContent" inner-h-t-m-l="[[i18nAdvanced('seaPenWallpaperTermsOfServiceDesc')]]"></span>
   </div>
   <div slot="button-container">

@@ -6,7 +6,6 @@
  * 'os-settings-apps-page' is the settings page containing app related settings.
  *
  */
-import 'chrome://resources/cr_components/app_management/uninstall_button.js';
 import 'chrome://resources/cr_components/localized_link/localized_link.js';
 import 'chrome://resources/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
@@ -24,6 +23,7 @@ import './android_apps_subpage.js';
 import './app_notifications_page/app_notifications_subpage.js';
 import './app_management_page/app_management_page.js';
 import './app_management_page/app_detail_view.js';
+import './app_management_page/uninstall_button.js';
 import { AppManagementEntryPoint, AppManagementEntryPointsHistogramName } from 'chrome://resources/cr_components/app_management/constants.js';
 import { getAppIcon, getSelectedApp } from 'chrome://resources/cr_components/app_management/util.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';

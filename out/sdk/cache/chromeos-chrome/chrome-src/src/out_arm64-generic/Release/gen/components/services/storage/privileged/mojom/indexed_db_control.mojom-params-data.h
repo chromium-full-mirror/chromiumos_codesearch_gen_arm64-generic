@@ -64,6 +64,7 @@ class  IndexedDBControl_BindIndexedDB_Params_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<::storage::mojom::internal::BucketLocator_Data> bucket_locator;
   mojo::internal::Interface_Data client_state_checker_remote;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::UnguessableToken_Data> client_token;
   mojo::internal::Handle_Data receiver;
   uint8_t padfinal_[4];
 
@@ -73,7 +74,7 @@ class  IndexedDBControl_BindIndexedDB_Params_Data {
   IndexedDBControl_BindIndexedDB_Params_Data();
   ~IndexedDBControl_BindIndexedDB_Params_Data() = delete;
 };
-static_assert(sizeof(IndexedDBControl_BindIndexedDB_Params_Data) == 32,
+static_assert(sizeof(IndexedDBControl_BindIndexedDB_Params_Data) == 40,
               "Bad sizeof(IndexedDBControl_BindIndexedDB_Params_Data)");
 class  IndexedDBControl_DeleteForStorageKey_Params_Data {
  public:
@@ -377,6 +378,16 @@ class IndexedDBControl_BindIndexedDB_ParamsDataView {
             &data_->client_state_checker_remote, &result, message_);
     DCHECK(ret);
     return result;
+  }
+  inline void GetClientTokenDataView(
+      ::mojo_base::mojom::UnguessableTokenDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadClientToken(UserType* output) {
+    
+    auto* pointer = data_->client_token.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::UnguessableTokenDataView>(
+        pointer, output, message_);
   }
   template <typename UserType>
   UserType TakeReceiver() {
@@ -715,6 +726,11 @@ inline void IndexedDBControl_BindIndexedDB_ParamsDataView::GetBucketLocatorDataV
     ::storage::mojom::BucketLocatorDataView* output) {
   auto pointer = data_->bucket_locator.Get();
   *output = ::storage::mojom::BucketLocatorDataView(pointer, message_);
+}
+inline void IndexedDBControl_BindIndexedDB_ParamsDataView::GetClientTokenDataView(
+    ::mojo_base::mojom::UnguessableTokenDataView* output) {
+  auto pointer = data_->client_token.Get();
+  *output = ::mojo_base::mojom::UnguessableTokenDataView(pointer, message_);
 }
 
 

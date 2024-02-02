@@ -44,6 +44,7 @@ class  ModelAssets_Data {
   mojo::internal::Pointer<::mojo_base::mojom::internal::File_Data> weights;
   mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlyFile_Data> ts_data;
   mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlyFile_Data> ts_sp_model;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::ReadOnlyFile_Data> language_detection_model;
 
  private:
   friend class mojo::internal::MessageFragment<ModelAssets_Data>;
@@ -51,7 +52,7 @@ class  ModelAssets_Data {
   ModelAssets_Data();
   ~ModelAssets_Data() = delete;
 };
-static_assert(sizeof(ModelAssets_Data) == 48,
+static_assert(sizeof(ModelAssets_Data) == 56,
               "Bad sizeof(ModelAssets_Data)");
 // Used by ModelAssets::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

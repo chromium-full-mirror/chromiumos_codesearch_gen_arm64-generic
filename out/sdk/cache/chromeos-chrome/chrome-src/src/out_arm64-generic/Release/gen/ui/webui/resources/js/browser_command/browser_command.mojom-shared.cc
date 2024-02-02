@@ -48,6 +48,8 @@ NOINLINE static const char* CommandToStringHelper(Command value) {
       return "kStartPasswordManagerTutorial";
     case Command::kStartSavedTabGroupTutorial:
       return "kStartSavedTabGroupTutorial";
+    case Command::kOpenAISettings:
+      return "kOpenAISettings";
     default:
       return nullptr;
   }

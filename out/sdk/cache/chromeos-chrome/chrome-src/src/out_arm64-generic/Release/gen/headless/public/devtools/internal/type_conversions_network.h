@@ -1152,8 +1152,8 @@ struct FromValue<network::CookieExemptionReason> {
       return network::CookieExemptionReason::STORAGE_ACCESS;
     if (value.GetString() == "TopLevelStorageAccess")
       return network::CookieExemptionReason::TOP_LEVEL_STORAGE_ACCESS;
-    if (value.GetString() == "BrowserHeuristics")
-      return network::CookieExemptionReason::BROWSER_HEURISTICS;
+    if (value.GetString() == "CorsOptIn")
+      return network::CookieExemptionReason::CORS_OPT_IN;
     errors->AddError("invalid enum value");
     return network::CookieExemptionReason::NONE;
   }
@@ -1178,8 +1178,8 @@ inline base::Value ToValue(const network::CookieExemptionReason& value) {
       return base::Value("StorageAccess");
     case network::CookieExemptionReason::TOP_LEVEL_STORAGE_ACCESS:
       return base::Value("TopLevelStorageAccess");
-    case network::CookieExemptionReason::BROWSER_HEURISTICS:
-      return base::Value("BrowserHeuristics");
+    case network::CookieExemptionReason::CORS_OPT_IN:
+      return base::Value("CorsOptIn");
   };
   NOTREACHED();
   return base::Value();

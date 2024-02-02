@@ -40,6 +40,7 @@ export class ResourcesPanel extends UI.Panel.PanelWithSidebar {
         this.pendingViewPromise = null;
         this.categoryView = null;
         const mainContainer = new UI.Widget.VBox();
+        mainContainer.setMinimumSize(100, 0);
         this.storageViews = mainContainer.element.createChild('div', 'vbox flex-auto');
         this.storageViewToolbar = new UI.Toolbar.Toolbar('resources-toolbar', mainContainer.element);
         this.splitWidget().setMainWidget(mainContainer);

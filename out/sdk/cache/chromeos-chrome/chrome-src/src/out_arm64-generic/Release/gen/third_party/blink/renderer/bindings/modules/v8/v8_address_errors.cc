@@ -21,6 +21,24 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"addressLine",
+"city",
+"country",
+"dependentLocality",
+"organization",
+"phone",
+"postalCode",
+"recipient",
+"region",
+"sortingCode",
+};
+
+
+}  // namespace 
+
 AddressErrors* AddressErrors::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   AddressErrors* dictionary = MakeGarbageCollected<AddressErrors>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -332,52 +350,64 @@ TraceIfNeeded<String>::Trace(visitor, member_sorting_code_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool AddressErrors::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void AddressErrors::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void AddressErrors::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasAddressLine()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_address_line_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLString>::ToV8(script_state, member_address_line_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasCity()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_city_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLString>::ToV8(script_state, member_city_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasCountry()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_country_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLString>::ToV8(script_state, member_country_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasDependentLocality()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_dependent_locality_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLString>::ToV8(script_state, member_dependent_locality_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasOrganization()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_organization_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLString>::ToV8(script_state, member_organization_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasPhone()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_phone_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLString>::ToV8(script_state, member_phone_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasPostalCode()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_postal_code_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLString>::ToV8(script_state, member_postal_code_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasRecipient()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_recipient_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLString>::ToV8(script_state, member_recipient_);
+DCHECK(!values[7].IsEmpty());
 }
 if (hasRegion()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_region_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<IDLString>::ToV8(script_state, member_region_);
+DCHECK(!values[8].IsEmpty());
 }
 if (hasSortingCode()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_sorting_code_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<IDLString>::ToV8(script_state, member_sorting_code_);
+DCHECK(!values[9].IsEmpty());
 }
-return true;
+}
+
+const void* AddressErrors::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> AddressErrors::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void AddressErrors::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -430,19 +460,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, 
 }
 
 const base::span<const v8::Eternal<v8::Name>> AddressErrors::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"addressLine",
-"city",
-"country",
-"dependentLocality",
-"organization",
-"phone",
-"postalCode",
-"recipient",
-"region",
-"sortingCode",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

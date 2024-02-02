@@ -25,7 +25,7 @@ const WarningMessage = {
     POWERWASH: 1,
     UNSTABLE: 2,
 };
-class SettingsChannelSwitcherDialogElement extends PolymerElement {
+export class SettingsChannelSwitcherDialogElement extends PolymerElement {
     static get is() {
         return 'settings-channel-switcher-dialog';
     }

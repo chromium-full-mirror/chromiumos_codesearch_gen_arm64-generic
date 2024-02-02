@@ -21,6 +21,15 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"companyIdentifier",
+};
+
+
+}  // namespace 
+
 BluetoothManufacturerDataFilterInit* BluetoothManufacturerDataFilterInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   BluetoothManufacturerDataFilterInit* dictionary = MakeGarbageCollected<BluetoothManufacturerDataFilterInit>(isolate);
 if (!v8_value->IsObject()) {
@@ -55,20 +64,34 @@ void BluetoothManufacturerDataFilterInit::Trace(Visitor* visitor) const {
 BluetoothDataFilterInit::Trace(visitor);
 }
 
-bool BluetoothManufacturerDataFilterInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!BluetoothDataFilterInit::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void BluetoothManufacturerDataFilterInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  BluetoothDataFilterInit::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
+void BluetoothManufacturerDataFilterInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  BluetoothDataFilterInit::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasCompanyIdentifier()) {
-  v8::Local<v8::Value> v8_value;
-v8_value = ToV8Traits<IDLUnsignedShortEnforceRange>::ToV8(script_state, member_company_identifier_);
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUnsignedShortEnforceRange>::ToV8(script_state, member_company_identifier_);
+DCHECK(!values[0].IsEmpty());
 }
-return true;
+}
+
+const void* BluetoothManufacturerDataFilterInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> BluetoothManufacturerDataFilterInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void BluetoothManufacturerDataFilterInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -91,10 +114,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedShortEnforceRange, is_
 }
 
 const base::span<const v8::Eternal<v8::Name>> BluetoothManufacturerDataFilterInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"companyIdentifier",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

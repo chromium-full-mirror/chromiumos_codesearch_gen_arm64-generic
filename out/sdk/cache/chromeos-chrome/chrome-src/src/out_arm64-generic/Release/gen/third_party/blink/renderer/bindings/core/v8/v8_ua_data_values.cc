@@ -22,6 +22,25 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"architecture",
+"bitness",
+"brands",
+"formFactor",
+"fullVersionList",
+"mobile",
+"model",
+"platform",
+"platformVersion",
+"uaFullVersion",
+"wow64",
+};
+
+
+}  // namespace 
+
 UADataValues* UADataValues::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   UADataValues* dictionary = MakeGarbageCollected<UADataValues>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -321,56 +340,68 @@ TraceIfNeeded<bool>::Trace(visitor, member_wow_64_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool UADataValues::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void UADataValues::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void UADataValues::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasArchitecture()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_architecture_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLString>::ToV8(script_state, member_architecture_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasBitness()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_bitness_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLString>::ToV8(script_state, member_bitness_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasBrands()) {
-  v8_value = ToV8Traits<IDLSequence<NavigatorUABrandVersion>>::ToV8(script_state, member_brands_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLSequence<NavigatorUABrandVersion>>::ToV8(script_state, member_brands_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasFormFactor()) {
-  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_form_factor_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_form_factor_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasFullVersionList()) {
-  v8_value = ToV8Traits<IDLSequence<NavigatorUABrandVersion>>::ToV8(script_state, member_full_version_list_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLSequence<NavigatorUABrandVersion>>::ToV8(script_state, member_full_version_list_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasMobile()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_mobile_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_mobile_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasModel()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_model_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLString>::ToV8(script_state, member_model_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasPlatform()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_platform_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLString>::ToV8(script_state, member_platform_);
+DCHECK(!values[7].IsEmpty());
 }
 if (hasPlatformVersion()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_platform_version_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<IDLString>::ToV8(script_state, member_platform_version_);
+DCHECK(!values[8].IsEmpty());
 }
 if (hasUaFullVersion()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_ua_full_version_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<IDLString>::ToV8(script_state, member_ua_full_version_);
+DCHECK(!values[9].IsEmpty());
 }
 if (hasWow64()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_wow_64_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
+  values[10] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_wow_64_);
+DCHECK(!values[10].IsEmpty());
 }
-return true;
+}
+
+const void* UADataValues::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> UADataValues::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void UADataValues::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -427,20 +458,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate,
 }
 
 const base::span<const v8::Eternal<v8::Name>> UADataValues::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"architecture",
-"bitness",
-"brands",
-"formFactor",
-"fullVersionList",
-"mobile",
-"model",
-"platform",
-"platformVersion",
-"uaFullVersion",
-"wow64",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

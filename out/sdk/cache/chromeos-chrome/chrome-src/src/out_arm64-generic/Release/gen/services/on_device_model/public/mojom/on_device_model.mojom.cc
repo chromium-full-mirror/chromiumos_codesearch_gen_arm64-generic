@@ -44,15 +44,100 @@
 
 
 namespace on_device_model::mojom {
+LanguageDetectionResult::LanguageDetectionResult()
+    : code(),
+      reliability() {}
+
+LanguageDetectionResult::LanguageDetectionResult(
+    const std::string& code_in,
+    float reliability_in)
+    : code(std::move(code_in)),
+      reliability(std::move(reliability_in)) {}
+
+LanguageDetectionResult::~LanguageDetectionResult() = default;
+size_t LanguageDetectionResult::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->code);
+  seed = mojo::internal::Hash(seed, this->reliability);
+  return seed;
+}
+
+void LanguageDetectionResult::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "code"), this->code,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "reliability"), this->reliability,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type float>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool LanguageDetectionResult::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+SafetyInfo::SafetyInfo()
+    : class_scores(),
+      language() {}
+
+SafetyInfo::SafetyInfo(
+    std::vector<float> class_scores_in,
+    LanguageDetectionResultPtr language_in)
+    : class_scores(std::move(class_scores_in)),
+      language(std::move(language_in)) {}
+
+SafetyInfo::~SafetyInfo() = default;
+
+void SafetyInfo::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "class_scores"), this->class_scores,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<float>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "language"), this->language,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type LanguageDetectionResultPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SafetyInfo::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 ResponseChunk::ResponseChunk()
     : text(),
-      ts_scores() {}
+      safety_info() {}
 
 ResponseChunk::ResponseChunk(
     const std::string& text_in,
-    std::optional<std::vector<float>> ts_scores_in)
+    SafetyInfoPtr safety_info_in)
     : text(std::move(text_in)),
-      ts_scores(std::move(ts_scores_in)) {}
+      safety_info(std::move(safety_info_in)) {}
 
 ResponseChunk::~ResponseChunk() = default;
 
@@ -70,9 +155,9 @@ void ResponseChunk::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "ts_scores"), this->ts_scores,
+      "safety_info"), this->safety_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::optional<std::vector<float>>&>"
+      "<value of type SafetyInfoPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -85,11 +170,11 @@ bool ResponseChunk::Validate(
   return Data_::Validate(data, validation_context);
 }
 ResponseSummary::ResponseSummary()
-    : ts_scores() {}
+    : safety_info() {}
 
 ResponseSummary::ResponseSummary(
-    std::optional<std::vector<float>> ts_scores_in)
-    : ts_scores(std::move(ts_scores_in)) {}
+    SafetyInfoPtr safety_info_in)
+    : safety_info(std::move(safety_info_in)) {}
 
 ResponseSummary::~ResponseSummary() = default;
 
@@ -98,9 +183,9 @@ void ResponseSummary::WriteIntoTrace(
   [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "ts_scores"), this->ts_scores,
+      "safety_info"), this->safety_info,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::optional<std::vector<float>>&>"
+      "<value of type SafetyInfoPtr>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -118,7 +203,7 @@ InputOptions::InputOptions()
       token_offset(),
       ignore_context(),
       max_output_tokens(),
-      ts_interval() {}
+      safety_interval() {}
 
 InputOptions::InputOptions(
     const std::string& text_in,
@@ -126,13 +211,13 @@ InputOptions::InputOptions(
     std::optional<uint32_t> token_offset_in,
     bool ignore_context_in,
     std::optional<uint32_t> max_output_tokens_in,
-    std::optional<uint32_t> ts_interval_in)
+    std::optional<uint32_t> safety_interval_in)
     : text(std::move(text_in)),
       max_tokens(std::move(max_tokens_in)),
       token_offset(std::move(token_offset_in)),
       ignore_context(std::move(ignore_context_in)),
       max_output_tokens(std::move(max_output_tokens_in)),
-      ts_interval(std::move(ts_interval_in)) {}
+      safety_interval(std::move(safety_interval_in)) {}
 
 InputOptions::~InputOptions() = default;
 
@@ -186,7 +271,7 @@ void InputOptions::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "ts_interval"), this->ts_interval,
+      "safety_interval"), this->safety_interval,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::optional<uint32_t>>"
 #else
@@ -1126,6 +1211,38 @@ namespace mojo {
 
 
 // static
+bool StructTraits<::on_device_model::mojom::LanguageDetectionResult::DataView, ::on_device_model::mojom::LanguageDetectionResultPtr>::Read(
+    ::on_device_model::mojom::LanguageDetectionResult::DataView input,
+    ::on_device_model::mojom::LanguageDetectionResultPtr* output) {
+  bool success = true;
+  ::on_device_model::mojom::LanguageDetectionResultPtr result(::on_device_model::mojom::LanguageDetectionResult::New());
+  
+      if (success && !input.ReadCode(&result->code))
+        success = false;
+      if (success)
+        result->reliability = input.reliability();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::on_device_model::mojom::SafetyInfo::DataView, ::on_device_model::mojom::SafetyInfoPtr>::Read(
+    ::on_device_model::mojom::SafetyInfo::DataView input,
+    ::on_device_model::mojom::SafetyInfoPtr* output) {
+  bool success = true;
+  ::on_device_model::mojom::SafetyInfoPtr result(::on_device_model::mojom::SafetyInfo::New());
+  
+      if (success && !input.ReadClassScores(&result->class_scores))
+        success = false;
+      if (success && !input.ReadLanguage(&result->language))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::on_device_model::mojom::ResponseChunk::DataView, ::on_device_model::mojom::ResponseChunkPtr>::Read(
     ::on_device_model::mojom::ResponseChunk::DataView input,
     ::on_device_model::mojom::ResponseChunkPtr* output) {
@@ -1134,7 +1251,7 @@ bool StructTraits<::on_device_model::mojom::ResponseChunk::DataView, ::on_device
   
       if (success && !input.ReadText(&result->text))
         success = false;
-      if (success && !input.ReadTsScores(&result->ts_scores))
+      if (success && !input.ReadSafetyInfo(&result->safety_info))
         success = false;
   *output = std::move(result);
   return success;
@@ -1148,7 +1265,7 @@ bool StructTraits<::on_device_model::mojom::ResponseSummary::DataView, ::on_devi
   bool success = true;
   ::on_device_model::mojom::ResponseSummaryPtr result(::on_device_model::mojom::ResponseSummary::New());
   
-      if (success && !input.ReadTsScores(&result->ts_scores))
+      if (success && !input.ReadSafetyInfo(&result->safety_info))
         success = false;
   *output = std::move(result);
   return success;
@@ -1176,7 +1293,7 @@ bool StructTraits<::on_device_model::mojom::InputOptions::DataView, ::on_device_
         result->max_output_tokens = input.max_output_tokens();
       }
       if (success) {
-        result->ts_interval = input.ts_interval();
+        result->safety_interval = input.safety_interval();
       }
   *output = std::move(result);
   return success;

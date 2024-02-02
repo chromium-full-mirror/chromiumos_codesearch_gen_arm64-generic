@@ -23,6 +23,17 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"added",
+"removed",
+"session",
+};
+
+
+}  // namespace 
+
 XRInputSourcesChangeEventInit* XRInputSourcesChangeEventInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   XRInputSourcesChangeEventInit* dictionary = MakeGarbageCollected<XRInputSourcesChangeEventInit>(isolate);
 if (!v8_value->IsObject()) {
@@ -81,28 +92,42 @@ TraceIfNeeded<Member<XRSession>>::Trace(visitor, member_session_);
 EventInit::Trace(visitor);
 }
 
-bool XRInputSourcesChangeEventInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!EventInit::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void XRInputSourcesChangeEventInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  EventInit::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void XRInputSourcesChangeEventInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  EventInit::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasAdded()) {
-  v8_value = ToV8Traits<IDLArray<XRInputSource>>::ToV8(script_state, member_added_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLArray<XRInputSource>>::ToV8(script_state, member_added_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasRemoved()) {
-  v8_value = ToV8Traits<IDLArray<XRInputSource>>::ToV8(script_state, member_removed_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLArray<XRInputSource>>::ToV8(script_state, member_removed_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasSession()) {
-  v8_value = ToV8Traits<XRSession>::ToV8(script_state, member_session_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<XRSession>::ToV8(script_state, member_session_.Get());
+DCHECK(!values[2].IsEmpty());
 }
-return true;
+}
+
+const void* XRInputSourcesChangeEventInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> XRInputSourcesChangeEventInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void XRInputSourcesChangeEventInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -133,12 +158,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<XRSession, is_required>(isolate, 
 }
 
 const base::span<const v8::Eternal<v8::Name>> XRInputSourcesChangeEventInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"added",
-"removed",
-"session",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

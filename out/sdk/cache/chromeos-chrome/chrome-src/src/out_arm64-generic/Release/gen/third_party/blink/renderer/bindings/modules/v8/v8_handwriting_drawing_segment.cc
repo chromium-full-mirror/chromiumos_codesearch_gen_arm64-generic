@@ -21,6 +21,17 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"beginPointIndex",
+"endPointIndex",
+"strokeIndex",
+};
+
+
+}  // namespace 
+
 HandwritingDrawingSegment* HandwritingDrawingSegment::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   HandwritingDrawingSegment* dictionary = MakeGarbageCollected<HandwritingDrawingSegment>(isolate);
 if (!v8_value->IsObject()) {
@@ -67,24 +78,36 @@ TraceIfNeeded<uint32_t>::Trace(visitor, member_stroke_index_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool HandwritingDrawingSegment::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void HandwritingDrawingSegment::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void HandwritingDrawingSegment::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasBeginPointIndex()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_begin_point_index_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_begin_point_index_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasEndPointIndex()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_end_point_index_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_end_point_index_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasStrokeIndex()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_stroke_index_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_stroke_index_);
+DCHECK(!values[2].IsEmpty());
 }
-return true;
+}
+
+const void* HandwritingDrawingSegment::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> HandwritingDrawingSegment::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void HandwritingDrawingSegment::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -110,12 +133,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLong, is_required>(iso
 }
 
 const base::span<const v8::Eternal<v8::Name>> HandwritingDrawingSegment::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"beginPointIndex",
-"endPointIndex",
-"strokeIndex",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

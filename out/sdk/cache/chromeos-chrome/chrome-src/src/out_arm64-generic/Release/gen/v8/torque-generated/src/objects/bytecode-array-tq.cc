@@ -10,22 +10,22 @@ class TorqueGeneratedBytecodeArrayAsserts {
   static constexpr int kLengthOffset = ExposedTrustedObject::kHeaderSize;
   static constexpr int kLengthOffsetEnd = kLengthOffset + kTaggedSize - 1;
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=10&c=3
-  static constexpr int kConstantPoolOffset = kLengthOffsetEnd + 1;
-  static constexpr int kConstantPoolOffsetEnd = kConstantPoolOffset + kTaggedSize - 1;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=11&c=3
-  static constexpr int kWrapperOffset = kConstantPoolOffsetEnd + 1;
+  static constexpr int kWrapperOffset = kLengthOffsetEnd + 1;
   static constexpr int kWrapperOffsetEnd = kWrapperOffset + kTaggedSize - 1;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=12&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=11&c=3
   static constexpr int kSourcePositionTableOffset = kWrapperOffsetEnd + 1;
   static constexpr int kSourcePositionTableOffsetEnd = kSourcePositionTableOffset + kTaggedSize - 1;
   static constexpr int kEndOfStrongFieldsOffset = kSourcePositionTableOffsetEnd + 1;
   static constexpr int kStartOfWeakFieldsOffset = kSourcePositionTableOffsetEnd + 1;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=13&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=12&c=3
   static constexpr int kHandlerTableOffset = kSourcePositionTableOffsetEnd + 1;
   static constexpr int kHandlerTableOffsetEnd = kHandlerTableOffset + kTaggedSize - 1;
-  static constexpr int kEndOfWeakFieldsOffset = kHandlerTableOffsetEnd + 1;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=13&c=3
+  static constexpr int kConstantPoolOffset = kHandlerTableOffsetEnd + 1;
+  static constexpr int kConstantPoolOffsetEnd = kConstantPoolOffset + kTaggedSize - 1;
+  static constexpr int kEndOfWeakFieldsOffset = kConstantPoolOffsetEnd + 1;
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=14&c=3
-  static constexpr int kFrameSizeOffset = kHandlerTableOffsetEnd + 1;
+  static constexpr int kFrameSizeOffset = kConstantPoolOffsetEnd + 1;
   static constexpr int kFrameSizeOffsetEnd = kFrameSizeOffset + kInt32Size - 1;
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=15&c=3
   static constexpr int kParameterSizeOffset = kFrameSizeOffsetEnd + 1;
@@ -43,14 +43,14 @@ class TorqueGeneratedBytecodeArrayAsserts {
 
   static_assert(kLengthOffset == BytecodeArray::kLengthOffset,
                 "Values of BytecodeArray::kLengthOffset defined in Torque and C++ do not match");
-  static_assert(kConstantPoolOffset == BytecodeArray::kConstantPoolOffset,
-                "Values of BytecodeArray::kConstantPoolOffset defined in Torque and C++ do not match");
   static_assert(kWrapperOffset == BytecodeArray::kWrapperOffset,
                 "Values of BytecodeArray::kWrapperOffset defined in Torque and C++ do not match");
   static_assert(kSourcePositionTableOffset == BytecodeArray::kSourcePositionTableOffset,
                 "Values of BytecodeArray::kSourcePositionTableOffset defined in Torque and C++ do not match");
   static_assert(kHandlerTableOffset == BytecodeArray::kHandlerTableOffset,
                 "Values of BytecodeArray::kHandlerTableOffset defined in Torque and C++ do not match");
+  static_assert(kConstantPoolOffset == BytecodeArray::kConstantPoolOffset,
+                "Values of BytecodeArray::kConstantPoolOffset defined in Torque and C++ do not match");
   static_assert(kFrameSizeOffset == BytecodeArray::kFrameSizeOffset,
                 "Values of BytecodeArray::kFrameSizeOffset defined in Torque and C++ do not match");
   static_assert(kParameterSizeOffset == BytecodeArray::kParameterSizeOffset,

@@ -98,15 +98,6 @@ export class DevToolsAgentInterface {
    */
 
   reportChildTargets(report, waitForDebugger) {}
-  
-  /**
-   * @param { !number } nodeId
-   * @return {!Promise<{
-        id: !bigint,
-   *  }>}
-   */
-
-  getUniqueFormControlId(nodeId) {}
 }
 
 /**
@@ -204,25 +195,6 @@ export class DevToolsAgentRemote {
           waitForDebugger
         ]);
   }
-
-  
-  /**
-   * @param { !number } nodeId
-   * @return {!Promise<{
-        id: !bigint,
-   *  }>}
-   */
-
-  getUniqueFormControlId(
-      nodeId) {
-    return this.proxy.sendMessage(
-        3,
-        DevToolsAgent_GetUniqueFormControlId_ParamsSpec.$,
-        DevToolsAgent_GetUniqueFormControlId_ResponseParamsSpec.$,
-        [
-          nodeId
-        ]);
-  }
 }
 
 /**
@@ -260,11 +232,6 @@ export class DevToolsAgentReceiver {
         DevToolsAgent_ReportChildTargets_ParamsSpec.$,
         DevToolsAgent_ReportChildTargets_ResponseParamsSpec.$,
         impl.reportChildTargets.bind(impl));
-    this.helper_internal_.registerHandler(
-        3,
-        DevToolsAgent_GetUniqueFormControlId_ParamsSpec.$,
-        DevToolsAgent_GetUniqueFormControlId_ResponseParamsSpec.$,
-        impl.getUniqueFormControlId.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -347,18 +314,6 @@ export class DevToolsAgentCallbackRouter {
         DevToolsAgent_ReportChildTargets_ParamsSpec.$,
         DevToolsAgent_ReportChildTargets_ResponseParamsSpec.$,
         this.reportChildTargets.createReceiverHandler(true /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.getUniqueFormControlId =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        3,
-        DevToolsAgent_GetUniqueFormControlId_ParamsSpec.$,
-        DevToolsAgent_GetUniqueFormControlId_ResponseParamsSpec.$,
-        this.getUniqueFormControlId.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1062,18 +1017,6 @@ export const DevToolsAgent_ReportChildTargets_ResponseParamsSpec =
 /**
  * @const { {$:!mojo.internal.MojomType}}
  */
-export const DevToolsAgent_GetUniqueFormControlId_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
-export const DevToolsAgent_GetUniqueFormControlId_ResponseParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- */
 export const DevToolsAgentHost_ChildTargetCreated_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -1349,64 +1292,6 @@ mojo.internal.Struct(
  */
 export class DevToolsAgent_ReportChildTargets_ResponseParams {
   constructor() {
-  }
-}
-
-
-
-mojo.internal.Struct(
-    DevToolsAgent_GetUniqueFormControlId_ParamsSpec.$,
-    'DevToolsAgent_GetUniqueFormControlId_Params',
-    [
-      mojo.internal.StructField(
-        'nodeId', 0,
-        0,
-        mojo.internal.Int32,
-        0,
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class DevToolsAgent_GetUniqueFormControlId_Params {
-  constructor() {
-    /** @type { !number } */
-    this.nodeId;
-  }
-}
-
-
-
-mojo.internal.Struct(
-    DevToolsAgent_GetUniqueFormControlId_ResponseParamsSpec.$,
-    'DevToolsAgent_GetUniqueFormControlId_ResponseParams',
-    [
-      mojo.internal.StructField(
-        'id', 0,
-        0,
-        mojo.internal.Uint64,
-        BigInt(0),
-        false /* nullable */,
-        0,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-/**
- * @record
- */
-export class DevToolsAgent_GetUniqueFormControlId_ResponseParams {
-  constructor() {
-    /** @type { !bigint } */
-    this.id;
   }
 }
 

@@ -21,6 +21,19 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"audioLevel",
+"echoReturnLoss",
+"echoReturnLossEnhancement",
+"totalAudioEnergy",
+"totalSamplesDuration",
+};
+
+
+}  // namespace 
+
 RTCAudioSourceStats* RTCAudioSourceStats::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   RTCAudioSourceStats* dictionary = MakeGarbageCollected<RTCAudioSourceStats>(isolate);
 if (!v8_value->IsObject()) {
@@ -89,36 +102,50 @@ TraceIfNeeded<double>::Trace(visitor, member_total_samples_duration_);
 RTCMediaSourceStats::Trace(visitor);
 }
 
-bool RTCAudioSourceStats::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!RTCMediaSourceStats::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void RTCAudioSourceStats::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  RTCMediaSourceStats::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void RTCAudioSourceStats::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  RTCMediaSourceStats::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasAudioLevel()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_audio_level_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLDouble>::ToV8(script_state, member_audio_level_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasEchoReturnLoss()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_echo_return_loss_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLDouble>::ToV8(script_state, member_echo_return_loss_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasEchoReturnLossEnhancement()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_echo_return_loss_enhancement_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLDouble>::ToV8(script_state, member_echo_return_loss_enhancement_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasTotalAudioEnergy()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_audio_energy_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_audio_energy_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasTotalSamplesDuration()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_samples_duration_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_samples_duration_);
+DCHECK(!values[4].IsEmpty());
 }
-return true;
+}
+
+const void* RTCAudioSourceStats::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> RTCAudioSourceStats::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void RTCAudioSourceStats::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -156,14 +183,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, 
 }
 
 const base::span<const v8::Eternal<v8::Name>> RTCAudioSourceStats::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"audioLevel",
-"echoReturnLoss",
-"echoReturnLossEnhancement",
-"totalAudioEnergy",
-"totalSamplesDuration",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/diagnostics-0.0.1-r2513/work/diagnostics-0.0.1/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/diagnostics-0.0.1-r2514/work/diagnostics-0.0.1/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -23,7 +23,6 @@ build _cros_healthd-client-install_config: phony obj/diagnostics/mojom/_cros_hea
 build _cros_healthd-install_config: phony obj/diagnostics/cros_healthd/_cros_healthd-install_config.stamp
 build _diagnostics_seccomp_delegate_install-check_seccomp: phony obj/diagnostics/cros_healthd/seccomp/_diagnostics_seccomp_delegate_install-check_seccomp.stamp
 build _diagnostics_seccomp_install-check_seccomp: phony obj/diagnostics/cros_healthd/seccomp/_diagnostics_seccomp_install-check_seccomp.stamp
-build _diagnostics_seccomp_wilco-check_seccomp: phony obj/diagnostics/wilco_dtc_supportd/seccomp/_diagnostics_seccomp_wilco-check_seccomp.stamp
 build _executor-delegate-install_config: phony obj/diagnostics/cros_healthd/delegate/_executor-delegate-install_config.stamp
 build _libcros_healthd_internal-install_config: phony obj/diagnostics/mojom/external/_libcros_healthd_internal-install_config.stamp
 build _libcros_healthd_internal_gen-cros_healthd_internal.mojom-install_config: phony obj/diagnostics/mojom/external/_libcros_healthd_internal_gen-cros_healthd_internal.mojom-install_config.stamp
@@ -65,7 +64,6 @@ build diagnostics_seccomp: phony obj/diagnostics/cros_healthd/seccomp/diagnostic
 build diagnostics_seccomp_delegate: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_delegate.stamp
 build diagnostics_seccomp_delegate_install: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_delegate_install.stamp
 build diagnostics_seccomp_install: phony obj/diagnostics/cros_healthd/seccomp/diagnostics_seccomp_install.stamp
-build diagnostics_seccomp_wilco: phony obj/diagnostics/wilco_dtc_supportd/seccomp/diagnostics_seccomp_wilco.stamp
 build events: phony obj/diagnostics/cros_healthd/delegate/events/events.stamp
 build fetchers: phony obj/diagnostics/cros_healthd/delegate/fetchers/fetchers.stamp
 build floss-callback-adaptors: phony obj/diagnostics/dbus_bindings/floss-callback-adaptors.stamp
@@ -75,7 +73,6 @@ build install_dbus_config: phony obj/diagnostics/install_dbus_config.stamp
 build install_init_config: phony obj/diagnostics/install_init_config.stamp
 build install_service_manager_policy_config: phony obj/diagnostics/install_service_manager_policy_config.stamp
 build install_tmpfiles_config: phony obj/diagnostics/install_tmpfiles_config.stamp
-build libconstants: phony ./libconstants.a
 build libcros_healthd: phony obj/diagnostics/cros_healthd/libcros_healthd.stamp
 build libcros_healthd_events: phony obj/diagnostics/cros_healthd/events/libcros_healthd_events.stamp
 build libcros_healthd_executor: phony obj/diagnostics/cros_healthd/executor/libcros_healthd_executor.stamp
@@ -120,23 +117,12 @@ build libpublic_dependencies_gen: phony obj/diagnostics/mojom/external/libpublic
 build libpublic_dependencies_gen_mojo_templates: phony obj/diagnostics/mojom/external/libpublic_dependencies_gen_mojo_templates.stamp
 build libpublic_dependencies_gen_mojo_templates_dir: phony obj/diagnostics/mojom/external/libpublic_dependencies_gen_mojo_templates_dir.stamp
 build libpublic_dependencies_gen_parse: phony obj/diagnostics/mojom/external/libpublic_dependencies_gen_parse.stamp
-build libsystem: phony obj/diagnostics/wilco_dtc_supportd/utils/system/libsystem.stamp
 build libtelem: phony obj/diagnostics/cros_health_tool/telem/libtelem.stamp
-build libtelemetry: phony obj/diagnostics/wilco_dtc_supportd/telemetry/libtelemetry.stamp
-build libutils: phony obj/diagnostics/wilco_dtc_supportd/utils/libutils.stamp
-build libwilco_dtc_supportd: phony obj/diagnostics/wilco_dtc_supportd/libwilco_dtc_supportd.stamp
 build mojom: phony obj/diagnostics/mojom/mojom.stamp
 build root: phony obj/common-mk/gn_root/root.stamp
 build routines: phony obj/diagnostics/cros_healthd/delegate/routines/routines.stamp
+build seccomp: phony obj/diagnostics/cros_healthd/seccomp/seccomp.stamp
 build storage_data_source: phony obj/diagnostics/cros_healthd/fetchers/storage/storage_data_source.stamp
-build wilco_dtc_go_grpc_protos: phony obj/diagnostics/grpc/wilco_dtc_go_grpc_protos.stamp
-build wilco_dtc_grpc_protos: phony ./libwilco_dtc_grpc_protos.a
-build wilco_dtc_grpc_protos_gen: phony obj/diagnostics/grpc/wilco_dtc_grpc_protos_gen.stamp
-build wilco_dtc_supportd_mojo_bindings: phony ./libwilco_dtc_supportd_mojo_bindings.a
-build wilco_dtc_supportd_mojo_bindings_gen: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen.stamp
-build wilco_dtc_supportd_mojo_bindings_gen_mojo_templates: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_mojo_templates.stamp
-build wilco_dtc_supportd_mojo_bindings_gen_mojo_templates_dir: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_mojo_templates_dir.stamp
-build wilco_dtc_supportd_mojo_bindings_gen_parse: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_parse.stamp
 build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
 build diagnostics$:all: phony obj/diagnostics/all.stamp
 build diagnostics$:install_dbus_config: phony obj/diagnostics/install_dbus_config.stamp
@@ -147,7 +133,6 @@ build diagnostics/base$:_libdiagnostics_base-install_config: phony obj/diagnosti
 build diagnostics/base$:base: phony obj/diagnostics/base/base.stamp
 build diagnostics/base: phony obj/diagnostics/base/base.stamp
 build diagnostics/base$:libdiagnostics_base: phony ./lib/libdiagnostics_base.so
-build diagnostics/constants$:libconstants: phony ./libconstants.a
 build diagnostics/cros_health_tool$:_cros-health-tool-install_config: phony obj/diagnostics/cros_health_tool/_cros-health-tool-install_config.stamp
 build diagnostics/cros_health_tool$:cros-health-tool: phony ./cros-health-tool
 build diagnostics/cros_health_tool/diag$:libdiag: phony obj/diagnostics/cros_health_tool/diag/libdiag.stamp
@@ -202,10 +187,6 @@ build diagnostics/dbus_bindings: phony obj/diagnostics/dbus_bindings/dbus_bindin
 build diagnostics/dbus_bindings$:floss-callback-adaptors: phony obj/diagnostics/dbus_bindings/floss-callback-adaptors.stamp
 build diagnostics/dbus_bindings$:floss-proxies: phony obj/diagnostics/dbus_bindings/floss-proxies.stamp
 build diagnostics/dbus_bindings$:fwupd-proxies: phony obj/diagnostics/dbus_bindings/fwupd-proxies.stamp
-build diagnostics/grpc$:all: phony obj/diagnostics/grpc/all.stamp
-build diagnostics/grpc$:wilco_dtc_go_grpc_protos: phony obj/diagnostics/grpc/wilco_dtc_go_grpc_protos.stamp
-build diagnostics/grpc$:wilco_dtc_grpc_protos: phony ./libwilco_dtc_grpc_protos.a
-build diagnostics/grpc$:wilco_dtc_grpc_protos_gen: phony obj/diagnostics/grpc/wilco_dtc_grpc_protos_gen.stamp
 build diagnostics/mojom$:_cros_healthd-client-install_config: phony obj/diagnostics/mojom/_cros_healthd-client-install_config.stamp
 build diagnostics/mojom$:cros_healthd-client: phony obj/diagnostics/mojom/cros_healthd-client.stamp
 build diagnostics/mojom$:libmojom_utils: phony obj/diagnostics/mojom/libmojom_utils.stamp
@@ -263,21 +244,6 @@ build diagnostics/mojom/public$:libcros_healthd_mojo_bindings_gen: phony obj/dia
 build diagnostics/mojom/public$:libcros_healthd_mojo_bindings_gen_mojo_templates: phony obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_mojo_templates.stamp
 build diagnostics/mojom/public$:libcros_healthd_mojo_bindings_gen_mojo_templates_dir: phony obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_mojo_templates_dir.stamp
 build diagnostics/mojom/public$:libcros_healthd_mojo_bindings_gen_parse: phony obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_parse.stamp
-build diagnostics/mojom/public$:wilco_dtc_supportd_mojo_bindings: phony ./libwilco_dtc_supportd_mojo_bindings.a
-build diagnostics/mojom/public$:wilco_dtc_supportd_mojo_bindings_gen: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen.stamp
-build diagnostics/mojom/public$:wilco_dtc_supportd_mojo_bindings_gen_mojo_templates: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_mojo_templates.stamp
-build diagnostics/mojom/public$:wilco_dtc_supportd_mojo_bindings_gen_mojo_templates_dir: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_mojo_templates_dir.stamp
-build diagnostics/mojom/public$:wilco_dtc_supportd_mojo_bindings_gen_parse: phony obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_parse.stamp
-build diagnostics/wilco_dtc_supportd$:libwilco_dtc_supportd: phony obj/diagnostics/wilco_dtc_supportd/libwilco_dtc_supportd.stamp
-build diagnostics/wilco_dtc_supportd$:wilco_dtc_supportd: phony ./wilco_dtc_supportd
-build diagnostics/wilco_dtc_supportd: phony ./wilco_dtc_supportd
-build diagnostics/wilco_dtc_supportd/seccomp$:_diagnostics_seccomp_wilco-check_seccomp: phony obj/diagnostics/wilco_dtc_supportd/seccomp/_diagnostics_seccomp_wilco-check_seccomp.stamp
-build diagnostics/wilco_dtc_supportd/seccomp$:diagnostics_seccomp_wilco: phony obj/diagnostics/wilco_dtc_supportd/seccomp/diagnostics_seccomp_wilco.stamp
-build diagnostics/wilco_dtc_supportd/seccomp$:seccomp: phony obj/diagnostics/wilco_dtc_supportd/seccomp/seccomp.stamp
-build diagnostics/wilco_dtc_supportd/seccomp: phony obj/diagnostics/wilco_dtc_supportd/seccomp/seccomp.stamp
-build diagnostics/wilco_dtc_supportd/telemetry$:libtelemetry: phony obj/diagnostics/wilco_dtc_supportd/telemetry/libtelemetry.stamp
-build diagnostics/wilco_dtc_supportd/utils$:libutils: phony obj/diagnostics/wilco_dtc_supportd/utils/libutils.stamp
-build diagnostics/wilco_dtc_supportd/utils/system$:libsystem: phony obj/diagnostics/wilco_dtc_supportd/utils/system/libsystem.stamp
 
 build all: phony $
     obj/common-mk/gn_root/root.stamp $
@@ -289,7 +255,6 @@ build all: phony $
     obj/diagnostics/base/_libdiagnostics_base-install_config.stamp $
     obj/diagnostics/base/base.stamp $
     ./lib/libdiagnostics_base.so $
-    ./libconstants.a $
     obj/diagnostics/cros_health_tool/_cros-health-tool-install_config.stamp $
     ./cros-health-tool $
     obj/diagnostics/cros_health_tool/diag/libdiag.stamp $
@@ -336,10 +301,6 @@ build all: phony $
     obj/diagnostics/dbus_bindings/floss-callback-adaptors.stamp $
     obj/diagnostics/dbus_bindings/floss-proxies.stamp $
     obj/diagnostics/dbus_bindings/fwupd-proxies.stamp $
-    obj/diagnostics/grpc/all.stamp $
-    obj/diagnostics/grpc/wilco_dtc_go_grpc_protos.stamp $
-    ./libwilco_dtc_grpc_protos.a $
-    obj/diagnostics/grpc/wilco_dtc_grpc_protos_gen.stamp $
     obj/diagnostics/mojom/_cros_healthd-client-install_config.stamp $
     obj/diagnostics/mojom/cros_healthd-client.stamp $
     obj/diagnostics/mojom/libmojom_utils.stamp $
@@ -395,19 +356,6 @@ build all: phony $
     obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen.stamp $
     obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_mojo_templates.stamp $
     obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_mojo_templates_dir.stamp $
-    obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_parse.stamp $
-    ./libwilco_dtc_supportd_mojo_bindings.a $
-    obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen.stamp $
-    obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_mojo_templates.stamp $
-    obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_mojo_templates_dir.stamp $
-    obj/diagnostics/mojom/public/wilco_dtc_supportd_mojo_bindings_gen_parse.stamp $
-    obj/diagnostics/wilco_dtc_supportd/libwilco_dtc_supportd.stamp $
-    ./wilco_dtc_supportd $
-    obj/diagnostics/wilco_dtc_supportd/seccomp/_diagnostics_seccomp_wilco-check_seccomp.stamp $
-    obj/diagnostics/wilco_dtc_supportd/seccomp/diagnostics_seccomp_wilco.stamp $
-    obj/diagnostics/wilco_dtc_supportd/seccomp/seccomp.stamp $
-    obj/diagnostics/wilco_dtc_supportd/telemetry/libtelemetry.stamp $
-    obj/diagnostics/wilco_dtc_supportd/utils/libutils.stamp $
-    obj/diagnostics/wilco_dtc_supportd/utils/system/libsystem.stamp
+    obj/diagnostics/mojom/public/libcros_healthd_mojo_bindings_gen_parse.stamp
 
 default all

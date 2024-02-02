@@ -21,6 +21,15 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+
+};
+
+
+}  // namespace 
+
 RTCRtpCodecCapability* RTCRtpCodecCapability::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   RTCRtpCodecCapability* dictionary = MakeGarbageCollected<RTCRtpCodecCapability>(isolate);
 if (!v8_value->IsObject()) {
@@ -50,12 +59,27 @@ void RTCRtpCodecCapability::Trace(Visitor* visitor) const {
   RTCRtpCodec::Trace(visitor);
 }
 
-bool RTCRtpCodecCapability::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!RTCRtpCodec::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void RTCRtpCodecCapability::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  RTCRtpCodec::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
 }
 
-return true;
+void RTCRtpCodecCapability::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  RTCRtpCodec::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
+}
+
+const void* RTCRtpCodecCapability::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> RTCRtpCodecCapability::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void RTCRtpCodecCapability::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {

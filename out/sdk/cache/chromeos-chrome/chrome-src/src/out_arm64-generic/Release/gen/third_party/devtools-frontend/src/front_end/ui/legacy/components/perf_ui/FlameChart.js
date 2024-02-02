@@ -495,6 +495,7 @@ export class FlameChart extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox) 
     }
     deselectAllEntries() {
         this.selectedEntryIndex = -1;
+        this.rawTimelineData?.resetFlowData();
         this.resetCanvas();
         this.draw();
     }
@@ -559,6 +560,8 @@ export class FlameChart extends Common.ObjectWrapper.eventMixin(UI.Widget.VBox) 
                 if (this.selectedEntryIndex >= 0 && level >= group.startLevel &&
                     (groupIndex >= groups.length - 1 || groups[groupIndex + 1].startLevel > level)) {
                     this.selectedEntryIndex = -1;
+                    // Reset all flow arrows when we deselect the entry.
+                    this.rawTimelineData.resetFlowData();
                 }
             }
         }
@@ -2539,6 +2542,8 @@ export class FlameChartTimelineData {
     entryDecorations;
     groups;
     markers;
+    // These four arrays are used to draw the initiator arrows, and if there are
+    // multiple arrows, they should be a chain.
     flowStartTimes;
     flowStartLevels;
     flowEndTimes;
@@ -2569,6 +2574,12 @@ export class FlameChartTimelineData {
         [], // entry total times: the total duration of an event,
         [], // entry start times: the start time of a given event,
         []);
+    }
+    resetFlowData() {
+        this.flowEndLevels = [];
+        this.flowEndTimes = [];
+        this.flowStartLevels = [];
+        this.flowStartTimes = [];
     }
 }
 //# sourceMappingURL=FlameChart.js.map

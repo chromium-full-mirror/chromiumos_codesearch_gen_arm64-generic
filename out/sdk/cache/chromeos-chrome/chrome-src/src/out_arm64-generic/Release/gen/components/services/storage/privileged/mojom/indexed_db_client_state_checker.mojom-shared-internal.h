@@ -34,6 +34,7 @@ struct DisallowInactiveClientReason_Data {
       case 0:
       case 1:
       case 2:
+      case 3:
         return true;
     }
     return false;

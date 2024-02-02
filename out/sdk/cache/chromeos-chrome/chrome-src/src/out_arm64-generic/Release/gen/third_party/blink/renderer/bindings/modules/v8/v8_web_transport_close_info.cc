@@ -21,6 +21,16 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"closeCode",
+"reason",
+};
+
+
+}  // namespace 
+
 WebTransportCloseInfo* WebTransportCloseInfo::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   WebTransportCloseInfo* dictionary = MakeGarbageCollected<WebTransportCloseInfo>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -70,20 +80,32 @@ TraceIfNeeded<String>::Trace(visitor, member_reason_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool WebTransportCloseInfo::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void WebTransportCloseInfo::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void WebTransportCloseInfo::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasCloseCode()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_close_code_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_close_code_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasReason()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_reason_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_reason_);
+DCHECK(!values[1].IsEmpty());
 }
-return true;
+}
+
+const void* WebTransportCloseInfo::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> WebTransportCloseInfo::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void WebTransportCloseInfo::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -105,11 +127,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolat
 }
 
 const base::span<const v8::Eternal<v8::Name>> WebTransportCloseInfo::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"closeCode",
-"reason",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

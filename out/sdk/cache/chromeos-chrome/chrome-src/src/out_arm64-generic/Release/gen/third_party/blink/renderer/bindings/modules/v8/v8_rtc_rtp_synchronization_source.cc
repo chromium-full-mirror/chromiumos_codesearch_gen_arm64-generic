@@ -21,6 +21,15 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+
+};
+
+
+}  // namespace 
+
 RTCRtpSynchronizationSource* RTCRtpSynchronizationSource::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   RTCRtpSynchronizationSource* dictionary = MakeGarbageCollected<RTCRtpSynchronizationSource>(isolate);
 if (!v8_value->IsObject()) {
@@ -50,12 +59,27 @@ void RTCRtpSynchronizationSource::Trace(Visitor* visitor) const {
   RTCRtpContributingSource::Trace(visitor);
 }
 
-bool RTCRtpSynchronizationSource::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!RTCRtpContributingSource::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void RTCRtpSynchronizationSource::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  RTCRtpContributingSource::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
 }
 
-return true;
+void RTCRtpSynchronizationSource::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  RTCRtpContributingSource::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
+}
+
+const void* RTCRtpSynchronizationSource::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> RTCRtpSynchronizationSource::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void RTCRtpSynchronizationSource::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {

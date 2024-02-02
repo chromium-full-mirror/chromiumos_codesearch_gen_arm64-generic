@@ -33,6 +33,7 @@ export class SeaPenInputQueryElement extends WithSeaPenStore {
         return {
             path: String,
             textValue_: String,
+            thumbnails_: Object,
             thumbnailsLoading_: Boolean,
             maxTextLength_: {
                 type: Number,
@@ -43,6 +44,7 @@ export class SeaPenInputQueryElement extends WithSeaPenStore {
     connectedCallback() {
         assert(isSeaPenTextInputEnabled(), 'sea pen text input must be enabled');
         super.connectedCallback();
+        this.watch('thumbnails_', state => state.thumbnails);
         this.watch('thumbnailsLoading_', state => state.loading.thumbnails);
         this.updateFromStore();
     }
@@ -54,7 +56,11 @@ export class SeaPenInputQueryElement extends WithSeaPenStore {
         searchSeaPenThumbnails(query, getSeaPenProvider(), this.getStore());
         SeaPenRouterElement.instance().goToRoute(SeaPenPaths.RESULTS, { seaPenTemplateId: 'Query' });
     }
-    getSearchButtonText_(path) {
+    getSearchButtonText_(path, thumbnails) {
+        if (!thumbnails) {
+            // The thumbnails are not loaded yet.
+            return this.i18n('seaPenCreateButton');
+        }
         switch (path) {
             case SeaPenPaths.RESULTS:
                 return this.i18n('seaPenRecreateButton');
@@ -63,7 +69,11 @@ export class SeaPenInputQueryElement extends WithSeaPenStore {
                 return this.i18n('seaPenCreateButton');
         }
     }
-    getSearchButtonIcon_(path) {
+    getSearchButtonIcon_(path, thumbnails) {
+        if (!thumbnails) {
+            // The thumbnails are not loaded yet.
+            return 'sea-pen:photo-spark';
+        }
         switch (path) {
             case SeaPenPaths.RESULTS:
                 return 'personalization-shared:refresh';

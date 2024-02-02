@@ -1288,11 +1288,6 @@ BASE_FEATURE(kOffsetMappingUnitVariable,
     base::FEATURE_ENABLED_BY_DEFAULT
 );
 
-BASE_FEATURE(kOnePassRasterInvalidation,
-    "OnePassRasterInvalidation",
-    base::FEATURE_ENABLED_BY_DEFAULT
-);
-
 BASE_FEATURE(kOptionElementAlwaysUseLabel,
     "OptionElementAlwaysUseLabel",
     base::FEATURE_ENABLED_BY_DEFAULT
@@ -1486,11 +1481,6 @@ BASE_FEATURE(kRemoveDanglingMarkupInTarget,
 BASE_FEATURE(kRemoveDataUrlInSvgUse,
     "RemoveDataUrlInSvgUse",
     base::FEATURE_ENABLED_BY_DEFAULT
-);
-
-BASE_FEATURE(kRemoveZoomAdjustmentOfBoundingBox,
-    "RemoveZoomAdjustmentOfBoundingBox",
-    base::FEATURE_DISABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kReportVisibleLineBounds,
@@ -1736,6 +1726,11 @@ BASE_FEATURE(kSpeculationRulesPointerHoverHeuristics,
 BASE_FEATURE(kSpellCheckerReplaceRangeUseInsertText,
     "SpellCheckerReplaceRangeUseInsertText",
     base::FEATURE_ENABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kStandardizedBrowserZoom,
+    "StandardizedBrowserZoom",
+    base::FEATURE_DISABLED_BY_DEFAULT
 );
 
 BASE_FEATURE(kStorageBuckets,

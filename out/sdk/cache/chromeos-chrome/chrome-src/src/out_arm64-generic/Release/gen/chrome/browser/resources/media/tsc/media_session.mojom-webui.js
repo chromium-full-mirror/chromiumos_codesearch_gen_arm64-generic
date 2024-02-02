@@ -650,7 +650,8 @@ mojo.internal.Struct(MediaSessionInfoSpec.$, 'MediaSessionInfo', [
     mojo.internal.StructField('hasPresentation', 4, 5, mojo.internal.Bool, false, false /* nullable */, 14),
     mojo.internal.StructField('remotePlaybackMetadata', 48, 0, RemotePlaybackMetadataSpec.$, null, true /* nullable */, 15),
     mojo.internal.StructField('hideMetadata', 4, 6, mojo.internal.Bool, false, false /* nullable */, 16),
-], [[0, 16], [1, 24], [2, 24], [4, 24], [6, 24], [7, 24], [8, 32], [9, 40], [10, 48], [11, 56], [12, 56], [14, 56], [15, 64], [16, 64],]);
+    mojo.internal.StructField('ignoreForActiveSession', 4, 7, mojo.internal.Bool, false, false /* nullable */, 20),
+], [[0, 16], [1, 24], [2, 24], [4, 24], [6, 24], [7, 24], [8, 32], [9, 40], [10, 48], [11, 56], [12, 56], [14, 56], [15, 64], [16, 64], [20, 64],]);
 mojo.internal.Struct(MediaSessionDebugInfoSpec.$, 'MediaSessionDebugInfo', [
     mojo.internal.StructField('name', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('owner', 8, 0, mojo.internal.String, null, false /* nullable */, 0),

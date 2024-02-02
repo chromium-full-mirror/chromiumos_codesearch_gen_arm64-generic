@@ -2,6 +2,7 @@ import { html, Polymer, dom, dedupingMixin, PolymerElement, Base, useShadow, Deb
 import { sendWithPromise, addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
 import './strings.m.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
+import { css, html as html$1, nothing, CrLitElement } from 'chrome://resources/lit/v3_0/lit.rollup.js';
 import { pdfCreateOutOfProcessPlugin } from 'chrome://print/pdf/pdf_scripting_api.js';
 
 const styleMod$b = document.createElement('dom-module');
@@ -1447,7 +1448,7 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$G() {
+function getTemplate$F() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -1483,7 +1484,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -1657,7 +1658,7 @@ class CrButtonElement extends CrButtonElementBase {
 }
 customElements.define(CrButtonElement.is, CrButtonElement);
 
-function getTemplate$F() {
+function getTemplate$E() {
     return html `<!--_html_template_start_-->    <style>:host{-webkit-tap-highlight-color:transparent;align-items:center;cursor:pointer;display:flex;outline:0;user-select:none;--cr-checkbox-border-size:2px;--cr-checkbox-size:16px;--cr-checkbox-ripple-size:40px;--cr-checkbox-ripple-offset:calc(var(--cr-checkbox-size)/2 -
             var(--cr-checkbox-ripple-size)/2 - var(--cr-checkbox-border-size));--cr-checkbox-checked-box-color:var(--cr-checked-color);--cr-checkbox-ripple-checked-color:var(--cr-checked-color);--cr-checkbox-checked-ripple-opacity:.2;--cr-checkbox-mark-color:white;--cr-checkbox-ripple-unchecked-color:var(--google-grey-900);--cr-checkbox-unchecked-box-color:var(--google-grey-700);--cr-checkbox-unchecked-ripple-opacity:.15}@media (prefers-color-scheme:dark){:host{--cr-checkbox-checked-ripple-opacity:.4;--cr-checkbox-mark-color:var(--google-grey-900);--cr-checkbox-ripple-unchecked-color:var(--google-grey-500);--cr-checkbox-unchecked-box-color:var(--google-grey-500);--cr-checkbox-unchecked-ripple-opacity:.4}}:host-context([chrome-refresh-2023]):host{--cr-checkbox-ripple-size:32px;--cr-checkbox-mark-color:var(--color-checkbox-check,
             var(--cr-fallback-color-on-primary));--cr-checkbox-checked-box-color:var(--color-checkbox-foreground-checked,
@@ -1716,7 +1717,7 @@ class CrCheckboxElement extends CrCheckboxElementBase {
         return 'cr-checkbox';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -2241,7 +2242,7 @@ Polymer({
   }
 });
 
-function getTemplate$E() {
+function getTemplate$D() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -2299,7 +2300,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$D();
     }
     static get properties() {
         return {
@@ -6517,22 +6518,14 @@ function getSelectDropdownBackground(iconset, iconName, el) {
         `url("${arrowDownPath}")`;
 }
 
-const styleMod$a = document.createElement('dom-module');
-styleMod$a.appendChild(html `
-  <template>
-    <style>
-.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
-    </style>
-  </template>
-`.content);
-styleMod$a.register('cr-icons');
-
-// Copyright 2017 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview CrContainerShadowMixin holds logic for showing a drop shadow
+ * @fileoverview CrContainerShadowMixinLit holds logic for showing a drop shadow
  * near the top of a container element, when the content has scrolled.
+ *
+ * Lit version of the equivalent CrContainerShadowMixin for Polymer.
  *
  * Elements using this mixin are expected to define a #container element,
  * which is the element being scrolled. If the #container element has a
@@ -6558,13 +6551,13 @@ styleMod$a.register('cr-icons');
  * cr_shared_style.css, '#cr-container-shadow-[top/bottom]' and
  * '#cr-container-shadow-[top/bottom].has-shadow', or define their own styles.
  */
-var CrContainerShadowSide;
+var CrContainerShadowSide$1;
 (function (CrContainerShadowSide) {
     CrContainerShadowSide["TOP"] = "top";
     CrContainerShadowSide["BOTTOM"] = "bottom";
-})(CrContainerShadowSide || (CrContainerShadowSide = {}));
-const CrContainerShadowMixin = dedupingMixin((superClass) => {
-    class CrContainerShadowMixin extends superClass {
+})(CrContainerShadowSide$1 || (CrContainerShadowSide$1 = {}));
+const CrContainerShadowMixinLit = (superClass) => {
+    class CrContainerShadowMixinLit extends superClass {
         constructor() {
             super(...arguments);
             this.intersectionObserver_ = null;
@@ -6576,8 +6569,8 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
             super.connectedCallback();
             const hasBottomShadow = this.getContainer_().hasAttribute('show-bottom-shadow');
             this.sides_ = hasBottomShadow ?
-                [CrContainerShadowSide.TOP, CrContainerShadowSide.BOTTOM] :
-                [CrContainerShadowSide.TOP];
+                [CrContainerShadowSide$1.TOP, CrContainerShadowSide$1.BOTTOM] :
+                [CrContainerShadowSide$1.TOP];
             this.sides_.forEach(side => {
                 // The element holding the drop shadow effect to be shown.
                 const shadow = document.createElement('div');
@@ -6586,11 +6579,11 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
                 this.dropShadows_.set(side, shadow);
                 this.intersectionProbes_.set(side, document.createElement('div'));
             });
-            this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.TOP), this.getContainer_());
-            this.getContainer_().prepend(this.intersectionProbes_.get(CrContainerShadowSide.TOP));
+            this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide$1.TOP), this.getContainer_());
+            this.getContainer_().prepend(this.intersectionProbes_.get(CrContainerShadowSide$1.TOP));
             if (hasBottomShadow) {
-                this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.BOTTOM), this.getContainer_().nextSibling);
-                this.getContainer_().append(this.intersectionProbes_.get(CrContainerShadowSide.BOTTOM));
+                this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide$1.BOTTOM), this.getContainer_().nextSibling);
+                this.getContainer_().append(this.intersectionProbes_.get(CrContainerShadowSide$1.BOTTOM));
             }
             this.enableShadowBehavior(true);
         }
@@ -6658,29 +6651,41 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
             }
         }
     }
-    return CrContainerShadowMixin;
-});
+    return CrContainerShadowMixinLit;
+};
 
-function getTemplate$D() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
-    <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
-    
-      <div id="content-wrapper" part="wrapper">
-        <div class="top-container">
-          <h2 id="title" class="title-container" tabindex="-1">
-            <slot name="title"></slot>
-          </h2>
-          <cr-icon-button id="close" class="icon-clear" hidden$="[[!showCloseButton]]" aria-label$="[[closeText]]" on-click="cancel" on-keypress="onCloseKeypress_">
-          </cr-icon-button>
-        </div>
-        <slot name="header"></slot>
-        <div class="body-container" id="container" show-bottom-shadow part="body-container">
-          <slot name="body"></slot>
-        </div>
-        <slot name="button-container"></slot>
-        <slot name="footer"></slot>
-      </div>
-    </dialog>
+function getCss$2() {
+    return css `:host([hidden]),[hidden]{display:none!important}`;
+}
+
+function getCss$1() {
+    return css `.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}`;
+}
+
+function getCss() {
+    return css `dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}`;
+}
+
+function getHtml() {
+    return html$1 `<!--_html_template_start_-->
+<dialog id="dialog" @close="${this.onNativeDialogClose_}" @cancel="${this.onNativeDialogCancel_}" part="dialog" aria-labelledby="title" aria-description="${this.ariaDescriptionText || nothing}">
+
+  <div id="content-wrapper" part="wrapper">
+    <div class="top-container">
+      <h2 id="title" class="title-container" tabindex="-1">
+        <slot name="title"></slot>
+      </h2>
+      <cr-icon-button id="close" class="icon-clear" ?hidden="${!this.showCloseButton}" aria-label="${this.closeText || nothing}" @click="${this.cancel}" @keypress="${this.onCloseKeypress_}">
+      </cr-icon-button>
+    </div>
+    <slot name="header"></slot>
+    <div class="body-container" id="container" show-bottom-shadow part="body-container">
+      <slot name="body"></slot>
+    </div>
+    <slot name="button-container"></slot>
+    <slot name="footer"></slot>
+  </div>
+</dialog>
 <!--_html_template_end_-->`;
 }
 
@@ -6704,10 +6709,17 @@ function getTemplate$D() {
  * width/height (as well as other available mixins to style other parts of the
  * dialog contents).
  */
-const CrDialogElementBase = CrContainerShadowMixin(PolymerElement);
+const CrDialogElementBase = CrContainerShadowMixinLit(CrLitElement);
 class CrDialogElement extends CrDialogElementBase {
     constructor() {
         super(...arguments);
+        this.consumeKeydownEvent = false;
+        this.ignoreEnterKey = false;
+        this.ignorePopstate = false;
+        this.noCancel = false;
+        this.open = false;
+        this.showCloseButton = false;
+        this.showOnAttach = false;
         this.intersectionObserver_ = null;
         this.mutationObserver_ = null;
         this.boundKeydown_ = null;
@@ -6715,69 +6727,56 @@ class CrDialogElement extends CrDialogElementBase {
     static get is() {
         return 'cr-dialog';
     }
-    static get template() {
-        return getTemplate$D();
+    static get styles() {
+        return [
+            getCss$2(),
+            getCss$1(),
+            getCss(),
+        ];
+    }
+    render() {
+        return getHtml.bind(this)();
     }
     static get properties() {
         return {
             open: {
                 type: Boolean,
-                value: false,
-                reflectToAttribute: true,
+                reflect: true,
             },
             /**
              * Alt-text for the dialog close button.
              */
-            closeText: String,
+            closeText: { type: String },
             /**
              * True if the dialog should remain open on 'popstate' events. This is
              * used for navigable dialogs that have their separate navigation handling
              * code.
              */
-            ignorePopstate: {
-                type: Boolean,
-                value: false,
-            },
+            ignorePopstate: { type: Boolean },
             /**
              * True if the dialog should ignore 'Enter' keypresses.
              */
-            ignoreEnterKey: {
-                type: Boolean,
-                value: false,
-            },
+            ignoreEnterKey: { type: Boolean },
             /**
              * True if the dialog should consume 'keydown' events. If ignoreEnterKey
              * is true, 'Enter' key won't be consumed.
              */
-            consumeKeydownEvent: {
-                type: Boolean,
-                value: false,
-            },
+            consumeKeydownEvent: { type: Boolean },
             /**
              * True if the dialog should not be able to be cancelled, which will
              * prevent 'Escape' key presses from closing the dialog.
              */
-            noCancel: {
-                type: Boolean,
-                value: false,
-            },
+            noCancel: { type: Boolean },
             // True if dialog should show the 'X' close button.
-            showCloseButton: {
-                type: Boolean,
-                value: false,
-            },
-            showOnAttach: {
-                type: Boolean,
-                value: false,
-            },
+            showCloseButton: { type: Boolean },
+            showOnAttach: { type: Boolean },
             /**
              * Text for the aria description.
              */
-            ariaDescriptionText: String,
+            ariaDescriptionText: { type: String },
         };
     }
-    ready() {
-        super.ready();
+    firstUpdated() {
         // If the active history entry changes (i.e. user clicks back button),
         // all open dialogs should be cancelled.
         window.addEventListener('popstate', () => {
@@ -6840,14 +6839,15 @@ class CrDialogElement extends CrDialogElementBase {
         document.body.removeEventListener('keydown', this.boundKeydown_);
         this.boundKeydown_ = null;
     }
-    showModal() {
+    async showModal() {
         this.$.dialog.showModal();
         assert(this.$.dialog.open);
         this.open = true;
-        this.dispatchEvent(new CustomEvent('cr-dialog-open', { bubbles: true, composed: true }));
+        await this.updateComplete;
+        this.fire('cr-dialog-open');
     }
     cancel() {
-        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
+        this.fire('cancel');
         this.$.dialog.close();
         assert(!this.$.dialog.open);
         this.open = false;
@@ -6877,9 +6877,9 @@ class CrDialogElement extends CrDialogElementBase {
         }
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.dispatchEvent(new CustomEvent('close', { bubbles: true, composed: true }));
+        this.fire('close');
     }
-    onNativeDialogCancel_(e) {
+    async onNativeDialogCancel_(e) {
         // Ignore any 'cancel' events not fired directly by the <dialog> element.
         if (e.target !== this.getNative()) {
             return;
@@ -6891,9 +6891,10 @@ class CrDialogElement extends CrDialogElementBase {
         // When the dialog is dismissed using the 'Esc' key, need to manually update
         // the |open| property (since close() is not called).
         this.open = false;
+        await this.updateComplete;
         // Catch and re-fire the native 'cancel' event such that it bubbles across
         // Shadow DOM v1.
-        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
+        this.fire('cancel');
     }
     /**
      * Expose the inner native <dialog> for some rare cases where it needs to be
@@ -6963,6 +6964,16 @@ class CrDialogElement extends CrDialogElementBase {
     }
 }
 customElements.define(CrDialogElement.is, CrDialogElement);
+
+const styleMod$a = document.createElement('dom-module');
+styleMod$a.appendChild(html `
+  <template>
+    <style>
+.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
+    </style>
+  </template>
+`.content);
+styleMod$a.register('cr-icons');
 
 const styleMod$9 = document.createElement('dom-module');
 styleMod$9.appendChild(html `
@@ -12423,6 +12434,140 @@ class PrintPreviewScalingSettingsElement extends PrintPreviewScalingSettingsElem
     }
 }
 customElements.define(PrintPreviewScalingSettingsElement.is, PrintPreviewScalingSettingsElement);
+
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview CrContainerShadowMixin holds logic for showing a drop shadow
+ * near the top of a container element, when the content has scrolled.
+ *
+ * Elements using this mixin are expected to define a #container element,
+ * which is the element being scrolled. If the #container element has a
+ * show-bottom-shadow attribute, a drop shadow will also be shown near the
+ * bottom of the container element, when there is additional content to scroll
+ * to. Examples:
+ *
+ * For both top and bottom shadows:
+ * <div id="container" show-bottom-shadow>...</div>
+ *
+ * For top shadow only:
+ * <div id="container">...</div>
+ *
+ * The mixin will take care of inserting an element with ID
+ * 'cr-container-shadow-top' which holds the drop shadow effect, and,
+ * optionally, an element with ID 'cr-container-shadow-bottom' which holds the
+ * same effect. A 'has-shadow' CSS class is automatically added to/removed from
+ * both elements while scrolling, as necessary. Note that the show-bottom-shadow
+ * attribute is inspected only during attached(), and any changes to it that
+ * occur after that point will not be respected.
+ *
+ * Clients should either use the existing shared styling in
+ * cr_shared_style.css, '#cr-container-shadow-[top/bottom]' and
+ * '#cr-container-shadow-[top/bottom].has-shadow', or define their own styles.
+ */
+var CrContainerShadowSide;
+(function (CrContainerShadowSide) {
+    CrContainerShadowSide["TOP"] = "top";
+    CrContainerShadowSide["BOTTOM"] = "bottom";
+})(CrContainerShadowSide || (CrContainerShadowSide = {}));
+const CrContainerShadowMixin = dedupingMixin((superClass) => {
+    class CrContainerShadowMixin extends superClass {
+        constructor() {
+            super(...arguments);
+            this.intersectionObserver_ = null;
+            this.dropShadows_ = new Map();
+            this.intersectionProbes_ = new Map();
+            this.sides_ = null;
+        }
+        connectedCallback() {
+            super.connectedCallback();
+            const hasBottomShadow = this.getContainer_().hasAttribute('show-bottom-shadow');
+            this.sides_ = hasBottomShadow ?
+                [CrContainerShadowSide.TOP, CrContainerShadowSide.BOTTOM] :
+                [CrContainerShadowSide.TOP];
+            this.sides_.forEach(side => {
+                // The element holding the drop shadow effect to be shown.
+                const shadow = document.createElement('div');
+                shadow.id = `cr-container-shadow-${side}`;
+                shadow.classList.add('cr-container-shadow');
+                this.dropShadows_.set(side, shadow);
+                this.intersectionProbes_.set(side, document.createElement('div'));
+            });
+            this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.TOP), this.getContainer_());
+            this.getContainer_().prepend(this.intersectionProbes_.get(CrContainerShadowSide.TOP));
+            if (hasBottomShadow) {
+                this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.BOTTOM), this.getContainer_().nextSibling);
+                this.getContainer_().append(this.intersectionProbes_.get(CrContainerShadowSide.BOTTOM));
+            }
+            this.enableShadowBehavior(true);
+        }
+        disconnectedCallback() {
+            super.disconnectedCallback();
+            this.enableShadowBehavior(false);
+        }
+        getContainer_() {
+            return this.shadowRoot.querySelector('#container');
+        }
+        getIntersectionObserver_() {
+            const callback = (entries) => {
+                // In some rare cases, there could be more than one entry per
+                // observed element, in which case the last entry's result
+                // stands.
+                for (const entry of entries) {
+                    const target = entry.target;
+                    this.sides_.forEach(side => {
+                        if (target === this.intersectionProbes_.get(side)) {
+                            this.dropShadows_.get(side).classList.toggle('has-shadow', entry.intersectionRatio === 0);
+                        }
+                    });
+                }
+            };
+            return new IntersectionObserver(callback, { root: this.getContainer_(), threshold: 0 });
+        }
+        /**
+         * @param enable Whether to enable the mixin or disable it.
+         *     This function does nothing if the mixin is already in the
+         *     requested state.
+         */
+        enableShadowBehavior(enable) {
+            // Behavior is already enabled/disabled. Return early.
+            if (enable === !!this.intersectionObserver_) {
+                return;
+            }
+            if (!enable) {
+                this.intersectionObserver_.disconnect();
+                this.intersectionObserver_ = null;
+                return;
+            }
+            this.intersectionObserver_ = this.getIntersectionObserver_();
+            // Need to register the observer within a setTimeout() callback,
+            // otherwise the drop shadow flashes once on startup, because of the
+            // DOM modifications earlier in this function causing a relayout.
+            window.setTimeout(() => {
+                if (this.intersectionObserver_) {
+                    // In case this is already detached.
+                    this.intersectionProbes_.forEach(probe => {
+                        this.intersectionObserver_.observe(probe);
+                    });
+                }
+            });
+        }
+        /**
+         * Shows the shadows. The shadow mixin must be disabled before
+         * calling this method, otherwise the intersection observer might
+         * show the shadows again.
+         */
+        showDropShadows() {
+            assert(!this.intersectionObserver_);
+            assert(this.sides_);
+            for (const side of this.sides_) {
+                this.dropShadows_.get(side).classList.toggle('has-shadow', true);
+            }
+        }
+    }
+    return CrContainerShadowMixin;
+});
 
 function getTemplate$d() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style cr-shared-style">:host{background-color:#fff;border-inline-start:var(--print-preview-settings-border);display:flex;flex-direction:column}@media (prefers-color-scheme:dark){:host{background-color:rgba(255,255,255,.04)}}#container{color:var(--cr-primary-text-color);flex:1;overflow:overlay}:host #destinationSettings{margin-top:12px}:host #cr-container-shadow-bottom,:host #cr-container-shadow-top{box-shadow:inset 0 5px 3px -3px rgba(0,0,0,.2)}.settings-section{display:block;margin-bottom:16px;margin-top:16px}</style>

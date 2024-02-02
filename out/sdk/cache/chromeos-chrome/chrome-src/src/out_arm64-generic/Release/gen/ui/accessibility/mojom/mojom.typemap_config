@@ -120,6 +120,23 @@
   },
   {
     "traits_headers": [
+      "ui/accessibility/mojom/ax_tree_checks_mojom_traits.h"
+    ],
+    "traits_public_deps": [
+      "//ui/accessibility:ax_base"
+    ],
+    "traits_sources": [
+      "ax_tree_checks_mojom_traits.cc"
+    ],
+    "types": [
+      {
+        "cpp": "::ui::AXTreeChecks",
+        "mojom": "ax.mojom.AXTreeChecks"
+      }
+    ]
+  },
+  {
+    "traits_headers": [
       "ui/accessibility/mojom/ax_tree_data_mojom_traits.h"
     ],
     "traits_public_deps": [

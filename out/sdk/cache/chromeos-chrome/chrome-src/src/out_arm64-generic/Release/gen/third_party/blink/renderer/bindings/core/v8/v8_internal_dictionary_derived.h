@@ -67,12 +67,19 @@ void Trace(Visitor* visitor) const override;
 
 
   protected:
-bool FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const override;
+static constexpr size_t kBasePropertyCount = InternalDictionary::kTotalPropertyCount;
+static constexpr size_t kOwnPropertyCount = 3;
+static constexpr size_t kTotalPropertyCount = kBasePropertyCount + kOwnPropertyCount;
+void FillTemplateProperties(WTF::Vector<std::string_view>& properties) const override;
+void FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const;
+
 
 void FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state);
 
 
   private:
+const void* TemplateKey() const override;
+v8::Local<v8::Object> FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const override;
 static const base::span<const v8::Eternal<v8::Name>> GetV8OwnMemberNames(v8::Isolate* isolate);
 
 bool has_derived_string_member_ = false;

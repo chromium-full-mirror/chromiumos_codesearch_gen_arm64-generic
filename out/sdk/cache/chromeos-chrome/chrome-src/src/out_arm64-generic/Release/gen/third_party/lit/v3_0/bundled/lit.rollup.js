@@ -27,8 +27,16 @@ const t=globalThis,i=t.trustedTypes,s$1=i?i.createPolicy("lit-html-desktop",{cre
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// Converts a 'nameLikeThis' to 'name-like-this'.
+function toDashCase(name) {
+    return name.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+}
 class CrLitElement extends s {
     $;
+    willUpdatePending_ = false;
+    // Properties for which a '<property-name>-changed' event should be fired
+    // whenever they change.
+    static notifyProps_ = null;
     constructor() {
         super();
         // Lazily populate a helper `$` object for easy access to any child elements
@@ -78,7 +86,6 @@ class CrLitElement extends s {
             },
         });
     }
-    willUpdatePending_ = false;
     connectedCallback() {
         super.connectedCallback();
         if (!this.hasUpdated) {
@@ -95,8 +102,19 @@ class CrLitElement extends s {
     willUpdate(_changedProperties) {
         this.willUpdatePending_ = true;
     }
-    updated(_changedProperties) {
+    updated(changedProperties) {
         this.willUpdatePending_ = false;
+        const notifyProps = this.constructor.notifyProps_;
+        if (notifyProps !== null) {
+            for (const key of changedProperties.keys()) {
+                if (notifyProps.has(key)) {
+                    this.fire(`${toDashCase(key.toString())}-changed`, { value: this[key] });
+                }
+            }
+        }
+    }
+    fire(eventName, detail) {
+        this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
     }
     // Modifies the 'properties' object by automatically specifying
     // "attribute: <attr_name>" for each reactive property where attr_name is a
@@ -119,16 +137,30 @@ class CrLitElement extends s {
             }
             // Specify a dash-case attribute name, derived from the property name,
             // similar to what Polymer did.
-            value.attribute =
-                key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+            value.attribute = toDashCase(key);
         }
         // Mutating the properties object alone isn't enough, in the case where
         // the properties block is defined as a getter, need to also override the
         // getter.
         Object.defineProperty(this, 'properties', { value: properties });
     }
+    static populateNotifyProps() {
+        if (!this.hasOwnProperty('properties')) {
+            return;
+        }
+        for (const [key, value] of Object.entries(this.properties)) {
+            if (value.notify) {
+                // Lazily create `notifyProps_` only if any such property exists.
+                if (this.notifyProps_ === null) {
+                    this.notifyProps_ = new Set();
+                }
+                this.notifyProps_.add(key);
+            }
+        }
+    }
     static finalize() {
         this.patchPropertiesObject();
+        this.populateNotifyProps();
         super.finalize();
     }
 }

@@ -33,6 +33,7 @@
 #include "components/services/storage/public/mojom/storage_usage_info.mojom-shared.h"
 #include "mojo/public/mojom/base/file_path.mojom-shared.h"
 #include "mojo/public/mojom/base/string16.mojom-shared.h"
+#include "mojo/public/mojom/base/unguessable_token.mojom-shared.h"
 #include "mojo/public/mojom/base/values.mojom-shared.h"
 #include "third_party/blink/public/mojom/indexeddb/indexeddb.mojom-shared.h"
 #include "third_party/blink/public/mojom/storage_key/storage_key.mojom-shared.h"

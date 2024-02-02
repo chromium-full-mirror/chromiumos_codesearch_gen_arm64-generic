@@ -628,7 +628,8 @@ class  MediaSessionInfo_Data {
   uint8_t muted : 1;
   uint8_t has_presentation : 1;
   uint8_t hide_metadata : 1;
-  uint8_t pad7_[3];
+  uint8_t ignore_for_active_session : 1;
+  uint8_t pad8_[3];
   int32_t playback_state;
   int32_t picture_in_picture_state;
   int32_t deprecated_audio_video_state;
@@ -636,7 +637,7 @@ class  MediaSessionInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> audio_sink_id;
   mojo::internal::Pointer<mojo::internal::Array_Data<int32_t>> audio_video_states;
   int32_t camera_state;
-  uint8_t pad14_[4];
+  uint8_t pad15_[4];
   mojo::internal::Pointer<internal::RemotePlaybackMetadata_Data> remote_playback_metadata;
 
  private:

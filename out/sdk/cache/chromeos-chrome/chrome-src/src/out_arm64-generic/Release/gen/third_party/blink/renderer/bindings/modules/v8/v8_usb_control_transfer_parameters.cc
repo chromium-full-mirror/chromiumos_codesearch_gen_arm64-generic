@@ -21,6 +21,19 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"index",
+"recipient",
+"request",
+"requestType",
+"value",
+};
+
+
+}  // namespace 
+
 USBControlTransferParameters* USBControlTransferParameters::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   USBControlTransferParameters* dictionary = MakeGarbageCollected<USBControlTransferParameters>(isolate);
 if (!v8_value->IsObject()) {
@@ -79,32 +92,44 @@ TraceIfNeeded<uint16_t>::Trace(visitor, member_value_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool USBControlTransferParameters::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void USBControlTransferParameters::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void USBControlTransferParameters::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasIndex()) {
-  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_index_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_index_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasRecipient()) {
-  v8_value = ToV8Traits<V8USBRecipient>::ToV8(script_state, member_recipient_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<V8USBRecipient>::ToV8(script_state, member_recipient_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasRequest()) {
-  v8_value = ToV8Traits<IDLOctet>::ToV8(script_state, member_request_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLOctet>::ToV8(script_state, member_request_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasRequestType()) {
-  v8_value = ToV8Traits<V8USBRequestType>::ToV8(script_state, member_request_type_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<V8USBRequestType>::ToV8(script_state, member_request_type_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasValue()) {
-  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_value_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_value_);
+DCHECK(!values[4].IsEmpty());
 }
-return true;
+}
+
+const void* USBControlTransferParameters::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> USBControlTransferParameters::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void USBControlTransferParameters::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -138,14 +163,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedShort, is_required>(is
 }
 
 const base::span<const v8::Eternal<v8::Name>> USBControlTransferParameters::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"index",
-"recipient",
-"request",
-"requestType",
-"value",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

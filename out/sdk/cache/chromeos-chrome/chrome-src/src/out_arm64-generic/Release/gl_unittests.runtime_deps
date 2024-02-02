@@ -1,5 +1,6 @@
 ./gl_unittests
 ../../../../../../../home/chrome-bot/chrome_root/src/testing/buildbot/filters/android.emulator_12.gl_unittests.filter
+../../../../../../../home/chrome-bot/chrome_root/src/testing/buildbot/filters/win.win_arm64.gl_unittests.filter
 ../../../../../../../home/chrome-bot/chrome_root/src/testing/test_env.py
 ../../../../../../../home/chrome-bot/chrome_root/src/testing/xvfb.py
 ../../../../../../../home/chrome-bot/chrome_root/src/testing/scripts/common.py

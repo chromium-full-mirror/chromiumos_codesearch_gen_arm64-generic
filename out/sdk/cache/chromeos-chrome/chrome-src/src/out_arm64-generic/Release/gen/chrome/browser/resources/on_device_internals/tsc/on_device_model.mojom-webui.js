@@ -342,6 +342,8 @@ export class OnDeviceModelCallbackRouter {
         return this.router_.removeListener(id);
     }
 }
+export const LanguageDetectionResultSpec = { $: {} };
+export const SafetyInfoSpec = { $: {} };
 export const ResponseChunkSpec = { $: {} };
 export const ResponseSummarySpec = { $: {} };
 export const InputOptionsSpec = { $: {} };
@@ -351,12 +353,20 @@ export const ContextClient_OnComplete_ParamsSpec = { $: {} };
 export const Session_AddContext_ParamsSpec = { $: {} };
 export const Session_Execute_ParamsSpec = { $: {} };
 export const OnDeviceModel_StartSession_ParamsSpec = { $: {} };
+mojo.internal.Struct(LanguageDetectionResultSpec.$, 'LanguageDetectionResult', [
+    mojo.internal.StructField('code', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('reliability', 8, 0, mojo.internal.Float, 0, false /* nullable */, 0),
+], [[0, 24],]);
+mojo.internal.Struct(SafetyInfoSpec.$, 'SafetyInfo', [
+    mojo.internal.StructField('classScores', 0, 0, mojo.internal.Array(mojo.internal.Float, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('language', 8, 0, LanguageDetectionResultSpec.$, null, true /* nullable */, 0),
+], [[0, 24],]);
 mojo.internal.Struct(ResponseChunkSpec.$, 'ResponseChunk', [
     mojo.internal.StructField('text', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('tsScores', 8, 0, mojo.internal.Array(mojo.internal.Float, false), null, true /* nullable */, 0),
+    mojo.internal.StructField('safetyInfo', 8, 0, SafetyInfoSpec.$, null, true /* nullable */, 0),
 ], [[0, 24],]);
 mojo.internal.Struct(ResponseSummarySpec.$, 'ResponseSummary', [
-    mojo.internal.StructField('tsScores', 0, 0, mojo.internal.Array(mojo.internal.Float, false), null, true /* nullable */, 0),
+    mojo.internal.StructField('safetyInfo', 0, 0, SafetyInfoSpec.$, null, true /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(InputOptionsSpec.$, 'InputOptions', [
     mojo.internal.StructField('text', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
@@ -388,14 +398,14 @@ mojo.internal.Struct(InputOptionsSpec.$, 'InputOptions', [
         isPrimary: false,
         originalFieldName: "maxOutputTokens",
     }),
-    mojo.internal.StructField('ts_interval_$flag', 8, 4, mojo.internal.Bool, false, false /* nullable */, 0, {
+    mojo.internal.StructField('safety_interval_$flag', 8, 4, mojo.internal.Bool, false, false /* nullable */, 0, {
         isPrimary: true,
-        linkedValueFieldName: "ts_interval_$value",
-        originalFieldName: "tsInterval",
+        linkedValueFieldName: "safety_interval_$value",
+        originalFieldName: "safetyInterval",
     }),
-    mojo.internal.StructField('ts_interval_$value', 24, 0, mojo.internal.Uint32, 0, false /* nullable */, 0, {
+    mojo.internal.StructField('safety_interval_$value', 24, 0, mojo.internal.Uint32, 0, false /* nullable */, 0, {
         isPrimary: false,
-        originalFieldName: "tsInterval",
+        originalFieldName: "safetyInterval",
     }),
 ], [[0, 40],]);
 mojo.internal.Struct(StreamingResponder_OnResponse_ParamsSpec.$, 'StreamingResponder_OnResponse_Params', [

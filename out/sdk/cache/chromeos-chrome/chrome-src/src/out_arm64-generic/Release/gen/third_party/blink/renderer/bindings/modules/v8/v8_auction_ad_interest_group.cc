@@ -26,6 +26,43 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"adComponents",
+"adSizes",
+"additionalBidKey",
+"ads",
+"auctionServerRequestFlags",
+"biddingLogicURL",
+"biddingLogicUrl",
+"biddingWasmHelperURL",
+"biddingWasmHelperUrl",
+"dailyUpdateUrl",
+"enableBiddingSignalsPrioritization",
+"executionMode",
+"lifetimeMs",
+"maxTrustedBiddingSignalsURLLength",
+"name",
+"owner",
+"priority",
+"prioritySignalsOverrides",
+"priorityVector",
+"privateAggregationConfig",
+"sellerCapabilities",
+"sizeGroups",
+"trustedBiddingSignalsKeys",
+"trustedBiddingSignalsSlotSizeMode",
+"trustedBiddingSignalsURL",
+"trustedBiddingSignalsUrl",
+"updateURL",
+"updateUrl",
+"userBiddingSignals",
+};
+
+
+}  // namespace 
+
 AuctionAdInterestGroup* AuctionAdInterestGroup::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   AuctionAdInterestGroup* dictionary = MakeGarbageCollected<AuctionAdInterestGroup>(isolate);
 if (!v8_value->IsObject()) {
@@ -714,128 +751,140 @@ TraceIfNeeded<ScriptValue>::Trace(visitor, member_user_bidding_signals_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool AuctionAdInterestGroup::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void AuctionAdInterestGroup::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void AuctionAdInterestGroup::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasAdComponents()) {
-  v8_value = ToV8Traits<IDLSequence<AuctionAd>>::ToV8(script_state, member_ad_components_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLSequence<AuctionAd>>::ToV8(script_state, member_ad_components_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasAdSizes()) {
-  v8_value = ToV8Traits<IDLRecord<IDLString, AuctionAdInterestGroupSize>>::ToV8(script_state, member_ad_sizes_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLRecord<IDLString, AuctionAdInterestGroupSize>>::ToV8(script_state, member_ad_sizes_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasAdditionalBidKey()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_additional_bid_key_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLString>::ToV8(script_state, member_additional_bid_key_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasAds()) {
-  v8_value = ToV8Traits<IDLSequence<AuctionAd>>::ToV8(script_state, member_ads_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLSequence<AuctionAd>>::ToV8(script_state, member_ads_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasAuctionServerRequestFlags()) {
-  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_auction_server_request_flags_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_auction_server_request_flags_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasBiddingLogicURL()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_bidding_logic_url_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_bidding_logic_url_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasBiddingLogicUrlDeprecated()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_bidding_logic_url_deprecated_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_bidding_logic_url_deprecated_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasBiddingWasmHelperURL()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_bidding_wasm_helper_url_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_bidding_wasm_helper_url_);
+DCHECK(!values[7].IsEmpty());
 }
 if (hasBiddingWasmHelperUrlDeprecated()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_bidding_wasm_helper_url_deprecated_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_bidding_wasm_helper_url_deprecated_);
+DCHECK(!values[8].IsEmpty());
 }
 if (hasDailyUpdateUrl()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_daily_update_url_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_daily_update_url_);
+DCHECK(!values[9].IsEmpty());
 }
 if (hasEnableBiddingSignalsPrioritization()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_enable_bidding_signals_prioritization_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
+  values[10] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_enable_bidding_signals_prioritization_);
+DCHECK(!values[10].IsEmpty());
 }
 if (hasExecutionMode()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_execution_mode_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[11].Get(isolate), v8_value).ToChecked();
+  values[11] = ToV8Traits<IDLString>::ToV8(script_state, member_execution_mode_);
+DCHECK(!values[11].IsEmpty());
 }
 if (hasLifetimeMs()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_lifetime_ms_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[12].Get(isolate), v8_value).ToChecked();
+  values[12] = ToV8Traits<IDLDouble>::ToV8(script_state, member_lifetime_ms_);
+DCHECK(!values[12].IsEmpty());
 }
 if (hasMaxTrustedBiddingSignalsURLLength()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_max_trusted_bidding_signals_url_length_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[13].Get(isolate), v8_value).ToChecked();
+  values[13] = ToV8Traits<IDLLong>::ToV8(script_state, member_max_trusted_bidding_signals_url_length_);
+DCHECK(!values[13].IsEmpty());
 }
 if (hasName()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_name_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[14].Get(isolate), v8_value).ToChecked();
+  values[14] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_name_);
+DCHECK(!values[14].IsEmpty());
 }
 if (hasOwner()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_owner_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[15].Get(isolate), v8_value).ToChecked();
+  values[15] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_owner_);
+DCHECK(!values[15].IsEmpty());
 }
 if (hasPriority()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_priority_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[16].Get(isolate), v8_value).ToChecked();
+  values[16] = ToV8Traits<IDLDouble>::ToV8(script_state, member_priority_);
+DCHECK(!values[16].IsEmpty());
 }
 if (hasPrioritySignalsOverrides()) {
-  v8_value = ToV8Traits<IDLRecord<IDLUSVString, IDLDouble>>::ToV8(script_state, member_priority_signals_overrides_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[17].Get(isolate), v8_value).ToChecked();
+  values[17] = ToV8Traits<IDLRecord<IDLUSVString, IDLDouble>>::ToV8(script_state, member_priority_signals_overrides_);
+DCHECK(!values[17].IsEmpty());
 }
 if (hasPriorityVector()) {
-  v8_value = ToV8Traits<IDLRecord<IDLUSVString, IDLDouble>>::ToV8(script_state, member_priority_vector_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[18].Get(isolate), v8_value).ToChecked();
+  values[18] = ToV8Traits<IDLRecord<IDLUSVString, IDLDouble>>::ToV8(script_state, member_priority_vector_);
+DCHECK(!values[18].IsEmpty());
 }
 if (hasPrivateAggregationConfig()) {
-  v8_value = ToV8Traits<ProtectedAudiencePrivateAggregationConfig>::ToV8(script_state, member_private_aggregation_config_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[19].Get(isolate), v8_value).ToChecked();
+  values[19] = ToV8Traits<ProtectedAudiencePrivateAggregationConfig>::ToV8(script_state, member_private_aggregation_config_.Get());
+DCHECK(!values[19].IsEmpty());
 }
 if (hasSellerCapabilities()) {
-  v8_value = ToV8Traits<IDLRecord<IDLUSVString, IDLSequence<IDLString>>>::ToV8(script_state, member_seller_capabilities_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[20].Get(isolate), v8_value).ToChecked();
+  values[20] = ToV8Traits<IDLRecord<IDLUSVString, IDLSequence<IDLString>>>::ToV8(script_state, member_seller_capabilities_);
+DCHECK(!values[20].IsEmpty());
 }
 if (hasSizeGroups()) {
-  v8_value = ToV8Traits<IDLRecord<IDLString, IDLSequence<IDLString>>>::ToV8(script_state, member_size_groups_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[21].Get(isolate), v8_value).ToChecked();
+  values[21] = ToV8Traits<IDLRecord<IDLString, IDLSequence<IDLString>>>::ToV8(script_state, member_size_groups_);
+DCHECK(!values[21].IsEmpty());
 }
 if (hasTrustedBiddingSignalsKeys()) {
-  v8_value = ToV8Traits<IDLSequence<IDLUSVString>>::ToV8(script_state, member_trusted_bidding_signals_keys_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[22].Get(isolate), v8_value).ToChecked();
+  values[22] = ToV8Traits<IDLSequence<IDLUSVString>>::ToV8(script_state, member_trusted_bidding_signals_keys_);
+DCHECK(!values[22].IsEmpty());
 }
 if (hasTrustedBiddingSignalsSlotSizeMode()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_trusted_bidding_signals_slot_size_mode_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[23].Get(isolate), v8_value).ToChecked();
+  values[23] = ToV8Traits<IDLString>::ToV8(script_state, member_trusted_bidding_signals_slot_size_mode_);
+DCHECK(!values[23].IsEmpty());
 }
 if (hasTrustedBiddingSignalsURL()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_trusted_bidding_signals_url_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[24].Get(isolate), v8_value).ToChecked();
+  values[24] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_trusted_bidding_signals_url_);
+DCHECK(!values[24].IsEmpty());
 }
 if (hasTrustedBiddingSignalsUrlDeprecated()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_trusted_bidding_signals_url_deprecated_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[25].Get(isolate), v8_value).ToChecked();
+  values[25] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_trusted_bidding_signals_url_deprecated_);
+DCHECK(!values[25].IsEmpty());
 }
 if (hasUpdateURL()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_update_url_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[26].Get(isolate), v8_value).ToChecked();
+  values[26] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_update_url_);
+DCHECK(!values[26].IsEmpty());
 }
 if (hasUpdateUrlDeprecated()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_update_url_deprecated_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[27].Get(isolate), v8_value).ToChecked();
+  values[27] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_update_url_deprecated_);
+DCHECK(!values[27].IsEmpty());
 }
 if (hasUserBiddingSignals()) {
-  v8_value = ToV8Traits<IDLAny>::ToV8(script_state, member_user_bidding_signals_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[28].Get(isolate), v8_value).ToChecked();
+  values[28] = ToV8Traits<IDLAny>::ToV8(script_state, member_user_bidding_signals_);
+DCHECK(!values[28].IsEmpty());
 }
-return true;
+}
+
+const void* AuctionAdInterestGroup::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> AuctionAdInterestGroup::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void AuctionAdInterestGroup::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -975,38 +1024,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLAny, is_optional>(isolate, cur
 }
 
 const base::span<const v8::Eternal<v8::Name>> AuctionAdInterestGroup::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"adComponents",
-"adSizes",
-"additionalBidKey",
-"ads",
-"auctionServerRequestFlags",
-"biddingLogicURL",
-"biddingLogicUrl",
-"biddingWasmHelperURL",
-"biddingWasmHelperUrl",
-"dailyUpdateUrl",
-"enableBiddingSignalsPrioritization",
-"executionMode",
-"lifetimeMs",
-"maxTrustedBiddingSignalsURLLength",
-"name",
-"owner",
-"priority",
-"prioritySignalsOverrides",
-"priorityVector",
-"privateAggregationConfig",
-"sellerCapabilities",
-"sizeGroups",
-"trustedBiddingSignalsKeys",
-"trustedBiddingSignalsSlotSizeMode",
-"trustedBiddingSignalsURL",
-"trustedBiddingSignalsUrl",
-"updateURL",
-"updateUrl",
-"userBiddingSignals",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

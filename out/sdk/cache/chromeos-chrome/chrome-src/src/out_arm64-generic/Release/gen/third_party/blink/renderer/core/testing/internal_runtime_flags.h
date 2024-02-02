@@ -1342,9 +1342,6 @@ class InternalRuntimeFlags : public ScriptWrappable {
   bool onDeviceChangeEnabled() {
     return RuntimeEnabledFeatures::OnDeviceChangeEnabled();
   }
-  bool onePassRasterInvalidationEnabled() {
-    return RuntimeEnabledFeatures::OnePassRasterInvalidationEnabled();
-  }
   bool optionElementAlwaysUseLabelEnabled() {
     return RuntimeEnabledFeatures::OptionElementAlwaysUseLabelEnabled();
   }
@@ -1597,9 +1594,6 @@ class InternalRuntimeFlags : public ScriptWrappable {
   bool removeMobileViewportDoubleTapEnabled() {
     return RuntimeEnabledFeatures::RemoveMobileViewportDoubleTapEnabled();
   }
-  bool removeZoomAdjustmentOfBoundingBoxEnabled() {
-    return RuntimeEnabledFeatures::RemoveZoomAdjustmentOfBoundingBoxEnabled();
-  }
   bool renderBlockingInlineModuleScriptEnabled() {
     return RuntimeEnabledFeatures::RenderBlockingInlineModuleScriptEnabled();
   }
@@ -1848,6 +1842,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool stableBlinkFeaturesEnabled() {
     return RuntimeEnabledFeatures::StableBlinkFeaturesEnabled();
+  }
+  bool standardizedBrowserZoomEnabled() {
+    return RuntimeEnabledFeatures::StandardizedBrowserZoomEnabled();
   }
   bool storageAccessAPIBeyondCookiesEnabled() {
     return RuntimeEnabledFeatures::StorageAccessAPIBeyondCookiesEnabledByRuntimeFlag();

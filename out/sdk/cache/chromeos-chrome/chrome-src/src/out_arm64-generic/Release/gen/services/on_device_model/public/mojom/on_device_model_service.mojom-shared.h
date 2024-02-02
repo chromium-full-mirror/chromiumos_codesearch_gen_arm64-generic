@@ -191,6 +191,26 @@ static_assert(
     return mojo::internal::Deserialize<::mojo_base::mojom::ReadOnlyFileDataView>(
         pointer, output, message_);
   }
+  inline void GetLanguageDetectionModelDataView(
+      ::mojo_base::mojom::ReadOnlyFileDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLanguageDetectionModel(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::mojo_base::mojom::ReadOnlyFileDataView, UserType>(),
+    "Attempting to read the optional `language_detection_model` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadLanguageDetectionModel` instead "
+    "of `ReadLanguageDetectionModel if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->language_detection_model.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::ReadOnlyFileDataView>(
+        pointer, output, message_);
+  }
  private:
   internal::ModelAssets_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -294,6 +314,14 @@ struct Serializer<::on_device_model::mojom::ModelAssetsDataView, MaybeConstUserT
         in_ts_sp_model, ts_sp_model_fragment);
     fragment->ts_sp_model.Set(
         ts_sp_model_fragment.is_null() ? nullptr : ts_sp_model_fragment.data());
+    decltype(Traits::language_detection_model(input)) in_language_detection_model = Traits::language_detection_model(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->language_detection_model)::BaseType> language_detection_model_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::ReadOnlyFileDataView>(
+        in_language_detection_model, language_detection_model_fragment);
+    fragment->language_detection_model.Set(
+        language_detection_model_fragment.is_null() ? nullptr : language_detection_model_fragment.data());
   }
 
   static bool Deserialize(::on_device_model::mojom::internal::ModelAssets_Data* input,
@@ -383,6 +411,11 @@ inline void ModelAssetsDataView::GetTsDataDataView(
 inline void ModelAssetsDataView::GetTsSpModelDataView(
     ::mojo_base::mojom::ReadOnlyFileDataView* output) {
   auto pointer = data_->ts_sp_model.Get();
+  *output = ::mojo_base::mojom::ReadOnlyFileDataView(pointer, message_);
+}
+inline void ModelAssetsDataView::GetLanguageDetectionModelDataView(
+    ::mojo_base::mojom::ReadOnlyFileDataView* output) {
+  auto pointer = data_->language_detection_model.Get();
   *output = ::mojo_base::mojom::ReadOnlyFileDataView(pointer, message_);
 }
 

@@ -1,5 +1,5 @@
 {
-  "extends": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base_polymer.json",
+  "extends": "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/tsconfig_base.json",
   "compilerOptions": {
     "rootDir": "preprocessed",
     "outDir": "../../tsc/cr_components/app_management",
@@ -19,18 +19,6 @@
       "chrome://resources/polymer/v3_0/*": [
         "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
       ],
-      "//resources/cr_components/localized_link/*": [
-        "./../../../../../ui/webui/resources/tsc/cr_components/localized_link/*"
-      ],
-      "chrome://resources/cr_components/localized_link/*": [
-        "./../../../../../ui/webui/resources/tsc/cr_components/localized_link/*"
-      ],
-      "//resources/cr_elements/*": [
-        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
-      ],
-      "chrome://resources/cr_elements/*": [
-        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
-      ],
       "//resources/js/*": [
         "./../../../../../ui/webui/resources/tsc/js/*"
       ],
@@ -49,50 +37,17 @@
     }
   },
   "files": [
-    "preprocessed/app_content_dialog.ts",
-    "preprocessed/app_content_item.ts",
-    "preprocessed/file_handling_item.ts",
-    "preprocessed/more_permissions_item.ts",
-    "preprocessed/permission_item.ts",
-    "preprocessed/run_on_os_login_item.ts",
-    "preprocessed/supported_links_dialog.ts",
-    "preprocessed/supported_links_item.ts",
-    "preprocessed/supported_links_overlapping_apps_dialog.ts",
-    "preprocessed/toggle_row.ts",
-    "preprocessed/uninstall_button.ts",
-    "preprocessed/window_mode_item.ts",
     "preprocessed/constants.ts",
     "preprocessed/permission_constants.ts",
     "preprocessed/permission_util.ts",
     "preprocessed/browser_proxy.ts",
     "preprocessed/util.ts",
-    "preprocessed/app_content_dialog.html.ts",
-    "preprocessed/app_content_item.html.ts",
-    "preprocessed/file_handling_item.html.ts",
-    "preprocessed/more_permissions_item.html.ts",
-    "preprocessed/permission_item.html.ts",
-    "preprocessed/run_on_os_login_item.html.ts",
-    "preprocessed/supported_links_dialog.html.ts",
-    "preprocessed/supported_links_item.html.ts",
-    "preprocessed/supported_links_overlapping_apps_dialog.html.ts",
-    "preprocessed/toggle_row.html.ts",
-    "preprocessed/uninstall_button.html.ts",
-    "preprocessed/window_mode_item.html.ts",
-    "preprocessed/icons.html.ts",
-    "preprocessed/app_management_shared_style.css.ts",
-    "preprocessed/shared_vars.css.ts",
     "preprocessed/app_management.mojom-webui.ts",
     "../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/metrics_private.d.ts"
   ],
   "references": [
     {
       "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
-    },
-    {
-      "path": "../localized_link/tsconfig_build_ts.json"
-    },
-    {
-      "path": "../../cr_elements/tsconfig_build_ts.json"
     },
     {
       "path": "../../js/tsconfig_build_ts.json"

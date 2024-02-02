@@ -1,12 +1,11 @@
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { RectUtil } from '../../common/rect_util.js';
+import { RectUtil } from '/common/rect_util.js';
 import { FocusRingManager } from '../focus_ring_manager.js';
 import { SwitchAccess } from '../switch_access.js';
-import { ActionResponse, ErrorType } from '../switch_access_constants.js';
-const AutomationNode = chrome.automation.AutomationNode;
-const MenuAction = chrome.accessibilityPrivate.SwitchAccessMenuAction;
+import { ErrorType } from '../switch_access_constants.js';
+var MenuAction = chrome.accessibilityPrivate.SwitchAccessMenuAction;
 /**
  * This interface represents some object or group of objects on screen
  *     that Switch Access may be interested in interacting with.
@@ -15,48 +14,24 @@ const MenuAction = chrome.accessibilityPrivate.SwitchAccessMenuAction;
  *     to the same object. However, it is expected that any pair of
  *     SAChildNodes referring to the same interesting object are equal
  *     (calling .equals() returns true).
- * @abstract
  */
 export class SAChildNode {
-    constructor() {
-        /** @private {boolean} */
-        this.isFocused_ = false;
-        /** @private {?SAChildNode} */
-        this.next_ = null;
-        /** @private {?SAChildNode} */
-        this.previous_ = null;
-        /** @private {boolean} */
-        this.valid_ = true;
-    }
+    isFocused_ = false;
+    next_ = null;
+    previous_ = null;
+    valid_ = true;
     // ================= Getters and setters =================
-    /**
-     * Returns a list of all the actions available for this node.
-     * @return {!Array<MenuAction>}
-     * @abstract
-     */
-    get actions() { }
-    /**
-     * The automation node that most closely contains this node.
-     * @return {!AutomationNode}
-     * @abstract
-     */
-    get automationNode() { }
-    /**
-     * @return {chrome.accessibilityPrivate.ScreenRect|undefined}
-     * @abstract
-     */
-    get location() { }
-    /** @param {!SAChildNode} newVal */
+    get group() {
+        return null;
+    }
     set next(newVal) {
         this.next_ = newVal;
     }
-    /**
-     * Returns the next node in pre-order traversal.
-     * @return {!SAChildNode}
-     */
+    /** Returns the next node in pre-order traversal. */
     get next() {
         let next = this;
         while (true) {
+            // TODO(b/314203187): Not null asserted, check that this is correct.
             next = next.next_;
             if (!next) {
                 this.onInvalidNavigation_(ErrorType.NEXT_UNDEFINED, 'Next node must be set on all SAChildNodes before navigating');
@@ -69,17 +44,14 @@ export class SAChildNode {
             }
         }
     }
-    /** @param {!SAChildNode} newVal */
     set previous(newVal) {
         this.previous_ = newVal;
     }
-    /**
-     * Returns the previous node in pre-order traversal.
-     * @return {!SAChildNode}
-     */
+    /** Returns the previous node in pre-order traversal. */
     get previous() {
         let previous = this;
         while (true) {
+            // TODO(b/314203187): Not null asserted, check that this is correct.
             previous = previous.previous_;
             if (!previous) {
                 this.onInvalidNavigation_(ErrorType.PREVIOUS_UNDEFINED, 'Previous node must be set on all SAChildNodes before navigating');
@@ -92,18 +64,7 @@ export class SAChildNode {
             }
         }
     }
-    /**
-     * @return {chrome.automation.RoleType|undefined}
-     * @abstract
-     */
-    get role() { }
     // ================= General methods =================
-    /**
-     * If this node is a group, returns the analogous SARootNode.
-     * @return {SARootNode}
-     * @abstract
-     */
-    asRootNode() { }
     /** Performs the node's default action. */
     doDefaultAction() {
         if (!this.isFocused_) {
@@ -111,78 +72,36 @@ export class SAChildNode {
         }
         this.performAction(MenuAction.SELECT);
     }
-    /**
-     * @param {SAChildNode} other
-     * @return {boolean}
-     * @abstract
-     */
-    equals(other) { }
-    /**
-     * Given a menu action, returns whether it can be performed on this node.
-     * @param {MenuAction} action
-     * @return {boolean}
-     */
+    /** Given a menu action, returns whether it can be performed on this node. */
     hasAction(action) {
         return this.actions.includes(action);
     }
-    /**
-     * @param {?AutomationNode|!SAChildNode|!SARootNode} node
-     * @return {boolean}
-     * @abstract
-     */
-    isEquivalentTo(node) { }
-    /**
-     * Returns whether the node is currently focused by Switch Access
-     * @return {boolean}
-     */
+    /** Returns whether the node is currently focused by Switch Access. */
     isFocused() {
         return this.isFocused_;
     }
     /**
-     * Returns whether this node should be displayed as a group.
-     * @return {boolean}
-     * @abstract
-     */
-    isGroup() { }
-    /**
      * Returns whether this node is still both valid and visible onscreen (e.g.
      *    has a location, and, if representing an AutomationNode, not hidden,
      *    not offscreen, not invisible).
-     * @return {boolean}
      */
     isValidAndVisible() {
         return this.valid_ && Boolean(this.location);
     }
-    /**
-     * Called when this node becomes the primary highlighted node.
-     */
+    /** Called when this node becomes the primary highlighted node. */
     onFocus() {
         this.isFocused_ = true;
         FocusRingManager.setFocusedNode(this);
     }
-    /**
-     * Called when this node stops being the primary highlighted node.
-     */
+    /** Called when this node stops being the primary highlighted node. */
     onUnfocus() {
         this.isFocused_ = false;
     }
-    /**
-     * Performs the specified action on the node, if it is available.
-     * @param {MenuAction} action
-     * @return {ActionResponse} What action the menu should perform in response.
-     * @abstract
-     */
-    performAction(action) { }
     // ================= Debug methods =================
-    /**
-     * String-ifies the node (for debugging purposes).
-     * @param {boolean} wholeTree Whether to recursively include descendants.
-     * @param {string} prefix
-     * @param {?SAChildNode} currentNode the currentNode, to highlight.
-     * @return {string}
-     */
+    /** String-ifies the node (for debugging purposes). */
     debugString(wholeTree, prefix = '', currentNode = null) {
         if (this.isGroup() && wholeTree) {
+            // TODO(b/314203187): Not null asserted, check that this is correct.
             return this.asRootNode().debugString(wholeTree, prefix + '  ', currentNode);
         }
         let str = this.constructor.name + ' role(' + this.role + ') ';
@@ -199,59 +118,43 @@ export class SAChildNode {
         return str;
     }
     // ================= Private methods =================
-    /**
-     *
-     * @param {!ErrorType} error
-     * @param {string} message
-     */
     onInvalidNavigation_(error, message) {
         this.valid_ = false;
         throw SwitchAccess.error(error, message, true /* shouldRecover */);
     }
-    /**
-     * @return {boolean} Whether to ignore when computing the SARootNode's
-     *     location.
-     */
+    /** @return Whether to ignore when computing the SARootNode's location. */
     ignoreWhenComputingUnionOfBoundingBoxes() {
         return false;
-    }
-    /** @return {SARootNode} */
-    get group() {
-        return null;
     }
 }
 /**
  * This class represents the root node of a Switch Access traversal group.
  */
 export class SARootNode {
+    children_ = [];
+    automationNode_;
     /**
-     * @param {!AutomationNode} autoNode The automation node that most closely
-     *     contains all of this node's children.
+     * @param autoNode The automation node that most closely contains all of
+     * this node's children.
      */
     constructor(autoNode) {
-        /** @private {!Array<!SAChildNode>} */
-        this.children_ = [];
-        /** @private {!AutomationNode} */
         this.automationNode_ = autoNode;
     }
     // ================= Getters and setters =================
     /**
-     * @return {!AutomationNode} The automation node that most closely
-     *     contains all of this node's children.
+     * @return The automation node that most closely contains all of this node's
+     * children.
      */
     get automationNode() {
         return this.automationNode_;
     }
-    /** @param {!Array<!SAChildNode>} newVal */
     set children(newVal) {
         this.children_ = newVal;
         this.connectChildren_();
     }
-    /** @return {!Array<!SAChildNode>} */
     get children() {
         return this.children_;
     }
-    /** @return {!SAChildNode} */
     get firstChild() {
         if (this.children_.length > 0) {
             return this.children_[0];
@@ -260,7 +163,6 @@ export class SARootNode {
             throw SwitchAccess.error(ErrorType.NO_CHILDREN, 'Root nodes must contain children.', true /* shouldRecover */);
         }
     }
-    /** @return {!SAChildNode} */
     get lastChild() {
         if (this.children_.length > 0) {
             return this.children_[this.children_.length - 1];
@@ -269,17 +171,12 @@ export class SARootNode {
             throw SwitchAccess.error(ErrorType.NO_CHILDREN, 'Root nodes must contain children.', true /* shouldRecover */);
         }
     }
-    /** @return {!chrome.accessibilityPrivate.ScreenRect} */
     get location() {
         const children = this.children_.filter(c => !c.ignoreWhenComputingUnionOfBoundingBoxes());
-        const childLocations = children.map(c => c.location);
+        const childLocations = children.map(c => c.location).filter(l => l);
         return RectUtil.unionAll(childLocations);
     }
     // ================= General methods =================
-    /**
-     * @param {SARootNode} other
-     * @return {boolean}
-     */
     equals(other) {
         if (!other) {
             return false;
@@ -300,8 +197,6 @@ export class SARootNode {
     /**
      * Looks for and returns the specified node within this node's children.
      * If no equivalent node is found, returns null.
-     * @param {?AutomationNode|!SAChildNode|!SARootNode} node
-     * @return {?SAChildNode}
      */
     findChild(node) {
         for (const child of this.children_) {
@@ -311,10 +206,6 @@ export class SARootNode {
         }
         return null;
     }
-    /**
-     * @param {?AutomationNode|!SARootNode|!SAChildNode} node
-     * @return {boolean}
-     */
     isEquivalentTo(node) {
         if (node instanceof SARootNode) {
             return this.equals(node);
@@ -324,15 +215,13 @@ export class SARootNode {
         }
         return false;
     }
-    /** @return {boolean} */
     isValidGroup() {
         // Must have one interesting child whose location is important.
         return this.children_
-            .filter(child => !(child.ignoreWhenComputingUnionOfBoundingBoxes()) &&
+            .filter((child) => !(child.ignoreWhenComputingUnionOfBoundingBoxes()) &&
             child.isValidAndVisible())
             .length >= 1;
     }
-    /** @return {SAChildNode} */
     firstValidChild() {
         const children = this.children_.filter(child => child.isValidAndVisible());
         return children.length > 0 ? children[0] : null;
@@ -345,17 +234,16 @@ export class SARootNode {
     onExit() { }
     /** Called when a group should recalculate its children. */
     refreshChildren() {
-        this.children = this.children.filter(child => child.isValidAndVisible());
+        this.children =
+            this.children.filter((child) => child.isValidAndVisible());
     }
     /** Called when the group's children may have changed. */
     refresh() { }
     // ================= Debug methods =================
     /**
      * String-ifies the node (for debugging purposes).
-     * @param {boolean} wholeTree Whether to recursively descend the tree
-     * @param {string} prefix
-     * @param {?SAChildNode} currentNode the currently focused node, to mark.
-     * @return {string}
+     * @param wholeTree Whether to recursively descend the tree
+     * @param currentNode the currently focused node, to mark.
      */
     debugString(wholeTree = false, prefix = '', currentNode = null) {
         let str = 'Root: ' + this.constructor.name + ' ' + this.automationNode.role + ' ';
@@ -373,10 +261,7 @@ export class SARootNode {
         return str;
     }
     // ================= Private methods =================
-    /**
-     * Helper function to connect children.
-     * @private
-     */
+    /** Helper function to connect children. */
     connectChildren_() {
         if (this.children_.length < 1) {
             console.error(SwitchAccess.error(ErrorType.NO_CHILDREN, 'Root node must have at least 1 interesting child.'));
@@ -391,5 +276,3 @@ export class SARootNode {
         }
     }
 }
-/** @typedef {!SAChildNode|!SARootNode} */
-export let SANode;

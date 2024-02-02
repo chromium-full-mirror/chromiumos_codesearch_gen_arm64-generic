@@ -11428,7 +11428,7 @@ const PersonalizationStoreClientMixin = makeStoreClientMixin(PersonalizationStor
  */
 const WithPersonalizationStore = I18nMixin(ListPropertyUpdateMixin(PersonalizationStoreClientMixin(PolymerElement)));
 
-function getTemplate$11() {
+function getTemplate$10() {
     return html `<!--_html_template_start_--><style include="wallpaper common">:host{overflow:hidden}iron-list{width:100%}wallpaper-grid-item[data-is-video][aria-selected=true]::part(item){cursor:default}</style>
 <iron-list aria-setsize$="[[albumsForDisplay_.length]]" as="album" grid id="grid" items="[[albumsForDisplay_]]" role="listbox">
   <template>
@@ -11451,7 +11451,7 @@ class AlbumListElement extends WithPersonalizationStore {
         return 'album-list';
     }
     static get template() {
-        return getTemplate$11();
+        return getTemplate$10();
     }
     static get properties() {
         return {
@@ -11571,7 +11571,7 @@ styleMod$6.appendChild(html `
 `.content);
 styleMod$6.register('cr-shared-style');
 
-function getTemplate$10() {
+function getTemplate$$() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{--cr-localized-link-display:inline;display:block}:host([link-disabled]){cursor:pointer;opacity:var(--cr-disabled-opacity);pointer-events:none}a{display:var(--cr-localized-link-display)}a[href]{color:var(--cr-link-color)}a[is=action-link]{user-select:none}#container{display:contents}</style>
 
 <div id="container"></div>
@@ -11603,7 +11603,7 @@ class LocalizedLinkElement extends PolymerElement {
         return 'localized-link';
     }
     static get template() {
-        return getTemplate$10();
+        return getTemplate$$();
     }
     static get properties() {
         return {
@@ -11744,7 +11744,7 @@ cr-button{border-color:var(--cros-button-stroke-color-secondary);border-radius:1
 `.content);
 styleMod$5.register('cros-button-style');
 
-function getTemplate$$() {
+function getTemplate$_() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">cr-dialog::part(dialog){min-width:288px;width:288px}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="body">$i18n{ambientModeLastArtAlbumMessage}</div>
@@ -11768,7 +11768,7 @@ class ArtAlbumDialogElement extends WithPersonalizationStore {
         return 'art-album-dialog';
     }
     static get template() {
-        return getTemplate$$();
+        return getTemplate$_();
     }
     static get properties() {
         return {};
@@ -12378,7 +12378,7 @@ function logDynamicColorColorSchemeButtonClick(color) {
     chrome.metricsPrivate.recordEnumerationValue("Ash.Personalization.DynamicColor.ColorSchemeButton" /* HistogramName.DYNAMIC_COLOR_COLOR_SCHEME_BUTTON */, color, ColorScheme.MAX_VALUE);
 }
 
-function getTemplate$_() {
+function getTemplate$Z() {
     return html `<!--_html_template_start_--><style include="common">#container{display:flex;flex-flow:column nowrap;position:relative;width:100%}#breadcrumbArea{background-color:var(--cros-bg-color);display:grid;grid-template-areas:'. . breadcrumb . .';grid-template-columns:1fr 10px minmax(568px,920px) 10px 1fr;grid-template-rows:var(--personalization-app-breadcrumb-height);position:sticky;top:0;width:100%;z-index:3}:host-context(body.jelly-enabled) #breadcrumbArea{background-color:var(--cros-sys-app_base_shaded)}personalization-breadcrumb{grid-area:breadcrumb}personalization-toast{bottom:16px;left:16px;max-width:380px;position:sticky}sea-pen-router{--sea-pen-router-min-height:var(--personalization-app-subpage-container-min-height)}wallpaper-fullscreen{bottom:0;height:100%;left:0;pointer-events:none;position:absolute;width:100%}</style>
 <div id="container">
   
@@ -12996,7 +12996,7 @@ class PersonalizationRouterElement extends PolymerElement {
         return 'personalization-router';
     }
     static get template() {
-        return getTemplate$_();
+        return getTemplate$Z();
     }
     static get properties() {
         return {
@@ -13148,7 +13148,7 @@ class PersonalizationRouterElement extends PolymerElement {
 }
 customElements.define(PersonalizationRouterElement.is, PersonalizationRouterElement);
 
-function getTemplate$Z() {
+function getTemplate$Y() {
     return html `<!--_html_template_start_--><style include="cr-shared-style common">:host{height:auto}#descPlaceholderContainer,#pageDescription{margin-inline-start:10px;min-height:32px}#noAlbumText{display:inline}#descriptionPlaceholder{height:20px;width:50%}#albumsPlaceholderContainer{display:grid;gap:calc(var(--personalization-app-grid-item-spacing)) calc(var(--personalization-app-grid-item-spacing)/ 2);grid-template-columns:repeat(3,1fr .34px);grid-template-rows:repeat(auto-fit,calc(var(--personalization-app-grid-item-height)));height:100%;overflow:hidden;padding:calc(var(--personalization-app-grid-item-spacing)/ 2)}@media(min-width:720px){#albumsPlaceholderContainer{grid-template-columns:repeat(4,1fr .25px)}}#albumItemPlaceholder{height:100%;position:relative;width:100%}</style>
 <template is="dom-if" if="[[shouldShowContent_(ambientModeEnabled_)]]">
   <template is="dom-if" if="[[loadingAlbums_(albums, topicSource)]]">
@@ -13442,7 +13442,7 @@ class AlbumsSubpageElement extends WithPersonalizationStore {
         return 'albums-subpage';
     }
     static get template() {
-        return getTemplate$Z();
+        return getTemplate$Y();
     }
     static get properties() {
         return {
@@ -13678,7 +13678,7 @@ class CrAutoImgElement extends HTMLImageElement {
 }
 customElements.define('cr-auto-img', CrAutoImgElement, { extends: 'img' });
 
-function getTemplate$Y() {
+function getTemplate$X() {
     return html `<!--_html_template_start_--><style include="common">:host{-webkit-tap-highlight-color:transparent;box-sizing:border-box;cursor:pointer;overflow:hidden;padding:calc(var(--personalization-app-grid-item-spacing)/ 2);width:calc(100% / 3 - .34px)}@media(min-width:720px){:host{width:calc(100% / 4 - .25px)}}:host(:focus-visible){outline:0}.item{align-items:center;background-color:rgba(0,0,0,.12);border-radius:var(--personalization-app-grid-item-border-radius);box-sizing:border-box;display:flex;flex-direction:column;height:120px;justify-content:center;overflow:hidden;position:relative;width:100%}:host(:focus-visible) .item{outline:2px solid var(--cros-focus-ring-color)}:host([aria-checked=true]) .item{background-color:var(--cros-sys-highlight_shape,rgba(var(--cros-color-prominent-rgb),var(--personalization-app-second-tone-opacity)));border-radius:calc(var(--personalization-app-grid-item-border-radius) + 4px)}img{border-radius:var(--personalization-app-grid-item-border-radius);height:100%;object-fit:cover;width:100%}:host([aria-checked=true]) .item img{animation-duration:.2s;animation-fill-mode:forwards;animation-name:img-resize;animation-timing-function:cubic-bezier(.4,0,.2,1)}@keyframes img-resize{100%{height:calc(100% - 8px);width:calc(100% - 8px)}}.text{color:var(--cros-text-color-secondary);display:flex;flex-direction:column;font:var(--cros-body-2-font);margin:8px 0 0 0}iron-icon{--iron-icon-height:20px;--iron-icon-width:20px;animation-duration:.2s;animation-name:iron-icon-scale;animation-timing-function:cubic-bezier(.4,0,.2,1);left:8px;position:absolute;top:8px}:host(:not([aria-checked=true])) .item iron-icon{display:none}@keyframes iron-icon-scale{from{transform:scale(0)}to{transform:scale(1)}}</style>
 <div class="item">
   <img is="cr-auto-img" auto-src="[[imgSrc_]]">
@@ -13699,7 +13699,7 @@ class AmbientThemeItemElement extends WithPersonalizationStore {
         return 'ambient-theme-item';
     }
     static get template() {
-        return getTemplate$Y();
+        return getTemplate$X();
     }
     static get properties() {
         return {
@@ -13767,7 +13767,7 @@ class AmbientThemeItemElement extends WithPersonalizationStore {
 }
 customElements.define(AmbientThemeItemElement.is, AmbientThemeItemElement);
 
-function getTemplate$X() {
+function getTemplate$W() {
     return html `<!--_html_template_start_--><style include="common">:host{--theme-item-padding:24px;--theme-item-width:156px}iron-list{width:calc(var(--theme-item-width)*3 + var(--theme-item-padding)*2)}@media(min-width:720px){iron-list{width:calc(var(--theme-item-width)*4 + var(--theme-item-padding)*3)}}</style>
 
 <h3 id="ambientThemeDescription" class="ambient-subpage-element-title">
@@ -13793,7 +13793,7 @@ class AmbientThemeListElement extends WithPersonalizationStore {
         return 'ambient-theme-list';
     }
     static get template() {
-        return getTemplate$X();
+        return getTemplate$W();
     }
     static get properties() {
         return {
@@ -14411,7 +14411,7 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$W() {
+function getTemplate$V() {
     return html `<!--_html_template_start_-->    <style include="cr-radio-button-style cr-hidden-style"></style>
 
     <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -14551,7 +14551,7 @@ class CrRadioButtonElement extends CrRadioButtonElementBase {
         return 'cr-radio-button';
     }
     static get template() {
-        return getTemplate$W();
+        return getTemplate$V();
     }
     // Overridden from CrRadioButtonMixin
     getPaperRipple() {
@@ -14632,7 +14632,7 @@ class EventTracker {
     }
 }
 
-function getTemplate$V() {
+function getTemplate$U() {
     return html `<!--_html_template_start_-->    <style>:host{display:inline-block}:host ::slotted(*){padding:var(--cr-radio-group-item-padding,12px)}:host([disabled]){cursor:initial;pointer-events:none;user-select:none}:host([disabled]) ::slotted(*){opacity:var(--cr-disabled-opacity)}</style>
     <slot></slot>
 <!--_html_template_end_-->`;
@@ -14658,7 +14658,7 @@ class CrRadioGroupElement extends PolymerElement {
         return 'cr-radio-group';
     }
     static get template() {
-        return getTemplate$V();
+        return getTemplate$U();
     }
     static get properties() {
         return {
@@ -14871,7 +14871,7 @@ styleMod$3.appendChild(html `
 `.content);
 styleMod$3.register('md-select');
 
-function getTemplate$U() {
+function getTemplate$T() {
     return html `<!--_html_template_start_--><style include="common md-select">.ambient-subpage-element-title{margin-bottom:0;margin-inline-start:0}.md-select{margin-block-start:20px;margin-inline-end:8px}</style>
 <div class="ambient-toggle-row">
   <h3 class="ambient-subpage-element-title">
@@ -14900,7 +14900,7 @@ class AmbientDurationElement extends WithPersonalizationStore {
         return 'ambient-duration';
     }
     static get template() {
-        return getTemplate$U();
+        return getTemplate$T();
     }
     static get properties() {
         return {
@@ -15433,7 +15433,7 @@ Polymer({
   behaviors: [PaperSpinnerBehavior]
 });
 
-function getTemplate$T() {
+function getTemplate$S() {
     return html `<!--_html_template_start_--><style>path{fill:var(--cros-sys-primary_container,var(--cros-highlight-color))}</style>
 <svg width="192" height="190" viewBox="0 0 192 190" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M2.12279 105.772C-0.49169 101.433 -0.704305 96.0783 1.55808 91.5495L4.73978 85.1805C6.09266 82.4724 6.58103 79.421 6.14004 76.4317L5.10292 69.4015C4.36546 64.4025 6.23989 59.3745 10.0814 56.0473L15.4839 51.368C17.781 49.3783 19.4122 46.7442 20.1608 43.8154L21.9213 36.9275C23.1731 32.0299 26.8493 28.0945 31.685 26.4752L38.4858 24.198C41.3775 23.2297 43.9032 21.4139 45.7274 18.9915L50.0175 13.2947C53.068 9.24384 57.9862 7.00016 63.08 7.33548L70.2437 7.80705C73.2898 8.00757 76.3255 7.28637 78.9475 5.73923L85.1141 2.10067C89.4989 -0.486566 94.9104 -0.696967 99.4868 1.54185L105.923 4.69041C108.66 6.02919 111.743 6.51248 114.764 6.07608L121.868 5.04976C126.92 4.31999 132 6.17489 135.363 9.97637L140.091 15.3226C142.102 17.5958 144.764 19.21 147.723 19.9508L154.684 21.6929C159.633 22.9317 163.61 26.5696 165.246 31.355L167.547 38.0849C168.526 40.9465 170.361 43.4459 172.809 45.2511L178.565 49.4965C182.659 52.5152 184.926 57.3822 184.587 62.423L184.111 69.512C183.908 72.5264 184.637 75.5304 186.2 78.1252L189.877 84.2275C192.492 88.5667 192.704 93.9217 190.442 98.4505L187.26 104.82C185.907 107.528 185.419 110.579 185.86 113.568L186.897 120.599C187.635 125.597 185.76 130.625 181.919 133.953L176.516 138.632C174.219 140.622 172.588 143.256 171.839 146.185L170.079 153.072C168.827 157.97 165.151 161.906 160.315 163.525L153.514 165.802C150.622 166.77 148.097 168.586 146.273 171.008L141.982 176.705C138.932 180.756 134.014 183 128.92 182.665L121.756 182.193C118.71 181.992 115.675 182.714 113.052 184.261L106.886 187.899C102.501 190.487 97.0896 190.697 92.5132 188.458L86.0771 185.31C83.3405 183.971 80.257 183.488 77.2362 183.924L70.132 184.95C65.0804 185.68 59.9995 183.825 56.6372 180.024L51.9087 174.677C49.8981 172.404 47.2362 170.79 44.2766 170.049L37.3163 168.307C32.367 167.068 28.3902 163.43 26.7539 158.645L24.4527 151.915C23.4743 149.053 21.6393 146.554 19.1914 144.749L13.4346 140.504C9.34115 137.485 7.07385 132.618 7.4127 127.577L7.88923 120.488C8.09186 117.474 7.36307 114.47 5.79964 111.875L2.12279 105.772Z">
@@ -15454,7 +15454,7 @@ class AmbientZeroStateSvgElement extends PolymerElement {
         return 'ambient-zero-state-svg';
     }
     static get template() {
-        return getTemplate$T();
+        return getTemplate$S();
     }
 }
 customElements.define(AmbientZeroStateSvgElement.is, AmbientZeroStateSvgElement);
@@ -15622,7 +15622,7 @@ class AmbientPreviewBase extends WithPersonalizationStore {
     }
 }
 
-function getTemplate$S() {
+function getTemplate$R() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">:host-context(body.jelly-enabled) #container{background-color:var(--cros-bg-color);border:none;grid-template-areas:'. slot           slot    slot      .' '. image          image   image     .' '. .              .       .         .' '. message        message message   .' '. mainpage-desc  .       thumbnail .' '. .              .       .         .';grid-template-columns:20px auto 192px auto 20px;grid-template-rows:auto auto 20px 192px 1fr 20px}#container{border:1px solid var(--cros-separator-color);border-radius:16px;display:grid;grid-template-areas:'. slot           slot    slot      .' '. image          image   image     .' '. .              .       .         .' '. message        message message   .' '. mainpage-desc  .       thumbnail .' '. .              .       .         .';grid-template-columns:20px minmax(0,1fr) 16px 106px 20px;grid-template-rows:auto minmax(158px,220px) 20px 106px auto 24px;height:100%}#container.ambient-mode-enabled{grid-template-rows:auto minmax(158px,220px) 20px auto 106px 24px}:host-context(body.jelly-enabled) #container.ambient-mode-enabled{grid-template-areas:'. slot          .' '. image         .' '. .             .' '. thumbnail     .' '. mainpage-desc .' '. .             .';grid-template-columns:20px minmax(0,1fr) 20px;grid-template-rows:auto auto 20px 130px 1fr 18px}#ambientLabel{align-items:center;background:0 0;border:none;display:flex;flex-flow:row nowrap;grid-area:slot;justify-content:space-between;margin-top:12px}#ambientLabel>cr-icon-button{--cr-icon-button-size:44px;margin-inline-end:-18px}#ambientLabel>h2{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font);margin:12px 0}#messageContainer{align-items:center;display:flex;flex-direction:column;grid-area:message;justify-content:space-between}#messageContainer .text{color:var(--cros-sys-on_primary_container,var(--cros-text-color-secondary));font:var(--cros-body-1-font);line-height:1.5;margin-top:12px;position:relative;text-align:center;width:unset}:host-context(body.jelly-enabled) #messageContainer .text{font:var(--cros-body-2-font);margin-top:56px;width:128px}:host-context(body.jelly-enabled) #messageContainer cr-button{margin-top:8px}#messageContainer cr-button{margin-bottom:50px;margin-top:20px}ambient-zero-state-svg{position:absolute}#imageContainer,#imagePlaceholder{display:flex;height:100%;justify-self:center;max-width:360px;min-width:252px;width:100%}:host-context(body.jelly-enabled) #imageContainer,:host-context(body.jelly-enabled) #imagePlaceholder{aspect-ratio:340/220;max-width:460px;min-width:278px}:host-context(body.jelly-enabled) #textPlaceholder,:host-context(body.jelly-enabled) .album-info-mainpage{align-items:center}#textPlaceholder,.album-info-mainpage{align-items:flex-start;display:flex;grid-area:mainpage-desc;justify-content:center}#textPlaceholder .placeholder:first-child{margin-top:8px}#imageContainer,#imagePlaceholder{grid-area:image}#albumTitle{color:var(--cros-text-color-primary);font:var(--cros-display-7-font);margin-top:4px}:host-context(body.jelly-enabled) #albumTitle{margin-top:10px}#albumDescription{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font);margin-top:4px}:host-context(body.jelly-enabled) #albumDescription{margin-top:2px}#collageContainer,#collagePlaceholder{border-radius:12px;display:grid;gap:2px;grid-area:thumbnail;overflow:hidden}#collageContainer{border:1px solid rgba(0,0,0,.08);grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))}#collageContainer.collage-1 .collage-item:first-child{grid-row:1/3}#collageContainer.collage-1 .collage-item:first-child,#collageContainer.collage-2 .collage-item:first-child,#collageContainer.collage-2 .collage-item:nth-child(2),#collageContainer.collage-3 .collage-item:nth-child(3){grid-column:1/3}.collage-item{height:100%;object-fit:cover;width:100%}#buttonContainer{grid-area:buttons}#buttonContainer .text{margin-inline-start:8px}#buttonContainer .preview-button-disabled{cursor:wait;pointer-events:none}#buttonContainer cr-button{border-color:var(--cros-button-stroke-color-secondary);border-radius:16px}#buttonContainer .spinner{height:20px;width:20px}#thumbnailContainer,#thumbnailPlaceholder{display:grid;grid-area:thumbnail;justify-self:center;max-width:360px;min-width:252px;overflow:hidden;width:100%}:host-context(body.jelly-enabled) #thumbnailContainer,:host-context(body.jelly-enabled) #thumbnailPlaceholder{max-width:460px;min-width:278px}.thumbnail-item{height:100%;overflow:hidden;width:100%}.thumbnail-item img{height:100%;object-fit:cover;width:100%}#thumbnailContainer.thumbnail-0{background-color:var(--personalization-app-grid-item-background-color);border-radius:12px}#thumbnailContainer.thumbnail-1 .thumbnail-item{border-radius:60px}#thumbnailContainer.thumbnail-2{column-gap:12px;grid-template-columns:130px minmax(0,1fr)}#thumbnailContainer.thumbnail-2 .thumbnail-item:first-of-type{clip-path:url(#squiggleClip)}#thumbnailContainer.thumbnail-2 .thumbnail-item:last-of-type{border-radius:60px}#thumbnailContainer.thumbnail-3{column-gap:8px;grid-template-columns:minmax(0,1fr) 32px 32px}#thumbnailContainer.thumbnail-3 .thumbnail-item:first-of-type{border-radius:60px}#thumbnailContainer.thumbnail-3 .thumbnail-item:last-of-type img,#thumbnailContainer.thumbnail-3 .thumbnail-item:nth-last-of-type(2) img{border-radius:16px}.help-link{color:var(--text-color-action);text-decoration:none}</style>
 <div class$="[[getPreviewContainerClass_(ambientModeEnabled_, loading_)]]" id="container">
   
@@ -15787,7 +15787,7 @@ class AmbientPreviewLargeElement extends AmbientPreviewBase {
         return 'ambient-preview-large';
     }
     static get template() {
-        return getTemplate$S();
+        return getTemplate$R();
     }
     static get properties() {
         return {
@@ -15877,7 +15877,7 @@ class AmbientPreviewLargeElement extends AmbientPreviewBase {
 }
 customElements.define(AmbientPreviewLargeElement.is, AmbientPreviewLargeElement);
 
-function getTemplate$R() {
+function getTemplate$Q() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">#container{border:none;display:grid;grid-template-areas:'.              . .' 'image          . subpage-desc' 'image          . buttons' '.              . .';grid-template-columns:224px 32px minmax(0,1fr);grid-template-rows:20px 118px 34px 20px}:host-context(body.jelly-enabled) #container{grid-template-areas:'image          . subpage-desc' 'image          . buttons' '.              . .';grid-template-rows:118px 34px 20px}#container.ambient-mode-disabled{grid-template-areas:'image          . subpage-desc' '.              . .';grid-template-columns:224px 32px minmax(0,1fr);grid-template-rows:152px 20px}#buttonContainer,.currently-set-text{display:inline-flex}.album-info-subpage,.zero-state-info-subpage{display:flex;grid-area:subpage-desc;justify-content:center}#imageContainer,#imagePlaceholder{grid-area:image}#imageContainer img.disabled{opacity:50%}#buttonContainer{grid-area:buttons}#buttonContainer .text{margin-inline-start:8px}#buttonContainer .disabled{cursor:wait;pointer-events:none}#buttonContainer .spinner{--paper-spinner-color:var(--cros-sys-primary, --cros-button-label-color-primary);height:20px;width:20px}</style>
 <div class$="[[getPreviewContainerClass_(ambientModeEnabled_, loading_)]]" id="container">
   <template is="dom-if" if="[[loading_]]" restamp>
@@ -15947,7 +15947,7 @@ class AmbientPreviewSmallElement extends AmbientPreviewBase {
         return 'ambient-preview-small';
     }
     static get template() {
-        return getTemplate$R();
+        return getTemplate$Q();
     }
     static get properties() {
         return {
@@ -16070,7 +16070,7 @@ class FocusOutlineManager {
     }
 }
 
-function getTemplate$Q() {
+function getTemplate$P() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -16106,7 +16106,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$Q();
+        return getTemplate$P();
     }
     static get properties() {
         return {
@@ -16681,7 +16681,7 @@ Polymer({
   }
 });
 
-function getTemplate$P() {
+function getTemplate$O() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -16739,7 +16739,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$P();
+        return getTemplate$O();
     }
     static get properties() {
         return {
@@ -16876,12 +16876,14 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
 }
 customElements.define(CrIconButtonElement.is, CrIconButtonElement);
 
-// Copyright 2017 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview CrContainerShadowMixin holds logic for showing a drop shadow
+ * @fileoverview CrContainerShadowMixinLit holds logic for showing a drop shadow
  * near the top of a container element, when the content has scrolled.
+ *
+ * Lit version of the equivalent CrContainerShadowMixin for Polymer.
  *
  * Elements using this mixin are expected to define a #container element,
  * which is the element being scrolled. If the #container element has a
@@ -16912,8 +16914,8 @@ var CrContainerShadowSide;
     CrContainerShadowSide["TOP"] = "top";
     CrContainerShadowSide["BOTTOM"] = "bottom";
 })(CrContainerShadowSide || (CrContainerShadowSide = {}));
-const CrContainerShadowMixin = dedupingMixin((superClass) => {
-    class CrContainerShadowMixin extends superClass {
+const CrContainerShadowMixinLit = (superClass) => {
+    class CrContainerShadowMixinLit extends superClass {
         constructor() {
             super(...arguments);
             this.intersectionObserver_ = null;
@@ -17007,29 +17009,41 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
             }
         }
     }
-    return CrContainerShadowMixin;
-});
+    return CrContainerShadowMixinLit;
+};
 
-function getTemplate$O() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
-    <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
-    
-      <div id="content-wrapper" part="wrapper">
-        <div class="top-container">
-          <h2 id="title" class="title-container" tabindex="-1">
-            <slot name="title"></slot>
-          </h2>
-          <cr-icon-button id="close" class="icon-clear" hidden$="[[!showCloseButton]]" aria-label$="[[closeText]]" on-click="cancel" on-keypress="onCloseKeypress_">
-          </cr-icon-button>
-        </div>
-        <slot name="header"></slot>
-        <div class="body-container" id="container" show-bottom-shadow part="body-container">
-          <slot name="body"></slot>
-        </div>
-        <slot name="button-container"></slot>
-        <slot name="footer"></slot>
-      </div>
-    </dialog>
+function getCss$3() {
+    return css `:host([hidden]),[hidden]{display:none!important}`;
+}
+
+function getCss$2() {
+    return css `.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}`;
+}
+
+function getCss$1() {
+    return css `dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}`;
+}
+
+function getHtml$1() {
+    return html$1 `<!--_html_template_start_-->
+<dialog id="dialog" @close="${this.onNativeDialogClose_}" @cancel="${this.onNativeDialogCancel_}" part="dialog" aria-labelledby="title" aria-description="${this.ariaDescriptionText || nothing}">
+
+  <div id="content-wrapper" part="wrapper">
+    <div class="top-container">
+      <h2 id="title" class="title-container" tabindex="-1">
+        <slot name="title"></slot>
+      </h2>
+      <cr-icon-button id="close" class="icon-clear" ?hidden="${!this.showCloseButton}" aria-label="${this.closeText || nothing}" @click="${this.cancel}" @keypress="${this.onCloseKeypress_}">
+      </cr-icon-button>
+    </div>
+    <slot name="header"></slot>
+    <div class="body-container" id="container" show-bottom-shadow part="body-container">
+      <slot name="body"></slot>
+    </div>
+    <slot name="button-container"></slot>
+    <slot name="footer"></slot>
+  </div>
+</dialog>
 <!--_html_template_end_-->`;
 }
 
@@ -17053,10 +17067,17 @@ function getTemplate$O() {
  * width/height (as well as other available mixins to style other parts of the
  * dialog contents).
  */
-const CrDialogElementBase = CrContainerShadowMixin(PolymerElement);
+const CrDialogElementBase = CrContainerShadowMixinLit(CrLitElement);
 class CrDialogElement extends CrDialogElementBase {
     constructor() {
         super(...arguments);
+        this.consumeKeydownEvent = false;
+        this.ignoreEnterKey = false;
+        this.ignorePopstate = false;
+        this.noCancel = false;
+        this.open = false;
+        this.showCloseButton = false;
+        this.showOnAttach = false;
         this.intersectionObserver_ = null;
         this.mutationObserver_ = null;
         this.boundKeydown_ = null;
@@ -17064,69 +17085,56 @@ class CrDialogElement extends CrDialogElementBase {
     static get is() {
         return 'cr-dialog';
     }
-    static get template() {
-        return getTemplate$O();
+    static get styles() {
+        return [
+            getCss$3(),
+            getCss$2(),
+            getCss$1(),
+        ];
+    }
+    render() {
+        return getHtml$1.bind(this)();
     }
     static get properties() {
         return {
             open: {
                 type: Boolean,
-                value: false,
-                reflectToAttribute: true,
+                reflect: true,
             },
             /**
              * Alt-text for the dialog close button.
              */
-            closeText: String,
+            closeText: { type: String },
             /**
              * True if the dialog should remain open on 'popstate' events. This is
              * used for navigable dialogs that have their separate navigation handling
              * code.
              */
-            ignorePopstate: {
-                type: Boolean,
-                value: false,
-            },
+            ignorePopstate: { type: Boolean },
             /**
              * True if the dialog should ignore 'Enter' keypresses.
              */
-            ignoreEnterKey: {
-                type: Boolean,
-                value: false,
-            },
+            ignoreEnterKey: { type: Boolean },
             /**
              * True if the dialog should consume 'keydown' events. If ignoreEnterKey
              * is true, 'Enter' key won't be consumed.
              */
-            consumeKeydownEvent: {
-                type: Boolean,
-                value: false,
-            },
+            consumeKeydownEvent: { type: Boolean },
             /**
              * True if the dialog should not be able to be cancelled, which will
              * prevent 'Escape' key presses from closing the dialog.
              */
-            noCancel: {
-                type: Boolean,
-                value: false,
-            },
+            noCancel: { type: Boolean },
             // True if dialog should show the 'X' close button.
-            showCloseButton: {
-                type: Boolean,
-                value: false,
-            },
-            showOnAttach: {
-                type: Boolean,
-                value: false,
-            },
+            showCloseButton: { type: Boolean },
+            showOnAttach: { type: Boolean },
             /**
              * Text for the aria description.
              */
-            ariaDescriptionText: String,
+            ariaDescriptionText: { type: String },
         };
     }
-    ready() {
-        super.ready();
+    firstUpdated() {
         // If the active history entry changes (i.e. user clicks back button),
         // all open dialogs should be cancelled.
         window.addEventListener('popstate', () => {
@@ -17189,14 +17197,15 @@ class CrDialogElement extends CrDialogElementBase {
         document.body.removeEventListener('keydown', this.boundKeydown_);
         this.boundKeydown_ = null;
     }
-    showModal() {
+    async showModal() {
         this.$.dialog.showModal();
         assert$1(this.$.dialog.open);
         this.open = true;
-        this.dispatchEvent(new CustomEvent('cr-dialog-open', { bubbles: true, composed: true }));
+        await this.updateComplete;
+        this.fire('cr-dialog-open');
     }
     cancel() {
-        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
+        this.fire('cancel');
         this.$.dialog.close();
         assert$1(!this.$.dialog.open);
         this.open = false;
@@ -17226,9 +17235,9 @@ class CrDialogElement extends CrDialogElementBase {
         }
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.dispatchEvent(new CustomEvent('close', { bubbles: true, composed: true }));
+        this.fire('close');
     }
-    onNativeDialogCancel_(e) {
+    async onNativeDialogCancel_(e) {
         // Ignore any 'cancel' events not fired directly by the <dialog> element.
         if (e.target !== this.getNative()) {
             return;
@@ -17240,9 +17249,10 @@ class CrDialogElement extends CrDialogElementBase {
         // When the dialog is dismissed using the 'Esc' key, need to manually update
         // the |open| property (since close() is not called).
         this.open = false;
+        await this.updateComplete;
         // Catch and re-fire the native 'cancel' event such that it bubbles across
         // Shadow DOM v1.
-        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
+        this.fire('cancel');
     }
     /**
      * Expose the inner native <dialog> for some rare cases where it needs to be
@@ -21492,7 +21502,10 @@ class CrActionMenuElement extends CrLitElement {
             // Setting this flag will make the menu listen for content size changes
             // and reposition to its anchor accordingly.
             autoReposition: { type: Boolean },
-            open: { type: Boolean },
+            open: {
+                type: Boolean,
+                notify: true,
+            },
             // Descriptor of the menu. Should be something along the lines of "menu"
             roleDescription: { type: String },
         };
@@ -21505,9 +21518,6 @@ class CrActionMenuElement extends CrLitElement {
     disconnectedCallback() {
         super.disconnectedCallback();
         this.removeListeners_();
-    }
-    fire_(eventName, detail) {
-        this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
     }
     /**
      * Exposing internal <dialog> elements for tests.
@@ -21530,7 +21540,7 @@ class CrActionMenuElement extends CrLitElement {
         }
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.fire_('close');
+        this.fire('close');
     }
     onClick_(e) {
         if (e.target === this) {
@@ -21543,7 +21553,7 @@ class CrActionMenuElement extends CrLitElement {
         if (e.key === 'Tab' || e.key === 'Escape') {
             this.close();
             if (e.key === 'Tab') {
-                this.fire_('tabkeyclose', { shiftKey: e.shiftKey });
+                this.fire('tabkeyclose', { shiftKey: e.shiftKey });
             }
             e.preventDefault();
             return;
@@ -21612,7 +21622,6 @@ class CrActionMenuElement extends CrLitElement {
         if (this.lastConfig_) {
             this.lastConfig_ = null;
         }
-        this.fire_('open-changed', { value: this.open });
     }
     /**
      * Shows the menu anchored to the given element.
@@ -21701,7 +21710,6 @@ class CrActionMenuElement extends CrLitElement {
                 });
             }
         }
-        this.fire_('open-changed', { value: this.open });
     }
     resetStyle_() {
         this.$.dialog.style.left = '';
@@ -21756,7 +21764,7 @@ class CrActionMenuElement extends CrLitElement {
             this.resizeObserver_ = new ResizeObserver(() => {
                 if (this.lastConfig_) {
                     this.positionDialog_(this.lastConfig_);
-                    this.fire_('cr-action-menu-repositioned'); // For easier testing.
+                    this.fire('cr-action-menu-repositioned'); // For easier testing.
                 }
             });
             this.resizeObserver_.observe(this.$.dialog);
@@ -24994,53 +25002,10 @@ main{height:100%;width:100%}main:focus,main:focus-visible,main:focus-within{outl
 styleMod$2.register('wallpaper');
 
 const styleMod$1 = document.createElement('dom-module');
-styleMod$1.appendChild(html`
+styleMod$1.appendChild(html `
   <template>
     <style>
-
-wallpaper-grid-item.sea-pen-image {
-  --wallpaper-grid-item-width: 100%;
-  height: 100%;
-}
-
-.sea-pen-image[aria-selected='true']::part(image) {
-  animation: none;
-}
-
-.sea-pen-image[aria-selected='true']::part(icon) {
-  --cr-icon-button-size: 20px;
-  background-color: var(--cros-bg-color);
-  border-bottom-right-radius: 50%;
-  left: -8px;
-  padding: 8px;
-  top: -8px;
-}
-
-.sea-pen-image[aria-selected='true']::part(item) {
-  border-radius: var(--personalization-app-grid-item-border-radius);
-}
-
-.sea-pen-image[aria-selected='true']::part(icon)::before {
-  border-top-left-radius: 50%;
-  top: 8px;
-  box-shadow: 0 -8px 0 0 var(--cros-bg-color);
-  content: "";
-  height: 16px;
-  left: 36px;
-  position: absolute;
-  width: 16px;
-}
-
-.sea-pen-image[aria-selected='true']::part(icon)::after {
-  border-top-left-radius: 50%;
-  box-shadow: -8px 0 0 0 var(--cros-bg-color);
-  content: "";
-  height: 16px;
-  left: 8px;
-  position: absolute;
-  top: 36px;
-  width: 16px;
-}
+wallpaper-grid-item.sea-pen-image{--wallpaper-grid-item-width:100%;height:100%}.sea-pen-image[aria-selected=true]::part(image){animation:none}.sea-pen-image[aria-selected=true]::part(icon){--cr-icon-button-size:20px;background-color:var(--cros-bg-color);border-bottom-right-radius:50%;left:-8px;padding:8px;top:-8px}.sea-pen-image[aria-selected=true]::part(item){border-radius:var(--personalization-app-grid-item-border-radius)}.sea-pen-image[aria-selected=true]::part(icon)::before{border-top-left-radius:50%;top:8px;box-shadow:0 -8px 0 0 var(--cros-bg-color);content:"";height:16px;left:36px;position:absolute;width:16px}.sea-pen-image[aria-selected=true]::part(icon)::after{border-top-left-radius:50%;box-shadow:-8px 0 0 0 var(--cros-bg-color);content:"";height:16px;left:8px;position:absolute;top:36px;width:16px}
     </style>
   </template>
 `.content);
@@ -25740,27 +25705,10 @@ function parseCssColor(color) {
 }
 
 function getTemplate$p() {
-  return html`<!--_html_template_start_--><style>
-  :host {
-    display: block;
-    contain: strict;
-    position: relative;
-    overflow: hidden;
-  }
-
-  :host, canvas {
-    height: 100%;
-    touch-action: none;
-    user-select: none;
-    width: 100%;
-    -webkit-tap-highlight-color: transparent;
-    -webkit-user-select: none;
-  }
-</style>
-<iron-media-query query="(prefers-color-scheme: dark)"
-      query-matches="{{isDarkModeActive}}">
+    return html `<!--_html_template_start_--><style>:host{display:block;contain:strict;position:relative;overflow:hidden}:host,canvas{height:100%;touch-action:none;user-select:none;width:100%;-webkit-tap-highlight-color:transparent;-webkit-user-select:none}</style>
+<iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive}}">
 <slot></slot>
-<!--_html_template_end_-->`;
+</iron-media-query><!--_html_template_end_-->`;
 }
 
 // Copyright 2023 The Chromium Authors
@@ -25844,37 +25792,11 @@ class SparklePlaceholderElement extends PolymerElement {
 customElements.define(SparklePlaceholderElement.is, SparklePlaceholderElement);
 
 function getTemplate$o() {
-  return html`<!--_html_template_start_--><style include="common wallpaper sea-pen">
-  .feedback-buttons-container {
-    align-items: flex-end;
-    background-color: var(--cros-bg-color);
-    border-bottom-right-radius: var(--personalization-app-grid-item-border-radius);
-    border-top-left-radius: 24px;
-    bottom: 0;
-    display: flex;
-    gap: 16px;
-    height: 36px;
-    justify-content: flex-end;
-    position: absolute;
-    right: 0;
-    width: 76px;
-  }
-
-  cr-icon-button {
-    --cr-icon-button-size: 24px;
-    margin-inline: 0;
-  }
-</style>
+    return html `<!--_html_template_start_--><style include="common wallpaper sea-pen">.feedback-buttons-container{align-items:flex-end;background-color:var(--cros-bg-color);border-bottom-right-radius:var(--personalization-app-grid-item-border-radius);border-top-left-radius:24px;bottom:0;display:flex;gap:16px;height:36px;justify-content:flex-end;position:absolute;right:0;width:76px}cr-icon-button{--cr-icon-button-size:24px;margin-inline:0}</style>
 <div class="feedback-buttons-container">
-  <cr-icon-button id="thumbsUp"
-      iron-icon="[[getThumbsUpIcon_(selectedFeedbackOption)]]"
-      role="button"
-      on-click="onClickThumbsUp_">
+  <cr-icon-button id="thumbsUp" iron-icon="[[getThumbsUpIcon_(selectedFeedbackOption)]]" role="button" on-click="onClickThumbsUp_">
   </cr-icon-button>
-  <cr-icon-button id="thumbsDown"
-      iron-icon="[[getThumbsDownIcon_(selectedFeedbackOption)]]"
-      role="button"
-      on-click="onClickThumbsDown_">
+  <cr-icon-button id="thumbsDown" iron-icon="[[getThumbsDownIcon_(selectedFeedbackOption)]]" role="button" on-click="onClickThumbsDown_">
   </cr-icon-button>
 </div>
 <!--_html_template_end_-->`;
@@ -26291,134 +26213,10 @@ async function acceptSeaPenTermsOfService(provider, store) {
 }
 
 function getTemplate$n() {
-  return html`<!--_html_template_start_--><style include="common wallpaper sea-pen">
-  :host {
-    overflow: hidden;
-  }
-
-  iron-list {
-    width: 100%;
-  }
-
-  .thumbnail-item-container,
-  .thumbnail-placeholder-container {
-    box-sizing: border-box;
-    height: 240px;
-    overflow: hidden;
-    /* Subtract 0.5px to fix subpixel rounding issues with iron-list. This
-     * ensures all grid items in a row add up to at least 1px smaller than the
-     * parent width. */
-    width: calc(100% / 2 - 0.5px);
-  }
-
-  .thumbnail-placeholder-container {
-    padding: calc(var(--personalization-app-grid-item-spacing) / 2);
-  }
-
-  .thumbnail-placeholder {
-    background-color: var(--personalization-app-grid-item-background-color);
-    border-radius: var(--personalization-app-grid-item-border-radius);
-    height: 100%;
-  }
-
-  .feedback-icon-container {
-    align-items: flex-end;
-    bottom: 10px;
-    display: flex;
-    justify-content: flex-end;
-    height: 48px;
-    position: absolute;
-    right: 10px;
-    visibility: hidden;
-    width: 88px;
-    z-index: 2;
-  }
-
-  .thumbnail-item-container:hover > .feedback-icon-container {
-    visibility: visible;
-  }
-
-  .thumbnail-item-container paper-spinner-lite {
-    width: 60px;
-    height: 60px;
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-  }
-
-  wallpaper-grid-item[aria-disabled='true']::part(image) {
-    filter: grayscale(80%);
-  }
-
-  .feedback-icon-container-inner {
-    align-items: flex-end;
-    background-color: var(--cros-bg-color);
-    border-bottom-right-radius: var(--personalization-app-grid-item-border-radius);
-    border-top-left-radius: 24px;
-    bottom: 0;
-    display: flex;
-    gap: 16px;
-    height: 36px;
-    justify-content: flex-end;
-    position: absolute;
-    right: 0;
-    width: 76px;
-  }
-
-  div[class^="feedback-icon-container-shadow"] {
-    height: 12px;
-    overflow: hidden;
-    position: absolute;
-    width: 12px;
-  }
-
-  div[class^="feedback-icon-container-shadow"]::before {
-    border-bottom-right-radius: 100%;
-    bottom: 0;
-    box-shadow: 0px 12px 0px 12px var(--cros-bg-color);
-    content: '';
-    height: 100%;
-    position: absolute;
-    right: 0;
-    width: 100%;
-  }
-
-  .feedback-icon-container-shadow-left {
-    right: 76px;
-  }
-
-  .feedback-icon-container-shadow-top {
-    bottom: 36px;
-  }
-
-  .error-container {
-    align-items: center;
-    display: flex;
-    flex-flow: column nowrap;
-    height: 100%;
-    justify-content: center;
-    width: 100%;
-  }
-
-  iron-icon[icon^='personalization-shared-illo:'] {
-    --iron-icon-width: 400px;
-    --iron-icon-height: 177px;
-    top: -24px;
-  }
-
-  .error-message {
-    font: var(--cros-body-1-font);
-    margin: 0 12px 0 12px;
-    max-width: 316px;
-    position: relative;
-    top: -12px;
-  }
-</style>
+    return html `<!--_html_template_start_--><style include="common wallpaper sea-pen">:host{overflow:hidden}iron-list{width:100%}.thumbnail-item-container,.thumbnail-placeholder-container{box-sizing:border-box;height:240px;overflow:hidden;width:calc(100% / 2 - .5px)}.thumbnail-placeholder-container{padding:calc(var(--personalization-app-grid-item-spacing)/ 2)}.thumbnail-placeholder{background-color:var(--personalization-app-grid-item-background-color);border-radius:var(--personalization-app-grid-item-border-radius);height:100%}.feedback-icon-container{align-items:flex-end;bottom:10px;display:flex;justify-content:flex-end;height:48px;position:absolute;right:10px;visibility:hidden;width:88px;z-index:2}.thumbnail-item-container:hover>.feedback-icon-container{visibility:visible}.thumbnail-item-container paper-spinner-lite{width:60px;height:60px;left:50%;position:absolute;top:50%;transform:translate(-50%,-50%);z-index:1}wallpaper-grid-item[aria-disabled=true]::part(image){filter:grayscale(80%)}.feedback-icon-container-inner{align-items:flex-end;background-color:var(--cros-bg-color);border-bottom-right-radius:var(--personalization-app-grid-item-border-radius);border-top-left-radius:24px;bottom:0;display:flex;gap:16px;height:36px;justify-content:flex-end;position:absolute;right:0;width:76px}div[class^=feedback-icon-container-shadow]{height:12px;overflow:hidden;position:absolute;width:12px}div[class^=feedback-icon-container-shadow]::before{border-bottom-right-radius:100%;bottom:0;box-shadow:0 12px 0 12px var(--cros-bg-color);content:'';height:100%;position:absolute;right:0;width:100%}.feedback-icon-container-shadow-left{right:76px}.feedback-icon-container-shadow-top{bottom:36px}.error-container{align-items:center;display:flex;flex-flow:column nowrap;height:100%;justify-content:center;width:100%}iron-icon[icon^='personalization-shared-illo:']{--iron-icon-width:400px;--iron-icon-height:177px;top:-24px}.error-message{font:var(--cros-body-1-font);margin:0 12px 0 12px;max-width:316px;position:relative;top:-12px}</style>
 <template is="dom-if" if="[[showError_]]" restamp>
   <div class="error-container">
-    <!-- TODO(b/319171051): Add other error images when available. -->
+    
     <iron-icon icon$="[[getErrorIllo_(thumbnailResponseStatusCode_)]]"></iron-icon>
     <p class="error-message">[[getErrorMessage_(thumbnailResponseStatusCode_)]]</p>
   </div>
@@ -26447,36 +26245,19 @@ function getTemplate$n() {
     </iron-list>
   </template>
   <template is="dom-if" if="[[shouldShowImageThumbnails_(thumbnailsLoading_, thumbnails_)]]" restamp>
-    <iron-list id="grid"
-        items="[[thumbnails_]]"
-        grid
-        role="listbox">
+    <iron-list id="grid" items="[[thumbnails_]]" grid role="listbox">
       <template>
         <div class="thumbnail-item-container">
-          <template
-              is="dom-if"
-              if="[[isThumbnailLoading_(item, pendingSelected_)]]"
-              restamp>
+          <template is="dom-if" if="[[isThumbnailLoading_(item, pendingSelected_)]]" restamp>
             <paper-spinner-lite active></paper-spinner-lite>
           </template>
           <div class="feedback-icon-container">
-            <sea-pen-feedback
-                on-selected-feedback-changed="onSelectedFeedbackChanged_">
+            <sea-pen-feedback on-selected-feedback-changed="onSelectedFeedbackChanged_">
             </sea-pen-feedback>
             <div class="feedback-icon-container-shadow-left"></div>
             <div class="feedback-icon-container-shadow-top"></div>
           </div>
-          <wallpaper-grid-item
-              class="sea-pen-image"
-              disabled="[[isThumbnailLoading_(item, pendingSelected_)]]"
-              index="[[index]]"
-              data-sea-pen-image
-              aria-posinset$="[[getAriaIndex_(index)]]"
-              on-wallpaper-grid-item-selected="onThumbnailSelected_"
-              role="option"
-              selected="[[isThumbnailSelected_(item, currentSelected_, pendingSelected_)]]"
-              src="[[item.image]]"
-              tabindex$="[[tabIndex]]">
+          <wallpaper-grid-item class="sea-pen-image" disabled="[[isThumbnailLoading_(item, pendingSelected_)]]" index="[[index]]" data-sea-pen-image aria-posinset$="[[getAriaIndex_(index)]]" on-wallpaper-grid-item-selected="onThumbnailSelected_" role="option" selected="[[isThumbnailSelected_(item, currentSelected_, pendingSelected_)]]" src="[[item.image]]" tabindex$="[[tabIndex]]">
           </wallpaper-grid-item>
         </div>
       </template>
@@ -26668,18 +26449,14 @@ class SeaPenImagesElement extends WithSeaPenStore {
 }
 customElements.define(SeaPenImagesElement.is, SeaPenImagesElement);
 
-const template$1 = html`<iron-iconset-svg name="sea-pen" size="20">
+const template$1 = html `<iron-iconset-svg name="sea-pen" size="20">
   <svg>
     <defs>
       <g id="photo-spark" width="24" height="24" viewBox="0 -960 960 960">
         <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h320v80H200v560h560v-320h80v320q0 33-23.5 56.5T760-120H200Zm40-160 120-160 90 120 120-160 150 200H240Zm460-200q0-92-64-156t-156-64q92 0 156-64t64-156q0 92 64 156t156 64q-92 0-156 64t-64 156Z"></path>
       </g>
       <g id="inspire" width="20" height="20" viewBox="0 0 20 20">
-        <style>
-          path {
-            fill: var(--cros-sys-on_primary_container);
-          }
-        </style>
+        <style>path{fill:var(--cros-sys-on_primary_container)}</style>
         <path d="M9.99967 18.3327C9.62467 18.3327 9.29481 18.2424 9.01009 18.0618C8.72537 17.8813 8.54134 17.6313 8.45801 17.3118H8.16634C7.83301 17.3118 7.54134 17.1868 7.29134 16.9368C7.04134 16.6868 6.91634 16.3952 6.91634 16.0618V13.0827C5.99967 12.4855 5.27745 11.7216 4.74967 10.791C4.2219 9.86046 3.95801 8.83268 3.95801 7.70768C3.95801 6.02713 4.54481 4.60004 5.71842 3.42643C6.89204 2.25282 8.31912 1.66602 9.99967 1.66602C11.6802 1.66602 13.1073 2.25282 14.2809 3.42643C15.4545 4.60004 16.0413 6.02713 16.0413 7.70768C16.0413 8.83268 15.7775 9.86046 15.2497 10.791C14.7219 11.7216 13.9997 12.4855 13.083 13.0827V16.0618C13.083 16.3952 12.958 16.6868 12.708 16.9368C12.458 17.1868 12.1663 17.3118 11.833 17.3118H11.5413C11.458 17.6313 11.274 17.8813 10.9893 18.0618C10.7045 18.2424 10.3747 18.3327 9.99967 18.3327ZM8.16634 16.0618H11.833V15.1452H8.16634V16.0618ZM8.16634 14.3118H11.833V13.4785H8.16634V14.3118ZM7.97884 12.2285H9.52051H10.4788H12.0205C12.8538 11.8396 13.524 11.2355 14.0309 10.416C14.5379 9.59657 14.7913 8.69379 14.7913 7.70768C14.7913 6.36046 14.3295 5.22504 13.4059 4.30143C12.4823 3.37782 11.3469 2.91602 9.99967 2.91602C8.65245 2.91602 7.51704 3.37782 6.59342 4.30143C5.66981 5.22504 5.20801 6.36046 5.20801 7.70768C5.20801 8.69379 5.46148 9.59657 5.96842 10.416C6.47537 11.2355 7.14551 11.8396 7.97884 12.2285Z"></path>
         <path d="M11 10L10.0625 7.9375L8 7L10.0625 6.0625L11 4L11.9375 6.0625L14 7L11.9375 7.9375L11 10Z"></path>
         <path d="M16 4L15.375 2.625L14 2L15.375 1.375L16 0L16.625 1.375L18 2L16.625 2.625L16 4Z"></path>
@@ -26983,41 +26760,15 @@ class CrInputElement extends PolymerElement {
 customElements.define(CrInputElement.is, CrInputElement);
 
 function getTemplate$l() {
-  return html`<!--_html_template_start_--><style include="wallpaper common cros-button-style">
-  #container {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: center;
-  }
-
-  #queryInput {
-    padding: 12px 0;
-    text-align: center;
-    --cr-input-error-display: none;
-  }
-
-  #buttonContainer {
-    padding: 12px 0;
-  }
-</style>
+    return html `<!--_html_template_start_--><style include="wallpaper common cros-button-style">#container{align-items:center;display:flex;flex-direction:column;height:100%;justify-content:center}#queryInput{padding:12px 0;text-align:center;--cr-input-error-display:none}#buttonContainer{padding:12px 0}</style>
 
 <div id="container">
-  <cr-input id="queryInput"
-      maxlength="[[maxTextLength_]]"
-      placeholder="Describe your wallpaper"
-      type="text"
-      value="{{textValue_}}">
+  <cr-input id="queryInput" maxlength="[[maxTextLength_]]" placeholder="Describe your wallpaper" type="text" value="{{textValue_}}">
   </cr-input>
   <div id="buttonContainer">
-    <cr-button
-        id="searchButton"
-        class="action-button"
-        disabled$="[[thumbnailsLoading_]]"
-        on-click="onClickInputQuerySearchButton_">
-      <iron-icon icon$="[[getSearchButtonIcon_(path)]]" slot="prefix-icon"></iron-icon>
-      [[getSearchButtonText_(path)]]
+    <cr-button id="searchButton" class="action-button" disabled$="[[thumbnailsLoading_]]" on-click="onClickInputQuerySearchButton_">
+      <iron-icon icon$="[[getSearchButtonIcon_(path, thumbnails_)]]" slot="prefix-icon"></iron-icon>
+      [[getSearchButtonText_(path, thumbnails_)]]
     </cr-button>
   </div>
 </div>
@@ -27025,145 +26776,32 @@ function getTemplate$l() {
 }
 
 function getTemplate$k() {
-  return html`<!--_html_template_start_--><style include="wallpaper common sea-pen">
-  :host {
-    overflow: hidden;
-  }
-
-  iron-list {
-    width: 100%;
-  }
-
-  .recent-image-container {
-    height: calc(var(--personalization-app-grid-item-height) + var(--personalization-app-grid-item-spacing));
-    /* Media queries in trusted and untrusted code will resize to 25% at
-     * correct widths.  Subtract 0.34px to fix subpixel rounding issues with
-     * iron-list. This makes sure all photo containers on a row add up to at
-     * least 1px smaller than the parent width.*/
-    width: calc(100% / 3 - 0.34px);
-  }
-
-  @media(min-width: 720px) {
-    .recent-image-container {
-      /* Subtract 0.25px to fix subpixel rounding issues with iron-list. This
-       * ensures all grid items in a row add up to at least 1px smaller than the
-       * parent width. */
-      width: calc(100% / 4 - 0.25px);
-    }
-  }
-
-  .menu-icon-container {
-    align-items: flex-end;
-    bottom: 10px;
-    display: flex;
-    justify-content: flex-end;
-    height: 28px;
-    position: absolute;
-    right: 10px;
-    width: 28px;
-    z-index: 1;
-  }
-
-  .menu-icon-container-inner {
-    align-items: flex-end;
-    background-color: var(--cros-bg-color);
-    border-bottom-right-radius: var(--personalization-app-grid-item-border-radius);
-    border-top-left-radius: 50%;
-    bottom: 0;
-    display: flex;
-    height: 26px;
-    justify-content: flex-end;
-    position: absolute;
-    right: 0;
-    width: 26px;
-  }
-
-  div[class^="menu-icon-container-shadow"] {
-    height: 12px;
-    overflow: hidden;
-    position: absolute;
-    width: 12px;
-  }
-
-  div[class^="menu-icon-container-shadow"]::before {
-    border-bottom-right-radius: 100%;
-    bottom: 0;
-    box-shadow: 0px 12px 0px 12px var(--cros-bg-color);
-    content: '';
-    height: 100%;
-    position: absolute;
-    right: 0;
-    width: 100%;
-  }
-
-  .menu-icon-container-shadow-left {
-    right: 26px;
-  }
-
-  .menu-icon-container-shadow-top {
-    bottom: 26px;
-  }
-
-  .menu-icon-button {
-    --cr-icon-button-size: 20px;
-    background-color: var(--cros-bg-color);
-    bottom: 1px;
-    margin-inline: 0;
-    position: absolute;
-  }
-
-  .dropdown-item > iron-icon {
-    margin-inline-end: 8px;
-  }
-
-  .more-like-this-option,
-  .wallpaper-info-option {
-    display: none;
-  }
-</style>
+    return html `<!--_html_template_start_--><style include="wallpaper common sea-pen">:host{overflow:hidden}iron-list{width:100%}.recent-image-container{height:calc(var(--personalization-app-grid-item-height) + var(--personalization-app-grid-item-spacing));width:calc(100% / 3 - .34px)}@media(min-width:720px){.recent-image-container{width:calc(100% / 4 - .25px)}}.menu-icon-container{align-items:flex-end;bottom:10px;display:flex;justify-content:flex-end;height:28px;position:absolute;right:10px;width:28px;z-index:1}.menu-icon-container-inner{align-items:flex-end;background-color:var(--cros-bg-color);border-bottom-right-radius:var(--personalization-app-grid-item-border-radius);border-top-left-radius:50%;bottom:0;display:flex;height:26px;justify-content:flex-end;position:absolute;right:0;width:26px}div[class^=menu-icon-container-shadow]{height:12px;overflow:hidden;position:absolute;width:12px}div[class^=menu-icon-container-shadow]::before{border-bottom-right-radius:100%;bottom:0;box-shadow:0 12px 0 12px var(--cros-bg-color);content:'';height:100%;position:absolute;right:0;width:100%}.menu-icon-container-shadow-left{right:26px}.menu-icon-container-shadow-top{bottom:26px}.menu-icon-button{--cr-icon-button-size:20px;background-color:var(--cros-bg-color);bottom:1px;margin-inline:0;position:absolute}.dropdown-item>iron-icon{margin-inline-end:8px}.more-like-this-option,.wallpaper-info-option{display:none}</style>
 <template is="dom-if" if="[[shouldShowRecentlyUsedWallpapers_(recentImages_)]]">
   <h2 class="wallpaper-collections-heading">[[i18n('seaPenRecentWallpapersHeading')]]</h2>
-  <iron-list id="grid"
-      items="[[recentImagesToDisplay_]]"
-      as="image"
-      grid
-      aria-setsize$="[[recentImagesToDisplay_.length]]"
-      role="listbox">
+  <iron-list id="grid" items="[[recentImagesToDisplay_]]" as="image" grid aria-setsize$="[[recentImagesToDisplay_.length]]" role="listbox">
     <template>
       <div class="recent-image-container">
-        <wallpaper-grid-item
-            class="sea-pen-image"
-            index="[[index]]"
-            data-sea-pen-image
-            aria-posinset$="[[getAriaIndex_(index)]]"
-            on-wallpaper-grid-item-selected="onRecentImageSelected_"
-            role="option"
-            selected="[[isRecentImageSelected_(image, currentSelected_, pendingSelected_)]]"
-            src="[[getRecentImageUrl_(image, recentImageData_, recentImageDataLoading_)]]"
-            tabindex$="[[tabIndex]]">
+        <wallpaper-grid-item class="sea-pen-image" index="[[index]]" data-sea-pen-image aria-posinset$="[[getAriaIndex_(index)]]" on-wallpaper-grid-item-selected="onRecentImageSelected_" role="option" selected="[[isRecentImageSelected_(image, currentSelected_, pendingSelected_)]]" src="[[getRecentImageUrl_(image, recentImageData_, recentImageDataLoading_)]]" tabindex$="[[tabIndex]]">
         </wallpaper-grid-item>
         <div class="menu-icon-container">
           <div class="menu-icon-container-inner">
-            <cr-icon-button class="menu-icon-button" data-id$="[[index]]" iron-icon="cr:more-vert"
-              role="button" on-click="onClickMenuIcon_">
+            <cr-icon-button class="menu-icon-button" data-id$="[[index]]" iron-icon="cr:more-vert" role="button" on-click="onClickMenuIcon_">
             </cr-icon-button>
           </div>
           <div class="menu-icon-container-shadow-left"></div>
           <div class="menu-icon-container-shadow-top"></div>
         </div>
         <cr-action-menu class="action-menu-container">
-          <button data-id$="[[index]]" class="dropdown-item more-like-this-option"
-              on-click="onClickMoreLikeThis_">
+          <button data-id$="[[index]]" class="dropdown-item more-like-this-option" on-click="onClickMoreLikeThis_">
             <iron-icon icon="cr:add"></iron-icon>
             [[i18n('seaPenCreateMore')]]
           </button>
-          <button class="dropdown-item delete-wallpaper-option"
-              on-click="onClickDeleteWallpaper_">
+          <button class="dropdown-item delete-wallpaper-option" on-click="onClickDeleteWallpaper_">
             <iron-icon icon="sea-pen:delete"></iron-icon>
             [[i18n('seaPenDeleteWallpaper')]]
           </button>
-          <button data-id$="[[index]]" class="dropdown-item wallpaper-info-option"
-              on-click="onClickWallpaperInfo_">
+          <button data-id$="[[index]]" class="dropdown-item wallpaper-info-option" on-click="onClickWallpaperInfo_">
             <iron-icon icon="cr:info-outline"></iron-icon>
             [[i18n('seaPenAbout')]]
           </button>
@@ -27381,117 +27019,7 @@ class SeaPenRecentWallpapersElement extends WithSeaPenStore {
 customElements.define(SeaPenRecentWallpapersElement.is, SeaPenRecentWallpapersElement);
 
 function getTemplate$j() {
-  return html`<!--_html_template_start_--><style include="common cros-button-style">
-  .main {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: center;
-    margin-inline-start: 8px;
-  }
-
-  #placeholder {
-    height: 40px;
-  }
-
-  #template {
-    align-items: start;
-    border-bottom-color: var(--cros-text-color-primary);
-    color: var(--cros-text-color-primary);
-    display: flex;
-    font: var(--cros-display-6_regular-font);
-    justify-content: center;
-    padding: 12px 0;
-  }
-
-  #template .unselected {
-    border-bottom-color: var(--cros-text-color-disabled);
-    color: var(--cros-text-color-disabled);
-  }
-
-  .chip-container {
-    cursor: pointer;
-    display: grid;
-    grid-template-areas: 'chip';
-  }
-
-  .template-text {
-    padding: 0 4px;
-  }
-
-  .chip-text {
-    border: 2px solid transparent;
-    border-radius: 8px;
-    bottom: 2px;
-    grid-area: chip;
-    padding: 0 4px;
-    position: relative;
-  }
-
-  .chip-text:hover {
-    background-color: var(--cros-sys-hover_on_subtle);
-  }
-
-  .chip-text:focus {
-    background-color: var(--cros-sys-ripple_primary);
-    border: 2px solid var(--cros-sys-focus_ring);
-  }
-
-  .underline {
-    border-bottom: 2px dotted;
-    grid-area: chip;
-    /* Add one pixel to move the underline below the border. */
-    height: calc(100% + 1px);
-    justify-self: center;
-    /* Subtract 8 pixels so as to not underline the padding from .chip-text. */
-    width: calc(100% - 8px);
-    z-index: -1;
-  }
-
-  #searchButtons {
-    align-items: center;
-    box-sizing: border-box;
-    display: flex;
-    height: 56px;
-    justify-content: center;
-    padding: 12px 0;
-  }
-
-  #searchButtons cr-button {
-    margin: 0 4px;
-  }
-
-  #thumbnailsLoadingText {
-    color: var(--cros-text-color-prominent);
-    font: var(--cros-annotation-1-font);
-  }
-
-  cr-button {
-    font: var(--cros-button-2-font);
-  }
-
-  .dropdown-check {
-    margin-inline-end: 16px;
-  }
-
-  button:not([aria-selected='true']) iron-icon.dropdown-check {
-    visibility: hidden;
-  }
-
-  p {
-    padding-inline-end: 3px;
-  }
-
-  button {
-    font: var(--cros-button-2-font);
-    padding: 8px 32px 8px 16px;
-  }
-
-  cr-action-menu::part(dialog) {
-    /* The menu only takes up half of the screen. */
-    max-height: calc(100vh / 2);
-  }
-</style>
+    return html `<!--_html_template_start_--><style include="common cros-button-style">.main{display:flex;flex-direction:column;height:100%;justify-content:center;margin-inline-start:8px}#placeholder{height:40px}#template{align-items:start;border-bottom-color:var(--cros-text-color-primary);color:var(--cros-text-color-primary);display:flex;font:var(--cros-display-6_regular-font);justify-content:center;padding:12px 0}#template .unselected{border-bottom-color:var(--cros-text-color-disabled);color:var(--cros-text-color-disabled)}.chip-container{cursor:pointer;display:grid;grid-template-areas:'chip'}.template-text{padding:0 4px}.chip-text{border:2px solid transparent;border-radius:8px;bottom:2px;grid-area:chip;padding:0 4px;position:relative}.chip-text:hover{background-color:var(--cros-sys-hover_on_subtle)}.chip-text:focus{background-color:var(--cros-sys-ripple_primary);border:2px solid var(--cros-sys-focus_ring)}.underline{border-bottom:2px dotted;grid-area:chip;height:calc(100% + 1px);justify-self:center;width:calc(100% - 8px);z-index:-1}#searchButtons{align-items:center;box-sizing:border-box;display:flex;height:56px;justify-content:center;padding:12px 0}#searchButtons cr-button{margin:0 4px}#thumbnailsLoadingText{color:var(--cros-text-color-prominent);font:var(--cros-annotation-1-font)}cr-button{font:var(--cros-button-2-font)}.dropdown-check{margin-inline-end:16px}button:not([aria-selected=true]) iron-icon.dropdown-check{visibility:hidden}p{padding-inline-end:3px}button{font:var(--cros-button-2-font);padding:8px 32px 8px 16px}cr-action-menu::part(dialog){max-height:calc(100vh / 2)}</style>
 <div class="main">
   <div id="template">
     <template is="dom-repeat" items="[[templateTokens_]]" as="token">
@@ -27519,23 +27047,16 @@ function getTemplate$j() {
         <iron-icon icon="sea-pen:inspire" slot="prefix-icon"></iron-icon>
         <p>[[i18n('seaPenInspireMeButton')]]</p>
       </cr-button>
-      <cr-button
-          id="searchButton"
-          class="action-button"
-          on-click="onClickSearchButton_">
-        <iron-icon icon="[[getSearchButtonIcon_(path)]]" slot="prefix-icon">
+      <cr-button id="searchButton" class="action-button" on-click="onClickSearchButton_">
+        <iron-icon icon$="[[getSearchButtonIcon_(path, thumbnails_)]]" slot="prefix-icon">
         </iron-icon>
-        <p>[[getSearchButtonText_(path)]]</p>
+        <p>[[getSearchButtonText_(path, thumbnails_)]]</p>
       </cr-button>
     </template>
   </div>
   <cr-action-menu>
     <template id="optionList" is="dom-repeat" items="[[options_]]" as="option">
-      <button
-          aria-selected$="[[isOptionSelected_(option, selectedChip_.translation)]]"
-          class="dropdown-item"
-          data-id$="[[template.id]]"
-          on-click="onClickOption_">
+      <button aria-selected$="[[isOptionSelected_(option, selectedChip_.translation)]]" class="dropdown-item" data-id$="[[template.id]]" on-click="onClickOption_">
         <iron-icon class="dropdown-check" icon="cr:check"></iron-icon>
         [[option.translation]]
       </button>
@@ -27589,11 +27110,13 @@ class SeaPenTemplateQueryElement extends WithSeaPenStore {
             options_: {
                 type: Array,
             },
+            thumbnails_: Object,
             thumbnailsLoading_: Boolean,
         };
     }
     connectedCallback() {
         super.connectedCallback();
+        this.watch('thumbnails_', state => state.thumbnails);
         this.watch('thumbnailsLoading_', state => state.loading.thumbnails);
         this.updateFromStore();
     }
@@ -27706,7 +27229,11 @@ class SeaPenTemplateQueryElement extends WithSeaPenStore {
         logGenerateSeaPenWallpaper(this.getSeaPenTemplateId_());
         SeaPenRouterElement.instance().goToRoute(SeaPenPaths.RESULTS, { seaPenTemplateId: this.templateId.toString() });
     }
-    getSearchButtonText_(path) {
+    getSearchButtonText_(path, thumbnails) {
+        if (!thumbnails) {
+            // The thumbnails are not loaded yet.
+            return this.i18n('seaPenCreateButton');
+        }
         switch (path) {
             case SeaPenPaths.RESULTS:
                 return this.i18n('seaPenRecreateButton');
@@ -27715,7 +27242,11 @@ class SeaPenTemplateQueryElement extends WithSeaPenStore {
                 return this.i18n('seaPenCreateButton');
         }
     }
-    getSearchButtonIcon_(path) {
+    getSearchButtonIcon_(path, thumbnails) {
+        if (!thumbnails) {
+            // The thumbnails are not loaded yet.
+            return 'sea-pen:photo-spark';
+        }
         switch (path) {
             case SeaPenPaths.RESULTS:
                 return 'personalization-shared:refresh';
@@ -27728,56 +27259,12 @@ class SeaPenTemplateQueryElement extends WithSeaPenStore {
 customElements.define(SeaPenTemplateQueryElement.is, SeaPenTemplateQueryElement);
 
 function getTemplate$i() {
-  return html`<!--_html_template_start_--><style include="wallpaper common">
-  :host {
-    overflow: hidden;
-  }
+    return html `<!--_html_template_start_--><style include="wallpaper common">:host{overflow:hidden}iron-list{width:100%}.template-chip{border-bottom:2px dotted #fff}.template-info{font:var(--cros-body-1-font)}#templateTitle{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:4px}wallpaper-grid-item[data-sea-pen-image]::part(text){position:unset}</style>
 
-  iron-list {
-    width: 100%;
-  }
-
-  .template-chip {
-    border-bottom: 2px dotted white;
-  }
-
-  .template-info {
-    font: var(--cros-body-1-font);
-  }
-
-  #templateTitle {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px;
-  }
-
-  wallpaper-grid-item[data-sea-pen-image]::part(text) {
-    position: unset;
-  }
-</style>
-<!-- TODO(b/308200616): Add real text -->
 <h2 class="wallpaper-collections-heading">[[i18n('seaPenTemplateHeading')]]</h2>
-<iron-list id="grid"
-    items="[[seaPenTemplates_]]"
-    as="template"
-    grid
-    aria-setsize$="[[seaPenTemplates_.length]]"
-    role="listbox">
+<iron-list id="grid" items="[[seaPenTemplates_]]" as="template" grid aria-setsize$="[[seaPenTemplates_.length]]" role="listbox">
   <template>
-    <wallpaper-grid-item
-        class="sea-pen-template"
-        index="[[index]]"
-        data-sea-pen-image
-        aria-posinset$="[[getAriaIndex_(index)]]"
-        on-mouseout="onMouseOut_"
-        on-mouseover="onMouseOver_"
-        on-wallpaper-grid-item-selected="onTemplateSelected_"
-        primary-text="[[template.title]]"
-        role="option"
-        src="[[template.preview]]"
-        tabindex$="[[tabIndex]]">
+    <wallpaper-grid-item class="sea-pen-template" index="[[index]]" data-sea-pen-image aria-posinset$="[[getAriaIndex_(index)]]" on-mouseout="onMouseOut_" on-mouseover="onMouseOver_" on-wallpaper-grid-item-selected="onTemplateSelected_" primary-text="[[template.title]]" role="option" src="[[template.preview]]" tabindex$="[[tabIndex]]">
         <div id="templateTitle" slot="text" class="primary-text">
           <template is="dom-if" if="[[shouldShowTemplateTitle_(template, hoveredTemplate_)]]">
             <template is="dom-repeat" items="[[getTemplateTokens_(template)]]" as="token">
@@ -27797,8 +27284,8 @@ function getTemplate$i() {
             [[template.title]]
           </template>
         </div>
-      </template>
-  </template>
+      </wallpaper-grid-item></template>
+  
 </iron-list>
 <!--_html_template_end_-->`;
 }
@@ -27861,20 +27348,11 @@ class SeaPenTemplatesElement extends WithSeaPenStore {
 customElements.define(SeaPenTemplatesElement.is, SeaPenTemplatesElement);
 
 function getTemplate$h() {
-  return html`<!--_html_template_start_--><style include="common cros-button-style">
-  h3,
-  p {
-    margin: 0;
-  }
-
-  cr-button + cr-button {
-    margin-inline-start: 8px;
-  }
-</style>
+    return html `<!--_html_template_start_--><style include="common cros-button-style">h3,p{margin:0}cr-button+cr-button{margin-inline-start:8px}</style>
 <cr-dialog id="dialog" show-on-attach no-cancel>
   <h3 slot="title">[[i18n('seaPenWallpaperTermsDialogTitle')]]</h3>
   <div slot="body">
-    <!-- TODO(b/317235695): add the real content and header image. -->
+    
     <span id="termsOfServiceContent" inner-h-t-m-l="[[i18nAdvanced('seaPenWallpaperTermsOfServiceDesc')]]"></span>
   </div>
   <div slot="button-container">
@@ -27937,72 +27415,14 @@ class SeaPenTermsOfServiceDialogElement extends I18nMixin(PolymerElement) {
 customElements.define(SeaPenTermsOfServiceDialogElement.is, SeaPenTermsOfServiceDialogElement);
 
 function getTemplate$g() {
-  return html`<!--_html_template_start_--><style>
-  #seaPenContainer {
-    display: grid;
-    grid-template-areas:
-      'leftspacertop    selected  rightspacertop'
-      'leftspacerbottom imagegrid rightspacerbottom';
-    grid-template-columns: minmax(10px, 1fr) minmax(568px, 920px) minmax(10px, 1fr);
-    grid-template-rows: auto minmax(0, 1fr);
-    height: 100%;
-    min-height: var(--sea-pen-router-min-height);
-    position: relative;
-    width: 100%;
-  }
-
-  sea-pen-input-query,
-  sea-pen-template-query {
-    background-color: var(--cros-sys-app_base_shaded);
-    grid-area: selected;
-    height: 172px;
-    position: sticky;
-    top: 56px;
-    z-index: 1;
-  }
-
-  #seaPenBottomContainer {
-    background-color: var(--cros-bg-color);
-    grid-area: imagegrid;
-    padding: 10px 0;
-  }
-
-  div[class$='spacertop'] {
-    background-color: var(--cros-sys-app_base_shaded);
-    position: sticky;
-    top: 56px;
-    z-index: 1;
-  }
-
-  .leftspacertop {
-    grid-area: leftspacertop;
-  }
-
-  .rightspacertop {
-    grid-area: rightspacertop;
-  }
-
-  div[class$='spacerbottom'] {
-    background-color: var(--cros-bg-color);
-  }
-
-  .leftspacerbottom {
-    border-radius: 12px 0 0 12px;
-    grid-area: leftspacerbottom;
-  }
-
-  .rightspacerbottom {
-    border-radius: 0 12px 12px 0;
-    grid-area: rightspacerbottom;
-  }
-</style>
+    return html `<!--_html_template_start_--><style>#seaPenContainer{display:grid;grid-template-areas:'leftspacertop    selected  rightspacertop' 'leftspacerbottom imagegrid rightspacerbottom';grid-template-columns:minmax(10px,1fr) minmax(568px,920px) minmax(10px,1fr);grid-template-rows:auto minmax(0,1fr);height:100%;min-height:var(--sea-pen-router-min-height);position:relative;width:100%}sea-pen-input-query,sea-pen-template-query{background-color:var(--cros-sys-app_base_shaded);grid-area:selected;height:172px;position:sticky;top:56px;z-index:1}#seaPenBottomContainer{background-color:var(--cros-bg-color);grid-area:imagegrid;padding:10px 0}div[class$=spacertop]{background-color:var(--cros-sys-app_base_shaded);position:sticky;top:56px;z-index:1}.leftspacertop{grid-area:leftspacertop}.rightspacertop{grid-area:rightspacertop}div[class$=spacerbottom]{background-color:var(--cros-bg-color)}.leftspacerbottom{border-radius:12px 0 0 12px;grid-area:leftspacerbottom}.rightspacerbottom{border-radius:0 12px 12px 0;grid-area:rightspacerbottom}</style>
 
 <div id="seaPenContainer">
   <iron-location path="{{path_}}" query="{{query_}}" dwell-time="200">
   </iron-location>
   <iron-query-params params-object="{{queryParams_}}" params-string="{{query_}}">
   </iron-query-params>
-  <!-- Prevent left margin from collapsing on narrow window in RTL -->
+  
   <div class="leftspacertop"></div>
   <div class="leftspacerbottom"></div>
   <template is="dom-if" if="[[shouldShowTextInputQuery_(relativePath_, queryParams_.seaPenTemplateId)]]">
@@ -28023,11 +27443,10 @@ function getTemplate$g() {
     </template>
   </div>
   <template is="dom-if" if="[[showSeaPenTermsOfServiceDialog_]]" restamp>
-    <sea-pen-terms-of-service-dialog
-        on-sea-pen-terms-dialog-accept="onAcceptSeaPenTerms_"
+    <sea-pen-terms-of-service-dialog on-sea-pen-terms-dialog-accept="onAcceptSeaPenTerms_">
     </sea-pen-terms-of-service-dialog>
   </template>
-  <!-- Prevent the right margin from collapsing when window gets very narrow -->
+  
   <div class="rightspacertop"></div>
   <div class="rightspacerbottom"></div>
 </div>
@@ -28181,6 +27600,7 @@ class SeaPenInputQueryElement extends WithSeaPenStore {
         return {
             path: String,
             textValue_: String,
+            thumbnails_: Object,
             thumbnailsLoading_: Boolean,
             maxTextLength_: {
                 type: Number,
@@ -28191,6 +27611,7 @@ class SeaPenInputQueryElement extends WithSeaPenStore {
     connectedCallback() {
         assert$1(isSeaPenTextInputEnabled(), 'sea pen text input must be enabled');
         super.connectedCallback();
+        this.watch('thumbnails_', state => state.thumbnails);
         this.watch('thumbnailsLoading_', state => state.loading.thumbnails);
         this.updateFromStore();
     }
@@ -28202,7 +27623,11 @@ class SeaPenInputQueryElement extends WithSeaPenStore {
         searchSeaPenThumbnails(query, getSeaPenProvider(), this.getStore());
         SeaPenRouterElement.instance().goToRoute(SeaPenPaths.RESULTS, { seaPenTemplateId: 'Query' });
     }
-    getSearchButtonText_(path) {
+    getSearchButtonText_(path, thumbnails) {
+        if (!thumbnails) {
+            // The thumbnails are not loaded yet.
+            return this.i18n('seaPenCreateButton');
+        }
         switch (path) {
             case SeaPenPaths.RESULTS:
                 return this.i18n('seaPenRecreateButton');
@@ -28211,7 +27636,11 @@ class SeaPenInputQueryElement extends WithSeaPenStore {
                 return this.i18n('seaPenCreateButton');
         }
     }
-    getSearchButtonIcon_(path) {
+    getSearchButtonIcon_(path, thumbnails) {
+        if (!thumbnails) {
+            // The thumbnails are not loaded yet.
+            return 'sea-pen:photo-spark';
+        }
         switch (path) {
             case SeaPenPaths.RESULTS:
                 return 'personalization-shared:refresh';

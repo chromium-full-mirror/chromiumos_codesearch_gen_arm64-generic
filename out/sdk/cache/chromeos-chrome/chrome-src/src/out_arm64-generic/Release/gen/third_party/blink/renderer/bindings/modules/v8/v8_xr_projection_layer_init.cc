@@ -21,6 +21,18 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"colorFormat",
+"depthFormat",
+"scaleFactor",
+"textureType",
+};
+
+
+}  // namespace 
+
 XRProjectionLayerInit* XRProjectionLayerInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   XRProjectionLayerInit* dictionary = MakeGarbageCollected<XRProjectionLayerInit>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -76,28 +88,40 @@ TraceIfNeeded<V8XRTextureType>::Trace(visitor, member_texture_type_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool XRProjectionLayerInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void XRProjectionLayerInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void XRProjectionLayerInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasColorFormat()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_color_format_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_color_format_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasDepthFormat()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_depth_format_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_depth_format_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasScaleFactor()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_scale_factor_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLDouble>::ToV8(script_state, member_scale_factor_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasTextureType()) {
-  v8_value = ToV8Traits<V8XRTextureType>::ToV8(script_state, member_texture_type_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<V8XRTextureType>::ToV8(script_state, member_texture_type_);
+DCHECK(!values[3].IsEmpty());
 }
-return true;
+}
+
+const void* XRProjectionLayerInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> XRProjectionLayerInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void XRProjectionLayerInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -127,13 +151,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8XRTextureType, is_optional>(iso
 }
 
 const base::span<const v8::Eternal<v8::Name>> XRProjectionLayerInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"colorFormat",
-"depthFormat",
-"scaleFactor",
-"textureType",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

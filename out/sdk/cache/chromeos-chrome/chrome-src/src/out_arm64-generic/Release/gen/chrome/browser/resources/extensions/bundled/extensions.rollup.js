@@ -293,7 +293,7 @@ function hasKeyModifiers(e) {
     return !!(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
 }
 
-function getTemplate$R() {
+function getTemplate$Q() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);font:var(--cr-drawer-header-font,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
     <dialog id="dialog" on-cancel="onDialogCancel_" on-click="onDialogClick_" on-close="onDialogClose_">
       <div id="container" on-click="onContainerClick_">
@@ -320,7 +320,7 @@ class CrDrawerElement extends PolymerElement {
         return 'cr-drawer';
     }
     static get template() {
-        return getTemplate$R();
+        return getTemplate$Q();
     }
     static get properties() {
         return {
@@ -497,7 +497,7 @@ styleMod$9.appendChild(html `
 `.content);
 styleMod$9.register('cr-hidden-style');
 
-function getTemplate$Q() {
+function getTemplate$P() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:var(--cr-toast-max-width,568px);min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
             var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
             var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
@@ -521,7 +521,7 @@ class CrToastElement extends PolymerElement {
         return 'cr-toast';
     }
     static get template() {
-        return getTemplate$Q();
+        return getTemplate$P();
     }
     static get properties() {
         return {
@@ -588,7 +588,7 @@ class CrToastElement extends PolymerElement {
 }
 customElements.define(CrToastElement.is, CrToastElement);
 
-function getTemplate$P() {
+function getTemplate$O() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">#content{display:flex;flex:1}.collapsible{overflow:hidden;text-overflow:ellipsis}span{white-space:pre}.elided-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}</style>
     <cr-toast id="toast" duration="[[duration]]">
       <div id="content" class="elided-text"></div>
@@ -615,7 +615,7 @@ class CrToastManagerElement extends PolymerElement {
         return 'cr-toast-manager';
     }
     static get template() {
-        return getTemplate$P();
+        return getTemplate$O();
     }
     static get properties() {
         return {
@@ -2136,7 +2136,7 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$O() {
+function getTemplate$N() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -2194,7 +2194,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$O();
+        return getTemplate$N();
     }
     static get properties() {
         return {
@@ -3598,7 +3598,7 @@ const CrSearchFieldMixin = dedupingMixin((superClass) => {
     return CrSearchFieldMixin;
 });
 
-function getTemplate$N() {
+function getTemplate$M() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{--cr-toolbar-search-field-hover-background:var(--color-toolbar-search-field-background-hover,
                 var(--cr-hover-background-color));isolation:isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
             var(--color-toolbar-search-field-icon,
@@ -3640,7 +3640,7 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
         return 'cr-toolbar-search-field';
     }
     static get template() {
-        return getTemplate$N();
+        return getTemplate$M();
     }
     static get properties() {
         return {
@@ -3743,7 +3743,7 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
 }
 customElements.define(CrToolbarSearchFieldElement.is, CrToolbarSearchFieldElement);
 
-function getTemplate$M() {
+function getTemplate$L() {
     return html `<!--_html_template_start_-->    <style include="cr-icons cr-hidden-style">:host{align-items:center;background-color:var(--cr-toolbar-background-color);color:var(--google-grey-900);display:flex;height:var(--cr-toolbar-height)}@media (prefers-color-scheme:dark){:host{border-bottom:var(--cr-separator-line);box-sizing:border-box;color:var(--cr-secondary-text-color)}:host-context([chrome-refresh-2023]):host{background-color:transparent;border-bottom:none}}h1{flex:1;font-size:170%;font-weight:var(--cr-toolbar-header-font-weight,500);letter-spacing:.25px;line-height:normal;margin-inline-start:6px;padding-inline-end:12px;white-space:var(--cr-toolbar-header-white-space,normal)}@media (prefers-color-scheme:dark){h1{color:var(--cr-primary-text-color)}}#leftContent{position:relative;transition:opacity .1s}#leftSpacer{align-items:center;box-sizing:border-box;display:flex;padding-inline-start:calc(12px + 6px);width:var(--cr-toolbar-left-spacer-width,auto)}cr-icon-button{--cr-icon-button-size:32px;min-width:32px}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:currentColor;--cr-icon-button-focus-outline-color:var(--cr-focus-outline-color)}}#centeredContent{display:flex;flex:1 1 0;justify-content:center}#rightSpacer{padding-inline-end:12px}:host([narrow]) #centeredContent{justify-content:flex-end}:host([has-overlay]){transition:visibility var(--cr-toolbar-overlay-animation-duration);visibility:hidden}:host([narrow][showing-search_]) #leftContent{opacity:0;position:absolute}:host(:not([narrow])) #leftContent{flex:1 1 var(--cr-toolbar-field-margin,0)}:host(:not([narrow])) #centeredContent{flex-basis:var(--cr-toolbar-center-basis,0)}:host(:not([narrow])[disable-right-content-grow]) #centeredContent{justify-content:start;padding-inline-start:12px}:host(:not([narrow])) #rightContent{flex:1 1 0;text-align:end}:host(:not([narrow])[disable-right-content-grow]) #rightContent{flex:0 1 0}picture{display:none}#menuButton{margin-inline-end:9px}#menuButton~h1{margin-inline-start:0}:host(:not([narrow])) picture,:host([always-show-logo]) picture{display:initial;margin-inline-end:16px}:host(:not([narrow])) #leftSpacer,:host([always-show-logo]) #leftSpacer{padding-inline-start:calc(12px + 9px)}:host(:not([narrow])) :is(picture,#product-logo),:host([always-show-logo]) :is(picture,#product-logo){height:24px;width:24px}</style>
     <div id="leftContent">
       <div id="leftSpacer">
@@ -3784,7 +3784,7 @@ class CrToolbarElement extends PolymerElement {
         return 'cr-toolbar';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -3858,7 +3858,7 @@ class CrToolbarElement extends PolymerElement {
 }
 customElements.define(CrToolbarElement.is, CrToolbarElement);
 
-function getTemplate$L() {
+function getTemplate$K() {
     return html `<!--_html_template_start_-->    <style>:host ::slotted([slot=view]){bottom:0;display:none;left:0;position:absolute;right:0;top:0}:host ::slotted(.active),:host ::slotted(.closing){display:block}</style>
     <slot name="view"></slot>
 <!--_html_template_end_-->`;
@@ -3921,7 +3921,7 @@ class CrViewManagerElement extends PolymerElement {
         return 'cr-view-manager';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$K();
     }
     exit_(element, animation) {
         const animationFunction = viewAnimations.get(animation);
@@ -3970,7 +3970,7 @@ class CrViewManagerElement extends PolymerElement {
 }
 customElements.define(CrViewManagerElement.is, CrViewManagerElement);
 
-function getTemplate$K() {
+function getTemplate$J() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator,.tab-indicator-background{bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0)}.tab-indicator{border-top-left-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));border-top-right-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));opacity:0;transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}.tab-indicator-background{background:var(--cr-tabs-unselected-color,var(--google-blue-600));opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);z-index:-1}@media (prefers-color-scheme:dark){.tab-indicator-background{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
 
     <template is="dom-repeat" items="[[tabNames]]">
@@ -4015,7 +4015,7 @@ class CrTabsElement extends PolymerElement {
         return 'cr-tabs';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -5036,7 +5036,7 @@ class FocusOutlineManager {
     }
 }
 
-function getTemplate$J() {
+function getTemplate$I() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -5072,7 +5072,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -5266,7 +5266,7 @@ styleMod$6.appendChild(html `
 `.content);
 styleMod$6.register('cr-input-style');
 
-function getTemplate$I() {
+function getTemplate$H() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -5309,7 +5309,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -5535,7 +5535,7 @@ class CrInputElement extends PolymerElement {
 }
 customElements.define(CrInputElement.is, CrInputElement);
 
-function getTemplate$H() {
+function getTemplate$G() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
           var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
     <iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
@@ -5561,7 +5561,7 @@ class CrSearchFieldElement extends CrSearchFieldElementBase {
         return 'cr-search-field';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -7956,7 +7956,7 @@ function focusWithoutInk(toFocus) {
     toFocusWithNoInk.noink = noink;
 }
 
-function getTemplate$G() {
+function getTemplate$F() {
     return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
 
     <div id="label" aria-hidden="true"><slot></slot></div>
@@ -7978,7 +7978,7 @@ class CrExpandButtonElement extends PolymerElement {
         return 'cr-expand-button';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -8073,7 +8073,7 @@ class CrExpandButtonElement extends PolymerElement {
 }
 customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);
 
-function getTemplate$F() {
+function getTemplate$E() {
     return html `<!--_html_template_start_--><style include="cr-icons cr-shared-style shared-style">:host{border-top:var(--cr-separator-line);display:block;padding:8px var(--cr-section-padding)}cr-expand-button{--cr-expand-button-disabled-display:none;height:calc(var(--cr-section-min-height) - var(--separator-gap))}cr-expand-button[disabled]{opacity:1}#activity-call-and-time{display:flex;flex:1;flex-direction:row;margin-inline-end:auto;max-width:var(--activity-log-call-and-time-width)}#activity-type{min-width:var(--activity-type-width)}#activity-name{flex:1;margin-inline-start:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#activity-time{min-width:var(--activity-time-width);text-align:end}#expanded-data{display:flex;flex-direction:column;margin-inline-start:16px;max-width:var(--activity-log-call-and-time-width)}#page-url-link{margin-bottom:10px;margin-inline-end:auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%}#args-list,#web-request-section{display:flex;flex-direction:column;margin-bottom:10px}.expanded-data-heading{font-weight:500}.list-item{display:flex;margin-top:10px}.index{min-width:3em}#web-request-details,.arg{overflow:hidden;overflow-wrap:break-word}#web-request-details{margin-top:10px}</style>
 <cr-expand-button expanded="[[data.expanded]]" disabled="[[!isExpandable_]]" on-click="onExpandClick_">
   <div id="activity-call-and-time">
@@ -8124,7 +8124,7 @@ class ActivityLogStreamItemElement extends PolymerElement {
         return 'activity-log-stream-item';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -8191,7 +8191,7 @@ class ActivityLogStreamItemElement extends PolymerElement {
 }
 customElements.define(ActivityLogStreamItemElement.is, ActivityLogStreamItemElement);
 
-function getTemplate$E() {
+function getTemplate$D() {
     return html `<!--_html_template_start_--><style include="shared-style">:host{--activity-log-call-and-time-width:575px;--activity-type-width:85px;--activity-time-width:100px;display:flex;flex-direction:column}cr-search-field{align-self:center;margin-inline-end:auto}.activity-table-headings{width:var(--activity-log-call-and-time-width)}#activity-type{flex:0 var(--activity-type-width)}#activity-key{flex:1;margin-inline-start:10px}#activity-time{flex:0 var(--activity-time-width);text-align:end}iron-list{flex:1}</style>
 <div class="activity-subpage-header">
   <cr-search-field label="$i18n{activityLogSearchLabel}" on-search-changed="onSearchChanged_">
@@ -8271,7 +8271,7 @@ class ActivityLogStreamElement extends PolymerElement {
         return 'activity-log-stream';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$D();
     }
     static get properties() {
         return {
@@ -8710,7 +8710,7 @@ class FocusRow {
     }
 }
 
-function getCss() {
+function getCss$3() {
     return css `:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
       var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
           var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
@@ -8718,7 +8718,7 @@ function getCss() {
       var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}`;
 }
 
-function getHtml() {
+function getHtml$1() {
     return html$1 `<!--_html_template_start_-->
 <dialog id="dialog" part="dialog" @close="${this.onNativeDialogClose_}" role="application" aria-roledescription="${this.roleDescription || nothing}">
   <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label="${this.accessibilityLabel || nothing}">
@@ -8805,10 +8805,10 @@ class CrActionMenuElement extends CrLitElement {
         return 'cr-action-menu';
     }
     static get styles() {
-        return getCss();
+        return getCss$3();
     }
     render() {
-        return getHtml.bind(this)();
+        return getHtml$1.bind(this)();
     }
     static get properties() {
         return {
@@ -8818,7 +8818,10 @@ class CrActionMenuElement extends CrLitElement {
             // Setting this flag will make the menu listen for content size changes
             // and reposition to its anchor accordingly.
             autoReposition: { type: Boolean },
-            open: { type: Boolean },
+            open: {
+                type: Boolean,
+                notify: true,
+            },
             // Descriptor of the menu. Should be something along the lines of "menu"
             roleDescription: { type: String },
         };
@@ -8831,9 +8834,6 @@ class CrActionMenuElement extends CrLitElement {
     disconnectedCallback() {
         super.disconnectedCallback();
         this.removeListeners_();
-    }
-    fire_(eventName, detail) {
-        this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
     }
     /**
      * Exposing internal <dialog> elements for tests.
@@ -8856,7 +8856,7 @@ class CrActionMenuElement extends CrLitElement {
         }
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.fire_('close');
+        this.fire('close');
     }
     onClick_(e) {
         if (e.target === this) {
@@ -8869,7 +8869,7 @@ class CrActionMenuElement extends CrLitElement {
         if (e.key === 'Tab' || e.key === 'Escape') {
             this.close();
             if (e.key === 'Tab') {
-                this.fire_('tabkeyclose', { shiftKey: e.shiftKey });
+                this.fire('tabkeyclose', { shiftKey: e.shiftKey });
             }
             e.preventDefault();
             return;
@@ -8938,7 +8938,6 @@ class CrActionMenuElement extends CrLitElement {
         if (this.lastConfig_) {
             this.lastConfig_ = null;
         }
-        this.fire_('open-changed', { value: this.open });
     }
     /**
      * Shows the menu anchored to the given element.
@@ -9027,7 +9026,6 @@ class CrActionMenuElement extends CrLitElement {
                 });
             }
         }
-        this.fire_('open-changed', { value: this.open });
     }
     resetStyle_() {
         this.$.dialog.style.left = '';
@@ -9082,7 +9080,7 @@ class CrActionMenuElement extends CrLitElement {
             this.resizeObserver_ = new ResizeObserver(() => {
                 if (this.lastConfig_) {
                     this.positionDialog_(this.lastConfig_);
-                    this.fire_('cr-action-menu-repositioned'); // For easier testing.
+                    this.fire('cr-action-menu-repositioned'); // For easier testing.
                 }
             });
             this.resizeObserver_.observe(this.$.dialog);
@@ -9091,7 +9089,7 @@ class CrActionMenuElement extends CrLitElement {
 }
 customElements.define(CrActionMenuElement.is, CrActionMenuElement);
 
-function getTemplate$D() {
+function getTemplate$C() {
     return html `<!--_html_template_start_--><style include="cr-icons cr-shared-style shared-style">:host{border-top:var(--cr-separator-line);display:block;padding-bottom:8px;padding-inline-end:8px;padding-inline-start:var(--cr-section-padding);padding-top:8px}#activity-item-main-row{align-items:center;display:flex;flex-direction:row;min-height:calc(var(--cr-section-min-height) - var(--separator-gap))}#activity-item-main-row .separator{margin:0 calc(var(--cr-section-padding) + var(--cr-icon-ripple-margin))}#activity-item-main-row cr-expand-button{margin-inline-end:6px}#activity-call-and-count{display:flex;flex:1;flex-direction:row;margin-inline-end:auto;max-width:var(--activity-log-call-and-count-width)}#activity-delete{margin:0}#activity-type{flex:0 var(--activity-type-width)}#activity-key{flex:1;margin-inline-start:10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#activity-count{flex:0 var(--activity-count-width);text-align:end}.page-url{display:flex;flex-direction:row;margin-bottom:10px;max-width:var(--activity-log-call-and-count-width)}.page-url-link{flex-grow:1;margin-inline-end:20px;margin-inline-start:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}</style>
 <div actionable$="[[isExpandable_]]" id="activity-item-main-row" on-click="onExpandClick_">
   <div id="activity-call-and-count">
@@ -9125,7 +9123,7 @@ class ActivityLogHistoryItemElement extends PolymerElement {
         return 'activity-log-history-item';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$C();
     }
     static get properties() {
         return {
@@ -9229,7 +9227,7 @@ class PromiseResolver {
     }
 }
 
-function getTemplate$C() {
+function getTemplate$B() {
     return html `<!--_html_template_start_--><style include="shared-style">:host{--activity-log-call-and-count-width:514px;--activity-type-width:85px;--activity-count-width:100px;display:flex;flex-direction:column}cr-search-field{align-self:center;margin-inline-end:auto}cr-icon-button{margin:0}.activity-table-headings{width:var(--activity-log-call-and-count-width)}#activity-list{overflow-y:auto}#activity-type{flex:0 var(--activity-type-width)}#activity-key{flex:1;margin-inline-start:10px}#activity-count{flex:0 var(--activity-count-width);text-align:end}</style>
 <div class="activity-subpage-header">
   <cr-search-field label="$i18n{activityLogSearchLabel}" on-search-changed="onSearchChanged_">
@@ -9396,7 +9394,7 @@ class ActivityLogHistoryElement extends PolymerElement {
         return 'activity-log-history';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$B();
     }
     static get properties() {
         return {
@@ -10030,7 +10028,7 @@ class NavigationHelper {
 }
 const navigation = new NavigationHelper();
 
-function getTemplate$B() {
+function getTemplate$A() {
     return html `<!--_html_template_start_--><style include="cr-icons cr-shared-style shared-style">#clear-activities-button{margin-inline-start:8px}#closeButton{margin-inline-end:16px}#icon{height:24px;margin-inline-end:12px;width:24px}cr-tabs{--cr-tabs-font-size:inherit;--cr-tabs-height:40px;border-bottom:1px solid var(--google-grey-300)}.page-content{display:flex;flex-direction:column;padding-bottom:0}iron-pages{flex:1;position:relative}activity-log-history,activity-log-stream{bottom:0;position:absolute;top:0;width:100%}</style>
 <div class="page-container" id="container">
   <div class="page-content">
@@ -10074,7 +10072,7 @@ class ExtensionsActivityLogElement extends ExtensionsActivityLogElementBase {
         return 'extensions-activity-log';
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$A();
     }
     static get properties() {
         return {
@@ -10161,7 +10159,7 @@ class ExtensionsActivityLogElement extends ExtensionsActivityLogElementBase {
 }
 customElements.define(ExtensionsActivityLogElement.is, ExtensionsActivityLogElement);
 
-function getTemplate$A() {
+function getTemplate$z() {
     return html `<!--_html_template_start_--><style include="cr-actionable-row-style cr-shared-style cr-hidden-style">:host{box-sizing:border-box;flex:1;font-family:inherit;font-size:100%;line-height:154%;min-height:var(--cr-section-min-height);padding:0}:host(:not([embedded])){padding:0 var(--cr-section-padding)}#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
         var(--google-grey-700));display:flex;flex-shrink:0;padding-inline-end:var(--cr-icon-button-margin-start);width:var(--cr-link-row-icon-width,var(--cr-icon-size))}@media (prefers-color-scheme:dark){#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
           var(--google-grey-500))}}#labelWrapper{flex:1;flex-basis:.000000001px;padding-bottom:var(--cr-section-vertical-padding);padding-top:var(--cr-section-vertical-padding);text-align:start}#label,#subLabel{display:flex}#buttonAriaDescription{clip:rect(0,0,0,0);display:block;position:fixed}</style>
@@ -10201,7 +10199,7 @@ class CrLinkRowElement extends PolymerElement {
         return 'cr-link-row';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$z();
     }
     static get properties() {
         return {
@@ -10264,7 +10262,7 @@ class CrLinkRowElement extends PolymerElement {
 }
 customElements.define(CrLinkRowElement.is, CrLinkRowElement);
 
-function getTemplate$z() {
+function getTemplate$y() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
                 var(--cr-fallback-color-primary));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on,
                 var(--cr-fallback-color-on-primary));--cr-toggle-unchecked-bar-color:var(--color-toggle-button-track-off,
@@ -10311,7 +10309,7 @@ class CrToggleElement extends CrToggleElementBase {
         return 'cr-toggle';
     }
     static get template() {
-        return getTemplate$z();
+        return getTemplate$y();
     }
     static get properties() {
         return {
@@ -11098,7 +11096,7 @@ Polymer({
   }
 });
 
-function getTemplate$y() {
+function getTemplate$x() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style">:host{display:flex}iron-icon{--iron-icon-width:var(--cr-icon-size);--iron-icon-height:var(--cr-icon-size);--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-700))}@media (prefers-color-scheme:dark){iron-icon{--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-500))}}</style>
     <iron-icon id="indicator" tabindex="0" aria-label$="[[iconAriaLabel]]" aria-describedby="tooltip" icon="[[iconClass]]" role="img"></iron-icon>
     <paper-tooltip id="tooltip" for="indicator" position="[[tooltipPosition]]" fit-to-visible-bounds part="tooltip">
@@ -11115,7 +11113,7 @@ class CrTooltipIconElement extends PolymerElement {
         return 'cr-tooltip-icon';
     }
     static get template() {
-        return getTemplate$y();
+        return getTemplate$x();
     }
     static get properties() {
         return {
@@ -11596,12 +11594,14 @@ const template$1 = html`
 template$1.setAttribute('style', 'display: none;');
 document.head.appendChild(template$1.content);
 
-// Copyright 2017 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview CrContainerShadowMixin holds logic for showing a drop shadow
+ * @fileoverview CrContainerShadowMixinLit holds logic for showing a drop shadow
  * near the top of a container element, when the content has scrolled.
+ *
+ * Lit version of the equivalent CrContainerShadowMixin for Polymer.
  *
  * Elements using this mixin are expected to define a #container element,
  * which is the element being scrolled. If the #container element has a
@@ -11627,13 +11627,13 @@ document.head.appendChild(template$1.content);
  * cr_shared_style.css, '#cr-container-shadow-[top/bottom]' and
  * '#cr-container-shadow-[top/bottom].has-shadow', or define their own styles.
  */
-var CrContainerShadowSide;
+var CrContainerShadowSide$1;
 (function (CrContainerShadowSide) {
     CrContainerShadowSide["TOP"] = "top";
     CrContainerShadowSide["BOTTOM"] = "bottom";
-})(CrContainerShadowSide || (CrContainerShadowSide = {}));
-const CrContainerShadowMixin = dedupingMixin((superClass) => {
-    class CrContainerShadowMixin extends superClass {
+})(CrContainerShadowSide$1 || (CrContainerShadowSide$1 = {}));
+const CrContainerShadowMixinLit = (superClass) => {
+    class CrContainerShadowMixinLit extends superClass {
         constructor() {
             super(...arguments);
             this.intersectionObserver_ = null;
@@ -11645,8 +11645,8 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
             super.connectedCallback();
             const hasBottomShadow = this.getContainer_().hasAttribute('show-bottom-shadow');
             this.sides_ = hasBottomShadow ?
-                [CrContainerShadowSide.TOP, CrContainerShadowSide.BOTTOM] :
-                [CrContainerShadowSide.TOP];
+                [CrContainerShadowSide$1.TOP, CrContainerShadowSide$1.BOTTOM] :
+                [CrContainerShadowSide$1.TOP];
             this.sides_.forEach(side => {
                 // The element holding the drop shadow effect to be shown.
                 const shadow = document.createElement('div');
@@ -11655,11 +11655,11 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
                 this.dropShadows_.set(side, shadow);
                 this.intersectionProbes_.set(side, document.createElement('div'));
             });
-            this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.TOP), this.getContainer_());
-            this.getContainer_().prepend(this.intersectionProbes_.get(CrContainerShadowSide.TOP));
+            this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide$1.TOP), this.getContainer_());
+            this.getContainer_().prepend(this.intersectionProbes_.get(CrContainerShadowSide$1.TOP));
             if (hasBottomShadow) {
-                this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.BOTTOM), this.getContainer_().nextSibling);
-                this.getContainer_().append(this.intersectionProbes_.get(CrContainerShadowSide.BOTTOM));
+                this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide$1.BOTTOM), this.getContainer_().nextSibling);
+                this.getContainer_().append(this.intersectionProbes_.get(CrContainerShadowSide$1.BOTTOM));
             }
             this.enableShadowBehavior(true);
         }
@@ -11727,29 +11727,41 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
             }
         }
     }
-    return CrContainerShadowMixin;
-});
+    return CrContainerShadowMixinLit;
+};
 
-function getTemplate$x() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
-    <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
-    
-      <div id="content-wrapper" part="wrapper">
-        <div class="top-container">
-          <h2 id="title" class="title-container" tabindex="-1">
-            <slot name="title"></slot>
-          </h2>
-          <cr-icon-button id="close" class="icon-clear" hidden$="[[!showCloseButton]]" aria-label$="[[closeText]]" on-click="cancel" on-keypress="onCloseKeypress_">
-          </cr-icon-button>
-        </div>
-        <slot name="header"></slot>
-        <div class="body-container" id="container" show-bottom-shadow part="body-container">
-          <slot name="body"></slot>
-        </div>
-        <slot name="button-container"></slot>
-        <slot name="footer"></slot>
-      </div>
-    </dialog>
+function getCss$2() {
+    return css `:host([hidden]),[hidden]{display:none!important}`;
+}
+
+function getCss$1() {
+    return css `.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}`;
+}
+
+function getCss() {
+    return css `dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}`;
+}
+
+function getHtml() {
+    return html$1 `<!--_html_template_start_-->
+<dialog id="dialog" @close="${this.onNativeDialogClose_}" @cancel="${this.onNativeDialogCancel_}" part="dialog" aria-labelledby="title" aria-description="${this.ariaDescriptionText || nothing}">
+
+  <div id="content-wrapper" part="wrapper">
+    <div class="top-container">
+      <h2 id="title" class="title-container" tabindex="-1">
+        <slot name="title"></slot>
+      </h2>
+      <cr-icon-button id="close" class="icon-clear" ?hidden="${!this.showCloseButton}" aria-label="${this.closeText || nothing}" @click="${this.cancel}" @keypress="${this.onCloseKeypress_}">
+      </cr-icon-button>
+    </div>
+    <slot name="header"></slot>
+    <div class="body-container" id="container" show-bottom-shadow part="body-container">
+      <slot name="body"></slot>
+    </div>
+    <slot name="button-container"></slot>
+    <slot name="footer"></slot>
+  </div>
+</dialog>
 <!--_html_template_end_-->`;
 }
 
@@ -11773,10 +11785,17 @@ function getTemplate$x() {
  * width/height (as well as other available mixins to style other parts of the
  * dialog contents).
  */
-const CrDialogElementBase = CrContainerShadowMixin(PolymerElement);
+const CrDialogElementBase = CrContainerShadowMixinLit(CrLitElement);
 class CrDialogElement extends CrDialogElementBase {
     constructor() {
         super(...arguments);
+        this.consumeKeydownEvent = false;
+        this.ignoreEnterKey = false;
+        this.ignorePopstate = false;
+        this.noCancel = false;
+        this.open = false;
+        this.showCloseButton = false;
+        this.showOnAttach = false;
         this.intersectionObserver_ = null;
         this.mutationObserver_ = null;
         this.boundKeydown_ = null;
@@ -11784,69 +11803,56 @@ class CrDialogElement extends CrDialogElementBase {
     static get is() {
         return 'cr-dialog';
     }
-    static get template() {
-        return getTemplate$x();
+    static get styles() {
+        return [
+            getCss$2(),
+            getCss$1(),
+            getCss(),
+        ];
+    }
+    render() {
+        return getHtml.bind(this)();
     }
     static get properties() {
         return {
             open: {
                 type: Boolean,
-                value: false,
-                reflectToAttribute: true,
+                reflect: true,
             },
             /**
              * Alt-text for the dialog close button.
              */
-            closeText: String,
+            closeText: { type: String },
             /**
              * True if the dialog should remain open on 'popstate' events. This is
              * used for navigable dialogs that have their separate navigation handling
              * code.
              */
-            ignorePopstate: {
-                type: Boolean,
-                value: false,
-            },
+            ignorePopstate: { type: Boolean },
             /**
              * True if the dialog should ignore 'Enter' keypresses.
              */
-            ignoreEnterKey: {
-                type: Boolean,
-                value: false,
-            },
+            ignoreEnterKey: { type: Boolean },
             /**
              * True if the dialog should consume 'keydown' events. If ignoreEnterKey
              * is true, 'Enter' key won't be consumed.
              */
-            consumeKeydownEvent: {
-                type: Boolean,
-                value: false,
-            },
+            consumeKeydownEvent: { type: Boolean },
             /**
              * True if the dialog should not be able to be cancelled, which will
              * prevent 'Escape' key presses from closing the dialog.
              */
-            noCancel: {
-                type: Boolean,
-                value: false,
-            },
+            noCancel: { type: Boolean },
             // True if dialog should show the 'X' close button.
-            showCloseButton: {
-                type: Boolean,
-                value: false,
-            },
-            showOnAttach: {
-                type: Boolean,
-                value: false,
-            },
+            showCloseButton: { type: Boolean },
+            showOnAttach: { type: Boolean },
             /**
              * Text for the aria description.
              */
-            ariaDescriptionText: String,
+            ariaDescriptionText: { type: String },
         };
     }
-    ready() {
-        super.ready();
+    firstUpdated() {
         // If the active history entry changes (i.e. user clicks back button),
         // all open dialogs should be cancelled.
         window.addEventListener('popstate', () => {
@@ -11909,14 +11915,15 @@ class CrDialogElement extends CrDialogElementBase {
         document.body.removeEventListener('keydown', this.boundKeydown_);
         this.boundKeydown_ = null;
     }
-    showModal() {
+    async showModal() {
         this.$.dialog.showModal();
         assert(this.$.dialog.open);
         this.open = true;
-        this.dispatchEvent(new CustomEvent('cr-dialog-open', { bubbles: true, composed: true }));
+        await this.updateComplete;
+        this.fire('cr-dialog-open');
     }
     cancel() {
-        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
+        this.fire('cancel');
         this.$.dialog.close();
         assert(!this.$.dialog.open);
         this.open = false;
@@ -11946,9 +11953,9 @@ class CrDialogElement extends CrDialogElementBase {
         }
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.dispatchEvent(new CustomEvent('close', { bubbles: true, composed: true }));
+        this.fire('close');
     }
-    onNativeDialogCancel_(e) {
+    async onNativeDialogCancel_(e) {
         // Ignore any 'cancel' events not fired directly by the <dialog> element.
         if (e.target !== this.getNative()) {
             return;
@@ -11960,9 +11967,10 @@ class CrDialogElement extends CrDialogElementBase {
         // When the dialog is dismissed using the 'Esc' key, need to manually update
         // the |open| property (since close() is not called).
         this.open = false;
+        await this.updateComplete;
         // Catch and re-fire the native 'cancel' event such that it bubbles across
         // Shadow DOM v1.
-        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
+        this.fire('cancel');
     }
     /**
      * Expose the inner native <dialog> for some rare cases where it needs to be
@@ -19630,6 +19638,140 @@ class ExtensionsKioskDialogElement extends ExtensionsKioskDialogElementBase {
     }
 }
 customElements.define(ExtensionsKioskDialogElement.is, ExtensionsKioskDialogElement);
+
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview CrContainerShadowMixin holds logic for showing a drop shadow
+ * near the top of a container element, when the content has scrolled.
+ *
+ * Elements using this mixin are expected to define a #container element,
+ * which is the element being scrolled. If the #container element has a
+ * show-bottom-shadow attribute, a drop shadow will also be shown near the
+ * bottom of the container element, when there is additional content to scroll
+ * to. Examples:
+ *
+ * For both top and bottom shadows:
+ * <div id="container" show-bottom-shadow>...</div>
+ *
+ * For top shadow only:
+ * <div id="container">...</div>
+ *
+ * The mixin will take care of inserting an element with ID
+ * 'cr-container-shadow-top' which holds the drop shadow effect, and,
+ * optionally, an element with ID 'cr-container-shadow-bottom' which holds the
+ * same effect. A 'has-shadow' CSS class is automatically added to/removed from
+ * both elements while scrolling, as necessary. Note that the show-bottom-shadow
+ * attribute is inspected only during attached(), and any changes to it that
+ * occur after that point will not be respected.
+ *
+ * Clients should either use the existing shared styling in
+ * cr_shared_style.css, '#cr-container-shadow-[top/bottom]' and
+ * '#cr-container-shadow-[top/bottom].has-shadow', or define their own styles.
+ */
+var CrContainerShadowSide;
+(function (CrContainerShadowSide) {
+    CrContainerShadowSide["TOP"] = "top";
+    CrContainerShadowSide["BOTTOM"] = "bottom";
+})(CrContainerShadowSide || (CrContainerShadowSide = {}));
+const CrContainerShadowMixin = dedupingMixin((superClass) => {
+    class CrContainerShadowMixin extends superClass {
+        constructor() {
+            super(...arguments);
+            this.intersectionObserver_ = null;
+            this.dropShadows_ = new Map();
+            this.intersectionProbes_ = new Map();
+            this.sides_ = null;
+        }
+        connectedCallback() {
+            super.connectedCallback();
+            const hasBottomShadow = this.getContainer_().hasAttribute('show-bottom-shadow');
+            this.sides_ = hasBottomShadow ?
+                [CrContainerShadowSide.TOP, CrContainerShadowSide.BOTTOM] :
+                [CrContainerShadowSide.TOP];
+            this.sides_.forEach(side => {
+                // The element holding the drop shadow effect to be shown.
+                const shadow = document.createElement('div');
+                shadow.id = `cr-container-shadow-${side}`;
+                shadow.classList.add('cr-container-shadow');
+                this.dropShadows_.set(side, shadow);
+                this.intersectionProbes_.set(side, document.createElement('div'));
+            });
+            this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.TOP), this.getContainer_());
+            this.getContainer_().prepend(this.intersectionProbes_.get(CrContainerShadowSide.TOP));
+            if (hasBottomShadow) {
+                this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.BOTTOM), this.getContainer_().nextSibling);
+                this.getContainer_().append(this.intersectionProbes_.get(CrContainerShadowSide.BOTTOM));
+            }
+            this.enableShadowBehavior(true);
+        }
+        disconnectedCallback() {
+            super.disconnectedCallback();
+            this.enableShadowBehavior(false);
+        }
+        getContainer_() {
+            return this.shadowRoot.querySelector('#container');
+        }
+        getIntersectionObserver_() {
+            const callback = (entries) => {
+                // In some rare cases, there could be more than one entry per
+                // observed element, in which case the last entry's result
+                // stands.
+                for (const entry of entries) {
+                    const target = entry.target;
+                    this.sides_.forEach(side => {
+                        if (target === this.intersectionProbes_.get(side)) {
+                            this.dropShadows_.get(side).classList.toggle('has-shadow', entry.intersectionRatio === 0);
+                        }
+                    });
+                }
+            };
+            return new IntersectionObserver(callback, { root: this.getContainer_(), threshold: 0 });
+        }
+        /**
+         * @param enable Whether to enable the mixin or disable it.
+         *     This function does nothing if the mixin is already in the
+         *     requested state.
+         */
+        enableShadowBehavior(enable) {
+            // Behavior is already enabled/disabled. Return early.
+            if (enable === !!this.intersectionObserver_) {
+                return;
+            }
+            if (!enable) {
+                this.intersectionObserver_.disconnect();
+                this.intersectionObserver_ = null;
+                return;
+            }
+            this.intersectionObserver_ = this.getIntersectionObserver_();
+            // Need to register the observer within a setTimeout() callback,
+            // otherwise the drop shadow flashes once on startup, because of the
+            // DOM modifications earlier in this function causing a relayout.
+            window.setTimeout(() => {
+                if (this.intersectionObserver_) {
+                    // In case this is already detached.
+                    this.intersectionProbes_.forEach(probe => {
+                        this.intersectionObserver_.observe(probe);
+                    });
+                }
+            });
+        }
+        /**
+         * Shows the shadows. The shadow mixin must be disabled before
+         * calling this method, otherwise the intersection observer might
+         * show the shadows again.
+         */
+        showDropShadows() {
+            assert(!this.intersectionObserver_);
+            assert(this.sides_);
+            for (const side of this.sides_) {
+                this.dropShadows_.get(side).classList.toggle('has-shadow', true);
+            }
+        }
+    }
+    return CrContainerShadowMixin;
+});
 
 function getTemplate() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style shared-style">:host{color:var(--cr-primary-text-color);display:flex;flex-direction:column;height:100%}#viewManager{flex:1 1 var(--cr-toolbar-field-width);height:100%;position:relative}@media (min-width:1650px){#viewManager:has(extensions-item-list.active){flex-basis:1400px}}@media (max-width:1649px){#viewManager:has(extensions-item-list.active){flex-basis:950px}}extensions-item{display:inline-block}#container{align-items:flex-start;display:flex;flex:1;overflow:overlay;position:relative}#left{height:100%;min-width:var(--sidebar-width);position:sticky;top:0}#left extensions-sidebar{max-height:100%;overflow:auto;overscroll-behavior:contain}#left,#right{flex:1 1 0}</style>

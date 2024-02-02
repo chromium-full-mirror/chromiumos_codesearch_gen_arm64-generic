@@ -66,6 +66,7 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/access
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_mode.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_node_data.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_relative_bounds.mojom-module
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_tree_checks.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_tree_data.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_tree_id.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/accessibility/mojom/ax_tree_update.mojom-module
@@ -76,6 +77,7 @@ home/chrome-bot/chrome_root/src/ui/accessibility/mojom/ax_event_intent.mojom
 home/chrome-bot/chrome_root/src/ui/accessibility/mojom/ax_mode.mojom
 home/chrome-bot/chrome_root/src/ui/accessibility/mojom/ax_node_data.mojom
 home/chrome-bot/chrome_root/src/ui/accessibility/mojom/ax_relative_bounds.mojom
+home/chrome-bot/chrome_root/src/ui/accessibility/mojom/ax_tree_checks.mojom
 home/chrome-bot/chrome_root/src/ui/accessibility/mojom/ax_tree_data.mojom
 home/chrome-bot/chrome_root/src/ui/accessibility/mojom/ax_tree_id.mojom
 home/chrome-bot/chrome_root/src/ui/accessibility/mojom/ax_tree_update.mojom

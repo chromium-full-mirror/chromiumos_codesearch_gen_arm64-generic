@@ -21,6 +21,18 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"issuers",
+"operation",
+"refreshPolicy",
+"version",
+};
+
+
+}  // namespace 
+
 PrivateToken* PrivateToken::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   PrivateToken* dictionary = MakeGarbageCollected<PrivateToken>(isolate);
 if (!v8_value->IsObject()) {
@@ -95,28 +107,40 @@ TraceIfNeeded<V8PrivateTokenVersion>::Trace(visitor, member_version_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool PrivateToken::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void PrivateToken::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void PrivateToken::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasIssuers()) {
-  v8_value = ToV8Traits<IDLSequence<IDLUSVString>>::ToV8(script_state, member_issuers_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLSequence<IDLUSVString>>::ToV8(script_state, member_issuers_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasOperation()) {
-  v8_value = ToV8Traits<V8OperationType>::ToV8(script_state, member_operation_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<V8OperationType>::ToV8(script_state, member_operation_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasRefreshPolicy()) {
-  v8_value = ToV8Traits<V8RefreshPolicy>::ToV8(script_state, member_refresh_policy_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<V8RefreshPolicy>::ToV8(script_state, member_refresh_policy_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasVersion()) {
-  v8_value = ToV8Traits<V8PrivateTokenVersion>::ToV8(script_state, member_version_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<V8PrivateTokenVersion>::ToV8(script_state, member_version_);
+DCHECK(!values[3].IsEmpty());
 }
-return true;
+}
+
+const void* PrivateToken::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> PrivateToken::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void PrivateToken::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -147,13 +171,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8PrivateTokenVersion, is_require
 }
 
 const base::span<const v8::Eternal<v8::Name>> PrivateToken::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"issuers",
-"operation",
-"refreshPolicy",
-"version",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

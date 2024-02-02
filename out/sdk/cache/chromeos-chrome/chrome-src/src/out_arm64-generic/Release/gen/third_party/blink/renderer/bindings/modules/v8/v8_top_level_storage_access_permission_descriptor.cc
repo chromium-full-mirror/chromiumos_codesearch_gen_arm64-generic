@@ -21,6 +21,15 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"requestedOrigin",
+};
+
+
+}  // namespace 
+
 TopLevelStorageAccessPermissionDescriptor* TopLevelStorageAccessPermissionDescriptor::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   TopLevelStorageAccessPermissionDescriptor* dictionary = MakeGarbageCollected<TopLevelStorageAccessPermissionDescriptor>(isolate);
 if (!v8_value->IsObject()) {
@@ -61,20 +70,34 @@ void TopLevelStorageAccessPermissionDescriptor::Trace(Visitor* visitor) const {
 PermissionDescriptor::Trace(visitor);
 }
 
-bool TopLevelStorageAccessPermissionDescriptor::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!PermissionDescriptor::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void TopLevelStorageAccessPermissionDescriptor::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  PermissionDescriptor::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
+void TopLevelStorageAccessPermissionDescriptor::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  PermissionDescriptor::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasRequestedOrigin()) {
-  v8::Local<v8::Value> v8_value;
-v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_requested_origin_);
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_requested_origin_);
+DCHECK(!values[0].IsEmpty());
 }
-return true;
+}
+
+const void* TopLevelStorageAccessPermissionDescriptor::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> TopLevelStorageAccessPermissionDescriptor::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void TopLevelStorageAccessPermissionDescriptor::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -97,10 +120,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolat
 }
 
 const base::span<const v8::Eternal<v8::Name>> TopLevelStorageAccessPermissionDescriptor::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"requestedOrigin",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

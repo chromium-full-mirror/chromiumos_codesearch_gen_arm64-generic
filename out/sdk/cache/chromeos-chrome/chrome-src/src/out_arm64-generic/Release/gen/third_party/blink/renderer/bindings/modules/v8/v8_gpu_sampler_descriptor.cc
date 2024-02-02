@@ -21,6 +21,24 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"addressModeU",
+"addressModeV",
+"addressModeW",
+"compare",
+"lodMaxClamp",
+"lodMinClamp",
+"magFilter",
+"maxAnisotropy",
+"minFilter",
+"mipmapFilter",
+};
+
+
+}  // namespace 
+
 GPUSamplerDescriptor* GPUSamplerDescriptor::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   GPUSamplerDescriptor* dictionary = MakeGarbageCollected<GPUSamplerDescriptor>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -114,56 +132,70 @@ TraceIfNeeded<V8GPUMipmapFilterMode>::Trace(visitor, member_mipmap_filter_);
 GPUObjectDescriptorBase::Trace(visitor);
 }
 
-bool GPUSamplerDescriptor::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!GPUObjectDescriptorBase::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void GPUSamplerDescriptor::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  GPUObjectDescriptorBase::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void GPUSamplerDescriptor::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  GPUObjectDescriptorBase::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasAddressModeU()) {
-  v8_value = ToV8Traits<V8GPUAddressMode>::ToV8(script_state, member_address_mode_u_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<V8GPUAddressMode>::ToV8(script_state, member_address_mode_u_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasAddressModeV()) {
-  v8_value = ToV8Traits<V8GPUAddressMode>::ToV8(script_state, member_address_mode_v_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<V8GPUAddressMode>::ToV8(script_state, member_address_mode_v_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasAddressModeW()) {
-  v8_value = ToV8Traits<V8GPUAddressMode>::ToV8(script_state, member_address_mode_w_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<V8GPUAddressMode>::ToV8(script_state, member_address_mode_w_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasCompare()) {
-  v8_value = ToV8Traits<V8GPUCompareFunction>::ToV8(script_state, member_compare_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<V8GPUCompareFunction>::ToV8(script_state, member_compare_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasLodMaxClamp()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_lod_max_clamp_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLFloat>::ToV8(script_state, member_lod_max_clamp_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasLodMinClamp()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_lod_min_clamp_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLFloat>::ToV8(script_state, member_lod_min_clamp_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasMagFilter()) {
-  v8_value = ToV8Traits<V8GPUFilterMode>::ToV8(script_state, member_mag_filter_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<V8GPUFilterMode>::ToV8(script_state, member_mag_filter_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasMaxAnisotropy()) {
-  v8_value = ToV8Traits<IDLUnsignedShortClamp>::ToV8(script_state, member_max_anisotropy_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLUnsignedShortClamp>::ToV8(script_state, member_max_anisotropy_);
+DCHECK(!values[7].IsEmpty());
 }
 if (hasMinFilter()) {
-  v8_value = ToV8Traits<V8GPUFilterMode>::ToV8(script_state, member_min_filter_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<V8GPUFilterMode>::ToV8(script_state, member_min_filter_);
+DCHECK(!values[8].IsEmpty());
 }
 if (hasMipmapFilter()) {
-  v8_value = ToV8Traits<V8GPUMipmapFilterMode>::ToV8(script_state, member_mipmap_filter_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<V8GPUMipmapFilterMode>::ToV8(script_state, member_mipmap_filter_);
+DCHECK(!values[9].IsEmpty());
 }
-return true;
+}
+
+const void* GPUSamplerDescriptor::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> GPUSamplerDescriptor::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void GPUSamplerDescriptor::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -222,19 +254,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8GPUMipmapFilterMode, is_optiona
 }
 
 const base::span<const v8::Eternal<v8::Name>> GPUSamplerDescriptor::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"addressModeU",
-"addressModeV",
-"addressModeW",
-"compare",
-"lodMaxClamp",
-"lodMinClamp",
-"magFilter",
-"maxAnisotropy",
-"minFilter",
-"mipmapFilter",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

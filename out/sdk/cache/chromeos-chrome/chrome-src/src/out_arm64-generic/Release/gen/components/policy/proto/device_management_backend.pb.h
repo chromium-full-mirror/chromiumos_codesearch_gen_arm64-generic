@@ -1000,6 +1000,26 @@ return DeviceRegisterResponse_DeviceMode_Name(static_cast<DeviceRegisterResponse
 }
 bool DeviceRegisterResponse_DeviceMode_Parse(
 ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceRegisterResponse_DeviceMode* value);
+enum DeviceRegisterResponse_ThirdPartyIdentityType : int {
+DeviceRegisterResponse_ThirdPartyIdentityType_NONE = 0,
+DeviceRegisterResponse_ThirdPartyIdentityType_DASHER_BASED = 1,
+DeviceRegisterResponse_ThirdPartyIdentityType_DASHERLESS = 2
+};
+POLICY_PROTO_EXPORT bool DeviceRegisterResponse_ThirdPartyIdentityType_IsValid(int value);
+constexpr DeviceRegisterResponse_ThirdPartyIdentityType DeviceRegisterResponse_ThirdPartyIdentityType_ThirdPartyIdentityType_MIN = DeviceRegisterResponse_ThirdPartyIdentityType_NONE;
+constexpr DeviceRegisterResponse_ThirdPartyIdentityType DeviceRegisterResponse_ThirdPartyIdentityType_ThirdPartyIdentityType_MAX = DeviceRegisterResponse_ThirdPartyIdentityType_DASHERLESS;
+constexpr int DeviceRegisterResponse_ThirdPartyIdentityType_ThirdPartyIdentityType_ARRAYSIZE = DeviceRegisterResponse_ThirdPartyIdentityType_ThirdPartyIdentityType_MAX + 1;
+
+const std::string& DeviceRegisterResponse_ThirdPartyIdentityType_Name(DeviceRegisterResponse_ThirdPartyIdentityType value);
+template<typename T>
+inline const std::string& DeviceRegisterResponse_ThirdPartyIdentityType_Name(T enum_t_value) {
+static_assert(::std::is_same<T, DeviceRegisterResponse_ThirdPartyIdentityType>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function DeviceRegisterResponse_ThirdPartyIdentityType_Name.");
+return DeviceRegisterResponse_ThirdPartyIdentityType_Name(static_cast<DeviceRegisterResponse_ThirdPartyIdentityType>(enum_t_value));
+}
+bool DeviceRegisterResponse_ThirdPartyIdentityType_Parse(
+::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceRegisterResponse_ThirdPartyIdentityType* value);
 enum DeviceCertUploadRequest_CertificateType : int {
 DeviceCertUploadRequest_CertificateType_CERTIFICATE_TYPE_UNSPECIFIED = 0,
 DeviceCertUploadRequest_CertificateType_ENTERPRISE_MACHINE_CERTIFICATE = 1,
@@ -4608,6 +4628,34 @@ DeviceMode* value) {
 return DeviceRegisterResponse_DeviceMode_Parse(name, value);
 }
 
+typedef DeviceRegisterResponse_ThirdPartyIdentityType ThirdPartyIdentityType;
+static constexpr ThirdPartyIdentityType NONE =
+DeviceRegisterResponse_ThirdPartyIdentityType_NONE;
+static constexpr ThirdPartyIdentityType DASHER_BASED =
+DeviceRegisterResponse_ThirdPartyIdentityType_DASHER_BASED;
+static constexpr ThirdPartyIdentityType DASHERLESS =
+DeviceRegisterResponse_ThirdPartyIdentityType_DASHERLESS;
+static inline bool ThirdPartyIdentityType_IsValid(int value) {
+return DeviceRegisterResponse_ThirdPartyIdentityType_IsValid(value);
+}
+static constexpr ThirdPartyIdentityType ThirdPartyIdentityType_MIN =
+DeviceRegisterResponse_ThirdPartyIdentityType_ThirdPartyIdentityType_MIN;
+static constexpr ThirdPartyIdentityType ThirdPartyIdentityType_MAX =
+DeviceRegisterResponse_ThirdPartyIdentityType_ThirdPartyIdentityType_MAX;
+static constexpr int ThirdPartyIdentityType_ARRAYSIZE =
+DeviceRegisterResponse_ThirdPartyIdentityType_ThirdPartyIdentityType_ARRAYSIZE;
+template<typename T>
+static inline const std::string& ThirdPartyIdentityType_Name(T enum_t_value) {
+static_assert(::std::is_same<T, ThirdPartyIdentityType>::value ||
+::std::is_integral<T>::value,
+"Incorrect type passed to function ThirdPartyIdentityType_Name.");
+return DeviceRegisterResponse_ThirdPartyIdentityType_Name(enum_t_value);
+}
+static inline bool ThirdPartyIdentityType_Parse(::PROTOBUF_NAMESPACE_ID::ConstStringParam name,
+ThirdPartyIdentityType* value) {
+return DeviceRegisterResponse_ThirdPartyIdentityType_Parse(name, value);
+}
+
 // accessors -------------------------------------------------------
 
 enum : int {
@@ -4615,7 +4663,10 @@ kUserAffiliationIdsFieldNumber = 5,
 kDeviceManagementTokenFieldNumber = 1,
 kMachineNameFieldNumber = 2,
 kConfigurationSeedFieldNumber = 4,
+kUserDisplayNameFieldNumber = 7,
+kUserEmailFieldNumber = 8,
 kEnrollmentTypeFieldNumber = 3,
+kThirdPartyIdentityTypeFieldNumber = 9,
 };
 // repeated string user_affiliation_ids = 5;
 int user_affiliation_ids_size() const;
@@ -4695,6 +4746,42 @@ inline PROTOBUF_ALWAYS_INLINE void _internal_set_configuration_seed(const std::s
 std::string* _internal_mutable_configuration_seed();
 public:
 
+// optional string user_display_name = 7;
+bool has_user_display_name() const;
+private:
+bool _internal_has_user_display_name() const;
+public:
+void clear_user_display_name();
+const std::string& user_display_name() const;
+template <typename ArgT0 = const std::string&, typename... ArgT>
+void set_user_display_name(ArgT0&& arg0, ArgT... args);
+std::string* mutable_user_display_name();
+PROTOBUF_NODISCARD std::string* release_user_display_name();
+void set_allocated_user_display_name(std::string* user_display_name);
+private:
+const std::string& _internal_user_display_name() const;
+inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_display_name(const std::string& value);
+std::string* _internal_mutable_user_display_name();
+public:
+
+// optional string user_email = 8;
+bool has_user_email() const;
+private:
+bool _internal_has_user_email() const;
+public:
+void clear_user_email();
+const std::string& user_email() const;
+template <typename ArgT0 = const std::string&, typename... ArgT>
+void set_user_email(ArgT0&& arg0, ArgT... args);
+std::string* mutable_user_email();
+PROTOBUF_NODISCARD std::string* release_user_email();
+void set_allocated_user_email(std::string* user_email);
+private:
+const std::string& _internal_user_email() const;
+inline PROTOBUF_ALWAYS_INLINE void _internal_set_user_email(const std::string& value);
+std::string* _internal_mutable_user_email();
+public:
+
 // optional .enterprise_management.DeviceRegisterResponse.DeviceMode enrollment_type = 3 [default = ENTERPRISE];
 bool has_enrollment_type() const;
 private:
@@ -4706,6 +4793,19 @@ void set_enrollment_type(::enterprise_management::DeviceRegisterResponse_DeviceM
 private:
 ::enterprise_management::DeviceRegisterResponse_DeviceMode _internal_enrollment_type() const;
 void _internal_set_enrollment_type(::enterprise_management::DeviceRegisterResponse_DeviceMode value);
+public:
+
+// optional .enterprise_management.DeviceRegisterResponse.ThirdPartyIdentityType third_party_identity_type = 9 [default = NONE];
+bool has_third_party_identity_type() const;
+private:
+bool _internal_has_third_party_identity_type() const;
+public:
+void clear_third_party_identity_type();
+::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType third_party_identity_type() const;
+void set_third_party_identity_type(::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType value);
+private:
+::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType _internal_third_party_identity_type() const;
+void _internal_set_third_party_identity_type(::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType value);
 public:
 
 // @@protoc_insertion_point(class_scope:enterprise_management.DeviceRegisterResponse)
@@ -4721,7 +4821,10 @@ mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
 ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr device_management_token_;
 ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr machine_name_;
 ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr configuration_seed_;
+::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_display_name_;
+::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr user_email_;
 int enrollment_type_;
+int third_party_identity_type_;
 friend struct ::TableStruct_device_5fmanagement_5fbackend_2eproto;
 };
 // -------------------------------------------------------------------
@@ -45453,7 +45556,7 @@ machine_name_.Set("", GetArenaForAllocation());
 
 // optional .enterprise_management.DeviceRegisterResponse.DeviceMode enrollment_type = 3 [default = ENTERPRISE];
 inline bool DeviceRegisterResponse::_internal_has_enrollment_type() const {
-bool value = (_has_bits_[0] & 0x00000008u) != 0;
+bool value = (_has_bits_[0] & 0x00000020u) != 0;
 return value;
 }
 inline bool DeviceRegisterResponse::has_enrollment_type() const {
@@ -45461,7 +45564,7 @@ return _internal_has_enrollment_type();
 }
 inline void DeviceRegisterResponse::clear_enrollment_type() {
 enrollment_type_ = 0;
-_has_bits_[0] &= ~0x00000008u;
+_has_bits_[0] &= ~0x00000020u;
 }
 inline ::enterprise_management::DeviceRegisterResponse_DeviceMode DeviceRegisterResponse::_internal_enrollment_type() const {
 return static_cast< ::enterprise_management::DeviceRegisterResponse_DeviceMode >(enrollment_type_);
@@ -45472,7 +45575,7 @@ return _internal_enrollment_type();
 }
 inline void DeviceRegisterResponse::_internal_set_enrollment_type(::enterprise_management::DeviceRegisterResponse_DeviceMode value) {
 assert(::enterprise_management::DeviceRegisterResponse_DeviceMode_IsValid(value));
-_has_bits_[0] |= 0x00000008u;
+_has_bits_[0] |= 0x00000020u;
 enrollment_type_ = value;
 }
 inline void DeviceRegisterResponse::set_enrollment_type(::enterprise_management::DeviceRegisterResponse_DeviceMode value) {
@@ -45621,6 +45724,171 @@ inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
 DeviceRegisterResponse::mutable_user_affiliation_ids() {
 // @@protoc_insertion_point(field_mutable_list:enterprise_management.DeviceRegisterResponse.user_affiliation_ids)
 return &user_affiliation_ids_;
+}
+
+// optional string user_display_name = 7;
+inline bool DeviceRegisterResponse::_internal_has_user_display_name() const {
+bool value = (_has_bits_[0] & 0x00000008u) != 0;
+return value;
+}
+inline bool DeviceRegisterResponse::has_user_display_name() const {
+return _internal_has_user_display_name();
+}
+inline void DeviceRegisterResponse::clear_user_display_name() {
+user_display_name_.ClearToEmpty();
+_has_bits_[0] &= ~0x00000008u;
+}
+inline const std::string& DeviceRegisterResponse::user_display_name() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DeviceRegisterResponse.user_display_name)
+return _internal_user_display_name();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DeviceRegisterResponse::set_user_display_name(ArgT0&& arg0, ArgT... args) {
+_has_bits_[0] |= 0x00000008u;
+user_display_name_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+// @@protoc_insertion_point(field_set:enterprise_management.DeviceRegisterResponse.user_display_name)
+}
+inline std::string* DeviceRegisterResponse::mutable_user_display_name() {
+std::string* _s = _internal_mutable_user_display_name();
+// @@protoc_insertion_point(field_mutable:enterprise_management.DeviceRegisterResponse.user_display_name)
+return _s;
+}
+inline const std::string& DeviceRegisterResponse::_internal_user_display_name() const {
+return user_display_name_.Get();
+}
+inline void DeviceRegisterResponse::_internal_set_user_display_name(const std::string& value) {
+_has_bits_[0] |= 0x00000008u;
+user_display_name_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DeviceRegisterResponse::_internal_mutable_user_display_name() {
+_has_bits_[0] |= 0x00000008u;
+return user_display_name_.Mutable(GetArenaForAllocation());
+}
+inline std::string* DeviceRegisterResponse::release_user_display_name() {
+// @@protoc_insertion_point(field_release:enterprise_management.DeviceRegisterResponse.user_display_name)
+if (!_internal_has_user_display_name()) {
+return nullptr;
+}
+_has_bits_[0] &= ~0x00000008u;
+auto* p = user_display_name_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (user_display_name_.IsDefault()) {
+user_display_name_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+return p;
+}
+inline void DeviceRegisterResponse::set_allocated_user_display_name(std::string* user_display_name) {
+if (user_display_name != nullptr) {
+_has_bits_[0] |= 0x00000008u;
+} else {
+_has_bits_[0] &= ~0x00000008u;
+}
+user_display_name_.SetAllocated(user_display_name, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (user_display_name_.IsDefault()) {
+user_display_name_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceRegisterResponse.user_display_name)
+}
+
+// optional string user_email = 8;
+inline bool DeviceRegisterResponse::_internal_has_user_email() const {
+bool value = (_has_bits_[0] & 0x00000010u) != 0;
+return value;
+}
+inline bool DeviceRegisterResponse::has_user_email() const {
+return _internal_has_user_email();
+}
+inline void DeviceRegisterResponse::clear_user_email() {
+user_email_.ClearToEmpty();
+_has_bits_[0] &= ~0x00000010u;
+}
+inline const std::string& DeviceRegisterResponse::user_email() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DeviceRegisterResponse.user_email)
+return _internal_user_email();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void DeviceRegisterResponse::set_user_email(ArgT0&& arg0, ArgT... args) {
+_has_bits_[0] |= 0x00000010u;
+user_email_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+// @@protoc_insertion_point(field_set:enterprise_management.DeviceRegisterResponse.user_email)
+}
+inline std::string* DeviceRegisterResponse::mutable_user_email() {
+std::string* _s = _internal_mutable_user_email();
+// @@protoc_insertion_point(field_mutable:enterprise_management.DeviceRegisterResponse.user_email)
+return _s;
+}
+inline const std::string& DeviceRegisterResponse::_internal_user_email() const {
+return user_email_.Get();
+}
+inline void DeviceRegisterResponse::_internal_set_user_email(const std::string& value) {
+_has_bits_[0] |= 0x00000010u;
+user_email_.Set(value, GetArenaForAllocation());
+}
+inline std::string* DeviceRegisterResponse::_internal_mutable_user_email() {
+_has_bits_[0] |= 0x00000010u;
+return user_email_.Mutable(GetArenaForAllocation());
+}
+inline std::string* DeviceRegisterResponse::release_user_email() {
+// @@protoc_insertion_point(field_release:enterprise_management.DeviceRegisterResponse.user_email)
+if (!_internal_has_user_email()) {
+return nullptr;
+}
+_has_bits_[0] &= ~0x00000010u;
+auto* p = user_email_.Release();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (user_email_.IsDefault()) {
+user_email_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+return p;
+}
+inline void DeviceRegisterResponse::set_allocated_user_email(std::string* user_email) {
+if (user_email != nullptr) {
+_has_bits_[0] |= 0x00000010u;
+} else {
+_has_bits_[0] &= ~0x00000010u;
+}
+user_email_.SetAllocated(user_email, GetArenaForAllocation());
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+if (user_email_.IsDefault()) {
+user_email_.Set("", GetArenaForAllocation());
+}
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+// @@protoc_insertion_point(field_set_allocated:enterprise_management.DeviceRegisterResponse.user_email)
+}
+
+// optional .enterprise_management.DeviceRegisterResponse.ThirdPartyIdentityType third_party_identity_type = 9 [default = NONE];
+inline bool DeviceRegisterResponse::_internal_has_third_party_identity_type() const {
+bool value = (_has_bits_[0] & 0x00000040u) != 0;
+return value;
+}
+inline bool DeviceRegisterResponse::has_third_party_identity_type() const {
+return _internal_has_third_party_identity_type();
+}
+inline void DeviceRegisterResponse::clear_third_party_identity_type() {
+third_party_identity_type_ = 0;
+_has_bits_[0] &= ~0x00000040u;
+}
+inline ::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType DeviceRegisterResponse::_internal_third_party_identity_type() const {
+return static_cast< ::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType >(third_party_identity_type_);
+}
+inline ::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType DeviceRegisterResponse::third_party_identity_type() const {
+// @@protoc_insertion_point(field_get:enterprise_management.DeviceRegisterResponse.third_party_identity_type)
+return _internal_third_party_identity_type();
+}
+inline void DeviceRegisterResponse::_internal_set_third_party_identity_type(::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType value) {
+assert(::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType_IsValid(value));
+_has_bits_[0] |= 0x00000040u;
+third_party_identity_type_ = value;
+}
+inline void DeviceRegisterResponse::set_third_party_identity_type(::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType value) {
+_internal_set_third_party_identity_type(value);
+// @@protoc_insertion_point(field_set:enterprise_management.DeviceRegisterResponse.third_party_identity_type)
 }
 
 // -------------------------------------------------------------------
@@ -88128,6 +88396,7 @@ template <> struct is_proto_enum< ::enterprise_management::DeviceRegisterRequest
 template <> struct is_proto_enum< ::enterprise_management::CheckUserAccountResponse_UserAccountType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::CheckUserAccountResponse_EnrollmentNudgeType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceRegisterResponse_DeviceMode> : ::std::true_type {};
+template <> struct is_proto_enum< ::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceCertUploadRequest_CertificateType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::DeviceServiceApiAccessRequest_DeviceType> : ::std::true_type {};
 template <> struct is_proto_enum< ::enterprise_management::PolicyFetchRequest_SignatureType> : ::std::true_type {};

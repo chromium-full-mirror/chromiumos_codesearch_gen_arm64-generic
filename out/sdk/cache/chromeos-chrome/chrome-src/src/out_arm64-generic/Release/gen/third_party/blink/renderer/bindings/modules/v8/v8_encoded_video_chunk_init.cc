@@ -24,6 +24,20 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"data",
+"decryptConfig",
+"duration",
+"timestamp",
+"transfer",
+"type",
+};
+
+
+}  // namespace 
+
 EncodedVideoChunkInit* EncodedVideoChunkInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   EncodedVideoChunkInit* dictionary = MakeGarbageCollected<EncodedVideoChunkInit>(isolate);
 if (!v8_value->IsObject()) {
@@ -98,39 +112,53 @@ TraceIfNeeded<V8EncodedVideoChunkType>::Trace(visitor, member_type_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool EncodedVideoChunkInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
+void EncodedVideoChunkInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void EncodedVideoChunkInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
+if (hasData()) {
+  values[0] = ToV8Traits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared>::ToV8(script_state, member_data_.Get());
+DCHECK(!values[0].IsEmpty());
+}
 v8::Isolate* isolate = script_state->GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-if (hasData()) {
-  v8_value = ToV8Traits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared>::ToV8(script_state, member_data_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
-}
 ExecutionContext* execution_context = ExecutionContext::From(current_context);
 if (RuntimeEnabledFeatures::MediaSourceExtensionsForWebCodecsEnabled(execution_context)) {
   if (hasDecryptConfig()) {
-  v8_value = ToV8Traits<DecryptConfig>::ToV8(script_state, member_decrypt_config_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<DecryptConfig>::ToV8(script_state, member_decrypt_config_.Get());
+DCHECK(!values[1].IsEmpty());
 }
 }
 if (hasDuration()) {
-  v8_value = ToV8Traits<IDLUnsignedLongLongEnforceRange>::ToV8(script_state, member_duration_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUnsignedLongLongEnforceRange>::ToV8(script_state, member_duration_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasTimestamp()) {
-  v8_value = ToV8Traits<IDLLongLongEnforceRange>::ToV8(script_state, member_timestamp_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLLongLongEnforceRange>::ToV8(script_state, member_timestamp_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasTransfer()) {
-  v8_value = ToV8Traits<IDLSequence<DOMArrayBuffer>>::ToV8(script_state, member_transfer_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLSequence<DOMArrayBuffer>>::ToV8(script_state, member_transfer_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasType()) {
-  v8_value = ToV8Traits<V8EncodedVideoChunkType>::ToV8(script_state, member_type_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<V8EncodedVideoChunkType>::ToV8(script_state, member_type_);
+DCHECK(!values[5].IsEmpty());
 }
-return true;
+}
+
+const void* EncodedVideoChunkInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> EncodedVideoChunkInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void EncodedVideoChunkInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -172,15 +200,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8EncodedVideoChunkType, is_requi
 }
 
 const base::span<const v8::Eternal<v8::Name>> EncodedVideoChunkInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"data",
-"decryptConfig",
-"duration",
-"timestamp",
-"transfer",
-"type",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

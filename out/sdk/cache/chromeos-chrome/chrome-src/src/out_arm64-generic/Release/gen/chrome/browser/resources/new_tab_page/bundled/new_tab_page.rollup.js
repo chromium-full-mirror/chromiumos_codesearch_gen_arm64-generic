@@ -9,6 +9,7 @@ import { TimeDeltaSpec } from 'chrome://resources/mojo/mojo/public/mojom/base/ti
 import './strings.m.js';
 import { DoodleShareChannel, DoodleImageType, IphFeature, NtpBackgroundImageSource, CustomizeChromeSection } from './new_tab_page.mojom-webui.js';
 import { PageCallbackRouter as PageCallbackRouter$1, PageHandler as PageHandler$1 } from 'chrome://resources/cr_components/color_change_listener/color_change_listener.mojom-webui.js';
+import 'chrome://resources/lit/v3_0/lit.rollup.js';
 
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be

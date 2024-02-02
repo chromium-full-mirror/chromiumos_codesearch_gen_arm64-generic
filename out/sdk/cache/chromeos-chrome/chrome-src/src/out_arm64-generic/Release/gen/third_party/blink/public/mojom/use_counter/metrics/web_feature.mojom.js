@@ -4033,9 +4033,10 @@
   WebFeature.kSpeculationRulesAuthorPrerenderRule = 4830;
   WebFeature.kSpeculationRulesBrowserPrefetchRule = 4831;
   WebFeature.kSpeculationRulesBrowserPrerenderRule = 4832;
-  WebFeature.kNumberOfFeatures = 4833;
+  WebFeature.kFirstPartySharedWorkerSameSiteCookiesNone = 4833;
+  WebFeature.kNumberOfFeatures = 4834;
   WebFeature.MIN_VALUE = 0;
-  WebFeature.MAX_VALUE = 4833;
+  WebFeature.MAX_VALUE = 4834;
 
   WebFeature.isKnownEnumValue = function(value) {
     switch (value) {
@@ -8051,6 +8052,7 @@
     case 4831:
     case 4832:
     case 4833:
+    case 4834:
       return true;
     }
     return false;

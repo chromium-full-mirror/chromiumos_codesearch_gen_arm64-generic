@@ -21,6 +21,42 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"hasNull",
+"hasPreferredState",
+"isAbsolute",
+"isArray",
+"isBufferedBytes",
+"isConstant",
+"isLinear",
+"isRange",
+"isVolatile",
+"logicalMaximum",
+"logicalMinimum",
+"physicalMaximum",
+"physicalMinimum",
+"reportCount",
+"reportSize",
+"strings",
+"unitExponent",
+"unitFactorCurrentExponent",
+"unitFactorLengthExponent",
+"unitFactorLuminousIntensityExponent",
+"unitFactorMassExponent",
+"unitFactorTemperatureExponent",
+"unitFactorTimeExponent",
+"unitSystem",
+"usageMaximum",
+"usageMinimum",
+"usages",
+"wrap",
+};
+
+
+}  // namespace 
+
 HIDReportItem* HIDReportItem::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   HIDReportItem* dictionary = MakeGarbageCollected<HIDReportItem>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -316,124 +352,136 @@ TraceIfNeeded<bool>::Trace(visitor, member_wrap_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool HIDReportItem::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void HIDReportItem::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void HIDReportItem::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasHasNull()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_has_null_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_has_null_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasHasPreferredState()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_has_preferred_state_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_has_preferred_state_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasIsAbsolute()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_absolute_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_absolute_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasIsArray()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_array_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_array_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasIsBufferedBytes()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_buffered_bytes_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_buffered_bytes_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasIsConstant()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_constant_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_constant_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasIsLinear()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_linear_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_linear_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasIsRange()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_range_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_range_);
+DCHECK(!values[7].IsEmpty());
 }
 if (hasIsVolatile()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_volatile_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_volatile_);
+DCHECK(!values[8].IsEmpty());
 }
 if (hasLogicalMaximum()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_logical_maximum_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<IDLLong>::ToV8(script_state, member_logical_maximum_);
+DCHECK(!values[9].IsEmpty());
 }
 if (hasLogicalMinimum()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_logical_minimum_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
+  values[10] = ToV8Traits<IDLLong>::ToV8(script_state, member_logical_minimum_);
+DCHECK(!values[10].IsEmpty());
 }
 if (hasPhysicalMaximum()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_physical_maximum_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[11].Get(isolate), v8_value).ToChecked();
+  values[11] = ToV8Traits<IDLLong>::ToV8(script_state, member_physical_maximum_);
+DCHECK(!values[11].IsEmpty());
 }
 if (hasPhysicalMinimum()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_physical_minimum_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[12].Get(isolate), v8_value).ToChecked();
+  values[12] = ToV8Traits<IDLLong>::ToV8(script_state, member_physical_minimum_);
+DCHECK(!values[12].IsEmpty());
 }
 if (hasReportCount()) {
-  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_report_count_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[13].Get(isolate), v8_value).ToChecked();
+  values[13] = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_report_count_);
+DCHECK(!values[13].IsEmpty());
 }
 if (hasReportSize()) {
-  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_report_size_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[14].Get(isolate), v8_value).ToChecked();
+  values[14] = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_report_size_);
+DCHECK(!values[14].IsEmpty());
 }
 if (hasStrings()) {
-  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_strings_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[15].Get(isolate), v8_value).ToChecked();
+  values[15] = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_strings_);
+DCHECK(!values[15].IsEmpty());
 }
 if (hasUnitExponent()) {
-  v8_value = ToV8Traits<IDLByte>::ToV8(script_state, member_unit_exponent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[16].Get(isolate), v8_value).ToChecked();
+  values[16] = ToV8Traits<IDLByte>::ToV8(script_state, member_unit_exponent_);
+DCHECK(!values[16].IsEmpty());
 }
 if (hasUnitFactorCurrentExponent()) {
-  v8_value = ToV8Traits<IDLByte>::ToV8(script_state, member_unit_factor_current_exponent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[17].Get(isolate), v8_value).ToChecked();
+  values[17] = ToV8Traits<IDLByte>::ToV8(script_state, member_unit_factor_current_exponent_);
+DCHECK(!values[17].IsEmpty());
 }
 if (hasUnitFactorLengthExponent()) {
-  v8_value = ToV8Traits<IDLByte>::ToV8(script_state, member_unit_factor_length_exponent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[18].Get(isolate), v8_value).ToChecked();
+  values[18] = ToV8Traits<IDLByte>::ToV8(script_state, member_unit_factor_length_exponent_);
+DCHECK(!values[18].IsEmpty());
 }
 if (hasUnitFactorLuminousIntensityExponent()) {
-  v8_value = ToV8Traits<IDLByte>::ToV8(script_state, member_unit_factor_luminous_intensity_exponent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[19].Get(isolate), v8_value).ToChecked();
+  values[19] = ToV8Traits<IDLByte>::ToV8(script_state, member_unit_factor_luminous_intensity_exponent_);
+DCHECK(!values[19].IsEmpty());
 }
 if (hasUnitFactorMassExponent()) {
-  v8_value = ToV8Traits<IDLByte>::ToV8(script_state, member_unit_factor_mass_exponent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[20].Get(isolate), v8_value).ToChecked();
+  values[20] = ToV8Traits<IDLByte>::ToV8(script_state, member_unit_factor_mass_exponent_);
+DCHECK(!values[20].IsEmpty());
 }
 if (hasUnitFactorTemperatureExponent()) {
-  v8_value = ToV8Traits<IDLByte>::ToV8(script_state, member_unit_factor_temperature_exponent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[21].Get(isolate), v8_value).ToChecked();
+  values[21] = ToV8Traits<IDLByte>::ToV8(script_state, member_unit_factor_temperature_exponent_);
+DCHECK(!values[21].IsEmpty());
 }
 if (hasUnitFactorTimeExponent()) {
-  v8_value = ToV8Traits<IDLByte>::ToV8(script_state, member_unit_factor_time_exponent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[22].Get(isolate), v8_value).ToChecked();
+  values[22] = ToV8Traits<IDLByte>::ToV8(script_state, member_unit_factor_time_exponent_);
+DCHECK(!values[22].IsEmpty());
 }
 if (hasUnitSystem()) {
-  v8_value = ToV8Traits<V8HIDUnitSystem>::ToV8(script_state, member_unit_system_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[23].Get(isolate), v8_value).ToChecked();
+  values[23] = ToV8Traits<V8HIDUnitSystem>::ToV8(script_state, member_unit_system_);
+DCHECK(!values[23].IsEmpty());
 }
 if (hasUsageMaximum()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_usage_maximum_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[24].Get(isolate), v8_value).ToChecked();
+  values[24] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_usage_maximum_);
+DCHECK(!values[24].IsEmpty());
 }
 if (hasUsageMinimum()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_usage_minimum_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[25].Get(isolate), v8_value).ToChecked();
+  values[25] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_usage_minimum_);
+DCHECK(!values[25].IsEmpty());
 }
 if (hasUsages()) {
-  v8_value = ToV8Traits<IDLSequence<IDLUnsignedLong>>::ToV8(script_state, member_usages_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[26].Get(isolate), v8_value).ToChecked();
+  values[26] = ToV8Traits<IDLSequence<IDLUnsignedLong>>::ToV8(script_state, member_usages_);
+DCHECK(!values[26].IsEmpty());
 }
 if (hasWrap()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_wrap_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[27].Get(isolate), v8_value).ToChecked();
+  values[27] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_wrap_);
+DCHECK(!values[27].IsEmpty());
 }
-return true;
+}
+
+const void* HIDReportItem::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> HIDReportItem::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void HIDReportItem::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -558,37 +606,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate,
 }
 
 const base::span<const v8::Eternal<v8::Name>> HIDReportItem::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"hasNull",
-"hasPreferredState",
-"isAbsolute",
-"isArray",
-"isBufferedBytes",
-"isConstant",
-"isLinear",
-"isRange",
-"isVolatile",
-"logicalMaximum",
-"logicalMinimum",
-"physicalMaximum",
-"physicalMinimum",
-"reportCount",
-"reportSize",
-"strings",
-"unitExponent",
-"unitFactorCurrentExponent",
-"unitFactorLengthExponent",
-"unitFactorLuminousIntensityExponent",
-"unitFactorMassExponent",
-"unitFactorTemperatureExponent",
-"unitFactorTimeExponent",
-"unitSystem",
-"usageMaximum",
-"usageMinimum",
-"usages",
-"wrap",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

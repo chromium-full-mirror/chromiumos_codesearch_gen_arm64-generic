@@ -14,6 +14,7 @@
 #include "ui/accessibility/mojom/ax_event_intent.mojom-shared-internal.h"
 #include "ui/accessibility/mojom/ax_node_data.mojom-shared-internal.h"
 #include "ui/accessibility/mojom/ax_tree_data.mojom-shared-internal.h"
+#include "ui/accessibility/mojom/ax_tree_checks.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -47,6 +48,7 @@ class  AXTreeUpdate_Data {
   int32_t event_from_action;
   uint8_t pad6_[4];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::ax::mojom::internal::EventIntent_Data>>> event_intents;
+  mojo::internal::Pointer<::ax::mojom::internal::AXTreeChecks_Data> tree_checks;
 
  private:
   friend class mojo::internal::MessageFragment<AXTreeUpdate_Data>;
@@ -54,7 +56,7 @@ class  AXTreeUpdate_Data {
   AXTreeUpdate_Data();
   ~AXTreeUpdate_Data() = delete;
 };
-static_assert(sizeof(AXTreeUpdate_Data) == 56,
+static_assert(sizeof(AXTreeUpdate_Data) == 64,
               "Bad sizeof(AXTreeUpdate_Data)");
 // Used by AXTreeUpdate::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

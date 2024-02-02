@@ -49,6 +49,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR FeatureTextSafetyConfiguration::FeatureTextSafetyConfiguration(
     ::_pbi::ConstantInitialized)
   : safety_category_thresholds_()
+  , allowed_languages_()
   , feature_(0)
 {}
 struct FeatureTextSafetyConfigurationDefaultTypeInternal {
@@ -568,14 +569,16 @@ class FeatureTextSafetyConfiguration::_Internal {
 FeatureTextSafetyConfiguration::FeatureTextSafetyConfiguration(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned),
-  safety_category_thresholds_(arena) {
+  safety_category_thresholds_(arena),
+  allowed_languages_(arena) {
   SharedCtor();
   // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.FeatureTextSafetyConfiguration)
 }
 FeatureTextSafetyConfiguration::FeatureTextSafetyConfiguration(const FeatureTextSafetyConfiguration& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
       _has_bits_(from._has_bits_),
-      safety_category_thresholds_(from.safety_category_thresholds_) {
+      safety_category_thresholds_(from.safety_category_thresholds_),
+      allowed_languages_(from.allowed_languages_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
   feature_ = from.feature_;
   // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.FeatureTextSafetyConfiguration)
@@ -609,6 +612,7 @@ void FeatureTextSafetyConfiguration::Clear() {
   (void) cached_has_bits;
 
   safety_category_thresholds_.Clear();
+  allowed_languages_.Clear();
   feature_ = 0;
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -644,6 +648,20 @@ const char* FeatureTextSafetyConfiguration::_InternalParse(const char* ptr, ::_p
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // repeated string allowed_languages = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            auto str = _internal_add_allowed_languages();
+            ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else
           goto handle_unusual;
         continue;
@@ -693,6 +711,12 @@ uint8_t* FeatureTextSafetyConfiguration::_InternalSerialize(
         InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
   }
 
+  // repeated string allowed_languages = 3;
+  for (int i = 0, n = this->_internal_allowed_languages_size(); i < n; i++) {
+    const auto& s = this->_internal_allowed_languages(i);
+    target = stream->WriteString(3, s, target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -714,6 +738,14 @@ size_t FeatureTextSafetyConfiguration::ByteSizeLong() const {
   for (const auto& msg : this->safety_category_thresholds_) {
     total_size +=
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // repeated string allowed_languages = 3;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(allowed_languages_.size());
+  for (int i = 0, n = allowed_languages_.size(); i < n; i++) {
+    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      allowed_languages_.Get(i));
   }
 
   // optional .optimization_guide.proto.ModelExecutionFeature feature = 1;
@@ -744,6 +776,7 @@ void FeatureTextSafetyConfiguration::MergeFrom(const FeatureTextSafetyConfigurat
   (void) cached_has_bits;
 
   safety_category_thresholds_.MergeFrom(from.safety_category_thresholds_);
+  allowed_languages_.MergeFrom(from.allowed_languages_);
   if (from._internal_has_feature()) {
     _internal_set_feature(from._internal_feature());
   }
@@ -766,6 +799,7 @@ void FeatureTextSafetyConfiguration::InternalSwap(FeatureTextSafetyConfiguration
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   swap(_has_bits_[0], other->_has_bits_[0]);
   safety_category_thresholds_.InternalSwap(&other->safety_category_thresholds_);
+  allowed_languages_.InternalSwap(&other->allowed_languages_);
   swap(feature_, other->feature_);
 }
 

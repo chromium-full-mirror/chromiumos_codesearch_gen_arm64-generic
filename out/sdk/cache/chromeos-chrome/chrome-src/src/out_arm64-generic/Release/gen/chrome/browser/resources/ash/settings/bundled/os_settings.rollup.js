@@ -1,6 +1,6 @@
 import './strings.m.js';
-import { a as assertNotReached, cj as listenOnce, N as NetworkListenerBehavior, W as WebUiListenerMixin, R as RouteObserverMixin, I as I18nMixin, ck as ABOUT_CHROME_OS_SECTION_PATH, m as isRevampWayfindingEnabled, b7 as getInputDeviceSettingsProvider, a4 as MultiDeviceBrowserProxyImpl, j as Router, cl as isAdvancedRoute, cm as NETWORK_SECTION_PATH, cn as BLUETOOTH_SECTION_PATH, co as MULTI_DEVICE_SECTION_PATH, cp as PEOPLE_SECTION_PATH, cq as KERBEROS_SECTION_PATH, cr as DEVICE_SECTION_PATH, cs as PERSONALIZATION_SECTION_PATH, ct as PRIVACY_AND_SECURITY_SECTION_PATH, cu as APPS_SECTION_PATH, cv as ACCESSIBILITY_SECTION_PATH, cw as SYSTEM_PREFERENCES_SECTION_PATH, cx as SEARCH_AND_ASSISTANT_SECTION_PATH, cy as DATE_AND_TIME_SECTION_PATH, cz as LANGUAGES_AND_INPUT_SECTION_PATH, cA as FILES_SECTION_PATH, cB as PRINTING_SECTION_PATH, cC as CROSTINI_SECTION_PATH, cD as RESET_SECTION_PATH, aq as AccountManagerBrowserProxyImpl, _ as assertExists, h as castExists, cE as getDeviceName, ax as MultiDeviceSettingsMode, b8 as FakeInputDeviceSettingsProvider, cF as KeyboardSettingsObserverReceiver, cG as MouseSettingsObserverReceiver, cH as PointingStickSettingsObserverReceiver, cI as TouchpadSettingsObserverReceiver, cJ as routesMojom, O as OncMojo, c as assert, D as DeepLinkingMixin, P as PrefsMixin, S as Setting, bd as AudioAndCaptionsPageBrowserProxyImpl, b as routes, d as cast, cK as getDisplayApi, cL as IronResizableBehavior, ae as DevicePageBrowserProxyImpl, cM as PaperRippleMixin, G as GeolocationAccessLevel, u as focusWithoutInk, cN as getDeviceStateChangesToAnnounce, K as getInstance, cO as CrLinkRowElement, cP as Fkey, cQ as ExtendedFkeysModifier, cR as TopRowActionKey, cS as MetaKey, cT as ModifierKey, cU as SixPackShortcutModifier, cV as SixPackKey, cW as PolicyStatus, i as RouteOriginMixin, n as Section$1, cX as isInputDeviceSettingsSplitEnabled, cY as isExternalStorageEnabled, cZ as GraphicsTabletSettingsObserverReceiver, b0 as ACCESSIBILITY_COMMON_IME_ID, c_ as Button, c$ as ButtonState, a1 as mojoString16ToString, a5 as getEuicc, a7 as getPendingESimProfiles, d0 as hasActiveCellularNetwork, a2 as CellularSetupPageName, d1 as getESimProfile, d2 as stringToMojoString16, M as CrPolicyNetworkBehaviorMojo, d3 as NetworkConfigElementBehavior, z as I18nBehavior, d4 as assertNotReached$1, E as assert$1, d5 as htmlEscape, r as recordSettingChange, a3 as ESimManagerListenerMixin, Y as InternetPageBrowserProxyImpl, a6 as getSimSlotCount, d6 as isConnectedToNonCellularNetwork, d7 as getNumESimProfiles, aw as MultiDeviceFeature, au as LockStateMixin, aD as recordLockScreenProgress, aE as LockScreenProgress, d8 as LockScreenUnlockType, at as fireAuthTokenInvalidEvent, d9 as PhoneHubPermissionsSetupFlowScreens, da as PhoneHubPermissionsSetupAction, db as PhoneHubPermissionsSetupFeatureCombination, dc as getNearbyShareSettings, dd as observeNearbyShareSettings, av as MultiDeviceFeatureMixin, de as PhoneHubFeatureAccessStatus, a8 as MultiDeviceFeatureState, df as OsBluetoothDevicesSubpageBrowserProxyImpl, dg as ButtonState$1, dh as ButtonName, F as FocusRowMixin, di as DeviceItemState, aJ as CrScrollableMixin, dj as PairingAuthType, dk as recordBluetoothUiSurfaceMetrics, dl as BluetoothUiSurface, y as isChild, ar as ParentalControlsBrowserProxyImpl, ab as getImage, as as assertInstanceof, dm as isAccountManagerEnabled, aG as SyncBrowserProxyImpl, dn as AUTH_TOKEN_INVALID_EVENT_TYPE, dp as PrivacyHubNavigationOrigin, dq as isQuickAnswersSupported, dr as isAssistantAllowed, ds as shouldShowMultitasking, dt as isGuest, du as isPowerwashAllowed, dv as shouldShowStartup, dw as getTrustedScriptURL, dx as isAboutRoute, dy as AndroidAppsBrowserProxyImpl, A as AboutPageBrowserProxyImpl, dz as isBasicRoute, dA as CrSearchFieldMixin, dB as SectionSpec, dC as SubpageSpec, dD as SettingSpec, s as sanitizeInnerHtml, dE as OpenWindowProxyImpl, dF as recordSearch, a$ as FindShortcutMixin, dG as CrContainerShadowMixin, dH as setGlobalScrollTarget, dI as recordPageFocus, dJ as recordPageBlur, dK as recordClick, dL as recordNavigation, dM as getPrefPolicyFields$1, dN as settingsAreEqual, aF as PluralStringProxyImpl, dO as CustomizationRestriction, dP as SimulateRightClickModifier, dQ as recordSavedDevicesUiEventMetrics, dR as FastPairSavedDevicesUiEvent, dS as ColorChangeUpdater } from './shared.rollup.js';
-export { e0 as ApnDetailDialog, aT as AppLanguageSelectionDialogEntryPoint, aX as AppManagementBrowserProxy, aa as AppManagementComponentBrowserProxy, e1 as AppManagementFileHandlingItemElement, eo as AppManagementStore, aV as AppManagementStoreMixin, bg as AppManagementSupportedLinksItemElement, e2 as AppManagementToggleRowElement, al as BrowserChannel, ac as ChromeVoxSubpageBrowserProxyImpl, fd as ConfirmationDialogType, es as ControlledButtonElement, et as ControlledRadioButtonElement, aC as CrActionMenuElement, az as CrButtonElement, e7 as CrCardRadioButtonElement, e6 as CrCheckboxElement, aA as CrDialogElement, aB as CrIconButtonElement, ay as CrInputElement, ef as CrPolicyIndicatorElement, e8 as CrRadioButtonElement, e9 as CrRadioGroupElement, ea as CrSearchFieldElement, eb as CrSearchableDropDownElement, e5 as CrSettingsPrefs, ec as CrSliderElement, ed as CrTextareaElement, ee as CrToastElement, a9 as CrToggleElement, eg as CrTooltipIconElement, dZ as DEFAULT_CHECKED_VALUE, d_ as DEFAULT_UNCHECKED_VALUE, an as DeviceNameBrowserProxyImpl, ap as DeviceNameState, d$ as ExtensionControlBrowserProxyImpl, eu as ExtensionControlledIndicatorElement, f7 as FastPairSavedDevicesOptInStatus, f8 as GoogleDriveBrowserProxy, f9 as GoogleDrivePageCallbackRouter, fa as GoogleDrivePageHandlerRemote, fb as GoogleDrivePageRemote, ex as IdleBehavior, eq as LacrosExtensionControlBrowserProxyImpl, er as LacrosExtensionControlledIndicatorElement, ey as LidClosedBehavior, L as LifetimeBrowserProxyImpl, e3 as LocalizedLinkElement, fh as MetricsConsentBrowserProxyImpl, eY as NearbyAccountManagerBrowserProxyImpl, dW as NearbyProgressElement, eZ as NearbyShareConfirmPageElement, f3 as NearbyShareDataUsage, e_ as NearbyShareHighVisibilityPageElement, ez as NoteAppLockScreenSupport, aU as OneDriveBrowserProxy, fe as OneDrivePageCallbackRouter, ff as OneDrivePageHandlerRemote, fg as OneDrivePageRemote, cg as OsResetBrowserProxyImpl, f6 as OsSettingsAppsPageElement, a_ as OsSettingsSubpageElement, aH as PageStatus, eW as PhoneHubFeatureAccessProhibitedReason, eX as PhoneHubPermissionsSetupMode, f4 as PluginVmBrowserProxyImpl, aQ as PrivacyHubSensorSubpageUserAction, b2 as PrivacyPageBrowserProxyImpl, fp as Route, fm as SearchEnginesBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, ag as SelectToSpeakSubpageBrowserProxyImpl, ao as SetDeviceNameResult, fn as SettingsCardElement, ev as SettingsDropdownMenuElement, c9 as SettingsGoogleDriveSubpageElement, e4 as SettingsPrefsElement, fj as SettingsPrivacyHubAppPermissionRow, fk as SettingsPrivacyHubSystemServiceRow, fl as SettingsSearchEngineElement, ew as SettingsSliderElement, af as SettingsToggleButtonElement, fc as Stage, aI as StatusAction, eB as StorageSpaceState, ai as SwitchAccessSubpageBrowserProxyImpl, aj as TextToSpeechSubpageBrowserProxyImpl, ak as TtsVoiceSubpageBrowserProxyImpl, U as UpdateStatus, eQ as Vkey, eh as addApp, eS as appNotificationHandlerMojom, eT as appPermissionHandlerMojom, ei as changeApp, fo as createRouterForTesting, f2 as dataUsageStringToEnum, eC as fakeGraphicsTabletButtonActions, eD as fakeGraphicsTablets, eE as fakeKeyboards, eF as fakeKeyboards2, eG as fakeMice, eH as fakeMice2, eI as fakeMouseButtonActions, eJ as fakePointingSticks, eK as fakePointingSticks2, eL as fakeStyluses, eM as fakeTouchpads, eN as fakeTouchpads2, dT as getContactManager, e$ as getReceiveManager, bb as getShortcutInputProvider, dX as nearbyShareMojom, dU as observeContactManager, f0 as observeReceiveManager, em as reduceAction, ej as removeApp, ep as resetGlobalScrollTargetForTesting, f5 as setAppNotificationProviderForTesting, fi as setAppPermissionProviderForTesting, dV as setContactManagerForTesting, eA as setDisplayApiForTesting, eO as setInputDeviceSettingsProviderForTesting, dY as setNearbyShareSettingsForTesting, f1 as setReceiveManagerForTesting, eR as setUserActionRecorderForTesting, eU as settingMojom, eP as setupFakeInputDeviceSettingsProvider, en as updateApps, ek as updateSelectedAppId, el as updateSubAppToParentAppId, eV as userActionRecorderMojom } from './shared.rollup.js';
+import { a as assertNotReached, cl as listenOnce, N as NetworkListenerBehavior, W as WebUiListenerMixin, R as RouteObserverMixin, I as I18nMixin, cm as ABOUT_CHROME_OS_SECTION_PATH, m as isRevampWayfindingEnabled, b7 as getInputDeviceSettingsProvider, a4 as MultiDeviceBrowserProxyImpl, j as Router, cn as isAdvancedRoute, co as NETWORK_SECTION_PATH, cp as BLUETOOTH_SECTION_PATH, cq as MULTI_DEVICE_SECTION_PATH, cr as PEOPLE_SECTION_PATH, cs as KERBEROS_SECTION_PATH, ct as DEVICE_SECTION_PATH, cu as PERSONALIZATION_SECTION_PATH, cv as PRIVACY_AND_SECURITY_SECTION_PATH, cw as APPS_SECTION_PATH, cx as ACCESSIBILITY_SECTION_PATH, cy as SYSTEM_PREFERENCES_SECTION_PATH, cz as SEARCH_AND_ASSISTANT_SECTION_PATH, cA as DATE_AND_TIME_SECTION_PATH, cB as LANGUAGES_AND_INPUT_SECTION_PATH, cC as FILES_SECTION_PATH, cD as PRINTING_SECTION_PATH, cE as CROSTINI_SECTION_PATH, cF as RESET_SECTION_PATH, aq as AccountManagerBrowserProxyImpl, _ as assertExists, h as castExists, cG as getDeviceName, ax as MultiDeviceSettingsMode, b8 as FakeInputDeviceSettingsProvider, cH as KeyboardSettingsObserverReceiver, cI as MouseSettingsObserverReceiver, cJ as PointingStickSettingsObserverReceiver, cK as TouchpadSettingsObserverReceiver, cL as routesMojom, O as OncMojo, c as assert, D as DeepLinkingMixin, P as PrefsMixin, S as Setting, bd as AudioAndCaptionsPageBrowserProxyImpl, b as routes, d as cast, cM as getDisplayApi, cN as IronResizableBehavior, ae as DevicePageBrowserProxyImpl, cO as PaperRippleMixin, G as GeolocationAccessLevel, u as focusWithoutInk, cP as getDeviceStateChangesToAnnounce, K as getInstance, cQ as CrLinkRowElement, cR as Fkey, cS as ExtendedFkeysModifier, cT as TopRowActionKey, cU as MetaKey, cV as ModifierKey, cW as SixPackShortcutModifier, cX as SixPackKey, cY as PolicyStatus, i as RouteOriginMixin, n as Section$1, cZ as isInputDeviceSettingsSplitEnabled, c_ as isExternalStorageEnabled, c$ as GraphicsTabletSettingsObserverReceiver, b0 as ACCESSIBILITY_COMMON_IME_ID, d0 as Button, d1 as ButtonState, a1 as mojoString16ToString, a5 as getEuicc, a7 as getPendingESimProfiles, d2 as hasActiveCellularNetwork, a2 as CellularSetupPageName, d3 as getESimProfile, d4 as stringToMojoString16, M as CrPolicyNetworkBehaviorMojo, d5 as NetworkConfigElementBehavior, z as I18nBehavior, d6 as assertNotReached$1, E as assert$1, d7 as htmlEscape, r as recordSettingChange, a3 as ESimManagerListenerMixin, Y as InternetPageBrowserProxyImpl, a6 as getSimSlotCount, d8 as isConnectedToNonCellularNetwork, d9 as getNumESimProfiles, aw as MultiDeviceFeature, au as LockStateMixin, aD as recordLockScreenProgress, aE as LockScreenProgress, da as LockScreenUnlockType, at as fireAuthTokenInvalidEvent, db as PhoneHubPermissionsSetupFlowScreens, dc as PhoneHubPermissionsSetupAction, dd as PhoneHubPermissionsSetupFeatureCombination, de as getNearbyShareSettings, df as observeNearbyShareSettings, av as MultiDeviceFeatureMixin, dg as PhoneHubFeatureAccessStatus, a8 as MultiDeviceFeatureState, dh as OsBluetoothDevicesSubpageBrowserProxyImpl, di as ButtonState$1, dj as ButtonName, F as FocusRowMixin, dk as DeviceItemState, aJ as CrScrollableMixin, dl as PairingAuthType, dm as recordBluetoothUiSurfaceMetrics, dn as BluetoothUiSurface, y as isChild, ar as ParentalControlsBrowserProxyImpl, ab as getImage, as as assertInstanceof, dp as isAccountManagerEnabled, aG as SyncBrowserProxyImpl, dq as AUTH_TOKEN_INVALID_EVENT_TYPE, dr as PrivacyHubNavigationOrigin, ds as isQuickAnswersSupported, dt as isAssistantAllowed, du as shouldShowMultitasking, dv as isGuest, dw as isPowerwashAllowed, dx as shouldShowStartup, dy as getTrustedScriptURL, dz as isAboutRoute, dA as AndroidAppsBrowserProxyImpl, A as AboutPageBrowserProxyImpl, dB as isBasicRoute, dC as CrSearchFieldMixin, dD as SectionSpec, dE as SubpageSpec, dF as SettingSpec, s as sanitizeInnerHtml, dG as OpenWindowProxyImpl, dH as recordSearch, a$ as FindShortcutMixin, dI as setGlobalScrollTarget, dJ as recordPageFocus, dK as recordPageBlur, dL as recordClick, dM as recordNavigation, dN as getPrefPolicyFields$1, dO as settingsAreEqual, aF as PluralStringProxyImpl, dP as CustomizationRestriction, dQ as SimulateRightClickModifier, dR as recordSavedDevicesUiEventMetrics, dS as FastPairSavedDevicesUiEvent, dT as ColorChangeUpdater } from './shared.rollup.js';
+export { e1 as ApnDetailDialog, aT as AppLanguageSelectionDialogEntryPoint, aX as AppManagementBrowserProxy, aa as AppManagementComponentBrowserProxy, f3 as AppManagementFileHandlingItemElement, en as AppManagementStore, aV as AppManagementStoreMixin, bY as AppManagementSupportedLinksItemElement, f5 as AppManagementToggleRowElement, al as BrowserChannel, ac as ChromeVoxSubpageBrowserProxyImpl, fe as ConfirmationDialogType, er as ControlledButtonElement, es as ControlledRadioButtonElement, aC as CrActionMenuElement, az as CrButtonElement, e6 as CrCardRadioButtonElement, e5 as CrCheckboxElement, aA as CrDialogElement, aB as CrIconButtonElement, ay as CrInputElement, ee as CrPolicyIndicatorElement, e7 as CrRadioButtonElement, e8 as CrRadioGroupElement, e9 as CrSearchFieldElement, ea as CrSearchableDropDownElement, e4 as CrSettingsPrefs, eb as CrSliderElement, ec as CrTextareaElement, ed as CrToastElement, a9 as CrToggleElement, ef as CrTooltipIconElement, d_ as DEFAULT_CHECKED_VALUE, d$ as DEFAULT_UNCHECKED_VALUE, an as DeviceNameBrowserProxyImpl, ap as DeviceNameState, e0 as ExtensionControlBrowserProxyImpl, et as ExtensionControlledIndicatorElement, f8 as FastPairSavedDevicesOptInStatus, f9 as GoogleDriveBrowserProxy, fa as GoogleDrivePageCallbackRouter, fb as GoogleDrivePageHandlerRemote, fc as GoogleDrivePageRemote, ew as IdleBehavior, ep as LacrosExtensionControlBrowserProxyImpl, eq as LacrosExtensionControlledIndicatorElement, ex as LidClosedBehavior, L as LifetimeBrowserProxyImpl, e2 as LocalizedLinkElement, fi as MetricsConsentBrowserProxyImpl, eX as NearbyAccountManagerBrowserProxyImpl, dX as NearbyProgressElement, eY as NearbyShareConfirmPageElement, f2 as NearbyShareDataUsage, eZ as NearbyShareHighVisibilityPageElement, ey as NoteAppLockScreenSupport, aU as OneDriveBrowserProxy, ff as OneDrivePageCallbackRouter, fg as OneDrivePageHandlerRemote, fh as OneDrivePageRemote, ci as OsResetBrowserProxyImpl, f7 as OsSettingsAppsPageElement, a_ as OsSettingsSubpageElement, aH as PageStatus, eV as PhoneHubFeatureAccessProhibitedReason, eW as PhoneHubPermissionsSetupMode, f4 as PluginVmBrowserProxyImpl, aQ as PrivacyHubSensorSubpageUserAction, b2 as PrivacyPageBrowserProxyImpl, fq as Route, fn as SearchEnginesBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, ag as SelectToSpeakSubpageBrowserProxyImpl, ao as SetDeviceNameResult, fo as SettingsCardElement, eu as SettingsDropdownMenuElement, cb as SettingsGoogleDriveSubpageElement, e3 as SettingsPrefsElement, fk as SettingsPrivacyHubAppPermissionRow, fl as SettingsPrivacyHubSystemServiceRow, fm as SettingsSearchEngineElement, ev as SettingsSliderElement, af as SettingsToggleButtonElement, fd as Stage, aI as StatusAction, eA as StorageSpaceState, ai as SwitchAccessSubpageBrowserProxyImpl, aj as TextToSpeechSubpageBrowserProxyImpl, ak as TtsVoiceSubpageBrowserProxyImpl, U as UpdateStatus, eP as Vkey, eg as addApp, eR as appNotificationHandlerMojom, eS as appPermissionHandlerMojom, eh as changeApp, fp as createRouterForTesting, f1 as dataUsageStringToEnum, eB as fakeGraphicsTabletButtonActions, eC as fakeGraphicsTablets, eD as fakeKeyboards, eE as fakeKeyboards2, eF as fakeMice, eG as fakeMice2, eH as fakeMouseButtonActions, eI as fakePointingSticks, eJ as fakePointingSticks2, eK as fakeStyluses, eL as fakeTouchpads, eM as fakeTouchpads2, dU as getContactManager, e_ as getReceiveManager, bb as getShortcutInputProvider, dY as nearbyShareMojom, dV as observeContactManager, e$ as observeReceiveManager, el as reduceAction, ei as removeApp, eo as resetGlobalScrollTargetForTesting, f6 as setAppNotificationProviderForTesting, fj as setAppPermissionProviderForTesting, dW as setContactManagerForTesting, ez as setDisplayApiForTesting, eN as setInputDeviceSettingsProviderForTesting, dZ as setNearbyShareSettingsForTesting, f0 as setReceiveManagerForTesting, eQ as setUserActionRecorderForTesting, eT as settingMojom, eO as setupFakeInputDeviceSettingsProvider, em as updateApps, ej as updateSelectedAppId, ek as updateSubAppToParentAppId, eU as userActionRecorderMojom } from './shared.rollup.js';
 import { html, PolymerElement, mixinBehaviors, dedupingMixin, flush, afterNextRender, Polymer, beforeNextRender, templatize, microTask, Debouncer, timeOut } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getBluetoothConfig } from 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
 import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network/mojo_interface_provider.js';
@@ -2033,9 +2033,6 @@ class SettingsAudioElement extends SettingsAudioElementBase {
         this.audioAndCaptionsBrowserProxy_.setStartupSoundEnabled(e.detail);
     }
     computePowerSoundsHidden_() {
-        if (!loadTimeData.getBoolean('areSystemSoundsEnabled')) {
-            return true;
-        }
         return !this.batteryStatus_?.present;
     }
 }
@@ -29065,6 +29062,140 @@ class OsToolbarElement extends PolymerElement {
     }
 }
 customElements.define(OsToolbarElement.is, OsToolbarElement);
+
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview CrContainerShadowMixin holds logic for showing a drop shadow
+ * near the top of a container element, when the content has scrolled.
+ *
+ * Elements using this mixin are expected to define a #container element,
+ * which is the element being scrolled. If the #container element has a
+ * show-bottom-shadow attribute, a drop shadow will also be shown near the
+ * bottom of the container element, when there is additional content to scroll
+ * to. Examples:
+ *
+ * For both top and bottom shadows:
+ * <div id="container" show-bottom-shadow>...</div>
+ *
+ * For top shadow only:
+ * <div id="container">...</div>
+ *
+ * The mixin will take care of inserting an element with ID
+ * 'cr-container-shadow-top' which holds the drop shadow effect, and,
+ * optionally, an element with ID 'cr-container-shadow-bottom' which holds the
+ * same effect. A 'has-shadow' CSS class is automatically added to/removed from
+ * both elements while scrolling, as necessary. Note that the show-bottom-shadow
+ * attribute is inspected only during attached(), and any changes to it that
+ * occur after that point will not be respected.
+ *
+ * Clients should either use the existing shared styling in
+ * cr_shared_style.css, '#cr-container-shadow-[top/bottom]' and
+ * '#cr-container-shadow-[top/bottom].has-shadow', or define their own styles.
+ */
+var CrContainerShadowSide;
+(function (CrContainerShadowSide) {
+    CrContainerShadowSide["TOP"] = "top";
+    CrContainerShadowSide["BOTTOM"] = "bottom";
+})(CrContainerShadowSide || (CrContainerShadowSide = {}));
+const CrContainerShadowMixin = dedupingMixin((superClass) => {
+    class CrContainerShadowMixin extends superClass {
+        constructor() {
+            super(...arguments);
+            this.intersectionObserver_ = null;
+            this.dropShadows_ = new Map();
+            this.intersectionProbes_ = new Map();
+            this.sides_ = null;
+        }
+        connectedCallback() {
+            super.connectedCallback();
+            const hasBottomShadow = this.getContainer_().hasAttribute('show-bottom-shadow');
+            this.sides_ = hasBottomShadow ?
+                [CrContainerShadowSide.TOP, CrContainerShadowSide.BOTTOM] :
+                [CrContainerShadowSide.TOP];
+            this.sides_.forEach(side => {
+                // The element holding the drop shadow effect to be shown.
+                const shadow = document.createElement('div');
+                shadow.id = `cr-container-shadow-${side}`;
+                shadow.classList.add('cr-container-shadow');
+                this.dropShadows_.set(side, shadow);
+                this.intersectionProbes_.set(side, document.createElement('div'));
+            });
+            this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.TOP), this.getContainer_());
+            this.getContainer_().prepend(this.intersectionProbes_.get(CrContainerShadowSide.TOP));
+            if (hasBottomShadow) {
+                this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.BOTTOM), this.getContainer_().nextSibling);
+                this.getContainer_().append(this.intersectionProbes_.get(CrContainerShadowSide.BOTTOM));
+            }
+            this.enableShadowBehavior(true);
+        }
+        disconnectedCallback() {
+            super.disconnectedCallback();
+            this.enableShadowBehavior(false);
+        }
+        getContainer_() {
+            return this.shadowRoot.querySelector('#container');
+        }
+        getIntersectionObserver_() {
+            const callback = (entries) => {
+                // In some rare cases, there could be more than one entry per
+                // observed element, in which case the last entry's result
+                // stands.
+                for (const entry of entries) {
+                    const target = entry.target;
+                    this.sides_.forEach(side => {
+                        if (target === this.intersectionProbes_.get(side)) {
+                            this.dropShadows_.get(side).classList.toggle('has-shadow', entry.intersectionRatio === 0);
+                        }
+                    });
+                }
+            };
+            return new IntersectionObserver(callback, { root: this.getContainer_(), threshold: 0 });
+        }
+        /**
+         * @param enable Whether to enable the mixin or disable it.
+         *     This function does nothing if the mixin is already in the
+         *     requested state.
+         */
+        enableShadowBehavior(enable) {
+            // Behavior is already enabled/disabled. Return early.
+            if (enable === !!this.intersectionObserver_) {
+                return;
+            }
+            if (!enable) {
+                this.intersectionObserver_.disconnect();
+                this.intersectionObserver_ = null;
+                return;
+            }
+            this.intersectionObserver_ = this.getIntersectionObserver_();
+            // Need to register the observer within a setTimeout() callback,
+            // otherwise the drop shadow flashes once on startup, because of the
+            // DOM modifications earlier in this function causing a relayout.
+            window.setTimeout(() => {
+                if (this.intersectionObserver_) {
+                    // In case this is already detached.
+                    this.intersectionProbes_.forEach(probe => {
+                        this.intersectionObserver_.observe(probe);
+                    });
+                }
+            });
+        }
+        /**
+         * Shows the shadows. The shadow mixin must be disabled before
+         * calling this method, otherwise the intersection observer might
+         * show the shadows again.
+         */
+        showDropShadows() {
+            assert(!this.intersectionObserver_);
+            assert(this.sides_);
+            for (const side of this.sides_) {
+                this.dropShadows_.get(side).classList.toggle('has-shadow', true);
+            }
+        }
+    }
+    return CrContainerShadowMixin;
+});
 
 /* Copyright 2020 The Chromium Authors
  * Use of this source code is governed by a BSD-style license that can be

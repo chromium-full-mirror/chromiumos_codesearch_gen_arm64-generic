@@ -126,7 +126,11 @@ PROTOBUF_CONSTEXPR DeviceRegisterResponse::DeviceRegisterResponse(
   , device_management_token_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , machine_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , configuration_seed_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , user_display_name_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , user_email_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , enrollment_type_(0)
+
+  , third_party_identity_type_(0)
 {}
 struct DeviceRegisterResponseDefaultTypeInternal {
   PROTOBUF_CONSTEXPR DeviceRegisterResponseDefaultTypeInternal()
@@ -3568,6 +3572,69 @@ constexpr DeviceRegisterResponse_DeviceMode DeviceRegisterResponse::DEMO;
 constexpr DeviceRegisterResponse_DeviceMode DeviceRegisterResponse::DeviceMode_MIN;
 constexpr DeviceRegisterResponse_DeviceMode DeviceRegisterResponse::DeviceMode_MAX;
 constexpr int DeviceRegisterResponse::DeviceMode_ARRAYSIZE;
+#endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+bool DeviceRegisterResponse_ThirdPartyIdentityType_IsValid(int value) {
+  switch (value) {
+    case 0:
+    case 1:
+    case 2:
+      return true;
+    default:
+      return false;
+  }
+}
+
+static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string> DeviceRegisterResponse_ThirdPartyIdentityType_strings[3] = {};
+
+static const char DeviceRegisterResponse_ThirdPartyIdentityType_names[] =
+  "DASHERLESS"
+  "DASHER_BASED"
+  "NONE";
+
+static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry DeviceRegisterResponse_ThirdPartyIdentityType_entries[] = {
+  { {DeviceRegisterResponse_ThirdPartyIdentityType_names + 0, 10}, 2 },
+  { {DeviceRegisterResponse_ThirdPartyIdentityType_names + 10, 12}, 1 },
+  { {DeviceRegisterResponse_ThirdPartyIdentityType_names + 22, 4}, 0 },
+};
+
+static const int DeviceRegisterResponse_ThirdPartyIdentityType_entries_by_number[] = {
+  2, // 0 -> NONE
+  1, // 1 -> DASHER_BASED
+  0, // 2 -> DASHERLESS
+};
+
+const std::string& DeviceRegisterResponse_ThirdPartyIdentityType_Name(
+    DeviceRegisterResponse_ThirdPartyIdentityType value) {
+  static const bool dummy =
+      ::PROTOBUF_NAMESPACE_ID::internal::InitializeEnumStrings(
+          DeviceRegisterResponse_ThirdPartyIdentityType_entries,
+          DeviceRegisterResponse_ThirdPartyIdentityType_entries_by_number,
+          3, DeviceRegisterResponse_ThirdPartyIdentityType_strings);
+  (void) dummy;
+  int idx = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumName(
+      DeviceRegisterResponse_ThirdPartyIdentityType_entries,
+      DeviceRegisterResponse_ThirdPartyIdentityType_entries_by_number,
+      3, value);
+  return idx == -1 ? ::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString() :
+                     DeviceRegisterResponse_ThirdPartyIdentityType_strings[idx].get();
+}
+bool DeviceRegisterResponse_ThirdPartyIdentityType_Parse(
+    ::PROTOBUF_NAMESPACE_ID::ConstStringParam name, DeviceRegisterResponse_ThirdPartyIdentityType* value) {
+  int int_value;
+  bool success = ::PROTOBUF_NAMESPACE_ID::internal::LookUpEnumValue(
+      DeviceRegisterResponse_ThirdPartyIdentityType_entries, 3, name, &int_value);
+  if (success) {
+    *value = static_cast<DeviceRegisterResponse_ThirdPartyIdentityType>(int_value);
+  }
+  return success;
+}
+#if (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
+constexpr DeviceRegisterResponse_ThirdPartyIdentityType DeviceRegisterResponse::NONE;
+constexpr DeviceRegisterResponse_ThirdPartyIdentityType DeviceRegisterResponse::DASHER_BASED;
+constexpr DeviceRegisterResponse_ThirdPartyIdentityType DeviceRegisterResponse::DASHERLESS;
+constexpr DeviceRegisterResponse_ThirdPartyIdentityType DeviceRegisterResponse::ThirdPartyIdentityType_MIN;
+constexpr DeviceRegisterResponse_ThirdPartyIdentityType DeviceRegisterResponse::ThirdPartyIdentityType_MAX;
+constexpr int DeviceRegisterResponse::ThirdPartyIdentityType_ARRAYSIZE;
 #endif  // (__cplusplus < 201703) && (!defined(_MSC_VER) || (_MSC_VER >= 1900 && _MSC_VER < 1912))
 bool DeviceCertUploadRequest_CertificateType_IsValid(int value) {
   switch (value) {
@@ -12384,10 +12451,19 @@ class DeviceRegisterResponse::_Internal {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_enrollment_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 32u;
   }
   static void set_has_configuration_seed(HasBits* has_bits) {
     (*has_bits)[0] |= 4u;
+  }
+  static void set_has_user_display_name(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_user_email(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
+  }
+  static void set_has_third_party_identity_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 64u;
   }
   static bool MissingRequiredFields(const HasBits& has_bits) {
     return ((has_bits[0] & 0x00000001) ^ 0x00000001) != 0;
@@ -12430,7 +12506,25 @@ DeviceRegisterResponse::DeviceRegisterResponse(const DeviceRegisterResponse& fro
     configuration_seed_.Set(from._internal_configuration_seed(), 
       GetArenaForAllocation());
   }
-  enrollment_type_ = from.enrollment_type_;
+  user_display_name_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    user_display_name_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_user_display_name()) {
+    user_display_name_.Set(from._internal_user_display_name(), 
+      GetArenaForAllocation());
+  }
+  user_email_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+    user_email_.Set("", GetArenaForAllocation());
+  #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (from._internal_has_user_email()) {
+    user_email_.Set(from._internal_user_email(), 
+      GetArenaForAllocation());
+  }
+  ::memcpy(&enrollment_type_, &from.enrollment_type_,
+    static_cast<size_t>(reinterpret_cast<char*>(&third_party_identity_type_) -
+    reinterpret_cast<char*>(&enrollment_type_)) + sizeof(third_party_identity_type_));
   // @@protoc_insertion_point(copy_constructor:enterprise_management.DeviceRegisterResponse)
 }
 
@@ -12447,7 +12541,18 @@ configuration_seed_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   configuration_seed_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-enrollment_type_ = 0;
+user_display_name_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  user_display_name_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+user_email_.InitDefault();
+#ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  user_email_.Set("", GetArenaForAllocation());
+#endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&enrollment_type_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&third_party_identity_type_) -
+    reinterpret_cast<char*>(&enrollment_type_)) + sizeof(third_party_identity_type_));
 }
 
 DeviceRegisterResponse::~DeviceRegisterResponse() {
@@ -12464,6 +12569,8 @@ inline void DeviceRegisterResponse::SharedDtor() {
   device_management_token_.Destroy();
   machine_name_.Destroy();
   configuration_seed_.Destroy();
+  user_display_name_.Destroy();
+  user_email_.Destroy();
 }
 
 void DeviceRegisterResponse::SetCachedSize(int size) const {
@@ -12478,7 +12585,7 @@ void DeviceRegisterResponse::Clear() {
 
   user_affiliation_ids_.Clear();
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x00000007u) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       device_management_token_.ClearNonDefaultToEmpty();
     }
@@ -12488,8 +12595,18 @@ void DeviceRegisterResponse::Clear() {
     if (cached_has_bits & 0x00000004u) {
       configuration_seed_.ClearNonDefaultToEmpty();
     }
+    if (cached_has_bits & 0x00000008u) {
+      user_display_name_.ClearNonDefaultToEmpty();
+    }
+    if (cached_has_bits & 0x00000010u) {
+      user_email_.ClearNonDefaultToEmpty();
+    }
   }
-  enrollment_type_ = 0;
+  if (cached_has_bits & 0x00000060u) {
+    ::memset(&enrollment_type_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&third_party_identity_type_) -
+        reinterpret_cast<char*>(&enrollment_type_)) + sizeof(third_party_identity_type_));
+  }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
@@ -12555,6 +12672,37 @@ const char* DeviceRegisterResponse::_InternalParse(const char* ptr, ::_pbi::Pars
         } else
           goto handle_unusual;
         continue;
+      // optional string user_display_name = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 58)) {
+          auto str = _internal_mutable_user_display_name();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional string user_email = 8;
+      case 8:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 66)) {
+          auto str = _internal_mutable_user_email();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional .enterprise_management.DeviceRegisterResponse.ThirdPartyIdentityType third_party_identity_type = 9 [default = NONE];
+      case 9:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 72)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          if (PROTOBUF_PREDICT_TRUE(::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType_IsValid(val))) {
+            _internal_set_third_party_identity_type(static_cast<::enterprise_management::DeviceRegisterResponse_ThirdPartyIdentityType>(val));
+          } else {
+            ::PROTOBUF_NAMESPACE_ID::internal::WriteVarint(9, val, mutable_unknown_fields());
+          }
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -12599,7 +12747,7 @@ uint8_t* DeviceRegisterResponse::_InternalSerialize(
   }
 
   // optional .enterprise_management.DeviceRegisterResponse.DeviceMode enrollment_type = 3 [default = ENTERPRISE];
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000020u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       3, this->_internal_enrollment_type(), target);
@@ -12615,6 +12763,25 @@ uint8_t* DeviceRegisterResponse::_InternalSerialize(
   for (int i = 0, n = this->_internal_user_affiliation_ids_size(); i < n; i++) {
     const auto& s = this->_internal_user_affiliation_ids(i);
     target = stream->WriteString(5, s, target);
+  }
+
+  // optional string user_display_name = 7;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->WriteStringMaybeAliased(
+        7, this->_internal_user_display_name(), target);
+  }
+
+  // optional string user_email = 8;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->WriteStringMaybeAliased(
+        8, this->_internal_user_email(), target);
+  }
+
+  // optional .enterprise_management.DeviceRegisterResponse.ThirdPartyIdentityType third_party_identity_type = 9 [default = NONE];
+  if (cached_has_bits & 0x00000040u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      9, this->_internal_third_party_identity_type(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -12648,7 +12815,7 @@ size_t DeviceRegisterResponse::ByteSizeLong() const {
   }
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000eu) {
+  if (cached_has_bits & 0x0000007eu) {
     // optional string machine_name = 2;
     if (cached_has_bits & 0x00000002u) {
       total_size += 1 +
@@ -12663,10 +12830,30 @@ size_t DeviceRegisterResponse::ByteSizeLong() const {
           this->_internal_configuration_seed());
     }
 
-    // optional .enterprise_management.DeviceRegisterResponse.DeviceMode enrollment_type = 3 [default = ENTERPRISE];
+    // optional string user_display_name = 7;
     if (cached_has_bits & 0x00000008u) {
       total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_user_display_name());
+    }
+
+    // optional string user_email = 8;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+          this->_internal_user_email());
+    }
+
+    // optional .enterprise_management.DeviceRegisterResponse.DeviceMode enrollment_type = 3 [default = ENTERPRISE];
+    if (cached_has_bits & 0x00000020u) {
+      total_size += 1 +
         ::_pbi::WireFormatLite::EnumSize(this->_internal_enrollment_type());
+    }
+
+    // optional .enterprise_management.DeviceRegisterResponse.ThirdPartyIdentityType third_party_identity_type = 9 [default = NONE];
+    if (cached_has_bits & 0x00000040u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_third_party_identity_type());
     }
 
   }
@@ -12692,7 +12879,7 @@ void DeviceRegisterResponse::MergeFrom(const DeviceRegisterResponse& from) {
 
   user_affiliation_ids_.MergeFrom(from.user_affiliation_ids_);
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000007fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_device_management_token(from._internal_device_management_token());
     }
@@ -12703,7 +12890,16 @@ void DeviceRegisterResponse::MergeFrom(const DeviceRegisterResponse& from) {
       _internal_set_configuration_seed(from._internal_configuration_seed());
     }
     if (cached_has_bits & 0x00000008u) {
+      _internal_set_user_display_name(from._internal_user_display_name());
+    }
+    if (cached_has_bits & 0x00000010u) {
+      _internal_set_user_email(from._internal_user_email());
+    }
+    if (cached_has_bits & 0x00000020u) {
       enrollment_type_ = from.enrollment_type_;
+    }
+    if (cached_has_bits & 0x00000040u) {
+      third_party_identity_type_ = from.third_party_identity_type_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -12741,7 +12937,20 @@ void DeviceRegisterResponse::InternalSwap(DeviceRegisterResponse* other) {
       &configuration_seed_, lhs_arena,
       &other->configuration_seed_, rhs_arena
   );
-  swap(enrollment_type_, other->enrollment_type_);
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &user_display_name_, lhs_arena,
+      &other->user_display_name_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
+      &user_email_, lhs_arena,
+      &other->user_email_, rhs_arena
+  );
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(DeviceRegisterResponse, third_party_identity_type_)
+      + sizeof(DeviceRegisterResponse::third_party_identity_type_)
+      - PROTOBUF_FIELD_OFFSET(DeviceRegisterResponse, enrollment_type_)>(
+          reinterpret_cast<char*>(&enrollment_type_),
+          reinterpret_cast<char*>(&other->enrollment_type_));
 }
 
 std::string DeviceRegisterResponse::GetTypeName() const {

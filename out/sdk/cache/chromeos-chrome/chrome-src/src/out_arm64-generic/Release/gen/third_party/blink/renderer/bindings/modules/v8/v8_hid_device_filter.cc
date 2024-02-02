@@ -21,6 +21,18 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"productId",
+"usage",
+"usagePage",
+"vendorId",
+};
+
+
+}  // namespace 
+
 HIDDeviceFilter* HIDDeviceFilter::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   HIDDeviceFilter* dictionary = MakeGarbageCollected<HIDDeviceFilter>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -84,28 +96,40 @@ TraceIfNeeded<uint32_t>::Trace(visitor, member_vendor_id_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool HIDDeviceFilter::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void HIDDeviceFilter::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void HIDDeviceFilter::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasProductId()) {
-  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_product_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_product_id_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasUsage()) {
-  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_usage_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_usage_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasUsagePage()) {
-  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_usage_page_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_usage_page_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasVendorId()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_vendor_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_vendor_id_);
+DCHECK(!values[3].IsEmpty());
 }
-return true;
+}
+
+const void* HIDDeviceFilter::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> HIDDeviceFilter::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void HIDDeviceFilter::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -134,13 +158,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLong, is_optional>(iso
 }
 
 const base::span<const v8::Eternal<v8::Name>> HIDDeviceFilter::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"productId",
-"usage",
-"usagePage",
-"vendorId",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

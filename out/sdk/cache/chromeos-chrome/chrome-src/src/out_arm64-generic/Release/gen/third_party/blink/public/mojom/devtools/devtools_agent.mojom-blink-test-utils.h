@@ -19,7 +19,6 @@ class PLATFORM_EXPORT DevToolsAgentInterceptorForTesting : public DevToolsAgent 
   void AttachDevToolsSession(::mojo::PendingAssociatedRemote<DevToolsSessionHost> host, ::mojo::PendingAssociatedReceiver<DevToolsSession> session, ::mojo::PendingReceiver<DevToolsSession> io_session, DevToolsSessionStatePtr reattach_session_state, bool client_expects_binary_responses, bool client_is_trusted, const WTF::String& session_id, bool session_waits_for_debugger) override;
   void InspectElement(const ::gfx::Point& point) override;
   void ReportChildTargets(bool report, bool wait_for_debugger, ReportChildTargetsCallback callback) override;
-  void GetUniqueFormControlId(int32_t nodeId, GetUniqueFormControlIdCallback callback) override;
 };
 class PLATFORM_EXPORT DevToolsAgentAsyncWaiter {
  public:
@@ -32,9 +31,6 @@ class PLATFORM_EXPORT DevToolsAgentAsyncWaiter {
   void ReportChildTargets(
       bool report, bool wait_for_debugger);
   
-  void GetUniqueFormControlId(
-      int32_t nodeId, uint64_t* out_id);
-  uint64_t GetUniqueFormControlId(int32_t nodeId);
 
  private:
   DevToolsAgent* const proxy_;

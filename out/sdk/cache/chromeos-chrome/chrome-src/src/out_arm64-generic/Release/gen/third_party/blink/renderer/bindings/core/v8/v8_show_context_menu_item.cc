@@ -22,6 +22,20 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"checked",
+"enabled",
+"id",
+"label",
+"subItems",
+"type",
+};
+
+
+}  // namespace 
+
 ShowContextMenuItem* ShowContextMenuItem::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   ShowContextMenuItem* dictionary = MakeGarbageCollected<ShowContextMenuItem>(isolate);
 if (!v8_value->IsObject()) {
@@ -138,36 +152,48 @@ TraceIfNeeded<String>::Trace(visitor, member_type_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool ShowContextMenuItem::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void ShowContextMenuItem::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void ShowContextMenuItem::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasChecked()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_checked_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_checked_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasEnabled()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_enabled_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_enabled_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasId()) {
-  v8_value = ToV8Traits<IDLUnsignedShortEnforceRange>::ToV8(script_state, member_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUnsignedShortEnforceRange>::ToV8(script_state, member_id_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasLabel()) {
-  v8_value = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, member_label_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, member_label_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasSubItems()) {
-  v8_value = ToV8Traits<IDLSequence<ShowContextMenuItem>>::ToV8(script_state, member_sub_items_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLSequence<ShowContextMenuItem>>::ToV8(script_state, member_sub_items_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasType()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_type_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLString>::ToV8(script_state, member_type_);
+DCHECK(!values[5].IsEmpty());
 }
-return true;
+}
+
+const void* ShowContextMenuItem::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> ShowContextMenuItem::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void ShowContextMenuItem::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -206,15 +232,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_required>(isolate, 
 }
 
 const base::span<const v8::Eternal<v8::Name>> ShowContextMenuItem::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"checked",
-"enabled",
-"id",
-"label",
-"subItems",
-"type",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

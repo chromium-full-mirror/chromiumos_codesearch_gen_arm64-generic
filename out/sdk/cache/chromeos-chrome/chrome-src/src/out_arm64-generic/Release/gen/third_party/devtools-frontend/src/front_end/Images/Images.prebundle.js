@@ -200,6 +200,7 @@ style.setProperty('--image-file-resume', 'url(\"' + new URL('./src/resume.svg', 
 style.setProperty('--image-file-review', 'url(\"' + new URL('./src/review.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-right-panel-close', 'url(\"' + new URL('./src/right-panel-close.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-right-panel-open', 'url(\"' + new URL('./src/right-panel-open.svg', import.meta.url).toString() + '\")');
+style.setProperty('--image-file-scissors', 'url(\"' + new URL('./src/scissors.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-screen-rotation', 'url(\"' + new URL('./src/screen-rotation.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-search', 'url(\"' + new URL('./src/search.svg', import.meta.url).toString() + '\")');
 style.setProperty('--image-file-securityIcons', 'url(\"' + new URL('./src/securityIcons.svg', import.meta.url).toString() + '\")');

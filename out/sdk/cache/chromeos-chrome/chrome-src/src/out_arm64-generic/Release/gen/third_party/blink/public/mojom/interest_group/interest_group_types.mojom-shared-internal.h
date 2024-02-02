@@ -1098,7 +1098,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AuctionAdConfig_Data {
   uint16_t seller_experiment_group_id_$value;
   mojo::internal::Pointer<internal::AuctionAdConfigNonSharedParams_Data> auction_ad_config_non_shared_params;
   internal::AuctionAdConfigMaybePromiseDirectFromSellerSignals_Data direct_from_seller_signals;
-  int16_t all_buyer_experiment_group_id_$value;
+  uint16_t all_buyer_experiment_group_id_$value;
   uint8_t pad12_[6];
   mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<::url::mojom::internal::Origin_Data>, uint16_t>> per_buyer_experiment_group_ids;
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> aggregation_coordinator_origin;

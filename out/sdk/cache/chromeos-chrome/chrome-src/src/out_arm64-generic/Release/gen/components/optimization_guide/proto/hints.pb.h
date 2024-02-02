@@ -1470,6 +1470,64 @@ class PageInsightsHubRequestContextMetadata final :
 
   // accessors -------------------------------------------------------
 
+  enum : int {
+    kNavigationTimestampMsFieldNumber = 4,
+    kIsUserInitiatedFieldNumber = 1,
+    kIsInitialPageFieldNumber = 2,
+    kShouldNotLogOrPersonalizeFieldNumber = 3,
+  };
+  // optional int64 navigation_timestamp_ms = 4;
+  bool has_navigation_timestamp_ms() const;
+  private:
+  bool _internal_has_navigation_timestamp_ms() const;
+  public:
+  void clear_navigation_timestamp_ms();
+  int64_t navigation_timestamp_ms() const;
+  void set_navigation_timestamp_ms(int64_t value);
+  private:
+  int64_t _internal_navigation_timestamp_ms() const;
+  void _internal_set_navigation_timestamp_ms(int64_t value);
+  public:
+
+  // optional bool is_user_initiated = 1;
+  bool has_is_user_initiated() const;
+  private:
+  bool _internal_has_is_user_initiated() const;
+  public:
+  void clear_is_user_initiated();
+  bool is_user_initiated() const;
+  void set_is_user_initiated(bool value);
+  private:
+  bool _internal_is_user_initiated() const;
+  void _internal_set_is_user_initiated(bool value);
+  public:
+
+  // optional bool is_initial_page = 2;
+  bool has_is_initial_page() const;
+  private:
+  bool _internal_has_is_initial_page() const;
+  public:
+  void clear_is_initial_page();
+  bool is_initial_page() const;
+  void set_is_initial_page(bool value);
+  private:
+  bool _internal_is_initial_page() const;
+  void _internal_set_is_initial_page(bool value);
+  public:
+
+  // optional bool should_not_log_or_personalize = 3;
+  bool has_should_not_log_or_personalize() const;
+  private:
+  bool _internal_has_should_not_log_or_personalize() const;
+  public:
+  void clear_should_not_log_or_personalize();
+  bool should_not_log_or_personalize() const;
+  void set_should_not_log_or_personalize(bool value);
+  private:
+  bool _internal_should_not_log_or_personalize() const;
+  void _internal_set_should_not_log_or_personalize(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:optimization_guide.proto.PageInsightsHubRequestContextMetadata)
  private:
   class _Internal;
@@ -1477,7 +1535,12 @@ class PageInsightsHubRequestContextMetadata final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  int64_t navigation_timestamp_ms_;
+  bool is_user_initiated_;
+  bool is_initial_page_;
+  bool should_not_log_or_personalize_;
   friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2fhints_2eproto;
 };
 // -------------------------------------------------------------------
@@ -4114,6 +4177,118 @@ inline RequestContextMetadata::MetadataCase RequestContextMetadata::metadata_cas
 // -------------------------------------------------------------------
 
 // PageInsightsHubRequestContextMetadata
+
+// optional bool is_user_initiated = 1;
+inline bool PageInsightsHubRequestContextMetadata::_internal_has_is_user_initiated() const {
+  bool value = (_has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline bool PageInsightsHubRequestContextMetadata::has_is_user_initiated() const {
+  return _internal_has_is_user_initiated();
+}
+inline void PageInsightsHubRequestContextMetadata::clear_is_user_initiated() {
+  is_user_initiated_ = false;
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline bool PageInsightsHubRequestContextMetadata::_internal_is_user_initiated() const {
+  return is_user_initiated_;
+}
+inline bool PageInsightsHubRequestContextMetadata::is_user_initiated() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.PageInsightsHubRequestContextMetadata.is_user_initiated)
+  return _internal_is_user_initiated();
+}
+inline void PageInsightsHubRequestContextMetadata::_internal_set_is_user_initiated(bool value) {
+  _has_bits_[0] |= 0x00000002u;
+  is_user_initiated_ = value;
+}
+inline void PageInsightsHubRequestContextMetadata::set_is_user_initiated(bool value) {
+  _internal_set_is_user_initiated(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.PageInsightsHubRequestContextMetadata.is_user_initiated)
+}
+
+// optional bool is_initial_page = 2;
+inline bool PageInsightsHubRequestContextMetadata::_internal_has_is_initial_page() const {
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  return value;
+}
+inline bool PageInsightsHubRequestContextMetadata::has_is_initial_page() const {
+  return _internal_has_is_initial_page();
+}
+inline void PageInsightsHubRequestContextMetadata::clear_is_initial_page() {
+  is_initial_page_ = false;
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline bool PageInsightsHubRequestContextMetadata::_internal_is_initial_page() const {
+  return is_initial_page_;
+}
+inline bool PageInsightsHubRequestContextMetadata::is_initial_page() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.PageInsightsHubRequestContextMetadata.is_initial_page)
+  return _internal_is_initial_page();
+}
+inline void PageInsightsHubRequestContextMetadata::_internal_set_is_initial_page(bool value) {
+  _has_bits_[0] |= 0x00000004u;
+  is_initial_page_ = value;
+}
+inline void PageInsightsHubRequestContextMetadata::set_is_initial_page(bool value) {
+  _internal_set_is_initial_page(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.PageInsightsHubRequestContextMetadata.is_initial_page)
+}
+
+// optional bool should_not_log_or_personalize = 3;
+inline bool PageInsightsHubRequestContextMetadata::_internal_has_should_not_log_or_personalize() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool PageInsightsHubRequestContextMetadata::has_should_not_log_or_personalize() const {
+  return _internal_has_should_not_log_or_personalize();
+}
+inline void PageInsightsHubRequestContextMetadata::clear_should_not_log_or_personalize() {
+  should_not_log_or_personalize_ = false;
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline bool PageInsightsHubRequestContextMetadata::_internal_should_not_log_or_personalize() const {
+  return should_not_log_or_personalize_;
+}
+inline bool PageInsightsHubRequestContextMetadata::should_not_log_or_personalize() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.PageInsightsHubRequestContextMetadata.should_not_log_or_personalize)
+  return _internal_should_not_log_or_personalize();
+}
+inline void PageInsightsHubRequestContextMetadata::_internal_set_should_not_log_or_personalize(bool value) {
+  _has_bits_[0] |= 0x00000008u;
+  should_not_log_or_personalize_ = value;
+}
+inline void PageInsightsHubRequestContextMetadata::set_should_not_log_or_personalize(bool value) {
+  _internal_set_should_not_log_or_personalize(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.PageInsightsHubRequestContextMetadata.should_not_log_or_personalize)
+}
+
+// optional int64 navigation_timestamp_ms = 4;
+inline bool PageInsightsHubRequestContextMetadata::_internal_has_navigation_timestamp_ms() const {
+  bool value = (_has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline bool PageInsightsHubRequestContextMetadata::has_navigation_timestamp_ms() const {
+  return _internal_has_navigation_timestamp_ms();
+}
+inline void PageInsightsHubRequestContextMetadata::clear_navigation_timestamp_ms() {
+  navigation_timestamp_ms_ = int64_t{0};
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline int64_t PageInsightsHubRequestContextMetadata::_internal_navigation_timestamp_ms() const {
+  return navigation_timestamp_ms_;
+}
+inline int64_t PageInsightsHubRequestContextMetadata::navigation_timestamp_ms() const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.PageInsightsHubRequestContextMetadata.navigation_timestamp_ms)
+  return _internal_navigation_timestamp_ms();
+}
+inline void PageInsightsHubRequestContextMetadata::_internal_set_navigation_timestamp_ms(int64_t value) {
+  _has_bits_[0] |= 0x00000001u;
+  navigation_timestamp_ms_ = value;
+}
+inline void PageInsightsHubRequestContextMetadata::set_navigation_timestamp_ms(int64_t value) {
+  _internal_set_navigation_timestamp_ms(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.PageInsightsHubRequestContextMetadata.navigation_timestamp_ms)
+}
 
 // -------------------------------------------------------------------
 

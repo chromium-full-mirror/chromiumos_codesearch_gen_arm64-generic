@@ -21,6 +21,17 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"backlog",
+"ipv6Only",
+"localPort",
+};
+
+
+}  // namespace 
+
 TCPServerSocketOptions* TCPServerSocketOptions::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   TCPServerSocketOptions* dictionary = MakeGarbageCollected<TCPServerSocketOptions>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -76,24 +87,36 @@ TraceIfNeeded<uint16_t>::Trace(visitor, member_local_port_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool TCPServerSocketOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void TCPServerSocketOptions::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void TCPServerSocketOptions::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasBacklog()) {
-  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_backlog_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_backlog_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasIpv6Only()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_ipv_6_only_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_ipv_6_only_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasLocalPort()) {
-  v8_value = ToV8Traits<IDLUnsignedShortEnforceRange>::ToV8(script_state, member_local_port_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUnsignedShortEnforceRange>::ToV8(script_state, member_local_port_);
+DCHECK(!values[2].IsEmpty());
 }
-return true;
+}
+
+const void* TCPServerSocketOptions::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> TCPServerSocketOptions::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void TCPServerSocketOptions::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -118,12 +141,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedShortEnforceRange, is_
 }
 
 const base::span<const v8::Eternal<v8::Name>> TCPServerSocketOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"backlog",
-"ipv6Only",
-"localPort",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

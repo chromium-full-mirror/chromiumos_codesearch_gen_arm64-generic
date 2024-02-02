@@ -172,6 +172,12 @@ TNode<IntPtrT> TimesSizeOf_FeedbackCell_0(compiler::CodeAssemblerState* state_, 
 TorqueStructReference_FeedbackCell_0 NewReference_FeedbackCell_0(compiler::CodeAssemblerState* state_, TNode<Object> p_object, TNode<IntPtrT> p_offset);
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/torque-internal.tq?l=109&c=36
+TNode<IntPtrT> TimesSizeOf_Smi_OR_TrustedObject_0(compiler::CodeAssemblerState* state_, TNode<IntPtrT> p_i);
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/torque-internal.tq?l=108&c=12
+TorqueStructReference_Smi_OR_TrustedObject_0 NewReference_Smi_OR_TrustedObject_0(compiler::CodeAssemblerState* state_, TNode<Object> p_object, TNode<IntPtrT> p_offset);
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/torque-internal.tq?l=109&c=36
 TNode<IntPtrT> TimesSizeOf_ExternalPointer_0(compiler::CodeAssemblerState* state_, TNode<IntPtrT> p_i);
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/torque-internal.tq?l=108&c=12

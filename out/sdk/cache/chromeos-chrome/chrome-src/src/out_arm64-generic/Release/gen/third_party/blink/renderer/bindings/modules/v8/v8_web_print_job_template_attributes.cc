@@ -22,6 +22,21 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"copies",
+"multipleDocumentHandling",
+"orientationRequested",
+"printColorMode",
+"printQuality",
+"printerResolution",
+"sides",
+};
+
+
+}  // namespace 
+
 WebPrintJobTemplateAttributes* WebPrintJobTemplateAttributes::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   WebPrintJobTemplateAttributes* dictionary = MakeGarbageCollected<WebPrintJobTemplateAttributes>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -109,40 +124,52 @@ TraceIfNeeded<V8WebPrintingSides>::Trace(visitor, member_sides_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool WebPrintJobTemplateAttributes::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void WebPrintJobTemplateAttributes::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void WebPrintJobTemplateAttributes::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasCopies()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_copies_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_copies_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasMultipleDocumentHandling()) {
-  v8_value = ToV8Traits<V8WebPrintingMultipleDocumentHandling>::ToV8(script_state, member_multiple_document_handling_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<V8WebPrintingMultipleDocumentHandling>::ToV8(script_state, member_multiple_document_handling_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasOrientationRequested()) {
-  v8_value = ToV8Traits<V8WebPrintingOrientationRequested>::ToV8(script_state, member_orientation_requested_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<V8WebPrintingOrientationRequested>::ToV8(script_state, member_orientation_requested_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasPrintColorMode()) {
-  v8_value = ToV8Traits<V8WebPrintColorMode>::ToV8(script_state, member_print_color_mode_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<V8WebPrintColorMode>::ToV8(script_state, member_print_color_mode_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasPrintQuality()) {
-  v8_value = ToV8Traits<V8WebPrintQuality>::ToV8(script_state, member_print_quality_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<V8WebPrintQuality>::ToV8(script_state, member_print_quality_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasPrinterResolution()) {
-  v8_value = ToV8Traits<WebPrintingResolution>::ToV8(script_state, member_printer_resolution_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<WebPrintingResolution>::ToV8(script_state, member_printer_resolution_.Get());
+DCHECK(!values[5].IsEmpty());
 }
 if (hasSides()) {
-  v8_value = ToV8Traits<V8WebPrintingSides>::ToV8(script_state, member_sides_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<V8WebPrintingSides>::ToV8(script_state, member_sides_);
+DCHECK(!values[6].IsEmpty());
 }
-return true;
+}
+
+const void* WebPrintJobTemplateAttributes::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> WebPrintJobTemplateAttributes::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void WebPrintJobTemplateAttributes::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -183,16 +210,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8WebPrintingSides, is_optional>(
 }
 
 const base::span<const v8::Eternal<v8::Name>> WebPrintJobTemplateAttributes::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"copies",
-"multipleDocumentHandling",
-"orientationRequested",
-"printColorMode",
-"printQuality",
-"printerResolution",
-"sides",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

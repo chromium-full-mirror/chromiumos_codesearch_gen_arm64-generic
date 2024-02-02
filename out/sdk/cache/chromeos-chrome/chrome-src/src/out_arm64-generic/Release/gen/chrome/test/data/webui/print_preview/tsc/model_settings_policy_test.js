@@ -1,9 +1,12 @@
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { ColorModeRestriction, Destination, DestinationOrigin, DuplexModeRestriction, Margins, Size } from 'chrome://print/print_preview.js';
+import { ColorModeRestriction, Destination, DestinationOrigin, DuplexModeRestriction, Margins, 
 // 
-import { PinModeRestriction } from 'chrome://print/print_preview.js';
+PinModeRestriction, 
+// 
+Size } from 'chrome://print/print_preview.js';
+// 
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 // 
 import { assertEquals } from 'chrome://webui-test/chai_assert.js';

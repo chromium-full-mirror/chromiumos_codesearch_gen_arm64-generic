@@ -24,6 +24,22 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"delay",
+"direction",
+"duration",
+"easing",
+"endDelay",
+"fill",
+"iterationStart",
+"iterations",
+};
+
+
+}  // namespace 
+
 OptionalEffectTiming* OptionalEffectTiming::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   OptionalEffectTiming* dictionary = MakeGarbageCollected<OptionalEffectTiming>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -139,44 +155,56 @@ TraceIfNeeded<double>::Trace(visitor, member_iterations_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool OptionalEffectTiming::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void OptionalEffectTiming::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void OptionalEffectTiming::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasDelay()) {
-  v8_value = ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, member_delay_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, member_delay_.Get());
+DCHECK(!values[0].IsEmpty());
 }
 if (hasDirection()) {
-  v8_value = ToV8Traits<V8PlaybackDirection>::ToV8(script_state, member_direction_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<V8PlaybackDirection>::ToV8(script_state, member_direction_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasDuration()) {
-  v8_value = ToV8Traits<V8UnionCSSNumericValueOrStringOrUnrestrictedDouble>::ToV8(script_state, member_duration_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<V8UnionCSSNumericValueOrStringOrUnrestrictedDouble>::ToV8(script_state, member_duration_.Get());
+DCHECK(!values[2].IsEmpty());
 }
 if (hasEasing()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_easing_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLString>::ToV8(script_state, member_easing_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasEndDelay()) {
-  v8_value = ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, member_end_delay_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<V8UnionCSSNumericValueOrDouble>::ToV8(script_state, member_end_delay_.Get());
+DCHECK(!values[4].IsEmpty());
 }
 if (hasFill()) {
-  v8_value = ToV8Traits<V8FillMode>::ToV8(script_state, member_fill_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<V8FillMode>::ToV8(script_state, member_fill_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasIterationStart()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_iteration_start_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLDouble>::ToV8(script_state, member_iteration_start_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasIterations()) {
-  v8_value = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_iterations_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_iterations_);
+DCHECK(!values[7].IsEmpty());
 }
-return true;
+}
+
+const void* OptionalEffectTiming::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> OptionalEffectTiming::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void OptionalEffectTiming::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -221,17 +249,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUnrestrictedDouble, is_optiona
 }
 
 const base::span<const v8::Eternal<v8::Name>> OptionalEffectTiming::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"delay",
-"direction",
-"duration",
-"easing",
-"endDelay",
-"fill",
-"iterationStart",
-"iterations",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

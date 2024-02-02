@@ -1,11 +1,11 @@
-import { aR as PaperRippleMixin, E as EventTracker, b as assert, h as CrPolicyPrefMixin, I as I18nMixin, g as focusWithoutInk, G as getInstance, a as assertNotReached, aS as AnchorAlignment, O as OpenWindowProxyImpl, M as MetricsBrowserProxyImpl, aA as PrivacyElementInteractions, ay as CvcDeletionUserAction, aT as SettingsBooleanControlMixin, y as sanitizeInnerHtml, e as RouteObserverMixin, W as WebUiListenerMixin, P as PrefsMixin, aU as ClearBrowsingDataBrowserProxyImpl, L as SyncBrowserProxyImpl, a2 as FocusOutlineManager, r as routes, ad as StatusAction, _ as SearchEnginesBrowserProxyImpl, $ as ChoiceMadeLocation, K as FocusRowMixin, aa as ExtensionControlBrowserProxyImpl, aV as GlobalScrollTargetMixin, aP as SearchEnginesInteractions, aW as SiteSettingsMixin, q as ContentSettingsTypes, aX as ContentSettingProvider, s as ContentSetting, H as HatsBrowserProxyImpl, T as TrustSafetyInteraction, aM as PrivacySandboxBrowserProxyImpl, f as Router, w as PluralStringProxyImpl, aY as CardState, R as RelaunchMixin, o as SafetyHubBrowserProxyImpl, aI as SafetyHubSurfaces, u as SafetyHubEvent, A as PasswordManagerImpl, F as PasswordManagerPage, c as RestartType, aH as SafetyHubModuleType, B as BaseMixin, aZ as AllSitesAction2, a_ as SortMethod, az as DeleteBrowsingDataAction, a$ as AllSitesDialog, V as TooltipMixin, b0 as SiteSettingSource, aF as SafetyCheckUnusedSitePermissionsModuleInteractions, b1 as MODEL_UPDATE_DELAY_MS, b2 as isUndoKeyboardEvent, v as SafetyHubEntryPoint, b3 as CookiesExceptionType, b4 as SITE_EXCEPTION_WILDCARD, S as SiteSettingsPrefsBrowserProxyImpl, t as ChooserType, U as ListPropertyUpdateMixin, b5 as INVALID_CATEGORY_SUBTYPE, ae as syncPrefsIndividualDataTypes, b6 as HelpBubbleMixin, n as PrivacyPageBrowserProxyImpl, ac as PageStatus, b7 as CrPolicyIndicatorType, j as PrefControlMixin, l as listenOnce, Z as ResetBrowserProxyImpl, b8 as CookiePrimarySetting, x as CookieControlsMode, X as NetworkPredictionOptions, aE as SafetyCheckNotificationsModuleInteractions, p as SettingsState } from './shared.rollup.js';
-export { b9 as CrCheckboxElement, an as CrDialogElement, ba as CrExpandButtonElement, bb as CrIconButtonElement, bc as CrInputElement, bd as CrLazyRenderElement, be as CrTextareaElement, bx as HttpsFirstModeSetting, bn as PrivacyGuideCompletionFragmentElement, bo as PrivacyGuideCookiesFragmentElement, bp as PrivacyGuideDescriptionItemElement, br as PrivacyGuideHistorySyncFragmentElement, bs as PrivacyGuideMsbbFragmentElement, bu as PrivacyGuideSafeBrowsingFragmentElement, bv as PrivacyGuideSearchSuggestionsFragmentElement, bm as PrivacyGuideStep, bw as PrivacyGuideWelcomeFragmentElement, by as SafeBrowsingSetting, bj as SecureDnsInputElement, bg as SecureDnsResolverType, bD as SettingsCategoryDefaultRadioGroupElement, bl as SettingsCollapseRadioButtonElement, bk as SettingsPageContentPageElement, bq as SettingsPrivacyGuideDialogElement, bt as SettingsPrivacyGuidePageElement, bf as SettingsRadioGroupElement, bA as SettingsSafetyHubEntryPointElement, bB as SettingsSafetyHubModuleElement, bi as SettingsSecureDnsDialogElement, bh as SettingsSecureDnsElement, bz as SettingsSecurityPageElement, bC as SettingsSimpleConfirmationDialogElement, av as SettingsToggleButtonElement } from './shared.rollup.js';
+import { aQ as PaperRippleMixin, E as EventTracker, b as assert, h as CrPolicyPrefMixin, I as I18nMixin, g as focusWithoutInk, G as getInstance, a as assertNotReached, aR as AnchorAlignment, O as OpenWindowProxyImpl, M as MetricsBrowserProxyImpl, az as PrivacyElementInteractions, ax as CvcDeletionUserAction, aS as SettingsBooleanControlMixin, y as sanitizeInnerHtml, e as RouteObserverMixin, W as WebUiListenerMixin, P as PrefsMixin, aT as ClearBrowsingDataBrowserProxyImpl, L as SyncBrowserProxyImpl, a2 as FocusOutlineManager, r as routes, ac as StatusAction, _ as SearchEnginesBrowserProxyImpl, $ as ChoiceMadeLocation, K as FocusRowMixin, a9 as ExtensionControlBrowserProxyImpl, aU as GlobalScrollTargetMixin, aO as SearchEnginesInteractions, aV as SiteSettingsMixin, q as ContentSettingsTypes, aW as ContentSettingProvider, s as ContentSetting, H as HatsBrowserProxyImpl, T as TrustSafetyInteraction, aL as PrivacySandboxBrowserProxyImpl, f as Router, w as PluralStringProxyImpl, aX as CardState, R as RelaunchMixin, o as SafetyHubBrowserProxyImpl, aH as SafetyHubSurfaces, u as SafetyHubEvent, A as PasswordManagerImpl, F as PasswordManagerPage, c as RestartType, aG as SafetyHubModuleType, B as BaseMixin, aY as AllSitesAction2, aZ as SortMethod, ay as DeleteBrowsingDataAction, a_ as AllSitesDialog, V as TooltipMixin, a$ as SiteSettingSource, aE as SafetyCheckUnusedSitePermissionsModuleInteractions, b0 as MODEL_UPDATE_DELAY_MS, b1 as isUndoKeyboardEvent, v as SafetyHubEntryPoint, b2 as CookiesExceptionType, b3 as SITE_EXCEPTION_WILDCARD, S as SiteSettingsPrefsBrowserProxyImpl, t as ChooserType, U as ListPropertyUpdateMixin, b4 as INVALID_CATEGORY_SUBTYPE, ad as syncPrefsIndividualDataTypes, b5 as HelpBubbleMixin, n as PrivacyPageBrowserProxyImpl, ab as PageStatus, b6 as CrPolicyIndicatorType, j as PrefControlMixin, l as listenOnce, Z as ResetBrowserProxyImpl, b7 as CookiePrimarySetting, x as CookieControlsMode, X as NetworkPredictionOptions, aD as SafetyCheckNotificationsModuleInteractions, p as SettingsState } from './shared.rollup.js';
+export { b8 as CrCheckboxElement, am as CrDialogElement, b9 as CrExpandButtonElement, ba as CrIconButtonElement, bb as CrInputElement, bc as CrLazyRenderElement, bd as CrTextareaElement, bw as HttpsFirstModeSetting, bm as PrivacyGuideCompletionFragmentElement, bn as PrivacyGuideCookiesFragmentElement, bo as PrivacyGuideDescriptionItemElement, bq as PrivacyGuideHistorySyncFragmentElement, br as PrivacyGuideMsbbFragmentElement, bt as PrivacyGuideSafeBrowsingFragmentElement, bu as PrivacyGuideSearchSuggestionsFragmentElement, bl as PrivacyGuideStep, bv as PrivacyGuideWelcomeFragmentElement, bx as SafeBrowsingSetting, bi as SecureDnsInputElement, bf as SecureDnsResolverType, bC as SettingsCategoryDefaultRadioGroupElement, bk as SettingsCollapseRadioButtonElement, bj as SettingsPageContentPageElement, bp as SettingsPrivacyGuideDialogElement, bs as SettingsPrivacyGuidePageElement, be as SettingsRadioGroupElement, bz as SettingsSafetyHubEntryPointElement, bA as SettingsSafetyHubModuleElement, bh as SettingsSecureDnsDialogElement, bg as SettingsSecureDnsElement, by as SettingsSecurityPageElement, bB as SettingsSimpleConfirmationDialogElement, au as SettingsToggleButtonElement } from './shared.rollup.js';
 import { html, PolymerElement, Debouncer, microTask, flush, afterNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { sendWithPromise } from 'chrome://resources/js/cr.js';
 import './strings.m.js';
-import 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import 'chrome://resources/lit/v3_0/lit.rollup.js';
+import 'chrome://resources/mojo/mojo/public/js/bindings.js';
 
 function getTemplate$1A() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--cr-slider-active-color:var(--google-blue-600);--cr-slider-container-color:rgba(var(--google-blue-600-rgb), .24);--cr-slider-container-disabled-color:rgba(var(--google-grey-600-rgb), .24);--cr-slider-disabled-color:var(--google-grey-600);--cr-slider-knob-color-rgb:var(--google-blue-600-rgb);--cr-slider-knob-disabled-color:white;--cr-slider-marker-active-color:rgba(255, 255, 255, .54);--cr-slider-marker-color:rgba(26, 115, 232, .54);--cr-slider-marker-disabled-color:rgba(128, 134, 139, .54);--cr-slider-position-transition:80ms ease;--cr-slider-ripple-color:rgba(var(--cr-slider-knob-color-rgb), .25);-webkit-tap-highlight-color:transparent;cursor:default;height:32px;isolation:isolate;outline:0;padding:0 16px;user-select:none}@media (prefers-color-scheme:dark){:host{--cr-slider-active-color:var(--google-blue-300);--cr-slider-container-color:rgba(var(--google-blue-500-rgb), .48);--cr-slider-container-disabled-color:rgba(var(--google-grey-600-rgb), .48);--cr-slider-knob-color-rgb:var(--google-blue-300-rgb);--cr-slider-knob-disabled-color:var(--google-grey-900-white-4-percent);--cr-slider-marker-active-color:var(--google-blue-300);--cr-slider-marker-color:var(--google-blue-300);--cr-slider-marker-disabled-color:rgba(255, 255, 255, .54);--cr-slider-ripple-color:rgba(var(--cr-slider-knob-color-rgb), .4)}}:host,:host>#container{touch-action:none}#bar,#container{border-top-style:solid;border-top-width:2px}#container{border-top-color:var(--cr-slider-container-color);position:relative;top:16px}#container>div{position:absolute}#bar,#markers{top:-2px}#markers{display:flex;flex-direction:row;left:0;pointer-events:none;right:0}.active-marker,.inactive-marker{flex:1}#markers::after,#markers::before,.active-marker::after,.inactive-marker::after{border-radius:50%;content:'';display:block;height:2px;margin-inline-start:-1px;width:2px}#markers::before,.active-marker::after{background-color:var(--cr-slider-marker-active-color)}#markers::after,.inactive-marker::after{background-color:var(--cr-slider-marker-color)}#bar{border-top-color:var(--cr-slider-active-color)}:host([transiting_]) #bar{transition:width var(--cr-slider-position-transition)}#knobAndLabel{top:-1px}:host([transiting_]) #knobAndLabel{transition:margin-inline-start var(--cr-slider-position-transition)}#knob{background-color:rgb(var(--cr-slider-knob-color-rgb));border-radius:50%;box-shadow:0 1px 3px 0 rgba(0,0,0,.4);height:10px;outline:0;position:relative;transform:translate(-50%,-50%);width:10px}:host([is-rtl_]) #knob{transform:translate(50%,-50%)}#label{background:rgb(var(--cr-slider-knob-color-rgb));border-radius:.75em;bottom:22px;color:#fff;font-size:12px;line-height:1.5em;opacity:0;outline:1px transparent solid;padding:0 .67em;position:absolute;transform:translateX(-50%);transition:opacity 80ms ease-in-out;white-space:nowrap}:host([is-rtl_]) #label{transform:translateX(50%)}:host(:hover) #label,:host([show-label_]) #label{opacity:1}paper-ripple{--paper-ripple-opacity:var(--cr-slider-ripple-opacity, 1);color:var(--cr-slider-ripple-color);height:var(--cr-slider-ripple-size,32px);pointer-events:none;transition:color linear 80ms;transform:translate(-50%,-50%);top:50%;left:50%;width:var(--cr-slider-ripple-size,32px);z-index:var(--cr-slider-ripple-z-index,auto)}:host([disabled_]){pointer-events:none}:host([disabled_]) #container{border-top-color:var(--cr-slider-container-disabled-color)}:host([disabled_]) #bar{border-top-color:var(--cr-slider-disabled-color)}:host([disabled_]) #markers::after,:host([disabled_]) .inactive-marker::after{background-color:var(--cr-slider-marker-disabled-color)}:host([disabled_]) #knob{background-color:var(--cr-slider-disabled-color);border:2px solid var(--cr-slider-knob-disabled-color);box-shadow:unset}</style>
@@ -5627,7 +5627,7 @@ function getTemplate$19() {
 // Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-const SettingsPrivacySandboxManageTopicsSubpageElementBase = RouteObserverMixin(I18nMixin(PolymerElement));
+const SettingsPrivacySandboxManageTopicsSubpageElementBase = RouteObserverMixin(I18nMixin(PrefsMixin(PolymerElement)));
 // First Level Topics for Taxonomy v2
 // This list comes from here:
 // https://github.com/patcg-individual-drafts/topics/blob/main/taxonomy_v2.md
@@ -5668,6 +5668,13 @@ class SettingsPrivacySandboxManageTopicsSubpageElement extends SettingsPrivacySa
     }
     static get properties() {
         return {
+            /**
+             * Preferences state.
+             */
+            prefs: {
+                type: Object,
+                notify: true,
+            },
             firstLevelTopicsList_: {
                 type: Array,
                 value() {
@@ -5695,6 +5702,12 @@ class SettingsPrivacySandboxManageTopicsSubpageElement extends SettingsPrivacySa
     }
     currentRouteChanged(newRoute) {
         if (newRoute === routes.PRIVACY_SANDBOX_MANAGE_TOPICS) {
+            // Should not be able to navigate to Manage Topics page when topics is
+            // disabled.
+            if (!this.getPref('privacy_sandbox.m1.topics_enabled').value) {
+                Router.getInstance().navigateTo(routes.PRIVACY_SANDBOX_TOPICS);
+                return;
+            }
             // Updating the FirstLevelTopicsState because it can be changed by being
             // blocked/unblocked in the Ad Topics Page. Need to keep the data between
             // the two pages up to date.
@@ -5820,11 +5833,11 @@ function getTemplate$18() {
           </div>
           <div id="currentTopicsEmptyTextV2" class="topics-empty-text-v2" hidden="[[!isTopicsListEmptyV2_(topicsList_.length,
               shouldShowV2_)]]">
-            <span id="currentTopicsDescriptionEmptyTopText">
-              $i18n{topicsPageCurrentTopicsDescriptionEmptyTopText}
+            <span id="currentTopicsDescriptionEmptyTextHeading">
+              $i18n{topicsPageCurrentTopicsDescriptionEmptyTextHeading}
             </span>
-            <span id="currentTopicsDescriptionEmptyBottomText" class="cr-secondary-text">
-              $i18n{topicsPageCurrentTopicsDescriptionEmptyPtb}
+            <span id="currentTopicsDescriptionEmptyTextV2" class="cr-secondary-text">
+              $i18n{topicsPageCurrentTopicsDescriptionEmptyTextV2}
             </span>
           </div>
         </template>
@@ -5847,11 +5860,11 @@ function getTemplate$18() {
     </div>
     <div id="blockedTopicsEmptyText" class="topics-empty-text-v2" hidden="[[!isBlockedTopicsListEmptyV2_(blockedTopicsList_.length,
         shouldShowV2_)]]">
-      <span id="blockedTopicsDescriptionEmptyTopText">
-          $i18n{topicsPageBlockedTopicsDescriptionEmptyTopText}
+      <span id="blockedTopicsDescriptionEmptyTextHeading">
+          $i18n{topicsPageBlockedTopicsDescriptionEmptyTextHeading}
       </span>
-      <span id="blockedTopicsDescriptionEmptyBottomText" class="cr-secondary-text">
-        $i18n{topicsPageBlockedTopicsDescriptionEmptyPtb}
+      <span id="blockedTopicsDescriptionEmptyTextV2" class="cr-secondary-text">
+        $i18n{topicsPageBlockedTopicsDescriptionEmptyTextV2}
       </span>
     </div>
     <div id="blockedTopicsList" role="region" aria-label="$i18n{topicsPageBlockedTopicsRegionA11yDescription}">
@@ -13379,8 +13392,8 @@ class CategorySettingExceptionsElement extends CategorySettingExceptionsElementB
      * content setting of that type.
      */
     computeShowAllowSiteList_() {
-        // TODO(crbug.com/1373962): This function should return true when Persistent
-        // Permissions is fully launched.
+        // TODO(crbug.com/1011533): This function should return true when the
+        // feature flag for Persistent Permissions is removed.
         return this.category !== ContentSettingsTypes.FILE_SYSTEM_WRITE;
     }
     /**

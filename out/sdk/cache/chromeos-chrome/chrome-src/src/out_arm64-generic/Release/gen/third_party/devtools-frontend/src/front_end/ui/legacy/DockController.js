@@ -84,7 +84,7 @@ export class DockController extends Common.ObjectWrapper.ObjectWrapper {
         this.closeButton.element.classList.add('close-devtools');
         this.closeButton.addEventListener("Click" /* ToolbarButton.Events.Click */, Host.InspectorFrontendHost.InspectorFrontendHostInstance.closeWindow.bind(Host.InspectorFrontendHost.InspectorFrontendHostInstance));
         this.currentDockStateSetting = Common.Settings.Settings.instance().moduleSetting('currentDockState');
-        this.lastDockStateSetting = Common.Settings.Settings.instance().createSetting('lastDockState', "bottom" /* DockState.BOTTOM */);
+        this.lastDockStateSetting = Common.Settings.Settings.instance().createSetting('last-dock-state', "bottom" /* DockState.BOTTOM */);
         if (!canDock) {
             this.dockSideInternal = "undocked" /* DockState.UNDOCKED */;
             this.closeButton.setVisible(false);

@@ -21,6 +21,20 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"errorDetail",
+"httpRequestStatusCode",
+"receivedAlert",
+"sctpCauseCode",
+"sdpLineNumber",
+"sentAlert",
+};
+
+
+}  // namespace 
+
 RTCErrorInit* RTCErrorInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   RTCErrorInit* dictionary = MakeGarbageCollected<RTCErrorInit>(isolate);
 if (!v8_value->IsObject()) {
@@ -95,36 +109,48 @@ TraceIfNeeded<uint32_t>::Trace(visitor, member_sent_alert_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool RTCErrorInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void RTCErrorInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void RTCErrorInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasErrorDetail()) {
-  v8_value = ToV8Traits<V8RTCErrorDetailType>::ToV8(script_state, member_error_detail_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<V8RTCErrorDetailType>::ToV8(script_state, member_error_detail_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasHttpRequestStatusCode()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_http_request_status_code_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLLong>::ToV8(script_state, member_http_request_status_code_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasReceivedAlert()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_received_alert_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_received_alert_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasSctpCauseCode()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_sctp_cause_code_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLLong>::ToV8(script_state, member_sctp_cause_code_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasSdpLineNumber()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_sdp_line_number_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLLong>::ToV8(script_state, member_sdp_line_number_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasSentAlert()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_sent_alert_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_sent_alert_);
+DCHECK(!values[5].IsEmpty());
 }
-return true;
+}
+
+const void* RTCErrorInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> RTCErrorInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void RTCErrorInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -163,15 +189,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLong, is_optional>(iso
 }
 
 const base::span<const v8::Eternal<v8::Name>> RTCErrorInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"errorDetail",
-"httpRequestStatusCode",
-"receivedAlert",
-"sctpCauseCode",
-"sdpLineNumber",
-"sentAlert",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

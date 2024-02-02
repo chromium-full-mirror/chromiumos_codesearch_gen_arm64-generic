@@ -22,6 +22,15 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"connection",
+};
+
+
+}  // namespace 
+
 PresentationConnectionAvailableEventInit* PresentationConnectionAvailableEventInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   PresentationConnectionAvailableEventInit* dictionary = MakeGarbageCollected<PresentationConnectionAvailableEventInit>(isolate);
 if (!v8_value->IsObject()) {
@@ -56,20 +65,34 @@ void PresentationConnectionAvailableEventInit::Trace(Visitor* visitor) const {
 EventInit::Trace(visitor);
 }
 
-bool PresentationConnectionAvailableEventInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!EventInit::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void PresentationConnectionAvailableEventInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  EventInit::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
+void PresentationConnectionAvailableEventInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  EventInit::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasConnection()) {
-  v8::Local<v8::Value> v8_value;
-v8_value = ToV8Traits<PresentationConnection>::ToV8(script_state, member_connection_.Get());
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<PresentationConnection>::ToV8(script_state, member_connection_.Get());
+DCHECK(!values[0].IsEmpty());
 }
-return true;
+}
+
+const void* PresentationConnectionAvailableEventInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> PresentationConnectionAvailableEventInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void PresentationConnectionAvailableEventInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -92,10 +115,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<PresentationConnection, is_requir
 }
 
 const base::span<const v8::Eternal<v8::Name>> PresentationConnectionAvailableEventInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"connection",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

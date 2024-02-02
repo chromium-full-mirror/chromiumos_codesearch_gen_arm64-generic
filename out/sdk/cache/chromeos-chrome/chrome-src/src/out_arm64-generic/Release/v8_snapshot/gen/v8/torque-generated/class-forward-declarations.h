@@ -128,6 +128,7 @@ class ClosureFeedbackCellArray;
 class FeedbackVector;
 class FeedbackMetadata;
 class TrustedFixedArray;
+class ProtectedFixedArray;
 class ByteArray;
 class TrustedByteArray;
 class ExternalPointerArray;

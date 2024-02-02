@@ -193,30 +193,6 @@ std::function<void(const crdtp::Dispatchable&)> DomainDispatcherImpl::Dispatch(c
 }
 
 
-class TriggerCallbackImpl : public Backend::TriggerCallback, public DomainDispatcher::Callback {
-public:
-    TriggerCallbackImpl(std::unique_ptr<DomainDispatcher::WeakPtr> backendImpl, int callId, crdtp::span<uint8_t> message)
-        : DomainDispatcher::Callback(std::move(backendImpl), callId,
-crdtp::SpanFrom("Autofill.trigger"), message) { }
-
-    void sendSuccess() override
-    {
-        crdtp::ObjectSerializer serializer;
-        sendIfActive(serializer.Finish(), DispatchResponse::Success());
-    }
-
-    void fallThrough() override
-    {
-        fallThroughIfActive();
-    }
-
-    void sendFailure(const DispatchResponse& response) override
-    {
-        DCHECK(response.IsError());
-        sendIfActive(nullptr, response);
-    }
-};
-
 namespace {
 
 struct triggerParams : public crdtp::DeserializableProtocolObject<triggerParams> {
@@ -244,7 +220,15 @@ void DomainDispatcherImpl::trigger(const crdtp::Dispatchable& dispatchable)
       return;
     }
 
-    m_backend->Trigger(params.fieldId, std::move(params.frameId), std::move(params.card), std::make_unique<TriggerCallbackImpl>(weakPtr(), dispatchable.CallId(), dispatchable.Serialized()));
+    std::unique_ptr<DomainDispatcher::WeakPtr> weak = weakPtr();
+    DispatchResponse response = m_backend->Trigger(params.fieldId, std::move(params.frameId), std::move(params.card));
+    if (response.IsFallThrough()) {
+        channel()->FallThrough(dispatchable.CallId(), crdtp::SpanFrom("Autofill.trigger"), dispatchable.Serialized());
+        return;
+    }
+    if (weak->get())
+        weak->get()->sendResponse(dispatchable.CallId(), response);
+    return;
 }
 
 class SetAddressesCallbackImpl : public Backend::SetAddressesCallback, public DomainDispatcher::Callback {

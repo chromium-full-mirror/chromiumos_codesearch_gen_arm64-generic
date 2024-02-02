@@ -22,6 +22,20 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"category",
+"description",
+"icons",
+"id",
+"title",
+"url",
+};
+
+
+}  // namespace 
+
 ContentDescription* ContentDescription::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   ContentDescription* dictionary = MakeGarbageCollected<ContentDescription>(isolate);
 if (!v8_value->IsObject()) {
@@ -116,36 +130,48 @@ TraceIfNeeded<String>::Trace(visitor, member_url_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool ContentDescription::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void ContentDescription::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void ContentDescription::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasCategory()) {
-  v8_value = ToV8Traits<V8ContentCategory>::ToV8(script_state, member_category_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<V8ContentCategory>::ToV8(script_state, member_category_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasDescription()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_description_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLString>::ToV8(script_state, member_description_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasIcons()) {
-  v8_value = ToV8Traits<IDLSequence<ContentIconDefinition>>::ToV8(script_state, member_icons_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLSequence<ContentIconDefinition>>::ToV8(script_state, member_icons_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasId()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLString>::ToV8(script_state, member_id_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasTitle()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_title_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLString>::ToV8(script_state, member_title_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasUrl()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_url_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_url_);
+DCHECK(!values[5].IsEmpty());
 }
-return true;
+}
+
+const void* ContentDescription::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> ContentDescription::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void ContentDescription::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -184,15 +210,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_required>(isolat
 }
 
 const base::span<const v8::Eternal<v8::Name>> ContentDescription::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"category",
-"description",
-"icons",
-"id",
-"title",
-"url",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

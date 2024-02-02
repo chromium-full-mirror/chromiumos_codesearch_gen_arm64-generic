@@ -19,7 +19,6 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_union_object_string.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_void_function.h"
-#include "third_party/blink/renderer/bindings/modules/v8/v8_goog_media_constraints.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_stream.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_stream_track.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_rtc_answer_options.h"
@@ -632,9 +631,6 @@ return;
 
 
 
-RTCPeerConnection* return_value;
-do {  // Dummy loop for use of 'break'.
-  const int non_undefined_argument_length = bindings::NonUndefinedArgumentLength(info);
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ScriptState* current_script_state = ScriptState::From(current_context);
 ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
@@ -648,16 +644,7 @@ if (UNLIKELY(exception_state.HadException())) {
   return;
 }
 }
-if (non_undefined_argument_length <= 1) {
-  return_value = RTCPeerConnection::Create(execution_context, arg1_configuration, exception_state);
-break;
-}
-auto&& arg2_media_constraints = NativeValueTraits<GoogMediaConstraints>::ArgumentValue(isolate, 1, info[1], exception_state);
-if (UNLIKELY(exception_state.HadException())) {
-  return;
-}
-return_value = RTCPeerConnection::Create(execution_context, arg1_configuration, arg2_media_constraints, exception_state);
-} while (false);
+auto&& return_value = RTCPeerConnection::Create(execution_context, arg1_configuration, exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }

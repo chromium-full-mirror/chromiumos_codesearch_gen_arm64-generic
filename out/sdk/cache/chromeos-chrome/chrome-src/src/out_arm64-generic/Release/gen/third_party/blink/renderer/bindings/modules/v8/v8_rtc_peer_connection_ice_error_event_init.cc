@@ -21,6 +21,20 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"address",
+"errorCode",
+"errorText",
+"hostCandidate",
+"port",
+"url",
+};
+
+
+}  // namespace 
+
 RTCPeerConnectionIceErrorEventInit* RTCPeerConnectionIceErrorEventInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   RTCPeerConnectionIceErrorEventInit* dictionary = MakeGarbageCollected<RTCPeerConnectionIceErrorEventInit>(isolate);
 if (!v8_value->IsObject()) {
@@ -175,40 +189,54 @@ TraceIfNeeded<String>::Trace(visitor, member_url_);
 EventInit::Trace(visitor);
 }
 
-bool RTCPeerConnectionIceErrorEventInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!EventInit::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void RTCPeerConnectionIceErrorEventInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  EventInit::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void RTCPeerConnectionIceErrorEventInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  EventInit::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasAddress()) {
-  v8_value = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, member_address_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, member_address_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasErrorCode()) {
-  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_error_code_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_error_code_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasErrorText()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_error_text_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_error_text_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasHostCandidate()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_host_candidate_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLString>::ToV8(script_state, member_host_candidate_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasPort()) {
-  v8_value = ToV8Traits<IDLNullable<IDLUnsignedShort>>::ToV8(script_state, member_port_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLNullable<IDLUnsignedShort>>::ToV8(script_state, member_port_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasUrl()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_url_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLString>::ToV8(script_state, member_url_);
+DCHECK(!values[5].IsEmpty());
 }
-return true;
+}
+
+const void* RTCPeerConnectionIceErrorEventInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> RTCPeerConnectionIceErrorEventInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void RTCPeerConnectionIceErrorEventInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -252,15 +280,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, 
 }
 
 const base::span<const v8::Eternal<v8::Name>> RTCPeerConnectionIceErrorEventInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"address",
-"errorCode",
-"errorText",
-"hostCandidate",
-"port",
-"url",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

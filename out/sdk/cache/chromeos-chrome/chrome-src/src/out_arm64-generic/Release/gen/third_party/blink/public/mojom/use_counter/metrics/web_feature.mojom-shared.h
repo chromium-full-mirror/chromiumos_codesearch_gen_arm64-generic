@@ -8064,9 +8064,11 @@ enum class WebFeature : int32_t {
   
   kSpeculationRulesBrowserPrerenderRule = 4832,
   
-  kNumberOfFeatures = 4833,
+  kFirstPartySharedWorkerSameSiteCookiesNone = 4833,
+  
+  kNumberOfFeatures = 4834,
   kMinValue = 0,
-  kMaxValue = 4833,
+  kMaxValue = 4834,
 };
 
 COMPONENT_EXPORT(WEB_FEATURE_MOJO_BINDINGS_MOJOM_SHARED) std::ostream& operator<<(std::ostream& os, WebFeature value);

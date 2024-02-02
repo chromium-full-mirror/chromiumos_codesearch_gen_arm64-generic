@@ -21,6 +21,15 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"app_name",
+};
+
+
+}  // namespace 
+
 SubAppsListResult* SubAppsListResult::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   SubAppsListResult* dictionary = MakeGarbageCollected<SubAppsListResult>(isolate);
 if (!v8_value->IsObject()) {
@@ -61,16 +70,28 @@ void SubAppsListResult::Trace(Visitor* visitor) const {
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool SubAppsListResult::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (hasAppName()) {
-  v8::Local<v8::Value> v8_value;
-v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_app_name_);
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+void SubAppsListResult::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
-return true;
+
+void SubAppsListResult::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
+if (hasAppName()) {
+  values[0] = ToV8Traits<IDLString>::ToV8(script_state, member_app_name_);
+DCHECK(!values[0].IsEmpty());
+}
+}
+
+const void* SubAppsListResult::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> SubAppsListResult::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void SubAppsListResult::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -88,10 +109,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_required>(isolate, 
 }
 
 const base::span<const v8::Eternal<v8::Name>> SubAppsListResult::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"app_name",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

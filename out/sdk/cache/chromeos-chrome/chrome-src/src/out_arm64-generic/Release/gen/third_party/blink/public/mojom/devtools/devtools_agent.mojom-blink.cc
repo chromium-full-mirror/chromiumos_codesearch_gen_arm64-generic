@@ -115,9 +115,6 @@ DevToolsAgent::IPCStableHashFunction DevToolsAgent::MessageToMethodInfo_(mojo::M
     case internal::kDevToolsAgent_ReportChildTargets_Name: {
       return &DevToolsAgent::ReportChildTargets_Sym::IPCStableHash;
     }
-    case internal::kDevToolsAgent_GetUniqueFormControlId_Name: {
-      return &DevToolsAgent::GetUniqueFormControlId_Sym::IPCStableHash;
-    }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
   return nullptr;
@@ -135,8 +132,6 @@ const char* DevToolsAgent::MessageToMethodName_(mojo::Message& message) {
             return "Receive blink::mojom::DevToolsAgent::InspectElement";
       case internal::kDevToolsAgent_ReportChildTargets_Name:
             return "Receive blink::mojom::DevToolsAgent::ReportChildTargets";
-      case internal::kDevToolsAgent_GetUniqueFormControlId_Name:
-            return "Receive blink::mojom::DevToolsAgent::GetUniqueFormControlId";
     }
   } else {
     switch (message.name()) {
@@ -146,8 +141,6 @@ const char* DevToolsAgent::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply blink::mojom::DevToolsAgent::InspectElement";
       case internal::kDevToolsAgent_ReportChildTargets_Name:
             return "Receive reply blink::mojom::DevToolsAgent::ReportChildTargets";
-      case internal::kDevToolsAgent_GetUniqueFormControlId_Name:
-            return "Receive reply blink::mojom::DevToolsAgent::GetUniqueFormControlId";
     }
   }
   return "Receive unknown mojo message";
@@ -201,19 +194,6 @@ uint32_t DevToolsAgent::ReportChildTargets_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t DevToolsAgent::GetUniqueFormControlId_Sym::IPCStableHash() {
-  // This method's address is used for indetifiying the mojo method name after
-  // symbolization. So each IPCStableHash should have a unique address.
-  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
-  // __LINE__ value, which is not unique accross different mojo modules.
-  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
-  // hash instead of __LINE__.
-  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)blink::mojom::DevToolsAgent::GetUniqueFormControlId");
-  const uint32_t hash = kHash;
-  base::debug::Alias(&hash);
-  return hash;
-}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class DevToolsAgent_ReportChildTargets_ForwardToCallback
@@ -230,22 +210,6 @@ class DevToolsAgent_ReportChildTargets_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   DevToolsAgent::ReportChildTargetsCallback callback_;
-};
-
-class DevToolsAgent_GetUniqueFormControlId_ForwardToCallback
-    : public mojo::MessageReceiver {
- public:
-  DevToolsAgent_GetUniqueFormControlId_ForwardToCallback(
-      DevToolsAgent::GetUniqueFormControlIdCallback callback
-      ) : callback_(std::move(callback)) {
-  }
-
-  DevToolsAgent_GetUniqueFormControlId_ForwardToCallback(const DevToolsAgent_GetUniqueFormControlId_ForwardToCallback&) = delete;
-  DevToolsAgent_GetUniqueFormControlId_ForwardToCallback& operator=(const DevToolsAgent_GetUniqueFormControlId_ForwardToCallback&) = delete;
-
-  bool Accept(mojo::Message* message) override;
- private:
-  DevToolsAgent::GetUniqueFormControlIdCallback callback_;
 };
 
 DevToolsAgentProxy::DevToolsAgentProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -448,48 +412,6 @@ void DevToolsAgentProxy::ReportChildTargets(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
-
-void DevToolsAgentProxy::GetUniqueFormControlId(
-    int32_t in_nodeId, GetUniqueFormControlIdCallback callback) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send blink::mojom::DevToolsAgent::GetUniqueFormControlId", "input_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("nodeId"), in_nodeId,
-                        "<value of type int32_t>");
-   });
-#endif
-
-  const bool kExpectsResponse = true;
-  const bool kIsSync = false;
-  const bool kAllowInterrupt = true;
-  const bool is_urgent = false;
-  
-  const uint32_t kFlags =
-      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
-      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
-      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kDevToolsAgent_GetUniqueFormControlId_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::DevToolsAgent_GetUniqueFormControlId_Params_Data> params(
-          message);
-  params.Allocate();
-  params->nodeId = in_nodeId;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(DevToolsAgent::Name_);
-  message.set_method_name("GetUniqueFormControlId");
-#endif
-  std::unique_ptr<mojo::MessageReceiver> responder(
-      new DevToolsAgent_GetUniqueFormControlId_ForwardToCallback(
-          std::move(callback)));
-  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
-}
 class DevToolsAgent_ReportChildTargets_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
  public:
   static DevToolsAgent::ReportChildTargetsCallback CreateCallback(
@@ -586,127 +508,6 @@ void DevToolsAgent_ReportChildTargets_ProxyToResponder::Run(
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(DevToolsAgent::Name_);
   message.set_method_name("ReportChildTargets");
-#endif
-
-  message.set_request_id(request_id_);
-  message.set_trace_nonce(trace_nonce_);
-  ::mojo::internal::SendMojoMessage(*responder_, message);
-  // SendMojoMessage() fails silently if the responder connection is closed,
-  // or if the message is malformed.
-  //
-  // TODO(darin): If Accept() returns false due to a malformed message, that
-  // may be good reason to close the connection. However, we don't have a
-  // way to do that from here. We should add a way.
-  responder_ = nullptr;
-}
-class DevToolsAgent_GetUniqueFormControlId_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
- public:
-  static DevToolsAgent::GetUniqueFormControlIdCallback CreateCallback(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
-    std::unique_ptr<DevToolsAgent_GetUniqueFormControlId_ProxyToResponder> proxy(
-        new DevToolsAgent_GetUniqueFormControlId_ProxyToResponder(
-            message, std::move(responder)));
-    return base::BindOnce(&DevToolsAgent_GetUniqueFormControlId_ProxyToResponder::Run,
-                          std::move(proxy));
-  }
-
-  ~DevToolsAgent_GetUniqueFormControlId_ProxyToResponder() {
-#if DCHECK_IS_ON()
-    if (responder_) {
-      // If we're being destroyed without being run, we want to ensure the
-      // binding endpoint has been closed. This checks for that asynchronously.
-      // We pass a bound generated callback to handle the response so that any
-      // resulting DCHECK stack will have useful interface type information.
-      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
-      // fizzle if this happens after shutdown and the endpoint is bound to a
-      // BLOCK_SHUTDOWN sequence.
-      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
-      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
-    }
-#endif
-  }
-
- private:
-  DevToolsAgent_GetUniqueFormControlId_ProxyToResponder(
-      ::mojo::Message& message,
-      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
-      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
-  }
-
-#if DCHECK_IS_ON()
-  static void OnIsConnectedComplete(bool connected) {
-    DCHECK(!connected)
-        << "DevToolsAgent::GetUniqueFormControlIdCallback was destroyed without "
-        << "first either being run or its corresponding binding being closed. "
-        << "It is an error to drop response callbacks which still correspond "
-        << "to an open interface pipe.";
-  }
-#endif
-
-  void Run(
-      uint64_t in_id);
-};
-
-bool DevToolsAgent_GetUniqueFormControlId_ForwardToCallback::Accept(
-    mojo::Message* message) {
-
-  DCHECK(message->is_serialized());
-  internal::DevToolsAgent_GetUniqueFormControlId_ResponseParams_Data* params =
-      reinterpret_cast<
-          internal::DevToolsAgent_GetUniqueFormControlId_ResponseParams_Data*>(
-              message->mutable_payload());
-  
-  
-  // Validation for DevToolsAgent.3
-  bool success = true;
-  uint64_t p_id{};
-  DevToolsAgent_GetUniqueFormControlId_ResponseParamsDataView input_data_view(params, message);
-  
-  if (success)
-    p_id = input_data_view.id();
-  if (!success) {
-    ReportValidationErrorForMessage(
-        message,
-        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-        DevToolsAgent::Name_, 3, true);
-    return false;
-  }
-  if (!callback_.is_null())
-    std::move(callback_).Run(
-std::move(p_id));
-  return true;
-}
-
-void DevToolsAgent_GetUniqueFormControlId_ProxyToResponder::Run(
-    uint64_t in_id) {
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT1(
-    "mojom", "Send reply blink::mojom::DevToolsAgent::GetUniqueFormControlId", "async_response_parameters",
-    [&](perfetto::TracedValue context){
-      auto dict = std::move(context).WriteDictionary();
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("id"), in_id,
-                        "<value of type uint64_t>");
-   });
-#endif
-  
-  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
-      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
-      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
-      ((false) ? mojo::Message::kFlagIsUrgent : 0);
-  
-  mojo::Message message(
-      internal::kDevToolsAgent_GetUniqueFormControlId_Name, kFlags, 0, 0, nullptr);
-  mojo::internal::MessageFragment<
-      ::blink::mojom::internal::DevToolsAgent_GetUniqueFormControlId_ResponseParams_Data> params(
-          message);
-  params.Allocate();
-  params->id = in_id;
-
-#if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(DevToolsAgent::Name_);
-  message.set_method_name("GetUniqueFormControlId");
 #endif
 
   message.set_request_id(request_id_);
@@ -819,9 +620,6 @@ bool DevToolsAgentStubDispatch::Accept(
     case internal::kDevToolsAgent_ReportChildTargets_Name: {
       break;
     }
-    case internal::kDevToolsAgent_GetUniqueFormControlId_Name: {
-      break;
-    }
   }
   return false;
 }
@@ -876,37 +674,6 @@ bool DevToolsAgentStubDispatch::AcceptWithResponder(
         std::move(p_wait_for_debugger), std::move(callback));
       return true;
     }
-    case internal::kDevToolsAgent_GetUniqueFormControlId_Name: {
-
-      internal::DevToolsAgent_GetUniqueFormControlId_Params_Data* params =
-          reinterpret_cast<
-              internal::DevToolsAgent_GetUniqueFormControlId_Params_Data*>(
-                  message->mutable_payload());
-      
-      
-      // Validation for DevToolsAgent.3
-      bool success = true;
-      int32_t p_nodeId{};
-      DevToolsAgent_GetUniqueFormControlId_ParamsDataView input_data_view(params, message);
-      
-      if (success)
-        p_nodeId = input_data_view.nodeId();
-      if (!success) {
-        ReportValidationErrorForMessage(
-            message,
-            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            DevToolsAgent::Name_, 3, false);
-        return false;
-      }
-      DevToolsAgent::GetUniqueFormControlIdCallback callback =
-          DevToolsAgent_GetUniqueFormControlId_ProxyToResponder::CreateCallback(
-              *message, std::move(responder));
-      // A null |impl| means no implementation was bound.
-      DCHECK(impl);
-      impl->GetUniqueFormControlId(        
-        std::move(p_nodeId), std::move(callback));
-      return true;
-    }
   }
   return false;
 }
@@ -919,8 +686,6 @@ static const mojo::internal::GenericValidationInfo kDevToolsAgentValidationInfo[
      nullptr /* no response */},
     { &internal::DevToolsAgent_ReportChildTargets_Params_Data::Validate,
      &internal::DevToolsAgent_ReportChildTargets_ResponseParams_Data::Validate},
-    { &internal::DevToolsAgent_GetUniqueFormControlId_Params_Data::Validate,
-     &internal::DevToolsAgent_GetUniqueFormControlId_ResponseParams_Data::Validate},
 };
 
 bool DevToolsAgentRequestValidator::Accept(mojo::Message* message) {
@@ -1923,9 +1688,6 @@ void DevToolsAgentInterceptorForTesting::InspectElement(const ::gfx::Point& poin
 void DevToolsAgentInterceptorForTesting::ReportChildTargets(bool report, bool wait_for_debugger, ReportChildTargetsCallback callback) {
   GetForwardingInterface()->ReportChildTargets(std::move(report), std::move(wait_for_debugger), std::move(callback));
 }
-void DevToolsAgentInterceptorForTesting::GetUniqueFormControlId(int32_t nodeId, GetUniqueFormControlIdCallback callback) {
-  GetForwardingInterface()->GetUniqueFormControlId(std::move(nodeId), std::move(callback));
-}
 DevToolsAgentAsyncWaiter::DevToolsAgentAsyncWaiter(
     DevToolsAgent* proxy) : proxy_(proxy) {}
 
@@ -1944,29 +1706,6 @@ void DevToolsAgentAsyncWaiter::ReportChildTargets(
 }
 
 
-
-void DevToolsAgentAsyncWaiter::GetUniqueFormControlId(
-    int32_t nodeId, uint64_t* out_id) {
-  base::RunLoop loop;
-  proxy_->GetUniqueFormControlId(std::move(nodeId),
-      base::BindOnce(
-          [](base::RunLoop* loop,
-             uint64_t* out_id
-,
-             uint64_t id) {*out_id = std::move(id);
-            loop->Quit();
-          },
-          &loop,
-          out_id));
-  loop.Run();
-}
-
-uint64_t DevToolsAgentAsyncWaiter::GetUniqueFormControlId(
-    int32_t nodeId) {
-  uint64_t async_wait_result;
-  GetUniqueFormControlId(std::move(nodeId),&async_wait_result);
-  return async_wait_result;
-}
 
 
 

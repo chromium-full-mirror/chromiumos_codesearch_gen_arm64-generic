@@ -488,116 +488,6 @@
     encoder.writeUint32(DevToolsAgent_ReportChildTargets_ResponseParams.encodedSize);
     encoder.writeUint32(0);
   };
-  function DevToolsAgent_GetUniqueFormControlId_Params(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  DevToolsAgent_GetUniqueFormControlId_Params.prototype.initDefaults_ = function() {
-    this.nodeId = 0;
-  };
-  DevToolsAgent_GetUniqueFormControlId_Params.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  DevToolsAgent_GetUniqueFormControlId_Params.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    return validator.validationError.NONE;
-  };
-
-  DevToolsAgent_GetUniqueFormControlId_Params.encodedSize = codec.kStructHeaderSize + 8;
-
-  DevToolsAgent_GetUniqueFormControlId_Params.decode = function(decoder) {
-    var packed;
-    var val = new DevToolsAgent_GetUniqueFormControlId_Params();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.nodeId =
-        decoder.decodeStruct(codec.Int32);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
-    return val;
-  };
-
-  DevToolsAgent_GetUniqueFormControlId_Params.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(DevToolsAgent_GetUniqueFormControlId_Params.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Int32, val.nodeId);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
-  };
-  function DevToolsAgent_GetUniqueFormControlId_ResponseParams(values) {
-    this.initDefaults_();
-    this.initFields_(values);
-  }
-
-
-  DevToolsAgent_GetUniqueFormControlId_ResponseParams.prototype.initDefaults_ = function() {
-    this.id = 0;
-  };
-  DevToolsAgent_GetUniqueFormControlId_ResponseParams.prototype.initFields_ = function(fields) {
-    for(var field in fields) {
-        if (this.hasOwnProperty(field))
-          this[field] = fields[field];
-    }
-  };
-
-  DevToolsAgent_GetUniqueFormControlId_ResponseParams.validate = function(messageValidator, offset) {
-    var err;
-    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-    var kVersionSizes = [
-      {version: 0, numBytes: 16}
-    ];
-    err = messageValidator.validateStructVersion(offset, kVersionSizes);
-    if (err !== validator.validationError.NONE)
-        return err;
-
-
-    return validator.validationError.NONE;
-  };
-
-  DevToolsAgent_GetUniqueFormControlId_ResponseParams.encodedSize = codec.kStructHeaderSize + 8;
-
-  DevToolsAgent_GetUniqueFormControlId_ResponseParams.decode = function(decoder) {
-    var packed;
-    var val = new DevToolsAgent_GetUniqueFormControlId_ResponseParams();
-    var numberOfBytes = decoder.readUint32();
-    var version = decoder.readUint32();
-    val.id =
-        decoder.decodeStruct(codec.Uint64);
-    return val;
-  };
-
-  DevToolsAgent_GetUniqueFormControlId_ResponseParams.encode = function(encoder, val) {
-    var packed;
-    encoder.writeUint32(DevToolsAgent_GetUniqueFormControlId_ResponseParams.encodedSize);
-    encoder.writeUint32(0);
-    encoder.encodeStruct(codec.Uint64, val.id);
-  };
   function DevToolsAgentHost_ChildTargetCreated_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
@@ -1044,7 +934,6 @@
   var kDevToolsAgent_AttachDevToolsSession_Name = 0;
   var kDevToolsAgent_InspectElement_Name = 1;
   var kDevToolsAgent_ReportChildTargets_Name = 2;
-  var kDevToolsAgent_GetUniqueFormControlId_Name = 3;
 
   function DevToolsAgentPtr(handleOrPtrInfo) {
     this.ptr = new bindings.InterfacePtrController(DevToolsAgent,
@@ -1127,31 +1016,6 @@
       });
     }.bind(this));
   };
-  DevToolsAgentPtr.prototype.getUniqueFormControlId = function() {
-    return DevToolsAgentProxy.prototype.getUniqueFormControlId
-        .apply(this.ptr.getProxy(), arguments);
-  };
-
-  DevToolsAgentProxy.prototype.getUniqueFormControlId = function(nodeId) {
-    var params_ = new DevToolsAgent_GetUniqueFormControlId_Params();
-    params_.nodeId = nodeId;
-    return new Promise(function(resolve, reject) {
-      var builder = new codec.MessageV1Builder(
-          kDevToolsAgent_GetUniqueFormControlId_Name,
-          codec.align(DevToolsAgent_GetUniqueFormControlId_Params.encodedSize),
-          codec.kMessageExpectsResponse, 0);
-      builder.encodeStruct(DevToolsAgent_GetUniqueFormControlId_Params, params_);
-      var message = builder.finish();
-      this.receiver_.acceptAndExpectResponse(message).then(function(message) {
-        var reader = new codec.MessageReader(message);
-        var responseParams =
-            reader.decodeStruct(DevToolsAgent_GetUniqueFormControlId_ResponseParams);
-        resolve(responseParams);
-      }).catch(function(result) {
-        reject(Error("Connection error: " + result));
-      });
-    }.bind(this));
-  };
 
   function DevToolsAgentStub(delegate) {
     this.delegate_ = delegate;
@@ -1164,9 +1028,6 @@
   }
   DevToolsAgentStub.prototype.reportChildTargets = function(report, waitForDebugger) {
     return this.delegate_ && this.delegate_.reportChildTargets && this.delegate_.reportChildTargets(report, waitForDebugger);
-  }
-  DevToolsAgentStub.prototype.getUniqueFormControlId = function(nodeId) {
-    return this.delegate_ && this.delegate_.getUniqueFormControlId && this.delegate_.getUniqueFormControlId(nodeId);
   }
 
   DevToolsAgentStub.prototype.accept = function(message) {
@@ -1204,22 +1065,6 @@
         responder.accept(message);
       });
       return true;
-    case kDevToolsAgent_GetUniqueFormControlId_Name:
-      var params = reader.decodeStruct(DevToolsAgent_GetUniqueFormControlId_Params);
-      this.getUniqueFormControlId(params.nodeId).then(function(response) {
-        var responseParams =
-            new DevToolsAgent_GetUniqueFormControlId_ResponseParams();
-        responseParams.id = response.id;
-        var builder = new codec.MessageV1Builder(
-            kDevToolsAgent_GetUniqueFormControlId_Name,
-            codec.align(DevToolsAgent_GetUniqueFormControlId_ResponseParams.encodedSize),
-            codec.kMessageIsResponse, reader.requestID);
-        builder.encodeStruct(DevToolsAgent_GetUniqueFormControlId_ResponseParams,
-                             responseParams);
-        var message = builder.finish();
-        responder.accept(message);
-      });
-      return true;
     default:
       return false;
     }
@@ -1241,10 +1086,6 @@
         if (message.expectsResponse())
           paramsClass = DevToolsAgent_ReportChildTargets_Params;
       break;
-      case kDevToolsAgent_GetUniqueFormControlId_Name:
-        if (message.expectsResponse())
-          paramsClass = DevToolsAgent_GetUniqueFormControlId_Params;
-      break;
     }
     if (paramsClass === null)
       return validator.validationError.NONE;
@@ -1258,10 +1099,6 @@
       case kDevToolsAgent_ReportChildTargets_Name:
         if (message.isResponse())
           paramsClass = DevToolsAgent_ReportChildTargets_ResponseParams;
-        break;
-      case kDevToolsAgent_GetUniqueFormControlId_Name:
-        if (message.isResponse())
-          paramsClass = DevToolsAgent_GetUniqueFormControlId_ResponseParams;
         break;
     }
     if (paramsClass === null)

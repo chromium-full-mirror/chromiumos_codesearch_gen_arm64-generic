@@ -3,6 +3,7 @@ export { C as CrIconButtonElement, O as OpenPdfParamsParser } from './shared.rol
 import { html, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { serializeKeyEvent, deserializeKeyEvent, LoadState } from './pdf_scripting_api.js';
 export { BrowserApi } from './browser_api.js';
+import 'chrome://resources/lit/v3_0/lit.rollup.js';
 import 'chrome://resources/js/load_time_data.js';
 
 function getTemplate$3() {

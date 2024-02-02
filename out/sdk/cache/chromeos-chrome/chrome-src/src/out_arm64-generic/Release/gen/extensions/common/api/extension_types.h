@@ -146,10 +146,11 @@ struct InjectDetails {
   // thisInjectDetails object.
   base::Value::Dict ToValue() const;
 
-  // JavaScript or CSS code to inject.<br><br><b>Warning:</b><br>Be careful using
-  // the <code>code</code> parameter. Incorrect use of it may open your extension
-  // to <a href="https://en.wikipedia.org/wiki/Cross-site_scripting">cross site
-  // scripting</a> attacks.
+  // JavaScript or CSS code to inject. <br><br><aside
+  // class='warning'><b>Warning:</b> Be careful using the <code>code</code>
+  // parameter. Incorrect use of it may open your extension to <a
+  // href='https://en.wikipedia.org/wiki/Cross-site_scripting'>cross site
+  // scripting</a> attacks</aside>
   std::optional<std::string> code;
 
   // JavaScript or CSS file to inject.

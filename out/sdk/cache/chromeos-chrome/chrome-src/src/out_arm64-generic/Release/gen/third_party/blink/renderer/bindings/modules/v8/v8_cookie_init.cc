@@ -22,6 +22,21 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"domain",
+"expires",
+"name",
+"partitioned",
+"path",
+"sameSite",
+"value",
+};
+
+
+}  // namespace 
+
 CookieInit* CookieInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   CookieInit* dictionary = MakeGarbageCollected<CookieInit>(isolate);
 if (!v8_value->IsObject()) {
@@ -116,43 +131,57 @@ TraceIfNeeded<String>::Trace(visitor, member_value_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool CookieInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void CookieInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void CookieInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasDomain()) {
-  v8_value = ToV8Traits<IDLNullable<IDLUSVString>>::ToV8(script_state, member_domain_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLNullable<IDLUSVString>>::ToV8(script_state, member_domain_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasExpires()) {
-  v8_value = ToV8Traits<IDLNullable<IDLDouble>>::ToV8(script_state, member_expires_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLNullable<IDLDouble>>::ToV8(script_state, member_expires_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasName()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_name_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_name_);
+DCHECK(!values[2].IsEmpty());
 }
+v8::Isolate* isolate = script_state->GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ExecutionContext* execution_context = ExecutionContext::From(current_context);
 if (RuntimeEnabledFeatures::PartitionedCookiesEnabled(execution_context)) {
   if (hasPartitioned()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_partitioned_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_partitioned_);
+DCHECK(!values[3].IsEmpty());
 }
 }
 if (hasPath()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_path_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_path_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasSameSite()) {
-  v8_value = ToV8Traits<V8CookieSameSite>::ToV8(script_state, member_same_site_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<V8CookieSameSite>::ToV8(script_state, member_same_site_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasValue()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_value_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_value_);
+DCHECK(!values[6].IsEmpty());
 }
-return true;
+}
+
+const void* CookieInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> CookieInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void CookieInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -198,16 +227,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_required>(isolat
 }
 
 const base::span<const v8::Eternal<v8::Name>> CookieInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"domain",
-"expires",
-"name",
-"partitioned",
-"path",
-"sameSite",
-"value",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

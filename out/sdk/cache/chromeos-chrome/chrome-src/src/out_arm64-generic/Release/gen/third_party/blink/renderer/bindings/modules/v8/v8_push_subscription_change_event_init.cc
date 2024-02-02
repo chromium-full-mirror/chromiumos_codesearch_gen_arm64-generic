@@ -22,6 +22,16 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"newSubscription",
+"oldSubscription",
+};
+
+
+}  // namespace 
+
 PushSubscriptionChangeEventInit* PushSubscriptionChangeEventInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   PushSubscriptionChangeEventInit* dictionary = MakeGarbageCollected<PushSubscriptionChangeEventInit>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -69,24 +79,38 @@ TraceIfNeeded<Member<PushSubscription>>::Trace(visitor, member_old_subscription_
 ExtendableEventInit::Trace(visitor);
 }
 
-bool PushSubscriptionChangeEventInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!ExtendableEventInit::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void PushSubscriptionChangeEventInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  ExtendableEventInit::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void PushSubscriptionChangeEventInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  ExtendableEventInit::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasNewSubscription()) {
-  v8_value = ToV8Traits<PushSubscription>::ToV8(script_state, member_new_subscription_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<PushSubscription>::ToV8(script_state, member_new_subscription_.Get());
+DCHECK(!values[0].IsEmpty());
 }
 if (hasOldSubscription()) {
-  v8_value = ToV8Traits<PushSubscription>::ToV8(script_state, member_old_subscription_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<PushSubscription>::ToV8(script_state, member_old_subscription_.Get());
+DCHECK(!values[1].IsEmpty());
 }
-return true;
+}
+
+const void* PushSubscriptionChangeEventInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> PushSubscriptionChangeEventInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void PushSubscriptionChangeEventInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -112,11 +136,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<PushSubscription, is_optional>(is
 }
 
 const base::span<const v8::Eternal<v8::Name>> PushSubscriptionChangeEventInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"newSubscription",
-"oldSubscription",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

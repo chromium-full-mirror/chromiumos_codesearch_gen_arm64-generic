@@ -2767,7 +2767,7 @@ class PLATFORM_EXPORT AuctionAdConfig {
       AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr direct_from_seller_signals,
       bool expects_direct_from_seller_signals_header_ad_slot,
       std::optional<uint16_t> seller_experiment_group_id,
-      std::optional<int16_t> all_buyer_experiment_group_id,
+      std::optional<uint16_t> all_buyer_experiment_group_id,
       const WTF::HashMap<::scoped_refptr<const ::blink::SecurityOrigin>, uint16_t>& per_buyer_experiment_group_ids,
       bool expects_additional_bids,
       const ::scoped_refptr<const ::blink::SecurityOrigin>& aggregation_coordinator_origin);
@@ -2868,7 +2868,7 @@ AuctionAdConfig& operator=(const AuctionAdConfig&) = delete;
   
   std::optional<uint16_t> seller_experiment_group_id;
   
-  std::optional<int16_t> all_buyer_experiment_group_id;
+  std::optional<uint16_t> all_buyer_experiment_group_id;
   
   WTF::HashMap<::scoped_refptr<const ::blink::SecurityOrigin>, uint16_t> per_buyer_experiment_group_ids;
   

@@ -22,6 +22,20 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"buffer",
+"detune",
+"loop",
+"loopEnd",
+"loopStart",
+"playbackRate",
+};
+
+
+}  // namespace 
+
 AudioBufferSourceOptions* AudioBufferSourceOptions::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   AudioBufferSourceOptions* dictionary = MakeGarbageCollected<AudioBufferSourceOptions>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -91,36 +105,48 @@ TraceIfNeeded<float>::Trace(visitor, member_playback_rate_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool AudioBufferSourceOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void AudioBufferSourceOptions::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void AudioBufferSourceOptions::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasBuffer()) {
-  v8_value = ToV8Traits<IDLNullable<AudioBuffer>>::ToV8(script_state, member_buffer_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLNullable<AudioBuffer>>::ToV8(script_state, member_buffer_.Get());
+DCHECK(!values[0].IsEmpty());
 }
 if (hasDetune()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_detune_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLFloat>::ToV8(script_state, member_detune_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasLoop()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_loop_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_loop_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasLoopEnd()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_loop_end_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLDouble>::ToV8(script_state, member_loop_end_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasLoopStart()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_loop_start_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLDouble>::ToV8(script_state, member_loop_start_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasPlaybackRate()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_playback_rate_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLFloat>::ToV8(script_state, member_playback_rate_);
+DCHECK(!values[5].IsEmpty());
 }
-return true;
+}
+
+const void* AudioBufferSourceOptions::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> AudioBufferSourceOptions::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void AudioBufferSourceOptions::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -158,15 +184,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLFloat, is_optional>(isolate, c
 }
 
 const base::span<const v8::Eternal<v8::Name>> AudioBufferSourceOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"buffer",
-"detune",
-"loop",
-"loopEnd",
-"loopStart",
-"playbackRate",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

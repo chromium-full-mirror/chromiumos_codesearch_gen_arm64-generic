@@ -2073,7 +2073,7 @@ function getSettingIdParameter() {
     return Router.getInstance().getQueryParameters().get(SETTING_ID_URL_PARAM_NAME);
 }
 
-function getTemplate$2h() {
+function getTemplate$2g() {
     return html `<!--_html_template_start_--><iron-pages id="animatedPages" attr-for-selected="route-path" on-iron-select="onIronSelect_">
   <slot></slot>
 </iron-pages>
@@ -2100,7 +2100,7 @@ class OsSettingsAnimatedPagesElement extends OsSettingsAnimatedPagesElementBase 
         return 'os-settings-animated-pages';
     }
     static get template() {
-        return getTemplate$2h();
+        return getTemplate$2g();
     }
     static get properties() {
         return {
@@ -2259,7 +2259,7 @@ part of the polymer project is also subject to an additional IP rights grant
 found at http://polymer.github.io/PATENTS.txt
 */
 
-const template$g = html`
+const template$f = html`
 <custom-style>
   <style is="custom-style">
     html {
@@ -2412,10 +2412,10 @@ const template$g = html`
   </style>
 </custom-style>
 `;
-template$g.setAttribute('style', 'display: none;');
-document.head.appendChild(template$g.content);
+template$f.setAttribute('style', 'display: none;');
+document.head.appendChild(template$f.content);
 
-const template$f = html `
+const template$e = html `
 <style>
 html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-rgb));--google-blue-100-rgb:210,227,252;--google-blue-100:rgb(var(--google-blue-100-rgb));--google-blue-200-rgb:174,203,250;--google-blue-200:rgb(var(--google-blue-200-rgb));--google-blue-300-rgb:138,180,248;--google-blue-300:rgb(var(--google-blue-300-rgb));--google-blue-400-rgb:102,157,246;--google-blue-400:rgb(var(--google-blue-400-rgb));--google-blue-500-rgb:66,133,244;--google-blue-500:rgb(var(--google-blue-500-rgb));--google-blue-600-rgb:26,115,232;--google-blue-600:rgb(var(--google-blue-600-rgb));--google-blue-700-rgb:25,103,210;--google-blue-700:rgb(var(--google-blue-700-rgb));--google-blue-800-rgb:24,90,188;--google-blue-800:rgb(var(--google-blue-800-rgb));--google-blue-900-rgb:23,78,166;--google-blue-900:rgb(var(--google-blue-900-rgb));--google-green-50-rgb:230,244,234;--google-green-50:rgb(var(--google-green-50-rgb));--google-green-200-rgb:168,218,181;--google-green-200:rgb(var(--google-green-200-rgb));--google-green-300-rgb:129,201,149;--google-green-300:rgb(var(--google-green-300-rgb));--google-green-400-rgb:91,185,116;--google-green-400:rgb(var(--google-green-400-rgb));--google-green-500-rgb:52,168,83;--google-green-500:rgb(var(--google-green-500-rgb));--google-green-600-rgb:30,142,62;--google-green-600:rgb(var(--google-green-600-rgb));--google-green-700-rgb:24,128,56;--google-green-700:rgb(var(--google-green-700-rgb));--google-green-800-rgb:19,115,51;--google-green-800:rgb(var(--google-green-800-rgb));--google-green-900-rgb:13,101,45;--google-green-900:rgb(var(--google-green-900-rgb));--google-grey-50-rgb:248,249,250;--google-grey-50:rgb(var(--google-grey-50-rgb));--google-grey-100-rgb:241,243,244;--google-grey-100:rgb(var(--google-grey-100-rgb));--google-grey-200-rgb:232,234,237;--google-grey-200:rgb(var(--google-grey-200-rgb));--google-grey-300-rgb:218,220,224;--google-grey-300:rgb(var(--google-grey-300-rgb));--google-grey-400-rgb:189,193,198;--google-grey-400:rgb(var(--google-grey-400-rgb));--google-grey-500-rgb:154,160,166;--google-grey-500:rgb(var(--google-grey-500-rgb));--google-grey-600-rgb:128,134,139;--google-grey-600:rgb(var(--google-grey-600-rgb));--google-grey-700-rgb:95,99,104;--google-grey-700:rgb(var(--google-grey-700-rgb));--google-grey-800-rgb:60,64,67;--google-grey-800:rgb(var(--google-grey-800-rgb));--google-grey-900-rgb:32,33,36;--google-grey-900:rgb(var(--google-grey-900-rgb));--google-grey-900-white-4-percent:#292a2d;--google-purple-200-rgb:215,174,251;--google-purple-200:rgb(var(--google-purple-200-rgb));--google-purple-900-rgb:104,29,168;--google-purple-900:rgb(var(--google-purple-900-rgb));--google-red-300-rgb:242,139,130;--google-red-300:rgb(var(--google-red-300-rgb));--google-red-500-rgb:234,67,53;--google-red-500:rgb(var(--google-red-500-rgb));--google-red-600-rgb:217,48,37;--google-red-600:rgb(var(--google-red-600-rgb));--google-yellow-50-rgb:254,247,224;--google-yellow-50:rgb(var(--google-yellow-50-rgb));--google-yellow-100-rgb:254,239,195;--google-yellow-100:rgb(var(--google-yellow-100-rgb));--google-yellow-200-rgb:253,226,147;--google-yellow-200:rgb(var(--google-yellow-200-rgb));--google-yellow-300-rgb:253,214,51;--google-yellow-300:rgb(var(--google-yellow-300-rgb));--google-yellow-400-rgb:252,201,52;--google-yellow-400:rgb(var(--google-yellow-400-rgb));--google-yellow-500-rgb:251,188,4;--google-yellow-500:rgb(var(--google-yellow-500-rgb));--cr-primary-text-color:var(--google-grey-900);--cr-secondary-text-color:var(--google-grey-700);--cr-card-background-color:white;--cr-shadow-color:var(--google-grey-800);--cr-shadow-key-color_:color-mix(in srgb, var(--cr-shadow-color) 30%, transparent);--cr-shadow-ambient-color_:color-mix(in srgb, var(--cr-shadow-color) 15%, transparent);--cr-elevation-1:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 1px 3px 1px;--cr-elevation-2:var(--cr-shadow-key-color_) 0 1px 2px 0,var(--cr-shadow-ambient-color_) 0 2px 6px 2px;--cr-elevation-3:var(--cr-shadow-key-color_) 0 1px 3px 0,var(--cr-shadow-ambient-color_) 0 4px 8px 3px;--cr-elevation-4:var(--cr-shadow-key-color_) 0 2px 3px 0,var(--cr-shadow-ambient-color_) 0 6px 10px 4px;--cr-elevation-5:var(--cr-shadow-key-color_) 0 4px 4px 0,var(--cr-shadow-ambient-color_) 0 8px 12px 6px;--cr-card-shadow:var(--cr-elevation-2);--cr-checked-color:var(--google-blue-600);--cr-focused-item-color:var(--google-grey-300);--cr-form-field-label-color:var(--google-grey-700);--cr-hairline-rgb:0,0,0;--cr-iph-anchor-highlight-color:rgba(var(--google-blue-600-rgb), 0.1);--cr-link-color:var(--google-blue-700);--cr-menu-background-color:white;--cr-menu-background-focus-color:var(--google-grey-400);--cr-menu-shadow:0 2px 6px var(--paper-grey-500);--cr-separator-color:rgba(0, 0, 0, .06);--cr-title-text-color:rgb(90, 90, 90);--cr-toolbar-background-color:white;--cr-hover-background-color:rgba(var(--google-grey-900-rgb), .1);--cr-active-background-color:rgba(var(--google-grey-900-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-600-rgb), .4)}@media (prefers-color-scheme:dark){html{--cr-primary-text-color:var(--google-grey-200);--cr-secondary-text-color:var(--google-grey-500);--cr-card-background-color:var(--google-grey-900-white-4-percent);--cr-card-shadow-color-rgb:0,0,0;--cr-checked-color:var(--google-blue-300);--cr-focused-item-color:var(--google-grey-800);--cr-form-field-label-color:var(--dark-secondary-color);--cr-hairline-rgb:255,255,255;--cr-iph-anchor-highlight-color:rgba(var(--google-grey-100-rgb), 0.1);--cr-link-color:var(--google-blue-300);--cr-menu-background-color:var(--google-grey-900);--cr-menu-background-focus-color:var(--google-grey-700);--cr-menu-background-sheen:rgba(255, 255, 255, .06);--cr-menu-shadow:rgba(0, 0, 0, .3) 0 1px 2px 0,rgba(0, 0, 0, .15) 0 3px 6px 2px;--cr-separator-color:rgba(255, 255, 255, .1);--cr-title-text-color:var(--cr-primary-text-color);--cr-toolbar-background-color:var(--google-grey-900-white-4-percent);--cr-hover-background-color:rgba(255, 255, 255, .1);--cr-active-background-color:rgba(var(--google-grey-200-rgb), .16);--cr-focus-outline-color:rgba(var(--google-blue-300-rgb), .4)}}@media (forced-colors:active){html{--cr-focus-outline-hcm:2px solid transparent;--cr-border-hcm:2px solid transparent}}html{--cr-button-edge-spacing:12px;--cr-button-height:32px;--cr-controlled-by-spacing:24px;--cr-default-input-max-width:264px;--cr-icon-ripple-size:36px;--cr-icon-ripple-padding:8px;--cr-icon-size:20px;--cr-icon-button-margin-start:16px;--cr-icon-ripple-margin:calc(var(--cr-icon-ripple-padding) * -1);--cr-section-min-height:48px;--cr-section-two-line-min-height:64px;--cr-section-padding:20px;--cr-section-vertical-padding:12px;--cr-section-indent-width:40px;--cr-section-indent-padding:calc(
       var(--cr-section-padding) + var(--cr-section-indent-width));--cr-section-vertical-margin:21px;--cr-centered-card-max-width:680px;--cr-centered-card-width-percentage:0.96;--cr-hairline:1px solid rgba(var(--cr-hairline-rgb), .14);--cr-separator-height:1px;--cr-separator-line:var(--cr-separator-height) solid var(--cr-separator-color);--cr-toolbar-overlay-animation-duration:150ms;--cr-toolbar-height:56px;--cr-container-shadow-height:6px;--cr-container-shadow-margin:calc(-1 * var(--cr-container-shadow-height));--cr-container-shadow-max-opacity:1;--cr-card-border-radius:8px;--cr-disabled-opacity:.38;--cr-form-field-bottom-spacing:16px;--cr-form-field-label-font-size:.625rem;--cr-form-field-label-height:1em;--cr-form-field-label-line-height:1}html[chrome-refresh-2023]{--cr-fallback-color-outline:rgb(116, 119, 117);--cr-fallback-color-primary:rgb(11, 87, 208);--cr-fallback-color-on-primary:rgb(255, 255, 255);--cr-fallback-color-primary-container:rgb(211, 227, 253);--cr-fallback-color-on-primary-container:rgb(4, 30, 73);--cr-fallback-color-secondary-container:rgb(194, 231, 255);--cr-fallback-color-on-secondary-container:rgb(0, 29, 53);--cr-fallback-color-neutral-container:rgb(242, 242, 242);--cr-fallback-color-neutral-outline:rgb(199, 199, 199);--cr-fallback-color-surface:rgb(255, 255, 255);--cr-fallback-color-on-surface-rgb:31,31,31;--cr-fallback-color-on-surface:rgb(var(--cr-fallback-color-on-surface-rgb));--cr-fallback-color-surface-variant:rgb(225, 227, 225);--cr-fallback-color-on-surface-variant:rgb(68, 71, 70);--cr-fallback-color-on-surface-subtle:rgb(71, 71, 71);--cr-fallback-color-inverse-primary:rgb(168, 199, 250);--cr-fallback-color-inverse-surface:rgb(48, 48, 48);--cr-fallback-color-inverse-on-surface:rgb(242, 242, 242);--cr-fallback-color-tonal-container:rgb(211, 227, 253);--cr-fallback-color-on-tonal-container:rgb(4, 30, 73);--cr-fallback-color-tonal-outline:rgb(168, 199, 250);--cr-fallback-color-error:rgb(179, 38, 30);--cr-fallback-color-divider:rgb(211, 227, 253);--cr-fallback-color-state-hover-on-prominent_:rgba(253, 252, 251, .1);--cr-fallback-color-state-on-subtle-rgb_:31,31,31;--cr-fallback-color-state-hover-on-subtle_:rgba(
@@ -2442,7 +2442,7 @@ html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-
         var(--cr-fallback-color-state-on-subtle-rgb_), .16);--cr-fallback-color-state-ripple-primary-rgb_:76,141,246;--cr-fallback-color-base-container:rgba(40, 40, 40, 1)}}@media (forced-colors:active){html[chrome-refresh-2023]{--cr-fallback-color-disabled-background:Canvas;--cr-fallback-color-disabled-foreground:GrayText}}
 </style>
 `;
-document.head.appendChild(template$f.content);
+document.head.appendChild(template$e.content);
 
 /**
 @license
@@ -4007,7 +4007,7 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$2g() {
+function getTemplate$2f() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -4065,7 +4065,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$2g();
+        return getTemplate$2f();
     }
     static get properties() {
         return {
@@ -4202,38 +4202,38 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
 }
 customElements.define(CrIconButtonElement.is, CrIconButtonElement);
 
-const styleMod$g = document.createElement('dom-module');
-styleMod$g.appendChild(html `
+const styleMod$f = document.createElement('dom-module');
+styleMod$f.appendChild(html `
   <template>
     <style>
 :host([hidden]),[hidden]{display:none!important}
     </style>
   </template>
 `.content);
-styleMod$g.register('cr-hidden-style');
+styleMod$f.register('cr-hidden-style');
 
-const styleMod$f = document.createElement('dom-module');
-styleMod$f.appendChild(html `
+const styleMod$e = document.createElement('dom-module');
+styleMod$e.appendChild(html `
   <template>
     <style>
 .icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
     </style>
   </template>
 `.content);
-styleMod$f.register('cr-icons');
+styleMod$e.register('cr-icons');
 
-const styleMod$e = document.createElement('dom-module');
-styleMod$e.appendChild(html `
+const styleMod$d = document.createElement('dom-module');
+styleMod$d.appendChild(html `
   <template>
     <style include="cr-hidden-style cr-icons">
 :host,html{--scrollable-border-color:var(--google-grey-300)}@media (prefers-color-scheme:dark){:host,html{--scrollable-border-color:var(--google-grey-700)}}[actionable]{cursor:pointer}.hr{border-top:var(--cr-separator-line)}iron-list.cr-separators>:not([first]){border-top:var(--cr-separator-line)}[scrollable]{border-color:transparent;border-style:solid;border-width:1px 0;overflow-y:auto}[scrollable].is-scrolled{border-top-color:var(--scrollable-border-color)}[scrollable].can-scroll:not(.scrolled-to-bottom){border-bottom-color:var(--scrollable-border-color)}[scrollable] iron-list>:not(.no-outline):focus,[selectable]:focus,[selectable]>:focus{background-color:var(--cr-focused-item-color);outline:0}.scroll-container{display:flex;flex-direction:column;min-height:1px}[selectable]>*{cursor:pointer}.cr-centered-card-container{box-sizing:border-box;display:block;height:inherit;margin:0 auto;max-width:var(--cr-centered-card-max-width);min-width:550px;position:relative;width:calc(100% * var(--cr-centered-card-width-percentage))}.cr-container-shadow{box-shadow:inset 0 5px 6px -3px rgba(0,0,0,.4);height:var(--cr-container-shadow-height);left:0;margin:0 0 var(--cr-container-shadow-margin);opacity:0;pointer-events:none;position:relative;right:0;top:0;transition:opacity .5s;z-index:1}#cr-container-shadow-bottom{margin-bottom:0;margin-top:var(--cr-container-shadow-margin);transform:scaleY(-1)}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{opacity:var(--cr-container-shadow-max-opacity)}.cr-row{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--cr-section-min-height);padding:0 var(--cr-section-padding)}.cr-row.continuation,.cr-row.first{border-top:none}.cr-row-gap{padding-inline-start:16px}.cr-button-gap{margin-inline-start:8px}paper-tooltip::part(tooltip){border-radius:var(--paper-tooltip-border-radius,2px);font-size:92.31%;font-weight:500;max-width:330px;min-width:var(--paper-tooltip-min-width,200px);padding:var(--paper-tooltip-padding,10px 8px)}.cr-padded-text{padding-block-end:var(--cr-section-vertical-padding);padding-block-start:var(--cr-section-vertical-padding)}.cr-title-text{color:var(--cr-title-text-color);font-size:107.6923%;font-weight:500}.cr-secondary-text{color:var(--cr-secondary-text-color);font-weight:400}.cr-form-field-label{color:var(--cr-form-field-label-color);display:block;font-size:var(--cr-form-field-label-font-size);font-weight:500;letter-spacing:.4px;line-height:var(--cr-form-field-label-line-height);margin-bottom:8px}.cr-vertical-tab{align-items:center;display:flex}.cr-vertical-tab::before{border-radius:0 3px 3px 0;content:'';display:block;flex-shrink:0;height:var(--cr-vertical-tab-height,100%);width:4px}.cr-vertical-tab.selected::before{background:var(--cr-vertical-tab-selected-color,var(--cr-checked-color))}:host-context([dir=rtl]) .cr-vertical-tab::before{transform:scaleX(-1)}.iph-anchor-highlight{background-color:var(--cr-iph-anchor-highlight-color)}
     </style>
   </template>
 `.content);
-styleMod$e.register('cr-shared-style');
+styleMod$d.register('cr-shared-style');
 
-const styleMod$d = document.createElement('dom-module');
-styleMod$d.appendChild(html `
+const styleMod$c = document.createElement('dom-module');
+styleMod$c.appendChild(html `
   <template>
     <style>
 :host{--cr-input-background-color:var(--google-grey-100);--cr-input-color:var(--cr-primary-text-color);--cr-input-error-color:var(--google-red-600);--cr-input-focus-color:var(--google-blue-600);display:block;outline:0}:host-context([chrome-refresh-2023]):host{--cr-input-background-color:var(--color-textfield-filled-background,
@@ -4250,9 +4250,9 @@ styleMod$d.appendChild(html `
     </style>
   </template>
 `.content);
-styleMod$d.register('cr-input-style');
+styleMod$c.register('cr-input-style');
 
-function getTemplate$2f() {
+function getTemplate$2e() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -4295,7 +4295,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$2f();
+        return getTemplate$2e();
     }
     static get properties() {
         return {
@@ -4786,7 +4786,7 @@ Polymer({
 
 });
 
-const template$e = html `
+const template$d = html `
 <iron-iconset-svg name="cr20" size="20">
   <svg>
     <defs>
@@ -5062,9 +5062,9 @@ const template$e = html `
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$e.content);
+document.head.appendChild(template$d.content);
 
-function getTemplate$2e() {
+function getTemplate$2d() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
           var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
     <iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
@@ -5219,7 +5219,7 @@ class CrSearchFieldElement extends CrSearchFieldElementBase {
         return 'cr-search-field';
     }
     static get template() {
-        return getTemplate$2e();
+        return getTemplate$2d();
     }
     static get properties() {
         return {
@@ -5252,7 +5252,7 @@ part of the polymer project is also subject to an additional IP rights grant
 found at http://polymer.github.io/PATENTS.txt
 */
 
-const template$d = html`<dom-module id="paper-spinner-styles">
+const template$c = html`<dom-module id="paper-spinner-styles">
   <template>
     <style>
       /*
@@ -5565,7 +5565,7 @@ const template$d = html`<dom-module id="paper-spinner-styles">
   </template>
 </dom-module>`;
 
-document.head.appendChild(template$d.content);
+document.head.appendChild(template$c.content);
 
 /**
 @license
@@ -5651,7 +5651,7 @@ part of the polymer project is also subject to an additional IP rights grant
 found at http://polymer.github.io/PATENTS.txt
 */
 
-const template$c = html`
+const template$b = html`
   <style include="paper-spinner-styles"></style>
 
   <div id="spinnerContainer" class-name="[[__computeContainerClasses(active, __coolingDown)]]" on-animationend="__reset" on-webkit-animation-end="__reset">
@@ -5665,7 +5665,7 @@ const template$c = html`
     </div>
   </div>
 `;
-template$c.setAttribute('strip-whitespace', '');
+template$b.setAttribute('strip-whitespace', '');
 
 /**
 Material design: [Progress &
@@ -5701,53 +5701,53 @@ Custom property | Description | Default
 @demo demo/index.html
 */
 Polymer({
-  _template: template$c,
+  _template: template$b,
 
   is: 'paper-spinner-lite',
 
   behaviors: [PaperSpinnerBehavior]
 });
 
-const styleMod$c = document.createElement('dom-module');
-styleMod$c.appendChild(html `
+const styleMod$b = document.createElement('dom-module');
+styleMod$b.appendChild(html `
   <template>
     <style>
 .search-bubble{--search-bubble-color:var(--paper-yellow-500);position:absolute;z-index:1}.search-bubble-innards{align-items:center;background-color:var(--search-bubble-color);border-radius:2px;color:var(--google-grey-900);max-width:100px;min-width:64px;overflow:hidden;padding:4px 10px;text-align:center;text-overflow:ellipsis;white-space:nowrap}.search-bubble-innards::after{background-color:var(--search-bubble-color);content:'';height:10px;left:calc(50% - 5px);position:absolute;top:-5px;transform:rotate(-45deg);width:10px;z-index:-1}.search-bubble-innards.above::after{bottom:-5px;top:auto;transform:rotate(-135deg)}
     </style>
   </template>
 `.content);
-styleMod$c.register('search-highlight-style');
+styleMod$b.register('search-highlight-style');
 
-const template$b = html `
+const template$a = html `
 <style>
 html{--settings-error-color:var(--google-red-700);--iron-icon-fill-color:var(--google-grey-700);--iron-icon-height:var(--cr-icon-size);--iron-icon-width:var(--cr-icon-size);--cr-radio-group-item-padding:0;--settings-base-bg-color:var(--cros-sys-app_base_shaded);--settings-menu-width:250px;--settings-menu-item-border-width:2px;--settings-row-min-height:var(--cr-section-min-height);--settings-toolbar-height:var(--cr-toolbar-height);--settings-toolbar-padding-inline-end:10px;--settings-toolbar-padding-inline-start:14px;--settings-toolbar-padding-inline-start-narrow:14px;--settings-toolbar-padding-top:var(--cr-toolbar-padding-top);--settings-toolbar-search-box-height:40px;--settings-toolbar-search-box-width:480px;--settings-toolbar-narrow-search-box-width:680px;--settings-toolbar-search-field-border-radius:20px}html:has(body.revamp-wayfinding-enabled){--settings-base-bg-color:var(--cros-sys-surface3);--settings-menu-item-width:256px;--settings-menu-padding-inline-end:16px;--settings-menu-padding-inline-start:16px;--settings-menu-padding-top:16px;--settings-menu-width:calc(var(--settings-menu-item-width) +
       var(--settings-menu-padding-inline-end) +
       var(--settings-menu-padding-inline-start));--settings-row-min-height:64px;--settings-toolbar-height:72px;--settings-toolbar-padding-inline-end:16px;--settings-toolbar-padding-inline-start:32px;--settings-toolbar-padding-inline-start-narrow:16px;--settings-toolbar-padding-top:0;--settings-toolbar-search-box-height:48px;--settings-toolbar-narrow-search-box-width:512px;--settings-toolbar-search-field-border-radius:24px}@media (prefers-color-scheme:dark){html{--iron-icon-fill-color:var(--google-grey-500);--settings-error-color:var(--google-red-300)}html:has(body.revamp-wayfinding-enabled){--settings-base-bg-color:var(--cros-sys-app_base_shaded)}}
 </style>
 `;
-document.head.appendChild(template$b.content);
+document.head.appendChild(template$a.content);
 
-const styleMod$b = document.createElement('dom-module');
-styleMod$b.appendChild(html `
+const styleMod$a = document.createElement('dom-module');
+styleMod$a.appendChild(html `
   <template>
     <style>
 :host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput),:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down::part(input){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down,:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}:host-context([cros][chrome-refresh-2023]) cr-policy-indicator,:host-context([cros][chrome-refresh-2023]) cr-policy-pref-indicator,:host-context([cros][chrome-refresh-2023]) cr-tooltip-icon::part(tooltip),:host-context(body.jelly-enabled) cr-policy-indicator,:host-context(body.jelly-enabled) cr-policy-pref-indicator,:host-context(body.jelly-enabled) cr-tooltip-icon::part(tooltip){--paper-tooltip-background:var(--cros-sys-on_surface);--paper-tooltip-padding:5px 8px;--paper-tooltip-text-color:var(--cros-sys-inverse_on_surface);font:var(--cros-annotation-1-font)}
     </style>
   </template>
 `.content);
-styleMod$b.register('cros-color-overrides');
+styleMod$a.register('cros-color-overrides');
 
-const styleMod$a = document.createElement('dom-module');
-styleMod$a.appendChild(html `
+const styleMod$9 = document.createElement('dom-module');
+styleMod$9.appendChild(html `
   <template>
     <style include="cr-shared-style search-highlight-style cros-color-overrides">
 a[is=action-link]{user-select:none}h2{align-items:center;align-self:flex-start;color:var(--cr-secondary-text-color);display:flex;font-size:inherit;font-weight:500;margin:0;padding-bottom:12px;padding-top:32px}iron-icon{flex-shrink:0}iron-icon.policy{margin-inline-end:var(--cr-controlled-by-spacing)}iron-list{user-select:none}iron-list[risk-selection]{user-select:text}.separator+cr-icon-button{margin-inline-start:var(--cr-icon-ripple-margin)}.settings-box settings-toggle-button cr-button:last-of-type{margin-inline-end:16px}.settings-box controlled-button+controlled-button,.settings-box controlled-button+cr-button,.settings-box cr-button+controlled-button,.settings-box cr-button+cr-button{margin-inline-start:8px}a[href]{color:var(--cr-link-color)}settings-toggle-button.primary-toggle{color:var(--cros-sys-on_surface_variant);font:var(--cros-button-2-font)}settings-toggle-button.primary-toggle[checked]{color:var(--cros-sys-primary)}collapse-radio-button,controlled-radio-button,cr-radio-button{min-height:var(--cr-section-min-height)}cr-radio-group{width:100%}.text-elide{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.no-min-width{min-width:0}.link-wrapper{align-items:center;display:flex;flex-grow:1}.list-frame{display:block;padding-block-end:0;padding-block-start:0;padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}.list-item{align-items:center;display:flex;min-height:var(--cr-section-min-height);padding:0}.list-item.underbar{border-bottom:var(--cr-separator-line)}.list-item.selected{font-weight:500}.list-item .middle{flex:1;margin:8px 16px}.list-item>.start{flex:1}.list-button[is=action-link]{align-items:center;display:flex;flex:1;font-weight:500;min-height:inherit}:host-context(html:not(.focus-outline-visible)) .list-button[is=action-link]{outline:0}.two-line{min-height:var(--cr-section-two-line-min-height)}.settings-box{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--settings-row-min-height);padding:0 var(--cr-section-padding)}:host-context(body.revamp-wayfinding-enabled) cr-link-row,:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{min-height:var(--settings-row-min-height)}.settings-box.no-padding{padding:0}.settings-box.no-padding .margin-matches-padding{margin:0 var(--cr-section-padding)}.settings-box.no-padding>.link-wrapper{padding:0 var(--cr-section-padding)}.settings-box.two-line{min-height:var(--cr-section-two-line-min-height)}.settings-box-text{box-sizing:border-box;padding-bottom:var(--cr-section-vertical-padding);padding-top:var(--cr-section-vertical-padding);padding-inline-end:20px}.settings-box.continuation,.settings-box.first{border-top:none}h2.first{padding-top:0}.settings-box.block{display:block}.single-column{align-items:flex-start;flex-direction:column;justify-content:center}.settings-box.line-only{min-height:0}.settings-box.embedded{padding-inline-start:var(--cr-section-indent-padding)}.secondary{color:var(--cr-secondary-text-color);font-weight:400}.secondary:empty{margin:0}.settings-box .middle{align-items:center;flex:auto;padding-inline-start:16px}.settings-box .middle.two-line,.settings-box .start.two-line{display:flex}.settings-box .start{align-items:center;flex:auto}.settings-row{align-items:center;display:flex;flex-direction:row;max-width:100%;min-width:0}.no-outline{background:0 0;outline:0}.list-item,[scrollable],iron-list{--cr-icon-button-margin-end:0}.vertical-list>:not(:first-of-type){border-top:var(--cr-separator-line)}.separator{border-inline-start:var(--cr-separator-line);flex-shrink:0;height:32px;margin:0 16px}.settings-box.no-padding>.link-wrapper~.separator{margin:0}.error-message{color:#fff;font:13px;padding-bottom:15px;padding-top:15px;text-align:center;white-space:normal}cr-dialog>[slot=title]{font:var(--cros-title-1-font)}controlled-button,cr-button{font:var(--cros-button-2-font)}:host-context(body.revamp-wayfinding-enabled) cr-link-row{--cr-link-row-start-icon-color:var(--cros-sys-primary)}
     </style>
   </template>
 `.content);
-styleMod$a.register('settings-shared');
+styleMod$9.register('settings-shared');
 
-function getTemplate$2d() {
+function getTemplate$2c() {
     return html `<!--_html_template_start_--><style>:host{--settings-card-bg-color:var(--cros-sys-app_base);--settings-card-border-radius:var(--cr-card-border-radius);display:flex;flex-direction:column;outline:0;position:relative}:host-context(body.revamp-wayfinding-enabled):host{--settings-card-border-radius:16px;margin-bottom:16px}@media (prefers-color-scheme:dark){:host-context(body.revamp-wayfinding-enabled):host{--settings-card-bg-color:var(--cros-sys-surface1)}}:host-context(body.revamp-wayfinding-enabled) #header{margin:0;padding:8px}:host-context(body:not(.revamp-wayfinding-enabled)) #headerText{color:var(--cr-primary-text-color);font-size:108%;font-weight:400;letter-spacing:.25px;margin-bottom:12px;margin-top:var(--cr-section-vertical-margin);outline:0;padding-bottom:4px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled) #headerText{color:var(--cros-sys-primary);font:var(--cros-button-2-font);margin:0;outline:0;padding:0}#card{background-color:var(--settings-card-bg-color);border-radius:var(--settings-card-border-radius);flex:1;overflow:hidden}:host-context(body:not(.revamp-wayfinding-enabled)) #card{box-shadow:var(--cr-card-shadow)}</style>
 <template is="dom-if" if="[[headerText]]" restamp>
   <div id="header">
@@ -5780,7 +5780,7 @@ class SettingsCardElement extends PolymerElement {
         return 'settings-card';
     }
     static get template() {
-        return getTemplate$2d();
+        return getTemplate$2c();
     }
     static get properties() {
         return {
@@ -6423,7 +6423,7 @@ function hasKeyModifiers(e) {
     return !!(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
 }
 
-function getTemplate$2c() {
+function getTemplate$2b() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{box-sizing:border-box;display:block}:host-context(body:not(.revamp-wayfinding-enabled)):host{background-color:var(--cros-sys-app_base);box-shadow:var(--cr-card-shadow);min-height:calc(100vh - var(--settings-toolbar-height));padding-bottom:60px}#subpageHeader{min-height:40px;padding-bottom:24px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled) #subpageHeader{padding-top:16px;padding-bottom:16px}#subpageTitle{flex:1;font:var(--cros-button-1-font)}:host-context(body.revamp-wayfinding-enabled) #subpageTitle{color:var(--cros-sys-primary)}#titleIcon{height:36px;margin-inline-end:12px;margin-inline-start:2px;width:36px}#backButton{margin-inline-end:10px;margin-inline-start:-10px}:host-context(body.revamp-wayfinding-enabled) #backButton{--cr-icon-button-fill-color:var(--cros-sys-primary)}#cardBody{margin-bottom:0}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}cr-search-field{--cr-search-field-input-width:200px;margin-inline-start:16px}:host-context(body.revamp-wayfinding-enabled) #searchField::part(searchInput){--cr-input-background-color:var(--cros-sys-input_field_on_shaded)}</style>
 <div id="subpageHeader" class="cr-row first">
   <cr-icon-button id="backButton" class="icon-arrow-back" hidden="[[hideBackButton]]" on-click="onBackClick_" aria-label$="[[getBackButtonAriaLabel_(pageTitle)]]" aria-roledescription$="[[getBackButtonAriaRoleDescription_(pageTitle)]]">
@@ -6472,7 +6472,7 @@ class OsSettingsSubpageElement extends OsSettingsSubpageElementBase {
         return 'os-settings-subpage';
     }
     static get template() {
-        return getTemplate$2c();
+        return getTemplate$2b();
     }
     static get properties() {
         return {
@@ -9468,7 +9468,7 @@ class GuestOsBrowserProxyImpl {
     }
 }
 
-function getTemplate$2b() {
+function getTemplate$2a() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <div class="settings-box first">
   <div role="text">
@@ -9534,7 +9534,7 @@ class SettingsGuestOsSharedPathsElement extends SettingsGuestOsSharedPathsElemen
         return 'settings-guest-os-shared-paths';
     }
     static get template() {
-        return getTemplate$2b();
+        return getTemplate$2a();
     }
     static get properties() {
         return {
@@ -9704,7 +9704,7 @@ class FocusOutlineManager {
     }
 }
 
-function getTemplate$2a() {
+function getTemplate$29() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -9740,7 +9740,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$2a();
+        return getTemplate$29();
     }
     static get properties() {
         return {
@@ -9914,7 +9914,7 @@ class CrButtonElement extends CrButtonElementBase {
 }
 customElements.define(CrButtonElement.is, CrButtonElement);
 
-function getTemplate$29() {
+function getTemplate$28() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
                 var(--cr-fallback-color-primary));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on,
                 var(--cr-fallback-color-on-primary));--cr-toggle-unchecked-bar-color:var(--color-toggle-button-track-off,
@@ -9961,7 +9961,7 @@ class CrToggleElement extends CrToggleElementBase {
         return 'cr-toggle';
     }
     static get template() {
-        return getTemplate$29();
+        return getTemplate$28();
     }
     static get properties() {
         return {
@@ -10748,7 +10748,7 @@ Polymer({
   }
 });
 
-function getTemplate$28() {
+function getTemplate$27() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style">:host{display:flex}iron-icon{--iron-icon-width:var(--cr-icon-size);--iron-icon-height:var(--cr-icon-size);--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-700))}@media (prefers-color-scheme:dark){iron-icon{--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-500))}}</style>
     <iron-icon id="indicator" tabindex="0" aria-label$="[[iconAriaLabel]]" aria-describedby="tooltip" icon="[[iconClass]]" role="img"></iron-icon>
     <paper-tooltip id="tooltip" for="indicator" position="[[tooltipPosition]]" fit-to-visible-bounds part="tooltip">
@@ -10765,7 +10765,7 @@ class CrTooltipIconElement extends PolymerElement {
         return 'cr-tooltip-icon';
     }
     static get template() {
-        return getTemplate$28();
+        return getTemplate$27();
     }
     static get properties() {
         return {
@@ -10785,7 +10785,7 @@ class CrTooltipIconElement extends PolymerElement {
 }
 customElements.define(CrTooltipIconElement.is, CrTooltipIconElement);
 
-function getTemplate$27() {
+function getTemplate$26() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style"></style>
     <cr-tooltip-icon hidden$="[[!indicatorVisible]]" tooltip-text="[[indicatorTooltip_]]" icon-class="[[indicatorIcon]]" icon-aria-label="[[iconAriaLabel]]">
     </cr-tooltip-icon>
@@ -10930,7 +10930,7 @@ class CrPolicyIndicatorElement extends CrPolicyIndicatorElementBase {
         return 'cr-policy-indicator';
     }
     static get template() {
-        return getTemplate$27();
+        return getTemplate$26();
     }
     static get properties() {
         return {
@@ -10952,12 +10952,14 @@ class CrPolicyIndicatorElement extends CrPolicyIndicatorElementBase {
 }
 customElements.define(CrPolicyIndicatorElement.is, CrPolicyIndicatorElement);
 
-// Copyright 2017 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview CrContainerShadowMixin holds logic for showing a drop shadow
+ * @fileoverview CrContainerShadowMixinLit holds logic for showing a drop shadow
  * near the top of a container element, when the content has scrolled.
+ *
+ * Lit version of the equivalent CrContainerShadowMixin for Polymer.
  *
  * Elements using this mixin are expected to define a #container element,
  * which is the element being scrolled. If the #container element has a
@@ -10988,8 +10990,8 @@ var CrContainerShadowSide;
     CrContainerShadowSide["TOP"] = "top";
     CrContainerShadowSide["BOTTOM"] = "bottom";
 })(CrContainerShadowSide || (CrContainerShadowSide = {}));
-const CrContainerShadowMixin = dedupingMixin((superClass) => {
-    class CrContainerShadowMixin extends superClass {
+const CrContainerShadowMixinLit = (superClass) => {
+    class CrContainerShadowMixinLit extends superClass {
         constructor() {
             super(...arguments);
             this.intersectionObserver_ = null;
@@ -11083,29 +11085,41 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
             }
         }
     }
-    return CrContainerShadowMixin;
-});
+    return CrContainerShadowMixinLit;
+};
 
-function getTemplate$26() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
-    <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
-    
-      <div id="content-wrapper" part="wrapper">
-        <div class="top-container">
-          <h2 id="title" class="title-container" tabindex="-1">
-            <slot name="title"></slot>
-          </h2>
-          <cr-icon-button id="close" class="icon-clear" hidden$="[[!showCloseButton]]" aria-label$="[[closeText]]" on-click="cancel" on-keypress="onCloseKeypress_">
-          </cr-icon-button>
-        </div>
-        <slot name="header"></slot>
-        <div class="body-container" id="container" show-bottom-shadow part="body-container">
-          <slot name="body"></slot>
-        </div>
-        <slot name="button-container"></slot>
-        <slot name="footer"></slot>
-      </div>
-    </dialog>
+function getCss$3() {
+    return css `:host([hidden]),[hidden]{display:none!important}`;
+}
+
+function getCss$2() {
+    return css `.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}`;
+}
+
+function getCss$1() {
+    return css `dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}`;
+}
+
+function getHtml$1() {
+    return html$1 `<!--_html_template_start_-->
+<dialog id="dialog" @close="${this.onNativeDialogClose_}" @cancel="${this.onNativeDialogCancel_}" part="dialog" aria-labelledby="title" aria-description="${this.ariaDescriptionText || nothing}">
+
+  <div id="content-wrapper" part="wrapper">
+    <div class="top-container">
+      <h2 id="title" class="title-container" tabindex="-1">
+        <slot name="title"></slot>
+      </h2>
+      <cr-icon-button id="close" class="icon-clear" ?hidden="${!this.showCloseButton}" aria-label="${this.closeText || nothing}" @click="${this.cancel}" @keypress="${this.onCloseKeypress_}">
+      </cr-icon-button>
+    </div>
+    <slot name="header"></slot>
+    <div class="body-container" id="container" show-bottom-shadow part="body-container">
+      <slot name="body"></slot>
+    </div>
+    <slot name="button-container"></slot>
+    <slot name="footer"></slot>
+  </div>
+</dialog>
 <!--_html_template_end_-->`;
 }
 
@@ -11129,10 +11143,17 @@ function getTemplate$26() {
  * width/height (as well as other available mixins to style other parts of the
  * dialog contents).
  */
-const CrDialogElementBase = CrContainerShadowMixin(PolymerElement);
+const CrDialogElementBase = CrContainerShadowMixinLit(CrLitElement);
 class CrDialogElement extends CrDialogElementBase {
     constructor() {
         super(...arguments);
+        this.consumeKeydownEvent = false;
+        this.ignoreEnterKey = false;
+        this.ignorePopstate = false;
+        this.noCancel = false;
+        this.open = false;
+        this.showCloseButton = false;
+        this.showOnAttach = false;
         this.intersectionObserver_ = null;
         this.mutationObserver_ = null;
         this.boundKeydown_ = null;
@@ -11140,69 +11161,56 @@ class CrDialogElement extends CrDialogElementBase {
     static get is() {
         return 'cr-dialog';
     }
-    static get template() {
-        return getTemplate$26();
+    static get styles() {
+        return [
+            getCss$3(),
+            getCss$2(),
+            getCss$1(),
+        ];
+    }
+    render() {
+        return getHtml$1.bind(this)();
     }
     static get properties() {
         return {
             open: {
                 type: Boolean,
-                value: false,
-                reflectToAttribute: true,
+                reflect: true,
             },
             /**
              * Alt-text for the dialog close button.
              */
-            closeText: String,
+            closeText: { type: String },
             /**
              * True if the dialog should remain open on 'popstate' events. This is
              * used for navigable dialogs that have their separate navigation handling
              * code.
              */
-            ignorePopstate: {
-                type: Boolean,
-                value: false,
-            },
+            ignorePopstate: { type: Boolean },
             /**
              * True if the dialog should ignore 'Enter' keypresses.
              */
-            ignoreEnterKey: {
-                type: Boolean,
-                value: false,
-            },
+            ignoreEnterKey: { type: Boolean },
             /**
              * True if the dialog should consume 'keydown' events. If ignoreEnterKey
              * is true, 'Enter' key won't be consumed.
              */
-            consumeKeydownEvent: {
-                type: Boolean,
-                value: false,
-            },
+            consumeKeydownEvent: { type: Boolean },
             /**
              * True if the dialog should not be able to be cancelled, which will
              * prevent 'Escape' key presses from closing the dialog.
              */
-            noCancel: {
-                type: Boolean,
-                value: false,
-            },
+            noCancel: { type: Boolean },
             // True if dialog should show the 'X' close button.
-            showCloseButton: {
-                type: Boolean,
-                value: false,
-            },
-            showOnAttach: {
-                type: Boolean,
-                value: false,
-            },
+            showCloseButton: { type: Boolean },
+            showOnAttach: { type: Boolean },
             /**
              * Text for the aria description.
              */
-            ariaDescriptionText: String,
+            ariaDescriptionText: { type: String },
         };
     }
-    ready() {
-        super.ready();
+    firstUpdated() {
         // If the active history entry changes (i.e. user clicks back button),
         // all open dialogs should be cancelled.
         window.addEventListener('popstate', () => {
@@ -11265,14 +11273,15 @@ class CrDialogElement extends CrDialogElementBase {
         document.body.removeEventListener('keydown', this.boundKeydown_);
         this.boundKeydown_ = null;
     }
-    showModal() {
+    async showModal() {
         this.$.dialog.showModal();
         assert$1(this.$.dialog.open);
         this.open = true;
-        this.dispatchEvent(new CustomEvent('cr-dialog-open', { bubbles: true, composed: true }));
+        await this.updateComplete;
+        this.fire('cr-dialog-open');
     }
     cancel() {
-        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
+        this.fire('cancel');
         this.$.dialog.close();
         assert$1(!this.$.dialog.open);
         this.open = false;
@@ -11302,9 +11311,9 @@ class CrDialogElement extends CrDialogElementBase {
         }
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.dispatchEvent(new CustomEvent('close', { bubbles: true, composed: true }));
+        this.fire('close');
     }
-    onNativeDialogCancel_(e) {
+    async onNativeDialogCancel_(e) {
         // Ignore any 'cancel' events not fired directly by the <dialog> element.
         if (e.target !== this.getNative()) {
             return;
@@ -11316,9 +11325,10 @@ class CrDialogElement extends CrDialogElementBase {
         // When the dialog is dismissed using the 'Esc' key, need to manually update
         // the |open| property (since close() is not called).
         this.open = false;
+        await this.updateComplete;
         // Catch and re-fire the native 'cancel' event such that it bubbles across
         // Shadow DOM v1.
-        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
+        this.fire('cancel');
     }
     /**
      * Expose the inner native <dialog> for some rare cases where it needs to be
@@ -11698,15 +11708,15 @@ const DeepLinkingMixin = dedupingMixin((superClass) => {
     return DeepLinkingMixinInternal;
 });
 
-const styleMod$9 = document.createElement('dom-module');
-styleMod$9.appendChild(html `
+const styleMod$8 = document.createElement('dom-module');
+styleMod$8.appendChild(html `
   <template>
     <style>
 .md-select{--md-arrow-width:10px;--md-select-bg-color:var(--google-grey-100);--md-select-focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--md-select-option-bg-color:white;--md-select-side-padding:8px;--md-select-text-color:var(--cr-primary-text-color);-webkit-appearance:none;background:url(//resources/images/arrow_down.svg) calc(100% - var(--md-select-side-padding)) center no-repeat;background-color:var(--md-select-bg-color);background-size:var(--md-arrow-width);border:none;border-radius:4px;color:var(--md-select-text-color);cursor:pointer;font-family:inherit;font-size:inherit;line-height:inherit;max-width:100%;outline:0;padding-bottom:6px;padding-inline-end:calc(var(--md-select-side-padding) + var(--md-arrow-width) + 3px);padding-inline-start:var(--md-select-side-padding);padding-top:6px;width:var(--md-select-width,200px)}@media (prefers-color-scheme:dark){.md-select{--md-select-bg-color:rgba(0, 0, 0, .3);--md-select-focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--md-select-option-bg-color:var(--google-grey-900-white-4-percent);background-image:url(//resources/images/dark/arrow_down.svg)}}:host-context([chrome-refresh-2023]) .md-select{--md-select-bg-color:transparent;--md-arrow-width:7px;--md-select-side-padding:10px;--md-select-text-color:inherit;border:solid 1px var(--color-combobox-container-outline,var(--cr-fallback-color-neutral-outline));border-radius:8px;box-sizing:border-box;font-size:12px;height:36px;line-height:36px;padding-bottom:0;padding-top:0}:host-context([chrome-refresh-2023]) .md-select:hover{background-color:var(--color-comboxbox-ink-drop-hovered,var(--cr-hover-on-subtle-background-color))}.md-select :-webkit-any(option,optgroup){background-color:var(--md-select-option-bg-color)}.md-select[disabled]{opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]) .md-select[disabled]{background-color:var(--color-combobox-background-disabled,var(--cr-fallback-color-disabled-background));border-color:transparent;color:var(--color-textfield-foreground-disabled,var(--cr-fallback-color-disabled-foreground));opacity:1}.md-select:focus{box-shadow:0 0 0 2px var(--md-select-focus-shadow-color)}:host-context([chrome-refresh-2023]) .md-select:focus{box-shadow:none;outline:solid 2px var(--cr-focus-outline-color);outline-offset:-1px}@media (forced-colors:active){.md-select:focus{outline:var(--cr-focus-outline-hcm)}}.md-select:active{box-shadow:none}:host-context([dir=rtl]) .md-select{background-position-x:var(--md-select-side-padding)}
     </style>
   </template>
 `.content);
-styleMod$9.register('md-select');
+styleMod$8.register('md-select');
 
 function getTemplate$24() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select"></style>
@@ -12150,7 +12160,10 @@ class CrActionMenuElement extends CrLitElement {
             // Setting this flag will make the menu listen for content size changes
             // and reposition to its anchor accordingly.
             autoReposition: { type: Boolean },
-            open: { type: Boolean },
+            open: {
+                type: Boolean,
+                notify: true,
+            },
             // Descriptor of the menu. Should be something along the lines of "menu"
             roleDescription: { type: String },
         };
@@ -12163,9 +12176,6 @@ class CrActionMenuElement extends CrLitElement {
     disconnectedCallback() {
         super.disconnectedCallback();
         this.removeListeners_();
-    }
-    fire_(eventName, detail) {
-        this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
     }
     /**
      * Exposing internal <dialog> elements for tests.
@@ -12188,7 +12198,7 @@ class CrActionMenuElement extends CrLitElement {
         }
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.fire_('close');
+        this.fire('close');
     }
     onClick_(e) {
         if (e.target === this) {
@@ -12201,7 +12211,7 @@ class CrActionMenuElement extends CrLitElement {
         if (e.key === 'Tab' || e.key === 'Escape') {
             this.close();
             if (e.key === 'Tab') {
-                this.fire_('tabkeyclose', { shiftKey: e.shiftKey });
+                this.fire('tabkeyclose', { shiftKey: e.shiftKey });
             }
             e.preventDefault();
             return;
@@ -12270,7 +12280,6 @@ class CrActionMenuElement extends CrLitElement {
         if (this.lastConfig_) {
             this.lastConfig_ = null;
         }
-        this.fire_('open-changed', { value: this.open });
     }
     /**
      * Shows the menu anchored to the given element.
@@ -12359,7 +12368,6 @@ class CrActionMenuElement extends CrLitElement {
                 });
             }
         }
-        this.fire_('open-changed', { value: this.open });
     }
     resetStyle_() {
         this.$.dialog.style.left = '';
@@ -12414,7 +12422,7 @@ class CrActionMenuElement extends CrLitElement {
             this.resizeObserver_ = new ResizeObserver(() => {
                 if (this.lastConfig_) {
                     this.positionDialog_(this.lastConfig_);
-                    this.fire_('cr-action-menu-repositioned'); // For easier testing.
+                    this.fire('cr-action-menu-repositioned'); // For easier testing.
                 }
             });
             this.resizeObserver_.observe(this.$.dialog);
@@ -12851,15 +12859,15 @@ class CrToastElement extends PolymerElement {
 }
 customElements.define(CrToastElement.is, CrToastElement);
 
-const styleMod$8 = document.createElement('dom-module');
-styleMod$8.appendChild(html `
+const styleMod$7 = document.createElement('dom-module');
+styleMod$7.appendChild(html `
   <template>
     <style>
 [is=action-link]{cursor:pointer;display:inline-block;text-decoration:underline}[is=action-link],[is=action-link]:active,[is=action-link]:hover,[is=action-link]:visited{color:var(--cr-link-color)}[is=action-link][disabled]{color:var(--paper-grey-600);cursor:default;opacity:.65;pointer-events:none}[is=action-link].no-outline{outline:0}
     </style>
   </template>
 `.content);
-styleMod$8.register('action-link');
+styleMod$7.register('action-link');
 
 function getTemplate$22() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style"></style>
@@ -13009,7 +13017,7 @@ The following imports are available:
  - iron-positioning
 */
 
-const template$a = html`
+const template$9 = html`
 /* Most common used flex styles*/
 <dom-module id="iron-flex">
   <template>
@@ -13311,8 +13319,8 @@ const template$a = html`
   </template>
 </dom-module>
 `;
-template$a.setAttribute('style', 'display: none;');
-document.head.appendChild(template$a.content);
+template$9.setAttribute('style', 'display: none;');
+document.head.appendChild(template$9.content);
 
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -14310,15 +14318,15 @@ class SettingsGuestOsSharedUsbDevicesElement extends SettingsGuestOsSharedUsbDev
 }
 customElements.define(SettingsGuestOsSharedUsbDevicesElement.is, SettingsGuestOsSharedUsbDevicesElement);
 
-const styleMod$7 = document.createElement('dom-module');
-styleMod$7.appendChild(html `
+const styleMod$6 = document.createElement('dom-module');
+styleMod$6.appendChild(html `
   <template>
     <style>
 :host{align-items:center;align-self:stretch;display:flex;margin:0;outline:0}:host(:not([effectively-disabled_])){cursor:pointer}:host(:not([no-hover],[effectively-disabled_]):hover){background-color:var(--cr-hover-background-color)}:host(:not([no-hover],[effectively-disabled_]):active){background-color:var(--cr-active-background-color)}:host(:not([no-hover],[effectively-disabled_])) cr-icon-button{--cr-icon-button-hover-background-color:transparent;--cr-icon-button-active-background-color:transparent}
     </style>
   </template>
 `.content);
-styleMod$7.register('cr-actionable-row-style');
+styleMod$6.register('cr-actionable-row-style');
 
 function getTemplate$1_() {
     return html `<!--_html_template_start_--><style include="cr-actionable-row-style cr-shared-style cr-hidden-style">:host{box-sizing:border-box;flex:1;font-family:inherit;font-size:100%;line-height:154%;min-height:var(--cr-section-min-height);padding:0}:host(:not([embedded])){padding:0 var(--cr-section-padding)}#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
@@ -15884,7 +15892,7 @@ Polymer({
 
 });
 
-const template$9 = html `
+const template$8 = html `
 <iron-iconset-svg name="settings20" size="20">
   <svg>
     <defs>
@@ -16073,9 +16081,9 @@ const template$9 = html `
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$9.content);
+document.head.appendChild(template$8.content);
 
-const template$8 = html `
+const template$7 = html `
 
 
 <iron-iconset-svg name="os-settings" size="20">
@@ -16509,7 +16517,7 @@ const template$8 = html `
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$8.content);
+document.head.appendChild(template$7.content);
 
 function getTemplate$1V() {
     return html `<!--_html_template_start_-->    <style>:host{-webkit-tap-highlight-color:transparent;align-items:center;cursor:pointer;display:flex;outline:0;user-select:none;--cr-checkbox-border-size:2px;--cr-checkbox-size:16px;--cr-checkbox-ripple-size:40px;--cr-checkbox-ripple-offset:calc(var(--cr-checkbox-size)/2 -
@@ -27751,8 +27759,8 @@ class ResetSettingsCardElement extends ResetSettingsCardElementBase {
 }
 customElements.define(ResetSettingsCardElement.is, ResetSettingsCardElement);
 
-const styleMod$6 = document.createElement('dom-module');
-styleMod$6.appendChild(html `
+const styleMod$5 = document.createElement('dom-module');
+styleMod$5.appendChild(html `
   <template>
     <style>
 :host{--cr-radio-button-checked-color:var(--google-blue-600);--cr-radio-button-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-radio-button-ink-size:40px;--cr-radio-button-size:16px;--cr-radio-button-unchecked-color:var(--google-grey-700);--cr-radio-button-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);--ink-to-circle:calc((var(--cr-radio-button-ink-size) -
@@ -27764,7 +27772,7 @@ styleMod$6.appendChild(html `
     </style>
   </template>
 `.content);
-styleMod$6.register('cr-radio-button-style');
+styleMod$5.register('cr-radio-button-style');
 
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -29180,15 +29188,15 @@ class SettingsPrivacyHubGeolocationSubpage extends SettingsPrivacyHubGeolocation
 }
 customElements.define(SettingsPrivacyHubGeolocationSubpage.is, SettingsPrivacyHubGeolocationSubpage);
 
-const styleMod$5 = document.createElement('dom-module');
-styleMod$5.appendChild(html `
+const styleMod$4 = document.createElement('dom-module');
+styleMod$4.appendChild(html `
   <template>
     <style>
 :host(:not([is-last-device])) .bottom-divider{border-bottom:var(--cr-separator-line)}.subsection{margin-bottom:8px;padding-inline-start:var(--cr-section-indent-width)}.subsection>*{padding-inline-start:0}.subsection-header{height:24px;padding-inline-start:var(--cr-section-padding);padding-top:12px}.key-container{align-items:center;border-radius:12px;box-sizing:border-box;color:var(--cros-text-color-secondary);display:flex;height:28px;justify-content:center;margin-inline-end:8px;min-width:28px;padding:6px}#keyLabel{padding-inline:6px}cr-dialog [slot=button-container]{display:flex;justify-content:space-between;padding:0 32px 28px 32px}cr-dialog [slot=body]{padding:24px 32px}cr-dialog [slot=title]{padding:32px 32px 0 32px}cr-dialog #cancelButton,cr-dialog #editButton{background-color:var(--cros-bg-color);border:solid 1px var(--cros-button-stroke-color-secondary)}.subpage-description{align-items:center;display:flex;justify-content:center}.subpage-description>span{color:var(--cros-text-color-secondary);font-family:var(--cros-body-2-font-family);line-height:20px;padding:14px 0}.subpage-description>iron-icon{margin:6px;--iron-icon-height:20px;--iron-icon-width:20px;--iron-icon-fill-color:var(--cros-text-color-secondary)}
     </style>
   </template>
 `.content);
-styleMod$5.register('input-device-settings-shared');
+styleMod$4.register('input-device-settings-shared');
 
 function getTemplate$1D() {
     return html `<!--_html_template_start_--><style include="settings-shared input-device-settings-shared">#mouseSwapToggleButton{border-bottom:var(--cr-separator-line)}#helpSection{align-items:center;background-color:var(--cros-sys-app_base_shaded);border-radius:12px;display:flex;margin:8px;padding:16px 12px}#helpIconSection{--iron-icon-height:48px;--iron-icon-width:48px;flex-basis:48px}#helpSectionText{flex:1;margin-inline-start:12px}.help-title{color:var(--cros-text-color-primary);font:var(--cros-button-1-font);margin-bottom:5px}.secondary{font:var(--cros-body-2-font)}#buttonsSection{border-top:var(--cr-separator-line)}</style>
@@ -32080,18 +32088,18 @@ function getShortcutInputProvider() {
     return shortcutInputProvider;
 }
 
-const styleMod$4 = document.createElement('dom-module');
-styleMod$4.appendChild(html `
+const styleMod$3 = document.createElement('dom-module');
+styleMod$3.appendChild(html `
   <template>
     <style include="settings-shared">
 network-icon{padding-inline-end:var(--cr-section-padding)}iron-icon.policy{margin-inline-end:var(--cr-controlled-by-spacing)}.indented{margin-inline-start:var(--cr-section-padding)}.stretch{align-items:stretch}.title{font-size:107.69%;font-weight:500}
     </style>
   </template>
 `.content);
-styleMod$4.register('internet-shared');
+styleMod$3.register('internet-shared');
 
-const styleMod$3 = document.createElement('dom-module');
-styleMod$3.appendChild(html`
+const styleMod$2 = document.createElement('dom-module');
+styleMod$2.appendChild(html`
   <template>
     <style include="cr-shared-style cros-color-overrides">
 
@@ -32168,7 +32176,7 @@ cr-input {
     </style>
   </template>
 `.content);
-styleMod$3.register('network-shared');
+styleMod$2.register('network-shared');
 
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -33975,7 +33983,7 @@ Polymer({
   },
 });
 
-const template$7 = html`<!-- These icons were converted from source .svg files. -->
+const template$6 = html`<!-- These icons were converted from source .svg files. -->
 
 <iron-iconset-svg name="network" size="20">
   <svg>
@@ -34013,7 +34021,7 @@ const template$7 = html`<!-- These icons were converted from source .svg files. 
   </svg>
 </iron-iconset-svg>
 `;
-document.head.appendChild(template$7.content);
+document.head.appendChild(template$6.content);
 
 function getTemplate$1v() {
   return html`<!--_html_template_start_--><style include="cr-hidden-style">
@@ -36108,15 +36116,15 @@ var Button;
     Button[Button["FORWARD"] = 3] = "FORWARD";
 })(Button || (Button = {}));
 
-const styleMod$2 = document.createElement('dom-module');
-styleMod$2.appendChild(html `
+const styleMod$1 = document.createElement('dom-module');
+styleMod$1.appendChild(html `
   <template>
     <style>
 cr-icon-button.icon-add-circle{--cr-icon-button-fill-color:var(--cros-button-icon-color-secondary);--cr-icon-image:url(chrome://os-settings/images/icon_add_circle.svg)}cr-icon-button.icon-add-wifi{--cr-icon-button-fill-color:var(--cros-button-icon-color-secondary);--cr-icon-image:url(chrome://os-settings/images/icon_add_wifi.svg)}cr-icon-button.icon-pair-bluetooth{--cr-icon-button-fill-color:var(--cros-button-icon-color-secondary);--cr-icon-image:url(chrome://os-settings/images/icon_pair_bluetooth.svg)}cr-icon-button.icon-add-cellular{--cr-icon-button-fill-color:var(--cros-button-icon-color-secondary);--cr-icon-image:url(chrome://os-settings/images/icon_add_cellular.svg)}
     </style>
   </template>
 `.content);
-styleMod$2.register('os-settings-icons');
+styleMod$1.register('os-settings-icons');
 
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -36352,6 +36360,8 @@ var PhoneHubPermissionsSetupFeatureCombination;
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 let BrowserProxy$1 = class BrowserProxy {
+    callbackRouter;
+    handler;
     constructor() {
         this.callbackRouter = new PageCallbackRouter$3();
         this.handler = new PageHandlerRemote$3();
@@ -37535,28 +37545,11 @@ class AppManagementDomSwitchElement extends PolymerElement {
 }
 customElements.define(AppManagementDomSwitchElement.is, AppManagementDomSwitchElement);
 
-const template$6 = html `
-<style>
-html{--app-management-font-size:13px;--app-management-line-height:1.54;--card-max-width:676px;--card-min-width:550px;--card-separator:1px solid var(--cr-separator-color);--expanded-permission-row-height:48px;--header-font-weight:500;--header-text-color:var(--cr-title-text-color);--permission-icon-padding:20px;--permission-list-item-height:48px;--permission-list-item-with-description-height:64px;--primary-text-color:var(--cr-primary-text-color);--row-item-icon-padding:12px;--row-item-vertical-padding:16px;--secondary-font-weight:400;--secondary-text-color:var(--cr-secondary-text-color);--text-permission-list-row-height:40px;--help-icon-padding:6px;--info-text-row-height:48px;--help-icon-size:20px;--app-management-controlled-by-spacing:var(--cr-controlled-by-spacing)}
-</style>
-`;
-document.head.appendChild(template$6.content);
-
-const styleMod$1 = document.createElement('dom-module');
-styleMod$1.appendChild(html `
-  <template>
-    <style include="cr-shared-style cros-color-overrides">
-.card-container{border-radius:var(--cr-card-border-radius);box-shadow:var(--cr-card-shadow);display:flex;flex-direction:column;margin:24px auto;max-width:var(--card-max-width);min-width:var(--card-min-width)}.separated-row{align-items:center;display:inline-flex;justify-content:space-between}.card-row{border-top:var(--card-separator);padding:0 24px}.permission-card-row{border-bottom:var(--card-separator);padding:0 20px}.permission-text-row{border-top:var(--card-separator);display:flex;flex-direction:column;height:var(--text-permission-list-row-height);justify-content:center}.permission-section-header{line-height:48px}.clickable{cursor:pointer}.permission-card-row:last-child{border-style:none}.permission-card-row[hide-bottom-border]{border-bottom:none}.header-text{color:var(--header-text-color);font-weight:var(--header-font-weight)}.permission-row-controls{align-items:center;display:inline-flex}.permission-list{display:flex;flex-direction:column}.permission-list>*{flex:0 0 var(--permission-list-item-height)}.row-with-description{flex:0 0 var(--permission-list-item-with-description-height)}.native-settings-icon{display:flex;margin-inline-start:0}.subpermission-row{border-bottom:var(--card-separator);height:48px}.subpermission-row[available_]:last-of-type{border-bottom:none}.secondary-text{color:var(--secondary-text-color);font-weight:var(--secondary-font-weight)}.expand-button{height:36px;margin-inline-end:12px;width:36px}.horizontal-align{align-items:center;display:flex}.expander-list-row{align-items:center;border-top:var(--card-separator);color:var(--secondary-text-color);display:flex;height:50px;justify-content:space-between;padding-inline-end:8px;padding-inline-start:24px}.page-title{flex:1;font-size:16px;overflow:hidden;text-overflow:ellipsis}.indented-permission-block{padding-inline-start:36px}.info-text-row{display:flex;flex:0 0 var(--info-text-row-height)}#info-icon{float:inline-block;height:var(--help-icon-size);padding-inline-end:var(--help-icon-padding);width:var(--help-icon-size)}#info-text{float:inline-block;overflow-wrap:break-word}.indented-app-details{margin-inline-start:20px}
-    </style>
-  </template>
-`.content);
-styleMod$1.register('app-management-shared-style');
-
 const styleMod = document.createElement('dom-module');
 styleMod.appendChild(html `
   <template>
-    <style include="cr-shared-style app-management-shared-style">
-.card-container{background-color:var(--cros-bg-color)}
+    <style include="cr-shared-style cros-color-overrides">
+.card-container{background-color:var(--cros-bg-color);border-radius:var(--cr-card-border-radius);box-shadow:var(--cr-card-shadow);display:flex;flex-direction:column;margin:24px auto;max-width:var(--card-max-width);min-width:var(--card-min-width)}.separated-row{align-items:center;display:inline-flex;justify-content:space-between}.card-row{border-top:var(--card-separator);padding:0 24px}.permission-card-row{border-bottom:var(--card-separator);padding:0 20px}.permission-text-row{border-top:var(--card-separator);display:flex;flex-direction:column;height:var(--text-permission-list-row-height);justify-content:center}.permission-section-header{line-height:48px}.clickable{cursor:pointer}.permission-card-row:last-child{border-style:none}.permission-card-row[hide-bottom-border]{border-bottom:none}.header-text{color:var(--header-text-color);font-weight:var(--header-font-weight)}.permission-row-controls{align-items:center;display:inline-flex}.permission-list{display:flex;flex-direction:column}.permission-list>*{flex:0 0 var(--permission-list-item-height)}.row-with-description{flex:0 0 var(--permission-list-item-with-description-height)}.native-settings-icon{display:flex;margin-inline-start:0}.subpermission-row{border-bottom:var(--card-separator);height:48px}.subpermission-row[available_]:last-of-type{border-bottom:none}.secondary-text{color:var(--secondary-text-color);font-weight:var(--secondary-font-weight)}.expand-button{height:36px;margin-inline-end:12px;width:36px}.horizontal-align{align-items:center;display:flex}.expander-list-row{align-items:center;border-top:var(--card-separator);color:var(--secondary-text-color);display:flex;height:50px;justify-content:space-between;padding-inline-end:8px;padding-inline-start:24px}.page-title{flex:1;font-size:16px;overflow:hidden;text-overflow:ellipsis}.indented-permission-block{padding-inline-start:36px}.info-text-row{display:flex;flex:0 0 var(--info-text-row-height)}#info-icon{float:inline-block;height:var(--help-icon-size);padding-inline-end:var(--help-icon-padding);width:var(--help-icon-size)}#info-text{float:inline-block;overflow-wrap:break-word}.indented-app-details{margin-inline-start:20px}
     </style>
   </template>
 `.content);
@@ -38430,7 +38423,7 @@ class AppManagementPermissionHeadingElement extends AppManagementPermissionHeadi
 customElements.define(AppManagementPermissionHeadingElement.is, AppManagementPermissionHeadingElement);
 
 function getTemplate$1l() {
-    return html `<!--_html_template_start_--><style include="app-management-shared-style">:host{align-items:center;display:flex;flex:1;justify-content:space-between}#icon{padding-inline-end:var(--row-item-icon-padding)}#policyIndicator{padding-inline-end:var(--app-management-controlled-by-spacing)}</style>
+    return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">:host{align-items:center;display:flex;flex:1;justify-content:space-between}#icon{padding-inline-end:var(--row-item-icon-padding)}#policyIndicator{padding-inline-end:var(--app-management-controlled-by-spacing)}</style>
 
 <div id="left-content" aria-hidden="true">
   <div class="horizontal-align">
@@ -38619,7 +38612,7 @@ class AppManagementSubAppsItemElement extends AppManagementSubAppsItemElementBas
 customElements.define(AppManagementSubAppsItemElement.is, AppManagementSubAppsItemElement);
 
 function getTemplate$1i() {
-    return html `<!--_html_template_start_--><style include="app-management-shared-style">:host(:not([available_])){display:none}#file-handling-item{margin:var(--row-item-vertical-padding) 0;width:100%}#toggle-row:not([disabled_]){cursor:pointer}#dialog-body{user-select:text}</style>
+    return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">:host(:not([available_])){display:none}#file-handling-item{margin:var(--row-item-vertical-padding) 0;width:100%}#toggle-row:not([disabled_]){cursor:pointer}#dialog-body{user-select:text}</style>
 
 <div id="file-handling-item">
   <app-management-toggle-row id="toggle-row" label="[[i18n('appManagementFileHandlingHeader')]]" managed="[[isManaged_(app)]]" value="[[getValue_(app)]]" class="header-text">
@@ -38774,7 +38767,7 @@ const template$5 = html `<iron-iconset-svg name="app-management" size="20">
 document.head.appendChild(template$5.content);
 
 function getTemplate$1h() {
-    return html `<!--_html_template_start_--><style include="app-management-shared-style">:host{align-items:center;cursor:pointer;display:flex;flex:1;justify-content:space-between}</style>
+    return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">:host{align-items:center;cursor:pointer;display:flex;flex:1;justify-content:space-between}</style>
 <div id="label" aria-hidden="true">
   [[morePermissionsLabel]]
 </div>
@@ -38813,7 +38806,7 @@ class AppManagementMorePermissionsItemElement extends PolymerElement {
 customElements.define(AppManagementMorePermissionsItemElement.is, AppManagementMorePermissionsItemElement);
 
 function getTemplate$1g() {
-    return html `<!--_html_template_start_--><style include="app-management-shared-style">:host{align-items:center;display:flex;justify-content:space-between}:host(:not([disabled_])){cursor:pointer}:host(:not([available_])){display:none}</style>
+    return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">:host{align-items:center;display:flex;justify-content:space-between}:host(:not([disabled_])){cursor:pointer}:host(:not([available_])){display:none}</style>
 
 <template is="dom-if" if="[[available_]]">
   <app-management-toggle-row id="toggle-row" icon="[[icon]]" label="[[permissionLabel]]" managed="[[isManaged_(app, permissionType)]]" disabled="[[isDisabled_(app, permissionType)]]" value="[[getValue_(app, permissionType)]]" aria-description="Click to toggle [[permissionLabel]] permissions." i18n-aria-descrirption="Label for toggle button to change [[permissionLabel]] permissions.">
@@ -39017,7 +39010,7 @@ class AppManagementPermissionItemElement extends PolymerElement {
 customElements.define(AppManagementPermissionItemElement.is, AppManagementPermissionItemElement);
 
 function getTemplate$1f() {
-    return html `<!--_html_template_start_--><style include="app-management-shared-style">#dialogBody{display:flex;flex-direction:column;height:350px;overflow-y:auto}.list-item{border-bottom:var(--cr-separator-line);align-items:center;display:flex;min-height:36px;padding:0}iron-list{user-select:none}</style>
+    return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">#dialogBody{display:flex;flex-direction:column;height:350px;overflow-y:auto}.list-item{border-bottom:var(--cr-separator-line);align-items:center;display:flex;min-height:36px;padding:0}iron-list{user-select:none}</style>
 <cr-dialog id="dialog" close-text="[[i18n('close')]]" show-on-attach show-close-button>
   <div slot="title">[[i18n('appManagementIntentSettingsDialogTitle')]]</div>
   <div id="dialogBody" slot="body" scrollable>
@@ -39069,7 +39062,7 @@ class AppManagementSupportedLinksDialogElement extends AppManagementSupportedLin
 customElements.define(AppManagementSupportedLinksDialogElement.is, AppManagementSupportedLinksDialogElement);
 
 function getTemplate$1e() {
-    return html `<!--_html_template_start_--><style include="app-management-shared-style"></style>
+    return html `<!--_html_template_start_--><style include="app-management-cros-shared-style"></style>
 <cr-dialog show-on-attach id="dialog" close-text="close">
   <div slot="title">[[i18n('appManagementIntentOverlapDialogTitle')]]</div>
   <div slot="body">[[getBodyText_(apps)]]</div>
@@ -39138,7 +39131,7 @@ class AppManagementSupportedLinksOverlappingAppsDialogElement extends AppManagem
 customElements.define(AppManagementSupportedLinksOverlappingAppsDialogElement.is, AppManagementSupportedLinksOverlappingAppsDialogElement);
 
 function getTemplate$1d() {
-    return html `<!--_html_template_start_--><style include="app-management-shared-style">#disabledExplanationText{align-items:center;display:flex;flex-direction:row;height:var(--info-text-row-height)}#supportedLinksOption{height:48px}.info-icon{height:var(--help-icon-size);width:var(--help-icon-size)}#overlapWarning{color:var(--secondary-text-color);margin-block-start:-12px;margin-inline-start:36px}.list-frame{display:block;padding-block-end:0;padding-block-start:0;padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}cr-radio-group{width:100%}iron-icon{flex-shrink:0}cr-radio-button{min-height:var(--cr-section-min-height)}</style>
+    return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">#disabledExplanationText{align-items:center;display:flex;flex-direction:row;height:var(--info-text-row-height)}#supportedLinksOption{height:48px}.info-icon{height:var(--help-icon-size);width:var(--help-icon-size)}#overlapWarning{color:var(--secondary-text-color);margin-block-start:-12px;margin-inline-start:36px}.list-frame{display:block;padding-block-end:0;padding-block-start:0;padding-inline-end:var(--cr-section-padding);padding-inline-start:var(--cr-section-indent-padding)}cr-radio-group{width:100%}iron-icon{flex-shrink:0}cr-radio-button{min-height:var(--cr-section-min-height)}</style>
 <div class="permission-section-header">
   <localized-link id="heading" class="header-text" on-link-clicked="launchDialog_" localized-string="[[i18nAdvanced('appManagementIntentSettingsTitle')]]">
   </localized-link>
@@ -39425,7 +39418,7 @@ class AppManagementPwaDetailViewElement extends AppManagementPwaDetailViewElemen
 customElements.define(AppManagementPwaDetailViewElement.is, AppManagementPwaDetailViewElement);
 
 function getTemplate$1b() {
-    return html `<!--_html_template_start_--><style include="app-management-shared-style">:host{align-items:center;display:flex;justify-content:space-between}:host(:not([available_])){display:none}#icon{padding-inline-end:var(--row-item-icon-padding)}</style>
+    return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">:host{align-items:center;display:flex;justify-content:space-between}:host(:not([available_])){display:none}#icon{padding-inline-end:var(--row-item-icon-padding)}</style>
 
 <template is="dom-if" if="[[available_]]">
   <div class="horizontal-align">
@@ -40170,7 +40163,7 @@ customElements.define(AppManagementAppDetailViewElement.is, AppManagementAppDeta
 
 const template$4 = html `
 <style>
-html{--card-separator:1px solid var(--cros-separator-color);--header-text-color:var(--cros-text-color-secondary);--primary-text-color:var(--cros-text-color-primary);--secondary-text-color:var(--cros-text-color-secondary);--app-management-controlled-by-spacing:var(--cr-controlled-by-spacing)}
+html{--app-management-controlled-by-spacing:var(--cr-controlled-by-spacing);--app-management-font-size:13px;--app-management-line-height:1.54;--card-max-width:676px;--card-min-width:550px;--card-separator:1px solid var(--cros-separator-color);--expanded-permission-row-height:48px;--header-font-weight:500;--header-text-color:var(--cros-text-color-secondary);--permission-icon-padding:20px;--permission-list-item-height:48px;--permission-list-item-with-description-height:64px;--primary-text-color:var(--cros-text-color-primary);--row-item-icon-padding:12px;--row-item-vertical-padding:16px;--secondary-font-weight:400;--secondary-text-color:var(--cros-text-color-secondary);--text-permission-list-row-height:40px;--help-icon-padding:6px;--info-text-row-height:48px;--help-icon-size:20px}
 </style>
 `;
 document.head.appendChild(template$4.content);
@@ -55895,6 +55888,79 @@ class SettingsAndroidAppsSubpageElement extends SettingsAndroidAppsSubpageElemen
 customElements.define(SettingsAndroidAppsSubpageElement.is, SettingsAndroidAppsSubpageElement);
 
 function getTemplate$7() {
+    return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">:host{align-items:center;display:flex;flex-direction:row}#policyIndicator{padding-inline-end:var(--app-management-controlled-by-spacing)}</style>
+<template is="dom-if" if="[[showPolicyIndicator_(app)]]">
+  <cr-tooltip-icon id="policyIndicator" icon-class="cr20:domain" tooltip-text="[[policyLabel]]" icon-aria-label="[[policyLabel]]" tooltip-position="bottom">
+  </cr-tooltip-icon>
+</template>
+<template is="dom-if" if="[[showUninstallButton_(app)]]">
+  <cr-button id="uninstallButton" on-click="onClick_" disabled$="[[getDisableState_(app)]]">
+    [[uninstallLabel]]
+  </cr-button>
+</template>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2019 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+class AppManagementUninstallButtonElement extends PolymerElement {
+    static get is() {
+        return 'app-management-uninstall-button';
+    }
+    static get template() {
+        return getTemplate$7();
+    }
+    static get properties() {
+        return {
+            app: Object,
+            uninstallLabel: String,
+            policyLabel: String,
+        };
+    }
+    /**
+     * Returns true if the button should be disabled due to app install type.
+     *
+     * If the compiler complains about the "lack of ending return statement",
+     * you maybe just added a new InstallReason and need to add a new case.
+     */
+    getDisableState_() {
+        switch (this.app.installReason) {
+            case InstallReason.kSystem:
+            case InstallReason.kPolicy:
+            case InstallReason.kKiosk:
+                return true;
+            case InstallReason.kUnknown:
+            case InstallReason.kOem:
+            case InstallReason.kDefault:
+            case InstallReason.kSubApp:
+            case InstallReason.kSync:
+            case InstallReason.kUser:
+            case InstallReason.kSubApp:
+            case InstallReason.kCommandLine:
+                return false;
+        }
+    }
+    /**
+     * Returns true if the app was installed by a policy.
+     */
+    showPolicyIndicator_() {
+        return this.app.installReason === InstallReason.kPolicy;
+    }
+    /**
+     * Returns true if the uninstall button should be shown.
+     */
+    showUninstallButton_() {
+        return this.app.installReason !== InstallReason.kSystem;
+    }
+    onClick_() {
+        BrowserProxy$1.getInstance().handler.uninstall(this.app.id);
+        recordAppManagementUserAction(this.app.type, AppManagementUserAction.UNINSTALL_DIALOG_LAUNCHED);
+    }
+}
+customElements.define(AppManagementUninstallButtonElement.is, AppManagementUninstallButtonElement);
+
+function getTemplate$6() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared cr-icons">#container{align-items:center;border-bottom:var(--card-separator);color:var(--cros-text-color-primary);display:flex;flex-direction:row;font-weight:400;height:48px;padding:0}#appTitle{flex:1;overflow:hidden;text-overflow:ellipsis}#appToggle{margin-inline-end:20px}#appIcon{height:32px;margin-inline-end:20px;margin-inline-start:24px;width:32px}cr-policy-indicator{padding-inline-end:var(--cr-controlled-by-spacing)}</style>
 <div id="container" class="cr-row" actionable$="[[!app.notificationPermission.isManaged]]">
   <img id="appIcon" src="chrome://app-icon/[[app.id]]/64" alt="[[app.title]] app icon." aria-hidden="true">
@@ -56225,7 +56291,7 @@ class AppNotificationRowElement extends PolymerElement {
         return 'app-notification-row';
     }
     static get template() {
-        return getTemplate$7();
+        return getTemplate$6();
     }
     static get properties() {
         return {
@@ -56268,79 +56334,6 @@ class AppNotificationRowElement extends PolymerElement {
     }
 }
 customElements.define(AppNotificationRowElement.is, AppNotificationRowElement);
-
-function getTemplate$6() {
-    return html `<!--_html_template_start_--><style include="app-management-shared-style">:host{align-items:center;display:flex;flex-direction:row}#policyIndicator{padding-inline-end:var(--app-management-controlled-by-spacing)}</style>
-<template is="dom-if" if="[[showPolicyIndicator_(app)]]">
-  <cr-tooltip-icon id="policyIndicator" icon-class="cr20:domain" tooltip-text="[[policyLabel]]" icon-aria-label="[[policyLabel]]" tooltip-position="bottom">
-  </cr-tooltip-icon>
-</template>
-<template is="dom-if" if="[[showUninstallButton_(app)]]">
-  <cr-button id="uninstallButton" on-click="onClick_" disabled$="[[getDisableState_(app)]]">
-    [[uninstallLabel]]
-  </cr-button>
-</template>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2019 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-class AppManamentUninstallButtonElement extends PolymerElement {
-    static get is() {
-        return 'app-management-uninstall-button';
-    }
-    static get template() {
-        return getTemplate$6();
-    }
-    static get properties() {
-        return {
-            app: Object,
-            uninstallLabel: String,
-            policyLabel: String,
-        };
-    }
-    /**
-     * Returns true if the button should be disabled due to app install type.
-     *
-     * If the compiler complains about the "lack of ending return statement",
-     * you maybe just added a new InstallReason and need to add a new case.
-     */
-    getDisableState_() {
-        switch (this.app.installReason) {
-            case InstallReason.kSystem:
-            case InstallReason.kPolicy:
-            case InstallReason.kKiosk:
-                return true;
-            case InstallReason.kUnknown:
-            case InstallReason.kOem:
-            case InstallReason.kDefault:
-            case InstallReason.kSubApp:
-            case InstallReason.kSync:
-            case InstallReason.kUser:
-            case InstallReason.kSubApp:
-            case InstallReason.kCommandLine:
-                return false;
-        }
-    }
-    /**
-     * Returns true if the app was installed by a policy.
-     */
-    showPolicyIndicator_() {
-        return this.app.installReason === InstallReason.kPolicy;
-    }
-    /**
-     * Returns true if the uninstall button should be shown.
-     */
-    showUninstallButton_() {
-        return this.app.installReason !== InstallReason.kSystem;
-    }
-    onClick_() {
-        BrowserProxy$1.getInstance().handler.uninstall(this.app.id);
-        recordAppManagementUserAction(this.app.type, AppManagementUserAction.UNINSTALL_DIALOG_LAUNCHED);
-    }
-}
-customElements.define(AppManamentUninstallButtonElement.is, AppManamentUninstallButtonElement);
 
 function getTemplate$5() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared iron-flex"></style>
@@ -57403,5 +57396,5 @@ class SettingsBluetoothSavedDevicesSubpageElement extends SettingsBluetoothSaved
 }
 customElements.define(SettingsBluetoothSavedDevicesSubpageElement.is, SettingsBluetoothSavedDevicesSubpageElement);
 
-export { assertInstanceof as $, AboutPageBrowserProxyImpl as A, getApnDisplayName as B, CrPolicyIndicatorType$1 as C, DeepLinkingMixin as D, assert as E, FocusRowMixin as F, GeolocationAccessLevel as G, ApnDetailDialogMode as H, I18nMixin as I, processDeviceState as J, getInstance as K, LifetimeBrowserProxyImpl as L, CrPolicyNetworkBehaviorMojo as M, NetworkListenerBehavior as N, OncMojo as O, PrefsMixin as P, FAKE_CREDENTIAL as Q, RouteObserverMixin as R, Setting as S, TERMINA_VM_TYPE as T, UpdateStatus as U, VM_DEVICE_MICROPHONE as V, WebUiListenerMixin as W, isActiveSim as X, InternetPageBrowserProxyImpl as Y, OsSyncBrowserProxyImpl as Z, assertExists$2 as _, assertNotReached$1 as a, FindShortcutMixin as a$, getESimProfileProperties as a0, mojoString16ToString as a1, CellularSetupPageName as a2, ESimManagerListenerMixin as a3, MultiDeviceBrowserProxyImpl as a4, getEuicc as a5, getSimSlotCount as a6, getPendingESimProfiles as a7, MultiDeviceFeatureState as a8, CrToggleElement as a9, CrDialogElement as aA, CrIconButtonElement as aB, CrActionMenuElement as aC, recordLockScreenProgress as aD, LockScreenProgress as aE, PluralStringProxyImpl as aF, SyncBrowserProxyImpl as aG, PageStatus as aH, StatusAction as aI, CrScrollableMixin as aJ, PrivacyHubBrowserProxyImpl as aK, getAppPermissionProvider as aL, MediaDevicesProxy as aM, AppPermissionsObserverReceiver as aN, isPermissionEnabled as aO, CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aP, PrivacyHubSensorSubpageUserAction as aQ, NUMBER_OF_POSSIBLE_USER_ACTIONS as aR, MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aS, AppLanguageSelectionDialogEntryPoint as aT, OneDriveBrowserProxy as aU, AppManagementStoreMixin as aV, getAppIcon as aW, AppManagementBrowserProxy as aX, alphabeticalSort as aY, GlobalScrollTargetMixin as aZ, OsSettingsSubpageElement as a_, BrowserProxy$1 as aa, getImage as ab, ChromeVoxSubpageBrowserProxyImpl as ac, assertExhaustive as ad, DevicePageBrowserProxyImpl as ae, SettingsToggleButtonElement as af, SelectToSpeakSubpageBrowserProxyImpl as ag, LanguagesBrowserProxyImpl as ah, SwitchAccessSubpageBrowserProxyImpl as ai, TextToSpeechSubpageBrowserProxyImpl as aj, TtsVoiceSubpageBrowserProxyImpl as ak, BrowserChannel as al, isTargetChannelMoreStable as am, DeviceNameBrowserProxyImpl as an, SetDeviceNameResult as ao, DeviceNameState as ap, AccountManagerBrowserProxyImpl as aq, ParentalControlsBrowserProxyImpl as ar, assertInstanceof$1 as as, fireAuthTokenInvalidEvent as at, LockStateMixin as au, MultiDeviceFeatureMixin as av, MultiDeviceFeature as aw, MultiDeviceSettingsMode as ax, CrInputElement as ay, CrButtonElement as az, routes as b, AppNotificationsSubpage as b$, ACCESSIBILITY_COMMON_IME_ID as b0, IronA11yKeysBehavior as b1, PrivacyPageBrowserProxyImpl as b2, SecureDnsMode as b3, SecureDnsUiManagementMode as b4, StaticShortcutAction as b5, EventTracker as b6, getInputDeviceSettingsProvider as b7, FakeInputDeviceSettingsProvider as b8, ButtonPressObserverReceiver as b9, SettingsMultideviceCombinedSetupItemElement as bA, SettingsMultideviceFeatureItemElement as bB, SettingsMultideviceFeatureToggleElement as bC, SettingsMultideviceSubpageElement as bD, SettingsMultideviceTaskContinuationDisabledLinkElement as bE, SettingsMultideviceTaskContinuationItemElement as bF, SettingsMultideviceWifiSyncDisabledLinkElement as bG, NearbyShareReceiveDialogElement as bH, SettingsNearbyShareSubpageElement as bI, SettingsAndroidAppsSubpageElement as bJ, AppManagementAppDetailViewElement as bK, AppManagementAppDetailsItem as bL, AppManagementAppItemElement as bM, SettingsAppManagementPageElement as bN, AppManagementArcDetailViewElement as bO, AppManagementBorealisDetailViewElement as bP, AppManagementChromeAppDetailViewElement as bQ, AppManagementDomSwitchElement as bR, AppManagementMainViewElement as bS, AppManagementPermissionHeadingElement as bT, AppManagementPinToShelfItemElement as bU, AppManagementPluginVmDetailViewElement as bV, AppManagementPwaDetailViewElement as bW, AppManagementResizeLockItemElement as bX, AppManagementSubAppsItemElement as bY, AppNotificationRowElement as bZ, SettingsAppNotificationsManagerSubpage as b_, buttonsAreEqual as ba, getShortcutInputProvider as bb, keyEventsAreEqual as bc, AudioAndCaptionsPageBrowserProxyImpl as bd, SmbBrowserProxyImpl as be, SmbMountResult as bf, AppManagementSupportedLinksItemElement as bg, AppManagementSupportedLinksOverlappingAppsDialogElement as bh, AppLanguageSelectionDialogElement as bi, AppLanguageSelectionItemElement as bj, SettingsRadioGroupElement as bk, DateTimeSettingsCardElement as bl, TimezoneSelectorElement as bm, SettingsCustomizeMouseButtonsSubpageElement as bn, SettingsCustomizePenButtonsSubpageElement as bo, SettingsCustomizeTabletButtonsSubpageElement as bp, SettingsKeyboardElement as bq, SettingsPointersElement as br, SettingsPowerElement as bs, SettingsStorageElement as bt, SettingsStylusElement as bu, CROSTINI_TYPE as bv, GuestOsBrowserProxyImpl as bw, PLUGIN_VM_TYPE as bx, ContainerSelectElement as by, SettingsGuestOsSharedPathsElement as bz, assert$1 as c, ButtonState$1 as c$, SettingsBluetoothChangeDeviceNameDialogElement as c0, SettingsBluetoothDeviceDetailSubpageElement as c1, SettingsBluetoothDevicesSubpageElement as c2, SettingsBluetoothSavedDevicesSubpageElement as c3, SettingsBluetoothTrueWirelessImagesElement as c4, SettingsPairedBluetoothListElement as c5, SettingsPairedBluetoothListItemElement as c6, SettingsSavedDevicesListElement as c7, FilesSettingsCardElement as c8, SettingsGoogleDriveSubpageElement as c9, FILES_SECTION_PATH as cA, PRINTING_SECTION_PATH as cB, CROSTINI_SECTION_PATH as cC, RESET_SECTION_PATH as cD, getDeviceName as cE, KeyboardSettingsObserverReceiver as cF, MouseSettingsObserverReceiver as cG, PointingStickSettingsObserverReceiver as cH, TouchpadSettingsObserverReceiver as cI, routesMojom as cJ, getDisplayApi as cK, IronResizableBehavior as cL, PaperRippleMixin as cM, getDeviceStateChangesToAnnounce as cN, CrLinkRowElement as cO, Fkey as cP, ExtendedFkeysModifier as cQ, TopRowActionKey as cR, MetaKey as cS, ModifierKey$1 as cT, SixPackShortcutModifier as cU, SixPackKey as cV, PolicyStatus as cW, isInputDeviceSettingsSplitEnabled as cX, isExternalStorageEnabled as cY, GraphicsTabletSettingsObserverReceiver as cZ, Button as c_, LanguageSettingsCardElement as ca, SettingsLanguagesElement as cb, PrintingSettingsCardElement as cc, SettingsPrivacyHubGeolocationSubpage as cd, SettingsPrivacyHubSubpage as ce, OsSettingsPowerwashDialogElement as cf, OsResetBrowserProxyImpl as cg, OsSettingsSanitizeDialogElement as ch, ResetSettingsCardElement as ci, listenOnce as cj, ABOUT_CHROME_OS_SECTION_PATH as ck, isAdvancedRoute as cl, NETWORK_SECTION_PATH as cm, BLUETOOTH_SECTION_PATH as cn, MULTI_DEVICE_SECTION_PATH as co, PEOPLE_SECTION_PATH as cp, KERBEROS_SECTION_PATH as cq, DEVICE_SECTION_PATH as cr, PERSONALIZATION_SECTION_PATH as cs, PRIVACY_AND_SECURITY_SECTION_PATH as ct, APPS_SECTION_PATH as cu, ACCESSIBILITY_SECTION_PATH as cv, SYSTEM_PREFERENCES_SECTION_PATH as cw, SEARCH_AND_ASSISTANT_SECTION_PATH as cx, DATE_AND_TIME_SECTION_PATH as cy, LANGUAGES_AND_INPUT_SECTION_PATH as cz, cast as d, ExtensionControlBrowserProxyImpl as d$, hasActiveCellularNetwork as d0, getESimProfile as d1, stringToMojoString16 as d2, NetworkConfigElementBehavior as d3, assertNotReached as d4, htmlEscape as d5, isConnectedToNonCellularNetwork as d6, getNumESimProfiles as d7, LockScreenUnlockType as d8, PhoneHubPermissionsSetupFlowScreens as d9, CrSearchFieldMixin as dA, SectionSpec as dB, SubpageSpec as dC, SettingSpec as dD, OpenWindowProxyImpl as dE, recordSearch as dF, CrContainerShadowMixin as dG, setGlobalScrollTarget as dH, recordPageFocus as dI, recordPageBlur as dJ, recordClick as dK, recordNavigation as dL, getPrefPolicyFields as dM, settingsAreEqual as dN, CustomizationRestriction as dO, SimulateRightClickModifier as dP, recordSavedDevicesUiEventMetrics as dQ, FastPairSavedDevicesUiEvent as dR, ColorChangeUpdater as dS, getContactManager as dT, observeContactManager as dU, setContactManagerForTesting as dV, NearbyProgressElement as dW, nearby_share_mojomWebui as dX, setNearbyShareSettingsForTesting as dY, DEFAULT_CHECKED_VALUE as dZ, DEFAULT_UNCHECKED_VALUE as d_, PhoneHubPermissionsSetupAction as da, PhoneHubPermissionsSetupFeatureCombination as db, getNearbyShareSettings as dc, observeNearbyShareSettings as dd, PhoneHubFeatureAccessStatus as de, OsBluetoothDevicesSubpageBrowserProxyImpl as df, ButtonState as dg, ButtonName as dh, DeviceItemState as di, PairingAuthType as dj, recordBluetoothUiSurfaceMetrics as dk, BluetoothUiSurface as dl, isAccountManagerEnabled as dm, AUTH_TOKEN_INVALID_EVENT_TYPE as dn, PrivacyHubNavigationOrigin as dp, isQuickAnswersSupported as dq, isAssistantAllowed as dr, shouldShowMultitasking as ds, isGuest as dt, isPowerwashAllowed as du, shouldShowStartup as dv, getTrustedScriptURL as dw, isAboutRoute as dx, AndroidAppsBrowserProxyImpl as dy, isBasicRoute as dz, equalContainerId as e, getReceiveManager as e$, ApnDetailDialog as e0, AppManagementFileHandlingItemElement as e1, AppManagementToggleRowElement as e2, LocalizedLinkElement as e3, SettingsPrefsElement as e4, CrSettingsPrefs as e5, CrCheckboxElement as e6, CrCardRadioButtonElement as e7, CrRadioButtonElement as e8, CrRadioGroupElement as e9, setDisplayApiForTesting as eA, StorageSpaceState as eB, fakeGraphicsTabletButtonActions as eC, fakeGraphicsTablets as eD, fakeKeyboards as eE, fakeKeyboards2 as eF, fakeMice as eG, fakeMice2 as eH, fakeMouseButtonActions as eI, fakePointingSticks as eJ, fakePointingSticks2 as eK, fakeStyluses as eL, fakeTouchpads as eM, fakeTouchpads2 as eN, setInputDeviceSettingsProviderForTesting as eO, setupFakeInputDeviceSettingsProvider as eP, Vkey as eQ, setUserActionRecorderForTesting as eR, app_notification_handler_mojomWebui as eS, app_permission_handler_mojomWebui as eT, setting_mojomWebui as eU, user_action_recorder_mojomWebui as eV, PhoneHubFeatureAccessProhibitedReason as eW, PhoneHubPermissionsSetupMode as eX, NearbyAccountManagerBrowserProxyImpl as eY, NearbyShareConfirmPageElement as eZ, NearbyShareHighVisibilityPageElement as e_, CrSearchFieldElement as ea, CrSearchableDropDownElement as eb, CrSliderElement as ec, CrTextareaElement as ed, CrToastElement as ee, CrPolicyIndicatorElement as ef, CrTooltipIconElement as eg, addApp$1 as eh, changeApp$1 as ei, removeApp$1 as ej, updateSelectedAppId$1 as ek, updateSubAppToParentAppId$1 as el, reduceAction as em, updateApps as en, AppManagementStore as eo, resetGlobalScrollTargetForTesting as ep, LacrosExtensionControlBrowserProxyImpl as eq, LacrosExtensionControlledIndicatorElement as er, ControlledButtonElement as es, ControlledRadioButtonElement as et, ExtensionControlledIndicatorElement as eu, SettingsDropdownMenuElement as ev, SettingsSliderElement as ew, IdleBehavior as ex, LidClosedBehavior as ey, NoteAppLockScreenSupport as ez, containerLabel as f, observeReceiveManager as f0, setReceiveManagerForTesting as f1, dataUsageStringToEnum as f2, NearbyShareDataUsage as f3, PluginVmBrowserProxyImpl as f4, setAppNotificationProviderForTesting as f5, OsSettingsAppsPageElement as f6, FastPairSavedDevicesOptInStatus as f7, GoogleDriveBrowserProxy as f8, PageCallbackRouter as f9, PageHandlerRemote as fa, PageRemote as fb, Stage as fc, ConfirmationDialogType as fd, PageCallbackRouter$2 as fe, PageHandlerRemote$2 as ff, PageRemote$2 as fg, MetricsConsentBrowserProxyImpl as fh, setAppPermissionProviderForTesting as fi, SettingsPrivacyHubAppPermissionRow as fj, SettingsPrivacyHubSystemServiceRow as fk, SettingsSearchEngineElement as fl, SearchEnginesBrowserProxyImpl as fm, SettingsCardElement as fn, createRouter as fo, Route as fp, SettingsGuestOsSharedUsbDevicesElement as g, castExists$1 as h, RouteOriginMixin as i, Router as j, isCrostiniSupported as k, isCrostiniAllowed as l, isRevampWayfindingEnabled as m, Section as n, browserChannelToI18nId as o, PrinterSetupResult as p, PrintServerResult as q, recordSettingChange as r, sanitizeInnerHtml$1 as s, CupsPrintersBrowserProxyImpl as t, focusWithoutInk as u, LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME as v, GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE as w, TimeZoneBrowserProxyImpl as x, isChild as y, I18nBehavior as z };
+export { assertInstanceof as $, AboutPageBrowserProxyImpl as A, getApnDisplayName as B, CrPolicyIndicatorType$1 as C, DeepLinkingMixin as D, assert as E, FocusRowMixin as F, GeolocationAccessLevel as G, ApnDetailDialogMode as H, I18nMixin as I, processDeviceState as J, getInstance as K, LifetimeBrowserProxyImpl as L, CrPolicyNetworkBehaviorMojo as M, NetworkListenerBehavior as N, OncMojo as O, PrefsMixin as P, FAKE_CREDENTIAL as Q, RouteObserverMixin as R, Setting as S, TERMINA_VM_TYPE as T, UpdateStatus as U, VM_DEVICE_MICROPHONE as V, WebUiListenerMixin as W, isActiveSim as X, InternetPageBrowserProxyImpl as Y, OsSyncBrowserProxyImpl as Z, assertExists$2 as _, assertNotReached$1 as a, FindShortcutMixin as a$, getESimProfileProperties as a0, mojoString16ToString as a1, CellularSetupPageName as a2, ESimManagerListenerMixin as a3, MultiDeviceBrowserProxyImpl as a4, getEuicc as a5, getSimSlotCount as a6, getPendingESimProfiles as a7, MultiDeviceFeatureState as a8, CrToggleElement as a9, CrDialogElement as aA, CrIconButtonElement as aB, CrActionMenuElement as aC, recordLockScreenProgress as aD, LockScreenProgress as aE, PluralStringProxyImpl as aF, SyncBrowserProxyImpl as aG, PageStatus as aH, StatusAction as aI, CrScrollableMixin as aJ, PrivacyHubBrowserProxyImpl as aK, getAppPermissionProvider as aL, MediaDevicesProxy as aM, AppPermissionsObserverReceiver as aN, isPermissionEnabled as aO, CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aP, PrivacyHubSensorSubpageUserAction as aQ, NUMBER_OF_POSSIBLE_USER_ACTIONS as aR, MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aS, AppLanguageSelectionDialogEntryPoint as aT, OneDriveBrowserProxy as aU, AppManagementStoreMixin as aV, getAppIcon as aW, AppManagementBrowserProxy as aX, alphabeticalSort as aY, GlobalScrollTargetMixin as aZ, OsSettingsSubpageElement as a_, BrowserProxy$1 as aa, getImage as ab, ChromeVoxSubpageBrowserProxyImpl as ac, assertExhaustive as ad, DevicePageBrowserProxyImpl as ae, SettingsToggleButtonElement as af, SelectToSpeakSubpageBrowserProxyImpl as ag, LanguagesBrowserProxyImpl as ah, SwitchAccessSubpageBrowserProxyImpl as ai, TextToSpeechSubpageBrowserProxyImpl as aj, TtsVoiceSubpageBrowserProxyImpl as ak, BrowserChannel as al, isTargetChannelMoreStable as am, DeviceNameBrowserProxyImpl as an, SetDeviceNameResult as ao, DeviceNameState as ap, AccountManagerBrowserProxyImpl as aq, ParentalControlsBrowserProxyImpl as ar, assertInstanceof$1 as as, fireAuthTokenInvalidEvent as at, LockStateMixin as au, MultiDeviceFeatureMixin as av, MultiDeviceFeature as aw, MultiDeviceSettingsMode as ax, CrInputElement as ay, CrButtonElement as az, routes as b, AppNotificationRowElement as b$, ACCESSIBILITY_COMMON_IME_ID as b0, IronA11yKeysBehavior as b1, PrivacyPageBrowserProxyImpl as b2, SecureDnsMode as b3, SecureDnsUiManagementMode as b4, StaticShortcutAction as b5, EventTracker as b6, getInputDeviceSettingsProvider as b7, FakeInputDeviceSettingsProvider as b8, ButtonPressObserverReceiver as b9, SettingsMultideviceFeatureToggleElement as bA, SettingsMultideviceSubpageElement as bB, SettingsMultideviceTaskContinuationDisabledLinkElement as bC, SettingsMultideviceTaskContinuationItemElement as bD, SettingsMultideviceWifiSyncDisabledLinkElement as bE, NearbyShareReceiveDialogElement as bF, SettingsNearbyShareSubpageElement as bG, SettingsAndroidAppsSubpageElement as bH, AppManagementAppDetailViewElement as bI, AppManagementAppDetailsItem as bJ, AppManagementAppItemElement as bK, SettingsAppManagementPageElement as bL, AppManagementArcDetailViewElement as bM, AppManagementBorealisDetailViewElement as bN, AppManagementChromeAppDetailViewElement as bO, AppManagementDomSwitchElement as bP, AppManagementMainViewElement as bQ, AppManagementPermissionHeadingElement as bR, AppManagementPermissionItemElement as bS, AppManagementPinToShelfItemElement as bT, AppManagementPluginVmDetailViewElement as bU, AppManagementPwaDetailViewElement as bV, AppManagementResizeLockItemElement as bW, AppManagementSubAppsItemElement as bX, AppManagementSupportedLinksItemElement as bY, AppManagementSupportedLinksOverlappingAppsDialogElement as bZ, AppManagementUninstallButtonElement as b_, buttonsAreEqual as ba, getShortcutInputProvider as bb, keyEventsAreEqual as bc, AudioAndCaptionsPageBrowserProxyImpl as bd, SmbBrowserProxyImpl as be, SmbMountResult as bf, AppLanguageSelectionDialogElement as bg, AppLanguageSelectionItemElement as bh, SettingsRadioGroupElement as bi, DateTimeSettingsCardElement as bj, TimezoneSelectorElement as bk, SettingsCustomizeMouseButtonsSubpageElement as bl, SettingsCustomizePenButtonsSubpageElement as bm, SettingsCustomizeTabletButtonsSubpageElement as bn, SettingsKeyboardElement as bo, SettingsPointersElement as bp, SettingsPowerElement as bq, SettingsStorageElement as br, SettingsStylusElement as bs, CROSTINI_TYPE as bt, GuestOsBrowserProxyImpl as bu, PLUGIN_VM_TYPE as bv, ContainerSelectElement as bw, SettingsGuestOsSharedPathsElement as bx, SettingsMultideviceCombinedSetupItemElement as by, SettingsMultideviceFeatureItemElement as bz, assert$1 as c, GraphicsTabletSettingsObserverReceiver as c$, SettingsAppNotificationsManagerSubpage as c0, AppNotificationsSubpage as c1, SettingsBluetoothChangeDeviceNameDialogElement as c2, SettingsBluetoothDeviceDetailSubpageElement as c3, SettingsBluetoothDevicesSubpageElement as c4, SettingsBluetoothSavedDevicesSubpageElement as c5, SettingsBluetoothTrueWirelessImagesElement as c6, SettingsPairedBluetoothListElement as c7, SettingsPairedBluetoothListItemElement as c8, SettingsSavedDevicesListElement as c9, DATE_AND_TIME_SECTION_PATH as cA, LANGUAGES_AND_INPUT_SECTION_PATH as cB, FILES_SECTION_PATH as cC, PRINTING_SECTION_PATH as cD, CROSTINI_SECTION_PATH as cE, RESET_SECTION_PATH as cF, getDeviceName as cG, KeyboardSettingsObserverReceiver as cH, MouseSettingsObserverReceiver as cI, PointingStickSettingsObserverReceiver as cJ, TouchpadSettingsObserverReceiver as cK, routesMojom as cL, getDisplayApi as cM, IronResizableBehavior as cN, PaperRippleMixin as cO, getDeviceStateChangesToAnnounce as cP, CrLinkRowElement as cQ, Fkey as cR, ExtendedFkeysModifier as cS, TopRowActionKey as cT, MetaKey as cU, ModifierKey$1 as cV, SixPackShortcutModifier as cW, SixPackKey as cX, PolicyStatus as cY, isInputDeviceSettingsSplitEnabled as cZ, isExternalStorageEnabled as c_, FilesSettingsCardElement as ca, SettingsGoogleDriveSubpageElement as cb, LanguageSettingsCardElement as cc, SettingsLanguagesElement as cd, PrintingSettingsCardElement as ce, SettingsPrivacyHubGeolocationSubpage as cf, SettingsPrivacyHubSubpage as cg, OsSettingsPowerwashDialogElement as ch, OsResetBrowserProxyImpl as ci, OsSettingsSanitizeDialogElement as cj, ResetSettingsCardElement as ck, listenOnce as cl, ABOUT_CHROME_OS_SECTION_PATH as cm, isAdvancedRoute as cn, NETWORK_SECTION_PATH as co, BLUETOOTH_SECTION_PATH as cp, MULTI_DEVICE_SECTION_PATH as cq, PEOPLE_SECTION_PATH as cr, KERBEROS_SECTION_PATH as cs, DEVICE_SECTION_PATH as ct, PERSONALIZATION_SECTION_PATH as cu, PRIVACY_AND_SECURITY_SECTION_PATH as cv, APPS_SECTION_PATH as cw, ACCESSIBILITY_SECTION_PATH as cx, SYSTEM_PREFERENCES_SECTION_PATH as cy, SEARCH_AND_ASSISTANT_SECTION_PATH as cz, cast as d, DEFAULT_UNCHECKED_VALUE as d$, Button as d0, ButtonState$1 as d1, hasActiveCellularNetwork as d2, getESimProfile as d3, stringToMojoString16 as d4, NetworkConfigElementBehavior as d5, assertNotReached as d6, htmlEscape as d7, isConnectedToNonCellularNetwork as d8, getNumESimProfiles as d9, AndroidAppsBrowserProxyImpl as dA, isBasicRoute as dB, CrSearchFieldMixin as dC, SectionSpec as dD, SubpageSpec as dE, SettingSpec as dF, OpenWindowProxyImpl as dG, recordSearch as dH, setGlobalScrollTarget as dI, recordPageFocus as dJ, recordPageBlur as dK, recordClick as dL, recordNavigation as dM, getPrefPolicyFields as dN, settingsAreEqual as dO, CustomizationRestriction as dP, SimulateRightClickModifier as dQ, recordSavedDevicesUiEventMetrics as dR, FastPairSavedDevicesUiEvent as dS, ColorChangeUpdater as dT, getContactManager as dU, observeContactManager as dV, setContactManagerForTesting as dW, NearbyProgressElement as dX, nearby_share_mojomWebui as dY, setNearbyShareSettingsForTesting as dZ, DEFAULT_CHECKED_VALUE as d_, LockScreenUnlockType as da, PhoneHubPermissionsSetupFlowScreens as db, PhoneHubPermissionsSetupAction as dc, PhoneHubPermissionsSetupFeatureCombination as dd, getNearbyShareSettings as de, observeNearbyShareSettings as df, PhoneHubFeatureAccessStatus as dg, OsBluetoothDevicesSubpageBrowserProxyImpl as dh, ButtonState as di, ButtonName as dj, DeviceItemState as dk, PairingAuthType as dl, recordBluetoothUiSurfaceMetrics as dm, BluetoothUiSurface as dn, isAccountManagerEnabled as dp, AUTH_TOKEN_INVALID_EVENT_TYPE as dq, PrivacyHubNavigationOrigin as dr, isQuickAnswersSupported as ds, isAssistantAllowed as dt, shouldShowMultitasking as du, isGuest as dv, isPowerwashAllowed as dw, shouldShowStartup as dx, getTrustedScriptURL as dy, isAboutRoute as dz, equalContainerId as e, observeReceiveManager as e$, ExtensionControlBrowserProxyImpl as e0, ApnDetailDialog as e1, LocalizedLinkElement as e2, SettingsPrefsElement as e3, CrSettingsPrefs as e4, CrCheckboxElement as e5, CrCardRadioButtonElement as e6, CrRadioButtonElement as e7, CrRadioGroupElement as e8, CrSearchFieldElement as e9, StorageSpaceState as eA, fakeGraphicsTabletButtonActions as eB, fakeGraphicsTablets as eC, fakeKeyboards as eD, fakeKeyboards2 as eE, fakeMice as eF, fakeMice2 as eG, fakeMouseButtonActions as eH, fakePointingSticks as eI, fakePointingSticks2 as eJ, fakeStyluses as eK, fakeTouchpads as eL, fakeTouchpads2 as eM, setInputDeviceSettingsProviderForTesting as eN, setupFakeInputDeviceSettingsProvider as eO, Vkey as eP, setUserActionRecorderForTesting as eQ, app_notification_handler_mojomWebui as eR, app_permission_handler_mojomWebui as eS, setting_mojomWebui as eT, user_action_recorder_mojomWebui as eU, PhoneHubFeatureAccessProhibitedReason as eV, PhoneHubPermissionsSetupMode as eW, NearbyAccountManagerBrowserProxyImpl as eX, NearbyShareConfirmPageElement as eY, NearbyShareHighVisibilityPageElement as eZ, getReceiveManager as e_, CrSearchableDropDownElement as ea, CrSliderElement as eb, CrTextareaElement as ec, CrToastElement as ed, CrPolicyIndicatorElement as ee, CrTooltipIconElement as ef, addApp$1 as eg, changeApp$1 as eh, removeApp$1 as ei, updateSelectedAppId$1 as ej, updateSubAppToParentAppId$1 as ek, reduceAction as el, updateApps as em, AppManagementStore as en, resetGlobalScrollTargetForTesting as eo, LacrosExtensionControlBrowserProxyImpl as ep, LacrosExtensionControlledIndicatorElement as eq, ControlledButtonElement as er, ControlledRadioButtonElement as es, ExtensionControlledIndicatorElement as et, SettingsDropdownMenuElement as eu, SettingsSliderElement as ev, IdleBehavior as ew, LidClosedBehavior as ex, NoteAppLockScreenSupport as ey, setDisplayApiForTesting as ez, containerLabel as f, setReceiveManagerForTesting as f0, dataUsageStringToEnum as f1, NearbyShareDataUsage as f2, AppManagementFileHandlingItemElement as f3, PluginVmBrowserProxyImpl as f4, AppManagementToggleRowElement as f5, setAppNotificationProviderForTesting as f6, OsSettingsAppsPageElement as f7, FastPairSavedDevicesOptInStatus as f8, GoogleDriveBrowserProxy as f9, PageCallbackRouter as fa, PageHandlerRemote as fb, PageRemote as fc, Stage as fd, ConfirmationDialogType as fe, PageCallbackRouter$2 as ff, PageHandlerRemote$2 as fg, PageRemote$2 as fh, MetricsConsentBrowserProxyImpl as fi, setAppPermissionProviderForTesting as fj, SettingsPrivacyHubAppPermissionRow as fk, SettingsPrivacyHubSystemServiceRow as fl, SettingsSearchEngineElement as fm, SearchEnginesBrowserProxyImpl as fn, SettingsCardElement as fo, createRouter as fp, Route as fq, SettingsGuestOsSharedUsbDevicesElement as g, castExists$1 as h, RouteOriginMixin as i, Router as j, isCrostiniSupported as k, isCrostiniAllowed as l, isRevampWayfindingEnabled as m, Section as n, browserChannelToI18nId as o, PrinterSetupResult as p, PrintServerResult as q, recordSettingChange as r, sanitizeInnerHtml$1 as s, CupsPrintersBrowserProxyImpl as t, focusWithoutInk as u, LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME as v, GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE as w, TimeZoneBrowserProxyImpl as x, isChild as y, I18nBehavior as z };
 //# sourceMappingURL=shared.rollup.js.map

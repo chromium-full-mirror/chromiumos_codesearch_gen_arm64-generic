@@ -34,7 +34,7 @@ class  IndexedDBObserverAsyncWaiter {
 
 class  IndexedDBControlInterceptorForTesting : public IndexedDBControl {
   virtual IndexedDBControl* GetForwardingInterface() = 0;
-  void BindIndexedDB(const ::storage::BucketLocator& bucket_locator, ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> client_state_checker_remote, ::mojo::PendingReceiver<::blink::mojom::IDBFactory> receiver) override;
+  void BindIndexedDB(const ::storage::BucketLocator& bucket_locator, ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> client_state_checker_remote, const ::base::UnguessableToken& client_token, ::mojo::PendingReceiver<::blink::mojom::IDBFactory> receiver) override;
   void DeleteForStorageKey(const ::blink::StorageKey& storage_key, DeleteForStorageKeyCallback callback) override;
   void ForceClose(::storage::BucketId bucket_id, ForceCloseReason reason, ForceCloseCallback callback) override;
   void DownloadBucketData(::storage::BucketId bucket_id, DownloadBucketDataCallback callback) override;

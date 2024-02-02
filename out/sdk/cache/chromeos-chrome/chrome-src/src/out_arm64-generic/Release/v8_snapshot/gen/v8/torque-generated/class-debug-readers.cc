@@ -2442,18 +2442,8 @@ Value<uintptr_t> TqBytecodeArray::GetLengthValue(d::MemoryAccessor accessor) con
   return {validity, EnsureDecompressed(value, address_)};
 }
 
-uintptr_t TqBytecodeArray::GetConstantPoolAddress() const {
-  return address_ - i::kHeapObjectTag + 12;
-}
-
-Value<uintptr_t> TqBytecodeArray::GetConstantPoolValue(d::MemoryAccessor accessor) const {
-  i::Tagged_t value{};
-  d::MemoryAccessResult validity = accessor(GetConstantPoolAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
-  return {validity, EnsureDecompressed(value, address_)};
-}
-
 uintptr_t TqBytecodeArray::GetWrapperAddress() const {
-  return address_ - i::kHeapObjectTag + 16;
+  return address_ - i::kHeapObjectTag + 12;
 }
 
 Value<uintptr_t> TqBytecodeArray::GetWrapperValue(d::MemoryAccessor accessor) const {
@@ -2463,7 +2453,7 @@ Value<uintptr_t> TqBytecodeArray::GetWrapperValue(d::MemoryAccessor accessor) co
 }
 
 uintptr_t TqBytecodeArray::GetSourcePositionTableAddress() const {
-  return address_ - i::kHeapObjectTag + 20;
+  return address_ - i::kHeapObjectTag + 16;
 }
 
 Value<uintptr_t> TqBytecodeArray::GetSourcePositionTableValue(d::MemoryAccessor accessor) const {
@@ -2473,12 +2463,22 @@ Value<uintptr_t> TqBytecodeArray::GetSourcePositionTableValue(d::MemoryAccessor 
 }
 
 uintptr_t TqBytecodeArray::GetHandlerTableAddress() const {
-  return address_ - i::kHeapObjectTag + 24;
+  return address_ - i::kHeapObjectTag + 20;
 }
 
 Value<uintptr_t> TqBytecodeArray::GetHandlerTableValue(d::MemoryAccessor accessor) const {
   i::Tagged_t value{};
   d::MemoryAccessResult validity = accessor(GetHandlerTableAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
+  return {validity, EnsureDecompressed(value, address_)};
+}
+
+uintptr_t TqBytecodeArray::GetConstantPoolAddress() const {
+  return address_ - i::kHeapObjectTag + 24;
+}
+
+Value<uintptr_t> TqBytecodeArray::GetConstantPoolValue(d::MemoryAccessor accessor) const {
+  i::Tagged_t value{};
+  d::MemoryAccessResult validity = accessor(GetConstantPoolAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
   return {validity, EnsureDecompressed(value, address_)};
 }
 
@@ -2526,14 +2526,14 @@ std::vector<std::unique_ptr<ObjectProperty>> TqBytecodeArray::GetProperties(d::M
   std::vector<std::unique_ptr<ObjectProperty>> result = TqExposedTrustedObject::GetProperties(accessor);
   std::vector<std::unique_ptr<StructProperty>> length_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("length", "v8::internal::TaggedMember<v8::internal::Object>", GetLengthAddress(), 1, 4, std::move(length_struct_field_list), d::PropertyKind::kSingle));
-  std::vector<std::unique_ptr<StructProperty>> constant_pool_struct_field_list;
-  result.push_back(std::make_unique<ObjectProperty>("constant_pool", "v8::internal::TaggedMember<v8::internal::FixedArray>", GetConstantPoolAddress(), 1, 4, std::move(constant_pool_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> wrapper_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("wrapper", "v8::internal::TaggedMember<v8::internal::BytecodeWrapper>", GetWrapperAddress(), 1, 4, std::move(wrapper_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> source_position_table_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("source_position_table", "v8::internal::TaggedMember<v8::internal::HeapObject>", GetSourcePositionTableAddress(), 1, 4, std::move(source_position_table_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> handler_table_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("handler_table", "v8::internal::TaggedMember<v8::internal::Object>", GetHandlerTableAddress(), 1, 4, std::move(handler_table_struct_field_list), d::PropertyKind::kSingle));
+  std::vector<std::unique_ptr<StructProperty>> constant_pool_struct_field_list;
+  result.push_back(std::make_unique<ObjectProperty>("constant_pool", "v8::internal::TaggedMember<v8::internal::Object>", GetConstantPoolAddress(), 1, 4, std::move(constant_pool_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> frame_size_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("frame_size", CheckTypeName<int32_t /*Failing? Ensure constexpr type name is correct, and the necessary #include is in any .tq file*/>("int32_t"), GetFrameSizeAddress(), 1, 4, std::move(frame_size_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> parameter_size_struct_field_list;
@@ -3823,6 +3823,50 @@ std::vector<std::unique_ptr<ObjectProperty>> TqTrustedFixedArray::GetProperties(
   result.push_back(std::make_unique<ObjectProperty>("length", "v8::internal::TaggedMember<v8::internal::Object>", GetLengthAddress(), 1, 4, std::move(length_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> objects_struct_field_list;
   auto indexed_field_slice_objects = TqDebugFieldSliceTrustedFixedArrayObjects(accessor, address_);
+  if (indexed_field_slice_objects.validity == d::MemoryAccessResult::kOk) {
+    result.push_back(std::make_unique<ObjectProperty>("objects", "v8::internal::TaggedMember<v8::internal::Object>", address_ - i::kHeapObjectTag + std::get<1>(indexed_field_slice_objects.value), std::get<2>(indexed_field_slice_objects.value), 4, std::move(objects_struct_field_list), GetArrayKind(indexed_field_slice_objects.validity)));
+  }
+  return result;
+}
+
+const char* TqProtectedFixedArray::GetName() const {
+  return "v8::internal::ProtectedFixedArray";
+}
+
+void TqProtectedFixedArray::Visit(TqObjectVisitor* visitor) const {
+  visitor->VisitProtectedFixedArray(this);
+}
+
+bool TqProtectedFixedArray::IsSuperclassOf(const TqObject* other) const {
+  return GetName() != other->GetName() && dynamic_cast<const TqProtectedFixedArray*>(other) != nullptr;
+}
+
+uintptr_t TqProtectedFixedArray::GetLengthAddress() const {
+  return address_ - i::kHeapObjectTag + 4;
+}
+
+Value<uintptr_t> TqProtectedFixedArray::GetLengthValue(d::MemoryAccessor accessor) const {
+  i::Tagged_t value{};
+  d::MemoryAccessResult validity = accessor(GetLengthAddress(), reinterpret_cast<uint8_t*>(&value), sizeof(value));
+  return {validity, EnsureDecompressed(value, address_)};
+}
+
+uintptr_t TqProtectedFixedArray::GetObjectsAddress() const {
+  return address_ - i::kHeapObjectTag + 8;
+}
+
+Value<uintptr_t> TqProtectedFixedArray::GetObjectsValue(d::MemoryAccessor accessor, size_t offset) const {
+  i::Tagged_t value{};
+  d::MemoryAccessResult validity = accessor(GetObjectsAddress() + offset * sizeof(value), reinterpret_cast<uint8_t*>(&value), sizeof(value));
+  return {validity, EnsureDecompressed(value, address_)};
+}
+
+std::vector<std::unique_ptr<ObjectProperty>> TqProtectedFixedArray::GetProperties(d::MemoryAccessor accessor) const {
+  std::vector<std::unique_ptr<ObjectProperty>> result = TqTrustedObject::GetProperties(accessor);
+  std::vector<std::unique_ptr<StructProperty>> length_struct_field_list;
+  result.push_back(std::make_unique<ObjectProperty>("length", "v8::internal::TaggedMember<v8::internal::Object>", GetLengthAddress(), 1, 4, std::move(length_struct_field_list), d::PropertyKind::kSingle));
+  std::vector<std::unique_ptr<StructProperty>> objects_struct_field_list;
+  auto indexed_field_slice_objects = TqDebugFieldSliceProtectedFixedArrayObjects(accessor, address_);
   if (indexed_field_slice_objects.validity == d::MemoryAccessResult::kOk) {
     result.push_back(std::make_unique<ObjectProperty>("objects", "v8::internal::TaggedMember<v8::internal::Object>", address_ - i::kHeapObjectTag + std::get<1>(indexed_field_slice_objects.value), std::get<2>(indexed_field_slice_objects.value), 4, std::move(objects_struct_field_list), GetArrayKind(indexed_field_slice_objects.validity)));
   }

@@ -21,6 +21,15 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+
+};
+
+
+}  // namespace 
+
 GPUCommandEncoderDescriptor* GPUCommandEncoderDescriptor::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   GPUCommandEncoderDescriptor* dictionary = MakeGarbageCollected<GPUCommandEncoderDescriptor>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -53,12 +62,27 @@ void GPUCommandEncoderDescriptor::Trace(Visitor* visitor) const {
   GPUObjectDescriptorBase::Trace(visitor);
 }
 
-bool GPUCommandEncoderDescriptor::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!GPUObjectDescriptorBase::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void GPUCommandEncoderDescriptor::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  GPUObjectDescriptorBase::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
 }
 
-return true;
+void GPUCommandEncoderDescriptor::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  GPUObjectDescriptorBase::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
+}
+
+const void* GPUCommandEncoderDescriptor::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> GPUCommandEncoderDescriptor::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void GPUCommandEncoderDescriptor::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {

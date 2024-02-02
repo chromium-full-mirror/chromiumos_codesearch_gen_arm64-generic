@@ -25,6 +25,50 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"aspectRatio",
+"autoGainControl",
+"backgroundBlur",
+"brightness",
+"channelCount",
+"colorTemperature",
+"contrast",
+"deviceId",
+"displaySurface",
+"echoCancellation",
+"exposureCompensation",
+"exposureMode",
+"exposureTime",
+"eyeGazeCorrection",
+"faceFraming",
+"facingMode",
+"focusDistance",
+"focusMode",
+"frameRate",
+"groupId",
+"height",
+"iso",
+"latency",
+"noiseSuppression",
+"pan",
+"resizeMode",
+"sampleRate",
+"sampleSize",
+"saturation",
+"sharpness",
+"tilt",
+"torch",
+"voiceIsolation",
+"whiteBalanceMode",
+"width",
+"zoom",
+};
+
+
+}  // namespace 
+
 MediaTrackCapabilities* MediaTrackCapabilities::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   MediaTrackCapabilities* dictionary = MakeGarbageCollected<MediaTrackCapabilities>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -644,167 +688,181 @@ TraceIfNeeded<Member<MediaSettingsRange>>::Trace(visitor, member_zoom_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool MediaTrackCapabilities::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void MediaTrackCapabilities::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void MediaTrackCapabilities::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasAspectRatio()) {
-  v8_value = ToV8Traits<DoubleRange>::ToV8(script_state, member_aspect_ratio_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<DoubleRange>::ToV8(script_state, member_aspect_ratio_.Get());
+DCHECK(!values[0].IsEmpty());
 }
 if (hasAutoGainControl()) {
-  v8_value = ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_auto_gain_control_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_auto_gain_control_);
+DCHECK(!values[1].IsEmpty());
 }
+v8::Isolate* isolate = script_state->GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ExecutionContext* execution_context = ExecutionContext::From(current_context);
 if (RuntimeEnabledFeatures::MediaCaptureBackgroundBlurEnabled(execution_context)) {
   if (hasBackgroundBlur()) {
-  v8_value = ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_background_blur_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_background_blur_);
+DCHECK(!values[2].IsEmpty());
 }
 }
 if (hasBrightness()) {
-  v8_value = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_brightness_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_brightness_.Get());
+DCHECK(!values[3].IsEmpty());
 }
 if (hasChannelCount()) {
-  v8_value = ToV8Traits<LongRange>::ToV8(script_state, member_channel_count_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<LongRange>::ToV8(script_state, member_channel_count_.Get());
+DCHECK(!values[4].IsEmpty());
 }
 if (hasColorTemperature()) {
-  v8_value = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_color_temperature_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_color_temperature_.Get());
+DCHECK(!values[5].IsEmpty());
 }
 if (hasContrast()) {
-  v8_value = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_contrast_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_contrast_.Get());
+DCHECK(!values[6].IsEmpty());
 }
 if (hasDeviceId()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_device_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLString>::ToV8(script_state, member_device_id_);
+DCHECK(!values[7].IsEmpty());
 }
 if (RuntimeEnabledFeatures::GetDisplayMediaEnabled()) {
   if (hasDisplaySurface()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_display_surface_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<IDLString>::ToV8(script_state, member_display_surface_);
+DCHECK(!values[8].IsEmpty());
 }
 }
 if (hasEchoCancellation()) {
-  v8_value = ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_echo_cancellation_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_echo_cancellation_);
+DCHECK(!values[9].IsEmpty());
 }
 if (hasExposureCompensation()) {
-  v8_value = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_exposure_compensation_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
+  values[10] = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_exposure_compensation_.Get());
+DCHECK(!values[10].IsEmpty());
 }
 if (hasExposureMode()) {
-  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_exposure_mode_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[11].Get(isolate), v8_value).ToChecked();
+  values[11] = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_exposure_mode_);
+DCHECK(!values[11].IsEmpty());
 }
 if (hasExposureTime()) {
-  v8_value = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_exposure_time_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[12].Get(isolate), v8_value).ToChecked();
+  values[12] = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_exposure_time_.Get());
+DCHECK(!values[12].IsEmpty());
 }
 if (RuntimeEnabledFeatures::MediaCaptureCameraControlsEnabled()) {
   if (hasEyeGazeCorrection()) {
-  v8_value = ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_eye_gaze_correction_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[13].Get(isolate), v8_value).ToChecked();
+  values[13] = ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_eye_gaze_correction_);
+DCHECK(!values[13].IsEmpty());
 }
 }
 if (RuntimeEnabledFeatures::MediaCaptureCameraControlsEnabled()) {
   if (hasFaceFraming()) {
-  v8_value = ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_face_framing_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[14].Get(isolate), v8_value).ToChecked();
+  values[14] = ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_face_framing_);
+DCHECK(!values[14].IsEmpty());
 }
 }
 if (hasFacingMode()) {
-  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_facing_mode_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[15].Get(isolate), v8_value).ToChecked();
+  values[15] = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_facing_mode_);
+DCHECK(!values[15].IsEmpty());
 }
 if (hasFocusDistance()) {
-  v8_value = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_focus_distance_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[16].Get(isolate), v8_value).ToChecked();
+  values[16] = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_focus_distance_.Get());
+DCHECK(!values[16].IsEmpty());
 }
 if (hasFocusMode()) {
-  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_focus_mode_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[17].Get(isolate), v8_value).ToChecked();
+  values[17] = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_focus_mode_);
+DCHECK(!values[17].IsEmpty());
 }
 if (hasFrameRate()) {
-  v8_value = ToV8Traits<DoubleRange>::ToV8(script_state, member_frame_rate_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[18].Get(isolate), v8_value).ToChecked();
+  values[18] = ToV8Traits<DoubleRange>::ToV8(script_state, member_frame_rate_.Get());
+DCHECK(!values[18].IsEmpty());
 }
 if (hasGroupId()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_group_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[19].Get(isolate), v8_value).ToChecked();
+  values[19] = ToV8Traits<IDLString>::ToV8(script_state, member_group_id_);
+DCHECK(!values[19].IsEmpty());
 }
 if (hasHeight()) {
-  v8_value = ToV8Traits<LongRange>::ToV8(script_state, member_height_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[20].Get(isolate), v8_value).ToChecked();
+  values[20] = ToV8Traits<LongRange>::ToV8(script_state, member_height_.Get());
+DCHECK(!values[20].IsEmpty());
 }
 if (hasIso()) {
-  v8_value = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_iso_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[21].Get(isolate), v8_value).ToChecked();
+  values[21] = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_iso_.Get());
+DCHECK(!values[21].IsEmpty());
 }
 if (hasLatency()) {
-  v8_value = ToV8Traits<DoubleRange>::ToV8(script_state, member_latency_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[22].Get(isolate), v8_value).ToChecked();
+  values[22] = ToV8Traits<DoubleRange>::ToV8(script_state, member_latency_.Get());
+DCHECK(!values[22].IsEmpty());
 }
 if (hasNoiseSuppression()) {
-  v8_value = ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_noise_suppression_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[23].Get(isolate), v8_value).ToChecked();
+  values[23] = ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_noise_suppression_);
+DCHECK(!values[23].IsEmpty());
 }
 if (hasPan()) {
-  v8_value = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_pan_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[24].Get(isolate), v8_value).ToChecked();
+  values[24] = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_pan_.Get());
+DCHECK(!values[24].IsEmpty());
 }
 if (hasResizeMode()) {
-  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_resize_mode_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[25].Get(isolate), v8_value).ToChecked();
+  values[25] = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_resize_mode_);
+DCHECK(!values[25].IsEmpty());
 }
 if (hasSampleRate()) {
-  v8_value = ToV8Traits<LongRange>::ToV8(script_state, member_sample_rate_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[26].Get(isolate), v8_value).ToChecked();
+  values[26] = ToV8Traits<LongRange>::ToV8(script_state, member_sample_rate_.Get());
+DCHECK(!values[26].IsEmpty());
 }
 if (hasSampleSize()) {
-  v8_value = ToV8Traits<LongRange>::ToV8(script_state, member_sample_size_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[27].Get(isolate), v8_value).ToChecked();
+  values[27] = ToV8Traits<LongRange>::ToV8(script_state, member_sample_size_.Get());
+DCHECK(!values[27].IsEmpty());
 }
 if (hasSaturation()) {
-  v8_value = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_saturation_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[28].Get(isolate), v8_value).ToChecked();
+  values[28] = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_saturation_.Get());
+DCHECK(!values[28].IsEmpty());
 }
 if (hasSharpness()) {
-  v8_value = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_sharpness_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[29].Get(isolate), v8_value).ToChecked();
+  values[29] = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_sharpness_.Get());
+DCHECK(!values[29].IsEmpty());
 }
 if (hasTilt()) {
-  v8_value = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_tilt_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[30].Get(isolate), v8_value).ToChecked();
+  values[30] = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_tilt_.Get());
+DCHECK(!values[30].IsEmpty());
 }
 if (hasTorch()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_torch_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[31].Get(isolate), v8_value).ToChecked();
+  values[31] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_torch_);
+DCHECK(!values[31].IsEmpty());
 }
 if (RuntimeEnabledFeatures::MediaCaptureVoiceIsolationEnabled()) {
   if (hasVoiceIsolation()) {
-  v8_value = ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_voice_isolation_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[32].Get(isolate), v8_value).ToChecked();
+  values[32] = ToV8Traits<IDLSequence<IDLBoolean>>::ToV8(script_state, member_voice_isolation_);
+DCHECK(!values[32].IsEmpty());
 }
 }
 if (hasWhiteBalanceMode()) {
-  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_white_balance_mode_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[33].Get(isolate), v8_value).ToChecked();
+  values[33] = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_white_balance_mode_);
+DCHECK(!values[33].IsEmpty());
 }
 if (hasWidth()) {
-  v8_value = ToV8Traits<LongRange>::ToV8(script_state, member_width_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[34].Get(isolate), v8_value).ToChecked();
+  values[34] = ToV8Traits<LongRange>::ToV8(script_state, member_width_.Get());
+DCHECK(!values[34].IsEmpty());
 }
 if (hasZoom()) {
-  v8_value = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_zoom_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[35].Get(isolate), v8_value).ToChecked();
+  values[35] = ToV8Traits<MediaSettingsRange>::ToV8(script_state, member_zoom_.Get());
+DCHECK(!values[35].IsEmpty());
 }
-return true;
+}
+
+const void* MediaTrackCapabilities::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> MediaTrackCapabilities::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void MediaTrackCapabilities::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -972,45 +1030,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<MediaSettingsRange, is_optional>(
 }
 
 const base::span<const v8::Eternal<v8::Name>> MediaTrackCapabilities::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"aspectRatio",
-"autoGainControl",
-"backgroundBlur",
-"brightness",
-"channelCount",
-"colorTemperature",
-"contrast",
-"deviceId",
-"displaySurface",
-"echoCancellation",
-"exposureCompensation",
-"exposureMode",
-"exposureTime",
-"eyeGazeCorrection",
-"faceFraming",
-"facingMode",
-"focusDistance",
-"focusMode",
-"frameRate",
-"groupId",
-"height",
-"iso",
-"latency",
-"noiseSuppression",
-"pan",
-"resizeMode",
-"sampleRate",
-"sampleSize",
-"saturation",
-"sharpness",
-"tilt",
-"torch",
-"voiceIsolation",
-"whiteBalanceMode",
-"width",
-"zoom",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

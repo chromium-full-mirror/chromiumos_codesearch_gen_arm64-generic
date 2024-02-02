@@ -481,6 +481,297 @@ class  OnDeviceModelRequestValidator : public mojo::MessageReceiver {
 
 
 
+class  LanguageDetectionResult {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<LanguageDetectionResult, T>::value>;
+  using DataView = LanguageDetectionResultDataView;
+  using Data_ = internal::LanguageDetectionResult_Data;
+
+  template <typename... Args>
+  static LanguageDetectionResultPtr New(Args&&... args) {
+    return LanguageDetectionResultPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static LanguageDetectionResultPtr From(const U& u) {
+    return mojo::TypeConverter<LanguageDetectionResultPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, LanguageDetectionResult>::Convert(*this);
+  }
+
+
+  LanguageDetectionResult();
+
+  LanguageDetectionResult(
+      const std::string& code,
+      float reliability);
+
+
+  ~LanguageDetectionResult();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = LanguageDetectionResultPtr>
+  LanguageDetectionResultPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, LanguageDetectionResult::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, LanguageDetectionResult::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, LanguageDetectionResult::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        LanguageDetectionResult::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        LanguageDetectionResult::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::LanguageDetectionResult_UnserializedMessageContext<
+            UserType, LanguageDetectionResult::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<LanguageDetectionResult::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return LanguageDetectionResult::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::LanguageDetectionResult_UnserializedMessageContext<
+            UserType, LanguageDetectionResult::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<LanguageDetectionResult::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string code;
+  
+  float reliability;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, LanguageDetectionResult::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, LanguageDetectionResult::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, LanguageDetectionResult::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, LanguageDetectionResult::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+class  SafetyInfo {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<SafetyInfo, T>::value>;
+  using DataView = SafetyInfoDataView;
+  using Data_ = internal::SafetyInfo_Data;
+
+  template <typename... Args>
+  static SafetyInfoPtr New(Args&&... args) {
+    return SafetyInfoPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SafetyInfoPtr From(const U& u) {
+    return mojo::TypeConverter<SafetyInfoPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, SafetyInfo>::Convert(*this);
+  }
+
+
+  SafetyInfo();
+
+  SafetyInfo(
+      std::vector<float> class_scores,
+      LanguageDetectionResultPtr language);
+
+SafetyInfo(const SafetyInfo&) = delete;
+SafetyInfo& operator=(const SafetyInfo&) = delete;
+
+  ~SafetyInfo();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SafetyInfoPtr>
+  SafetyInfoPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, SafetyInfo::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, SafetyInfo::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, SafetyInfo::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        SafetyInfo::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        SafetyInfo::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::SafetyInfo_UnserializedMessageContext<
+            UserType, SafetyInfo::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<SafetyInfo::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return SafetyInfo::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::SafetyInfo_UnserializedMessageContext<
+            UserType, SafetyInfo::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<SafetyInfo::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<float> class_scores;
+  
+  LanguageDetectionResultPtr language;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, SafetyInfo::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, SafetyInfo::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, SafetyInfo::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, SafetyInfo::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -514,8 +805,10 @@ class  ResponseChunk {
 
   ResponseChunk(
       const std::string& text,
-      std::optional<std::vector<float>> ts_scores);
+      SafetyInfoPtr safety_info);
 
+ResponseChunk(const ResponseChunk&) = delete;
+ResponseChunk& operator=(const ResponseChunk&) = delete;
 
   ~ResponseChunk();
 
@@ -594,7 +887,7 @@ class  ResponseChunk {
   
   std::string text;
   
-  std::optional<std::vector<float>> ts_scores;
+  SafetyInfoPtr safety_info;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -656,8 +949,10 @@ class  ResponseSummary {
   ResponseSummary();
 
   explicit ResponseSummary(
-      std::optional<std::vector<float>> ts_scores);
+      SafetyInfoPtr safety_info);
 
+ResponseSummary(const ResponseSummary&) = delete;
+ResponseSummary& operator=(const ResponseSummary&) = delete;
 
   ~ResponseSummary();
 
@@ -734,7 +1029,7 @@ class  ResponseSummary {
   }
 
   
-  std::optional<std::vector<float>> ts_scores;
+  SafetyInfoPtr safety_info;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -801,7 +1096,7 @@ class  InputOptions {
       std::optional<uint32_t> token_offset,
       bool ignore_context,
       std::optional<uint32_t> max_output_tokens,
-      std::optional<uint32_t> ts_interval);
+      std::optional<uint32_t> safety_interval);
 
 
   ~InputOptions();
@@ -889,7 +1184,7 @@ class  InputOptions {
   
   std::optional<uint32_t> max_output_tokens;
   
-  std::optional<uint32_t> ts_interval;
+  std::optional<uint32_t> safety_interval;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -921,10 +1216,68 @@ bool operator>=(const T& lhs, const T& rhs) {
 }
 
 template <typename StructPtrType>
+LanguageDetectionResultPtr LanguageDetectionResult::Clone() const {
+  return New(
+      mojo::Clone(code),
+      mojo::Clone(reliability)
+  );
+}
+
+template <typename T, LanguageDetectionResult::EnableIfSame<T>*>
+bool LanguageDetectionResult::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->code, other_struct.code))
+    return false;
+  if (!mojo::Equals(this->reliability, other_struct.reliability))
+    return false;
+  return true;
+}
+
+template <typename T, LanguageDetectionResult::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.code < rhs.code)
+    return true;
+  if (rhs.code < lhs.code)
+    return false;
+  if (lhs.reliability < rhs.reliability)
+    return true;
+  if (rhs.reliability < lhs.reliability)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+SafetyInfoPtr SafetyInfo::Clone() const {
+  return New(
+      mojo::Clone(class_scores),
+      mojo::Clone(language)
+  );
+}
+
+template <typename T, SafetyInfo::EnableIfSame<T>*>
+bool SafetyInfo::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->class_scores, other_struct.class_scores))
+    return false;
+  if (!mojo::Equals(this->language, other_struct.language))
+    return false;
+  return true;
+}
+
+template <typename T, SafetyInfo::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.class_scores < rhs.class_scores)
+    return true;
+  if (rhs.class_scores < lhs.class_scores)
+    return false;
+  if (lhs.language < rhs.language)
+    return true;
+  if (rhs.language < lhs.language)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 ResponseChunkPtr ResponseChunk::Clone() const {
   return New(
       mojo::Clone(text),
-      mojo::Clone(ts_scores)
+      mojo::Clone(safety_info)
   );
 }
 
@@ -932,7 +1285,7 @@ template <typename T, ResponseChunk::EnableIfSame<T>*>
 bool ResponseChunk::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->text, other_struct.text))
     return false;
-  if (!mojo::Equals(this->ts_scores, other_struct.ts_scores))
+  if (!mojo::Equals(this->safety_info, other_struct.safety_info))
     return false;
   return true;
 }
@@ -943,31 +1296,31 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.text < lhs.text)
     return false;
-  if (lhs.ts_scores < rhs.ts_scores)
+  if (lhs.safety_info < rhs.safety_info)
     return true;
-  if (rhs.ts_scores < lhs.ts_scores)
+  if (rhs.safety_info < lhs.safety_info)
     return false;
   return false;
 }
 template <typename StructPtrType>
 ResponseSummaryPtr ResponseSummary::Clone() const {
   return New(
-      mojo::Clone(ts_scores)
+      mojo::Clone(safety_info)
   );
 }
 
 template <typename T, ResponseSummary::EnableIfSame<T>*>
 bool ResponseSummary::Equals(const T& other_struct) const {
-  if (!mojo::Equals(this->ts_scores, other_struct.ts_scores))
+  if (!mojo::Equals(this->safety_info, other_struct.safety_info))
     return false;
   return true;
 }
 
 template <typename T, ResponseSummary::EnableIfSame<T>*>
 bool operator<(const T& lhs, const T& rhs) {
-  if (lhs.ts_scores < rhs.ts_scores)
+  if (lhs.safety_info < rhs.safety_info)
     return true;
-  if (rhs.ts_scores < lhs.ts_scores)
+  if (rhs.safety_info < lhs.safety_info)
     return false;
   return false;
 }
@@ -979,7 +1332,7 @@ InputOptionsPtr InputOptions::Clone() const {
       mojo::Clone(token_offset),
       mojo::Clone(ignore_context),
       mojo::Clone(max_output_tokens),
-      mojo::Clone(ts_interval)
+      mojo::Clone(safety_interval)
   );
 }
 
@@ -995,7 +1348,7 @@ bool InputOptions::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->max_output_tokens, other_struct.max_output_tokens))
     return false;
-  if (!mojo::Equals(this->ts_interval, other_struct.ts_interval))
+  if (!mojo::Equals(this->safety_interval, other_struct.safety_interval))
     return false;
   return true;
 }
@@ -1022,9 +1375,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.max_output_tokens < lhs.max_output_tokens)
     return false;
-  if (lhs.ts_interval < rhs.ts_interval)
+  if (lhs.safety_interval < rhs.safety_interval)
     return true;
-  if (rhs.ts_interval < lhs.ts_interval)
+  if (rhs.safety_interval < lhs.safety_interval)
     return false;
   return false;
 }
@@ -1033,6 +1386,46 @@ bool operator<(const T& lhs, const T& rhs) {
 }  // on_device_model::mojom
 
 namespace mojo {
+
+
+template <>
+struct  StructTraits<::on_device_model::mojom::LanguageDetectionResult::DataView,
+                                         ::on_device_model::mojom::LanguageDetectionResultPtr> {
+  static bool IsNull(const ::on_device_model::mojom::LanguageDetectionResultPtr& input) { return !input; }
+  static void SetToNull(::on_device_model::mojom::LanguageDetectionResultPtr* output) { output->reset(); }
+
+  static const decltype(::on_device_model::mojom::LanguageDetectionResult::code)& code(
+      const ::on_device_model::mojom::LanguageDetectionResultPtr& input) {
+    return input->code;
+  }
+
+  static decltype(::on_device_model::mojom::LanguageDetectionResult::reliability) reliability(
+      const ::on_device_model::mojom::LanguageDetectionResultPtr& input) {
+    return input->reliability;
+  }
+
+  static bool Read(::on_device_model::mojom::LanguageDetectionResult::DataView input, ::on_device_model::mojom::LanguageDetectionResultPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::on_device_model::mojom::SafetyInfo::DataView,
+                                         ::on_device_model::mojom::SafetyInfoPtr> {
+  static bool IsNull(const ::on_device_model::mojom::SafetyInfoPtr& input) { return !input; }
+  static void SetToNull(::on_device_model::mojom::SafetyInfoPtr* output) { output->reset(); }
+
+  static const decltype(::on_device_model::mojom::SafetyInfo::class_scores)& class_scores(
+      const ::on_device_model::mojom::SafetyInfoPtr& input) {
+    return input->class_scores;
+  }
+
+  static const decltype(::on_device_model::mojom::SafetyInfo::language)& language(
+      const ::on_device_model::mojom::SafetyInfoPtr& input) {
+    return input->language;
+  }
+
+  static bool Read(::on_device_model::mojom::SafetyInfo::DataView input, ::on_device_model::mojom::SafetyInfoPtr* output);
+};
 
 
 template <>
@@ -1046,9 +1439,9 @@ struct  StructTraits<::on_device_model::mojom::ResponseChunk::DataView,
     return input->text;
   }
 
-  static const decltype(::on_device_model::mojom::ResponseChunk::ts_scores)& ts_scores(
+  static const decltype(::on_device_model::mojom::ResponseChunk::safety_info)& safety_info(
       const ::on_device_model::mojom::ResponseChunkPtr& input) {
-    return input->ts_scores;
+    return input->safety_info;
   }
 
   static bool Read(::on_device_model::mojom::ResponseChunk::DataView input, ::on_device_model::mojom::ResponseChunkPtr* output);
@@ -1061,9 +1454,9 @@ struct  StructTraits<::on_device_model::mojom::ResponseSummary::DataView,
   static bool IsNull(const ::on_device_model::mojom::ResponseSummaryPtr& input) { return !input; }
   static void SetToNull(::on_device_model::mojom::ResponseSummaryPtr* output) { output->reset(); }
 
-  static const decltype(::on_device_model::mojom::ResponseSummary::ts_scores)& ts_scores(
+  static const decltype(::on_device_model::mojom::ResponseSummary::safety_info)& safety_info(
       const ::on_device_model::mojom::ResponseSummaryPtr& input) {
-    return input->ts_scores;
+    return input->safety_info;
   }
 
   static bool Read(::on_device_model::mojom::ResponseSummary::DataView input, ::on_device_model::mojom::ResponseSummaryPtr* output);
@@ -1101,9 +1494,9 @@ struct  StructTraits<::on_device_model::mojom::InputOptions::DataView,
     return input->max_output_tokens;
   }
 
-  static decltype(::on_device_model::mojom::InputOptions::ts_interval) ts_interval(
+  static decltype(::on_device_model::mojom::InputOptions::safety_interval) safety_interval(
       const ::on_device_model::mojom::InputOptionsPtr& input) {
-    return input->ts_interval;
+    return input->safety_interval;
   }
 
   static bool Read(::on_device_model::mojom::InputOptions::DataView input, ::on_device_model::mojom::InputOptionsPtr* output);

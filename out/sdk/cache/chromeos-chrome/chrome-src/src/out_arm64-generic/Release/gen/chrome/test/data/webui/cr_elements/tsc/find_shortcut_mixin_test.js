@@ -99,6 +99,7 @@ suite('find-shortcut', () => {
         document.body.appendChild(testElement);
         document.body.appendChild(dialog);
         dialog.showModal();
+        await dialog.updateComplete;
         await check(testElement, true);
     });
     test('handled with modal context closed', async () => {

@@ -22,6 +22,25 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"description",
+"freeTrialPeriod",
+"iconURLs",
+"introductoryPrice",
+"introductoryPriceCycles",
+"introductoryPricePeriod",
+"itemId",
+"price",
+"subscriptionPeriod",
+"title",
+"type",
+};
+
+
+}  // namespace 
+
 ItemDetails* ItemDetails::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   ItemDetails* dictionary = MakeGarbageCollected<ItemDetails>(isolate);
 if (!v8_value->IsObject()) {
@@ -244,62 +263,74 @@ TraceIfNeeded<V8ItemType>::Trace(visitor, member_type_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool ItemDetails::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void ItemDetails::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void ItemDetails::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasDescription()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_description_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLString>::ToV8(script_state, member_description_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasFreeTrialPeriod()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_free_trial_period_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLString>::ToV8(script_state, member_free_trial_period_);
+DCHECK(!values[1].IsEmpty());
 }
 if (RuntimeEnabledFeatures::DigitalGoodsV2_1Enabled()) {
   if (hasIconURLs()) {
-  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_icon_urls_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_icon_urls_);
+DCHECK(!values[2].IsEmpty());
 }
 }
 if (hasIntroductoryPrice()) {
-  v8_value = ToV8Traits<PaymentCurrencyAmount>::ToV8(script_state, member_introductory_price_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<PaymentCurrencyAmount>::ToV8(script_state, member_introductory_price_.Get());
+DCHECK(!values[3].IsEmpty());
 }
 if (RuntimeEnabledFeatures::DigitalGoodsV2_1Enabled()) {
   if (hasIntroductoryPriceCycles()) {
-  v8_value = ToV8Traits<IDLUnsignedLongLongEnforceRange>::ToV8(script_state, member_introductory_price_cycles_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLUnsignedLongLongEnforceRange>::ToV8(script_state, member_introductory_price_cycles_);
+DCHECK(!values[4].IsEmpty());
 }
 }
 if (hasIntroductoryPricePeriod()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_introductory_price_period_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLString>::ToV8(script_state, member_introductory_price_period_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasItemId()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_item_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLString>::ToV8(script_state, member_item_id_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasPrice()) {
-  v8_value = ToV8Traits<PaymentCurrencyAmount>::ToV8(script_state, member_price_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<PaymentCurrencyAmount>::ToV8(script_state, member_price_.Get());
+DCHECK(!values[7].IsEmpty());
 }
 if (hasSubscriptionPeriod()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_subscription_period_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<IDLString>::ToV8(script_state, member_subscription_period_);
+DCHECK(!values[8].IsEmpty());
 }
 if (hasTitle()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_title_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<IDLString>::ToV8(script_state, member_title_);
+DCHECK(!values[9].IsEmpty());
 }
 if (RuntimeEnabledFeatures::DigitalGoodsV2_1Enabled()) {
   if (hasType()) {
-  v8_value = ToV8Traits<V8ItemType>::ToV8(script_state, member_type_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
+  values[10] = ToV8Traits<V8ItemType>::ToV8(script_state, member_type_);
+DCHECK(!values[10].IsEmpty());
 }
 }
-return true;
+}
+
+const void* ItemDetails::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> ItemDetails::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void ItemDetails::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -364,20 +395,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8ItemType, is_optional>(isolate,
 }
 
 const base::span<const v8::Eternal<v8::Name>> ItemDetails::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"description",
-"freeTrialPeriod",
-"iconURLs",
-"introductoryPrice",
-"introductoryPriceCycles",
-"introductoryPricePeriod",
-"itemId",
-"price",
-"subscriptionPeriod",
-"title",
-"type",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

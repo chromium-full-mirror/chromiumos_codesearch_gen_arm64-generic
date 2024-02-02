@@ -1,10 +1,11 @@
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { NativeLayerImpl, PluginProxyImpl } from 'chrome://print/print_preview.js';
+import { 
 // 
-import { GooglePromotedDestinationId } from 'chrome://print/print_preview.js';
+GooglePromotedDestinationId, 
 // 
+NativeLayerImpl, PluginProxyImpl } from 'chrome://print/print_preview.js';
 import { assertEquals, assertFalse, assertTrue } from 'chrome://webui-test/chai_assert.js';
 // 
 import { setNativeLayerCrosInstance } from './native_layer_cros_stub.js';

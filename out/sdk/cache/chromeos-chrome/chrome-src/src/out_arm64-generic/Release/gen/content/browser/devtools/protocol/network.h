@@ -295,7 +295,7 @@ CONTENT_EXPORT extern const char TPCDHeuristics[];
 CONTENT_EXPORT extern const char EnterprisePolicy[];
 CONTENT_EXPORT extern const char StorageAccess[];
 CONTENT_EXPORT extern const char TopLevelStorageAccess[];
-CONTENT_EXPORT extern const char BrowserHeuristics[];
+CONTENT_EXPORT extern const char CorsOptIn[];
 } // namespace CookieExemptionReasonEnum
 
 namespace InterceptionStageEnum {

@@ -424,7 +424,10 @@ class CrActionMenuElement extends CrLitElement {
             // Setting this flag will make the menu listen for content size changes
             // and reposition to its anchor accordingly.
             autoReposition: { type: Boolean },
-            open: { type: Boolean },
+            open: {
+                type: Boolean,
+                notify: true,
+            },
             // Descriptor of the menu. Should be something along the lines of "menu"
             roleDescription: { type: String },
         };
@@ -437,9 +440,6 @@ class CrActionMenuElement extends CrLitElement {
     disconnectedCallback() {
         super.disconnectedCallback();
         this.removeListeners_();
-    }
-    fire_(eventName, detail) {
-        this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
     }
     /**
      * Exposing internal <dialog> elements for tests.
@@ -462,7 +462,7 @@ class CrActionMenuElement extends CrLitElement {
         }
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.fire_('close');
+        this.fire('close');
     }
     onClick_(e) {
         if (e.target === this) {
@@ -475,7 +475,7 @@ class CrActionMenuElement extends CrLitElement {
         if (e.key === 'Tab' || e.key === 'Escape') {
             this.close();
             if (e.key === 'Tab') {
-                this.fire_('tabkeyclose', { shiftKey: e.shiftKey });
+                this.fire('tabkeyclose', { shiftKey: e.shiftKey });
             }
             e.preventDefault();
             return;
@@ -544,7 +544,6 @@ class CrActionMenuElement extends CrLitElement {
         if (this.lastConfig_) {
             this.lastConfig_ = null;
         }
-        this.fire_('open-changed', { value: this.open });
     }
     /**
      * Shows the menu anchored to the given element.
@@ -633,7 +632,6 @@ class CrActionMenuElement extends CrLitElement {
                 });
             }
         }
-        this.fire_('open-changed', { value: this.open });
     }
     resetStyle_() {
         this.$.dialog.style.left = '';
@@ -688,7 +686,7 @@ class CrActionMenuElement extends CrLitElement {
             this.resizeObserver_ = new ResizeObserver(() => {
                 if (this.lastConfig_) {
                     this.positionDialog_(this.lastConfig_);
-                    this.fire_('cr-action-menu-repositioned'); // For easier testing.
+                    this.fire('cr-action-menu-repositioned'); // For easier testing.
                 }
             });
             this.resizeObserver_.observe(this.$.dialog);
@@ -697,15 +695,15 @@ class CrActionMenuElement extends CrLitElement {
 }
 customElements.define(CrActionMenuElement.is, CrActionMenuElement);
 
-const styleMod$2 = document.createElement('dom-module');
-styleMod$2.appendChild(html$1 `
+const styleMod$3 = document.createElement('dom-module');
+styleMod$3.appendChild(html$1 `
   <template>
     <style>
 cr-icon-button{--cr-icon-button-fill-color:var(--pdf-toolbar-text-color);--cr-icon-button-focus-outline-color:var(--google-grey-500);margin:0}cr-icon-button:hover{background:rgba(255,255,255,.08);border-radius:50%}cr-action-menu,viewer-bookmark{--cr-menu-background-color:var(--google-grey-900);--cr-menu-shadow:rgba(0, 0, 0, .3) 0 1px 2px 0,rgba(0, 0, 0, .15) 0 3px 6px 2px;--cr-primary-text-color:var(--google-grey-200);--cr-menu-background-focus-color:var(--google-grey-700);--cr-menu-background-sheen:rgba(255, 255, 255, .06);--cr-separator-line:var(--cr-separator-height) solid rgba(255, 255, 255, .1)}
     </style>
   </template>
 `.content);
-styleMod$2.register('pdf-shared');
+styleMod$3.register('pdf-shared');
 
 function getTemplate$d() {
     return html$1 `<!--_html_template_start_--><style include="cr-hidden-style">#item{align-items:flex-start;display:flex;padding:5px 28px;position:relative;transition:background-color .1s ease-out}#item:hover{background-color:rgba(255,255,255,.25)}#title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}:host(:not([save-allowed_])) #title{opacity:var(--cr-disabled-opacity)}#download{--cr-icon-button-fill-color:var(--primary-text-color);--cr-icon-button-icon-size:16px;--cr-icon-button-size:28px;margin:0;position:absolute;right:0;top:calc((100% - var(--cr-icon-button-size))/ 2)}#download:focus-visible{outline:auto -webkit-focus-ring-color}</style>
@@ -1129,6 +1127,16 @@ class ViewerPageSelectorElement extends PolymerElement {
     }
 }
 customElements.define(ViewerPageSelectorElement.is, ViewerPageSelectorElement);
+
+const styleMod$2 = document.createElement('dom-module');
+styleMod$2.appendChild(html$1 `
+  <template>
+    <style>
+.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}
+    </style>
+  </template>
+`.content);
+styleMod$2.register('cr-icons');
 
 const styleMod$1 = document.createElement('dom-module');
 styleMod$1.appendChild(html$1 `

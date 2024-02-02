@@ -22,6 +22,19 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"charIndex",
+"charLength",
+"elapsedTime",
+"name",
+"utterance",
+};
+
+
+}  // namespace 
+
 SpeechSynthesisEventInit* SpeechSynthesisEventInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   SpeechSynthesisEventInit* dictionary = MakeGarbageCollected<SpeechSynthesisEventInit>(isolate);
 if (!v8_value->IsObject()) {
@@ -86,36 +99,50 @@ TraceIfNeeded<Member<SpeechSynthesisUtterance>>::Trace(visitor, member_utterance
 EventInit::Trace(visitor);
 }
 
-bool SpeechSynthesisEventInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!EventInit::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void SpeechSynthesisEventInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  EventInit::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void SpeechSynthesisEventInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  EventInit::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasCharIndex()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_char_index_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_char_index_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasCharLength()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_char_length_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_char_length_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasElapsedTime()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_elapsed_time_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLFloat>::ToV8(script_state, member_elapsed_time_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasName()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_name_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLString>::ToV8(script_state, member_name_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasUtterance()) {
-  v8_value = ToV8Traits<SpeechSynthesisUtterance>::ToV8(script_state, member_utterance_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<SpeechSynthesisUtterance>::ToV8(script_state, member_utterance_.Get());
+DCHECK(!values[4].IsEmpty());
 }
-return true;
+}
+
+const void* SpeechSynthesisEventInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> SpeechSynthesisEventInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void SpeechSynthesisEventInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -155,14 +182,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<SpeechSynthesisUtterance, is_requ
 }
 
 const base::span<const v8::Eternal<v8::Name>> SpeechSynthesisEventInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"charIndex",
-"charLength",
-"elapsedTime",
-"name",
-"utterance",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

@@ -19,7 +19,7 @@ inline std::tuple<Tagged<Object>, intptr_t, intptr_t> TqRuntimeNewMutableSlice_F
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/convert.tq?l=204&c=1
 inline intptr_t TqRuntimeConvert_intptr_int32_0(int32_t p_i);
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=33&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=39&c=3
 inline std::tuple<Tagged<Object>, intptr_t, intptr_t> TqRuntimeNewMutableSlice_MaybeObject_0(Tagged<Object> p_object, intptr_t p_offset, intptr_t p_length);
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/convert.tq?l=79&c=1
@@ -176,7 +176,7 @@ intptr_t TqRuntimeConvert_intptr_int32_0(int32_t p_i) {
 #ifndef V8_INTERNAL_DEFINED_TqRuntimeNewMutableSlice_MaybeObject_0
 #define V8_INTERNAL_DEFINED_TqRuntimeNewMutableSlice_MaybeObject_0
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=33&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=39&c=3
 std::tuple<Tagged<Object>, intptr_t, intptr_t> TqRuntimeNewMutableSlice_MaybeObject_0(Tagged<Object> p_object, intptr_t p_offset, intptr_t p_length) {
   DisallowGarbageCollection no_gc;
   Tagged<Object> tmp0{}; USE(tmp0);

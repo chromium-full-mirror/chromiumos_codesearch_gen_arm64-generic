@@ -38,16 +38,16 @@ class TorqueGeneratedFixedArrayAsserts {
                 "Values of FixedArray::kObjectsOffset defined in Torque and C++ do not match");
 };
 
-// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=30&c=1
+// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=36&c=1
 class TorqueGeneratedWeakFixedArrayAsserts {
   static constexpr int kStartOfStrongFieldsOffset = HeapObject::kHeaderSize;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=32&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=38&c=9
   static constexpr int kLengthOffset = HeapObject::kHeaderSize;
   static constexpr int kLengthOffsetEnd = kLengthOffset + kTaggedSize - 1;
   static constexpr int kEndOfStrongFieldsOffset = kLengthOffsetEnd + 1;
   static constexpr int kStartOfWeakFieldsOffset = kLengthOffsetEnd + 1;
   static constexpr int kHeaderSize = kLengthOffsetEnd + 1;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=33&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=39&c=3
   static constexpr int kObjectsOffset = kLengthOffsetEnd + 1;
   static constexpr int kObjectsOffsetEnd = kObjectsOffset + 0 - 1;
   static constexpr int kEndOfWeakFieldsOffset = kObjectsOffsetEnd + 1;
@@ -58,7 +58,7 @@ class TorqueGeneratedWeakFixedArrayAsserts {
                 "Values of WeakFixedArray::kObjectsOffset defined in Torque and C++ do not match");
 };
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=61&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=67&c=1
 bool IsWeakArrayList_NonInline(Tagged<HeapObject> o) {
   return IsWeakArrayList(o);
 }
@@ -72,10 +72,10 @@ void TorqueGeneratedWeakArrayList<WeakArrayList, HeapObject>::WeakArrayListVerif
 
 
 #endif  // VERIFY_HEAP
-// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=25&c=1
+// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=31&c=1
 class TorqueGeneratedFixedDoubleArrayAsserts {
   static constexpr int kHeaderSize = FixedArrayBase::kHeaderSize;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=27&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=33&c=3
   static constexpr int kFloatsOffset = FixedArrayBase::kHeaderSize;
   static constexpr int kFloatsOffsetEnd = kFloatsOffset + 0 - 1;
   static constexpr int kStartOfWeakFieldsOffset = kFloatsOffsetEnd + 1;
@@ -107,10 +107,30 @@ class TorqueGeneratedTrustedFixedArrayAsserts {
                 "Values of TrustedFixedArray::kObjectsOffset defined in Torque and C++ do not match");
 };
 
-// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=36&c=1
+// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=25&c=1
+class TorqueGeneratedProtectedFixedArrayAsserts {
+  static constexpr int kStartOfStrongFieldsOffset = TrustedObject::kHeaderSize;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=27&c=9
+  static constexpr int kLengthOffset = TrustedObject::kHeaderSize;
+  static constexpr int kLengthOffsetEnd = kLengthOffset + kTaggedSize - 1;
+  static constexpr int kHeaderSize = kLengthOffsetEnd + 1;
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=28&c=3
+  static constexpr int kObjectsOffset = kLengthOffsetEnd + 1;
+  static constexpr int kObjectsOffsetEnd = kObjectsOffset + 0 - 1;
+  static constexpr int kEndOfStrongFieldsOffset = kObjectsOffsetEnd + 1;
+  static constexpr int kStartOfWeakFieldsOffset = kObjectsOffsetEnd + 1;
+  static constexpr int kEndOfWeakFieldsOffset = kObjectsOffsetEnd + 1;
+
+  static_assert(kLengthOffset == ProtectedFixedArray::kLengthOffset,
+                "Values of ProtectedFixedArray::kLengthOffset defined in Torque and C++ do not match");
+  static_assert(kObjectsOffset == ProtectedFixedArray::kObjectsOffset,
+                "Values of ProtectedFixedArray::kObjectsOffset defined in Torque and C++ do not match");
+};
+
+// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=42&c=1
 class TorqueGeneratedByteArrayAsserts {
   static constexpr int kHeaderSize = FixedArrayBase::kHeaderSize;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=38&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=44&c=3
   static constexpr int kBytesOffset = FixedArrayBase::kHeaderSize;
   static constexpr int kBytesOffsetEnd = kBytesOffset + 0 - 1;
   static constexpr int kStartOfWeakFieldsOffset = kBytesOffsetEnd + 1;
@@ -122,15 +142,15 @@ class TorqueGeneratedByteArrayAsserts {
                 "Values of ByteArray::kBytesOffset defined in Torque and C++ do not match");
 };
 
-// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=41&c=1
+// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=47&c=1
 class TorqueGeneratedTrustedByteArrayAsserts {
   static constexpr int kStartOfStrongFieldsOffset = TrustedObject::kHeaderSize;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=43&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=49&c=9
   static constexpr int kLengthOffset = TrustedObject::kHeaderSize;
   static constexpr int kLengthOffsetEnd = kLengthOffset + kTaggedSize - 1;
   static constexpr int kEndOfStrongFieldsOffset = kLengthOffsetEnd + 1;
   static constexpr int kHeaderSize = kLengthOffsetEnd + 1;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=44&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=50&c=3
   static constexpr int kBytesOffset = kLengthOffsetEnd + 1;
   static constexpr int kBytesOffsetEnd = kBytesOffset + 0 - 1;
   static constexpr int kStartOfWeakFieldsOffset = kBytesOffsetEnd + 1;
@@ -142,10 +162,10 @@ class TorqueGeneratedTrustedByteArrayAsserts {
                 "Values of TrustedByteArray::kBytesOffset defined in Torque and C++ do not match");
 };
 
-// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=47&c=1
+// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=53&c=1
 class TorqueGeneratedExternalPointerArrayAsserts {
   static constexpr int kHeaderSize = FixedArrayBase::kHeaderSize;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=49&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=55&c=3
   static constexpr int kPointersOffset = FixedArrayBase::kHeaderSize;
   static constexpr int kPointersOffsetEnd = kPointersOffset + 0 - 1;
   static constexpr int kStartOfWeakFieldsOffset = kPointersOffsetEnd + 1;
@@ -157,17 +177,17 @@ class TorqueGeneratedExternalPointerArrayAsserts {
                 "Values of ExternalPointerArray::kPointersOffset defined in Torque and C++ do not match");
 };
 
-// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=54&c=1
+// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=60&c=1
 class TorqueGeneratedArrayListAsserts {
   static constexpr int kStartOfStrongFieldsOffset = HeapObject::kHeaderSize;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=56&c=9
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=62&c=9
   static constexpr int kCapacityOffset = HeapObject::kHeaderSize;
   static constexpr int kCapacityOffsetEnd = kCapacityOffset + kTaggedSize - 1;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=57&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=63&c=3
   static constexpr int kLengthOffset = kCapacityOffsetEnd + 1;
   static constexpr int kLengthOffsetEnd = kLengthOffset + kTaggedSize - 1;
   static constexpr int kHeaderSize = kLengthOffsetEnd + 1;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=58&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=64&c=3
   static constexpr int kObjectsOffset = kLengthOffsetEnd + 1;
   static constexpr int kObjectsOffsetEnd = kObjectsOffset + 0 - 1;
   static constexpr int kEndOfStrongFieldsOffset = kObjectsOffsetEnd + 1;

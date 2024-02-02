@@ -135,7 +135,7 @@ bool IndexedDBControl_BindIndexedDB_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 32, validation_context)) {
+          data, 40, validation_context)) {
     return false;
   }
 
@@ -160,8 +160,15 @@ bool IndexedDBControl_BindIndexedDB_Params_Data::Validate(
     return false;
   }
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->client_token, 3, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->client_token, validation_context))
+    return false;
+
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->receiver, 3, validation_context)) {
+          object->receiver, 4, validation_context)) {
     return false;
   }
   if (!mojo::internal::ValidateHandleOrInterface(object->receiver,

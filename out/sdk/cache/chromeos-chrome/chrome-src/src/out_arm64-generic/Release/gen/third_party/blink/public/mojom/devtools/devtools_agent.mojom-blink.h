@@ -81,7 +81,6 @@ class PLATFORM_EXPORT DevToolsAgent
     kAttachDevToolsSessionMinVersion = 0,
     kInspectElementMinVersion = 0,
     kReportChildTargetsMinVersion = 0,
-    kGetUniqueFormControlIdMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -94,9 +93,6 @@ class PLATFORM_EXPORT DevToolsAgent
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ReportChildTargets_Sym {
-    NOINLINE static uint32_t IPCStableHash();
-  };
-  struct GetUniqueFormControlId_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -112,11 +108,6 @@ class PLATFORM_EXPORT DevToolsAgent
   using ReportChildTargetsCallback = base::OnceCallback<void()>;
   
   virtual void ReportChildTargets(bool report, bool wait_for_debugger, ReportChildTargetsCallback callback) = 0;
-
-
-  using GetUniqueFormControlIdCallback = base::OnceCallback<void(uint64_t)>;
-  
-  virtual void GetUniqueFormControlId(int32_t nodeId, GetUniqueFormControlIdCallback callback) = 0;
 };
 
 class DevToolsAgentHostProxy;
@@ -289,8 +280,6 @@ class PLATFORM_EXPORT DevToolsAgentProxy
   void InspectElement(const ::gfx::Point& point) final;
   
   void ReportChildTargets(bool report, bool wait_for_debugger, ReportChildTargetsCallback callback) final;
-  
-  void GetUniqueFormControlId(int32_t nodeId, GetUniqueFormControlIdCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

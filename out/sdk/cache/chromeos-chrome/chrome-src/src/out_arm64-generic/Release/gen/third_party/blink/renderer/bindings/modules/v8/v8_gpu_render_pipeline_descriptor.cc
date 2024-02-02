@@ -26,6 +26,19 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"depthStencil",
+"fragment",
+"multisample",
+"primitive",
+"vertex",
+};
+
+
+}  // namespace 
+
 GPURenderPipelineDescriptor* GPURenderPipelineDescriptor::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   GPURenderPipelineDescriptor* dictionary = MakeGarbageCollected<GPURenderPipelineDescriptor>(isolate);
 if (!v8_value->IsObject()) {
@@ -88,36 +101,50 @@ TraceIfNeeded<Member<GPUVertexState>>::Trace(visitor, member_vertex_);
 GPUPipelineDescriptorBase::Trace(visitor);
 }
 
-bool GPURenderPipelineDescriptor::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!GPUPipelineDescriptorBase::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void GPURenderPipelineDescriptor::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  GPUPipelineDescriptorBase::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void GPURenderPipelineDescriptor::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  GPUPipelineDescriptorBase::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasDepthStencil()) {
-  v8_value = ToV8Traits<GPUDepthStencilState>::ToV8(script_state, member_depth_stencil_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<GPUDepthStencilState>::ToV8(script_state, member_depth_stencil_.Get());
+DCHECK(!values[0].IsEmpty());
 }
 if (hasFragment()) {
-  v8_value = ToV8Traits<GPUFragmentState>::ToV8(script_state, member_fragment_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<GPUFragmentState>::ToV8(script_state, member_fragment_.Get());
+DCHECK(!values[1].IsEmpty());
 }
 if (hasMultisample()) {
-  v8_value = ToV8Traits<GPUMultisampleState>::ToV8(script_state, member_multisample_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<GPUMultisampleState>::ToV8(script_state, member_multisample_.Get());
+DCHECK(!values[2].IsEmpty());
 }
 if (hasPrimitive()) {
-  v8_value = ToV8Traits<GPUPrimitiveState>::ToV8(script_state, member_primitive_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<GPUPrimitiveState>::ToV8(script_state, member_primitive_.Get());
+DCHECK(!values[3].IsEmpty());
 }
 if (hasVertex()) {
-  v8_value = ToV8Traits<GPUVertexState>::ToV8(script_state, member_vertex_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<GPUVertexState>::ToV8(script_state, member_vertex_.Get());
+DCHECK(!values[4].IsEmpty());
 }
-return true;
+}
+
+const void* GPURenderPipelineDescriptor::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> GPURenderPipelineDescriptor::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void GPURenderPipelineDescriptor::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -157,14 +184,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<GPUVertexState, is_required>(isol
 }
 
 const base::span<const v8::Eternal<v8::Name>> GPURenderPipelineDescriptor::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"depthStencil",
-"fragment",
-"multisample",
-"primitive",
-"vertex",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

@@ -7,17 +7,22 @@ import { SeaPenInputQueryElement, SeaPenPaths } from 'chrome://personalization/j
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { assertEquals } from 'chrome://webui-test/chai_assert.js';
 import { waitAfterNextRender } from 'chrome://webui-test/polymer_test_util.js';
-import { initElement, teardownElement } from './personalization_app_test_utils.js';
+import { baseSetup, initElement, teardownElement } from './personalization_app_test_utils.js';
 suite('SeaPenInputQueryElementTest', function () {
     let seaPenInputQueryElement;
+    let personalizationStore;
+    let seaPenProvider;
     setup(function () {
         loadTimeData.overrideValues({ isSeaPenTextInputEnabled: true });
+        const mocks = baseSetup();
+        personalizationStore = mocks.personalizationStore;
+        seaPenProvider = mocks.seaPenProvider;
     });
     teardown(async () => {
         await teardownElement(seaPenInputQueryElement);
         seaPenInputQueryElement = null;
     });
-    test('displays search buttonon root page', async () => {
+    test('displays search button on root page', async () => {
         seaPenInputQueryElement =
             initElement(SeaPenInputQueryElement, { path: SeaPenPaths.ROOT });
         await waitAfterNextRender(seaPenInputQueryElement);
@@ -25,10 +30,23 @@ suite('SeaPenInputQueryElementTest', function () {
         assertEquals(seaPenInputQueryElement.i18n('seaPenCreateButton'), searchButton.innerText);
     });
     test('displays search again button on results page', async () => {
+        personalizationStore.data.wallpaper.seaPen.thumbnails =
+            seaPenProvider.images;
         seaPenInputQueryElement =
             initElement(SeaPenInputQueryElement, { path: SeaPenPaths.RESULTS });
         await waitAfterNextRender(seaPenInputQueryElement);
         const searchButton = seaPenInputQueryElement.shadowRoot.querySelector('#searchButton');
+        const icon = searchButton.querySelector('iron-icon');
         assertEquals(seaPenInputQueryElement.i18n('seaPenRecreateButton'), searchButton.innerText);
+        assertEquals('personalization-shared:refresh', icon.getAttribute('icon'));
+    });
+    test('displays create button when no thumbnails are generated', async () => {
+        seaPenInputQueryElement =
+            initElement(SeaPenInputQueryElement, { path: SeaPenPaths.RESULTS });
+        await waitAfterNextRender(seaPenInputQueryElement);
+        const searchButton = seaPenInputQueryElement.shadowRoot.querySelector('#searchButton');
+        const icon = searchButton.querySelector('iron-icon');
+        assertEquals(seaPenInputQueryElement.i18n('seaPenCreateButton'), searchButton.innerText);
+        assertEquals('sea-pen:photo-spark', icon.getAttribute('icon'));
     });
 });

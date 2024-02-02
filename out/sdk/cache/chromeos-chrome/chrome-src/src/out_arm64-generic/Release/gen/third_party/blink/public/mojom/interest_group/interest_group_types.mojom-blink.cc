@@ -1164,7 +1164,7 @@ AuctionAdConfig::AuctionAdConfig(
     AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr direct_from_seller_signals_in,
     bool expects_direct_from_seller_signals_header_ad_slot_in,
     std::optional<uint16_t> seller_experiment_group_id_in,
-    std::optional<int16_t> all_buyer_experiment_group_id_in,
+    std::optional<uint16_t> all_buyer_experiment_group_id_in,
     const WTF::HashMap<::scoped_refptr<const ::blink::SecurityOrigin>, uint16_t>& per_buyer_experiment_group_ids_in,
     bool expects_additional_bids_in,
     const ::scoped_refptr<const ::blink::SecurityOrigin>& aggregation_coordinator_origin_in)
@@ -1272,7 +1272,7 @@ void AuctionAdConfig::WriteIntoTrace(
     dict.AddItem(
       "all_buyer_experiment_group_id"), this->all_buyer_experiment_group_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type std::optional<int16_t>>"
+      "<value of type std::optional<uint16_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)

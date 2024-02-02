@@ -21,6 +21,15 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+
+};
+
+
+}  // namespace 
+
 UDPSocketOpenInfo* UDPSocketOpenInfo::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   UDPSocketOpenInfo* dictionary = MakeGarbageCollected<UDPSocketOpenInfo>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -53,12 +62,27 @@ void UDPSocketOpenInfo::Trace(Visitor* visitor) const {
   SocketOpenInfo::Trace(visitor);
 }
 
-bool UDPSocketOpenInfo::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!SocketOpenInfo::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void UDPSocketOpenInfo::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  SocketOpenInfo::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
 }
 
-return true;
+void UDPSocketOpenInfo::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  SocketOpenInfo::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
+}
+
+const void* UDPSocketOpenInfo::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> UDPSocketOpenInfo::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void UDPSocketOpenInfo::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {

@@ -287,7 +287,7 @@ CORE_EXPORT extern const char TPCDHeuristics[];
 CORE_EXPORT extern const char EnterprisePolicy[];
 CORE_EXPORT extern const char StorageAccess[];
 CORE_EXPORT extern const char TopLevelStorageAccess[];
-CORE_EXPORT extern const char BrowserHeuristics[];
+CORE_EXPORT extern const char CorsOptIn[];
 } // namespace CookieExemptionReasonEnum
 
 namespace SignedExchangeErrorFieldEnum {

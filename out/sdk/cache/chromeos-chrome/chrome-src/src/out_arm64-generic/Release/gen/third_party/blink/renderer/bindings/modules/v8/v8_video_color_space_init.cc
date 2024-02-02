@@ -21,6 +21,18 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"fullRange",
+"matrix",
+"primaries",
+"transfer",
+};
+
+
+}  // namespace 
+
 VideoColorSpaceInit* VideoColorSpaceInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   VideoColorSpaceInit* dictionary = MakeGarbageCollected<VideoColorSpaceInit>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -76,28 +88,40 @@ TraceIfNeeded<absl::optional<V8VideoTransferCharacteristics>>::Trace(visitor, me
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool VideoColorSpaceInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void VideoColorSpaceInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void VideoColorSpaceInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasFullRange()) {
-  v8_value = ToV8Traits<IDLNullable<IDLBoolean>>::ToV8(script_state, member_full_range_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLNullable<IDLBoolean>>::ToV8(script_state, member_full_range_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasMatrix()) {
-  v8_value = ToV8Traits<IDLNullable<V8VideoMatrixCoefficients>>::ToV8(script_state, member_matrix_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLNullable<V8VideoMatrixCoefficients>>::ToV8(script_state, member_matrix_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasPrimaries()) {
-  v8_value = ToV8Traits<IDLNullable<V8VideoColorPrimaries>>::ToV8(script_state, member_primaries_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLNullable<V8VideoColorPrimaries>>::ToV8(script_state, member_primaries_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasTransfer()) {
-  v8_value = ToV8Traits<IDLNullable<V8VideoTransferCharacteristics>>::ToV8(script_state, member_transfer_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLNullable<V8VideoTransferCharacteristics>>::ToV8(script_state, member_transfer_);
+DCHECK(!values[3].IsEmpty());
 }
-return true;
+}
+
+const void* VideoColorSpaceInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> VideoColorSpaceInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void VideoColorSpaceInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -127,13 +151,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<V8VideoTransferCharac
 }
 
 const base::span<const v8::Eternal<v8::Name>> VideoColorSpaceInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"fullRange",
-"matrix",
-"primaries",
-"transfer",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

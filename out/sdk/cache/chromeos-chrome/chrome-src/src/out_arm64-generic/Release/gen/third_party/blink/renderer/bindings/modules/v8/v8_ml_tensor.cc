@@ -21,6 +21,16 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"data",
+"dimensions",
+};
+
+
+}  // namespace 
+
 MLTensor* MLTensor::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   MLTensor* dictionary = MakeGarbageCollected<MLTensor>(isolate);
 if (!v8_value->IsObject()) {
@@ -67,20 +77,32 @@ TraceIfNeeded<Vector<uint32_t>>::Trace(visitor, member_dimensions_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool MLTensor::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void MLTensor::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void MLTensor::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasData()) {
-  v8_value = ToV8Traits<NotShared<DOMArrayBufferView>>::ToV8(script_state, member_data_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<NotShared<DOMArrayBufferView>>::ToV8(script_state, member_data_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasDimensions()) {
-  v8_value = ToV8Traits<IDLSequence<IDLUnsignedLong>>::ToV8(script_state, member_dimensions_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLSequence<IDLUnsignedLong>>::ToV8(script_state, member_dimensions_);
+DCHECK(!values[1].IsEmpty());
 }
-return true;
+}
+
+const void* MLTensor::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> MLTensor::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void MLTensor::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -102,11 +124,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<IDLUnsignedLong>, is_
 }
 
 const base::span<const v8::Eternal<v8::Name>> MLTensor::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"data",
-"dimensions",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

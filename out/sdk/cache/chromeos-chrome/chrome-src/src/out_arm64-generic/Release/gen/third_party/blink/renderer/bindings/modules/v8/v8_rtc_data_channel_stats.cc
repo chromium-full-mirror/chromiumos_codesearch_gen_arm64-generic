@@ -21,6 +21,22 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"bytesReceived",
+"bytesSent",
+"dataChannelIdentifier",
+"label",
+"messagesReceived",
+"messagesSent",
+"protocol",
+"state",
+};
+
+
+}  // namespace 
+
 RTCDataChannelStats* RTCDataChannelStats::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   RTCDataChannelStats* dictionary = MakeGarbageCollected<RTCDataChannelStats>(isolate);
 if (!v8_value->IsObject()) {
@@ -151,48 +167,62 @@ TraceIfNeeded<V8RTCDataChannelState>::Trace(visitor, member_state_);
 RTCStats::Trace(visitor);
 }
 
-bool RTCDataChannelStats::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!RTCStats::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void RTCDataChannelStats::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  RTCStats::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void RTCDataChannelStats::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  RTCStats::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasBytesReceived()) {
-  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_bytes_received_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_bytes_received_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasBytesSent()) {
-  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_bytes_sent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_bytes_sent_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasDataChannelIdentifier()) {
-  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_data_channel_identifier_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_data_channel_identifier_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasLabel()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_label_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLString>::ToV8(script_state, member_label_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasMessagesReceived()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_messages_received_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_messages_received_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasMessagesSent()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_messages_sent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_messages_sent_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasProtocol()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_protocol_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLString>::ToV8(script_state, member_protocol_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasState()) {
-  v8_value = ToV8Traits<V8RTCDataChannelState>::ToV8(script_state, member_state_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<V8RTCDataChannelState>::ToV8(script_state, member_state_);
+DCHECK(!values[7].IsEmpty());
 }
-return true;
+}
+
+const void* RTCDataChannelStats::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> RTCDataChannelStats::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void RTCDataChannelStats::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -244,17 +274,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8RTCDataChannelState, is_require
 }
 
 const base::span<const v8::Eternal<v8::Name>> RTCDataChannelStats::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"bytesReceived",
-"bytesSent",
-"dataChannelIdentifier",
-"label",
-"messagesReceived",
-"messagesSent",
-"protocol",
-"state",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

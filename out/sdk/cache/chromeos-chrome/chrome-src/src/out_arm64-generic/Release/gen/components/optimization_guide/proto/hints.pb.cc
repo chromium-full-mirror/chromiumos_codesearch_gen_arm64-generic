@@ -106,7 +106,11 @@ struct RequestContextMetadataDefaultTypeInternal {
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 RequestContextMetadataDefaultTypeInternal _RequestContextMetadata_default_instance_;
 PROTOBUF_CONSTEXPR PageInsightsHubRequestContextMetadata::PageInsightsHubRequestContextMetadata(
-    ::_pbi::ConstantInitialized){}
+    ::_pbi::ConstantInitialized)
+  : navigation_timestamp_ms_(int64_t{0})
+  , is_user_initiated_(false)
+  , is_initial_page_(false)
+  , should_not_log_or_personalize_(false){}
 struct PageInsightsHubRequestContextMetadataDefaultTypeInternal {
   PROTOBUF_CONSTEXPR PageInsightsHubRequestContextMetadataDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -2420,6 +2424,19 @@ std::string RequestContextMetadata::GetTypeName() const {
 
 class PageInsightsHubRequestContextMetadata::_Internal {
  public:
+  using HasBits = decltype(std::declval<PageInsightsHubRequestContextMetadata>()._has_bits_);
+  static void set_has_is_user_initiated(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_is_initial_page(HasBits* has_bits) {
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_should_not_log_or_personalize(HasBits* has_bits) {
+    (*has_bits)[0] |= 8u;
+  }
+  static void set_has_navigation_timestamp_ms(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
 };
 
 PageInsightsHubRequestContextMetadata::PageInsightsHubRequestContextMetadata(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -2429,12 +2446,20 @@ PageInsightsHubRequestContextMetadata::PageInsightsHubRequestContextMetadata(::P
   // @@protoc_insertion_point(arena_constructor:optimization_guide.proto.PageInsightsHubRequestContextMetadata)
 }
 PageInsightsHubRequestContextMetadata::PageInsightsHubRequestContextMetadata(const PageInsightsHubRequestContextMetadata& from)
-  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(),
+      _has_bits_(from._has_bits_) {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  ::memcpy(&navigation_timestamp_ms_, &from.navigation_timestamp_ms_,
+    static_cast<size_t>(reinterpret_cast<char*>(&should_not_log_or_personalize_) -
+    reinterpret_cast<char*>(&navigation_timestamp_ms_)) + sizeof(should_not_log_or_personalize_));
   // @@protoc_insertion_point(copy_constructor:optimization_guide.proto.PageInsightsHubRequestContextMetadata)
 }
 
 inline void PageInsightsHubRequestContextMetadata::SharedCtor() {
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&navigation_timestamp_ms_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&should_not_log_or_personalize_) -
+    reinterpret_cast<char*>(&navigation_timestamp_ms_)) + sizeof(should_not_log_or_personalize_));
 }
 
 PageInsightsHubRequestContextMetadata::~PageInsightsHubRequestContextMetadata() {
@@ -2460,14 +2485,63 @@ void PageInsightsHubRequestContextMetadata::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    ::memset(&navigation_timestamp_ms_, 0, static_cast<size_t>(
+        reinterpret_cast<char*>(&should_not_log_or_personalize_) -
+        reinterpret_cast<char*>(&navigation_timestamp_ms_)) + sizeof(should_not_log_or_personalize_));
+  }
+  _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
 }
 
 const char* PageInsightsHubRequestContextMetadata::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional bool is_user_initiated = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
+          _Internal::set_has_is_user_initiated(&has_bits);
+          is_user_initiated_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool is_initial_page = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          _Internal::set_has_is_initial_page(&has_bits);
+          is_initial_page_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional bool should_not_log_or_personalize = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          _Internal::set_has_should_not_log_or_personalize(&has_bits);
+          should_not_log_or_personalize_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // optional int64 navigation_timestamp_ms = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 32)) {
+          _Internal::set_has_navigation_timestamp_ms(&has_bits);
+          navigation_timestamp_ms_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
     if ((tag == 0) || ((tag & 7) == 4)) {
       CHK_(ptr);
       ctx->SetLastTag(tag);
@@ -2480,6 +2554,7 @@ const char* PageInsightsHubRequestContextMetadata::_InternalParse(const char* pt
     CHK_(ptr != nullptr);
   }  // while
 message_done:
+  _has_bits_.Or(has_bits);
   return ptr;
 failure:
   ptr = nullptr;
@@ -2492,6 +2567,31 @@ uint8_t* PageInsightsHubRequestContextMetadata::_InternalSerialize(
   // @@protoc_insertion_point(serialize_to_array_start:optimization_guide.proto.PageInsightsHubRequestContextMetadata)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
+
+  cached_has_bits = _has_bits_[0];
+  // optional bool is_user_initiated = 1;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_is_user_initiated(), target);
+  }
+
+  // optional bool is_initial_page = 2;
+  if (cached_has_bits & 0x00000004u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_is_initial_page(), target);
+  }
+
+  // optional bool should_not_log_or_personalize = 3;
+  if (cached_has_bits & 0x00000008u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_should_not_log_or_personalize(), target);
+  }
+
+  // optional int64 navigation_timestamp_ms = 4;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt64ToArray(4, this->_internal_navigation_timestamp_ms(), target);
+  }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
@@ -2509,6 +2609,29 @@ size_t PageInsightsHubRequestContextMetadata::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  cached_has_bits = _has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    // optional int64 navigation_timestamp_ms = 4;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_navigation_timestamp_ms());
+    }
+
+    // optional bool is_user_initiated = 1;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool is_initial_page = 2;
+    if (cached_has_bits & 0x00000004u) {
+      total_size += 1 + 1;
+    }
+
+    // optional bool should_not_log_or_personalize = 3;
+    if (cached_has_bits & 0x00000008u) {
+      total_size += 1 + 1;
+    }
+
+  }
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -2529,6 +2652,22 @@ void PageInsightsHubRequestContextMetadata::MergeFrom(const PageInsightsHubReque
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  cached_has_bits = from._has_bits_[0];
+  if (cached_has_bits & 0x0000000fu) {
+    if (cached_has_bits & 0x00000001u) {
+      navigation_timestamp_ms_ = from.navigation_timestamp_ms_;
+    }
+    if (cached_has_bits & 0x00000002u) {
+      is_user_initiated_ = from.is_user_initiated_;
+    }
+    if (cached_has_bits & 0x00000004u) {
+      is_initial_page_ = from.is_initial_page_;
+    }
+    if (cached_has_bits & 0x00000008u) {
+      should_not_log_or_personalize_ = from.should_not_log_or_personalize_;
+    }
+    _has_bits_[0] |= cached_has_bits;
+  }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
 
@@ -2546,6 +2685,13 @@ bool PageInsightsHubRequestContextMetadata::IsInitialized() const {
 void PageInsightsHubRequestContextMetadata::InternalSwap(PageInsightsHubRequestContextMetadata* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_has_bits_[0], other->_has_bits_[0]);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(PageInsightsHubRequestContextMetadata, should_not_log_or_personalize_)
+      + sizeof(PageInsightsHubRequestContextMetadata::should_not_log_or_personalize_)
+      - PROTOBUF_FIELD_OFFSET(PageInsightsHubRequestContextMetadata, navigation_timestamp_ms_)>(
+          reinterpret_cast<char*>(&navigation_timestamp_ms_),
+          reinterpret_cast<char*>(&other->navigation_timestamp_ms_));
 }
 
 std::string PageInsightsHubRequestContextMetadata::GetTypeName() const {

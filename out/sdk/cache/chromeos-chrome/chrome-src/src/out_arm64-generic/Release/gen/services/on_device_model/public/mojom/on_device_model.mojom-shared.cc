@@ -87,6 +87,77 @@ namespace internal {
 
 
 // static
+bool LanguageDetectionResult_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const LanguageDetectionResult_Data* object =
+      static_cast<const LanguageDetectionResult_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->code, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& code_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->code, validation_context,
+                                         &code_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+LanguageDetectionResult_Data::LanguageDetectionResult_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool SafetyInfo_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SafetyInfo_Data* object =
+      static_cast<const SafetyInfo_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->class_scores, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& class_scores_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->class_scores, validation_context,
+                                         &class_scores_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateStruct(object->language, validation_context))
+    return false;
+
+  return true;
+}
+
+SafetyInfo_Data::SafetyInfo_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool ResponseChunk_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -113,12 +184,8 @@ bool ResponseChunk_Data::Validate(
     return false;
   }
 
-  constexpr const mojo::internal::ContainerValidateParams& ts_scores_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->ts_scores, validation_context,
-                                         &ts_scores_validate_params)) {
+  if (!mojo::internal::ValidateStruct(object->safety_info, validation_context))
     return false;
-  }
 
   return true;
 }
@@ -143,12 +210,8 @@ bool ResponseSummary_Data::Validate(
   [[maybe_unused]] const ResponseSummary_Data* object =
       static_cast<const ResponseSummary_Data*>(data);
 
-  constexpr const mojo::internal::ContainerValidateParams& ts_scores_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->ts_scores, validation_context,
-                                         &ts_scores_validate_params)) {
+  if (!mojo::internal::ValidateStruct(object->safety_info, validation_context))
     return false;
-  }
 
   return true;
 }

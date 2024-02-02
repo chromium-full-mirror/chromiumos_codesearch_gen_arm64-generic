@@ -511,14 +511,7 @@ class  Backend {
 public:
     virtual ~Backend() { }
 
-    class  TriggerCallback {
-    public:
-        virtual void sendSuccess() = 0;
-        virtual void sendFailure(const DispatchResponse&) = 0;
-        virtual void fallThrough() = 0;
-        virtual ~TriggerCallback() { }
-    };
-    virtual void Trigger(int in_fieldId, Maybe<String> in_frameId, std::unique_ptr<protocol::Autofill::CreditCard> in_card, std::unique_ptr<TriggerCallback> callback) = 0;
+    virtual DispatchResponse Trigger(int in_fieldId, Maybe<String> in_frameId, std::unique_ptr<protocol::Autofill::CreditCard> in_card) = 0;
     class  SetAddressesCallback {
     public:
         virtual void sendSuccess() = 0;

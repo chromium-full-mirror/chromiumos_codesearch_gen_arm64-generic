@@ -24,6 +24,24 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"codec",
+"codedHeight",
+"codedWidth",
+"colorSpace",
+"description",
+"displayAspectHeight",
+"displayAspectWidth",
+"encryptionScheme",
+"hardwareAcceleration",
+"optimizeForLatency",
+};
+
+
+}  // namespace 
+
 VideoDecoderConfig* VideoDecoderConfig::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   VideoDecoderConfig* dictionary = MakeGarbageCollected<VideoDecoderConfig>(isolate);
 if (!v8_value->IsObject()) {
@@ -154,55 +172,69 @@ TraceIfNeeded<bool>::Trace(visitor, member_optimize_for_latency_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool VideoDecoderConfig::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void VideoDecoderConfig::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void VideoDecoderConfig::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasCodec()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_codec_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLString>::ToV8(script_state, member_codec_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasCodedHeight()) {
-  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_coded_height_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_coded_height_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasCodedWidth()) {
-  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_coded_width_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_coded_width_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasColorSpace()) {
-  v8_value = ToV8Traits<VideoColorSpaceInit>::ToV8(script_state, member_color_space_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<VideoColorSpaceInit>::ToV8(script_state, member_color_space_.Get());
+DCHECK(!values[3].IsEmpty());
 }
 if (hasDescription()) {
-  v8_value = ToV8Traits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared>::ToV8(script_state, member_description_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowShared>::ToV8(script_state, member_description_.Get());
+DCHECK(!values[4].IsEmpty());
 }
 if (hasDisplayAspectHeight()) {
-  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_display_aspect_height_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_display_aspect_height_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasDisplayAspectWidth()) {
-  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_display_aspect_width_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_display_aspect_width_);
+DCHECK(!values[6].IsEmpty());
 }
+v8::Isolate* isolate = script_state->GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ExecutionContext* execution_context = ExecutionContext::From(current_context);
 if (RuntimeEnabledFeatures::MediaSourceExtensionsForWebCodecsEnabled(execution_context)) {
   if (hasEncryptionScheme()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_encryption_scheme_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLString>::ToV8(script_state, member_encryption_scheme_);
+DCHECK(!values[7].IsEmpty());
 }
 }
 if (hasHardwareAcceleration()) {
-  v8_value = ToV8Traits<V8HardwarePreference>::ToV8(script_state, member_hardware_acceleration_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<V8HardwarePreference>::ToV8(script_state, member_hardware_acceleration_);
+DCHECK(!values[8].IsEmpty());
 }
 if (hasOptimizeForLatency()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_optimize_for_latency_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_optimize_for_latency_);
+DCHECK(!values[9].IsEmpty());
 }
-return true;
+}
+
+const void* VideoDecoderConfig::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> VideoDecoderConfig::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void VideoDecoderConfig::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -260,19 +292,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLBoolean, is_optional>(isolate,
 }
 
 const base::span<const v8::Eternal<v8::Name>> VideoDecoderConfig::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"codec",
-"codedHeight",
-"codedWidth",
-"colorSpace",
-"description",
-"displayAspectHeight",
-"displayAspectWidth",
-"encryptionScheme",
-"hardwareAcceleration",
-"optimizeForLatency",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

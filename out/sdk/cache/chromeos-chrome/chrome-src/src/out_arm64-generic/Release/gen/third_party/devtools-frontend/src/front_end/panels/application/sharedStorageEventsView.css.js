@@ -5,7 +5,7 @@
 /* istanbul ignore file */
 const styles = new CSSStyleSheet();
 styles.replaceSync(
-`devtools-shared-storage-access-grid{overflow:auto}.placeholder{align-items:center;justify-content:center;font-size:13px;color:var(--sys-color-token-subtle);overflow:auto;& div{width:100%}}
+`devtools-shared-storage-access-grid{overflow:auto}.placeholder{align-items:center;justify-content:center;font-size:13px;color:var(--sys-color-token-subtle);overflow:auto;text-align:center;& div{width:100%}}
 /*# sourceURL=sharedStorageEventsView.css */
 `);
 

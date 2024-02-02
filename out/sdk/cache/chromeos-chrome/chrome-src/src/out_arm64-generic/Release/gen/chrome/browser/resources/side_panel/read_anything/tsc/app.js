@@ -438,7 +438,8 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
     playNextGranularity() {
         this.synth.cancel();
         this.resetPreviousHighlight();
-        if (!this.highlightAndPlayNextMessage()) {
+        chrome.readingMode.movePositionToNextGranularity();
+        if (!this.highlightAndPlayMessage()) {
             this.onSpeechFinished();
         }
     }
@@ -447,9 +448,16 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
     playPreviousGranularity() {
         this.synth.cancel();
         this.resetPreviousHighlight();
-        this.highlightAndPlayPreviousMessage();
+        chrome.readingMode.movePositionToPreviousGranularity();
+        if (!this.highlightAndPlayMessage()) {
+            this.onSpeechFinished();
+        }
     }
     playSpeech() {
+        const shadowRoot = this.shadowRoot;
+        assert(shadowRoot);
+        const container = shadowRoot.getElementById('container');
+        assert(container);
         if (this.speechStarted && this.paused) {
             this.synth.resume();
             this.paused = false;
@@ -457,12 +465,17 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
             if (chrome.readingMode.linksEnabled) {
                 this.updateContent();
             }
+            // If the current read highlight has been cleared from a call to
+            // updateContent, such as for links being toggled on or off via a Read
+            // Aloud play / pause or via a preference change, rehighlight the nodes
+            // after a pause.
+            if (!container.querySelector('.current-read-highlight')) {
+                // TODO(crbug.com/1474951): Investigate adding a mock voice in tests
+                // to make this testable.
+                this.highlightNodes(chrome.readingMode.getCurrentText());
+            }
             return;
         }
-        const shadowRoot = this.shadowRoot;
-        assert(shadowRoot);
-        const container = shadowRoot.getElementById('container');
-        assert(container);
         if (container.textContent) {
             this.paused = false;
             // Hide links when speech begins playing.
@@ -486,22 +499,18 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
             // that this step can be skipped.
             if (axNode) {
                 chrome.readingMode.initAXPositionWithNode(axNode);
-                this.highlightAndPlayNextMessage();
+                this.highlightAndPlayMessage();
             }
         }
     }
-    highlightAndPlayNextMessage() {
-        // getNextText returns a list of triples of AXNodeIds and start / end text
-        // indices, represented as a double array.
-        const nextTextIds = chrome.readingMode.getNextText();
+    highlightAndPlayMessage() {
+        // getCurrentText gets the AX Node IDs of text that should be spoken and
+        // highlighted.
+        const nextTextIds = chrome.readingMode.getCurrentText();
         return this.highlightAndPlayTextOf(nextTextIds);
     }
-    highlightAndPlayPreviousMessage() {
-        const previousTextIds = chrome.readingMode.getPreviousText();
-        return this.highlightAndPlayTextOf(previousTextIds);
-    }
-    // Play text of these axNodeIds. When finished, call
-    // highlightAndPlayNextMessage() to read the following text.
+    // Play text of these axNodeIds. When finished, read and highlight to read the
+    // following text.
     // TODO (crbug.com/1474951): Investigate using AXRange.GetText to get text
     // between start node / end nodes and their offsets.
     highlightAndPlayTextOf(axNodeIds) {
@@ -516,6 +525,15 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
     }
     // Gets the accessible text boundary for the given string.
     getAccessibleTextLength(utteranceText) {
+        // Splicing on commas won't work for all locales, but since this is a
+        // simple strategy for splicing text in languages that do use commas
+        // that reduces the need for calling getAccessibleBoundary.
+        // TODO(crub.com/1474951): Investigate if we can utilize comma splices
+        // directly in the utils methods called by #getAccessibleBoundary.
+        const lastCommaIndex = utteranceText.substring(0, this.maxSpeechLength).lastIndexOf(',');
+        if (lastCommaIndex >= 0) {
+            return lastCommaIndex;
+        }
         // TODO(crbug.com/1474951): getAccessibleBoundary breaks on the nearest
         // word boundary, but if there's some type of punctuation (such as a comma),
         // it would be preferable to break on the punctuation so the pause in
@@ -525,11 +543,13 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
     playText(utteranceText) {
         // This check is needed due limits of TTS audio for remote voices. See
         // crbug.com/1176078 for more details.
-        // TODO(crbug.com/1474951): Since the TTS bug only impacts remote voices,
-        // we should be able to ignore this check when the current voice is set
-        // to a local voice. This would mean that we won't end up calling
-        // #getAccessibleTextLength in the majority of cases.
-        const isTextTooLong = utteranceText.length > this.maxSpeechLength;
+        // Since the TTS bug only impacts remote voices, no need to check for
+        // maximum text length if we're using a local voice. If we do somehow
+        // attempt to speak text that's too long, this will be able to be handled
+        // by listening for a text-too-long error in message.onerror.
+        const isTextTooLong = this.selectedVoice?.localService ?
+            false :
+            utteranceText.length > this.maxSpeechLength;
         const endBoundary = isTextTooLong ?
             this.getAccessibleTextLength(utteranceText) :
             utteranceText.length;
@@ -555,8 +575,11 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
             // TODO(crbug.com/1474951): Return text to its original style once
             // the document has finished.
             this.resetPreviousHighlight();
+            // Now that we've finiished reading this utterance, update the Granularity
+            // state to point to the next one
+            chrome.readingMode.movePositionToNextGranularity();
             // Continue speaking with the next block of text.
-            if (!this.highlightAndPlayNextMessage()) {
+            if (!this.highlightAndPlayMessage()) {
                 this.onSpeechFinished();
             }
         };
@@ -580,8 +603,8 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         for (let i = 0; i < axNodeIds.length; i++) {
             assert(axNodeIds[i]);
             const nodeId = axNodeIds[i];
-            const startIndex = chrome.readingMode.getNextTextStartIndex(nodeId);
-            const endIndex = chrome.readingMode.getNextTextEndIndex(nodeId);
+            const startIndex = chrome.readingMode.getCurrentTextStartIndex(nodeId);
+            const endIndex = chrome.readingMode.getCurrentTextEndIndex(nodeId);
             const element = this.domNodeToAxNodeIdMap_.keyFrom(nodeId);
             if (!element || startIndex < 0 || endIndex < 0) {
                 continue;
@@ -594,18 +617,18 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         }
         return utteranceText;
     }
-    // TODO(crbug.com/1474951): Handle previous highlighting.
     highlightNodes(nextTextIds) {
-        // implementation based off of #highlightCurrentText below
-        assert(nextTextIds.length > 0);
+        if (nextTextIds.length === 0) {
+            return;
+        }
         for (let i = 0; i < nextTextIds.length; i++) {
             const nodeId = nextTextIds[i];
             const element = this.domNodeToAxNodeIdMap_.keyFrom(nodeId);
             if (!element) {
                 continue;
             }
-            const start = chrome.readingMode.getNextTextStartIndex(nodeId);
-            const end = chrome.readingMode.getNextTextEndIndex(nodeId);
+            const start = chrome.readingMode.getCurrentTextStartIndex(nodeId);
+            const end = chrome.readingMode.getCurrentTextEndIndex(nodeId);
             if ((start < 0) || (end < 0)) {
                 // If the start or end index is invalid, don't use this node.
                 continue;

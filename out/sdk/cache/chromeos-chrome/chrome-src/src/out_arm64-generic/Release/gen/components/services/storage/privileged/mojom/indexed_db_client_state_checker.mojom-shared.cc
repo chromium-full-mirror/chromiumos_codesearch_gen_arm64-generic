@@ -24,12 +24,14 @@ namespace mojom {
 NOINLINE static const char* DisallowInactiveClientReasonToStringHelper(DisallowInactiveClientReason value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
-    case DisallowInactiveClientReason::kClientEventIsTriggered:
-      return "kClientEventIsTriggered";
+    case DisallowInactiveClientReason::kVersionChangeEvent:
+      return "kVersionChangeEvent";
     case DisallowInactiveClientReason::kTransactionIsAcquiringLocks:
       return "kTransactionIsAcquiringLocks";
-    case DisallowInactiveClientReason::kTransactionIsBlockingOthers:
-      return "kTransactionIsBlockingOthers";
+    case DisallowInactiveClientReason::kTransactionIsStartingWhileBlockingOthers:
+      return "kTransactionIsStartingWhileBlockingOthers";
+    case DisallowInactiveClientReason::kTransactionIsOngoingAndBlockingOthers:
+      return "kTransactionIsOngoingAndBlockingOthers";
     default:
       return nullptr;
   }

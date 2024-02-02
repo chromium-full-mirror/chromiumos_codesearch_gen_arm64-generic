@@ -509,6 +509,7 @@ class FeatureTextSafetyConfiguration final :
 
   enum : int {
     kSafetyCategoryThresholdsFieldNumber = 2,
+    kAllowedLanguagesFieldNumber = 3,
     kFeatureFieldNumber = 1,
   };
   // repeated .optimization_guide.proto.SafetyCategoryThreshold safety_category_thresholds = 2;
@@ -528,6 +529,30 @@ class FeatureTextSafetyConfiguration final :
   ::optimization_guide::proto::SafetyCategoryThreshold* add_safety_category_thresholds();
   const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::SafetyCategoryThreshold >&
       safety_category_thresholds() const;
+
+  // repeated string allowed_languages = 3;
+  int allowed_languages_size() const;
+  private:
+  int _internal_allowed_languages_size() const;
+  public:
+  void clear_allowed_languages();
+  const std::string& allowed_languages(int index) const;
+  std::string* mutable_allowed_languages(int index);
+  void set_allowed_languages(int index, const std::string& value);
+  void set_allowed_languages(int index, std::string&& value);
+  void set_allowed_languages(int index, const char* value);
+  void set_allowed_languages(int index, const char* value, size_t size);
+  std::string* add_allowed_languages();
+  void add_allowed_languages(const std::string& value);
+  void add_allowed_languages(std::string&& value);
+  void add_allowed_languages(const char* value);
+  void add_allowed_languages(const char* value, size_t size);
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>& allowed_languages() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>* mutable_allowed_languages();
+  private:
+  const std::string& _internal_allowed_languages(int index) const;
+  std::string* _internal_add_allowed_languages();
+  public:
 
   // optional .optimization_guide.proto.ModelExecutionFeature feature = 1;
   bool has_feature() const;
@@ -552,6 +577,7 @@ class FeatureTextSafetyConfiguration final :
   ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::proto::SafetyCategoryThreshold > safety_category_thresholds_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> allowed_languages_;
   int feature_;
   friend struct ::TableStruct_components_2foptimization_5fguide_2fproto_2ftext_5fsafety_5fmodel_5fmetadata_2eproto;
 };
@@ -833,6 +859,81 @@ inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::optimization_guide::pr
 FeatureTextSafetyConfiguration::safety_category_thresholds() const {
   // @@protoc_insertion_point(field_list:optimization_guide.proto.FeatureTextSafetyConfiguration.safety_category_thresholds)
   return safety_category_thresholds_;
+}
+
+// repeated string allowed_languages = 3;
+inline int FeatureTextSafetyConfiguration::_internal_allowed_languages_size() const {
+  return allowed_languages_.size();
+}
+inline int FeatureTextSafetyConfiguration::allowed_languages_size() const {
+  return _internal_allowed_languages_size();
+}
+inline void FeatureTextSafetyConfiguration::clear_allowed_languages() {
+  allowed_languages_.Clear();
+}
+inline std::string* FeatureTextSafetyConfiguration::add_allowed_languages() {
+  std::string* _s = _internal_add_allowed_languages();
+  // @@protoc_insertion_point(field_add_mutable:optimization_guide.proto.FeatureTextSafetyConfiguration.allowed_languages)
+  return _s;
+}
+inline const std::string& FeatureTextSafetyConfiguration::_internal_allowed_languages(int index) const {
+  return allowed_languages_.Get(index);
+}
+inline const std::string& FeatureTextSafetyConfiguration::allowed_languages(int index) const {
+  // @@protoc_insertion_point(field_get:optimization_guide.proto.FeatureTextSafetyConfiguration.allowed_languages)
+  return _internal_allowed_languages(index);
+}
+inline std::string* FeatureTextSafetyConfiguration::mutable_allowed_languages(int index) {
+  // @@protoc_insertion_point(field_mutable:optimization_guide.proto.FeatureTextSafetyConfiguration.allowed_languages)
+  return allowed_languages_.Mutable(index);
+}
+inline void FeatureTextSafetyConfiguration::set_allowed_languages(int index, const std::string& value) {
+  allowed_languages_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.FeatureTextSafetyConfiguration.allowed_languages)
+}
+inline void FeatureTextSafetyConfiguration::set_allowed_languages(int index, std::string&& value) {
+  allowed_languages_.Mutable(index)->assign(std::move(value));
+  // @@protoc_insertion_point(field_set:optimization_guide.proto.FeatureTextSafetyConfiguration.allowed_languages)
+}
+inline void FeatureTextSafetyConfiguration::set_allowed_languages(int index, const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  allowed_languages_.Mutable(index)->assign(value);
+  // @@protoc_insertion_point(field_set_char:optimization_guide.proto.FeatureTextSafetyConfiguration.allowed_languages)
+}
+inline void FeatureTextSafetyConfiguration::set_allowed_languages(int index, const char* value, size_t size) {
+  allowed_languages_.Mutable(index)->assign(
+    reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:optimization_guide.proto.FeatureTextSafetyConfiguration.allowed_languages)
+}
+inline std::string* FeatureTextSafetyConfiguration::_internal_add_allowed_languages() {
+  return allowed_languages_.Add();
+}
+inline void FeatureTextSafetyConfiguration::add_allowed_languages(const std::string& value) {
+  allowed_languages_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add:optimization_guide.proto.FeatureTextSafetyConfiguration.allowed_languages)
+}
+inline void FeatureTextSafetyConfiguration::add_allowed_languages(std::string&& value) {
+  allowed_languages_.Add(std::move(value));
+  // @@protoc_insertion_point(field_add:optimization_guide.proto.FeatureTextSafetyConfiguration.allowed_languages)
+}
+inline void FeatureTextSafetyConfiguration::add_allowed_languages(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  allowed_languages_.Add()->assign(value);
+  // @@protoc_insertion_point(field_add_char:optimization_guide.proto.FeatureTextSafetyConfiguration.allowed_languages)
+}
+inline void FeatureTextSafetyConfiguration::add_allowed_languages(const char* value, size_t size) {
+  allowed_languages_.Add()->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_add_pointer:optimization_guide.proto.FeatureTextSafetyConfiguration.allowed_languages)
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>&
+FeatureTextSafetyConfiguration::allowed_languages() const {
+  // @@protoc_insertion_point(field_list:optimization_guide.proto.FeatureTextSafetyConfiguration.allowed_languages)
+  return allowed_languages_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string>*
+FeatureTextSafetyConfiguration::mutable_allowed_languages() {
+  // @@protoc_insertion_point(field_mutable_list:optimization_guide.proto.FeatureTextSafetyConfiguration.allowed_languages)
+  return &allowed_languages_;
 }
 
 #ifdef __GNUC__

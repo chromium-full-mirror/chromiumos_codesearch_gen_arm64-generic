@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="app-management-shared-style">:host{align-items:center;display:flex;justify-content:space-between}:host(:not([available_])){display:none}#icon{padding-inline-end:var(--row-item-icon-padding)}</style>
+    return html `<!--_html_template_start_--><style include="app-management-cros-shared-style">:host{align-items:center;display:flex;justify-content:space-between}:host(:not([available_])){display:none}#icon{padding-inline-end:var(--row-item-icon-padding)}</style>
 
 <template is="dom-if" if="[[available_]]">
   <div class="horizontal-align">

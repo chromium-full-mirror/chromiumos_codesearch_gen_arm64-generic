@@ -17,7 +17,6 @@ namespace internal {
 constexpr uint32_t kDevToolsAgent_AttachDevToolsSession_Name = 0;
 constexpr uint32_t kDevToolsAgent_InspectElement_Name = 1;
 constexpr uint32_t kDevToolsAgent_ReportChildTargets_Name = 2;
-constexpr uint32_t kDevToolsAgent_GetUniqueFormControlId_Name = 3;
 constexpr uint32_t kDevToolsAgentHost_ChildTargetCreated_Name = 0;
 constexpr uint32_t kDevToolsAgentHost_MainThreadDebuggerPaused_Name = 1;
 constexpr uint32_t kDevToolsAgentHost_MainThreadDebuggerResumed_Name = 2;

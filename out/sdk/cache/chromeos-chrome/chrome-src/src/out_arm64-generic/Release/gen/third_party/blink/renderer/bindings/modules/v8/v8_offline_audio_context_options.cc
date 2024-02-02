@@ -21,6 +21,17 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"length",
+"numberOfChannels",
+"sampleRate",
+};
+
+
+}  // namespace 
+
 OfflineAudioContextOptions* OfflineAudioContextOptions::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   OfflineAudioContextOptions* dictionary = MakeGarbageCollected<OfflineAudioContextOptions>(isolate);
 if (!v8_value->IsObject()) {
@@ -67,24 +78,36 @@ TraceIfNeeded<float>::Trace(visitor, member_sample_rate_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool OfflineAudioContextOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void OfflineAudioContextOptions::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void OfflineAudioContextOptions::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasLength()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_length_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_length_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasNumberOfChannels()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_number_of_channels_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_number_of_channels_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasSampleRate()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_sample_rate_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLFloat>::ToV8(script_state, member_sample_rate_);
+DCHECK(!values[2].IsEmpty());
 }
-return true;
+}
+
+const void* OfflineAudioContextOptions::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> OfflineAudioContextOptions::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void OfflineAudioContextOptions::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -111,12 +134,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLFloat, is_required>(isolate, c
 }
 
 const base::span<const v8::Eternal<v8::Name>> OfflineAudioContextOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"length",
-"numberOfChannels",
-"sampleRate",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

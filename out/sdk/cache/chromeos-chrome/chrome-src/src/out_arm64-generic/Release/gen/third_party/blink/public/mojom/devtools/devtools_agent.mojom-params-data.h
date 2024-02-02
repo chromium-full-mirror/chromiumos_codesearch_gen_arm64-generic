@@ -95,39 +95,6 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DevToolsAgent_ReportChi
 };
 static_assert(sizeof(DevToolsAgent_ReportChildTargets_ResponseParams_Data) == 8,
               "Bad sizeof(DevToolsAgent_ReportChildTargets_ResponseParams_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DevToolsAgent_GetUniqueFormControlId_Params_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  int32_t nodeId;
-  uint8_t padfinal_[4];
-
- private:
-  friend class mojo::internal::MessageFragment<DevToolsAgent_GetUniqueFormControlId_Params_Data>;
-
-  DevToolsAgent_GetUniqueFormControlId_Params_Data();
-  ~DevToolsAgent_GetUniqueFormControlId_Params_Data() = delete;
-};
-static_assert(sizeof(DevToolsAgent_GetUniqueFormControlId_Params_Data) == 16,
-              "Bad sizeof(DevToolsAgent_GetUniqueFormControlId_Params_Data)");
-class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DevToolsAgent_GetUniqueFormControlId_ResponseParams_Data {
- public:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-
-  mojo::internal::StructHeader header_;
-  uint64_t id;
-
- private:
-  friend class mojo::internal::MessageFragment<DevToolsAgent_GetUniqueFormControlId_ResponseParams_Data>;
-
-  DevToolsAgent_GetUniqueFormControlId_ResponseParams_Data();
-  ~DevToolsAgent_GetUniqueFormControlId_ResponseParams_Data() = delete;
-};
-static_assert(sizeof(DevToolsAgent_GetUniqueFormControlId_ResponseParams_Data) == 16,
-              "Bad sizeof(DevToolsAgent_GetUniqueFormControlId_ResponseParams_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) DevToolsAgentHost_ChildTargetCreated_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -382,42 +349,6 @@ class DevToolsAgent_ReportChildTargets_ResponseParamsDataView {
   bool is_null() const { return !data_; }
  private:
   internal::DevToolsAgent_ReportChildTargets_ResponseParams_Data* data_ = nullptr;
-};
-
-
-class DevToolsAgent_GetUniqueFormControlId_ParamsDataView {
- public:
-  DevToolsAgent_GetUniqueFormControlId_ParamsDataView() = default;
-
-  DevToolsAgent_GetUniqueFormControlId_ParamsDataView(
-      internal::DevToolsAgent_GetUniqueFormControlId_Params_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  int32_t nodeId() const {
-    return data_->nodeId;
-  }
- private:
-  internal::DevToolsAgent_GetUniqueFormControlId_Params_Data* data_ = nullptr;
-};
-
-
-class DevToolsAgent_GetUniqueFormControlId_ResponseParamsDataView {
- public:
-  DevToolsAgent_GetUniqueFormControlId_ResponseParamsDataView() = default;
-
-  DevToolsAgent_GetUniqueFormControlId_ResponseParamsDataView(
-      internal::DevToolsAgent_GetUniqueFormControlId_ResponseParams_Data* data,
-      mojo::Message* message)
-      : data_(data) {}
-
-  bool is_null() const { return !data_; }
-  uint64_t id() const {
-    return data_->id;
-  }
- private:
-  internal::DevToolsAgent_GetUniqueFormControlId_ResponseParams_Data* data_ = nullptr;
 };
 
 
@@ -678,10 +609,6 @@ inline void DevToolsAgent_InspectElement_ParamsDataView::GetPointDataView(
   auto pointer = data_->point.Get();
   *output = ::gfx::mojom::PointDataView(pointer, message_);
 }
-
-
-
-
 
 
 

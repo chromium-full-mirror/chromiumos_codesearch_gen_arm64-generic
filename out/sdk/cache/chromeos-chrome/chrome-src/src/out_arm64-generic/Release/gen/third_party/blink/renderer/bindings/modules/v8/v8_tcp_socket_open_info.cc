@@ -21,6 +21,15 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+
+};
+
+
+}  // namespace 
+
 TCPSocketOpenInfo* TCPSocketOpenInfo::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   TCPSocketOpenInfo* dictionary = MakeGarbageCollected<TCPSocketOpenInfo>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -53,12 +62,27 @@ void TCPSocketOpenInfo::Trace(Visitor* visitor) const {
   SocketOpenInfo::Trace(visitor);
 }
 
-bool TCPSocketOpenInfo::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!SocketOpenInfo::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void TCPSocketOpenInfo::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  SocketOpenInfo::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
 }
 
-return true;
+void TCPSocketOpenInfo::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  SocketOpenInfo::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
+}
+
+const void* TCPSocketOpenInfo::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> TCPSocketOpenInfo::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void TCPSocketOpenInfo::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {

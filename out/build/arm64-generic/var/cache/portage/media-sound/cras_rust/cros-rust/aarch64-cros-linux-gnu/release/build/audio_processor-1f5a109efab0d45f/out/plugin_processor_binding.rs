@@ -232,6 +232,9 @@ pub struct plugin_processor_ops {
         ) -> status,
     >,
     pub destroy: ::std::option::Option<unsafe extern "C" fn(p: *mut plugin_processor) -> status>,
+    pub get_output_frame_rate: ::std::option::Option<
+        unsafe extern "C" fn(p: *mut plugin_processor, output_frame_rate: *mut usize) -> status,
+    >,
 }
 #[test]
 fn bindgen_test_layout_plugin_processor_ops() {
@@ -239,7 +242,7 @@ fn bindgen_test_layout_plugin_processor_ops() {
     let ptr = UNINIT.as_ptr();
     assert_eq!(
         ::std::mem::size_of::<plugin_processor_ops>(),
-        16usize,
+        24usize,
         concat!("Size of: ", stringify!(plugin_processor_ops))
     );
     assert_eq!(
@@ -265,6 +268,16 @@ fn bindgen_test_layout_plugin_processor_ops() {
             stringify!(plugin_processor_ops),
             "::",
             stringify!(destroy)
+        )
+    );
+    assert_eq!(
+        unsafe { ::std::ptr::addr_of!((*ptr).get_output_frame_rate) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(plugin_processor_ops),
+            "::",
+            stringify!(get_output_frame_rate)
         )
     );
 }
@@ -299,7 +312,19 @@ extern "C" {
     ) -> status;
 }
 extern "C" {
+    pub fn bad_plugin_missing_get_output_frame_rate_create(
+        out: *mut *mut plugin_processor,
+        config: *const plugin_processor_config,
+    ) -> status;
+}
+extern "C" {
     pub fn bad_plugin_failing_run_create(
+        out: *mut *mut plugin_processor,
+        config: *const plugin_processor_config,
+    ) -> status;
+}
+extern "C" {
+    pub fn bad_plugin_failing_get_output_frame_rate_create(
         out: *mut *mut plugin_processor,
         config: *const plugin_processor_config,
     ) -> status;

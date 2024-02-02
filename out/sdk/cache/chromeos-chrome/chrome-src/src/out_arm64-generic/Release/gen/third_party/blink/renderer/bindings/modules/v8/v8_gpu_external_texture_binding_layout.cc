@@ -21,6 +21,15 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+
+};
+
+
+}  // namespace 
+
 GPUExternalTextureBindingLayout* GPUExternalTextureBindingLayout::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   GPUExternalTextureBindingLayout* dictionary = MakeGarbageCollected<GPUExternalTextureBindingLayout>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -53,8 +62,20 @@ void GPUExternalTextureBindingLayout::Trace(Visitor* visitor) const {
   bindings::DictionaryBase::Trace(visitor);
 }
 
-bool GPUExternalTextureBindingLayout::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  return true;
+void GPUExternalTextureBindingLayout::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  
+}
+
+void GPUExternalTextureBindingLayout::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
+}
+
+const void* GPUExternalTextureBindingLayout::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> GPUExternalTextureBindingLayout::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  return dict_template->NewInstance(script_state->GetContext(), {});
 }
 
 void GPUExternalTextureBindingLayout::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {

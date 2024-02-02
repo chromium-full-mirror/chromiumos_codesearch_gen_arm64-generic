@@ -81,7 +81,7 @@ export class FilterBar extends Common.ObjectWrapper.eventMixin(HBox) {
         this.element.classList.add('filter-bar');
         this.element.setAttribute('jslog', `${VisualLogging.toolbar('filter-bar')}`);
         this.stateSetting =
-            Common.Settings.Settings.instance().createSetting('filterBar-' + name + '-toggled', Boolean(visibleByDefault));
+            Common.Settings.Settings.instance().createSetting('filter-bar-' + name + '-toggled', Boolean(visibleByDefault));
         this.filterButtonInternal =
             new ToolbarSettingToggle(this.stateSetting, 'filter', i18nString(UIStrings.filter), 'filter-filled', 'filter');
         this.filters = [];

@@ -14,5 +14,7 @@
 #include "ui/accessibility/mojom/ax_node_data.mojom-import-headers.h"
 #include "ui/accessibility/mojom/ax_tree_data.mojom.h"
 #include "ui/accessibility/mojom/ax_tree_data.mojom-import-headers.h"
+#include "ui/accessibility/mojom/ax_tree_checks.mojom.h"
+#include "ui/accessibility/mojom/ax_tree_checks.mojom-import-headers.h"
 
 #endif  // UI_ACCESSIBILITY_MOJOM_AX_TREE_UPDATE_MOJOM_IMPORT_HEADERS_H_

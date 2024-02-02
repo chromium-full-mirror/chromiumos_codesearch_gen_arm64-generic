@@ -35,6 +35,7 @@
 #include "components/services/storage/public/mojom/storage_usage_info.mojom-forward.h"
 #include "mojo/public/mojom/base/file_path.mojom.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
+#include "mojo/public/mojom/base/unguessable_token.mojom.h"
 #include "mojo/public/mojom/base/values.mojom-forward.h"
 #include "third_party/blink/public/mojom/indexeddb/indexeddb.mojom-forward.h"
 #include "third_party/blink/public/mojom/storage_key/storage_key.mojom.h"
@@ -178,7 +179,7 @@ class IndexedDBControl
   virtual ~IndexedDBControl() = default;
 
   
-  virtual void BindIndexedDB(const ::storage::BucketLocator& bucket_locator, ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> client_state_checker_remote, ::mojo::PendingReceiver<::blink::mojom::IDBFactory> receiver) = 0;
+  virtual void BindIndexedDB(const ::storage::BucketLocator& bucket_locator, ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> client_state_checker_remote, const ::base::UnguessableToken& client_token, ::mojo::PendingReceiver<::blink::mojom::IDBFactory> receiver) = 0;
 
 
   using DeleteForStorageKeyCallback = base::OnceCallback<void(bool)>;
@@ -239,7 +240,7 @@ class  IndexedDBControlProxy
 
   explicit IndexedDBControlProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void BindIndexedDB(const ::storage::BucketLocator& bucket_locator, ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> client_state_checker_remote, ::mojo::PendingReceiver<::blink::mojom::IDBFactory> receiver) final;
+  void BindIndexedDB(const ::storage::BucketLocator& bucket_locator, ::mojo::PendingRemote<::storage::mojom::IndexedDBClientStateChecker> client_state_checker_remote, const ::base::UnguessableToken& client_token, ::mojo::PendingReceiver<::blink::mojom::IDBFactory> receiver) final;
   
   void DeleteForStorageKey(const ::blink::StorageKey& storage_key, DeleteForStorageKeyCallback callback) final;
   

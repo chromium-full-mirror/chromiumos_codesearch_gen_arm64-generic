@@ -2,10 +2,25 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { AppManagementBrowserProxy, AppManagementComponentBrowserProxy } from 'chrome://os-settings/os_settings.js';
+import { PageCallbackRouter } from 'chrome://resources/cr_components/app_management/app_management.mojom-webui.js';
 import { assertTrue } from 'chrome://webui-test/chai_assert.js';
+import { TestBrowserProxy } from 'chrome://webui-test/test_browser_proxy.js';
 import { isVisible } from 'chrome://webui-test/test_util.js';
 import { FakePageHandler } from './fake_page_handler.js';
 import { TestAppManagementStore } from './test_store.js';
+export class TestAppManagementBrowserProxy extends TestBrowserProxy {
+    callbackRouter;
+    handler;
+    constructor(handler) {
+        super(['recordEnumerationValue']);
+        this.handler = handler;
+        this.callbackRouter = new PageCallbackRouter();
+    }
+    recordEnumerationValue(metricName, value, enumSize) {
+        this.methodCalled('recordEnumerationValue', metricName, value, enumSize);
+    }
+}
+export let fakeComponentBrowserProxy = null;
 /**
  * Create an app for testing purpose.
  */
@@ -16,8 +31,8 @@ export function setupFakeHandler() {
     const browserProxy = AppManagementBrowserProxy.getInstance();
     const fakeHandler = new FakePageHandler(browserProxy.callbackRouter.$.bindNewPipeAndPassRemote());
     browserProxy.handler = fakeHandler.getRemote();
-    const componentBrowserProxy = AppManagementComponentBrowserProxy.getInstance();
-    componentBrowserProxy.handler = fakeHandler;
+    fakeComponentBrowserProxy = new TestAppManagementBrowserProxy(fakeHandler);
+    AppManagementComponentBrowserProxy.setInstance(fakeComponentBrowserProxy);
     return fakeHandler;
 }
 /**

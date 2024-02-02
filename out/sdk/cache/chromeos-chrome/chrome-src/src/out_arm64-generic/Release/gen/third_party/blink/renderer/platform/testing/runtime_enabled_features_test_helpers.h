@@ -885,8 +885,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_offset_mapping_unit_variable_enabled_>;
   using ScopedOnDeviceChange = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_on_device_change_enabled_>;
-  using ScopedOnePassRasterInvalidation = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_one_pass_raster_invalidation_enabled_>;
   using ScopedOptionElementAlwaysUseLabel = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_option_element_always_use_label_enabled_>;
   using ScopedOrientationEvent = ScopedRuntimeEnabledFeature<
@@ -1055,8 +1053,6 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_remove_data_url_in_svg_use_enabled_>;
   using ScopedRemoveMobileViewportDoubleTap = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_remove_mobile_viewport_double_tap_enabled_>;
-  using ScopedRemoveZoomAdjustmentOfBoundingBox = ScopedRuntimeEnabledFeature<
-      RuntimeEnabledFeaturesBase::is_remove_zoom_adjustment_of_bounding_box_enabled_>;
   using ScopedRenderBlockingInlineModuleScript = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_render_blocking_inline_module_script_enabled_>;
   using ScopedRenderBlockingStatus = ScopedRuntimeEnabledFeature<
@@ -1223,6 +1219,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_srcset_max_density_enabled_>;
   using ScopedStableBlinkFeatures = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_stable_blink_features_enabled_>;
+  using ScopedStandardizedBrowserZoom = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_standardized_browser_zoom_enabled_>;
   using ScopedStorageAccessAPIBeyondCookies = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_storage_access_api_beyond_cookies_enabled_>;
   using ScopedStorageBuckets = ScopedRuntimeEnabledFeature<
@@ -2351,8 +2349,6 @@ using ScopedOffsetMappingUnitVariableForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedOffsetMappingUnitVariable;
 using ScopedOnDeviceChangeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedOnDeviceChange;
-using ScopedOnePassRasterInvalidationForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedOnePassRasterInvalidation;
 using ScopedOptionElementAlwaysUseLabelForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedOptionElementAlwaysUseLabel;
 using ScopedOrientationEventForTest =
@@ -2521,8 +2517,6 @@ using ScopedRemoveDataUrlInSvgUseForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedRemoveDataUrlInSvgUse;
 using ScopedRemoveMobileViewportDoubleTapForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedRemoveMobileViewportDoubleTap;
-using ScopedRemoveZoomAdjustmentOfBoundingBoxForTest =
-    RuntimeEnabledFeaturesTestHelpers::ScopedRemoveZoomAdjustmentOfBoundingBox;
 using ScopedRenderBlockingInlineModuleScriptForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedRenderBlockingInlineModuleScript;
 using ScopedRenderBlockingStatusForTest =
@@ -2689,6 +2683,8 @@ using ScopedSrcsetMaxDensityForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedSrcsetMaxDensity;
 using ScopedStableBlinkFeaturesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedStableBlinkFeatures;
+using ScopedStandardizedBrowserZoomForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedStandardizedBrowserZoom;
 using ScopedStorageAccessAPIBeyondCookiesForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedStorageAccessAPIBeyondCookies;
 using ScopedStorageBucketsForTest =

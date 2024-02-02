@@ -1329,7 +1329,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'all_buyer_experiment_group_id_$value', 64,
         0,
-        mojo.internal.Int16,
+        mojo.internal.Uint16,
         0,
         false /* nullable */,
         0,

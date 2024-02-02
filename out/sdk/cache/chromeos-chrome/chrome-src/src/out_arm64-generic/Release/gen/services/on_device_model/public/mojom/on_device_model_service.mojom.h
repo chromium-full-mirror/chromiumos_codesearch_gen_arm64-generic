@@ -208,7 +208,8 @@ class  ModelAssets {
       ::base::File model,
       ::base::File weights,
       ::base::File ts_data,
-      ::base::File ts_sp_model);
+      ::base::File ts_sp_model,
+      ::base::File language_detection_model);
 
 ModelAssets(const ModelAssets&) = delete;
 ModelAssets& operator=(const ModelAssets&) = delete;
@@ -292,6 +293,8 @@ ModelAssets& operator=(const ModelAssets&) = delete;
   ::base::File ts_data;
   
   ::base::File ts_sp_model;
+  
+  ::base::File language_detection_model;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -472,7 +475,8 @@ ModelAssetsPtr ModelAssets::Clone() const {
       mojo::Clone(model),
       mojo::Clone(weights),
       mojo::Clone(ts_data),
-      mojo::Clone(ts_sp_model)
+      mojo::Clone(ts_sp_model),
+      mojo::Clone(language_detection_model)
   );
 }
 
@@ -487,6 +491,8 @@ bool ModelAssets::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->ts_data, other_struct.ts_data))
     return false;
   if (!mojo::Equals(this->ts_sp_model, other_struct.ts_sp_model))
+    return false;
+  if (!mojo::Equals(this->language_detection_model, other_struct.language_detection_model))
     return false;
   return true;
 }
@@ -512,6 +518,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.ts_sp_model < rhs.ts_sp_model)
     return true;
   if (rhs.ts_sp_model < lhs.ts_sp_model)
+    return false;
+  if (lhs.language_detection_model < rhs.language_detection_model)
+    return true;
+  if (rhs.language_detection_model < lhs.language_detection_model)
     return false;
   return false;
 }
@@ -587,6 +597,11 @@ struct  StructTraits<::on_device_model::mojom::ModelAssets::DataView,
   static  decltype(::on_device_model::mojom::ModelAssets::ts_sp_model)& ts_sp_model(
        ::on_device_model::mojom::ModelAssetsPtr& input) {
     return input->ts_sp_model;
+  }
+
+  static  decltype(::on_device_model::mojom::ModelAssets::language_detection_model)& language_detection_model(
+       ::on_device_model::mojom::ModelAssetsPtr& input) {
+    return input->language_detection_model;
   }
 
   static bool Read(::on_device_model::mojom::ModelAssets::DataView input, ::on_device_model::mojom::ModelAssetsPtr* output);

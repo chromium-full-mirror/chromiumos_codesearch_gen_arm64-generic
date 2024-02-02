@@ -1,55 +1,11 @@
-import {html} from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-  return html`<!--_html_template_start_--><style include="wallpaper common">
-  :host {
-    overflow: hidden;
-  }
+    return html `<!--_html_template_start_--><style include="wallpaper common">:host{overflow:hidden}iron-list{width:100%}.template-chip{border-bottom:2px dotted #fff}.template-info{font:var(--cros-body-1-font)}#templateTitle{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:center;gap:4px}wallpaper-grid-item[data-sea-pen-image]::part(text){position:unset}</style>
 
-  iron-list {
-    width: 100%;
-  }
-
-  .template-chip {
-    border-bottom: 2px dotted white;
-  }
-
-  .template-info {
-    font: var(--cros-body-1-font);
-  }
-
-  #templateTitle {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 4px;
-  }
-
-  wallpaper-grid-item[data-sea-pen-image]::part(text) {
-    position: unset;
-  }
-</style>
-<!-- TODO(b/308200616): Add real text -->
 <h2 class="wallpaper-collections-heading">[[i18n('seaPenTemplateHeading')]]</h2>
-<iron-list id="grid"
-    items="[[seaPenTemplates_]]"
-    as="template"
-    grid
-    aria-setsize$="[[seaPenTemplates_.length]]"
-    role="listbox">
+<iron-list id="grid" items="[[seaPenTemplates_]]" as="template" grid aria-setsize$="[[seaPenTemplates_.length]]" role="listbox">
   <template>
-    <wallpaper-grid-item
-        class="sea-pen-template"
-        index="[[index]]"
-        data-sea-pen-image
-        aria-posinset$="[[getAriaIndex_(index)]]"
-        on-mouseout="onMouseOut_"
-        on-mouseover="onMouseOver_"
-        on-wallpaper-grid-item-selected="onTemplateSelected_"
-        primary-text="[[template.title]]"
-        role="option"
-        src="[[template.preview]]"
-        tabindex$="[[tabIndex]]">
+    <wallpaper-grid-item class="sea-pen-template" index="[[index]]" data-sea-pen-image aria-posinset$="[[getAriaIndex_(index)]]" on-mouseout="onMouseOut_" on-mouseover="onMouseOver_" on-wallpaper-grid-item-selected="onTemplateSelected_" primary-text="[[template.title]]" role="option" src="[[template.preview]]" tabindex$="[[tabIndex]]">
         <div id="templateTitle" slot="text" class="primary-text">
           <template is="dom-if" if="[[shouldShowTemplateTitle_(template, hoveredTemplate_)]]">
             <template is="dom-repeat" items="[[getTemplateTokens_(template)]]" as="token">
@@ -69,8 +25,8 @@ export function getTemplate() {
             [[template.title]]
           </template>
         </div>
-      </template>
-  </template>
+      </wallpaper-grid-item></template>
+  
 </iron-list>
 <!--_html_template_end_-->`;
 }

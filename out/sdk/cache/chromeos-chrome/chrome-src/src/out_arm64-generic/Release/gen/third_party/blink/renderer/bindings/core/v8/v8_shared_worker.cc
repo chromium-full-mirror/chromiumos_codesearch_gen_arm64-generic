@@ -18,8 +18,8 @@
 #include "third_party/blink/renderer/bindings/core/v8/v8_event_target.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_message_port.h"
 #include "third_party/blink/renderer/bindings/core/v8/v8_set_return_value_for_core.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_union_string_workeroptions.h"
-#include "third_party/blink/renderer/bindings/core/v8/v8_worker_options.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_shared_worker_options.h"
+#include "third_party/blink/renderer/bindings/core/v8/v8_union_sharedworkeroptions_string.h"
 #include "third_party/blink/renderer/core/execution_context/execution_context.h"
 #include "third_party/blink/renderer/core/messaging/message_port.h"
 #include "third_party/blink/renderer/core/workers/shared_worker.h"
@@ -156,11 +156,11 @@ auto&& arg1_script_url = NativeValueTraits<IDLUSVStringStringContextTrustedScrip
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }
-decltype(NativeValueTraits<V8UnionStringOrWorkerOptions>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
+decltype(NativeValueTraits<V8UnionSharedWorkerOptionsOrString>::NativeValue(std::declval<v8::Isolate*>(), std::declval<v8::Local<v8::Value>>(), std::declval<ExceptionState&>())) arg2_options;
 if (info[1]->IsUndefined()) {
-  arg2_options = MakeGarbageCollected<V8UnionStringOrWorkerOptions>(WorkerOptions::Create());
+  arg2_options = MakeGarbageCollected<V8UnionSharedWorkerOptionsOrString>(SharedWorkerOptions::Create());
 } else {
-  arg2_options = NativeValueTraits<V8UnionStringOrWorkerOptions>::ArgumentValue(isolate, 1, info[1], exception_state);
+  arg2_options = NativeValueTraits<V8UnionSharedWorkerOptionsOrString>::ArgumentValue(isolate, 1, info[1], exception_state);
 if (UNLIKELY(exception_state.HadException())) {
   return;
 }

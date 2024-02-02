@@ -22,6 +22,23 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"depthClearValue",
+"depthLoadOp",
+"depthReadOnly",
+"depthStoreOp",
+"stencilClearValue",
+"stencilLoadOp",
+"stencilReadOnly",
+"stencilStoreOp",
+"view",
+};
+
+
+}  // namespace 
+
 GPURenderPassDepthStencilAttachment* GPURenderPassDepthStencilAttachment::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   GPURenderPassDepthStencilAttachment* dictionary = MakeGarbageCollected<GPURenderPassDepthStencilAttachment>(isolate);
 if (!v8_value->IsObject()) {
@@ -114,48 +131,60 @@ TraceIfNeeded<Member<GPUTextureView>>::Trace(visitor, member_view_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool GPURenderPassDepthStencilAttachment::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void GPURenderPassDepthStencilAttachment::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void GPURenderPassDepthStencilAttachment::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasDepthClearValue()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_depth_clear_value_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLFloat>::ToV8(script_state, member_depth_clear_value_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasDepthLoadOp()) {
-  v8_value = ToV8Traits<V8GPULoadOp>::ToV8(script_state, member_depth_load_op_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<V8GPULoadOp>::ToV8(script_state, member_depth_load_op_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasDepthReadOnly()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_depth_read_only_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_depth_read_only_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasDepthStoreOp()) {
-  v8_value = ToV8Traits<V8GPUStoreOp>::ToV8(script_state, member_depth_store_op_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<V8GPUStoreOp>::ToV8(script_state, member_depth_store_op_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasStencilClearValue()) {
-  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_stencil_clear_value_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_stencil_clear_value_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasStencilLoadOp()) {
-  v8_value = ToV8Traits<V8GPULoadOp>::ToV8(script_state, member_stencil_load_op_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<V8GPULoadOp>::ToV8(script_state, member_stencil_load_op_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasStencilReadOnly()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_stencil_read_only_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_stencil_read_only_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasStencilStoreOp()) {
-  v8_value = ToV8Traits<V8GPUStoreOp>::ToV8(script_state, member_stencil_store_op_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<V8GPUStoreOp>::ToV8(script_state, member_stencil_store_op_);
+DCHECK(!values[7].IsEmpty());
 }
 if (hasView()) {
-  v8_value = ToV8Traits<GPUTextureView>::ToV8(script_state, member_view_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<GPUTextureView>::ToV8(script_state, member_view_.Get());
+DCHECK(!values[8].IsEmpty());
 }
-return true;
+}
+
+const void* GPURenderPassDepthStencilAttachment::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> GPURenderPassDepthStencilAttachment::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void GPURenderPassDepthStencilAttachment::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -206,18 +235,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<GPUTextureView, is_required>(isol
 }
 
 const base::span<const v8::Eternal<v8::Name>> GPURenderPassDepthStencilAttachment::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"depthClearValue",
-"depthLoadOp",
-"depthReadOnly",
-"depthStoreOp",
-"stencilClearValue",
-"stencilLoadOp",
-"stencilReadOnly",
-"stencilStoreOp",
-"view",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

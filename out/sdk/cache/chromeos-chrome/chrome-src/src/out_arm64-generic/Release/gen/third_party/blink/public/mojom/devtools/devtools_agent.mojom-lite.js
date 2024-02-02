@@ -158,25 +158,6 @@ blink.mojom.DevToolsAgentRemote = class {
           waitForDebugger
         ]);
   }
-
-  
-  /**
-   * @param { !number } nodeId
-   * @return {!Promise<{
-        id: !bigint,
-   *  }>}
-   */
-
-  getUniqueFormControlId(
-      nodeId) {
-    return this.proxy.sendMessage(
-        3,
-        blink.mojom.DevToolsAgent_GetUniqueFormControlId_ParamsSpec.$,
-        blink.mojom.DevToolsAgent_GetUniqueFormControlId_ResponseParamsSpec.$,
-        [
-          nodeId
-        ]);
-  }
 };
 
 /**
@@ -216,11 +197,6 @@ blink.mojom.DevToolsAgentReceiver = class {
         blink.mojom.DevToolsAgent_ReportChildTargets_ParamsSpec.$,
         blink.mojom.DevToolsAgent_ReportChildTargets_ResponseParamsSpec.$,
         impl.reportChildTargets.bind(impl));
-    this.helper_internal_.registerHandler(
-        3,
-        blink.mojom.DevToolsAgent_GetUniqueFormControlId_ParamsSpec.$,
-        blink.mojom.DevToolsAgent_GetUniqueFormControlId_ResponseParamsSpec.$,
-        impl.getUniqueFormControlId.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -309,18 +285,6 @@ blink.mojom.DevToolsAgentCallbackRouter = class {
         blink.mojom.DevToolsAgent_ReportChildTargets_ParamsSpec.$,
         blink.mojom.DevToolsAgent_ReportChildTargets_ResponseParamsSpec.$,
         this.reportChildTargets.createReceiverHandler(true /* expectsResponse */));
-    /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
-     */
-    this.getUniqueFormControlId =
-        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
-            this.router_);
-
-    this.helper_internal_.registerHandler(
-        3,
-        blink.mojom.DevToolsAgent_GetUniqueFormControlId_ParamsSpec.$,
-        blink.mojom.DevToolsAgent_GetUniqueFormControlId_ResponseParamsSpec.$,
-        this.getUniqueFormControlId.createReceiverHandler(true /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
     this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
   }
@@ -1034,22 +998,6 @@ blink.mojom.DevToolsAgent_ReportChildTargets_ResponseParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-blink.mojom.DevToolsAgent_GetUniqueFormControlId_ParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
-blink.mojom.DevToolsAgent_GetUniqueFormControlId_ResponseParamsSpec =
-    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
-
-
-/**
- * @const { {$:!mojo.internal.MojomType}}
- * @export
- */
 blink.mojom.DevToolsAgentHost_ChildTargetCreated_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
@@ -1335,64 +1283,6 @@ mojo.internal.Struct(
 /** @record */
 blink.mojom.DevToolsAgent_ReportChildTargets_ResponseParams = class {
   constructor() {
-  }
-};
-
-
-
-mojo.internal.Struct(
-    blink.mojom.DevToolsAgent_GetUniqueFormControlId_ParamsSpec.$,
-    'DevToolsAgent_GetUniqueFormControlId_Params',
-    [
-      mojo.internal.StructField(
-        'nodeId', 0,
-        0,
-        mojo.internal.Int32,
-        0,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-blink.mojom.DevToolsAgent_GetUniqueFormControlId_Params = class {
-  constructor() {
-    /** @export { !number } */
-    this.nodeId;
-  }
-};
-
-
-
-mojo.internal.Struct(
-    blink.mojom.DevToolsAgent_GetUniqueFormControlId_ResponseParamsSpec.$,
-    'DevToolsAgent_GetUniqueFormControlId_ResponseParams',
-    [
-      mojo.internal.StructField(
-        'id', 0,
-        0,
-        mojo.internal.Uint64,
-        BigInt(0),
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
-    ],
-    [[0, 16],]);
-
-
-
-
-
-/** @record */
-blink.mojom.DevToolsAgent_GetUniqueFormControlId_ResponseParams = class {
-  constructor() {
-    /** @export { !bigint } */
-    this.id;
   }
 };
 

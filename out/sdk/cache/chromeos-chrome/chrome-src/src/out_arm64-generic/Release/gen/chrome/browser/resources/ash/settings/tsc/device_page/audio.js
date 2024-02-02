@@ -317,9 +317,6 @@ export class SettingsAudioElement extends SettingsAudioElementBase {
         this.audioAndCaptionsBrowserProxy_.setStartupSoundEnabled(e.detail);
     }
     computePowerSoundsHidden_() {
-        if (!loadTimeData.getBoolean('areSystemSoundsEnabled')) {
-            return true;
-        }
         return !this.batteryStatus_?.present;
     }
 }

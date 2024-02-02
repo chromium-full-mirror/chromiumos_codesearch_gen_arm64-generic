@@ -47,13 +47,28 @@ suite('SeaPenTemplateQueryElementTest', function () {
         assertEquals(seaPenTemplateQueryElement.i18n('seaPenCreateButton'), searchButton.innerText);
     });
     test('displays search again button on results page', async () => {
+        personalizationStore.data.wallpaper.seaPen.thumbnails =
+            seaPenProvider.images;
         seaPenTemplateQueryElement = initElement(SeaPenTemplateQueryElement, {
             path: SeaPenPaths.RESULTS,
             templateId: SeaPenTemplateId.kFlower.toString(),
         });
         await waitAfterNextRender(seaPenTemplateQueryElement);
         const searchButton = seaPenTemplateQueryElement.shadowRoot.querySelector('#searchButton');
+        const icon = searchButton.querySelector('iron-icon');
         assertEquals(seaPenTemplateQueryElement.i18n('seaPenRecreateButton'), searchButton.innerText);
+        assertEquals('personalization-shared:refresh', icon.getAttribute('icon'));
+    });
+    test('displays create button when no thumbnails are generated', async () => {
+        seaPenTemplateQueryElement = initElement(SeaPenTemplateQueryElement, {
+            path: SeaPenPaths.RESULTS,
+            templateId: SeaPenTemplateId.kFlower.toString(),
+        });
+        await waitAfterNextRender(seaPenTemplateQueryElement);
+        const searchButton = seaPenTemplateQueryElement.shadowRoot.querySelector('#searchButton');
+        const icon = searchButton.querySelector('iron-icon');
+        assertEquals(seaPenTemplateQueryElement.i18n('seaPenCreateButton'), searchButton.innerText);
+        assertEquals('sea-pen:photo-spark', icon.getAttribute('icon'));
     });
     test('selects chip', async () => {
         seaPenTemplateQueryElement = initElement(SeaPenTemplateQueryElement, { templateId: SeaPenTemplateId.kFlower.toString() });

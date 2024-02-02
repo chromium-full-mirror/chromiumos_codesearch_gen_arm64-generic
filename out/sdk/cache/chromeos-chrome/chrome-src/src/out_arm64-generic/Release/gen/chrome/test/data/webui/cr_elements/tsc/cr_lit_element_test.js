@@ -5,6 +5,7 @@ import { getTrustedHTML } from 'chrome://resources/js/static_types.js';
 import { CrLitElement, html } from 'chrome://resources/lit/v3_0/lit.rollup.js';
 import { html as polymerHtml, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { assertDeepEquals, assertEquals, assertFalse, assertNotEquals, assertNotReached, assertNull, assertThrows, assertTrue } from 'chrome://webui-test/chai_assert.js';
+import { eventToPromise } from 'chrome://webui-test/test_util.js';
 const LifecycleCallbackTrackerMixin = (superClass) => {
     class LifecycleCallbackTrackerMixin extends superClass {
         constructor() {
@@ -39,6 +40,36 @@ class CrDummyLitElement extends CrDummyLitElementBase {
     }
 }
 customElements.define(CrDummyLitElement.is, CrDummyLitElement);
+class CrDummyPropertiesWithNotifyElement extends CrLitElement {
+    constructor() {
+        super(...arguments);
+        this.prop1 = false;
+        this.prop2 = false;
+        this.prop3 = false;
+        this.propFour = false;
+    }
+    static get is() {
+        return 'cr-dummy-properties-with-notify';
+    }
+    static get properties() {
+        return {
+            prop1: {
+                type: Boolean,
+                notify: true,
+            },
+            prop2: {
+                type: Boolean,
+                notify: false,
+            },
+            prop3: { type: Boolean },
+            propFour: {
+                type: Boolean,
+                notify: true,
+            },
+        };
+    }
+}
+customElements.define(CrDummyPropertiesWithNotifyElement.is, CrDummyPropertiesWithNotifyElement);
 suite('CrLitElement', function () {
     setup(function () {
         document.body.innerHTML = window.trustedTypes.emptyHTML;
@@ -187,5 +218,93 @@ suite('CrLitElement', function () {
         assertTrue(element.fooBarBoolean);
         assertEquals('world', element.fooBarString);
         assertEquals('custom', element.fooBarStringCustom);
+    });
+    test('PropertiesWithNotify', async function () {
+        const element = document.createElement('cr-dummy-properties-with-notify');
+        // Ensure that properties without 'notify: true' don't trigger events.
+        function unexpectedEventListener(e) {
+            assertNotReached(`Unexpected event caught: ${e.type}`);
+        }
+        element.addEventListener('prop2-changed', unexpectedEventListener);
+        element.addEventListener('prop3-changed', unexpectedEventListener);
+        // Ensure that properties with 'notify: true' trigger events.
+        // Case1: An event should be fired after the element is initialized to
+        // propagate the initial value of the reactive property.
+        const whenFired1 = Promise.all([
+            eventToPromise('prop1-changed', element),
+            eventToPromise('prop-four-changed', element),
+        ]);
+        document.body.appendChild(element);
+        const events = await whenFired1;
+        for (const event of events) {
+            assertTrue(event.bubbles);
+            assertTrue(event.composed);
+            assertDeepEquals({ value: false }, event.detail);
+        }
+        // Case2: An event should be fired whenever the property changes.
+        let whenFired2 = eventToPromise('prop1-changed', element);
+        element.prop1 = true;
+        let event = await whenFired2;
+        assertTrue(event.bubbles);
+        assertTrue(event.composed);
+        assertDeepEquals({ value: true }, event.detail);
+        whenFired2 = eventToPromise('prop-four-changed', element);
+        element.propFour = true;
+        event = await whenFired2;
+        assertTrue(event.bubbles);
+        assertTrue(event.composed);
+        assertDeepEquals({ value: true }, event.detail);
+    });
+    // Test that a Lit child with 'notify: true' properties works with a Polymer
+    // parent that uses 2-way bindings for that property.
+    test('PropertiesWithNotifyTwoWayBinding', async function () {
+        class CrPolymerWrapperElement extends PolymerElement {
+            constructor() {
+                super(...arguments);
+                this.myProp = false;
+            }
+            static get is() {
+                return 'cr-polymer-wrapper-with-two-way-binding';
+            }
+            static get template() {
+                return polymerHtml `
+            <cr-dummy-properties-with-notify prop1="{{myProp}}">
+            </cr-dummy-properties-with-notify>`;
+            }
+            static get properties() {
+                return {
+                    myProp: Boolean,
+                };
+            }
+        }
+        customElements.define(CrPolymerWrapperElement.is, CrPolymerWrapperElement);
+        const parent = document.createElement('cr-polymer-wrapper-with-two-way-binding');
+        document.body.appendChild(parent);
+        const child = parent.shadowRoot.querySelector('cr-dummy-properties-with-notify');
+        assertTrue(!!child);
+        assertFalse(child.prop1);
+        assertFalse(parent.myProp);
+        // Case1: Changes in child update parent's property.
+        let whenFired = eventToPromise('prop1-changed', child);
+        child.prop1 = true;
+        await whenFired;
+        assertTrue(parent.myProp);
+        // Case2: Changes in parent update child's property.
+        whenFired = eventToPromise('prop1-changed', child);
+        parent.myProp = false;
+        await whenFired;
+        assertFalse(child.prop1);
+    });
+    test('Fire', async function () {
+        const element = document.createElement('cr-dummy-lit');
+        document.body.appendChild(element);
+        const dummyEventName = 'dummy-event';
+        const dummyPayload = 'hello dummy';
+        const whenFired = eventToPromise(dummyEventName, element);
+        element.fire(dummyEventName, dummyPayload);
+        const event = await whenFired;
+        assertTrue(event.bubbles);
+        assertTrue(event.composed);
+        assertEquals(dummyPayload, event.detail);
     });
 });

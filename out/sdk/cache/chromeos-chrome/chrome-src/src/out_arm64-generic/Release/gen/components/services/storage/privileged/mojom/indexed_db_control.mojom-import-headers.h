@@ -24,6 +24,8 @@
 #include "mojo/public/mojom/base/file_path.mojom-import-headers.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
 #include "mojo/public/mojom/base/string16.mojom-import-headers.h"
+#include "mojo/public/mojom/base/unguessable_token.mojom.h"
+#include "mojo/public/mojom/base/unguessable_token.mojom-import-headers.h"
 #include "mojo/public/mojom/base/values.mojom.h"
 #include "mojo/public/mojom/base/values.mojom-import-headers.h"
 #include "third_party/blink/public/mojom/indexeddb/indexeddb.mojom.h"

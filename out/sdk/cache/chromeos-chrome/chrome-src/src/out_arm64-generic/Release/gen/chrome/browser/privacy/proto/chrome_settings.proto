@@ -18506,6 +18506,33 @@ message RemoteAccessHostAllowUiAccessForRemoteAssistanceProto {
   optional bool RemoteAccessHostAllowUiAccessForRemoteAssistance = 2;
 }
 
+// Allow remote access users to open host-side URLs in their local client
+// browser
+//
+// Setting the policy to Enabled or leaving it unset may allow users connected
+// to a remote access host to open host-side URLs in their local client browser.
+//
+// Setting the policy to Disabled will prevent the remote access host from
+// sending URLs to the client.
+//
+// This setting doesn't apply to remote assistance connections as the feature is
+// not supported for that connection mode.
+//
+// Note: This feature is not yet generally available so enabling it does not
+// mean that the feature will be visible in the client UI.
+//
+// Valid values:
+//   True: Enable remote access users to open host-side URLs in their local
+// client browser
+//   False: Disable remote access users from opening host-side URLs in their
+// local client browser
+//
+// Supported on: linux, mac, win
+message RemoteAccessHostAllowUrlForwardingProto {
+  optional PolicyOptions policy_options = 1;
+  optional bool RemoteAccessHostAllowUrlForwarding = 2;
+}
+
 // Configure the required domain name for remote access clients
 //
 // This policy is deprecated. Please use RemoteAccessHostClientDomainList
@@ -25824,6 +25851,7 @@ message ChromeSettingsProto {
   optional RemoteAccessHostAllowRemoteAccessConnectionsProto RemoteAccessHostAllowRemoteAccessConnections = 814;
   optional RemoteAccessHostAllowRemoteSupportConnectionsProto RemoteAccessHostAllowRemoteSupportConnections = 925;
   optional RemoteAccessHostAllowUiAccessForRemoteAssistanceProto RemoteAccessHostAllowUiAccessForRemoteAssistance = 346;
+  optional RemoteAccessHostAllowUrlForwardingProto RemoteAccessHostAllowUrlForwarding = 1212;
   optional RemoteAccessHostClientDomainProto RemoteAccessHostClientDomain = 318;
   optional RemoteAccessHostClientDomainListProto RemoteAccessHostClientDomainList = 371;
   optional RemoteAccessHostClipboardSizeBytesProto RemoteAccessHostClipboardSizeBytes = 924;

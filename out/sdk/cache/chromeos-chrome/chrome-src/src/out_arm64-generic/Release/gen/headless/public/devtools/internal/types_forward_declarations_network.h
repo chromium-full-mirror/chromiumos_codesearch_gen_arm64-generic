@@ -359,7 +359,7 @@ enum class CookieExemptionReason {
   ENTERPRISE_POLICY,
   STORAGE_ACCESS,
   TOP_LEVEL_STORAGE_ACCESS,
-  BROWSER_HEURISTICS
+  CORS_OPT_IN
 };
 
 enum class InterceptionStage {

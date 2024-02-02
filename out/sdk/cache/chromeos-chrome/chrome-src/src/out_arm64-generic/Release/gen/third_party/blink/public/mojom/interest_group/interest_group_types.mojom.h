@@ -2763,7 +2763,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfig {
       const ::blink::AuctionConfig::MaybePromiseDirectFromSellerSignals& direct_from_seller_signals,
       bool expects_direct_from_seller_signals_header_ad_slot,
       std::optional<uint16_t> seller_experiment_group_id,
-      std::optional<int16_t> all_buyer_experiment_group_id,
+      std::optional<uint16_t> all_buyer_experiment_group_id,
       const base::flat_map<::url::Origin, uint16_t>& per_buyer_experiment_group_ids,
       bool expects_additional_bids,
       const std::optional<::url::Origin>& aggregation_coordinator_origin);
@@ -2862,7 +2862,7 @@ class BLINK_COMMON_EXPORT AuctionAdConfig {
   
   std::optional<uint16_t> seller_experiment_group_id;
   
-  std::optional<int16_t> all_buyer_experiment_group_id;
+  std::optional<uint16_t> all_buyer_experiment_group_id;
   
   base::flat_map<::url::Origin, uint16_t> per_buyer_experiment_group_ids;
   

@@ -4028,9 +4028,10 @@ export const WebFeature = {
   kSpeculationRulesAuthorPrerenderRule: 4830,
   kSpeculationRulesBrowserPrefetchRule: 4831,
   kSpeculationRulesBrowserPrerenderRule: 4832,
-  kNumberOfFeatures: 4833,
+  kFirstPartySharedWorkerSameSiteCookiesNone: 4833,
+  kNumberOfFeatures: 4834,
   MIN_VALUE: 0,
-  MAX_VALUE: 4833,
+  MAX_VALUE: 4834,
 };
 
 

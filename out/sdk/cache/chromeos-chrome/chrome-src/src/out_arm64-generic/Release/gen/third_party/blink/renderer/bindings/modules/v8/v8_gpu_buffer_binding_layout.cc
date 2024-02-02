@@ -21,6 +21,17 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"hasDynamicOffset",
+"minBindingSize",
+"type",
+};
+
+
+}  // namespace 
+
 GPUBufferBindingLayout* GPUBufferBindingLayout::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   GPUBufferBindingLayout* dictionary = MakeGarbageCollected<GPUBufferBindingLayout>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -70,24 +81,36 @@ TraceIfNeeded<V8GPUBufferBindingType>::Trace(visitor, member_type_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool GPUBufferBindingLayout::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void GPUBufferBindingLayout::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void GPUBufferBindingLayout::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasHasDynamicOffset()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_has_dynamic_offset_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_has_dynamic_offset_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasMinBindingSize()) {
-  v8_value = ToV8Traits<IDLUnsignedLongLongEnforceRange>::ToV8(script_state, member_min_binding_size_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUnsignedLongLongEnforceRange>::ToV8(script_state, member_min_binding_size_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasType()) {
-  v8_value = ToV8Traits<V8GPUBufferBindingType>::ToV8(script_state, member_type_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<V8GPUBufferBindingType>::ToV8(script_state, member_type_);
+DCHECK(!values[2].IsEmpty());
 }
-return true;
+}
+
+const void* GPUBufferBindingLayout::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> GPUBufferBindingLayout::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void GPUBufferBindingLayout::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -113,12 +136,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8GPUBufferBindingType, is_option
 }
 
 const base::span<const v8::Eternal<v8::Name>> GPUBufferBindingLayout::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"hasDynamicOffset",
-"minBindingSize",
-"type",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

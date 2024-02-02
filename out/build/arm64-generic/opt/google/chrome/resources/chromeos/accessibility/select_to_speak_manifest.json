@@ -5,7 +5,7 @@
     "page": "select_to_speak/background.html"
   },
   "name": "__MSG_SELECT_TO_SPEAK_NAME__",
-  "version": "123.0.6275.0",
+  "version": "123.0.6276.0",
   "description": "__MSG_SELECT_TO_SPEAK_DESCRIPTION__",
   "permissions": [
     "accessibilityPrivate",

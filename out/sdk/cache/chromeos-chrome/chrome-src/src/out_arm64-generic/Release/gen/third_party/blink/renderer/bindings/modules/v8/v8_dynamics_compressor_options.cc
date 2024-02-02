@@ -21,6 +21,19 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"attack",
+"knee",
+"ratio",
+"release",
+"threshold",
+};
+
+
+}  // namespace 
+
 DynamicsCompressorOptions* DynamicsCompressorOptions::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   DynamicsCompressorOptions* dictionary = MakeGarbageCollected<DynamicsCompressorOptions>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -82,36 +95,50 @@ TraceIfNeeded<float>::Trace(visitor, member_threshold_);
 AudioNodeOptions::Trace(visitor);
 }
 
-bool DynamicsCompressorOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!AudioNodeOptions::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void DynamicsCompressorOptions::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  AudioNodeOptions::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void DynamicsCompressorOptions::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  AudioNodeOptions::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasAttack()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_attack_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLFloat>::ToV8(script_state, member_attack_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasKnee()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_knee_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLFloat>::ToV8(script_state, member_knee_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasRatio()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_ratio_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLFloat>::ToV8(script_state, member_ratio_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasRelease()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_release_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLFloat>::ToV8(script_state, member_release_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasThreshold()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_threshold_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLFloat>::ToV8(script_state, member_threshold_);
+DCHECK(!values[4].IsEmpty());
 }
-return true;
+}
+
+const void* DynamicsCompressorOptions::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> DynamicsCompressorOptions::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void DynamicsCompressorOptions::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -150,14 +177,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLFloat, is_optional>(isolate, c
 }
 
 const base::span<const v8::Eternal<v8::Name>> DynamicsCompressorOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"attack",
-"knee",
-"ratio",
-"release",
-"threshold",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

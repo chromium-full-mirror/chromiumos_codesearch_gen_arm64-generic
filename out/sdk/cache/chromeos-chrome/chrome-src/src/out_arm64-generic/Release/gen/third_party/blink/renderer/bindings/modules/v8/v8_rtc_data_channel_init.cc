@@ -21,6 +21,20 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"id",
+"maxPacketLifeTime",
+"maxRetransmits",
+"negotiated",
+"ordered",
+"protocol",
+};
+
+
+}  // namespace 
+
 RTCDataChannelInit* RTCDataChannelInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   RTCDataChannelInit* dictionary = MakeGarbageCollected<RTCDataChannelInit>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -100,36 +114,48 @@ TraceIfNeeded<String>::Trace(visitor, member_protocol_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool RTCDataChannelInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void RTCDataChannelInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void RTCDataChannelInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasId()) {
-  v8_value = ToV8Traits<IDLUnsignedShortEnforceRange>::ToV8(script_state, member_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUnsignedShortEnforceRange>::ToV8(script_state, member_id_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasMaxPacketLifeTime()) {
-  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_max_packet_life_time_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_max_packet_life_time_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasMaxRetransmits()) {
-  v8_value = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_max_retransmits_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUnsignedShort>::ToV8(script_state, member_max_retransmits_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasNegotiated()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_negotiated_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_negotiated_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasOrdered()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_ordered_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_ordered_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasProtocol()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_protocol_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_protocol_);
+DCHECK(!values[5].IsEmpty());
 }
-return true;
+}
+
+const void* RTCDataChannelInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> RTCDataChannelInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void RTCDataChannelInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -167,15 +193,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolat
 }
 
 const base::span<const v8::Eternal<v8::Name>> RTCDataChannelInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"id",
-"maxPacketLifeTime",
-"maxRetransmits",
-"negotiated",
-"ordered",
-"protocol",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

@@ -21,6 +21,24 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"bluePrimaryX",
+"bluePrimaryY",
+"greenPrimaryX",
+"greenPrimaryY",
+"maximumLuminance",
+"minimumLuminance",
+"redPrimaryX",
+"redPrimaryY",
+"whitePointX",
+"whitePointY",
+};
+
+
+}  // namespace 
+
 CanvasSmpteSt2086Metadata* CanvasSmpteSt2086Metadata::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   CanvasSmpteSt2086Metadata* dictionary = MakeGarbageCollected<CanvasSmpteSt2086Metadata>(isolate);
 if (!v8_value->IsObject()) {
@@ -109,52 +127,64 @@ TraceIfNeeded<float>::Trace(visitor, member_white_point_y_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool CanvasSmpteSt2086Metadata::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void CanvasSmpteSt2086Metadata::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void CanvasSmpteSt2086Metadata::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasBluePrimaryX()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_blue_primary_x_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLFloat>::ToV8(script_state, member_blue_primary_x_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasBluePrimaryY()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_blue_primary_y_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLFloat>::ToV8(script_state, member_blue_primary_y_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasGreenPrimaryX()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_green_primary_x_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLFloat>::ToV8(script_state, member_green_primary_x_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasGreenPrimaryY()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_green_primary_y_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLFloat>::ToV8(script_state, member_green_primary_y_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasMaximumLuminance()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_maximum_luminance_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLFloat>::ToV8(script_state, member_maximum_luminance_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasMinimumLuminance()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_minimum_luminance_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLFloat>::ToV8(script_state, member_minimum_luminance_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasRedPrimaryX()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_red_primary_x_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLFloat>::ToV8(script_state, member_red_primary_x_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasRedPrimaryY()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_red_primary_y_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLFloat>::ToV8(script_state, member_red_primary_y_);
+DCHECK(!values[7].IsEmpty());
 }
 if (hasWhitePointX()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_white_point_x_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<IDLFloat>::ToV8(script_state, member_white_point_x_);
+DCHECK(!values[8].IsEmpty());
 }
 if (hasWhitePointY()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_white_point_y_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<IDLFloat>::ToV8(script_state, member_white_point_y_);
+DCHECK(!values[9].IsEmpty());
 }
-return true;
+}
+
+const void* CanvasSmpteSt2086Metadata::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> CanvasSmpteSt2086Metadata::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void CanvasSmpteSt2086Metadata::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -208,19 +238,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLFloat, is_required>(isolate, c
 }
 
 const base::span<const v8::Eternal<v8::Name>> CanvasSmpteSt2086Metadata::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"bluePrimaryX",
-"bluePrimaryY",
-"greenPrimaryX",
-"greenPrimaryY",
-"maximumLuminance",
-"minimumLuminance",
-"redPrimaryX",
-"redPrimaryY",
-"whitePointX",
-"whitePointY",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

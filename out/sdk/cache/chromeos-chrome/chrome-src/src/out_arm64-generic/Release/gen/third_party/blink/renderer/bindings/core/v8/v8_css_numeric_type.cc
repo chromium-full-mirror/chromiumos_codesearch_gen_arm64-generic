@@ -21,6 +21,22 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"angle",
+"flex",
+"frequency",
+"length",
+"percent",
+"percentHint",
+"resolution",
+"time",
+};
+
+
+}  // namespace 
+
 CSSNumericType* CSSNumericType::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   CSSNumericType* dictionary = MakeGarbageCollected<CSSNumericType>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -116,44 +132,56 @@ TraceIfNeeded<int32_t>::Trace(visitor, member_time_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool CSSNumericType::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void CSSNumericType::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void CSSNumericType::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasAngle()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_angle_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLLong>::ToV8(script_state, member_angle_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasFlex()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_flex_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLLong>::ToV8(script_state, member_flex_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasFrequency()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_frequency_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLLong>::ToV8(script_state, member_frequency_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasLength()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_length_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLLong>::ToV8(script_state, member_length_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasPercent()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_percent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLLong>::ToV8(script_state, member_percent_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasPercentHint()) {
-  v8_value = ToV8Traits<V8CSSNumericBaseType>::ToV8(script_state, member_percent_hint_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<V8CSSNumericBaseType>::ToV8(script_state, member_percent_hint_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasResolution()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_resolution_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLLong>::ToV8(script_state, member_resolution_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasTime()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_time_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLLong>::ToV8(script_state, member_time_);
+DCHECK(!values[7].IsEmpty());
 }
-return true;
+}
+
+const void* CSSNumericType::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> CSSNumericType::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void CSSNumericType::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -198,17 +226,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLLong, is_optional>(isolate, cu
 }
 
 const base::span<const v8::Eternal<v8::Name>> CSSNumericType::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"angle",
-"flex",
-"frequency",
-"length",
-"percent",
-"percentHint",
-"resolution",
-"time",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

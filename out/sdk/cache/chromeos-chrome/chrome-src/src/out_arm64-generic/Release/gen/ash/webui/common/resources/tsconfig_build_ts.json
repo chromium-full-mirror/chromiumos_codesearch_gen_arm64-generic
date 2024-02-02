@@ -7,12 +7,6 @@
     "declaration": true,
     "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
     "paths": {
-      "//resources/ash/common/personalization/*": [
-        "./../../../../ash/webui/common/resources/preprocessed/personalization/*"
-      ],
-      "chrome://resources/ash/common/personalization/*": [
-        "./../../../../ash/webui/common/resources/preprocessed/personalization/*"
-      ],
       "//resources/cros_components/*": [
         "./../../../../ui/webui/resources/tsc/cros_components/to_be_rewritten/*"
       ],
@@ -79,19 +73,6 @@
     "preprocessed/hotspot/fake_hotspot_config.ts",
     "preprocessed/quick_unlock/lock_screen_constants.ts",
     "preprocessed/quick_unlock/utils.ts",
-    "preprocessed/sea_pen/constants.ts",
-    "preprocessed/sea_pen/constants_generated.ts",
-    "preprocessed/sea_pen/load_time_booleans.ts",
-    "preprocessed/sea_pen/sea_pen_actions.ts",
-    "preprocessed/sea_pen/sea_pen_controller.ts",
-    "preprocessed/sea_pen/sea_pen_interface_provider.ts",
-    "preprocessed/sea_pen/sea_pen_reducer.ts",
-    "preprocessed/sea_pen/sea_pen_state.ts",
-    "preprocessed/sea_pen/sea_pen_store.ts",
-    "preprocessed/sea_pen/sea_pen_utils.ts",
-    "preprocessed/sea_pen/surface_effects/sparkle_shader.ts",
-    "preprocessed/sea_pen/surface_effects/sparkle.ts",
-    "preprocessed/sea_pen/surface_effects/utils.ts",
     "preprocessed/shortcut_input_ui/fake_shortcut_input_provider.ts",
     "preprocessed/shortcut_input_ui/shortcut_utils.ts",
     "preprocessed/typescript_utils/strict_query.ts",
@@ -111,22 +92,11 @@
     "preprocessed/quick_unlock/fingerprint_progress.ts",
     "preprocessed/quick_unlock/pin_keyboard.ts",
     "preprocessed/quick_unlock/setup_pin_keyboard.ts",
-    "preprocessed/sea_pen/sea_pen_feedback_element.ts",
-    "preprocessed/sea_pen/sea_pen_images_element.ts",
-    "preprocessed/sea_pen/sea_pen_input_query_element.ts",
-    "preprocessed/sea_pen/sea_pen_recent_wallpapers_element.ts",
-    "preprocessed/sea_pen/sea_pen_router_element.ts",
-    "preprocessed/sea_pen/sea_pen_template_query_element.ts",
-    "preprocessed/sea_pen/sea_pen_templates_element.ts",
-    "preprocessed/sea_pen/sea_pen_terms_of_service_dialog_element.ts",
-    "preprocessed/sea_pen/surface_effects/sparkle_placeholder.ts",
     "preprocessed/shortcut_input_ui/shortcut_input_key.ts",
     "preprocessed/shortcut_input_ui/shortcut_input.ts",
     "preprocessed/traffic_counters/traffic_counters.ts",
     "preprocessed/connectivity/passpoint.mojom-webui.ts",
     "preprocessed/hotspot/cros_hotspot_config.mojom-webui.ts",
-    "preprocessed/sea_pen/sea_pen.mojom-webui.ts",
-    "preprocessed/sea_pen/sea_pen_generated.mojom-webui.ts",
     "preprocessed/shortcut_input_ui/accelerator_actions.mojom-webui.ts",
     "preprocessed/shortcut_input_ui/accelerator_keys.mojom-webui.ts",
     "preprocessed/shortcut_input_ui/input_device_settings.mojom-webui.ts",
@@ -140,9 +110,6 @@
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/quick_unlock_private.d.ts"
   ],
   "references": [
-    {
-      "path": "personalization/tsconfig_build_ts.json"
-    },
     {
       "path": "../../../../third_party/cros-components/tsconfig_cros_components_ts.json"
     },

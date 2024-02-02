@@ -1135,6 +1135,25 @@ struct TorqueStructSlice_FeedbackCell_MutableReference_FeedbackCell_0 {
     return std::make_tuple(object, offset, length);
   }
 };
+struct TorqueStructReference_Smi_OR_TrustedObject_0 {
+  TNode<Object> object;
+  TNode<IntPtrT> offset;
+  TorqueStructUnsafe_0 unsafeMarker;
+
+  std::tuple<TNode<Object>, TNode<IntPtrT>> Flatten() const {
+    return std::make_tuple(object, offset);
+  }
+};
+struct TorqueStructSlice_Smi_OR_TrustedObject_MutableReference_Smi_OR_TrustedObject_0 {
+  TNode<Object> object;
+  TNode<IntPtrT> offset;
+  TNode<IntPtrT> length;
+  TorqueStructUnsafe_0 unsafeMarker;
+
+  std::tuple<TNode<Object>, TNode<IntPtrT>, TNode<IntPtrT>> Flatten() const {
+    return std::make_tuple(object, offset, length);
+  }
+};
 struct TorqueStructReference_ExternalPointer_0 {
   TNode<Object> object;
   TNode<IntPtrT> offset;
@@ -1489,6 +1508,16 @@ struct TorqueStructSliceIterator_DescriptorEntry_MutableReference_DescriptorEntr
   }
 };
 struct TorqueStructSliceIterator_FeedbackCell_MutableReference_FeedbackCell_0 {
+  TNode<Object> object;
+  TNode<IntPtrT> start;
+  TNode<IntPtrT> end;
+  TorqueStructUnsafe_0 unsafeMarker;
+
+  std::tuple<TNode<Object>, TNode<IntPtrT>, TNode<IntPtrT>> Flatten() const {
+    return std::make_tuple(object, start, end);
+  }
+};
+struct TorqueStructSliceIterator_Smi_OR_TrustedObject_MutableReference_Smi_OR_TrustedObject_0 {
   TNode<Object> object;
   TNode<IntPtrT> start;
   TNode<IntPtrT> end;
@@ -2570,6 +2599,15 @@ struct TorqueStructReference_Undefined_OR_Exception_OR_ByteArray_0 {
   }
 };
 struct TorqueStructReference_ProtectedPointer_TrustedByteArray_0 {
+  TNode<Object> object;
+  TNode<IntPtrT> offset;
+  TorqueStructUnsafe_0 unsafeMarker;
+
+  std::tuple<TNode<Object>, TNode<IntPtrT>> Flatten() const {
+    return std::make_tuple(object, offset);
+  }
+};
+struct TorqueStructReference_ProtectedPointer_TrustedFixedArray_0 {
   TNode<Object> object;
   TNode<IntPtrT> offset;
   TorqueStructUnsafe_0 unsafeMarker;

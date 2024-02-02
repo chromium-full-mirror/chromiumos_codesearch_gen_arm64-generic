@@ -11,7 +11,8 @@ OS = "linux"
 sysroot = "/"
 libdir = "/usr/lib64"
 build_root = "/var/cache/portage/chromeos-base/featured"
-platform2_root = "/mnt/host/source/src/platform2"
+platform2_root =
+    "/var/tmp/portage/chromeos-base/featured-0.0.1-r455/work/featured-0.0.1"
 libbase_ver = "1254430"
 enable_exceptions = false
 external_cflags = [

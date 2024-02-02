@@ -57,6 +57,7 @@ export class FocusHistory {
             if (!SwitchAccessPredicate.isInteresting(candidate, group, cache)) {
                 continue;
             }
+            // TODO(b/314203187): Not null asserted, check that this is correct.
             const focus = group.findChild(candidate);
             if (!focus) {
                 continue;

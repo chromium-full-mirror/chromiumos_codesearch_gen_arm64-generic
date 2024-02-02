@@ -21,6 +21,25 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"is2D",
+"m13",
+"m14",
+"m23",
+"m24",
+"m31",
+"m32",
+"m33",
+"m34",
+"m43",
+"m44",
+};
+
+
+}  // namespace 
+
 DOMMatrixInit* DOMMatrixInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   DOMMatrixInit* dictionary = MakeGarbageCollected<DOMMatrixInit>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -120,60 +139,74 @@ TraceIfNeeded<double>::Trace(visitor, member_m_44_);
 DOMMatrix2DInit::Trace(visitor);
 }
 
-bool DOMMatrixInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!DOMMatrix2DInit::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void DOMMatrixInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  DOMMatrix2DInit::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void DOMMatrixInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  DOMMatrix2DInit::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasIs2D()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_2d_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_is_2d_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasM13()) {
-  v8_value = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_13_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_13_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasM14()) {
-  v8_value = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_14_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_14_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasM23()) {
-  v8_value = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_23_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_23_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasM24()) {
-  v8_value = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_24_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_24_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasM31()) {
-  v8_value = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_31_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_31_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasM32()) {
-  v8_value = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_32_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_32_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasM33()) {
-  v8_value = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_33_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_33_);
+DCHECK(!values[7].IsEmpty());
 }
 if (hasM34()) {
-  v8_value = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_34_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_34_);
+DCHECK(!values[8].IsEmpty());
 }
 if (hasM43()) {
-  v8_value = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_43_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_43_);
+DCHECK(!values[9].IsEmpty());
 }
 if (hasM44()) {
-  v8_value = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_44_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
+  values[10] = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_m_44_);
+DCHECK(!values[10].IsEmpty());
 }
-return true;
+}
+
+const void* DOMMatrixInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> DOMMatrixInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void DOMMatrixInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -236,20 +269,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUnrestrictedDouble, is_optiona
 }
 
 const base::span<const v8::Eternal<v8::Name>> DOMMatrixInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"is2D",
-"m13",
-"m14",
-"m23",
-"m24",
-"m31",
-"m32",
-"m33",
-"m34",
-"m43",
-"m44",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

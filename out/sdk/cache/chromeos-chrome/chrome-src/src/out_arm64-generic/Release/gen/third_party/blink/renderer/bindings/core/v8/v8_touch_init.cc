@@ -22,6 +22,27 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"clientX",
+"clientY",
+"force",
+"identifier",
+"pageX",
+"pageY",
+"radiusX",
+"radiusY",
+"region",
+"rotationAngle",
+"screenX",
+"screenY",
+"target",
+};
+
+
+}  // namespace 
+
 TouchInit* TouchInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   TouchInit* dictionary = MakeGarbageCollected<TouchInit>(isolate);
 if (!v8_value->IsObject()) {
@@ -134,64 +155,76 @@ TraceIfNeeded<Member<EventTarget>>::Trace(visitor, member_target_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool TouchInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void TouchInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void TouchInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasClientX()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_client_x_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLDouble>::ToV8(script_state, member_client_x_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasClientY()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_client_y_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLDouble>::ToV8(script_state, member_client_y_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasForce()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_force_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLFloat>::ToV8(script_state, member_force_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasIdentifier()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_identifier_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLLong>::ToV8(script_state, member_identifier_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasPageX()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_page_x_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLDouble>::ToV8(script_state, member_page_x_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasPageY()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_page_y_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLDouble>::ToV8(script_state, member_page_y_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasRadiusX()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_radius_x_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLFloat>::ToV8(script_state, member_radius_x_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasRadiusY()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_radius_y_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLFloat>::ToV8(script_state, member_radius_y_);
+DCHECK(!values[7].IsEmpty());
 }
 if (hasRegion()) {
-  v8_value = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, member_region_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, member_region_);
+DCHECK(!values[8].IsEmpty());
 }
 if (hasRotationAngle()) {
-  v8_value = ToV8Traits<IDLFloat>::ToV8(script_state, member_rotation_angle_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<IDLFloat>::ToV8(script_state, member_rotation_angle_);
+DCHECK(!values[9].IsEmpty());
 }
 if (hasScreenX()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_screen_x_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
+  values[10] = ToV8Traits<IDLDouble>::ToV8(script_state, member_screen_x_);
+DCHECK(!values[10].IsEmpty());
 }
 if (hasScreenY()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_screen_y_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[11].Get(isolate), v8_value).ToChecked();
+  values[11] = ToV8Traits<IDLDouble>::ToV8(script_state, member_screen_y_);
+DCHECK(!values[11].IsEmpty());
 }
 if (hasTarget()) {
-  v8_value = ToV8Traits<EventTarget>::ToV8(script_state, member_target_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[12].Get(isolate), v8_value).ToChecked();
+  values[12] = ToV8Traits<EventTarget>::ToV8(script_state, member_target_.Get());
+DCHECK(!values[12].IsEmpty());
 }
-return true;
+}
+
+const void* TouchInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> TouchInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void TouchInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -258,22 +291,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<EventTarget, is_required>(isolate
 }
 
 const base::span<const v8::Eternal<v8::Name>> TouchInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"clientX",
-"clientY",
-"force",
-"identifier",
-"pageX",
-"pageY",
-"radiusX",
-"radiusY",
-"region",
-"rotationAngle",
-"screenX",
-"screenY",
-"target",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

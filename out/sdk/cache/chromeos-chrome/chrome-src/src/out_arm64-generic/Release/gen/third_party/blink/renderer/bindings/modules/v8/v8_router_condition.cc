@@ -25,6 +25,20 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"or",
+"requestDestination",
+"requestMethod",
+"requestMode",
+"runningStatus",
+"urlPattern",
+};
+
+
+}  // namespace 
+
 RouterCondition* RouterCondition::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   RouterCondition* dictionary = MakeGarbageCollected<RouterCondition>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -144,36 +158,48 @@ TraceIfNeeded<Member<V8UnionURLPatternOrURLPatternInitOrUSVString>>::Trace(visit
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool RouterCondition::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void RouterCondition::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void RouterCondition::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasOrConditions()) {
-  v8_value = ToV8Traits<IDLSequence<RouterCondition>>::ToV8(script_state, member_or_conditions_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLSequence<RouterCondition>>::ToV8(script_state, member_or_conditions_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasRequestDestination()) {
-  v8_value = ToV8Traits<V8RequestDestination>::ToV8(script_state, member_request_destination_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<V8RequestDestination>::ToV8(script_state, member_request_destination_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasRequestMethod()) {
-  v8_value = ToV8Traits<IDLByteString>::ToV8(script_state, member_request_method_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLByteString>::ToV8(script_state, member_request_method_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasRequestMode()) {
-  v8_value = ToV8Traits<V8RequestMode>::ToV8(script_state, member_request_mode_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<V8RequestMode>::ToV8(script_state, member_request_mode_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasRunningStatus()) {
-  v8_value = ToV8Traits<V8RunningStatusEnum>::ToV8(script_state, member_running_status_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<V8RunningStatusEnum>::ToV8(script_state, member_running_status_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasUrlPattern()) {
-  v8_value = ToV8Traits<V8UnionURLPatternOrURLPatternInitOrUSVString>::ToV8(script_state, member_url_pattern_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<V8UnionURLPatternOrURLPatternInitOrUSVString>::ToV8(script_state, member_url_pattern_.Get());
+DCHECK(!values[5].IsEmpty());
 }
-return true;
+}
+
+const void* RouterCondition::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> RouterCondition::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void RouterCondition::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -210,15 +236,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<V8UnionURLPatternOrURLPatternInit
 }
 
 const base::span<const v8::Eternal<v8::Name>> RouterCondition::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"or",
-"requestDestination",
-"requestMethod",
-"requestMode",
-"runningStatus",
-"urlPattern",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

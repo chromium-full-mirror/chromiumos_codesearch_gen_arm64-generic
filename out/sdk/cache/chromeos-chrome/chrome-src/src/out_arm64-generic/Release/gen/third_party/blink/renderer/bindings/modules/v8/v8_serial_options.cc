@@ -21,6 +21,20 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"baudRate",
+"bufferSize",
+"dataBits",
+"flowControl",
+"parity",
+"stopBits",
+};
+
+
+}  // namespace 
+
 SerialOptions* SerialOptions::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   SerialOptions* dictionary = MakeGarbageCollected<SerialOptions>(isolate);
 if (!v8_value->IsObject()) {
@@ -85,36 +99,48 @@ TraceIfNeeded<uint8_t>::Trace(visitor, member_stop_bits_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool SerialOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void SerialOptions::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void SerialOptions::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasBaudRate()) {
-  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_baud_rate_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_baud_rate_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasBufferSize()) {
-  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_buffer_size_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_buffer_size_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasDataBits()) {
-  v8_value = ToV8Traits<IDLOctetEnforceRange>::ToV8(script_state, member_data_bits_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLOctetEnforceRange>::ToV8(script_state, member_data_bits_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasFlowControl()) {
-  v8_value = ToV8Traits<V8FlowControlType>::ToV8(script_state, member_flow_control_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<V8FlowControlType>::ToV8(script_state, member_flow_control_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasParity()) {
-  v8_value = ToV8Traits<V8ParityType>::ToV8(script_state, member_parity_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<V8ParityType>::ToV8(script_state, member_parity_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasStopBits()) {
-  v8_value = ToV8Traits<IDLOctetEnforceRange>::ToV8(script_state, member_stop_bits_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLOctetEnforceRange>::ToV8(script_state, member_stop_bits_);
+DCHECK(!values[5].IsEmpty());
 }
-return true;
+}
+
+const void* SerialOptions::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> SerialOptions::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void SerialOptions::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -153,15 +179,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLOctetEnforceRange, is_optional
 }
 
 const base::span<const v8::Eternal<v8::Name>> SerialOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"baudRate",
-"bufferSize",
-"dataBits",
-"flowControl",
-"parity",
-"stopBits",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

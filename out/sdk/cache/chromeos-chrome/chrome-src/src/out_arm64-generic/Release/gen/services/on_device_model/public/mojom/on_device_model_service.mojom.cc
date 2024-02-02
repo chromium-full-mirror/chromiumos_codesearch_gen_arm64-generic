@@ -49,19 +49,22 @@ ModelAssets::ModelAssets()
       model(),
       weights(),
       ts_data(),
-      ts_sp_model() {}
+      ts_sp_model(),
+      language_detection_model() {}
 
 ModelAssets::ModelAssets(
     ::base::File sp_model_in,
     ::base::File model_in,
     ::base::File weights_in,
     ::base::File ts_data_in,
-    ::base::File ts_sp_model_in)
+    ::base::File ts_sp_model_in,
+    ::base::File language_detection_model_in)
     : sp_model(std::move(sp_model_in)),
       model(std::move(model_in)),
       weights(std::move(weights_in)),
       ts_data(std::move(ts_data_in)),
-      ts_sp_model(std::move(ts_sp_model_in)) {}
+      ts_sp_model(std::move(ts_sp_model_in)),
+      language_detection_model(std::move(language_detection_model_in)) {}
 
 ModelAssets::~ModelAssets() = default;
 
@@ -107,6 +110,15 @@ void ModelAssets::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "ts_sp_model"), this->ts_sp_model,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::File>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "language_detection_model"), this->language_detection_model,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::base::File>"
 #else
@@ -755,6 +767,8 @@ bool StructTraits<::on_device_model::mojom::ModelAssets::DataView, ::on_device_m
       if (success && !input.ReadTsData(&result->ts_data))
         success = false;
       if (success && !input.ReadTsSpModel(&result->ts_sp_model))
+        success = false;
+      if (success && !input.ReadLanguageDetectionModel(&result->language_detection_model))
         success = false;
   *output = std::move(result);
   return success;

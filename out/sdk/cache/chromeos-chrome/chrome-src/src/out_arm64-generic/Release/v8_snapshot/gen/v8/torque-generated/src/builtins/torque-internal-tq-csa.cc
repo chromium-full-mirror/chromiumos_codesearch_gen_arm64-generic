@@ -1402,6 +1402,47 @@ TorqueStructReference_FeedbackCell_0 NewReference_FeedbackCell_0(compiler::CodeA
 }
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/torque-internal.tq?l=109&c=36
+TNode<IntPtrT> TimesSizeOf_Smi_OR_TrustedObject_0(compiler::CodeAssemblerState* state_, TNode<IntPtrT> p_i) {
+  compiler::CodeAssembler ca_(state_);
+  compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block2(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<IntPtrT> tmp0;
+  TNode<IntPtrT> tmp1;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, kTaggedSize);
+    tmp1 = CodeStubAssembler(state_).IntPtrMul(TNode<IntPtrT>{p_i}, TNode<IntPtrT>{tmp0});
+    ca_.Goto(&block2);
+  }
+
+    ca_.Bind(&block2);
+  return TNode<IntPtrT>{tmp1};
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/torque-internal.tq?l=108&c=12
+TorqueStructReference_Smi_OR_TrustedObject_0 NewReference_Smi_OR_TrustedObject_0(compiler::CodeAssemblerState* state_, TNode<Object> p_object, TNode<IntPtrT> p_offset) {
+  compiler::CodeAssembler ca_(state_);
+  compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);
+  compiler::CodeAssemblerParameterizedLabel<> block0(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+  compiler::CodeAssemblerParameterizedLabel<> block2(&ca_, compiler::CodeAssemblerLabel::kNonDeferred);
+    ca_.Goto(&block0);
+
+  TNode<Object> tmp0;
+  TNode<IntPtrT> tmp1;
+  if (block0.is_used()) {
+    ca_.Bind(&block0);
+    std::tie(tmp0, tmp1) = (TorqueStructReference_Smi_OR_TrustedObject_0{TNode<Object>{p_object}, TNode<IntPtrT>{p_offset}, TorqueStructUnsafe_0{}}).Flatten();
+    ca_.Goto(&block2);
+  }
+
+    ca_.Bind(&block2);
+  return TorqueStructReference_Smi_OR_TrustedObject_0{TNode<Object>{tmp0}, TNode<IntPtrT>{tmp1}, TorqueStructUnsafe_0{}};
+}
+
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/torque-internal.tq?l=109&c=36
 TNode<IntPtrT> TimesSizeOf_ExternalPointer_0(compiler::CodeAssemblerState* state_, TNode<IntPtrT> p_i) {
   compiler::CodeAssembler ca_(state_);
   compiler::CodeAssembler::SourcePositionScope pos_scope(&ca_);

@@ -24,6 +24,18 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"id",
+"rangeEnd",
+"rangeStart",
+"timeline",
+};
+
+
+}  // namespace 
+
 KeyframeAnimationOptions* KeyframeAnimationOptions::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   KeyframeAnimationOptions* dictionary = MakeGarbageCollected<KeyframeAnimationOptions>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -87,32 +99,46 @@ TraceIfNeeded<Member<AnimationTimeline>>::Trace(visitor, member_timeline_);
 KeyframeEffectOptions::Trace(visitor);
 }
 
-bool KeyframeAnimationOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!KeyframeEffectOptions::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void KeyframeAnimationOptions::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  KeyframeEffectOptions::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void KeyframeAnimationOptions::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  KeyframeEffectOptions::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasId()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLString>::ToV8(script_state, member_id_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasRangeEnd()) {
-  v8_value = ToV8Traits<V8UnionStringOrTimelineRangeOffset>::ToV8(script_state, member_range_end_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<V8UnionStringOrTimelineRangeOffset>::ToV8(script_state, member_range_end_.Get());
+DCHECK(!values[1].IsEmpty());
 }
 if (hasRangeStart()) {
-  v8_value = ToV8Traits<V8UnionStringOrTimelineRangeOffset>::ToV8(script_state, member_range_start_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<V8UnionStringOrTimelineRangeOffset>::ToV8(script_state, member_range_start_.Get());
+DCHECK(!values[2].IsEmpty());
 }
 if (hasTimeline()) {
-  v8_value = ToV8Traits<IDLNullable<AnimationTimeline>>::ToV8(script_state, member_timeline_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLNullable<AnimationTimeline>>::ToV8(script_state, member_timeline_.Get());
+DCHECK(!values[3].IsEmpty());
 }
-return true;
+}
+
+const void* KeyframeAnimationOptions::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> KeyframeAnimationOptions::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void KeyframeAnimationOptions::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -147,13 +173,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<AnimationTimeline>, i
 }
 
 const base::span<const v8::Eternal<v8::Name>> KeyframeAnimationOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"id",
-"rangeEnd",
-"rangeStart",
-"timeline",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

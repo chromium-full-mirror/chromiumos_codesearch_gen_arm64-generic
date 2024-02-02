@@ -49,13 +49,15 @@ namespace storage::mojom {
 
 enum class DisallowInactiveClientReason : int32_t {
   
-  kClientEventIsTriggered = 0,
+  kVersionChangeEvent = 0,
   
   kTransactionIsAcquiringLocks = 1,
   
-  kTransactionIsBlockingOthers = 2,
+  kTransactionIsStartingWhileBlockingOthers = 2,
+  
+  kTransactionIsOngoingAndBlockingOthers = 3,
   kMinValue = 0,
-  kMaxValue = 2,
+  kMaxValue = 3,
 };
 
  std::ostream& operator<<(std::ostream& os, DisallowInactiveClientReason value);

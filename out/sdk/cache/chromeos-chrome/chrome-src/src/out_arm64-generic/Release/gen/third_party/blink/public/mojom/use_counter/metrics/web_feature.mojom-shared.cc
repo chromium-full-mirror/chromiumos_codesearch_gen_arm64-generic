@@ -8046,6 +8046,8 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kSpeculationRulesBrowserPrefetchRule";
     case WebFeature::kSpeculationRulesBrowserPrerenderRule:
       return "kSpeculationRulesBrowserPrerenderRule";
+    case WebFeature::kFirstPartySharedWorkerSameSiteCookiesNone:
+      return "kFirstPartySharedWorkerSameSiteCookiesNone";
     case WebFeature::kNumberOfFeatures:
       return "kNumberOfFeatures";
     default:

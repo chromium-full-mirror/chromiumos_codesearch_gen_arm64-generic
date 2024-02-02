@@ -894,6 +894,7 @@
     this.muted = false;
     this.hasPresentation = false;
     this.hideMetadata = false;
+    this.ignoreForActiveSession = false;
     this.playbackState = 0;
     this.pictureInPictureState = 0;
     this.deprecatedAudioVideoState = 0;
@@ -930,7 +931,8 @@
       {version: 12, numBytes: 56},
       {version: 14, numBytes: 56},
       {version: 15, numBytes: 64},
-      {version: 16, numBytes: 64}
+      {version: 16, numBytes: 64},
+      {version: 20, numBytes: 64}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -1029,6 +1031,7 @@
         return err;
 
 
+
     return validator.validationError.NONE;
   };
 
@@ -1049,6 +1052,7 @@
     val.muted = (packed >> 4) & 1 ? true : false;
     val.hasPresentation = (packed >> 5) & 1 ? true : false;
     val.hideMetadata = (packed >> 6) & 1 ? true : false;
+    val.ignoreForActiveSession = (packed >> 7) & 1 ? true : false;
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -1110,7 +1114,7 @@
   MediaSessionInfo.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(MediaSessionInfo.encodedSize);
-    encoder.writeUint32(16);
+    encoder.writeUint32(20);
     encoder.encodeStruct(codec.Int32, val.state);
     packed = 0;
     packed |= (val.forceDuck & 1) << 0
@@ -1120,6 +1124,7 @@
     packed |= (val.muted & 1) << 4
     packed |= (val.hasPresentation & 1) << 5
     packed |= (val.hideMetadata & 1) << 6
+    packed |= (val.ignoreForActiveSession & 1) << 7
     encoder.writeUint8(packed);
     encoder.skip(1);
     encoder.skip(1);

@@ -21,6 +21,45 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"active",
+"contentType",
+"encoderImplementation",
+"firCount",
+"frameHeight",
+"frameWidth",
+"framesEncoded",
+"framesPerSecond",
+"framesSent",
+"headerBytesSent",
+"hugeFramesSent",
+"keyFramesEncoded",
+"mediaSourceId",
+"mid",
+"nackCount",
+"pliCount",
+"powerEfficientEncoder",
+"qpSum",
+"qualityLimitationDurations",
+"qualityLimitationReason",
+"qualityLimitationResolutionChanges",
+"remoteId",
+"retransmittedBytesSent",
+"retransmittedPacketsSent",
+"rid",
+"rtxSsrc",
+"scalabilityMode",
+"targetBitrate",
+"totalEncodeTime",
+"totalEncodedBytesTarget",
+"totalPacketSendDelay",
+};
+
+
+}  // namespace 
+
 RTCOutboundRtpStreamStats* RTCOutboundRtpStreamStats::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   RTCOutboundRtpStreamStats* dictionary = MakeGarbageCollected<RTCOutboundRtpStreamStats>(isolate);
 if (!v8_value->IsObject()) {
@@ -457,140 +496,154 @@ TraceIfNeeded<double>::Trace(visitor, member_total_packet_send_delay_);
 RTCSentRtpStreamStats::Trace(visitor);
 }
 
-bool RTCOutboundRtpStreamStats::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!RTCSentRtpStreamStats::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void RTCOutboundRtpStreamStats::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  RTCSentRtpStreamStats::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void RTCOutboundRtpStreamStats::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  RTCSentRtpStreamStats::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasActive()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_active_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_active_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasContentType()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_content_type_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLString>::ToV8(script_state, member_content_type_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasEncoderImplementation()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_encoder_implementation_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLString>::ToV8(script_state, member_encoder_implementation_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasFirCount()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_fir_count_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_fir_count_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasFrameHeight()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frame_height_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frame_height_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasFrameWidth()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frame_width_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frame_width_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasFramesEncoded()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frames_encoded_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frames_encoded_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasFramesPerSecond()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_frames_per_second_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<IDLDouble>::ToV8(script_state, member_frames_per_second_);
+DCHECK(!values[7].IsEmpty());
 }
 if (hasFramesSent()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frames_sent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_frames_sent_);
+DCHECK(!values[8].IsEmpty());
 }
 if (hasHeaderBytesSent()) {
-  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_header_bytes_sent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_header_bytes_sent_);
+DCHECK(!values[9].IsEmpty());
 }
 if (hasHugeFramesSent()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_huge_frames_sent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
+  values[10] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_huge_frames_sent_);
+DCHECK(!values[10].IsEmpty());
 }
 if (hasKeyFramesEncoded()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_key_frames_encoded_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[11].Get(isolate), v8_value).ToChecked();
+  values[11] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_key_frames_encoded_);
+DCHECK(!values[11].IsEmpty());
 }
 if (hasMediaSourceId()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_media_source_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[12].Get(isolate), v8_value).ToChecked();
+  values[12] = ToV8Traits<IDLString>::ToV8(script_state, member_media_source_id_);
+DCHECK(!values[12].IsEmpty());
 }
 if (hasMid()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_mid_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[13].Get(isolate), v8_value).ToChecked();
+  values[13] = ToV8Traits<IDLString>::ToV8(script_state, member_mid_);
+DCHECK(!values[13].IsEmpty());
 }
 if (hasNackCount()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_nack_count_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[14].Get(isolate), v8_value).ToChecked();
+  values[14] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_nack_count_);
+DCHECK(!values[14].IsEmpty());
 }
 if (hasPliCount()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_pli_count_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[15].Get(isolate), v8_value).ToChecked();
+  values[15] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_pli_count_);
+DCHECK(!values[15].IsEmpty());
 }
 if (hasPowerEfficientEncoder()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_power_efficient_encoder_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[16].Get(isolate), v8_value).ToChecked();
+  values[16] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_power_efficient_encoder_);
+DCHECK(!values[16].IsEmpty());
 }
 if (hasQpSum()) {
-  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_qp_sum_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[17].Get(isolate), v8_value).ToChecked();
+  values[17] = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_qp_sum_);
+DCHECK(!values[17].IsEmpty());
 }
 if (hasQualityLimitationDurations()) {
-  v8_value = ToV8Traits<IDLRecord<IDLString, IDLDouble>>::ToV8(script_state, member_quality_limitation_durations_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[18].Get(isolate), v8_value).ToChecked();
+  values[18] = ToV8Traits<IDLRecord<IDLString, IDLDouble>>::ToV8(script_state, member_quality_limitation_durations_);
+DCHECK(!values[18].IsEmpty());
 }
 if (hasQualityLimitationReason()) {
-  v8_value = ToV8Traits<V8RTCQualityLimitationReason>::ToV8(script_state, member_quality_limitation_reason_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[19].Get(isolate), v8_value).ToChecked();
+  values[19] = ToV8Traits<V8RTCQualityLimitationReason>::ToV8(script_state, member_quality_limitation_reason_);
+DCHECK(!values[19].IsEmpty());
 }
 if (hasQualityLimitationResolutionChanges()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_quality_limitation_resolution_changes_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[20].Get(isolate), v8_value).ToChecked();
+  values[20] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_quality_limitation_resolution_changes_);
+DCHECK(!values[20].IsEmpty());
 }
 if (hasRemoteId()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_remote_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[21].Get(isolate), v8_value).ToChecked();
+  values[21] = ToV8Traits<IDLString>::ToV8(script_state, member_remote_id_);
+DCHECK(!values[21].IsEmpty());
 }
 if (hasRetransmittedBytesSent()) {
-  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_retransmitted_bytes_sent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[22].Get(isolate), v8_value).ToChecked();
+  values[22] = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_retransmitted_bytes_sent_);
+DCHECK(!values[22].IsEmpty());
 }
 if (hasRetransmittedPacketsSent()) {
-  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_retransmitted_packets_sent_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[23].Get(isolate), v8_value).ToChecked();
+  values[23] = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_retransmitted_packets_sent_);
+DCHECK(!values[23].IsEmpty());
 }
 if (hasRid()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_rid_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[24].Get(isolate), v8_value).ToChecked();
+  values[24] = ToV8Traits<IDLString>::ToV8(script_state, member_rid_);
+DCHECK(!values[24].IsEmpty());
 }
 if (hasRtxSsrc()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_rtx_ssrc_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[25].Get(isolate), v8_value).ToChecked();
+  values[25] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_rtx_ssrc_);
+DCHECK(!values[25].IsEmpty());
 }
 if (hasScalabilityMode()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_scalability_mode_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[26].Get(isolate), v8_value).ToChecked();
+  values[26] = ToV8Traits<IDLString>::ToV8(script_state, member_scalability_mode_);
+DCHECK(!values[26].IsEmpty());
 }
 if (hasTargetBitrate()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_target_bitrate_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[27].Get(isolate), v8_value).ToChecked();
+  values[27] = ToV8Traits<IDLDouble>::ToV8(script_state, member_target_bitrate_);
+DCHECK(!values[27].IsEmpty());
 }
 if (hasTotalEncodeTime()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_encode_time_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[28].Get(isolate), v8_value).ToChecked();
+  values[28] = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_encode_time_);
+DCHECK(!values[28].IsEmpty());
 }
 if (hasTotalEncodedBytesTarget()) {
-  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_total_encoded_bytes_target_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[29].Get(isolate), v8_value).ToChecked();
+  values[29] = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_total_encoded_bytes_target_);
+DCHECK(!values[29].IsEmpty());
 }
 if (hasTotalPacketSendDelay()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_packet_send_delay_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[30].Get(isolate), v8_value).ToChecked();
+  values[30] = ToV8Traits<IDLDouble>::ToV8(script_state, member_total_packet_send_delay_);
+DCHECK(!values[30].IsEmpty());
 }
-return true;
+}
+
+const void* RTCOutboundRtpStreamStats::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> RTCOutboundRtpStreamStats::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void RTCOutboundRtpStreamStats::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -732,40 +785,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLDouble, is_optional>(isolate, 
 }
 
 const base::span<const v8::Eternal<v8::Name>> RTCOutboundRtpStreamStats::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"active",
-"contentType",
-"encoderImplementation",
-"firCount",
-"frameHeight",
-"frameWidth",
-"framesEncoded",
-"framesPerSecond",
-"framesSent",
-"headerBytesSent",
-"hugeFramesSent",
-"keyFramesEncoded",
-"mediaSourceId",
-"mid",
-"nackCount",
-"pliCount",
-"powerEfficientEncoder",
-"qpSum",
-"qualityLimitationDurations",
-"qualityLimitationReason",
-"qualityLimitationResolutionChanges",
-"remoteId",
-"retransmittedBytesSent",
-"retransmittedPacketsSent",
-"rid",
-"rtxSsrc",
-"scalabilityMode",
-"targetBitrate",
-"totalEncodeTime",
-"totalEncodedBytesTarget",
-"totalPacketSendDelay",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

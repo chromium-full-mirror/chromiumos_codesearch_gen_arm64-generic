@@ -24,6 +24,11 @@ import {
 } from './ax_node_data.mojom.m.js';
 
 import {
+  AXTreeChecks as ax_mojom_AXTreeChecks,
+  AXTreeChecksSpec as ax_mojom_AXTreeChecksSpec
+} from './ax_tree_checks.mojom.m.js';
+
+import {
   AXTreeData as ax_mojom_AXTreeData,
   AXTreeDataSpec as ax_mojom_AXTreeDataSpec
 } from './ax_tree_data.mojom.m.js';
@@ -107,8 +112,16 @@ mojo.internal.Struct(
         false /* nullable */,
         0,
       ),
+      mojo.internal.StructField(
+        'treeChecks', 48,
+        0,
+        ax_mojom_AXTreeChecksSpec.$,
+        null,
+        true /* nullable */,
+        2,
+      ),
     ],
-    [[0, 56],]);
+    [[0, 56],[2, 64],]);
 
 
 
@@ -133,6 +146,8 @@ export class AXTreeUpdate {
     this.eventFromAction;
     /** @type { !Array<!ax_mojom_EventIntent> } */
     this.eventIntents;
+    /** @type { (ax_mojom_AXTreeChecks|undefined) } */
+    this.treeChecks;
   }
 }
 

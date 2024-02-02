@@ -30,6 +30,7 @@
 #include "ui/accessibility/mojom/ax_event_intent.mojom-blink.h"
 #include "ui/accessibility/mojom/ax_node_data.mojom-blink.h"
 #include "ui/accessibility/mojom/ax_tree_data.mojom-blink.h"
+#include "ui/accessibility/mojom/ax_tree_checks.mojom-blink.h"
 
 #include "mojo/public/cpp/bindings/lib/wtf_clone_equals_util.h"
 #include "mojo/public/cpp/bindings/lib/wtf_hash_util.h"
@@ -87,6 +88,17 @@ class  AXTreeUpdate {
       ::ax::mojom::blink::EventFrom event_from,
       ::ax::mojom::blink::Action event_from_action,
       WTF::Vector<::ax::mojom::blink::EventIntentPtr> event_intents);
+
+  AXTreeUpdate(
+      bool has_tree_data,
+      ::ax::mojom::blink::AXTreeDataPtr tree_data,
+      int32_t node_id_to_clear,
+      int32_t root_id,
+      WTF::Vector<::ax::mojom::blink::AXNodeDataPtr> nodes,
+      ::ax::mojom::blink::EventFrom event_from,
+      ::ax::mojom::blink::Action event_from_action,
+      WTF::Vector<::ax::mojom::blink::EventIntentPtr> event_intents,
+      ::ax::mojom::blink::AXTreeChecksPtr tree_checks);
 
 AXTreeUpdate(const AXTreeUpdate&) = delete;
 AXTreeUpdate& operator=(const AXTreeUpdate&) = delete;
@@ -181,6 +193,8 @@ AXTreeUpdate& operator=(const AXTreeUpdate&) = delete;
   ::ax::mojom::blink::Action event_from_action;
   
   WTF::Vector<::ax::mojom::blink::EventIntentPtr> event_intents;
+  
+  ::ax::mojom::blink::AXTreeChecksPtr tree_checks;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -221,7 +235,8 @@ AXTreeUpdatePtr AXTreeUpdate::Clone() const {
       mojo::Clone(nodes),
       mojo::Clone(event_from),
       mojo::Clone(event_from_action),
-      mojo::Clone(event_intents)
+      mojo::Clone(event_intents),
+      mojo::Clone(tree_checks)
   );
 }
 
@@ -242,6 +257,8 @@ bool AXTreeUpdate::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->event_from_action, other_struct.event_from_action))
     return false;
   if (!mojo::Equals(this->event_intents, other_struct.event_intents))
+    return false;
+  if (!mojo::Equals(this->tree_checks, other_struct.tree_checks))
     return false;
   return true;
 }
@@ -279,6 +296,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.event_intents < rhs.event_intents)
     return true;
   if (rhs.event_intents < lhs.event_intents)
+    return false;
+  if (lhs.tree_checks < rhs.tree_checks)
+    return true;
+  if (rhs.tree_checks < lhs.tree_checks)
     return false;
   return false;
 }
@@ -333,6 +354,11 @@ struct  StructTraits<::ax::mojom::blink::AXTreeUpdate::DataView,
   static const decltype(::ax::mojom::blink::AXTreeUpdate::event_intents)& event_intents(
       const ::ax::mojom::blink::AXTreeUpdatePtr& input) {
     return input->event_intents;
+  }
+
+  static const decltype(::ax::mojom::blink::AXTreeUpdate::tree_checks)& tree_checks(
+      const ::ax::mojom::blink::AXTreeUpdatePtr& input) {
+    return input->tree_checks;
   }
 
   static bool Read(::ax::mojom::blink::AXTreeUpdate::DataView input, ::ax::mojom::blink::AXTreeUpdatePtr* output);

@@ -30,8 +30,12 @@ bool AXTreeUpdate_Data::Validate(
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
     return true;
-  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 56, validation_context)) {
+  static constexpr mojo::internal::StructVersionSize kVersionSizes[] = {
+    { 0, 56 },
+    { 2, 64 },
+  };
+  if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
+          data, kVersionSizes, validation_context)) {
     return false;
   }
 
@@ -78,12 +82,17 @@ bool AXTreeUpdate_Data::Validate(
                                          &event_intents_validate_params)) {
     return false;
   }
+  if (object->header_.version < 2)
+    return true;
+
+  if (!mojo::internal::ValidateStruct(object->tree_checks, validation_context))
+    return false;
 
   return true;
 }
 
 AXTreeUpdate_Data::AXTreeUpdate_Data()
-    : header_({sizeof(*this), 0}) {}
+    : header_({sizeof(*this), 2}) {}
 
 }  // namespace internal
 }  // namespace mojom

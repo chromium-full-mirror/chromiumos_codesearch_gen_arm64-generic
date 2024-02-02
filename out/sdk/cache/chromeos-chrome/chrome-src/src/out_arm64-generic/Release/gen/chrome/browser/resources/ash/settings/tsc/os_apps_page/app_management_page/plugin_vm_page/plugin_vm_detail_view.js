@@ -2,12 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import '../pin_to_shelf_item.js';
-import 'chrome://resources/cr_components/app_management/icons.html.js';
-import 'chrome://resources/cr_components/app_management/permission_item.js';
+import '../../../app_management_icons.html.js';
+import '../permission_item.js';
 import '../app_management_cros_shared_style.css.js';
 import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
 import 'chrome://resources/cr_elements/icons.html.js';
-import { AppManagementPermissionItemElement } from 'chrome://resources/cr_components/app_management/permission_item.js';
 import { getSelectedApp } from 'chrome://resources/cr_components/app_management/util.js';
 import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
 import { assertNotReached } from 'chrome://resources/js/assert.js';
@@ -16,6 +15,7 @@ import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_
 import { cast } from '../../../assert_extras.js';
 import { AppManagementStoreMixin } from '../../../common/app_management/store_mixin.js';
 import { Router, routes } from '../../../router.js';
+import { AppManagementPermissionItemElement } from '../permission_item.js';
 import { PluginVmBrowserProxyImpl } from './plugin_vm_browser_proxy.js';
 import { getTemplate } from './plugin_vm_detail_view.html.js';
 const AppManagementPluginVmDetailViewElementBase = AppManagementStoreMixin(WebUiListenerMixin(PolymerElement));

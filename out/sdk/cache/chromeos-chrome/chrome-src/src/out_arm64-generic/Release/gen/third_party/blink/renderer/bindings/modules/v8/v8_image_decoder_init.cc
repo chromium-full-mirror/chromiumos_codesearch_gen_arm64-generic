@@ -23,6 +23,21 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"colorSpaceConversion",
+"data",
+"desiredHeight",
+"desiredWidth",
+"preferAnimation",
+"transfer",
+"type",
+};
+
+
+}  // namespace 
+
 ImageDecoderInit* ImageDecoderInit::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   ImageDecoderInit* dictionary = MakeGarbageCollected<ImageDecoderInit>(isolate);
 if (!v8_value->IsObject()) {
@@ -111,40 +126,52 @@ TraceIfNeeded<String>::Trace(visitor, member_type_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool ImageDecoderInit::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void ImageDecoderInit::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void ImageDecoderInit::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasColorSpaceConversion()) {
-  v8_value = ToV8Traits<V8ColorSpaceConversion>::ToV8(script_state, member_color_space_conversion_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<V8ColorSpaceConversion>::ToV8(script_state, member_color_space_conversion_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasData()) {
-  v8_value = ToV8Traits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowSharedOrReadableStream>::ToV8(script_state, member_data_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<V8UnionArrayBufferAllowSharedOrArrayBufferViewAllowSharedOrReadableStream>::ToV8(script_state, member_data_.Get());
+DCHECK(!values[1].IsEmpty());
 }
 if (hasDesiredHeight()) {
-  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_desired_height_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_desired_height_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasDesiredWidth()) {
-  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_desired_width_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_desired_width_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasPreferAnimation()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_prefer_animation_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_prefer_animation_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasTransfer()) {
-  v8_value = ToV8Traits<IDLSequence<DOMArrayBuffer>>::ToV8(script_state, member_transfer_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLSequence<DOMArrayBuffer>>::ToV8(script_state, member_transfer_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasType()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_type_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_type_);
+DCHECK(!values[6].IsEmpty());
 }
-return true;
+}
+
+const void* ImageDecoderInit::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> ImageDecoderInit::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void ImageDecoderInit::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -187,16 +214,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_required>(isolat
 }
 
 const base::span<const v8::Eternal<v8::Name>> ImageDecoderInit::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"colorSpaceConversion",
-"data",
-"desiredHeight",
-"desiredWidth",
-"preferAnimation",
-"transfer",
-"type",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

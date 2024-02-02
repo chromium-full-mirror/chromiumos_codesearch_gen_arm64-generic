@@ -31,7 +31,7 @@ bool ModelAssets_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 56, validation_context)) {
     return false;
   }
 
@@ -53,6 +53,9 @@ bool ModelAssets_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidateStruct(object->ts_sp_model, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->language_detection_model, validation_context))
     return false;
 
   return true;

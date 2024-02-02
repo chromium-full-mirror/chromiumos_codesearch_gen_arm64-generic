@@ -614,7 +614,7 @@ const char TPCDHeuristics[] = "TPCDHeuristics";
 const char EnterprisePolicy[] = "EnterprisePolicy";
 const char StorageAccess[] = "StorageAccess";
 const char TopLevelStorageAccess[] = "TopLevelStorageAccess";
-const char BrowserHeuristics[] = "BrowserHeuristics";
+const char CorsOptIn[] = "CorsOptIn";
 } // namespace CookieExemptionReasonEnum
 
 

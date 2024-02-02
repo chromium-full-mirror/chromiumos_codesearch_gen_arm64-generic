@@ -30,6 +30,7 @@
 #include "ui/accessibility/mojom/ax_event_intent.mojom.h"
 #include "ui/accessibility/mojom/ax_node_data.mojom.h"
 #include "ui/accessibility/mojom/ax_tree_data.mojom.h"
+#include "ui/accessibility/mojom/ax_tree_checks.mojom.h"
 #include <string>
 #include <vector>
 
@@ -85,6 +86,17 @@ class  AXTreeUpdate {
       ::ax::mojom::EventFrom event_from,
       ::ax::mojom::Action event_from_action,
       std::vector<::ax::mojom::EventIntentPtr> event_intents);
+
+  AXTreeUpdate(
+      bool has_tree_data,
+      const ::ui::AXTreeData& tree_data,
+      int32_t node_id_to_clear,
+      int32_t root_id,
+      std::vector<::ui::AXNodeData> nodes,
+      ::ax::mojom::EventFrom event_from,
+      ::ax::mojom::Action event_from_action,
+      std::vector<::ax::mojom::EventIntentPtr> event_intents,
+      const std::optional<::ui::AXTreeChecks>& tree_checks);
 
 AXTreeUpdate(const AXTreeUpdate&) = delete;
 AXTreeUpdate& operator=(const AXTreeUpdate&) = delete;
@@ -179,6 +191,8 @@ AXTreeUpdate& operator=(const AXTreeUpdate&) = delete;
   ::ax::mojom::Action event_from_action;
   
   std::vector<::ax::mojom::EventIntentPtr> event_intents;
+  
+  std::optional<::ui::AXTreeChecks> tree_checks;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -219,7 +233,8 @@ AXTreeUpdatePtr AXTreeUpdate::Clone() const {
       mojo::Clone(nodes),
       mojo::Clone(event_from),
       mojo::Clone(event_from_action),
-      mojo::Clone(event_intents)
+      mojo::Clone(event_intents),
+      mojo::Clone(tree_checks)
   );
 }
 
@@ -240,6 +255,8 @@ bool AXTreeUpdate::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->event_from_action, other_struct.event_from_action))
     return false;
   if (!mojo::Equals(this->event_intents, other_struct.event_intents))
+    return false;
+  if (!mojo::Equals(this->tree_checks, other_struct.tree_checks))
     return false;
   return true;
 }
@@ -277,6 +294,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.event_intents < rhs.event_intents)
     return true;
   if (rhs.event_intents < lhs.event_intents)
+    return false;
+  if (lhs.tree_checks < rhs.tree_checks)
+    return true;
+  if (rhs.tree_checks < lhs.tree_checks)
     return false;
   return false;
 }
@@ -331,6 +352,11 @@ struct  StructTraits<::ax::mojom::AXTreeUpdate::DataView,
   static const decltype(::ax::mojom::AXTreeUpdate::event_intents)& event_intents(
       const ::ax::mojom::AXTreeUpdatePtr& input) {
     return input->event_intents;
+  }
+
+  static const decltype(::ax::mojom::AXTreeUpdate::tree_checks)& tree_checks(
+      const ::ax::mojom::AXTreeUpdatePtr& input) {
+    return input->tree_checks;
   }
 
   static bool Read(::ax::mojom::AXTreeUpdate::DataView input, ::ax::mojom::AXTreeUpdatePtr* output);

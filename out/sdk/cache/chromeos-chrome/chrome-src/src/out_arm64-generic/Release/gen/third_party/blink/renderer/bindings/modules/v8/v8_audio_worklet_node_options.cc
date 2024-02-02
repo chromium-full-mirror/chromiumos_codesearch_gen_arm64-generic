@@ -21,6 +21,19 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"numberOfInputs",
+"numberOfOutputs",
+"outputChannelCount",
+"parameterData",
+"processorOptions",
+};
+
+
+}  // namespace 
+
 AudioWorkletNodeOptions* AudioWorkletNodeOptions::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   AudioWorkletNodeOptions* dictionary = MakeGarbageCollected<AudioWorkletNodeOptions>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -128,36 +141,50 @@ TraceIfNeeded<ScriptValue>::Trace(visitor, member_processor_options_);
 AudioNodeOptions::Trace(visitor);
 }
 
-bool AudioWorkletNodeOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!AudioNodeOptions::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void AudioWorkletNodeOptions::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  AudioNodeOptions::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void AudioWorkletNodeOptions::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  AudioNodeOptions::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasNumberOfInputs()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_number_of_inputs_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_number_of_inputs_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasNumberOfOutputs()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_number_of_outputs_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_number_of_outputs_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasOutputChannelCount()) {
-  v8_value = ToV8Traits<IDLSequence<IDLUnsignedLong>>::ToV8(script_state, member_output_channel_count_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLSequence<IDLUnsignedLong>>::ToV8(script_state, member_output_channel_count_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasParameterData()) {
-  v8_value = ToV8Traits<IDLRecord<IDLString, IDLDouble>>::ToV8(script_state, member_parameter_data_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLRecord<IDLString, IDLDouble>>::ToV8(script_state, member_parameter_data_);
+DCHECK(!values[3].IsEmpty());
 }
 if (hasProcessorOptions()) {
-  v8_value = ToV8Traits<IDLObject>::ToV8(script_state, member_processor_options_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLObject>::ToV8(script_state, member_processor_options_);
+DCHECK(!values[4].IsEmpty());
 }
-return true;
+}
+
+const void* AudioWorkletNodeOptions::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> AudioWorkletNodeOptions::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void AudioWorkletNodeOptions::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -196,14 +223,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLObject, is_optional>(isolate, 
 }
 
 const base::span<const v8::Eternal<v8::Name>> AudioWorkletNodeOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"numberOfInputs",
-"numberOfOutputs",
-"outputChannelCount",
-"parameterData",
-"processorOptions",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

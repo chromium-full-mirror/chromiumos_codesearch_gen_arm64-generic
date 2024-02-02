@@ -21,6 +21,17 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"jitter",
+"packetsLost",
+"packetsReceived",
+};
+
+
+}  // namespace 
+
 RTCReceivedRtpStreamStats* RTCReceivedRtpStreamStats::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   RTCReceivedRtpStreamStats* dictionary = MakeGarbageCollected<RTCReceivedRtpStreamStats>(isolate);
 if (!v8_value->IsObject()) {
@@ -73,28 +84,42 @@ TraceIfNeeded<uint64_t>::Trace(visitor, member_packets_received_);
 RTCRtpStreamStats::Trace(visitor);
 }
 
-bool RTCReceivedRtpStreamStats::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!RTCRtpStreamStats::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void RTCReceivedRtpStreamStats::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  RTCRtpStreamStats::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void RTCReceivedRtpStreamStats::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  RTCRtpStreamStats::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasJitter()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_jitter_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLDouble>::ToV8(script_state, member_jitter_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasPacketsLost()) {
-  v8_value = ToV8Traits<IDLLongLong>::ToV8(script_state, member_packets_lost_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLLongLong>::ToV8(script_state, member_packets_lost_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasPacketsReceived()) {
-  v8_value = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_packets_received_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUnsignedLongLong>::ToV8(script_state, member_packets_received_);
+DCHECK(!values[2].IsEmpty());
 }
-return true;
+}
+
+const void* RTCReceivedRtpStreamStats::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> RTCReceivedRtpStreamStats::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void RTCReceivedRtpStreamStats::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -124,12 +149,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLongLong, is_optional>
 }
 
 const base::span<const v8::Eternal<v8::Name>> RTCReceivedRtpStreamStats::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"jitter",
-"packetsLost",
-"packetsReceived",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

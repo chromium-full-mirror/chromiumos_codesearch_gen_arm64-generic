@@ -2,6 +2,7 @@ import { dE as PaperRippleMixin, w as assert, dF as validateExternalDriveName, b
 import { html, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { property, customElement, svg, html as html$1, css } from 'chrome://resources/mwc/lit/index.js';
 import 'chrome://resources/ash/common/load_time_data.m.js';
+import 'chrome://resources/lit/v3_0/lit.rollup.js';
 import 'chrome://resources/js/cr.js';
 
 function getTemplate$3() {

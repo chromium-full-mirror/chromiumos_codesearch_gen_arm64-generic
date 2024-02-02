@@ -26,6 +26,43 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"anyMember",
+"booleanMember",
+"byteStringMember",
+"callbackFunctionMember",
+"doubleMember",
+"doubleOrStringMember",
+"doubleOrStringSequenceMember",
+"elementMember",
+"elementOrNullMember",
+"enumMember",
+"enumMemberWithDefault",
+"enumOrNullMember",
+"eventTargetOrNullMember",
+"internalEnumOrInternalEnumSequenceMember",
+"longMember",
+"longMemberWithClamp",
+"longMemberWithDefault",
+"longMemberWithEnforceRange",
+"longOrNullMember",
+"longOrNullMemberWithDefault",
+"objectMember",
+"objectOrNullMemberWithDefault",
+"stringMember",
+"stringMemberWithDefault",
+"stringSequenceMember",
+"stringSequenceMemberWithDefault",
+"stringSequenceOrNullMember",
+"unrestrictedDoubleMember",
+"usvStringMember",
+};
+
+
+}  // namespace 
+
 InternalDictionary* InternalDictionary::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   InternalDictionary* dictionary = MakeGarbageCollected<InternalDictionary>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -412,128 +449,140 @@ TraceIfNeeded<String>::Trace(visitor, member_usv_string_member_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool InternalDictionary::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void InternalDictionary::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void InternalDictionary::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasAnyMember()) {
-  v8_value = ToV8Traits<IDLAny>::ToV8(script_state, member_any_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLAny>::ToV8(script_state, member_any_member_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasBooleanMember()) {
-  v8_value = ToV8Traits<IDLBoolean>::ToV8(script_state, member_boolean_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLBoolean>::ToV8(script_state, member_boolean_member_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasByteStringMember()) {
-  v8_value = ToV8Traits<IDLByteString>::ToV8(script_state, member_byte_string_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLByteString>::ToV8(script_state, member_byte_string_member_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasCallbackFunctionMember()) {
-  v8_value = ToV8Traits<V8TestCallback>::ToV8(script_state, member_callback_function_member_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<V8TestCallback>::ToV8(script_state, member_callback_function_member_.Get());
+DCHECK(!values[3].IsEmpty());
 }
 if (hasDoubleMember()) {
-  v8_value = ToV8Traits<IDLDouble>::ToV8(script_state, member_double_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLDouble>::ToV8(script_state, member_double_member_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasDoubleOrStringMember()) {
-  v8_value = ToV8Traits<V8UnionDoubleOrString>::ToV8(script_state, member_double_or_string_member_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<V8UnionDoubleOrString>::ToV8(script_state, member_double_or_string_member_.Get());
+DCHECK(!values[5].IsEmpty());
 }
 if (hasDoubleOrStringSequenceMember()) {
-  v8_value = ToV8Traits<IDLSequence<V8UnionDoubleOrString>>::ToV8(script_state, member_double_or_string_sequence_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLSequence<V8UnionDoubleOrString>>::ToV8(script_state, member_double_or_string_sequence_member_);
+DCHECK(!values[6].IsEmpty());
 }
 if (hasElementMember()) {
-  v8_value = ToV8Traits<Element>::ToV8(script_state, member_element_member_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[7].Get(isolate), v8_value).ToChecked();
+  values[7] = ToV8Traits<Element>::ToV8(script_state, member_element_member_.Get());
+DCHECK(!values[7].IsEmpty());
 }
 if (hasElementOrNullMember()) {
-  v8_value = ToV8Traits<IDLNullable<Element>>::ToV8(script_state, member_element_or_null_member_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[8].Get(isolate), v8_value).ToChecked();
+  values[8] = ToV8Traits<IDLNullable<Element>>::ToV8(script_state, member_element_or_null_member_.Get());
+DCHECK(!values[8].IsEmpty());
 }
 if (hasEnumMember()) {
-  v8_value = ToV8Traits<V8InternalEnum>::ToV8(script_state, member_enum_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[9].Get(isolate), v8_value).ToChecked();
+  values[9] = ToV8Traits<V8InternalEnum>::ToV8(script_state, member_enum_member_);
+DCHECK(!values[9].IsEmpty());
 }
 if (hasEnumMemberWithDefault()) {
-  v8_value = ToV8Traits<V8InternalEnum>::ToV8(script_state, member_enum_member_with_default_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[10].Get(isolate), v8_value).ToChecked();
+  values[10] = ToV8Traits<V8InternalEnum>::ToV8(script_state, member_enum_member_with_default_);
+DCHECK(!values[10].IsEmpty());
 }
 if (hasEnumOrNullMember()) {
-  v8_value = ToV8Traits<IDLNullable<V8InternalEnum>>::ToV8(script_state, member_enum_or_null_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[11].Get(isolate), v8_value).ToChecked();
+  values[11] = ToV8Traits<IDLNullable<V8InternalEnum>>::ToV8(script_state, member_enum_or_null_member_);
+DCHECK(!values[11].IsEmpty());
 }
 if (hasEventTargetOrNullMember()) {
-  v8_value = ToV8Traits<IDLNullable<EventTarget>>::ToV8(script_state, member_event_target_or_null_member_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[12].Get(isolate), v8_value).ToChecked();
+  values[12] = ToV8Traits<IDLNullable<EventTarget>>::ToV8(script_state, member_event_target_or_null_member_.Get());
+DCHECK(!values[12].IsEmpty());
 }
 if (hasInternalEnumOrInternalEnumSequenceMember()) {
-  v8_value = ToV8Traits<V8UnionInternalEnumOrInternalEnumSequence>::ToV8(script_state, member_internal_enum_or_internal_enum_sequence_member_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[13].Get(isolate), v8_value).ToChecked();
+  values[13] = ToV8Traits<V8UnionInternalEnumOrInternalEnumSequence>::ToV8(script_state, member_internal_enum_or_internal_enum_sequence_member_.Get());
+DCHECK(!values[13].IsEmpty());
 }
 if (hasLongMember()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_long_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[14].Get(isolate), v8_value).ToChecked();
+  values[14] = ToV8Traits<IDLLong>::ToV8(script_state, member_long_member_);
+DCHECK(!values[14].IsEmpty());
 }
 if (hasLongMemberWithClamp()) {
-  v8_value = ToV8Traits<IDLLongClamp>::ToV8(script_state, member_long_member_with_clamp_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[15].Get(isolate), v8_value).ToChecked();
+  values[15] = ToV8Traits<IDLLongClamp>::ToV8(script_state, member_long_member_with_clamp_);
+DCHECK(!values[15].IsEmpty());
 }
 if (hasLongMemberWithDefault()) {
-  v8_value = ToV8Traits<IDLLong>::ToV8(script_state, member_long_member_with_default_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[16].Get(isolate), v8_value).ToChecked();
+  values[16] = ToV8Traits<IDLLong>::ToV8(script_state, member_long_member_with_default_);
+DCHECK(!values[16].IsEmpty());
 }
 if (hasLongMemberWithEnforceRange()) {
-  v8_value = ToV8Traits<IDLLongEnforceRange>::ToV8(script_state, member_long_member_with_enforce_range_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[17].Get(isolate), v8_value).ToChecked();
+  values[17] = ToV8Traits<IDLLongEnforceRange>::ToV8(script_state, member_long_member_with_enforce_range_);
+DCHECK(!values[17].IsEmpty());
 }
 if (hasLongOrNullMember()) {
-  v8_value = ToV8Traits<IDLNullable<IDLLong>>::ToV8(script_state, member_long_or_null_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[18].Get(isolate), v8_value).ToChecked();
+  values[18] = ToV8Traits<IDLNullable<IDLLong>>::ToV8(script_state, member_long_or_null_member_);
+DCHECK(!values[18].IsEmpty());
 }
 if (hasLongOrNullMemberWithDefault()) {
-  v8_value = ToV8Traits<IDLNullable<IDLLong>>::ToV8(script_state, member_long_or_null_member_with_default_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[19].Get(isolate), v8_value).ToChecked();
+  values[19] = ToV8Traits<IDLNullable<IDLLong>>::ToV8(script_state, member_long_or_null_member_with_default_);
+DCHECK(!values[19].IsEmpty());
 }
 if (hasObjectMember()) {
-  v8_value = ToV8Traits<IDLObject>::ToV8(script_state, member_object_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[20].Get(isolate), v8_value).ToChecked();
+  values[20] = ToV8Traits<IDLObject>::ToV8(script_state, member_object_member_);
+DCHECK(!values[20].IsEmpty());
 }
 if (hasObjectOrNullMemberWithDefault()) {
-  v8_value = ToV8Traits<IDLNullable<IDLObject>>::ToV8(script_state, member_object_or_null_member_with_default_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[21].Get(isolate), v8_value).ToChecked();
+  values[21] = ToV8Traits<IDLNullable<IDLObject>>::ToV8(script_state, member_object_or_null_member_with_default_);
+DCHECK(!values[21].IsEmpty());
 }
 if (hasStringMember()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_string_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[22].Get(isolate), v8_value).ToChecked();
+  values[22] = ToV8Traits<IDLString>::ToV8(script_state, member_string_member_);
+DCHECK(!values[22].IsEmpty());
 }
 if (hasStringMemberWithDefault()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_string_member_with_default_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[23].Get(isolate), v8_value).ToChecked();
+  values[23] = ToV8Traits<IDLString>::ToV8(script_state, member_string_member_with_default_);
+DCHECK(!values[23].IsEmpty());
 }
 if (hasStringSequenceMember()) {
-  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_string_sequence_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[24].Get(isolate), v8_value).ToChecked();
+  values[24] = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_string_sequence_member_);
+DCHECK(!values[24].IsEmpty());
 }
 if (hasStringSequenceMemberWithDefault()) {
-  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_string_sequence_member_with_default_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[25].Get(isolate), v8_value).ToChecked();
+  values[25] = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_string_sequence_member_with_default_);
+DCHECK(!values[25].IsEmpty());
 }
 if (hasStringSequenceOrNullMember()) {
-  v8_value = ToV8Traits<IDLNullable<IDLSequence<IDLString>>>::ToV8(script_state, member_string_sequence_or_null_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[26].Get(isolate), v8_value).ToChecked();
+  values[26] = ToV8Traits<IDLNullable<IDLSequence<IDLString>>>::ToV8(script_state, member_string_sequence_or_null_member_);
+DCHECK(!values[26].IsEmpty());
 }
 if (hasUnrestrictedDoubleMember()) {
-  v8_value = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_unrestricted_double_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[27].Get(isolate), v8_value).ToChecked();
+  values[27] = ToV8Traits<IDLUnrestrictedDouble>::ToV8(script_state, member_unrestricted_double_member_);
+DCHECK(!values[27].IsEmpty());
 }
 if (hasUsvStringMember()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_usv_string_member_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[28].Get(isolate), v8_value).ToChecked();
+  values[28] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_usv_string_member_);
+DCHECK(!values[28].IsEmpty());
 }
-return true;
+}
+
+const void* InternalDictionary::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> InternalDictionary::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void InternalDictionary::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -663,38 +712,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolat
 }
 
 const base::span<const v8::Eternal<v8::Name>> InternalDictionary::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"anyMember",
-"booleanMember",
-"byteStringMember",
-"callbackFunctionMember",
-"doubleMember",
-"doubleOrStringMember",
-"doubleOrStringSequenceMember",
-"elementMember",
-"elementOrNullMember",
-"enumMember",
-"enumMemberWithDefault",
-"enumOrNullMember",
-"eventTargetOrNullMember",
-"internalEnumOrInternalEnumSequenceMember",
-"longMember",
-"longMemberWithClamp",
-"longMemberWithDefault",
-"longMemberWithEnforceRange",
-"longOrNullMember",
-"longOrNullMemberWithDefault",
-"objectMember",
-"objectOrNullMemberWithDefault",
-"stringMember",
-"stringMemberWithDefault",
-"stringSequenceMember",
-"stringSequenceMemberWithDefault",
-"stringSequenceOrNullMember",
-"unrestrictedDoubleMember",
-"usvStringMember",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

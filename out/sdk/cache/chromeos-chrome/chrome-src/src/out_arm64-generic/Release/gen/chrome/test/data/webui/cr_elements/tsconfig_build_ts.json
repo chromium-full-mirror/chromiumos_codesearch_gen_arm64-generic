@@ -50,6 +50,7 @@
     "preprocessed/cr_card_radio_button_test.ts",
     "preprocessed/cr_checkbox_test.ts",
     "preprocessed/cr_container_shadow_mixin_test.ts",
+    "preprocessed/cr_container_shadow_mixin_lit_test.ts",
     "preprocessed/cr_dialog_test.ts",
     "preprocessed/cr_drawer_test.ts",
     "preprocessed/cr_expand_button_test.ts",

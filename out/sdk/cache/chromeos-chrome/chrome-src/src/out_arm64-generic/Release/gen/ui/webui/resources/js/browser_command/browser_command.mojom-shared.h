@@ -81,8 +81,10 @@ enum class Command : int32_t {
   kStartPasswordManagerTutorial = 10,
   
   kStartSavedTabGroupTutorial = 11,
+  
+  kOpenAISettings = 12,
   kMinValue = 0,
-  kMaxValue = 11,
+  kMaxValue = 12,
 };
 
  std::ostream& operator<<(std::ostream& os, Command value);

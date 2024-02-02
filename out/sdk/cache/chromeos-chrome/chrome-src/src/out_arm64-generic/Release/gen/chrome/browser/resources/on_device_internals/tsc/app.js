@@ -32,13 +32,6 @@ function getPerformanceClassText(performanceClass) {
             return 'Error';
     }
 }
-function shouldRetractResponse(scores) {
-    if (!scores) {
-        return false;
-    }
-    // As a proof-of-concept retract anything scoring highly on drugs or politics.
-    return scores[11] >= 0.5 || scores[13] >= 0.5;
-}
 class OnDeviceInternalsAppElement extends PolymerElement {
     constructor() {
         super(...arguments);
@@ -184,14 +177,8 @@ class OnDeviceInternalsAppElement extends PolymerElement {
         this.session_.execute({ text: this.text_, ignoreContext: false }, this.responseRouter_.$.bindNewPipeAndPassRemote());
         const onResponseId = this.responseRouter_.onResponse.addListener((chunk) => {
             this.set('currentResponse_.response', (this.currentResponse_?.response + chunk.text).trimStart());
-            if (shouldRetractResponse(chunk.tsScores)) {
-                this.set('currentResponse_.responseClass', 'response retracted');
-            }
         });
-        const onCompleteId = this.responseRouter_.onComplete.addListener((summary) => {
-            if (shouldRetractResponse(summary.tsScores)) {
-                this.set('currentResponse_.responseClass', 'response retracted');
-            }
+        const onCompleteId = this.responseRouter_.onComplete.addListener((_) => {
             this.addResponse_();
             this.responseRouter_.removeListener(onResponseId);
             this.responseRouter_.removeListener(onCompleteId);

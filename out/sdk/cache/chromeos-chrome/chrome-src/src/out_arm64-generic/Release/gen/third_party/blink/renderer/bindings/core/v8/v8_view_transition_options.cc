@@ -22,6 +22,16 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"type",
+"update",
+};
+
+
+}  // namespace 
+
 ViewTransitionOptions* ViewTransitionOptions::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   ViewTransitionOptions* dictionary = MakeGarbageCollected<ViewTransitionOptions>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -78,20 +88,32 @@ TraceIfNeeded<Member<V8ViewTransitionCallback>>::Trace(visitor, member_update_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool ViewTransitionOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void ViewTransitionOptions::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void ViewTransitionOptions::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasType()) {
-  v8_value = ToV8Traits<IDLNullable<IDLSequence<IDLString>>>::ToV8(script_state, member_type_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLNullable<IDLSequence<IDLString>>>::ToV8(script_state, member_type_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasUpdate()) {
-  v8_value = ToV8Traits<IDLNullable<V8ViewTransitionCallback>>::ToV8(script_state, member_update_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLNullable<V8ViewTransitionCallback>>::ToV8(script_state, member_update_.Get());
+DCHECK(!values[1].IsEmpty());
 }
-return true;
+}
+
+const void* ViewTransitionOptions::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> ViewTransitionOptions::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void ViewTransitionOptions::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -113,11 +135,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<V8ViewTransitionCallb
 }
 
 const base::span<const v8::Eternal<v8::Name>> ViewTransitionOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"type",
-"update",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

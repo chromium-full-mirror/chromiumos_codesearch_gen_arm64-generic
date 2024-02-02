@@ -1643,7 +1643,7 @@ static_assert(
         ? std::make_optional(data_->seller_experiment_group_id_$value)
         : std::nullopt;
   }
-  std::optional<int16_t> all_buyer_experiment_group_id() const {
+  std::optional<uint16_t> all_buyer_experiment_group_id() const {
 
     return data_->all_buyer_experiment_group_id_$flag
         ? std::make_optional(data_->all_buyer_experiment_group_id_$value)

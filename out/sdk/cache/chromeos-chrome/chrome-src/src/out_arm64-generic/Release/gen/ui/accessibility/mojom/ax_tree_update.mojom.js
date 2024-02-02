@@ -43,6 +43,12 @@
     mojo.internal.loadMojomIfNecessary(
         'ui/accessibility/mojom/ax_tree_data.mojom', 'ax_tree_data.mojom.js');
   }
+  var ax_tree_checks$ =
+      mojo.internal.exposeNamespace('ax.mojom');
+  if (mojo.config.autoLoadMojomDeps) {
+    mojo.internal.loadMojomIfNecessary(
+        'ui/accessibility/mojom/ax_tree_checks.mojom', 'ax_tree_checks.mojom.js');
+  }
 
 
 
@@ -61,6 +67,7 @@
     this.nodes = null;
     this.eventFromAction = 0;
     this.eventIntents = null;
+    this.treeChecks = null;
   };
   AXTreeUpdate.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -76,7 +83,8 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 56}
+      {version: 0, numBytes: 56},
+      {version: 2, numBytes: 64}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -115,10 +123,20 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+
+    // version check AXTreeUpdate.treeChecks
+    if (!messageValidator.isFieldInStructVersion(offset, 2))
+      return validator.validationError.NONE;
+    // validate AXTreeUpdate.treeChecks
+    err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 48, ax_tree_checks$.AXTreeChecks, true);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  AXTreeUpdate.encodedSize = codec.kStructHeaderSize + 48;
+  AXTreeUpdate.encodedSize = codec.kStructHeaderSize + 56;
 
   AXTreeUpdate.decode = function(decoder) {
     var packed;
@@ -148,13 +166,19 @@
     decoder.skip(1);
     val.eventIntents =
         decoder.decodeArrayPointer(new codec.PointerTo(ax_event_intent$.EventIntent));
+    if (version >= 2) {
+      val.treeChecks =
+          decoder.decodeStructPointer(ax_tree_checks$.AXTreeChecks);
+    } else {
+      val.treeChecks = null;
+    }
     return val;
   };
 
   AXTreeUpdate.encode = function(encoder, val) {
     var packed;
     encoder.writeUint32(AXTreeUpdate.encodedSize);
-    encoder.writeUint32(0);
+    encoder.writeUint32(2);
     packed = 0;
     packed |= (val.hasTreeData & 1) << 0
     encoder.writeUint8(packed);
@@ -172,6 +196,7 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.encodeArrayPointer(new codec.PointerTo(ax_event_intent$.EventIntent), val.eventIntents);
+    encoder.encodeStructPointer(ax_tree_checks$.AXTreeChecks, val.treeChecks);
   };
   exports.AXTreeUpdate = AXTreeUpdate;
 })();

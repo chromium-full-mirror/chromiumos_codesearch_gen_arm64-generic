@@ -23,6 +23,21 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"alphaMode",
+"colorSpace",
+"device",
+"format",
+"hdrOptions",
+"usage",
+"viewFormats",
+};
+
+
+}  // namespace 
+
 GPUCanvasConfiguration* GPUCanvasConfiguration::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   GPUCanvasConfiguration* dictionary = MakeGarbageCollected<GPUCanvasConfiguration>(isolate);
 if (!v8_value->IsObject()) {
@@ -101,42 +116,54 @@ TraceIfNeeded<Vector<V8GPUTextureFormat>>::Trace(visitor, member_view_formats_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool GPUCanvasConfiguration::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void GPUCanvasConfiguration::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void GPUCanvasConfiguration::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasAlphaMode()) {
-  v8_value = ToV8Traits<V8GPUCanvasAlphaMode>::ToV8(script_state, member_alpha_mode_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<V8GPUCanvasAlphaMode>::ToV8(script_state, member_alpha_mode_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasColorSpace()) {
-  v8_value = ToV8Traits<V8PredefinedColorSpace>::ToV8(script_state, member_color_space_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<V8PredefinedColorSpace>::ToV8(script_state, member_color_space_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasDevice()) {
-  v8_value = ToV8Traits<GPUDevice>::ToV8(script_state, member_device_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<GPUDevice>::ToV8(script_state, member_device_.Get());
+DCHECK(!values[2].IsEmpty());
 }
 if (hasFormat()) {
-  v8_value = ToV8Traits<V8GPUTextureFormat>::ToV8(script_state, member_format_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<V8GPUTextureFormat>::ToV8(script_state, member_format_);
+DCHECK(!values[3].IsEmpty());
 }
 if (RuntimeEnabledFeatures::CanvasHDREnabled()) {
   if (hasHdrOptions()) {
-  v8_value = ToV8Traits<CanvasHighDynamicRangeOptions>::ToV8(script_state, member_hdr_options_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<CanvasHighDynamicRangeOptions>::ToV8(script_state, member_hdr_options_.Get());
+DCHECK(!values[4].IsEmpty());
 }
 }
 if (hasUsage()) {
-  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_usage_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_usage_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasViewFormats()) {
-  v8_value = ToV8Traits<IDLSequence<V8GPUTextureFormat>>::ToV8(script_state, member_view_formats_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLSequence<V8GPUTextureFormat>>::ToV8(script_state, member_view_formats_);
+DCHECK(!values[6].IsEmpty());
 }
-return true;
+}
+
+const void* GPUCanvasConfiguration::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> GPUCanvasConfiguration::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void GPUCanvasConfiguration::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -181,16 +208,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLSequence<V8GPUTextureFormat>, 
 }
 
 const base::span<const v8::Eternal<v8::Name>> GPUCanvasConfiguration::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"alphaMode",
-"colorSpace",
-"device",
-"format",
-"hdrOptions",
-"usage",
-"viewFormats",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

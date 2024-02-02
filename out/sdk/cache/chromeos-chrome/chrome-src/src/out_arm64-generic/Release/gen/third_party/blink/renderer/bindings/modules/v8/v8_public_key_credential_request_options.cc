@@ -24,6 +24,21 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"allowCredentials",
+"challenge",
+"extensions",
+"hints",
+"rpId",
+"timeout",
+"userVerification",
+};
+
+
+}  // namespace 
+
 PublicKeyCredentialRequestOptions* PublicKeyCredentialRequestOptions::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   PublicKeyCredentialRequestOptions* dictionary = MakeGarbageCollected<PublicKeyCredentialRequestOptions>(isolate);
 if (!v8_value->IsObject()) {
@@ -154,42 +169,54 @@ TraceIfNeeded<String>::Trace(visitor, member_user_verification_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool PublicKeyCredentialRequestOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void PublicKeyCredentialRequestOptions::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void PublicKeyCredentialRequestOptions::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasAllowCredentials()) {
-  v8_value = ToV8Traits<IDLSequence<PublicKeyCredentialDescriptor>>::ToV8(script_state, member_allow_credentials_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<IDLSequence<PublicKeyCredentialDescriptor>>::ToV8(script_state, member_allow_credentials_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasChallenge()) {
-  v8_value = ToV8Traits<V8UnionArrayBufferOrArrayBufferView>::ToV8(script_state, member_challenge_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<V8UnionArrayBufferOrArrayBufferView>::ToV8(script_state, member_challenge_.Get());
+DCHECK(!values[1].IsEmpty());
 }
 if (hasExtensions()) {
-  v8_value = ToV8Traits<AuthenticationExtensionsClientInputs>::ToV8(script_state, member_extensions_.Get());
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<AuthenticationExtensionsClientInputs>::ToV8(script_state, member_extensions_.Get());
+DCHECK(!values[2].IsEmpty());
 }
 if (RuntimeEnabledFeatures::WebAuthenticationHintsEnabled()) {
   if (hasHints()) {
-  v8_value = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_hints_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLSequence<IDLString>>::ToV8(script_state, member_hints_);
+DCHECK(!values[3].IsEmpty());
 }
 }
 if (hasRpId()) {
-  v8_value = ToV8Traits<IDLUSVString>::ToV8(script_state, member_rp_id_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[4].Get(isolate), v8_value).ToChecked();
+  values[4] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_rp_id_);
+DCHECK(!values[4].IsEmpty());
 }
 if (hasTimeout()) {
-  v8_value = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_timeout_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[5].Get(isolate), v8_value).ToChecked();
+  values[5] = ToV8Traits<IDLUnsignedLong>::ToV8(script_state, member_timeout_);
+DCHECK(!values[5].IsEmpty());
 }
 if (hasUserVerification()) {
-  v8_value = ToV8Traits<IDLString>::ToV8(script_state, member_user_verification_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[6].Get(isolate), v8_value).ToChecked();
+  values[6] = ToV8Traits<IDLString>::ToV8(script_state, member_user_verification_);
+DCHECK(!values[6].IsEmpty());
 }
-return true;
+}
+
+const void* PublicKeyCredentialRequestOptions::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> PublicKeyCredentialRequestOptions::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void PublicKeyCredentialRequestOptions::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -234,16 +261,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLString, is_optional>(isolate, 
 }
 
 const base::span<const v8::Eternal<v8::Name>> PublicKeyCredentialRequestOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"allowCredentials",
-"challenge",
-"extensions",
-"hints",
-"rpId",
-"timeout",
-"userVerification",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

@@ -16,6 +16,12 @@
       "chrome://resources/ash/common/personalization/*": [
         "./../../../../../../ash/webui/common/resources/preprocessed/personalization/*"
       ],
+      "//resources/ash/common/sea_pen/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/sea_pen/*"
+      ],
+      "chrome://resources/ash/common/sea_pen/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/sea_pen/*"
+      ],
       "//resources/cr_elements/*": [
         "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
       ],
@@ -45,6 +51,9 @@
     },
     {
       "path": "../../../../../../ash/webui/common/resources/personalization/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../../../ash/webui/common/resources/sea_pen/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../../ash/webui/vc_background_ui/resources/tsconfig_build_ts.json"

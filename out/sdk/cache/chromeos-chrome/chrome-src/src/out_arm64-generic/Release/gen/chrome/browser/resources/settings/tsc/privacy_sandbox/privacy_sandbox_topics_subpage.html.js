@@ -37,11 +37,11 @@ export function getTemplate() {
           </div>
           <div id="currentTopicsEmptyTextV2" class="topics-empty-text-v2" hidden="[[!isTopicsListEmptyV2_(topicsList_.length,
               shouldShowV2_)]]">
-            <span id="currentTopicsDescriptionEmptyTopText">
-              $i18n{topicsPageCurrentTopicsDescriptionEmptyTopText}
+            <span id="currentTopicsDescriptionEmptyTextHeading">
+              $i18n{topicsPageCurrentTopicsDescriptionEmptyTextHeading}
             </span>
-            <span id="currentTopicsDescriptionEmptyBottomText" class="cr-secondary-text">
-              $i18n{topicsPageCurrentTopicsDescriptionEmptyPtb}
+            <span id="currentTopicsDescriptionEmptyTextV2" class="cr-secondary-text">
+              $i18n{topicsPageCurrentTopicsDescriptionEmptyTextV2}
             </span>
           </div>
         </template>
@@ -64,11 +64,11 @@ export function getTemplate() {
     </div>
     <div id="blockedTopicsEmptyText" class="topics-empty-text-v2" hidden="[[!isBlockedTopicsListEmptyV2_(blockedTopicsList_.length,
         shouldShowV2_)]]">
-      <span id="blockedTopicsDescriptionEmptyTopText">
-          $i18n{topicsPageBlockedTopicsDescriptionEmptyTopText}
+      <span id="blockedTopicsDescriptionEmptyTextHeading">
+          $i18n{topicsPageBlockedTopicsDescriptionEmptyTextHeading}
       </span>
-      <span id="blockedTopicsDescriptionEmptyBottomText" class="cr-secondary-text">
-        $i18n{topicsPageBlockedTopicsDescriptionEmptyPtb}
+      <span id="blockedTopicsDescriptionEmptyTextV2" class="cr-secondary-text">
+        $i18n{topicsPageBlockedTopicsDescriptionEmptyTextV2}
       </span>
     </div>
     <div id="blockedTopicsList" role="region" aria-label="$i18n{topicsPageBlockedTopicsRegionA11yDescription}">

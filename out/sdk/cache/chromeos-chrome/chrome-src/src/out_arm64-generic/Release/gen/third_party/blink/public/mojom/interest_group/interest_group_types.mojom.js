@@ -1632,7 +1632,7 @@
     val.directFromSellerSignals =
         decoder.decodeStruct(AuctionAdConfigMaybePromiseDirectFromSellerSignals);
     val.all_buyer_experiment_group_id_$value =
-        decoder.decodeStruct(codec.Int16);
+        decoder.decodeStruct(codec.Uint16);
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -1665,7 +1665,7 @@
     encoder.encodeStruct(codec.Uint16, val.seller_experiment_group_id_$value);
     encoder.encodeStructPointer(AuctionAdConfigNonSharedParams, val.auctionAdConfigNonSharedParams);
     encoder.encodeStruct(AuctionAdConfigMaybePromiseDirectFromSellerSignals, val.directFromSellerSignals);
-    encoder.encodeStruct(codec.Int16, val.all_buyer_experiment_group_id_$value);
+    encoder.encodeStruct(codec.Uint16, val.all_buyer_experiment_group_id_$value);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);

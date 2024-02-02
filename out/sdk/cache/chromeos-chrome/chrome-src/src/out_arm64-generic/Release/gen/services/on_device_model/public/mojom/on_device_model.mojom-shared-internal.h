@@ -24,6 +24,8 @@ class ValidationContext;
 
 namespace on_device_model::mojom {
 namespace internal {
+class LanguageDetectionResult_Data;
+class SafetyInfo_Data;
 class ResponseChunk_Data;
 class ResponseSummary_Data;
 class InputOptions_Data;
@@ -84,6 +86,105 @@ struct LoadModelResult_Data {
 };
 
 #pragma pack(push, 1)
+class  LanguageDetectionResult_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> code;
+  float reliability;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<LanguageDetectionResult_Data>;
+
+  LanguageDetectionResult_Data();
+  ~LanguageDetectionResult_Data() = delete;
+};
+static_assert(sizeof(LanguageDetectionResult_Data) == 24,
+              "Bad sizeof(LanguageDetectionResult_Data)");
+// Used by LanguageDetectionResult::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct LanguageDetectionResult_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  LanguageDetectionResult_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~LanguageDetectionResult_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<LanguageDetectionResult_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    LanguageDetectionResult_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  SafetyInfo_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<float>> class_scores;
+  mojo::internal::Pointer<internal::LanguageDetectionResult_Data> language;
+
+ private:
+  friend class mojo::internal::MessageFragment<SafetyInfo_Data>;
+
+  SafetyInfo_Data();
+  ~SafetyInfo_Data() = delete;
+};
+static_assert(sizeof(SafetyInfo_Data) == 24,
+              "Bad sizeof(SafetyInfo_Data)");
+// Used by SafetyInfo::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct SafetyInfo_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  SafetyInfo_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~SafetyInfo_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<SafetyInfo_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    SafetyInfo_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  ResponseChunk_Data {
  public:
   static bool Validate(const void* data,
@@ -91,7 +192,7 @@ class  ResponseChunk_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> text;
-  mojo::internal::Pointer<mojo::internal::Array_Data<float>> ts_scores;
+  mojo::internal::Pointer<internal::SafetyInfo_Data> safety_info;
 
  private:
   friend class mojo::internal::MessageFragment<ResponseChunk_Data>;
@@ -139,7 +240,7 @@ class  ResponseSummary_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<float>> ts_scores;
+  mojo::internal::Pointer<internal::SafetyInfo_Data> safety_info;
 
  private:
   friend class mojo::internal::MessageFragment<ResponseSummary_Data>;
@@ -192,12 +293,12 @@ class  InputOptions_Data {
   uint8_t token_offset_$flag : 1;
   uint8_t ignore_context : 1;
   uint8_t max_output_tokens_$flag : 1;
-  uint8_t ts_interval_$flag : 1;
+  uint8_t safety_interval_$flag : 1;
   uint8_t pad5_[3];
   uint32_t max_tokens_$value;
   uint32_t token_offset_$value;
   uint32_t max_output_tokens_$value;
-  uint32_t ts_interval_$value;
+  uint32_t safety_interval_$value;
   uint8_t padfinal_[4];
 
  private:

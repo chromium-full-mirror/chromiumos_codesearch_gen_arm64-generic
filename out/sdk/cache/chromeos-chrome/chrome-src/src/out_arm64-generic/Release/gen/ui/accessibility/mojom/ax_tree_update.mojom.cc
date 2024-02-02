@@ -52,7 +52,8 @@ AXTreeUpdate::AXTreeUpdate()
       nodes(),
       event_from(),
       event_from_action(),
-      event_intents() {}
+      event_intents(),
+      tree_checks() {}
 
 AXTreeUpdate::AXTreeUpdate(
     bool has_tree_data_in,
@@ -70,7 +71,28 @@ AXTreeUpdate::AXTreeUpdate(
       nodes(std::move(nodes_in)),
       event_from(std::move(event_from_in)),
       event_from_action(std::move(event_from_action_in)),
-      event_intents(std::move(event_intents_in)) {}
+      event_intents(std::move(event_intents_in)),
+      tree_checks() {}
+
+AXTreeUpdate::AXTreeUpdate(
+    bool has_tree_data_in,
+    const ::ui::AXTreeData& tree_data_in,
+    int32_t node_id_to_clear_in,
+    int32_t root_id_in,
+    std::vector<::ui::AXNodeData> nodes_in,
+    ::ax::mojom::EventFrom event_from_in,
+    ::ax::mojom::Action event_from_action_in,
+    std::vector<::ax::mojom::EventIntentPtr> event_intents_in,
+    const std::optional<::ui::AXTreeChecks>& tree_checks_in)
+    : has_tree_data(std::move(has_tree_data_in)),
+      tree_data(std::move(tree_data_in)),
+      node_id_to_clear(std::move(node_id_to_clear_in)),
+      root_id(std::move(root_id_in)),
+      nodes(std::move(nodes_in)),
+      event_from(std::move(event_from_in)),
+      event_from_action(std::move(event_from_action_in)),
+      event_intents(std::move(event_intents_in)),
+      tree_checks(std::move(tree_checks_in)) {}
 
 AXTreeUpdate::~AXTreeUpdate() = default;
 
@@ -149,6 +171,15 @@ void AXTreeUpdate::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "tree_checks"), this->tree_checks,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<::ui::AXTreeChecks>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool AXTreeUpdate::Validate(
@@ -186,6 +217,8 @@ bool StructTraits<::ax::mojom::AXTreeUpdate::DataView, ::ax::mojom::AXTreeUpdate
       if (success && !input.ReadEventFromAction(&result->event_from_action))
         success = false;
       if (success && !input.ReadEventIntents(&result->event_intents))
+        success = false;
+      if (success && !input.ReadTreeChecks(&result->tree_checks))
         success = false;
   *output = std::move(result);
   return success;

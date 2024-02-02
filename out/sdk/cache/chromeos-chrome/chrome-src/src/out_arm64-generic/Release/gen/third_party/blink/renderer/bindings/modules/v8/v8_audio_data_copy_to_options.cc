@@ -21,6 +21,18 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"format",
+"frameCount",
+"frameOffset",
+"planeIndex",
+};
+
+
+}  // namespace 
+
 AudioDataCopyToOptions* AudioDataCopyToOptions::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   AudioDataCopyToOptions* dictionary = MakeGarbageCollected<AudioDataCopyToOptions>(isolate);
 if (!v8_value->IsObject()) {
@@ -77,28 +89,40 @@ TraceIfNeeded<uint32_t>::Trace(visitor, member_plane_index_);
 bindings::DictionaryBase::Trace(visitor);
 }
 
-bool AudioDataCopyToOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void AudioDataCopyToOptions::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
+}
+
+void AudioDataCopyToOptions::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasFormat()) {
-  v8_value = ToV8Traits<V8AudioSampleFormat>::ToV8(script_state, member_format_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<V8AudioSampleFormat>::ToV8(script_state, member_format_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasFrameCount()) {
-  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_frame_count_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_frame_count_);
+DCHECK(!values[1].IsEmpty());
 }
 if (hasFrameOffset()) {
-  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_frame_offset_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[2].Get(isolate), v8_value).ToChecked();
+  values[2] = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_frame_offset_);
+DCHECK(!values[2].IsEmpty());
 }
 if (hasPlaneIndex()) {
-  v8_value = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_plane_index_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[3].Get(isolate), v8_value).ToChecked();
+  values[3] = ToV8Traits<IDLUnsignedLongEnforceRange>::ToV8(script_state, member_plane_index_);
+DCHECK(!values[3].IsEmpty());
 }
-return true;
+}
+
+const void* AudioDataCopyToOptions::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> AudioDataCopyToOptions::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void AudioDataCopyToOptions::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -129,13 +153,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLUnsignedLongEnforceRange, is_r
 }
 
 const base::span<const v8::Eternal<v8::Name>> AudioDataCopyToOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"format",
-"frameCount",
-"frameOffset",
-"planeIndex",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

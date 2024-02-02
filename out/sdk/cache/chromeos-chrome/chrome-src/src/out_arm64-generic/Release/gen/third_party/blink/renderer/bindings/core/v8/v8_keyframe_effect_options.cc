@@ -21,6 +21,16 @@ namespace blink {
 
 
 
+namespace  {
+
+const std::string_view kOwnPropertyNames[] = {
+"composite",
+"pseudoElement",
+};
+
+
+}  // namespace 
+
 KeyframeEffectOptions* KeyframeEffectOptions::Create(v8::Isolate* isolate, v8::Local<v8::Value> v8_value, ExceptionState& exception_state) {
   KeyframeEffectOptions* dictionary = MakeGarbageCollected<KeyframeEffectOptions>(isolate);
 if (v8_value->IsNullOrUndefined()) {
@@ -70,24 +80,38 @@ TraceIfNeeded<String>::Trace(visitor, member_pseudo_element_);
 EffectTiming::Trace(visitor);
 }
 
-bool KeyframeEffectOptions::FillV8ObjectWithMembers(ScriptState* script_state, v8::Local<v8::Object> v8_dictionary) const {
-  if (!EffectTiming::FillV8ObjectWithMembers(script_state, v8_dictionary)) {
-  return false;
+void KeyframeEffectOptions::FillTemplateProperties(WTF::Vector<std::string_view>& properties) const {
+  EffectTiming::FillTemplateProperties(properties);
+DCHECK_EQ(properties.size(), kBasePropertyCount);
+
+static_assert(std::size(kOwnPropertyNames) == kOwnPropertyCount);
+properties.AppendRange(std::cbegin(kOwnPropertyNames), std::cend(kOwnPropertyNames));
+DCHECK_EQ(properties.size(), kTotalPropertyCount);
 }
 
-v8::Local<v8::Value> v8_value;
-v8::Isolate* isolate = script_state->GetIsolate();
-v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
-const auto& v8_own_member_names = GetV8OwnMemberNames(isolate);
+void KeyframeEffectOptions::FillValuesImpl(ScriptState* script_state, base::span<v8::MaybeLocal<v8::Value>> values) const {
+  EffectTiming::FillValuesImpl(script_state, values.first(kBasePropertyCount));
+values = values.subspan(kBasePropertyCount);
+
+CHECK_EQ(kOwnPropertyCount, values.size());
 if (hasComposite()) {
-  v8_value = ToV8Traits<V8CompositeOperation>::ToV8(script_state, member_composite_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[0].Get(isolate), v8_value).ToChecked();
+  values[0] = ToV8Traits<V8CompositeOperation>::ToV8(script_state, member_composite_);
+DCHECK(!values[0].IsEmpty());
 }
 if (hasPseudoElement()) {
-  v8_value = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, member_pseudo_element_);
-v8_dictionary->CreateDataProperty(current_context, v8_own_member_names[1].Get(isolate), v8_value).ToChecked();
+  values[1] = ToV8Traits<IDLNullable<IDLString>>::ToV8(script_state, member_pseudo_element_);
+DCHECK(!values[1].IsEmpty());
 }
-return true;
+}
+
+const void* KeyframeEffectOptions::TemplateKey() const {
+  return static_cast<const void*>(kOwnPropertyNames);
+}
+
+v8::Local<v8::Object> KeyframeEffectOptions::FillValues(ScriptState* script_state, v8::Local<v8::DictionaryTemplate> dict_template) const {
+  v8::MaybeLocal<v8::Value> values[kTotalPropertyCount];
+FillValuesImpl(script_state, values);
+return dict_template->NewInstance(script_state->GetContext(), values);
 }
 
 void KeyframeEffectOptions::FillMembersFromV8Object(v8::Isolate* isolate, v8::Local<v8::Object> v8_dictionary, ExceptionState& exception_state) {
@@ -114,11 +138,7 @@ if (!bindings::GetDictionaryMemberFromV8Object<IDLNullable<IDLString>, is_option
 }
 
 const base::span<const v8::Eternal<v8::Name>> KeyframeEffectOptions::GetV8OwnMemberNames(v8::Isolate* isolate) {
-  static const char* const kOwnMemberNames[] = {
-"composite",
-"pseudoElement",
-};
-return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnMemberNames, kOwnMemberNames);
+  return V8PerIsolateData::From(isolate)->FindOrCreateEternalNameCache(kOwnPropertyNames, kOwnPropertyNames);
 }
 
 

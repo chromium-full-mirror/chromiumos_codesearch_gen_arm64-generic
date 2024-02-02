@@ -854,6 +854,11 @@ static_assert(
       return bool{};
     return data_->hide_metadata;
   }
+  bool ignore_for_active_session() const {
+    if (data_->header_.version < 20)
+      return bool{};
+    return data_->ignore_for_active_session;
+  }
  private:
   internal::MediaSessionInfo_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -1602,6 +1607,7 @@ struct Serializer<::media_session::mojom::MediaSessionInfoDataView, MaybeConstUs
     fragment->remote_playback_metadata.Set(
         remote_playback_metadata_fragment.is_null() ? nullptr : remote_playback_metadata_fragment.data());
     fragment->hide_metadata = Traits::hide_metadata(input);
+    fragment->ignore_for_active_session = Traits::ignore_for_active_session(input);
   }
 
   static bool Deserialize(::media_session::mojom::internal::MediaSessionInfo_Data* input,
