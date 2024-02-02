@@ -2,13 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { assertNotReached } from 'chrome://resources/js/assert.js';
-/** Paths that can be handled by the dialog opener in native code. */
-export var AllowedPaths;
-(function (AllowedPaths) {
-    AllowedPaths["NATIVE_PATH"] = "nativePath";
-    AllowedPaths["ANY_PATH"] = "anyPath";
-    AllowedPaths["ANY_PATH_OR_URL"] = "anyPathOrUrl";
-})(AllowedPaths || (AllowedPaths = {}));
+import { VolumeType } from './shared_types.js';
+export { AllowedPaths, VolumeType } from './shared_types.js';
 /** Type of a file system. */
 export var FileSystemType;
 (function (FileSystemType) {
@@ -154,25 +149,6 @@ export var VolumeError;
     VolumeError["CANCELLED"] = "cancelled";
     VolumeError["BUSY"] = "busy";
 })(VolumeError || (VolumeError = {}));
-/** The type of each volume. */
-export var VolumeType;
-(function (VolumeType) {
-    VolumeType["DRIVE"] = "drive";
-    VolumeType["DOWNLOADS"] = "downloads";
-    VolumeType["REMOVABLE"] = "removable";
-    VolumeType["ARCHIVE"] = "archive";
-    VolumeType["MTP"] = "mtp";
-    VolumeType["PROVIDED"] = "provided";
-    VolumeType["MEDIA_VIEW"] = "media_view";
-    VolumeType["DOCUMENTS_PROVIDER"] = "documents_provider";
-    VolumeType["CROSTINI"] = "crostini";
-    VolumeType["GUEST_OS"] = "guest_os";
-    VolumeType["ANDROID_FILES"] = "android_files";
-    VolumeType["MY_FILES"] = "my_files";
-    VolumeType["SMB"] = "smb";
-    VolumeType["SYSTEM_INTERNAL"] = "system_internal";
-    VolumeType["TRASH"] = "trash";
-})(VolumeType || (VolumeType = {}));
 /** Source of each volume's data. */
 export var Source;
 (function (Source) {

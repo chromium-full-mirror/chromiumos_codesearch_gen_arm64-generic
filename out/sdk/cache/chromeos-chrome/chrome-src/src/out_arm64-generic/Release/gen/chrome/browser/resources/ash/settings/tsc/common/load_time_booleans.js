@@ -65,8 +65,8 @@ export function isSanitizeAllowed() {
 export function isAssistantAllowed() {
     return loadTimeData.getBoolean('isAssistantAllowed');
 }
-export function shouldShowQuickAnswersSettings() {
-    return loadTimeData.getBoolean('shouldShowQuickAnswersSettings');
+export function isQuickAnswersSupported() {
+    return loadTimeData.getBoolean('isQuickAnswersSupported');
 }
 // System preferences page
 export function shouldShowStartup() {

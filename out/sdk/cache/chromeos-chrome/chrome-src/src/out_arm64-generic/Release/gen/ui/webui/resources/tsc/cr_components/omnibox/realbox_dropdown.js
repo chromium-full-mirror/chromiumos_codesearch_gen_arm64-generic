@@ -12,7 +12,7 @@ import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled
 import { SelectionLineState, SideType } from './omnibox.mojom-webui.js';
 import { RealboxBrowserProxy } from './realbox_browser_proxy.js';
 import { getTemplate } from './realbox_dropdown.html.js';
-import { decodeString16, sideTypeToClass } from './utils.js';
+import { decodeString16, renderTypeToClass, sideTypeToClass } from './utils.js';
 // The '%' operator in JS returns negative numbers. This workaround avoids that.
 const remainder = (lhs, rhs) => ((lhs % rhs) + rhs) % rhs;
 const CHAR_TYPED_TO_PAINT = 'Realbox.CharTypedToRepaintLatency.ToPaint';
@@ -233,11 +233,16 @@ export class RealboxDropdownElement extends PolymerElement {
     //============================================================================
     // Helpers
     //============================================================================
-    classForSide_(side) {
+    classForSideType_(side) {
         return sideTypeToClass(side);
     }
+    classForGroupRenderType_(groupId) {
+        return this.result?.suggestionGroupsMap[groupId] ?
+            renderTypeToClass(this.result?.suggestionGroupsMap[groupId].renderType) :
+            '';
+    }
     computeHasSecondarySide_() {
-        const hasSecondarySide = !!this.groupIdsForSide_(SideType.kSecondary).length;
+        const hasSecondarySide = !!this.groupIdsForSideType_(SideType.kSecondary).length;
         if (!this.hadSecondarySide) {
             this.hadSecondarySide = hasSecondarySide;
         }
@@ -255,7 +260,7 @@ export class RealboxDropdownElement extends PolymerElement {
      * @returns The unique suggestion group IDs that belong to the given side type
      *     while preserving the order in which they appear in the list of matches.
      */
-    groupIdsForSide_(side) {
+    groupIdsForSideType_(side) {
         return [...new Set(this.result?.matches?.map(match => match.suggestionGroupId)
                 .filter(groupId => this.sideTypeForGroup_(groupId) === side))];
     }
@@ -351,7 +356,7 @@ export class RealboxDropdownElement extends PolymerElement {
             return true;
         }
         // Only show secondary side if there are primary matches visible.
-        const primaryGroupIds = this.groupIdsForSide_(SideType.kDefaultPrimary);
+        const primaryGroupIds = this.groupIdsForSideType_(SideType.kDefaultPrimary);
         return primaryGroupIds.some((groupId) => {
             return this.matchesForGroup_(groupId).length > 0;
         });

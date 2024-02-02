@@ -4026,9 +4026,16 @@
   WebFeature.kV8ElementInternals_AriaLabelledByElements_AttributeSetter = 4823;
   WebFeature.kV8ElementInternals_AriaOwnsElements_AttributeGetter = 4824;
   WebFeature.kV8ElementInternals_AriaOwnsElements_AttributeSetter = 4825;
-  WebFeature.kNumberOfFeatures = 4826;
+  WebFeature.kIdentityDigitalCredentials = 4826;
+  WebFeature.kCSSSelectorPseudoState = 4827;
+  WebFeature.kSpeculationRulesPrefetch = 4828;
+  WebFeature.kSpeculationRulesAuthorPrefetchRule = 4829;
+  WebFeature.kSpeculationRulesAuthorPrerenderRule = 4830;
+  WebFeature.kSpeculationRulesBrowserPrefetchRule = 4831;
+  WebFeature.kSpeculationRulesBrowserPrerenderRule = 4832;
+  WebFeature.kNumberOfFeatures = 4833;
   WebFeature.MIN_VALUE = 0;
-  WebFeature.MAX_VALUE = 4826;
+  WebFeature.MAX_VALUE = 4833;
 
   WebFeature.isKnownEnumValue = function(value) {
     switch (value) {
@@ -8037,6 +8044,13 @@
     case 4824:
     case 4825:
     case 4826:
+    case 4827:
+    case 4828:
+    case 4829:
+    case 4830:
+    case 4831:
+    case 4832:
+    case 4833:
       return true;
     }
     return false;

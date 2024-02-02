@@ -14,7 +14,7 @@ suite('<settings-search-subpage>', () => {
     let prefElement;
     suiteSetup(() => {
         loadTimeData.overrideValues({
-            shouldShowQuickAnswersSettings: true,
+            isQuickAnswersSupported: true,
             quickAnswersSubToggleEnabled: true,
         });
     });

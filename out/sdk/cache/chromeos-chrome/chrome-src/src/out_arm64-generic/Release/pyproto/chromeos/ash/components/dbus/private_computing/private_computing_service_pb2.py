@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1fprivate_computing_service.proto\x12\x11private_computing\"\x96\x01\n\x16\x43hurnObservationStatus\x12(\n is_active_current_period_minus_0\x18\x01 \x01(\x08\x12(\n is_active_current_period_minus_1\x18\x02 \x01(\x08\x12(\n is_active_current_period_minus_2\x18\x03 \x01(\x08\"\xfe\x01\n\x0c\x41\x63tiveStatus\x12<\n\x08use_case\x18\x01 \x01(\x0e\x32*.private_computing.PrivateComputingUseCase\x12\x1e\n\x12last_ping_utc_date\x18\x02 \x01(\tB\x02\x18\x01\x12\x18\n\x0elast_ping_date\x18\x03 \x01(\tH\x00\x12\x42\n\rperiod_status\x18\x04 \x01(\x0b\x32).private_computing.ChurnObservationStatusH\x00\x12\x1b\n\x13\x63hurn_active_status\x18\x05 \x01(\x05\x42\x15\n\x13ping_date_or_status\"K\n\x11SaveStatusRequest\x12\x36\n\ractive_status\x18\x01 \x03(\x0b\x32\x1f.private_computing.ActiveStatus\"+\n\x12SaveStatusResponse\x12\x15\n\rerror_message\x18\x01 \x01(\t\"b\n\x11GetStatusResponse\x12\x15\n\rerror_message\x18\x01 \x01(\t\x12\x36\n\ractive_status\x18\x02 \x03(\x0b\x32\x1f.private_computing.ActiveStatus\"\xbc\x05\n(PrivateComputingClientRegressionTestData\x12X\n\ntest_cases\x18\x01 \x03(\x0b\x32\x44.private_computing.PrivateComputingClientRegressionTestData.TestCase\x1a\xd8\x01\n\x08TestCase\x12R\n\x04name\x18\x01 \x02(\x0e\x32\x44.private_computing.PrivateComputingClientRegressionTestData.TestName\x12:\n\x0cget_response\x18\x02 \x01(\x0b\x32$.private_computing.GetStatusResponse\x12<\n\rsave_response\x18\x04 \x01(\x0b\x32%.private_computing.SaveStatusResponse\"\xda\x02\n\x08TestName\x12\x1c\n\x18GET_SUCCESS_SAVE_SUCCESS\x10\x00\x12\x19\n\x15GET_SUCCESS_SAVE_FAIL\x10\x01\x12\x19\n\x15GET_FAIL_SAVE_SUCCESS\x10\x02\x12\x16\n\x12GET_FAIL_SAVE_FAIL\x10\x03\x12-\n)GET_SUCCESS_FUTURE_PING_DATE_SAVE_SUCCESS\x10\x04\x12+\n\'GET_SUCCESS_SAME_PING_DATE_SAVE_SUCCESS\x10\x05\x12+\n\'GET_SUCCESS_PAST_PING_DATE_SAVE_SUCCESS\x10\x06\x12\x31\n-GET_SUCCESS_UNIX_EPOCH_PING_DATE_SAVE_SUCCESS\x10\x07\x12&\n\"GET_INVALID_PING_DATE_SAVE_SUCCESS\x10\x08*\xdc\x01\n\x17PrivateComputingUseCase\x12\x18\n\x14USE_CASE_UNSPECIFIED\x10\x00\x12\x16\n\x12\x43ROS_FRESNEL_DAILY\x10\x01\x12\x1d\n\x19\x43ROS_FRESNEL_FIRST_ACTIVE\x10\x02\x12\x1d\n\x19\x43ROS_FRESNEL_28DAY_ACTIVE\x10\x03\x12%\n!CROS_FRESNEL_CHURN_MONTHLY_COHORT\x10\x04\x12*\n&CROS_FRESNEL_CHURN_MONTHLY_OBSERVATION\x10\x05\x42\x02H\x03')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1fprivate_computing_service.proto\x12\x11private_computing\"\xc8\x01\n\x16\x43hurnObservationStatus\x12(\n is_active_current_period_minus_0\x18\x01 \x01(\x08\x12(\n is_active_current_period_minus_1\x18\x02 \x01(\x08\x12(\n is_active_current_period_minus_2\x18\x03 \x01(\x08\x12\x30\n(is_first_powerwash_in_observation_period\x18\x04 \x01(\x08\"\xfe\x01\n\x0c\x41\x63tiveStatus\x12<\n\x08use_case\x18\x01 \x01(\x0e\x32*.private_computing.PrivateComputingUseCase\x12\x1e\n\x12last_ping_utc_date\x18\x02 \x01(\tB\x02\x18\x01\x12\x18\n\x0elast_ping_date\x18\x03 \x01(\tH\x00\x12\x42\n\rperiod_status\x18\x04 \x01(\x0b\x32).private_computing.ChurnObservationStatusH\x00\x12\x1b\n\x13\x63hurn_active_status\x18\x05 \x01(\x05\x42\x15\n\x13ping_date_or_status\"K\n\x11SaveStatusRequest\x12\x36\n\ractive_status\x18\x01 \x03(\x0b\x32\x1f.private_computing.ActiveStatus\"+\n\x12SaveStatusResponse\x12\x15\n\rerror_message\x18\x01 \x01(\t\"b\n\x11GetStatusResponse\x12\x15\n\rerror_message\x18\x01 \x01(\t\x12\x36\n\ractive_status\x18\x02 \x03(\x0b\x32\x1f.private_computing.ActiveStatus\"\xbc\x05\n(PrivateComputingClientRegressionTestData\x12X\n\ntest_cases\x18\x01 \x03(\x0b\x32\x44.private_computing.PrivateComputingClientRegressionTestData.TestCase\x1a\xd8\x01\n\x08TestCase\x12R\n\x04name\x18\x01 \x02(\x0e\x32\x44.private_computing.PrivateComputingClientRegressionTestData.TestName\x12:\n\x0cget_response\x18\x02 \x01(\x0b\x32$.private_computing.GetStatusResponse\x12<\n\rsave_response\x18\x04 \x01(\x0b\x32%.private_computing.SaveStatusResponse\"\xda\x02\n\x08TestName\x12\x1c\n\x18GET_SUCCESS_SAVE_SUCCESS\x10\x00\x12\x19\n\x15GET_SUCCESS_SAVE_FAIL\x10\x01\x12\x19\n\x15GET_FAIL_SAVE_SUCCESS\x10\x02\x12\x16\n\x12GET_FAIL_SAVE_FAIL\x10\x03\x12-\n)GET_SUCCESS_FUTURE_PING_DATE_SAVE_SUCCESS\x10\x04\x12+\n\'GET_SUCCESS_SAME_PING_DATE_SAVE_SUCCESS\x10\x05\x12+\n\'GET_SUCCESS_PAST_PING_DATE_SAVE_SUCCESS\x10\x06\x12\x31\n-GET_SUCCESS_UNIX_EPOCH_PING_DATE_SAVE_SUCCESS\x10\x07\x12&\n\"GET_INVALID_PING_DATE_SAVE_SUCCESS\x10\x08*\xdc\x01\n\x17PrivateComputingUseCase\x12\x18\n\x14USE_CASE_UNSPECIFIED\x10\x00\x12\x16\n\x12\x43ROS_FRESNEL_DAILY\x10\x01\x12\x1d\n\x19\x43ROS_FRESNEL_FIRST_ACTIVE\x10\x02\x12\x1d\n\x19\x43ROS_FRESNEL_28DAY_ACTIVE\x10\x03\x12%\n!CROS_FRESNEL_CHURN_MONTHLY_COHORT\x10\x04\x12*\n&CROS_FRESNEL_CHURN_MONTHLY_OBSERVATION\x10\x05\x42\x02H\x03')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'private_computing_service_pb2', globals())
@@ -23,22 +23,22 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._serialized_options = b'H\003'
   _ACTIVESTATUS.fields_by_name['last_ping_utc_date']._options = None
   _ACTIVESTATUS.fields_by_name['last_ping_utc_date']._serialized_options = b'\030\001'
-  _PRIVATECOMPUTINGUSECASE._serialized_start=1390
-  _PRIVATECOMPUTINGUSECASE._serialized_end=1610
+  _PRIVATECOMPUTINGUSECASE._serialized_start=1440
+  _PRIVATECOMPUTINGUSECASE._serialized_end=1660
   _CHURNOBSERVATIONSTATUS._serialized_start=55
-  _CHURNOBSERVATIONSTATUS._serialized_end=205
-  _ACTIVESTATUS._serialized_start=208
-  _ACTIVESTATUS._serialized_end=462
-  _SAVESTATUSREQUEST._serialized_start=464
-  _SAVESTATUSREQUEST._serialized_end=539
-  _SAVESTATUSRESPONSE._serialized_start=541
-  _SAVESTATUSRESPONSE._serialized_end=584
-  _GETSTATUSRESPONSE._serialized_start=586
-  _GETSTATUSRESPONSE._serialized_end=684
-  _PRIVATECOMPUTINGCLIENTREGRESSIONTESTDATA._serialized_start=687
-  _PRIVATECOMPUTINGCLIENTREGRESSIONTESTDATA._serialized_end=1387
-  _PRIVATECOMPUTINGCLIENTREGRESSIONTESTDATA_TESTCASE._serialized_start=822
-  _PRIVATECOMPUTINGCLIENTREGRESSIONTESTDATA_TESTCASE._serialized_end=1038
-  _PRIVATECOMPUTINGCLIENTREGRESSIONTESTDATA_TESTNAME._serialized_start=1041
-  _PRIVATECOMPUTINGCLIENTREGRESSIONTESTDATA_TESTNAME._serialized_end=1387
+  _CHURNOBSERVATIONSTATUS._serialized_end=255
+  _ACTIVESTATUS._serialized_start=258
+  _ACTIVESTATUS._serialized_end=512
+  _SAVESTATUSREQUEST._serialized_start=514
+  _SAVESTATUSREQUEST._serialized_end=589
+  _SAVESTATUSRESPONSE._serialized_start=591
+  _SAVESTATUSRESPONSE._serialized_end=634
+  _GETSTATUSRESPONSE._serialized_start=636
+  _GETSTATUSRESPONSE._serialized_end=734
+  _PRIVATECOMPUTINGCLIENTREGRESSIONTESTDATA._serialized_start=737
+  _PRIVATECOMPUTINGCLIENTREGRESSIONTESTDATA._serialized_end=1437
+  _PRIVATECOMPUTINGCLIENTREGRESSIONTESTDATA_TESTCASE._serialized_start=872
+  _PRIVATECOMPUTINGCLIENTREGRESSIONTESTDATA_TESTCASE._serialized_end=1088
+  _PRIVATECOMPUTINGCLIENTREGRESSIONTESTDATA_TESTNAME._serialized_start=1091
+  _PRIVATECOMPUTINGCLIENTREGRESSIONTESTDATA_TESTNAME._serialized_end=1437
 # @@protoc_insertion_point(module_scope)

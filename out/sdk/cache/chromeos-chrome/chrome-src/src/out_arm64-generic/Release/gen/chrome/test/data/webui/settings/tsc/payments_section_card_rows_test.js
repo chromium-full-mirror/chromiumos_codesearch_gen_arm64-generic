@@ -349,8 +349,29 @@ suite('PaymentsSectionCardRows', function () {
         assertEquals('Virtual card turned on', getCardRowShadowRoot(section.$.paymentsList)
             .querySelector('#summarySublabel').textContent.trim());
     });
-    // Test to verify the cvc tag is visible when cvc is present on a server/local
-    // cards.
+    // Test to verify the correct sublabel is displayed for Virtual card when its
+    // FPAN(Real card) has CVC saved.
+    test('verifyVirtualCardSummarySublabelWhenFpanHasCvc', async function () {
+        loadTimeData.overrideValues({
+            cvcStorageAvailable: true,
+        });
+        const creditCard = createCreditCardEntry();
+        creditCard.metadata.isLocal = false;
+        creditCard.metadata.isVirtualCardEnrollmentEligible = false;
+        creditCard.metadata.isVirtualCardEnrolled = true;
+        creditCard.cvc = '***';
+        const section = await createPaymentsSection([creditCard], /*ibans=*/ [], /*prefValues=*/ {});
+        const creditCardList = section.$.paymentsList;
+        assertTrue(!!creditCardList);
+        assertEquals(1, getLocalAndServerCreditCardListItems().length);
+        assertFalse(getCardRowShadowRoot(section.$.paymentsList)
+            .querySelector('#summarySublabel').hidden);
+        assertEquals('Virtual card turned on | ' +
+            loadTimeData.getString('cvcTagForCreditCardListEntry'), getCardRowShadowRoot(section.$.paymentsList)
+            .querySelector('#summarySublabel').textContent.trim());
+    });
+    // Test to verify the cvc tag is visible when cvc is present on a
+    // server/local cards.
     [true, false].forEach(cvcOnServerCard => {
         test('verifyCvcTagPresentFor_' +
             (cvcOnServerCard ? 'ServerCard' : 'LocalCard'), async function () {

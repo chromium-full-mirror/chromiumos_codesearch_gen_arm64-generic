@@ -49,19 +49,25 @@ DisplaySettingsValue::DisplaySettingsValue()
       display_id(),
       orientation(),
       night_light_status(),
-      night_light_schedule() {}
+      night_light_schedule(),
+      mirror_mode_status(),
+      unified_mode_status() {}
 
 DisplaySettingsValue::DisplaySettingsValue(
     std::optional<bool> is_internal_display_in,
     std::optional<int64_t> display_id_in,
     std::optional<DisplaySettingsOrientationOption> orientation_in,
     std::optional<bool> night_light_status_in,
-    std::optional<DisplaySettingsNightLightScheduleOption> night_light_schedule_in)
+    std::optional<DisplaySettingsNightLightScheduleOption> night_light_schedule_in,
+    std::optional<bool> mirror_mode_status_in,
+    std::optional<bool> unified_mode_status_in)
     : is_internal_display(std::move(is_internal_display_in)),
       display_id(std::move(display_id_in)),
       orientation(std::move(orientation_in)),
       night_light_status(std::move(night_light_status_in)),
-      night_light_schedule(std::move(night_light_schedule_in)) {}
+      night_light_schedule(std::move(night_light_schedule_in)),
+      mirror_mode_status(std::move(mirror_mode_status_in)),
+      unified_mode_status(std::move(unified_mode_status_in)) {}
 
 DisplaySettingsValue::~DisplaySettingsValue() = default;
 
@@ -109,6 +115,24 @@ void DisplaySettingsValue::WriteIntoTrace(
       "night_light_schedule"), this->night_light_schedule,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::optional<DisplaySettingsNightLightScheduleOption>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "mirror_mode_status"), this->mirror_mode_status,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<bool>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "unified_mode_status"), this->unified_mode_status,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -995,6 +1019,12 @@ bool StructTraits<::ash::settings::mojom::DisplaySettingsValue::DataView, ::ash:
       }
       if (success && !input.ReadNightLightSchedule(&result->night_light_schedule)) {
         success = false;
+      }
+      if (success) {
+        result->mirror_mode_status = input.mirror_mode_status();
+      }
+      if (success) {
+        result->unified_mode_status = input.unified_mode_status();
       }
   *output = std::move(result);
   return success;

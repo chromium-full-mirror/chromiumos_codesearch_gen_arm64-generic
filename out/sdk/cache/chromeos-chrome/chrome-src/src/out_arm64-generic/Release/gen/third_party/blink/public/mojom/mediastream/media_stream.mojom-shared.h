@@ -540,14 +540,14 @@ class TrackControlsDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::blink::mojom::MediaStreamType>(data_->stream_type));
   }
-  inline void GetDeviceIdDataView(
-      mojo::StringDataView* output);
+  inline void GetDeviceIdsDataView(
+      mojo::ArrayDataView<mojo::StringDataView>* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadDeviceId(UserType* output) {
+  [[nodiscard]] bool ReadDeviceIds(UserType* output) {
     
-    auto* pointer = data_->device_id.Get();
-    return mojo::internal::Deserialize<mojo::StringDataView>(
+    auto* pointer = data_->device_ids.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
         pointer, output, message_);
   }
  private:
@@ -1086,18 +1086,20 @@ struct Serializer<::blink::mojom::TrackControlsDataView, MaybeConstUserType> {
     fragment.Allocate();
     mojo::internal::Serialize<::blink::mojom::MediaStreamType>(
         Traits::stream_type(input), &fragment->stream_type);
-    decltype(Traits::device_id(input)) in_device_id = Traits::device_id(input);
+    decltype(Traits::device_ids(input)) in_device_ids = Traits::device_ids(input);
     mojo::internal::MessageFragment<
-        typename decltype(fragment->device_id)::BaseType> device_id_fragment(
-            fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
-        in_device_id, device_id_fragment);
-    fragment->device_id.Set(
-        device_id_fragment.is_null() ? nullptr : device_id_fragment.data());
+        typename decltype(fragment->device_ids)::BaseType>
+        device_ids_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& device_ids_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        in_device_ids, device_ids_fragment, &device_ids_validate_params);
+    fragment->device_ids.Set(
+        device_ids_fragment.is_null() ? nullptr : device_ids_fragment.data());
     MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-        fragment->device_id.is_null(),
+        fragment->device_ids.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-        "null device_id in TrackControls struct");
+        "null device_ids in TrackControls struct");
   }
 
   static bool Deserialize(::blink::mojom::internal::TrackControls_Data* input,
@@ -1401,10 +1403,10 @@ inline void MediaStreamDeviceDataView::GetDisplayMediaInfoDataView(
 }
 
 
-inline void TrackControlsDataView::GetDeviceIdDataView(
-    mojo::StringDataView* output) {
-  auto pointer = data_->device_id.Get();
-  *output = mojo::StringDataView(pointer, message_);
+inline void TrackControlsDataView::GetDeviceIdsDataView(
+    mojo::ArrayDataView<mojo::StringDataView>* output) {
+  auto pointer = data_->device_ids.Get();
+  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
 }
 
 

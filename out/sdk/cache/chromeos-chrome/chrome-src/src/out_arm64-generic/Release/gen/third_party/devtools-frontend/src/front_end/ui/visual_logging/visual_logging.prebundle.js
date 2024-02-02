@@ -97,6 +97,7 @@ export const timeline = LoggingConfig.makeConfigStringBuilder.bind(null, 'Timeli
  * setting as the toggle context.
  */
 export const toggle = LoggingConfig.makeConfigStringBuilder.bind(null, 'Toggle');
+export const toolbar = LoggingConfig.makeConfigStringBuilder.bind(null, 'Toolbar');
 export const toggleSubpane = LoggingConfig.makeConfigStringBuilder.bind(null, 'ToggleSubpane');
 export const tree = LoggingConfig.makeConfigStringBuilder.bind(null, 'Tree');
 export const treeItem = LoggingConfig.makeConfigStringBuilder.bind(null, 'TreeItem');

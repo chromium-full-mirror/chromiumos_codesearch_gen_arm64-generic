@@ -1550,7 +1550,7 @@ class  ExecutedProcessResult {
   template <typename... Args>
   static ExecutedProcessResultPtr New(Args&&... args) {
     return ExecutedProcessResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1697,7 +1697,7 @@ class  FingerprintInfoResult {
   template <typename... Args>
   static FingerprintInfoResultPtr New(Args&&... args) {
     return FingerprintInfoResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1840,7 +1840,7 @@ class  PrepareJobArgument {
   template <typename... Args>
   static PrepareJobArgumentPtr New(Args&&... args) {
     return PrepareJobArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1982,7 +1982,7 @@ class  PrivacyScreenInfo {
   template <typename... Args>
   static PrivacyScreenInfoPtr New(Args&&... args) {
     return PrivacyScreenInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2136,7 +2136,7 @@ class  FioJobArgument {
   static FioJobArgumentPtr
   NewPrepare(
       PrepareJobArgumentPtr value) {
-    auto result = FioJobArgumentPtr(absl::in_place);
+    auto result = FioJobArgumentPtr(std::in_place);
     result->set_prepare(std::move(value));
     return result;
   }
@@ -2144,7 +2144,7 @@ class  FioJobArgument {
   static FioJobArgumentPtr
   NewRead(
       ReadJobArgumentPtr value) {
-    auto result = FioJobArgumentPtr(absl::in_place);
+    auto result = FioJobArgumentPtr(std::in_place);
     result->set_read(std::move(value));
     return result;
   }
@@ -2266,7 +2266,7 @@ class  GetPrivacyScreenInfoResult {
   static GetPrivacyScreenInfoResultPtr
   NewInfo(
       PrivacyScreenInfoPtr value) {
-    auto result = GetPrivacyScreenInfoResultPtr(absl::in_place);
+    auto result = GetPrivacyScreenInfoResultPtr(std::in_place);
     result->set_info(std::move(value));
     return result;
   }
@@ -2274,7 +2274,7 @@ class  GetPrivacyScreenInfoResult {
   static GetPrivacyScreenInfoResultPtr
   NewError(
       const std::string& value) {
-    auto result = GetPrivacyScreenInfoResultPtr(absl::in_place);
+    auto result = GetPrivacyScreenInfoResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -2391,7 +2391,7 @@ class  FingerprintFrameResult {
   template <typename... Args>
   static FingerprintFrameResultPtr New(Args&&... args) {
     return FingerprintFrameResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2537,7 +2537,7 @@ class  FileInfo {
   template <typename... Args>
   static FileInfoPtr New(Args&&... args) {
     return FileInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2678,7 +2678,7 @@ class  ReadJobArgument {
   template <typename... Args>
   static ReadJobArgumentPtr New(Args&&... args) {
     return ReadJobArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

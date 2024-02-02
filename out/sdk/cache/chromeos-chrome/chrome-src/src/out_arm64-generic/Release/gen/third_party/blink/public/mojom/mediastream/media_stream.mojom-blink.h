@@ -574,148 +574,6 @@ class PLATFORM_EXPORT MediaStreamDispatcherHostResponseValidator : public mojo::
 
 
 
-class PLATFORM_EXPORT TrackControls {
- public:
-  template <typename T>
-  using EnableIfSame = std::enable_if_t<std::is_same<TrackControls, T>::value>;
-  using DataView = TrackControlsDataView;
-  using Data_ = internal::TrackControls_Data;
-
-  template <typename... Args>
-  static TrackControlsPtr New(Args&&... args) {
-    return TrackControlsPtr(
-        std::in_place, std::forward<Args>(args)...);
-  }
-
-  template <typename U>
-  static TrackControlsPtr From(const U& u) {
-    return mojo::TypeConverter<TrackControlsPtr, U>::Convert(u);
-  }
-
-  template <typename U>
-  U To() const {
-    return mojo::TypeConverter<U, TrackControls>::Convert(*this);
-  }
-
-
-  TrackControls();
-
-  TrackControls(
-      MediaStreamType stream_type,
-      const WTF::String& device_id);
-
-
-  ~TrackControls();
-
-  // Clone() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Clone() or copy
-  // constructor/assignment are available for members.
-  template <typename StructPtrType = TrackControlsPtr>
-  TrackControlsPtr Clone() const;
-
-  // Equals() is a template so it is only instantiated if it is used. Thus, the
-  // bindings generator does not need to know whether Equals() or == operator
-  // are available for members.
-  template <typename T, TrackControls::EnableIfSame<T>* = nullptr>
-  bool Equals(const T& other) const;
-
-  template <typename T, TrackControls::EnableIfSame<T>* = nullptr>
-  bool operator==(const T& rhs) const { return Equals(rhs); }
-
-  template <typename T, TrackControls::EnableIfSame<T>* = nullptr>
-  bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  template <typename UserType>
-  static WTF::Vector<uint8_t> Serialize(UserType* input) {
-    return mojo::internal::SerializeImpl<
-        TrackControls::DataView, WTF::Vector<uint8_t>>(input);
-  }
-
-  template <typename UserType>
-  static mojo::Message SerializeAsMessage(UserType* input) {
-    return mojo::internal::SerializeAsMessageImpl<
-        TrackControls::DataView>(input);
-  }
-
-  // The returned Message is serialized only if the message is moved
-  // cross-process or cross-language. Otherwise if the message is Deserialized
-  // as the same UserType |input| will just be moved to |output| in
-  // DeserializeFromMessage.
-  template <typename UserType>
-  static mojo::Message WrapAsMessage(UserType input) {
-    return mojo::Message(std::make_unique<
-        internal::TrackControls_UnserializedMessageContext<
-            UserType, TrackControls::DataView>>(0, 0, std::move(input)),
-        MOJO_CREATE_MESSAGE_FLAG_NONE);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const void* data,
-                          size_t data_num_bytes,
-                          UserType* output) {
-    mojo::Message message;
-    return mojo::internal::DeserializeImpl<TrackControls::DataView>(
-        message, data, data_num_bytes, output, Validate);
-  }
-
-  template <typename UserType>
-  static bool Deserialize(const WTF::Vector<uint8_t>& input,
-                          UserType* output) {
-    return TrackControls::Deserialize(
-        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
-  }
-
-  template <typename UserType>
-  static bool DeserializeFromMessage(mojo::Message input,
-                                     UserType* output) {
-    auto context = input.TakeUnserializedContext<
-        internal::TrackControls_UnserializedMessageContext<
-            UserType, TrackControls::DataView>>();
-    if (context) {
-      *output = std::move(context->TakeData());
-      return true;
-    }
-    input.SerializeIfNecessary();
-    return mojo::internal::DeserializeImpl<TrackControls::DataView>(
-        input, input.payload(), input.payload_num_bytes(), output, Validate);
-  }
-
-  
-  MediaStreamType stream_type;
-  
-  WTF::String device_id;
-
-  // Serialise this struct into a trace.
-  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
-
- private:
-  static bool Validate(const void* data,
-                       mojo::internal::ValidationContext* validation_context);
-};
-
-// The comparison operators are templates, so they are only instantiated if they
-// are used. Thus, the bindings generator does not need to know whether
-// comparison operators are available for members.
-template <typename T, TrackControls::EnableIfSame<T>* = nullptr>
-bool operator<(const T& lhs, const T& rhs);
-
-template <typename T, TrackControls::EnableIfSame<T>* = nullptr>
-bool operator<=(const T& lhs, const T& rhs) {
-  return !(rhs < lhs);
-}
-
-template <typename T, TrackControls::EnableIfSame<T>* = nullptr>
-bool operator>(const T& lhs, const T& rhs) {
-  return rhs < lhs;
-}
-
-template <typename T, TrackControls::EnableIfSame<T>* = nullptr>
-bool operator>=(const T& lhs, const T& rhs) {
-  return !(lhs < rhs);
-}
-
-
-
-
 
 
 
@@ -1181,6 +1039,148 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+class PLATFORM_EXPORT TrackControls {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<TrackControls, T>::value>;
+  using DataView = TrackControlsDataView;
+  using Data_ = internal::TrackControls_Data;
+
+  template <typename... Args>
+  static TrackControlsPtr New(Args&&... args) {
+    return TrackControlsPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static TrackControlsPtr From(const U& u) {
+    return mojo::TypeConverter<TrackControlsPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, TrackControls>::Convert(*this);
+  }
+
+
+  TrackControls();
+
+  TrackControls(
+      MediaStreamType stream_type,
+      WTF::Vector<WTF::String> device_ids);
+
+
+  ~TrackControls();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = TrackControlsPtr>
+  TrackControlsPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, TrackControls::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, TrackControls::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, TrackControls::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static WTF::Vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        TrackControls::DataView, WTF::Vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        TrackControls::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::TrackControls_UnserializedMessageContext<
+            UserType, TrackControls::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<TrackControls::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const WTF::Vector<uint8_t>& input,
+                          UserType* output) {
+    return TrackControls::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::TrackControls_UnserializedMessageContext<
+            UserType, TrackControls::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<TrackControls::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  MediaStreamType stream_type;
+  
+  WTF::Vector<WTF::String> device_ids;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, TrackControls::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, TrackControls::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, TrackControls::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, TrackControls::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 
 
@@ -1905,7 +1905,7 @@ template <typename StructPtrType>
 TrackControlsPtr TrackControls::Clone() const {
   return New(
       mojo::Clone(stream_type),
-      mojo::Clone(device_id)
+      mojo::Clone(device_ids)
   );
 }
 
@@ -1913,7 +1913,7 @@ template <typename T, TrackControls::EnableIfSame<T>*>
 bool TrackControls::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->stream_type, other_struct.stream_type))
     return false;
-  if (!mojo::Equals(this->device_id, other_struct.device_id))
+  if (!mojo::Equals(this->device_ids, other_struct.device_ids))
     return false;
   return true;
 }
@@ -1924,9 +1924,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.stream_type < lhs.stream_type)
     return false;
-  if (lhs.device_id < rhs.device_id)
+  if (lhs.device_ids < rhs.device_ids)
     return true;
-  if (rhs.device_id < lhs.device_id)
+  if (rhs.device_ids < lhs.device_ids)
     return false;
   return false;
 }
@@ -2257,9 +2257,9 @@ struct PLATFORM_EXPORT StructTraits<::blink::mojom::blink::TrackControls::DataVi
     return input->stream_type;
   }
 
-  static const decltype(::blink::mojom::blink::TrackControls::device_id)& device_id(
+  static const decltype(::blink::mojom::blink::TrackControls::device_ids)& device_ids(
       const ::blink::mojom::blink::TrackControlsPtr& input) {
-    return input->device_id;
+    return input->device_ids;
   }
 
   static bool Read(::blink::mojom::blink::TrackControls::DataView input, ::blink::mojom::blink::TrackControlsPtr* output);

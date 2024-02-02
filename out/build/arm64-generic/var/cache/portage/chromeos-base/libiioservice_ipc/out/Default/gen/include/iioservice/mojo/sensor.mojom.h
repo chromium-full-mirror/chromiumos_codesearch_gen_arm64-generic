@@ -764,7 +764,7 @@ class  IioEvent {
   template <typename... Args>
   static IioEventPtr New(Args&&... args) {
     return IioEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

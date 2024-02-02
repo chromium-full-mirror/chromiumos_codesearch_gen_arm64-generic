@@ -175,14 +175,14 @@ suite('<settings-system-preferences-page>', () => {
             const searchAndAssistantSettingsCard = page.shadowRoot.querySelector('search-and-assistant-settings-card');
             assertTrue(isVisible(searchAndAssistantSettingsCard), 'Search and Assistant settings card should be visible.');
         });
-        test('Search subpage is visible if quick answers is enabled', async () => {
-            loadTimeData.overrideValues({ shouldShowQuickAnswersSettings: true });
+        test('Search subpage is visible if quick answers is supported', async () => {
+            loadTimeData.overrideValues({ isQuickAnswersSupported: true });
             await createPage();
             await navigateToSubpage(routes.SEARCH_SUBPAGE);
             assertSubpageIsVisible('settings-search-subpage');
         });
-        test('Search subpage is not stamped if quick answers is disabled', async () => {
-            loadTimeData.overrideValues({ shouldShowQuickAnswersSettings: false });
+        test('Search subpage is not stamped if quick answers is not supported', async () => {
+            loadTimeData.overrideValues({ isQuickAnswersSupported: false });
             await createPage();
             await navigateToSubpage(routes.SEARCH_SUBPAGE);
             const subpage = page.shadowRoot.querySelector('settings-search-subpage');

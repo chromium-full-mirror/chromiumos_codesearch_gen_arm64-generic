@@ -319,6 +319,8 @@ suite('<settings-display>', () => {
             mirrorDisplayControl.click();
             // Verify histogram count for mirror mode setting.
             assertEquals(1, displayHistogram.get(displaySettingsProviderMojom.DisplaySettingsType.kMirrorMode));
+            assertEquals(1, displaySettingsProvider.getDisplayMirrorModeStatusHistogram().get(
+            /*mirror_mode_status=*/ true));
         });
         test('unified mode', () => {
             // Mock user toggling unified mode setting.
@@ -327,6 +329,8 @@ suite('<settings-display>', () => {
             displayUnifiedDesktopToggle.click();
             // Verify histogram count for unified mode setting.
             assertEquals(1, displayHistogram.get(displaySettingsProviderMojom.DisplaySettingsType.kUnifiedMode));
+            assertEquals(1, displaySettingsProvider.getDisplayUnifiedModeStatusHistogram().get(
+            /*mirror_mode_status=*/ true));
         });
         test('primary display', () => {
             // Mock user changing primary display.

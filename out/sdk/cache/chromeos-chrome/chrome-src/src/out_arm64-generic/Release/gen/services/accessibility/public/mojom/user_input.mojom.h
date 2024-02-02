@@ -28,6 +28,7 @@
 #include "services/accessibility/public/mojom/user_input.mojom-forward.h"
 #include "ui/events/mojom/event.mojom.h"
 #include "ui/events/mojom/event_constants.mojom-forward.h"
+#include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include <string>
 #include <vector>
 
@@ -71,6 +72,7 @@ class UserInput
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kSendSyntheticKeyEventForShortcutOrNavigationMinVersion = 0,
+    kSendSyntheticMouseEventMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -79,11 +81,17 @@ class UserInput
   struct SendSyntheticKeyEventForShortcutOrNavigation_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct SendSyntheticMouseEvent_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~UserInput() = default;
 
   
   virtual void SendSyntheticKeyEventForShortcutOrNavigation(SyntheticKeyEventPtr key_event) = 0;
+
+  
+  virtual void SendSyntheticMouseEvent(SyntheticMouseEventPtr mouse_event) = 0;
 };
 
 
@@ -96,6 +104,8 @@ class  UserInputProxy
   explicit UserInputProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void SendSyntheticKeyEventForShortcutOrNavigation(SyntheticKeyEventPtr key_event) final;
+  
+  void SendSyntheticMouseEvent(SyntheticMouseEventPtr mouse_event) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -145,6 +155,7 @@ class  UserInputRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
+
 
 
 
@@ -298,6 +309,155 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+class  SyntheticMouseEvent {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<SyntheticMouseEvent, T>::value>;
+  using DataView = SyntheticMouseEventDataView;
+  using Data_ = internal::SyntheticMouseEvent_Data;
+
+  template <typename... Args>
+  static SyntheticMouseEventPtr New(Args&&... args) {
+    return SyntheticMouseEventPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static SyntheticMouseEventPtr From(const U& u) {
+    return mojo::TypeConverter<SyntheticMouseEventPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, SyntheticMouseEvent>::Convert(*this);
+  }
+
+
+  SyntheticMouseEvent();
+
+  SyntheticMouseEvent(
+      ::ui::mojom::EventType type,
+      const ::gfx::Point& point,
+      std::optional<SyntheticMouseEventButton> mouse_button,
+      std::optional<bool> touch_accessibility);
+
+
+  ~SyntheticMouseEvent();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = SyntheticMouseEventPtr>
+  SyntheticMouseEventPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, SyntheticMouseEvent::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, SyntheticMouseEvent::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, SyntheticMouseEvent::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        SyntheticMouseEvent::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        SyntheticMouseEvent::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::SyntheticMouseEvent_UnserializedMessageContext<
+            UserType, SyntheticMouseEvent::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<SyntheticMouseEvent::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return SyntheticMouseEvent::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::SyntheticMouseEvent_UnserializedMessageContext<
+            UserType, SyntheticMouseEvent::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<SyntheticMouseEvent::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::ui::mojom::EventType type;
+  
+  ::gfx::Point point;
+  
+  std::optional<SyntheticMouseEventButton> mouse_button;
+  
+  std::optional<bool> touch_accessibility;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, SyntheticMouseEvent::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, SyntheticMouseEvent::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, SyntheticMouseEvent::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, SyntheticMouseEvent::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 template <typename StructPtrType>
 SyntheticKeyEventPtr SyntheticKeyEvent::Clone() const {
   return New(
@@ -334,6 +494,49 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+SyntheticMouseEventPtr SyntheticMouseEvent::Clone() const {
+  return New(
+      mojo::Clone(type),
+      mojo::Clone(point),
+      mojo::Clone(mouse_button),
+      mojo::Clone(touch_accessibility)
+  );
+}
+
+template <typename T, SyntheticMouseEvent::EnableIfSame<T>*>
+bool SyntheticMouseEvent::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->type, other_struct.type))
+    return false;
+  if (!mojo::Equals(this->point, other_struct.point))
+    return false;
+  if (!mojo::Equals(this->mouse_button, other_struct.mouse_button))
+    return false;
+  if (!mojo::Equals(this->touch_accessibility, other_struct.touch_accessibility))
+    return false;
+  return true;
+}
+
+template <typename T, SyntheticMouseEvent::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.type < rhs.type)
+    return true;
+  if (rhs.type < lhs.type)
+    return false;
+  if (lhs.point < rhs.point)
+    return true;
+  if (rhs.point < lhs.point)
+    return false;
+  if (lhs.mouse_button < rhs.mouse_button)
+    return true;
+  if (rhs.mouse_button < lhs.mouse_button)
+    return false;
+  if (lhs.touch_accessibility < rhs.touch_accessibility)
+    return true;
+  if (rhs.touch_accessibility < lhs.touch_accessibility)
+    return false;
+  return false;
+}
 
 
 }  // ax::mojom
@@ -363,6 +566,36 @@ struct  StructTraits<::ax::mojom::SyntheticKeyEvent::DataView,
   }
 
   static bool Read(::ax::mojom::SyntheticKeyEvent::DataView input, ::ax::mojom::SyntheticKeyEventPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::ax::mojom::SyntheticMouseEvent::DataView,
+                                         ::ax::mojom::SyntheticMouseEventPtr> {
+  static bool IsNull(const ::ax::mojom::SyntheticMouseEventPtr& input) { return !input; }
+  static void SetToNull(::ax::mojom::SyntheticMouseEventPtr* output) { output->reset(); }
+
+  static decltype(::ax::mojom::SyntheticMouseEvent::type) type(
+      const ::ax::mojom::SyntheticMouseEventPtr& input) {
+    return input->type;
+  }
+
+  static const decltype(::ax::mojom::SyntheticMouseEvent::point)& point(
+      const ::ax::mojom::SyntheticMouseEventPtr& input) {
+    return input->point;
+  }
+
+  static decltype(::ax::mojom::SyntheticMouseEvent::mouse_button) mouse_button(
+      const ::ax::mojom::SyntheticMouseEventPtr& input) {
+    return input->mouse_button;
+  }
+
+  static decltype(::ax::mojom::SyntheticMouseEvent::touch_accessibility) touch_accessibility(
+      const ::ax::mojom::SyntheticMouseEventPtr& input) {
+    return input->touch_accessibility;
+  }
+
+  static bool Read(::ax::mojom::SyntheticMouseEvent::DataView input, ::ax::mojom::SyntheticMouseEventPtr* output);
 };
 
 }  // namespace mojo

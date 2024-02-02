@@ -18,8 +18,6 @@
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_probe.mojom-import-headers.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-import-headers.h"
-#include "chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom.h"
-#include "chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom-import-headers.h"
 #include "chromeos/services/network_health/public/mojom/network_diagnostics.mojom.h"
 #include "chromeos/services/network_health/public/mojom/network_diagnostics.mojom-import-headers.h"
 #include "chromeos/services/network_health/public/mojom/network_health.mojom.h"

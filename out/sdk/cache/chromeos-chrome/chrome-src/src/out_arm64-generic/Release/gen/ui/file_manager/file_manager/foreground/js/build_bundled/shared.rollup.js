@@ -1704,9 +1704,14 @@ class PluralStringProxyImpl {
 }
 let instance = null;
 
-// Copyright 2014 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+/**
+ * @fileoverview The types and enums in this file are used in integration tests.
+ * For this reason we don't want additional imports in here to avoid cascading
+ * importing files.
+ */
 /** Paths that can be handled by the dialog opener in native code. */
 var AllowedPaths;
 (function (AllowedPaths) {
@@ -1714,6 +1719,62 @@ var AllowedPaths;
     AllowedPaths["ANY_PATH"] = "anyPath";
     AllowedPaths["ANY_PATH_OR_URL"] = "anyPathOrUrl";
 })(AllowedPaths || (AllowedPaths = {}));
+/** The type of each volume. */
+var VolumeType;
+(function (VolumeType) {
+    VolumeType["TESTING"] = "testing";
+    VolumeType["DRIVE"] = "drive";
+    VolumeType["DOWNLOADS"] = "downloads";
+    VolumeType["REMOVABLE"] = "removable";
+    VolumeType["ARCHIVE"] = "archive";
+    VolumeType["MTP"] = "mtp";
+    VolumeType["PROVIDED"] = "provided";
+    VolumeType["MEDIA_VIEW"] = "media_view";
+    VolumeType["DOCUMENTS_PROVIDER"] = "documents_provider";
+    VolumeType["CROSTINI"] = "crostini";
+    VolumeType["GUEST_OS"] = "guest_os";
+    VolumeType["ANDROID_FILES"] = "android_files";
+    VolumeType["MY_FILES"] = "my_files";
+    VolumeType["SMB"] = "smb";
+    VolumeType["SYSTEM_INTERNAL"] = "system_internal";
+    VolumeType["TRASH"] = "trash";
+})(VolumeType || (VolumeType = {}));
+/**
+ * List of dialog types.
+ *
+ * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
+ * FULL_PAGE which is specific to this code.
+ */
+var DialogType;
+(function (DialogType) {
+    DialogType["SELECT_FOLDER"] = "folder";
+    DialogType["SELECT_UPLOAD_FOLDER"] = "upload-folder";
+    DialogType["SELECT_SAVEAS_FILE"] = "saveas-file";
+    DialogType["SELECT_OPEN_FILE"] = "open-file";
+    DialogType["SELECT_OPEN_MULTI_FILE"] = "open-multi-file";
+    DialogType["FULL_PAGE"] = "full-page";
+})(DialogType || (DialogType = {}));
+/**
+ * Stats collected about Metadata handling for tests.
+ */
+class MetadataStats {
+    constructor() {
+        /** Total of entries fulfilled from cache. */
+        this.fromCache = 0;
+        /** Total of entries that requested to backends. */
+        this.fullFetch = 0;
+        /** Total of entries that called to invalidate. */
+        this.invalidateCount = 0;
+        /** Total of entries that called to clear. */
+        this.clearCacheCount = 0;
+        /** Total of calls to function clearAllCache. */
+        this.clearAllCount = 0;
+    }
+}
+
+// Copyright 2014 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 /** Type of a file system. */
 var FileSystemType;
 (function (FileSystemType) {
@@ -1859,25 +1920,6 @@ var VolumeError;
     VolumeError["CANCELLED"] = "cancelled";
     VolumeError["BUSY"] = "busy";
 })(VolumeError || (VolumeError = {}));
-/** The type of each volume. */
-var VolumeType;
-(function (VolumeType) {
-    VolumeType["DRIVE"] = "drive";
-    VolumeType["DOWNLOADS"] = "downloads";
-    VolumeType["REMOVABLE"] = "removable";
-    VolumeType["ARCHIVE"] = "archive";
-    VolumeType["MTP"] = "mtp";
-    VolumeType["PROVIDED"] = "provided";
-    VolumeType["MEDIA_VIEW"] = "media_view";
-    VolumeType["DOCUMENTS_PROVIDER"] = "documents_provider";
-    VolumeType["CROSTINI"] = "crostini";
-    VolumeType["GUEST_OS"] = "guest_os";
-    VolumeType["ANDROID_FILES"] = "android_files";
-    VolumeType["MY_FILES"] = "my_files";
-    VolumeType["SMB"] = "smb";
-    VolumeType["SYSTEM_INTERNAL"] = "system_internal";
-    VolumeType["TRASH"] = "trash";
-})(VolumeType || (VolumeType = {}));
 /** Source of each volume's data. */
 var Source;
 (function (Source) {
@@ -2855,21 +2897,6 @@ function isDebugStoreEnabled() {
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * List of dialog types.
- *
- * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
- * FULL_PAGE which is specific to this code.
- */
-var DialogType;
-(function (DialogType) {
-    DialogType["SELECT_FOLDER"] = "folder";
-    DialogType["SELECT_UPLOAD_FOLDER"] = "upload-folder";
-    DialogType["SELECT_SAVEAS_FILE"] = "saveas-file";
-    DialogType["SELECT_OPEN_FILE"] = "open-file";
-    DialogType["SELECT_OPEN_MULTI_FILE"] = "open-multi-file";
-    DialogType["FULL_PAGE"] = "full-page";
-})(DialogType || (DialogType = {}));
 var EntryType;
 (function (EntryType) {
     // Entries from the FileSystem API.
@@ -10419,6 +10446,9 @@ async function getContentMimeType(fileEntry) {
 }
 async function getContentMetadata(fileEntry, mimeType, includeImages) {
     return promisify(chrome.fileManagerPrivate.getContentMetadata, fileEntry, mimeType, includeImages);
+}
+async function getEntryProperties(entries, properties) {
+    return promisify(chrome.fileManagerPrivate.getEntryProperties, entries.map(unwrapEntry), properties);
 }
 
 // Copyright 2013 The Chromium Authors
@@ -18549,5 +18579,5 @@ function getRenameErrorMessage(error, entry, newName) {
     return Error(strf('ERROR_RENAMING', entry.name, getFileErrorString(error.name)));
 }
 
-export { assertNotReached$1 as $, AsyncQueue as A, isSameFileSystem as B, COMPUTERS_DIRECTORY_NAME as C, isSameEntry as D, isFakeEntry as E, FakeEntryImpl as F, getRootType as G, SHARED_DRIVES_DIRECTORY_PATH as H, isTeamDriveRoot as I, COMPUTERS_DIRECTORY_PATH as J, isComputersRoot as K, getRootTypeFromVolumeType as L, getMediaViewRootTypeFromVolumeId as M, NativeEventTarget as N, MediaViewRootType as O, timeoutPromise as P, addVolume as Q, RootType as R, SHARED_DRIVES_DIRECTORY_NAME as S, recordInterval as T, VOLUME_ALREADY_MOUNTED as U, VolumeType as V, isInGuestMode as W, getDirectory as X, ARCHIVE_OPENED_EVENT_TYPE as Y, Source as Z, __decorate$1 as _, requestUpdateOnAriaChange as a, convertToKebabCase as a$, descriptorEqual as a0, XfBase as a1, isCrosComponentsEnabled as a2, DialogType as a3, isFuseBoxDebugEnabled as a4, AllowedPaths as a5, isNative as a6, parseTrashInfoFiles as a7, recordMediumCount as a8, isFileEntry as a9, CROSTINI_CONNECT_ERR as aA, mountGuest as aB, LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES as aC, ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES as aD, FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES as aE, DLP_METADATA_PREFETCH_PROPERTY_NAMES as aF, ConcurrentQueue as aG, isType as aH, dispatchPropertyChange as aI, Aggregator as aJ, PropStatus as aK, recordUserAction as aL, FileSystemType as aM, getVolumeTypeFromRootType as aN, convertURLsToEntries as aO, isNativeEntry as aP, isOneDriveId as aQ, getFileData as aR, getVolume as aS, getMyFiles as aT, changeDirectory as aU, getEntryLabel as aV, clearSearch as aW, isGuestOs as aX, updateSearch as aY, crInjectTypeAndInit as aZ, boolAttrSetter as a_, isDirectoryEntry as aa, getLocaleBasedWeekStart as ab, SearchRecency as ac, getMediaType as ad, isImage as ae, isVideo as af, isRaw as ag, isPDF as ah, getType as ai, getContentMetadata as aj, testSendMessage as ak, getContentMimeType as al, isDlpEnabled as am, getDlpMetadata as an, entriesToURLs as ao, isTrashEntry as ap, compareName as aq, compareLabel as ar, collator as as, dispatchSimpleEvent as at, createDOMError as au, FileErrorToDomError as av, getDefaultSearchOptions as aw, readEntriesRecursively as ax, isDriveRootType as ay, SearchLocation as az, isActivationClick as b, mouseEnterMaybeShowTooltip as b$, domAttrSetter as b0, assertInstanceof$1 as b1, CrButtonElement as b2, isTreeItem as b3, isXfTree as b4, handleTreeSlotChange as b5, refreshNavigationRoots as b6, NavigationType as b7, isVolumeEntry as b8, isOneDrive as b9, recordBoolean as bA, updateSelection as bB, isEncrypted as bC, refreshFolderShortcut as bD, recordSmallCount as bE, getPreferences as bF, comparePath as bG, addFolderShortcut as bH, removeFolderShortcut as bI, Group as bJ, addAndroidApps as bK, assertNotReached as bL, EntryList as bM, isGuestOsEnabled as bN, isArcVmEnabled as bO, isSinglePartitionFormatEnabled as bP, getPropertyDescriptor as bQ, PropertyKind as bR, assertInstanceof as bS, isSharedDriveEntry as bT, isComputersEntry as bU, isDescendantEntry as bV, getIconOverrides as bW, compareLabelAndGroupBottomEntries as bX, iconSetToCSSBackgroundImageValue as bY, shouldProvideIcons as bZ, FocusOutlineManager as b_, isDriveRootEntryList as ba, ICON_TYPES as bb, shouldSupportDriveSpecificIcons as bc, vmTypeToIconName as bd, isMyFilesEntry as be, readSubDirectoriesToCheckDirectoryChildren as bf, updateFileData as bg, readSubDirectories as bh, shouldDelayLoadingChildren as bi, isEntryScannable as bj, RootTypesForUMA as bk, maybeShowTooltip as bl, convertEntryToFileData as bm, isEntryInsideDrive as bn, isGrandRootEntryInDrives as bo, getEntry$1 as bp, driveRootEntryListKey as bq, VolumeEntry as br, traverseAndExpandPathEntries as bs, getTrustedHTML as bt, isNewDirectoryTreeEnabled as bu, storage as bv, isSameVolume as bw, FSP_ACTION_HIDDEN_ONEDRIVE_URL as bx, FSP_ACTION_HIDDEN_ONEDRIVE_USER_EMAIL as by, FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED as bz, assert as c, getFilesData as c$, getCrActionMenuTop as c0, SEARCH_RESULTS_KEY as c1, getVolumeType as c2, XfCloudPanel as c3, canBulkPinningCloudPanelShow as c4, CloudPanelType as c5, queryRequiredElement as c6, isSearchEmpty as c7, PathComponent as c8, bytesToString as c9, isDirectoryTreeItem as cA, isTrashRoot as cB, isNonModifiable as cC, isRecentArcEntry as cD, getHoldingSpaceState as cE, getDlpRestrictionDetails as cF, getExtension as cG, isMirrorSyncEnabled as cH, DEFAULT_BRUSCHETTA_VM as cI, addUiEntry as cJ, removeUiEntry as cK, crostiniPlaceHolderKey as cL, UserCanceledError as cM, validateEntryName as cN, renameEntry as cO, readSubDirectoriesForRenamedEntry as cP, getODFSMetadataQueryEntry as cQ, updateIsInteractiveVolume as cR, getDisallowedTransfers as cS, htmlEscape as cT, isSiblingEntry as cU, grantAccess as cV, getParentEntry as cW, getFile as cX, updateMetadata as cY, TaskHistory as cZ, EventType as c_, recordValue as ca, PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID as cb, DEFAULT_CROSTINI_VM as cc, PLUGIN_VM as cd, isGoogleOneOfferFilesBannerEligibleAndEnabled as ce, getTeamDriveName as cf, getDriveQuotaMetadata as cg, getSizeStats as ch, isNullOrUndefined as ci, queryDecoratedElement as cj, getFilesAppModalDialogInstance as ck, jsSetter as cl, getFileTypeForName as cm, getKeyModifiers as cn, getCurrentLocaleOrDefault as co, isAudio as cp, getIcon as cq, secondsToRemainingTimeString as cr, PanelType as cs, getFocusedTreeItem as ct, getTreeItemEntry as cu, isRecentRoot as cv, isInteractiveVolume as cw, isTeamDrivesGrandRoot as cx, isTrashRootType as cy, isDirectoryTree as cz, dispatchActivationClick as d, fetchFileTasks as d0, getMimeType as d1, recordDirectoryListLoadWithTolerance as d2, waitForState as d3, getDefaultTask as d4, getFileTasks as d5, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR as d6, annotateTasks as d7, recordTime as d8, parseActionId as d9, updateDeviceConnectionState as dA, trashRootKey as dB, PaperRippleMixin as dC, validateExternalDriveName as dD, isFilesAppId as da, splitExtension as db, LEGACY_FILES_EXTENSION_ID as dc, executeTask as dd, isTeleported as de, makeTaskID as df, extractFilePath as dg, USER_CANCELLED as dh, createChild as di, listMountableGuests as dj, GuestOsPlaceholder as dk, toSandboxedURL as dl, validateFileName as dm, updateDirectoryContent as dn, getLastVisitedURL as dp, getBulkPinProgress as dq, updateBulkPinProgress as dr, getEmptyState as ds, setLaunchParameters as dt, runningInBrowser as du, getDialogCaller as dv, getDlpBlockedComponents as dw, updatePreferences as dx, getDriveConnectionState as dy, updateDriveConnectionStatus as dz, RateLimiter as e, urlToEntry as f, getStore as g, strf as h, internals as i, str as j, startIOTask as k, checkAPIError as l, mixinElementInternals as m, getFileErrorString as n, openWindow as o, isRecentRootType as p, isDriveFsBulkPinningEnabled as q, recordEnum as r, startInterval as s, toFilesAppURL as t, unwrapEntry as u, visitURL as v, assert$1 as w, promisify as x, VolumeError as y, removeVolume as z };
+export { assertNotReached$1 as $, AsyncQueue as A, isSameFileSystem as B, COMPUTERS_DIRECTORY_NAME as C, isSameEntry as D, isFakeEntry as E, FakeEntryImpl as F, getRootType as G, SHARED_DRIVES_DIRECTORY_PATH as H, isTeamDriveRoot as I, COMPUTERS_DIRECTORY_PATH as J, isComputersRoot as K, getRootTypeFromVolumeType as L, getMediaViewRootTypeFromVolumeId as M, NativeEventTarget as N, MediaViewRootType as O, timeoutPromise as P, addVolume as Q, RootType as R, SHARED_DRIVES_DIRECTORY_NAME as S, recordInterval as T, VOLUME_ALREADY_MOUNTED as U, VolumeType as V, isInGuestMode as W, getDirectory as X, ARCHIVE_OPENED_EVENT_TYPE as Y, Source as Z, __decorate$1 as _, requestUpdateOnAriaChange as a, crInjectTypeAndInit as a$, descriptorEqual as a0, XfBase as a1, isCrosComponentsEnabled as a2, DialogType as a3, isFuseBoxDebugEnabled as a4, AllowedPaths as a5, isNative as a6, parseTrashInfoFiles as a7, recordMediumCount as a8, isFileEntry as a9, isDriveRootType as aA, SearchLocation as aB, CROSTINI_CONNECT_ERR as aC, mountGuest as aD, LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES as aE, ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES as aF, FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES as aG, DLP_METADATA_PREFETCH_PROPERTY_NAMES as aH, ConcurrentQueue as aI, isType as aJ, dispatchPropertyChange as aK, Aggregator as aL, PropStatus as aM, recordUserAction as aN, FileSystemType as aO, getVolumeTypeFromRootType as aP, convertURLsToEntries as aQ, isNativeEntry as aR, isOneDriveId as aS, getFileData as aT, getVolume as aU, getMyFiles as aV, changeDirectory as aW, getEntryLabel as aX, clearSearch as aY, isGuestOs as aZ, updateSearch as a_, isDirectoryEntry as aa, getLocaleBasedWeekStart as ab, SearchRecency as ac, getMediaType as ad, isImage as ae, isVideo as af, isRaw as ag, isPDF as ah, getType as ai, getContentMetadata as aj, testSendMessage as ak, getContentMimeType as al, isDlpEnabled as am, getDlpMetadata as an, getEntryProperties as ao, entriesToURLs as ap, isTrashEntry as aq, MetadataStats as ar, compareName as as, compareLabel as at, collator as au, dispatchSimpleEvent as av, createDOMError as aw, FileErrorToDomError as ax, getDefaultSearchOptions as ay, readEntriesRecursively as az, isActivationClick as b, shouldProvideIcons as b$, boolAttrSetter as b0, convertToKebabCase as b1, domAttrSetter as b2, assertInstanceof$1 as b3, CrButtonElement as b4, isTreeItem as b5, isXfTree as b6, handleTreeSlotChange as b7, refreshNavigationRoots as b8, NavigationType as b9, FSP_ACTION_HIDDEN_ONEDRIVE_USER_EMAIL as bA, FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED as bB, recordBoolean as bC, updateSelection as bD, isEncrypted as bE, refreshFolderShortcut as bF, recordSmallCount as bG, getPreferences as bH, comparePath as bI, addFolderShortcut as bJ, removeFolderShortcut as bK, Group as bL, addAndroidApps as bM, assertNotReached as bN, EntryList as bO, isGuestOsEnabled as bP, isArcVmEnabled as bQ, isSinglePartitionFormatEnabled as bR, getPropertyDescriptor as bS, PropertyKind as bT, assertInstanceof as bU, isSharedDriveEntry as bV, isComputersEntry as bW, isDescendantEntry as bX, getIconOverrides as bY, compareLabelAndGroupBottomEntries as bZ, iconSetToCSSBackgroundImageValue as b_, isVolumeEntry as ba, isOneDrive as bb, isDriveRootEntryList as bc, ICON_TYPES as bd, shouldSupportDriveSpecificIcons as be, vmTypeToIconName as bf, isMyFilesEntry as bg, readSubDirectoriesToCheckDirectoryChildren as bh, updateFileData as bi, readSubDirectories as bj, shouldDelayLoadingChildren as bk, isEntryScannable as bl, RootTypesForUMA as bm, maybeShowTooltip as bn, convertEntryToFileData as bo, isEntryInsideDrive as bp, isGrandRootEntryInDrives as bq, getEntry$1 as br, driveRootEntryListKey as bs, VolumeEntry as bt, traverseAndExpandPathEntries as bu, getTrustedHTML as bv, isNewDirectoryTreeEnabled as bw, storage as bx, isSameVolume as by, FSP_ACTION_HIDDEN_ONEDRIVE_URL as bz, assert as c, TaskHistory as c$, FocusOutlineManager as c0, mouseEnterMaybeShowTooltip as c1, getCrActionMenuTop as c2, SEARCH_RESULTS_KEY as c3, getVolumeType as c4, XfCloudPanel as c5, canBulkPinningCloudPanelShow as c6, CloudPanelType as c7, queryRequiredElement as c8, isSearchEmpty as c9, isTrashRootType as cA, isDirectoryTree as cB, isDirectoryTreeItem as cC, isTrashRoot as cD, isNonModifiable as cE, isRecentArcEntry as cF, getHoldingSpaceState as cG, getDlpRestrictionDetails as cH, getExtension as cI, isMirrorSyncEnabled as cJ, DEFAULT_BRUSCHETTA_VM as cK, addUiEntry as cL, removeUiEntry as cM, crostiniPlaceHolderKey as cN, UserCanceledError as cO, validateEntryName as cP, renameEntry as cQ, readSubDirectoriesForRenamedEntry as cR, getODFSMetadataQueryEntry as cS, updateIsInteractiveVolume as cT, getDisallowedTransfers as cU, htmlEscape as cV, isSiblingEntry as cW, grantAccess as cX, getParentEntry as cY, getFile as cZ, updateMetadata as c_, PathComponent as ca, bytesToString as cb, recordValue as cc, PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID as cd, DEFAULT_CROSTINI_VM as ce, PLUGIN_VM as cf, isGoogleOneOfferFilesBannerEligibleAndEnabled as cg, getTeamDriveName as ch, getDriveQuotaMetadata as ci, getSizeStats as cj, isNullOrUndefined as ck, queryDecoratedElement as cl, getFilesAppModalDialogInstance as cm, jsSetter as cn, getFileTypeForName as co, getKeyModifiers as cp, getCurrentLocaleOrDefault as cq, isAudio as cr, getIcon as cs, secondsToRemainingTimeString as ct, PanelType as cu, getFocusedTreeItem as cv, getTreeItemEntry as cw, isRecentRoot as cx, isInteractiveVolume as cy, isTeamDrivesGrandRoot as cz, dispatchActivationClick as d, EventType as d0, getFilesData as d1, fetchFileTasks as d2, getMimeType as d3, recordDirectoryListLoadWithTolerance as d4, waitForState as d5, getDefaultTask as d6, getFileTasks as d7, INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR as d8, annotateTasks as d9, getDriveConnectionState as dA, updateDriveConnectionStatus as dB, updateDeviceConnectionState as dC, trashRootKey as dD, PaperRippleMixin as dE, validateExternalDriveName as dF, recordTime as da, parseActionId as db, isFilesAppId as dc, splitExtension as dd, LEGACY_FILES_EXTENSION_ID as de, executeTask as df, isTeleported as dg, makeTaskID as dh, extractFilePath as di, USER_CANCELLED as dj, createChild as dk, listMountableGuests as dl, GuestOsPlaceholder as dm, toSandboxedURL as dn, validateFileName as dp, updateDirectoryContent as dq, getLastVisitedURL as dr, getBulkPinProgress as ds, updateBulkPinProgress as dt, getEmptyState as du, setLaunchParameters as dv, runningInBrowser as dw, getDialogCaller as dx, getDlpBlockedComponents as dy, updatePreferences as dz, RateLimiter as e, urlToEntry as f, getStore as g, strf as h, internals as i, str as j, startIOTask as k, checkAPIError as l, mixinElementInternals as m, getFileErrorString as n, openWindow as o, isRecentRootType as p, isDriveFsBulkPinningEnabled as q, recordEnum as r, startInterval as s, toFilesAppURL as t, unwrapEntry as u, visitURL as v, assert$1 as w, promisify as x, VolumeError as y, removeVolume as z };
 //# sourceMappingURL=shared.rollup.js.map

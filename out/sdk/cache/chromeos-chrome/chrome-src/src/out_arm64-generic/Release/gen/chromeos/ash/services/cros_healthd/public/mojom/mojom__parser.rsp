@@ -5,4 +5,3 @@
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_probe.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_routines.mojom
 ../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom
-../../../../../../../home/chrome-bot/chrome_root/src/chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom

@@ -515,7 +515,7 @@ class  MemoryRoutineArgument {
   template <typename... Args>
   static MemoryRoutineArgumentPtr New(Args&&... args) {
     return MemoryRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -655,7 +655,7 @@ class  AudioDriverRoutineArgument {
   template <typename... Args>
   static AudioDriverRoutineArgumentPtr New(Args&&... args) {
     return AudioDriverRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -792,7 +792,7 @@ class  UfsLifetimeRoutineArgument {
   template <typename... Args>
   static UfsLifetimeRoutineArgumentPtr New(Args&&... args) {
     return UfsLifetimeRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -934,7 +934,7 @@ class  BluetoothPowerRoutineArgument {
   template <typename... Args>
   static BluetoothPowerRoutineArgumentPtr New(Args&&... args) {
     return BluetoothPowerRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1070,7 +1070,7 @@ class  BluetoothDiscoveryRoutineArgument {
   template <typename... Args>
   static BluetoothDiscoveryRoutineArgumentPtr New(Args&&... args) {
     return BluetoothDiscoveryRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1206,7 +1206,7 @@ class  FanRoutineArgument {
   template <typename... Args>
   static FanRoutineArgumentPtr New(Args&&... args) {
     return FanRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1343,7 +1343,7 @@ class  BluetoothPairingRoutineArgument {
   template <typename... Args>
   static BluetoothPairingRoutineArgumentPtr New(Args&&... args) {
     return BluetoothPairingRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1484,7 +1484,7 @@ class  CameraAvailabilityRoutineArgument {
   template <typename... Args>
   static CameraAvailabilityRoutineArgumentPtr New(Args&&... args) {
     return CameraAvailabilityRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1630,7 +1630,7 @@ class  RoutineStateInitialized {
   template <typename... Args>
   static RoutineStateInitializedPtr New(Args&&... args) {
     return RoutineStateInitializedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1766,7 +1766,7 @@ class  RoutineStateRunning {
   template <typename... Args>
   static RoutineStateRunningPtr New(Args&&... args) {
     return RoutineStateRunningPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1903,7 +1903,7 @@ class  RoutineStateWaiting {
   template <typename... Args>
   static RoutineStateWaitingPtr New(Args&&... args) {
     return RoutineStateWaitingPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2049,7 +2049,7 @@ class  AudioDriverRoutineDetail {
   template <typename... Args>
   static AudioDriverRoutineDetailPtr New(Args&&... args) {
     return AudioDriverRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2193,7 +2193,7 @@ class  CpuStressRoutineDetail {
   template <typename... Args>
   static CpuStressRoutineDetailPtr New(Args&&... args) {
     return CpuStressRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2329,7 +2329,7 @@ class  UfsLifetimeRoutineDetail {
   template <typename... Args>
   static UfsLifetimeRoutineDetailPtr New(Args&&... args) {
     return UfsLifetimeRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2476,7 +2476,7 @@ class  DiskReadRoutineDetail {
   template <typename... Args>
   static DiskReadRoutineDetailPtr New(Args&&... args) {
     return DiskReadRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2612,7 +2612,7 @@ class  CpuCacheRoutineDetail {
   template <typename... Args>
   static CpuCacheRoutineDetailPtr New(Args&&... args) {
     return CpuCacheRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2748,7 +2748,7 @@ class  PrimeSearchRoutineDetail {
   template <typename... Args>
   static PrimeSearchRoutineDetailPtr New(Args&&... args) {
     return PrimeSearchRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2884,7 +2884,7 @@ class  FloatingPointRoutineDetail {
   template <typename... Args>
   static FloatingPointRoutineDetailPtr New(Args&&... args) {
     return FloatingPointRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3021,7 +3021,7 @@ class  VolumeButtonRoutineDetail {
   template <typename... Args>
   static VolumeButtonRoutineDetailPtr New(Args&&... args) {
     return VolumeButtonRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3157,7 +3157,7 @@ class  LedLitUpRoutineDetail {
   template <typename... Args>
   static LedLitUpRoutineDetailPtr New(Args&&... args) {
     return LedLitUpRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3293,7 +3293,7 @@ class  BluetoothPoweredDetail {
   template <typename... Args>
   static BluetoothPoweredDetailPtr New(Args&&... args) {
     return BluetoothPoweredDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3438,7 +3438,7 @@ class  BluetoothDiscoveringDetail {
   template <typename... Args>
   static BluetoothDiscoveringDetailPtr New(Args&&... args) {
     return BluetoothDiscoveringDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3587,7 +3587,7 @@ class  CameraAvailabilityRoutineDetail {
   template <typename... Args>
   static CameraAvailabilityRoutineDetailPtr New(Args&&... args) {
     return CameraAvailabilityRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3732,7 +3732,7 @@ class  UrandomRoutineDetail {
   template <typename... Args>
   static UrandomRoutineDetailPtr New(Args&&... args) {
     return UrandomRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3878,7 +3878,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewUnrecognizedArgument(
       bool value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_unrecognizedArgument(std::move(value));
     return result;
   }
@@ -3886,7 +3886,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewMemory(
       MemoryRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_memory(std::move(value));
     return result;
   }
@@ -3894,7 +3894,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewVolumeButton(
       VolumeButtonRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_volume_button(std::move(value));
     return result;
   }
@@ -3902,7 +3902,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewFan(
       FanRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_fan(std::move(value));
     return result;
   }
@@ -3910,7 +3910,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewAudioDriver(
       AudioDriverRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_audio_driver(std::move(value));
     return result;
   }
@@ -3918,7 +3918,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewCpuStress(
       CpuStressRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_cpu_stress(std::move(value));
     return result;
   }
@@ -3926,7 +3926,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewUfsLifetime(
       UfsLifetimeRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_ufs_lifetime(std::move(value));
     return result;
   }
@@ -3934,7 +3934,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewDiskRead(
       DiskReadRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_disk_read(std::move(value));
     return result;
   }
@@ -3942,7 +3942,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewCpuCache(
       CpuCacheRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_cpu_cache(std::move(value));
     return result;
   }
@@ -3950,7 +3950,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewPrimeSearch(
       PrimeSearchRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_prime_search(std::move(value));
     return result;
   }
@@ -3958,7 +3958,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewLedLitUp(
       LedLitUpRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_led_lit_up(std::move(value));
     return result;
   }
@@ -3966,7 +3966,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewFloatingPoint(
       FloatingPointRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_floating_point(std::move(value));
     return result;
   }
@@ -3974,7 +3974,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewBluetoothPower(
       BluetoothPowerRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_bluetooth_power(std::move(value));
     return result;
   }
@@ -3982,7 +3982,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewBluetoothDiscovery(
       BluetoothDiscoveryRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_bluetooth_discovery(std::move(value));
     return result;
   }
@@ -3990,7 +3990,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewBluetoothScanning(
       BluetoothScanningRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_bluetooth_scanning(std::move(value));
     return result;
   }
@@ -3998,7 +3998,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewBluetoothPairing(
       BluetoothPairingRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_bluetooth_pairing(std::move(value));
     return result;
   }
@@ -4006,7 +4006,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewCameraAvailability(
       CameraAvailabilityRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_camera_availability(std::move(value));
     return result;
   }
@@ -4014,7 +4014,7 @@ class  RoutineArgument {
   static RoutineArgumentPtr
   NewUrandom(
       UrandomRoutineArgumentPtr value) {
-    auto result = RoutineArgumentPtr(absl::in_place);
+    auto result = RoutineArgumentPtr(std::in_place);
     result->set_urandom(std::move(value));
     return result;
   }
@@ -4344,7 +4344,7 @@ class  RoutineStateUnion {
   static RoutineStateUnionPtr
   NewUnrecognizedArgument(
       bool value) {
-    auto result = RoutineStateUnionPtr(absl::in_place);
+    auto result = RoutineStateUnionPtr(std::in_place);
     result->set_unrecognizedArgument(std::move(value));
     return result;
   }
@@ -4352,7 +4352,7 @@ class  RoutineStateUnion {
   static RoutineStateUnionPtr
   NewInitialized(
       RoutineStateInitializedPtr value) {
-    auto result = RoutineStateUnionPtr(absl::in_place);
+    auto result = RoutineStateUnionPtr(std::in_place);
     result->set_initialized(std::move(value));
     return result;
   }
@@ -4360,7 +4360,7 @@ class  RoutineStateUnion {
   static RoutineStateUnionPtr
   NewRunning(
       RoutineStateRunningPtr value) {
-    auto result = RoutineStateUnionPtr(absl::in_place);
+    auto result = RoutineStateUnionPtr(std::in_place);
     result->set_running(std::move(value));
     return result;
   }
@@ -4368,7 +4368,7 @@ class  RoutineStateUnion {
   static RoutineStateUnionPtr
   NewWaiting(
       RoutineStateWaitingPtr value) {
-    auto result = RoutineStateUnionPtr(absl::in_place);
+    auto result = RoutineStateUnionPtr(std::in_place);
     result->set_waiting(std::move(value));
     return result;
   }
@@ -4376,7 +4376,7 @@ class  RoutineStateUnion {
   static RoutineStateUnionPtr
   NewFinished(
       RoutineStateFinishedPtr value) {
-    auto result = RoutineStateUnionPtr(absl::in_place);
+    auto result = RoutineStateUnionPtr(std::in_place);
     result->set_finished(std::move(value));
     return result;
   }
@@ -4537,7 +4537,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewUnrecognizedArgument(
       bool value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_unrecognizedArgument(std::move(value));
     return result;
   }
@@ -4545,7 +4545,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewMemory(
       MemoryRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_memory(std::move(value));
     return result;
   }
@@ -4553,7 +4553,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewVolumeButton(
       VolumeButtonRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_volume_button(std::move(value));
     return result;
   }
@@ -4561,7 +4561,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewFan(
       FanRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_fan(std::move(value));
     return result;
   }
@@ -4569,7 +4569,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewAudioDriver(
       AudioDriverRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_audio_driver(std::move(value));
     return result;
   }
@@ -4577,7 +4577,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewCpuStress(
       CpuStressRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_cpu_stress(std::move(value));
     return result;
   }
@@ -4585,7 +4585,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewUfsLifetime(
       UfsLifetimeRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_ufs_lifetime(std::move(value));
     return result;
   }
@@ -4593,7 +4593,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewDiskRead(
       DiskReadRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_disk_read(std::move(value));
     return result;
   }
@@ -4601,7 +4601,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewCpuCache(
       CpuCacheRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_cpu_cache(std::move(value));
     return result;
   }
@@ -4609,7 +4609,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewPrimeSearch(
       PrimeSearchRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_prime_search(std::move(value));
     return result;
   }
@@ -4617,7 +4617,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewLedLitUp(
       LedLitUpRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_led_lit_up(std::move(value));
     return result;
   }
@@ -4625,7 +4625,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewFloatingPoint(
       FloatingPointRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_floating_point(std::move(value));
     return result;
   }
@@ -4633,7 +4633,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewBluetoothPower(
       BluetoothPowerRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_bluetooth_power(std::move(value));
     return result;
   }
@@ -4641,7 +4641,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewBluetoothDiscovery(
       BluetoothDiscoveryRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_bluetooth_discovery(std::move(value));
     return result;
   }
@@ -4649,7 +4649,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewBluetoothScanning(
       BluetoothScanningRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_bluetooth_scanning(std::move(value));
     return result;
   }
@@ -4657,7 +4657,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewBluetoothPairing(
       BluetoothPairingRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_bluetooth_pairing(std::move(value));
     return result;
   }
@@ -4665,7 +4665,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewCameraAvailability(
       CameraAvailabilityRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_camera_availability(std::move(value));
     return result;
   }
@@ -4673,7 +4673,7 @@ class  RoutineDetail {
   static RoutineDetailPtr
   NewUrandom(
       UrandomRoutineDetailPtr value) {
-    auto result = RoutineDetailPtr(absl::in_place);
+    auto result = RoutineDetailPtr(std::in_place);
     result->set_urandom(std::move(value));
     return result;
   }
@@ -4997,7 +4997,7 @@ class  CpuStressRoutineArgument {
   template <typename... Args>
   static CpuStressRoutineArgumentPtr New(Args&&... args) {
     return CpuStressRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5138,7 +5138,7 @@ class  DiskReadRoutineArgument {
   template <typename... Args>
   static DiskReadRoutineArgumentPtr New(Args&&... args) {
     return DiskReadRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5284,7 +5284,7 @@ class  CpuCacheRoutineArgument {
   template <typename... Args>
   static CpuCacheRoutineArgumentPtr New(Args&&... args) {
     return CpuCacheRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5424,7 +5424,7 @@ class  PrimeSearchRoutineArgument {
   template <typename... Args>
   static PrimeSearchRoutineArgumentPtr New(Args&&... args) {
     return PrimeSearchRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5565,7 +5565,7 @@ class  VolumeButtonRoutineArgument {
   template <typename... Args>
   static VolumeButtonRoutineArgumentPtr New(Args&&... args) {
     return VolumeButtonRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5708,7 +5708,7 @@ class  LedLitUpRoutineArgument {
   template <typename... Args>
   static LedLitUpRoutineArgumentPtr New(Args&&... args) {
     return LedLitUpRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5851,7 +5851,7 @@ class  FloatingPointRoutineArgument {
   template <typename... Args>
   static FloatingPointRoutineArgumentPtr New(Args&&... args) {
     return FloatingPointRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -5994,7 +5994,7 @@ class  BluetoothScanningRoutineArgument {
   template <typename... Args>
   static BluetoothScanningRoutineArgumentPtr New(Args&&... args) {
     return BluetoothScanningRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6136,7 +6136,7 @@ class  UrandomRoutineArgument {
   template <typename... Args>
   static UrandomRoutineArgumentPtr New(Args&&... args) {
     return UrandomRoutineArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6276,7 +6276,7 @@ class  RoutineState {
   template <typename... Args>
   static RoutineStatePtr New(Args&&... args) {
     return RoutineStatePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6424,7 +6424,7 @@ class  RoutineStateFinished {
   template <typename... Args>
   static RoutineStateFinishedPtr New(Args&&... args) {
     return RoutineStateFinishedPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6569,7 +6569,7 @@ class  MemoryRoutineDetail {
   template <typename... Args>
   static MemoryRoutineDetailPtr New(Args&&... args) {
     return MemoryRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6721,7 +6721,7 @@ class  MemtesterResult {
   template <typename... Args>
   static MemtesterResultPtr New(Args&&... args) {
     return MemtesterResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -6867,7 +6867,7 @@ class  BluetoothPowerRoutineDetail {
   template <typename... Args>
   static BluetoothPowerRoutineDetailPtr New(Args&&... args) {
     return BluetoothPowerRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7013,7 +7013,7 @@ class  BluetoothDiscoveryRoutineDetail {
   template <typename... Args>
   static BluetoothDiscoveryRoutineDetailPtr New(Args&&... args) {
     return BluetoothDiscoveryRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7158,7 +7158,7 @@ class  BluetoothScannedPeripheralInfo {
   template <typename... Args>
   static BluetoothScannedPeripheralInfoPtr New(Args&&... args) {
     return BluetoothScannedPeripheralInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7304,7 +7304,7 @@ class  BluetoothScanningRoutineDetail {
   template <typename... Args>
   static BluetoothScanningRoutineDetailPtr New(Args&&... args) {
     return BluetoothScanningRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7449,7 +7449,7 @@ class  BluetoothPairingPeripheralInfo {
   template <typename... Args>
   static BluetoothPairingPeripheralInfoPtr New(Args&&... args) {
     return BluetoothPairingPeripheralInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7607,7 +7607,7 @@ class  BluetoothPairingRoutineDetail {
   template <typename... Args>
   static BluetoothPairingRoutineDetailPtr New(Args&&... args) {
     return BluetoothPairingRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -7750,7 +7750,7 @@ class  FanRoutineDetail {
   template <typename... Args>
   static FanRoutineDetailPtr New(Args&&... args) {
     return FanRoutineDetailPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

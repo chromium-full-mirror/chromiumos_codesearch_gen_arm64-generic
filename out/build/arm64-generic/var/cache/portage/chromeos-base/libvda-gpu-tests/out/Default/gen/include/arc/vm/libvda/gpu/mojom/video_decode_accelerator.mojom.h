@@ -362,7 +362,7 @@ class  VideoDecodeAcceleratorConfig {
   template <typename... Args>
   static VideoDecodeAcceleratorConfigPtr New(Args&&... args) {
     return VideoDecodeAcceleratorConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -506,7 +506,7 @@ class  BufferModifier {
   template <typename... Args>
   static BufferModifierPtr New(Args&&... args) {
     return BufferModifierPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -649,7 +649,7 @@ class  BitstreamBuffer {
   template <typename... Args>
   static BitstreamBufferPtr New(Args&&... args) {
     return BitstreamBufferPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -795,7 +795,7 @@ class  Picture {
   template <typename... Args>
   static PicturePtr New(Args&&... args) {
     return PicturePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -944,7 +944,7 @@ class  PictureBufferFormat {
   template <typename... Args>
   static PictureBufferFormatPtr New(Args&&... args) {
     return PictureBufferFormatPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

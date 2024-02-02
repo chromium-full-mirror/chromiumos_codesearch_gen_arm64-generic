@@ -36,6 +36,8 @@ class ArcLockScreenNotificationSettingDataView;
 
 class NotificationConfigurationDataView;
 
+class ArcNotificationMessageDataView;
+
 
 enum class ArcNotificationEvent : int32_t;
 
@@ -72,6 +74,9 @@ using ArcLockScreenNotificationSettingPtr = mojo::InlinedStructPtr<ArcLockScreen
 
 class NotificationConfiguration;
 using NotificationConfigurationPtr = mojo::InlinedStructPtr<NotificationConfiguration>;
+
+class ArcNotificationMessage;
+using ArcNotificationMessagePtr = mojo::StructPtr<ArcNotificationMessage>;
 
 class NotificationsHost;
 

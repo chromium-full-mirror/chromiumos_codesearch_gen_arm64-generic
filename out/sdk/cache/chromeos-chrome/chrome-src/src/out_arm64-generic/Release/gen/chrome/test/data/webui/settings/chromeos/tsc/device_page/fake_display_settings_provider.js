@@ -18,6 +18,11 @@ export class FakeDisplaySettingsProvider {
     // First key indicates internal or external display. Second key indicates the
     // night light schedule. The value indicates the histogram count.
     displayNightLightScheduleHistogram = new Map();
+    // The key is the mirror mode status. The value indicates the histogram count.
+    displayMirrorModeStatusHistogram = new Map();
+    // The key is the unified mode status. The value indicates the histogram
+    // count.
+    displayUnifiedModeStatusHistogram = new Map();
     // Implement DisplaySettingsProviderInterface.
     observeTabletMode(observer) {
         this.tabletModeObservers.push(observer);
@@ -78,6 +83,21 @@ export class FakeDisplaySettingsProvider {
             nightLightScheduleHistogram.set(value.nightLightSchedule, (nightLightScheduleHistogram.get(value.nightLightSchedule) || 0) + 1);
             this.displayNightLightScheduleHistogram.set(value.isInternalDisplay, nightLightScheduleHistogram);
         }
+        else if (type === displaySettingsProviderMojom.DisplaySettingsType.kMirrorMode &&
+            value.isInternalDisplay === undefined &&
+            value.mirrorModeStatus !== undefined) {
+            this.displayMirrorModeStatusHistogram.set(value.mirrorModeStatus, (this.displayMirrorModeStatusHistogram.get(value.mirrorModeStatus) ||
+                0) +
+                1);
+        }
+        else if (type ===
+            displaySettingsProviderMojom.DisplaySettingsType.kUnifiedMode &&
+            value.isInternalDisplay === undefined &&
+            value.unifiedModeStatus !== undefined) {
+            this.displayUnifiedModeStatusHistogram.set(value.unifiedModeStatus, (this.displayUnifiedModeStatusHistogram.get(value.unifiedModeStatus) ||
+                0) +
+                1);
+        }
     }
     getInternalDisplayHistogram() {
         return this.internalDisplayHistogram;
@@ -99,5 +119,11 @@ export class FakeDisplaySettingsProvider {
     getDisplayNightLightScheduleHistogram(isInternalDisplay) {
         return this.displayNightLightScheduleHistogram.get(isInternalDisplay) ||
             new Map();
+    }
+    getDisplayMirrorModeStatusHistogram() {
+        return this.displayMirrorModeStatusHistogram;
+    }
+    getDisplayUnifiedModeStatusHistogram() {
+        return this.displayUnifiedModeStatusHistogram;
     }
 }

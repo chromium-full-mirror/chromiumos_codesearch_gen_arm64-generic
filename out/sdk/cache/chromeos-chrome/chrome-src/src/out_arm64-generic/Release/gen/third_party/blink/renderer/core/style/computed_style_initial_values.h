@@ -943,6 +943,10 @@ class ComputedStyleInitialValues{
     return nullptr;
   }
 
+  static EPositionTryOrder InitialPositionTryOrder() {
+    return EPositionTryOrder::kNormal;
+  }
+
   static QuotesData* InitialQuotes() {
     return nullptr;
   }

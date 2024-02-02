@@ -2762,10 +2762,8 @@ class BLINK_COMMON_EXPORT AuctionAdConfig {
       const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params,
       const ::blink::AuctionConfig::MaybePromiseDirectFromSellerSignals& direct_from_seller_signals,
       bool expects_direct_from_seller_signals_header_ad_slot,
-      bool has_seller_experiment_group_id,
-      uint16_t seller_experiment_group_id,
-      bool has_all_buyer_experiment_group_id,
-      int16_t all_buyer_experiment_group_id,
+      std::optional<uint16_t> seller_experiment_group_id,
+      std::optional<int16_t> all_buyer_experiment_group_id,
       const base::flat_map<::url::Origin, uint16_t>& per_buyer_experiment_group_ids,
       bool expects_additional_bids,
       const std::optional<::url::Origin>& aggregation_coordinator_origin);
@@ -2862,13 +2860,9 @@ class BLINK_COMMON_EXPORT AuctionAdConfig {
   
   bool expects_direct_from_seller_signals_header_ad_slot;
   
-  bool has_seller_experiment_group_id;
+  std::optional<uint16_t> seller_experiment_group_id;
   
-  uint16_t seller_experiment_group_id;
-  
-  bool has_all_buyer_experiment_group_id;
-  
-  int16_t all_buyer_experiment_group_id;
+  std::optional<int16_t> all_buyer_experiment_group_id;
   
   base::flat_map<::url::Origin, uint16_t> per_buyer_experiment_group_ids;
   
@@ -3767,9 +3761,7 @@ AuctionAdConfigPtr AuctionAdConfig::Clone() const {
       mojo::Clone(auction_ad_config_non_shared_params),
       mojo::Clone(direct_from_seller_signals),
       mojo::Clone(expects_direct_from_seller_signals_header_ad_slot),
-      mojo::Clone(has_seller_experiment_group_id),
       mojo::Clone(seller_experiment_group_id),
-      mojo::Clone(has_all_buyer_experiment_group_id),
       mojo::Clone(all_buyer_experiment_group_id),
       mojo::Clone(per_buyer_experiment_group_ids),
       mojo::Clone(expects_additional_bids),
@@ -3795,11 +3787,7 @@ bool AuctionAdConfig::Equals(const T& other_struct) const {
     return false;
   if (!mojo::Equals(this->expects_direct_from_seller_signals_header_ad_slot, other_struct.expects_direct_from_seller_signals_header_ad_slot))
     return false;
-  if (!mojo::Equals(this->has_seller_experiment_group_id, other_struct.has_seller_experiment_group_id))
-    return false;
   if (!mojo::Equals(this->seller_experiment_group_id, other_struct.seller_experiment_group_id))
-    return false;
-  if (!mojo::Equals(this->has_all_buyer_experiment_group_id, other_struct.has_all_buyer_experiment_group_id))
     return false;
   if (!mojo::Equals(this->all_buyer_experiment_group_id, other_struct.all_buyer_experiment_group_id))
     return false;
@@ -3846,17 +3834,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.expects_direct_from_seller_signals_header_ad_slot < lhs.expects_direct_from_seller_signals_header_ad_slot)
     return false;
-  if (lhs.has_seller_experiment_group_id < rhs.has_seller_experiment_group_id)
-    return true;
-  if (rhs.has_seller_experiment_group_id < lhs.has_seller_experiment_group_id)
-    return false;
   if (lhs.seller_experiment_group_id < rhs.seller_experiment_group_id)
     return true;
   if (rhs.seller_experiment_group_id < lhs.seller_experiment_group_id)
-    return false;
-  if (lhs.has_all_buyer_experiment_group_id < rhs.has_all_buyer_experiment_group_id)
-    return true;
-  if (rhs.has_all_buyer_experiment_group_id < lhs.has_all_buyer_experiment_group_id)
     return false;
   if (lhs.all_buyer_experiment_group_id < rhs.all_buyer_experiment_group_id)
     return true;
@@ -4424,19 +4404,9 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::AuctionAdConfig::DataVie
     return input->expects_direct_from_seller_signals_header_ad_slot;
   }
 
-  static decltype(::blink::mojom::AuctionAdConfig::has_seller_experiment_group_id) has_seller_experiment_group_id(
-      const ::blink::mojom::AuctionAdConfigPtr& input) {
-    return input->has_seller_experiment_group_id;
-  }
-
   static decltype(::blink::mojom::AuctionAdConfig::seller_experiment_group_id) seller_experiment_group_id(
       const ::blink::mojom::AuctionAdConfigPtr& input) {
     return input->seller_experiment_group_id;
-  }
-
-  static decltype(::blink::mojom::AuctionAdConfig::has_all_buyer_experiment_group_id) has_all_buyer_experiment_group_id(
-      const ::blink::mojom::AuctionAdConfigPtr& input) {
-    return input->has_all_buyer_experiment_group_id;
   }
 
   static decltype(::blink::mojom::AuctionAdConfig::all_buyer_experiment_group_id) all_buyer_experiment_group_id(

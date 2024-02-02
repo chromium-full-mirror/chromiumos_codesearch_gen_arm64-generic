@@ -102,6 +102,70 @@ bool SyntheticKeyEvent::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+SyntheticMouseEvent::SyntheticMouseEvent()
+    : type(),
+      point(),
+      mouse_button(),
+      touch_accessibility() {}
+
+SyntheticMouseEvent::SyntheticMouseEvent(
+    ::ui::mojom::EventType type_in,
+    const ::gfx::Point& point_in,
+    std::optional<SyntheticMouseEventButton> mouse_button_in,
+    std::optional<bool> touch_accessibility_in)
+    : type(std::move(type_in)),
+      point(std::move(point_in)),
+      mouse_button(std::move(mouse_button_in)),
+      touch_accessibility(std::move(touch_accessibility_in)) {}
+
+SyntheticMouseEvent::~SyntheticMouseEvent() = default;
+
+void SyntheticMouseEvent::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "type"), this->type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::ui::mojom::EventType>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "point"), this->point,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::gfx::Point&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "mouse_button"), this->mouse_button,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<SyntheticMouseEventButton>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "touch_accessibility"), this->touch_accessibility,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<bool>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool SyntheticMouseEvent::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 const char UserInput::Name_[] = "ax.mojom.UserInput";
 
 UserInput::IPCStableHashFunction UserInput::MessageToMethodInfo_(mojo::Message& message) {
@@ -109,6 +173,9 @@ UserInput::IPCStableHashFunction UserInput::MessageToMethodInfo_(mojo::Message& 
   switch (message.name()) {
     case internal::kUserInput_SendSyntheticKeyEventForShortcutOrNavigation_Name: {
       return &UserInput::SendSyntheticKeyEventForShortcutOrNavigation_Sym::IPCStableHash;
+    }
+    case internal::kUserInput_SendSyntheticMouseEvent_Name: {
+      return &UserInput::SendSyntheticMouseEvent_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -123,11 +190,15 @@ const char* UserInput::MessageToMethodName_(mojo::Message& message) {
     switch (message.name()) {
       case internal::kUserInput_SendSyntheticKeyEventForShortcutOrNavigation_Name:
             return "Receive ax::mojom::UserInput::SendSyntheticKeyEventForShortcutOrNavigation";
+      case internal::kUserInput_SendSyntheticMouseEvent_Name:
+            return "Receive ax::mojom::UserInput::SendSyntheticMouseEvent";
     }
   } else {
     switch (message.name()) {
       case internal::kUserInput_SendSyntheticKeyEventForShortcutOrNavigation_Name:
             return "Receive reply ax::mojom::UserInput::SendSyntheticKeyEventForShortcutOrNavigation";
+      case internal::kUserInput_SendSyntheticMouseEvent_Name:
+            return "Receive reply ax::mojom::UserInput::SendSyntheticMouseEvent";
     }
   }
   return "Receive unknown mojo message";
@@ -151,6 +222,19 @@ uint32_t UserInput::SendSyntheticKeyEventForShortcutOrNavigation_Sym::IPCStableH
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ax::mojom::UserInput::SendSyntheticKeyEventForShortcutOrNavigation");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t UserInput::SendSyntheticMouseEvent_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ax::mojom::UserInput::SendSyntheticMouseEvent");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -212,6 +296,57 @@ void UserInputProxy::SendSyntheticKeyEventForShortcutOrNavigation(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void UserInputProxy::SendSyntheticMouseEvent(
+    SyntheticMouseEventPtr in_mouse_event) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ax::mojom::UserInput::SendSyntheticMouseEvent", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("mouse_event"), in_mouse_event,
+                        "<value of type SyntheticMouseEventPtr>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kUserInput_SendSyntheticMouseEvent_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ax::mojom::internal::UserInput_SendSyntheticMouseEvent_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->mouse_event)::BaseType> mouse_event_fragment(
+          params.message());
+  mojo::internal::Serialize<::ax::mojom::SyntheticMouseEventDataView>(
+      in_mouse_event, mouse_event_fragment);
+  params->mouse_event.Set(
+      mouse_event_fragment.is_null() ? nullptr : mouse_event_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->mouse_event.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null mouse_event in UserInput.SendSyntheticMouseEvent request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(UserInput::Name_);
+  message.set_method_name("SendSyntheticMouseEvent");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 // static
 bool UserInputStubDispatch::Accept(
     UserInput* impl,
@@ -245,6 +380,34 @@ bool UserInputStubDispatch::Accept(
         std::move(p_key_event));
       return true;
     }
+    case internal::kUserInput_SendSyntheticMouseEvent_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::UserInput_SendSyntheticMouseEvent_Params_Data* params =
+          reinterpret_cast<internal::UserInput_SendSyntheticMouseEvent_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for UserInput.1
+      bool success = true;
+      SyntheticMouseEventPtr p_mouse_event{};
+      UserInput_SendSyntheticMouseEvent_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadMouseEvent(&p_mouse_event))
+        success = false;
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            UserInput::Name_, 1, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->SendSyntheticMouseEvent(        
+        std::move(p_mouse_event));
+      return true;
+    }
   }
   return false;
 }
@@ -261,6 +424,9 @@ bool UserInputStubDispatch::AcceptWithResponder(
     case internal::kUserInput_SendSyntheticKeyEventForShortcutOrNavigation_Name: {
       break;
     }
+    case internal::kUserInput_SendSyntheticMouseEvent_Name: {
+      break;
+    }
   }
   return false;
 }
@@ -268,6 +434,8 @@ namespace {
 }  // namespace
 static const mojo::internal::GenericValidationInfo kUserInputValidationInfo[] = {
     { &internal::UserInput_SendSyntheticKeyEventForShortcutOrNavigation_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::UserInput_SendSyntheticMouseEvent_Params_Data::Validate,
      nullptr /* no response */},
 };
 
@@ -301,6 +469,28 @@ bool StructTraits<::ax::mojom::SyntheticKeyEvent::DataView, ::ax::mojom::Synthet
   return success;
 }
 
+
+// static
+bool StructTraits<::ax::mojom::SyntheticMouseEvent::DataView, ::ax::mojom::SyntheticMouseEventPtr>::Read(
+    ::ax::mojom::SyntheticMouseEvent::DataView input,
+    ::ax::mojom::SyntheticMouseEventPtr* output) {
+  bool success = true;
+  ::ax::mojom::SyntheticMouseEventPtr result(::ax::mojom::SyntheticMouseEvent::New());
+  
+      if (success && !input.ReadType(&result->type))
+        success = false;
+      if (success && !input.ReadPoint(&result->point))
+        success = false;
+      if (success && !input.ReadMouseButton(&result->mouse_button)) {
+        success = false;
+      }
+      if (success) {
+        result->touch_accessibility = input.touch_accessibility();
+      }
+  *output = std::move(result);
+  return success;
+}
+
 }  // namespace mojo
 
 
@@ -313,6 +503,9 @@ namespace ax::mojom {
 
 void UserInputInterceptorForTesting::SendSyntheticKeyEventForShortcutOrNavigation(SyntheticKeyEventPtr key_event) {
   GetForwardingInterface()->SendSyntheticKeyEventForShortcutOrNavigation(std::move(key_event));
+}
+void UserInputInterceptorForTesting::SendSyntheticMouseEvent(SyntheticMouseEventPtr mouse_event) {
+  GetForwardingInterface()->SendSyntheticMouseEvent(std::move(mouse_event));
 }
 UserInputAsyncWaiter::UserInputAsyncWaiter(
     UserInput* proxy) : proxy_(proxy) {}

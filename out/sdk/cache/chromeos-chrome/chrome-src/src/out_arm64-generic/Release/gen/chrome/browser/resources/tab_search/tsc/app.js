@@ -32,9 +32,7 @@ export class TabSearchAppElement extends PolymerElement {
             },
             tabIcons_: {
                 type: Array,
-                value: () => ['images/tab_search.svg',
-                    'images/auto_tab_groups.svg',
-                ],
+                value: () => ['images/tab_search.svg', 'images/auto_tab_groups.svg'],
             },
             tabOrganizationEnabled_: {
                 type: Boolean,
@@ -49,6 +47,7 @@ export class TabSearchAppElement extends PolymerElement {
         super.connectedCallback();
         const callbackRouter = this.apiProxy_.getCallbackRouter();
         this.listenerIds_.push(callbackRouter.tabSearchTabIndexChanged.addListener(this.onTabIndexChanged_.bind(this)));
+        this.listenerIds_.push(callbackRouter.tabOrganizationEnabledChanged.addListener(this.onTabOrganizationEnabledChanged_.bind(this)));
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -56,6 +55,9 @@ export class TabSearchAppElement extends PolymerElement {
     }
     onTabIndexChanged_(index) {
         this.selectedTabIndex_ = index;
+    }
+    onTabOrganizationEnabledChanged_(enabled) {
+        this.tabOrganizationEnabled_ = enabled;
     }
     onSelectedTabChanged_(event) {
         if (event.detail.value === 1) {

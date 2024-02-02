@@ -72,19 +72,19 @@ export class TimelineFlameChartView extends UI.Widget.VBox {
         this.model = null;
         this.eventListeners = [];
         this.#traceEngineData = null;
-        this.showMemoryGraphSetting = Common.Settings.Settings.instance().createSetting('timelineShowMemory', false);
+        this.showMemoryGraphSetting = Common.Settings.Settings.instance().createSetting('timeline-show-memory', false);
         // Create main and network flamecharts.
         this.networkSplitWidget = new UI.SplitWidget.SplitWidget(false, false, 'timeline-flamechart-main-view', 150);
         // Ensure that the network panel & resizer appears above the main thread.
         this.networkSplitWidget.sidebarElement().style.zIndex = '120';
-        const mainViewGroupExpansionSetting = Common.Settings.Settings.instance().createSetting('timelineFlamechartMainViewGroupExpansion', {});
+        const mainViewGroupExpansionSetting = Common.Settings.Settings.instance().createSetting('timeline-flamechart-main-view-group-expansion', {});
         this.mainDataProvider = new TimelineFlameChartDataProvider();
         this.mainDataProvider.addEventListener("DataChanged" /* TimelineFlameChartDataProviderEvents.DataChanged */, () => this.mainFlameChart.scheduleUpdate());
         this.mainFlameChart = new PerfUI.FlameChart.FlameChart(this.mainDataProvider, this, mainViewGroupExpansionSetting);
         this.mainFlameChart.alwaysShowVerticalScroll();
         this.mainFlameChart.enableRuler(false);
         this.networkFlameChartGroupExpansionSetting =
-            Common.Settings.Settings.instance().createSetting('timelineFlamechartNetworkViewGroupExpansion', {});
+            Common.Settings.Settings.instance().createSetting('timeline-flamechart-network-view-group-expansion', {});
         this.networkDataProvider = new TimelineFlameChartNetworkDataProvider();
         this.networkFlameChart =
             new PerfUI.FlameChart.FlameChart(this.networkDataProvider, this, this.networkFlameChartGroupExpansionSetting);
@@ -123,7 +123,7 @@ export class TimelineFlameChartView extends UI.Widget.VBox {
         this.boundRefresh = this.#reset.bind(this);
         this.#selectedEvents = null;
         this.mainDataProvider.setEventColorMapping(TimelineUIUtils.eventColor);
-        this.groupBySetting = Common.Settings.Settings.instance().createSetting('timelineTreeGroupBy', AggregatedTimelineTreeView.GroupBy.None);
+        this.groupBySetting = Common.Settings.Settings.instance().createSetting('timeline-tree-group-by', AggregatedTimelineTreeView.GroupBy.None);
         this.groupBySetting.addChangeListener(this.updateColorMapper, this);
         this.updateColorMapper();
         TraceBounds.TraceBounds.onChange(this.#onTraceBoundsChangeBound);

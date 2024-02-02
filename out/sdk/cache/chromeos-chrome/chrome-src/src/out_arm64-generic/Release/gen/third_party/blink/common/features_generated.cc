@@ -283,6 +283,16 @@ BASE_FEATURE(kCSSCrossFade,
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 
+BASE_FEATURE(kCSSCustomStateDeprecatedSyntax,
+    "CSSCustomStateDeprecatedSyntax",
+    base::FEATURE_ENABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kCSSCustomStateNewSyntax,
+    "CSSCustomStateNewSyntax",
+    base::FEATURE_DISABLED_BY_DEFAULT
+);
+
 BASE_FEATURE(kCSSDisplayAnimation,
     "CSSDisplayAnimation",
     base::FEATURE_ENABLED_BY_DEFAULT
@@ -1225,6 +1235,11 @@ BASE_FEATURE(kNavigationActivation,
 
 BASE_FEATURE(kNavigationId,
     "NavigationId",
+    base::FEATURE_DISABLED_BY_DEFAULT
+);
+
+BASE_FEATURE(kNestedTopLayerSupport,
+    "NestedTopLayerSupport",
     base::FEATURE_DISABLED_BY_DEFAULT
 );
 

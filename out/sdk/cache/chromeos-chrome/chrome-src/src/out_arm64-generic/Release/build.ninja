@@ -141,7 +141,6 @@ build absl_log: phony obj/third_party/abseil-cpp/absl/log/absl_log.stamp
 build absl_log_basic_test: phony obj/third_party/abseil-cpp/absl/log/absl_log_basic_test.stamp
 build absl_tests__runner: phony obj/third_party/abseil-cpp/absl_tests__runner.stamp
 build absl_vlog_is_on: phony obj/third_party/abseil-cpp/absl/log/absl_vlog_is_on.stamp
-build ac3_util_fuzzer__fuzzer_options: phony obj/media/formats/ac3_util_fuzzer__fuzzer_options.stamp
 build ac3_util_fuzzer__runner: phony obj/media/formats/ac3_util_fuzzer__runner.stamp
 build accelerator_actions__check_deps_are_all_mojom: phony obj/ash/public/mojom/accelerator_actions__check_deps_are_all_mojom.stamp
 build accelerator_actions__generate_message_ids: phony obj/ash/public/mojom/accelerator_actions__generate_message_ids.stamp
@@ -731,7 +730,6 @@ build automation_predicate: phony obj/ui/accessibility/extensions/chromevoxclass
 build automation_shared: phony obj/services/accessibility/public/mojom/automation_shared.stamp
 build automation_shared__generator: phony obj/services/accessibility/public/mojom/automation_shared__generator.stamp
 build automation_shared_cpp_sources: phony obj/services/accessibility/public/mojom/automation_shared_cpp_sources.stamp
-build av1_encoder_fuzz_test__fuzzer_options: phony obj/third_party/libaom/av1_encoder_fuzz_test__fuzzer_options.stamp
 build av1_encoder_fuzz_test__runner: phony obj/third_party/libaom/av1_encoder_fuzz_test__runner.stamp
 build av1_svc_config: phony obj/third_party/webrtc/modules/video_coding/codecs/av1/libav1_svc_config.a
 build available_offline_content_mojom: phony obj/chrome/common/available_offline_content_mojom.stamp
@@ -1057,7 +1055,6 @@ build bluetooth_settings: phony obj/chrome/browser/resources/chromeos/emulator/b
 build bluetooth_socket: phony obj/extensions/browser/api/bluetooth_socket/bluetooth_socket.stamp
 build bluetooth_test_strings: phony obj/device/bluetooth/strings/bluetooth_test_strings.stamp
 build blur: phony obj/components/exo/wayland/blur.stamp
-build bmp_image_decoder_fuzztests__fuzzer_options: phony obj/third_party/blink/renderer/platform/image-decoders/bmp_image_decoder_fuzztests__fuzzer_options.stamp
 build bmp_image_decoder_fuzztests__runner: phony obj/third_party/blink/renderer/platform/image-decoders/bmp_image_decoder_fuzztests__runner.stamp
 build bookmark_node_data_read_fuzzer: phony obj/components/bookmarks/browser/bookmark_node_data_read_fuzzer.stamp
 build borealis_installer_types_mojom: phony obj/chrome/browser/ash/borealis/borealis_installer_types_mojom.stamp
@@ -2009,8 +2006,6 @@ build copy_definition: phony obj/chrome/browser/resources/chromeos/desk_api/copy
 build copy_definitions_to_gen: phony obj/ui/file_manager/copy_definitions_to_gen.stamp
 build copy_definitions_to_preprocess: phony obj/ui/file_manager/copy_definitions_to_preprocess.stamp
 build copy_files: phony obj/chrome/browser/resources/chromeos/accessibility/common/tutorial/copy_files.stamp
-build copy_fmp: phony obj/ui/file_manager/copy_fmp.stamp
-build copy_fmp_test: phony obj/ui/file_manager/copy_fmp_test.stamp
 build copy_fuse_dts_tsc: phony obj/chrome/browser/resources/tab_search/copy_fuse_dts_tsc.stamp
 build copy_google_protobuf: phony obj/third_party/protobuf/copy_google_protobuf.stamp
 build copy_google_protobuf_internal: phony obj/third_party/protobuf/copy_google_protobuf_internal.stamp
@@ -2135,7 +2130,7 @@ build credential_ui_entry: phony obj/components/password_manager/core/browser/ui
 build credentialmanagement: phony obj/third_party/blink/renderer/modules/credentialmanagement/libcredentialmanagement.a
 build credentials: phony obj/chromeos/ash/components/nearby/presence/credentials/libcredentials.a
 build criticalsection: phony obj/third_party/webrtc/rtc_base/libcriticalsection.a
-build cronet: phony ./libcronet.123.0.6273.0.so.TOC
+build cronet: phony ./libcronet.123.0.6275.0.so.TOC
 build cronet_common: phony obj/components/cronet/cronet_common.stamp
 build cronet_common_unittests: phony obj/components/cronet/cronet_common_unittests.stamp
 build cronet_native_headers: phony obj/components/cronet/native/cronet_native_headers.stamp
@@ -3171,6 +3166,7 @@ build foo_dependency: phony obj/build/rust/tests/test_rust_metadata/libbuild_sru
 build foo_tests_metadata: phony obj/build/rust/tests/test_rust_static_library_non_standard_arrangement/foo_tests_metadata.stamp
 build for_blink_tests: phony obj/mojo/public/cpp/bindings/tests/for_blink_tests.stamp
 build for_image_loader: phony obj/ui/file_manager/for_image_loader.stamp
+build for_image_loader_unittests: phony obj/ui/file_manager/for_image_loader_unittests.stamp
 build for_tests: phony obj/components/download/internal/common/for_tests.stamp
 build form_constants: phony obj/chrome/browser/resources/chromeos/notification_tester/form_constants.stamp
 build form_controls_pickers_js: phony obj/third_party/blink/renderer/core/form_controls_pickers_js.stamp
@@ -3246,7 +3242,6 @@ build frequency_tracker: phony obj/third_party/webrtc/rtc_base/libfrequency_trac
 build fresnel_prefs: phony obj/chromeos/ash/components/report/fresnel_prefs.stamp
 build fresnel_service_proto: phony obj/chromeos/ash/components/report/libfresnel_service_proto.a
 build fresnel_service_proto_gen: phony obj/chromeos/ash/components/report/fresnel_service_proto_gen.stamp
-build from_files_app: phony obj/ui/file_manager/image_loader/from_files_app.stamp
 build ftl_messages: phony obj/remoting/proto/ftl/v1/libftl_messages.a
 build ftl_messages_gen: phony obj/remoting/proto/ftl/v1/ftl_messages_gen.stamp
 build ftrace_descriptors: phony obj/third_party/perfetto/src/trace_processor/importers/ftrace/ftrace_descriptors.stamp
@@ -3301,7 +3296,6 @@ build fuzzing_engine_main: phony obj/testing/libfuzzer/fuzzing_engine_main.stamp
 build fuzztest: phony obj/third_party/fuzztest/fuzztest.stamp
 build fuzztest_gtest_main: phony obj/third_party/fuzztest/fuzztest_gtest_main.stamp
 build fuzztest_internal: phony obj/third_party/fuzztest/fuzztest_internal.stamp
-build fuzztest_tests__fuzzer_options: phony obj/testing/libfuzzer/tests/fuzztest_tests__fuzzer_options.stamp
 build fuzztest_tests__runner: phony obj/testing/libfuzzer/tests/fuzztest_tests__runner.stamp
 build fuzzy_finder: phony obj/chrome/browser/ui/commander/fuzzy_finder.stamp
 build fuzzy_finder_fuzzer: phony obj/chrome/browser/ui/commander/fuzzy_finder_fuzzer.stamp
@@ -4051,6 +4045,7 @@ build indexed_ruleset: phony obj/components/subresource_filter/core/common/flat/
 build indexed_ruleset_fuzzer: phony obj/components/subresource_filter/core/common/indexed_ruleset_fuzzer.stamp
 build indexed_ruleset_gen: phony obj/components/subresource_filter/core/common/flat/indexed_ruleset_gen.stamp
 build indexeddb: phony obj/third_party/blink/renderer/modules/indexeddb/libindexeddb.a
+build individual_fuzztest_wrapper: phony obj/testing/libfuzzer/individual_fuzztest_wrapper.stamp
 build ini_parser: phony obj/chrome/common/ini_parser.stamp
 build ini_parser_fuzzer: phony obj/chrome/common/ini_parser_fuzzer.stamp
 build init_webrtc: phony obj/third_party/webrtc_overrides/init_webrtc.stamp
@@ -4533,7 +4528,6 @@ build libyuv_internal: phony obj/third_party/libyuv/libyuv_internal.a
 build libyuv_neon: phony obj/third_party/libyuv/libyuv_neon.a
 build libyuv_scale_fuzzer: phony obj/testing/libfuzzer/fuzzers/libyuv_scale_fuzzer.stamp
 build libyuv_scale_fuzzer_common: phony obj/testing/libfuzzer/fuzzers/libyuv_scale_fuzzer_common.stamp
-build libyuv_scale_fuzztest__fuzzer_options: phony obj/testing/libfuzzer/fuzzers/libyuv_scale_fuzztest__fuzzer_options.stamp
 build libyuv_scale_fuzztest__runner: phony obj/testing/libfuzzer/fuzzers/libyuv_scale_fuzztest__runner.stamp
 build libzip: phony obj/third_party/libzip/libzip.a
 build libzip_public_headers: phony obj/third_party/libzip/libzip_public_headers.stamp
@@ -5181,7 +5175,6 @@ build mojo_shared: phony obj/media/midi/mojo_shared.stamp
 build mojo_shared__generator: phony obj/media/midi/mojo_shared__generator.stamp
 build mojo_shared_cpp_sources: phony obj/media/midi/mojo_shared_cpp_sources.stamp
 build mojo_unittests__runner: phony obj/mojo/mojo_unittests__runner.stamp
-build mojo_utils: phony obj/chrome/browser/ash/wilco_dtc_supportd/mojo_utils.stamp
 build mojo_web_test_bindings: phony obj/content/test/mojo_web_test_bindings.stamp
 build mojo_web_test_bindings__check_deps_are_all_mojom: phony obj/content/test/mojo_web_test_bindings__check_deps_are_all_mojom.stamp
 build mojo_web_test_bindings__generate_message_ids: phony obj/content/test/mojo_web_test_bindings__generate_message_ids.stamp
@@ -5781,7 +5774,6 @@ build net_dns_query_parse_fuzzer: phony obj/net/dns/net_dns_query_parse_fuzzer.s
 build net_dns_record_fuzzer: phony obj/net/dns/net_dns_record_fuzzer.stamp
 build net_dns_response_fuzzer: phony obj/net/dns/net_dns_response_fuzzer.stamp
 build net_export_header: phony obj/net/net_export_header.stamp
-build net_fuzztests__fuzzer_options: phony obj/net/net_fuzztests__fuzzer_options.stamp
 build net_fuzztests__runner: phony obj/net/net_fuzztests__runner.stamp
 build net_get_domain_and_registry_fuzzer: phony obj/net/net_get_domain_and_registry_fuzzer.stamp
 build net_gzip_source_stream_fuzzer: phony obj/net/net_gzip_source_stream_fuzzer.stamp
@@ -8006,7 +7998,6 @@ build simulcast_description: phony obj/third_party/webrtc/pc/simulcast_descripti
 build simulcast_dummy_buffer_helper: phony obj/third_party/webrtc/test/pc/e2e/analyzer/video/simulcast_dummy_buffer_helper.stamp
 build simulcast_sdp_serializer: phony obj/third_party/webrtc/pc/simulcast_sdp_serializer.stamp
 build sinc_resampler: phony obj/third_party/webrtc/common_audio/sinc_resampler.stamp
-build single_file_tar_reader_fuzzer__fuzzer_options: phony obj/chrome/services/file_util/single_file_tar_reader_fuzzer__fuzzer_options.stamp
 build single_file_tar_reader_fuzzer__runner: phony obj/chrome/services/file_util/single_file_tar_reader_fuzzer__runner.stamp
 build single_pixel_buffer: phony obj/third_party/wayland-protocols/single_pixel_buffer.stamp
 build single_pixel_buffer_gen: phony obj/third_party/wayland-protocols/single_pixel_buffer_gen.stamp
@@ -9839,10 +9830,8 @@ build voice_match_entry: phony obj/chrome/browser/resources/chromeos/assistant_o
 build voice_probability_delay_unit: phony obj/third_party/webrtc/modules/audio_processing/transient/libvoice_probability_delay_unit.a
 build voidify: phony obj/third_party/abseil-cpp/absl/log/internal/voidify.stamp
 build volk: phony obj/third_party/angle/src/third_party/volk/volk.stamp
-build vp8_encoder_fuzz_test__fuzzer_options: phony obj/third_party/libvpx/vp8_encoder_fuzz_test__fuzzer_options.stamp
 build vp8_encoder_fuzz_test__runner: phony obj/third_party/libvpx/vp8_encoder_fuzz_test__runner.stamp
 build vp8_temporal_layers_factory: phony obj/third_party/webrtc/api/video_codecs/libvp8_temporal_layers_factory.a
-build vp9_encoder_fuzz_test__fuzzer_options: phony obj/third_party/libvpx/vp9_encoder_fuzz_test__fuzzer_options.stamp
 build vp9_encoder_fuzz_test__runner: phony obj/third_party/libvpx/vp9_encoder_fuzz_test__runner.stamp
 build vpn_provider: phony obj/chrome/browser/chromeos/extensions/vpn_provider/vpn_provider.stamp
 build vpx_codec: phony obj/remoting/codec/vpx_codec.stamp
@@ -9937,7 +9926,6 @@ build wayland_server_protocol_gen: phony obj/third_party/wayland/wayland_server_
 build wayland_util: phony obj/third_party/wayland/wayland_util.stamp
 build weak_ptr: phony obj/third_party/webrtc/rtc_base/libweak_ptr.a
 build web_app_manifest_fuzzer: phony obj/third_party/blink/renderer/modules/web_app_manifest_fuzzer.stamp
-build web_application_fuzztests__fuzzer_options: phony obj/chrome/browser/web_applications/web_application_fuzztests__fuzzer_options.stamp
 build web_application_fuzztests__runner: phony obj/chrome/browser/web_applications/web_application_fuzztests__runner.stamp
 build web_applications_browser_tests: phony obj/chrome/browser/web_applications/web_applications_browser_tests.stamp
 build web_applications_test_support: phony obj/chrome/browser/web_applications/web_applications_test_support.stamp
@@ -11045,6 +11033,13 @@ build ash/webui/common/resources/office_fallback$:preprocess_static_files: phony
 build ash/webui/common/resources/office_fallback$:preprocess_ts_files: phony obj/ash/webui/common/resources/office_fallback/preprocess_ts_files.stamp
 build ash/webui/common/resources/office_fallback$:resources: phony obj/ash/webui/common/resources/office_fallback/resources.stamp
 build ash/webui/common/resources/office_fallback$:resources_grit: phony obj/ash/webui/common/resources/office_fallback/resources_grit.stamp
+build ash/webui/common/resources/personalization$:build_grdp: phony obj/ash/webui/common/resources/personalization/build_grdp.stamp
+build ash/webui/common/resources/personalization$:build_min_js: phony obj/ash/webui/common/resources/personalization/build_min_js.stamp
+build ash/webui/common/resources/personalization$:build_ts: phony obj/ash/webui/common/resources/personalization/build_ts.stamp
+build ash/webui/common/resources/personalization$:css_wrapper_files: phony obj/ash/webui/common/resources/personalization/css_wrapper_files.stamp
+build ash/webui/common/resources/personalization$:html_wrapper_files: phony obj/ash/webui/common/resources/personalization/html_wrapper_files.stamp
+build ash/webui/common/resources/personalization$:preprocess_html_css_files: phony obj/ash/webui/common/resources/personalization/preprocess_html_css_files.stamp
+build ash/webui/common/resources/personalization$:preprocess_ts_files: phony obj/ash/webui/common/resources/personalization/preprocess_ts_files.stamp
 build ash/webui/common/resources/post_message_api$:closure_compile: phony obj/ash/webui/common/resources/post_message_api/closure_compile.stamp
 build ash/webui/common/resources/post_message_api$:post_message_api_client: phony obj/ash/webui/common/resources/post_message_api/post_message_api_client.stamp
 build ash/webui/common/resources/post_message_api$:post_message_api_request_handler: phony obj/ash/webui/common/resources/post_message_api/post_message_api_request_handler.stamp
@@ -12630,7 +12625,6 @@ build chrome/browser/ash/telemetry_extension/telemetry$:telemetry: phony obj/chr
 build chrome/browser/ash/telemetry_extension/telemetry: phony obj/chrome/browser/ash/telemetry_extension/telemetry/telemetry.stamp
 build chrome/browser/ash/telemetry_extension/telemetry$:telemetry_converters: phony obj/chrome/browser/ash/telemetry_extension/telemetry/telemetry_converters.stamp
 build chrome/browser/ash/telemetry_extension/telemetry$:unit_tests: phony obj/chrome/browser/ash/telemetry_extension/telemetry/unit_tests.stamp
-build chrome/browser/ash/wilco_dtc_supportd$:mojo_utils: phony obj/chrome/browser/ash/wilco_dtc_supportd/mojo_utils.stamp
 build chrome/browser/autofill$:autofill: phony obj/chrome/browser/autofill/libautofill.a
 build chrome/browser/autofill: phony obj/chrome/browser/autofill/libautofill.a
 build chrome/browser/autofill$:browser_tests: phony obj/chrome/browser/autofill/browser_tests.stamp
@@ -13943,6 +13937,15 @@ build chrome/browser/resources/commander$:preprocess_static_files: phony obj/chr
 build chrome/browser/resources/commander$:preprocess_ts_files: phony obj/chrome/browser/resources/commander/preprocess_ts_files.stamp
 build chrome/browser/resources/commander$:resources: phony obj/chrome/browser/resources/commander/resources.stamp
 build chrome/browser/resources/commander$:resources_grit: phony obj/chrome/browser/resources/commander/resources_grit.stamp
+build chrome/browser/resources/commerce$:build_grd: phony obj/chrome/browser/resources/commerce/build_grd.stamp
+build chrome/browser/resources/commerce$:build_min_js: phony obj/chrome/browser/resources/commerce/build_min_js.stamp
+build chrome/browser/resources/commerce$:build_ts: phony obj/chrome/browser/resources/commerce/build_ts.stamp
+build chrome/browser/resources/commerce$:html_wrapper_files: phony obj/chrome/browser/resources/commerce/html_wrapper_files.stamp
+build chrome/browser/resources/commerce$:preprocess_html_css_files: phony obj/chrome/browser/resources/commerce/preprocess_html_css_files.stamp
+build chrome/browser/resources/commerce$:preprocess_static_files: phony obj/chrome/browser/resources/commerce/preprocess_static_files.stamp
+build chrome/browser/resources/commerce$:preprocess_ts_files: phony obj/chrome/browser/resources/commerce/preprocess_ts_files.stamp
+build chrome/browser/resources/commerce$:resources: phony obj/chrome/browser/resources/commerce/resources.stamp
+build chrome/browser/resources/commerce$:resources_grit: phony obj/chrome/browser/resources/commerce/resources_grit.stamp
 build chrome/browser/resources/components$:build_grd: phony obj/chrome/browser/resources/components/build_grd.stamp
 build chrome/browser/resources/components$:build_min_js: phony obj/chrome/browser/resources/components/build_min_js.stamp
 build chrome/browser/resources/components$:build_ts: phony obj/chrome/browser/resources/components/build_ts.stamp
@@ -15638,7 +15641,6 @@ build chrome/browser/web_applications$:interactive_ui_tests: phony obj/chrome/br
 build chrome/browser/web_applications$:prevent_close_test_support: phony obj/chrome/browser/web_applications/prevent_close_test_support.stamp
 build chrome/browser/web_applications$:unit_tests: phony obj/chrome/browser/web_applications/unit_tests.stamp
 build chrome/browser/web_applications$:web_application_fuzztests: phony ./web_application_fuzztests
-build chrome/browser/web_applications$:web_application_fuzztests__fuzzer_options: phony obj/chrome/browser/web_applications/web_application_fuzztests__fuzzer_options.stamp
 build chrome/browser/web_applications$:web_application_fuzztests__runner: phony obj/chrome/browser/web_applications/web_application_fuzztests__runner.stamp
 build chrome/browser/web_applications$:web_applications: phony obj/chrome/browser/web_applications/web_applications.stamp
 build chrome/browser/web_applications: phony obj/chrome/browser/web_applications/web_applications.stamp
@@ -16029,7 +16031,6 @@ build chrome/services/file_util$:buildflags: phony obj/chrome/services/file_util
 build chrome/services/file_util$:file_util: phony obj/chrome/services/file_util/file_util.stamp
 build chrome/services/file_util: phony obj/chrome/services/file_util/file_util.stamp
 build chrome/services/file_util$:single_file_tar_reader_fuzzer: phony ./single_file_tar_reader_fuzzer
-build chrome/services/file_util$:single_file_tar_reader_fuzzer__fuzzer_options: phony obj/chrome/services/file_util/single_file_tar_reader_fuzzer__fuzzer_options.stamp
 build chrome/services/file_util$:single_file_tar_reader_fuzzer__runner: phony obj/chrome/services/file_util/single_file_tar_reader_fuzzer__runner.stamp
 build chrome/services/file_util$:test_support: phony obj/chrome/services/file_util/test_support.stamp
 build chrome/services/file_util$:unit_tests: phony obj/chrome/services/file_util/unit_tests.stamp
@@ -16293,28 +16294,6 @@ build chrome/services/speech/soda: phony obj/chrome/services/speech/soda/soda.st
 build chrome/services/speech/soda$:soda_api_proto: phony obj/chrome/services/speech/soda/libsoda_api_proto.a
 build chrome/services/speech/soda$:soda_api_proto_gen: phony obj/chrome/services/speech/soda/soda_api_proto_gen.stamp
 build chrome/services/speech/soda$:unit_tests: phony obj/chrome/services/speech/soda/unit_tests.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom__check_deps_are_all_mojom: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom__check_deps_are_all_mojom.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom__generate_message_ids: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom__generate_message_ids.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom__generator: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom__generator.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom__is_mojom: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom__is_mojom.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom__parser: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom__parser.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom__type_mappings: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom__type_mappings.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom__type_mappings__validator: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom__type_mappings__validator.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom_blink: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_blink.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom_blink__generator: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_blink__generator.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom_blink__type_mappings: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_blink__type_mappings.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom_blink__type_mappings__validator: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_blink__type_mappings__validator.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom_blink_headers: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_blink_headers.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom_headers: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_headers.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom_js: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_js.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom_js__generator: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_js__generator.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom_js_data_deps: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_js_data_deps.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom_js_library_for_compile: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_js_library_for_compile.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom_shared: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_shared.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom_shared__generator: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_shared__generator.stamp
-build chrome/services/wilco_dtc_supportd/public/mojom$:mojom_shared_cpp_sources: phony obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_shared_cpp_sources.stamp
 build chrome/test$:accessibility_live_site_tests: phony ./accessibility_live_site_tests
 build chrome/test$:accessibility_live_site_tests__runner: phony obj/chrome/test/accessibility_live_site_tests__runner.stamp
 build chrome/test$:ash_crosapi_tests: phony ./ash_crosapi_tests
@@ -18424,7 +18403,7 @@ build chromeos/dbus/power$:power: phony obj/chromeos/dbus/power/libpower.a
 build chromeos/dbus/power: phony obj/chromeos/dbus/power/libpower.a
 build chromeos/dbus/power$:power_manager_proto: phony obj/chromeos/dbus/power/libpower_manager_proto.a
 build chromeos/dbus/power$:power_manager_proto_gen: phony obj/chromeos/dbus/power/power_manager_proto_gen.stamp
-build chromeos/dbus/power$:test_support: phony obj/chromeos/dbus/power/test_support.stamp
+build chromeos/dbus/power$:unit_tests: phony obj/chromeos/dbus/power/unit_tests.stamp
 build chromeos/dbus/tpm_manager$:tpm_manager: phony obj/chromeos/dbus/tpm_manager/libchromeos_dbus_tpm_manager.a
 build chromeos/dbus/tpm_manager: phony obj/chromeos/dbus/tpm_manager/libchromeos_dbus_tpm_manager.a
 build chromeos/dbus/tpm_manager$:tpm_manager_proto: phony obj/chromeos/dbus/tpm_manager/libtpm_manager_proto.a
@@ -19566,8 +19545,8 @@ build components/crash/core/common$:crash_key: phony obj/components/crash/core/c
 build components/crash/core/common$:crash_key_lib: phony obj/components/crash/core/common/libcrash_key_lib.a
 build components/crash/core/common$:crash_key_utils: phony obj/components/crash/core/common/libcrash_key_utils.a
 build components/crash/core/common$:unit_tests: phony obj/components/crash/core/common/unit_tests.stamp
-build components/cronet$:cronet: phony ./libcronet.123.0.6273.0.so.TOC
-build components/cronet: phony ./libcronet.123.0.6273.0.so.TOC
+build components/cronet$:cronet: phony ./libcronet.123.0.6275.0.so.TOC
+build components/cronet: phony ./libcronet.123.0.6275.0.so.TOC
 build components/cronet$:cronet_buildflags: phony obj/components/cronet/cronet_buildflags.stamp
 build components/cronet$:cronet_common: phony obj/components/cronet/cronet_common.stamp
 build components/cronet$:cronet_common_unittests: phony obj/components/cronet/cronet_common_unittests.stamp
@@ -25402,7 +25381,6 @@ build media/filters$:perftests: phony obj/media/filters/perftests.stamp
 build media/filters$:test_support: phony obj/media/filters/libtest_support.a
 build media/filters$:unit_tests: phony obj/media/filters/unit_tests.stamp
 build media/formats$:ac3_util_fuzzer: phony ./ac3_util_fuzzer
-build media/formats$:ac3_util_fuzzer__fuzzer_options: phony obj/media/formats/ac3_util_fuzzer__fuzzer_options.stamp
 build media/formats$:ac3_util_fuzzer__runner: phony obj/media/formats/ac3_util_fuzzer__runner.stamp
 build media/formats$:formats: phony obj/media/formats/formats.stamp
 build media/formats: phony obj/media/formats/formats.stamp
@@ -26527,7 +26505,6 @@ build net$:net_data_url_fuzzer: phony obj/net/net_data_url_fuzzer.stamp
 build net$:net_deps: phony obj/net/net_deps.stamp
 build net$:net_export_header: phony obj/net/net_export_header.stamp
 build net$:net_fuzztests: phony ./net_fuzztests
-build net$:net_fuzztests__fuzzer_options: phony obj/net/net_fuzztests__fuzzer_options.stamp
 build net$:net_fuzztests__runner: phony obj/net/net_fuzztests__runner.stamp
 build net$:net_get_domain_and_registry_fuzzer: phony obj/net/net_get_domain_and_registry_fuzzer.stamp
 build net$:net_gzip_source_stream_fuzzer: phony obj/net/net_gzip_source_stream_fuzzer.stamp
@@ -28894,6 +28871,7 @@ build testing/gtest: phony obj/testing/gtest/libgtest.a
 build testing/gtest$:gtest_main: phony obj/testing/gtest/gtest_main.stamp
 build testing/libfuzzer$:fuzzing_engine: phony obj/testing/libfuzzer/fuzzing_engine.stamp
 build testing/libfuzzer$:fuzzing_engine_main: phony obj/testing/libfuzzer/fuzzing_engine_main.stamp
+build testing/libfuzzer$:individual_fuzztest_wrapper: phony obj/testing/libfuzzer/individual_fuzztest_wrapper.stamp
 build testing/libfuzzer$:libfuzzer_main: phony obj/testing/libfuzzer/libfuzzer_main.stamp
 build testing/libfuzzer$:renderer_fuzzing: phony obj/testing/libfuzzer/renderer_fuzzing.stamp
 build testing/libfuzzer$:seed_corpus: phony obj/testing/libfuzzer/seed_corpus.stamp
@@ -28921,7 +28899,6 @@ build testing/libfuzzer/fuzzers$:libxml_xml_read_memory_fuzzer: phony obj/testin
 build testing/libfuzzer/fuzzers$:libyuv_scale_fuzzer: phony obj/testing/libfuzzer/fuzzers/libyuv_scale_fuzzer.stamp
 build testing/libfuzzer/fuzzers$:libyuv_scale_fuzzer_common: phony obj/testing/libfuzzer/fuzzers/libyuv_scale_fuzzer_common.stamp
 build testing/libfuzzer/fuzzers$:libyuv_scale_fuzztest: phony ./libyuv_scale_fuzztest
-build testing/libfuzzer/fuzzers$:libyuv_scale_fuzztest__fuzzer_options: phony obj/testing/libfuzzer/fuzzers/libyuv_scale_fuzztest__fuzzer_options.stamp
 build testing/libfuzzer/fuzzers$:libyuv_scale_fuzztest__runner: phony obj/testing/libfuzzer/fuzzers/libyuv_scale_fuzztest__runner.stamp
 build testing/libfuzzer/fuzzers$:prtime_fuzzer: phony obj/testing/libfuzzer/fuzzers/prtime_fuzzer.stamp
 build testing/libfuzzer/fuzzers$:sha1_fuzzer: phony obj/testing/libfuzzer/fuzzers/sha1_fuzzer.stamp
@@ -28955,7 +28932,6 @@ build testing/libfuzzer/proto$:url_proto_gen: phony obj/testing/libfuzzer/proto/
 build testing/libfuzzer/tests$:check_fuzzer_config: phony obj/testing/libfuzzer/tests/check_fuzzer_config.stamp
 build testing/libfuzzer/tests$:check_seed_corpus_archive: phony obj/testing/libfuzzer/tests/check_seed_corpus_archive.stamp
 build testing/libfuzzer/tests$:fuzztest_tests: phony ./fuzztest_tests
-build testing/libfuzzer/tests$:fuzztest_tests__fuzzer_options: phony obj/testing/libfuzzer/tests/fuzztest_tests__fuzzer_options.stamp
 build testing/libfuzzer/tests$:fuzztest_tests__runner: phony obj/testing/libfuzzer/tests/fuzztest_tests__runner.stamp
 build testing/libfuzzer/tests$:libfuzzer_tests: phony ./libfuzzer_tests
 build testing/libfuzzer/tests$:libfuzzer_tests__runner: phony obj/testing/libfuzzer/tests/libfuzzer_tests__runner.stamp
@@ -30504,7 +30480,6 @@ build third_party/blink/renderer/platform/heap$:heap: phony obj/third_party/blin
 build third_party/blink/renderer/platform/heap: phony obj/third_party/blink/renderer/platform/heap/heap.stamp
 build third_party/blink/renderer/platform/heap$:test_support: phony obj/third_party/blink/renderer/platform/heap/test_support.stamp
 build third_party/blink/renderer/platform/image-decoders$:bmp_image_decoder_fuzztests: phony ./bmp_image_decoder_fuzztests
-build third_party/blink/renderer/platform/image-decoders$:bmp_image_decoder_fuzztests__fuzzer_options: phony obj/third_party/blink/renderer/platform/image-decoders/bmp_image_decoder_fuzztests__fuzzer_options.stamp
 build third_party/blink/renderer/platform/image-decoders$:bmp_image_decoder_fuzztests__runner: phony obj/third_party/blink/renderer/platform/image-decoders/bmp_image_decoder_fuzztests__runner.stamp
 build third_party/blink/renderer/platform/image-decoders$:image_decoders: phony obj/third_party/blink/renderer/platform/image-decoders/libimage_decoders.a
 build third_party/blink/renderer/platform/image-decoders$:unit_tests: phony obj/third_party/blink/renderer/platform/image-decoders/unit_tests.stamp
@@ -33532,7 +33507,6 @@ build third_party/libaddressinput$:strings_grit: phony obj/third_party/libaddres
 build third_party/libaddressinput$:test_support: phony obj/third_party/libaddressinput/test_support.stamp
 build third_party/libaddressinput$:util: phony obj/third_party/libaddressinput/libutil.a
 build third_party/libaom$:av1_encoder_fuzz_test: phony ./av1_encoder_fuzz_test
-build third_party/libaom$:av1_encoder_fuzz_test__fuzzer_options: phony obj/third_party/libaom/av1_encoder_fuzz_test__fuzzer_options.stamp
 build third_party/libaom$:av1_encoder_fuzz_test__runner: phony obj/third_party/libaom/av1_encoder_fuzz_test__runner.stamp
 build third_party/libaom$:libaom: phony obj/third_party/libaom/libaom.a
 build third_party/libaom: phony obj/third_party/libaom/libaom.a
@@ -33627,10 +33601,8 @@ build third_party/libvpx$:libvpx_x86_64_headers: phony obj/third_party/libvpx/li
 build third_party/libvpx$:libvpx_x86_headers: phony obj/third_party/libvpx/libvpx_x86_headers.stamp
 build third_party/libvpx$:libvpxrc: phony obj/third_party/libvpx/libvpxrc.a
 build third_party/libvpx$:vp8_encoder_fuzz_test: phony ./vp8_encoder_fuzz_test
-build third_party/libvpx$:vp8_encoder_fuzz_test__fuzzer_options: phony obj/third_party/libvpx/vp8_encoder_fuzz_test__fuzzer_options.stamp
 build third_party/libvpx$:vp8_encoder_fuzz_test__runner: phony obj/third_party/libvpx/vp8_encoder_fuzz_test__runner.stamp
 build third_party/libvpx$:vp9_encoder_fuzz_test: phony ./vp9_encoder_fuzz_test
-build third_party/libvpx$:vp9_encoder_fuzz_test__fuzzer_options: phony obj/third_party/libvpx/vp9_encoder_fuzz_test__fuzzer_options.stamp
 build third_party/libvpx$:vp9_encoder_fuzz_test__runner: phony obj/third_party/libvpx/vp9_encoder_fuzz_test__runner.stamp
 build third_party/libwebm$:libwebm: phony obj/third_party/libwebm/libwebm.a
 build third_party/libwebm: phony obj/third_party/libwebm/libwebm.a
@@ -36893,14 +36865,13 @@ build ui/file_manager$:build_tests_grdp: phony obj/ui/file_manager/build_tests_g
 build ui/file_manager$:build_ts: phony obj/ui/file_manager/build_ts.stamp
 build ui/file_manager$:copy_definitions_to_gen: phony obj/ui/file_manager/copy_definitions_to_gen.stamp
 build ui/file_manager$:copy_definitions_to_preprocess: phony obj/ui/file_manager/copy_definitions_to_preprocess.stamp
-build ui/file_manager$:copy_fmp: phony obj/ui/file_manager/copy_fmp.stamp
-build ui/file_manager$:copy_fmp_test: phony obj/ui/file_manager/copy_fmp_test.stamp
 build ui/file_manager$:copy_ts: phony obj/ui/file_manager/copy_ts.stamp
 build ui/file_manager$:file_manager: phony obj/ui/file_manager/libfile_manager.a
 build ui/file_manager: phony obj/ui/file_manager/libfile_manager.a
 build ui/file_manager$:file_manager_gen_resources: phony obj/ui/file_manager/file_manager_gen_resources.stamp
 build ui/file_manager$:file_manager_gen_resources_grit: phony obj/ui/file_manager/file_manager_gen_resources_grit.stamp
 build ui/file_manager$:for_image_loader: phony obj/ui/file_manager/for_image_loader.stamp
+build ui/file_manager$:for_image_loader_unittests: phony obj/ui/file_manager/for_image_loader_unittests.stamp
 build ui/file_manager$:generate_definitions: phony obj/ui/file_manager/generate_definitions.stamp
 build ui/file_manager$:html_wrapper_files: phony obj/ui/file_manager/html_wrapper_files.stamp
 build ui/file_manager$:preprocess_generated: phony obj/ui/file_manager/preprocess_generated.stamp
@@ -36930,6 +36901,7 @@ build ui/file_manager/integration_tests$:build: phony obj/ui/file_manager/integr
 build ui/file_manager/integration_tests$:build_ts: phony obj/ui/file_manager/integration_tests/build_ts.stamp
 build ui/file_manager/integration_tests$:copy_app: phony obj/ui/file_manager/integration_tests/copy_app.stamp
 build ui/file_manager/integration_tests$:copy_src: phony obj/ui/file_manager/integration_tests/copy_src.stamp
+build ui/file_manager/integration_tests$:from_files_app: phony obj/ui/file_manager/integration_tests/from_files_app.stamp
 build ui/gfx$:buffer_types: phony obj/ui/gfx/buffer_types.stamp
 build ui/gfx$:color_analysis_fuzzer: phony obj/ui/gfx/color_analysis_fuzzer.stamp
 build ui/gfx$:color_space: phony obj/ui/gfx/libcolor_space.a
@@ -38761,6 +38733,13 @@ build all: phony $
     obj/ash/webui/common/resources/office_fallback/preprocess_ts_files.stamp $
     obj/ash/webui/common/resources/office_fallback/resources.stamp $
     obj/ash/webui/common/resources/office_fallback/resources_grit.stamp $
+    obj/ash/webui/common/resources/personalization/build_grdp.stamp $
+    obj/ash/webui/common/resources/personalization/build_min_js.stamp $
+    obj/ash/webui/common/resources/personalization/build_ts.stamp $
+    obj/ash/webui/common/resources/personalization/css_wrapper_files.stamp $
+    obj/ash/webui/common/resources/personalization/html_wrapper_files.stamp $
+    obj/ash/webui/common/resources/personalization/preprocess_html_css_files.stamp $
+    obj/ash/webui/common/resources/personalization/preprocess_ts_files.stamp $
     obj/ash/webui/common/resources/post_message_api/closure_compile.stamp $
     obj/ash/webui/common/resources/post_message_api/post_message_api_client.stamp $
     obj/ash/webui/common/resources/post_message_api/post_message_api_request_handler.stamp $
@@ -40219,7 +40198,6 @@ build all: phony $
     obj/chrome/browser/ash/telemetry_extension/telemetry/telemetry.stamp $
     obj/chrome/browser/ash/telemetry_extension/telemetry/telemetry_converters.stamp $
     obj/chrome/browser/ash/telemetry_extension/telemetry/unit_tests.stamp $
-    obj/chrome/browser/ash/wilco_dtc_supportd/mojo_utils.stamp $
     obj/chrome/browser/autofill/libautofill.a $
     obj/chrome/browser/autofill/browser_tests.stamp $
     obj/chrome/browser/autofill/captured_sites_interactive_tests.stamp $
@@ -41449,6 +41427,15 @@ build all: phony $
     obj/chrome/browser/resources/commander/preprocess_ts_files.stamp $
     obj/chrome/browser/resources/commander/resources.stamp $
     obj/chrome/browser/resources/commander/resources_grit.stamp $
+    obj/chrome/browser/resources/commerce/build_grd.stamp $
+    obj/chrome/browser/resources/commerce/build_min_js.stamp $
+    obj/chrome/browser/resources/commerce/build_ts.stamp $
+    obj/chrome/browser/resources/commerce/html_wrapper_files.stamp $
+    obj/chrome/browser/resources/commerce/preprocess_html_css_files.stamp $
+    obj/chrome/browser/resources/commerce/preprocess_static_files.stamp $
+    obj/chrome/browser/resources/commerce/preprocess_ts_files.stamp $
+    obj/chrome/browser/resources/commerce/resources.stamp $
+    obj/chrome/browser/resources/commerce/resources_grit.stamp $
     obj/chrome/browser/resources/components/build_grd.stamp $
     obj/chrome/browser/resources/components/build_min_js.stamp $
     obj/chrome/browser/resources/components/build_ts.stamp $
@@ -43119,7 +43106,6 @@ build all: phony $
     obj/chrome/browser/web_applications/prevent_close_test_support.stamp $
     obj/chrome/browser/web_applications/unit_tests.stamp $
     ./web_application_fuzztests $
-    obj/chrome/browser/web_applications/web_application_fuzztests__fuzzer_options.stamp $
     obj/chrome/browser/web_applications/web_application_fuzztests__runner.stamp $
     obj/chrome/browser/web_applications/web_applications.stamp $
     obj/chrome/browser/web_applications/web_applications_browser_tests.stamp $
@@ -43479,7 +43465,6 @@ build all: phony $
     obj/chrome/services/file_util/buildflags.stamp $
     obj/chrome/services/file_util/file_util.stamp $
     ./single_file_tar_reader_fuzzer $
-    obj/chrome/services/file_util/single_file_tar_reader_fuzzer__fuzzer_options.stamp $
     obj/chrome/services/file_util/single_file_tar_reader_fuzzer__runner.stamp $
     obj/chrome/services/file_util/test_support.stamp $
     obj/chrome/services/file_util/unit_tests.stamp $
@@ -43715,27 +43700,6 @@ build all: phony $
     obj/chrome/services/speech/soda/libsoda_api_proto.a $
     obj/chrome/services/speech/soda/soda_api_proto_gen.stamp $
     obj/chrome/services/speech/soda/unit_tests.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom__check_deps_are_all_mojom.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom__generate_message_ids.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom__generator.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom__is_mojom.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom__parser.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom__type_mappings.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom__type_mappings__validator.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_blink.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_blink__generator.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_blink__type_mappings.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_blink__type_mappings__validator.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_blink_headers.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_headers.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_js.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_js__generator.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_js_data_deps.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_js_library_for_compile.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_shared.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_shared__generator.stamp $
-    obj/chrome/services/wilco_dtc_supportd/public/mojom/mojom_shared_cpp_sources.stamp $
     ./accessibility_live_site_tests $
     obj/chrome/test/accessibility_live_site_tests__runner.stamp $
     ./ash_crosapi_tests $
@@ -45604,7 +45568,7 @@ build all: phony $
     obj/chromeos/dbus/power/libpower.a $
     obj/chromeos/dbus/power/libpower_manager_proto.a $
     obj/chromeos/dbus/power/power_manager_proto_gen.stamp $
-    obj/chromeos/dbus/power/test_support.stamp $
+    obj/chromeos/dbus/power/unit_tests.stamp $
     obj/chromeos/dbus/tpm_manager/libchromeos_dbus_tpm_manager.a $
     obj/chromeos/dbus/tpm_manager/libtpm_manager_proto.a $
     obj/chromeos/dbus/tpm_manager/tpm_manager_proto_gen.stamp $
@@ -46622,7 +46586,7 @@ build all: phony $
     obj/components/crash/core/common/libcrash_key_lib.a $
     obj/components/crash/core/common/libcrash_key_utils.a $
     obj/components/crash/core/common/unit_tests.stamp $
-    ./libcronet.123.0.6273.0.so.TOC $
+    ./libcronet.123.0.6275.0.so.TOC $
     obj/components/cronet/cronet_buildflags.stamp $
     obj/components/cronet/cronet_common.stamp $
     obj/components/cronet/cronet_common_unittests.stamp $
@@ -51840,7 +51804,6 @@ build all: phony $
     obj/media/filters/libtest_support.a $
     obj/media/filters/unit_tests.stamp $
     ./ac3_util_fuzzer $
-    obj/media/formats/ac3_util_fuzzer__fuzzer_options.stamp $
     obj/media/formats/ac3_util_fuzzer__runner.stamp $
     obj/media/formats/formats.stamp $
     obj/media/formats/hls_attribute_list_fuzzer.stamp $
@@ -52924,7 +52887,6 @@ build all: phony $
     obj/net/net_deps.stamp $
     obj/net/net_export_header.stamp $
     ./net_fuzztests $
-    obj/net/net_fuzztests__fuzzer_options.stamp $
     obj/net/net_fuzztests__runner.stamp $
     obj/net/net_get_domain_and_registry_fuzzer.stamp $
     obj/net/net_gzip_source_stream_fuzzer.stamp $
@@ -55135,6 +55097,7 @@ build all: phony $
     obj/testing/gtest/gtest_main.stamp $
     obj/testing/libfuzzer/fuzzing_engine.stamp $
     obj/testing/libfuzzer/fuzzing_engine_main.stamp $
+    obj/testing/libfuzzer/individual_fuzztest_wrapper.stamp $
     obj/testing/libfuzzer/libfuzzer_main.stamp $
     obj/testing/libfuzzer/renderer_fuzzing.stamp $
     obj/testing/libfuzzer/seed_corpus.stamp $
@@ -55161,7 +55124,6 @@ build all: phony $
     obj/testing/libfuzzer/fuzzers/libyuv_scale_fuzzer.stamp $
     obj/testing/libfuzzer/fuzzers/libyuv_scale_fuzzer_common.stamp $
     ./libyuv_scale_fuzztest $
-    obj/testing/libfuzzer/fuzzers/libyuv_scale_fuzztest__fuzzer_options.stamp $
     obj/testing/libfuzzer/fuzzers/libyuv_scale_fuzztest__runner.stamp $
     obj/testing/libfuzzer/fuzzers/prtime_fuzzer.stamp $
     obj/testing/libfuzzer/fuzzers/sha1_fuzzer.stamp $
@@ -55195,7 +55157,6 @@ build all: phony $
     obj/testing/libfuzzer/tests/check_fuzzer_config.stamp $
     obj/testing/libfuzzer/tests/check_seed_corpus_archive.stamp $
     ./fuzztest_tests $
-    obj/testing/libfuzzer/tests/fuzztest_tests__fuzzer_options.stamp $
     obj/testing/libfuzzer/tests/fuzztest_tests__runner.stamp $
     ./libfuzzer_tests $
     obj/testing/libfuzzer/tests/libfuzzer_tests__runner.stamp $
@@ -56568,7 +56529,6 @@ build all: phony $
     obj/third_party/blink/renderer/platform/heap/heap.stamp $
     obj/third_party/blink/renderer/platform/heap/test_support.stamp $
     ./bmp_image_decoder_fuzztests $
-    obj/third_party/blink/renderer/platform/image-decoders/bmp_image_decoder_fuzztests__fuzzer_options.stamp $
     obj/third_party/blink/renderer/platform/image-decoders/bmp_image_decoder_fuzztests__runner.stamp $
     obj/third_party/blink/renderer/platform/image-decoders/libimage_decoders.a $
     obj/third_party/blink/renderer/platform/image-decoders/unit_tests.stamp $
@@ -59021,7 +58981,6 @@ build all: phony $
     obj/third_party/libaddressinput/test_support.stamp $
     obj/third_party/libaddressinput/libutil.a $
     ./av1_encoder_fuzz_test $
-    obj/third_party/libaom/av1_encoder_fuzz_test__fuzzer_options.stamp $
     obj/third_party/libaom/av1_encoder_fuzz_test__runner.stamp $
     obj/third_party/libaom/libaom.a $
     obj/third_party/libaom/libaom_av1_dec_fuzzer.stamp $
@@ -59101,10 +59060,8 @@ build all: phony $
     obj/third_party/libvpx/libvpx_x86_headers.stamp $
     obj/third_party/libvpx/libvpxrc.a $
     ./vp8_encoder_fuzz_test $
-    obj/third_party/libvpx/vp8_encoder_fuzz_test__fuzzer_options.stamp $
     obj/third_party/libvpx/vp8_encoder_fuzz_test__runner.stamp $
     ./vp9_encoder_fuzz_test $
-    obj/third_party/libvpx/vp9_encoder_fuzz_test__fuzzer_options.stamp $
     obj/third_party/libvpx/vp9_encoder_fuzz_test__runner.stamp $
     obj/third_party/libwebm/libwebm.a $
     obj/third_party/libwebp/libwebp.stamp $
@@ -62082,13 +62039,12 @@ build all: phony $
     obj/ui/file_manager/build_ts.stamp $
     obj/ui/file_manager/copy_definitions_to_gen.stamp $
     obj/ui/file_manager/copy_definitions_to_preprocess.stamp $
-    obj/ui/file_manager/copy_fmp.stamp $
-    obj/ui/file_manager/copy_fmp_test.stamp $
     obj/ui/file_manager/copy_ts.stamp $
     obj/ui/file_manager/libfile_manager.a $
     obj/ui/file_manager/file_manager_gen_resources.stamp $
     obj/ui/file_manager/file_manager_gen_resources_grit.stamp $
     obj/ui/file_manager/for_image_loader.stamp $
+    obj/ui/file_manager/for_image_loader_unittests.stamp $
     obj/ui/file_manager/generate_definitions.stamp $
     obj/ui/file_manager/html_wrapper_files.stamp $
     obj/ui/file_manager/preprocess_generated.stamp $
@@ -62118,6 +62074,7 @@ build all: phony $
     obj/ui/file_manager/integration_tests/build_ts.stamp $
     obj/ui/file_manager/integration_tests/copy_app.stamp $
     obj/ui/file_manager/integration_tests/copy_src.stamp $
+    obj/ui/file_manager/integration_tests/from_files_app.stamp $
     obj/ui/gfx/buffer_types.stamp $
     obj/ui/gfx/color_analysis_fuzzer.stamp $
     obj/ui/gfx/libcolor_space.a $

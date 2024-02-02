@@ -47,18 +47,15 @@ namespace auction_worklet::mojom {
 ComponentAuctionModifiedBidParams::ComponentAuctionModifiedBidParams()
     : ad(),
       bid(),
-      bid_currency(),
-      has_bid() {}
+      bid_currency() {}
 
 ComponentAuctionModifiedBidParams::ComponentAuctionModifiedBidParams(
     const std::string& ad_in,
-    double bid_in,
-    const std::optional<::blink::AdCurrency>& bid_currency_in,
-    bool has_bid_in)
+    std::optional<double> bid_in,
+    const std::optional<::blink::AdCurrency>& bid_currency_in)
     : ad(std::move(ad_in)),
       bid(std::move(bid_in)),
-      bid_currency(std::move(bid_currency_in)),
-      has_bid(std::move(has_bid_in)) {}
+      bid_currency(std::move(bid_currency_in)) {}
 
 ComponentAuctionModifiedBidParams::~ComponentAuctionModifiedBidParams() = default;
 
@@ -78,7 +75,7 @@ void ComponentAuctionModifiedBidParams::WriteIntoTrace(
     dict.AddItem(
       "bid"), this->bid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type double>"
+      "<value of type std::optional<double>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -92,15 +89,6 @@ void ComponentAuctionModifiedBidParams::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "has_bid"), this->has_bid,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
 }
 
 bool ComponentAuctionModifiedBidParams::Validate(
@@ -110,24 +98,15 @@ bool ComponentAuctionModifiedBidParams::Validate(
 }
 ComponentAuctionReportResultParams::ComponentAuctionReportResultParams()
     : top_level_seller_signals(),
-      modified_bid(),
-      has_modified_bid() {}
+      modified_bid() {}
 
 ComponentAuctionReportResultParams::ComponentAuctionReportResultParams(
     const std::string& top_level_seller_signals_in,
-    double modified_bid_in,
-    bool has_modified_bid_in)
+    std::optional<double> modified_bid_in)
     : top_level_seller_signals(std::move(top_level_seller_signals_in)),
-      modified_bid(std::move(modified_bid_in)),
-      has_modified_bid(std::move(has_modified_bid_in)) {}
+      modified_bid(std::move(modified_bid_in)) {}
 
 ComponentAuctionReportResultParams::~ComponentAuctionReportResultParams() = default;
-size_t ComponentAuctionReportResultParams::Hash(size_t seed) const {
-  seed = mojo::internal::Hash(seed, this->top_level_seller_signals);
-  seed = mojo::internal::Hash(seed, this->modified_bid);
-  seed = mojo::internal::Hash(seed, this->has_modified_bid);
-  return seed;
-}
 
 void ComponentAuctionReportResultParams::WriteIntoTrace(
     perfetto::TracedValue traced_context) const {
@@ -145,16 +124,7 @@ void ComponentAuctionReportResultParams::WriteIntoTrace(
     dict.AddItem(
       "modified_bid"), this->modified_bid,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type double>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "has_modified_bid"), this->has_modified_bid,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
+      "<value of type std::optional<double>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -965,7 +935,7 @@ void SellerWorkletProxy::SendPendingSignalsRequests(
 }
 
 void SellerWorkletProxy::ReportResult(
-    const ::blink::AuctionConfig::NonSharedParams& in_auction_ad_config_non_shared_params, const std::optional<::GURL>& in_direct_from_seller_seller_signals, const std::optional<std::string>& in_direct_from_seller_seller_signals_header_ad_slot, const std::optional<::GURL>& in_direct_from_seller_auction_signals, const std::optional<std::string>& in_direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr in_browser_signals_other_seller, const ::url::Origin& in_browser_signal_interest_group_owner, const std::optional<std::string>& in_browser_signal_buyer_and_seller_reporting_id, const ::GURL& in_browser_signal_render_url, double in_browser_signal_bid, const std::optional<::blink::AdCurrency>& in_browser_signal_bid_currency, double in_browser_signal_desirability, double in_browser_signal_highest_scoring_other_bid, const std::optional<::blink::AdCurrency>& in_browser_signal_highest_scoring_other_bid_currency, ComponentAuctionReportResultParamsPtr in_browser_signals_component_auction_report_result_params, uint32_t in_scoring_signals_data_version, bool in_has_scoring_signals_data_version, uint64_t in_trace_id, ReportResultCallback callback) {
+    const ::blink::AuctionConfig::NonSharedParams& in_auction_ad_config_non_shared_params, const std::optional<::GURL>& in_direct_from_seller_seller_signals, const std::optional<std::string>& in_direct_from_seller_seller_signals_header_ad_slot, const std::optional<::GURL>& in_direct_from_seller_auction_signals, const std::optional<std::string>& in_direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr in_browser_signals_other_seller, const ::url::Origin& in_browser_signal_interest_group_owner, const std::optional<std::string>& in_browser_signal_buyer_and_seller_reporting_id, const ::GURL& in_browser_signal_render_url, double in_browser_signal_bid, const std::optional<::blink::AdCurrency>& in_browser_signal_bid_currency, double in_browser_signal_desirability, double in_browser_signal_highest_scoring_other_bid, const std::optional<::blink::AdCurrency>& in_browser_signal_highest_scoring_other_bid_currency, ComponentAuctionReportResultParamsPtr in_browser_signals_component_auction_report_result_params, std::optional<uint32_t> in_scoring_signals_data_version, uint64_t in_trace_id, ReportResultCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send auction_worklet::mojom::SellerWorklet::ReportResult", "input_parameters",
@@ -1018,10 +988,7 @@ void SellerWorkletProxy::ReportResult(
                         "<value of type ComponentAuctionReportResultParamsPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("scoring_signals_data_version"), in_scoring_signals_data_version,
-                        "<value of type uint32_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("has_scoring_signals_data_version"), in_has_scoring_signals_data_version,
-                        "<value of type bool>");
+                        "<value of type std::optional<uint32_t>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("trace_id"), in_trace_id,
                         "<value of type uint64_t>");
@@ -1142,8 +1109,10 @@ void SellerWorkletProxy::ReportResult(
       in_browser_signals_component_auction_report_result_params, browser_signals_component_auction_report_result_params_fragment);
   params->browser_signals_component_auction_report_result_params.Set(
       browser_signals_component_auction_report_result_params_fragment.is_null() ? nullptr : browser_signals_component_auction_report_result_params_fragment.data());
-  params->scoring_signals_data_version = in_scoring_signals_data_version;
-  params->has_scoring_signals_data_version = in_has_scoring_signals_data_version;
+  params->scoring_signals_data_version_$flag = in_scoring_signals_data_version.has_value();
+  if (in_scoring_signals_data_version.has_value()) {
+    params->scoring_signals_data_version_$value = in_scoring_signals_data_version.value();
+  }
   params->trace_id = in_trace_id;
 
 #if defined(ENABLE_IPC_FUZZER)
@@ -1625,8 +1594,7 @@ bool SellerWorkletStubDispatch::AcceptWithResponder(
       double p_browser_signal_highest_scoring_other_bid{};
       std::optional<::blink::AdCurrency> p_browser_signal_highest_scoring_other_bid_currency{};
       ComponentAuctionReportResultParamsPtr p_browser_signals_component_auction_report_result_params{};
-      uint32_t p_scoring_signals_data_version{};
-      bool p_has_scoring_signals_data_version{};
+      std::optional<uint32_t> p_scoring_signals_data_version{};
       uint64_t p_trace_id{};
       SellerWorklet_ReportResult_ParamsDataView input_data_view(params, message);
       
@@ -1660,10 +1628,9 @@ bool SellerWorkletStubDispatch::AcceptWithResponder(
         success = false;
       if (success && !input_data_view.ReadBrowserSignalsComponentAuctionReportResultParams(&p_browser_signals_component_auction_report_result_params))
         success = false;
-      if (success)
+      if (success) {
         p_scoring_signals_data_version = input_data_view.scoring_signals_data_version();
-      if (success)
-        p_has_scoring_signals_data_version = input_data_view.has_scoring_signals_data_version();
+      }
       if (success)
         p_trace_id = input_data_view.trace_id();
       if (!success) {
@@ -1695,7 +1662,6 @@ bool SellerWorkletStubDispatch::AcceptWithResponder(
         std::move(p_browser_signal_highest_scoring_other_bid_currency), 
         std::move(p_browser_signals_component_auction_report_result_params), 
         std::move(p_scoring_signals_data_version), 
-        std::move(p_has_scoring_signals_data_version), 
         std::move(p_trace_id), std::move(callback));
       return true;
     }
@@ -1744,12 +1710,11 @@ bool StructTraits<::auction_worklet::mojom::ComponentAuctionModifiedBidParams::D
   
       if (success && !input.ReadAd(&result->ad))
         success = false;
-      if (success)
+      if (success) {
         result->bid = input.bid();
+      }
       if (success && !input.ReadBidCurrency(&result->bid_currency))
         success = false;
-      if (success)
-        result->has_bid = input.has_bid();
   *output = std::move(result);
   return success;
 }
@@ -1764,10 +1729,9 @@ bool StructTraits<::auction_worklet::mojom::ComponentAuctionReportResultParams::
   
       if (success && !input.ReadTopLevelSellerSignals(&result->top_level_seller_signals))
         success = false;
-      if (success)
+      if (success) {
         result->modified_bid = input.modified_bid();
-      if (success)
-        result->has_modified_bid = input.has_modified_bid();
+      }
   *output = std::move(result);
   return success;
 }
@@ -1850,8 +1814,8 @@ void SellerWorkletInterceptorForTesting::ScoreAd(const std::string& ad_metadata_
 void SellerWorkletInterceptorForTesting::SendPendingSignalsRequests() {
   GetForwardingInterface()->SendPendingSignalsRequests();
 }
-void SellerWorkletInterceptorForTesting::ReportResult(const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const std::optional<::GURL>& direct_from_seller_seller_signals, const std::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const ::url::Origin& browser_signal_interest_group_owner, const std::optional<std::string>& browser_signal_buyer_and_seller_reporting_id, const ::GURL& browser_signal_render_url, double browser_signal_bid, const std::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_desirability, double browser_signal_highest_scoring_other_bid, const std::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, ComponentAuctionReportResultParamsPtr browser_signals_component_auction_report_result_params, uint32_t scoring_signals_data_version, bool has_scoring_signals_data_version, uint64_t trace_id, ReportResultCallback callback) {
-  GetForwardingInterface()->ReportResult(std::move(auction_ad_config_non_shared_params), std::move(direct_from_seller_seller_signals), std::move(direct_from_seller_seller_signals_header_ad_slot), std::move(direct_from_seller_auction_signals), std::move(direct_from_seller_auction_signals_header_ad_slot), std::move(browser_signals_other_seller), std::move(browser_signal_interest_group_owner), std::move(browser_signal_buyer_and_seller_reporting_id), std::move(browser_signal_render_url), std::move(browser_signal_bid), std::move(browser_signal_bid_currency), std::move(browser_signal_desirability), std::move(browser_signal_highest_scoring_other_bid), std::move(browser_signal_highest_scoring_other_bid_currency), std::move(browser_signals_component_auction_report_result_params), std::move(scoring_signals_data_version), std::move(has_scoring_signals_data_version), std::move(trace_id), std::move(callback));
+void SellerWorkletInterceptorForTesting::ReportResult(const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const std::optional<::GURL>& direct_from_seller_seller_signals, const std::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const ::url::Origin& browser_signal_interest_group_owner, const std::optional<std::string>& browser_signal_buyer_and_seller_reporting_id, const ::GURL& browser_signal_render_url, double browser_signal_bid, const std::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_desirability, double browser_signal_highest_scoring_other_bid, const std::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, ComponentAuctionReportResultParamsPtr browser_signals_component_auction_report_result_params, std::optional<uint32_t> scoring_signals_data_version, uint64_t trace_id, ReportResultCallback callback) {
+  GetForwardingInterface()->ReportResult(std::move(auction_ad_config_non_shared_params), std::move(direct_from_seller_seller_signals), std::move(direct_from_seller_seller_signals_header_ad_slot), std::move(direct_from_seller_auction_signals), std::move(direct_from_seller_auction_signals_header_ad_slot), std::move(browser_signals_other_seller), std::move(browser_signal_interest_group_owner), std::move(browser_signal_buyer_and_seller_reporting_id), std::move(browser_signal_render_url), std::move(browser_signal_bid), std::move(browser_signal_bid_currency), std::move(browser_signal_desirability), std::move(browser_signal_highest_scoring_other_bid), std::move(browser_signal_highest_scoring_other_bid_currency), std::move(browser_signals_component_auction_report_result_params), std::move(scoring_signals_data_version), std::move(trace_id), std::move(callback));
 }
 void SellerWorkletInterceptorForTesting::ConnectDevToolsAgent(::mojo::PendingAssociatedReceiver<::blink::mojom::DevToolsAgent> agent) {
   GetForwardingInterface()->ConnectDevToolsAgent(std::move(agent));
@@ -1862,9 +1826,9 @@ SellerWorkletAsyncWaiter::SellerWorkletAsyncWaiter(
 SellerWorkletAsyncWaiter::~SellerWorkletAsyncWaiter() = default;
 
 void SellerWorkletAsyncWaiter::ReportResult(
-    const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const std::optional<::GURL>& direct_from_seller_seller_signals, const std::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const ::url::Origin& browser_signal_interest_group_owner, const std::optional<std::string>& browser_signal_buyer_and_seller_reporting_id, const ::GURL& browser_signal_render_url, double browser_signal_bid, const std::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_desirability, double browser_signal_highest_scoring_other_bid, const std::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, ComponentAuctionReportResultParamsPtr browser_signals_component_auction_report_result_params, uint32_t scoring_signals_data_version, bool has_scoring_signals_data_version, uint64_t trace_id, std::optional<std::string>* out_signals_for_winner, std::optional<::GURL>* out_report_url, base::flat_map<std::string, ::GURL>* out_ad_beacon_map, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr>* out_pa_requests, ::base::TimeDelta* out_reporting_latency, std::vector<std::string>* out_error_msgs) {
+    const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const std::optional<::GURL>& direct_from_seller_seller_signals, const std::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const ::url::Origin& browser_signal_interest_group_owner, const std::optional<std::string>& browser_signal_buyer_and_seller_reporting_id, const ::GURL& browser_signal_render_url, double browser_signal_bid, const std::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_desirability, double browser_signal_highest_scoring_other_bid, const std::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, ComponentAuctionReportResultParamsPtr browser_signals_component_auction_report_result_params, std::optional<uint32_t> scoring_signals_data_version, uint64_t trace_id, std::optional<std::string>* out_signals_for_winner, std::optional<::GURL>* out_report_url, base::flat_map<std::string, ::GURL>* out_ad_beacon_map, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr>* out_pa_requests, ::base::TimeDelta* out_reporting_latency, std::vector<std::string>* out_error_msgs) {
   base::RunLoop loop;
-  proxy_->ReportResult(std::move(auction_ad_config_non_shared_params),std::move(direct_from_seller_seller_signals),std::move(direct_from_seller_seller_signals_header_ad_slot),std::move(direct_from_seller_auction_signals),std::move(direct_from_seller_auction_signals_header_ad_slot),std::move(browser_signals_other_seller),std::move(browser_signal_interest_group_owner),std::move(browser_signal_buyer_and_seller_reporting_id),std::move(browser_signal_render_url),std::move(browser_signal_bid),std::move(browser_signal_bid_currency),std::move(browser_signal_desirability),std::move(browser_signal_highest_scoring_other_bid),std::move(browser_signal_highest_scoring_other_bid_currency),std::move(browser_signals_component_auction_report_result_params),std::move(scoring_signals_data_version),std::move(has_scoring_signals_data_version),std::move(trace_id),
+  proxy_->ReportResult(std::move(auction_ad_config_non_shared_params),std::move(direct_from_seller_seller_signals),std::move(direct_from_seller_seller_signals_header_ad_slot),std::move(direct_from_seller_auction_signals),std::move(direct_from_seller_auction_signals_header_ad_slot),std::move(browser_signals_other_seller),std::move(browser_signal_interest_group_owner),std::move(browser_signal_buyer_and_seller_reporting_id),std::move(browser_signal_render_url),std::move(browser_signal_bid),std::move(browser_signal_bid_currency),std::move(browser_signal_desirability),std::move(browser_signal_highest_scoring_other_bid),std::move(browser_signal_highest_scoring_other_bid_currency),std::move(browser_signals_component_auction_report_result_params),std::move(scoring_signals_data_version),std::move(trace_id),
       base::BindOnce(
           [](base::RunLoop* loop,
              std::optional<std::string>* out_signals_for_winner

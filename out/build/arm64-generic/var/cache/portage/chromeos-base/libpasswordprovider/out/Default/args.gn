@@ -13,7 +13,7 @@ libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/libpasswordprovider"
 platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/libpasswordprovider-0.0.1-r750/work/libpasswordprovider-0.0.1"
-libbase_ver = "1253750"
+libbase_ver = "1254430"
 enable_exceptions = false
 external_cflags = [
   "-Os",

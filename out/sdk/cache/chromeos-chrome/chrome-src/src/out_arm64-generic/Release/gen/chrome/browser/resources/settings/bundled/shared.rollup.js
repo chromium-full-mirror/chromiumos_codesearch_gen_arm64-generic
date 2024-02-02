@@ -3,6 +3,7 @@ import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import './strings.m.js';
 import { addWebUiListener, removeWebUiListener, sendWithPromise } from 'chrome://resources/js/cr.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
+import { css, html as html$1, nothing, CrLitElement } from 'chrome://resources/lit/v3_0/lit.rollup.js';
 
 /**
 @license
@@ -1773,7 +1774,7 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$O() {
+function getTemplate$N() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -1831,7 +1832,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$O();
+        return getTemplate$N();
     }
     static get properties() {
         return {
@@ -4273,7 +4274,7 @@ class FocusOutlineManager {
     }
 }
 
-function getTemplate$N() {
+function getTemplate$M() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -4309,7 +4310,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$N();
+        return getTemplate$M();
     }
     static get properties() {
         return {
@@ -4493,7 +4494,7 @@ styleMod$6.appendChild(html `
 `.content);
 styleMod$6.register('cr-actionable-row-style');
 
-function getTemplate$M() {
+function getTemplate$L() {
     return html `<!--_html_template_start_--><style include="cr-actionable-row-style cr-shared-style cr-hidden-style">:host{box-sizing:border-box;flex:1;font-family:inherit;font-size:100%;line-height:154%;min-height:var(--cr-section-min-height);padding:0}:host(:not([embedded])){padding:0 var(--cr-section-padding)}#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
         var(--google-grey-700));display:flex;flex-shrink:0;padding-inline-end:var(--cr-icon-button-margin-start);width:var(--cr-link-row-icon-width,var(--cr-icon-size))}@media (prefers-color-scheme:dark){#startIcon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
           var(--google-grey-500))}}#labelWrapper{flex:1;flex-basis:.000000001px;padding-bottom:var(--cr-section-vertical-padding);padding-top:var(--cr-section-vertical-padding);text-align:start}#label,#subLabel{display:flex}#buttonAriaDescription{clip:rect(0,0,0,0);display:block;position:fixed}</style>
@@ -4533,7 +4534,7 @@ class CrLinkRowElement extends PolymerElement {
         return 'cr-link-row';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -5045,7 +5046,7 @@ styleMod$5.appendChild(html `
 `.content);
 styleMod$5.register('action-link');
 
-function getTemplate$L() {
+function getTemplate$K() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
                 var(--cr-fallback-color-primary));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on,
                 var(--cr-fallback-color-on-primary));--cr-toggle-unchecked-bar-color:var(--color-toggle-button-track-off,
@@ -5092,7 +5093,7 @@ class CrToggleElement extends CrToggleElementBase {
         return 'cr-toggle';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -5879,7 +5880,7 @@ Polymer({
   }
 });
 
-function getTemplate$K() {
+function getTemplate$J() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style">:host{display:flex}iron-icon{--iron-icon-width:var(--cr-icon-size);--iron-icon-height:var(--cr-icon-size);--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-700))}@media (prefers-color-scheme:dark){iron-icon{--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-500))}}</style>
     <iron-icon id="indicator" tabindex="0" aria-label$="[[iconAriaLabel]]" aria-describedby="tooltip" icon="[[iconClass]]" role="img"></iron-icon>
     <paper-tooltip id="tooltip" for="indicator" position="[[tooltipPosition]]" fit-to-visible-bounds part="tooltip">
@@ -5896,7 +5897,7 @@ class CrTooltipIconElement extends PolymerElement {
         return 'cr-tooltip-icon';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -6044,7 +6045,7 @@ const CrPolicyIndicatorMixin = dedupingMixin((superClass) => {
     return CrPolicyIndicatorMixin;
 });
 
-function getTemplate$J() {
+function getTemplate$I() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style"></style>
     <cr-tooltip-icon id="tooltipIcon" hidden$="[[!indicatorVisible]]" tooltip-text="[[indicatorTooltip]]" icon-class="[[indicatorIcon]]" icon-aria-label="[[iconAriaLabel]]" exportparts="tooltip">
     </cr-tooltip-icon>
@@ -6064,7 +6065,7 @@ class CrPolicyPrefIndicatorElement extends CrPolicyPrefIndicatorElementBase {
         return 'cr-policy-pref-indicator';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -6392,7 +6393,7 @@ const SettingsBooleanControlMixin = dedupingMixin((superClass) => {
     return SettingsBooleanControlMixin;
 });
 
-function getTemplate$I() {
+function getTemplate$H() {
     return html `<!--_html_template_start_--><style include="cr-shared-style cr-actionable-row-style iron-flex action-link cros-color-overrides">:host{--cr-icon-button-margin-end:20px;padding:0 var(--cr-section-padding)}:host([elide-label]),:host([elide-label]) #outerRow,:host([elide-label]) #outerRow>div.flex{min-width:0}:host([elide-label]) .label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#outerRow{align-items:center;display:flex;min-height:var(--cr-section-two-line-min-height);width:100%}#outerRow[noSubLabel]{min-height:var(--cr-section-min-height)}#icon{margin-inline-end:var(--cr-icon-button-margin-end)}#labelWrapper{padding:var(--cr-section-vertical-padding) 0}#labelWrapper,::slotted([slot=more-actions]){margin-inline-end:20px!important}cr-policy-pref-indicator{margin-inline-end:var(--cr-controlled-by-spacing)}a{color:var(--cr-link-color)}</style>
 <div id="outerRow" nosublabel$="[[!subLabel]]">
   <template is="dom-if" if="[[icon]]">
@@ -6451,7 +6452,7 @@ class SettingsToggleButtonElement extends SettingsToggleButtonElementBase {
         return 'settings-toggle-button';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -6578,7 +6579,7 @@ class SettingsToggleButtonElement extends SettingsToggleButtonElementBase {
 }
 customElements.define(SettingsToggleButtonElement.is, SettingsToggleButtonElement);
 
-function getTemplate$H() {
+function getTemplate$G() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:var(--cr-toast-max-width,568px);min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
             var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
             var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
@@ -6602,7 +6603,7 @@ class CrToastElement extends PolymerElement {
         return 'cr-toast';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -7436,7 +7437,7 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
     return CrContainerShadowMixin;
 });
 
-function getTemplate$G() {
+function getTemplate$F() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
     <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
     
@@ -7491,7 +7492,7 @@ class CrDialogElement extends CrDialogElementBase {
         return 'cr-dialog';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -7919,7 +7920,7 @@ function prefToString(pref) {
     }
 }
 
-function getTemplate$F() {
+function getTemplate$E() {
     return html `<!--_html_template_start_--><style include="cr-radio-button-style cros-color-overrides">:host([disabled]){opacity:1}:host([disabled]) #labelWrapper,:host([disabled]) .disc-wrapper{opacity:var(--cr-disabled-opacity)}cr-policy-pref-indicator{margin-inline-start:var(--cr-controlled-by-spacing);pointer-events:all}</style>
 
 <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -7951,7 +7952,7 @@ class ControlledRadioButtonElement extends ControlledRadioButtonElementBase {
         return 'controlled-radio-button';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$E();
     }
     static get observers() {
         return [
@@ -8026,7 +8027,7 @@ class ExtensionControlBrowserProxyImpl {
 }
 let instance$d = null;
 
-function getTemplate$E() {
+function getTemplate$D() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{align-items:center;display:flex;margin-inline-start:36px;min-height:var(--cr-section-min-height)}img{margin-inline-end:16px}iron-icon[icon='cr:open-in-new']{fill:var(--text-color);height:var(--cr-icon-size);width:var(--cr-icon-size)}#disable{margin-inline-start:8px}:host>span{flex:1;margin-inline-end:8px}</style>
 <img role="presentation" src="chrome://extension-icon/[[extensionId]]/20/1">
 <span>[[getLabel_(extensionName)]]</span>
@@ -8048,7 +8049,7 @@ class ExtensionControlledIndicatorElement extends PolymerElement {
         return 'extension-controlled-indicator';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$D();
     }
     static get properties() {
         return {
@@ -8072,7 +8073,7 @@ class ExtensionControlledIndicatorElement extends PolymerElement {
 }
 customElements.define(ExtensionControlledIndicatorElement.is, ExtensionControlledIndicatorElement);
 
-function getTemplate$D() {
+function getTemplate$C() {
     return html `<!--_html_template_start_-->    <style include="cr-radio-button-style cr-hidden-style"></style>
 
     <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -8099,7 +8100,7 @@ class CrRadioButtonElement extends CrRadioButtonElementBase {
         return 'cr-radio-button';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$C();
     }
     // Overridden from CrRadioButtonMixin
     getPaperRipple() {
@@ -8180,7 +8181,7 @@ class EventTracker {
     }
 }
 
-function getTemplate$C() {
+function getTemplate$B() {
     return html `<!--_html_template_start_-->    <style>:host{display:inline-block}:host ::slotted(*){padding:var(--cr-radio-group-item-padding,12px)}:host([disabled]){cursor:initial;pointer-events:none;user-select:none}:host([disabled]) ::slotted(*){opacity:var(--cr-disabled-opacity)}</style>
     <slot></slot>
 <!--_html_template_end_-->`;
@@ -8206,7 +8207,7 @@ class CrRadioGroupElement extends PolymerElement {
         return 'cr-radio-group';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$B();
     }
     static get properties() {
         return {
@@ -8409,7 +8410,7 @@ class CrRadioGroupElement extends PolymerElement {
 }
 customElements.define(CrRadioGroupElement.is, CrRadioGroupElement);
 
-function getTemplate$B() {
+function getTemplate$A() {
     return html `<!--_html_template_start_--><style>cr-radio-group{width:100%}</style>
 <cr-radio-group selected="[[selected]]" on-selected-changed="onSelectedChanged_" aria-label$="[[groupAriaLabel]]" selectable-elements="[[selectableElements]]">
   <slot></slot>
@@ -8436,7 +8437,7 @@ class SettingsRadioGroupElement extends SettingsRadioGroupElementBase {
         return 'settings-radio-group';
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$A();
     }
     static get properties() {
         return {
@@ -9415,7 +9416,7 @@ const RouteObserverMixin = dedupingMixin((superClass) => {
     return RouteObserverMixin;
 });
 
-function getTemplate$A() {
+function getTemplate$z() {
     return html `<!--_html_template_start_-->    <iron-pages id="animatedPages" attr-for-selected="route-path" on-iron-select="onIronSelect_">
       <slot></slot>
     </iron-pages>
@@ -9442,7 +9443,7 @@ class SettingsAnimatedPagesElement extends SettingsAnimatedPagesElementBase {
         return 'settings-animated-pages';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$z();
     }
     static get properties() {
         return {
@@ -9638,7 +9639,7 @@ styleMod$2.appendChild(html `
 `.content);
 styleMod$2.register('cr-input-style');
 
-function getTemplate$z() {
+function getTemplate$y() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -9681,7 +9682,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$z();
+        return getTemplate$y();
     }
     static get properties() {
         return {
@@ -9907,7 +9908,7 @@ class CrInputElement extends PolymerElement {
 }
 customElements.define(CrInputElement.is, CrInputElement);
 
-function getTemplate$y() {
+function getTemplate$x() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
           var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
     <iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
@@ -9933,7 +9934,7 @@ class CrSearchFieldElement extends CrSearchFieldElementBase {
         return 'cr-search-field';
     }
     static get template() {
-        return getTemplate$y();
+        return getTemplate$x();
     }
     static get properties() {
         return {
@@ -10088,7 +10089,7 @@ function getFaviconForPageURL(url, isSyncedUrlForHistoryUi, remoteIconUrlForUma 
     return getImageSet(faviconUrl.toString());
 }
 
-function getTemplate$x() {
+function getTemplate$w() {
     return html `<!--_html_template_start_-->    <style>#favicon{background-repeat:no-repeat;background-size:contain;border-radius:var(--site-favicon-border-radius,inherit);display:block;height:var(--site-favicon-height,16px);width:var(--site-favicon-width,16px)}</style>
     <div id="favicon" style="background-image:[[getBackgroundImage_(faviconUrl,url,iconPath) ]]">
     </div>
@@ -10107,7 +10108,7 @@ class SiteFaviconElement extends PolymerElement {
         return 'site-favicon';
     }
     static get template() {
-        return getTemplate$x();
+        return getTemplate$w();
     }
     static get properties() {
         return {
@@ -10168,7 +10169,7 @@ class SiteFaviconElement extends PolymerElement {
 }
 customElements.define(SiteFaviconElement.is, SiteFaviconElement);
 
-function getTemplate$w() {
+function getTemplate$v() {
     return html `<!--_html_template_start_--><style include="md-select cros-color-overrides">:host{align-items:center;display:inline-flex}cr-policy-pref-indicator{height:var(--iron-icon-width,24px);margin:0 var(--cr-controlled-by-spacing);order:var(--settings-dropdown-menu-policy-order,0);width:var(--iron-icon-width,24px)}option:disabled{display:none}</style>
 <template is="dom-if" if="[[pref.controlledBy]]" restamp>
   <cr-policy-pref-indicator pref="[[pref]]"></cr-policy-pref-indicator>
@@ -10204,7 +10205,7 @@ class SettingsDropdownMenuElement extends SettingsDropdownMenuElementBase {
         return 'settings-dropdown-menu';
     }
     static get template() {
-        return getTemplate$w();
+        return getTemplate$v();
     }
     static get properties() {
         return {
@@ -11143,7 +11144,7 @@ const TooltipMixin = dedupingMixin((superClass) => {
     return TooltipMixin;
 });
 
-function getTemplate$v() {
+function getTemplate$u() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{display:block;--separator-line-height:16px;--cr-icon-button-margin-end:0}#header-wrapper{align-items:center;display:flex;flex:1}#header-text-wrapper{flex-direction:column;flex:1;margin-inline-end:24px}#header,#subheader,.display-name{font-size:.8125rem}#header{font-weight:500}#header-wrapper{min-height:calc(2em * 1.54)}iron-icon{--iron-icon-height:20px;--iron-icon-width:20px}iron-icon.green{--iron-icon-fill-color:var(--google-green-700)}iron-icon.blue{--iron-icon-fill-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){iron-icon.green{--iron-icon-fill-color:var(--google-green-300)}iron-icon.blue{--iron-icon-fill-color:var(--google-blue-300)}}.list-item{clip-path:polygon(0 0,0 100%,100% 100%,100% 0)}.display-name{flex:1;max-width:100%}#header-icon,.item-icon,site-favicon{padding-inline-end:16px}#line{box-sizing:border-box;height:var(--separator-line-height);border-bottom:1px solid var(--cr-separator-color);flex:1}paper-tooltip{--paper-tooltip-min-width:max-content}</style>
 
 <template is="dom-if" if="[[animated]]">
@@ -11219,7 +11220,7 @@ class SettingsSafetyHubModuleElement extends SettingsSafetyHubModuleElementBase 
         return 'settings-safety-hub-module';
     }
     static get template() {
-        return getTemplate$v();
+        return getTemplate$u();
     }
     static get properties() {
         return {
@@ -11437,7 +11438,7 @@ class SettingsSafetyHubModuleElement extends SettingsSafetyHubModuleElementBase 
 }
 customElements.define(SettingsSafetyHubModuleElement.is, SettingsSafetyHubModuleElement);
 
-function getTemplate$u() {
+function getTemplate$t() {
     return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
 
     <div id="label" aria-hidden="true"><slot></slot></div>
@@ -11459,7 +11460,7 @@ class CrExpandButtonElement extends PolymerElement {
         return 'cr-expand-button';
     }
     static get template() {
-        return getTemplate$u();
+        return getTemplate$t();
     }
     static get properties() {
         return {
@@ -11554,7 +11555,7 @@ class CrExpandButtonElement extends PolymerElement {
 }
 customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);
 
-function getTemplate$t() {
+function getTemplate$s() {
     return html `<!--_html_template_start_-->    <style include="settings-shared cr-radio-button-style">:host{display:block}:host([disabled]){opacity:1}:host([disabled]) cr-expand-button,cr-policy-pref-indicator{pointer-events:auto}:host([disabled]) .disc-wrapper{opacity:var(--cr-disabled-opacity)}iron-collapse{margin-inline-end:0;margin-inline-start:calc(var(--cr-radio-button-label-spacing,20px) + var(--cr-radio-button-size))}.disc-wrapper{margin-inline-end:var(--cr-radio-button-label-spacing,20px)}.separator{margin-inline-end:0;min-height:calc(var(--settings-collapse-toggle-min-height,48px)/ 2)}#borderWrapper{align-items:center;border-top:var(--settings-collapse-separator-line);display:flex;min-height:var(--settings-collapse-toggle-min-height);width:100%}#buttonIcon{padding-inline-end:6px}#labelWrapper{--cr-radio-button-label-spacing:0}#radioCollapse{align-items:center;display:flex}slot[name=noSelectionCollapse]{cursor:auto}</style>
     <div id="radioCollapse">
       <div aria-checked$="[[getAriaChecked_(checked)]]" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-focus="onRadioFocus_" on-keydown="onInputKeydown_">
@@ -11599,7 +11600,7 @@ class SettingsCollapseRadioButtonElement extends SettingsCollapseRadioButtonElem
         return 'settings-collapse-radio-button';
     }
     static get template() {
-        return getTemplate$t();
+        return getTemplate$s();
     }
     static get properties() {
         return {
@@ -11910,7 +11911,7 @@ var CookiesExceptionType;
     CookiesExceptionType["COMBINED"] = "combined";
 })(CookiesExceptionType || (CookiesExceptionType = {}));
 
-function getTemplate$s() {
+function getTemplate$r() {
     return html `<!--_html_template_start_--><style include="settings-shared">#radioSection{padding:0 var(--cr-section-padding)}#radioGroupSubLabel{padding-bottom:10px}settings-collapse-radio-button{--settings-collapse-toggle-min-height:var(--cr-section-min-height)}settings-collapse-radio-button.two-line{--settings-collapse-toggle-min-height:var(--cr-section-two-line-min-height)}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}</style>
 <div id="radioSection">
   <h2>[[header]]</h2>
@@ -12253,7 +12254,7 @@ class SettingsCategoryDefaultRadioGroupElement extends SettingsCategoryDefaultRa
         return 'settings-category-default-radio-group';
     }
     static get template() {
-        return getTemplate$s();
+        return getTemplate$r();
     }
     static get properties() {
         return {
@@ -12416,7 +12417,7 @@ class SettingsCategoryDefaultRadioGroupElement extends SettingsCategoryDefaultRa
 }
 customElements.define(SettingsCategoryDefaultRadioGroupElement.is, SettingsCategoryDefaultRadioGroupElement);
 
-function getTemplate$r() {
+function getTemplate$q() {
     return html `<!--_html_template_start_-->    <style>:host ::slotted([slot=view]){bottom:0;display:none;left:0;position:absolute;right:0;top:0}:host ::slotted(.active),:host ::slotted(.closing){display:block}</style>
     <slot name="view"></slot>
 <!--_html_template_end_-->`;
@@ -12479,7 +12480,7 @@ class CrViewManagerElement extends PolymerElement {
         return 'cr-view-manager';
     }
     static get template() {
-        return getTemplate$r();
+        return getTemplate$q();
     }
     exit_(element, animation) {
         const animationFunction = viewAnimations.get(animation);
@@ -12528,7 +12529,7 @@ class CrViewManagerElement extends PolymerElement {
 }
 customElements.define(CrViewManagerElement.is, CrViewManagerElement);
 
-function getTemplate$q() {
+function getTemplate$p() {
     return html `<!--_html_template_start_--><style include="cr-shared-style cr-actionable-row-style">:host{padding-inline-start:4px}#labelWrapper{flex:1;padding-inline-start:16px}#label{font-size:.875rem;padding-bottom:4px}cr-icon-button{--cr-icon-button-icon-size:24px;margin:2px}</style>
 <picture>
   <source srcset="[[darkImgSrc]]" media="(prefers-color-scheme: dark)">
@@ -12558,7 +12559,7 @@ class PrivacyGuideCompletionLinkRowElement extends PolymerElement {
         return 'privacy-guide-completion-link-row';
     }
     static get template() {
-        return getTemplate$q();
+        return getTemplate$p();
     }
     static get properties() {
         return {
@@ -12622,7 +12623,7 @@ class ClearBrowsingDataBrowserProxyImpl {
 }
 let instance$a = null;
 
-function getTemplate$p() {
+function getTemplate$o() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared">:host{display:flex;flex-flow:column;min-height:calc(432px - var(--privacy-guide-footer-total-height))}.headline{outline:0}.headline-container{padding:36px 120px 16px 120px;row-gap:8px}:host-context([is-privacy-guide-v2]) .header-phase2 picture{animation:fade-in var(--privacy-guide-animation-duration);animation-delay:.1s;animation-fill-mode:forwards;opacity:0}:host-context([is-privacy-guide-v2]) .cr-secondary-text,:host-context([is-privacy-guide-v2]) .headline{animation:fade-in var(--privacy-guide-animation-duration)}:host-context([is-privacy-guide-v2]) #privacySandboxRow,:host-context([is-privacy-guide-v2]) #waaRow{animation:fade-in var(--privacy-guide-animation-duration)}#picture-container{height:153px;margin-block-end:12px;position:relative;width:354px}:host-context([is-no-link-layout]) #picture-container{margin-block-end:32px;margin-block-start:24px}.picture-shapes-container{--shape-color-green:rgba(71, 166, 86, 1);--shape-color-red:rgba(255, 127, 116, 1);--shape-color-yellow:rgba(251, 188, 4, 1);animation:fade-in 50ms ease-in .2s forwards;opacity:0}@media (prefers-color-scheme:dark){.picture-shapes-container{--shape-color-green:rgba(129, 201, 149, 1);--shape-color-yellow:rgba(253, 214, 99, 1)}}.picture-shape{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:100% 100%;animation-delay:.2s;animation-duration:.3s;animation-fill-mode:forwards;left:0;position:absolute;top:0;transform-origin:center center}@keyframes circle{0%{transform:translate(134px,131px) rotate(80deg)}100%{transform:translate(0,117px) rotate(0)}}#circle{-webkit-mask-image:url(images/privacy_guide/completion_banner_circle.svg);animation-name:circle;animation-timing-function:cubic-bezier(.12,.44,.46,.78);background:var(--shape-color-yellow);height:18px;width:18px}@keyframes pill{0%{transform:translate(194px,91px) rotate(145deg)}100%{transform:translate(325px,29px) rotate(-125deg)}}#pill{-webkit-mask-image:url(images/privacy_guide/completion_banner_pill.svg);animation-name:pill;animation-timing-function:cubic-bezier(.06,.55,.44,.87);background:var(--shape-color-yellow);height:18px;width:25px}@keyframes square{0%{transform:translate(128px,99px) rotate(80deg)}100%{transform:translate(83px,8px) rotate(0)}}#square{-webkit-mask-image:url(images/privacy_guide/completion_banner_square.svg);animation-name:square;animation-timing-function:cubic-bezier(.26,.59,.54,.87);background:var(--shape-color-green);height:13px;width:13px}@keyframes triangle{0%{transform:translate(243px,103px) rotate(60deg)}100%{transform:translate(290px,96px) rotate(0)}}#triangle{-webkit-mask-image:url(images/privacy_guide/completion_banner_triangle.svg);animation-name:triangle;animation-timing-function:cubic-bezier(.19,.5,.52,.82);background:var(--shape-color-red);height:12px;width:13px}privacy-guide-completion-link-row{border-radius:4px}.footer{align-items:center;bottom:calc(-1 * var(--privacy-guide-footer-total-height));display:flex;justify-content:space-between;padding:var(--privacy-guide-footer-vertical-padding) 0;position:absolute;width:calc(100% - 48px)}</style>
 <div class="header-phase2">
   <div id="picture-container">
@@ -12682,7 +12683,7 @@ class PrivacyGuideCompletionFragmentElement extends PrivacyGuideCompletionFragme
         return 'privacy-guide-completion-fragment';
     }
     static get template() {
-        return getTemplate$p();
+        return getTemplate$o();
     }
     static get properties() {
         return {
@@ -12759,7 +12760,7 @@ class PrivacyGuideCompletionFragmentElement extends PrivacyGuideCompletionFragme
 }
 customElements.define(PrivacyGuideCompletionFragmentElement.is, PrivacyGuideCompletionFragmentElement);
 
-function getTemplate$o() {
+function getTemplate$n() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#descriptionItemWrapper{display:flex;margin:12px 0;padding-inline-end:12px}iron-icon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
         var(--google-grey-700));display:flex;flex-shrink:0;padding:2px 0;padding-inline-end:10px;width:var(--cr-link-row-icon-width,var(--cr-icon-size))}@media (prefers-color-scheme:dark){iron-icon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
           var(--google-grey-500))}}</style>
@@ -12786,7 +12787,7 @@ class PrivacyGuideDescriptionItemElement extends PolymerElement {
         return 'privacy-guide-description-item';
     }
     static get template() {
-        return getTemplate$o();
+        return getTemplate$n();
     }
     static get properties() {
         return {
@@ -12810,7 +12811,7 @@ class PrivacyGuideDescriptionItemElement extends PolymerElement {
 }
 customElements.define(PrivacyGuideDescriptionItemElement.is, PrivacyGuideDescriptionItemElement);
 
-function getTemplate$n() {
+function getTemplate$m() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared"></style>
 <div class="header-phase2" focus-element tabindex="-1">
   <picture>
@@ -12894,7 +12895,7 @@ class PrivacyGuideCookiesFragmentElement extends PrivacyGuideCookiesFragmentBase
         return 'privacy-guide-cookies-fragment';
     }
     static get template() {
-        return getTemplate$n();
+        return getTemplate$m();
     }
     static get properties() {
         return {
@@ -13108,7 +13109,7 @@ var PrivacyGuideStepPg3Off;
     PrivacyGuideStepPg3Off["COMPLETION"] = "completion";
 })(PrivacyGuideStepPg3Off || (PrivacyGuideStepPg3Off = {}));
 
-function getTemplate$m() {
+function getTemplate$l() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared"></style>
 <div class="header-phase2" focus-element tabindex="-1">
   <picture>
@@ -13178,7 +13179,7 @@ class PrivacyGuideHistorySyncFragmentElement extends PrivacyGuideHistorySyncFrag
         return 'privacy-guide-history-sync-fragment';
     }
     static get template() {
-        return getTemplate$m();
+        return getTemplate$l();
     }
     static get properties() {
         return {
@@ -13297,7 +13298,7 @@ class PrivacyGuideHistorySyncFragmentElement extends PrivacyGuideHistorySyncFrag
 }
 customElements.define(PrivacyGuideHistorySyncFragmentElement.is, PrivacyGuideHistorySyncFragmentElement);
 
-function getTemplate$l() {
+function getTemplate$k() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared"></style>
 <div class="header-phase2" focus-element tabindex="-1">
   <picture>
@@ -13357,7 +13358,7 @@ class PrivacyGuideMsbbFragmentElement extends PrivacyGuideMsbbFragmentBase$1 {
         return 'privacy-guide-msbb-fragment';
     }
     static get template() {
-        return getTemplate$l();
+        return getTemplate$k();
     }
     static get properties() {
         return {
@@ -13415,7 +13416,7 @@ class PrivacyGuideMsbbFragmentElement extends PrivacyGuideMsbbFragmentBase$1 {
 }
 customElements.define(PrivacyGuideMsbbFragmentElement.is, PrivacyGuideMsbbFragmentElement);
 
-function getTemplate$k() {
+function getTemplate$j() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style cr-input-style cr-shared-style">textarea{display:block;resize:none}#input-container{background-color:var(--cr-input-background-color)}:host([autogrow][has-max-height]) #input-container{box-sizing:content-box;max-height:var(--cr-textarea-autogrow-max-height);min-height:1lh}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}:host-context([chrome-refresh-2023]) #input{padding-bottom:var(--cr-input-padding-bottom);padding-inline-end:var(--cr-input-padding-end);padding-inline-start:var(--cr-input-padding-start);padding-top:var(--cr-input-padding-top)}#footerContainer{border-top:0;display:var(--cr-textarea-footer-display,none);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);justify-content:space-between;line-height:var(--cr-form-field-label-line-height);margin:8px 0;min-height:0;padding:0;white-space:var(--cr-input-error-white-space)}:host([invalid]) #footerContainer,:host([invalid]) #label{color:var(--cr-input-error-color)}#mirror{display:none}:host([autogrow]) #mirror{display:block;visibility:hidden;white-space:pre-wrap;word-wrap:break-word}:host([autogrow]) #mirror,:host([autogrow]) textarea{border:0;box-sizing:border-box;padding-bottom:var(--cr-input-padding-bottom,6px);padding-inline-end:var(--cr-input-padding-end,8px);padding-inline-start:var(--cr-input-padding-start,8px);padding-top:var(--cr-input-padding-top,6px)}:host([autogrow]) textarea{height:100%;left:0;overflow:hidden;position:absolute;resize:none;top:0;width:100%}:host([autogrow][has-max-height]) #mirror,:host([autogrow][has-max-height]) textarea{overflow-x:hidden;overflow-y:auto}:host-context([chrome-refresh-2023]) textarea{position:relative;z-index:1}:host-context([chrome-refresh-2023]):host([autogrow]) textarea{position:absolute}:host-context([chrome-refresh-2023]) #mirror{font-size:12px;line-height:16px}</style>
 <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
   [[label]]
@@ -13452,7 +13453,7 @@ class CrTextareaElement extends PolymerElement {
         return 'cr-textarea';
     }
     static get template() {
-        return getTemplate$k();
+        return getTemplate$j();
     }
     static get properties() {
         return {
@@ -13651,7 +13652,7 @@ class PrivacyPageBrowserProxyImpl {
 }
 let instance$8 = null;
 
-function getTemplate$j() {
+function getTemplate$i() {
     return html `<!--_html_template_start_-->    <style include="cros-color-overrides">:host{cursor:auto;display:block;width:100%}cr-textarea{width:100%;--cr-textarea-footer-display:flex}</style>
     
     <cr-textarea id="input" value="{{value}}" rows="1" autogrow="true" placeholder="$i18n{secureDnsCustomPlaceholder}" invalid="[[showError_]]" first-footer="[[errorText_]]" maxlength="102400" spellcheck="false" on-keypress="onKeyPress_" on-input="onInput_" on-blur="validate" on-change="validate">
@@ -13676,7 +13677,7 @@ class SecureDnsInputElement extends PolymerElement {
         return 'secure-dns-input';
     }
     static get template() {
-        return getTemplate$j();
+        return getTemplate$i();
     }
     static get properties() {
         return {
@@ -13749,7 +13750,7 @@ class SecureDnsInputElement extends PolymerElement {
 }
 customElements.define(SecureDnsInputElement.is, SecureDnsInputElement);
 
-function getTemplate$i() {
+function getTemplate$h() {
     return html `<!--_html_template_start_--><style include="settings-shared">#secureDnsDialogDescription{padding-top:10px}cr-dialog::part(dialog){width:370px}</style>
 
 <cr-dialog id="dialog" show-on-attach>
@@ -13786,7 +13787,7 @@ class SettingsSecureDnsDialogElement extends SettingsSecureDnsDialogElementBase 
         return 'settings-secure-dns-dialog';
     }
     static get template() {
-        return getTemplate$i();
+        return getTemplate$h();
     }
     /**
      * Sets the pref's mode to false which will turn off the toggle, and closes
@@ -13819,7 +13820,7 @@ class SettingsSecureDnsDialogElement extends SettingsSecureDnsDialogElementBase 
 }
 customElements.define(SettingsSecureDnsDialogElement.is, SettingsSecureDnsDialogElement);
 
-function getTemplate$h() {
+function getTemplate$g() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style md-select cros-color-overrides">#resolverSelect{width:inherit}#resolverLabel{flex:1}#privacyPolicy{display:none;padding:calc(var(--cr-section-padding)/ 2) var(--cr-section-padding)}#privacyPolicy a{color:var(--cr-link-color)}#secureDnsInputContainer{margin-top:calc(var(--cr-section-padding)/ 2)}:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 
 
@@ -13910,7 +13911,7 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
         return 'settings-secure-dns';
     }
     static get template() {
-        return getTemplate$h();
+        return getTemplate$g();
     }
     static get properties() {
         return {
@@ -14270,7 +14271,7 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
 }
 customElements.define(SettingsSecureDnsElement.is, SettingsSecureDnsElement);
 
-function getTemplate$g() {
+function getTemplate$f() {
     return html `<!--_html_template_start_--><cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
   <div slot="title">[[titleText]]</div>
   <div slot="body">[[bodyText]]</div>
@@ -14299,7 +14300,7 @@ class SettingsSimpleConfirmationDialogElement extends PolymerElement {
         return 'settings-simple-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$g();
+        return getTemplate$f();
     }
     static get properties() {
         return {
@@ -14352,7 +14353,7 @@ const template = html `<iron-iconset-svg name="iph" size="24">
 `;
 document.head.appendChild(template.content);
 
-function getTemplate$f() {
+function getTemplate$e() {
     return html `<!--_html_template_start_--><link rel="stylesheet" href="chrome://theme/colors.css?sets=ui,chrome&shadow_host=true">
 <style include="cr-hidden-style">:host{--help-bubble-background:var(--color-feature-promo-bubble-background,
         var(--google-blue-700));--help-bubble-foreground:var(--color-feature-promo-bubble-foreground,
@@ -14823,7 +14824,7 @@ class HelpBubbleElement extends PolymerElement {
         return 'help-bubble';
     }
     static get template() {
-        return getTemplate$f();
+        return getTemplate$e();
     }
     static get properties() {
         return {
@@ -15989,7 +15990,7 @@ class HatsBrowserProxyImpl {
 }
 let instance$6 = null;
 
-function getTemplate$e() {
+function getTemplate$d() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">img{width:100%}#safeBrowsingSection{padding:0 var(--cr-section-padding)}#httpsOnlyModeToggle{padding:0 var(--cr-section-padding)}.bullet-line{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.bullet-line>div{padding-inline-start:var(--cr-radio-button-size)}#enhancedProtectionDescContainer{display:flex}#learnMoreLabelContainer{padding-top:10px}#thingsToConsiderContainer{padding-left:10px}#whenOnContainer{padding-right:5px}:is(#whenOnContainer,#thingsToConsiderContainer)>.bullet-line{padding-top:10px;align-items:flex-start;min-height:30px}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}settings-collapse-radio-button[hidden]+settings-collapse-radio-button{--settings-collapse-separator-line:0}settings-collapse-radio-button .bullet-line:last-child{padding-bottom:12px}settings-toggle-button{padding-inline-end:0;padding-inline-start:0}settings-toggle-button:not([disabled]){pointer-events:all}#safeBrowsingEnhanced .bullet-line:last-of-type{padding-bottom:12px}#safeBrowsingEnhanced{--cr-radio-button-unchecked-ripple-color:var(--cr-radio-button-checked-ripple-color)}#httpsFirstModeSettingHeader .cr-padded-text{padding-block-end:0}#httpsFirstModeRadioGroup .list-item{padding-block-start:var(--cr-section-vertical-padding);padding-block-end:var(--cr-section-vertical-padding)}</style>
     <picture>
       <source srcset="chrome://settings/images/safe_browsing_banner_dark.svg" media="(prefers-color-scheme: dark)">
@@ -16236,7 +16237,7 @@ class SettingsSecurityPageElement extends SettingsSecurityPageElementBase {
         return 'settings-security-page';
     }
     static get template() {
-        return getTemplate$e();
+        return getTemplate$d();
     }
     static get properties() {
         return {
@@ -16673,7 +16674,7 @@ class SettingsSecurityPageElement extends SettingsSecurityPageElementBase {
 }
 customElements.define(SettingsSecurityPageElement.is, SettingsSecurityPageElement);
 
-function getTemplate$d() {
+function getTemplate$c() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared"></style>
 <div class="header-phase2" focus-element tabindex="-1">
   <picture>
@@ -16809,7 +16810,7 @@ class PrivacyGuideSafeBrowsingFragmentElement extends PrivacyGuideSafeBrowsingFr
         return 'privacy-guide-safe-browsing-fragment';
     }
     static get template() {
-        return getTemplate$d();
+        return getTemplate$c();
     }
     static get properties() {
         return {
@@ -16907,7 +16908,7 @@ class PrivacyGuideSafeBrowsingFragmentElement extends PrivacyGuideSafeBrowsingFr
 }
 customElements.define(PrivacyGuideSafeBrowsingFragmentElement.is, PrivacyGuideSafeBrowsingFragmentElement);
 
-function getTemplate$c() {
+function getTemplate$b() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared"></style>
 <div class="header-phase2" focus-element tabindex="-1">
   <picture>
@@ -16968,7 +16969,7 @@ class PrivacyGuideSearchSuggestionsFragmentElement extends PrivacyGuideMsbbFragm
         return 'privacy-guide-search-suggestions-fragment';
     }
     static get template() {
-        return getTemplate$c();
+        return getTemplate$b();
     }
     static get properties() {
         return {
@@ -17026,7 +17027,7 @@ class PrivacyGuideSearchSuggestionsFragmentElement extends PrivacyGuideMsbbFragm
 }
 customElements.define(PrivacyGuideSearchSuggestionsFragmentElement.is, PrivacyGuideSearchSuggestionsFragmentElement);
 
-function getTemplate$b() {
+function getTemplate$a() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared">:host{display:flex;flex-flow:column;min-height:calc(432px - var(--privacy-guide-footer-total-height))}.headline{outline:0}.headline-container{padding:48px 116px var(--cr-section-padding) 116px;row-gap:12px}.footer{align-items:center;bottom:calc(-1 * var(--privacy-guide-footer-total-height));display:flex;justify-content:flex-end;padding-bottom:var(--privacy-guide-footer-vertical-padding);position:absolute;width:calc(100% - 48px)}:host-context([is-privacy-guide-v2]) picture{animation:fade-in 1.5s,slide-in .3s}:host-context([is-privacy-guide-v2]) .footer{animation:fade-in var(--privacy-guide-animation-duration)}</style>
 <div class="headline-container">
   <picture>
@@ -17059,7 +17060,7 @@ class PrivacyGuideWelcomeFragmentElement extends PolymerElement {
         return 'privacy-guide-welcome-fragment';
     }
     static get template() {
-        return getTemplate$b();
+        return getTemplate$a();
     }
     focus() {
         this.shadowRoot.querySelector('.headline').focus();
@@ -17071,7 +17072,7 @@ class PrivacyGuideWelcomeFragmentElement extends PolymerElement {
 }
 customElements.define(PrivacyGuideWelcomeFragmentElement.is, PrivacyGuideWelcomeFragmentElement);
 
-function getTemplate$a() {
+function getTemplate$9() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{align-items:center;display:flex}span{background:var(--google-grey-200);border-radius:50%;display:inline-block;height:8px;margin:0 4px;width:8px}span.active{background:var(--google-blue-600)}.screen-reader-only{clip:rect(0,0,0,0);position:fixed}@media (prefers-color-scheme:dark){span{background:var(--google-grey-500)}span.active{background:var(--google-blue-300)}}</style>
 <template is="dom-repeat" items="[[dots_]]">
   <span class$="[[getActiveClass_(index, model.active)]]"></span>
@@ -17130,7 +17131,7 @@ class StepIndicator extends StepIndicatorBase {
         return index === this.model.active ? 'active' : '';
     }
     static get template() {
-        return getTemplate$a();
+        return getTemplate$9();
     }
 }
 customElements.define(StepIndicator.is, StepIndicator);
@@ -17183,7 +17184,7 @@ const PrivacyGuideAvailabilityMixin = dedupingMixin((superClass) => {
     return PrivacyGuideAvailabilityMixinInternal;
 });
 
-function getTemplate$9() {
+function getTemplate$8() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{--privacy-guide-animation-duration:900ms;--privacy-guide-footer-vertical-padding:16px;--privacy-guide-footer-total-height:calc(var(--cr-button-height) +
         2 * var(--privacy-guide-footer-vertical-padding))}.footer{align-items:center;bottom:0;box-sizing:border-box;display:flex;justify-content:space-between;padding:var(--privacy-guide-footer-vertical-padding) 24px;position:absolute;width:100%}.managed-fragment{bottom:initial;grid-column-start:1;grid-row-start:1;left:initial;position:unset;right:initial;top:initial}#viewManager{position:relative}#viewManager>:not(.active){left:0;position:absolute;top:0}.visibility-hidden{visibility:hidden}#privacyGuideCard{background-color:var(--cr-card-background-color);border-radius:var(--cr-card-border-radius);box-shadow:var(--cr-card-shadow);box-sizing:border-box;display:flex;flex-flow:column;min-height:432px;padding-bottom:var(--privacy-guide-footer-total-height);position:relative}@keyframes fade-in{0%{opacity:0}100%{opacity:1}}#background{animation:fade-in var(--privacy-guide-animation-duration);height:100px;left:50%;position:absolute;top:24px;transform:translateX(-50%);width:360px}#background picture{display:block;height:100%;left:0;position:absolute;top:0;width:100%}#backgroundClouds{transform:translateX(calc(var(--privacy-guide-step) * -4px));transition:transform .3s cubic-bezier(.4,0,.2,1)}:host-context([dir=rtl]) #backgroundClouds{transform:translateX(calc(var(--privacy-guide-step) * 4px))}#backgroundHills{transform:translateX(calc(var(--privacy-guide-step) * -2px));transition:transform .3s cubic-bezier(.4,0,.2,1)}:host-context([dir=rtl]) #backgroundHills{transform:translateX(calc(var(--privacy-guide-step) * 2px))}</style>
 <div id="privacyGuideCard" on-keydown="onKeyDown_" part="privacyGuideCard" style="--privacy-guide-v2-translate-multiplier:[[translateMultiplier_]]">
@@ -17266,7 +17267,7 @@ class SettingsPrivacyGuidePageElement extends PrivacyGuideBase {
         return 'settings-privacy-guide-page';
     }
     static get template() {
-        return getTemplate$9();
+        return getTemplate$8();
     }
     static get properties() {
         return {
@@ -17793,7 +17794,7 @@ class SettingsPrivacyGuidePageElement extends PrivacyGuideBase {
 }
 customElements.define(SettingsPrivacyGuidePageElement.is, SettingsPrivacyGuidePageElement);
 
-function getTemplate$8() {
+function getTemplate$7() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#headerLine{margin:8px}#backToSettingsButton{margin-inline-end:10px;margin-inline-start:-10px}#dialog{background-color:var(--cr-card-background-color);border:0;height:100vh;margin:0;max-height:100vh;max-width:100vw;padding:0;width:100vw}#dialog[open]{display:block}settings-privacy-guide-page::part(privacyGuideCard){background-color:transparent;box-shadow:none;margin:auto;max-width:680px;min-width:550px}</style>
 <dialog id="dialog" on-cancel="onDialogCancel_" on-close="onDialogClose_" aria-label="$i18n{privacyGuideLabel}">
   <div class="cr-row first" id="headerLine" slot="title">
@@ -17820,7 +17821,7 @@ class SettingsPrivacyGuideDialogElement extends PolymerElement {
         return 'settings-privacy-guide-dialog';
     }
     static get template() {
-        return getTemplate$8();
+        return getTemplate$7();
     }
     static get properties() {
         return {
@@ -18134,7 +18135,7 @@ function getTrustedScriptURL(literal) {
     return staticPolicy.createScriptURL('', literal);
 }
 
-function getTemplate$7() {
+function getTemplate$6() {
     return getTrustedHTML `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
 
 <div id="messages" role="alert" aria-live="polite" aria-relevant="additions">
@@ -18178,7 +18179,7 @@ class CrA11yAnnouncerElement extends CustomElement {
         return 'cr-a11y-announcer';
     }
     static get template() {
-        return getTemplate$7();
+        return getTemplate$6();
     }
     disconnectedCallback() {
         if (this.currentTimeout_ !== null) {
@@ -18217,7 +18218,7 @@ class CrA11yAnnouncerElement extends CustomElement {
 }
 customElements.define(CrA11yAnnouncerElement.is, CrA11yAnnouncerElement);
 
-function getTemplate$6() {
+function getTemplate$5() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{padding:8px 16px}</style>
 
 
@@ -18244,7 +18245,7 @@ class SettingsSafetyHubEntryPointElement extends SettingsSafetyHubEntryPointElem
         return 'settings-safety-hub-entry-point';
     }
     static get template() {
-        return getTemplate$6();
+        return getTemplate$5();
     }
     static get properties() {
         return {
@@ -20975,17 +20976,21 @@ class FocusRow {
     }
 }
 
-function getTemplate$5() {
-    return html `<!--_html_template_start_-->    <style>:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
-            var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
-                var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
-            var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
-            var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}</style>
-    <dialog id="dialog" part="dialog" on-close="onNativeDialogClose_" role="application" aria-roledescription$="[[roleDescription]]">
-      <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label$="[[accessibilityLabel]]">
-        <slot id="contentNode" on-slotchange="onSlotchange_"></slot>
-      </div>
-    </dialog>
+function getCss() {
+    return css `:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
+      var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
+          var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
+      var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
+      var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}`;
+}
+
+function getHtml() {
+    return html$1 `<!--_html_template_start_-->
+<dialog id="dialog" part="dialog" @close="${this.onNativeDialogClose_}" role="application" aria-roledescription="${this.roleDescription || nothing}">
+  <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label="${this.accessibilityLabel || nothing}">
+    <slot id="contentNode" @slotchange="${this.onSlotchange_}"></slot>
+  </div>
+</dialog>
 <!--_html_template_end_-->`;
 }
 
@@ -21051,9 +21056,11 @@ function getDefaultShowConfig() {
         maxY: 0,
     };
 }
-class CrActionMenuElement extends PolymerElement {
+class CrActionMenuElement extends CrLitElement {
     constructor() {
         super(...arguments);
+        this.autoReposition = false;
+        this.open = false;
         this.boundClose_ = null;
         this.resizeObserver_ = null;
         this.hasMousemoveListener_ = false;
@@ -21063,31 +21070,26 @@ class CrActionMenuElement extends PolymerElement {
     static get is() {
         return 'cr-action-menu';
     }
-    static get template() {
-        return getTemplate$5();
+    static get styles() {
+        return getCss();
+    }
+    render() {
+        return getHtml.bind(this)();
     }
     static get properties() {
         return {
             // Accessibility text of the menu. Should be something along the lines of
             // "actions", or "more actions".
-            accessibilityLabel: String,
+            accessibilityLabel: { type: String },
             // Setting this flag will make the menu listen for content size changes
             // and reposition to its anchor accordingly.
-            autoReposition: {
-                type: Boolean,
-                value: false,
-            },
-            open: {
-                type: Boolean,
-                notify: true,
-                value: false,
-            },
+            autoReposition: { type: Boolean },
+            open: { type: Boolean },
             // Descriptor of the menu. Should be something along the lines of "menu"
-            roleDescription: String,
+            roleDescription: { type: String },
         };
     }
-    ready() {
-        super.ready();
+    firstUpdated() {
         this.addEventListener('keydown', this.onKeyDown_.bind(this));
         this.addEventListener('mouseover', this.onMouseover_);
         this.addEventListener('click', this.onClick_);
@@ -21187,6 +21189,9 @@ class CrActionMenuElement extends PolymerElement {
         options[index].focus();
     }
     close() {
+        if (!this.open) {
+            return;
+        }
         // Removing 'resize' and 'popstate' listeners when dialog is closed.
         this.removeListeners_();
         this.$.dialog.close();
@@ -21199,6 +21204,7 @@ class CrActionMenuElement extends PolymerElement {
         if (this.lastConfig_) {
             this.lastConfig_ = null;
         }
+        this.fire_('open-changed', { value: this.open });
     }
     /**
      * Shows the menu anchored to the given element.
@@ -21287,6 +21293,7 @@ class CrActionMenuElement extends PolymerElement {
                 });
             }
         }
+        this.fire_('open-changed', { value: this.open });
     }
     resetStyle_() {
         this.$.dialog.style.left = '';

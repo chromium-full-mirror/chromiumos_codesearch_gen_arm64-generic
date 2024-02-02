@@ -12,8 +12,8 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/chromeos-login"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/chromeos-login-0.0.2-r5706/work/chromeos-login-0.0.2"
-libbase_ver = "1253750"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/chromeos-login-0.0.2-r5707/work/chromeos-login-0.0.2"
+libbase_ver = "1254430"
 enable_exceptions = false
 external_cflags = [
   "-Os",

@@ -124,6 +124,7 @@ class InternalSettingsGenerated : public ScriptWrappable,
   void setPlaceRTLScrollbarsOnLeftSideInMainFrame(bool placeRTLScrollbarsOnLeftSideInMainFrame);
   void setPluginsEnabled(bool pluginsEnabled);
   void setPreferHiddenVolumeControls(bool preferHiddenVolumeControls);
+  void setPrefersDefaultScrollbarStyles(bool prefersDefaultScrollbarStyles);
   void setPrefersReducedMotion(bool prefersReducedMotion);
   void setPrefersReducedTransparency(bool prefersReducedTransparency);
   void setPresentationReceiver(bool presentationReceiver);

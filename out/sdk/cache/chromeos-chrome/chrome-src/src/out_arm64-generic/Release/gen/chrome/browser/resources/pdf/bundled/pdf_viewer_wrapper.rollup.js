@@ -1,7 +1,8 @@
 import { E as EventTracker, a as assertInstanceof, b as assert, h as hasKeyModifiers, i as isRTL, g as getDeepActiveElement, F as FocusOutlineManager, S as SaveRequestType, P as PromiseResolver, c as PluginController, d as PluginControllerEventType, r as record, U as UserAction, e as FittingType, f as recordPdfOcrUserSelection, j as PdfViewerBaseElement, s as shouldIgnoreKeyEvents, k as hasCtrlModifier, l as hasCtrlModifierOnly, m as assertNotReached, n as listenOnce } from './shared.rollup.js';
 export { C as CrIconButtonElement, G as GestureDetector, O as OpenPdfParamsParser, u as PAGE_SHADOW, q as SwipeDetector, t as SwipeDirection, V as ViewMode, v as Viewport, w as ViewportScroller, Z as ZoomManager, o as recordFitTo, p as resetForTesting } from './shared.rollup.js';
-import { html, PolymerElement, Polymer } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { css, html, nothing, CrLitElement } from 'chrome://resources/lit/v3_0/lit.rollup.js';
 export { BrowserApi, ZoomBehavior } from './browser_api.js';
+import { html as html$1, PolymerElement, Polymer } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { LoadState, deserializeKeyEvent } from './pdf_scripting_api.js';
 
@@ -315,17 +316,21 @@ function focusWithoutInk(toFocus) {
     toFocusWithNoInk.noink = noink;
 }
 
-function getTemplate$e() {
-    return html `<!--_html_template_start_-->    <style>:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
-            var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
-                var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
-            var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
-            var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}</style>
-    <dialog id="dialog" part="dialog" on-close="onNativeDialogClose_" role="application" aria-roledescription$="[[roleDescription]]">
-      <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label$="[[accessibilityLabel]]">
-        <slot id="contentNode" on-slotchange="onSlotchange_"></slot>
-      </div>
-    </dialog>
+function getCss() {
+    return css `:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
+      var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
+          var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
+      var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
+      var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}`;
+}
+
+function getHtml() {
+    return html `<!--_html_template_start_-->
+<dialog id="dialog" part="dialog" @close="${this.onNativeDialogClose_}" role="application" aria-roledescription="${this.roleDescription || nothing}">
+  <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label="${this.accessibilityLabel || nothing}">
+    <slot id="contentNode" @slotchange="${this.onSlotchange_}"></slot>
+  </div>
+</dialog>
 <!--_html_template_end_-->`;
 }
 
@@ -391,9 +396,11 @@ function getDefaultShowConfig() {
         maxY: 0,
     };
 }
-class CrActionMenuElement extends PolymerElement {
+class CrActionMenuElement extends CrLitElement {
     constructor() {
         super(...arguments);
+        this.autoReposition = false;
+        this.open = false;
         this.boundClose_ = null;
         this.resizeObserver_ = null;
         this.hasMousemoveListener_ = false;
@@ -403,31 +410,26 @@ class CrActionMenuElement extends PolymerElement {
     static get is() {
         return 'cr-action-menu';
     }
-    static get template() {
-        return getTemplate$e();
+    static get styles() {
+        return getCss();
+    }
+    render() {
+        return getHtml.bind(this)();
     }
     static get properties() {
         return {
             // Accessibility text of the menu. Should be something along the lines of
             // "actions", or "more actions".
-            accessibilityLabel: String,
+            accessibilityLabel: { type: String },
             // Setting this flag will make the menu listen for content size changes
             // and reposition to its anchor accordingly.
-            autoReposition: {
-                type: Boolean,
-                value: false,
-            },
-            open: {
-                type: Boolean,
-                notify: true,
-                value: false,
-            },
+            autoReposition: { type: Boolean },
+            open: { type: Boolean },
             // Descriptor of the menu. Should be something along the lines of "menu"
-            roleDescription: String,
+            roleDescription: { type: String },
         };
     }
-    ready() {
-        super.ready();
+    firstUpdated() {
         this.addEventListener('keydown', this.onKeyDown_.bind(this));
         this.addEventListener('mouseover', this.onMouseover_);
         this.addEventListener('click', this.onClick_);
@@ -527,6 +529,9 @@ class CrActionMenuElement extends PolymerElement {
         options[index].focus();
     }
     close() {
+        if (!this.open) {
+            return;
+        }
         // Removing 'resize' and 'popstate' listeners when dialog is closed.
         this.removeListeners_();
         this.$.dialog.close();
@@ -539,6 +544,7 @@ class CrActionMenuElement extends PolymerElement {
         if (this.lastConfig_) {
             this.lastConfig_ = null;
         }
+        this.fire_('open-changed', { value: this.open });
     }
     /**
      * Shows the menu anchored to the given element.
@@ -627,6 +633,7 @@ class CrActionMenuElement extends PolymerElement {
                 });
             }
         }
+        this.fire_('open-changed', { value: this.open });
     }
     resetStyle_() {
         this.$.dialog.style.left = '';
@@ -691,7 +698,7 @@ class CrActionMenuElement extends PolymerElement {
 customElements.define(CrActionMenuElement.is, CrActionMenuElement);
 
 const styleMod$2 = document.createElement('dom-module');
-styleMod$2.appendChild(html `
+styleMod$2.appendChild(html$1 `
   <template>
     <style>
 cr-icon-button{--cr-icon-button-fill-color:var(--pdf-toolbar-text-color);--cr-icon-button-focus-outline-color:var(--google-grey-500);margin:0}cr-icon-button:hover{background:rgba(255,255,255,.08);border-radius:50%}cr-action-menu,viewer-bookmark{--cr-menu-background-color:var(--google-grey-900);--cr-menu-shadow:rgba(0, 0, 0, .3) 0 1px 2px 0,rgba(0, 0, 0, .15) 0 3px 6px 2px;--cr-primary-text-color:var(--google-grey-200);--cr-menu-background-focus-color:var(--google-grey-700);--cr-menu-background-sheen:rgba(255, 255, 255, .06);--cr-separator-line:var(--cr-separator-height) solid rgba(255, 255, 255, .1)}
@@ -701,7 +708,7 @@ cr-icon-button{--cr-icon-button-fill-color:var(--pdf-toolbar-text-color);--cr-ic
 styleMod$2.register('pdf-shared');
 
 function getTemplate$d() {
-    return html `<!--_html_template_start_--><style include="cr-hidden-style">#item{align-items:flex-start;display:flex;padding:5px 28px;position:relative;transition:background-color .1s ease-out}#item:hover{background-color:rgba(255,255,255,.25)}#title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}:host(:not([save-allowed_])) #title{opacity:var(--cr-disabled-opacity)}#download{--cr-icon-button-fill-color:var(--primary-text-color);--cr-icon-button-icon-size:16px;--cr-icon-button-size:28px;margin:0;position:absolute;right:0;top:calc((100% - var(--cr-icon-button-size))/ 2)}#download:focus-visible{outline:auto -webkit-focus-ring-color}</style>
+    return html$1 `<!--_html_template_start_--><style include="cr-hidden-style">#item{align-items:flex-start;display:flex;padding:5px 28px;position:relative;transition:background-color .1s ease-out}#item:hover{background-color:rgba(255,255,255,.25)}#title{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}:host(:not([save-allowed_])) #title{opacity:var(--cr-disabled-opacity)}#download{--cr-icon-button-fill-color:var(--primary-text-color);--cr-icon-button-icon-size:16px;--cr-icon-button-size:28px;margin:0;position:absolute;right:0;top:calc((100% - var(--cr-icon-button-size))/ 2)}#download:focus-visible{outline:auto -webkit-focus-ring-color}</style>
 <div id="item">
   <span id="title">[[attachment.name]]</span>
   <cr-icon-button id="download" tabindex="0" hidden$="[[!saveAllowed_]]" title="$i18n{tooltipDownloadAttachment}" iron-icon="cr:file-download" on-click="onDownloadClick_">
@@ -745,7 +752,7 @@ class ViewerAttachmentElement extends PolymerElement {
 customElements.define(ViewerAttachmentElement.is, ViewerAttachmentElement);
 
 function getTemplate$c() {
-    return html `<!--_html_template_start_--><style include="pdf-shared">:host{display:block;padding-inline-end:20px;padding-top:20px}#warning{align-items:flex-start;padding:5px 28px 15px;position:relative}</style>
+    return html$1 `<!--_html_template_start_--><style include="pdf-shared">:host{display:block;padding-inline-end:20px;padding-top:20px}#warning{align-items:flex-start;padding:5px 28px 15px;position:relative}</style>
 <div id="warning" hidden="[[!exceedSizeLimit_]]">
   $i18n{oversizeAttachmentWarning}
 </div>
@@ -783,7 +790,7 @@ class ViewerAttachmentBarElement extends PolymerElement {
 customElements.define(ViewerAttachmentBarElement.is, ViewerAttachmentBarElement);
 
 function getTemplate$b() {
-    return html `<!--_html_template_start_-->    <style include="pdf-shared">#item{align-items:flex-start;cursor:pointer;display:flex;padding:5px 0;position:relative;transition:background-color .1s ease-out}#item:hover{background-color:var(--cr-menu-background-focus-color)}#item:active{background-color:rgba(255,255,255,.25)}#title{outline:0;overflow:hidden;text-overflow:ellipsis}#title:focus-visible{outline:auto -webkit-focus-ring-color}#expand-container{--expand-button-size:28px;flex-shrink:0;position:relative;width:var(--expand-button-size)}#expand-container::before{content:'.';visibility:hidden}#expand{--cr-icon-button-fill-color:var(--primary-text-color);--cr-icon-button-icon-size:16px;--cr-icon-button-size:var(--expand-button-size);left:0;margin:0;position:absolute;top:calc((100% - var(--cr-icon-button-size))/ 2);transition:transform 150ms}:host-context([dir=rtl]) #expand{transform:rotate(180deg)}:host([children-shown_]) #expand{transform:rotate(90deg)}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="pdf-shared">#item{align-items:flex-start;cursor:pointer;display:flex;padding:5px 0;position:relative;transition:background-color .1s ease-out}#item:hover{background-color:var(--cr-menu-background-focus-color)}#item:active{background-color:rgba(255,255,255,.25)}#title{outline:0;overflow:hidden;text-overflow:ellipsis}#title:focus-visible{outline:auto -webkit-focus-ring-color}#expand-container{--expand-button-size:28px;flex-shrink:0;position:relative;width:var(--expand-button-size)}#expand-container::before{content:'.';visibility:hidden}#expand{--cr-icon-button-fill-color:var(--primary-text-color);--cr-icon-button-icon-size:16px;--cr-icon-button-size:var(--expand-button-size);left:0;margin:0;position:absolute;top:calc((100% - var(--cr-icon-button-size))/ 2);transition:transform 150ms}:host-context([dir=rtl]) #expand{transform:rotate(180deg)}:host([children-shown_]) #expand{transform:rotate(90deg)}</style>
     <div id="item" on-click="onClick_">
       <div id="expand-container">
         <cr-icon-button id="expand" iron-icon="cr:chevron-right" aria-label="$i18n{bookmarkExpandIconAriaLabel}" aria-expanded$="[[getAriaExpanded_(childrenShown_)]]" on-click="toggleChildren_"></cr-icon-button>
@@ -905,7 +912,7 @@ class ViewerBookmarkElement extends PolymerElement {
 customElements.define(ViewerBookmarkElement.is, ViewerBookmarkElement);
 
 function getTemplate$a() {
-    return html `<!--_html_template_start_--><style include="pdf-shared">:host{display:block;padding-inline-end:20px;padding-top:20px}</style>
+    return html$1 `<!--_html_template_start_--><style include="pdf-shared">:host{display:block;padding-inline-end:20px;padding-top:20px}</style>
 <template is="dom-repeat" items="[[bookmarks]]">
   <viewer-bookmark bookmark="[[item]]" depth="0"></viewer-bookmark>
 </template>
@@ -931,7 +938,7 @@ class ViewerDocumentOutlineElement extends PolymerElement {
 customElements.define(ViewerDocumentOutlineElement.is, ViewerDocumentOutlineElement);
 
 function getTemplate$9() {
-    return html `<!--_html_template_start_--><style include="pdf-shared">:host{display:contents}cr-action-menu::part(dialog){position:fixed;top:48px}:host([menu-open_]) #download{background-color:var(--active-button-bg);border-radius:50%}</style>
+    return html$1 `<!--_html_template_start_--><style include="pdf-shared">:host{display:contents}cr-action-menu::part(dialog){position:fixed;top:48px}:host([menu-open_]) #download{background-color:var(--active-button-bg);border-radius:50%}</style>
 <cr-icon-button id="download" iron-icon="cr:file-download" on-click="onDownloadClick_" aria-label="$i18n{tooltipDownload}" aria-haspopup$="[[downloadHasPopup_]]" title="$i18n{tooltipDownload}"></cr-icon-button>
 <cr-action-menu id="menu" on-open-changed="onOpenChanged_">
   <button id="download-edited" class="dropdown-item" on-click="onDownloadEditedClick_">
@@ -1049,7 +1056,7 @@ class ViewerDownloadControlsElement extends PolymerElement {
 }
 customElements.define(ViewerDownloadControlsElement.is, ViewerDownloadControlsElement);
 
-const template = html `
+const template = html$1 `
 <style>
 html{--iron-icon-height:20px;--iron-icon-width:20px;--viewer-icon-ink-color:rgb(189, 189, 189);--viewer-pdf-toolbar-background-color:rgb(50, 54, 57);--viewer-text-input-selection-color:rgba(255, 255, 255, 0.3)}
 </style>
@@ -1057,7 +1064,7 @@ html{--iron-icon-height:20px;--iron-icon-width:20px;--viewer-icon-ink-color:rgb(
 document.head.appendChild(template.content);
 
 function getTemplate$8() {
-    return html `<!--_html_template_start_-->    <style>#content{align-items:center;color:#fff;direction:ltr;display:flex;font-size:.81rem;text-align:center;--page-selector-spacing:4px}#pageSelector::selection{background-color:var(--viewer-text-input-selection-color)}#pagelength,input{width:calc(max(2,var(--page-length-digits)) * 1ch + 1px)}input{background:rgba(0,0,0,.5);border:none;color:#fff;font-family:inherit;line-height:inherit;outline:0;padding:0 var(--page-selector-spacing);text-align:center}#divider{margin:0 var(--page-selector-spacing)}</style>
+    return html$1 `<!--_html_template_start_-->    <style>#content{align-items:center;color:#fff;direction:ltr;display:flex;font-size:.81rem;text-align:center;--page-selector-spacing:4px}#pageSelector::selection{background-color:var(--viewer-text-input-selection-color)}#pagelength,input{width:calc(max(2,var(--page-length-digits)) * 1ch + 1px)}input{background:rgba(0,0,0,.5);border:none;color:#fff;font-family:inherit;line-height:inherit;outline:0;padding:0 var(--page-selector-spacing);text-align:center}#divider{margin:0 var(--page-selector-spacing)}</style>
     <div id="content">
       <input part="input" type="text" id="pageSelector" value="[[pageNo]]" on-pointerup="select" on-input="onInput_" on-change="pageNoCommitted" aria-label="$i18n{labelPageNumber}">
       <span id="divider">/</span>
@@ -1124,7 +1131,7 @@ class ViewerPageSelectorElement extends PolymerElement {
 customElements.define(ViewerPageSelectorElement.is, ViewerPageSelectorElement);
 
 const styleMod$1 = document.createElement('dom-module');
-styleMod$1.appendChild(html `
+styleMod$1.appendChild(html$1 `
   <template>
     <style include="cr-hidden-style cr-icons">
 :host,html{--scrollable-border-color:var(--google-grey-300)}@media (prefers-color-scheme:dark){:host,html{--scrollable-border-color:var(--google-grey-700)}}[actionable]{cursor:pointer}.hr{border-top:var(--cr-separator-line)}iron-list.cr-separators>:not([first]){border-top:var(--cr-separator-line)}[scrollable]{border-color:transparent;border-style:solid;border-width:1px 0;overflow-y:auto}[scrollable].is-scrolled{border-top-color:var(--scrollable-border-color)}[scrollable].can-scroll:not(.scrolled-to-bottom){border-bottom-color:var(--scrollable-border-color)}[scrollable] iron-list>:not(.no-outline):focus,[selectable]:focus,[selectable]>:focus{background-color:var(--cr-focused-item-color);outline:0}.scroll-container{display:flex;flex-direction:column;min-height:1px}[selectable]>*{cursor:pointer}.cr-centered-card-container{box-sizing:border-box;display:block;height:inherit;margin:0 auto;max-width:var(--cr-centered-card-max-width);min-width:550px;position:relative;width:calc(100% * var(--cr-centered-card-width-percentage))}.cr-container-shadow{box-shadow:inset 0 5px 6px -3px rgba(0,0,0,.4);height:var(--cr-container-shadow-height);left:0;margin:0 0 var(--cr-container-shadow-margin);opacity:0;pointer-events:none;position:relative;right:0;top:0;transition:opacity .5s;z-index:1}#cr-container-shadow-bottom{margin-bottom:0;margin-top:var(--cr-container-shadow-margin);transform:scaleY(-1)}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{opacity:var(--cr-container-shadow-max-opacity)}.cr-row{align-items:center;border-top:var(--cr-separator-line);display:flex;min-height:var(--cr-section-min-height);padding:0 var(--cr-section-padding)}.cr-row.continuation,.cr-row.first{border-top:none}.cr-row-gap{padding-inline-start:16px}.cr-button-gap{margin-inline-start:8px}paper-tooltip::part(tooltip){border-radius:var(--paper-tooltip-border-radius,2px);font-size:92.31%;font-weight:500;max-width:330px;min-width:var(--paper-tooltip-min-width,200px);padding:var(--paper-tooltip-padding,10px 8px)}.cr-padded-text{padding-block-end:var(--cr-section-vertical-padding);padding-block-start:var(--cr-section-vertical-padding)}.cr-title-text{color:var(--cr-title-text-color);font-size:107.6923%;font-weight:500}.cr-secondary-text{color:var(--cr-secondary-text-color);font-weight:400}.cr-form-field-label{color:var(--cr-form-field-label-color);display:block;font-size:var(--cr-form-field-label-font-size);font-weight:500;letter-spacing:.4px;line-height:var(--cr-form-field-label-line-height);margin-bottom:8px}.cr-vertical-tab{align-items:center;display:flex}.cr-vertical-tab::before{border-radius:0 3px 3px 0;content:'';display:block;flex-shrink:0;height:var(--cr-vertical-tab-height,100%);width:4px}.cr-vertical-tab.selected::before{background:var(--cr-vertical-tab-selected-color,var(--cr-checked-color))}:host-context([dir=rtl]) .cr-vertical-tab::before{transform:scaleX(-1)}.iph-anchor-highlight{background-color:var(--cr-iph-anchor-highlight-color)}
@@ -1134,7 +1141,7 @@ styleMod$1.appendChild(html `
 styleMod$1.register('cr-shared-style');
 
 const styleMod = document.createElement('dom-module');
-styleMod.appendChild(html `
+styleMod.appendChild(html$1 `
   <template>
     <style>
 :host{--cr-input-background-color:var(--google-grey-100);--cr-input-color:var(--cr-primary-text-color);--cr-input-error-color:var(--google-red-600);--cr-input-focus-color:var(--google-blue-600);display:block;outline:0}:host-context([chrome-refresh-2023]):host{--cr-input-background-color:var(--color-textfield-filled-background,
@@ -1154,7 +1161,7 @@ styleMod.appendChild(html `
 styleMod.register('cr-input-style');
 
 function getTemplate$7() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
     </div>
@@ -1423,7 +1430,7 @@ class CrInputElement extends PolymerElement {
 customElements.define(CrInputElement.is, CrInputElement);
 
 function getTemplate$6() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style">#password{margin-top:var(--cr-form-field-bottom-spacing)}</style>
+    return html$1 `<!--_html_template_start_-->    <style include="cr-shared-style">#password{margin-top:var(--cr-form-field-bottom-spacing)}</style>
     <cr-dialog id="dialog" no-cancel show-on-attach>
       <div slot="title">$i18n{passwordDialogTitle}</div>
       <div slot="body">
@@ -1481,7 +1488,7 @@ class ViewerPasswordDialogElement extends PolymerElement {
 customElements.define(ViewerPasswordDialogElement.is, ViewerPasswordDialogElement);
 
 function getTemplate$5() {
-    return html `<!--_html_template_start_--><style>:host{--focus-border-color:var(--google-blue-300);display:block}:host(:focus){outline:0}#thumbnail{align-items:center;cursor:pointer;display:inline-flex;height:140px;justify-content:center;margin-bottom:12px;margin-inline-end:auto;margin-inline-start:auto;width:108px}:host([is-active]) #thumbnail{--active-background-color:white;background-color:var(--active-background-color);box-shadow:0 0 0 6px var(--focus-border-color)}:host(:focus-visible) #thumbnail{box-shadow:0 0 0 2px var(--focus-border-color)}:host([is-active]:focus-visible) #thumbnail{box-shadow:0 0 0 8px var(--focus-border-color)}canvas{display:block;opacity:.5}:host([is-active]) canvas{opacity:1}:host([is-active]) canvas:hover,canvas:hover{opacity:.7}#pageNumber{line-height:1}</style>
+    return html$1 `<!--_html_template_start_--><style>:host{--focus-border-color:var(--google-blue-300);display:block}:host(:focus){outline:0}#thumbnail{align-items:center;cursor:pointer;display:inline-flex;height:140px;justify-content:center;margin-bottom:12px;margin-inline-end:auto;margin-inline-start:auto;width:108px}:host([is-active]) #thumbnail{--active-background-color:white;background-color:var(--active-background-color);box-shadow:0 0 0 6px var(--focus-border-color)}:host(:focus-visible) #thumbnail{box-shadow:0 0 0 2px var(--focus-border-color)}:host([is-active]:focus-visible) #thumbnail{box-shadow:0 0 0 8px var(--focus-border-color)}canvas{display:block;opacity:.5}:host([is-active]) canvas{opacity:1}:host([is-active]) canvas:hover,canvas:hover{opacity:.7}#pageNumber{line-height:1}</style>
 <div id="thumbnail" on-click="onClick_" role="button"></div>
 <div id="pageNumber">[[pageNumber]]</div>
 <!--_html_template_end_-->`;
@@ -1628,7 +1635,7 @@ class ViewerThumbnailElement extends PolymerElement {
 customElements.define(ViewerThumbnailElement.is, ViewerThumbnailElement);
 
 function getTemplate$4() {
-    return html `<!--_html_template_start_--><style>:host(:focus){outline:0}#thumbnails{box-sizing:border-box;height:100%;overflow:auto;padding-bottom:24px;padding-inline-end:var(--viewer-thumbnail-bar-padding-inline-end);text-align:center}viewer-thumbnail{padding-top:24px}</style>
+    return html$1 `<!--_html_template_start_--><style>:host(:focus){outline:0}#thumbnails{box-sizing:border-box;height:100%;overflow:auto;padding-bottom:24px;padding-inline-end:var(--viewer-thumbnail-bar-padding-inline-end);text-align:center}viewer-thumbnail{padding-top:24px}</style>
 <div id="thumbnails" hidden$="[[!isPluginActive_]]" role="tablist">
   <template is="dom-repeat" items="[[pageNumbers_]]" on-dom-change="onDomChange_">
     <viewer-thumbnail tabindex="0" role="tab" aria-label$="[[getAriaLabel_(item)]]" aria-selected="[[isActivePage_(item, activePage)]]" , clockwise-rotations="[[clockwiseRotations]]" is-active="[[isActivePage_(item, activePage)]]" page-number="[[item]]">
@@ -1802,7 +1809,7 @@ class ViewerThumbnailBarElement extends PolymerElement {
 customElements.define(ViewerThumbnailBarElement.is, ViewerThumbnailBarElement);
 
 function getTemplate$3() {
-    return html `<!--_html_template_start_--><style include="pdf-shared cr-hidden-style cr-shared-style">:host{--sidenav-selected-tab-color:var(--google-blue-300);background-color:var(--viewer-pdf-toolbar-background-color);display:flex;height:100%;min-width:var(--viewer-pdf-sidenav-width);overflow:hidden;width:var(--viewer-pdf-sidenav-width)}#icons{display:flex;flex-direction:column;min-width:64px}#content{color:#fff;flex:1;overflow-x:hidden}#icons:not([hidden])+#content{--viewer-thumbnail-bar-padding-inline-end:28px}.selected cr-icon-button{--cr-icon-button-fill-color:var(--sidenav-selected-tab-color)}.button-wrapper{--button-wrapper-height:36px;--button-wrapper-margin:12px;--button-wrapper-total-height:calc(
+    return html$1 `<!--_html_template_start_--><style include="pdf-shared cr-hidden-style cr-shared-style">:host{--sidenav-selected-tab-color:var(--google-blue-300);background-color:var(--viewer-pdf-toolbar-background-color);display:flex;height:100%;min-width:var(--viewer-pdf-sidenav-width);overflow:hidden;width:var(--viewer-pdf-sidenav-width)}#icons{display:flex;flex-direction:column;min-width:64px}#content{color:#fff;flex:1;overflow-x:hidden}#icons:not([hidden])+#content{--viewer-thumbnail-bar-padding-inline-end:28px}.selected cr-icon-button{--cr-icon-button-fill-color:var(--sidenav-selected-tab-color)}.button-wrapper{--button-wrapper-height:36px;--button-wrapper-margin:12px;--button-wrapper-total-height:calc(
         var(--button-wrapper-height) + var(--button-wrapper-margin));align-items:center;display:flex;height:var(--button-wrapper-height);margin:var(--button-wrapper-margin) 0;width:100%}.cr-vertical-tab{--cr-vertical-tab-selected-color:var(--sidenav-selected-tab-color)}.cr-vertical-tab::before{transform:translateY(var(--button-wrapper-total-height));transition:transform 250ms cubic-bezier(.4,0,.2,1)}.cr-vertical-tab.selected+.cr-vertical-tab::before{transform:translateY(calc(-1 * var(--button-wrapper-total-height)))}.cr-vertical-tab.selected::before{transform:translateY(0)}cr-icon-button{margin:0 auto}</style>
 <div id="icons" hidden$="[[hideIcons_]]" role="tablist">
   <template is="dom-repeat" items="[[tabs_]]">
@@ -1963,7 +1970,7 @@ class ViewerPdfSidenavElement extends PolymerElement {
 customElements.define(ViewerPdfSidenavElement.is, ViewerPdfSidenavElement);
 
 function getTemplate$2() {
-    return html `<!--_html_template_start_--><style include="cr-shared-style">:host{--break-padding:8px}cr-dialog::part(dialog){width:fit-content}table{border-spacing:0}.break>td{--break-color:var(--google-grey-300);border-bottom:1px solid var(--break-color);padding-bottom:var(--break-padding)}.break+tr>td{padding-top:var(--break-padding)}.name{color:var(--cr-primary-text-color);padding-inline-end:12px;vertical-align:top}.value{color:var(--cr-secondary-text-color);max-width:300px;min-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#keywords{white-space:normal}</style>
+    return html$1 `<!--_html_template_start_--><style include="cr-shared-style">:host{--break-padding:8px}cr-dialog::part(dialog){width:fit-content}table{border-spacing:0}.break>td{--break-color:var(--google-grey-300);border-bottom:1px solid var(--break-color);padding-bottom:var(--break-padding)}.break+tr>td{padding-top:var(--break-padding)}.name{color:var(--cr-primary-text-color);padding-inline-end:12px;vertical-align:top}.value{color:var(--cr-secondary-text-color);max-width:300px;min-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#keywords{white-space:normal}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="title">$i18n{propertiesDialogTitle}</div>
   <div slot="body">
@@ -2268,7 +2275,7 @@ Custom property | Description | Default
 @demo demo/index.html
 */
 Polymer({
-  _template: html`
+  _template: html$1`
     <style>
       :host {
         display: block;
@@ -2527,7 +2534,7 @@ class PdfViewerPrivateProxyImpl {
 let instance$1 = null;
 
 function getTemplate$1() {
-    return html `<!--_html_template_start_--><style include="pdf-shared">:host{--viewer-pdf-toolbar-height:56px;box-shadow:0 -2px 8px rgba(0,0,0,.09),0 4px 8px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.3),0 2px 6px rgba(0,0,0,.15);position:relative}:host([more-menu-open_]) #more{background-color:var(--active-button-bg);border-radius:50%}#toolbar{align-items:center;background-color:var(--viewer-pdf-toolbar-background-color);color:#fff;display:flex;height:var(--viewer-pdf-toolbar-height);padding:0 16px}#title{font-size:.87rem;font-weight:500;margin-inline-start:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#actionMenuTrigger{margin-inline-end:6px}#start{align-items:center;display:flex;overflow:hidden;padding-inline-end:20px}#end,#start{flex:1}#center{align-items:center;display:flex}#end{display:flex;justify-content:flex-end;padding-inline-start:20px;text-align:end;white-space:nowrap}.vertical-separator{background:rgba(255,255,255,.3);height:15px;width:1px}#zoom-controls{align-items:center;display:flex;padding:0 4px}#zoom-controls input::selection{background-color:var(--viewer-text-input-selection-color)}@media(max-width:600px){#title,#zoom-controls input{display:none}}@media(max-width:500px){#fit,#start{display:none}}@media(max-width:420px){#center{display:none}#end{padding-inline-start:initial;text-align:center}}viewer-page-selector{display:inline-flex;height:36px;margin-inline-end:20px}input,viewer-page-selector::part(input){max-height:var(--viewer-pdf-toolbar-height)}input{background:rgba(0,0,0,.5);border:none;caret-color:currentColor;color:inherit;font-family:inherit;line-height:inherit;margin:0 4px;outline:0;padding:0 4px;text-align:center;width:5ch}#fit{margin-inline-start:12px}paper-progress{--paper-progress-active-color:var(--google-blue-300);--paper-progress-container-color:transparent;--paper-progress-height:3px;bottom:0;position:absolute;width:100%}#center,#end,paper-progress{transition:opacity .1s cubic-bezier(0,0,.2,1)}:host([loading_]) #center,:host([loading_]) #end,:host([loading_]) #menuButton,paper-progress{opacity:0;visibility:hidden}#center,#end,#menuButton,:host([loading_]) paper-progress{opacity:1;visibility:visible}#more,#print{margin-inline-start:4px}.dropdown-item{padding-inline-end:16px;padding-inline-start:12px}.only-visible-to-screen-reader{height:1px;left:-10000px;overflow:hidden;position:absolute;top:auto;width:1px}.check-container{margin-inline-end:12px;width:16px}cr-action-menu hr{border:none;border-top:var(--cr-separator-line)}</style>
+    return html$1 `<!--_html_template_start_--><style include="pdf-shared">:host{--viewer-pdf-toolbar-height:56px;box-shadow:0 -2px 8px rgba(0,0,0,.09),0 4px 8px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.3),0 2px 6px rgba(0,0,0,.15);position:relative}:host([more-menu-open_]) #more{background-color:var(--active-button-bg);border-radius:50%}#toolbar{align-items:center;background-color:var(--viewer-pdf-toolbar-background-color);color:#fff;display:flex;height:var(--viewer-pdf-toolbar-height);padding:0 16px}#title{font-size:.87rem;font-weight:500;margin-inline-start:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#actionMenuTrigger{margin-inline-end:6px}#start{align-items:center;display:flex;overflow:hidden;padding-inline-end:20px}#end,#start{flex:1}#center{align-items:center;display:flex}#end{display:flex;justify-content:flex-end;padding-inline-start:20px;text-align:end;white-space:nowrap}.vertical-separator{background:rgba(255,255,255,.3);height:15px;width:1px}#zoom-controls{align-items:center;display:flex;padding:0 4px}#zoom-controls input::selection{background-color:var(--viewer-text-input-selection-color)}@media(max-width:600px){#title,#zoom-controls input{display:none}}@media(max-width:500px){#fit,#start{display:none}}@media(max-width:420px){#center{display:none}#end{padding-inline-start:initial;text-align:center}}viewer-page-selector{display:inline-flex;height:36px;margin-inline-end:20px}input,viewer-page-selector::part(input){max-height:var(--viewer-pdf-toolbar-height)}input{background:rgba(0,0,0,.5);border:none;caret-color:currentColor;color:inherit;font-family:inherit;line-height:inherit;margin:0 4px;outline:0;padding:0 4px;text-align:center;width:5ch}#fit{margin-inline-start:12px}paper-progress{--paper-progress-active-color:var(--google-blue-300);--paper-progress-container-color:transparent;--paper-progress-height:3px;bottom:0;position:absolute;width:100%}#center,#end,paper-progress{transition:opacity .1s cubic-bezier(0,0,.2,1)}:host([loading_]) #center,:host([loading_]) #end,:host([loading_]) #menuButton,paper-progress{opacity:0;visibility:hidden}#center,#end,#menuButton,:host([loading_]) paper-progress{opacity:1;visibility:visible}#more,#print{margin-inline-start:4px}.dropdown-item{padding-inline-end:16px;padding-inline-start:12px}.only-visible-to-screen-reader{height:1px;left:-10000px;overflow:hidden;position:absolute;top:auto;width:1px}.check-container{margin-inline-end:12px;width:16px}cr-action-menu hr{border:none;border-top:var(--cr-separator-line)}</style>
 <div id="toolbar">
   <div id="start">
     <cr-icon-button id="sidenavToggle" iron-icon="cr20:menu" title="$i18n{menu}" aria-label="$i18n{menu}" aria-expanded$="[[getAriaExpanded_(sidenavCollapsed)]]" on-click="onSidenavToggleClick_">
@@ -3096,7 +3103,7 @@ class LocalStorageProxyImpl {
 let instance = null;
 
 function getTemplate() {
-    return html `<!--_html_template_start_--><style include="pdf-viewer-shared-style cr-hidden-style">:host{--viewer-pdf-sidenav-width:300px;display:flex;flex-direction:column;height:100%;width:100%}viewer-pdf-sidenav,viewer-toolbar{--pdf-toolbar-text-color:rgb(241, 241, 241)}viewer-toolbar{--active-button-bg:rgba(255, 255, 255, 0.24);z-index:1}@media(max-width:200px),(max-height:250px){viewer-toolbar{display:none}}#sidenav-container{overflow:hidden;transition:transform 250ms cubic-bezier(.6,0,0,1),visibility 250ms;visibility:visible;width:var(--viewer-pdf-sidenav-width)}#sidenav-container.floating{bottom:0;position:absolute;top:0;z-index:1}#sidenav-container[closed]{transform:translateX(-100%);transition:transform .2s cubic-bezier(.6,0,0,1),visibility .2s,width 0s .2s;visibility:hidden;width:0}:host-context([dir=rtl]) #sidenav-container[closed]{transform:translateX(100%)}@media(max-width:500px),(max-height:250px){#sidenav-container{display:none}}#content-focus-rectangle{border:2px solid var(--google-grey-500);border-radius:2px;box-sizing:border-box;height:100%;pointer-events:none;position:absolute;top:0;width:100%}viewer-ink-host{height:100%;position:absolute;width:100%}#container{display:flex;flex:1;overflow:hidden;position:relative}#plugin{position:initial}#content{height:100%;left:0;position:sticky;top:0;z-index:initial}#sizer{top:0;width:100%;z-index:initial}#main{flex:1;overflow:hidden;position:relative}#scroller{direction:ltr;height:100%;overflow:auto;position:relative}#scroller:fullscreen{overflow:hidden}</style>
+    return html$1 `<!--_html_template_start_--><style include="pdf-viewer-shared-style cr-hidden-style">:host{--viewer-pdf-sidenav-width:300px;display:flex;flex-direction:column;height:100%;width:100%}viewer-pdf-sidenav,viewer-toolbar{--pdf-toolbar-text-color:rgb(241, 241, 241)}viewer-toolbar{--active-button-bg:rgba(255, 255, 255, 0.24);z-index:1}@media(max-width:200px),(max-height:250px){viewer-toolbar{display:none}}#sidenav-container{overflow:hidden;transition:transform 250ms cubic-bezier(.6,0,0,1),visibility 250ms;visibility:visible;width:var(--viewer-pdf-sidenav-width)}#sidenav-container.floating{bottom:0;position:absolute;top:0;z-index:1}#sidenav-container[closed]{transform:translateX(-100%);transition:transform .2s cubic-bezier(.6,0,0,1),visibility .2s,width 0s .2s;visibility:hidden;width:0}:host-context([dir=rtl]) #sidenav-container[closed]{transform:translateX(100%)}@media(max-width:500px),(max-height:250px){#sidenav-container{display:none}}#content-focus-rectangle{border:2px solid var(--google-grey-500);border-radius:2px;box-sizing:border-box;height:100%;pointer-events:none;position:absolute;top:0;width:100%}viewer-ink-host{height:100%;position:absolute;width:100%}#container{display:flex;flex:1;overflow:hidden;position:relative}#plugin{position:initial}#content{height:100%;left:0;position:sticky;top:0;z-index:initial}#sizer{top:0;width:100%;z-index:initial}#main{flex:1;overflow:hidden;position:relative}#scroller{direction:ltr;height:100%;overflow:auto;position:relative}#scroller:fullscreen{overflow:hidden}</style>
 
 <viewer-toolbar id="toolbar" annotation-mode="[[annotationMode_]]" doc-title="[[title_]]" doc-length="[[docLength_]]" embedded-viewer="[[embedded_]]" page-no="[[pageNo_]]" load-progress="[[loadProgress_]]" has-edits="[[hasEdits_]]" has-entered-annotation-mode="[[hasEnteredAnnotationMode_]]" printing-enabled="[[printingEnabled_]]" rotated="[[isRotated_(clockwiseRotations_)]]" is-form-field-focused="[[isFormFieldFocused_]]" sidenav-collapsed="[[sidenavCollapsed_]]" two-up-view-enabled="[[twoUpViewEnabled_]]" viewport-zoom="[[viewportZoom_]]" zoom-bounds="[[zoomBounds_]]" pdf-ocr-enabled="[[pdfOcrEnabled_]]" on-change-page="onChangePage_" on-display-annotations-changed="onDisplayAnnotationsChanged_" on-fit-to-changed="onFitToChanged" on-present-click="onPresentClick_" on-properties-click="onPropertiesClick_" on-annotation-mode-dialog-confirmed="onResetView_" on-sidenav-toggle-click="onSidenavToggleClick_" on-two-up-view-changed="onTwoUpViewChanged_" on-zoom-changed="onZoomChanged" on-zoom-in="onZoomIn" on-zoom-out="onZoomOut" on-rotate-left="rotateCounterclockwise" on-print="onPrint_" on-save="onToolbarSave_" hidden>
 </viewer-toolbar>

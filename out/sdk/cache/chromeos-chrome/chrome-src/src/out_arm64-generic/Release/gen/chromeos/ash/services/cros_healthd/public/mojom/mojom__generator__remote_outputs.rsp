@@ -33,8 +33,3 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-test-utils.h
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom.cc
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom-forward.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom-import-headers.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom-test-utils.h
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom.cc
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom.h

@@ -177,7 +177,7 @@ class  ImageAnnotatorConfig {
   template <typename... Args>
   static ImageAnnotatorConfigPtr New(Args&&... args) {
     return ImageAnnotatorConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -318,7 +318,7 @@ class  ImageAnnotationScore {
   template <typename... Args>
   static ImageAnnotationScorePtr New(Args&&... args) {
     return ImageAnnotationScorePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -473,7 +473,7 @@ class  ImageAnnotationResult {
   template <typename... Args>
   static ImageAnnotationResultPtr New(Args&&... args) {
     return ImageAnnotationResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -736,8 +736,9 @@
   CSSSampleId.kMaskMode = 780;
   CSSSampleId.kInsetArea = 781;
   CSSSampleId.kViewTransitionClass = 782;
+  CSSSampleId.kPositionTryOrder = 783;
   CSSSampleId.MIN_VALUE = 0;
-  CSSSampleId.MAX_VALUE = 782;
+  CSSSampleId.MAX_VALUE = 783;
 
   CSSSampleId.isKnownEnumValue = function(value) {
     switch (value) {
@@ -1425,6 +1426,7 @@
     case 780:
     case 781:
     case 782:
+    case 783:
       return true;
     }
     return false;

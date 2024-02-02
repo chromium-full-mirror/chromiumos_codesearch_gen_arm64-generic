@@ -501,8 +501,7 @@ MediaSessionInfo::MediaSessionInfo()
       muted(),
       has_presentation(),
       remote_playback_metadata(),
-      hide_metadata(),
-      ignore_for_active_session() {}
+      hide_metadata() {}
 
 MediaSessionInfo::MediaSessionInfo(
     MediaSessionInfo::SessionState state_in,
@@ -522,8 +521,7 @@ MediaSessionInfo::MediaSessionInfo(
       muted(),
       has_presentation(),
       remote_playback_metadata(),
-      hide_metadata(),
-      ignore_for_active_session() {}
+      hide_metadata() {}
 
 MediaSessionInfo::MediaSessionInfo(
     MediaSessionInfo::SessionState state_in,
@@ -544,8 +542,7 @@ MediaSessionInfo::MediaSessionInfo(
       muted(),
       has_presentation(),
       remote_playback_metadata(),
-      hide_metadata(),
-      ignore_for_active_session() {}
+      hide_metadata() {}
 
 MediaSessionInfo::MediaSessionInfo(
     MediaSessionInfo::SessionState state_in,
@@ -567,8 +564,7 @@ MediaSessionInfo::MediaSessionInfo(
       muted(),
       has_presentation(),
       remote_playback_metadata(),
-      hide_metadata(),
-      ignore_for_active_session() {}
+      hide_metadata() {}
 
 MediaSessionInfo::MediaSessionInfo(
     MediaSessionInfo::SessionState state_in,
@@ -591,8 +587,7 @@ MediaSessionInfo::MediaSessionInfo(
       muted(),
       has_presentation(),
       remote_playback_metadata(),
-      hide_metadata(),
-      ignore_for_active_session() {}
+      hide_metadata() {}
 
 MediaSessionInfo::MediaSessionInfo(
     MediaSessionInfo::SessionState state_in,
@@ -616,8 +611,7 @@ MediaSessionInfo::MediaSessionInfo(
       muted(),
       has_presentation(),
       remote_playback_metadata(),
-      hide_metadata(),
-      ignore_for_active_session() {}
+      hide_metadata() {}
 
 MediaSessionInfo::MediaSessionInfo(
     MediaSessionInfo::SessionState state_in,
@@ -642,8 +636,7 @@ MediaSessionInfo::MediaSessionInfo(
       muted(),
       has_presentation(),
       remote_playback_metadata(),
-      hide_metadata(),
-      ignore_for_active_session() {}
+      hide_metadata() {}
 
 MediaSessionInfo::MediaSessionInfo(
     MediaSessionInfo::SessionState state_in,
@@ -669,8 +662,7 @@ MediaSessionInfo::MediaSessionInfo(
       muted(),
       has_presentation(),
       remote_playback_metadata(),
-      hide_metadata(),
-      ignore_for_active_session() {}
+      hide_metadata() {}
 
 MediaSessionInfo::MediaSessionInfo(
     MediaSessionInfo::SessionState state_in,
@@ -697,8 +689,7 @@ MediaSessionInfo::MediaSessionInfo(
       muted(),
       has_presentation(),
       remote_playback_metadata(),
-      hide_metadata(),
-      ignore_for_active_session() {}
+      hide_metadata() {}
 
 MediaSessionInfo::MediaSessionInfo(
     MediaSessionInfo::SessionState state_in,
@@ -726,8 +717,7 @@ MediaSessionInfo::MediaSessionInfo(
       muted(),
       has_presentation(),
       remote_playback_metadata(),
-      hide_metadata(),
-      ignore_for_active_session() {}
+      hide_metadata() {}
 
 MediaSessionInfo::MediaSessionInfo(
     MediaSessionInfo::SessionState state_in,
@@ -757,8 +747,7 @@ MediaSessionInfo::MediaSessionInfo(
       muted(),
       has_presentation(),
       remote_playback_metadata(),
-      hide_metadata(),
-      ignore_for_active_session() {}
+      hide_metadata() {}
 
 MediaSessionInfo::MediaSessionInfo(
     MediaSessionInfo::SessionState state_in,
@@ -789,8 +778,7 @@ MediaSessionInfo::MediaSessionInfo(
       muted(std::move(muted_in)),
       has_presentation(),
       remote_playback_metadata(),
-      hide_metadata(),
-      ignore_for_active_session() {}
+      hide_metadata() {}
 
 MediaSessionInfo::MediaSessionInfo(
     MediaSessionInfo::SessionState state_in,
@@ -822,8 +810,7 @@ MediaSessionInfo::MediaSessionInfo(
       muted(std::move(muted_in)),
       has_presentation(std::move(has_presentation_in)),
       remote_playback_metadata(),
-      hide_metadata(),
-      ignore_for_active_session() {}
+      hide_metadata() {}
 
 MediaSessionInfo::MediaSessionInfo(
     MediaSessionInfo::SessionState state_in,
@@ -856,8 +843,7 @@ MediaSessionInfo::MediaSessionInfo(
       muted(std::move(muted_in)),
       has_presentation(std::move(has_presentation_in)),
       remote_playback_metadata(std::move(remote_playback_metadata_in)),
-      hide_metadata(),
-      ignore_for_active_session() {}
+      hide_metadata() {}
 
 MediaSessionInfo::MediaSessionInfo(
     MediaSessionInfo::SessionState state_in,
@@ -891,44 +877,7 @@ MediaSessionInfo::MediaSessionInfo(
       muted(std::move(muted_in)),
       has_presentation(std::move(has_presentation_in)),
       remote_playback_metadata(std::move(remote_playback_metadata_in)),
-      hide_metadata(std::move(hide_metadata_in)),
-      ignore_for_active_session() {}
-
-MediaSessionInfo::MediaSessionInfo(
-    MediaSessionInfo::SessionState state_in,
-    bool force_duck_in,
-    MediaPlaybackState playback_state_in,
-    bool is_controllable_in,
-    bool prefer_stop_for_gain_focus_loss_in,
-    bool is_sensitive_in,
-    MediaPictureInPictureState picture_in_picture_state_in,
-    MediaAudioVideoState deprecated_audio_video_state_in,
-    const WTF::String& audio_sink_id_in,
-    std::optional<WTF::Vector<MediaAudioVideoState>> audio_video_states_in,
-    MicrophoneState microphone_state_in,
-    CameraState camera_state_in,
-    bool muted_in,
-    bool has_presentation_in,
-    RemotePlaybackMetadataPtr remote_playback_metadata_in,
-    bool hide_metadata_in,
-    bool ignore_for_active_session_in)
-    : state(std::move(state_in)),
-      force_duck(std::move(force_duck_in)),
-      playback_state(std::move(playback_state_in)),
-      is_controllable(std::move(is_controllable_in)),
-      prefer_stop_for_gain_focus_loss(std::move(prefer_stop_for_gain_focus_loss_in)),
-      is_sensitive(std::move(is_sensitive_in)),
-      picture_in_picture_state(std::move(picture_in_picture_state_in)),
-      deprecated_audio_video_state(std::move(deprecated_audio_video_state_in)),
-      audio_sink_id(std::move(audio_sink_id_in)),
-      audio_video_states(std::move(audio_video_states_in)),
-      microphone_state(std::move(microphone_state_in)),
-      camera_state(std::move(camera_state_in)),
-      muted(std::move(muted_in)),
-      has_presentation(std::move(has_presentation_in)),
-      remote_playback_metadata(std::move(remote_playback_metadata_in)),
-      hide_metadata(std::move(hide_metadata_in)),
-      ignore_for_active_session(std::move(ignore_for_active_session_in)) {}
+      hide_metadata(std::move(hide_metadata_in)) {}
 
 MediaSessionInfo::~MediaSessionInfo() = default;
 
@@ -1073,15 +1022,6 @@ void MediaSessionInfo::WriteIntoTrace(
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
       "hide_metadata"), this->hide_metadata,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "ignore_for_active_session"), this->ignore_for_active_session,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
 #else
@@ -4837,8 +4777,6 @@ bool StructTraits<::media_session::mojom::blink::MediaSessionInfo::DataView, ::m
         success = false;
       if (success)
         result->hide_metadata = input.hide_metadata();
-      if (success)
-        result->ignore_for_active_session = input.ignore_for_active_session();
   *output = std::move(result);
   return success;
 }

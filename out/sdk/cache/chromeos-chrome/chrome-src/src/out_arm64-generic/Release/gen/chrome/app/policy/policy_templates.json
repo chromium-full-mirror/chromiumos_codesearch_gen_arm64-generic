@@ -1,6 +1,7 @@
 {
   "deleted_atomic_policy_group_ids": [
-    19
+    19,
+    48
   ],
   "deleted_policy_ids": [
     114,
@@ -34,6 +35,9 @@
     1084,
     1088,
     1098,
+    1128,
+    1129,
+    1130,
     1156
   ],
   "device_policy_proto_map": {
@@ -796,16 +800,6 @@
         "DefaultWindowPlacementSetting",
         "WindowPlacementAllowedForUrls",
         "WindowPlacementBlockedForUrls"
-      ]
-    },
-    {
-      "caption": "MIDI settings",
-      "id": 48,
-      "name": "MidiSettings",
-      "policies": [
-        "DefaultMidiSetting",
-        "MidiAllowedForUrls",
-        "MidiBlockedForUrls"
       ]
     },
     {
@@ -6482,50 +6476,6 @@
       "type": "int-enum"
     },
     {
-      "caption": "Default MIDI permission setting",
-      "default": null,
-      "desc": "Setting the policy to <ph name=\"BLOCK_MIDI_POLICY_NAME\">BlockMidi</ph> (value 2) automatically blocks sites from using MIDI devices such as musical instruments and controllers.\n\nSetting the policy to <ph name=\"ASK_MIDI_POLICY_NAME\">AskMidi</ph> (value 3) will prompt the user when a site wants to use MIDI devices.\n\nLeaving the policy unset means <ph name=\"ASK_MIDI_POLICY_NAME\">AskMidi</ph> policy applies, but users can change this setting.",
-      "example_value": 2,
-      "features": {
-        "dynamic_refresh": true,
-        "per_profile": true
-      },
-      "future_on": [
-        "android",
-        "chrome.*",
-        "chrome_os",
-        "fuchsia"
-      ],
-      "id": 1128,
-      "items": [
-        {
-          "caption": "Denies the MIDI permission on all sites by default",
-          "name": "BlockMidi",
-          "value": 2
-        },
-        {
-          "caption": "Ask every time a site wants to obtain the MIDI permission",
-          "name": "AskMidi",
-          "value": 3
-        }
-      ],
-      "name": "DefaultMidiSetting",
-      "owners": [
-        "hongchan@chromium.org",
-        "mjwilson@chromium.org",
-        "sinafirooz@chromium.org"
-      ],
-      "schema": {
-        "enum": [
-          2,
-          3
-        ],
-        "type": "integer"
-      },
-      "tags": [],
-      "type": "int-enum"
-    },
-    {
       "caption": "Default notification setting",
       "default": null,
       "desc": "Setting the policy to 1 lets websites display desktop notifications. Setting the policy to 2 denies desktop notifications.\n\nLeaving it unset means <ph name=\"ASK_NOTIFICATIONS_POLICY_NAME\">AskNotifications</ph> applies, but users can change this setting.",
@@ -7774,72 +7724,6 @@
         "chrome.*:103-",
         "chrome_os:103-"
       ],
-      "tags": [],
-      "type": "list"
-    },
-    {
-      "caption": "Allow MIDI permission on these sites",
-      "desc": "Sets a list of site url patterns that specify sites which will automatically grant the MIDI permission. This will allow sites to use MIDI devices such as musical instruments and controllers.\n\nFor detailed information on valid site url patterns, please see https://cloud.google.com/docs/chrome-enterprise/policies/url-patterns. Wildcards, <ph name=\"WILDCARD_VALUE\">*</ph>, are allowed. This policy only matches based on origin, so any path in the URL pattern is ignored.\n\nIf this policy is not set for a site then the policy from <ph name=\"DEFAULT_MIDI_SETTING_POLICY_NAME\">DefaultMidiSetting</ph> applies to the site, if set, otherwise the permission will follow the browser's defaults and allow users to choose this permission per site.",
-      "example_value": [
-        "https://www.example.com",
-        "[*.]example.edu"
-      ],
-      "features": {
-        "dynamic_refresh": true,
-        "per_profile": true
-      },
-      "future_on": [
-        "android",
-        "chrome.*",
-        "chrome_os",
-        "fuchsia"
-      ],
-      "id": 1129,
-      "name": "MidiAllowedForUrls",
-      "owners": [
-        "hongchan@chromium.org",
-        "mjwilson@chromium.org",
-        "sinafirooz@chromium.org"
-      ],
-      "schema": {
-        "items": {
-          "type": "string"
-        },
-        "type": "array"
-      },
-      "tags": [],
-      "type": "list"
-    },
-    {
-      "caption": "Block MIDI permission on these sites",
-      "desc": "Sets a list of site url patterns that specify sites which will automatically deny the MIDI permission. This will block sites from using MIDI devices such as musical instruments and controllers.\n\nFor detailed information on valid site url patterns, please see https://cloud.google.com/docs/chrome-enterprise/policies/url-patterns. Wildcards, <ph name=\"WILDCARD_VALUE\">*</ph>, are allowed. This policy only matches based on origin, so any path in the URL pattern is ignored.\n\nIf this policy is not set for a site then the policy from <ph name=\"DEFAULT_MIDI_SETTING_POLICY_NAME\">DefaultMidiSetting</ph> applies to the site, if set, otherwise the permission will follow the browser's defaults and allow users to choose this permission per site.",
-      "example_value": [
-        "https://www.example.com",
-        "[*.]example.edu"
-      ],
-      "features": {
-        "dynamic_refresh": true,
-        "per_profile": true
-      },
-      "future_on": [
-        "android",
-        "chrome.*",
-        "chrome_os",
-        "fuchsia"
-      ],
-      "id": 1130,
-      "name": "MidiBlockedForUrls",
-      "owners": [
-        "hongchan@chromium.org",
-        "mjwilson@chromium.org",
-        "sinafirooz@chromium.org"
-      ],
-      "schema": {
-        "items": {
-          "type": "string"
-        },
-        "type": "array"
-      },
       "tags": [],
       "type": "list"
     },
@@ -10643,7 +10527,7 @@
       "name": "DeviceRollbackToTargetVersion",
       "owners": [
         "mpolzer@google.com",
-        "crisguerrero@chromium.com",
+        "crisguerrero@chromium.org",
         "chromeos-commercial-remote-management@google.com"
       ],
       "schema": {
@@ -12174,7 +12058,7 @@
       "id": 969,
       "name": "FirstPartySetsOverrides",
       "owners": [
-        "kaklilu@chromium.com",
+        "kaklilu@chromium.org",
         "chrome-first-party-sets@chromium.org"
       ],
       "schema": {
@@ -49510,7 +49394,6 @@
         "DefaultKeygenSetting",
         "DefaultLocalFontsSetting",
         "DefaultMediaStreamSetting",
-        "DefaultMidiSetting",
         "DefaultNotificationsSetting",
         "DefaultPluginsSetting",
         "DefaultPopupsSetting",
@@ -49544,8 +49427,6 @@
         "LegacySameSiteCookieBehaviorEnabledForDomainList",
         "LocalFontsAllowedForUrls",
         "LocalFontsBlockedForUrls",
-        "MidiAllowedForUrls",
-        "MidiBlockedForUrls",
         "NotificationsAllowedForUrls",
         "NotificationsBlockedForUrls",
         "PdfLocalFileAccessAllowedForDomains",

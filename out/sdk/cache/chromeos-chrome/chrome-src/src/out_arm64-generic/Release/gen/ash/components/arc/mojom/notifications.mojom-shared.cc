@@ -362,6 +362,7 @@ bool ArcNotificationData_Data::Validate(
     { 29, 184 },
     { 30, 192 },
     { 34, 200 },
+    { 35, 208 },
   };
   if (!ValidateStructHeaderAndVersionSizeAndClaimMemory(
           data, kVersionSizes, validation_context)) {
@@ -539,12 +540,21 @@ bool ArcNotificationData_Data::Validate(
                                          &children_data_validate_params)) {
     return false;
   }
+  if (object->header_.version < 35)
+    return true;
+
+  constexpr const mojo::internal::ContainerValidateParams& messages_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->messages, validation_context,
+                                         &messages_validate_params)) {
+    return false;
+  }
 
   return true;
 }
 
 ArcNotificationData_Data::ArcNotificationData_Data()
-    : header_({sizeof(*this), 34}) {}
+    : header_({sizeof(*this), 35}) {}
 
 
 // static
@@ -647,6 +657,46 @@ bool NotificationConfiguration_Data::Validate(
 }
 
 NotificationConfiguration_Data::NotificationConfiguration_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ArcNotificationMessage_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ArcNotificationMessage_Data* object =
+      static_cast<const ArcNotificationMessage_Data*>(data);
+
+  constexpr const mojo::internal::ContainerValidateParams& message_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->message, validation_context,
+                                         &message_validate_params)) {
+    return false;
+  }
+
+  constexpr const mojo::internal::ContainerValidateParams& sender_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->sender_name, validation_context,
+                                         &sender_name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateStruct(object->sender_icon, validation_context))
+    return false;
+
+  return true;
+}
+
+ArcNotificationMessage_Data::ArcNotificationMessage_Data()
     : header_({sizeof(*this), 0}) {}
 
 

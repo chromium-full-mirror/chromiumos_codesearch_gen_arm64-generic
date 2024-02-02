@@ -1499,18 +1499,19 @@ suite('WallpaperSearchTest', () => {
             await flushTasks();
             const ironCollapse = $$(wallpaperSearchElement, 'iron-collapse');
             assertFalse(ironCollapse.opened);
-            assertEquals('expand-carets', wallpaperSearchElement.shadowRoot
-                .querySelector('#inspirationToggle').className);
+            assertEquals('cr-icon expand-carets', wallpaperSearchElement.shadowRoot
+                .querySelector('#inspirationToggle div').className);
             assertEquals('false', $$(wallpaperSearchElement, '#inspirationToggle').ariaExpanded);
             $$(wallpaperSearchElement, '#inspirationToggle').click();
             assertTrue(ironCollapse.opened);
-            assertEquals('collapse-carets', wallpaperSearchElement.shadowRoot
-                .querySelector('#inspirationToggle').className);
+            assertEquals('cr-icon collapse-carets', wallpaperSearchElement.shadowRoot
+                .querySelector('#inspirationToggle div').className);
             assertEquals('true', $$(wallpaperSearchElement, '#inspirationToggle').ariaExpanded);
-            $$(wallpaperSearchElement, '#inspirationToggle').click();
+            $$(wallpaperSearchElement, '#inspirationToggle')
+                .dispatchEvent(new KeyboardEvent('keydown', { key: ' ' }));
             assertFalse(ironCollapse.opened);
-            assertEquals('expand-carets', wallpaperSearchElement.shadowRoot
-                .querySelector('#inspirationToggle').className);
+            assertEquals('cr-icon expand-carets', wallpaperSearchElement.shadowRoot
+                .querySelector('#inspirationToggle div').className);
             assertEquals('false', $$(wallpaperSearchElement, '#inspirationToggle').ariaExpanded);
         });
         test('inspiration card collapsible reacts to history updates', async () => {

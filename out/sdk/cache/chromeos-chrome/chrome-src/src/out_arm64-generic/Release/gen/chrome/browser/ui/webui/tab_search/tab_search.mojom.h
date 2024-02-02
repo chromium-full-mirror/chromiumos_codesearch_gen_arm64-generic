@@ -307,6 +307,7 @@ class Page
     kTabUpdatedMinVersion = 0,
     kTabsRemovedMinVersion = 0,
     kTabSearchTabIndexChangedMinVersion = 0,
+    kTabOrganizationEnabledChangedMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -327,6 +328,9 @@ class Page
   struct TabSearchTabIndexChanged_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
+  struct TabOrganizationEnabledChanged_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
 #endif // !BUILDFLAG(IS_FUCHSIA)
   virtual ~Page() = default;
 
@@ -344,6 +348,9 @@ class Page
 
   
   virtual void TabSearchTabIndexChanged(int32_t index) = 0;
+
+  
+  virtual void TabOrganizationEnabledChanged(bool enabled) = 0;
 };
 
 
@@ -432,6 +439,8 @@ class  PageProxy
   void TabsRemoved(TabsRemovedInfoPtr tabsRemovedInfo) final;
   
   void TabSearchTabIndexChanged(int32_t index) final;
+  
+  void TabOrganizationEnabledChanged(bool enabled) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

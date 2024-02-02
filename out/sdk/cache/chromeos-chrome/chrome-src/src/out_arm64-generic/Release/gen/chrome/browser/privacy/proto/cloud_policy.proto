@@ -76,7 +76,6 @@ message CloudPolicySettings {
   optional IntegerPolicyProto DefaultJavaScriptSetting = 52;
   optional IntegerPolicyProto DefaultLocalFontsSetting = 979;
   optional IntegerPolicyProto DefaultMediaStreamSetting = 151;
-  optional IntegerPolicyProto DefaultMidiSetting = 1130;
   optional IntegerPolicyProto DefaultNotificationsSetting = 55;
   optional IntegerPolicyProto DefaultPopupsSetting = 54;
   optional IntegerPolicyProto DefaultSensorsSetting = 756;
@@ -103,8 +102,6 @@ message CloudPolicySettings {
   optional StringListPolicyProto LegacySameSiteCookieBehaviorEnabledForDomainList = 626;
   optional StringListPolicyProto LocalFontsAllowedForUrls = 980;
   optional StringListPolicyProto LocalFontsBlockedForUrls = 981;
-  optional StringListPolicyProto MidiAllowedForUrls = 1131;
-  optional StringListPolicyProto MidiBlockedForUrls = 1132;
   optional StringListPolicyProto NotificationsAllowedForUrls = 107;
   optional StringListPolicyProto NotificationsBlockedForUrls = 108;
   optional StringListPolicyProto PdfLocalFileAccessAllowedForDomains = 1040;

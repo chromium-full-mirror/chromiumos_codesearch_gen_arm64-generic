@@ -1866,6 +1866,18 @@ bool CSSOMKeywords::ValidKeywordForProperty(CSSPropertyID id,
       return false;
     }
   }
+  case CSSPropertyID::kPositionTryOrder: {
+    switch (valueID) {
+    case CSSValueID::kNormal:
+    case CSSValueID::kMostWidth:
+    case CSSValueID::kMostHeight:
+    case CSSValueID::kMostBlockSize:
+    case CSSValueID::kMostInlineSize:
+      return true;
+    default:
+      return false;
+    }
+  }
   case CSSPropertyID::kQuotes: {
     switch (valueID) {
     case CSSValueID::kAuto:

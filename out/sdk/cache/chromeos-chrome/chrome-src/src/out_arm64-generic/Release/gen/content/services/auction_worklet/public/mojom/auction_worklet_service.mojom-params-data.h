@@ -31,9 +31,9 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) AuctionWorkletService_LoadBi
   mojo::internal::Handle_Data bidder_worklet;
   mojo::internal::Interface_Data shared_storage_host;
   uint8_t pause_for_debugger_on_start : 1;
-  uint8_t has_experiment_group_id : 1;
+  uint8_t experiment_group_id_$flag : 1;
   uint8_t pad3_[1];
-  uint16_t experiment_group_id;
+  uint16_t experiment_group_id_$value;
   mojo::internal::Interface_Data url_loader_factory;
   mojo::internal::Interface_Data auction_network_events_handler;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> script_source_url;
@@ -60,9 +60,9 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) AuctionWorkletService_LoadSe
   mojo::internal::Handle_Data seller_worklet;
   mojo::internal::Interface_Data shared_storage_host;
   uint8_t pause_for_debugger_on_start : 1;
-  uint8_t has_experiment_group_id : 1;
+  uint8_t experiment_group_id_$flag : 1;
   uint8_t pad3_[1];
-  uint16_t experiment_group_id;
+  uint16_t experiment_group_id_$value;
   mojo::internal::Interface_Data url_loader_factory;
   mojo::internal::Interface_Data auction_network_events_handler;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> script_source_url;
@@ -211,11 +211,11 @@ static_assert(
     return mojo::internal::Deserialize<::auction_worklet::mojom::AuctionWorkletPermissionsPolicyStateDataView>(
         pointer, output, message_);
   }
-  bool has_experiment_group_id() const {
-    return data_->has_experiment_group_id;
-  }
-  uint16_t experiment_group_id() const {
-    return data_->experiment_group_id;
+  std::optional<uint16_t> experiment_group_id() const {
+
+    return data_->experiment_group_id_$flag
+        ? std::make_optional(data_->experiment_group_id_$value)
+        : std::nullopt;
   }
  private:
   internal::AuctionWorkletService_LoadBidderWorklet_Params_Data* data_ = nullptr;
@@ -322,11 +322,11 @@ static_assert(
     return mojo::internal::Deserialize<::auction_worklet::mojom::AuctionWorkletPermissionsPolicyStateDataView>(
         pointer, output, message_);
   }
-  bool has_experiment_group_id() const {
-    return data_->has_experiment_group_id;
-  }
-  uint16_t experiment_group_id() const {
-    return data_->experiment_group_id;
+  std::optional<uint16_t> experiment_group_id() const {
+
+    return data_->experiment_group_id_$flag
+        ? std::make_optional(data_->experiment_group_id_$value)
+        : std::nullopt;
   }
  private:
   internal::AuctionWorkletService_LoadSellerWorklet_Params_Data* data_ = nullptr;

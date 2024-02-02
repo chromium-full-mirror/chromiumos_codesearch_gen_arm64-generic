@@ -316,7 +316,7 @@ class  AudioLevelEvent {
   template <typename... Args>
   static AudioLevelEventPtr New(Args&&... args) {
     return AudioLevelEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -460,7 +460,7 @@ class  LangIdEvent {
   template <typename... Args>
   static LangIdEventPtr New(Args&&... args) {
     return LangIdEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -617,7 +617,7 @@ class  SpeechRecognizerEvent {
   static SpeechRecognizerEventPtr
   NewAudioEvent(
       AudioLevelEventPtr value) {
-    auto result = SpeechRecognizerEventPtr(absl::in_place);
+    auto result = SpeechRecognizerEventPtr(std::in_place);
     result->set_audio_event(std::move(value));
     return result;
   }
@@ -625,7 +625,7 @@ class  SpeechRecognizerEvent {
   static SpeechRecognizerEventPtr
   NewPartialResult(
       PartialResultPtr value) {
-    auto result = SpeechRecognizerEventPtr(absl::in_place);
+    auto result = SpeechRecognizerEventPtr(std::in_place);
     result->set_partial_result(std::move(value));
     return result;
   }
@@ -633,7 +633,7 @@ class  SpeechRecognizerEvent {
   static SpeechRecognizerEventPtr
   NewEndpointerEvent(
       EndpointerEventPtr value) {
-    auto result = SpeechRecognizerEventPtr(absl::in_place);
+    auto result = SpeechRecognizerEventPtr(std::in_place);
     result->set_endpointer_event(std::move(value));
     return result;
   }
@@ -641,7 +641,7 @@ class  SpeechRecognizerEvent {
   static SpeechRecognizerEventPtr
   NewFinalResult(
       FinalResultPtr value) {
-    auto result = SpeechRecognizerEventPtr(absl::in_place);
+    auto result = SpeechRecognizerEventPtr(std::in_place);
     result->set_final_result(std::move(value));
     return result;
   }
@@ -649,7 +649,7 @@ class  SpeechRecognizerEvent {
   static SpeechRecognizerEventPtr
   NewLangidEvent(
       LangIdEventPtr value) {
-    auto result = SpeechRecognizerEventPtr(absl::in_place);
+    auto result = SpeechRecognizerEventPtr(std::in_place);
     result->set_langid_event(std::move(value));
     return result;
   }
@@ -802,7 +802,7 @@ class  SodaMultilangConfig {
   template <typename... Args>
   static SodaMultilangConfigPtr New(Args&&... args) {
     return SodaMultilangConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -945,7 +945,7 @@ class  SodaConfig {
   template <typename... Args>
   static SodaConfigPtr New(Args&&... args) {
     return SodaConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1174,7 +1174,7 @@ class  TimingInfo {
   template <typename... Args>
   static TimingInfoPtr New(Args&&... args) {
     return TimingInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1332,7 +1332,7 @@ class  EndpointerEvent {
   template <typename... Args>
   static EndpointerEventPtr New(Args&&... args) {
     return EndpointerEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1477,7 +1477,7 @@ class  PartialResult {
   template <typename... Args>
   static PartialResultPtr New(Args&&... args) {
     return PartialResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1622,7 +1622,7 @@ class  HypothesisPartInResult {
   template <typename... Args>
   static HypothesisPartInResultPtr New(Args&&... args) {
     return HypothesisPartInResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1765,7 +1765,7 @@ class  FinalResult {
   template <typename... Args>
   static FinalResultPtr New(Args&&... args) {
     return FinalResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

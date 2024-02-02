@@ -1378,6 +1378,29 @@ bool Page_TabSearchTabIndexChanged_Params_Data::Validate(
 Page_TabSearchTabIndexChanged_Params_Data::Page_TabSearchTabIndexChanged_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool Page_TabOrganizationEnabledChanged_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const Page_TabOrganizationEnabledChanged_Params_Data* object =
+      static_cast<const Page_TabOrganizationEnabledChanged_Params_Data*>(data);
+
+  return true;
+}
+
+Page_TabOrganizationEnabledChanged_Params_Data::Page_TabOrganizationEnabledChanged_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace tab_search

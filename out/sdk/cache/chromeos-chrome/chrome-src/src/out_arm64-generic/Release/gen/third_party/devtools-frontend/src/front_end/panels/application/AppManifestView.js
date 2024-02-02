@@ -635,7 +635,7 @@ export class AppManifestView extends Common.ObjectWrapper.eventMixin(UI.Widget.V
                 const copyButton = new Buttons.Button.Button();
                 copyButton.className = 'inline-button';
                 copyButton.variant = "round" /* Buttons.Button.Variant.ROUND */;
-                copyButton.size = "TINY" /* Buttons.Button.Size.TINY */;
+                copyButton.size = "SMALL" /* Buttons.Button.Size.SMALL */;
                 copyButton.iconName = 'copy';
                 copyButton.jslogContext = 'manifest.copy-id';
                 copyButton.title = i18nString(UIStrings.copyToClipboard);

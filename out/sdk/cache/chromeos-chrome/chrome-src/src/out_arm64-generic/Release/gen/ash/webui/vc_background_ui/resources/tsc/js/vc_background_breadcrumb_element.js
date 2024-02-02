@@ -153,11 +153,21 @@ export class VcBackgroundBreadcrumbElement extends VcBackgroundBreadcrumbElement
     }
     onClickMenuIcon_(e) {
         const targetElement = e.currentTarget;
+        const rect = targetElement.getBoundingClientRect();
+        // Anchors the menu at the top-left corner of the chip while also
+        // accounting for the scrolling of the page.
         const config = {
             anchorAlignmentX: AnchorAlignment.AFTER_START,
             anchorAlignmentY: AnchorAlignment.AFTER_START,
+            minX: 0,
+            minY: 0,
+            maxX: window.innerWidth,
+            maxY: window.innerHeight,
+            top: rect.top - document.scrollingElement.scrollTop,
+            left: rect.left - document.scrollingElement.scrollLeft,
         };
         const menuElement = this.shadowRoot.querySelector('cr-action-menu');
+        menuElement.shadowRoot.getElementById('dialog').style.position = 'fixed';
         menuElement.showAt(targetElement, config);
     }
     onClickMenuItem_(e) {

@@ -131,6 +131,7 @@ const webui::ResourcePath kWebuiResources[] = {
   {"cr_elements/mwb_shared_style.css.js", IDR_WEBUI_CR_ELEMENTS_MWB_SHARED_STYLE_CSS_JS},
   {"cr_elements/mwb_shared_vars.css.js", IDR_WEBUI_CR_ELEMENTS_MWB_SHARED_VARS_CSS_JS},
   {"cr_elements/search_highlight_style.css.js", IDR_WEBUI_CR_ELEMENTS_SEARCH_HIGHLIGHT_STYLE_CSS_JS},
+  {"cr_elements/cr_action_menu/cr_action_menu.css.js", IDR_WEBUI_CR_ELEMENTS_CR_ACTION_MENU_CR_ACTION_MENU_CSS_JS},
   {"cr_elements/cr_input/cr_input_style.css.js", IDR_WEBUI_CR_ELEMENTS_CR_INPUT_CR_INPUT_STYLE_CSS_JS},
   {"cr_elements/chromeos/cros_color_overrides.css.js", IDR_WEBUI_CR_ELEMENTS_CHROMEOS_CROS_COLOR_OVERRIDES_CSS_JS},
   {"css/action_link.css", IDR_WEBUI_CSS_ACTION_LINK_CSS},

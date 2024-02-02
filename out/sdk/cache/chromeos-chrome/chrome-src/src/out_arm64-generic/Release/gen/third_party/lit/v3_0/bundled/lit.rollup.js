@@ -133,5 +133,5 @@ class CrLitElement extends s {
     }
 }
 
-export { CrLitElement, s as LitElement, i$2 as css, x as html };
+export { CrLitElement, s as LitElement, i$2 as css, x as html, T as nothing };
 //# sourceMappingURL=lit.rollup.js.map

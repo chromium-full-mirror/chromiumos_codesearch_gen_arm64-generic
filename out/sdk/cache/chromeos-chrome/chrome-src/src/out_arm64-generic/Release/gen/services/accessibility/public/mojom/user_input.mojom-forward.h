@@ -7,7 +7,7 @@
 #ifndef SERVICES_ACCESSIBILITY_PUBLIC_MOJOM_USER_INPUT_MOJOM_FORWARD_H_
 #define SERVICES_ACCESSIBILITY_PUBLIC_MOJOM_USER_INPUT_MOJOM_FORWARD_H_
 
-
+#include <stdint.h>
 
 #include "mojo/public/cpp/bindings/struct_forward.h"
 
@@ -24,8 +24,15 @@
 namespace ax::mojom {
 class SyntheticKeyEventDataView;
 
+class SyntheticMouseEventDataView;
+
+
+enum class SyntheticMouseEventButton : int32_t;
 class SyntheticKeyEvent;
 using SyntheticKeyEventPtr = mojo::StructPtr<SyntheticKeyEvent>;
+
+class SyntheticMouseEvent;
+using SyntheticMouseEventPtr = mojo::StructPtr<SyntheticMouseEvent>;
 
 class UserInput;
 

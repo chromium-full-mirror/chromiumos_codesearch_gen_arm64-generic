@@ -125,7 +125,11 @@ class  DisplaySettingsValue_Data {
   uint8_t night_light_status_$flag : 1;
   uint8_t night_light_status_$value : 1;
   uint8_t night_light_schedule_$flag : 1;
-  uint8_t pad6_[3];
+  uint8_t mirror_mode_status_$flag : 1;
+  uint8_t mirror_mode_status_$value : 1;
+  uint8_t unified_mode_status_$flag : 1;
+  uint8_t unified_mode_status_$value : 1;
+  uint8_t pad10_[2];
   int32_t orientation_$value;
   int64_t display_id_$value;
   int32_t night_light_schedule_$value;

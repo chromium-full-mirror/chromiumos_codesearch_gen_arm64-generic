@@ -469,6 +469,15 @@ enum class EPosition : uint8_t {
   kMaxEnumValue = kSticky,
 };
 
+enum class EPositionTryOrder : uint8_t {
+  kNormal,
+  kMostWidth,
+  kMostHeight,
+  kMostBlockSize,
+  kMostInlineSize,
+  kMaxEnumValue = kMostInlineSize,
+};
+
 enum class EPrintColorAdjust : uint8_t {
   kEconomy,
   kExact,
@@ -818,6 +827,7 @@ CORE_EXPORT std::ostream& operator<<(std::ostream&, const EOverlay);
 CORE_EXPORT std::ostream& operator<<(std::ostream&, const EOverscrollBehavior);
 CORE_EXPORT std::ostream& operator<<(std::ostream&, const EPointerEvents);
 CORE_EXPORT std::ostream& operator<<(std::ostream&, const EPosition);
+CORE_EXPORT std::ostream& operator<<(std::ostream&, const EPositionTryOrder);
 CORE_EXPORT std::ostream& operator<<(std::ostream&, const EPrintColorAdjust);
 CORE_EXPORT std::ostream& operator<<(std::ostream&, const EResize);
 CORE_EXPORT std::ostream& operator<<(std::ostream&, const EScrollSnapStop);

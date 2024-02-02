@@ -67,7 +67,6 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_probe.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_routines.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/mojom__generator.rsp
 home/chrome-bot/chrome_root/src/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd.mojom
 home/chrome-bot/chrome_root/src/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_diagnostics.mojom
@@ -76,6 +75,5 @@ home/chrome-bot/chrome_root/src/chromeos/ash/services/cros_healthd/public/mojom/
 home/chrome-bot/chrome_root/src/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_probe.mojom
 home/chrome-bot/chrome_root/src/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_routines.mojom
 home/chrome-bot/chrome_root/src/chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom
-home/chrome-bot/chrome_root/src/chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/mojo/public/tools/bindings/cpp_templates.zip
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/mojom__type_mappings

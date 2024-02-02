@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/platform/factory_installer",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/factory_installer_rust-0.1.0-r25/work/factory_installer_rust-0.1.0"
+    }
+  ]
+}

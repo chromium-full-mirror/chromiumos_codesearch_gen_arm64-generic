@@ -205,12 +205,9 @@ test.util.sync.overrideTasks =
             }
         };
         executedTasks = [];
-        contentWindow.chrome.fileManagerPrivate.getFileTasks =
-            getFileTasks;
-        contentWindow.chrome.fileManagerPrivate.executeTask =
-            executeTask;
-        contentWindow.chrome.fileManagerPrivate.setDefaultTask =
-            setDefaultTask;
+        contentWindow.chrome.fileManagerPrivate.getFileTasks = getFileTasks;
+        contentWindow.chrome.fileManagerPrivate.executeTask = executeTask;
+        contentWindow.chrome.fileManagerPrivate.setDefaultTask = setDefaultTask;
         return true;
     };
 /**

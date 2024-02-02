@@ -768,7 +768,7 @@ void GenerateBidClientProxy::OnBiddingSignalsReceived(
 }
 
 void GenerateBidClientProxy::OnGenerateBidComplete(
-    BidderWorkletBidPtr in_bid, BidderWorkletKAnonEnforcedBidPtr in_kanon_bid, uint32_t in_bidding_signals_data_version, bool in_has_bidding_signals_data_version, const std::optional<::GURL>& in_debug_loss_report_url, const std::optional<::GURL>& in_debug_win_report_url, double in_set_priority, bool in_has_set_priority, base::flat_map<std::string, PrioritySignalsDoublePtr> in_update_priority_signals_overrides, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> in_pa_requests, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> in_non_kanon_pa_requests, ::base::TimeDelta in_bidding_latency, GenerateBidDependencyLatenciesPtr in_generate_bid_dependency_latencies, ::auction_worklet::mojom::RejectReason in_reject_reason, const std::vector<std::string>& in_errors) {
+    BidderWorkletBidPtr in_bid, BidderWorkletKAnonEnforcedBidPtr in_kanon_bid, std::optional<uint32_t> in_bidding_signals_data_version, const std::optional<::GURL>& in_debug_loss_report_url, const std::optional<::GURL>& in_debug_win_report_url, std::optional<double> in_set_priority, base::flat_map<std::string, PrioritySignalsDoublePtr> in_update_priority_signals_overrides, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> in_pa_requests, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> in_non_kanon_pa_requests, ::base::TimeDelta in_bidding_latency, GenerateBidDependencyLatenciesPtr in_generate_bid_dependency_latencies, ::auction_worklet::mojom::RejectReason in_reject_reason, const std::vector<std::string>& in_errors) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send auction_worklet::mojom::GenerateBidClient::OnGenerateBidComplete", "input_parameters",
@@ -782,10 +782,7 @@ void GenerateBidClientProxy::OnGenerateBidComplete(
                         "<value of type BidderWorkletKAnonEnforcedBidPtr>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("bidding_signals_data_version"), in_bidding_signals_data_version,
-                        "<value of type uint32_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("has_bidding_signals_data_version"), in_has_bidding_signals_data_version,
-                        "<value of type bool>");
+                        "<value of type std::optional<uint32_t>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("debug_loss_report_url"), in_debug_loss_report_url,
                         "<value of type const std::optional<::GURL>&>");
@@ -794,10 +791,7 @@ void GenerateBidClientProxy::OnGenerateBidComplete(
                         "<value of type const std::optional<::GURL>&>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("set_priority"), in_set_priority,
-                        "<value of type double>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("has_set_priority"), in_has_set_priority,
-                        "<value of type bool>");
+                        "<value of type std::optional<double>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("update_priority_signals_overrides"), in_update_priority_signals_overrides,
                         "<value of type base::flat_map<std::string, PrioritySignalsDoublePtr>>");
@@ -851,8 +845,10 @@ void GenerateBidClientProxy::OnGenerateBidComplete(
   kanon_bid_fragment.Claim(&params->kanon_bid);
   mojo::internal::Serialize<::auction_worklet::mojom::BidderWorkletKAnonEnforcedBidDataView>(
       in_kanon_bid, kanon_bid_fragment, true);
-  params->bidding_signals_data_version = in_bidding_signals_data_version;
-  params->has_bidding_signals_data_version = in_has_bidding_signals_data_version;
+  params->bidding_signals_data_version_$flag = in_bidding_signals_data_version.has_value();
+  if (in_bidding_signals_data_version.has_value()) {
+    params->bidding_signals_data_version_$value = in_bidding_signals_data_version.value();
+  }
   mojo::internal::MessageFragment<
       typename decltype(params->debug_loss_report_url)::BaseType> debug_loss_report_url_fragment(
           params.message());
@@ -867,8 +863,10 @@ void GenerateBidClientProxy::OnGenerateBidComplete(
       in_debug_win_report_url, debug_win_report_url_fragment);
   params->debug_win_report_url.Set(
       debug_win_report_url_fragment.is_null() ? nullptr : debug_win_report_url_fragment.data());
-  params->set_priority = in_set_priority;
-  params->has_set_priority = in_has_set_priority;
+  params->set_priority_$flag = in_set_priority.has_value();
+  if (in_set_priority.has_value()) {
+    params->set_priority_$value = in_set_priority.value();
+  }
   mojo::internal::MessageFragment<
       typename decltype(params->update_priority_signals_overrides)::BaseType>
       update_priority_signals_overrides_fragment(params.message());
@@ -1084,12 +1082,10 @@ bool GenerateBidClientStubDispatch::Accept(
       bool success = true;
       BidderWorkletBidPtr p_bid{};
       BidderWorkletKAnonEnforcedBidPtr p_kanon_bid{};
-      uint32_t p_bidding_signals_data_version{};
-      bool p_has_bidding_signals_data_version{};
+      std::optional<uint32_t> p_bidding_signals_data_version{};
       std::optional<::GURL> p_debug_loss_report_url{};
       std::optional<::GURL> p_debug_win_report_url{};
-      double p_set_priority{};
-      bool p_has_set_priority{};
+      std::optional<double> p_set_priority{};
       base::flat_map<std::string, PrioritySignalsDoublePtr> p_update_priority_signals_overrides{};
       std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> p_pa_requests{};
       std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> p_non_kanon_pa_requests{};
@@ -1103,18 +1099,16 @@ bool GenerateBidClientStubDispatch::Accept(
         success = false;
       if (success && !input_data_view.ReadKanonBid(&p_kanon_bid))
         success = false;
-      if (success)
+      if (success) {
         p_bidding_signals_data_version = input_data_view.bidding_signals_data_version();
-      if (success)
-        p_has_bidding_signals_data_version = input_data_view.has_bidding_signals_data_version();
+      }
       if (success && !input_data_view.ReadDebugLossReportUrl(&p_debug_loss_report_url))
         success = false;
       if (success && !input_data_view.ReadDebugWinReportUrl(&p_debug_win_report_url))
         success = false;
-      if (success)
+      if (success) {
         p_set_priority = input_data_view.set_priority();
-      if (success)
-        p_has_set_priority = input_data_view.has_set_priority();
+      }
       if (success && !input_data_view.ReadUpdatePrioritySignalsOverrides(&p_update_priority_signals_overrides))
         success = false;
       if (success && !input_data_view.ReadPaRequests(&p_pa_requests))
@@ -1142,11 +1136,9 @@ bool GenerateBidClientStubDispatch::Accept(
         std::move(p_bid), 
         std::move(p_kanon_bid), 
         std::move(p_bidding_signals_data_version), 
-        std::move(p_has_bidding_signals_data_version), 
         std::move(p_debug_loss_report_url), 
         std::move(p_debug_win_report_url), 
         std::move(p_set_priority), 
-        std::move(p_has_set_priority), 
         std::move(p_update_priority_signals_overrides), 
         std::move(p_pa_requests), 
         std::move(p_non_kanon_pa_requests), 
@@ -2910,8 +2902,8 @@ namespace auction_worklet::mojom {
 void GenerateBidClientInterceptorForTesting::OnBiddingSignalsReceived(const base::flat_map<std::string, double>& priority_vector, ::base::TimeDelta trusted_signals_fetch_latency, OnBiddingSignalsReceivedCallback callback) {
   GetForwardingInterface()->OnBiddingSignalsReceived(std::move(priority_vector), std::move(trusted_signals_fetch_latency), std::move(callback));
 }
-void GenerateBidClientInterceptorForTesting::OnGenerateBidComplete(BidderWorkletBidPtr bid, BidderWorkletKAnonEnforcedBidPtr kanon_bid, uint32_t bidding_signals_data_version, bool has_bidding_signals_data_version, const std::optional<::GURL>& debug_loss_report_url, const std::optional<::GURL>& debug_win_report_url, double set_priority, bool has_set_priority, base::flat_map<std::string, PrioritySignalsDoublePtr> update_priority_signals_overrides, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> pa_requests, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> non_kanon_pa_requests, ::base::TimeDelta bidding_latency, GenerateBidDependencyLatenciesPtr generate_bid_dependency_latencies, ::auction_worklet::mojom::RejectReason reject_reason, const std::vector<std::string>& errors) {
-  GetForwardingInterface()->OnGenerateBidComplete(std::move(bid), std::move(kanon_bid), std::move(bidding_signals_data_version), std::move(has_bidding_signals_data_version), std::move(debug_loss_report_url), std::move(debug_win_report_url), std::move(set_priority), std::move(has_set_priority), std::move(update_priority_signals_overrides), std::move(pa_requests), std::move(non_kanon_pa_requests), std::move(bidding_latency), std::move(generate_bid_dependency_latencies), std::move(reject_reason), std::move(errors));
+void GenerateBidClientInterceptorForTesting::OnGenerateBidComplete(BidderWorkletBidPtr bid, BidderWorkletKAnonEnforcedBidPtr kanon_bid, std::optional<uint32_t> bidding_signals_data_version, const std::optional<::GURL>& debug_loss_report_url, const std::optional<::GURL>& debug_win_report_url, std::optional<double> set_priority, base::flat_map<std::string, PrioritySignalsDoublePtr> update_priority_signals_overrides, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> pa_requests, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr> non_kanon_pa_requests, ::base::TimeDelta bidding_latency, GenerateBidDependencyLatenciesPtr generate_bid_dependency_latencies, ::auction_worklet::mojom::RejectReason reject_reason, const std::vector<std::string>& errors) {
+  GetForwardingInterface()->OnGenerateBidComplete(std::move(bid), std::move(kanon_bid), std::move(bidding_signals_data_version), std::move(debug_loss_report_url), std::move(debug_win_report_url), std::move(set_priority), std::move(update_priority_signals_overrides), std::move(pa_requests), std::move(non_kanon_pa_requests), std::move(bidding_latency), std::move(generate_bid_dependency_latencies), std::move(reject_reason), std::move(errors));
 }
 GenerateBidClientAsyncWaiter::GenerateBidClientAsyncWaiter(
     GenerateBidClient* proxy) : proxy_(proxy) {}

@@ -1321,6 +1321,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  ArcNotificationData {
  public:
   template <typename T>
@@ -1899,6 +1900,45 @@ class  ArcNotificationData {
       int32_t reply_button_index,
       std::optional<std::vector<ArcNotificationDataPtr>> children_data);
 
+  ArcNotificationData(
+      const std::string& key,
+      ArcNotificationType type,
+      const std::string& message,
+      const std::string& title,
+      const std::optional<std::string>& app_display_name,
+      std::optional<std::vector<uint8_t>> deprecated_icon_data,
+      ArcNotificationPriority priority,
+      int64_t time,
+      int32_t progress_current,
+      int32_t progress_max,
+      std::optional<std::vector<ArcNotificationButtonPtr>> buttons,
+      bool no_clear,
+      bool ongoing_event,
+      std::optional<std::vector<std::string>> texts,
+      const std::optional<::SkBitmap>& big_picture,
+      bool is_custom_notification,
+      const std::optional<::SkBitmap>& small_icon,
+      const std::optional<::SkBitmap>& snapshot_image,
+      float snapshot_image_scale,
+      const std::optional<std::string>& accessible_name,
+      ArcNotificationExpandState expand_state,
+      ArcNotificationShownContents shown_contents,
+      ArcNotificationRemoteInputState remote_input_state,
+      const std::optional<::gfx::Rect>& swipe_input_rect,
+      const std::optional<std::string>& package_name,
+      ArcNotificationFlagsPtr flags,
+      bool indeterminate_progress,
+      const std::optional<::SkBitmap>& snapshot_image_public,
+      bool is_media_notification,
+      ArcNotificationStyle style,
+      bool is_action_enabled,
+      bool is_inline_reply_enabled,
+      bool render_on_chrome,
+      const std::optional<std::string>& group_key,
+      int32_t reply_button_index,
+      std::optional<std::vector<ArcNotificationDataPtr>> children_data,
+      std::optional<std::vector<ArcNotificationMessagePtr>> messages);
+
 ArcNotificationData(const ArcNotificationData&) = delete;
 ArcNotificationData& operator=(const ArcNotificationData&) = delete;
 
@@ -2048,6 +2088,8 @@ ArcNotificationData& operator=(const ArcNotificationData&) = delete;
   int32_t reply_button_index;
   
   std::optional<std::vector<ArcNotificationDataPtr>> children_data;
+  
+  std::optional<std::vector<ArcNotificationMessagePtr>> messages;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2081,6 +2123,152 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
+
+
+
+
+class  ArcNotificationMessage {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ArcNotificationMessage, T>::value>;
+  using DataView = ArcNotificationMessageDataView;
+  using Data_ = internal::ArcNotificationMessage_Data;
+
+  template <typename... Args>
+  static ArcNotificationMessagePtr New(Args&&... args) {
+    return ArcNotificationMessagePtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ArcNotificationMessagePtr From(const U& u) {
+    return mojo::TypeConverter<ArcNotificationMessagePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ArcNotificationMessage>::Convert(*this);
+  }
+
+
+  ArcNotificationMessage();
+
+  ArcNotificationMessage(
+      const std::optional<std::string>& message,
+      const std::optional<std::string>& sender_name,
+      const std::optional<::SkBitmap>& sender_icon);
+
+
+  ~ArcNotificationMessage();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ArcNotificationMessagePtr>
+  ArcNotificationMessagePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ArcNotificationMessage::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ArcNotificationMessage::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ArcNotificationMessage::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ArcNotificationMessage::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ArcNotificationMessage::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ArcNotificationMessage_UnserializedMessageContext<
+            UserType, ArcNotificationMessage::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ArcNotificationMessage::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ArcNotificationMessage::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ArcNotificationMessage_UnserializedMessageContext<
+            UserType, ArcNotificationMessage::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ArcNotificationMessage::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::optional<std::string> message;
+  
+  std::optional<std::string> sender_name;
+  
+  std::optional<::SkBitmap> sender_icon;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ArcNotificationMessage::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ArcNotificationMessage::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ArcNotificationMessage::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ArcNotificationMessage::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
 
 template <typename StructPtrType>
 ArcNotificationButtonPtr ArcNotificationButton::Clone() const {
@@ -2171,7 +2359,8 @@ ArcNotificationDataPtr ArcNotificationData::Clone() const {
       mojo::Clone(render_on_chrome),
       mojo::Clone(group_key),
       mojo::Clone(reply_button_index),
-      mojo::Clone(children_data)
+      mojo::Clone(children_data),
+      mojo::Clone(messages)
   );
 }
 
@@ -2248,6 +2437,8 @@ bool ArcNotificationData::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->reply_button_index, other_struct.reply_button_index))
     return false;
   if (!mojo::Equals(this->children_data, other_struct.children_data))
+    return false;
+  if (!mojo::Equals(this->messages, other_struct.messages))
     return false;
   return true;
 }
@@ -2398,6 +2589,10 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.children_data < lhs.children_data)
     return false;
+  if (lhs.messages < rhs.messages)
+    return true;
+  if (rhs.messages < lhs.messages)
+    return false;
   return false;
 }
 template <typename StructPtrType>
@@ -2513,6 +2708,42 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.expansion_animation < rhs.expansion_animation)
     return true;
   if (rhs.expansion_animation < lhs.expansion_animation)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ArcNotificationMessagePtr ArcNotificationMessage::Clone() const {
+  return New(
+      mojo::Clone(message),
+      mojo::Clone(sender_name),
+      mojo::Clone(sender_icon)
+  );
+}
+
+template <typename T, ArcNotificationMessage::EnableIfSame<T>*>
+bool ArcNotificationMessage::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->message, other_struct.message))
+    return false;
+  if (!mojo::Equals(this->sender_name, other_struct.sender_name))
+    return false;
+  if (!mojo::Equals(this->sender_icon, other_struct.sender_icon))
+    return false;
+  return true;
+}
+
+template <typename T, ArcNotificationMessage::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.message < rhs.message)
+    return true;
+  if (rhs.message < lhs.message)
+    return false;
+  if (lhs.sender_name < rhs.sender_name)
+    return true;
+  if (rhs.sender_name < lhs.sender_name)
+    return false;
+  if (lhs.sender_icon < rhs.sender_icon)
+    return true;
+  if (rhs.sender_icon < lhs.sender_icon)
     return false;
   return false;
 }
@@ -2744,6 +2975,11 @@ struct  StructTraits<::arc::mojom::ArcNotificationData::DataView,
     return input->children_data;
   }
 
+  static const decltype(::arc::mojom::ArcNotificationData::messages)& messages(
+      const ::arc::mojom::ArcNotificationDataPtr& input) {
+    return input->messages;
+  }
+
   static bool Read(::arc::mojom::ArcNotificationData::DataView input, ::arc::mojom::ArcNotificationDataPtr* output);
 };
 
@@ -2825,6 +3061,31 @@ struct  StructTraits<::arc::mojom::NotificationConfiguration::DataView,
   }
 
   static bool Read(::arc::mojom::NotificationConfiguration::DataView input, ::arc::mojom::NotificationConfigurationPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::arc::mojom::ArcNotificationMessage::DataView,
+                                         ::arc::mojom::ArcNotificationMessagePtr> {
+  static bool IsNull(const ::arc::mojom::ArcNotificationMessagePtr& input) { return !input; }
+  static void SetToNull(::arc::mojom::ArcNotificationMessagePtr* output) { output->reset(); }
+
+  static const decltype(::arc::mojom::ArcNotificationMessage::message)& message(
+      const ::arc::mojom::ArcNotificationMessagePtr& input) {
+    return input->message;
+  }
+
+  static const decltype(::arc::mojom::ArcNotificationMessage::sender_name)& sender_name(
+      const ::arc::mojom::ArcNotificationMessagePtr& input) {
+    return input->sender_name;
+  }
+
+  static const decltype(::arc::mojom::ArcNotificationMessage::sender_icon)& sender_icon(
+      const ::arc::mojom::ArcNotificationMessagePtr& input) {
+    return input->sender_icon;
+  }
+
+  static bool Read(::arc::mojom::ArcNotificationMessage::DataView input, ::arc::mojom::ArcNotificationMessagePtr* output);
 };
 
 }  // namespace mojo

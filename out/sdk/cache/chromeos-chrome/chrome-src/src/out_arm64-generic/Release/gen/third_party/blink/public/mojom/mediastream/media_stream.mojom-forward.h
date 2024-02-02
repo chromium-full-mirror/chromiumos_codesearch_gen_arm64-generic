@@ -59,7 +59,7 @@ class MediaStreamDevice;
 using MediaStreamDevicePtr = mojo::StructPtr<MediaStreamDevice>;
 
 class TrackControls;
-using TrackControlsPtr = mojo::InlinedStructPtr<TrackControls>;
+using TrackControlsPtr = mojo::StructPtr<TrackControls>;
 
 class StreamControls;
 using StreamControlsPtr = mojo::StructPtr<StreamControls>;

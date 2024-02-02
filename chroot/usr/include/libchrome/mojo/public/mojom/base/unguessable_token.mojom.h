@@ -52,7 +52,7 @@ class  UnguessableToken {
   template <typename... Args>
   static UnguessableTokenPtr New(Args&&... args) {
     return UnguessableTokenPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

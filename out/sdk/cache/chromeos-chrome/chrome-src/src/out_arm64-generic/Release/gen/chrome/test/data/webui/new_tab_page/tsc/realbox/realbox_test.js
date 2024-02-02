@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 import 'chrome://new-tab-page/new_tab_page.js';
 import { $$, BrowserProxyImpl, decodeString16, MetricsReporterImpl, mojoString16, RealboxBrowserProxy } from 'chrome://new-tab-page/new_tab_page.js';
-import { NavigationPredictor, SideType } from 'chrome://resources/cr_components/omnibox/omnibox.mojom-webui.js';
+import { NavigationPredictor, RenderType, SideType } from 'chrome://resources/cr_components/omnibox/omnibox.mojom-webui.js';
 import { getFaviconForPageURL } from 'chrome://resources/js/icon.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PageMetricsCallbackRouter } from 'chrome://resources/js/metrics_reporter.mojom-webui.js';
@@ -1648,6 +1648,7 @@ suite('NewTabPageRealboxTest', () => {
                 hideGroupA11yLabel: mojoString16(''),
                 showGroupA11yLabel: mojoString16(''),
                 hidden: true,
+                renderType: RenderType.kDefaultVertical,
                 sideType: SideType.kDefaultPrimary,
             },
             101: {
@@ -1655,6 +1656,7 @@ suite('NewTabPageRealboxTest', () => {
                 hideGroupA11yLabel: mojoString16(''),
                 showGroupA11yLabel: mojoString16(''),
                 hidden: false,
+                renderType: RenderType.kDefaultVertical,
                 sideType: SideType.kDefaultPrimary,
             },
         };
@@ -1728,6 +1730,7 @@ suite('NewTabPageRealboxTest', () => {
                 hideGroupA11yLabel: mojoString16(''),
                 showGroupA11yLabel: mojoString16(''),
                 hidden: false,
+                renderType: RenderType.kDefaultVertical,
                 sideType: SideType.kSecondary,
             },
         };
@@ -1759,6 +1762,7 @@ suite('NewTabPageRealboxTest', () => {
                 hideGroupA11yLabel: mojoString16(''),
                 showGroupA11yLabel: mojoString16(''),
                 hidden: false,
+                renderType: RenderType.kDefaultVertical,
                 sideType: SideType.kDefaultPrimary,
             },
         };

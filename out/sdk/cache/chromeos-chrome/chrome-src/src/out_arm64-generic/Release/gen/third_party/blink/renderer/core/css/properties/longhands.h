@@ -6012,6 +6012,23 @@ class PositionFallbackBounds final : public Longhand {
   void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
  };
 
+// position-try-order
+// NOTE: Multiple inheritance is not allowed here, since the class must be
+// reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl
+// (the cast happens in GetPropertyInternal()).
+class PositionTryOrder final : public Longhand {
+ public:
+  constexpr PositionTryOrder() : Longhand(CSSPropertyID::kPositionTryOrder, kProperty | kIdempotent | kValidForKeyframe, '\0') { }
+  const char* GetPropertyName() const override;
+  const WTF::AtomicString& GetPropertyNameAtomicString() const override;
+  const char* GetJSPropertyName() const override;
+  CSSExposure Exposure(const ExecutionContext*) const override;
+  const CSSValue* CSSValueFromComputedStyleInternal(const ComputedStyle&, const LayoutObject*, bool allow_visited_style) const override;
+  void ApplyInitial(StyleResolverState&) const override;
+  void ApplyInherit(StyleResolverState&) const override;
+  void ApplyValue(StyleResolverState&, const CSSValue&, ValueMode) const override;
+ };
+
 // prefix
 // NOTE: Multiple inheritance is not allowed here, since the class must be
 // reinterpret_cast-able to CSSUnresolvedProperty. See css_property_instances.cc.tmpl

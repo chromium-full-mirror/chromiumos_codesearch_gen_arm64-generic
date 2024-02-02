@@ -1006,7 +1006,9 @@ export class SettingsDisplayElement extends SettingsDisplayElementBase {
                 console.error('setMirrorMode Error: ' + error.message);
             }
         });
-        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kMirrorMode, /*value=*/ {});
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kMirrorMode, /*value=*/ {
+            mirrorModeStatus: mirrorModeInfo.mode === MirrorMode.NORMAL,
+        });
     }
     onUnifiedDesktopClick_() {
         const properties = {
@@ -1015,7 +1017,8 @@ export class SettingsDisplayElement extends SettingsDisplayElementBase {
         getDisplayApi()
             .setDisplayProperties(this.primaryDisplayId, properties)
             .then(() => this.setPropertiesCallback_());
-        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kUnifiedMode, /*value=*/ {});
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kUnifiedMode, 
+        /*value=*/ { unifiedModeStatus: properties.isUnified });
     }
     onOverscanClick_(e) {
         e.preventDefault();

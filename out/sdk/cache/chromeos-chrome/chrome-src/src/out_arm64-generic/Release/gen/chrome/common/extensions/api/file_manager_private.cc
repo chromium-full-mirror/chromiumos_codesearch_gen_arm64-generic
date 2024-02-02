@@ -7388,26 +7388,26 @@ base::Value::Dict OpenWindowParams::ToValue() const {
 }
 
 
-IOTaskParams::DestinationFolder::DestinationFolder()
+IoTaskParams::DestinationFolder::DestinationFolder()
  {}
 
-IOTaskParams::DestinationFolder::~DestinationFolder() = default;
-IOTaskParams::DestinationFolder::DestinationFolder(DestinationFolder&& rhs) noexcept = default;
-IOTaskParams::DestinationFolder& IOTaskParams::DestinationFolder::operator=(DestinationFolder&& rhs) noexcept = default;
-IOTaskParams::DestinationFolder IOTaskParams::DestinationFolder::Clone() const {
+IoTaskParams::DestinationFolder::~DestinationFolder() = default;
+IoTaskParams::DestinationFolder::DestinationFolder(DestinationFolder&& rhs) noexcept = default;
+IoTaskParams::DestinationFolder& IoTaskParams::DestinationFolder::operator=(DestinationFolder&& rhs) noexcept = default;
+IoTaskParams::DestinationFolder IoTaskParams::DestinationFolder::Clone() const {
   DestinationFolder out;
   return out;
 }
 
 // static
-bool IOTaskParams::DestinationFolder::Populate(
+bool IoTaskParams::DestinationFolder::Populate(
     const base::Value::Dict& dict, DestinationFolder& out) {
   out.additional_properties.Merge(dict.Clone());
   return true;
 }
 
 // static
-bool IOTaskParams::DestinationFolder::Populate(
+bool IoTaskParams::DestinationFolder::Populate(
     const base::Value& value, DestinationFolder& out) {
   if (!value.is_dict()) {
     return false;
@@ -7416,7 +7416,7 @@ bool IOTaskParams::DestinationFolder::Populate(
 }
 
 // static
-std::optional<IOTaskParams::DestinationFolder> IOTaskParams::DestinationFolder::FromValue(const base::Value::Dict& value) {
+std::optional<IoTaskParams::DestinationFolder> IoTaskParams::DestinationFolder::FromValue(const base::Value::Dict& value) {
   DestinationFolder out;
   bool result = Populate(value, out);
   if (!result) {
@@ -7426,7 +7426,7 @@ std::optional<IOTaskParams::DestinationFolder> IOTaskParams::DestinationFolder::
 }
 
 // static
-std::optional<IOTaskParams::DestinationFolder> IOTaskParams::DestinationFolder::FromValue(const base::Value& value) {
+std::optional<IoTaskParams::DestinationFolder> IoTaskParams::DestinationFolder::FromValue(const base::Value& value) {
   DestinationFolder out;
   bool result = Populate(value, out);
   if (!result) {
@@ -7435,7 +7435,7 @@ std::optional<IOTaskParams::DestinationFolder> IOTaskParams::DestinationFolder::
   return out;
 }
 
-base::Value::Dict IOTaskParams::DestinationFolder::ToValue() const {
+base::Value::Dict IoTaskParams::DestinationFolder::ToValue() const {
   base::Value::Dict to_value_result;
 
   to_value_result.Merge(additional_properties.Clone());
@@ -7445,14 +7445,14 @@ base::Value::Dict IOTaskParams::DestinationFolder::ToValue() const {
 
 
 
-IOTaskParams::IOTaskParams()
+IoTaskParams::IoTaskParams()
  {}
 
-IOTaskParams::~IOTaskParams() = default;
-IOTaskParams::IOTaskParams(IOTaskParams&& rhs) noexcept = default;
-IOTaskParams& IOTaskParams::operator=(IOTaskParams&& rhs) noexcept = default;
-IOTaskParams IOTaskParams::Clone() const {
-  IOTaskParams out;
+IoTaskParams::~IoTaskParams() = default;
+IoTaskParams::IoTaskParams(IoTaskParams&& rhs) noexcept = default;
+IoTaskParams& IoTaskParams::operator=(IoTaskParams&& rhs) noexcept = default;
+IoTaskParams IoTaskParams::Clone() const {
+  IoTaskParams out;
   if (destination_folder) {
     out.destination_folder = destination_folder->Clone();
   }
@@ -7462,8 +7462,8 @@ IOTaskParams IOTaskParams::Clone() const {
 }
 
 // static
-bool IOTaskParams::Populate(
-    const base::Value::Dict& dict, IOTaskParams& out) {
+bool IoTaskParams::Populate(
+    const base::Value::Dict& dict, IoTaskParams& out) {
   const base::Value* destination_folder_value = dict.Find("destinationFolder");
   if (destination_folder_value) {
     {
@@ -7507,8 +7507,8 @@ bool IOTaskParams::Populate(
 }
 
 // static
-bool IOTaskParams::Populate(
-    const base::Value& value, IOTaskParams& out) {
+bool IoTaskParams::Populate(
+    const base::Value& value, IoTaskParams& out) {
   if (!value.is_dict()) {
     return false;
   }
@@ -7516,8 +7516,8 @@ bool IOTaskParams::Populate(
 }
 
 // static
-std::optional<IOTaskParams> IOTaskParams::FromValue(const base::Value::Dict& value) {
-  IOTaskParams out;
+std::optional<IoTaskParams> IoTaskParams::FromValue(const base::Value::Dict& value) {
+  IoTaskParams out;
   bool result = Populate(value, out);
   if (!result) {
     return std::nullopt;
@@ -7526,8 +7526,8 @@ std::optional<IOTaskParams> IOTaskParams::FromValue(const base::Value::Dict& val
 }
 
 // static
-std::optional<IOTaskParams> IOTaskParams::FromValue(const base::Value& value) {
-  IOTaskParams out;
+std::optional<IoTaskParams> IoTaskParams::FromValue(const base::Value& value) {
+  IoTaskParams out;
   bool result = Populate(value, out);
   if (!result) {
     return std::nullopt;
@@ -7535,7 +7535,7 @@ std::optional<IOTaskParams> IOTaskParams::FromValue(const base::Value& value) {
   return out;
 }
 
-base::Value::Dict IOTaskParams::ToValue() const {
+base::Value::Dict IoTaskParams::ToValue() const {
   base::Value::Dict to_value_result;
 
   if (this->destination_folder) {

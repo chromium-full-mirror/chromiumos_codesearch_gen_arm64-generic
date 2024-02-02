@@ -140,6 +140,7 @@ class CORE_EXPORT SettingsBase {
   bool GetPreferHiddenVolumeControls() const { return prefer_hidden_volume_controls_; }
   mojom::blink::PreferredColorScheme GetPreferredColorScheme() const { return preferred_color_scheme_; }
   mojom::blink::PreferredContrast GetPreferredContrast() const { return preferred_contrast_; }
+  bool GetPrefersDefaultScrollbarStyles() const { return prefers_default_scrollbar_styles_; }
   bool GetPrefersReducedMotion() const { return prefers_reduced_motion_; }
   bool GetPrefersReducedTransparency() const { return prefers_reduced_transparency_; }
   bool GetPresentationReceiver() const { return presentation_receiver_; }
@@ -314,6 +315,7 @@ class CORE_EXPORT SettingsBase {
   void SetPreferHiddenVolumeControls(bool prefer_hidden_volume_controls);
   void SetPreferredColorScheme(mojom::blink::PreferredColorScheme preferred_color_scheme);
   void SetPreferredContrast(mojom::blink::PreferredContrast preferred_contrast);
+  void SetPrefersDefaultScrollbarStyles(bool prefers_default_scrollbar_styles);
   void SetPrefersReducedMotion(bool prefers_reduced_motion);
   void SetPrefersReducedTransparency(bool prefers_reduced_transparency);
   void SetPresentationReceiver(bool presentation_receiver);
@@ -520,6 +522,7 @@ class CORE_EXPORT SettingsBase {
   bool place_rtl_scrollbars_on_left_side_in_main_frame_ : 1;
   bool plugins_enabled_ : 1;
   bool prefer_hidden_volume_controls_ : 1;
+  bool prefers_default_scrollbar_styles_ : 1;
   bool prefers_reduced_motion_ : 1;
   bool prefers_reduced_transparency_ : 1;
   bool presentation_receiver_ : 1;

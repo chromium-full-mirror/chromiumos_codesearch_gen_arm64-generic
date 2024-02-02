@@ -2,6 +2,7 @@ import 'chrome://personalization/strings.m.js';
 import { html, useShadow, dom, Polymer, Templatizer, OptionalMutableDataBehavior, animationFrame, microTask, idlePeriod, flush, Debouncer, enqueueDebouncer, matches, translate, dedupingMixin, calculateSplices, PolymerElement, Base as Base$1, afterNextRender, templatize, dashToCamelCase } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
+import { css, html as html$1, nothing, CrLitElement } from 'chrome://resources/lit/v3_0/lit.rollup.js';
 
 const styleMod$a = document.createElement('dom-module');
 styleMod$a.appendChild(html `
@@ -210,310 +211,10 @@ html{--google-blue-50-rgb:232,240,254;--google-blue-50:rgb(var(--google-blue-50-
 document.head.appendChild(template$6.content);
 
 const styleMod$9 = document.createElement('dom-module');
-styleMod$9.appendChild(html`
+styleMod$9.appendChild(html `
   <template>
     <style include="cros-color-overrides">
-
-[hidden] {
-  /* The |hidden| attribute does not hide an element with an explicitly
-   * specified |display| property. Handle this by forcing display to |none|
-   * when the |hidden| attribute is present. */
-  display: none !important;
-}
-
-:host {
-  --personalization-app-breadcrumb-height: 56px;
-  --personalization-app-subpage-container-min-height: calc(100vh - var(--personalization-app-breadcrumb-height));
-  --personalization-app-grid-item-background-color: var(--google-grey-100);
-  --personalization-app-grid-item-border-radius: 12px;
-  --personalization-app-grid-item-height: 120px;
-  --personalization-app-grid-item-spacing: 20px;
-
-  --personalization-app-text-shadow-elevation-1: 0 1px 3px
-      rgba(0, 0, 0, 15%), 0 1px 2px rgba(0, 0, 0, 30%);
-
-  /* copied from |AshColorProvider| |kSecondToneOpacity| constant. */
-  --personalization-app-second-tone-opacity: 0.3;
-
-  --personalization-app-label-font: var(--cros-button-2-font);
-}
-
-:host-context(body.jelly-enabled) {
-  --personalization-app-grid-item-background-color:
-      var(--cros-sys-secondary_container);
-}
-
-@media (prefers-color-scheme: dark) {
-  :host {
-    --personalization-app-grid-item-background-color: rgba(var(--google-grey-700-rgb), 0.3);
-  }
-
-  :host-context(body.jelly-enabled) {
-    /* When Jelly is enabled, the
-     * |personalization-app-grid-item-background-color| is the same for light
-     * and dark mode. */
-    --personalization-app-grid-item-background-color:
-        var(--cros-sys-secondary_container);
-  }
-}
-
-@keyframes ripple {
-  /* 0 ms */
-  from {
-    opacity: 1;
-  }
-  /* 200 ms */
-  9% {
-    opacity: 0.15;
-  }
-  /* 350 ms */
-  15.8% {
-    opacity: 0.15;
-  }
-  /* 550 ms, hold for 83ms * 20 and then restart */
-  24.9% {
-    opacity: 1;
-  }
-  /* 2210 ms */
-  to {
-    opacity: 1;
-  }
-}
-
-.placeholder {
-  animation: 2210ms linear var(--animation-delay, 1s) infinite ripple;
-}
-
-.preview-container {
-  border: 1px solid var(--cros-separator-color);
-  border-radius: 16px;
-}
-
-:host-context(body.jelly-enabled) .preview-container {
-  border: none;
-}
-
-.preview-text-container,
-.preview-text-placeholder {
-  align-items: flex-start;
-  display: flex;
-  flex-flow: column nowrap;
-  margin: 0;
-}
-
-.preview-text-container {
-  justify-content: flex-end;
-}
-
-.preview-text-placeholder {
-  justify-content: center;
-}
-
-.placeholder {
-  background-color: var(--personalization-app-grid-item-background-color);
-  border-radius: 12px;
-}
-
-.preview-image-container {
-  border-radius: 12px;
-  box-sizing: border-box;
-  overflow: hidden;
-  position: relative;
-}
-
-/**
- * Hover a border over the image container to avoid sub pixel rounding issues
- * with chrome scaling images.
- */
-.preview-image-border,
-.photo-images-border,
-.wallpaper-grid-item-border {
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  bottom: 0;
-  box-sizing: border-box;
-  left: 0;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 2;
-}
-
-.preview-image {
-  height: 100%;
-  object-fit: cover;
-  width: 100%;
-}
-
-.preview-text-container > *,
-.preview-text-placeholder > * {
-  margin: 0;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.preview-text-container > * + * {
-  margin-top: 4px;
-}
-
-.preview-text-placeholder > * + * {
-  margin-top: 8px;
-}
-
-.preview-text-container > span:first-child {
-  color: var(--cros-text-color-secondary);
-  font: var(--cros-body-2-font);
-}
-
-.preview-text-placeholder > .placeholder:first-child {
-  /* Each row is 83 ms after the prior element. */
-  --animation-delay: calc(1s + 83ms);
-  height: 20px;
-  width: 20%;
-}
-
-.preview-text-container > span:nth-child(2) {
-  color: var(--cros-text-color-primary);
-  font: var(--cros-display-6-font);
-}
-
-.preview-text-placeholder > .placeholder:nth-child(2) {
-  --animation-delay: calc(1s + 83ms * 2);
-  height: 24px;
-  width: 75%;
-}
-
-.preview-text-container > span:nth-child(n+3) {
-  color: var(--cros-text-color-secondary);
-  font: var(--cros-body-1-font);
-}
-
-.preview-text-placeholder > .placeholder:nth-child(n+3) {
-  --animation-delay: calc(1s + 83ms * 3);
-  height: 20px;
-  width: 33%;
-}
-
-.ambient-subpage-element-title {
-  color: var(--cros-text-color-primary);
-  font: var(--personalization-app-label-font);
-  margin: 34px 10px 16px 10px;
-}
-
-.ambient-toggle-row-container {
-  border: 1px solid var(--cros-separator-color);
-  border-radius: 8px;
-  display: flex;
-  flex-flow: column nowrap;
-  height: 48px;
-  width: 100%;
-}
-
-.ambient-toggle-row {
-  align-items: center;
-  display: flex;
-  flex: 1;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  margin: 0 20px;
-}
-
-.ambient-toggle-row + .ambient-toggle-row {
-  border-top: 1px solid var(--cros-separator-color);
-}
-
-.ambient-toggle-row > p {
-  font: var(--cros-body-1-font);
-  height: 20px;
-  margin: 0;
-}
-
-.clickable {
-  cursor: pointer;
-}
-
-.leftspacertop {
-  grid-area: leftspacertop;
-}
-
-.leftspacerbottom {
-  grid-area: leftspacerbottom;
-}
-
-.rightspacertop {
-  grid-area: rightspacertop;
-}
-
-.rightspacerbottom {
-  grid-area: rightspacerbottom;
-}
-
-:host-context(body.jelly-enabled) div[class$='spacertop'] {
-  background-color: var(--cros-sys-app_base_shaded);
-}
-
-:host-context(body.jelly-enabled) div[class$='spacerbottom'] {
-  background-color: var(--cros-bg-color);
-}
-
-:host-context(body.jelly-enabled) .leftspacerbottom {
-  border-radius: 12px 0 0 12px;
-}
-
-:host-context(body.jelly-enabled) .rightspacerbottom {
-  border-radius: 0 12px 12px 0;
-}
-
-:host-context(body.jelly-enabled) .preview-container {
-  background-color: var(--cros-bg-color);
-}
-
-:host-context(body.jelly-enabled) .ambient-toggle-row-container {
-  border: none;
-}
-
-:host-context(body.jelly-enabled) .ambient-toggle-row {
-  margin: 0;
-}
-
-:host-context(body.jelly-enabled) .ambient-toggle-row > p {
-  color: var(--cros-text-color-secondary);
-  font: var(--cros-body-2-font);
-}
-
-:host-context(body.jelly-enabled) .ambient-subpage-element-title {
-  margin-top: 20px;
-}
-
-:host-context([dir=rtl]) iron-icon[icon='cr:chevron-right'] {
-  transform: scaleX(-1);
-}
-
-.ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.disabled {
-  opacity: var(--cros-disabled-opacity);
-}
-
-img.disabled {
-  /**
-   * Use 50% for image instead of default cros-disabled-opacity.
-   * TODO(b/236415314) get this into design system as a semantic value.
-   */
-  opacity: 50%;
-}
-
-cr-action-menu::part(dialog) {
-  /* Prevent jank due to overscrolling from the dialog */
-  overscroll-behavior: contain;
-}
+[hidden]{display:none!important}:host{--personalization-app-breadcrumb-height:56px;--personalization-app-subpage-container-min-height:calc(100vh - var(--personalization-app-breadcrumb-height));--personalization-app-grid-item-background-color:var(--google-grey-100);--personalization-app-grid-item-border-radius:12px;--personalization-app-grid-item-height:120px;--personalization-app-grid-item-spacing:20px;--personalization-app-text-shadow-elevation-1:0 1px 3px rgba(0, 0, 0, 15%),0 1px 2px rgba(0, 0, 0, 30%);--personalization-app-second-tone-opacity:0.3;--personalization-app-label-font:var(--cros-button-2-font)}:host-context(body.jelly-enabled){--personalization-app-grid-item-background-color:var(--cros-sys-secondary_container)}@media (prefers-color-scheme:dark){:host{--personalization-app-grid-item-background-color:rgba(var(--google-grey-700-rgb), 0.3)}:host-context(body.jelly-enabled){--personalization-app-grid-item-background-color:var(--cros-sys-secondary_container)}}@keyframes ripple{from{opacity:1}9%{opacity:.15}15.8%{opacity:.15}24.9%{opacity:1}to{opacity:1}}.placeholder{animation:2.21s linear var(--animation-delay,1s) infinite ripple}.preview-container{border:1px solid var(--cros-separator-color);border-radius:16px}:host-context(body.jelly-enabled) .preview-container{border:none}.preview-text-container,.preview-text-placeholder{align-items:flex-start;display:flex;flex-flow:column nowrap;margin:0}.preview-text-container{justify-content:flex-end}.preview-text-placeholder{justify-content:center}.placeholder{background-color:var(--personalization-app-grid-item-background-color);border-radius:12px}.preview-image-container{border-radius:12px;box-sizing:border-box;overflow:hidden;position:relative}.photo-images-border,.preview-image-border,.wallpaper-grid-item-border{border:1px solid rgba(0,0,0,.08);border-radius:12px;bottom:0;box-sizing:border-box;left:0;pointer-events:none;position:absolute;right:0;top:0;z-index:2}.preview-image{height:100%;object-fit:cover;width:100%}.preview-text-container>*,.preview-text-placeholder>*{margin:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.preview-text-container>*+*{margin-top:4px}.preview-text-placeholder>*+*{margin-top:8px}.preview-text-container>span:first-child{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font)}.preview-text-placeholder>.placeholder:first-child{--animation-delay:calc(1s + 83ms);height:20px;width:20%}.preview-text-container>span:nth-child(2){color:var(--cros-text-color-primary);font:var(--cros-display-6-font)}.preview-text-placeholder>.placeholder:nth-child(2){--animation-delay:calc(1s + 83ms * 2);height:24px;width:75%}.preview-text-container>span:nth-child(n+3){color:var(--cros-text-color-secondary);font:var(--cros-body-1-font)}.preview-text-placeholder>.placeholder:nth-child(n+3){--animation-delay:calc(1s + 83ms * 3);height:20px;width:33%}.ambient-subpage-element-title{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font);margin:34px 10px 16px 10px}.ambient-toggle-row-container{border:1px solid var(--cros-separator-color);border-radius:8px;display:flex;flex-flow:column nowrap;height:48px;width:100%}.ambient-toggle-row{align-items:center;display:flex;flex:1;flex-flow:row nowrap;justify-content:space-between;margin:0 20px}.ambient-toggle-row+.ambient-toggle-row{border-top:1px solid var(--cros-separator-color)}.ambient-toggle-row>p{font:var(--cros-body-1-font);height:20px;margin:0}.clickable{cursor:pointer}.leftspacertop{grid-area:leftspacertop}.leftspacerbottom{grid-area:leftspacerbottom}.rightspacertop{grid-area:rightspacertop}.rightspacerbottom{grid-area:rightspacerbottom}:host-context(body.jelly-enabled) div[class$=spacertop]{background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) div[class$=spacerbottom]{background-color:var(--cros-bg-color)}:host-context(body.jelly-enabled) .leftspacerbottom{border-radius:12px 0 0 12px}:host-context(body.jelly-enabled) .rightspacerbottom{border-radius:0 12px 12px 0}:host-context(body.jelly-enabled) .preview-container{background-color:var(--cros-bg-color)}:host-context(body.jelly-enabled) .ambient-toggle-row-container{border:none}:host-context(body.jelly-enabled) .ambient-toggle-row{margin:0}:host-context(body.jelly-enabled) .ambient-toggle-row>p{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font)}:host-context(body.jelly-enabled) .ambient-subpage-element-title{margin-top:20px}:host-context([dir=rtl]) iron-icon[icon='cr:chevron-right']{transform:scaleX(-1)}.ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.disabled{opacity:var(--cros-disabled-opacity)}img.disabled{opacity:50%}cr-action-menu::part(dialog){overscroll-behavior:contain}
     </style>
   </template>
 `.content);
@@ -11727,7 +11428,7 @@ const PersonalizationStoreClientMixin = makeStoreClientMixin(PersonalizationStor
  */
 const WithPersonalizationStore = I18nMixin(ListPropertyUpdateMixin(PersonalizationStoreClientMixin(PolymerElement)));
 
-function getTemplate$12() {
+function getTemplate$11() {
     return html `<!--_html_template_start_--><style include="wallpaper common">:host{overflow:hidden}iron-list{width:100%}wallpaper-grid-item[data-is-video][aria-selected=true]::part(item){cursor:default}</style>
 <iron-list aria-setsize$="[[albumsForDisplay_.length]]" as="album" grid id="grid" items="[[albumsForDisplay_]]" role="listbox">
   <template>
@@ -11750,7 +11451,7 @@ class AlbumListElement extends WithPersonalizationStore {
         return 'album-list';
     }
     static get template() {
-        return getTemplate$12();
+        return getTemplate$11();
     }
     static get properties() {
         return {
@@ -11870,7 +11571,7 @@ styleMod$6.appendChild(html `
 `.content);
 styleMod$6.register('cr-shared-style');
 
-function getTemplate$11() {
+function getTemplate$10() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{--cr-localized-link-display:inline;display:block}:host([link-disabled]){cursor:pointer;opacity:var(--cr-disabled-opacity);pointer-events:none}a{display:var(--cr-localized-link-display)}a[href]{color:var(--cr-link-color)}a[is=action-link]{user-select:none}#container{display:contents}</style>
 
 <div id="container"></div>
@@ -11902,7 +11603,7 @@ class LocalizedLinkElement extends PolymerElement {
         return 'localized-link';
     }
     static get template() {
-        return getTemplate$11();
+        return getTemplate$10();
     }
     static get properties() {
         return {
@@ -12034,86 +11735,16 @@ class LocalizedLinkElement extends PolymerElement {
 customElements.define(LocalizedLinkElement.is, LocalizedLinkElement);
 
 const styleMod$5 = document.createElement('dom-module');
-styleMod$5.appendChild(html`
+styleMod$5.appendChild(html `
   <template>
     <style>
-
-cr-button {
-  border-color: var(--cros-button-stroke-color-secondary);
-  border-radius: 16px;
-}
-
-/* TODO: After Jelly launches, most of the cr-button colors can be removed. */
-cr-button.primary {
-  background-color: var(--cros-button-background-color-primary);
-  border: 0;
-  --text-color: var(--cros-button-label-color-primary);
-  --ink-color: var(--cros-button-ripple-color-primary);
-  --hover-bg-color: var(--cros-button-background-color-primary-hover-preblended);
-  --disabled-bg: var(--cros-button-background-color-primary-disabled);
-  --disabled-text-color: var(--cros-button-label-color-primary-disabled);
-}
-
-cr-button.primary:active {
-  box-shadow: 0 1px 2px rgba(66, 133, 244, 0.3), 0 1px 3px rgba(66, 133, 244, 0.15);
-}
-
-:host-context(body.jelly-enabled) cr-button.primary:active {
-  box-shadow: none;
-}
-
-cr-button.primary:hover {
-  background-color: var(--cros-button-background-color-primary-hover-preblended);
-}
-
-cr-button.secondary {
-  background-color: var(--cros-button-background-color-secondary);
-  border: 1px solid var(--cros-button-stroke-color-secondary);
-  --text-color: var(--cros-button-label-color-secondary);
-  --border-color: var(--cros-button-stroke-color-secondary);
-  --ink-color: var(--cros-button-ripple-color-secondary);
-  --hover-border-color: var(--cros-button-stroke-color-secondary-hover);
-  --hover-bg-color: var(--cros-button-background-color-secondary-hover);
-  --disabled-text-color: var(--cros-button-label-color-secondary-disabled);
-  --disabled-border-color: var(--cros-button-stroke-color-secondary-disabled);
-}
-
-cr-button.secondary:hover {
-  background-color: var(--cros-button-background-color-secondary-hover);
-}
-
-cr-icon-button:focus-visible,
-cr-button:focus-visible {
-  box-shadow: none;
-  outline: 2px solid var(--cros-sys-focus_ring, rgba(var(--cros-focus-ring-color-rgb), 0.8));
-}
-
-cr-icon-button:hover,
-cr-button:hover {
-  background-color: var(--cros-ripple-color);
-  box-shadow: none;
-}
-
-cr-button[aria-pressed=true],
-cr-button[aria-selected=true] {
-  background-color: var(--cros-sys-highlight_shape, var(--cros-highlight-color));
-  border: none;
-}
-
-iron-icon {
-  --iron-icon-height: 20px;
-  --iron-icon-width: 20px;
-}
-
-cr-icon-button {
-  --cr-icon-button-fill-color: var(--cros-menu-icon-color);
-}
+cr-button{border-color:var(--cros-button-stroke-color-secondary);border-radius:16px}cr-button.primary{background-color:var(--cros-button-background-color-primary);border:0;--text-color:var(--cros-button-label-color-primary);--ink-color:var(--cros-button-ripple-color-primary);--hover-bg-color:var(--cros-button-background-color-primary-hover-preblended);--disabled-bg:var(--cros-button-background-color-primary-disabled);--disabled-text-color:var(--cros-button-label-color-primary-disabled)}cr-button.primary:active{box-shadow:0 1px 2px rgba(66,133,244,.3),0 1px 3px rgba(66,133,244,.15)}:host-context(body.jelly-enabled) cr-button.primary:active{box-shadow:none}cr-button.primary:hover{background-color:var(--cros-button-background-color-primary-hover-preblended)}cr-button.secondary{background-color:var(--cros-button-background-color-secondary);border:1px solid var(--cros-button-stroke-color-secondary);--text-color:var(--cros-button-label-color-secondary);--border-color:var(--cros-button-stroke-color-secondary);--ink-color:var(--cros-button-ripple-color-secondary);--hover-border-color:var(--cros-button-stroke-color-secondary-hover);--hover-bg-color:var(--cros-button-background-color-secondary-hover);--disabled-text-color:var(--cros-button-label-color-secondary-disabled);--disabled-border-color:var(--cros-button-stroke-color-secondary-disabled)}cr-button.secondary:hover{background-color:var(--cros-button-background-color-secondary-hover)}cr-button:focus-visible,cr-icon-button:focus-visible{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring,rgba(var(--cros-focus-ring-color-rgb),.8))}cr-button:hover,cr-icon-button:hover{background-color:var(--cros-ripple-color);box-shadow:none}cr-button[aria-pressed=true],cr-button[aria-selected=true]{background-color:var(--cros-sys-highlight_shape,var(--cros-highlight-color));border:none}iron-icon{--iron-icon-height:20px;--iron-icon-width:20px}cr-icon-button{--cr-icon-button-fill-color:var(--cros-menu-icon-color)}
     </style>
   </template>
 `.content);
 styleMod$5.register('cros-button-style');
 
-function getTemplate$10() {
+function getTemplate$$() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">cr-dialog::part(dialog){min-width:288px;width:288px}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="body">$i18n{ambientModeLastArtAlbumMessage}</div>
@@ -12137,7 +11768,7 @@ class ArtAlbumDialogElement extends WithPersonalizationStore {
         return 'art-album-dialog';
     }
     static get template() {
-        return getTemplate$10();
+        return getTemplate$$();
     }
     static get properties() {
         return {};
@@ -12747,7 +12378,7 @@ function logDynamicColorColorSchemeButtonClick(color) {
     chrome.metricsPrivate.recordEnumerationValue("Ash.Personalization.DynamicColor.ColorSchemeButton" /* HistogramName.DYNAMIC_COLOR_COLOR_SCHEME_BUTTON */, color, ColorScheme.MAX_VALUE);
 }
 
-function getTemplate$$() {
+function getTemplate$_() {
     return html `<!--_html_template_start_--><style include="common">#container{display:flex;flex-flow:column nowrap;position:relative;width:100%}#breadcrumbArea{background-color:var(--cros-bg-color);display:grid;grid-template-areas:'. . breadcrumb . .';grid-template-columns:1fr 10px minmax(568px,920px) 10px 1fr;grid-template-rows:var(--personalization-app-breadcrumb-height);position:sticky;top:0;width:100%;z-index:3}:host-context(body.jelly-enabled) #breadcrumbArea{background-color:var(--cros-sys-app_base_shaded)}personalization-breadcrumb{grid-area:breadcrumb}personalization-toast{bottom:16px;left:16px;max-width:380px;position:sticky}sea-pen-router{--sea-pen-router-min-height:var(--personalization-app-subpage-container-min-height)}wallpaper-fullscreen{bottom:0;height:100%;left:0;pointer-events:none;position:absolute;width:100%}</style>
 <div id="container">
   
@@ -13365,7 +12996,7 @@ class PersonalizationRouterElement extends PolymerElement {
         return 'personalization-router';
     }
     static get template() {
-        return getTemplate$$();
+        return getTemplate$_();
     }
     static get properties() {
         return {
@@ -13517,7 +13148,7 @@ class PersonalizationRouterElement extends PolymerElement {
 }
 customElements.define(PersonalizationRouterElement.is, PersonalizationRouterElement);
 
-function getTemplate$_() {
+function getTemplate$Z() {
     return html `<!--_html_template_start_--><style include="cr-shared-style common">:host{height:auto}#descPlaceholderContainer,#pageDescription{margin-inline-start:10px;min-height:32px}#noAlbumText{display:inline}#descriptionPlaceholder{height:20px;width:50%}#albumsPlaceholderContainer{display:grid;gap:calc(var(--personalization-app-grid-item-spacing)) calc(var(--personalization-app-grid-item-spacing)/ 2);grid-template-columns:repeat(3,1fr .34px);grid-template-rows:repeat(auto-fit,calc(var(--personalization-app-grid-item-height)));height:100%;overflow:hidden;padding:calc(var(--personalization-app-grid-item-spacing)/ 2)}@media(min-width:720px){#albumsPlaceholderContainer{grid-template-columns:repeat(4,1fr .25px)}}#albumItemPlaceholder{height:100%;position:relative;width:100%}</style>
 <template is="dom-if" if="[[shouldShowContent_(ambientModeEnabled_)]]">
   <template is="dom-if" if="[[loadingAlbums_(albums, topicSource)]]">
@@ -13811,7 +13442,7 @@ class AlbumsSubpageElement extends WithPersonalizationStore {
         return 'albums-subpage';
     }
     static get template() {
-        return getTemplate$_();
+        return getTemplate$Z();
     }
     static get properties() {
         return {
@@ -14047,7 +13678,7 @@ class CrAutoImgElement extends HTMLImageElement {
 }
 customElements.define('cr-auto-img', CrAutoImgElement, { extends: 'img' });
 
-function getTemplate$Z() {
+function getTemplate$Y() {
     return html `<!--_html_template_start_--><style include="common">:host{-webkit-tap-highlight-color:transparent;box-sizing:border-box;cursor:pointer;overflow:hidden;padding:calc(var(--personalization-app-grid-item-spacing)/ 2);width:calc(100% / 3 - .34px)}@media(min-width:720px){:host{width:calc(100% / 4 - .25px)}}:host(:focus-visible){outline:0}.item{align-items:center;background-color:rgba(0,0,0,.12);border-radius:var(--personalization-app-grid-item-border-radius);box-sizing:border-box;display:flex;flex-direction:column;height:120px;justify-content:center;overflow:hidden;position:relative;width:100%}:host(:focus-visible) .item{outline:2px solid var(--cros-focus-ring-color)}:host([aria-checked=true]) .item{background-color:var(--cros-sys-highlight_shape,rgba(var(--cros-color-prominent-rgb),var(--personalization-app-second-tone-opacity)));border-radius:calc(var(--personalization-app-grid-item-border-radius) + 4px)}img{border-radius:var(--personalization-app-grid-item-border-radius);height:100%;object-fit:cover;width:100%}:host([aria-checked=true]) .item img{animation-duration:.2s;animation-fill-mode:forwards;animation-name:img-resize;animation-timing-function:cubic-bezier(.4,0,.2,1)}@keyframes img-resize{100%{height:calc(100% - 8px);width:calc(100% - 8px)}}.text{color:var(--cros-text-color-secondary);display:flex;flex-direction:column;font:var(--cros-body-2-font);margin:8px 0 0 0}iron-icon{--iron-icon-height:20px;--iron-icon-width:20px;animation-duration:.2s;animation-name:iron-icon-scale;animation-timing-function:cubic-bezier(.4,0,.2,1);left:8px;position:absolute;top:8px}:host(:not([aria-checked=true])) .item iron-icon{display:none}@keyframes iron-icon-scale{from{transform:scale(0)}to{transform:scale(1)}}</style>
 <div class="item">
   <img is="cr-auto-img" auto-src="[[imgSrc_]]">
@@ -14068,7 +13699,7 @@ class AmbientThemeItemElement extends WithPersonalizationStore {
         return 'ambient-theme-item';
     }
     static get template() {
-        return getTemplate$Z();
+        return getTemplate$Y();
     }
     static get properties() {
         return {
@@ -14136,7 +13767,7 @@ class AmbientThemeItemElement extends WithPersonalizationStore {
 }
 customElements.define(AmbientThemeItemElement.is, AmbientThemeItemElement);
 
-function getTemplate$Y() {
+function getTemplate$X() {
     return html `<!--_html_template_start_--><style include="common">:host{--theme-item-padding:24px;--theme-item-width:156px}iron-list{width:calc(var(--theme-item-width)*3 + var(--theme-item-padding)*2)}@media(min-width:720px){iron-list{width:calc(var(--theme-item-width)*4 + var(--theme-item-padding)*3)}}</style>
 
 <h3 id="ambientThemeDescription" class="ambient-subpage-element-title">
@@ -14162,7 +13793,7 @@ class AmbientThemeListElement extends WithPersonalizationStore {
         return 'ambient-theme-list';
     }
     static get template() {
-        return getTemplate$Y();
+        return getTemplate$X();
     }
     static get properties() {
         return {
@@ -14780,7 +14411,7 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$X() {
+function getTemplate$W() {
     return html `<!--_html_template_start_-->    <style include="cr-radio-button-style cr-hidden-style"></style>
 
     <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -14920,7 +14551,7 @@ class CrRadioButtonElement extends CrRadioButtonElementBase {
         return 'cr-radio-button';
     }
     static get template() {
-        return getTemplate$X();
+        return getTemplate$W();
     }
     // Overridden from CrRadioButtonMixin
     getPaperRipple() {
@@ -15001,7 +14632,7 @@ class EventTracker {
     }
 }
 
-function getTemplate$W() {
+function getTemplate$V() {
     return html `<!--_html_template_start_-->    <style>:host{display:inline-block}:host ::slotted(*){padding:var(--cr-radio-group-item-padding,12px)}:host([disabled]){cursor:initial;pointer-events:none;user-select:none}:host([disabled]) ::slotted(*){opacity:var(--cr-disabled-opacity)}</style>
     <slot></slot>
 <!--_html_template_end_-->`;
@@ -15027,7 +14658,7 @@ class CrRadioGroupElement extends PolymerElement {
         return 'cr-radio-group';
     }
     static get template() {
-        return getTemplate$W();
+        return getTemplate$V();
     }
     static get properties() {
         return {
@@ -15240,7 +14871,7 @@ styleMod$3.appendChild(html `
 `.content);
 styleMod$3.register('md-select');
 
-function getTemplate$V() {
+function getTemplate$U() {
     return html `<!--_html_template_start_--><style include="common md-select">.ambient-subpage-element-title{margin-bottom:0;margin-inline-start:0}.md-select{margin-block-start:20px;margin-inline-end:8px}</style>
 <div class="ambient-toggle-row">
   <h3 class="ambient-subpage-element-title">
@@ -15269,7 +14900,7 @@ class AmbientDurationElement extends WithPersonalizationStore {
         return 'ambient-duration';
     }
     static get template() {
-        return getTemplate$V();
+        return getTemplate$U();
     }
     static get properties() {
         return {
@@ -15802,7 +15433,7 @@ Polymer({
   behaviors: [PaperSpinnerBehavior]
 });
 
-function getTemplate$U() {
+function getTemplate$T() {
     return html `<!--_html_template_start_--><style>path{fill:var(--cros-sys-primary_container,var(--cros-highlight-color))}</style>
 <svg width="192" height="190" viewBox="0 0 192 190" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M2.12279 105.772C-0.49169 101.433 -0.704305 96.0783 1.55808 91.5495L4.73978 85.1805C6.09266 82.4724 6.58103 79.421 6.14004 76.4317L5.10292 69.4015C4.36546 64.4025 6.23989 59.3745 10.0814 56.0473L15.4839 51.368C17.781 49.3783 19.4122 46.7442 20.1608 43.8154L21.9213 36.9275C23.1731 32.0299 26.8493 28.0945 31.685 26.4752L38.4858 24.198C41.3775 23.2297 43.9032 21.4139 45.7274 18.9915L50.0175 13.2947C53.068 9.24384 57.9862 7.00016 63.08 7.33548L70.2437 7.80705C73.2898 8.00757 76.3255 7.28637 78.9475 5.73923L85.1141 2.10067C89.4989 -0.486566 94.9104 -0.696967 99.4868 1.54185L105.923 4.69041C108.66 6.02919 111.743 6.51248 114.764 6.07608L121.868 5.04976C126.92 4.31999 132 6.17489 135.363 9.97637L140.091 15.3226C142.102 17.5958 144.764 19.21 147.723 19.9508L154.684 21.6929C159.633 22.9317 163.61 26.5696 165.246 31.355L167.547 38.0849C168.526 40.9465 170.361 43.4459 172.809 45.2511L178.565 49.4965C182.659 52.5152 184.926 57.3822 184.587 62.423L184.111 69.512C183.908 72.5264 184.637 75.5304 186.2 78.1252L189.877 84.2275C192.492 88.5667 192.704 93.9217 190.442 98.4505L187.26 104.82C185.907 107.528 185.419 110.579 185.86 113.568L186.897 120.599C187.635 125.597 185.76 130.625 181.919 133.953L176.516 138.632C174.219 140.622 172.588 143.256 171.839 146.185L170.079 153.072C168.827 157.97 165.151 161.906 160.315 163.525L153.514 165.802C150.622 166.77 148.097 168.586 146.273 171.008L141.982 176.705C138.932 180.756 134.014 183 128.92 182.665L121.756 182.193C118.71 181.992 115.675 182.714 113.052 184.261L106.886 187.899C102.501 190.487 97.0896 190.697 92.5132 188.458L86.0771 185.31C83.3405 183.971 80.257 183.488 77.2362 183.924L70.132 184.95C65.0804 185.68 59.9995 183.825 56.6372 180.024L51.9087 174.677C49.8981 172.404 47.2362 170.79 44.2766 170.049L37.3163 168.307C32.367 167.068 28.3902 163.43 26.7539 158.645L24.4527 151.915C23.4743 149.053 21.6393 146.554 19.1914 144.749L13.4346 140.504C9.34115 137.485 7.07385 132.618 7.4127 127.577L7.88923 120.488C8.09186 117.474 7.36307 114.47 5.79964 111.875L2.12279 105.772Z">
@@ -15823,7 +15454,7 @@ class AmbientZeroStateSvgElement extends PolymerElement {
         return 'ambient-zero-state-svg';
     }
     static get template() {
-        return getTemplate$U();
+        return getTemplate$T();
     }
 }
 customElements.define(AmbientZeroStateSvgElement.is, AmbientZeroStateSvgElement);
@@ -15991,7 +15622,7 @@ class AmbientPreviewBase extends WithPersonalizationStore {
     }
 }
 
-function getTemplate$T() {
+function getTemplate$S() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">:host-context(body.jelly-enabled) #container{background-color:var(--cros-bg-color);border:none;grid-template-areas:'. slot           slot    slot      .' '. image          image   image     .' '. .              .       .         .' '. message        message message   .' '. mainpage-desc  .       thumbnail .' '. .              .       .         .';grid-template-columns:20px auto 192px auto 20px;grid-template-rows:auto auto 20px 192px 1fr 20px}#container{border:1px solid var(--cros-separator-color);border-radius:16px;display:grid;grid-template-areas:'. slot           slot    slot      .' '. image          image   image     .' '. .              .       .         .' '. message        message message   .' '. mainpage-desc  .       thumbnail .' '. .              .       .         .';grid-template-columns:20px minmax(0,1fr) 16px 106px 20px;grid-template-rows:auto minmax(158px,220px) 20px 106px auto 24px;height:100%}#container.ambient-mode-enabled{grid-template-rows:auto minmax(158px,220px) 20px auto 106px 24px}:host-context(body.jelly-enabled) #container.ambient-mode-enabled{grid-template-areas:'. slot          .' '. image         .' '. .             .' '. thumbnail     .' '. mainpage-desc .' '. .             .';grid-template-columns:20px minmax(0,1fr) 20px;grid-template-rows:auto auto 20px 130px 1fr 18px}#ambientLabel{align-items:center;background:0 0;border:none;display:flex;flex-flow:row nowrap;grid-area:slot;justify-content:space-between;margin-top:12px}#ambientLabel>cr-icon-button{--cr-icon-button-size:44px;margin-inline-end:-18px}#ambientLabel>h2{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font);margin:12px 0}#messageContainer{align-items:center;display:flex;flex-direction:column;grid-area:message;justify-content:space-between}#messageContainer .text{color:var(--cros-sys-on_primary_container,var(--cros-text-color-secondary));font:var(--cros-body-1-font);line-height:1.5;margin-top:12px;position:relative;text-align:center;width:unset}:host-context(body.jelly-enabled) #messageContainer .text{font:var(--cros-body-2-font);margin-top:56px;width:128px}:host-context(body.jelly-enabled) #messageContainer cr-button{margin-top:8px}#messageContainer cr-button{margin-bottom:50px;margin-top:20px}ambient-zero-state-svg{position:absolute}#imageContainer,#imagePlaceholder{display:flex;height:100%;justify-self:center;max-width:360px;min-width:252px;width:100%}:host-context(body.jelly-enabled) #imageContainer,:host-context(body.jelly-enabled) #imagePlaceholder{aspect-ratio:340/220;max-width:460px;min-width:278px}:host-context(body.jelly-enabled) #textPlaceholder,:host-context(body.jelly-enabled) .album-info-mainpage{align-items:center}#textPlaceholder,.album-info-mainpage{align-items:flex-start;display:flex;grid-area:mainpage-desc;justify-content:center}#textPlaceholder .placeholder:first-child{margin-top:8px}#imageContainer,#imagePlaceholder{grid-area:image}#albumTitle{color:var(--cros-text-color-primary);font:var(--cros-display-7-font);margin-top:4px}:host-context(body.jelly-enabled) #albumTitle{margin-top:10px}#albumDescription{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font);margin-top:4px}:host-context(body.jelly-enabled) #albumDescription{margin-top:2px}#collageContainer,#collagePlaceholder{border-radius:12px;display:grid;gap:2px;grid-area:thumbnail;overflow:hidden}#collageContainer{border:1px solid rgba(0,0,0,.08);grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr))}#collageContainer.collage-1 .collage-item:first-child{grid-row:1/3}#collageContainer.collage-1 .collage-item:first-child,#collageContainer.collage-2 .collage-item:first-child,#collageContainer.collage-2 .collage-item:nth-child(2),#collageContainer.collage-3 .collage-item:nth-child(3){grid-column:1/3}.collage-item{height:100%;object-fit:cover;width:100%}#buttonContainer{grid-area:buttons}#buttonContainer .text{margin-inline-start:8px}#buttonContainer .preview-button-disabled{cursor:wait;pointer-events:none}#buttonContainer cr-button{border-color:var(--cros-button-stroke-color-secondary);border-radius:16px}#buttonContainer .spinner{height:20px;width:20px}#thumbnailContainer,#thumbnailPlaceholder{display:grid;grid-area:thumbnail;justify-self:center;max-width:360px;min-width:252px;overflow:hidden;width:100%}:host-context(body.jelly-enabled) #thumbnailContainer,:host-context(body.jelly-enabled) #thumbnailPlaceholder{max-width:460px;min-width:278px}.thumbnail-item{height:100%;overflow:hidden;width:100%}.thumbnail-item img{height:100%;object-fit:cover;width:100%}#thumbnailContainer.thumbnail-0{background-color:var(--personalization-app-grid-item-background-color);border-radius:12px}#thumbnailContainer.thumbnail-1 .thumbnail-item{border-radius:60px}#thumbnailContainer.thumbnail-2{column-gap:12px;grid-template-columns:130px minmax(0,1fr)}#thumbnailContainer.thumbnail-2 .thumbnail-item:first-of-type{clip-path:url(#squiggleClip)}#thumbnailContainer.thumbnail-2 .thumbnail-item:last-of-type{border-radius:60px}#thumbnailContainer.thumbnail-3{column-gap:8px;grid-template-columns:minmax(0,1fr) 32px 32px}#thumbnailContainer.thumbnail-3 .thumbnail-item:first-of-type{border-radius:60px}#thumbnailContainer.thumbnail-3 .thumbnail-item:last-of-type img,#thumbnailContainer.thumbnail-3 .thumbnail-item:nth-last-of-type(2) img{border-radius:16px}.help-link{color:var(--text-color-action);text-decoration:none}</style>
 <div class$="[[getPreviewContainerClass_(ambientModeEnabled_, loading_)]]" id="container">
   
@@ -16156,7 +15787,7 @@ class AmbientPreviewLargeElement extends AmbientPreviewBase {
         return 'ambient-preview-large';
     }
     static get template() {
-        return getTemplate$T();
+        return getTemplate$S();
     }
     static get properties() {
         return {
@@ -16246,7 +15877,7 @@ class AmbientPreviewLargeElement extends AmbientPreviewBase {
 }
 customElements.define(AmbientPreviewLargeElement.is, AmbientPreviewLargeElement);
 
-function getTemplate$S() {
+function getTemplate$R() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">#container{border:none;display:grid;grid-template-areas:'.              . .' 'image          . subpage-desc' 'image          . buttons' '.              . .';grid-template-columns:224px 32px minmax(0,1fr);grid-template-rows:20px 118px 34px 20px}:host-context(body.jelly-enabled) #container{grid-template-areas:'image          . subpage-desc' 'image          . buttons' '.              . .';grid-template-rows:118px 34px 20px}#container.ambient-mode-disabled{grid-template-areas:'image          . subpage-desc' '.              . .';grid-template-columns:224px 32px minmax(0,1fr);grid-template-rows:152px 20px}#buttonContainer,.currently-set-text{display:inline-flex}.album-info-subpage,.zero-state-info-subpage{display:flex;grid-area:subpage-desc;justify-content:center}#imageContainer,#imagePlaceholder{grid-area:image}#imageContainer img.disabled{opacity:50%}#buttonContainer{grid-area:buttons}#buttonContainer .text{margin-inline-start:8px}#buttonContainer .disabled{cursor:wait;pointer-events:none}#buttonContainer .spinner{--paper-spinner-color:var(--cros-sys-primary, --cros-button-label-color-primary);height:20px;width:20px}</style>
 <div class$="[[getPreviewContainerClass_(ambientModeEnabled_, loading_)]]" id="container">
   <template is="dom-if" if="[[loading_]]" restamp>
@@ -16316,7 +15947,7 @@ class AmbientPreviewSmallElement extends AmbientPreviewBase {
         return 'ambient-preview-small';
     }
     static get template() {
-        return getTemplate$S();
+        return getTemplate$R();
     }
     static get properties() {
         return {
@@ -16439,7 +16070,7 @@ class FocusOutlineManager {
     }
 }
 
-function getTemplate$R() {
+function getTemplate$Q() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -16475,7 +16106,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$R();
+        return getTemplate$Q();
     }
     static get properties() {
         return {
@@ -17050,7 +16681,7 @@ Polymer({
   }
 });
 
-function getTemplate$Q() {
+function getTemplate$P() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -17108,7 +16739,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$Q();
+        return getTemplate$P();
     }
     static get properties() {
         return {
@@ -17379,7 +17010,7 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
     return CrContainerShadowMixin;
 });
 
-function getTemplate$P() {
+function getTemplate$O() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
     <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
     
@@ -17434,7 +17065,7 @@ class CrDialogElement extends CrDialogElementBase {
         return 'cr-dialog';
     }
     static get template() {
-        return getTemplate$P();
+        return getTemplate$O();
     }
     static get properties() {
         return {
@@ -17697,7 +17328,7 @@ function strictQuery(selector, root, type) {
     return element;
 }
 
-function getTemplate$O() {
+function getTemplate$N() {
     return html `<!--_html_template_start_--><style include="cr-icons common cros-button-style">#dialogBody{padding-top:10px}cr-dialog::part(dialog){width:370px}</style>
 
 <cr-dialog id="systemGeolocationDialog" show-on-attach>
@@ -17735,7 +17366,7 @@ class GeolocationDialog extends PolymerElement {
         return 'geolocation-dialog';
     }
     static get template() {
-        return getTemplate$O();
+        return getTemplate$N();
     }
     /**
      * Callback on user accepting the geolocation dialog, with the intent to
@@ -17757,7 +17388,7 @@ class GeolocationDialog extends PolymerElement {
 }
 customElements.define(GeolocationDialog.is, GeolocationDialog);
 
-function getTemplate$N() {
+function getTemplate$M() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">cr-radio-group{width:100%}cr-radio-button{height:48px;padding:0 14px;margin:0 10px}cr-radio-button+cr-radio-button{border-top:var(--cr-separator-line)}#geolocationWarningDiv{display:flex;align-items:center;width:inherit;margin:0 10px}#warningIcon{margin-inline-end:5px;width:var(--iron-icon-width);height:var(--iron-icon-height)}</style>
 <div id="weatherDiv">
   <h3 id="weatherTitle" class="ambient-subpage-element-title">
@@ -17802,7 +17433,7 @@ class AmbientWeatherUnitElement extends WithPersonalizationStore {
         return 'ambient-weather-unit';
     }
     static get template() {
-        return getTemplate$N();
+        return getTemplate$M();
     }
     static get properties() {
         return {
@@ -17874,7 +17505,7 @@ class AmbientWeatherUnitElement extends WithPersonalizationStore {
 }
 customElements.define(AmbientWeatherUnitElement.is, AmbientWeatherUnitElement);
 
-function getTemplate$M() {
+function getTemplate$L() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
                 var(--cr-fallback-color-primary));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on,
                 var(--cr-fallback-color-on-primary));--cr-toggle-unchecked-bar-color:var(--color-toggle-button-track-off,
@@ -17921,7 +17552,7 @@ class CrToggleElement extends CrToggleElementBase {
         return 'cr-toggle';
     }
     static get template() {
-        return getTemplate$M();
+        return getTemplate$L();
     }
     static get properties() {
         return {
@@ -18077,7 +17708,7 @@ class CrToggleElement extends CrToggleElementBase {
 }
 customElements.define(CrToggleElement.is, CrToggleElement);
 
-function getTemplate$L() {
+function getTemplate$K() {
     return html `<!--_html_template_start_--><style include="common">#toggleRowTitle{margin:0 8px 2px 0}#toggle{margin-inline-end:8px}</style>
 <template is="dom-if" if="[[isPersonalizationJellyEnabled_]]">
   <h3 id="toggleRowTitle" class="ambient-subpage-element-title" aria-hidden="true">
@@ -18105,7 +17736,7 @@ class ToggleRowElement extends WithPersonalizationStore {
         return 'toggle-row';
     }
     static get template() {
-        return getTemplate$L();
+        return getTemplate$K();
     }
     static get properties() {
         return {
@@ -18140,7 +17771,7 @@ class ToggleRowElement extends WithPersonalizationStore {
 }
 customElements.define(ToggleRowElement.is, ToggleRowElement);
 
-function getTemplate$K() {
+function getTemplate$J() {
     return html `<!--_html_template_start_--><style include="common cr-shared-style cr-radio-button-style">#container{align-items:center;display:flex;flex:1;flex-flow:row nowrap;height:100%;justify-content:space-between;padding-inline-end:var(--cr-icon-ripple-padding);padding-inline-start:14px}#labelWrapper{margin-inline-start:var(--cr-radio-button-label-spacing,20px)}.primary-text{color:var(--cros-text-color-primary);font:var(--cros-body-2-font)}iron-icon{height:20px;width:20px}</style>
 
 <div id="container">
@@ -18173,7 +17804,7 @@ class TopicSourceItemElement extends WithPersonalizationStore {
         return 'topic-source-item';
     }
     static get template() {
-        return getTemplate$K();
+        return getTemplate$J();
     }
     static get properties() {
         return {
@@ -18259,7 +17890,7 @@ class TopicSourceItemElement extends WithPersonalizationStore {
 }
 customElements.define(TopicSourceItemElement.is, TopicSourceItemElement);
 
-function getTemplate$J() {
+function getTemplate$I() {
     return html `<!--_html_template_start_--><style include="common">topic-source-item{align-items:center;height:64px;margin:0 10px;width:calc(100% - 20px)}iron-list>:not(:first-of-type){border-top:var(--cr-separator-line)}iron-list>:focus{background-color:var(--cros-sys-hover_on_subtle,--cr-focused-item-color)}</style>
 
 <h3 id="topicSourceTitle" class="ambient-subpage-element-title">
@@ -18287,7 +17918,7 @@ class TopicSourceListElement extends WithPersonalizationStore {
         return 'topic-source-list';
     }
     static get template() {
-        return getTemplate$J();
+        return getTemplate$I();
     }
     static get properties() {
         return {
@@ -18323,7 +17954,7 @@ class TopicSourceListElement extends WithPersonalizationStore {
 }
 customElements.define(TopicSourceListElement.is, TopicSourceListElement);
 
-function getTemplate$I() {
+function getTemplate$H() {
     return html `<!--_html_template_start_--><style include="common">#container{display:grid;grid-template-areas:'. . content . .';grid-template-columns:1fr 16px minmax(568px,920px) 16px 1fr;grid-template-rows:minmax(0,1fr);height:100%;margin-block-end:48px}:host-context(body.jelly-enabled) #container{grid-template-areas:'leftspacertop    preview rightspacertop   ' 'leftspacerbottom content rightspacerbottom';grid-template-columns:minmax(10px,1fr) minmax(568px,920px) minmax(10px,1fr);grid-template-rows:auto minmax(0,1fr);margin-block-end:0;min-height:var(--personalization-app-subpage-container-min-height)}#mainSettings{display:flex;flex-direction:column;grid-area:content}#toggleRowPlaceholder,toggle-row{margin:0 10px}#durationPlaceholder,ambient-duration{border-top:var(--cr-separator-line);margin:0 10px}.ambient-toggle-label-placeholder{height:20px;margin-bottom:2px;width:10%}ambient-preview-small{grid-area:preview;margin:20px 8px 0 8px}:host-context(body.jelly-enabled) ambient-preview-small{margin:0 10px}albums-subpage{grid-area:content}#mainSettings,:host-context(body.jelly-enabled) albums-subpage{background-color:var(--cros-bg-color);padding:20px 0 20px 0}.ambient-theme-placeholder-list{width:516px}.ambient-theme-placeholder-container{box-sizing:border-box;overflow:hidden;padding:calc(var(--personalization-app-grid-item-spacing)/ 2);width:calc(100% / 3 - .34px)}.ambient-theme-item-placeholder{align-items:center;border-radius:var(--personalization-app-grid-item-border-radius);box-sizing:border-box;display:flex;flex-direction:column;height:120px;justify-content:center;overflow:hidden;position:relative;width:100%}.ambient-theme-item-title-placeholder{margin-top:8px}div[class^=ambient-text-placeholder]{align-items:flex-start;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding-inline:var(--cr-section-padding) var(--cr-icon-ripple-padding);width:100%}.topic-source-placeholder{height:64px}.weather-unit-placeholder{height:48px}.ambient-text-placeholder-0{border-bottom:1px solid var(--cros-separator-color)}div[class^=ambient-text-placeholder]>*+*{margin-top:8px}.ambient-primary-text-placeholder{height:20px;width:75%}.ambient-secondary-text-placeholder{height:20px;width:50%}</style>
 <div id="container">
   <template is="dom-if" if="[[isPersonalizationJellyEnabled_]]">
@@ -18508,7 +18139,7 @@ class AmbientSubpageElement extends WithPersonalizationStore {
         return 'ambient-subpage';
     }
     static get template() {
-        return getTemplate$I();
+        return getTemplate$H();
     }
     static get properties() {
         return {
@@ -18779,7 +18410,7 @@ Polymer({
 
 });
 
-function getTemplate$H() {
+function getTemplate$G() {
     return html `<!--_html_template_start_--><style include="wallpaper common">:host{align-items:center;display:flex;flex-direction:column;justify-content:center;margin:34px 0;overflow:hidden}div{color:var(--cros-text-color-secondary);font:var(--cros-body-1-font);max-width:236px;text-align:center}img{width:260px}</style>
 
 <iron-media-query query="(prefers-color-scheme: dark)" query-matches="{{isDarkModeActive_}}">
@@ -18800,7 +18431,7 @@ class AmbientZeroStateElement extends WithPersonalizationStore {
         return 'ambient-zero-state';
     }
     static get template() {
-        return getTemplate$H();
+        return getTemplate$G();
     }
     static get properties() {
         return {
@@ -18822,7 +18453,7 @@ class AmbientZeroStateElement extends WithPersonalizationStore {
 }
 customElements.define(AmbientZeroStateElement.is, AmbientZeroStateElement);
 
-function getTemplate$G() {
+function getTemplate$F() {
     return html `<!--_html_template_start_--><style include="common">:host{-webkit-tap-highlight-color:transparent;align-items:center;cursor:pointer;display:flex;height:var(--color-container-size);justify-content:center;width:var(--color-container-size)}.color-inner-container{align-items:center;border-radius:50%;display:flex;justify-content:center;position:relative}:host-context([aria-checked=true]) .color-inner-container{height:36px;width:36px}:host-context([aria-checked=false]) .color-inner-container{height:28px;width:28px}:host-context(.zone-title-container) .color-inner-container{height:27px;outline-color:#fff!important;outline-offset:-1px!important;width:27px}:host-context(.zone-title-container) .wallpaper-icon{background-color:#fff!important}:host-context(.zone-title-container) .wallpaper-icon svg{fill:var(--cros-sys-primary)}.dark-icon{fill:var(--cros-icon-color-primary-dark)}.light-icon{fill:var(--cros-icon-color-primary-light)}</style>
 <template is="dom-if" if="[[isWallpaperColorId_(colorId)]]">
   <div class="color-inner-container wallpaper-icon" style$="[[getWallpaperColorInnerContainerStyle_(wallpaperColor_)]]">
@@ -18865,7 +18496,7 @@ class ColorIconElement extends WithPersonalizationStore {
         return 'color-icon';
     }
     static get template() {
-        return getTemplate$G();
+        return getTemplate$F();
     }
     static get properties() {
         return {
@@ -19912,7 +19543,7 @@ Polymer({
 
 });
 
-function getTemplate$F() {
+function getTemplate$E() {
     return html `<!--_html_template_start_--><style include="common">#selector{display:flex;flex-flow:row wrap;margin-top:14px;position:relative}#wallpaperIconAndDesc{column-gap:5.5px;display:flex;flex-flow:row wrap}#wallpaperColorDescription{color:var(--cros-text-color-secondary);font:var(--cros-body-2-font);height:48px;line-height:48px}.divider{align-self:center;border-inline-start:1px solid var(--cros-separator-color);height:20px}.selectable color-icon:focus-visible{border-radius:50%;outline:2px solid var(--cros-focus-ring-color);outline-offset:-2px}#toast{cursor:default;display:flex;flex-direction:column;position:absolute;top:var(--color-container-size);z-index:1}#toastDot{background-color:var(--cros-button-background-color-primary);border-radius:100%;height:8px;margin-block-end:5px;margin-inline-start:20px;width:8px}#toastContent{align-items:center;background-color:var(--cros-button-background-color-primary);border-radius:20px;display:flex;flex-direction:row;padding:8px 0}#toastContent>svg{fill:var(--cros-button-label-color-primary);padding:0 14px}#toastContent span{color:var(--cros-button-label-color-primary);font:var(--cros-body-2-font);margin-inline-end:14px}::slotted(.customization-button-container){align-self:center;display:flex;margin-inline-start:auto}@media (max-width:690px){#selector{column-gap:11px}:host-context(zone-customization) #selector{column-gap:0}#toast.multizone-supported{top:calc(var(--color-container-size) * 2)}}@media (max-width:823px) and (min-width:691px){#wallpaperIconAndDesc{flex-flow:column wrap}#wallpaperColorDescription{height:auto;line-height:12px;margin-inline-start:-18px}::slotted(.customization-button-container){margin-block-start:-12px}#toast.multizone-supported{top:calc(var(--color-container-size) + 20px)}}</style>
 <div id="container">
   <iron-a11y-keys id="keys" keys="left right enter" on-keys-pressed="onKeysPress_">
@@ -20070,7 +19701,7 @@ class ColorSelectorElement extends WithPersonalizationStore {
         return 'color-selector';
     }
     static get template() {
-        return getTemplate$F();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -20526,13 +20157,7 @@ Polymer({
 
 });
 
-const template$3 = html`<!--
-<iron-icon> is used to render many SVG images that may or may not be icons
-(e.g. illustrations, etc.). Include SVGs under the most appropriate
-<iron-iconset-svg> below:
-  - personalization-shared: icons, small square images
-  - personalization-shared-illo: illustrations, larger images
--->
+const template$3 = html `
 <iron-iconset-svg name="personalization-shared" size="20">
   <svg>
     <defs>
@@ -20545,17 +20170,7 @@ const template$3 = html`<!--
         3.80529 11.9581 3 10 3Z"></path>
       </g>
       <g id="circle-checkmark">
-        <style>
-          circle {
-            fill: transparent;
-          }
-          circle {
-            fill: var(--cros-icon-color-prominent);
-          }
-          path {
-            fill: var(--cros-sys-on_primary);
-          }
-        </style>
+        <style>circle{fill:transparent}circle{fill:var(--cros-icon-color-prominent)}path{fill:var(--cros-sys-on_primary)}</style>
         <circle cx="10" cy="10" r="8"></circle>
         <path d="M8.854 13.812L14.729 7.93801L13.5 6.72901L8.875 11.354L6.521 9.00001L5.292 10.229L8.854 13.812ZM10 18.333C8.84733 18.333 7.764 18.1143 6.75 17.677C5.736 17.2397 4.854 16.646 4.104 15.896C3.354 15.146 2.76033 14.264 2.323 13.25C1.88567 12.236 1.667 11.1527 1.667 10C1.667 8.84734 1.88567 7.76401 2.323 6.75001C2.76033 5.73601 3.354 4.85401 4.104 4.10401C4.854 3.35401 5.736 2.76034 6.75 2.32301C7.764 1.88567 8.84733 1.66701 10 1.66701C11.1527 1.66701 12.236 1.88567 13.25 2.32301C14.264 2.76034 15.146 3.35401 15.896 4.10401C16.646 4.85401 17.2397 5.73601 17.677 6.75001C18.1143 7.76401 18.333 8.84734 18.333 10C18.333 11.1527 18.1143 12.236 17.677 13.25C17.2397 14.264 16.646 15.146 15.896 15.896C15.146 16.646 14.264 17.2397 13.25 17.677C12.236 18.1143 11.1527 18.333 10 18.333ZM10 16.583C11.8193 16.583 13.3713 15.9407 14.656 14.656C15.9407 13.3713 16.583 11.8193 16.583 10C16.583 8.18067 15.9407 6.62867 14.656 5.34401C13.3713 4.05934 11.8193 3.41701 10 3.41701C8.18067 3.41701 6.62867 4.05934 5.344 5.34401C4.05933 6.62867 3.417 8.18067 3.417 10C3.417 11.8193 4.05933 13.3713 5.344 14.656C6.62867 15.9407 8.18067 16.583 10 16.583Z">
         </path>
@@ -20571,13 +20186,13 @@ const template$3 = html`<!--
         <path d="m192.7 214.3-3.9-11.3c-.7-2.1.4-4.3 2.4-5l11.3-3.9c2.1-.7 4.3.4 5 2.4l3.9 11.3c.7 2.1-.4 4.3-2.4 5l-11.3 3.9c-2.1.7-4.3-.4-5-2.4Z" fill="var(--cros-sys-illo-color3)"/><path d="M154 136.299c-1.3-.4-2.7-.6-4-.6l-4.3-.7c-3.7-.6-6.7-2.5-9.1-5.2-3.4-3.8-5.6-8.5-11-9.6-4.3-.9-8.8.6-11.7 3.8-.2.2-.3.3-.4.5-4.8 6-2.8 14.7 3.7 18.4 1.9 1.1 4 1.8 5.9 2.7 3.5 1.5 6.3 4.4 7.7 8l1.6 4.1c.3 1.3.8 2.6 1.5 3.8 1.3 2.5 3.3 4.7 5.9 6.4 7.1 4.7 16.8 3.5 22.6-2.9 6.9-7.6 5.8-19.2-2-25.5-2-1.5-4.2-2.6-6.4-3.2Z" stroke="var(--cros-sys-illo-color2)" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M556.5 136.6a7.3 7.3 0 0 0 7.3-7.3 7.3 7.3 0 0 0-7.3-7.3 7.3 7.3 0 0 0-7.3 7.3 7.3 7.3 0 0 0 7.3 7.3Z" fill="var(--cros-sys-illo-color5)"/><path d="M466.4 196.3a4.4 4.4 0 1 0 0-8.8 4.4 4.4 0 0 0 0 8.8Z" fill="var(--cros-sys-illo-color3)"/><path d="M38.7 107.7a3.1 3.1 0 1 0 0-6.2 3.1 3.1 0 0 0 0 6.2Z" fill="var(--cros-sys-illo-color1)"/><path d="m396.3 180.399-11 7.3c-1.8 1.2-2.8 3.2-2.6 5.3l.8 13.2c.1 2.1 1.4 4 3.3 4.9l11.8 5.9c1.9.9 4.1.8 5.9-.4l11-7.3c1.8-1.2 2.8-3.2 2.6-5.3l-.8-13.2c-.1-2.1-1.4-4-3.3-4.9l-11.8-5.9c-1.9-.9-4.2-.8-5.9.4Z" stroke="var(--cros-sys-illo-secondary)" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/><path d="M73.7 161.4H54.3c-.9 0-1.5 1-1 1.8L63 180c.5.8 1.6.8 2 0l9.7-16.9c.5-.7 0-1.7-1-1.7Z" fill="var(--cros-sys-illo-color4)"/><path d="M454.1 144.599c-.9.9-.8 2.4.2 3.2 6.3 4.7 15.3 4.3 21.1-1.5 5.8-5.7 6.4-14.7 1.7-21.1-.8-1-2.2-1.2-3.1-.3l-19.9 19.7Z" fill="var(--cros-sys-illo-color1-2)"/><path d="M481.8 137.2c-9.2 1.8-18.1-4.4-19.7-13.6-3.3-22 27.9-28 32.9-6.3 2 9.2-4 18.1-13.2 19.9Z" stroke="var(--cros-sys-illo-secondary)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.92 3.92"/><path d="m385.6 126.3-11.8-11.8c-40.7-40.7-106.8-40.7-147.5 0l-11.8 11.8c-3.8 3.8-3.8 10 0 13.8l20.3 20.3c.3-.4.6-.8.9-1.1l8.9-8.9c30.7-30.7 80.4-30.7 111 0l8.9 8.9c.3.3.6.7.9 1.1l20.3-20.3c3.7-3.8 3.7-10-.1-13.8Z" fill="var(--cros-sys-illo-color1-2)"/><path d="M355.5 150.3c-30.7-30.7-80.4-30.7-111 0l-8.9 8.9c-.3.3-.6.7-.9 1.1l27.6 27.6 2.3-2.3c19.5-19.5 51.2-19.5 70.8 0l2.3 2.3 27.6-27.6c-.3-.4-.6-.8-.9-1.1l-8.9-8.9Z" fill="var(--cros-sys-illo-color1-1)"/><path d="m306.901 218.799 30.8-30.8-2.3-2.3c-19.5-19.5-51.2-19.5-70.8 0l-2.3 2.3 30.8 30.8c3.8 3.8 10 3.8 13.8 0ZM466.2 134.1c1 1 2.2 1.8 3.4 2.5.2.1.5.2.7.2.5 0 1-.3 1.3-.8.4-.7.2-1.6-.6-2-1-.6-2-1.3-2.9-2.1-.3-.3-.8-.4-1.2-.4l-1.3 1.3c.1.5.3 1 .6 1.3ZM477.9 136.001c-.8 0-1.5.6-1.6 1.4 0 .8.6 1.5 1.4 1.6h.6c.4 0 .9 0 1.3-.1.3-1 .5-2 .5-3.1-.6.2-1.4.2-2.2.2Z" fill="var(--cros-sys-illo-color1)"/>
       </g>
       <g id="resource_error" width="224" height="168" viewBox="0 0 224 168" fill="none">
-        <path d="M205.623 93.6191C208.937 93.6191 211.623 90.9328 211.623 87.6191C211.623 84.3054 208.937 81.6191 205.623 81.6191C202.309 81.6191 199.623 84.3054 199.623 87.6191C199.623 90.9328 202.309 93.6191 205.623 93.6191Z" fill="var(--cros-sys-illo-color3)" />
-        <path d="M25.249 48.1989L12.4038 57.8346C11.7872 58.2971 11.9022 59.1997 12.5757 59.4553L26.8856 65.1519C27.5591 65.4074 28.2784 64.8678 28.2215 64.1498L26.7568 48.8174C26.6634 48.0507 25.8141 47.7749 25.249 48.1989Z" fill="var(--cros-sys-illo-color1-2)" />
-        <path d="M203.257 61.5298C204.687 60.5778 204.867 58.6519 203.776 57.4002C196.85 49.7104 185.313 48.0135 176.391 53.8638C167.569 59.7341 164.483 70.9899 168.806 80.3256C169.54 81.8154 171.386 82.3926 172.698 81.52L203.257 61.5298Z" fill="var(--cros-sys-illo-color1-2)" />
-        <path d="M164.572 66.5443C176.567 66.4745 186.252 76.3704 186.184 88.542L186.223 88.8597C186.076 100.912 176.278 110.613 164.223 110.465C152.168 110.316 142.463 100.52 142.611 88.4675L142.571 88.1498C142.6 76.1767 152.497 66.495 164.572 66.5443Z" stroke="var(--cros-sys-illo-color1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.61 3.61" />
-        <path d="M117.741 103.826C117.226 101.756 117.171 99.9452 117.577 98.3935C118.014 96.7901 119.035 94.7994 120.642 92.4214C121.887 90.5292 122.732 88.9781 123.179 87.7679C123.656 86.506 123.71 85.1298 123.339 83.6392C122.845 81.6517 121.807 80.2171 120.225 79.3355C118.632 78.4125 116.697 78.2341 114.42 78.8004C112.35 79.3151 110.863 80.3222 109.961 81.8215C109.049 83.2795 108.498 84.9552 108.309 86.8487L102.894 86.0191C103.125 83.4116 104.069 80.9344 105.728 78.5875C107.376 76.1992 109.857 74.5932 113.169 73.7696C115.653 73.1518 117.977 73.1237 120.139 73.6853C122.332 74.1952 124.167 75.2116 125.645 76.7347C127.164 78.2475 128.197 80.1011 128.743 82.2956C129.134 83.869 129.168 85.4213 128.845 86.9524C128.512 88.4422 128.06 89.7196 127.49 90.7847C126.951 91.7982 126.219 93.0131 125.297 94.4297C124.239 96.0116 123.518 97.4439 123.134 98.7266C122.79 99.999 122.804 101.38 123.175 102.871L123.823 105.479L118.482 106.807L117.741 103.826ZM124.504 119.621C123.427 119.889 122.403 119.748 121.431 119.198C120.49 118.597 119.881 117.737 119.603 116.619C119.335 115.542 119.481 114.539 120.041 113.608C120.632 112.626 121.466 112.001 122.543 111.733C123.661 111.455 124.69 111.617 125.631 112.218C126.603 112.768 127.223 113.581 127.491 114.658C127.769 115.776 127.612 116.826 127.021 117.808C126.461 118.739 125.622 119.343 124.504 119.621Z" fill="var(--cros-sys-illo-color1-2)" />
-        <path d="M68.9633 111.118L63.8999 96.4373C62.9885 93.805 64.4062 90.869 67.0392 89.9578L81.723 84.8955C84.3559 83.9843 87.2927 85.4018 88.2041 88.0342L93.2675 102.714C94.1789 105.347 92.7612 108.283 90.1282 109.194L75.4444 114.256C72.8114 115.167 69.8747 113.75 68.9633 111.118Z" fill="var(--cros-sys-illo-color1)" />
-        <path d="M48.4669 59.9146L34.0869 69.4315C31.7577 70.9502 30.4413 73.5826 30.6438 76.3162L31.6565 93.5277C31.859 96.2613 33.4793 98.6912 35.9097 99.9061L51.3024 107.6C53.7328 108.815 56.6696 108.613 58.9988 107.094L73.3787 97.5775C75.7079 96.0588 77.0244 93.4265 76.8218 90.6929L75.8092 73.4813C75.6066 70.7477 73.9864 68.3179 71.5559 67.1029L56.1632 59.4084C53.6315 58.1934 50.6948 58.3959 48.4669 59.9146Z" stroke="var(--cros-sys-illo-secondary)" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M205.623 93.6191C208.937 93.6191 211.623 90.9328 211.623 87.6191C211.623 84.3054 208.937 81.6191 205.623 81.6191C202.309 81.6191 199.623 84.3054 199.623 87.6191C199.623 90.9328 202.309 93.6191 205.623 93.6191Z" fill="var(--cros-sys-illo-color3)"/>
+        <path d="M25.249 48.1989L12.4038 57.8346C11.7872 58.2971 11.9022 59.1997 12.5757 59.4553L26.8856 65.1519C27.5591 65.4074 28.2784 64.8678 28.2215 64.1498L26.7568 48.8174C26.6634 48.0507 25.8141 47.7749 25.249 48.1989Z" fill="var(--cros-sys-illo-color1-2)"/>
+        <path d="M203.257 61.5298C204.687 60.5778 204.867 58.6519 203.776 57.4002C196.85 49.7104 185.313 48.0135 176.391 53.8638C167.569 59.7341 164.483 70.9899 168.806 80.3256C169.54 81.8154 171.386 82.3926 172.698 81.52L203.257 61.5298Z" fill="var(--cros-sys-illo-color1-2)"/>
+        <path d="M164.572 66.5443C176.567 66.4745 186.252 76.3704 186.184 88.542L186.223 88.8597C186.076 100.912 176.278 110.613 164.223 110.465C152.168 110.316 142.463 100.52 142.611 88.4675L142.571 88.1498C142.6 76.1767 152.497 66.495 164.572 66.5443Z" stroke="var(--cros-sys-illo-color1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3.61 3.61"/>
+        <path d="M117.741 103.826C117.226 101.756 117.171 99.9452 117.577 98.3935C118.014 96.7901 119.035 94.7994 120.642 92.4214C121.887 90.5292 122.732 88.9781 123.179 87.7679C123.656 86.506 123.71 85.1298 123.339 83.6392C122.845 81.6517 121.807 80.2171 120.225 79.3355C118.632 78.4125 116.697 78.2341 114.42 78.8004C112.35 79.3151 110.863 80.3222 109.961 81.8215C109.049 83.2795 108.498 84.9552 108.309 86.8487L102.894 86.0191C103.125 83.4116 104.069 80.9344 105.728 78.5875C107.376 76.1992 109.857 74.5932 113.169 73.7696C115.653 73.1518 117.977 73.1237 120.139 73.6853C122.332 74.1952 124.167 75.2116 125.645 76.7347C127.164 78.2475 128.197 80.1011 128.743 82.2956C129.134 83.869 129.168 85.4213 128.845 86.9524C128.512 88.4422 128.06 89.7196 127.49 90.7847C126.951 91.7982 126.219 93.0131 125.297 94.4297C124.239 96.0116 123.518 97.4439 123.134 98.7266C122.79 99.999 122.804 101.38 123.175 102.871L123.823 105.479L118.482 106.807L117.741 103.826ZM124.504 119.621C123.427 119.889 122.403 119.748 121.431 119.198C120.49 118.597 119.881 117.737 119.603 116.619C119.335 115.542 119.481 114.539 120.041 113.608C120.632 112.626 121.466 112.001 122.543 111.733C123.661 111.455 124.69 111.617 125.631 112.218C126.603 112.768 127.223 113.581 127.491 114.658C127.769 115.776 127.612 116.826 127.021 117.808C126.461 118.739 125.622 119.343 124.504 119.621Z" fill="var(--cros-sys-illo-color1-2)"/>
+        <path d="M68.9633 111.118L63.8999 96.4373C62.9885 93.805 64.4062 90.869 67.0392 89.9578L81.723 84.8955C84.3559 83.9843 87.2927 85.4018 88.2041 88.0342L93.2675 102.714C94.1789 105.347 92.7612 108.283 90.1282 109.194L75.4444 114.256C72.8114 115.167 69.8747 113.75 68.9633 111.118Z" fill="var(--cros-sys-illo-color1)"/>
+        <path d="M48.4669 59.9146L34.0869 69.4315C31.7577 70.9502 30.4413 73.5826 30.6438 76.3162L31.6565 93.5277C31.859 96.2613 33.4793 98.6912 35.9097 99.9061L51.3024 107.6C53.7328 108.815 56.6696 108.613 58.9988 107.094L73.3787 97.5775C75.7079 96.0588 77.0244 93.4265 76.8218 90.6929L75.8092 73.4813C75.6066 70.7477 73.9864 68.3179 71.5559 67.1029L56.1632 59.4084C53.6315 58.1934 50.6948 58.3959 48.4669 59.9146Z" stroke="var(--cros-sys-illo-secondary)" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
       </g>
     </defs>
   </svg>
@@ -20585,7 +20200,7 @@ const template$3 = html`<!--
 `;
 document.head.appendChild(template$3.content);
 
-function getTemplate$E() {
+function getTemplate$D() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">:host{--color-container-size:48px}#container{display:grid;grid-template-areas:'. label   .' '. options .' '. .       .';grid-template-columns:12px 1fr 20px;grid-template-rows:auto 1fr 20px}@media (max-width:700px){#container.preview-container{grid-template-rows:auto 1fr 8px}}#keyboardBacklightLabel{align-items:center;background:0 0;border:none;display:flex;flex-flow:row nowrap;grid-area:label;justify-content:space-between;margin-block-start:20px;margin-inline-start:8px}#keyboardBacklightLabel>p{color:var(--cros-text-color-primary);font:var(--personalization-app-label-font);margin:0}color-selector{grid-area:options}#zoneCustomizationButton[aria-pressed=true]{background-color:var(--cros-sys-primary,var(--cros-button-background-color-primary));color:var(--cros-sys-on_primary,var(--cros-button-label-color-primary))}#zoneCustomizationButton[aria-pressed=true] .text{margin-inline-start:8px}#zoneCustomizationButton:not([aria-pressed=true]) iron-icon{display:none}</style>
 <div id="container" class="preview-container">
   <div id="keyboardBacklightLabel">
@@ -20659,7 +20274,7 @@ class KeyboardBacklightElement extends WithPersonalizationStore {
         return 'keyboard-backlight';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$D();
     }
     static get properties() {
         return {
@@ -20746,7 +20361,7 @@ class KeyboardBacklightElement extends WithPersonalizationStore {
 }
 customElements.define(KeyboardBacklightElement.is, KeyboardBacklightElement);
 
-function getTemplate$D() {
+function getTemplate$C() {
     return html `<!--_html_template_start_--><style include="common cros-button-style">:host{--cros-tab-slider-track-color:var(--cros-button-stroke-color-secondary)}cr-dialog::part(dialog){padding-bottom:28px;width:642px}@media (max-width:650px){cr-dialog::part(dialog){width:560px}}#zoneSelector{background-color:var(--cros-tab-slider-track-color);border-radius:24px;column-gap:2px;display:grid;grid-template-columns:repeat(auto-fit,minmax(0,1fr));grid-template-rows:minmax(0,1fr);margin-block-end:28px;margin-block-start:2px;width:100%}paper-ripple{border-radius:24px;--paper-ripple-opacity:var(--cros-button-primary-ripple-opacity)}.zone-tab[aria-selected=false] paper-ripple{color:var(--cros-sys-ripple_neutral_on_subtle)}.zone-tab[aria-selected=true] paper-ripple{color:var(--cros-sys-ripple_primary)}.zone-tab{-webkit-tap-highlight-color:transparent;border:2px solid var(--cros-tab-slider-track-color);border-radius:24px;box-sizing:border-box;color:var(--cros-sys-secondary,var(--cros-button-label-color-secondary));cursor:pointer;font:var(--cros-button-2-font);height:100%;padding:6px 0 6px 0;position:relative;width:100%}.zone-tab[aria-selected=true]{background-color:var(--cros-sys-primary,var(--cros-button-background-color-primary));color:var(--cros-sys-on_primary,var(--cros-button-label-color-primary))}.zone-tab[aria-selected=false]:hover{background-color:var(--cros-sys-hover_on_subtle,var(--cros-ripple-color));color:var(--cros-sys-on_surface)}.zone-title-container{align-items:center;display:grid;grid-template-columns:auto minmax(0,1fr);height:100%;width:100%}.zone-title-container>color-icon{height:auto;margin-inline-start:8px;width:auto}#zoneTitle{margin-inline:4px 8px;text-align:center;word-break:break-all;word-wrap:break-word}#zoneSelector:focus-visible,color-selector:focus-visible{outline:0}.zone-tab:focus-visible{outline:2px solid var(--cros-focus-ring-color)}</style>
 <cr-dialog id="dialog" show-on-attach>
   <div slot="body" aria-label=" ">
@@ -20788,7 +20403,7 @@ class ZoneCustomizationElement extends WithPersonalizationStore {
         return 'zone-customization';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$C();
     }
     static get properties() {
         return {
@@ -21077,7 +20692,7 @@ window.personalizationTestApi = {
     enableDailyGooglePhotosRefresh,
 };
 
-function getTemplate$C() {
+function getTemplate$B() {
     return html `<!--_html_template_start_--><style>cr-button{--ink-color:var(--google-blue-300);--text-color:var(--google-blue-300)}:host-context(body.jelly-enabled) cr-button{--ink-color:var(--cros-color-primary-inverted);--text-color:var(--cros-color-primary-inverted)}cr-button{--active-shadow-rgb:transparent;--border-color:transparent;--hover-border-color:transparent;--hover-bg-color:transparent;--hover-bg-action:transparent;--cr-button-height:36px;border:0;margin:0;padding:8px}@media (prefers-color-scheme:dark){cr-button{--ink-color:var(--google-blue-600);--text-color:var(--google-blue-600)}:host-context(body.jelly-enabled) cr-button{--ink-color:var(--cros-color-primary-inverted);--text-color:var(--cros-color-primary-inverted)}}#container{align-items:center;background-color:var(--cros-bg-color-elevation-2-inverted);border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.3),0 2px 6px rgba(0,0,0,.15);box-sizing:border-box;color:var(--cros-text-color-primary-inverted);display:flex;flex-flow:row nowrap;justify-content:space-between;padding:16px}p{margin:0;margin-inline-end:16px}</style>
 <template is="dom-if" if="[[showError_]]">
   <div id="container">
@@ -21101,7 +20716,7 @@ class PersonalizationToastElement extends WithPersonalizationStore {
         return 'personalization-toast';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$B();
     }
     static get properties() {
         return {
@@ -21769,17 +21384,21 @@ function focusWithoutInk(toFocus) {
     toFocusWithNoInk.noink = noink;
 }
 
-function getTemplate$B() {
-    return html `<!--_html_template_start_-->    <style>:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
-            var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
-                var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
-            var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
-            var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}</style>
-    <dialog id="dialog" part="dialog" on-close="onNativeDialogClose_" role="application" aria-roledescription$="[[roleDescription]]">
-      <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label$="[[accessibilityLabel]]">
-        <slot id="contentNode" on-slotchange="onSlotchange_"></slot>
-      </div>
-    </dialog>
+function getCss() {
+    return css `:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
+      var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
+          var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
+      var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
+      var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}`;
+}
+
+function getHtml() {
+    return html$1 `<!--_html_template_start_-->
+<dialog id="dialog" part="dialog" @close="${this.onNativeDialogClose_}" role="application" aria-roledescription="${this.roleDescription || nothing}">
+  <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label="${this.accessibilityLabel || nothing}">
+    <slot id="contentNode" @slotchange="${this.onSlotchange_}"></slot>
+  </div>
+</dialog>
 <!--_html_template_end_-->`;
 }
 
@@ -21845,9 +21464,11 @@ function getDefaultShowConfig() {
         maxY: 0,
     };
 }
-class CrActionMenuElement extends PolymerElement {
+class CrActionMenuElement extends CrLitElement {
     constructor() {
         super(...arguments);
+        this.autoReposition = false;
+        this.open = false;
         this.boundClose_ = null;
         this.resizeObserver_ = null;
         this.hasMousemoveListener_ = false;
@@ -21857,31 +21478,26 @@ class CrActionMenuElement extends PolymerElement {
     static get is() {
         return 'cr-action-menu';
     }
-    static get template() {
-        return getTemplate$B();
+    static get styles() {
+        return getCss();
+    }
+    render() {
+        return getHtml.bind(this)();
     }
     static get properties() {
         return {
             // Accessibility text of the menu. Should be something along the lines of
             // "actions", or "more actions".
-            accessibilityLabel: String,
+            accessibilityLabel: { type: String },
             // Setting this flag will make the menu listen for content size changes
             // and reposition to its anchor accordingly.
-            autoReposition: {
-                type: Boolean,
-                value: false,
-            },
-            open: {
-                type: Boolean,
-                notify: true,
-                value: false,
-            },
+            autoReposition: { type: Boolean },
+            open: { type: Boolean },
             // Descriptor of the menu. Should be something along the lines of "menu"
-            roleDescription: String,
+            roleDescription: { type: String },
         };
     }
-    ready() {
-        super.ready();
+    firstUpdated() {
         this.addEventListener('keydown', this.onKeyDown_.bind(this));
         this.addEventListener('mouseover', this.onMouseover_);
         this.addEventListener('click', this.onClick_);
@@ -21981,6 +21597,9 @@ class CrActionMenuElement extends PolymerElement {
         options[index].focus();
     }
     close() {
+        if (!this.open) {
+            return;
+        }
         // Removing 'resize' and 'popstate' listeners when dialog is closed.
         this.removeListeners_();
         this.$.dialog.close();
@@ -21993,6 +21612,7 @@ class CrActionMenuElement extends PolymerElement {
         if (this.lastConfig_) {
             this.lastConfig_ = null;
         }
+        this.fire_('open-changed', { value: this.open });
     }
     /**
      * Shows the menu anchored to the given element.
@@ -22081,6 +21701,7 @@ class CrActionMenuElement extends PolymerElement {
                 });
             }
         }
+        this.fire_('open-changed', { value: this.open });
     }
     resetStyle_() {
         this.$.dialog.style.left = '';
@@ -22408,11 +22029,21 @@ class PersonalizationBreadcrumbElement extends WithPersonalizationStore {
     }
     onClickMenuIcon_(e) {
         const targetElement = e.currentTarget;
+        const rect = targetElement.getBoundingClientRect();
+        // Anchors the menu at the top-left corner of the chip while also
+        // accounting for the scrolling of the page.
         const config = {
             anchorAlignmentX: AnchorAlignment.AFTER_START,
             anchorAlignmentY: AnchorAlignment.AFTER_START,
+            minX: 0,
+            minY: 0,
+            maxX: window.innerWidth,
+            maxY: window.innerHeight,
+            top: rect.top - document.scrollingElement.scrollTop,
+            left: rect.left - document.scrollingElement.scrollLeft,
         };
         const menuElement = this.shadowRoot.querySelector('cr-action-menu');
+        menuElement.shadowRoot.getElementById('dialog').style.position = 'fixed';
         menuElement.showAt(targetElement, config);
     }
     onClickMenuItem_(e) {
@@ -25098,266 +24729,20 @@ class UserSubpageElement extends WithPersonalizationStore {
 customElements.define(UserSubpageElement.is, UserSubpageElement);
 
 function getTemplate$q() {
-  return html`<!--_html_template_start_--><style>
-  :host {
-    --personalization-app-grid-item-border-radius: 12px;
-    --personalization-app-grid-item-height: 120px;
-    --personalization-app-grid-item-spacing: 20px;
-    /* copied from |AshColorProvider| |kSecondToneOpacity| constant. */
-    --personalization-app-second-tone-opacity: 0.3;
-    --personalization-app-grid-item-outline-width: 2px;
-
-    box-sizing: border-box;
-    display: block;
-    height: calc(var(--personalization-app-grid-item-height) + var(--personalization-app-grid-item-spacing));
-    overflow: hidden;
-    padding: calc(var(--personalization-app-grid-item-spacing) / 2);
-    /* Subtract 0.34px to fix subpixel rounding issues with iron-list. This
-     * ensures all grid items in a row add up to at least 1px smaller than the
-     * parent width. */
-    width: var(--wallpaper-grid-item-width, calc(100% / 3 - 0.34px));
-  }
-
-  :host([data-is-promoted-tile]) {
-    padding: var(--personalization-app-grid-item-outline-width) calc(var(--personalization-app-grid-item-spacing) / 2);
-  }
-
-  @media(min-width: 720px) {
-    :host {
-      /* Subtract 0.25px to fix subpixel rounding issues with iron-list. This
-       * ensures all grid items in a row add up to at least 1px smaller than the
-       * parent width. */
-      width: var(--wallpaper-grid-item-width, calc(100% / 4 - 0.25px)) !important;
-    }
-  }
-
-  :host(:focus-visible) {
-    outline: none;
-  }
-
-  /* TODO(b/258686035): Clean up style once jelly is on by default. */
-  :host([aria-selected='true']:not([placeholder])) .item {
-    background-color: var(--cros-sys-highlight_shape, rgba(
-      var(--cros-color-prominent-rgb),
-      var(--personalization-app-second-tone-opacity)));
-    border-radius:
-      calc(var(--personalization-app-grid-item-border-radius) + 4px);
-  }
-
-  :host(:not([aria-selected='true'])) iron-icon,
-  :host([placeholder]) iron-icon {
-    display: none;
-  }
-
-  .item {
-    align-items: center;
-    background-color: var(--personalization-app-grid-item-background-color);
-    border-radius: var(--personalization-app-grid-item-border-radius);
-    box-sizing: border-box;
-    cursor: pointer;
-    display: flex;
-    flex-flow: row wrap;
-    height: 100%;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-  }
-
-  :host([aria-disabled='true']) .item {
-    cursor: default;
-  }
-
-  :host(:focus-visible) .item {
-    outline: var(--personalization-app-grid-item-outline-width) solid var(--cros-focus-ring-color);
-  }
-
-  :host([placeholder]) .item {
-    animation: 2210ms linear var(--animation-delay, 1s) infinite ripple;
-  }
-
-  img {
-    object-fit: cover;
-    user-select: none;
-  }
-
-  :host(:not([collage])) img {
-    border-radius: var(--personalization-app-grid-item-border-radius);
-    height: 100%;
-    position: absolute;
-    width: 100%;
-  }
-
-  :host(:not([collage])) img:has(+ img) {
-    clip-path: inset(0 50% 0 0);
-  }
-
-  :host(:not([collage])) img+img {
-    clip-path: inset(0 0 0 50%);
-  }
-
-  :host([collage]) img {
-    flex: 1 1 0;
-    height: 100%;
-    min-width: 50%;
-  }
-
-  :host([collage]) img:first-of-type:nth-last-of-type(n+3),
-  :host([collage]) img:first-of-type:nth-last-of-type(n+3) ~ img {
-    height: 50%;
-  }
-
-  :host([aria-selected='true']) img {
-    animation-duration: 200ms;
-    animation-fill-mode: forwards;
-    animation-name: img-resize;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1.0);
-  }
-
-  @keyframes img-resize {
-    100% {
-      height: calc(100% - 8px);
-      width: calc(100% - 8px);
-    }
-  }
-
-  #textShadow {
-    background: linear-gradient(rgba(var(--google-grey-900-rgb), 0),
-        rgba(var(--google-grey-900-rgb), 55%));
-    bottom: 0;
-    height: 50%;
-    left: 0;
-    position: absolute;
-    right: 0;
-    z-index: 1;
-  }
-
-  :host([data-is-promoted-tile]) #text,
-  :host([data-sea-pen-image]) #text {
-    position: relative;
-    top: 8px;
-  }
-
-  #text {
-    bottom: 0;
-    box-sizing: border-box;
-    left: 0;
-    overflow: hidden;
-    padding: 8px 16px;
-    position: absolute;
-    right: 0;
-    white-space: nowrap;
-    width: 100%;
-    z-index: 2;
-  }
-
-  .primary-text,
-  .secondary-text,
-  ::slotted(.primary-text) {
-    color: white;
-    margin: 0;
-    overflow: hidden;
-    padding: 0;
-    text-align: center;
-    text-overflow: ellipsis;
-    text-shadow: var(--personalization-app-text-shadow-elevation-1);
-  }
-
-  .primary-text,
-  ::slotted(.primary-text) {
-    font: var(--cros-title-2-font);
-  }
-
-  :host([data-is-promoted-tile]) .primary-text,
-  :host([data-is-promoted-tile]) ::slotted(.primary-text),
-  :host([data-sea-pen-image]) .primary-text,
-  :host([data-sea-pen-image]) ::slotted(.primary-text) {
-    font: var(--cros-display-6_regular-font);
-  }
-
-  :host([data-sea-pen-image]) .wallpaper-grid-item-border {
-    visibility: hidden;
-  }
-
-  p.primary-text:last-of-type,
-  ::slotted(p.primary-text:last-of-type) {
-    margin-bottom: var(--cros-annotation-2-line-height);
-  }
-
-  .secondary-text,
-  ::slotted(.secondary-text) {
-    font: var(--cros-annotation-2-font);
-  }
-
-  #infoIcon {
-    filter: drop-shadow(0 0 2px var(--cros-sys-shadow));
-    position: absolute;
-    right: 8px;
-    top: 8px;
-  }
-
-  .check-mark-icon-container {
-    left: 8px;
-    position: absolute;
-    top: 8px;
-    z-index: 2;
-  }
-
-  iron-icon {
-    --iron-icon-height: 20px;
-    --iron-icon-width: 20px;
-    animation-duration: 200ms;
-    animation-name: iron-icon-scale;
-    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1.0);
-    margin-inline: 0;
-  }
-
-  path {
-    fill: white;
-  }
-
-  #infoIcon {
-    height: 16px;
-    width: 16px;
-  }
-
-  @keyframes iron-icon-scale {
-    from {
-      transform: scale(0);
-    }
-
-    to {
-      transform: scale(1);
-    }
-  }
-</style>
-<div class="item" part="item"
-    style$="[[getItemPlaceholderAnimationDelay_(index)]]">
+    return html `<!--_html_template_start_--><style>:host{--personalization-app-grid-item-border-radius:12px;--personalization-app-grid-item-height:120px;--personalization-app-grid-item-spacing:20px;--personalization-app-second-tone-opacity:0.3;--personalization-app-grid-item-outline-width:2px;box-sizing:border-box;display:block;height:calc(var(--personalization-app-grid-item-height) + var(--personalization-app-grid-item-spacing));overflow:hidden;padding:calc(var(--personalization-app-grid-item-spacing)/ 2);width:var(--wallpaper-grid-item-width,calc(100% / 3 - .34px))}:host([data-is-promoted-tile]){padding:var(--personalization-app-grid-item-outline-width) calc(var(--personalization-app-grid-item-spacing)/ 2)}@media(min-width:720px){:host{width:var(--wallpaper-grid-item-width,calc(100% / 4 - .25px))!important}}:host(:focus-visible){outline:0}:host([aria-selected=true]:not([placeholder])) .item{background-color:var(--cros-sys-highlight_shape,rgba(var(--cros-color-prominent-rgb),var(--personalization-app-second-tone-opacity)));border-radius:calc(var(--personalization-app-grid-item-border-radius) + 4px)}:host(:not([aria-selected=true])) iron-icon,:host([placeholder]) iron-icon{display:none}.item{align-items:center;background-color:var(--personalization-app-grid-item-background-color);border-radius:var(--personalization-app-grid-item-border-radius);box-sizing:border-box;cursor:pointer;display:flex;flex-flow:row wrap;height:100%;justify-content:center;overflow:hidden;position:relative;width:100%}:host([aria-disabled=true]) .item{cursor:default}:host(:focus-visible) .item{outline:var(--personalization-app-grid-item-outline-width) solid var(--cros-focus-ring-color)}:host([placeholder]) .item{animation:2.21s linear var(--animation-delay,1s) infinite ripple}img{object-fit:cover;user-select:none}:host(:not([collage])) img{border-radius:var(--personalization-app-grid-item-border-radius);height:100%;position:absolute;width:100%}:host(:not([collage])) img:has(+img){clip-path:inset(0 50% 0 0)}:host(:not([collage])) img+img{clip-path:inset(0 0 0 50%)}:host([collage]) img{flex:1 1 0;height:100%;min-width:50%}:host([collage]) img:first-of-type:nth-last-of-type(n+3),:host([collage]) img:first-of-type:nth-last-of-type(n+3)~img{height:50%}:host([aria-selected=true]) img{animation-duration:.2s;animation-fill-mode:forwards;animation-name:img-resize;animation-timing-function:cubic-bezier(.4,0,.2,1)}@keyframes img-resize{100%{height:calc(100% - 8px);width:calc(100% - 8px)}}#textShadow{background:linear-gradient(rgba(var(--google-grey-900-rgb),0),rgba(var(--google-grey-900-rgb),55%));bottom:0;height:50%;left:0;position:absolute;right:0;z-index:1}:host([data-is-promoted-tile]) #text,:host([data-sea-pen-image]) #text{position:relative;top:8px}#text{bottom:0;box-sizing:border-box;left:0;overflow:hidden;padding:8px 16px;position:absolute;right:0;white-space:nowrap;width:100%;z-index:2}.primary-text,.secondary-text,::slotted(.primary-text){color:#fff;margin:0;overflow:hidden;padding:0;text-align:center;text-overflow:ellipsis;text-shadow:var(--personalization-app-text-shadow-elevation-1)}.primary-text,::slotted(.primary-text){font:var(--cros-title-2-font)}:host([data-is-promoted-tile]) .primary-text,:host([data-is-promoted-tile]) ::slotted(.primary-text),:host([data-sea-pen-image]) .primary-text,:host([data-sea-pen-image]) ::slotted(.primary-text){font:var(--cros-display-6_regular-font)}:host([data-sea-pen-image]) .wallpaper-grid-item-border{visibility:hidden}::slotted(p.primary-text:last-of-type),p.primary-text:last-of-type{margin-bottom:var(--cros-annotation-2-line-height)}.secondary-text,::slotted(.secondary-text){font:var(--cros-annotation-2-font)}#infoIcon{filter:drop-shadow(0 0 2px var(--cros-sys-shadow));position:absolute;right:8px;top:8px}.check-mark-icon-container{left:8px;position:absolute;top:8px;z-index:2}iron-icon{--iron-icon-height:20px;--iron-icon-width:20px;animation-duration:.2s;animation-name:iron-icon-scale;animation-timing-function:cubic-bezier(.4,0,.2,1);margin-inline:0}path{fill:#fff}#infoIcon{height:16px;width:16px}@keyframes iron-icon-scale{from{transform:scale(0)}to{transform:scale(1)}}</style>
+<div class="item" part="item" style$="[[getItemPlaceholderAnimationDelay_(index)]]">
   <template is="dom-repeat" items="[[getSrcArray_(src, collage)]]">
-    <img aria-hidden="true"
-        auto-src="[[item.url]]"
-        clear-src
-        data-index$="[[itemsIndex]]"
-        hidden$="[[isImageHidden_(imageStatus_)]]"
-        is-google-photos="[[isGooglePhotos]]"
-        is="cr-auto-img"
-        on-error="onImgError_"
-        on-load="onImgLoad_"
-        part="image">
+    <img aria-hidden="true" auto-src="[[item.url]]" clear-src data-index$="[[itemsIndex]]" hidden$="[[isImageHidden_(imageStatus_)]]" is-google-photos="[[isGooglePhotos]]" is="cr-auto-img" on-error="onImgError_" on-load="onImgLoad_" part="image">
   </template>
   <div part="border" class="wallpaper-grid-item-border"></div>
-  <template is="dom-if"
-      if="[[isTextVisible_(imageStatus_, primaryText, secondaryText)]]"
-      restamp>
+  <template is="dom-if" if="[[isTextVisible_(imageStatus_, primaryText, secondaryText)]]" restamp>
     <div id="textShadow" part="textShadow"></div>
     <div part="text" id="text">
       <slot name="text">
         <template is="dom-if" if="[[isPrimaryTextVisible_(primaryText)]]" restamp>
           <p class="primary-text" title$="[[primaryText]]">[[primaryText]]</p>
         </template>
-        <template is="dom-if"
-            if="[[isSecondaryTextVisible_(secondaryText)]]"
-            restamp>
+        <template is="dom-if" if="[[isSecondaryTextVisible_(secondaryText)]]" restamp>
           <p class="secondary-text" title$="[[secondaryText]]">
             [[secondaryText]]
           </p>
@@ -25365,12 +24750,10 @@ function getTemplate$q() {
       </slot>
     </div>
   </template>
-  <template is="dom-if" if="[[shouldShowInfoText_(imageStatus_, infoText)]]"
-      restamp>
+  <template is="dom-if" if="[[shouldShowInfoText_(imageStatus_, infoText)]]" restamp>
     <div id="infoIcon" title$="[[infoText]]" part="info-icon">
       <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path part="path"
-            d="M7 12H9V8H7V12ZM8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM8 14C4.6925 14 2 11.3075 2 8C2 4.6925 4.6925 2 8 2C11.3075 2 14 4.6925 14 8C14 11.3075 11.3075 14 8 14ZM7 6H9V4H7V6Z">
+        <path part="path" d="M7 12H9V8H7V12ZM8 0C3.584 0 0 3.584 0 8C0 12.416 3.584 16 8 16C12.416 16 16 12.416 16 8C16 3.584 12.416 0 8 0ZM8 14C4.6925 14 2 11.3075 2 8C2 4.6925 4.6925 2 8 2C11.3075 2 14 4.6925 14 8C14 11.3075 11.3075 14 8 14ZM7 6H9V4H7V6Z">
         </path>
       </svg>
     </div>
@@ -25601,29 +24984,10 @@ class WallpaperGridItemElement extends PolymerElement {
 customElements.define(WallpaperGridItemElement.is, WallpaperGridItemElement);
 
 const styleMod$2 = document.createElement('dom-module');
-styleMod$2.appendChild(html`
+styleMod$2.appendChild(html `
   <template>
     <style>
-
-main {
-  height: 100%;
-  width: 100%;
-}
-
-main:focus,
-main:focus-visible,
-main:focus-within {
-  outline: none;
-}
-
-h2.wallpaper-collections-heading{
-  color: var(--cros-sys-secondary);
-  font: var(--cros-button-2-font);
-  height: 20px;
-  margin-block-start: 0;
-  margin-block-end: 0;
-  padding: 6px 10px 6px;
-}
+main{height:100%;width:100%}main:focus,main:focus-visible,main:focus-within{outline:0}h2.wallpaper-collections-heading{color:var(--cros-sys-secondary);font:var(--cros-button-2-font);height:20px;margin-block-start:0;margin-block-end:0;padding:6px 10px 6px}
     </style>
   </template>
 `.content);

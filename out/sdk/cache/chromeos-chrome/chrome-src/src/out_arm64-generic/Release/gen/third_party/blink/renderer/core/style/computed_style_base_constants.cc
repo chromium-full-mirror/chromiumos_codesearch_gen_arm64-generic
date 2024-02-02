@@ -1051,6 +1051,27 @@ std::ostream& operator<<(std::ostream& o, const EPosition v) {
   return o;
 }
 
+std::ostream& operator<<(std::ostream& o, const EPositionTryOrder v) {
+  switch (v) {
+   case EPositionTryOrder::kNormal:
+    o << "normal";
+    break;
+   case EPositionTryOrder::kMostWidth:
+    o << "most-width";
+    break;
+   case EPositionTryOrder::kMostHeight:
+    o << "most-height";
+    break;
+   case EPositionTryOrder::kMostBlockSize:
+    o << "most-block-size";
+    break;
+   case EPositionTryOrder::kMostInlineSize:
+    o << "most-inline-size";
+    break;
+  }
+  return o;
+}
+
 std::ostream& operator<<(std::ostream& o, const EPrintColorAdjust v) {
   switch (v) {
    case EPrintColorAdjust::kEconomy:

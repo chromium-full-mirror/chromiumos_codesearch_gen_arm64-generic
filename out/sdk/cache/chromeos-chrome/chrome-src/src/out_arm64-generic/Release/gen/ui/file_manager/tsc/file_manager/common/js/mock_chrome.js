@@ -33,6 +33,8 @@ export class MockChromeFileManagerPrivateDirectoryChanged {
         this.sizeStats_ = {};
         window.chrome = window.chrome || {};
         window.chrome.fileManagerPrivate = window.chrome.fileManagerPrivate || {};
+        // @ts-ignore: The file_manager_private.d.ts don't allow to overwrite
+        // `onDirectoryChanged`.
         window.chrome.fileManagerPrivate.onDirectoryChanged =
             window.chrome.fileManagerPrivate.onDirectoryChanged || {};
         window.chrome.fileManagerPrivate.onDirectoryChanged.addListener =

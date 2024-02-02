@@ -1157,9 +1157,9 @@ class TqFeedbackVector : public TqHeapObject {
   Value<uintptr_t> GetRawFeedbackSlotsValue(d::MemoryAccessor accessor , size_t offset) const;
 };
 
-class TqTrustedFixedArray : public TqExposedTrustedObject {
+class TqTrustedFixedArray : public TqTrustedObject {
  public:
-  inline TqTrustedFixedArray(uintptr_t address) : TqExposedTrustedObject(address) {}
+  inline TqTrustedFixedArray(uintptr_t address) : TqTrustedObject(address) {}
   std::vector<std::unique_ptr<ObjectProperty>> GetProperties(
       d::MemoryAccessor accessor) const override;
   const char* GetName() const override;
@@ -4226,7 +4226,7 @@ class TqObjectVisitor {
     VisitHeapObject(object);
   }
   virtual void VisitTrustedFixedArray(const TqTrustedFixedArray* object) {
-    VisitExposedTrustedObject(object);
+    VisitTrustedObject(object);
   }
   virtual void VisitByteArray(const TqByteArray* object) {
     VisitFixedArrayBase(object);

@@ -24,6 +24,15 @@ export var SideType;
     SideType[SideType["kDefaultPrimary"] = 0] = "kDefaultPrimary";
     SideType[SideType["kSecondary"] = 1] = "kSecondary";
 })(SideType || (SideType = {}));
+export const RenderTypeSpec = { $: mojo.internal.Enum() };
+export var RenderType;
+(function (RenderType) {
+    RenderType[RenderType["MIN_VALUE"] = 0] = "MIN_VALUE";
+    RenderType[RenderType["MAX_VALUE"] = 2] = "MAX_VALUE";
+    RenderType[RenderType["kDefaultVertical"] = 0] = "kDefaultVertical";
+    RenderType[RenderType["kHorizontal"] = 1] = "kHorizontal";
+    RenderType[RenderType["kGrid"] = 2] = "kGrid";
+})(RenderType || (RenderType = {}));
 export const SelectionLineStateSpec = { $: mojo.internal.Enum() };
 export var SelectionLineState;
 (function (SelectionLineState) {
@@ -364,8 +373,9 @@ mojo.internal.Struct(SuggestionGroupSpec.$, 'SuggestionGroup', [
     mojo.internal.StructField('hideGroupA11yLabel', 8, 0, mojoBase_mojom_String16Spec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('showGroupA11yLabel', 16, 0, mojoBase_mojom_String16Spec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('hidden', 24, 0, mojo.internal.Bool, false, false /* nullable */, 0),
-    mojo.internal.StructField('sideType', 28, 0, SideTypeSpec.$, SideType.kDefaultPrimary, false /* nullable */, 0),
-], [[0, 40],]);
+    mojo.internal.StructField('renderType', 28, 0, RenderTypeSpec.$, RenderType.kDefaultVertical, false /* nullable */, 0),
+    mojo.internal.StructField('sideType', 32, 0, SideTypeSpec.$, SideType.kDefaultPrimary, false /* nullable */, 0),
+], [[0, 48],]);
 mojo.internal.Struct(AutocompleteResultSpec.$, 'AutocompleteResult', [
     mojo.internal.StructField('input', 0, 0, mojoBase_mojom_String16Spec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('suggestionGroupsMap', 8, 0, mojo.internal.Map(mojo.internal.Int32, SuggestionGroupSpec.$, false), null, false /* nullable */, 0),

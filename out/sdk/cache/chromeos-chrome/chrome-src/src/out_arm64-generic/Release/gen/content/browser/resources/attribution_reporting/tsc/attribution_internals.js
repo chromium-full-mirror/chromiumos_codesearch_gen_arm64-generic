@@ -454,14 +454,14 @@ class AggregatableAttributionReport extends Report {
     }
 }
 class ReportTableModel extends TableModel {
-    sendReportsButton;
     handler;
+    sendReportsButton;
     showDebugReportsCheckbox;
     hiddenDebugReportsSpan;
     sentOrDroppedReports = [];
     storedReports = [];
     debugReports = [];
-    constructor(cols, showDebugReportsContainer, sendReportsButton, handler) {
+    constructor(container, handler, cols) {
         super([
             stringOrBoolColumn('Status', (e) => e.status),
             reportUrlColumn(),
@@ -471,16 +471,15 @@ class ReportTableModel extends TableModel {
             new CodeColumn('Report Body', (e) => e.reportBody),
         ], 4, // Sort by report time by default; the extra column is added below
         'No sent or pending reports.');
-        this.sendReportsButton = sendReportsButton;
         this.handler = handler;
         // This can't be included in the super call above, as `this` can't be
         // accessed until after `super` returns.
         const selectionColumn = new SelectionColumn(this);
         this.cols.unshift(selectionColumn);
+        this.sendReportsButton = container.querySelector('button');
         this.showDebugReportsCheckbox =
-            showDebugReportsContainer.querySelector('input[type="checkbox"]');
-        this.hiddenDebugReportsSpan =
-            showDebugReportsContainer.querySelector('span');
+            container.querySelector('input[type="checkbox"]');
+        this.hiddenDebugReportsSpan = container.querySelector('span');
         this.showDebugReportsCheckbox.addEventListener('input', () => this.notifyRowsChanged());
         this.sendReportsButton.addEventListener('click', () => this.sendReports_());
         selectionColumn.selectionChangedListeners.add((anySelected) => {
@@ -558,24 +557,6 @@ class ReportTableModel extends TableModel {
         this.handler.sendReports(ids).then(() => {
             this.sendReportsButton.innerText = previousText;
         });
-    }
-}
-class EventLevelReportTableModel extends ReportTableModel {
-    constructor(showDebugReportsContainer, sendReportsButton, remote) {
-        super([
-            numberColumn('Report Priority', (e) => e.reportPriority),
-            stringOrBoolColumn('Randomized Report', (e) => !e.attributedTruthfully),
-        ], showDebugReportsContainer, sendReportsButton, remote);
-    }
-}
-class AggregatableAttributionReportTableModel extends ReportTableModel {
-    constructor(showDebugReportsContainer, sendReportsButton, remote) {
-        super([
-            new CodeColumn('Histograms', (e) => e.contributions),
-            stringOrBoolColumn('Verification Token', (e) => e.verificationToken),
-            urlColumn('Aggregation Coordinator', (e) => e.aggregationCoordinator),
-            stringOrBoolColumn('Null Report', (e) => e.isNullReport),
-        ], showDebugReportsContainer, sendReportsButton, remote);
     }
 }
 const registrationTypeText = {
@@ -761,8 +742,16 @@ class AttributionInternals {
     aggregatableReports;
     handler = new HandlerRemote();
     constructor() {
-        this.eventLevelReports = new EventLevelReportTableModel(document.querySelector('#show-debug-event-reports'), document.querySelector('#send-reports'), this.handler);
-        this.aggregatableReports = new AggregatableAttributionReportTableModel(document.querySelector('#show-debug-aggregatable-reports'), document.querySelector('#send-aggregatable-reports'), this.handler);
+        this.eventLevelReports = new ReportTableModel(document.querySelector('#event-level-report-controls'), this.handler, [
+            numberColumn('Report Priority', (e) => e.reportPriority),
+            stringOrBoolColumn('Randomized Report', (e) => !e.attributedTruthfully),
+        ]);
+        this.aggregatableReports = new ReportTableModel(document.querySelector('#aggregatable-report-controls'), this.handler, [
+            new CodeColumn('Histograms', (e) => e.contributions),
+            stringOrBoolColumn('Verification Token', (e) => e.verificationToken),
+            urlColumn('Aggregation Coordinator', (e) => e.aggregationCoordinator),
+            stringOrBoolColumn('Null Report', (e) => e.isNullReport),
+        ]);
         installUnreadIndicator(this.sources, document.querySelector('#sources-tab'));
         installUnreadIndicator(this.sourceRegistrations, document.querySelector('#source-registrations-tab'));
         installUnreadIndicator(this.triggers, document.querySelector('#triggers-tab'));

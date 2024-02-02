@@ -193,3 +193,6 @@ export async function getContentMimeType(fileEntry) {
 export async function getContentMetadata(fileEntry, mimeType, includeImages) {
     return promisify(chrome.fileManagerPrivate.getContentMetadata, fileEntry, mimeType, includeImages);
 }
+export async function getEntryProperties(entries, properties) {
+    return promisify(chrome.fileManagerPrivate.getEntryProperties, entries.map(unwrapEntry), properties);
+}

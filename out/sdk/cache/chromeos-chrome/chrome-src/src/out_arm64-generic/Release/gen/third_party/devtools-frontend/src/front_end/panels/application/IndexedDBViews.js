@@ -366,6 +366,7 @@ export class IDBDataView extends UI.View.SimpleView {
     }
     createEditorToolbar() {
         const editorToolbar = new UI.Toolbar.Toolbar('data-view-toolbar', this.element);
+        editorToolbar.element.setAttribute('jslog', `${VisualLogging.toolbar()}`);
         editorToolbar.appendToolbarItem(this.refreshButton);
         editorToolbar.appendToolbarItem(this.clearButton);
         editorToolbar.appendToolbarItem(this.deleteSelectedButton);

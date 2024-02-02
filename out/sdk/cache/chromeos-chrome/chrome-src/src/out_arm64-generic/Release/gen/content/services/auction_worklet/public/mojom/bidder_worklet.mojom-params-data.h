@@ -62,13 +62,13 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) GenerateBidClient_OnGenerate
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<internal::BidderWorkletBid_Data> bid;
   internal::BidderWorkletKAnonEnforcedBid_Data kanon_bid;
-  uint32_t bidding_signals_data_version;
-  uint8_t has_bidding_signals_data_version : 1;
-  uint8_t has_set_priority : 1;
-  uint8_t pad4_[3];
+  uint8_t bidding_signals_data_version_$flag : 1;
+  uint8_t set_priority_$flag : 1;
+  uint8_t pad3_[3];
+  uint32_t bidding_signals_data_version_$value;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> debug_loss_report_url;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> debug_win_report_url;
-  double set_priority;
+  double set_priority_$value;
   mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<mojo::internal::String_Data>, mojo::internal::Pointer<internal::PrioritySignalsDouble_Data>>> update_priority_signals_overrides;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::auction_worklet::mojom::internal::PrivateAggregationRequest_Data>>> pa_requests;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::auction_worklet::mojom::internal::PrivateAggregationRequest_Data>>> non_kanon_pa_requests;
@@ -342,11 +342,11 @@ static_assert(
     return mojo::internal::Deserialize<::auction_worklet::mojom::BidderWorkletKAnonEnforcedBidDataView>(
         pointer, output, message_);
   }
-  uint32_t bidding_signals_data_version() const {
-    return data_->bidding_signals_data_version;
-  }
-  bool has_bidding_signals_data_version() const {
-    return data_->has_bidding_signals_data_version;
+  std::optional<uint32_t> bidding_signals_data_version() const {
+
+    return data_->bidding_signals_data_version_$flag
+        ? std::make_optional(data_->bidding_signals_data_version_$value)
+        : std::nullopt;
   }
   inline void GetDebugLossReportUrlDataView(
       ::url::mojom::UrlDataView* output);
@@ -388,11 +388,11 @@ static_assert(
     return mojo::internal::Deserialize<::url::mojom::UrlDataView>(
         pointer, output, message_);
   }
-  double set_priority() const {
-    return data_->set_priority;
-  }
-  bool has_set_priority() const {
-    return data_->has_set_priority;
+  std::optional<double> set_priority() const {
+
+    return data_->set_priority_$flag
+        ? std::make_optional(data_->set_priority_$value)
+        : std::nullopt;
   }
   inline void GetUpdatePrioritySignalsOverridesDataView(
       mojo::MapDataView<mojo::StringDataView, PrioritySignalsDoubleDataView>* output);

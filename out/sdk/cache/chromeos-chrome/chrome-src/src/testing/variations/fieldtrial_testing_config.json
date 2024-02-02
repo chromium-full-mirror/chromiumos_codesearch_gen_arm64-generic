@@ -192,28 +192,6 @@
             ]
         }
     ],
-    "AggressiveSkiaGpuResourcePurge": [
-        {
-            "platforms": [
-                "android",
-                "android_webview",
-                "chromeos",
-                "chromeos_lacros",
-                "fuchsia",
-                "linux",
-                "mac",
-                "windows"
-            ],
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "enable_features": [
-                        "AggressiveSkiaGpuResourcePurge"
-                    ]
-                }
-            ]
-        }
-    ],
     "AlignWakeUps": [
         {
             "platforms": [
@@ -1406,6 +1384,28 @@
             ]
         }
     ],
+    "AutofillEnableFillingPhoneCountryCodesByAddressCountryCodes": [
+        {
+            "platforms": [
+                "android",
+                "chromeos",
+                "chromeos_lacros",
+                "fuchsia",
+                "ios",
+                "linux",
+                "mac",
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "AutofillEnableFillingPhoneCountryCodesByAddressCountryCodes"
+                    ]
+                }
+            ]
+        }
+    ],
     "AutofillEnableFpanRiskBasedAuthentication": [
         {
             "platforms": [
@@ -1959,6 +1959,28 @@
             ]
         }
     ],
+    "AutofillUploadVotesForFieldsWithEmail": [
+        {
+            "platforms": [
+                "android",
+                "android_webview",
+                "chromeos",
+                "chromeos_lacros",
+                "ios",
+                "linux",
+                "mac",
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "AutofillUploadVotesForFieldsWithEmail"
+                    ]
+                }
+            ]
+        }
+    ],
     "AutofillUpstream": [
         {
             "platforms": [
@@ -2146,29 +2168,6 @@
             ]
         }
     ],
-    "AvoidScheduleWorkDuringNativeEventProcessing": [
-        {
-            "platforms": [
-                "android",
-                "android_webview",
-                "chromeos",
-                "chromeos_lacros",
-                "fuchsia",
-                "ios",
-                "linux",
-                "mac",
-                "windows"
-            ],
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "enable_features": [
-                        "AvoidScheduleWorkDuringNativeEventProcessing"
-                    ]
-                }
-            ]
-        }
-    ],
     "BFCachePerformanceManagerPolicy": [
         {
             "platforms": [
@@ -2184,64 +2183,6 @@
                     "enable_features": [
                         "BFCachePerformanceManagerPolicy",
                         "BackForwardCacheSize"
-                    ]
-                }
-            ]
-        }
-    ],
-    "BackForwardCache": [
-        {
-            "platforms": [
-                "android"
-            ],
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "params": {
-                        "allowed_websites": "",
-                        "cache_size": "6",
-                        "check_eligibility_after_pagehide": "true",
-                        "file_system_api_supported": "true",
-                        "foreground_cache_size": "2",
-                        "grace_period_to_finish_loading_in_seconds": "60",
-                        "max_buffered_bytes": "200000",
-                        "max_buffered_bytes_per_process": "1024000"
-                    },
-                    "enable_features": [
-                        "BackForwardCache",
-                        "FreezeWhileKeepActive",
-                        "LoadingTasksUnfreezable"
-                    ]
-                }
-            ]
-        },
-        {
-            "platforms": [
-                "chromeos",
-                "chromeos_lacros",
-                "fuchsia",
-                "linux",
-                "mac",
-                "windows"
-            ],
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "params": {
-                        "allowed_websites": "",
-                        "cache_size": "6",
-                        "check_eligibility_after_pagehide": "true",
-                        "file_system_api_supported": "true",
-                        "foreground_cache_size": "2",
-                        "grace_period_to_finish_loading_in_seconds": "60",
-                        "max_buffered_bytes": "200000",
-                        "max_buffered_bytes_per_process": "1024000",
-                        "unload_support": "no"
-                    },
-                    "enable_features": [
-                        "BackForwardCache",
-                        "FreezeWhileKeepActive",
-                        "LoadingTasksUnfreezable"
                     ]
                 }
             ]
@@ -4623,7 +4564,7 @@
             ]
         }
     ],
-    "CookieSameSiteConsidersRedirectChain": [
+    "CookieSameSiteConsidersRedirectChainDesktop": [
         {
             "platforms": [
                 "chromeos",
@@ -14708,6 +14649,26 @@
                     "name": "Enabled",
                     "enable_features": [
                         "IsolateFencedFrames"
+                    ]
+                }
+            ]
+        }
+    ],
+    "ProcessReuseOnPrerenderCOOPSwap": [
+        {
+            "platforms": [
+                "windows",
+                "mac",
+                "linux",
+                "chromeos",
+                "chromeos_lacros",
+                "android"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "ProcessReuseOnPrerenderCOOPSwap"
                     ]
                 }
             ]

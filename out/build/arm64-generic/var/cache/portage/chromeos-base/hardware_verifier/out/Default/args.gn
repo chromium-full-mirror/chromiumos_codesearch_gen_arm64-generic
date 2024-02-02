@@ -12,8 +12,8 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/hardware_verifier"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/hardware_verifier-0.0.1-r1027/work/hardware_verifier-0.0.1"
-libbase_ver = "1253750"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/hardware_verifier-0.0.1-r1028/work/hardware_verifier-0.0.1"
+libbase_ver = "1254430"
 enable_exceptions = false
 external_cflags = [
   "-Os",

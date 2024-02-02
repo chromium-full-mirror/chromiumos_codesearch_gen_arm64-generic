@@ -13,6 +13,12 @@
       "chrome://resources/js/*": [
         "./../../../../ui/webui/resources/tsc/js/*"
       ],
+      "//resources/lit/v3_0/lit.rollup.js": [
+        "./../../../../third_party/lit/v3_0/lit.d.ts"
+      ],
+      "chrome://resources/lit/v3_0/lit.rollup.js": [
+        "./../../../../third_party/lit/v3_0/lit.d.ts"
+      ],
       "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
         "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
       ],
@@ -150,6 +156,7 @@
     "preprocessed/mwb_shared_style.css.ts",
     "preprocessed/mwb_shared_vars.css.ts",
     "preprocessed/search_highlight_style.css.ts",
+    "preprocessed/cr_action_menu/cr_action_menu.css.ts",
     "preprocessed/cr_input/cr_input_style.css.ts",
     "preprocessed/chromeos/cros_color_overrides.css.ts",
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/pending.d.ts",
@@ -158,6 +165,9 @@
   "references": [
     {
       "path": "../js/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../../../third_party/lit/v3_0/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../third_party/polymer/v3_0/tsconfig_library.json"

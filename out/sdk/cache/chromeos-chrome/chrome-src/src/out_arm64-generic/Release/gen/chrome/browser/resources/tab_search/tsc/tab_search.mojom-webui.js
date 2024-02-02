@@ -386,6 +386,11 @@ export class PageRemote {
             index
         ]);
     }
+    tabOrganizationEnabledChanged(enabled) {
+        this.proxy.sendMessage(5, Page_TabOrganizationEnabledChanged_ParamsSpec.$, null, [
+            enabled
+        ]);
+    }
 }
 ;
 /**
@@ -402,6 +407,7 @@ export class PageReceiver {
         this.helper_internal_.registerHandler(2, Page_TabUpdated_ParamsSpec.$, null, impl.tabUpdated.bind(impl));
         this.helper_internal_.registerHandler(3, Page_TabsRemoved_ParamsSpec.$, null, impl.tabsRemoved.bind(impl));
         this.helper_internal_.registerHandler(4, Page_TabSearchTabIndexChanged_ParamsSpec.$, null, impl.tabSearchTabIndexChanged.bind(impl));
+        this.helper_internal_.registerHandler(5, Page_TabOrganizationEnabledChanged_ParamsSpec.$, null, impl.tabOrganizationEnabledChanged.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -446,6 +452,9 @@ export class PageCallbackRouter {
         this.tabSearchTabIndexChanged =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(4, Page_TabSearchTabIndexChanged_ParamsSpec.$, null, this.tabSearchTabIndexChanged.createReceiverHandler(false /* expectsResponse */));
+        this.tabOrganizationEnabledChanged =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(5, Page_TabOrganizationEnabledChanged_ParamsSpec.$, null, this.tabOrganizationEnabledChanged.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -495,6 +504,7 @@ export const Page_TabsChanged_ParamsSpec = { $: {} };
 export const Page_TabUpdated_ParamsSpec = { $: {} };
 export const Page_TabsRemoved_ParamsSpec = { $: {} };
 export const Page_TabSearchTabIndexChanged_ParamsSpec = { $: {} };
+export const Page_TabOrganizationEnabledChanged_ParamsSpec = { $: {} };
 mojo.internal.Struct(ProfileDataSpec.$, 'ProfileData', [
     mojo.internal.StructField('windows', 0, 0, mojo.internal.Array(WindowSpec.$, false), null, false /* nullable */, 0),
     mojo.internal.StructField('tabGroups', 8, 0, mojo.internal.Array(TabGroupSpec.$, false), null, false /* nullable */, 0),
@@ -638,4 +648,7 @@ mojo.internal.Struct(Page_TabsRemoved_ParamsSpec.$, 'Page_TabsRemoved_Params', [
 ], [[0, 16],]);
 mojo.internal.Struct(Page_TabSearchTabIndexChanged_ParamsSpec.$, 'Page_TabSearchTabIndexChanged_Params', [
     mojo.internal.StructField('index', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(Page_TabOrganizationEnabledChanged_ParamsSpec.$, 'Page_TabOrganizationEnabledChanged_Params', [
+    mojo.internal.StructField('enabled', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);

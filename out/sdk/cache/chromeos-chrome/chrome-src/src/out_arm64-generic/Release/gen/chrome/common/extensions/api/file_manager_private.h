@@ -2727,34 +2727,34 @@ struct OpenWindowParams {
 
 };
 
-struct IOTaskParams {
-  IOTaskParams();
-  ~IOTaskParams();
-  IOTaskParams(const IOTaskParams&) = delete;
-  IOTaskParams& operator=(const IOTaskParams&) = delete;
-  IOTaskParams(IOTaskParams&& rhs) noexcept;
-  IOTaskParams& operator=(IOTaskParams&& rhs) noexcept;
+struct IoTaskParams {
+  IoTaskParams();
+  ~IoTaskParams();
+  IoTaskParams(const IoTaskParams&) = delete;
+  IoTaskParams& operator=(const IoTaskParams&) = delete;
+  IoTaskParams(IoTaskParams&& rhs) noexcept;
+  IoTaskParams& operator=(IoTaskParams&& rhs) noexcept;
 
-  // Populates a IOTaskParams object from a base::Value& instance. Returns
+  // Populates a IoTaskParams object from a base::Value& instance. Returns
   // whether |out| was successfully populated.
-  static bool Populate(const base::Value& value, IOTaskParams& out);
+  static bool Populate(const base::Value& value, IoTaskParams& out);
 
-  // Populates a IOTaskParams object from a Dict& instance. Returns whether
+  // Populates a IoTaskParams object from a Dict& instance. Returns whether
   // |out| was successfully populated.
-  static bool Populate(const base::Value::Dict& value, IOTaskParams& out);
+  static bool Populate(const base::Value::Dict& value, IoTaskParams& out);
 
-  // Creates a deep copy of IOTaskParams.
-  IOTaskParams Clone() const;
+  // Creates a deep copy of IoTaskParams.
+  IoTaskParams Clone() const;
 
-  // Creates a IOTaskParams object from a base::Value::Dict, or nullopt on
+  // Creates a IoTaskParams object from a base::Value::Dict, or nullopt on
   // failure.
-  static std::optional<IOTaskParams> FromValue(const base::Value::Dict& value);
+  static std::optional<IoTaskParams> FromValue(const base::Value::Dict& value);
 
-  // Creates a IOTaskParams object from a base::Value, or nullopt on failure.
-  static std::optional<IOTaskParams> FromValue(const base::Value& value);
+  // Creates a IoTaskParams object from a base::Value, or nullopt on failure.
+  static std::optional<IoTaskParams> FromValue(const base::Value& value);
 
   // Returns a new base::Value::Dict representing the serialized form of
-  // thisIOTaskParams object.
+  // thisIoTaskParams object.
   base::Value::Dict ToValue() const;
 
   // Destination folder for tasks that require one. Not required by |delete| task.

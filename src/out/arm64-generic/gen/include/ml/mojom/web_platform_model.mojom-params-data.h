@@ -161,7 +161,7 @@ static_assert(
         ::ml::model_loader::mojom::ModelInfoDataView, UserType>(),
     "Attempting to read the optional `model_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadModelInfo` instead "
     "of `ReadModelInfo if you're fine with null values being "
@@ -233,7 +233,7 @@ static_assert(
         mojo::MapDataView<mojo::StringDataView, mojo::ArrayDataView<uint8_t>>, UserType>(),
     "Attempting to read the optional `output_tensors` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadOutputTensors` instead "
     "of `ReadOutputTensors if you're fine with null values being "

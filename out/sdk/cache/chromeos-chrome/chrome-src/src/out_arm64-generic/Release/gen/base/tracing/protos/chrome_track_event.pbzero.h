@@ -892,7 +892,7 @@ enum WorldType : int32_t {
   WORLD_MAIN = 1,
   WORLD_ISOLATED = 2,
   WORLD_INSPECTOR_ISOLATED = 3,
-  WORLD_BLINK_INTERNAL_NON_JS_EXPOSED = 4,
+  WORLD_REG_EXP = 4,
   WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN = 5,
   WORLD_WORKER = 6,
   WORLD_SHADOW_REALM = 7,
@@ -920,8 +920,8 @@ const char* BlinkExecutionContext_WorldType_Name(::perfetto::protos::pbzero::Bli
   case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_INSPECTOR_ISOLATED:
     return "WORLD_INSPECTOR_ISOLATED";
 
-  case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_BLINK_INTERNAL_NON_JS_EXPOSED:
-    return "WORLD_BLINK_INTERNAL_NON_JS_EXPOSED";
+  case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_REG_EXP:
+    return "WORLD_REG_EXP";
 
   case ::perfetto::protos::pbzero::BlinkExecutionContext_WorldType::WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN:
     return "WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN";
@@ -5549,7 +5549,7 @@ class BlinkExecutionContext : public ::protozero::Message {
   static inline const WorldType WORLD_MAIN = WorldType::WORLD_MAIN;
   static inline const WorldType WORLD_ISOLATED = WorldType::WORLD_ISOLATED;
   static inline const WorldType WORLD_INSPECTOR_ISOLATED = WorldType::WORLD_INSPECTOR_ISOLATED;
-  static inline const WorldType WORLD_BLINK_INTERNAL_NON_JS_EXPOSED = WorldType::WORLD_BLINK_INTERNAL_NON_JS_EXPOSED;
+  static inline const WorldType WORLD_REG_EXP = WorldType::WORLD_REG_EXP;
   static inline const WorldType WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN = WorldType::WORLD_FOR_V8_CONTEXT_SNAPSHOT_NON_MAIN;
   static inline const WorldType WORLD_WORKER = WorldType::WORLD_WORKER;
   static inline const WorldType WORLD_SHADOW_REALM = WorldType::WORLD_SHADOW_REALM;

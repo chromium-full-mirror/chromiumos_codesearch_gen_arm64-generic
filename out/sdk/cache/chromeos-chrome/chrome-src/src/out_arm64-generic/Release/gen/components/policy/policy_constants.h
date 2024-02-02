@@ -174,7 +174,6 @@ extern const char kDefaultJavaScriptJitSetting[];
 extern const char kDefaultJavaScriptSetting[];
 extern const char kDefaultLocalFontsSetting[];
 extern const char kDefaultMediaStreamSetting[];
-extern const char kDefaultMidiSetting[];
 extern const char kDefaultNotificationsSetting[];
 extern const char kDefaultPopupsSetting[];
 extern const char kDefaultPrinterSelection[];
@@ -535,8 +534,6 @@ extern const char kMediaRouterCastAllowAllIPs[];
 extern const char kMicrosoftOfficeCloudUpload[];
 extern const char kMicrosoftOneDriveAccountRestrictions[];
 extern const char kMicrosoftOneDriveMount[];
-extern const char kMidiAllowedForUrls[];
-extern const char kMidiBlockedForUrls[];
 extern const char kMonoAudioEnabled[];
 extern const char kNTLMShareAuthenticationEnabled[];
 extern const char kNTPCardsVisible[];
@@ -927,7 +924,6 @@ extern const char kKiosk[];
 extern const char kLegacySameSiteCookieBehaviorSettings[];
 extern const char kLocalFontsSettings[];
 extern const char kLoginScreenOrigins[];
-extern const char kMidiSettings[];
 extern const char kNativeMessaging[];
 extern const char kNetworkFileShares[];
 extern const char kNotificationsSettings[];
@@ -999,7 +995,7 @@ struct IntegerPolicyAccess {
   const em::IntegerPolicyProto& (*get_proto)(
       const em::CloudPolicySettings& policy);
 };
-extern const std::array<IntegerPolicyAccess, 106> kIntegerPolicyAccess;
+extern const std::array<IntegerPolicyAccess, 105> kIntegerPolicyAccess;
 
 // Read access to the protobufs of all supported string user policies.
 struct StringPolicyAccess {
@@ -1020,7 +1016,7 @@ struct StringListPolicyAccess {
   const em::StringListPolicyProto& (*get_proto)(
       const em::CloudPolicySettings& policy);
 };
-extern const std::array<StringListPolicyAccess, 127> kStringListPolicyAccess;
+extern const std::array<StringListPolicyAccess, 125> kStringListPolicyAccess;
 
 constexpr int64_t kDevicePolicyExternalDataResourceCacheSize = 24068672;
 

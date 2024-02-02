@@ -1148,9 +1148,7 @@ AuctionAdConfig::AuctionAdConfig()
       auction_ad_config_non_shared_params(),
       direct_from_seller_signals(),
       expects_direct_from_seller_signals_header_ad_slot(false),
-      has_seller_experiment_group_id(false),
       seller_experiment_group_id(),
-      has_all_buyer_experiment_group_id(false),
       all_buyer_experiment_group_id(),
       per_buyer_experiment_group_ids(),
       expects_additional_bids(false),
@@ -1165,10 +1163,8 @@ AuctionAdConfig::AuctionAdConfig(
     AuctionAdConfigNonSharedParamsPtr auction_ad_config_non_shared_params_in,
     AuctionAdConfigMaybePromiseDirectFromSellerSignalsPtr direct_from_seller_signals_in,
     bool expects_direct_from_seller_signals_header_ad_slot_in,
-    bool has_seller_experiment_group_id_in,
-    uint16_t seller_experiment_group_id_in,
-    bool has_all_buyer_experiment_group_id_in,
-    int16_t all_buyer_experiment_group_id_in,
+    std::optional<uint16_t> seller_experiment_group_id_in,
+    std::optional<int16_t> all_buyer_experiment_group_id_in,
     const WTF::HashMap<::scoped_refptr<const ::blink::SecurityOrigin>, uint16_t>& per_buyer_experiment_group_ids_in,
     bool expects_additional_bids_in,
     const ::scoped_refptr<const ::blink::SecurityOrigin>& aggregation_coordinator_origin_in)
@@ -1180,9 +1176,7 @@ AuctionAdConfig::AuctionAdConfig(
       auction_ad_config_non_shared_params(std::move(auction_ad_config_non_shared_params_in)),
       direct_from_seller_signals(std::move(direct_from_seller_signals_in)),
       expects_direct_from_seller_signals_header_ad_slot(std::move(expects_direct_from_seller_signals_header_ad_slot_in)),
-      has_seller_experiment_group_id(std::move(has_seller_experiment_group_id_in)),
       seller_experiment_group_id(std::move(seller_experiment_group_id_in)),
-      has_all_buyer_experiment_group_id(std::move(has_all_buyer_experiment_group_id_in)),
       all_buyer_experiment_group_id(std::move(all_buyer_experiment_group_id_in)),
       per_buyer_experiment_group_ids(std::move(per_buyer_experiment_group_ids_in)),
       expects_additional_bids(std::move(expects_additional_bids_in)),
@@ -1267,27 +1261,9 @@ void AuctionAdConfig::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "has_seller_experiment_group_id"), this->has_seller_experiment_group_id,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
       "seller_experiment_group_id"), this->seller_experiment_group_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type uint16_t>"
-#else
-      "<value>"
-#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
-    );
-  perfetto::WriteIntoTracedValueWithFallback(
-    dict.AddItem(
-      "has_all_buyer_experiment_group_id"), this->has_all_buyer_experiment_group_id,
-#if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
+      "<value of type std::optional<uint16_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1296,7 +1272,7 @@ void AuctionAdConfig::WriteIntoTrace(
     dict.AddItem(
       "all_buyer_experiment_group_id"), this->all_buyer_experiment_group_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type int16_t>"
+      "<value of type std::optional<int16_t>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1904,14 +1880,12 @@ bool StructTraits<::blink::mojom::blink::AuctionAdConfig::DataView, ::blink::moj
         success = false;
       if (success)
         result->expects_direct_from_seller_signals_header_ad_slot = input.expects_direct_from_seller_signals_header_ad_slot();
-      if (success)
-        result->has_seller_experiment_group_id = input.has_seller_experiment_group_id();
-      if (success)
+      if (success) {
         result->seller_experiment_group_id = input.seller_experiment_group_id();
-      if (success)
-        result->has_all_buyer_experiment_group_id = input.has_all_buyer_experiment_group_id();
-      if (success)
+      }
+      if (success) {
         result->all_buyer_experiment_group_id = input.all_buyer_experiment_group_id();
+      }
       if (success && !input.ReadPerBuyerExperimentGroupIds(&result->per_buyer_experiment_group_ids))
         success = false;
       if (success)

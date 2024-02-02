@@ -11,6 +11,7 @@ import {webUIListenerCallback} from 'chrome://resources/ash/common/cr.m.js';
 import {getDeepActiveElement} from 'chrome://resources/ash/common/util.js';
 import {PromiseResolver} from 'chrome://resources/js/promise_resolver.js';
 import {flush} from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import {assertEquals, assertFalse, assertNotEquals, assertTrue} from 'chrome://webui-test/chai_assert.js';
 import {flushTasks, waitAfterNextRender} from 'chrome://webui-test/polymer_test_util.js';
 import {eventToPromise, isVisible} from 'chrome://webui-test/test_util.js';
 
@@ -18,8 +19,9 @@ import {FakeUserActionRecorder} from './fake_user_action_recorder.js';
 import {TestAboutPageBrowserProxy} from './test_about_page_browser_proxy.js';
 import {TestDeviceNameBrowserProxy} from './test_device_name_browser_proxy.js';
 import {TestLifetimeBrowserProxy} from './test_os_lifetime_browser_proxy.js';
+import {clearBody} from './utils.js';
 
-suite('AboutPageTest', function() {
+suite('<os-about-page> AllBuilds AboutPageTest', function() {
   let page = null;
 
   /** @type {?TestAboutPageBrowserProxy} */
@@ -84,7 +86,7 @@ suite('AboutPageTest', function() {
   function initNewPage() {
     aboutBrowserProxy.reset();
     lifetimeBrowserProxy.reset();
-    PolymerTest.clearBody();
+    clearBody();
     page = document.createElement('os-about-page');
     Router.getInstance().navigateTo(routes.ABOUT);
     document.body.appendChild(page);
@@ -974,7 +976,7 @@ suite('AboutPageTest', function() {
   });
 });
 
-suite('DetailedBuildInfoTest', function() {
+suite('<os-about-page> AllBuilds DetailedBuildInfoTest', function() {
   let page = null;
   let browserProxy = null;
   let deviceNameBrowserProxy = null;
@@ -984,7 +986,7 @@ suite('DetailedBuildInfoTest', function() {
     deviceNameBrowserProxy = new TestDeviceNameBrowserProxy();
     AboutPageBrowserProxyImpl.setInstanceForTesting(browserProxy);
     DeviceNameBrowserProxyImpl.setInstanceForTesting(deviceNameBrowserProxy);
-    PolymerTest.clearBody();
+    clearBody();
   });
 
   teardown(function() {
@@ -1287,14 +1289,14 @@ suite('DetailedBuildInfoTest', function() {
   });
 });
 
-suite('EditHostnameDialogTest', function() {
+suite('<os-about-page> AllBuilds EditHostnameDialogTest', function() {
   let dialog = null;
   let deviceNameBrowserProxy = null;
 
   setup(function() {
     deviceNameBrowserProxy = new TestDeviceNameBrowserProxy();
     DeviceNameBrowserProxyImpl.setInstanceForTesting(deviceNameBrowserProxy);
-    PolymerTest.clearBody();
+    clearBody();
   });
 
   teardown(function() {
@@ -1484,7 +1486,7 @@ suite('EditHostnameDialogTest', function() {
   });
 });
 
-suite('ChannelSwitcherDialogTest', function() {
+suite('<os-about-page> AllBuilds ChannelSwitcherDialogTest', function() {
   let dialog = null;
   let radioButtons = null;
   let browserProxy = null;
@@ -1495,7 +1497,7 @@ suite('ChannelSwitcherDialogTest', function() {
     browserProxy = new TestAboutPageBrowserProxy();
     browserProxy.setChannels(currentChannel, currentChannel);
     AboutPageBrowserProxyImpl.setInstanceForTesting(browserProxy);
-    PolymerTest.clearBody();
+    clearBody();
     dialog = document.createElement('settings-channel-switcher-dialog');
     document.body.appendChild(dialog);
 
@@ -1576,61 +1578,62 @@ suite('ChannelSwitcherDialogTest', function() {
   });
 });
 
-suite('Consumer auto update dialog popup', function() {
-  let dialog = null;
-  let browserProxy = null;
-  let events;
+suite(
+    '<os-about-page> AllBuilds Consumer auto update dialog popup', function() {
+      let dialog = null;
+      let browserProxy = null;
+      let events;
 
-  setup(function() {
-    events = [];
-    browserProxy = new TestAboutPageBrowserProxy();
-    AboutPageBrowserProxyImpl.setInstanceForTesting(browserProxy);
-    PolymerTest.clearBody();
-    dialog =
-        document.createElement('settings-consumer-auto-update-toggle-dialog');
-    document.body.appendChild(dialog);
-  });
+      setup(function() {
+        events = [];
+        browserProxy = new TestAboutPageBrowserProxy();
+        AboutPageBrowserProxyImpl.setInstanceForTesting(browserProxy);
+        clearBody();
+        dialog = document.createElement(
+            'settings-consumer-auto-update-toggle-dialog');
+        document.body.appendChild(dialog);
+      });
 
-  teardown(function() {
-    dialog.remove();
-  });
+      teardown(function() {
+        dialog.remove();
+      });
 
-  function getButtonEventPromise() {
-    return new Promise(
-        (resolve) =>
-            dialog.addEventListener('set-consumer-auto-update', (e) => {
-              events.push(e);
-              resolve();
-            }));
-  }
+      function getButtonEventPromise() {
+        return new Promise(
+            (resolve) =>
+                dialog.addEventListener('set-consumer-auto-update', (e) => {
+                  events.push(e);
+                  resolve();
+                }));
+      }
 
-  async function clickButton(buttonId, shouldEnable) {
-    const ButtonEventPromise = getButtonEventPromise();
-    const button = dialog.shadowRoot.querySelector(buttonId);
-    assertTrue(!!button);
-    button.click();
-    await ButtonEventPromise;
-    assertEquals(1, events.length);
-    assertEquals(shouldEnable, events[0].detail.item);
-  }
+      async function clickButton(buttonId, shouldEnable) {
+        const ButtonEventPromise = getButtonEventPromise();
+        const button = dialog.shadowRoot.querySelector(buttonId);
+        assertTrue(!!button);
+        button.click();
+        await ButtonEventPromise;
+        assertEquals(1, events.length);
+        assertEquals(shouldEnable, events[0].detail.item);
+      }
 
-  test('click turn off button fires disable event', async function() {
-    await clickButton('#turnOffButton', false);
-  });
+      test('click turn off button fires disable event', async function() {
+        await clickButton('#turnOffButton', false);
+      });
 
-  test('click keep updates button fires enable event', async function() {
-    await clickButton('#keepUpdatesButton', true);
-  });
-});
+      test('click keep updates button fires enable event', async function() {
+        await clickButton('#keepUpdatesButton', true);
+      });
+    });
 
-suite('AboutPageTest_OfficialBuild', function() {
+suite('<os-about-page> OfficialBuild', function() {
   let page = null;
   let browserProxy = null;
 
   setup(function() {
     browserProxy = new TestAboutPageBrowserProxy();
     AboutPageBrowserProxyImpl.setInstanceForTesting(browserProxy);
-    PolymerTest.clearBody();
+    clearBody();
     page = document.createElement('os-about-page');
     document.body.appendChild(page);
   });

@@ -140,6 +140,8 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_css_color_typed_om_enabled_(RuntimeEnabledFeaturesBase::is_css_color_typed_om_enabled_),
     is_css_content_visibility_implies_contain_intrinsic_size_auto_enabled_(RuntimeEnabledFeaturesBase::is_css_content_visibility_implies_contain_intrinsic_size_auto_enabled_),
     is_css_cross_fade_enabled_(RuntimeEnabledFeaturesBase::is_css_cross_fade_enabled_),
+    is_css_custom_state_deprecated_syntax_enabled_(RuntimeEnabledFeaturesBase::is_css_custom_state_deprecated_syntax_enabled_),
+    is_css_custom_state_new_syntax_enabled_(RuntimeEnabledFeaturesBase::is_css_custom_state_new_syntax_enabled_),
     is_css_display_animation_enabled_(RuntimeEnabledFeaturesBase::is_css_display_animation_enabled_),
     is_css_display_ruby_enabled_(RuntimeEnabledFeaturesBase::is_css_display_ruby_enabled_),
     is_css_dynamic_range_limit_enabled_(RuntimeEnabledFeaturesBase::is_css_dynamic_range_limit_enabled_),
@@ -425,6 +427,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_navigation_activation_enabled_(RuntimeEnabledFeaturesBase::is_navigation_activation_enabled_),
     is_navigation_id_enabled_(RuntimeEnabledFeaturesBase::is_navigation_id_enabled_),
     is_navigator_content_utils_enabled_(RuntimeEnabledFeaturesBase::is_navigator_content_utils_enabled_),
+    is_nested_top_layer_support_enabled_(RuntimeEnabledFeaturesBase::is_nested_top_layer_support_enabled_),
     is_net_info_constant_type_enabled_(RuntimeEnabledFeaturesBase::is_net_info_constant_type_enabled_),
     is_net_info_downlink_max_enabled_(RuntimeEnabledFeaturesBase::is_net_info_downlink_max_enabled_),
     is_next_sibling_position_use_next_candidate_enabled_(RuntimeEnabledFeaturesBase::is_next_sibling_position_use_next_candidate_enabled_),
@@ -871,6 +874,8 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_css_color_typed_om_enabled_ = is_css_color_typed_om_enabled_;
   RuntimeEnabledFeaturesBase::is_css_content_visibility_implies_contain_intrinsic_size_auto_enabled_ = is_css_content_visibility_implies_contain_intrinsic_size_auto_enabled_;
   RuntimeEnabledFeaturesBase::is_css_cross_fade_enabled_ = is_css_cross_fade_enabled_;
+  RuntimeEnabledFeaturesBase::is_css_custom_state_deprecated_syntax_enabled_ = is_css_custom_state_deprecated_syntax_enabled_;
+  RuntimeEnabledFeaturesBase::is_css_custom_state_new_syntax_enabled_ = is_css_custom_state_new_syntax_enabled_;
   RuntimeEnabledFeaturesBase::is_css_display_animation_enabled_ = is_css_display_animation_enabled_;
   RuntimeEnabledFeaturesBase::is_css_display_ruby_enabled_ = is_css_display_ruby_enabled_;
   RuntimeEnabledFeaturesBase::is_css_dynamic_range_limit_enabled_ = is_css_dynamic_range_limit_enabled_;
@@ -1156,6 +1161,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_navigation_activation_enabled_ = is_navigation_activation_enabled_;
   RuntimeEnabledFeaturesBase::is_navigation_id_enabled_ = is_navigation_id_enabled_;
   RuntimeEnabledFeaturesBase::is_navigator_content_utils_enabled_ = is_navigator_content_utils_enabled_;
+  RuntimeEnabledFeaturesBase::is_nested_top_layer_support_enabled_ = is_nested_top_layer_support_enabled_;
   RuntimeEnabledFeaturesBase::is_net_info_constant_type_enabled_ = is_net_info_constant_type_enabled_;
   RuntimeEnabledFeaturesBase::is_net_info_downlink_max_enabled_ = is_net_info_downlink_max_enabled_;
   RuntimeEnabledFeaturesBase::is_next_sibling_position_use_next_candidate_enabled_ = is_next_sibling_position_use_next_candidate_enabled_;
@@ -1509,6 +1515,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetCSSBackgroundClipUnprefixEnabled(enable);
   SetCSSCapFontUnitsEnabled(enable);
   SetCSSContentVisibilityImpliesContainIntrinsicSizeAutoEnabled(enable);
+  SetCSSCustomStateDeprecatedSyntaxEnabled(enable);
   SetCSSDisplayAnimationEnabled(enable);
   SetCssDisplayRubyEnabled(enable);
   SetCSSExponentialFunctionsEnabled(enable);
@@ -1948,6 +1955,7 @@ void RuntimeEnabledFeaturesBase::SetExperimentalFeaturesEnabled(bool enable) {
   SetCSSColorContrastEnabled(enable);
   SetCSSColorTypedOMEnabled(enable);
   SetCSSCrossFadeEnabled(enable);
+  SetCSSCustomStateNewSyntaxEnabled(enable);
   SetCSSDynamicRangeLimitEnabled(enable);
   SetCssFieldSizingEnabled(enable);
   SetCSSFontSizeAdjustEnabled(enable);
@@ -2029,6 +2037,7 @@ void RuntimeEnabledFeaturesBase::SetExperimentalFeaturesEnabled(bool enable) {
   SetNavigateEventSourceElementEnabled(enable);
   SetNavigationActivationEnabled(enable);
   SetNavigationIdEnabled(enable);
+  SetNestedTopLayerSupportEnabled(enable);
   SetNotificationTriggersEnabled(enable);
   SetObservableAPIEnabled(enable);
   SetOffscreenCanvasCommitEnabled(enable);
@@ -2526,6 +2535,8 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"CSSColorTypedOM", &is_css_color_typed_om_enabled_},
     {"CSSContentVisibilityImpliesContainIntrinsicSizeAuto", &is_css_content_visibility_implies_contain_intrinsic_size_auto_enabled_},
     {"CSSCrossFade", &is_css_cross_fade_enabled_},
+    {"CSSCustomStateDeprecatedSyntax", &is_css_custom_state_deprecated_syntax_enabled_},
+    {"CSSCustomStateNewSyntax", &is_css_custom_state_new_syntax_enabled_},
     {"CSSDisplayAnimation", &is_css_display_animation_enabled_},
     {"CSSDynamicRangeLimit", &is_css_dynamic_range_limit_enabled_},
     {"CSSEnumeratedCustomProperties", &is_css_enumerated_custom_properties_enabled_},
@@ -2859,6 +2870,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"NavigationActivation", &is_navigation_activation_enabled_},
     {"NavigationId", &is_navigation_id_enabled_},
     {"NavigatorContentUtils", &is_navigator_content_utils_enabled_},
+    {"NestedTopLayerSupport", &is_nested_top_layer_support_enabled_},
     {"NetInfoConstantType", &is_net_info_constant_type_enabled_},
     {"NetInfoDownlinkMax", &is_net_info_downlink_max_enabled_},
     {"NextSiblingPositionUseNextCandidate", &is_next_sibling_position_use_next_candidate_enabled_},
@@ -3256,6 +3268,10 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
      false},
     {blink::features::kCSSCrossFade, SetCSSCrossFadeEnabled,
      false},
+    {blink::features::kCSSCustomStateDeprecatedSyntax, SetCSSCustomStateDeprecatedSyntaxEnabled,
+     false},
+    {blink::features::kCSSCustomStateNewSyntax, SetCSSCustomStateNewSyntaxEnabled,
+     false},
     {blink::features::kCSSDisplayAnimation, SetCSSDisplayAnimationEnabled,
      false},
     {blink::features::kCSSDynamicRangeLimit, SetCSSDynamicRangeLimitEnabled,
@@ -3617,6 +3633,8 @@ void RuntimeEnabledFeaturesBase::UpdateStatusFromBaseFeatures() {
     {blink::features::kNavigationActivation, SetNavigationActivationEnabled,
      false},
     {blink::features::kNavigationId, SetNavigationIdEnabled,
+     false},
+    {blink::features::kNestedTopLayerSupport, SetNestedTopLayerSupportEnabled,
      false},
     {blink::features::kNetInfoConstantType, SetNetInfoConstantTypeEnabled,
      false},
@@ -4858,6 +4876,8 @@ bool RuntimeEnabledFeaturesBase::is_css_color_contrast_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_color_typed_om_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_content_visibility_implies_contain_intrinsic_size_auto_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_css_cross_fade_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_css_custom_state_deprecated_syntax_enabled_ = true;
+bool RuntimeEnabledFeaturesBase::is_css_custom_state_new_syntax_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_css_display_animation_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_css_display_ruby_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_css_dynamic_range_limit_enabled_ = false;
@@ -5122,6 +5142,7 @@ bool RuntimeEnabledFeaturesBase::is_navigate_event_commit_behavior_enabled_ = fa
 bool RuntimeEnabledFeaturesBase::is_navigate_event_source_element_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_navigation_activation_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_navigation_id_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_nested_top_layer_support_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_net_info_constant_type_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_next_sibling_position_use_next_candidate_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_no_idle_encoding_for_web_tests_enabled_ = false;

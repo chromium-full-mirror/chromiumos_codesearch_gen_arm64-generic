@@ -85,6 +85,31 @@ struct SideType_Data {
   }
 };
 
+struct RenderType_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
+
 struct SelectionLineState_Data {
  public:
   static bool constexpr kIsExtensible = false;
@@ -345,7 +370,9 @@ class  SuggestionGroup_Data {
   mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> show_group_a11y_label;
   uint8_t hidden : 1;
   uint8_t pad3_[3];
+  int32_t render_type;
   int32_t side_type;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<SuggestionGroup_Data>;
@@ -353,7 +380,7 @@ class  SuggestionGroup_Data {
   SuggestionGroup_Data();
   ~SuggestionGroup_Data() = delete;
 };
-static_assert(sizeof(SuggestionGroup_Data) == 40,
+static_assert(sizeof(SuggestionGroup_Data) == 48,
               "Bad sizeof(SuggestionGroup_Data)");
 // Used by SuggestionGroup::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

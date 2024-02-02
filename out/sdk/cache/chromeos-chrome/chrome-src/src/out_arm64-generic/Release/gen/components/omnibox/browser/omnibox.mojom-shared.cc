@@ -71,6 +71,32 @@ std::ostream& operator<<(std::ostream& os, SideType value) {
   return os << SideTypeToString(value);
 }
 
+NOINLINE static const char* RenderTypeToStringHelper(RenderType value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case RenderType::kDefaultVertical:
+      return "kDefaultVertical";
+    case RenderType::kHorizontal:
+      return "kHorizontal";
+    case RenderType::kGrid:
+      return "kGrid";
+    default:
+      return nullptr;
+  }
+}
+
+std::string RenderTypeToString(RenderType value) {
+  const char *str = RenderTypeToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown RenderType value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, RenderType value) {
+  return os << RenderTypeToString(value);
+}
+
 NOINLINE static const char* SelectionLineStateToStringHelper(SelectionLineState value) {
   // Defined in a helper function to ensure that Clang generates a lookup table.
   switch(value) {
@@ -381,7 +407,7 @@ bool SuggestionGroup_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 40, validation_context)) {
+          data, 48, validation_context)) {
     return false;
   }
 
@@ -409,6 +435,11 @@ bool SuggestionGroup_Data::Validate(
     return false;
   }
   if (!mojo::internal::ValidateStruct(object->show_group_a11y_label, validation_context))
+    return false;
+
+
+  if (!::omnibox::mojom::internal::RenderType_Data
+        ::Validate(object->render_type, validation_context))
     return false;
 
 
@@ -882,6 +913,16 @@ namespace perfetto {
 void TraceFormatTraits<::omnibox::mojom::SideType>::WriteIntoTrace(
    perfetto::TracedValue context, ::omnibox::mojom::SideType value) {
   return std::move(context).WriteString(::omnibox::mojom::SideTypeToString(value));
+}
+
+} // namespace perfetto
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::omnibox::mojom::RenderType>::WriteIntoTrace(
+   perfetto::TracedValue context, ::omnibox::mojom::RenderType value) {
+  return std::move(context).WriteString(::omnibox::mojom::RenderTypeToString(value));
 }
 
 } // namespace perfetto

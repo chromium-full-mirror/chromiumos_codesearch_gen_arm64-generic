@@ -52,7 +52,7 @@ class  NullableUint8 {
   template <typename... Args>
   static NullableUint8Ptr New(Args&&... args) {
     return NullableUint8Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -193,7 +193,7 @@ class  NullableInt16 {
   template <typename... Args>
   static NullableInt16Ptr New(Args&&... args) {
     return NullableInt16Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -334,7 +334,7 @@ class  NullableUint16 {
   template <typename... Args>
   static NullableUint16Ptr New(Args&&... args) {
     return NullableUint16Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -475,7 +475,7 @@ class  NullableUint32 {
   template <typename... Args>
   static NullableUint32Ptr New(Args&&... args) {
     return NullableUint32Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -616,7 +616,7 @@ class  NullableUint64 {
   template <typename... Args>
   static NullableUint64Ptr New(Args&&... args) {
     return NullableUint64Ptr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -757,7 +757,7 @@ class  NullableDouble {
   template <typename... Args>
   static NullableDoublePtr New(Args&&... args) {
     return NullableDoublePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

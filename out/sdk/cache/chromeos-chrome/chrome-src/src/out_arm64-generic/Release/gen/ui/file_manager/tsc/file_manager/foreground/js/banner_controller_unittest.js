@@ -264,9 +264,6 @@ export function setUp() {
         runtime: {
             lastError: undefined,
         },
-        fileManagerPrivate: {
-            UserType: { UNMANAGED: 'kUnmanaged', ORGANIZATION: 'kOrganization' },
-        },
     });
     mockChromeFileManagerPrivate =
         new MockChromeFileManagerPrivateDirectoryChanged();

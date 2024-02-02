@@ -491,10 +491,9 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         }
     }
     highlightAndPlayNextMessage() {
-        const maxTextLength = this.maxSpeechLength;
         // getNextText returns a list of triples of AXNodeIds and start / end text
         // indices, represented as a double array.
-        const nextTextIds = chrome.readingMode.getNextText(maxTextLength);
+        const nextTextIds = chrome.readingMode.getNextText();
         return this.highlightAndPlayTextOf(nextTextIds);
     }
     highlightAndPlayPreviousMessage() {
@@ -515,8 +514,26 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
         this.highlightNodes(axNodeIds);
         return true;
     }
+    // Gets the accessible text boundary for the given string.
+    getAccessibleTextLength(utteranceText) {
+        // TODO(crbug.com/1474951): getAccessibleBoundary breaks on the nearest
+        // word boundary, but if there's some type of punctuation (such as a comma),
+        // it would be preferable to break on the punctuation so the pause in
+        // speech sounds more natural.
+        return chrome.readingMode.getAccessibleBoundary(utteranceText, this.maxSpeechLength);
+    }
     playText(utteranceText) {
-        const message = new SpeechSynthesisUtterance(utteranceText);
+        // This check is needed due limits of TTS audio for remote voices. See
+        // crbug.com/1176078 for more details.
+        // TODO(crbug.com/1474951): Since the TTS bug only impacts remote voices,
+        // we should be able to ignore this check when the current voice is set
+        // to a local voice. This would mean that we won't end up calling
+        // #getAccessibleTextLength in the majority of cases.
+        const isTextTooLong = utteranceText.length > this.maxSpeechLength;
+        const endBoundary = isTextTooLong ?
+            this.getAccessibleTextLength(utteranceText) :
+            utteranceText.length;
+        const message = new SpeechSynthesisUtterance(utteranceText.substring(0, endBoundary));
         message.onerror = (error) => {
             // TODO(crbug.com/1474951): Add more sophisticated error handling.
             if (error.error === 'interrupted') {
@@ -526,6 +543,14 @@ export class ReadAnythingElement extends ReadAnythingElementBase {
             this.synth.cancel();
         };
         message.onend = () => {
+            if (isTextTooLong) {
+                // Since our previous utterance was too long, continue speaking pieces
+                // of the current utterance until the utterance is complete. The entire
+                // utterance is highlighted, so there's no need to update highlighting
+                // until the utterance substring is an acceptable size.
+                this.playText(utteranceText.substring(endBoundary));
+                return;
+            }
             // TODO(crbug.com/1474951): Handle already selected text.
             // TODO(crbug.com/1474951): Return text to its original style once
             // the document has finished.

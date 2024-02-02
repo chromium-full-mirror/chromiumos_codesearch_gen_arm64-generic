@@ -13,7 +13,7 @@ libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/imageloader-client"
 platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/imageloader-client-0.0.1-r1017/work/imageloader-client-0.0.1"
-libbase_ver = "1253750"
+libbase_ver = "1254430"
 enable_exceptions = false
 external_cflags = [
   "-Os",

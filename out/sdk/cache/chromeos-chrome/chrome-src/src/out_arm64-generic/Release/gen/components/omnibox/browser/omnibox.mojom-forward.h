@@ -41,6 +41,8 @@ enum class NavigationPredictor : int32_t;
 
 enum class SideType : int32_t;
 
+enum class RenderType : int32_t;
+
 enum class SelectionLineState : int32_t;
 class ACMatchClassification;
 using ACMatchClassificationPtr = mojo::InlinedStructPtr<ACMatchClassification>;

@@ -21,6 +21,36 @@
 namespace ax {
 namespace mojom {
 
+NOINLINE static const char* SyntheticMouseEventButtonToStringHelper(SyntheticMouseEventButton value) {
+  // Defined in a helper function to ensure that Clang generates a lookup table.
+  switch(value) {
+    case SyntheticMouseEventButton::kLeft:
+      return "kLeft";
+    case SyntheticMouseEventButton::kMiddle:
+      return "kMiddle";
+    case SyntheticMouseEventButton::kRight:
+      return "kRight";
+    case SyntheticMouseEventButton::kBack:
+      return "kBack";
+    case SyntheticMouseEventButton::kForward:
+      return "kForward";
+    default:
+      return nullptr;
+  }
+}
+
+std::string SyntheticMouseEventButtonToString(SyntheticMouseEventButton value) {
+  const char *str = SyntheticMouseEventButtonToStringHelper(value);
+  if (!str) {
+    return base::StringPrintf("Unknown SyntheticMouseEventButton value: %i", static_cast<int32_t>(value));
+  }
+  return str;
+}
+
+std::ostream& operator<<(std::ostream& os, SyntheticMouseEventButton value) {
+  return os << SyntheticMouseEventButtonToString(value);
+}
+
 namespace internal {
 
 
@@ -60,6 +90,46 @@ SyntheticKeyEvent_Data::SyntheticKeyEvent_Data()
 
 
 // static
+bool SyntheticMouseEvent_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const SyntheticMouseEvent_Data* object =
+      static_cast<const SyntheticMouseEvent_Data*>(data);
+
+
+  if (!::ui::mojom::internal::EventType_Data
+        ::Validate(object->type, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->point, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->point, validation_context))
+    return false;
+
+
+  if (!::ax::mojom::internal::SyntheticMouseEventButton_Data
+        ::Validate(object->mouse_button_$value, validation_context))
+    return false;
+
+  return true;
+}
+
+SyntheticMouseEvent_Data::SyntheticMouseEvent_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool UserInput_SendSyntheticKeyEventForShortcutOrNavigation_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -88,6 +158,46 @@ bool UserInput_SendSyntheticKeyEventForShortcutOrNavigation_Params_Data::Validat
 UserInput_SendSyntheticKeyEventForShortcutOrNavigation_Params_Data::UserInput_SendSyntheticKeyEventForShortcutOrNavigation_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
+
+// static
+bool UserInput_SendSyntheticMouseEvent_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const UserInput_SendSyntheticMouseEvent_Params_Data* object =
+      static_cast<const UserInput_SendSyntheticMouseEvent_Params_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->mouse_event, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->mouse_event, validation_context))
+    return false;
+
+  return true;
+}
+
+UserInput_SendSyntheticMouseEvent_Params_Data::UserInput_SendSyntheticMouseEvent_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
 }  // namespace internal
 }  // namespace mojom
 }  // namespace ax
+
+namespace perfetto {
+
+// static
+void TraceFormatTraits<::ax::mojom::SyntheticMouseEventButton>::WriteIntoTrace(
+   perfetto::TracedValue context, ::ax::mojom::SyntheticMouseEventButton value) {
+  return std::move(context).WriteString(::ax::mojom::SyntheticMouseEventButtonToString(value));
+}
+
+} // namespace perfetto

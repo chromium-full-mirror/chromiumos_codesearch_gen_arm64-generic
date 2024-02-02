@@ -34,7 +34,7 @@ import*as e from"../../../ui/components/helpers/helpers.js";import*as t from"../
       ${this.#d.isResponseHeader&&!this.#d.isDeleted?H`
         <${d.Button.Button.litTagName}
           title=${N(C.editHeader)}
-          .size=${"TINY"}
+          .size=${"SMALL"}
           .iconUrl=${I}
           .variant=${"round"}
           @click=${()=>{this.dispatchEvent(new D)}}
@@ -53,7 +53,7 @@ import*as e from"../../../ui/components/helpers/helpers.js";import*as t from"../
       ${this.#g(this.#d)}
       <${d.Button.Button.litTagName}
         title=${N(C.removeOverride)}
-        .size=${"TINY"}
+        .size=${"SMALL"}
         .iconUrl=${E}
         .variant=${"round"}
         class="remove-header inline-button"

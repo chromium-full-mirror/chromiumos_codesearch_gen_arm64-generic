@@ -57,7 +57,7 @@ class  CameraMetadataEntry {
   template <typename... Args>
   static CameraMetadataEntryPtr New(Args&&... args) {
     return CameraMetadataEntryPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -209,7 +209,7 @@ class  CameraMetadata {
   template <typename... Args>
   static CameraMetadataPtr New(Args&&... args) {
     return CameraMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

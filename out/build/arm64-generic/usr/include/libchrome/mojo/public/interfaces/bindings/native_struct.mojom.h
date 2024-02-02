@@ -57,7 +57,7 @@ class  SerializedHandle {
   template <typename... Args>
   static SerializedHandlePtr New(Args&&... args) {
     return SerializedHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -197,7 +197,7 @@ class  NativeStruct {
   template <typename... Args>
   static NativeStructPtr New(Args&&... args) {
     return NativeStructPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

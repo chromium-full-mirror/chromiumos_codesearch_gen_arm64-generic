@@ -310,6 +310,7 @@ bool CSSOMTypes::IsPropertySupported(CSSPropertyID id) {
     case CSSPropertyID::kPopoverShowDelay:
     case CSSPropertyID::kPositionFallback:
     case CSSPropertyID::kPositionFallbackBounds:
+    case CSSPropertyID::kPositionTryOrder:
     case CSSPropertyID::kQuotes:
     case CSSPropertyID::kR:
     case CSSPropertyID::kResize:

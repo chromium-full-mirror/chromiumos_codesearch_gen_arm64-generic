@@ -325,7 +325,7 @@ class  DecoderBuffer {
   static DecoderBufferPtr
   NewBuffer(
       BufferPtr value) {
-    auto result = DecoderBufferPtr(absl::in_place);
+    auto result = DecoderBufferPtr(std::in_place);
     result->set_buffer(std::move(value));
     return result;
   }
@@ -333,7 +333,7 @@ class  DecoderBuffer {
   static DecoderBufferPtr
   NewEndOfStream(
       uint8_t value) {
-    auto result = DecoderBufferPtr(absl::in_place);
+    auto result = DecoderBufferPtr(std::in_place);
     result->set_end_of_stream(std::move(value));
     return result;
   }
@@ -447,7 +447,7 @@ class  Buffer {
   template <typename... Args>
   static BufferPtr New(Args&&... args) {
     return BufferPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -593,7 +593,7 @@ class  VideoDecoderConfig {
   template <typename... Args>
   static VideoDecoderConfigPtr New(Args&&... args) {
     return VideoDecoderConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

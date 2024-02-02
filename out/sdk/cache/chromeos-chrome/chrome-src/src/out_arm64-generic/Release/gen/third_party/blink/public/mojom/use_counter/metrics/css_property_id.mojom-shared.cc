@@ -1392,6 +1392,8 @@ NOINLINE static const char* CSSSampleIdToStringHelper(CSSSampleId value) {
       return "kInsetArea";
     case CSSSampleId::kViewTransitionClass:
       return "kViewTransitionClass";
+    case CSSSampleId::kPositionTryOrder:
+      return "kPositionTryOrder";
     default:
       return nullptr;
   }

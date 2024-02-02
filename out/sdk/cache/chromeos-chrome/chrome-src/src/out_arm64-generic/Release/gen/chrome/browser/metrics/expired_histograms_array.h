@@ -650,7 +650,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0x3f093745,  // Extensions.LoadAppExternal
   0x3f1b4d09,  // Ash.Wallpaper.GooglePhotos.Api.GetEnabled.ResponseTime.Success
   0x3f309ee7,  // PowerML.SmartDimFeature.WebPageInfoSource
-  0x3f53c926,  // VoiceInteraction.QueryDuration.Android.Target.System
   0x3f863914,  // Apps.AppList.UserEvent.LaunchIndex.AppsSearch
   0x3f954c84,  // Android.MemoryPressureNotification.Browser
   0x3fc25752,  // ChromeGeneratedCustomTab.IntentToPageLoadedTime
@@ -693,7 +692,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0x4468e82c,  // Media.D3D11.UnusedPictureBufferCount.SingleTexture
   0x446d63c2,  // Platform.MeminfoMapped
   0x45539cb9,  // Android.Tab.CreateNewTabDuration.LauncherShortcut.WithExistingWebContents
-  0x4574f9c2,  // VoiceInteraction.QueryDuration.Android.Target.Assistant
   0x45911ad6,  // BlueZ.PerProfile.HOG.ConnectionResult
   0x45b1cd80,  // InputMethod.Assistive.DismissedAccuracy.MultiWord
   0x45d7fa54,  // Platform.Memory.Renderers.Anon
@@ -1385,7 +1383,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0x8ce72d15,  // Android.WebView.DarkMode.LightTheme
   0x8d02a8d2,  // BlueZ.TypeOfDiscovery
   0x8d1417b5,  // Extensions.EventlessEventPages
-  0x8d2904c6,  // Media.MediaFoundation.VideoColorSpace.TransferID
   0x8d56ade1,  // ChromeOS.SystemTray.BlockedNotifiersAfterUpdate
   0x8d593cf3,  // Arc.Accessibility.ActiveTime.DockedMagnifier
   0x8d65853a,  // Event.Latency.ScrollUpdate.Scrollbar.TimeToScrollUpdateSwapBegin4
@@ -1588,7 +1585,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0x9f9a667c,  // Renderer4.Renderer.RasterTaskSchedulingDelayNoAtRasterDecodes
   0x9fa9a591,  // MobileFre.FragmentInflationSpeed.FasterThanAppRestriction
   0x9fc3682c,  // Net.CertificateTransparency.SCTStatus
-  0x9fc9e948,  // Media.MediaFoundation.VideoColorSpace.PrimaryID
   0x9fcefb3a,  // MobileFullscreenVideo.LandscapeDuration
   0x9fd3c2da,  // Apps.TimeBetweenAppInstallAndLaunch.TabletMode
   0x9fe619c6,  // Search.SearchEngineListedInPromoDialog.Second.NewDevice
@@ -1596,7 +1592,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0xa00c179a,  // IOS.MultiWindow.OpenInNewWindow
   0xa03e2710,  // MixedAutoupgrade.ResourceRequest.ErrorOrResponseCode
   0xa06e6de7,  // Permissions.Engagement.AcceptedOnce.TopLevelStorageAccess
-  0xa091420f,  // VoiceInteraction.FailureEventTarget
   0xa09af6c4,  // Apps.RunningPercentage.BuiltIn
   0xa0be3f90,  // WebRTC.Stun.BatchSuccessPercent.NonSymNAT.25ms.3
   0xa0c59219,  // Extensions.DisabledForPermissions
@@ -1648,7 +1643,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0xa6bda745,  // Net.CertVerifier.NameNormalizationPrivateRoots.Mac
   0xa6dd919a,  // WebRTC.Stun.ResponseLatency.NoNAT.45ms
   0xa6ec8b02,  // ChromeOS.HPS.TurnOn.Success.Duration
-  0xa7494c9d,  // Tabs.TabsStatsDailyEventInterval
   0xa74c5470,  // Tab.BackgroundLoadStatus
   0xa7599121,  // Omnibox.SearchPrefetch.StartTimeV2.NavigationPrefetch
   0xa75de507,  // ServiceWorker.InstallEvent.WithFetch.Status
@@ -1811,7 +1805,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0xb6f2c0c8,  // Apps.AppList.AnswerCardSearchProvider.SearchAnswerNavigationTime
   0xb719ea89,  // WebRTC.Stun.ResponseLatency.NonSymNAT.35ms
   0xb71f5004,  // Mobile.AppMenu.TimeToTakeAction.Abandoned
-  0xb77a718d,  // VoiceInteraction.VoiceSearchResult.Assistant
   0xb786ac1d,  // Apps.AppList.TimeToUserAction.ClamshellMode
   0xb7936839,  // Net.ResourceLoader.ReadDeferral
   0xb7df88fb,  // WebRTC.Stun.BatchSuccessPercent.NoNAT.5ms.1
@@ -1970,7 +1963,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0xc64d6b8d,  // Power.AdaptiveChargingMinutesDelta.NotSupported.Late
   0xc64e5a82,  // ContentSuggestions.Feed.WebFeed.GetRssLinksRendererTime
   0xc65db059,  // Net.TrustTokens.OperationServerTime.Failure.Issuance
-  0xc6623236,  // VoiceInteraction.VoiceSearchResult.System
   0xc69633d0,  // BlueZ.PerProfile.HID.ProbingResult
   0xc6a5ca01,  // InputMethod.VirtualKeyboard.InitLatency.HtmlLoaded
   0xc6c495c9,  // ResourceLoadingHints.ResourceLoadingBlocked.ResourceLoadPriority.Blocked
@@ -2041,7 +2033,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0xcd060aed,  // MobileFre.CctTos.LoadingDuration
   0xcd2718a2,  // Viz.FrameSinkVideoCapturer.NV12.TotalDuration
   0xcd3a7c4d,  // Ash.Accelerators.Deprecated.ToggleHighContrast
-  0xcd472dbc,  // VoiceInteraction.VoiceResultConfidenceValue.Assistant
   0xcd52fe0c,  // Extensions.ServiceWorkerBackground.RegistrationWhenExpected
   0xcd53c8ae,  // Blink.MemoryCache.RevalidationPolicy.Dead.SVGDocument
   0xcd61f830,  // MobileDownload.Location.DirectoryType
@@ -2325,7 +2316,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0xebe14a2d,  // Mobile.ContextMenu.LensWebUploadTime
   0xebf4a33a,  // Navigation.AnonymousIframeIsSandboxed
   0xec01f45a,  // ChromeOS.Debugd.Perf.GetBigFeedbackLogs.GetOsReleaseInfo
-  0xec06b11d,  // VoiceInteraction.UnexpectedResultTarget
   0xec199c97,  // Thumbnails.Gradient.ImageDetectionTime
   0xec282474,  // Net.TrustTokens.NetErrorForTrustTokenOperation.Success
   0xec5cdbf2,  // Extensions.LoadUserScript
@@ -2452,7 +2442,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0xfa9c75bf,  // Apps.AppList.UserEvent.TypeLaunch
   0xfab1827d,  // WebRTC.Stun.BatchSuccessPercent.NonSymNAT
   0xfb22b381,  // Extensions.Messaging.SetPortIdTime.NativeApp
-  0xfb3231cc,  // VoiceInteraction.VoiceResultConfidenceValue.System
   0xfb3537de,  // Arc.IconLoadFromFileTime.compressedFirst5
   0xfb3dea15,  // Apps.ActivatedCount.ChromeApp
   0xfb4eea22,  // Welcome.Win10.DefaultPromptResult

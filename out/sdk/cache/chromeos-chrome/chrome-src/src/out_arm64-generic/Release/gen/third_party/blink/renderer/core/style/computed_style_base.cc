@@ -1925,6 +1925,8 @@ String ComputedStyleBase::DebugFieldToString(DebugField field) {
      return "position_fallback_";
    case DebugField::position_fallback_bounds_:
      return "position_fallback_bounds_";
+   case DebugField::position_try_order_:
+     return "position_try_order_";
    case DebugField::print_color_adjust_:
      return "print_color_adjust_";
    case DebugField::pseudo_argument_:
@@ -3822,6 +3824,13 @@ ComputedStyleBase::DebugDiffFields(const ComputedStyleBase& o) const {
       d.field = DebugField::container_type_;
       d.actual = DebugStringForField(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->container_type_);
       d.correct = DebugStringForField(o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->container_type_);
+      diff.push_back(std::move(d));
+    }
+  if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_order_ == o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_order_)) {
+      DebugDiff d;
+      d.field = DebugField::position_try_order_;
+      d.actual = DebugStringForField(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_order_);
+      d.correct = DebugStringForField(o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_order_);
       diff.push_back(std::move(d));
     }
   if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->overscroll_behavior_x_ == o.rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->overscroll_behavior_x_)) {
@@ -5749,6 +5758,7 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
       , inset_area_(InsetArea())
       , effective_appearance_(static_cast<unsigned>(kNoControlPart))
       , container_type_(static_cast<unsigned>(kContainerTypeNormal))
+      , position_try_order_(static_cast<unsigned>(EPositionTryOrder::kNormal))
       , overscroll_behavior_x_(static_cast<unsigned>(EOverscrollBehavior::kAuto))
       , overscroll_behavior_y_(static_cast<unsigned>(EOverscrollBehavior::kAuto))
       , page_size_type_(static_cast<unsigned>(PageSizeType::kAuto))
@@ -5840,6 +5850,7 @@ ComputedStyleBase::StyleRareNonInheritedUsageLessThan14PercentSubData::StyleRare
       , inset_area_(other.inset_area_)
       , effective_appearance_(other.effective_appearance_)
       , container_type_(other.container_type_)
+      , position_try_order_(other.position_try_order_)
       , overscroll_behavior_x_(other.overscroll_behavior_x_)
       , overscroll_behavior_y_(other.overscroll_behavior_y_)
       , page_size_type_(other.page_size_type_)

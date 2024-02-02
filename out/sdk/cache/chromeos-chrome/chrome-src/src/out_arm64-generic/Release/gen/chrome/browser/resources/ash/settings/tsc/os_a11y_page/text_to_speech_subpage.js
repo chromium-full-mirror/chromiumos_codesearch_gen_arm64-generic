@@ -47,9 +47,8 @@ export var ScreenAiInstallStatus;
 (function (ScreenAiInstallStatus) {
     ScreenAiInstallStatus[ScreenAiInstallStatus["NOT_DOWNLOADED"] = 0] = "NOT_DOWNLOADED";
     ScreenAiInstallStatus[ScreenAiInstallStatus["DOWNLOADING"] = 1] = "DOWNLOADING";
-    ScreenAiInstallStatus[ScreenAiInstallStatus["FAILED"] = 2] = "FAILED";
+    ScreenAiInstallStatus[ScreenAiInstallStatus["DOWNLOAD_FAILED"] = 2] = "DOWNLOAD_FAILED";
     ScreenAiInstallStatus[ScreenAiInstallStatus["DOWNLOADED"] = 3] = "DOWNLOADED";
-    ScreenAiInstallStatus[ScreenAiInstallStatus["READY"] = 4] = "READY";
 })(ScreenAiInstallStatus || (ScreenAiInstallStatus = {}));
 const SettingsTextToSpeechSubpageElementBase = DeepLinkingMixin(RouteOriginMixin(PrefsMixin(WebUiListenerMixin(I18nMixin(PolymerElement)))));
 export class SettingsTextToSpeechSubpageElement extends SettingsTextToSpeechSubpageElementBase {
@@ -128,12 +127,10 @@ export class SettingsTextToSpeechSubpageElement extends SettingsTextToSpeechSubp
                 return this.pdfOcrProgress_ > 0 && this.pdfOcrProgress_ < 100 ?
                     this.i18n('pdfOcrDownloadProgressLabel', this.pdfOcrProgress_) :
                     this.i18n('pdfOcrDownloadingLabel');
-            case ScreenAiInstallStatus.FAILED:
+            case ScreenAiInstallStatus.DOWNLOAD_FAILED:
                 return this.i18n('pdfOcrDownloadErrorLabel');
             case ScreenAiInstallStatus.DOWNLOADED:
                 return this.i18n('pdfOcrDownloadCompleteLabel');
-            case ScreenAiInstallStatus.READY:
-            // No subtitle update in this case
             case ScreenAiInstallStatus.NOT_DOWNLOADED:
             // No subtitle update in this case
             default:

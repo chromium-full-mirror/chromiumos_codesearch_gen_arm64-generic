@@ -1319,36 +1319,54 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'hasSellerExperimentGroupId', 36,
+        'seller_experiment_group_id_$flag', 36,
         1,
         mojo.internal.Bool,
         false,
         false, /* nullable */
         0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "seller_experiment_group_id_$value",
+          originalFieldName: "sellerExperimentGroupId",
+        }
       ),
       mojo.internal.StructField(
-        'sellerExperimentGroupId', 38,
+        'seller_experiment_group_id_$value', 38,
         0,
         mojo.internal.Uint16,
         0,
         false, /* nullable */
         0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "sellerExperimentGroupId",
+        }
       ),
       mojo.internal.StructField(
-        'hasAllBuyerExperimentGroupId', 36,
+        'all_buyer_experiment_group_id_$flag', 36,
         2,
         mojo.internal.Bool,
         false,
         false, /* nullable */
         0 /* minVersion */,
+        {
+          isPrimary: true,
+          linkedValueFieldName: "all_buyer_experiment_group_id_$value",
+          originalFieldName: "allBuyerExperimentGroupId",
+        }
       ),
       mojo.internal.StructField(
-        'allBuyerExperimentGroupId', 64,
+        'all_buyer_experiment_group_id_$value', 64,
         0,
         mojo.internal.Int16,
         0,
         false, /* nullable */
         0 /* minVersion */,
+        {
+          isPrimary: false,
+          originalFieldName: "allBuyerExperimentGroupId",
+        }
       ),
       mojo.internal.StructField(
         'perBuyerExperimentGroupIds', 72,
@@ -1400,13 +1418,9 @@ blink.mojom.AuctionAdConfig = class {
     this.directFromSellerSignals;
     /** @export { !boolean } */
     this.expectsDirectFromSellerSignalsHeaderAdSlot;
-    /** @export { !boolean } */
-    this.hasSellerExperimentGroupId;
-    /** @export { !number } */
+    /** @export { (number|undefined) } */
     this.sellerExperimentGroupId;
-    /** @export { !boolean } */
-    this.hasAllBuyerExperimentGroupId;
-    /** @export { !number } */
+    /** @export { (number|undefined) } */
     this.allBuyerExperimentGroupId;
     /** @export { !Map<!url.mojom.Origin, !number> } */
     this.perBuyerExperimentGroupIds;

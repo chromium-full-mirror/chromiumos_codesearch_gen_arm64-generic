@@ -109,28 +109,42 @@ export class SettingsCreditCardListEntryElement extends SettingsCreditCardListEn
     }
     getCardSublabelType() {
         if (this.isVirtualCardEnrolled_()) {
+            if (loadTimeData.getBoolean('cvcStorageAvailable') &&
+                !!this.creditCard.cvc) {
+                return 1 /* CardSummarySublabelType.VIRTUAL_CARD_WITH_CVC_TAG */;
+            }
             return 0 /* CardSummarySublabelType.VIRTUAL_CARD */;
         }
         if (loadTimeData.getBoolean('cvcStorageAvailable') &&
             !!this.creditCard.cvc) {
-            return 2 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_TAG */;
+            return 3 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_TAG */;
         }
-        return 1 /* CardSummarySublabelType.EXPIRATION_DATE */;
+        return 2 /* CardSummarySublabelType.EXPIRATION_DATE */;
     }
     /**
-     * Returns virtual card metadata if the card is eligible for enrollment or has
-     * already enrolled, or expiration date (MM/YY) or expiration date (MM/YY)
-     * with the `CVC saved` tag otherwise.
-     * E.g., 11/23, or Virtual card turned on, or 11/23 | CVC saved
+     * Returns one of the following sublabels, based on the card's status:
+     *    Virtual card metadata if card is eligible for enrollment or has already
+     * enrolled
+     *    Expiration date tag (MM/YY)
+     *    'CVC saved' tag
+     *
+     * e.g., one of the following:
+     *    11/23
+     *    11/23 | CVC saved
+     *    Virtual card turned on
+     *    Virtual card turned on | CVC saved
      */
     getSummarySublabel_() {
         switch (this.getCardSublabelType()) {
             case 0 /* CardSummarySublabelType.VIRTUAL_CARD */:
                 return this.i18n('virtualCardTurnedOn');
-            case 2 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_TAG */:
+            case 1 /* CardSummarySublabelType.VIRTUAL_CARD_WITH_CVC_TAG */:
+                return this.i18n('virtualCardTurnedOn') + ' | ' +
+                    this.i18n('cvcTagForCreditCardListEntry');
+            case 3 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_TAG */:
                 return this.getCardExpiryDate_() + ' | ' +
                     this.i18n('cvcTagForCreditCardListEntry');
-            case 1 /* CardSummarySublabelType.EXPIRATION_DATE */:
+            case 2 /* CardSummarySublabelType.EXPIRATION_DATE */:
                 return this.getCardExpiryDate_();
             default:
                 assertNotReached();
@@ -139,9 +153,10 @@ export class SettingsCreditCardListEntryElement extends SettingsCreditCardListEn
     getSummaryAriaSublabel_() {
         switch (this.getCardSublabelType()) {
             case 0 /* CardSummarySublabelType.VIRTUAL_CARD */:
+            case 1 /* CardSummarySublabelType.VIRTUAL_CARD_WITH_CVC_TAG */:
                 return this.getSummarySublabel_();
-            case 2 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_TAG */:
-            case 1 /* CardSummarySublabelType.EXPIRATION_DATE */:
+            case 3 /* CardSummarySublabelType.EXPIRATION_DATE_WITH_CVC_TAG */:
+            case 2 /* CardSummarySublabelType.EXPIRATION_DATE */:
                 return this.i18n('creditCardExpDateA11yLabeled', this.getSummarySublabel_());
             default:
                 assertNotReached();

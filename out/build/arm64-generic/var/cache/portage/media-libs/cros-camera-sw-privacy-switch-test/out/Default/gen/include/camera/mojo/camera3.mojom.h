@@ -403,7 +403,7 @@ class  CropRotateScaleInfo {
   template <typename... Args>
   static CropRotateScaleInfoPtr New(Args&&... args) {
     return CropRotateScaleInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -548,7 +548,7 @@ class  Camera3ErrorMsg {
   template <typename... Args>
   static Camera3ErrorMsgPtr New(Args&&... args) {
     return Camera3ErrorMsgPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -695,7 +695,7 @@ class  Camera3ShutterMsg {
   template <typename... Args>
   static Camera3ShutterMsgPtr New(Args&&... args) {
     return Camera3ShutterMsgPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -840,7 +840,7 @@ class  Camera3BufferRequest {
   template <typename... Args>
   static Camera3BufferRequestPtr New(Args&&... args) {
     return Camera3BufferRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -998,7 +998,7 @@ class  Camera3NotifyMsgMessage {
   static Camera3NotifyMsgMessagePtr
   NewError(
       Camera3ErrorMsgPtr value) {
-    auto result = Camera3NotifyMsgMessagePtr(absl::in_place);
+    auto result = Camera3NotifyMsgMessagePtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -1006,7 +1006,7 @@ class  Camera3NotifyMsgMessage {
   static Camera3NotifyMsgMessagePtr
   NewShutter(
       Camera3ShutterMsgPtr value) {
-    auto result = Camera3NotifyMsgMessagePtr(absl::in_place);
+    auto result = Camera3NotifyMsgMessagePtr(std::in_place);
     result->set_shutter(std::move(value));
     return result;
   }
@@ -1014,7 +1014,7 @@ class  Camera3NotifyMsgMessage {
   static Camera3NotifyMsgMessagePtr
   NewGeneric(
       std::vector<uint8_t> value) {
-    auto result = Camera3NotifyMsgMessagePtr(absl::in_place);
+    auto result = Camera3NotifyMsgMessagePtr(std::in_place);
     result->set_generic(std::move(value));
     return result;
   }
@@ -1142,7 +1142,7 @@ class  Camera3Stream {
   template <typename... Args>
   static Camera3StreamPtr New(Args&&... args) {
     return Camera3StreamPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1353,7 +1353,7 @@ class  Camera3StreamConfiguration {
   template <typename... Args>
   static Camera3StreamConfigurationPtr New(Args&&... args) {
     return Camera3StreamConfigurationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1505,7 +1505,7 @@ class  CameraBufferHandle {
   template <typename... Args>
   static CameraBufferHandlePtr New(Args&&... args) {
     return CameraBufferHandlePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1693,7 +1693,7 @@ class  Camera3StreamBuffer {
   template <typename... Args>
   static Camera3StreamBufferPtr New(Args&&... args) {
     return Camera3StreamBufferPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1854,7 +1854,7 @@ class  Camera3NotifyMsg {
   template <typename... Args>
   static Camera3NotifyMsgPtr New(Args&&... args) {
     return Camera3NotifyMsgPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2000,7 +2000,7 @@ class  Camera3StreamBufferRet {
   template <typename... Args>
   static Camera3StreamBufferRetPtr New(Args&&... args) {
     return Camera3StreamBufferRetPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2143,7 +2143,7 @@ class  Camera3PhyscamMetadata {
   template <typename... Args>
   static Camera3PhyscamMetadataPtr New(Args&&... args) {
     return Camera3PhyscamMetadataPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2288,7 +2288,7 @@ class  Camera3CaptureRequest {
   template <typename... Args>
   static Camera3CaptureRequestPtr New(Args&&... args) {
     return Camera3CaptureRequestPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2443,7 +2443,7 @@ class  Camera3CaptureResult {
   template <typename... Args>
   static Camera3CaptureResultPtr New(Args&&... args) {
     return Camera3CaptureResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

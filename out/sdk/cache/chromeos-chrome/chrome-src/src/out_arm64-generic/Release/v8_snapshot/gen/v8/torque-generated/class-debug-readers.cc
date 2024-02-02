@@ -3798,7 +3798,7 @@ bool TqTrustedFixedArray::IsSuperclassOf(const TqObject* other) const {
 }
 
 uintptr_t TqTrustedFixedArray::GetLengthAddress() const {
-  return address_ - i::kHeapObjectTag + 8;
+  return address_ - i::kHeapObjectTag + 4;
 }
 
 Value<uintptr_t> TqTrustedFixedArray::GetLengthValue(d::MemoryAccessor accessor) const {
@@ -3808,7 +3808,7 @@ Value<uintptr_t> TqTrustedFixedArray::GetLengthValue(d::MemoryAccessor accessor)
 }
 
 uintptr_t TqTrustedFixedArray::GetObjectsAddress() const {
-  return address_ - i::kHeapObjectTag + 12;
+  return address_ - i::kHeapObjectTag + 8;
 }
 
 Value<uintptr_t> TqTrustedFixedArray::GetObjectsValue(d::MemoryAccessor accessor, size_t offset) const {
@@ -3818,7 +3818,7 @@ Value<uintptr_t> TqTrustedFixedArray::GetObjectsValue(d::MemoryAccessor accessor
 }
 
 std::vector<std::unique_ptr<ObjectProperty>> TqTrustedFixedArray::GetProperties(d::MemoryAccessor accessor) const {
-  std::vector<std::unique_ptr<ObjectProperty>> result = TqExposedTrustedObject::GetProperties(accessor);
+  std::vector<std::unique_ptr<ObjectProperty>> result = TqTrustedObject::GetProperties(accessor);
   std::vector<std::unique_ptr<StructProperty>> length_struct_field_list;
   result.push_back(std::make_unique<ObjectProperty>("length", "v8::internal::TaggedMember<v8::internal::Object>", GetLengthAddress(), 1, 4, std::move(length_struct_field_list), d::PropertyKind::kSingle));
   std::vector<std::unique_ptr<StructProperty>> objects_struct_field_list;

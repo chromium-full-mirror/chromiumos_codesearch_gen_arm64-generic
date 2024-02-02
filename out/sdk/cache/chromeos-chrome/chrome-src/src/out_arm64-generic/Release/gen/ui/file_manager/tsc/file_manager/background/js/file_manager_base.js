@@ -7,7 +7,7 @@ import { getDirectory } from '../../common/js/api.js';
 import { FilesAppState } from '../../common/js/files_app_state.js';
 import { recordInterval } from '../../common/js/metrics.js';
 import { isInGuestMode } from '../../common/js/util.js';
-import { ARCHIVE_OPENED_EVENT_TYPE, Source, VOLUME_ALREADY_MOUNTED, VolumeError, VolumeType } from '../../common/js/volume_manager_types.js';
+import { ARCHIVE_OPENED_EVENT_TYPE, Source, VOLUME_ALREADY_MOUNTED, VolumeType } from '../../common/js/volume_manager_types.js';
 import { AppWindowWrapper } from './app_window_wrapper.js';
 import { Crostini } from './crostini.js';
 import { DriveSyncHandlerImpl } from './drive_sync_handler.js';
@@ -210,8 +210,9 @@ export class FileManagerBase {
      * @param event Event details.
      */
     onMountCompletedInternal_(event) {
-        const statusOK = event.status === VolumeError.SUCCESS ||
-            event.status === VolumeError.PATH_ALREADY_MOUNTED;
+        const statusOK = event.status === chrome.fileManagerPrivate.MountError.SUCCESS ||
+            event.status ===
+                chrome.fileManagerPrivate.MountError.PATH_ALREADY_MOUNTED;
         const volumeTypeOK = event.volumeMetadata.volumeType === VolumeType.PROVIDED &&
             event.volumeMetadata.source === Source.FILE;
         if (event.eventType === 'mount' && statusOK &&

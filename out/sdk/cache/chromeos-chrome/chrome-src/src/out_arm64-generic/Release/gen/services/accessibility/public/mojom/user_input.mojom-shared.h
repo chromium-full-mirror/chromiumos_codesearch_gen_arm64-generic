@@ -26,6 +26,7 @@
 #include "services/accessibility/public/mojom/user_input.mojom-shared-internal.h"
 #include "ui/events/mojom/event.mojom-shared.h"
 #include "ui/events/mojom/event_constants.mojom-shared.h"
+#include "ui/gfx/geometry/mojom/geometry.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
 #include "mojo/public/cpp/system/data_pipe.h"
 
@@ -36,6 +37,8 @@
 
 namespace ax::mojom {
 class SyntheticKeyEventDataView;
+
+class SyntheticMouseEventDataView;
 
 
 
@@ -51,11 +54,40 @@ struct MojomTypeTraits<::ax::mojom::SyntheticKeyEventDataView> {
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
 
+template <>
+struct MojomTypeTraits<::ax::mojom::SyntheticMouseEventDataView> {
+  using Data = ::ax::mojom::internal::SyntheticMouseEvent_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
 }  // namespace internal
 }  // namespace mojo
 
 
 namespace ax::mojom {
+
+
+enum class SyntheticMouseEventButton : int32_t {
+  
+  kLeft = 0,
+  
+  kMiddle = 1,
+  
+  kRight = 2,
+  
+  kBack = 3,
+  
+  kForward = 4,
+  kMinValue = 0,
+  kMaxValue = 4,
+};
+
+ std::ostream& operator<<(std::ostream& os, SyntheticMouseEventButton value);
+inline bool IsKnownEnumValue(SyntheticMouseEventButton value) {
+  return internal::SyntheticMouseEventButton_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
 // Interface base classes. They are used for type safety check.
 class UserInputInterfaceBase {};
 
@@ -108,13 +140,96 @@ class SyntheticKeyEventDataView {
 };
 
 
+class SyntheticMouseEventDataView {
+ public:
+  SyntheticMouseEventDataView() = default;
+
+  SyntheticMouseEventDataView(
+      internal::SyntheticMouseEvent_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  template <typename UserType>
+  [[nodiscard]] bool ReadType(UserType* output) const {
+    auto data_value = data_->type;
+    return mojo::internal::Deserialize<::ui::mojom::EventType>(
+        data_value, output);
+  }
+  ::ui::mojom::EventType type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ui::mojom::EventType>(data_->type));
+  }
+  inline void GetPointDataView(
+      ::gfx::mojom::PointDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPoint(UserType* output) {
+    
+    auto* pointer = data_->point.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::PointDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadMouseButton(UserType* output) const {
+    if (!data_->mouse_button_$flag) {
+      *output = std::nullopt;
+      return true;
+    }
+
+    return mojo::internal::Deserialize<::ax::mojom::SyntheticMouseEventButton>(
+        data_->mouse_button_$value, &output->emplace());
+  }
+  std::optional<SyntheticMouseEventButton> mouse_button() const {
+    if (!data_->mouse_button_$flag) {
+      return std::nullopt;
+    }
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::ax::mojom::SyntheticMouseEventButton>(data_->mouse_button_$value));
+  }
+  std::optional<bool> touch_accessibility() const {
+
+    return data_->touch_accessibility_$flag
+        ? std::make_optional(!!data_->touch_accessibility_$value)
+        : std::nullopt;
+  }
+ private:
+  internal::SyntheticMouseEvent_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 }  // ax::mojom
 
 namespace std {
 
+template <>
+struct hash<::ax::mojom::SyntheticMouseEventButton>
+    : public mojo::internal::EnumHashImpl<::ax::mojom::SyntheticMouseEventButton> {};
+
 }  // namespace std
 
 namespace mojo {
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ax::mojom::SyntheticMouseEventButton, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::ax::mojom::SyntheticMouseEventButton, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::ax::mojom::SyntheticMouseEventButton>(input)), output);
+  }
+};
+
+}  // namespace internal
 
 
 namespace internal {
@@ -160,6 +275,61 @@ struct Serializer<::ax::mojom::SyntheticKeyEventDataView, MaybeConstUserType> {
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::ax::mojom::SyntheticMouseEventDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::ax::mojom::SyntheticMouseEventDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::ax::mojom::internal::SyntheticMouseEvent_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    mojo::internal::Serialize<::ui::mojom::EventType>(
+        Traits::type(input), &fragment->type);
+    decltype(Traits::point(input)) in_point = Traits::point(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->point)::BaseType> point_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::PointDataView>(
+        in_point, point_fragment);
+    fragment->point.Set(
+        point_fragment.is_null() ? nullptr : point_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->point.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null point in SyntheticMouseEvent struct");
+    fragment->mouse_button_$flag = Traits::mouse_button(input).has_value();
+    if (Traits::mouse_button(input).has_value()) {
+      mojo::internal::Serialize<::ax::mojom::SyntheticMouseEventButton>(
+          Traits::mouse_button(input).value(), &fragment->mouse_button_$value);
+    } else {
+      fragment->mouse_button_$value =
+          static_cast<int32_t>(::ax::mojom::SyntheticMouseEventButton::kMinValue);
+    }
+    fragment->touch_accessibility_$flag = Traits::touch_accessibility(input).has_value();
+    if (Traits::touch_accessibility(input).has_value()) {
+      fragment->touch_accessibility_$value = Traits::touch_accessibility(input).value();
+    }
+  }
+
+  static bool Deserialize(::ax::mojom::internal::SyntheticMouseEvent_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::ax::mojom::SyntheticMouseEventDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -172,10 +342,26 @@ inline void SyntheticKeyEventDataView::GetKeyDataDataView(
 }
 
 
+inline void SyntheticMouseEventDataView::GetPointDataView(
+    ::gfx::mojom::PointDataView* output) {
+  auto pointer = data_->point.Get();
+  *output = ::gfx::mojom::PointDataView(pointer, message_);
+}
+
+
 
 }  // ax::mojom
 
 // Declare TraceFormatTraits for enums, which should be defined in ::perfetto
 // namespace.
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::ax::mojom::SyntheticMouseEventButton> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::ax::mojom::SyntheticMouseEventButton value);
+};
+
+} // namespace perfetto
 
 #endif  // SERVICES_ACCESSIBILITY_PUBLIC_MOJOM_USER_INPUT_MOJOM_SHARED_H_

@@ -8032,6 +8032,20 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kV8ElementInternals_AriaOwnsElements_AttributeGetter";
     case WebFeature::kV8ElementInternals_AriaOwnsElements_AttributeSetter:
       return "kV8ElementInternals_AriaOwnsElements_AttributeSetter";
+    case WebFeature::kIdentityDigitalCredentials:
+      return "kIdentityDigitalCredentials";
+    case WebFeature::kCSSSelectorPseudoState:
+      return "kCSSSelectorPseudoState";
+    case WebFeature::kSpeculationRulesPrefetch:
+      return "kSpeculationRulesPrefetch";
+    case WebFeature::kSpeculationRulesAuthorPrefetchRule:
+      return "kSpeculationRulesAuthorPrefetchRule";
+    case WebFeature::kSpeculationRulesAuthorPrerenderRule:
+      return "kSpeculationRulesAuthorPrerenderRule";
+    case WebFeature::kSpeculationRulesBrowserPrefetchRule:
+      return "kSpeculationRulesBrowserPrefetchRule";
+    case WebFeature::kSpeculationRulesBrowserPrerenderRule:
+      return "kSpeculationRulesBrowserPrerenderRule";
     case WebFeature::kNumberOfFeatures:
       return "kNumberOfFeatures";
     default:

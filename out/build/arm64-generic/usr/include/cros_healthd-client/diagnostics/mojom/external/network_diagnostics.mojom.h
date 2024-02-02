@@ -354,7 +354,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewLanConnectivityProblems(
       std::vector<LanConnectivityProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_lan_connectivity_problems(std::move(value));
     return result;
   }
@@ -362,7 +362,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewSignalStrengthProblems(
       std::vector<SignalStrengthProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_signal_strength_problems(std::move(value));
     return result;
   }
@@ -370,7 +370,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewGatewayCanBePingedProblems(
       std::vector<GatewayCanBePingedProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_gateway_can_be_pinged_problems(std::move(value));
     return result;
   }
@@ -378,7 +378,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewHasSecureWifiConnectionProblems(
       std::vector<HasSecureWiFiConnectionProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_has_secure_wifi_connection_problems(std::move(value));
     return result;
   }
@@ -386,7 +386,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewDnsResolverPresentProblems(
       std::vector<DnsResolverPresentProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_dns_resolver_present_problems(std::move(value));
     return result;
   }
@@ -394,7 +394,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewDnsLatencyProblems(
       std::vector<DnsLatencyProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_dns_latency_problems(std::move(value));
     return result;
   }
@@ -402,7 +402,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewDnsResolutionProblems(
       std::vector<DnsResolutionProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_dns_resolution_problems(std::move(value));
     return result;
   }
@@ -410,7 +410,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewCaptivePortalProblems(
       std::vector<CaptivePortalProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_captive_portal_problems(std::move(value));
     return result;
   }
@@ -418,7 +418,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewHttpFirewallProblems(
       std::vector<HttpFirewallProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_http_firewall_problems(std::move(value));
     return result;
   }
@@ -426,7 +426,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewHttpsFirewallProblems(
       std::vector<HttpsFirewallProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_https_firewall_problems(std::move(value));
     return result;
   }
@@ -434,7 +434,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewHttpsLatencyProblems(
       std::vector<HttpsLatencyProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_https_latency_problems(std::move(value));
     return result;
   }
@@ -442,7 +442,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewVideoConferencingProblems(
       std::vector<VideoConferencingProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_video_conferencing_problems(std::move(value));
     return result;
   }
@@ -450,7 +450,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewArcHttpProblems(
       std::vector<ArcHttpProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_arc_http_problems(std::move(value));
     return result;
   }
@@ -458,7 +458,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewArcDnsResolutionProblems(
       std::vector<ArcDnsResolutionProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_arc_dns_resolution_problems(std::move(value));
     return result;
   }
@@ -466,7 +466,7 @@ class  RoutineProblems {
   static RoutineProblemsPtr
   NewArcPingProblems(
       std::vector<ArcPingProblem> value) {
-    auto result = RoutineProblemsPtr(absl::in_place);
+    auto result = RoutineProblemsPtr(std::in_place);
     result->set_arc_ping_problems(std::move(value));
     return result;
   }
@@ -757,7 +757,7 @@ class  RoutineResultValue {
   static RoutineResultValuePtr
   NewHttpsLatencyResultValue(
       HttpsLatencyResultValuePtr value) {
-    auto result = RoutineResultValuePtr(absl::in_place);
+    auto result = RoutineResultValuePtr(std::in_place);
     result->set_https_latency_result_value(std::move(value));
     return result;
   }
@@ -858,7 +858,7 @@ class  HttpsLatencyResultValue {
   template <typename... Args>
   static HttpsLatencyResultValuePtr New(Args&&... args) {
     return HttpsLatencyResultValuePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -998,7 +998,7 @@ class  RoutineResult {
   template <typename... Args>
   static RoutineResultPtr New(Args&&... args) {
     return RoutineResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -120,9 +120,9 @@ export class AnimationTimeline extends UI.Widget.VBox {
     constructor() {
         super(true);
         this.element.classList.add('animations-timeline');
-        this.element.setAttribute('jslog', `${VisualLogging.panel().context('animations')}`);
+        this.element.setAttribute('jslog', `${VisualLogging.panel('animations')}`);
         this.#timelineControlsResizer = this.contentElement.createChild('div', 'timeline-controls-resizer');
-        this.#timelineControlsResizer.setAttribute('jslog', `${VisualLogging.resizer().context('animations.timeline-controls').track({ drag: true })}`);
+        this.#timelineControlsResizer.setAttribute('jslog', `${VisualLogging.resizer('animations.timeline-controls').track({ drag: true })}`);
         this.#gridWrapper = this.contentElement.createChild('div', 'grid-overflow-wrapper');
         this.#grid = UI.UIUtils.createSVGChild(this.#gridWrapper, 'svg', 'animation-timeline-grid');
         this.#playbackRate = 1;
@@ -224,6 +224,7 @@ export class AnimationTimeline extends UI.Widget.VBox {
     }
     createHeader() {
         const toolbarContainer = this.contentElement.createChild('div', 'animation-timeline-toolbar-container');
+        toolbarContainer.setAttribute('jslog', `${VisualLogging.toolbar()}`);
         const topToolbar = new UI.Toolbar.Toolbar('animation-timeline-toolbar', toolbarContainer);
         this.#clearButton =
             new UI.Toolbar.ToolbarButton(i18nString(UIStrings.clearAll), 'clear', undefined, 'animations.clear');
@@ -272,7 +273,7 @@ export class AnimationTimeline extends UI.Widget.VBox {
         this.#controlButton.addEventListener("Click" /* UI.Toolbar.ToolbarButton.Events.Click */, this.controlButtonToggle.bind(this));
         toolbar.appendToolbarItem(this.#controlButton);
         this.#gridHeader = container.createChild('div', 'animation-grid-header');
-        this.#gridHeader.setAttribute('jslog', `${VisualLogging.timeline().context('animations.grid-header').track({ drag: true, click: true })}`);
+        this.#gridHeader.setAttribute('jslog', `${VisualLogging.timeline('animations.grid-header').track({ drag: true, click: true })}`);
         UI.UIUtils.installDragHandle(this.#gridHeader, this.scrubberDragStart.bind(this), this.scrubberDragMove.bind(this), this.scrubberDragEnd.bind(this), null);
         this.#gridWrapper.appendChild(this.createScrubber());
         this.#currentTime.textContent = '';

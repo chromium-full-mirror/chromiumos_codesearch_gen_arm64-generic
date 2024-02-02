@@ -3254,6 +3254,14 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
 
+  // position-try-order
+  EPositionTryOrder PositionTryOrder() const {
+    return static_cast<EPositionTryOrder>(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_order_);
+  }
+
+
+
+
   // -webkit-print-color-adjust
   EPrintColorAdjust PrintColorAdjust() const {
     return static_cast<EPrintColorAdjust>(data_.print_color_adjust_);
@@ -4675,6 +4683,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     position_,
     position_fallback_,
     position_fallback_bounds_,
+    position_try_order_,
     print_color_adjust_,
     pseudo_argument_,
     pseudo_element_styles_,
@@ -5889,6 +5898,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
         && inset_area_ == other.inset_area_
         && effective_appearance_ == other.effective_appearance_
         && container_type_ == other.container_type_
+        && position_try_order_ == other.position_try_order_
         && overscroll_behavior_x_ == other.overscroll_behavior_x_
         && overscroll_behavior_y_ == other.overscroll_behavior_y_
         && page_size_type_ == other.page_size_type_
@@ -5967,6 +5977,7 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
     InsetArea inset_area_;
     unsigned effective_appearance_ : 5; // ControlPart
     unsigned container_type_ : 3; // unsigned
+    unsigned position_try_order_ : 3; // EPositionTryOrder
     unsigned overscroll_behavior_x_ : 2; // EOverscrollBehavior
     unsigned overscroll_behavior_y_ : 2; // EOverscrollBehavior
     unsigned page_size_type_ : 2; // PageSizeType
@@ -8759,6 +8770,12 @@ class ComputedStyleBase : public GarbageCollected<ComputedStyleBase> {
 
 
   // position-fallback-bounds
+  
+
+
+
+
+  // position-try-order
   
 
 
@@ -14793,6 +14810,21 @@ class ComputedStyleBuilderBase {
 
 
 
+  // position-try-order
+  EPositionTryOrder PositionTryOrder() const {
+    return static_cast<EPositionTryOrder>(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_order_);
+  }
+
+  void SetPositionTryOrder(EPositionTryOrder v) {
+    if (!(rare_non_inherited_usage_less_than_14_percent_data_->rare_non_inherited_usage_less_than_14_percent_sub_data_->position_try_order_ == static_cast<unsigned>(v)))
+      Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->position_try_order_ = static_cast<unsigned>(v);
+  }
+
+  inline void ResetPositionTryOrder() {
+    Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->position_try_order_ = static_cast<unsigned>(EPositionTryOrder::kNormal);
+  }
+
+
   // -webkit-print-color-adjust
   EPrintColorAdjust PrintColorAdjust() const {
     return static_cast<EPrintColorAdjust>(data_.print_color_adjust_);
@@ -20107,6 +20139,15 @@ class ComputedStyleBuilderBase {
 
   Member<ScopedCSSName>& MutablePositionFallbackBoundsInternal() {
     return Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->position_fallback_bounds_;
+  }
+
+
+  // position-try-order
+  
+
+
+  EPositionTryOrder MutablePositionTryOrderInternal() {
+    return static_cast<EPositionTryOrder>(Access(Access(rare_non_inherited_usage_less_than_14_percent_data_, access_.rare_non_inherited_usage_less_than_14_percent_data_)->rare_non_inherited_usage_less_than_14_percent_sub_data_, access_.rare_non_inherited_usage_less_than_14_percent_sub_data_)->position_try_order_);
   }
 
 

@@ -22,8 +22,6 @@ const webui::ResourcePath kFileManagerResources[] = {
   {"image_loader/background.html", IDR_IMAGE_LOADER_BACKGROUND_HTML},
   {"image_loader/piex/piex.js.wasm", IDR_IMAGE_LOADER_PIEX_WASM_JS},
   {"image_loader/piex/piex.out.wasm", IDR_IMAGE_LOADER_PIEX_WASM},
-  {"image_loader/image_loader_client.js", IDR_IMAGE_LOADER_IMAGE_LOADER_CLIENT_JS},
-  {"image_loader/load_image_request.js", IDR_IMAGE_LOADER_LOAD_IMAGE_REQUEST_JS},
 };
 
 const size_t kFileManagerResourcesSize = std::size(kFileManagerResources);

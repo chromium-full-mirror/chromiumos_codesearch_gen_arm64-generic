@@ -8,7 +8,7 @@ export function getTemplate() {
     </search-and-assistant-settings-card>
   </div>
 
-  <template is="dom-if" if="[[shouldShowQuickAnswersSettings_]]">
+  <template is="dom-if" if="[[isQuickAnswersSupported_]]">
     <template is="dom-if" route-path="/osSearch/search">
       <os-settings-subpage page-title="$i18n{searchSubpageTitle}">
         <settings-search-subpage prefs="{{prefs}}">

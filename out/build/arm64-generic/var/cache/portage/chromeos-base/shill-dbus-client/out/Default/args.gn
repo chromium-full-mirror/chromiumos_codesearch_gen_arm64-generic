@@ -13,7 +13,7 @@ libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/shill-dbus-client"
 platform2_root = "/mnt/host/source/src/platform2"
-libbase_ver = "1253750"
+libbase_ver = "1254430"
 enable_exceptions = false
 external_cflags = [
   "-Os",

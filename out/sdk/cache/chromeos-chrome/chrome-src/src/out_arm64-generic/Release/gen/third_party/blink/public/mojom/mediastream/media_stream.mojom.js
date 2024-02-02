@@ -507,7 +507,7 @@
 
   TrackControls.prototype.initDefaults_ = function() {
     this.streamType = 0;
-    this.deviceId = null;
+    this.deviceIds = null;
   };
   TrackControls.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -536,8 +536,8 @@
         return err;
 
 
-    // validate TrackControls.deviceId
-    err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 8, false)
+    // validate TrackControls.deviceIds
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 8, 8, codec.String, false, [0, 0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -557,8 +557,8 @@
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
-    val.deviceId =
-        decoder.decodeStruct(codec.String);
+    val.deviceIds =
+        decoder.decodeArrayPointer(codec.String);
     return val;
   };
 
@@ -571,7 +571,7 @@
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);
-    encoder.encodeStruct(codec.String, val.deviceId);
+    encoder.encodeArrayPointer(codec.String, val.deviceIds);
   };
   function StreamControls(values) {
     this.initDefaults_();

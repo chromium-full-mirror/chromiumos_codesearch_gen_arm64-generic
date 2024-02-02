@@ -345,6 +345,7 @@
     "preprocessed/os_search_page/search_engine_test.ts",
     "preprocessed/os_search_page/search_subpage_test.ts",
     "preprocessed/os_search_page/test_search_engines_browser_proxy.ts",
+    "preprocessed/os_settings_main/managed_footnote_test.ts",
     "preprocessed/os_settings_main/os_settings_main_test.ts",
     "preprocessed/os_settings_menu/os_settings_menu_test.ts",
     "preprocessed/os_settings_menu/os_settings_menu_revamp_test.ts",

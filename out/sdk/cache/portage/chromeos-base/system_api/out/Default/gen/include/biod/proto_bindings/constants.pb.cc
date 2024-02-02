@@ -114,9 +114,9 @@ static ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<std::string>
 static const char ScanResult_names[] = {
     "SCAN_RESULT_IMMOBILE"
     "SCAN_RESULT_INSUFFICIENT"
-    "SCAN_RESULT_MAX"
     "SCAN_RESULT_NO_MATCH"
     "SCAN_RESULT_PARTIAL"
+    "SCAN_RESULT_POWER_BUTTON_PRESSED"
     "SCAN_RESULT_SENSOR_DIRTY"
     "SCAN_RESULT_SUCCESS"
     "SCAN_RESULT_TOO_FAST"
@@ -127,25 +127,25 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::EnumEntry ScanResult_entries[] =
     {
         {{&ScanResult_names[0], 20}, 6},
         {{&ScanResult_names[20], 24}, 2},
-        {{&ScanResult_names[44], 15}, 10001},
-        {{&ScanResult_names[59], 20}, 10000},
-        {{&ScanResult_names[79], 19}, 1},
-        {{&ScanResult_names[98], 24}, 3},
-        {{&ScanResult_names[122], 19}, 0},
-        {{&ScanResult_names[141], 20}, 5},
-        {{&ScanResult_names[161], 20}, 4},
+        {{&ScanResult_names[44], 20}, 10000},
+        {{&ScanResult_names[64], 19}, 1},
+        {{&ScanResult_names[83], 32}, 10001},
+        {{&ScanResult_names[115], 24}, 3},
+        {{&ScanResult_names[139], 19}, 0},
+        {{&ScanResult_names[158], 20}, 5},
+        {{&ScanResult_names[178], 20}, 4},
 };
 
 static const int ScanResult_entries_by_number[] = {
     6,  // 0 -> SCAN_RESULT_SUCCESS
-    4,  // 1 -> SCAN_RESULT_PARTIAL
+    3,  // 1 -> SCAN_RESULT_PARTIAL
     1,  // 2 -> SCAN_RESULT_INSUFFICIENT
     5,  // 3 -> SCAN_RESULT_SENSOR_DIRTY
     8,  // 4 -> SCAN_RESULT_TOO_SLOW
     7,  // 5 -> SCAN_RESULT_TOO_FAST
     0,  // 6 -> SCAN_RESULT_IMMOBILE
-    3,  // 10000 -> SCAN_RESULT_NO_MATCH
-    2,  // 10001 -> SCAN_RESULT_MAX
+    2,  // 10000 -> SCAN_RESULT_NO_MATCH
+    4,  // 10001 -> SCAN_RESULT_POWER_BUTTON_PRESSED
 };
 
 const std::string& ScanResult_Name(ScanResult value) {

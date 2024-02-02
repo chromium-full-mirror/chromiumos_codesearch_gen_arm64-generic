@@ -79,7 +79,7 @@ export class FilterBar extends Common.ObjectWrapper.eventMixin(HBox) {
         this.registerRequiredCSS(filterStyles);
         this.enabled = true;
         this.element.classList.add('filter-bar');
-        this.element.setAttribute('jslog', `${VisualLogging.section('filter-bar')}`);
+        this.element.setAttribute('jslog', `${VisualLogging.toolbar('filter-bar')}`);
         this.stateSetting =
             Common.Settings.Settings.instance().createSetting('filterBar-' + name + '-toggled', Boolean(visibleByDefault));
         this.filterButtonInternal =

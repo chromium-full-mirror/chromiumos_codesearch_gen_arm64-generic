@@ -1653,6 +1653,11 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
         static_cast<const CSSUnresolvedProperty *>(&csspropertypositionfallbackbounds_));
   }
+  constexpr CSSPropertyUnion(::blink::css_longhand::PositionTryOrder property)
+    : csspropertypositiontryorder_(std::move(property)) {
+    DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
+        static_cast<const CSSUnresolvedProperty *>(&csspropertypositiontryorder_));
+  }
   constexpr CSSPropertyUnion(::blink::css_longhand::Prefix property)
     : csspropertyprefix_(std::move(property)) {
     DCHECK(reinterpret_cast<const CSSUnresolvedProperty *>(this) ==
@@ -3879,6 +3884,7 @@ union alignas(kCSSPropertyUnionBytes) CSSPropertyUnion {
   ::blink::css_longhand::PopoverShowDelay csspropertypopovershowdelay_;
   ::blink::css_longhand::PositionFallback csspropertypositionfallback_;
   ::blink::css_longhand::PositionFallbackBounds csspropertypositionfallbackbounds_;
+  ::blink::css_longhand::PositionTryOrder csspropertypositiontryorder_;
   ::blink::css_longhand::Prefix csspropertyprefix_;
   ::blink::css_longhand::Quotes csspropertyquotes_;
   ::blink::css_longhand::R csspropertyr_;
@@ -4589,6 +4595,7 @@ const CSSPropertyUnion kCssProperties[] = {
   ::blink::css_longhand::PopoverShowDelay(),
   ::blink::css_longhand::PositionFallback(),
   ::blink::css_longhand::PositionFallbackBounds(),
+  ::blink::css_longhand::PositionTryOrder(),
   ::blink::css_longhand::Prefix(),
   ::blink::css_longhand::Quotes(),
   ::blink::css_longhand::R(),
@@ -5300,6 +5307,7 @@ const uint8_t kPropertyVisitedIDs[] = {
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kPopoverShowDelay.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kPositionFallback.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kPositionFallbackBounds.
+      static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kPositionTryOrder.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kPrefix.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kQuotes.
       static_cast<uint8_t>(CSSPropertyID::kInvalid),  // kR.
@@ -6044,6 +6052,7 @@ const uint16_t kPropertyUnvisitedIDs[] = {
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kPopoverShowDelay.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kPositionFallback.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kPositionFallbackBounds.
+      static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kPositionTryOrder.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kPrefix.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kQuotes.
       static_cast<uint16_t>(CSSPropertyID::kInvalid),  // kR.

@@ -98,10 +98,10 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) ComponentAuctionModifiedBidP
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> ad;
-  double bid;
+  uint8_t bid_$flag : 1;
+  uint8_t pad1_[7];
+  double bid_$value;
   mojo::internal::Pointer<::blink::mojom::internal::AdCurrency_Data> bid_currency;
-  uint8_t has_bid : 1;
-  uint8_t padfinal_[7];
 
  private:
   friend class mojo::internal::MessageFragment<ComponentAuctionModifiedBidParams_Data>;
@@ -150,9 +150,9 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) ComponentAuctionReportResult
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> top_level_seller_signals;
-  double modified_bid;
-  uint8_t has_modified_bid : 1;
-  uint8_t padfinal_[7];
+  uint8_t modified_bid_$flag : 1;
+  uint8_t pad1_[7];
+  double modified_bid_$value;
 
  private:
   friend class mojo::internal::MessageFragment<ComponentAuctionReportResultParams_Data>;

@@ -8050,9 +8050,23 @@ enum class WebFeature : int32_t {
   
   kV8ElementInternals_AriaOwnsElements_AttributeSetter = 4825,
   
-  kNumberOfFeatures = 4826,
+  kIdentityDigitalCredentials = 4826,
+  
+  kCSSSelectorPseudoState = 4827,
+  
+  kSpeculationRulesPrefetch = 4828,
+  
+  kSpeculationRulesAuthorPrefetchRule = 4829,
+  
+  kSpeculationRulesAuthorPrerenderRule = 4830,
+  
+  kSpeculationRulesBrowserPrefetchRule = 4831,
+  
+  kSpeculationRulesBrowserPrerenderRule = 4832,
+  
+  kNumberOfFeatures = 4833,
   kMinValue = 0,
-  kMaxValue = 4826,
+  kMaxValue = 4833,
 };
 
 COMPONENT_EXPORT(WEB_FEATURE_MOJO_BINDINGS_MOJOM_SHARED) std::ostream& operator<<(std::ostream& os, WebFeature value);

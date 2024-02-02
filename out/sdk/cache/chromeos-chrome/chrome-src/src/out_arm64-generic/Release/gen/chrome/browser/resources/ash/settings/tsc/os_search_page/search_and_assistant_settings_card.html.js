@@ -4,11 +4,11 @@ export function getTemplate() {
 
 <settings-card header-text="$i18n{osSearchPageTitle}">
   
-  <template is="dom-if" if="[[!shouldShowQuickAnswersSettings_]]">
+  <template is="dom-if" if="[[!isQuickAnswersSupported_]]">
     <settings-search-engine deep-link-focus-id$="[[Setting.kPreferredSearchEngine]]">
     </settings-search-engine>
   </template>
-  <template is="dom-if" if="[[shouldShowQuickAnswersSettings_]]">
+  <template is="dom-if" if="[[isQuickAnswersSupported_]]">
     <cr-link-row id="searchRow" start-icon="[[rowIcons_.searchEngine]]" label="$i18n{searchSubpageTitle}" on-click="onSearchClick_" role-description="$i18n{subpageArrowRoleDescription}">
     </cr-link-row>
   </template>

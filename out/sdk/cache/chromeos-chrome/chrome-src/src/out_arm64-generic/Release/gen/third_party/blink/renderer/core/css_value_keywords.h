@@ -1016,9 +1016,13 @@ enum class CSSValueID {
   kYSelfStart = 999,
   kYSelfEnd = 1000,
   kInternalTextareaAuto = 1001,
+  kMostWidth = 1002,
+  kMostHeight = 1003,
+  kMostBlockSize = 1004,
+  kMostInlineSize = 1005,
 };
 
-const int numCSSValueKeywords = 1002;
+const int numCSSValueKeywords = 1006;
 const size_t maxCSSValueKeywordLength = 42;
 
 inline bool IsValidCSSValueID(CSSValueID id)

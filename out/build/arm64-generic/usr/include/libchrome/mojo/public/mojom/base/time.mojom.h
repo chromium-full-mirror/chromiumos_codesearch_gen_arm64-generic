@@ -52,7 +52,7 @@ class  Time {
   template <typename... Args>
   static TimePtr New(Args&&... args) {
     return TimePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -193,7 +193,7 @@ class  TimeDelta {
   template <typename... Args>
   static TimeDeltaPtr New(Args&&... args) {
     return TimeDeltaPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -334,7 +334,7 @@ class  TimeTicks {
   template <typename... Args>
   static TimeTicksPtr New(Args&&... args) {
     return TimeTicksPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

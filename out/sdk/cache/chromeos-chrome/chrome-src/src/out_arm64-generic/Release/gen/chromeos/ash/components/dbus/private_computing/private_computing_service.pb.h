@@ -240,6 +240,7 @@ class ChurnObservationStatus final :
     kIsActiveCurrentPeriodMinus0FieldNumber = 1,
     kIsActiveCurrentPeriodMinus1FieldNumber = 2,
     kIsActiveCurrentPeriodMinus2FieldNumber = 3,
+    kIsFirstPowerwashInObservationPeriodFieldNumber = 4,
   };
   // optional bool is_active_current_period_minus_0 = 1;
   bool has_is_active_current_period_minus_0() const;
@@ -280,6 +281,19 @@ class ChurnObservationStatus final :
   void _internal_set_is_active_current_period_minus_2(bool value);
   public:
 
+  // optional bool is_first_powerwash_in_observation_period = 4;
+  bool has_is_first_powerwash_in_observation_period() const;
+  private:
+  bool _internal_has_is_first_powerwash_in_observation_period() const;
+  public:
+  void clear_is_first_powerwash_in_observation_period();
+  bool is_first_powerwash_in_observation_period() const;
+  void set_is_first_powerwash_in_observation_period(bool value);
+  private:
+  bool _internal_is_first_powerwash_in_observation_period() const;
+  void _internal_set_is_first_powerwash_in_observation_period(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:private_computing.ChurnObservationStatus)
  private:
   class _Internal;
@@ -292,6 +306,7 @@ class ChurnObservationStatus final :
   bool is_active_current_period_minus_0_;
   bool is_active_current_period_minus_1_;
   bool is_active_current_period_minus_2_;
+  bool is_first_powerwash_in_observation_period_;
   friend struct ::TableStruct_private_5fcomputing_5fservice_2eproto;
 };
 // -------------------------------------------------------------------
@@ -1435,6 +1450,34 @@ inline void ChurnObservationStatus::_internal_set_is_active_current_period_minus
 inline void ChurnObservationStatus::set_is_active_current_period_minus_2(bool value) {
   _internal_set_is_active_current_period_minus_2(value);
   // @@protoc_insertion_point(field_set:private_computing.ChurnObservationStatus.is_active_current_period_minus_2)
+}
+
+// optional bool is_first_powerwash_in_observation_period = 4;
+inline bool ChurnObservationStatus::_internal_has_is_first_powerwash_in_observation_period() const {
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  return value;
+}
+inline bool ChurnObservationStatus::has_is_first_powerwash_in_observation_period() const {
+  return _internal_has_is_first_powerwash_in_observation_period();
+}
+inline void ChurnObservationStatus::clear_is_first_powerwash_in_observation_period() {
+  is_first_powerwash_in_observation_period_ = false;
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline bool ChurnObservationStatus::_internal_is_first_powerwash_in_observation_period() const {
+  return is_first_powerwash_in_observation_period_;
+}
+inline bool ChurnObservationStatus::is_first_powerwash_in_observation_period() const {
+  // @@protoc_insertion_point(field_get:private_computing.ChurnObservationStatus.is_first_powerwash_in_observation_period)
+  return _internal_is_first_powerwash_in_observation_period();
+}
+inline void ChurnObservationStatus::_internal_set_is_first_powerwash_in_observation_period(bool value) {
+  _has_bits_[0] |= 0x00000008u;
+  is_first_powerwash_in_observation_period_ = value;
+}
+inline void ChurnObservationStatus::set_is_first_powerwash_in_observation_period(bool value) {
+  _internal_set_is_first_powerwash_in_observation_period(value);
+  // @@protoc_insertion_point(field_set:private_computing.ChurnObservationStatus.is_first_powerwash_in_observation_period)
 }
 
 // -------------------------------------------------------------------

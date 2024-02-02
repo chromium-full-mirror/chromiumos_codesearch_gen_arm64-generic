@@ -335,7 +335,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) TrackControls_Data {
   mojo::internal::StructHeader header_;
   int32_t stream_type;
   uint8_t pad0_[4];
-  mojo::internal::Pointer<mojo::internal::String_Data> device_id;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> device_ids;
 
  private:
   friend class mojo::internal::MessageFragment<TrackControls_Data>;

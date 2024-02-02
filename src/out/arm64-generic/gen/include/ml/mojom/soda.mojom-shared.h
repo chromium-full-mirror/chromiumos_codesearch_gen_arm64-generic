@@ -400,7 +400,7 @@ static_assert(
         ::chromeos::machine_learning::mojom::SodaMultilangConfigDataView, UserType>(),
     "Attempting to read the optional `multi_lang_config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadMultiLangConfig` instead "
     "of `ReadMultiLangConfig if you're fine with null values being "
@@ -526,7 +526,7 @@ static_assert(
         ::chromeos::machine_learning::mojom::TimingInfoDataView, UserType>(),
     "Attempting to read the optional `timing_event` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTimingEvent` instead "
     "of `ReadTimingEvent if you're fine with null values being "
@@ -572,7 +572,7 @@ static_assert(
         ::chromeos::machine_learning::mojom::TimingInfoDataView, UserType>(),
     "Attempting to read the optional `timing_event` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTimingEvent` instead "
     "of `ReadTimingEvent if you're fine with null values being "
@@ -664,7 +664,7 @@ static_assert(
         ::chromeos::machine_learning::mojom::TimingInfoDataView, UserType>(),
     "Attempting to read the optional `timing_event` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTimingEvent` instead "
     "of `ReadTimingEvent if you're fine with null values being "
@@ -684,7 +684,7 @@ static_assert(
         mojo::ArrayDataView<::chromeos::machine_learning::mojom::HypothesisPartInResultDataView>, UserType>(),
     "Attempting to read the optional `hypothesis_part` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadHypothesisPart` instead "
     "of `ReadHypothesisPart if you're fine with null values being "

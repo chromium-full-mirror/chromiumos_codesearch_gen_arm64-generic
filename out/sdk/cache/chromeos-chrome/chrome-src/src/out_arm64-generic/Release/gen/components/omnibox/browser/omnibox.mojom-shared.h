@@ -148,6 +148,24 @@ inline bool IsKnownEnumValue(SideType value) {
 }
 
 
+enum class RenderType : int32_t {
+  
+  kDefaultVertical = 0,
+  
+  kHorizontal = 1,
+  
+  kGrid = 2,
+  kMinValue = 0,
+  kMaxValue = 2,
+};
+
+ std::ostream& operator<<(std::ostream& os, RenderType value);
+inline bool IsKnownEnumValue(RenderType value) {
+  return internal::RenderType_Data::IsKnownValue(
+      static_cast<int32_t>(value));
+}
+
+
 enum class SelectionLineState : int32_t {
   
   kFocusedButtonHeader = 0,
@@ -568,6 +586,16 @@ class SuggestionGroupDataView {
     return data_->hidden;
   }
   template <typename UserType>
+  [[nodiscard]] bool ReadRenderType(UserType* output) const {
+    auto data_value = data_->render_type;
+    return mojo::internal::Deserialize<::omnibox::mojom::RenderType>(
+        data_value, output);
+  }
+  RenderType render_type() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::omnibox::mojom::RenderType>(data_->render_type));
+  }
+  template <typename UserType>
   [[nodiscard]] bool ReadSideType(UserType* output) const {
     auto data_value = data_->side_type;
     return mojo::internal::Deserialize<::omnibox::mojom::SideType>(
@@ -673,6 +701,10 @@ struct hash<::omnibox::mojom::SideType>
     : public mojo::internal::EnumHashImpl<::omnibox::mojom::SideType> {};
 
 template <>
+struct hash<::omnibox::mojom::RenderType>
+    : public mojo::internal::EnumHashImpl<::omnibox::mojom::RenderType> {};
+
+template <>
 struct hash<::omnibox::mojom::SelectionLineState>
     : public mojo::internal::EnumHashImpl<::omnibox::mojom::SelectionLineState> {};
 
@@ -715,6 +747,26 @@ struct Serializer<::omnibox::mojom::SideType, MaybeConstUserType> {
   static bool Deserialize(int32_t input, UserType* output) {
     return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
         static_cast<::omnibox::mojom::SideType>(input)), output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::omnibox::mojom::RenderType, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = EnumTraits<::omnibox::mojom::RenderType, UserType>;
+
+  static void Serialize(UserType input, int32_t* output) {
+    *output = static_cast<int32_t>(Traits::ToMojom(input));
+  }
+
+  static bool Deserialize(int32_t input, UserType* output) {
+    return Traits::FromMojom(::mojo::internal::ToKnownEnumValueHelper(
+        static_cast<::omnibox::mojom::RenderType>(input)), output);
   }
 };
 
@@ -1181,6 +1233,8 @@ struct Serializer<::omnibox::mojom::SuggestionGroupDataView, MaybeConstUserType>
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null show_group_a11y_label in SuggestionGroup struct");
     fragment->hidden = Traits::hidden(input);
+    mojo::internal::Serialize<::omnibox::mojom::RenderType>(
+        Traits::render_type(input), &fragment->render_type);
     mojo::internal::Serialize<::omnibox::mojom::SideType>(
         Traits::side_type(input), &fragment->side_type);
   }
@@ -1479,6 +1533,15 @@ namespace perfetto {
 template <>
 struct  TraceFormatTraits<::omnibox::mojom::SideType> {
  static void WriteIntoTrace(perfetto::TracedValue context, ::omnibox::mojom::SideType value);
+};
+
+} // namespace perfetto
+
+namespace perfetto {
+
+template <>
+struct  TraceFormatTraits<::omnibox::mojom::RenderType> {
+ static void WriteIntoTrace(perfetto::TracedValue context, ::omnibox::mojom::RenderType value);
 };
 
 } // namespace perfetto

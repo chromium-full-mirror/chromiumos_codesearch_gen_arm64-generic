@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 import { entriesToURLs } from '../../../common/js/entry_utils.js';
 import { FilesAppEntry } from '../../../common/js/files_app_entry_types.js';
+import { MetadataStats } from '../../../common/js/shared_types.js';
 import { getStore } from '../../../state/store.js';
 import { ContentMetadataProvider } from './content_metadata_provider.js';
 import { DlpMetadataProvider } from './dlp_metadata_provider.js';
@@ -12,23 +13,7 @@ import { MetadataCacheSet } from './metadata_cache_set.js';
 import { MetadataItem } from './metadata_item.js';
 import { MetadataProvider } from './metadata_provider.js';
 import { MultiMetadataProvider } from './multi_metadata_provider.js';
-/**
- * Stats collected about Metadata handling for tests.
- */
-export class MetadataStats {
-    constructor() {
-        /** Total of entries fulfilled from cache. */
-        this.fromCache = 0;
-        /** Total of entries that requested to backends. */
-        this.fullFetch = 0;
-        /** Total of entries that called to invalidate. */
-        this.invalidateCount = 0;
-        /** Total of entries that called to clear. */
-        this.clearCacheCount = 0;
-        /** Total of calls to function clearAllCache. */
-        this.clearAllCount = 0;
-    }
-}
+export { MetadataStats } from '../../../common/js/shared_types.js';
 export class MetadataModel {
     constructor(rawProvider_) {
         this.rawProvider_ = rawProvider_;

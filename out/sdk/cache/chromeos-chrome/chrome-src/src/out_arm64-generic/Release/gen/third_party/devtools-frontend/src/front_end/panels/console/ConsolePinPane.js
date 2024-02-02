@@ -62,7 +62,7 @@ export class ConsolePinPane extends UI.ThrottledWidget.ThrottledWidget {
         this.focusOut = focusOut;
         this.contentElement.classList.add('console-pins', 'monospace');
         this.contentElement.addEventListener('contextmenu', this.contextMenuEventFired.bind(this), false);
-        this.contentElement.setAttribute('jslog', `${VisualLogging.pane().context('console-pins')}`);
+        this.contentElement.setAttribute('jslog', `${VisualLogging.pane('console-pins')}`);
         this.pins = new Set();
         this.pinsSetting = Common.Settings.Settings.instance().createLocalSetting('consolePins', []);
         for (const expression of this.pinsSetting.get()) {

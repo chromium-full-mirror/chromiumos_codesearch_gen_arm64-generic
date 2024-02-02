@@ -373,13 +373,13 @@ bool TrackControls_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->device_id, 2, validation_context)) {
+          object->device_ids, 2, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& device_id_validate_params =
-      mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->device_id, validation_context,
-                                         &device_id_validate_params)) {
+  constexpr const mojo::internal::ContainerValidateParams& device_ids_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->device_ids, validation_context,
+                                         &device_ids_validate_params)) {
     return false;
   }
 

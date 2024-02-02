@@ -158,7 +158,8 @@ ArcNotificationData::ArcNotificationData()
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -207,7 +208,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -258,7 +260,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -311,7 +314,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -365,7 +369,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -420,7 +425,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -477,7 +483,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -535,7 +542,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -594,7 +602,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -654,7 +663,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -715,7 +725,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -777,7 +788,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -840,7 +852,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -904,7 +917,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -970,7 +984,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -1037,7 +1052,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -1106,7 +1122,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -1176,7 +1193,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -1247,7 +1265,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(std::move(render_on_chrome_in)),
       group_key(),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -1319,7 +1338,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(std::move(render_on_chrome_in)),
       group_key(std::move(group_key_in)),
       reply_button_index(),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -1392,7 +1412,8 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(std::move(render_on_chrome_in)),
       group_key(std::move(group_key_in)),
       reply_button_index(std::move(reply_button_index_in)),
-      children_data() {}
+      children_data(),
+      messages() {}
 
 ArcNotificationData::ArcNotificationData(
     const std::string& key_in,
@@ -1466,7 +1487,84 @@ ArcNotificationData::ArcNotificationData(
       render_on_chrome(std::move(render_on_chrome_in)),
       group_key(std::move(group_key_in)),
       reply_button_index(std::move(reply_button_index_in)),
-      children_data(std::move(children_data_in)) {}
+      children_data(std::move(children_data_in)),
+      messages() {}
+
+ArcNotificationData::ArcNotificationData(
+    const std::string& key_in,
+    ArcNotificationType type_in,
+    const std::string& message_in,
+    const std::string& title_in,
+    const std::optional<std::string>& app_display_name_in,
+    std::optional<std::vector<uint8_t>> deprecated_icon_data_in,
+    ArcNotificationPriority priority_in,
+    int64_t time_in,
+    int32_t progress_current_in,
+    int32_t progress_max_in,
+    std::optional<std::vector<ArcNotificationButtonPtr>> buttons_in,
+    bool no_clear_in,
+    bool ongoing_event_in,
+    std::optional<std::vector<std::string>> texts_in,
+    const std::optional<::SkBitmap>& big_picture_in,
+    bool is_custom_notification_in,
+    const std::optional<::SkBitmap>& small_icon_in,
+    const std::optional<::SkBitmap>& snapshot_image_in,
+    float snapshot_image_scale_in,
+    const std::optional<std::string>& accessible_name_in,
+    ArcNotificationExpandState expand_state_in,
+    ArcNotificationShownContents shown_contents_in,
+    ArcNotificationRemoteInputState remote_input_state_in,
+    const std::optional<::gfx::Rect>& swipe_input_rect_in,
+    const std::optional<std::string>& package_name_in,
+    ArcNotificationFlagsPtr flags_in,
+    bool indeterminate_progress_in,
+    const std::optional<::SkBitmap>& snapshot_image_public_in,
+    bool is_media_notification_in,
+    ArcNotificationStyle style_in,
+    bool is_action_enabled_in,
+    bool is_inline_reply_enabled_in,
+    bool render_on_chrome_in,
+    const std::optional<std::string>& group_key_in,
+    int32_t reply_button_index_in,
+    std::optional<std::vector<ArcNotificationDataPtr>> children_data_in,
+    std::optional<std::vector<ArcNotificationMessagePtr>> messages_in)
+    : key(std::move(key_in)),
+      type(std::move(type_in)),
+      message(std::move(message_in)),
+      title(std::move(title_in)),
+      app_display_name(std::move(app_display_name_in)),
+      deprecated_icon_data(std::move(deprecated_icon_data_in)),
+      priority(std::move(priority_in)),
+      time(std::move(time_in)),
+      progress_current(std::move(progress_current_in)),
+      progress_max(std::move(progress_max_in)),
+      buttons(std::move(buttons_in)),
+      no_clear(std::move(no_clear_in)),
+      ongoing_event(std::move(ongoing_event_in)),
+      texts(std::move(texts_in)),
+      big_picture(std::move(big_picture_in)),
+      is_custom_notification(std::move(is_custom_notification_in)),
+      small_icon(std::move(small_icon_in)),
+      snapshot_image(std::move(snapshot_image_in)),
+      snapshot_image_scale(std::move(snapshot_image_scale_in)),
+      accessible_name(std::move(accessible_name_in)),
+      expand_state(std::move(expand_state_in)),
+      shown_contents(std::move(shown_contents_in)),
+      remote_input_state(std::move(remote_input_state_in)),
+      swipe_input_rect(std::move(swipe_input_rect_in)),
+      package_name(std::move(package_name_in)),
+      flags(std::move(flags_in)),
+      indeterminate_progress(std::move(indeterminate_progress_in)),
+      snapshot_image_public(std::move(snapshot_image_public_in)),
+      is_media_notification(std::move(is_media_notification_in)),
+      style(std::move(style_in)),
+      is_action_enabled(std::move(is_action_enabled_in)),
+      is_inline_reply_enabled(std::move(is_inline_reply_enabled_in)),
+      render_on_chrome(std::move(render_on_chrome_in)),
+      group_key(std::move(group_key_in)),
+      reply_button_index(std::move(reply_button_index_in)),
+      children_data(std::move(children_data_in)),
+      messages(std::move(messages_in)) {}
 
 ArcNotificationData::~ArcNotificationData() = default;
 
@@ -1797,6 +1895,15 @@ void ArcNotificationData::WriteIntoTrace(
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
     );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "messages"), this->messages,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<std::vector<ArcNotificationMessagePtr>>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
 }
 
 bool ArcNotificationData::Validate(
@@ -1980,6 +2087,58 @@ void NotificationConfiguration::WriteIntoTrace(
 }
 
 bool NotificationConfiguration::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ArcNotificationMessage::ArcNotificationMessage()
+    : message(),
+      sender_name(),
+      sender_icon() {}
+
+ArcNotificationMessage::ArcNotificationMessage(
+    const std::optional<std::string>& message_in,
+    const std::optional<std::string>& sender_name_in,
+    const std::optional<::SkBitmap>& sender_icon_in)
+    : message(std::move(message_in)),
+      sender_name(std::move(sender_name_in)),
+      sender_icon(std::move(sender_icon_in)) {}
+
+ArcNotificationMessage::~ArcNotificationMessage() = default;
+
+void ArcNotificationMessage::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "message"), this->message,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "sender_name"), this->sender_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "sender_icon"), this->sender_icon,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::optional<::SkBitmap>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ArcNotificationMessage::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
@@ -4729,6 +4888,8 @@ bool StructTraits<::arc::mojom::ArcNotificationData::DataView, ::arc::mojom::Arc
         result->reply_button_index = input.reply_button_index();
       if (success && !input.ReadChildrenData(&result->children_data))
         success = false;
+      if (success && !input.ReadMessages(&result->messages))
+        success = false;
   *output = std::move(result);
   return success;
 }
@@ -4793,6 +4954,24 @@ bool StructTraits<::arc::mojom::NotificationConfiguration::DataView, ::arc::mojo
   
       if (success)
         result->expansion_animation = input.expansion_animation();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::arc::mojom::ArcNotificationMessage::DataView, ::arc::mojom::ArcNotificationMessagePtr>::Read(
+    ::arc::mojom::ArcNotificationMessage::DataView input,
+    ::arc::mojom::ArcNotificationMessagePtr* output) {
+  bool success = true;
+  ::arc::mojom::ArcNotificationMessagePtr result(::arc::mojom::ArcNotificationMessage::New());
+  
+      if (success && !input.ReadMessage(&result->message))
+        success = false;
+      if (success && !input.ReadSenderName(&result->sender_name))
+        success = false;
+      if (success && !input.ReadSenderIcon(&result->sender_icon))
+        success = false;
   *output = std::move(result);
   return success;
 }

@@ -1,9 +1,0 @@
-{
-  "version": 1.0,
-  "mapping": [
-    {
-      "src_path": "src/platform/tast",
-      "build_dest_path": "/var/tmp/portage/chromeos-base/tast-cmd-0.0.1-r2306/work/tast-cmd-0.0.1"
-    }
-  ]
-}

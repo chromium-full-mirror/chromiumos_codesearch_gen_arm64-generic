@@ -27,16 +27,16 @@ suite('<search-and-assistant-settings-card>', () => {
     setup(() => {
         loadTimeData.overrideValues({
             isAssistantAllowed: false,
-            shouldShowQuickAnswersSettings: false,
+            isQuickAnswersSupported: false,
         });
     });
     teardown(() => {
         searchAndAssistantSettingsCard.remove();
         Router.getInstance().resetRouteForTesting();
     });
-    suite('when Quick Answers settings are available', () => {
+    suite('when Quick Answers is supported', () => {
         setup(() => {
-            loadTimeData.overrideValues({ shouldShowQuickAnswersSettings: true });
+            loadTimeData.overrideValues({ isQuickAnswersSupported: true });
         });
         test('Search subpage row should be visible', () => {
             createSearchAndAssistantCard();
@@ -49,7 +49,7 @@ suite('<search-and-assistant-settings-card>', () => {
             assertNull(searchEngineRow);
         });
     });
-    suite('when Quick Answers settings are not available', () => {
+    suite('when Quick Answers is not supported', () => {
         test('Search engine row should be visible', () => {
             createSearchAndAssistantCard();
             const searchEngineRow = searchAndAssistantSettingsCard.shadowRoot.querySelector('settings-search-engine');
@@ -106,7 +106,7 @@ suite('<search-and-assistant-settings-card>', () => {
         test(`Row for ${routeName} is focused when returning from subpage`, async () => {
             loadTimeData.overrideValues({
                 isAssistantAllowed: true, // Show google assistant row
-                shouldShowQuickAnswersSettings: true, // Show quick answers row
+                isQuickAnswersSupported: true, // Show quick answers row
             });
             createSearchAndAssistantCard();
             Router.getInstance().navigateTo(defaultRoute);

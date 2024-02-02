@@ -667,9 +667,7 @@ struct zaura_surface_interface {
 	/**
 	 * set the frame colors of this surface
 	 *
-	 * Set the frame colors. This must be set before the initial
-	 * commit first, otherwise the subsequent request may not be
-	 * fulfilled.
+	 * Set the frame colors.
 	 * @param active_color 32 bit ARGB color value, not premultiplied
 	 * @param inactive_color 32 bit ARGB color value, not premultiplied
 	 * @since 3
@@ -1932,9 +1930,8 @@ struct zaura_toplevel_interface {
 	 *
 	 * Clients are allowed to request a particular decoration for a
 	 * zaura_toplevel. The server is not required to honor this
-	 * request. See decoration_type for available options. This must be
-	 * set before the initial commit first, otherwise the subsequent
-	 * request may not be fulfilled. Available since M105.
+	 * request. See decoration_type for available options. Available
+	 * since M105.
 	 * @param type the new frame type
 	 * @since 35
 	 */

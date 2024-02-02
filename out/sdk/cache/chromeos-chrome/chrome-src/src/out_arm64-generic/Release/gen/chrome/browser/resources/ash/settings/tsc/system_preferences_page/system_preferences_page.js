@@ -21,7 +21,7 @@ import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { isAssistantAllowed, isExternalStorageEnabled, isGuest, isPowerwashAllowed, isRevampWayfindingEnabled, shouldShowMultitasking, shouldShowQuickAnswersSettings, shouldShowStartup } from '../common/load_time_booleans.js';
+import { isAssistantAllowed, isExternalStorageEnabled, isGuest, isPowerwashAllowed, isQuickAnswersSupported, isRevampWayfindingEnabled, shouldShowMultitasking, shouldShowStartup } from '../common/load_time_booleans.js';
 import { Section } from '../mojom-webui/routes.mojom-webui.js';
 import { routes } from '../router.js';
 import { getTemplate } from './system_preferences_page.html.js';
@@ -78,10 +78,10 @@ export class SettingsSystemPreferencesPageElement extends SettingsSystemPreferen
                     return isPowerwashAllowed();
                 },
             },
-            shouldShowQuickAnswersSettings_: {
+            isQuickAnswersSupported_: {
                 type: Boolean,
                 value: () => {
-                    return shouldShowQuickAnswersSettings();
+                    return isQuickAnswersSupported();
                 },
             },
             isAssistantAllowed_: {

@@ -12,6 +12,7 @@
 #include "mojo/public/cpp/bindings/lib/buffer.h"
 #include "ui/events/mojom/event.mojom-shared-internal.h"
 #include "ui/events/mojom/event_constants.mojom-shared-internal.h"
+#include "ui/gfx/geometry/mojom/geometry.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"
 #include "mojo/public/interfaces/bindings/native_struct.mojom-shared-internal.h"
 
@@ -27,6 +28,34 @@ class ValidationContext;
 namespace ax::mojom {
 namespace internal {
 class SyntheticKeyEvent_Data;
+class SyntheticMouseEvent_Data;
+
+struct SyntheticMouseEventButton_Data {
+ public:
+  static bool constexpr kIsExtensible = false;
+
+  static bool IsKnownValue(int32_t value) {
+    switch (value) {
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        return true;
+    }
+    return false;
+  }
+
+  static bool Validate(int32_t value,
+                       mojo::internal::ValidationContext* validation_context) {
+    if (kIsExtensible || IsKnownValue(value))
+      return true;
+
+    ReportValidationError(validation_context,
+                          mojo::internal::VALIDATION_ERROR_UNKNOWN_ENUM_VALUE);
+    return false;
+  }
+};
 
 #pragma pack(push, 1)
 class  SyntheticKeyEvent_Data {
@@ -79,6 +108,61 @@ struct SyntheticKeyEvent_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     SyntheticKeyEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  SyntheticMouseEvent_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  int32_t type;
+  uint8_t mouse_button_$flag : 1;
+  uint8_t touch_accessibility_$flag : 1;
+  uint8_t touch_accessibility_$value : 1;
+  uint8_t pad3_[3];
+  mojo::internal::Pointer<::gfx::mojom::internal::Point_Data> point;
+  int32_t mouse_button_$value;
+  uint8_t padfinal_[4];
+
+ private:
+  friend class mojo::internal::MessageFragment<SyntheticMouseEvent_Data>;
+
+  SyntheticMouseEvent_Data();
+  ~SyntheticMouseEvent_Data() = delete;
+};
+static_assert(sizeof(SyntheticMouseEvent_Data) == 32,
+              "Bad sizeof(SyntheticMouseEvent_Data)");
+// Used by SyntheticMouseEvent::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct SyntheticMouseEvent_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  SyntheticMouseEvent_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~SyntheticMouseEvent_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<SyntheticMouseEvent_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    SyntheticMouseEvent_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

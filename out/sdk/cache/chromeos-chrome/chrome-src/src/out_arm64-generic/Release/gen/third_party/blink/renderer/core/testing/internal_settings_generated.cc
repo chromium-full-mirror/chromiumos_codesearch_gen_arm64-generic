@@ -227,6 +227,8 @@ InternalSettingsGenerated::InternalSettingsGenerated(Page& page)
       GetSettings().GetPreferredColorScheme());
   backup_.SetPreferredContrast(
       GetSettings().GetPreferredContrast());
+  backup_.SetPrefersDefaultScrollbarStyles(
+      GetSettings().GetPrefersDefaultScrollbarStyles());
   backup_.SetPrefersReducedMotion(
       GetSettings().GetPrefersReducedMotion());
   backup_.SetPrefersReducedTransparency(
@@ -578,6 +580,8 @@ void InternalSettingsGenerated::ResetToConsistentState() {
       backup_.GetPreferredColorScheme());
   GetSettings().SetPreferredContrast(
       backup_.GetPreferredContrast());
+  GetSettings().SetPrefersDefaultScrollbarStyles(
+      backup_.GetPrefersDefaultScrollbarStyles());
   GetSettings().SetPrefersReducedMotion(
       backup_.GetPrefersReducedMotion());
   GetSettings().SetPrefersReducedTransparency(
@@ -1184,6 +1188,11 @@ void InternalSettingsGenerated::setPluginsEnabled(
 void InternalSettingsGenerated::setPreferHiddenVolumeControls(
     bool preferHiddenVolumeControls) {
   GetSettings().SetPreferHiddenVolumeControls(preferHiddenVolumeControls);
+}
+
+void InternalSettingsGenerated::setPrefersDefaultScrollbarStyles(
+    bool prefersDefaultScrollbarStyles) {
+  GetSettings().SetPrefersDefaultScrollbarStyles(prefersDefaultScrollbarStyles);
 }
 
 void InternalSettingsGenerated::setPrefersReducedMotion(

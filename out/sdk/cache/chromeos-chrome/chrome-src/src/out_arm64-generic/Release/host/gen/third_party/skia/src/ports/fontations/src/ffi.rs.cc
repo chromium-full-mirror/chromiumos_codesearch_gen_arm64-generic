@@ -1145,6 +1145,8 @@ bool fontations_ffi$cxxbridge1$font_ref_is_valid(::fontations_ffi::BridgeFontRef
 
 ::fontations_ffi::BridgeOutlineCollection *fontations_ffi$cxxbridge1$get_outline_collection(::fontations_ffi::BridgeFontRef const &font_ref) noexcept;
 
+bool fontations_ffi$cxxbridge1$font_or_collection(::rust::Slice<::std::uint8_t const> font_data, ::std::uint32_t &num_fonts) noexcept;
+
 ::std::uint16_t fontations_ffi$cxxbridge1$lookup_glyph_or_zero(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint32_t codepoint) noexcept;
 
 bool fontations_ffi$cxxbridge1$get_path(::fontations_ffi::BridgeOutlineCollection const &outlines, ::std::uint16_t glyph_id, float size, ::fontations_ffi::BridgeNormalizedCoords const &coords, ::fontations_ffi::PathWrapper &path_wrapper, ::fontations_ffi::BridgeScalerMetrics &scaler_metrics) noexcept;
@@ -1332,6 +1334,13 @@ bool font_ref_is_valid(::fontations_ffi::BridgeFontRef const &bridge_font_ref) n
 
 ::rust::Box<::fontations_ffi::BridgeOutlineCollection> get_outline_collection(::fontations_ffi::BridgeFontRef const &font_ref) noexcept {
   return ::rust::Box<::fontations_ffi::BridgeOutlineCollection>::from_raw(fontations_ffi$cxxbridge1$get_outline_collection(font_ref));
+}
+
+// Returns true on a font or collection, sets `num_fonts``
+// to 0 if single font file, and to > 0 for a TrueType collection.
+// Returns false if the data cannot be interpreted as a font or collection.
+bool font_or_collection(::rust::Slice<::std::uint8_t const> font_data, ::std::uint32_t &num_fonts) noexcept {
+  return fontations_ffi$cxxbridge1$font_or_collection(font_data, num_fonts);
 }
 
 ::std::uint16_t lookup_glyph_or_zero(::fontations_ffi::BridgeFontRef const &font_ref, ::std::uint32_t codepoint) noexcept {

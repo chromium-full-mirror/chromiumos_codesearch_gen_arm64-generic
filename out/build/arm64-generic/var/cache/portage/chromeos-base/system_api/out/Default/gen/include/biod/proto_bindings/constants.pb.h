@@ -84,7 +84,7 @@ enum ScanResult : int {
   SCAN_RESULT_TOO_FAST = 5,
   SCAN_RESULT_IMMOBILE = 6,
   SCAN_RESULT_NO_MATCH = 10000,
-  SCAN_RESULT_MAX = 10001,
+  SCAN_RESULT_POWER_BUTTON_PRESSED = 10001,
 };
 
 bool ScanResult_IsValid(int value);

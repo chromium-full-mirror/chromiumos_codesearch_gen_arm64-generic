@@ -332,6 +332,24 @@ mojo.internal.Struct(DisplaySettingsValueSpec.$, 'DisplaySettingsValue', [
         isPrimary: false,
         originalFieldName: "nightLightSchedule",
     }),
+    mojo.internal.StructField('mirror_mode_status_$flag', 0, 7, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "mirror_mode_status_$value",
+        originalFieldName: "mirrorModeStatus",
+    }),
+    mojo.internal.StructField('mirror_mode_status_$value', 1, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "mirrorModeStatus",
+    }),
+    mojo.internal.StructField('unified_mode_status_$flag', 1, 1, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "unified_mode_status_$value",
+        originalFieldName: "unifiedModeStatus",
+    }),
+    mojo.internal.StructField('unified_mode_status_$value', 1, 2, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "unifiedModeStatus",
+    }),
 ], [[0, 32],]);
 mojo.internal.Struct(TabletModeObserver_OnTabletModeChanged_ParamsSpec.$, 'TabletModeObserver_OnTabletModeChanged_Params', [
     mojo.internal.StructField('isTabletMode', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),

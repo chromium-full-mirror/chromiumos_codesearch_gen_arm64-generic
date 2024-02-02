@@ -199,7 +199,7 @@ class  CameraDiagnosticsFrame {
   template <typename... Args>
   static CameraDiagnosticsFramePtr New(Args&&... args) {
     return CameraDiagnosticsFramePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

@@ -4033,6 +4033,13 @@ struct WebFeature_Data {
       case 4824:
       case 4825:
       case 4826:
+      case 4827:
+      case 4828:
+      case 4829:
+      case 4830:
+      case 4831:
+      case 4832:
+      case 4833:
         return true;
     }
     return false;

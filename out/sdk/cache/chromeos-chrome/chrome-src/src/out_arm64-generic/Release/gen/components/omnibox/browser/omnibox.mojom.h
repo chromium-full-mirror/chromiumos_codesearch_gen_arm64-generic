@@ -1177,6 +1177,7 @@ class  SuggestionGroup {
       const ::std::u16string& hide_group_a11y_label,
       const ::std::u16string& show_group_a11y_label,
       bool hidden,
+      RenderType render_type,
       SideType side_type);
 
 
@@ -1262,6 +1263,8 @@ class  SuggestionGroup {
   ::std::u16string show_group_a11y_label;
   
   bool hidden;
+  
+  RenderType render_type;
   
   SideType side_type;
 
@@ -1727,6 +1730,7 @@ SuggestionGroupPtr SuggestionGroup::Clone() const {
       mojo::Clone(hide_group_a11y_label),
       mojo::Clone(show_group_a11y_label),
       mojo::Clone(hidden),
+      mojo::Clone(render_type),
       mojo::Clone(side_type)
   );
 }
@@ -1740,6 +1744,8 @@ bool SuggestionGroup::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->show_group_a11y_label, other_struct.show_group_a11y_label))
     return false;
   if (!mojo::Equals(this->hidden, other_struct.hidden))
+    return false;
+  if (!mojo::Equals(this->render_type, other_struct.render_type))
     return false;
   if (!mojo::Equals(this->side_type, other_struct.side_type))
     return false;
@@ -1763,6 +1769,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.hidden < rhs.hidden)
     return true;
   if (rhs.hidden < lhs.hidden)
+    return false;
+  if (lhs.render_type < rhs.render_type)
+    return true;
+  if (rhs.render_type < lhs.render_type)
     return false;
   if (lhs.side_type < rhs.side_type)
     return true;
@@ -2068,6 +2078,11 @@ struct  StructTraits<::omnibox::mojom::SuggestionGroup::DataView,
   static decltype(::omnibox::mojom::SuggestionGroup::hidden) hidden(
       const ::omnibox::mojom::SuggestionGroupPtr& input) {
     return input->hidden;
+  }
+
+  static decltype(::omnibox::mojom::SuggestionGroup::render_type) render_type(
+      const ::omnibox::mojom::SuggestionGroupPtr& input) {
+    return input->render_type;
   }
 
   static decltype(::omnibox::mojom::SuggestionGroup::side_type) side_type(

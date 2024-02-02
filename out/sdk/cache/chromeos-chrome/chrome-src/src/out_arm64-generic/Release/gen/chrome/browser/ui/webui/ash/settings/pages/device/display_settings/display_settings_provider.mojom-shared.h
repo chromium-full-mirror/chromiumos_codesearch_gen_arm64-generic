@@ -223,6 +223,18 @@ class DisplaySettingsValueDataView {
     return ::mojo::internal::ToKnownEnumValueHelper(
           static_cast<::ash::settings::mojom::DisplaySettingsNightLightScheduleOption>(data_->night_light_schedule_$value));
   }
+  std::optional<bool> mirror_mode_status() const {
+
+    return data_->mirror_mode_status_$flag
+        ? std::make_optional(!!data_->mirror_mode_status_$value)
+        : std::nullopt;
+  }
+  std::optional<bool> unified_mode_status() const {
+
+    return data_->unified_mode_status_$flag
+        ? std::make_optional(!!data_->unified_mode_status_$value)
+        : std::nullopt;
+  }
  private:
   internal::DisplaySettingsValue_Data* data_ = nullptr;
 };
@@ -349,6 +361,14 @@ struct Serializer<::ash::settings::mojom::DisplaySettingsValueDataView, MaybeCon
     } else {
       fragment->night_light_schedule_$value =
           static_cast<int32_t>(::ash::settings::mojom::DisplaySettingsNightLightScheduleOption::kMinValue);
+    }
+    fragment->mirror_mode_status_$flag = Traits::mirror_mode_status(input).has_value();
+    if (Traits::mirror_mode_status(input).has_value()) {
+      fragment->mirror_mode_status_$value = Traits::mirror_mode_status(input).value();
+    }
+    fragment->unified_mode_status_$flag = Traits::unified_mode_status(input).has_value();
+    if (Traits::unified_mode_status(input).has_value()) {
+      fragment->unified_mode_status_$value = Traits::unified_mode_status(input).value();
     }
   }
 

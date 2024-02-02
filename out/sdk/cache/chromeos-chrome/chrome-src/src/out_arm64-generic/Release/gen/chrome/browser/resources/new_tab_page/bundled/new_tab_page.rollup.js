@@ -1,4 +1,4 @@
-import { PageHandler, PageCallbackRouter, SideType, NavigationPredictor, SelectionLineState } from 'chrome://resources/cr_components/omnibox/omnibox.mojom-webui.js';
+import { PageHandler, PageCallbackRouter, SideType, RenderType, NavigationPredictor, SelectionLineState } from 'chrome://resources/cr_components/omnibox/omnibox.mojom-webui.js';
 import { g as getFaviconForPageURL, a as assertNotReached, s as sanitizeInnerHtml, b as assert, d as decodeString16$1, h as hasKeyModifiers, m as mojoString16, W as WindowProxy, E as EventTracker, N as NewTabPageProxy, c as skColorToRgba, $ as $$, e as strictQuery, H as HelpBubbleMixin, r as recordDuration, F as FocusOutlineManager, f as recordVoiceAction, A as Action, i as recordLoadDuration, j as hexColorToSkColor, C as Command, B as BrowserCommandProxy, k as CustomizeDialogPage } from './shared.rollup.js';
 export { l as CrAutoImgElement, I as IframeElement, x as VoiceError, q as checkTransparency, w as createScrollBorders, t as isBMP, u as isPNG, v as isWebP, p as processFile, n as recordOccurence, o as recordPerdecage } from './shared.rollup.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
@@ -315,6 +315,19 @@ function sideTypeToClass(sideType) {
             assertNotReached('Unexpected side type');
     }
 }
+/** Converts a render type to a string to be used in CSS. */
+function renderTypeToClass(renderType) {
+    switch (renderType) {
+        case RenderType.kDefaultVertical:
+            return 'vertical';
+        case RenderType.kHorizontal:
+            return 'horizontal';
+        case RenderType.kGrid:
+            return 'grid';
+        default:
+            assertNotReached('Unexpected render type');
+    }
+}
 
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -441,7 +454,7 @@ styleMod.appendChild(html `
 styleMod.register('realbox-dropdown-shared-style');
 
 function getTemplate$5() {
-    return html `<!--_html_template_start_--><style include="cr-hidden-style cr-icons realbox-dropdown-shared-style">:host{display:block;outline:0}#action{margin-inline-end:8px}:host-context([expanded-state-layout-chrome-refresh]) #action{margin-inline-end:2px}#actions-focus-border{overflow:hidden}#actions-focus-border:focus-within,#actions-focus-border:focus-within:has(#action:active){outline:2px solid var(--color-realbox-results-action-chip-focus-outline);border-radius:10px;margin-inline-start:-2px}#actions-focus-border:has(#action:active){outline:0}.container{align-items:center;cursor:default;display:flex;overflow:hidden;padding-bottom:6px;padding-inline-end:16px;padding-inline-start:12px;padding-top:6px;position:relative}.container+.container{flex-direction:row;margin-inline-start:40px;padding-top:0;padding-bottom:12px}:host([has-outset-action-focus-ring]:not([realbox-consistent-row-height])) .container.underneath,:host([has-outset-action-focus-ring][inlined-actions]:not([realbox-consistent-row-height])) .container{height:38px;padding-top:3px;padding-bottom:3px}:host([realbox-consistent-row-height]) .container{height:38px;padding-top:5px;padding-bottom:5px}:host-context([chrome-refresh-hover-shape]) .container:not(.actions){margin-inline-end:16px;border-top-right-radius:24px;border-bottom-right-radius:24px}:host-context([chrome-refresh-hover-shape]):host-context([has-secondary-side]):host-context([can-show-secondary-side]) .container:not(.actions){margin-inline-end:0}:host-context([chrome-refresh-hover-shape]) .container:not(.actions):hover,:host-context([chrome-refresh-hover-shape]):host(:is(:focus-visible,[selected])) .container:not(.actions){background-color:var(--color-realbox-results-background-hovered)}.actions.inlined{align-self:center;flex-grow:1;flex-shrink:0;padding-bottom:0;padding-inline-end:0;padding-inline-start:0;padding-top:0}:host([has-action]) .actions.inlined{padding-inline-end:8px;padding-inline-start:4px}#contents,#description{overflow:hidden;text-overflow:ellipsis}#ellipsis{inset-inline-end:0;position:absolute}#focus-indicator{background-color:var(--color-realbox-results-focus-indicator);border-radius:3px;display:none;height:100%;margin-inline-start:-15px;position:absolute;width:6px}:host-context([expanded-state-layout-chrome-refresh]) #focus-indicator{width:7px}:host(:is(:focus-visible,[selected]:not(:focus-within)):not([side-type-class_=secondary-side])) #focus-indicator:not(.selected-within){display:block}#prefix{opacity:0}#separator{white-space:pre}#tail-suggest-prefix{position:relative}#text-container{align-items:center;display:flex;flex-grow:1;overflow:hidden;padding-inline-end:8px;padding-inline-start:8px;white-space:nowrap}:host([has-action]) #text-container{padding-inline-end:4px}#text-container.simplified{flex-grow:0}:host([is-rich-suggestion]) #text-container{align-items:flex-start;flex-direction:column}:host([is-rich-suggestion]) #separator{display:none}:host([is-rich-suggestion]) #contents,:host([is-rich-suggestion]) #description{width:100%}:host([is-rich-suggestion]) #description{font-size:.875em}.match{font-weight:600}#description,.dim{color:var(--color-realbox-results-foreground-dimmed)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .dim,:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])):host([is-entity-suggestion]) #description{color:var(--color-realbox-results-dim-selected)}#description:has(.url),.url{color:var(--color-realbox-results-url)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .url{color:var(--color-realbox-results-url-selected)}#remove{--cr-icon-button-fill-color:var(--color-realbox-results-icon-selected);display:none;margin-inline-end:1px}.container:hover #remove{display:inline-flex}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) #remove{display:inline-flex}.selected{box-shadow:inset 0 0 0 2px var(--color-realbox-results-icon-focused-outline)}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]),:host-context([chrome-refresh-hover-shape]):host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .container{border-radius:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .container{box-sizing:border-box;flex-direction:column;margin-inline-end:0;padding:6px;padding-block-end:16px;width:102px;height:auto}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .focus-indicator{display:none}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #icon{--cr-realbox-icon-border-radius:12px;--cr-realbox-icon-container-bg-color:transparent;height:90px;margin-block-end:8px;width:90px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #text-container{padding:0;white-space:normal;width:100%}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents,:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{-webkit-box-orient:vertical;-webkit-line-clamp:2;display:-webkit-box;font-weight:400;overflow:hidden}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents{font-size:13px;line-height:20px;margin-block-end:4px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{font-size:12px;line-height:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #remove{display:none}.icon-text-action-container{flex-grow:1;overflow:hidden}.icon-text-container{display:flex}:host([show-cr-non-inlined-hover-fill]) .container:not(.actions){border-top-right-radius:200px;border-bottom-right-radius:200px}:host([show-cr-non-inlined-hover-fill]) #focus-indicator{height:44px;top:0}:host([show-cr-non-inlined-hover-fill]) .actions{margin-inline-start:30px;padding-inline-start:10px;padding-bottom:6px;padding-top:6px;height:34px}</style>
+    return html `<!--_html_template_start_--><style include="cr-hidden-style cr-icons realbox-dropdown-shared-style">:host{display:block;outline:0}#action{margin-inline-end:8px}:host-context([expanded-state-layout-chrome-refresh]) #action{margin-inline-end:2px}#actions-focus-border{overflow:hidden}#actions-focus-border:focus-within,#actions-focus-border:focus-within:has(#action:active){outline:2px solid var(--color-realbox-results-action-chip-focus-outline);border-radius:10px;margin-inline-start:-2px}#actions-focus-border:has(#action:active){outline:0}.container{align-items:center;cursor:default;display:flex;overflow:hidden;padding-bottom:6px;padding-inline-end:16px;padding-inline-start:12px;padding-top:6px;position:relative}.container+.container{flex-direction:row;margin-inline-start:40px;padding-top:0;padding-bottom:12px}:host([has-outset-action-focus-ring]:not([realbox-consistent-row-height])) .container.underneath,:host([has-outset-action-focus-ring][inlined-actions]:not([realbox-consistent-row-height])) .container{height:38px;padding-top:3px;padding-bottom:3px}:host([realbox-consistent-row-height]) .container{height:38px;padding-top:5px;padding-bottom:5px}:host-context([chrome-refresh-hover-shape]) .container:not(.actions){margin-inline-end:16px;border-top-right-radius:24px;border-bottom-right-radius:24px}:host-context([chrome-refresh-hover-shape]):host-context([has-secondary-side]):host-context([can-show-secondary-side]) .container:not(.actions){margin-inline-end:0}:host-context([chrome-refresh-hover-shape]) .container:not(.actions):hover,:host-context([chrome-refresh-hover-shape]):host(:is(:focus-visible,[selected])) .container:not(.actions){background-color:var(--color-realbox-results-background-hovered)}.actions.inlined{align-self:center;flex-grow:1;flex-shrink:0;padding-bottom:0;padding-inline-end:0;padding-inline-start:0;padding-top:0}:host([has-action]) .actions.inlined{padding-inline-end:8px;padding-inline-start:4px}#contents,#description{overflow:hidden;text-overflow:ellipsis}#ellipsis{inset-inline-end:0;position:absolute}#focus-indicator{background-color:var(--color-realbox-results-focus-indicator);border-radius:3px;display:none;height:100%;margin-inline-start:-15px;position:absolute;width:6px}:host-context([expanded-state-layout-chrome-refresh]) #focus-indicator{width:7px}:host([render-type=vertical]:is(:focus-visible,[selected]:not(:focus-within))) #focus-indicator:not(.selected-within){display:block}#prefix{opacity:0}#separator{white-space:pre}#tail-suggest-prefix{position:relative}#text-container{align-items:center;display:flex;flex-grow:1;overflow:hidden;padding-inline-end:8px;padding-inline-start:8px;white-space:nowrap}:host([has-action]) #text-container{padding-inline-end:4px}#text-container.simplified{flex-grow:0}:host([is-rich-suggestion]) #text-container{align-items:flex-start;flex-direction:column}:host([is-rich-suggestion]) #separator{display:none}:host([is-rich-suggestion]) #contents,:host([is-rich-suggestion]) #description{width:100%}:host([is-rich-suggestion]) #description{font-size:.875em}.match{font-weight:600}#description,.dim{color:var(--color-realbox-results-foreground-dimmed)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .dim,:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])):host([is-entity-suggestion]) #description{color:var(--color-realbox-results-dim-selected)}#description:has(.url),.url{color:var(--color-realbox-results-url)}:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])) .url{color:var(--color-realbox-results-url-selected)}#remove{--cr-icon-button-fill-color:var(--color-realbox-results-icon-selected);display:none;margin-inline-end:1px}:host([side-type-class_=primary-side]) .container:hover #remove,:host-context(cr-realbox-match:-webkit-any(:focus-within,[selected])):host([side-type-class_=primary-side]) #remove{display:inline-flex}.selected{box-shadow:inset 0 0 0 2px var(--color-realbox-results-icon-focused-outline)}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]),:host-context([chrome-refresh-hover-shape]):host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .container{border-radius:16px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .container{box-sizing:border-box;flex-direction:column;margin-inline-end:0;padding:6px;padding-block-end:16px;width:102px;height:auto}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) .focus-indicator{display:none}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #icon{--cr-realbox-icon-border-radius:12px;--cr-realbox-icon-container-bg-color:transparent;height:90px;margin-block-end:8px;width:90px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #text-container{padding:0;white-space:normal;width:100%}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents,:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{-webkit-box-orient:vertical;-webkit-line-clamp:2;display:-webkit-box;font-weight:400;overflow:hidden}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #contents{font-size:13px;line-height:20px;margin-block-end:4px}:host([side-type-class_=secondary-side][is-entity-suggestion][has-image]) #description{font-size:12px;line-height:16px}.icon-text-action-container{flex-grow:1;overflow:hidden}.icon-text-container{display:flex}:host([show-cr-non-inlined-hover-fill]) .container:not(.actions){border-top-right-radius:200px;border-bottom-right-radius:200px}:host([show-cr-non-inlined-hover-fill]) #focus-indicator{height:44px;top:0}:host([show-cr-non-inlined-hover-fill]) .actions{margin-inline-start:30px;padding-inline-start:10px;padding-bottom:6px;padding-top:6px;height:34px}</style>
 <div class="container" aria-hidden="true">
   <div id="focus-indicator"></div>
   
@@ -613,6 +626,10 @@ class RealboxMatchElement extends PolymerElement {
             realboxConsistentRowHeight: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('realboxCr23ConsistentRowHeight'),
+                reflectToAttribute: true,
+            },
+            renderType: {
+                type: String,
                 reflectToAttribute: true,
             },
             showCrNonInlinedHoverFill: {
@@ -1209,11 +1226,11 @@ function getTrustedScriptURL(literal) {
 }
 
 function getTemplate$4() {
-    return html `<!--_html_template_start_--><style include="cr-icons realbox-dropdown-shared-style">:host{user-select:none}#content{background-color:var(--color-realbox-results-background);border-radius:calc(.5 * var(--cr-realbox-height));box-shadow:var(--cr-realbox-shadow);display:flex;gap:16px;margin-bottom:8px;overflow:hidden;padding-bottom:18px;padding-top:var(--cr-realbox-height)}:host([expanded-state-layout-chrome-refresh]) #content{padding-bottom:8px}@media (forced-colors:active){#content{border:1px solid ActiveBorder}}.matches{display:contents}cr-realbox-match{color:var(--color-realbox-results-foreground)}.header{align-items:center;box-sizing:border-box;cursor:pointer;display:flex;font-size:inherit;font-weight:inherit;height:44px;margin-block-end:0;margin-block-start:0;outline:0;padding-bottom:6px;padding-inline-end:16px;padding-inline-start:12px;padding-top:6px}.header .text{color:var(--color-realbox-results-foreground-dimmed);font-size:.875em;font-weight:500;overflow:hidden;padding-inline-end:1px;padding-inline-start:6px;text-overflow:ellipsis;white-space:nowrap}.header cr-icon-button{top:1px}.header:focus-within:not(:focus) cr-icon-button{--cr-icon-button-fill-color:var(--color-realbox-results-icon-selected)}:host(:not([chrome-refresh-hover-shape])) cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:var(--color-realbox-results-background-hovered)}@media (forced-colors:active){cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:Highlight}}.primary-side{flex:1;min-width:0}.secondary-side{display:var(--cr-realbox-secondary-side-display,none);min-width:0;padding-block-end:8px;padding-inline-end:16px;width:314px}.secondary-side .header{padding-inline-end:0;padding-inline-start:0}.secondary-side .matches{display:flex;gap:4px}</style>
+    return html `<!--_html_template_start_--><style include="cr-icons realbox-dropdown-shared-style">:host{user-select:none}#content{background-color:var(--color-realbox-results-background);border-radius:calc(.5 * var(--cr-realbox-height));box-shadow:var(--cr-realbox-shadow);display:flex;gap:16px;margin-bottom:8px;overflow:hidden;padding-bottom:18px;padding-top:var(--cr-realbox-height)}:host([expanded-state-layout-chrome-refresh]) #content{padding-bottom:8px}@media (forced-colors:active){#content{border:1px solid ActiveBorder}}.matches{display:contents}cr-realbox-match{color:var(--color-realbox-results-foreground)}.header{align-items:center;box-sizing:border-box;cursor:pointer;display:flex;font-size:inherit;font-weight:inherit;height:44px;margin-block-end:0;margin-block-start:0;outline:0;padding-bottom:6px;padding-inline-end:16px;padding-inline-start:12px;padding-top:6px}.header .text{color:var(--color-realbox-results-foreground-dimmed);font-size:.875em;font-weight:500;overflow:hidden;padding-inline-end:1px;padding-inline-start:6px;text-overflow:ellipsis;white-space:nowrap}.header cr-icon-button{top:1px}.header:focus-within:not(:focus) cr-icon-button{--cr-icon-button-fill-color:var(--color-realbox-results-icon-selected)}:host(:not([chrome-refresh-hover-shape])) cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:var(--color-realbox-results-background-hovered)}@media (forced-colors:active){cr-realbox-match:-webkit-any(:hover,:focus-within,[selected]){background-color:Highlight}}.primary-side{flex:1;min-width:0}.secondary-side{display:var(--cr-realbox-secondary-side-display,none);min-width:0;padding-block-end:8px;padding-inline-end:16px;width:314px}.secondary-side .header{padding-inline-end:0;padding-inline-start:0}.secondary-side .matches{display:block}.secondary-side .matches.horizontal{display:flex;gap:4px}</style>
 <div id="content">
-  <template is="dom-repeat" items="[[sideTypes_(showSecondarySide_)]]" as="side">
-    <div class$="[[classForSide_(side)]]">
-      <template is="dom-repeat" items="[[groupIdsForSide_(side, result.matches.*)]]" as="groupId">
+  <template is="dom-repeat" items="[[sideTypes_(showSecondarySide_)]]" as="sideType">
+    <div class$="[[classForSideType_(sideType)]]">
+      <template is="dom-repeat" items="[[groupIdsForSideType_(sideType, result.matches.*)]]" as="groupId">
         <template is="dom-if" if="[[hasHeaderForGroup_(groupId)]]">
           
           <h3 class="header" data-id$="[[groupId]]" tabindex="-1" on-focusin="onHeaderFocusin_" on-click="onHeaderClick_" on-mousedown="onHeaderMousedown_" aria-hidden="true">
@@ -1222,9 +1239,9 @@ function getTemplate$4() {
             </cr-icon-button>
           </h3>
         </template>
-        <div class="matches">
+        <div class$="matches [[classForGroupRenderType_(groupId)]]">
           <template is="dom-repeat" items="[[matchesForGroup_(groupId, result.matches.*, hiddenGroupIds_.*)]]" as="match" on-dom-change="onResultRepaint_">
-            <cr-realbox-match tabindex="0" role="option" match="[[match]]" match-index="[[matchIndex_(match)]]" side-type="[[side]]" selected$="[[isSelected_(match, selectedMatchIndex)]]">
+            <cr-realbox-match tabindex="0" role="option" match="[[match]]" match-index="[[matchIndex_(match)]]" side-type="[[sideType]]" render-type="[[classForGroupRenderType_(groupId)]]" selected$="[[isSelected_(match, selectedMatchIndex)]]">
             </cr-realbox-match>
           </template>
         </div>
@@ -1458,11 +1475,16 @@ class RealboxDropdownElement extends PolymerElement {
     //============================================================================
     // Helpers
     //============================================================================
-    classForSide_(side) {
+    classForSideType_(side) {
         return sideTypeToClass(side);
     }
+    classForGroupRenderType_(groupId) {
+        return this.result?.suggestionGroupsMap[groupId] ?
+            renderTypeToClass(this.result?.suggestionGroupsMap[groupId].renderType) :
+            '';
+    }
     computeHasSecondarySide_() {
-        const hasSecondarySide = !!this.groupIdsForSide_(SideType.kSecondary).length;
+        const hasSecondarySide = !!this.groupIdsForSideType_(SideType.kSecondary).length;
         if (!this.hadSecondarySide) {
             this.hadSecondarySide = hasSecondarySide;
         }
@@ -1480,7 +1502,7 @@ class RealboxDropdownElement extends PolymerElement {
      * @returns The unique suggestion group IDs that belong to the given side type
      *     while preserving the order in which they appear in the list of matches.
      */
-    groupIdsForSide_(side) {
+    groupIdsForSideType_(side) {
         return [...new Set(this.result?.matches?.map(match => match.suggestionGroupId)
                 .filter(groupId => this.sideTypeForGroup_(groupId) === side))];
     }
@@ -1576,7 +1598,7 @@ class RealboxDropdownElement extends PolymerElement {
             return true;
         }
         // Only show secondary side if there are primary matches visible.
-        const primaryGroupIds = this.groupIdsForSide_(SideType.kDefaultPrimary);
+        const primaryGroupIds = this.groupIdsForSideType_(SideType.kDefaultPrimary);
         return primaryGroupIds.some((groupId) => {
             return this.matchesForGroup_(groupId).length > 0;
         });

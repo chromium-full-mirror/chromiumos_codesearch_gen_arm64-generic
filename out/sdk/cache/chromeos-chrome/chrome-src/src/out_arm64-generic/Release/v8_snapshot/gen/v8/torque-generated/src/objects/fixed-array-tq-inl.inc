@@ -180,10 +180,10 @@ std::tuple<Tagged<Object>, intptr_t, intptr_t> TqRuntimeFieldSliceTrustedFixedAr
   goto block0;
 
   block0:
-  tmp0 = TqRuntimeFromConstexpr_intptr_constexpr_int31_0(8);
+  tmp0 = TqRuntimeFromConstexpr_intptr_constexpr_int31_0(4);
   tmp1 = TaggedField<Tagged<Smi>>::load(Tagged<HeapObject>::unchecked_cast(p_o), static_cast<int>(tmp0));
   tmp2 = TqRuntimeConvert_intptr_Smi_0(tmp1);
-  tmp3 = TqRuntimeFromConstexpr_intptr_constexpr_IntegerLiteral_0(IntegerLiteral(false, 0xcull));
+  tmp3 = TqRuntimeFromConstexpr_intptr_constexpr_IntegerLiteral_0(IntegerLiteral(false, 0x8ull));
   std::tie(tmp4, tmp5, tmp6) = TqRuntimeNewMutableSlice_Object_0(p_o, tmp3, tmp2);
   goto block2;
 

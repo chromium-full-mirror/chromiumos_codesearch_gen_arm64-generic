@@ -273,8 +273,6 @@ namespace policy {
   { false,        false,    false,            977,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // DefaultMediaStreamSetting
   { true,         false,    false,            149,                     0, { RISK_TAG_WEBSITE_SHARING, RISK_TAG_NONE, RISK_TAG_NONE } },
-  // DefaultMidiSetting
-  { false,        true,     false,           1128,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // DefaultNotificationsSetting
   { false,        false,    false,             53,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // DefaultPopupsSetting
@@ -1000,10 +998,6 @@ namespace policy {
   { false,        false,    false,           1174,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // MicrosoftOneDriveMount
   { false,        false,    false,           1148,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
-  // MidiAllowedForUrls
-  { false,        true,     false,           1129,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
-  // MidiBlockedForUrls
-  { false,        true,     false,           1130,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // MonoAudioEnabled
   { false,        false,    false,            596,                     0, { RISK_TAG_NONE, RISK_TAG_NONE, RISK_TAG_NONE } },
   // NTLMShareAuthenticationEnabled
@@ -1900,7 +1894,6 @@ const internal::SchemaNode kSchemas[] = {
                                                                      // integer with enumeration restriction (use range instead): DefaultInsecureContentSetting
                                                                      // integer with enumeration restriction (use range instead): DefaultLocalFontsSetting
                                                                      // integer with enumeration restriction (use range instead): DefaultMediaStreamSetting
-                                                                     // integer with enumeration restriction (use range instead): DefaultMidiSetting
                                                                      // integer with enumeration restriction (use range instead): DefaultSerialGuardSetting
                                                                      // integer with enumeration restriction (use range instead): DefaultWebBluetoothGuardSetting
                                                                      // integer with enumeration restriction (use range instead): DefaultWebHidGuardSetting
@@ -3032,7 +3025,6 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kDefaultJavaScriptSetting,                                       3 },
   { key::kDefaultLocalFontsSetting,                                      69 },
   { key::kDefaultMediaStreamSetting,                                     69 },
-  { key::kDefaultMidiSetting,                                            69 },
   { key::kDefaultNotificationsSetting,                                   71 },
   { key::kDefaultPopupsSetting,                                           3 },
   { key::kDefaultPrinterSelection,                                        4 },
@@ -3393,8 +3385,6 @@ const internal::PropertyNode kPropertyNodes[] = {
   { key::kMicrosoftOfficeCloudUpload,                                   228 },
   { key::kMicrosoftOneDriveAccountRestrictions,                           5 },
   { key::kMicrosoftOneDriveMount,                                       229 },
-  { key::kMidiAllowedForUrls,                                             5 },
-  { key::kMidiBlockedForUrls,                                             5 },
   { key::kMonoAudioEnabled,                                               1 },
   { key::kNTLMShareAuthenticationEnabled,                                 1 },
   { key::kNTPCardsVisible,                                                1 },
@@ -3992,19 +3982,19 @@ const internal::PropertiesNode kProperties[] = {
   {   554,   556,   556,    93,         95,    -1 },  // urls
   {   556,   558,   558,    95,         95,    -1 },  // items of devices
   {   558,   560,   560,    95,         97,    -1 },  // urls
-  {   560,  1410,  1410,    97,         97,    -1 },  // root node
-  {  1410,  1414,  1414,    97,         97,    -1 },  // ISSUER
-  {  1414,  1418,  1418,    97,         97,    -1 },  // SUBJECT
-  {  1418,  1420,  1420,    97,         97,    -1 },  // filter
-  {  1420,  1422,  1422,    97,         97,    -1 },  // items of AutoSelectCertificateForUrls
-  {  1422,  1425,  1425,    97,         97,    -1 },  // DefaultPrinterSelection
-  {  1425,  1429,  1429,    97,         97,    -1 },  // ISSUER
-  {  1429,  1433,  1433,    97,         97,    -1 },  // SUBJECT
-  {  1433,  1435,  1435,    97,         97,    -1 },  // filter
-  {  1435,  1437,  1437,    97,         97,    -1 },  // items of DeviceLoginScreenAutoSelectCertificateForUrls
-  {  1437,  1439,  1439,    97,         97,    -1 },  // ppd_resource
-  {  1439,  1446,  1446,    97,         97,    -1 },  // items of Printers
-  {  1446,  1450,  1450,    97,         97,    -1 },  // validation_schema root node
+  {   560,  1407,  1407,    97,         97,    -1 },  // root node
+  {  1407,  1411,  1411,    97,         97,    -1 },  // ISSUER
+  {  1411,  1415,  1415,    97,         97,    -1 },  // SUBJECT
+  {  1415,  1417,  1417,    97,         97,    -1 },  // filter
+  {  1417,  1419,  1419,    97,         97,    -1 },  // items of AutoSelectCertificateForUrls
+  {  1419,  1422,  1422,    97,         97,    -1 },  // DefaultPrinterSelection
+  {  1422,  1426,  1426,    97,         97,    -1 },  // ISSUER
+  {  1426,  1430,  1430,    97,         97,    -1 },  // SUBJECT
+  {  1430,  1432,  1432,    97,         97,    -1 },  // filter
+  {  1432,  1434,  1434,    97,         97,    -1 },  // items of DeviceLoginScreenAutoSelectCertificateForUrls
+  {  1434,  1436,  1436,    97,         97,    -1 },  // ppd_resource
+  {  1436,  1443,  1443,    97,         97,    -1 },  // items of Printers
+  {  1443,  1447,  1447,    97,         97,    -1 },  // validation_schema root node
 };
 
 const internal::RestrictionNode kRestrictionNodes[] = {
@@ -5353,7 +5343,7 @@ const PolicyDetails* GetChromePolicyDetails(const std::string& policy) {
   // First index in kPropertyNodes of the Chrome policies.
   static constexpr int begin_index = 560;
   // One-past-the-end of the Chrome policies in kPropertyNodes.
-  static constexpr int end_index = 1410;
+  static constexpr int end_index = 1407;
   const internal::PropertyNode* begin =
      kPropertyNodes + begin_index;
   const internal::PropertyNode* end = kPropertyNodes + end_index;
@@ -5503,7 +5493,6 @@ const char kDefaultJavaScriptJitSetting[] = "DefaultJavaScriptJitSetting";
 const char kDefaultJavaScriptSetting[] = "DefaultJavaScriptSetting";
 const char kDefaultLocalFontsSetting[] = "DefaultLocalFontsSetting";
 const char kDefaultMediaStreamSetting[] = "DefaultMediaStreamSetting";
-const char kDefaultMidiSetting[] = "DefaultMidiSetting";
 const char kDefaultNotificationsSetting[] = "DefaultNotificationsSetting";
 const char kDefaultPopupsSetting[] = "DefaultPopupsSetting";
 const char kDefaultPrinterSelection[] = "DefaultPrinterSelection";
@@ -5864,8 +5853,6 @@ const char kMediaRouterCastAllowAllIPs[] = "MediaRouterCastAllowAllIPs";
 const char kMicrosoftOfficeCloudUpload[] = "MicrosoftOfficeCloudUpload";
 const char kMicrosoftOneDriveAccountRestrictions[] = "MicrosoftOneDriveAccountRestrictions";
 const char kMicrosoftOneDriveMount[] = "MicrosoftOneDriveMount";
-const char kMidiAllowedForUrls[] = "MidiAllowedForUrls";
-const char kMidiBlockedForUrls[] = "MidiBlockedForUrls";
 const char kMonoAudioEnabled[] = "MonoAudioEnabled";
 const char kNTLMShareAuthenticationEnabled[] = "NTLMShareAuthenticationEnabled";
 const char kNTPCardsVisible[] = "NTPCardsVisible";
@@ -6255,7 +6242,6 @@ const char kKiosk[] = "Kiosk";
 const char kLegacySameSiteCookieBehaviorSettings[] = "LegacySameSiteCookieBehaviorSettings";
 const char kLocalFontsSettings[] = "LocalFontsSettings";
 const char kLoginScreenOrigins[] = "LoginScreenOrigins";
-const char kMidiSettings[] = "MidiSettings";
 const char kNativeMessaging[] = "NativeMessaging";
 const char kNetworkFileShares[] = "NetworkFileShares";
 const char kNotificationsSettings[] = "NotificationsSettings";
@@ -6307,7 +6293,6 @@ const char* const Kiosk[] = {key::kDeviceLocalAccounts, key::kDeviceLocalAccount
 const char* const LegacySameSiteCookieBehaviorSettings[] = {key::kLegacySameSiteCookieBehaviorEnabledForDomainList, nullptr};
 const char* const LocalFontsSettings[] = {key::kDefaultLocalFontsSetting, key::kLocalFontsAllowedForUrls, key::kLocalFontsBlockedForUrls, nullptr};
 const char* const LoginScreenOrigins[] = {nullptr};
-const char* const MidiSettings[] = {key::kDefaultMidiSetting, key::kMidiAllowedForUrls, key::kMidiBlockedForUrls, nullptr};
 const char* const NativeMessaging[] = {nullptr};
 const char* const NetworkFileShares[] = {key::kNetworkFileSharesAllowed, key::kNetBiosShareDiscoveryEnabled, key::kNTLMShareAuthenticationEnabled, key::kNetworkFileSharesPreconfiguredShares, nullptr};
 const char* const NotificationsSettings[] = {key::kDefaultNotificationsSetting, key::kNotificationsAllowedForUrls, key::kNotificationsBlockedForUrls, nullptr};
@@ -6362,7 +6347,6 @@ const AtomicGroup kPolicyAtomicGroupMappings[] = {
   {  38, group::kLegacySameSiteCookieBehaviorSettings, group::LegacySameSiteCookieBehaviorSettings  },
   {  43, group::kLocalFontsSettings, group::LocalFontsSettings  },
   {  31, group::kLoginScreenOrigins, group::LoginScreenOrigins  },
-  {  48, group::kMidiSettings, group::MidiSettings  },
   {  16, group::kNativeMessaging, group::NativeMessaging  },
   {  26, group::kNetworkFileShares, group::NetworkFileShares  },
   {  14, group::kNotificationsSettings, group::NotificationsSettings  },
@@ -6391,7 +6375,7 @@ const AtomicGroup kPolicyAtomicGroupMappings[] = {
   {  42, group::kWindowManagementSettings, group::WindowManagementSettings  },
 };
 
-const size_t kPolicyAtomicGroupMappingsLength = 49;
+const size_t kPolicyAtomicGroupMappingsLength = 48;
 
 namespace metapolicy {
 
@@ -9355,7 +9339,7 @@ const std::array<BooleanPolicyAccess, 289> kBooleanPolicyAccess {{
   },
 }};
 
-const std::array<IntegerPolicyAccess, 106> kIntegerPolicyAccess {{
+const std::array<IntegerPolicyAccess, 105> kIntegerPolicyAccess {{
   {key::kAccessCodeCastDeviceDuration,
    true,
    [](const em::CloudPolicySettings& policy) {
@@ -9606,17 +9590,6 @@ const std::array<IntegerPolicyAccess, 106> kIntegerPolicyAccess {{
    [](const em::CloudPolicySettings& policy)
        -> const em::IntegerPolicyProto& {
      return policy.defaultmediastreamsetting();
-   }
-  },
-  {key::kDefaultMidiSetting,
-   true,
-   [](const em::CloudPolicySettings& policy) {
-     return policy.has_subproto1() &&
-              policy.subproto1().has_defaultmidisetting();
-   },
-   [](const em::CloudPolicySettings& policy)
-       -> const em::IntegerPolicyProto& {
-     return policy.subproto1().defaultmidisetting();
    }
   },
   {key::kDefaultNotificationsSetting,
@@ -11749,7 +11722,7 @@ const std::array<StringPolicyAccess, 118> kStringPolicyAccess {{
   },
 }};
 
-const std::array<StringListPolicyAccess, 127> kStringListPolicyAccess {{
+const std::array<StringListPolicyAccess, 125> kStringListPolicyAccess {{
   {key::kAllHttpAuthSchemesAllowedForOrigins,
    false,
    [](const em::CloudPolicySettings& policy) {
@@ -12377,28 +12350,6 @@ const std::array<StringListPolicyAccess, 127> kStringListPolicyAccess {{
    [](const em::CloudPolicySettings& policy)
        -> const em::StringListPolicyProto& {
      return policy.subproto1().microsoftonedriveaccountrestrictions();
-   }
-  },
-  {key::kMidiAllowedForUrls,
-   true,
-   [](const em::CloudPolicySettings& policy) {
-     return policy.has_subproto1() &&
-              policy.subproto1().has_midiallowedforurls();
-   },
-   [](const em::CloudPolicySettings& policy)
-       -> const em::StringListPolicyProto& {
-     return policy.subproto1().midiallowedforurls();
-   }
-  },
-  {key::kMidiBlockedForUrls,
-   true,
-   [](const em::CloudPolicySettings& policy) {
-     return policy.has_subproto1() &&
-              policy.subproto1().has_midiblockedforurls();
-   },
-   [](const em::CloudPolicySettings& policy)
-       -> const em::StringListPolicyProto& {
-     return policy.subproto1().midiblockedforurls();
    }
   },
   {key::kNoteTakingAppsLockScreenAllowlist,

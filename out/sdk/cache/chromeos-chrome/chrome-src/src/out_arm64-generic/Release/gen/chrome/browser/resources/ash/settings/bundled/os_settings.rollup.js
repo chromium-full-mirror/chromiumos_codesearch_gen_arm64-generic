@@ -1,5 +1,5 @@
 import './strings.m.js';
-import { a as assertNotReached, cj as listenOnce, N as NetworkListenerBehavior, W as WebUiListenerMixin, R as RouteObserverMixin, I as I18nMixin, ck as ABOUT_CHROME_OS_SECTION_PATH, m as isRevampWayfindingEnabled, b7 as getInputDeviceSettingsProvider, a4 as MultiDeviceBrowserProxyImpl, j as Router, cl as isAdvancedRoute, cm as NETWORK_SECTION_PATH, cn as BLUETOOTH_SECTION_PATH, co as MULTI_DEVICE_SECTION_PATH, cp as PEOPLE_SECTION_PATH, cq as KERBEROS_SECTION_PATH, cr as DEVICE_SECTION_PATH, cs as PERSONALIZATION_SECTION_PATH, ct as PRIVACY_AND_SECURITY_SECTION_PATH, cu as APPS_SECTION_PATH, cv as ACCESSIBILITY_SECTION_PATH, cw as SYSTEM_PREFERENCES_SECTION_PATH, cx as SEARCH_AND_ASSISTANT_SECTION_PATH, cy as DATE_AND_TIME_SECTION_PATH, cz as LANGUAGES_AND_INPUT_SECTION_PATH, cA as FILES_SECTION_PATH, cB as PRINTING_SECTION_PATH, cC as CROSTINI_SECTION_PATH, cD as RESET_SECTION_PATH, aq as AccountManagerBrowserProxyImpl, _ as assertExists, h as castExists, cE as getDeviceName, ax as MultiDeviceSettingsMode, b8 as FakeInputDeviceSettingsProvider, cF as KeyboardSettingsObserverReceiver, cG as MouseSettingsObserverReceiver, cH as PointingStickSettingsObserverReceiver, cI as TouchpadSettingsObserverReceiver, cJ as routesMojom, O as OncMojo, c as assert, D as DeepLinkingMixin, P as PrefsMixin, S as Setting, bd as AudioAndCaptionsPageBrowserProxyImpl, b as routes, d as cast, cK as getDisplayApi, cL as IronResizableBehavior, ae as DevicePageBrowserProxyImpl, cM as PaperRippleMixin, G as GeolocationAccessLevel, u as focusWithoutInk, cN as getDeviceStateChangesToAnnounce, K as getInstance, cO as CrLinkRowElement, cP as Fkey, cQ as ExtendedFkeysModifier, cR as TopRowActionKey, cS as MetaKey, cT as ModifierKey, cU as SixPackShortcutModifier, cV as SixPackKey, cW as PolicyStatus, i as RouteOriginMixin, n as Section$1, cX as isInputDeviceSettingsSplitEnabled, cY as isExternalStorageEnabled, cZ as GraphicsTabletSettingsObserverReceiver, b0 as ACCESSIBILITY_COMMON_IME_ID, c_ as Button, c$ as ButtonState, a1 as mojoString16ToString, a5 as getEuicc, a7 as getPendingESimProfiles, d0 as hasActiveCellularNetwork, a2 as CellularSetupPageName, d1 as getESimProfile, d2 as stringToMojoString16, M as CrPolicyNetworkBehaviorMojo, d3 as NetworkConfigElementBehavior, z as I18nBehavior, d4 as assertNotReached$1, E as assert$1, d5 as htmlEscape, r as recordSettingChange, a3 as ESimManagerListenerMixin, Y as InternetPageBrowserProxyImpl, a6 as getSimSlotCount, d6 as isConnectedToNonCellularNetwork, d7 as getNumESimProfiles, aw as MultiDeviceFeature, au as LockStateMixin, aD as recordLockScreenProgress, aE as LockScreenProgress, d8 as LockScreenUnlockType, at as fireAuthTokenInvalidEvent, d9 as PhoneHubPermissionsSetupFlowScreens, da as PhoneHubPermissionsSetupAction, db as PhoneHubPermissionsSetupFeatureCombination, dc as getNearbyShareSettings, dd as observeNearbyShareSettings, av as MultiDeviceFeatureMixin, de as PhoneHubFeatureAccessStatus, a8 as MultiDeviceFeatureState, df as OsBluetoothDevicesSubpageBrowserProxyImpl, dg as ButtonState$1, dh as ButtonName, F as FocusRowMixin, di as DeviceItemState, aJ as CrScrollableMixin, dj as PairingAuthType, dk as recordBluetoothUiSurfaceMetrics, dl as BluetoothUiSurface, y as isChild, ar as ParentalControlsBrowserProxyImpl, ab as getImage, as as assertInstanceof, dm as isAccountManagerEnabled, aG as SyncBrowserProxyImpl, dn as AUTH_TOKEN_INVALID_EVENT_TYPE, dp as PrivacyHubNavigationOrigin, dq as shouldShowQuickAnswersSettings, dr as isAssistantAllowed, ds as shouldShowMultitasking, dt as isGuest, du as isPowerwashAllowed, dv as shouldShowStartup, dw as getTrustedScriptURL, dx as isAboutRoute, dy as AndroidAppsBrowserProxyImpl, A as AboutPageBrowserProxyImpl, dz as isBasicRoute, dA as CrSearchFieldMixin, dB as SectionSpec, dC as SubpageSpec, dD as SettingSpec, s as sanitizeInnerHtml, dE as OpenWindowProxyImpl, dF as recordSearch, a$ as FindShortcutMixin, dG as CrContainerShadowMixin, dH as setGlobalScrollTarget, dI as recordPageFocus, dJ as recordPageBlur, dK as recordClick, dL as recordNavigation, dM as getPrefPolicyFields$1, dN as settingsAreEqual, aF as PluralStringProxyImpl, dO as CustomizationRestriction, dP as SimulateRightClickModifier, dQ as recordSavedDevicesUiEventMetrics, dR as FastPairSavedDevicesUiEvent, dS as ColorChangeUpdater } from './shared.rollup.js';
+import { a as assertNotReached, cj as listenOnce, N as NetworkListenerBehavior, W as WebUiListenerMixin, R as RouteObserverMixin, I as I18nMixin, ck as ABOUT_CHROME_OS_SECTION_PATH, m as isRevampWayfindingEnabled, b7 as getInputDeviceSettingsProvider, a4 as MultiDeviceBrowserProxyImpl, j as Router, cl as isAdvancedRoute, cm as NETWORK_SECTION_PATH, cn as BLUETOOTH_SECTION_PATH, co as MULTI_DEVICE_SECTION_PATH, cp as PEOPLE_SECTION_PATH, cq as KERBEROS_SECTION_PATH, cr as DEVICE_SECTION_PATH, cs as PERSONALIZATION_SECTION_PATH, ct as PRIVACY_AND_SECURITY_SECTION_PATH, cu as APPS_SECTION_PATH, cv as ACCESSIBILITY_SECTION_PATH, cw as SYSTEM_PREFERENCES_SECTION_PATH, cx as SEARCH_AND_ASSISTANT_SECTION_PATH, cy as DATE_AND_TIME_SECTION_PATH, cz as LANGUAGES_AND_INPUT_SECTION_PATH, cA as FILES_SECTION_PATH, cB as PRINTING_SECTION_PATH, cC as CROSTINI_SECTION_PATH, cD as RESET_SECTION_PATH, aq as AccountManagerBrowserProxyImpl, _ as assertExists, h as castExists, cE as getDeviceName, ax as MultiDeviceSettingsMode, b8 as FakeInputDeviceSettingsProvider, cF as KeyboardSettingsObserverReceiver, cG as MouseSettingsObserverReceiver, cH as PointingStickSettingsObserverReceiver, cI as TouchpadSettingsObserverReceiver, cJ as routesMojom, O as OncMojo, c as assert, D as DeepLinkingMixin, P as PrefsMixin, S as Setting, bd as AudioAndCaptionsPageBrowserProxyImpl, b as routes, d as cast, cK as getDisplayApi, cL as IronResizableBehavior, ae as DevicePageBrowserProxyImpl, cM as PaperRippleMixin, G as GeolocationAccessLevel, u as focusWithoutInk, cN as getDeviceStateChangesToAnnounce, K as getInstance, cO as CrLinkRowElement, cP as Fkey, cQ as ExtendedFkeysModifier, cR as TopRowActionKey, cS as MetaKey, cT as ModifierKey, cU as SixPackShortcutModifier, cV as SixPackKey, cW as PolicyStatus, i as RouteOriginMixin, n as Section$1, cX as isInputDeviceSettingsSplitEnabled, cY as isExternalStorageEnabled, cZ as GraphicsTabletSettingsObserverReceiver, b0 as ACCESSIBILITY_COMMON_IME_ID, c_ as Button, c$ as ButtonState, a1 as mojoString16ToString, a5 as getEuicc, a7 as getPendingESimProfiles, d0 as hasActiveCellularNetwork, a2 as CellularSetupPageName, d1 as getESimProfile, d2 as stringToMojoString16, M as CrPolicyNetworkBehaviorMojo, d3 as NetworkConfigElementBehavior, z as I18nBehavior, d4 as assertNotReached$1, E as assert$1, d5 as htmlEscape, r as recordSettingChange, a3 as ESimManagerListenerMixin, Y as InternetPageBrowserProxyImpl, a6 as getSimSlotCount, d6 as isConnectedToNonCellularNetwork, d7 as getNumESimProfiles, aw as MultiDeviceFeature, au as LockStateMixin, aD as recordLockScreenProgress, aE as LockScreenProgress, d8 as LockScreenUnlockType, at as fireAuthTokenInvalidEvent, d9 as PhoneHubPermissionsSetupFlowScreens, da as PhoneHubPermissionsSetupAction, db as PhoneHubPermissionsSetupFeatureCombination, dc as getNearbyShareSettings, dd as observeNearbyShareSettings, av as MultiDeviceFeatureMixin, de as PhoneHubFeatureAccessStatus, a8 as MultiDeviceFeatureState, df as OsBluetoothDevicesSubpageBrowserProxyImpl, dg as ButtonState$1, dh as ButtonName, F as FocusRowMixin, di as DeviceItemState, aJ as CrScrollableMixin, dj as PairingAuthType, dk as recordBluetoothUiSurfaceMetrics, dl as BluetoothUiSurface, y as isChild, ar as ParentalControlsBrowserProxyImpl, ab as getImage, as as assertInstanceof, dm as isAccountManagerEnabled, aG as SyncBrowserProxyImpl, dn as AUTH_TOKEN_INVALID_EVENT_TYPE, dp as PrivacyHubNavigationOrigin, dq as isQuickAnswersSupported, dr as isAssistantAllowed, ds as shouldShowMultitasking, dt as isGuest, du as isPowerwashAllowed, dv as shouldShowStartup, dw as getTrustedScriptURL, dx as isAboutRoute, dy as AndroidAppsBrowserProxyImpl, A as AboutPageBrowserProxyImpl, dz as isBasicRoute, dA as CrSearchFieldMixin, dB as SectionSpec, dC as SubpageSpec, dD as SettingSpec, s as sanitizeInnerHtml, dE as OpenWindowProxyImpl, dF as recordSearch, a$ as FindShortcutMixin, dG as CrContainerShadowMixin, dH as setGlobalScrollTarget, dI as recordPageFocus, dJ as recordPageBlur, dK as recordClick, dL as recordNavigation, dM as getPrefPolicyFields$1, dN as settingsAreEqual, aF as PluralStringProxyImpl, dO as CustomizationRestriction, dP as SimulateRightClickModifier, dQ as recordSavedDevicesUiEventMetrics, dR as FastPairSavedDevicesUiEvent, dS as ColorChangeUpdater } from './shared.rollup.js';
 export { e0 as ApnDetailDialog, aT as AppLanguageSelectionDialogEntryPoint, aX as AppManagementBrowserProxy, aa as AppManagementComponentBrowserProxy, e1 as AppManagementFileHandlingItemElement, eo as AppManagementStore, aV as AppManagementStoreMixin, bg as AppManagementSupportedLinksItemElement, e2 as AppManagementToggleRowElement, al as BrowserChannel, ac as ChromeVoxSubpageBrowserProxyImpl, fd as ConfirmationDialogType, es as ControlledButtonElement, et as ControlledRadioButtonElement, aC as CrActionMenuElement, az as CrButtonElement, e7 as CrCardRadioButtonElement, e6 as CrCheckboxElement, aA as CrDialogElement, aB as CrIconButtonElement, ay as CrInputElement, ef as CrPolicyIndicatorElement, e8 as CrRadioButtonElement, e9 as CrRadioGroupElement, ea as CrSearchFieldElement, eb as CrSearchableDropDownElement, e5 as CrSettingsPrefs, ec as CrSliderElement, ed as CrTextareaElement, ee as CrToastElement, a9 as CrToggleElement, eg as CrTooltipIconElement, dZ as DEFAULT_CHECKED_VALUE, d_ as DEFAULT_UNCHECKED_VALUE, an as DeviceNameBrowserProxyImpl, ap as DeviceNameState, d$ as ExtensionControlBrowserProxyImpl, eu as ExtensionControlledIndicatorElement, f7 as FastPairSavedDevicesOptInStatus, f8 as GoogleDriveBrowserProxy, f9 as GoogleDrivePageCallbackRouter, fa as GoogleDrivePageHandlerRemote, fb as GoogleDrivePageRemote, ex as IdleBehavior, eq as LacrosExtensionControlBrowserProxyImpl, er as LacrosExtensionControlledIndicatorElement, ey as LidClosedBehavior, L as LifetimeBrowserProxyImpl, e3 as LocalizedLinkElement, fh as MetricsConsentBrowserProxyImpl, eY as NearbyAccountManagerBrowserProxyImpl, dW as NearbyProgressElement, eZ as NearbyShareConfirmPageElement, f3 as NearbyShareDataUsage, e_ as NearbyShareHighVisibilityPageElement, ez as NoteAppLockScreenSupport, aU as OneDriveBrowserProxy, fe as OneDrivePageCallbackRouter, ff as OneDrivePageHandlerRemote, fg as OneDrivePageRemote, cg as OsResetBrowserProxyImpl, f6 as OsSettingsAppsPageElement, a_ as OsSettingsSubpageElement, aH as PageStatus, eW as PhoneHubFeatureAccessProhibitedReason, eX as PhoneHubPermissionsSetupMode, f4 as PluginVmBrowserProxyImpl, aQ as PrivacyHubSensorSubpageUserAction, b2 as PrivacyPageBrowserProxyImpl, fp as Route, fm as SearchEnginesBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, ag as SelectToSpeakSubpageBrowserProxyImpl, ao as SetDeviceNameResult, fn as SettingsCardElement, ev as SettingsDropdownMenuElement, c9 as SettingsGoogleDriveSubpageElement, e4 as SettingsPrefsElement, fj as SettingsPrivacyHubAppPermissionRow, fk as SettingsPrivacyHubSystemServiceRow, fl as SettingsSearchEngineElement, ew as SettingsSliderElement, af as SettingsToggleButtonElement, fc as Stage, aI as StatusAction, eB as StorageSpaceState, ai as SwitchAccessSubpageBrowserProxyImpl, aj as TextToSpeechSubpageBrowserProxyImpl, ak as TtsVoiceSubpageBrowserProxyImpl, U as UpdateStatus, eQ as Vkey, eh as addApp, eS as appNotificationHandlerMojom, eT as appPermissionHandlerMojom, ei as changeApp, fo as createRouterForTesting, f2 as dataUsageStringToEnum, eC as fakeGraphicsTabletButtonActions, eD as fakeGraphicsTablets, eE as fakeKeyboards, eF as fakeKeyboards2, eG as fakeMice, eH as fakeMice2, eI as fakeMouseButtonActions, eJ as fakePointingSticks, eK as fakePointingSticks2, eL as fakeStyluses, eM as fakeTouchpads, eN as fakeTouchpads2, dT as getContactManager, e$ as getReceiveManager, bb as getShortcutInputProvider, dX as nearbyShareMojom, dU as observeContactManager, f0 as observeReceiveManager, em as reduceAction, ej as removeApp, ep as resetGlobalScrollTargetForTesting, f5 as setAppNotificationProviderForTesting, fi as setAppPermissionProviderForTesting, dV as setContactManagerForTesting, eA as setDisplayApiForTesting, eO as setInputDeviceSettingsProviderForTesting, dY as setNearbyShareSettingsForTesting, f1 as setReceiveManagerForTesting, eR as setUserActionRecorderForTesting, eU as settingMojom, eP as setupFakeInputDeviceSettingsProvider, en as updateApps, ek as updateSelectedAppId, el as updateSubAppToParentAppId, eV as userActionRecorderMojom } from './shared.rollup.js';
 import { html, PolymerElement, mixinBehaviors, dedupingMixin, flush, afterNextRender, Polymer, beforeNextRender, templatize, microTask, Debouncer, timeOut } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getBluetoothConfig } from 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
@@ -23,6 +23,7 @@ import 'chrome://resources/mwc/lit/index.js';
 import 'chrome://resources/cr_components/app_management/app_management.mojom-webui.js';
 import 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_target_types.mojom-webui.js';
 import 'chrome://resources/mojo/services/network/public/mojom/ip_address.mojom-webui.js';
+import 'chrome://resources/lit/v3_0/lit.rollup.js';
 
 function getTemplate$1y() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);font:var(--cr-drawer-header-font,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
@@ -1005,11 +1006,9 @@ class ManagedFootnoteElement extends ManagedFootnoteElementBase {
     }
     /** @return Message to display to the user. */
     getManagementString_() {
-        // 
         if (this.showDeviceInfo) {
             return this.i18nAdvanced('deviceManagedByOrg');
         }
-        // 
         return this.i18nAdvanced('browserManagedByOrg');
     }
 }
@@ -4506,6 +4505,24 @@ mojo.internal.Struct(DisplaySettingsValueSpec.$, 'DisplaySettingsValue', [
         isPrimary: false,
         originalFieldName: "nightLightSchedule",
     }),
+    mojo.internal.StructField('mirror_mode_status_$flag', 0, 7, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "mirror_mode_status_$value",
+        originalFieldName: "mirrorModeStatus",
+    }),
+    mojo.internal.StructField('mirror_mode_status_$value', 1, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "mirrorModeStatus",
+    }),
+    mojo.internal.StructField('unified_mode_status_$flag', 1, 1, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "unified_mode_status_$value",
+        originalFieldName: "unifiedModeStatus",
+    }),
+    mojo.internal.StructField('unified_mode_status_$value', 1, 2, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "unifiedModeStatus",
+    }),
 ], [[0, 32],]);
 mojo.internal.Struct(TabletModeObserver_OnTabletModeChanged_ParamsSpec.$, 'TabletModeObserver_OnTabletModeChanged_Params', [
     mojo.internal.StructField('isTabletMode', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
@@ -5956,7 +5973,9 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
                 console.error('setMirrorMode Error: ' + error.message);
             }
         });
-        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kMirrorMode, /*value=*/ {});
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kMirrorMode, /*value=*/ {
+            mirrorModeStatus: mirrorModeInfo.mode === MirrorMode.NORMAL,
+        });
     }
     onUnifiedDesktopClick_() {
         const properties = {
@@ -5965,7 +5984,8 @@ class SettingsDisplayElement extends SettingsDisplayElementBase {
         getDisplayApi()
             .setDisplayProperties(this.primaryDisplayId, properties)
             .then(() => this.setPropertiesCallback_());
-        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kUnifiedMode, /*value=*/ {});
+        this.displaySettingsProvider.recordChangingDisplaySettings(DisplaySettingsType.kUnifiedMode, 
+        /*value=*/ { unifiedModeStatus: properties.isUnified });
     }
     onOverscanClick_(e) {
         e.preventDefault();
@@ -25104,11 +25124,11 @@ function getTemplate$l() {
 
 <settings-card header-text="$i18n{osSearchPageTitle}">
   
-  <template is="dom-if" if="[[!shouldShowQuickAnswersSettings_]]">
+  <template is="dom-if" if="[[!isQuickAnswersSupported_]]">
     <settings-search-engine deep-link-focus-id$="[[Setting.kPreferredSearchEngine]]">
     </settings-search-engine>
   </template>
-  <template is="dom-if" if="[[shouldShowQuickAnswersSettings_]]">
+  <template is="dom-if" if="[[isQuickAnswersSupported_]]">
     <cr-link-row id="searchRow" start-icon="[[rowIcons_.searchEngine]]" label="$i18n{searchSubpageTitle}" on-click="onSearchClick_" role-description="$i18n{subpageArrowRoleDescription}">
     </cr-link-row>
   </template>
@@ -25149,10 +25169,10 @@ class SearchAndAssistantSettingsCardElement extends SearchAndAssistantSettingsCa
                 type: Object,
                 notify: true,
             },
-            shouldShowQuickAnswersSettings_: {
+            isQuickAnswersSupported_: {
                 type: Boolean,
                 value: () => {
-                    return shouldShowQuickAnswersSettings();
+                    return isQuickAnswersSupported();
                 },
             },
             /** Can be disallowed due to flag, policy, locale, etc. */
@@ -25215,7 +25235,7 @@ class SearchAndAssistantSettingsCardElement extends SearchAndAssistantSettingsCa
         this.attemptDeepLink();
     }
     onSearchClick_() {
-        assert(this.shouldShowQuickAnswersSettings_);
+        assert(this.isQuickAnswersSupported_);
         Router.getInstance().navigateTo(routes.SEARCH_SUBPAGE);
     }
     onGoogleAssistantClick_() {
@@ -25238,7 +25258,7 @@ function getTemplate$k() {
     </search-and-assistant-settings-card>
   </div>
 
-  <template is="dom-if" if="[[shouldShowQuickAnswersSettings_]]">
+  <template is="dom-if" if="[[isQuickAnswersSupported_]]">
     <template is="dom-if" route-path="/osSearch/search">
       <os-settings-subpage page-title="$i18n{searchSubpageTitle}">
         <settings-search-subpage prefs="{{prefs}}">
@@ -25283,10 +25303,10 @@ class OsSettingsSearchPageElement extends PolymerElement {
                 value: Section$1.kSearchAndAssistant,
                 readOnly: true,
             },
-            shouldShowQuickAnswersSettings_: {
+            isQuickAnswersSupported_: {
                 type: Boolean,
                 value: () => {
-                    return shouldShowQuickAnswersSettings();
+                    return isQuickAnswersSupported();
                 },
             },
             /** Can be disallowed due to flag, policy, locale, etc. */
@@ -25382,7 +25402,7 @@ function getTemplate$i() {
     return html `<!--_html_template_start_--><style include="settings-shared">:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 
 <settings-card header-text="[[getHeaderText_()]]">
-  <settings-toggle-button id="snapWindowSuggestionsToggle" icon="os-settings:multitasking" pref="{{prefs.ash.snap_window_suggestions.enabled}}" label="[[getLabelText_()]]" sub-label="[[getDescriptionText_()]]">
+  <settings-toggle-button id="snapWindowSuggestionsToggle" icon="os-settings:multitasking" pref="{{prefs.ash.snap_window_suggestions.enabled}}" label="[[getLabelText_()]]" sub-label="[[getDescriptionText_()]]" deep-link-focus-id$="[[Setting.kSnapWindowSuggestions]]">
   </settings-toggle-button>
 </settings-card><!--_html_template_end_-->`;
 }
@@ -25395,7 +25415,7 @@ function getTemplate$i() {
  * 'storage-and-power-settings-card' is the card element containing storage and
  * power settings.
  */
-const MultitaskingSettingsCardElementBase = WebUiListenerMixin(I18nMixin(PolymerElement));
+const MultitaskingSettingsCardElementBase = RouteObserverMixin(DeepLinkingMixin(I18nMixin(PolymerElement)));
 class MultitaskingSettingsCardElement extends MultitaskingSettingsCardElementBase {
     static get is() {
         return 'multitasking-settings-card';
@@ -25409,6 +25429,13 @@ class MultitaskingSettingsCardElement extends MultitaskingSettingsCardElementBas
                 type: Object,
                 notify: true,
             },
+            /**
+             * Used by DeepLinkingMixin to focus this element's deep links.
+             */
+            supportedSettingIds: {
+                type: Object,
+                value: () => new Set([Setting.kSnapWindowSuggestions]),
+            },
             shouldShowMultitasking_: {
                 type: Boolean,
                 value() {
@@ -25417,6 +25444,12 @@ class MultitaskingSettingsCardElement extends MultitaskingSettingsCardElementBas
                 readOnly: true,
             },
         };
+    }
+    currentRouteChanged(newRoute) {
+        if (newRoute !== routes.SYSTEM_PREFERENCES) {
+            return;
+        }
+        this.attemptDeepLink();
     }
     // The following strings are only defined when the OsSettingsRevampWayfinding
     // feature flag is enabled. Avoid using $i18n{} templating in HTML to avoid
@@ -25688,7 +25721,7 @@ function getTemplate$f() {
   </template>
 
   
-  <template is="dom-if" if="[[shouldShowQuickAnswersSettings_]]">
+  <template is="dom-if" if="[[isQuickAnswersSupported_]]">
     <template is="dom-if" route-path="/osSearch/search">
       <os-settings-subpage page-title="$i18n{searchSubpageTitle}">
         <settings-search-subpage prefs="{{prefs}}">
@@ -25794,10 +25827,10 @@ class SettingsSystemPreferencesPageElement extends SettingsSystemPreferencesPage
                     return isPowerwashAllowed();
                 },
             },
-            shouldShowQuickAnswersSettings_: {
+            isQuickAnswersSupported_: {
                 type: Boolean,
                 value: () => {
-                    return shouldShowQuickAnswersSettings();
+                    return isQuickAnswersSupported();
                 },
             },
             isAssistantAllowed_: {
@@ -30822,5 +30855,5 @@ window.addEventListener('load', () => {
     ColorChangeUpdater.forDocument().start();
 });
 
-export { AboutPageBrowserProxyImpl, AccountManagerSettingsCardElement, AdditionalAccountsSettingsCardElement, AndroidAppsBrowserProxyImpl, CrDrawerElement, CrLinkRowElement, CrToolbarSearchFieldElement, DevicePageBrowserProxyImpl, DisplayLayoutElement, EsimRenameDialogElement, FakeInputDeviceSettingsProvider, Fkey, FkeyRowElement, GeolocationAccessLevel, HotspotConfigDialogElement, HotspotSummaryItemElement, InternetConfigElement, InternetPageBrowserProxyImpl, KeyboardRemapModifierKeyRowElement, KeyboardSixPackKeyRowElement, MainPageContainerElement, MetaKey, ModifierKey, MultiDeviceBrowserProxyImpl, MultiDeviceFeature, MultiDeviceFeatureState, MultiDeviceSettingsMode, MultitaskingSettingsCardElement, NearbyShareSettingsMixin, NetworkSummaryElement, NetworkSummaryItemElement, NotificationAccessSetupOperationStatus, OpenWindowProxyImpl, OsA11yPageBrowserProxyImpl, OsBluetoothDevicesSubpageBrowserProxyImpl, OsSettingsA11yPageElement, OsSettingsCellularSetupDialogElement, OsSettingsHatsBrowserProxyImpl, OsSettingsMainElement, OsSettingsMenuElement, OsSettingsMenuItemElement, OsSettingsPeoplePageElement, OsSettingsPrivacyPageElement, OsSettingsSearchBoxBrowserProxyImpl, OsSettingsSearchBoxElement, OsSettingsSearchPageElement, OsSettingsUiElement, OsToolbarElement, PageDisplayerElement, ParentalControlsBrowserProxyImpl, ParentalControlsSettingsCardElement, PeripheralDataAccessBrowserProxyImpl, PermissionsSetupStatus, PersonalizationHubBrowserProxyImpl, PhoneHubFeatureAccessStatus, PhoneHubPermissionsSetupAction, PhoneHubPermissionsSetupFeatureCombination, PhoneHubPermissionsSetupFlowScreens, PolicyStatus, ProfileInfoBrowserProxyImpl, Router, SearchAndAssistantSettingsCardElement, SettingsAudioElement, SettingsBluetoothPageElement, SettingsBluetoothPairingDialogElement, SettingsBluetoothSummaryElement, SettingsDevicePageElement, SettingsDisplayElement, SettingsGraphicsTabletSubpageElement, SettingsIdleLoadElement, SettingsInternetDetailMenuElement, SettingsKerberosPageElement, SettingsMultideviceNotificationAccessSetupDialogElement, SettingsMultidevicePageElement, SettingsMultidevicePermissionsSetupDialogElement, SettingsParentalControlsPageElement, SettingsPerDeviceKeyboardElement, SettingsPerDeviceKeyboardRemapKeysElement, SettingsPerDeviceKeyboardSubsectionElement, SettingsPerDeviceMouseElement, SettingsPerDeviceMouseSubsectionElement, SettingsPerDevicePointingStickElement, SettingsPerDevicePointingStickSubsectionElement, SettingsPerDeviceTouchpadElement, SettingsPerDeviceTouchpadSubsectionElement, SettingsPersonalizationPageElement, SettingsSchedulerSliderElement, SettingsSystemPreferencesPageElement, SetupFlowStatus, SimulateRightClickModifier, SixPackKey, SixPackShortcutModifier, StartupSettingsCardElement, StorageAndPowerSettingsCardElement, SyncBrowserProxyImpl, TopRowActionKey, WiFiSecurityType, createPageAvailability as createPageAvailabilityForTesting, cros_audio_config_mojomWebui as crosAudioConfigMojom, display_settings_provider_mojomWebui as displaySettingsProviderMojom, ensureLazyLoaded, fake_cros_audio_config as fakeCrosAudioConfig, getDisplaySettingsProvider, getInputDeviceSettingsProvider, getNearbyShareSettings, getPersonalizationSearchHandler, getSettingsSearchHandler, observeNearbyShareSettings, personalization_search_mojomWebui as personalizationSearchMojom, recordClick, recordNavigation, recordPageBlur, recordPageFocus, recordSearch, recordSettingChange, routes, routesMojom, search_mojomWebui as searchMojom, search_result_icon_mojomWebui as searchResultIconMojom, setCrosAudioConfigForTesting, setDisplaySettingsProviderForTesting, setGlobalScrollTarget as setGlobalScrollTargetForTesting, setPersonalizationSearchHandlerForTesting, setSettingsSearchHandlerForTesting, sixPackKeyProperties };
+export { AboutPageBrowserProxyImpl, AccountManagerSettingsCardElement, AdditionalAccountsSettingsCardElement, AndroidAppsBrowserProxyImpl, CrDrawerElement, CrLinkRowElement, CrToolbarSearchFieldElement, DevicePageBrowserProxyImpl, DisplayLayoutElement, EsimRenameDialogElement, FakeInputDeviceSettingsProvider, Fkey, FkeyRowElement, GeolocationAccessLevel, HotspotConfigDialogElement, HotspotSummaryItemElement, InternetConfigElement, InternetPageBrowserProxyImpl, KeyboardRemapModifierKeyRowElement, KeyboardSixPackKeyRowElement, MainPageContainerElement, ManagedFootnoteElement, MetaKey, ModifierKey, MultiDeviceBrowserProxyImpl, MultiDeviceFeature, MultiDeviceFeatureState, MultiDeviceSettingsMode, MultitaskingSettingsCardElement, NearbyShareSettingsMixin, NetworkSummaryElement, NetworkSummaryItemElement, NotificationAccessSetupOperationStatus, OpenWindowProxyImpl, OsA11yPageBrowserProxyImpl, OsBluetoothDevicesSubpageBrowserProxyImpl, OsSettingsA11yPageElement, OsSettingsCellularSetupDialogElement, OsSettingsHatsBrowserProxyImpl, OsSettingsMainElement, OsSettingsMenuElement, OsSettingsMenuItemElement, OsSettingsPeoplePageElement, OsSettingsPrivacyPageElement, OsSettingsSearchBoxBrowserProxyImpl, OsSettingsSearchBoxElement, OsSettingsSearchPageElement, OsSettingsUiElement, OsToolbarElement, PageDisplayerElement, ParentalControlsBrowserProxyImpl, ParentalControlsSettingsCardElement, PeripheralDataAccessBrowserProxyImpl, PermissionsSetupStatus, PersonalizationHubBrowserProxyImpl, PhoneHubFeatureAccessStatus, PhoneHubPermissionsSetupAction, PhoneHubPermissionsSetupFeatureCombination, PhoneHubPermissionsSetupFlowScreens, PolicyStatus, ProfileInfoBrowserProxyImpl, Router, SearchAndAssistantSettingsCardElement, SettingsAudioElement, SettingsBluetoothPageElement, SettingsBluetoothPairingDialogElement, SettingsBluetoothSummaryElement, SettingsDevicePageElement, SettingsDisplayElement, SettingsGraphicsTabletSubpageElement, SettingsIdleLoadElement, SettingsInternetDetailMenuElement, SettingsKerberosPageElement, SettingsMultideviceNotificationAccessSetupDialogElement, SettingsMultidevicePageElement, SettingsMultidevicePermissionsSetupDialogElement, SettingsParentalControlsPageElement, SettingsPerDeviceKeyboardElement, SettingsPerDeviceKeyboardRemapKeysElement, SettingsPerDeviceKeyboardSubsectionElement, SettingsPerDeviceMouseElement, SettingsPerDeviceMouseSubsectionElement, SettingsPerDevicePointingStickElement, SettingsPerDevicePointingStickSubsectionElement, SettingsPerDeviceTouchpadElement, SettingsPerDeviceTouchpadSubsectionElement, SettingsPersonalizationPageElement, SettingsSchedulerSliderElement, SettingsSystemPreferencesPageElement, SetupFlowStatus, SimulateRightClickModifier, SixPackKey, SixPackShortcutModifier, StartupSettingsCardElement, StorageAndPowerSettingsCardElement, SyncBrowserProxyImpl, TopRowActionKey, WiFiSecurityType, createPageAvailability as createPageAvailabilityForTesting, cros_audio_config_mojomWebui as crosAudioConfigMojom, display_settings_provider_mojomWebui as displaySettingsProviderMojom, ensureLazyLoaded, fake_cros_audio_config as fakeCrosAudioConfig, getDisplaySettingsProvider, getInputDeviceSettingsProvider, getNearbyShareSettings, getPersonalizationSearchHandler, getSettingsSearchHandler, observeNearbyShareSettings, personalization_search_mojomWebui as personalizationSearchMojom, recordClick, recordNavigation, recordPageBlur, recordPageFocus, recordSearch, recordSettingChange, routes, routesMojom, search_mojomWebui as searchMojom, search_result_icon_mojomWebui as searchResultIconMojom, setCrosAudioConfigForTesting, setDisplaySettingsProviderForTesting, setGlobalScrollTarget as setGlobalScrollTargetForTesting, setPersonalizationSearchHandlerForTesting, setSettingsSearchHandlerForTesting, sixPackKeyProperties };
 //# sourceMappingURL=os_settings.rollup.js.map

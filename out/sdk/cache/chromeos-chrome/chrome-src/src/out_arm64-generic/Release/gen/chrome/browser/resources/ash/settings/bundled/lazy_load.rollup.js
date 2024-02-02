@@ -23,6 +23,7 @@ import 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby
 import 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
 import 'chrome://resources/mojo/chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-webui.js';
 import 'chrome://resources/mojo/services/network/public/mojom/ip_address.mojom-webui.js';
+import 'chrome://resources/lit/v3_0/lit.rollup.js';
 
 function getTemplate$2i() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
@@ -26956,9 +26957,8 @@ var ScreenAiInstallStatus;
 (function (ScreenAiInstallStatus) {
     ScreenAiInstallStatus[ScreenAiInstallStatus["NOT_DOWNLOADED"] = 0] = "NOT_DOWNLOADED";
     ScreenAiInstallStatus[ScreenAiInstallStatus["DOWNLOADING"] = 1] = "DOWNLOADING";
-    ScreenAiInstallStatus[ScreenAiInstallStatus["FAILED"] = 2] = "FAILED";
+    ScreenAiInstallStatus[ScreenAiInstallStatus["DOWNLOAD_FAILED"] = 2] = "DOWNLOAD_FAILED";
     ScreenAiInstallStatus[ScreenAiInstallStatus["DOWNLOADED"] = 3] = "DOWNLOADED";
-    ScreenAiInstallStatus[ScreenAiInstallStatus["READY"] = 4] = "READY";
 })(ScreenAiInstallStatus || (ScreenAiInstallStatus = {}));
 const SettingsTextToSpeechSubpageElementBase = DeepLinkingMixin(RouteOriginMixin(PrefsMixin(WebUiListenerMixin(I18nMixin(PolymerElement)))));
 class SettingsTextToSpeechSubpageElement extends SettingsTextToSpeechSubpageElementBase {
@@ -27037,12 +27037,10 @@ class SettingsTextToSpeechSubpageElement extends SettingsTextToSpeechSubpageElem
                 return this.pdfOcrProgress_ > 0 && this.pdfOcrProgress_ < 100 ?
                     this.i18n('pdfOcrDownloadProgressLabel', this.pdfOcrProgress_) :
                     this.i18n('pdfOcrDownloadingLabel');
-            case ScreenAiInstallStatus.FAILED:
+            case ScreenAiInstallStatus.DOWNLOAD_FAILED:
                 return this.i18n('pdfOcrDownloadErrorLabel');
             case ScreenAiInstallStatus.DOWNLOADED:
                 return this.i18n('pdfOcrDownloadCompleteLabel');
-            case ScreenAiInstallStatus.READY:
-            // No subtitle update in this case
             case ScreenAiInstallStatus.NOT_DOWNLOADED:
             // No subtitle update in this case
             default:

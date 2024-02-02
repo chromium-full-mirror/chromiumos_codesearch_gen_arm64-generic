@@ -1514,13 +1514,13 @@
     this.trustedScoringSignalsUrl = null;
     this.maxTrustedScoringSignalsUrlLength = 0;
     this.expectsDirectFromSellerSignalsHeaderAdSlot = false;
-    this.hasSellerExperimentGroupId = false;
-    this.hasAllBuyerExperimentGroupId = false;
+    this.seller_experiment_group_id_$flag = false;
+    this.all_buyer_experiment_group_id_$flag = false;
     this.expectsAdditionalBids = false;
-    this.sellerExperimentGroupId = 0;
+    this.seller_experiment_group_id_$value = 0;
     this.auctionAdConfigNonSharedParams = null;
     this.directFromSellerSignals = null;
-    this.allBuyerExperimentGroupId = 0;
+    this.all_buyer_experiment_group_id_$value = 0;
     this.perBuyerExperimentGroupIds = null;
     this.aggregationCoordinatorOrigin = null;
   };
@@ -1621,17 +1621,17 @@
         decoder.decodeStruct(codec.Int32);
     packed = decoder.readUint8();
     val.expectsDirectFromSellerSignalsHeaderAdSlot = (packed >> 0) & 1 ? true : false;
-    val.hasSellerExperimentGroupId = (packed >> 1) & 1 ? true : false;
-    val.hasAllBuyerExperimentGroupId = (packed >> 2) & 1 ? true : false;
+    val.seller_experiment_group_id_$flag = (packed >> 1) & 1 ? true : false;
+    val.all_buyer_experiment_group_id_$flag = (packed >> 2) & 1 ? true : false;
     val.expectsAdditionalBids = (packed >> 3) & 1 ? true : false;
     decoder.skip(1);
-    val.sellerExperimentGroupId =
+    val.seller_experiment_group_id_$value =
         decoder.decodeStruct(codec.Uint16);
     val.auctionAdConfigNonSharedParams =
         decoder.decodeStructPointer(AuctionAdConfigNonSharedParams);
     val.directFromSellerSignals =
         decoder.decodeStruct(AuctionAdConfigMaybePromiseDirectFromSellerSignals);
-    val.allBuyerExperimentGroupId =
+    val.all_buyer_experiment_group_id_$value =
         decoder.decodeStruct(codec.Int16);
     decoder.skip(1);
     decoder.skip(1);
@@ -1657,15 +1657,15 @@
     encoder.encodeStruct(codec.Int32, val.maxTrustedScoringSignalsUrlLength);
     packed = 0;
     packed |= (val.expectsDirectFromSellerSignalsHeaderAdSlot & 1) << 0
-    packed |= (val.hasSellerExperimentGroupId & 1) << 1
-    packed |= (val.hasAllBuyerExperimentGroupId & 1) << 2
+    packed |= (val.seller_experiment_group_id_$flag & 1) << 1
+    packed |= (val.all_buyer_experiment_group_id_$flag & 1) << 2
     packed |= (val.expectsAdditionalBids & 1) << 3
     encoder.writeUint8(packed);
     encoder.skip(1);
-    encoder.encodeStruct(codec.Uint16, val.sellerExperimentGroupId);
+    encoder.encodeStruct(codec.Uint16, val.seller_experiment_group_id_$value);
     encoder.encodeStructPointer(AuctionAdConfigNonSharedParams, val.auctionAdConfigNonSharedParams);
     encoder.encodeStruct(AuctionAdConfigMaybePromiseDirectFromSellerSignals, val.directFromSellerSignals);
-    encoder.encodeStruct(codec.Int16, val.allBuyerExperimentGroupId);
+    encoder.encodeStruct(codec.Int16, val.all_buyer_experiment_group_id_$value);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);

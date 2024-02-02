@@ -5,4 +5,3 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_probe.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_routines.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom-module

@@ -13,6 +13,12 @@
       "chrome://resources/ash/common/*": [
         "./../../../../ash/webui/common/resources/preprocessed/*"
       ],
+      "//resources/ash/common/personalization/*": [
+        "./../../../../ash/webui/common/resources/preprocessed/personalization/*"
+      ],
+      "chrome://resources/ash/common/personalization/*": [
+        "./../../../../ash/webui/common/resources/preprocessed/personalization/*"
+      ],
       "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
         "./../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
       ],
@@ -65,6 +71,9 @@
   "references": [
     {
       "path": "../../common/resources/tsconfig_build_ts.json"
+    },
+    {
+      "path": "../../common/resources/personalization/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../third_party/polymer/v3_0/tsconfig_library.json"

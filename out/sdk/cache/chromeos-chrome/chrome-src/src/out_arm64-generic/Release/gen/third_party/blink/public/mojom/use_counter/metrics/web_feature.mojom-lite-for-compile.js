@@ -4033,9 +4033,16 @@ blink.mojom.WebFeature = {
   kV8ElementInternals_AriaLabelledByElements_AttributeSetter: 4823,
   kV8ElementInternals_AriaOwnsElements_AttributeGetter: 4824,
   kV8ElementInternals_AriaOwnsElements_AttributeSetter: 4825,
-  kNumberOfFeatures: 4826,
+  kIdentityDigitalCredentials: 4826,
+  kCSSSelectorPseudoState: 4827,
+  kSpeculationRulesPrefetch: 4828,
+  kSpeculationRulesAuthorPrefetchRule: 4829,
+  kSpeculationRulesAuthorPrerenderRule: 4830,
+  kSpeculationRulesBrowserPrefetchRule: 4831,
+  kSpeculationRulesBrowserPrerenderRule: 4832,
+  kNumberOfFeatures: 4833,
   MIN_VALUE: 0,
-  MAX_VALUE: 4826,
+  MAX_VALUE: 4833,
 };
 
 

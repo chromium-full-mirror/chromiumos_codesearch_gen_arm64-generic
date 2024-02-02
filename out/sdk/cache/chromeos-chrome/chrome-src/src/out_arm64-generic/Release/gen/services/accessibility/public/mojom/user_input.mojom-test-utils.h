@@ -16,6 +16,7 @@ namespace ax::mojom {
 class  UserInputInterceptorForTesting : public UserInput {
   virtual UserInput* GetForwardingInterface() = 0;
   void SendSyntheticKeyEventForShortcutOrNavigation(SyntheticKeyEventPtr key_event) override;
+  void SendSyntheticMouseEvent(SyntheticMouseEventPtr mouse_event) override;
 };
 class  UserInputAsyncWaiter {
  public:

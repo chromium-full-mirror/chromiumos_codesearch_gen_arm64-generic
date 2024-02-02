@@ -277,6 +277,7 @@ export class PreloadingAttemptView extends UI.Widget.VBox {
         this.warningsView.show(this.warningsContainer);
         const vbox = new UI.Widget.VBox();
         const toolbar = new UI.Toolbar.Toolbar('preloading-toolbar', vbox.contentElement);
+        toolbar.element.setAttribute('jslog', `${VisualLogging.toolbar()}`);
         this.ruleSetSelector = new PreloadingRuleSetSelector(() => this.render());
         toolbar.appendToolbarItem(this.ruleSetSelector.item());
         this.preloadingGrid.addEventListener('cellfocused', this.onPreloadingGridCellFocused.bind(this));

@@ -126,11 +126,11 @@
         V(BYTECODE_ARRAY_TYPE, 214) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=7&c=1 */\
         V(CODE_TYPE, 215) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=33&c=1 */\
         V(INTERPRETER_DATA_TYPE, 216) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=11&c=1 */\
-        V(TRUSTED_FIXED_ARRAY_TYPE, 217) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=19&c=1 */\
-        V(WASM_TRUSTED_INSTANCE_DATA_TYPE, 218) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=12&c=1 */\
-      V(LAST_EXPOSED_TRUSTED_OBJECT_TYPE, 218) \
-      V(INSTRUCTION_STREAM_TYPE, 219) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=250&c=1 */\
-      V(TRUSTED_BYTE_ARRAY_TYPE, 220) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=41&c=1 */\
+        V(WASM_TRUSTED_INSTANCE_DATA_TYPE, 217) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=12&c=1 */\
+      V(LAST_EXPOSED_TRUSTED_OBJECT_TYPE, 217) \
+      V(INSTRUCTION_STREAM_TYPE, 218) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=250&c=1 */\
+      V(TRUSTED_BYTE_ARRAY_TYPE, 219) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=41&c=1 */\
+      V(TRUSTED_FIXED_ARRAY_TYPE, 220) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=19&c=1 */\
     V(LAST_TRUSTED_OBJECT_TYPE, 220) \
     V(FIRST_TURBOFAN_TYPE_TYPE, 221) \
       V(TURBOFAN_BITSET_TYPE_TYPE, 221) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turbofan-types.tq?l=59&c=1 */\
@@ -471,10 +471,10 @@
   V(BYTECODE_ARRAY_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=7&c=1 */\
   V(CODE_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=33&c=1 */\
   V(INTERPRETER_DATA_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=11&c=1 */\
-  V(TRUSTED_FIXED_ARRAY_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=19&c=1 */\
   V(WASM_TRUSTED_INSTANCE_DATA_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=12&c=1 */\
   V(INSTRUCTION_STREAM_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/base.tq?l=250&c=1 */\
   V(TRUSTED_BYTE_ARRAY_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=41&c=1 */\
+  V(TRUSTED_FIXED_ARRAY_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=19&c=1 */\
   V(TURBOFAN_BITSET_TYPE_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turbofan-types.tq?l=59&c=1 */\
   V(TURBOFAN_HEAP_CONSTANT_TYPE_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turbofan-types.tq?l=77&c=1 */\
   V(TURBOFAN_OTHER_NUMBER_CONSTANT_TYPE_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turbofan-types.tq?l=82&c=1 */\
@@ -716,8 +716,8 @@
   V(TurboshaftWord64SetType, TURBOSHAFT_WORD64_SET_TYPE_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turboshaft-types.tq?l=56&c=1 */ \
   V(BytecodeArray, BYTECODE_ARRAY_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/bytecode-array.tq?l=7&c=1 */ \
   V(InterpreterData, INTERPRETER_DATA_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/shared-function-info.tq?l=11&c=1 */ \
-  V(TrustedFixedArray, TRUSTED_FIXED_ARRAY_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=19&c=1 */ \
   V(TrustedByteArray, TRUSTED_BYTE_ARRAY_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=41&c=1 */ \
+  V(TrustedFixedArray, TRUSTED_FIXED_ARRAY_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=19&c=1 */ \
   V(TurbofanBitsetType, TURBOFAN_BITSET_TYPE_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turbofan-types.tq?l=59&c=1 */ \
   V(TurbofanHeapConstantType, TURBOFAN_HEAP_CONSTANT_TYPE_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turbofan-types.tq?l=77&c=1 */ \
   V(TurbofanOtherNumberConstantType, TURBOFAN_OTHER_NUMBER_CONSTANT_TYPE_TYPE) /* https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/turbofan-types.tq?l=82&c=1 */ \

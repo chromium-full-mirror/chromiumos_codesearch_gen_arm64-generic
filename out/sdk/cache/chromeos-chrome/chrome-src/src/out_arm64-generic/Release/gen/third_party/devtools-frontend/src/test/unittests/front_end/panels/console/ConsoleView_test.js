@@ -160,7 +160,7 @@ describeWithMockConnection('ConsoleView', () => {
             const runtimeModel = target.model(SDK.RuntimeModel.RuntimeModel);
             assertNotNullOrUndefined(runtimeModel);
             SDK.ConsoleModel.ConsoleModel.requestClearMessages();
-            const selfXssWarningDisabledSetting = Common.Settings.Settings.instance().createSetting('disableSelfXssWarning', false, "Synced" /* Common.Settings.SettingStorageType.Synced */);
+            const selfXssWarningDisabledSetting = Common.Settings.Settings.instance().createSetting('disable-self-xss-warning', false, "Synced" /* Common.Settings.SettingStorageType.Synced */);
             for (let i = 0; i < 5; i++) {
                 assert.isFalse(selfXssWarningDisabledSetting.get());
                 consoleModel.dispatchEventToListeners(SDK.ConsoleModel.Events.MessageAdded, createConsoleMessage(target, String(i), SDK.ConsoleModel.FrontendMessageType.Command));

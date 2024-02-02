@@ -108,6 +108,10 @@ export class RealboxMatchElement extends PolymerElement {
                 value: () => loadTimeData.getBoolean('realboxCr23ConsistentRowHeight'),
                 reflectToAttribute: true,
             },
+            renderType: {
+                type: String,
+                reflectToAttribute: true,
+            },
             showCrNonInlinedHoverFill: {
                 type: Boolean,
                 computed: 'computeShowCrNonInlinedHoverFill_(hasAction)',

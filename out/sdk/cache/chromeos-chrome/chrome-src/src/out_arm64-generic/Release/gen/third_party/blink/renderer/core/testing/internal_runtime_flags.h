@@ -421,6 +421,12 @@ class InternalRuntimeFlags : public ScriptWrappable {
   bool cssCrossFadeEnabled() {
     return RuntimeEnabledFeatures::CSSCrossFadeEnabled();
   }
+  bool cssCustomStateDeprecatedSyntaxEnabled() {
+    return RuntimeEnabledFeatures::CSSCustomStateDeprecatedSyntaxEnabled();
+  }
+  bool cssCustomStateNewSyntaxEnabled() {
+    return RuntimeEnabledFeatures::CSSCustomStateNewSyntaxEnabled();
+  }
   bool cssDisplayAnimationEnabled() {
     return RuntimeEnabledFeatures::CSSDisplayAnimationEnabled();
   }
@@ -1275,6 +1281,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   }
   bool navigatorContentUtilsEnabled() {
     return RuntimeEnabledFeatures::NavigatorContentUtilsEnabled();
+  }
+  bool nestedTopLayerSupportEnabled() {
+    return RuntimeEnabledFeatures::NestedTopLayerSupportEnabled();
   }
   bool netInfoConstantTypeEnabled() {
     return RuntimeEnabledFeatures::NetInfoConstantTypeEnabled();

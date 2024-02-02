@@ -1091,14 +1091,14 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) AuctionAdConfig_Data {
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> trusted_scoring_signals_url;
   int32_t max_trusted_scoring_signals_url_length;
   uint8_t expects_direct_from_seller_signals_header_ad_slot : 1;
-  uint8_t has_seller_experiment_group_id : 1;
-  uint8_t has_all_buyer_experiment_group_id : 1;
+  uint8_t seller_experiment_group_id_$flag : 1;
+  uint8_t all_buyer_experiment_group_id_$flag : 1;
   uint8_t expects_additional_bids : 1;
   uint8_t pad8_[1];
-  uint16_t seller_experiment_group_id;
+  uint16_t seller_experiment_group_id_$value;
   mojo::internal::Pointer<internal::AuctionAdConfigNonSharedParams_Data> auction_ad_config_non_shared_params;
   internal::AuctionAdConfigMaybePromiseDirectFromSellerSignals_Data direct_from_seller_signals;
-  int16_t all_buyer_experiment_group_id;
+  int16_t all_buyer_experiment_group_id_$value;
   uint8_t pad12_[6];
   mojo::internal::Pointer<mojo::internal::Map_Data<mojo::internal::Pointer<::url::mojom::internal::Origin_Data>, uint16_t>> per_buyer_experiment_group_ids;
   mojo::internal::Pointer<::url::mojom::internal::Origin_Data> aggregation_coordinator_origin;

@@ -847,7 +847,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `err` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErr` instead "
     "of `ReadErr if you're fine with null values being "
@@ -908,7 +908,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `err` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErr` instead "
     "of `ReadErr if you're fine with null values being "
@@ -979,7 +979,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `err` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErr` instead "
     "of `ReadErr if you're fine with null values being "
@@ -1040,7 +1040,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `err` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErr` instead "
     "of `ReadErr if you're fine with null values being "
@@ -1249,8 +1249,8 @@ class Delegate_GetLidAngle_ResponseParamsDataView {
   std::optional<uint16_t> lid_angle() const {
 
     return data_->lid_angle_$flag
-        ? absl::make_optional(data_->lid_angle_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->lid_angle_$value)
+        : std::nullopt;
   }
  private:
   internal::Delegate_GetLidAngle_ResponseParams_Data* data_ = nullptr;
@@ -1303,7 +1303,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `err` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErr` instead "
     "of `ReadErr if you're fine with null values being "
@@ -1339,7 +1339,7 @@ static_assert(
         mojo::ArrayDataView<uint32_t>, UserType>(),
     "Attempting to read the optional `last_known_connectors` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLastKnownConnectors` instead "
     "of `ReadLastKnownConnectors if you're fine with null values being "
@@ -1385,7 +1385,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `err` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErr` instead "
     "of `ReadErr if you're fine with null values being "
@@ -1669,7 +1669,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `err` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErr` instead "
     "of `ReadErr if you're fine with null values being "
@@ -1731,7 +1731,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `err` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErr` instead "
     "of `ReadErr if you're fine with null values being "
@@ -1782,7 +1782,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `err` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErr` instead "
     "of `ReadErr if you're fine with null values being "
@@ -1843,7 +1843,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `err` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErr` instead "
     "of `ReadErr if you're fine with null values being "
@@ -1904,7 +1904,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `err` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadErr` instead "
     "of `ReadErr if you're fine with null values being "
@@ -1950,8 +1950,8 @@ class Delegate_GetSmartBatteryManufactureDate_ResponseParamsDataView {
   std::optional<uint32_t> manufacture_date() const {
 
     return data_->manufacture_date_$flag
-        ? absl::make_optional(data_->manufacture_date_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->manufacture_date_$value)
+        : std::nullopt;
   }
  private:
   internal::Delegate_GetSmartBatteryManufactureDate_ResponseParams_Data* data_ = nullptr;
@@ -1989,8 +1989,8 @@ class Delegate_GetSmartBatteryTemperature_ResponseParamsDataView {
   std::optional<uint32_t> temperature() const {
 
     return data_->temperature_$flag
-        ? absl::make_optional(data_->temperature_$value)
-        : absl::nullopt;
+        ? std::make_optional(data_->temperature_$value)
+        : std::nullopt;
   }
  private:
   internal::Delegate_GetSmartBatteryTemperature_ResponseParams_Data* data_ = nullptr;

@@ -1637,17 +1637,17 @@ static_assert(
   bool expects_direct_from_seller_signals_header_ad_slot() const {
     return data_->expects_direct_from_seller_signals_header_ad_slot;
   }
-  bool has_seller_experiment_group_id() const {
-    return data_->has_seller_experiment_group_id;
+  std::optional<uint16_t> seller_experiment_group_id() const {
+
+    return data_->seller_experiment_group_id_$flag
+        ? std::make_optional(data_->seller_experiment_group_id_$value)
+        : std::nullopt;
   }
-  uint16_t seller_experiment_group_id() const {
-    return data_->seller_experiment_group_id;
-  }
-  bool has_all_buyer_experiment_group_id() const {
-    return data_->has_all_buyer_experiment_group_id;
-  }
-  int16_t all_buyer_experiment_group_id() const {
-    return data_->all_buyer_experiment_group_id;
+  std::optional<int16_t> all_buyer_experiment_group_id() const {
+
+    return data_->all_buyer_experiment_group_id_$flag
+        ? std::make_optional(data_->all_buyer_experiment_group_id_$value)
+        : std::nullopt;
   }
   inline void GetPerBuyerExperimentGroupIdsDataView(
       mojo::MapDataView<::url::mojom::OriginDataView, uint16_t>* output);
@@ -3075,10 +3075,14 @@ struct Serializer<::blink::mojom::AuctionAdConfigDataView, MaybeConstUserType> {
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null direct_from_seller_signals in AuctionAdConfig struct");
     fragment->expects_direct_from_seller_signals_header_ad_slot = Traits::expects_direct_from_seller_signals_header_ad_slot(input);
-    fragment->has_seller_experiment_group_id = Traits::has_seller_experiment_group_id(input);
-    fragment->seller_experiment_group_id = Traits::seller_experiment_group_id(input);
-    fragment->has_all_buyer_experiment_group_id = Traits::has_all_buyer_experiment_group_id(input);
-    fragment->all_buyer_experiment_group_id = Traits::all_buyer_experiment_group_id(input);
+    fragment->seller_experiment_group_id_$flag = Traits::seller_experiment_group_id(input).has_value();
+    if (Traits::seller_experiment_group_id(input).has_value()) {
+      fragment->seller_experiment_group_id_$value = Traits::seller_experiment_group_id(input).value();
+    }
+    fragment->all_buyer_experiment_group_id_$flag = Traits::all_buyer_experiment_group_id(input).has_value();
+    if (Traits::all_buyer_experiment_group_id(input).has_value()) {
+      fragment->all_buyer_experiment_group_id_$value = Traits::all_buyer_experiment_group_id(input).value();
+    }
     decltype(Traits::per_buyer_experiment_group_ids(input)) in_per_buyer_experiment_group_ids = Traits::per_buyer_experiment_group_ids(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->per_buyer_experiment_group_ids)::BaseType>

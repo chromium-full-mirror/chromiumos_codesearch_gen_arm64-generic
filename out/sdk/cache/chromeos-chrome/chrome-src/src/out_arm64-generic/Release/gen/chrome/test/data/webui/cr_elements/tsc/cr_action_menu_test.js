@@ -397,7 +397,7 @@ suite('CrActionMenu', function () {
     // 
     test('[auto-reposition] enables repositioning if content changes', autoRepositionTest);
     // 
-    test('accessibilityLabel', function () {
+    test('accessibilityLabel', async function () {
         document.body.innerHTML = getTrustedStaticHtml `
       <cr-action-menu accessibility-label="foo">
         <button class="dropdown-item">Un</button>
@@ -409,14 +409,16 @@ suite('CrActionMenu', function () {
         // Check value provided with direct assignment.
         const label = 'dummy label';
         menu.accessibilityLabel = label;
+        await menu.updateComplete;
         assertEquals(label, menu.$.wrapper.ariaLabel);
         assertEquals(label, menu.$.wrapper.getAttribute('aria-label'));
         // Check setting to undefined.
         menu.accessibilityLabel = undefined;
+        await menu.updateComplete;
         assertEquals(null, menu.$.wrapper.ariaLabel);
         assertFalse(menu.$.wrapper.hasAttribute('aria-label'));
     });
-    test('roleDescription', function () {
+    test('roleDescription', async function () {
         document.body.innerHTML = getTrustedStaticHtml `
       <cr-action-menu role-description="foo">
         <button class="dropdown-item">Un</button>
@@ -429,10 +431,12 @@ suite('CrActionMenu', function () {
         // Check value provided with direct assignment.
         const description = 'dummy description';
         menu.roleDescription = description;
+        await menu.updateComplete;
         assertEquals(description, menu.$.dialog.ariaRoleDescription);
         assertEquals(description, menu.$.dialog.getAttribute('aria-roledescription'));
         // Check setting to undefined.
         menu.roleDescription = undefined;
+        await menu.updateComplete;
         assertEquals(null, menu.$.dialog.ariaRoleDescription);
         assertFalse(menu.$.dialog.hasAttribute('aria-roledescription'));
     });

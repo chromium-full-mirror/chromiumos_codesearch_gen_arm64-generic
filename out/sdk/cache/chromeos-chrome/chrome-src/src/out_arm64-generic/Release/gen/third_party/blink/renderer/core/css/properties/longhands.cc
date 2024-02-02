@@ -11518,6 +11518,44 @@ void PositionFallbackBounds::ApplyValue(StyleResolverState& state, const CSSValu
 SetPositionFallbackBounds(StyleBuilderConverter::ConvertNormalOrCustomIdent(state, value));
 }
 
+ // position-try-order
+
+
+CSSExposure PositionTryOrder::Exposure(const ExecutionContext* execution_context) const {
+  if (!RuntimeEnabledFeatures::CSSAnchorPositioningEnabled(execution_context)) {
+    return CSSExposure::kNone;
+  }
+  return CSSExposure::kWeb;
+}
+
+const char* PositionTryOrder::GetPropertyName() const {
+  return "position-try-order";
+}
+
+const WTF::AtomicString& PositionTryOrder::GetPropertyNameAtomicString() const {
+  DEFINE_STATIC_LOCAL(const AtomicString, name, ("position-try-order"));
+  return name;
+}
+
+const char* PositionTryOrder::GetJSPropertyName() const {
+  return "positionTryOrder";
+}
+
+
+
+void PositionTryOrder::ApplyInitial(StyleResolverState& state) const {
+  state.StyleBuilder().
+SetPositionTryOrder(ComputedStyleInitialValues::InitialPositionTryOrder());
+}
+void PositionTryOrder::ApplyInherit(StyleResolverState& state) const {
+  state.StyleBuilder().
+SetPositionTryOrder(state.ParentStyle()->PositionTryOrder());
+}
+void PositionTryOrder::ApplyValue(StyleResolverState& state, const CSSValue& value, ValueMode) const {
+  state.StyleBuilder().
+SetPositionTryOrder(To<CSSIdentifierValue>(value).ConvertTo<blink::EPositionTryOrder>());
+}
+
  // prefix
 
 

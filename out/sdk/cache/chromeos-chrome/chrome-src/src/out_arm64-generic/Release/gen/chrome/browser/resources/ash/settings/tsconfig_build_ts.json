@@ -55,12 +55,6 @@
       "chrome://resources/cr_components/localized_link/*": [
         "./../../../../../ui/webui/resources/tsc/cr_components/localized_link/*"
       ],
-      "//resources/cr_components/managed_footnote/*": [
-        "./../../../../../ui/webui/resources/tsc/cr_components/managed_footnote/*"
-      ],
-      "chrome://resources/cr_components/managed_footnote/*": [
-        "./../../../../../ui/webui/resources/tsc/cr_components/managed_footnote/*"
-      ],
       "//resources/cr_components/settings_prefs/*": [
         "./../../../../../ui/webui/resources/tsc/cr_components/settings_prefs/*"
       ],
@@ -370,6 +364,7 @@
     "preprocessed/os_search_page/search_engine.ts",
     "preprocessed/os_search_page/search_subpage.ts",
     "preprocessed/os_settings_menu/menu_item.ts",
+    "preprocessed/os_settings_main/managed_footnote.ts",
     "preprocessed/os_settings_main/os_settings_main.ts",
     "preprocessed/os_settings_menu/os_settings_menu.ts",
     "preprocessed/os_settings_page/os_settings_animated_pages.ts",
@@ -770,6 +765,7 @@
     "preprocessed/os_search_page/search_engine.html.ts",
     "preprocessed/os_search_page/search_subpage.html.ts",
     "preprocessed/os_settings_menu/menu_item.html.ts",
+    "preprocessed/os_settings_main/managed_footnote.html.ts",
     "preprocessed/os_settings_main/os_settings_main.html.ts",
     "preprocessed/os_settings_menu/os_settings_menu.html.ts",
     "preprocessed/os_settings_page/os_settings_animated_pages.html.ts",
@@ -863,9 +859,6 @@
     },
     {
       "path": "../../../../../ui/webui/resources/cr_components/localized_link/tsconfig_build_ts.json"
-    },
-    {
-      "path": "../../../../../ui/webui/resources/cr_components/managed_footnote/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../ui/webui/resources/cr_components/settings_prefs/tsconfig_build_ts.json"

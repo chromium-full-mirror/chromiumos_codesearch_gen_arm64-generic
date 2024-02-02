@@ -10,7 +10,7 @@ import '../os_settings_page/os_settings_animated_pages.js';
 import '../os_settings_page/os_settings_subpage.js';
 import './search_and_assistant_settings_card.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { isAssistantAllowed, shouldShowQuickAnswersSettings } from '../common/load_time_booleans.js';
+import { isAssistantAllowed, isQuickAnswersSupported } from '../common/load_time_booleans.js';
 import { Section } from '../mojom-webui/routes.mojom-webui.js';
 import { getTemplate } from './os_search_page.html.js';
 export class OsSettingsSearchPageElement extends PolymerElement {
@@ -31,10 +31,10 @@ export class OsSettingsSearchPageElement extends PolymerElement {
                 value: Section.kSearchAndAssistant,
                 readOnly: true,
             },
-            shouldShowQuickAnswersSettings_: {
+            isQuickAnswersSupported_: {
                 type: Boolean,
                 value: () => {
-                    return shouldShowQuickAnswersSettings();
+                    return isQuickAnswersSupported();
                 },
             },
             /** Can be disallowed due to flag, policy, locale, etc. */

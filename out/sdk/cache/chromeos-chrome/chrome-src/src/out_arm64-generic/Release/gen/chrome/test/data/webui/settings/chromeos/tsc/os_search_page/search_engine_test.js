@@ -50,7 +50,7 @@ suite(`<${SettingsSearchEngineElement.is}>`, () => {
     }
     setup(async () => {
         loadTimeData.overrideValues({
-            shouldShowQuickAnswersSettings: false,
+            isQuickAnswersSupported: false,
         });
         searchEngineInfo = generateSearchEngineInfo();
         browserProxy = new TestSearchEnginesBrowserProxy(searchEngineInfo);

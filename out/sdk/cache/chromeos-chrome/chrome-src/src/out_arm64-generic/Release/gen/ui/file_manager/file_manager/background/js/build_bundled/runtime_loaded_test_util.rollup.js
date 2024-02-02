@@ -567,12 +567,9 @@ test.util.sync.overrideTasks =
             }
         };
         executedTasks = [];
-        contentWindow.chrome.fileManagerPrivate.getFileTasks =
-            getFileTasks;
-        contentWindow.chrome.fileManagerPrivate.executeTask =
-            executeTask;
-        contentWindow.chrome.fileManagerPrivate.setDefaultTask =
-            setDefaultTask;
+        contentWindow.chrome.fileManagerPrivate.getFileTasks = getFileTasks;
+        contentWindow.chrome.fileManagerPrivate.executeTask = executeTask;
+        contentWindow.chrome.fileManagerPrivate.setDefaultTask = setDefaultTask;
         return true;
     };
 /**
@@ -1179,9 +1176,14 @@ function vmTypeToIconName(vmType) {
     }
 }
 
-// Copyright 2014 The Chromium Authors
+// Copyright 2024 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+/**
+ * @fileoverview The types and enums in this file are used in integration tests.
+ * For this reason we don't want additional imports in here to avoid cascading
+ * importing files.
+ */
 /** Paths that can be handled by the dialog opener in native code. */
 var AllowedPaths;
 (function (AllowedPaths) {
@@ -1189,6 +1191,45 @@ var AllowedPaths;
     AllowedPaths["ANY_PATH"] = "anyPath";
     AllowedPaths["ANY_PATH_OR_URL"] = "anyPathOrUrl";
 })(AllowedPaths || (AllowedPaths = {}));
+/** The type of each volume. */
+var VolumeType;
+(function (VolumeType) {
+    VolumeType["TESTING"] = "testing";
+    VolumeType["DRIVE"] = "drive";
+    VolumeType["DOWNLOADS"] = "downloads";
+    VolumeType["REMOVABLE"] = "removable";
+    VolumeType["ARCHIVE"] = "archive";
+    VolumeType["MTP"] = "mtp";
+    VolumeType["PROVIDED"] = "provided";
+    VolumeType["MEDIA_VIEW"] = "media_view";
+    VolumeType["DOCUMENTS_PROVIDER"] = "documents_provider";
+    VolumeType["CROSTINI"] = "crostini";
+    VolumeType["GUEST_OS"] = "guest_os";
+    VolumeType["ANDROID_FILES"] = "android_files";
+    VolumeType["MY_FILES"] = "my_files";
+    VolumeType["SMB"] = "smb";
+    VolumeType["SYSTEM_INTERNAL"] = "system_internal";
+    VolumeType["TRASH"] = "trash";
+})(VolumeType || (VolumeType = {}));
+/**
+ * List of dialog types.
+ *
+ * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
+ * FULL_PAGE which is specific to this code.
+ */
+var DialogType;
+(function (DialogType) {
+    DialogType["SELECT_FOLDER"] = "folder";
+    DialogType["SELECT_UPLOAD_FOLDER"] = "upload-folder";
+    DialogType["SELECT_SAVEAS_FILE"] = "saveas-file";
+    DialogType["SELECT_OPEN_FILE"] = "open-file";
+    DialogType["SELECT_OPEN_MULTI_FILE"] = "open-multi-file";
+    DialogType["FULL_PAGE"] = "full-page";
+})(DialogType || (DialogType = {}));
+
+// Copyright 2014 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 /** Type of a file system. */
 var FileSystemType;
 (function (FileSystemType) {
@@ -1334,25 +1375,6 @@ var VolumeError;
     VolumeError["CANCELLED"] = "cancelled";
     VolumeError["BUSY"] = "busy";
 })(VolumeError || (VolumeError = {}));
-/** The type of each volume. */
-var VolumeType;
-(function (VolumeType) {
-    VolumeType["DRIVE"] = "drive";
-    VolumeType["DOWNLOADS"] = "downloads";
-    VolumeType["REMOVABLE"] = "removable";
-    VolumeType["ARCHIVE"] = "archive";
-    VolumeType["MTP"] = "mtp";
-    VolumeType["PROVIDED"] = "provided";
-    VolumeType["MEDIA_VIEW"] = "media_view";
-    VolumeType["DOCUMENTS_PROVIDER"] = "documents_provider";
-    VolumeType["CROSTINI"] = "crostini";
-    VolumeType["GUEST_OS"] = "guest_os";
-    VolumeType["ANDROID_FILES"] = "android_files";
-    VolumeType["MY_FILES"] = "my_files";
-    VolumeType["SMB"] = "smb";
-    VolumeType["SYSTEM_INTERNAL"] = "system_internal";
-    VolumeType["TRASH"] = "trash";
-})(VolumeType || (VolumeType = {}));
 /** Source of each volume's data. */
 var Source;
 (function (Source) {
@@ -2720,21 +2742,6 @@ function isDebugStoreEnabled() {
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * List of dialog types.
- *
- * Keep this in sync with FileManagerDialog::GetDialogTypeAsString, except
- * FULL_PAGE which is specific to this code.
- */
-var DialogType;
-(function (DialogType) {
-    DialogType["SELECT_FOLDER"] = "folder";
-    DialogType["SELECT_UPLOAD_FOLDER"] = "upload-folder";
-    DialogType["SELECT_SAVEAS_FILE"] = "saveas-file";
-    DialogType["SELECT_OPEN_FILE"] = "open-file";
-    DialogType["SELECT_OPEN_MULTI_FILE"] = "open-multi-file";
-    DialogType["FULL_PAGE"] = "full-page";
-})(DialogType || (DialogType = {}));
 var EntryType;
 (function (EntryType) {
     // Entries from the FileSystem API.

@@ -7,6 +7,12 @@
     "declaration": true,
     "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
     "paths": {
+      "//resources/ash/common/personalization/*": [
+        "./../../../../ash/webui/common/resources/preprocessed/personalization/*"
+      ],
+      "chrome://resources/ash/common/personalization/*": [
+        "./../../../../ash/webui/common/resources/preprocessed/personalization/*"
+      ],
       "//resources/cros_components/*": [
         "./../../../../ui/webui/resources/tsc/cros_components/to_be_rewritten/*"
       ],
@@ -102,7 +108,6 @@
     "preprocessed/bluetooth/bluetooth_pairing_request_code_page.ts",
     "preprocessed/bluetooth/bluetooth_pairing_ui.ts",
     "preprocessed/bluetooth/bluetooth_spinner_page.ts",
-    "preprocessed/personalization/wallpaper_grid_item_element.ts",
     "preprocessed/quick_unlock/fingerprint_progress.ts",
     "preprocessed/quick_unlock/pin_keyboard.ts",
     "preprocessed/quick_unlock/setup_pin_keyboard.ts",
@@ -135,6 +140,9 @@
     "../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/quick_unlock_private.d.ts"
   ],
   "references": [
+    {
+      "path": "personalization/tsconfig_build_ts.json"
+    },
     {
       "path": "../../../../third_party/cros-components/tsconfig_cros_components_ts.json"
     },

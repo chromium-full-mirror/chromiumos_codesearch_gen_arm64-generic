@@ -132,6 +132,9 @@ const webui::ResourcePath kFileManagerGenResources[] = {
   {"file_manager/common/js/file_types_base.js", IDR_FILE_MANAGER_GEN_FILE_MANAGER_COMMON_JS_FILE_TYPES_BASE_JS},
   {"file_manager/common/js/file_types_data.js", IDR_FILE_MANAGER_GEN_FILE_MANAGER_COMMON_JS_FILE_TYPES_DATA_JS},
   {"file_manager/common/js/lru_cache.js", IDR_FILE_MANAGER_GEN_FILE_MANAGER_COMMON_JS_LRU_CACHE_JS},
+  {"image_loader/image_loader_client.js", IDR_FILE_MANAGER_GEN_IMAGE_LOADER_IMAGE_LOADER_CLIENT_JS},
+  {"image_loader/image_orientation.js", IDR_FILE_MANAGER_GEN_IMAGE_LOADER_IMAGE_ORIENTATION_JS},
+  {"image_loader/load_image_request.js", IDR_FILE_MANAGER_GEN_IMAGE_LOADER_LOAD_IMAGE_REQUEST_JS},
 };
 
 const size_t kFileManagerGenResourcesSize = std::size(kFileManagerGenResources);

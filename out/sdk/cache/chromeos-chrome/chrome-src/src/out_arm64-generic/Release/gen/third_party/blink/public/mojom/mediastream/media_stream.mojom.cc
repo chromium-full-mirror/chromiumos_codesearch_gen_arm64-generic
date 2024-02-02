@@ -222,13 +222,13 @@ bool MediaStreamDevice::Validate(
 }
 TrackControls::TrackControls()
     : stream_type(),
-      device_id() {}
+      device_ids() {}
 
 TrackControls::TrackControls(
     MediaStreamType stream_type_in,
-    const std::string& device_id_in)
+    std::vector<std::string> device_ids_in)
     : stream_type(std::move(stream_type_in)),
-      device_id(std::move(device_id_in)) {}
+      device_ids(std::move(device_ids_in)) {}
 
 TrackControls::~TrackControls() = default;
 
@@ -246,9 +246,9 @@ void TrackControls::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "device_id"), this->device_id,
+      "device_ids"), this->device_ids,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type const std::string&>"
+      "<value of type const std::vector<std::string>&>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -4874,7 +4874,7 @@ bool StructTraits<::blink::mojom::TrackControls::DataView, ::blink::mojom::Track
   
       if (success && !input.ReadStreamType(&result->stream_type))
         success = false;
-      if (success && !input.ReadDeviceId(&result->device_id))
+      if (success && !input.ReadDeviceIds(&result->device_ids))
         success = false;
   *output = std::move(result);
   return success;

@@ -237,7 +237,7 @@ static_assert(
         ::mojo_base::mojom::TimeDeltaDataView, UserType>(),
     "Attempting to read the optional `t` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadT` instead "
     "of `ReadT if you're fine with null values being "
@@ -320,7 +320,7 @@ static_assert(
         ::chromeos::machine_learning::mojom::WritingGuideDataView, UserType>(),
     "Attempting to read the optional `writing_guide` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadWritingGuide` instead "
     "of `ReadWritingGuide if you're fine with null values being "
@@ -340,7 +340,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `pre_context` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPreContext` instead "
     "of `ReadPreContext if you're fine with null values being "
@@ -386,7 +386,7 @@ static_assert(
         ::chromeos::machine_learning::mojom::RecognitionContextDataView, UserType>(),
     "Attempting to read the optional `context` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadContext` instead "
     "of `ReadContext if you're fine with null values being "
@@ -530,7 +530,7 @@ static_assert(
         ::chromeos::machine_learning::mojom::HandwritingRecognizerSegmentationDataView, UserType>(),
     "Attempting to read the optional `segmentation` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSegmentation` instead "
     "of `ReadSegmentation if you're fine with null values being "
@@ -612,7 +612,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `language_pack_path` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLanguagePackPath` instead "
     "of `ReadLanguagePackPath if you're fine with null values being "
@@ -633,7 +633,7 @@ static_assert(
         mojo::StringDataView, UserType>(),
     "Attempting to read the optional `library_dlc_path` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadLibraryDlcPath` instead "
     "of `ReadLibraryDlcPath if you're fine with null values being "

@@ -8,8 +8,9 @@ import { FocusRow } from '//resources/js/focus_row.js';
 import { focusWithoutInk } from '//resources/js/focus_without_ink.js';
 import { isMac, isWindows } from '//resources/js/platform.js';
 import { getDeepActiveElement } from '//resources/js/util.js';
-import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { getTemplate } from './cr_action_menu.html.js';
+import { CrLitElement } from '//resources/lit/v3_0/lit.rollup.js';
+import { getCss } from './cr_action_menu.css.js';
+import { getHtml } from './cr_action_menu.html.js';
 export var AnchorAlignment;
 (function (AnchorAlignment) {
     AnchorAlignment[AnchorAlignment["BEFORE_START"] = -2] = "BEFORE_START";
@@ -69,9 +70,11 @@ function getDefaultShowConfig() {
         maxY: 0,
     };
 }
-export class CrActionMenuElement extends PolymerElement {
+export class CrActionMenuElement extends CrLitElement {
     constructor() {
         super(...arguments);
+        this.autoReposition = false;
+        this.open = false;
         this.boundClose_ = null;
         this.resizeObserver_ = null;
         this.hasMousemoveListener_ = false;
@@ -81,31 +84,26 @@ export class CrActionMenuElement extends PolymerElement {
     static get is() {
         return 'cr-action-menu';
     }
-    static get template() {
-        return getTemplate();
+    static get styles() {
+        return getCss();
+    }
+    render() {
+        return getHtml.bind(this)();
     }
     static get properties() {
         return {
             // Accessibility text of the menu. Should be something along the lines of
             // "actions", or "more actions".
-            accessibilityLabel: String,
+            accessibilityLabel: { type: String },
             // Setting this flag will make the menu listen for content size changes
             // and reposition to its anchor accordingly.
-            autoReposition: {
-                type: Boolean,
-                value: false,
-            },
-            open: {
-                type: Boolean,
-                notify: true,
-                value: false,
-            },
+            autoReposition: { type: Boolean },
+            open: { type: Boolean },
             // Descriptor of the menu. Should be something along the lines of "menu"
-            roleDescription: String,
+            roleDescription: { type: String },
         };
     }
-    ready() {
-        super.ready();
+    firstUpdated() {
         this.addEventListener('keydown', this.onKeyDown_.bind(this));
         this.addEventListener('mouseover', this.onMouseover_);
         this.addEventListener('click', this.onClick_);
@@ -205,6 +203,9 @@ export class CrActionMenuElement extends PolymerElement {
         options[index].focus();
     }
     close() {
+        if (!this.open) {
+            return;
+        }
         // Removing 'resize' and 'popstate' listeners when dialog is closed.
         this.removeListeners_();
         this.$.dialog.close();
@@ -217,6 +218,7 @@ export class CrActionMenuElement extends PolymerElement {
         if (this.lastConfig_) {
             this.lastConfig_ = null;
         }
+        this.fire_('open-changed', { value: this.open });
     }
     /**
      * Shows the menu anchored to the given element.
@@ -305,6 +307,7 @@ export class CrActionMenuElement extends PolymerElement {
                 });
             }
         }
+        this.fire_('open-changed', { value: this.open });
     }
     resetStyle_() {
         this.$.dialog.style.left = '';

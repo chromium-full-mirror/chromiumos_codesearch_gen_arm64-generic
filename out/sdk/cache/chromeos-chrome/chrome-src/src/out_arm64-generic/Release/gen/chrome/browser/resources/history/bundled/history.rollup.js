@@ -5,6 +5,7 @@ import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import './strings.m.js';
 import { addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
+import 'chrome://resources/lit/v3_0/lit.rollup.js';
 
 const template$3 = html `
 <style>

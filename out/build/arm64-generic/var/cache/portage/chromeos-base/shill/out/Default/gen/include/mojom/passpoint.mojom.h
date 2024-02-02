@@ -313,7 +313,7 @@ class  PasspointSubscription {
   template <typename... Args>
   static PasspointSubscriptionPtr New(Args&&... args) {
     return PasspointSubscriptionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

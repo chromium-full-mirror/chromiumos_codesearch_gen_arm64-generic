@@ -329,30 +329,6 @@ class  CrosHealthdSystemServiceAsyncWaiter {
 };
 
 
-class  WilcoEcServiceControllerInterceptorForTesting : public WilcoEcServiceController {
-  virtual WilcoEcServiceController* GetForwardingInterface() = 0;
-  void AddEcObserver(::mojo::PendingRemote<::ash::cros_healthd::mojom::WilcoEcObserver> observer) override;
-  void GetEcTelemetry(const std::string& payload_string, GetEcTelemetryCallback callback) override;
-  void StartEcService() override;
-  void ShutdownEcService() override;
-};
-class  WilcoEcServiceControllerAsyncWaiter {
- public:
-  explicit WilcoEcServiceControllerAsyncWaiter(WilcoEcServiceController* proxy);
-
-  WilcoEcServiceControllerAsyncWaiter(const WilcoEcServiceControllerAsyncWaiter&) = delete;
-  WilcoEcServiceControllerAsyncWaiter& operator=(const WilcoEcServiceControllerAsyncWaiter&) = delete;
-
-  ~WilcoEcServiceControllerAsyncWaiter();
-  void GetEcTelemetry(
-      const std::string& payload_string, ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr* out_response);
-  ::ash::cros_healthd::mojom::GetEcTelemetryResponsePtr GetEcTelemetry(const std::string& payload_string);
-
- private:
-  WilcoEcServiceController* const proxy_;
-};
-
-
 
 
 }  // ash::cros_healthd::mojom

@@ -1,7 +1,7 @@
 import { useShadow, dom, dashToCamelCase, Polymer, html, dedupingMixin, PolymerElement, FlattenedNodesObserver, microTask, DomIf, Base, mixinBehaviors, afterNextRender, Templatizer, OptionalMutableDataBehavior, animationFrame, idlePeriod, flush, Debouncer, enqueueDebouncer, matches as matches$1, translate, templatize, gestures, beforeNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { sendWithPromise as sendWithPromise$1, addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
-import { isServer, property, LitElement, css, customElement, state, query, html as html$1, classMap, nothing } from 'chrome://resources/mwc/lit/index.js';
+import { isServer, property, LitElement, css as css$1, customElement, state, query, html as html$2, classMap, nothing as nothing$1 } from 'chrome://resources/mwc/lit/index.js';
 import { loadTimeData as loadTimeData$1 } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import { PortalState, ConnectionStateType, DeviceStateType, NetworkType, OncSource, PolicySource, IPConfigType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
@@ -17,6 +17,7 @@ import { getBluetoothConfig } from 'chrome://resources/ash/common/bluetooth/cros
 import { DeviceType, DeviceConnectionState, AudioOutputCapability, BluetoothSystemState } from 'chrome://resources/mojo/chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-webui.js';
 import { HotspotState } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.mojom-webui.js';
 import 'chrome://resources/mojo/services/network/public/mojom/ip_address.mojom-webui.js';
+import { css, html as html$1, nothing, CrLitElement } from 'chrome://resources/lit/v3_0/lit.rollup.js';
 
 /**
 @license
@@ -1035,8 +1036,8 @@ function isSanitizeAllowed() {
 function isAssistantAllowed() {
     return loadTimeData.getBoolean('isAssistantAllowed');
 }
-function shouldShowQuickAnswersSettings() {
-    return loadTimeData.getBoolean('shouldShowQuickAnswersSettings');
+function isQuickAnswersSupported() {
+    return loadTimeData.getBoolean('isQuickAnswersSupported');
 }
 // System preferences page
 function shouldShowStartup() {
@@ -2072,7 +2073,7 @@ function getSettingIdParameter() {
     return Router.getInstance().getQueryParameters().get(SETTING_ID_URL_PARAM_NAME);
 }
 
-function getTemplate$2i() {
+function getTemplate$2h() {
     return html `<!--_html_template_start_--><iron-pages id="animatedPages" attr-for-selected="route-path" on-iron-select="onIronSelect_">
   <slot></slot>
 </iron-pages>
@@ -2099,7 +2100,7 @@ class OsSettingsAnimatedPagesElement extends OsSettingsAnimatedPagesElementBase 
         return 'os-settings-animated-pages';
     }
     static get template() {
-        return getTemplate$2i();
+        return getTemplate$2h();
     }
     static get properties() {
         return {
@@ -4006,7 +4007,7 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$2h() {
+function getTemplate$2g() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
     <div id="icon">
       <div id="maskedImage"></div>
@@ -4064,7 +4065,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$2h();
+        return getTemplate$2g();
     }
     static get properties() {
         return {
@@ -4251,7 +4252,7 @@ styleMod$d.appendChild(html `
 `.content);
 styleMod$d.register('cr-input-style');
 
-function getTemplate$2g() {
+function getTemplate$2f() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -4294,7 +4295,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$2g();
+        return getTemplate$2f();
     }
     static get properties() {
         return {
@@ -5063,7 +5064,7 @@ const template$e = html `
 `;
 document.head.appendChild(template$e.content);
 
-function getTemplate$2f() {
+function getTemplate$2e() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
           var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
     <iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
@@ -5218,7 +5219,7 @@ class CrSearchFieldElement extends CrSearchFieldElementBase {
         return 'cr-search-field';
     }
     static get template() {
-        return getTemplate$2f();
+        return getTemplate$2e();
     }
     static get properties() {
         return {
@@ -5746,7 +5747,7 @@ a[is=action-link]{user-select:none}h2{align-items:center;align-self:flex-start;c
 `.content);
 styleMod$a.register('settings-shared');
 
-function getTemplate$2e() {
+function getTemplate$2d() {
     return html `<!--_html_template_start_--><style>:host{--settings-card-bg-color:var(--cros-sys-app_base);--settings-card-border-radius:var(--cr-card-border-radius);display:flex;flex-direction:column;outline:0;position:relative}:host-context(body.revamp-wayfinding-enabled):host{--settings-card-border-radius:16px;margin-bottom:16px}@media (prefers-color-scheme:dark){:host-context(body.revamp-wayfinding-enabled):host{--settings-card-bg-color:var(--cros-sys-surface1)}}:host-context(body.revamp-wayfinding-enabled) #header{margin:0;padding:8px}:host-context(body:not(.revamp-wayfinding-enabled)) #headerText{color:var(--cr-primary-text-color);font-size:108%;font-weight:400;letter-spacing:.25px;margin-bottom:12px;margin-top:var(--cr-section-vertical-margin);outline:0;padding-bottom:4px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled) #headerText{color:var(--cros-sys-primary);font:var(--cros-button-2-font);margin:0;outline:0;padding:0}#card{background-color:var(--settings-card-bg-color);border-radius:var(--settings-card-border-radius);flex:1;overflow:hidden}:host-context(body:not(.revamp-wayfinding-enabled)) #card{box-shadow:var(--cr-card-shadow)}</style>
 <template is="dom-if" if="[[headerText]]" restamp>
   <div id="header">
@@ -5779,7 +5780,7 @@ class SettingsCardElement extends PolymerElement {
         return 'settings-card';
     }
     static get template() {
-        return getTemplate$2e();
+        return getTemplate$2d();
     }
     static get properties() {
         return {
@@ -6422,7 +6423,7 @@ function hasKeyModifiers(e) {
     return !!(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
 }
 
-function getTemplate$2d() {
+function getTemplate$2c() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{box-sizing:border-box;display:block}:host-context(body:not(.revamp-wayfinding-enabled)):host{background-color:var(--cros-sys-app_base);box-shadow:var(--cr-card-shadow);min-height:calc(100vh - var(--settings-toolbar-height));padding-bottom:60px}#subpageHeader{min-height:40px;padding-bottom:24px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled) #subpageHeader{padding-top:16px;padding-bottom:16px}#subpageTitle{flex:1;font:var(--cros-button-1-font)}:host-context(body.revamp-wayfinding-enabled) #subpageTitle{color:var(--cros-sys-primary)}#titleIcon{height:36px;margin-inline-end:12px;margin-inline-start:2px;width:36px}#backButton{margin-inline-end:10px;margin-inline-start:-10px}:host-context(body.revamp-wayfinding-enabled) #backButton{--cr-icon-button-fill-color:var(--cros-sys-primary)}#cardBody{margin-bottom:0}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}cr-search-field{--cr-search-field-input-width:200px;margin-inline-start:16px}:host-context(body.revamp-wayfinding-enabled) #searchField::part(searchInput){--cr-input-background-color:var(--cros-sys-input_field_on_shaded)}</style>
 <div id="subpageHeader" class="cr-row first">
   <cr-icon-button id="backButton" class="icon-arrow-back" hidden="[[hideBackButton]]" on-click="onBackClick_" aria-label$="[[getBackButtonAriaLabel_(pageTitle)]]" aria-roledescription$="[[getBackButtonAriaRoleDescription_(pageTitle)]]">
@@ -6471,7 +6472,7 @@ class OsSettingsSubpageElement extends OsSettingsSubpageElementBase {
         return 'os-settings-subpage';
     }
     static get template() {
-        return getTemplate$2d();
+        return getTemplate$2c();
     }
     static get properties() {
         return {
@@ -9467,7 +9468,7 @@ class GuestOsBrowserProxyImpl {
     }
 }
 
-function getTemplate$2c() {
+function getTemplate$2b() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <div class="settings-box first">
   <div role="text">
@@ -9533,7 +9534,7 @@ class SettingsGuestOsSharedPathsElement extends SettingsGuestOsSharedPathsElemen
         return 'settings-guest-os-shared-paths';
     }
     static get template() {
-        return getTemplate$2c();
+        return getTemplate$2b();
     }
     static get properties() {
         return {
@@ -9703,7 +9704,7 @@ class FocusOutlineManager {
     }
 }
 
-function getTemplate$2b() {
+function getTemplate$2a() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
                                              rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
             var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
@@ -9739,7 +9740,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$2b();
+        return getTemplate$2a();
     }
     static get properties() {
         return {
@@ -9913,7 +9914,7 @@ class CrButtonElement extends CrButtonElementBase {
 }
 customElements.define(CrButtonElement.is, CrButtonElement);
 
-function getTemplate$2a() {
+function getTemplate$29() {
     return html `<!--_html_template_start_-->    <style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
                 var(--cr-fallback-color-primary));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on,
                 var(--cr-fallback-color-on-primary));--cr-toggle-unchecked-bar-color:var(--color-toggle-button-track-off,
@@ -9960,7 +9961,7 @@ class CrToggleElement extends CrToggleElementBase {
         return 'cr-toggle';
     }
     static get template() {
-        return getTemplate$2a();
+        return getTemplate$29();
     }
     static get properties() {
         return {
@@ -10747,7 +10748,7 @@ Polymer({
   }
 });
 
-function getTemplate$29() {
+function getTemplate$28() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style">:host{display:flex}iron-icon{--iron-icon-width:var(--cr-icon-size);--iron-icon-height:var(--cr-icon-size);--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-700))}@media (prefers-color-scheme:dark){iron-icon{--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-500))}}</style>
     <iron-icon id="indicator" tabindex="0" aria-label$="[[iconAriaLabel]]" aria-describedby="tooltip" icon="[[iconClass]]" role="img"></iron-icon>
     <paper-tooltip id="tooltip" for="indicator" position="[[tooltipPosition]]" fit-to-visible-bounds part="tooltip">
@@ -10764,7 +10765,7 @@ class CrTooltipIconElement extends PolymerElement {
         return 'cr-tooltip-icon';
     }
     static get template() {
-        return getTemplate$29();
+        return getTemplate$28();
     }
     static get properties() {
         return {
@@ -10784,7 +10785,7 @@ class CrTooltipIconElement extends PolymerElement {
 }
 customElements.define(CrTooltipIconElement.is, CrTooltipIconElement);
 
-function getTemplate$28() {
+function getTemplate$27() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style"></style>
     <cr-tooltip-icon hidden$="[[!indicatorVisible]]" tooltip-text="[[indicatorTooltip_]]" icon-class="[[indicatorIcon]]" icon-aria-label="[[iconAriaLabel]]">
     </cr-tooltip-icon>
@@ -10929,7 +10930,7 @@ class CrPolicyIndicatorElement extends CrPolicyIndicatorElementBase {
         return 'cr-policy-indicator';
     }
     static get template() {
-        return getTemplate$28();
+        return getTemplate$27();
     }
     static get properties() {
         return {
@@ -11085,7 +11086,7 @@ const CrContainerShadowMixin = dedupingMixin((superClass) => {
     return CrContainerShadowMixin;
 });
 
-function getTemplate$27() {
+function getTemplate$26() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
     <dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
     
@@ -11140,7 +11141,7 @@ class CrDialogElement extends CrDialogElementBase {
         return 'cr-dialog';
     }
     static get template() {
-        return getTemplate$27();
+        return getTemplate$26();
     }
     static get properties() {
         return {
@@ -11388,7 +11389,7 @@ class CrDialogElement extends CrDialogElementBase {
 }
 customElements.define(CrDialogElement.is, CrDialogElement);
 
-function getTemplate$26() {
+function getTemplate$25() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{--cr-localized-link-display:inline;display:block}:host([link-disabled]){cursor:pointer;opacity:var(--cr-disabled-opacity);pointer-events:none}a{display:var(--cr-localized-link-display)}a[href]{color:var(--cr-link-color)}a[is=action-link]{user-select:none}#container{display:contents}</style>
 
 <div id="container"></div>
@@ -11420,7 +11421,7 @@ class LocalizedLinkElement extends PolymerElement {
         return 'localized-link';
     }
     static get template() {
-        return getTemplate$26();
+        return getTemplate$25();
     }
     static get properties() {
         return {
@@ -11707,7 +11708,7 @@ styleMod$9.appendChild(html `
 `.content);
 styleMod$9.register('md-select');
 
-function getTemplate$25() {
+function getTemplate$24() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select"></style>
 <label class="cr-form-field-label">Container</label>
 <select id="selectContainer" class="md-select" value="containerLabel_(containerId)" on-change="onSelectContainer_">
@@ -11742,7 +11743,7 @@ class ContainerSelectElement extends PolymerElement {
         return 'settings-guest-os-container-select';
     }
     static get template() {
-        return getTemplate$25();
+        return getTemplate$24();
     }
     static get properties() {
         return {
@@ -12041,17 +12042,21 @@ class FocusRow {
     }
 }
 
-function getTemplate$24() {
-    return html `<!--_html_template_start_-->    <style>:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
-            var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
-                var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
-            var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
-            var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}</style>
-    <dialog id="dialog" part="dialog" on-close="onNativeDialogClose_" role="application" aria-roledescription$="[[roleDescription]]">
-      <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label$="[[accessibilityLabel]]">
-        <slot id="contentNode" on-slotchange="onSlotchange_"></slot>
-      </div>
-    </dialog>
+function getCss() {
+    return css `:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
+      var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
+          var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
+      var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
+      var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}`;
+}
+
+function getHtml() {
+    return html$1 `<!--_html_template_start_-->
+<dialog id="dialog" part="dialog" @close="${this.onNativeDialogClose_}" role="application" aria-roledescription="${this.roleDescription || nothing}">
+  <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label="${this.accessibilityLabel || nothing}">
+    <slot id="contentNode" @slotchange="${this.onSlotchange_}"></slot>
+  </div>
+</dialog>
 <!--_html_template_end_-->`;
 }
 
@@ -12117,9 +12122,11 @@ function getDefaultShowConfig() {
         maxY: 0,
     };
 }
-class CrActionMenuElement extends PolymerElement {
+class CrActionMenuElement extends CrLitElement {
     constructor() {
         super(...arguments);
+        this.autoReposition = false;
+        this.open = false;
         this.boundClose_ = null;
         this.resizeObserver_ = null;
         this.hasMousemoveListener_ = false;
@@ -12129,31 +12136,26 @@ class CrActionMenuElement extends PolymerElement {
     static get is() {
         return 'cr-action-menu';
     }
-    static get template() {
-        return getTemplate$24();
+    static get styles() {
+        return getCss();
+    }
+    render() {
+        return getHtml.bind(this)();
     }
     static get properties() {
         return {
             // Accessibility text of the menu. Should be something along the lines of
             // "actions", or "more actions".
-            accessibilityLabel: String,
+            accessibilityLabel: { type: String },
             // Setting this flag will make the menu listen for content size changes
             // and reposition to its anchor accordingly.
-            autoReposition: {
-                type: Boolean,
-                value: false,
-            },
-            open: {
-                type: Boolean,
-                notify: true,
-                value: false,
-            },
+            autoReposition: { type: Boolean },
+            open: { type: Boolean },
             // Descriptor of the menu. Should be something along the lines of "menu"
-            roleDescription: String,
+            roleDescription: { type: String },
         };
     }
-    ready() {
-        super.ready();
+    firstUpdated() {
         this.addEventListener('keydown', this.onKeyDown_.bind(this));
         this.addEventListener('mouseover', this.onMouseover_);
         this.addEventListener('click', this.onClick_);
@@ -12253,6 +12255,9 @@ class CrActionMenuElement extends PolymerElement {
         options[index].focus();
     }
     close() {
+        if (!this.open) {
+            return;
+        }
         // Removing 'resize' and 'popstate' listeners when dialog is closed.
         this.removeListeners_();
         this.$.dialog.close();
@@ -12265,6 +12270,7 @@ class CrActionMenuElement extends PolymerElement {
         if (this.lastConfig_) {
             this.lastConfig_ = null;
         }
+        this.fire_('open-changed', { value: this.open });
     }
     /**
      * Shows the menu anchored to the given element.
@@ -12353,6 +12359,7 @@ class CrActionMenuElement extends PolymerElement {
                 });
             }
         }
+        this.fire_('open-changed', { value: this.open });
     }
     resetStyle_() {
         this.$.dialog.style.left = '';
@@ -22355,7 +22362,7 @@ const HANDLED_BY_FOCUS_RING = Symbol('handledByFocusRing');
   * Copyright 2022 Google LLC
   * SPDX-License-Identifier: Apache-2.0
   */
-const styles$2 = css `:host{animation-delay:0s,calc(var(--md-focus-ring-duration, 600ms)*.25);animation-duration:calc(var(--md-focus-ring-duration, 600ms)*.25),calc(var(--md-focus-ring-duration, 600ms)*.75);animation-timing-function:cubic-bezier(0.2, 0, 0, 1);box-sizing:border-box;color:var(--md-focus-ring-color, var(--md-sys-color-secondary, #625b71));display:none;pointer-events:none;position:absolute}:host([visible]){display:flex}:host(:not([inward])){animation-name:outward-grow,outward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));inset:calc(-1*var(--md-focus-ring-outward-offset, 2px));outline:var(--md-focus-ring-width, 3px) solid currentColor}:host([inward]){animation-name:inward-grow,inward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border:var(--md-focus-ring-width, 3px) solid currentColor;inset:var(--md-focus-ring-inward-offset, 0px)}@keyframes outward-grow{from{outline-width:0}to{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes outward-shrink{from{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-grow{from{border-width:0}to{border-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-shrink{from{border-width:var(--md-focus-ring-active-width, 8px)}}@media(prefers-reduced-motion){:host{animation:none}}/*# sourceMappingURL=focus-ring-styles.css.map */
+const styles$2 = css$1 `:host{animation-delay:0s,calc(var(--md-focus-ring-duration, 600ms)*.25);animation-duration:calc(var(--md-focus-ring-duration, 600ms)*.25),calc(var(--md-focus-ring-duration, 600ms)*.75);animation-timing-function:cubic-bezier(0.2, 0, 0, 1);box-sizing:border-box;color:var(--md-focus-ring-color, var(--md-sys-color-secondary, #625b71));display:none;pointer-events:none;position:absolute}:host([visible]){display:flex}:host(:not([inward])){animation-name:outward-grow,outward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));inset:calc(-1*var(--md-focus-ring-outward-offset, 2px));outline:var(--md-focus-ring-width, 3px) solid currentColor}:host([inward]){animation-name:inward-grow,inward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border:var(--md-focus-ring-width, 3px) solid currentColor;inset:var(--md-focus-ring-inward-offset, 0px)}@keyframes outward-grow{from{outline-width:0}to{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes outward-shrink{from{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-grow{from{border-width:0}to{border-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-shrink{from{border-width:var(--md-focus-ring-active-width, 8px)}}@media(prefers-reduced-motion){:host{animation:none}}/*# sourceMappingURL=focus-ring-styles.css.map */
 `;
 
 /**
@@ -22527,7 +22534,7 @@ class Ripple extends LitElement {
             'hovered': this.hovered,
             'pressed': this.pressed,
         };
-        return html$1 `<div class="surface ${classMap(classes)}"></div>`;
+        return html$2 `<div class="surface ${classMap(classes)}"></div>`;
     }
     update(changedProps) {
         if (changedProps.has('disabled') && this.disabled) {
@@ -22816,7 +22823,7 @@ __decorate([
   * Copyright 2022 Google LLC
   * SPDX-License-Identifier: Apache-2.0
   */
-const styles$1 = css `:host{--_hover-color: var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-opacity: var(--md-ripple-hover-opacity, 0.08);--_pressed-color: var(--md-ripple-pressed-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-opacity: var(--md-ripple-pressed-opacity, 0.12);display:flex;margin:auto;pointer-events:none}:host([disabled]){display:none}@media(forced-colors: active){:host{display:none}}:host,.surface{border-radius:inherit;position:absolute;inset:0;overflow:hidden}.surface{-webkit-tap-highlight-color:rgba(0,0,0,0)}.surface::before,.surface::after{content:"";opacity:0;position:absolute}.surface::before{background-color:var(--_hover-color);inset:0;transition:opacity 15ms linear,background-color 15ms linear}.surface::after{background:radial-gradient(closest-side, var(--_pressed-color) max(100% - 70px, 65%), transparent 100%);transform-origin:center center;transition:opacity 375ms linear}.hovered::before{background-color:var(--_hover-color);opacity:var(--_hover-opacity)}.pressed::after{opacity:var(--_pressed-opacity);transition-duration:105ms}/*# sourceMappingURL=ripple-styles.css.map */
+const styles$1 = css$1 `:host{--_hover-color: var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-opacity: var(--md-ripple-hover-opacity, 0.08);--_pressed-color: var(--md-ripple-pressed-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-opacity: var(--md-ripple-pressed-opacity, 0.12);display:flex;margin:auto;pointer-events:none}:host([disabled]){display:none}@media(forced-colors: active){:host{display:none}}:host,.surface{border-radius:inherit;position:absolute;inset:0;overflow:hidden}.surface{-webkit-tap-highlight-color:rgba(0,0,0,0)}.surface::before,.surface::after{content:"";opacity:0;position:absolute}.surface::before{background-color:var(--_hover-color);inset:0;transition:opacity 15ms linear,background-color 15ms linear}.surface::after{background:radial-gradient(closest-side, var(--_pressed-color) max(100% - 70px, 65%), transparent 100%);transform-origin:center center;transition:opacity 375ms linear}.hovered::before{background-color:var(--_hover-color);opacity:var(--_hover-opacity)}.pressed::after{opacity:var(--_pressed-opacity);transition-duration:105ms}/*# sourceMappingURL=ripple-styles.css.map */
 `;
 
 /**
@@ -23640,14 +23647,14 @@ let Checkbox$1 = class Checkbox extends checkboxBaseClass {
         const { ariaLabel, ariaInvalid } = this;
         // Note: <input> needs to be rendered before the <svg> for
         // form.reportValidity() to work in Chrome.
-        return html$1 `
+        return html$2 `
       <div class="container ${containerClasses}">
         <input
           type="checkbox"
           id="input"
-          aria-checked=${isIndeterminate ? 'mixed' : nothing}
-          aria-label=${ariaLabel || nothing}
-          aria-invalid=${ariaInvalid || nothing}
+          aria-checked=${isIndeterminate ? 'mixed' : nothing$1}
+          aria-label=${ariaLabel || nothing$1}
+          aria-invalid=${ariaInvalid || nothing$1}
           ?disabled=${this.disabled}
           ?required=${this.required}
           .indeterminate=${this.indeterminate}
@@ -23738,7 +23745,7 @@ __decorate([
   * Copyright 2022 Google LLC
   * SPDX-License-Identifier: Apache-2.0
   */
-const styles = css `:host{--_container-shape: var(--md-checkbox-container-shape, 2px);--_container-size: var(--md-checkbox-container-size, 18px);--_icon-size: var(--md-checkbox-icon-size, 18px);--_selected-container-color: var(--md-checkbox-selected-container-color, var(--md-sys-color-primary, #6750a4));--_selected-disabled-container-color: var(--md-checkbox-selected-disabled-container-color, var(--md-sys-color-on-surface, #1d1b20));--_selected-disabled-container-opacity: var(--md-checkbox-selected-disabled-container-opacity, 0.38);--_selected-disabled-icon-color: var(--md-checkbox-selected-disabled-icon-color, var(--md-sys-color-surface, #fef7ff));--_selected-focus-container-color: var(--md-checkbox-selected-focus-container-color, var(--md-sys-color-primary, #6750a4));--_selected-focus-icon-color: var(--md-checkbox-selected-focus-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-hover-container-color: var(--md-checkbox-selected-hover-container-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-icon-color: var(--md-checkbox-selected-hover-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-hover-state-layer-color: var(--md-checkbox-selected-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-state-layer-opacity: var(--md-checkbox-selected-hover-state-layer-opacity, 0.08);--_selected-icon-color: var(--md-checkbox-selected-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-pressed-container-color: var(--md-checkbox-selected-pressed-container-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-icon-color: var(--md-checkbox-selected-pressed-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-pressed-state-layer-color: var(--md-checkbox-selected-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_selected-pressed-state-layer-opacity: var(--md-checkbox-selected-pressed-state-layer-opacity, 0.12);--_state-layer-shape: var(--md-checkbox-state-layer-shape, 9999px);--_state-layer-size: var(--md-checkbox-state-layer-size, 40px);--_disabled-container-opacity: var(--md-checkbox-disabled-container-opacity, 0.38);--_disabled-outline-color: var(--md-checkbox-disabled-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-outline-width: var(--md-checkbox-disabled-outline-width, 2px);--_focus-outline-color: var(--md-checkbox-focus-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_focus-outline-width: var(--md-checkbox-focus-outline-width, 2px);--_hover-outline-color: var(--md-checkbox-hover-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-outline-width: var(--md-checkbox-hover-outline-width, 2px);--_hover-state-layer-color: var(--md-checkbox-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-opacity: var(--md-checkbox-hover-state-layer-opacity, 0.08);--_outline-color: var(--md-checkbox-outline-color, var(--md-sys-color-on-surface-variant, #49454f));--_outline-width: var(--md-checkbox-outline-width, 2px);--_pressed-outline-color: var(--md-checkbox-pressed-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-outline-width: var(--md-checkbox-pressed-outline-width, 2px);--_pressed-state-layer-color: var(--md-checkbox-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--_pressed-state-layer-opacity: var(--md-checkbox-pressed-state-layer-opacity, 0.12);--_container-shape-start-start: var( --md-checkbox-container-shape-start-start, var(--_container-shape) );--_container-shape-start-end: var( --md-checkbox-container-shape-start-end, var(--_container-shape) );--_container-shape-end-end: var( --md-checkbox-container-shape-end-end, var(--_container-shape) );--_container-shape-end-start: var( --md-checkbox-container-shape-end-start, var(--_container-shape) );border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-end-radius:var(--_container-shape-end-end);border-end-start-radius:var(--_container-shape-end-start);display:inline-flex;height:var(--_container-size);position:relative;vertical-align:top;width:var(--_container-size);-webkit-tap-highlight-color:rgba(0,0,0,0);cursor:pointer}:host([disabled]){cursor:default}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-size))/2)}md-focus-ring{height:44px;inset:unset;width:44px}input{appearance:none;height:48px;margin:0;opacity:0;outline:none;position:absolute;width:48px;z-index:1;cursor:inherit}:host([touch-target=none]) input{height:100%;width:100%}.container{border-radius:inherit;display:flex;height:100%;place-content:center;place-items:center;position:relative;width:100%}.outline,.background,.icon{inset:0;position:absolute}.outline,.background{border-radius:inherit}.outline{border-color:var(--_outline-color);border-style:solid;border-width:var(--_outline-width);box-sizing:border-box}.background{background-color:var(--_selected-container-color)}.background,.icon{opacity:0;transition-duration:150ms,50ms;transition-property:transform,opacity;transition-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15),linear;transform:scale(0.6)}:where(.selected) :is(.background,.icon){opacity:1;transition-duration:350ms,50ms;transition-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1),linear;transform:scale(1)}md-ripple{border-radius:var(--_state-layer-shape);height:var(--_state-layer-size);inset:unset;width:var(--_state-layer-size);--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}.selected md-ripple{--md-ripple-hover-color: var(--_selected-hover-state-layer-color);--md-ripple-hover-opacity: var(--_selected-hover-state-layer-opacity);--md-ripple-pressed-color: var(--_selected-pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_selected-pressed-state-layer-opacity)}.icon{fill:var(--_selected-icon-color);height:var(--_icon-size);width:var(--_icon-size)}.mark.short{height:2px;transition-property:transform,height;width:2px}.mark.long{height:2px;transition-property:transform,width;width:10px}.mark{animation-duration:150ms;animation-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15);transition-duration:150ms;transition-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15)}.selected .mark{animation-duration:350ms;animation-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1);transition-duration:350ms;transition-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1)}.checked .mark,.prev-checked.unselected .mark{transform:scaleY(-1) translate(7px, -14px) rotate(45deg)}.checked .mark.short,.prev-checked.unselected .mark.short{height:5.6568542495px}.checked .mark.long,.prev-checked.unselected .mark.long{width:11.313708499px}.indeterminate .mark,.prev-indeterminate.unselected .mark{transform:scaleY(-1) translate(4px, -10px) rotate(0deg)}.prev-unselected .mark{transition-property:none}.prev-unselected.checked .mark.long{animation-name:prev-unselected-to-checked}@keyframes prev-unselected-to-checked{from{width:0}}:where(:hover) .outline{border-color:var(--_hover-outline-color);border-width:var(--_hover-outline-width)}:where(:hover) .background{background:var(--_selected-hover-container-color)}:where(:hover) .icon{fill:var(--_selected-hover-icon-color)}:where(:focus-within) .outline{border-color:var(--_focus-outline-color);border-width:var(--_focus-outline-width)}:where(:focus-within) .background{background:var(--_selected-focus-container-color)}:where(:focus-within) .icon{fill:var(--_selected-focus-icon-color)}:where(:active) .outline{border-color:var(--_pressed-outline-color);border-width:var(--_pressed-outline-width)}:where(:active) .background{background:var(--_selected-pressed-container-color)}:where(:active) .icon{fill:var(--_selected-pressed-icon-color)}:where(.disabled,.prev-disabled) :is(.background,.icon,.mark){animation-duration:0s;transition-duration:0s}:where(.disabled) .outline{border-color:var(--_disabled-outline-color);border-width:var(--_disabled-outline-width);opacity:var(--_disabled-container-opacity)}:where(.selected.disabled) .outline{visibility:hidden}:where(.selected.disabled) .background{background:var(--_selected-disabled-container-color);opacity:var(--_selected-disabled-container-opacity)}:where(.disabled) .icon{fill:var(--_selected-disabled-icon-color)}@media(forced-colors: active){.background{background-color:CanvasText}.selected.disabled .background{background-color:GrayText;opacity:1}.outline{border-color:CanvasText}.disabled .outline{border-color:GrayText;opacity:1}.icon{fill:Canvas}}/*# sourceMappingURL=checkbox-styles.css.map */
+const styles = css$1 `:host{--_container-shape: var(--md-checkbox-container-shape, 2px);--_container-size: var(--md-checkbox-container-size, 18px);--_icon-size: var(--md-checkbox-icon-size, 18px);--_selected-container-color: var(--md-checkbox-selected-container-color, var(--md-sys-color-primary, #6750a4));--_selected-disabled-container-color: var(--md-checkbox-selected-disabled-container-color, var(--md-sys-color-on-surface, #1d1b20));--_selected-disabled-container-opacity: var(--md-checkbox-selected-disabled-container-opacity, 0.38);--_selected-disabled-icon-color: var(--md-checkbox-selected-disabled-icon-color, var(--md-sys-color-surface, #fef7ff));--_selected-focus-container-color: var(--md-checkbox-selected-focus-container-color, var(--md-sys-color-primary, #6750a4));--_selected-focus-icon-color: var(--md-checkbox-selected-focus-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-hover-container-color: var(--md-checkbox-selected-hover-container-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-icon-color: var(--md-checkbox-selected-hover-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-hover-state-layer-color: var(--md-checkbox-selected-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-state-layer-opacity: var(--md-checkbox-selected-hover-state-layer-opacity, 0.08);--_selected-icon-color: var(--md-checkbox-selected-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-pressed-container-color: var(--md-checkbox-selected-pressed-container-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-icon-color: var(--md-checkbox-selected-pressed-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-pressed-state-layer-color: var(--md-checkbox-selected-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_selected-pressed-state-layer-opacity: var(--md-checkbox-selected-pressed-state-layer-opacity, 0.12);--_state-layer-shape: var(--md-checkbox-state-layer-shape, 9999px);--_state-layer-size: var(--md-checkbox-state-layer-size, 40px);--_disabled-container-opacity: var(--md-checkbox-disabled-container-opacity, 0.38);--_disabled-outline-color: var(--md-checkbox-disabled-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-outline-width: var(--md-checkbox-disabled-outline-width, 2px);--_focus-outline-color: var(--md-checkbox-focus-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_focus-outline-width: var(--md-checkbox-focus-outline-width, 2px);--_hover-outline-color: var(--md-checkbox-hover-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-outline-width: var(--md-checkbox-hover-outline-width, 2px);--_hover-state-layer-color: var(--md-checkbox-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-opacity: var(--md-checkbox-hover-state-layer-opacity, 0.08);--_outline-color: var(--md-checkbox-outline-color, var(--md-sys-color-on-surface-variant, #49454f));--_outline-width: var(--md-checkbox-outline-width, 2px);--_pressed-outline-color: var(--md-checkbox-pressed-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-outline-width: var(--md-checkbox-pressed-outline-width, 2px);--_pressed-state-layer-color: var(--md-checkbox-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--_pressed-state-layer-opacity: var(--md-checkbox-pressed-state-layer-opacity, 0.12);--_container-shape-start-start: var( --md-checkbox-container-shape-start-start, var(--_container-shape) );--_container-shape-start-end: var( --md-checkbox-container-shape-start-end, var(--_container-shape) );--_container-shape-end-end: var( --md-checkbox-container-shape-end-end, var(--_container-shape) );--_container-shape-end-start: var( --md-checkbox-container-shape-end-start, var(--_container-shape) );border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-end-radius:var(--_container-shape-end-end);border-end-start-radius:var(--_container-shape-end-start);display:inline-flex;height:var(--_container-size);position:relative;vertical-align:top;width:var(--_container-size);-webkit-tap-highlight-color:rgba(0,0,0,0);cursor:pointer}:host([disabled]){cursor:default}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-size))/2)}md-focus-ring{height:44px;inset:unset;width:44px}input{appearance:none;height:48px;margin:0;opacity:0;outline:none;position:absolute;width:48px;z-index:1;cursor:inherit}:host([touch-target=none]) input{height:100%;width:100%}.container{border-radius:inherit;display:flex;height:100%;place-content:center;place-items:center;position:relative;width:100%}.outline,.background,.icon{inset:0;position:absolute}.outline,.background{border-radius:inherit}.outline{border-color:var(--_outline-color);border-style:solid;border-width:var(--_outline-width);box-sizing:border-box}.background{background-color:var(--_selected-container-color)}.background,.icon{opacity:0;transition-duration:150ms,50ms;transition-property:transform,opacity;transition-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15),linear;transform:scale(0.6)}:where(.selected) :is(.background,.icon){opacity:1;transition-duration:350ms,50ms;transition-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1),linear;transform:scale(1)}md-ripple{border-radius:var(--_state-layer-shape);height:var(--_state-layer-size);inset:unset;width:var(--_state-layer-size);--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}.selected md-ripple{--md-ripple-hover-color: var(--_selected-hover-state-layer-color);--md-ripple-hover-opacity: var(--_selected-hover-state-layer-opacity);--md-ripple-pressed-color: var(--_selected-pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_selected-pressed-state-layer-opacity)}.icon{fill:var(--_selected-icon-color);height:var(--_icon-size);width:var(--_icon-size)}.mark.short{height:2px;transition-property:transform,height;width:2px}.mark.long{height:2px;transition-property:transform,width;width:10px}.mark{animation-duration:150ms;animation-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15);transition-duration:150ms;transition-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15)}.selected .mark{animation-duration:350ms;animation-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1);transition-duration:350ms;transition-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1)}.checked .mark,.prev-checked.unselected .mark{transform:scaleY(-1) translate(7px, -14px) rotate(45deg)}.checked .mark.short,.prev-checked.unselected .mark.short{height:5.6568542495px}.checked .mark.long,.prev-checked.unselected .mark.long{width:11.313708499px}.indeterminate .mark,.prev-indeterminate.unselected .mark{transform:scaleY(-1) translate(4px, -10px) rotate(0deg)}.prev-unselected .mark{transition-property:none}.prev-unselected.checked .mark.long{animation-name:prev-unselected-to-checked}@keyframes prev-unselected-to-checked{from{width:0}}:where(:hover) .outline{border-color:var(--_hover-outline-color);border-width:var(--_hover-outline-width)}:where(:hover) .background{background:var(--_selected-hover-container-color)}:where(:hover) .icon{fill:var(--_selected-hover-icon-color)}:where(:focus-within) .outline{border-color:var(--_focus-outline-color);border-width:var(--_focus-outline-width)}:where(:focus-within) .background{background:var(--_selected-focus-container-color)}:where(:focus-within) .icon{fill:var(--_selected-focus-icon-color)}:where(:active) .outline{border-color:var(--_pressed-outline-color);border-width:var(--_pressed-outline-width)}:where(:active) .background{background:var(--_selected-pressed-container-color)}:where(:active) .icon{fill:var(--_selected-pressed-icon-color)}:where(.disabled,.prev-disabled) :is(.background,.icon,.mark){animation-duration:0s;transition-duration:0s}:where(.disabled) .outline{border-color:var(--_disabled-outline-color);border-width:var(--_disabled-outline-width);opacity:var(--_disabled-container-opacity)}:where(.selected.disabled) .outline{visibility:hidden}:where(.selected.disabled) .background{background:var(--_selected-disabled-container-color);opacity:var(--_selected-disabled-container-opacity)}:where(.disabled) .icon{fill:var(--_selected-disabled-icon-color)}@media(forced-colors: active){.background{background-color:CanvasText}.selected.disabled .background{background-color:GrayText;opacity:1}.outline{border-color:CanvasText}.disabled .outline{border-color:GrayText;opacity:1}.icon{fill:Canvas}}/*# sourceMappingURL=checkbox-styles.css.map */
 `;
 
 /**
@@ -23827,15 +23834,15 @@ function shouldProcessClick(event) {
  * SPDX-License-Identifier: Apache-2.0
  */
 // The spec says icon size is 20px, but that doesn't render to the same thing.
-const ICON_SIZE = css `16px`;
-const TOUCH_TARGET_SIZE = css `48px`;
-const RIPPLE_SIZE = css `40px`;
+const ICON_SIZE = css$1 `16px`;
+const TOUCH_TARGET_SIZE = css$1 `48px`;
+const RIPPLE_SIZE = css$1 `40px`;
 /**
  * A ChromeOS compliant checkbox.
  */
 class Checkbox extends LitElement {
     /** @nocollapse */
-    static { this.styles = css `
+    static { this.styles = css$1 `
     :host {
       display: inline-block;
       height: ${TOUCH_TARGET_SIZE};
@@ -23919,7 +23926,7 @@ class Checkbox extends LitElement {
         });
     }
     render() {
-        return html$1 `
+        return html$2 `
       <md-checkbox
           ?disabled=${this.disabled}
           ?checked=${this.checked}
@@ -40941,7 +40948,7 @@ class LottieRenderer extends LitElement {
         return this.renderRoot.querySelector('#onscreen-canvas');
     }
     /** @nocollapse */
-    static { this.styles = css `
+    static { this.styles = css$1 `
     :host {
       display: block;
     }
@@ -41062,7 +41069,7 @@ class LottieRenderer extends LitElement {
         }
     }
     render() {
-        return html$1 `
+        return html$2 `
         <canvas id='onscreen-canvas'></canvas>
       `;
     }
@@ -57396,5 +57403,5 @@ class SettingsBluetoothSavedDevicesSubpageElement extends SettingsBluetoothSaved
 }
 customElements.define(SettingsBluetoothSavedDevicesSubpageElement.is, SettingsBluetoothSavedDevicesSubpageElement);
 
-export { assertInstanceof as $, AboutPageBrowserProxyImpl as A, getApnDisplayName as B, CrPolicyIndicatorType$1 as C, DeepLinkingMixin as D, assert as E, FocusRowMixin as F, GeolocationAccessLevel as G, ApnDetailDialogMode as H, I18nMixin as I, processDeviceState as J, getInstance as K, LifetimeBrowserProxyImpl as L, CrPolicyNetworkBehaviorMojo as M, NetworkListenerBehavior as N, OncMojo as O, PrefsMixin as P, FAKE_CREDENTIAL as Q, RouteObserverMixin as R, Setting as S, TERMINA_VM_TYPE as T, UpdateStatus as U, VM_DEVICE_MICROPHONE as V, WebUiListenerMixin as W, isActiveSim as X, InternetPageBrowserProxyImpl as Y, OsSyncBrowserProxyImpl as Z, assertExists$2 as _, assertNotReached$1 as a, FindShortcutMixin as a$, getESimProfileProperties as a0, mojoString16ToString as a1, CellularSetupPageName as a2, ESimManagerListenerMixin as a3, MultiDeviceBrowserProxyImpl as a4, getEuicc as a5, getSimSlotCount as a6, getPendingESimProfiles as a7, MultiDeviceFeatureState as a8, CrToggleElement as a9, CrDialogElement as aA, CrIconButtonElement as aB, CrActionMenuElement as aC, recordLockScreenProgress as aD, LockScreenProgress as aE, PluralStringProxyImpl as aF, SyncBrowserProxyImpl as aG, PageStatus as aH, StatusAction as aI, CrScrollableMixin as aJ, PrivacyHubBrowserProxyImpl as aK, getAppPermissionProvider as aL, MediaDevicesProxy as aM, AppPermissionsObserverReceiver as aN, isPermissionEnabled as aO, CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aP, PrivacyHubSensorSubpageUserAction as aQ, NUMBER_OF_POSSIBLE_USER_ACTIONS as aR, MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aS, AppLanguageSelectionDialogEntryPoint as aT, OneDriveBrowserProxy as aU, AppManagementStoreMixin as aV, getAppIcon as aW, AppManagementBrowserProxy as aX, alphabeticalSort as aY, GlobalScrollTargetMixin as aZ, OsSettingsSubpageElement as a_, BrowserProxy$1 as aa, getImage as ab, ChromeVoxSubpageBrowserProxyImpl as ac, assertExhaustive as ad, DevicePageBrowserProxyImpl as ae, SettingsToggleButtonElement as af, SelectToSpeakSubpageBrowserProxyImpl as ag, LanguagesBrowserProxyImpl as ah, SwitchAccessSubpageBrowserProxyImpl as ai, TextToSpeechSubpageBrowserProxyImpl as aj, TtsVoiceSubpageBrowserProxyImpl as ak, BrowserChannel as al, isTargetChannelMoreStable as am, DeviceNameBrowserProxyImpl as an, SetDeviceNameResult as ao, DeviceNameState as ap, AccountManagerBrowserProxyImpl as aq, ParentalControlsBrowserProxyImpl as ar, assertInstanceof$1 as as, fireAuthTokenInvalidEvent as at, LockStateMixin as au, MultiDeviceFeatureMixin as av, MultiDeviceFeature as aw, MultiDeviceSettingsMode as ax, CrInputElement as ay, CrButtonElement as az, routes as b, AppNotificationsSubpage as b$, ACCESSIBILITY_COMMON_IME_ID as b0, IronA11yKeysBehavior as b1, PrivacyPageBrowserProxyImpl as b2, SecureDnsMode as b3, SecureDnsUiManagementMode as b4, StaticShortcutAction as b5, EventTracker as b6, getInputDeviceSettingsProvider as b7, FakeInputDeviceSettingsProvider as b8, ButtonPressObserverReceiver as b9, SettingsMultideviceCombinedSetupItemElement as bA, SettingsMultideviceFeatureItemElement as bB, SettingsMultideviceFeatureToggleElement as bC, SettingsMultideviceSubpageElement as bD, SettingsMultideviceTaskContinuationDisabledLinkElement as bE, SettingsMultideviceTaskContinuationItemElement as bF, SettingsMultideviceWifiSyncDisabledLinkElement as bG, NearbyShareReceiveDialogElement as bH, SettingsNearbyShareSubpageElement as bI, SettingsAndroidAppsSubpageElement as bJ, AppManagementAppDetailViewElement as bK, AppManagementAppDetailsItem as bL, AppManagementAppItemElement as bM, SettingsAppManagementPageElement as bN, AppManagementArcDetailViewElement as bO, AppManagementBorealisDetailViewElement as bP, AppManagementChromeAppDetailViewElement as bQ, AppManagementDomSwitchElement as bR, AppManagementMainViewElement as bS, AppManagementPermissionHeadingElement as bT, AppManagementPinToShelfItemElement as bU, AppManagementPluginVmDetailViewElement as bV, AppManagementPwaDetailViewElement as bW, AppManagementResizeLockItemElement as bX, AppManagementSubAppsItemElement as bY, AppNotificationRowElement as bZ, SettingsAppNotificationsManagerSubpage as b_, buttonsAreEqual as ba, getShortcutInputProvider as bb, keyEventsAreEqual as bc, AudioAndCaptionsPageBrowserProxyImpl as bd, SmbBrowserProxyImpl as be, SmbMountResult as bf, AppManagementSupportedLinksItemElement as bg, AppManagementSupportedLinksOverlappingAppsDialogElement as bh, AppLanguageSelectionDialogElement as bi, AppLanguageSelectionItemElement as bj, SettingsRadioGroupElement as bk, DateTimeSettingsCardElement as bl, TimezoneSelectorElement as bm, SettingsCustomizeMouseButtonsSubpageElement as bn, SettingsCustomizePenButtonsSubpageElement as bo, SettingsCustomizeTabletButtonsSubpageElement as bp, SettingsKeyboardElement as bq, SettingsPointersElement as br, SettingsPowerElement as bs, SettingsStorageElement as bt, SettingsStylusElement as bu, CROSTINI_TYPE as bv, GuestOsBrowserProxyImpl as bw, PLUGIN_VM_TYPE as bx, ContainerSelectElement as by, SettingsGuestOsSharedPathsElement as bz, assert$1 as c, ButtonState$1 as c$, SettingsBluetoothChangeDeviceNameDialogElement as c0, SettingsBluetoothDeviceDetailSubpageElement as c1, SettingsBluetoothDevicesSubpageElement as c2, SettingsBluetoothSavedDevicesSubpageElement as c3, SettingsBluetoothTrueWirelessImagesElement as c4, SettingsPairedBluetoothListElement as c5, SettingsPairedBluetoothListItemElement as c6, SettingsSavedDevicesListElement as c7, FilesSettingsCardElement as c8, SettingsGoogleDriveSubpageElement as c9, FILES_SECTION_PATH as cA, PRINTING_SECTION_PATH as cB, CROSTINI_SECTION_PATH as cC, RESET_SECTION_PATH as cD, getDeviceName as cE, KeyboardSettingsObserverReceiver as cF, MouseSettingsObserverReceiver as cG, PointingStickSettingsObserverReceiver as cH, TouchpadSettingsObserverReceiver as cI, routesMojom as cJ, getDisplayApi as cK, IronResizableBehavior as cL, PaperRippleMixin as cM, getDeviceStateChangesToAnnounce as cN, CrLinkRowElement as cO, Fkey as cP, ExtendedFkeysModifier as cQ, TopRowActionKey as cR, MetaKey as cS, ModifierKey$1 as cT, SixPackShortcutModifier as cU, SixPackKey as cV, PolicyStatus as cW, isInputDeviceSettingsSplitEnabled as cX, isExternalStorageEnabled as cY, GraphicsTabletSettingsObserverReceiver as cZ, Button as c_, LanguageSettingsCardElement as ca, SettingsLanguagesElement as cb, PrintingSettingsCardElement as cc, SettingsPrivacyHubGeolocationSubpage as cd, SettingsPrivacyHubSubpage as ce, OsSettingsPowerwashDialogElement as cf, OsResetBrowserProxyImpl as cg, OsSettingsSanitizeDialogElement as ch, ResetSettingsCardElement as ci, listenOnce as cj, ABOUT_CHROME_OS_SECTION_PATH as ck, isAdvancedRoute as cl, NETWORK_SECTION_PATH as cm, BLUETOOTH_SECTION_PATH as cn, MULTI_DEVICE_SECTION_PATH as co, PEOPLE_SECTION_PATH as cp, KERBEROS_SECTION_PATH as cq, DEVICE_SECTION_PATH as cr, PERSONALIZATION_SECTION_PATH as cs, PRIVACY_AND_SECURITY_SECTION_PATH as ct, APPS_SECTION_PATH as cu, ACCESSIBILITY_SECTION_PATH as cv, SYSTEM_PREFERENCES_SECTION_PATH as cw, SEARCH_AND_ASSISTANT_SECTION_PATH as cx, DATE_AND_TIME_SECTION_PATH as cy, LANGUAGES_AND_INPUT_SECTION_PATH as cz, cast as d, ExtensionControlBrowserProxyImpl as d$, hasActiveCellularNetwork as d0, getESimProfile as d1, stringToMojoString16 as d2, NetworkConfigElementBehavior as d3, assertNotReached as d4, htmlEscape as d5, isConnectedToNonCellularNetwork as d6, getNumESimProfiles as d7, LockScreenUnlockType as d8, PhoneHubPermissionsSetupFlowScreens as d9, CrSearchFieldMixin as dA, SectionSpec as dB, SubpageSpec as dC, SettingSpec as dD, OpenWindowProxyImpl as dE, recordSearch as dF, CrContainerShadowMixin as dG, setGlobalScrollTarget as dH, recordPageFocus as dI, recordPageBlur as dJ, recordClick as dK, recordNavigation as dL, getPrefPolicyFields as dM, settingsAreEqual as dN, CustomizationRestriction as dO, SimulateRightClickModifier as dP, recordSavedDevicesUiEventMetrics as dQ, FastPairSavedDevicesUiEvent as dR, ColorChangeUpdater as dS, getContactManager as dT, observeContactManager as dU, setContactManagerForTesting as dV, NearbyProgressElement as dW, nearby_share_mojomWebui as dX, setNearbyShareSettingsForTesting as dY, DEFAULT_CHECKED_VALUE as dZ, DEFAULT_UNCHECKED_VALUE as d_, PhoneHubPermissionsSetupAction as da, PhoneHubPermissionsSetupFeatureCombination as db, getNearbyShareSettings as dc, observeNearbyShareSettings as dd, PhoneHubFeatureAccessStatus as de, OsBluetoothDevicesSubpageBrowserProxyImpl as df, ButtonState as dg, ButtonName as dh, DeviceItemState as di, PairingAuthType as dj, recordBluetoothUiSurfaceMetrics as dk, BluetoothUiSurface as dl, isAccountManagerEnabled as dm, AUTH_TOKEN_INVALID_EVENT_TYPE as dn, PrivacyHubNavigationOrigin as dp, shouldShowQuickAnswersSettings as dq, isAssistantAllowed as dr, shouldShowMultitasking as ds, isGuest as dt, isPowerwashAllowed as du, shouldShowStartup as dv, getTrustedScriptURL as dw, isAboutRoute as dx, AndroidAppsBrowserProxyImpl as dy, isBasicRoute as dz, equalContainerId as e, getReceiveManager as e$, ApnDetailDialog as e0, AppManagementFileHandlingItemElement as e1, AppManagementToggleRowElement as e2, LocalizedLinkElement as e3, SettingsPrefsElement as e4, CrSettingsPrefs as e5, CrCheckboxElement as e6, CrCardRadioButtonElement as e7, CrRadioButtonElement as e8, CrRadioGroupElement as e9, setDisplayApiForTesting as eA, StorageSpaceState as eB, fakeGraphicsTabletButtonActions as eC, fakeGraphicsTablets as eD, fakeKeyboards as eE, fakeKeyboards2 as eF, fakeMice as eG, fakeMice2 as eH, fakeMouseButtonActions as eI, fakePointingSticks as eJ, fakePointingSticks2 as eK, fakeStyluses as eL, fakeTouchpads as eM, fakeTouchpads2 as eN, setInputDeviceSettingsProviderForTesting as eO, setupFakeInputDeviceSettingsProvider as eP, Vkey as eQ, setUserActionRecorderForTesting as eR, app_notification_handler_mojomWebui as eS, app_permission_handler_mojomWebui as eT, setting_mojomWebui as eU, user_action_recorder_mojomWebui as eV, PhoneHubFeatureAccessProhibitedReason as eW, PhoneHubPermissionsSetupMode as eX, NearbyAccountManagerBrowserProxyImpl as eY, NearbyShareConfirmPageElement as eZ, NearbyShareHighVisibilityPageElement as e_, CrSearchFieldElement as ea, CrSearchableDropDownElement as eb, CrSliderElement as ec, CrTextareaElement as ed, CrToastElement as ee, CrPolicyIndicatorElement as ef, CrTooltipIconElement as eg, addApp$1 as eh, changeApp$1 as ei, removeApp$1 as ej, updateSelectedAppId$1 as ek, updateSubAppToParentAppId$1 as el, reduceAction as em, updateApps as en, AppManagementStore as eo, resetGlobalScrollTargetForTesting as ep, LacrosExtensionControlBrowserProxyImpl as eq, LacrosExtensionControlledIndicatorElement as er, ControlledButtonElement as es, ControlledRadioButtonElement as et, ExtensionControlledIndicatorElement as eu, SettingsDropdownMenuElement as ev, SettingsSliderElement as ew, IdleBehavior as ex, LidClosedBehavior as ey, NoteAppLockScreenSupport as ez, containerLabel as f, observeReceiveManager as f0, setReceiveManagerForTesting as f1, dataUsageStringToEnum as f2, NearbyShareDataUsage as f3, PluginVmBrowserProxyImpl as f4, setAppNotificationProviderForTesting as f5, OsSettingsAppsPageElement as f6, FastPairSavedDevicesOptInStatus as f7, GoogleDriveBrowserProxy as f8, PageCallbackRouter as f9, PageHandlerRemote as fa, PageRemote as fb, Stage as fc, ConfirmationDialogType as fd, PageCallbackRouter$2 as fe, PageHandlerRemote$2 as ff, PageRemote$2 as fg, MetricsConsentBrowserProxyImpl as fh, setAppPermissionProviderForTesting as fi, SettingsPrivacyHubAppPermissionRow as fj, SettingsPrivacyHubSystemServiceRow as fk, SettingsSearchEngineElement as fl, SearchEnginesBrowserProxyImpl as fm, SettingsCardElement as fn, createRouter as fo, Route as fp, SettingsGuestOsSharedUsbDevicesElement as g, castExists$1 as h, RouteOriginMixin as i, Router as j, isCrostiniSupported as k, isCrostiniAllowed as l, isRevampWayfindingEnabled as m, Section as n, browserChannelToI18nId as o, PrinterSetupResult as p, PrintServerResult as q, recordSettingChange as r, sanitizeInnerHtml$1 as s, CupsPrintersBrowserProxyImpl as t, focusWithoutInk as u, LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME as v, GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE as w, TimeZoneBrowserProxyImpl as x, isChild as y, I18nBehavior as z };
+export { assertInstanceof as $, AboutPageBrowserProxyImpl as A, getApnDisplayName as B, CrPolicyIndicatorType$1 as C, DeepLinkingMixin as D, assert as E, FocusRowMixin as F, GeolocationAccessLevel as G, ApnDetailDialogMode as H, I18nMixin as I, processDeviceState as J, getInstance as K, LifetimeBrowserProxyImpl as L, CrPolicyNetworkBehaviorMojo as M, NetworkListenerBehavior as N, OncMojo as O, PrefsMixin as P, FAKE_CREDENTIAL as Q, RouteObserverMixin as R, Setting as S, TERMINA_VM_TYPE as T, UpdateStatus as U, VM_DEVICE_MICROPHONE as V, WebUiListenerMixin as W, isActiveSim as X, InternetPageBrowserProxyImpl as Y, OsSyncBrowserProxyImpl as Z, assertExists$2 as _, assertNotReached$1 as a, FindShortcutMixin as a$, getESimProfileProperties as a0, mojoString16ToString as a1, CellularSetupPageName as a2, ESimManagerListenerMixin as a3, MultiDeviceBrowserProxyImpl as a4, getEuicc as a5, getSimSlotCount as a6, getPendingESimProfiles as a7, MultiDeviceFeatureState as a8, CrToggleElement as a9, CrDialogElement as aA, CrIconButtonElement as aB, CrActionMenuElement as aC, recordLockScreenProgress as aD, LockScreenProgress as aE, PluralStringProxyImpl as aF, SyncBrowserProxyImpl as aG, PageStatus as aH, StatusAction as aI, CrScrollableMixin as aJ, PrivacyHubBrowserProxyImpl as aK, getAppPermissionProvider as aL, MediaDevicesProxy as aM, AppPermissionsObserverReceiver as aN, isPermissionEnabled as aO, CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aP, PrivacyHubSensorSubpageUserAction as aQ, NUMBER_OF_POSSIBLE_USER_ACTIONS as aR, MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aS, AppLanguageSelectionDialogEntryPoint as aT, OneDriveBrowserProxy as aU, AppManagementStoreMixin as aV, getAppIcon as aW, AppManagementBrowserProxy as aX, alphabeticalSort as aY, GlobalScrollTargetMixin as aZ, OsSettingsSubpageElement as a_, BrowserProxy$1 as aa, getImage as ab, ChromeVoxSubpageBrowserProxyImpl as ac, assertExhaustive as ad, DevicePageBrowserProxyImpl as ae, SettingsToggleButtonElement as af, SelectToSpeakSubpageBrowserProxyImpl as ag, LanguagesBrowserProxyImpl as ah, SwitchAccessSubpageBrowserProxyImpl as ai, TextToSpeechSubpageBrowserProxyImpl as aj, TtsVoiceSubpageBrowserProxyImpl as ak, BrowserChannel as al, isTargetChannelMoreStable as am, DeviceNameBrowserProxyImpl as an, SetDeviceNameResult as ao, DeviceNameState as ap, AccountManagerBrowserProxyImpl as aq, ParentalControlsBrowserProxyImpl as ar, assertInstanceof$1 as as, fireAuthTokenInvalidEvent as at, LockStateMixin as au, MultiDeviceFeatureMixin as av, MultiDeviceFeature as aw, MultiDeviceSettingsMode as ax, CrInputElement as ay, CrButtonElement as az, routes as b, AppNotificationsSubpage as b$, ACCESSIBILITY_COMMON_IME_ID as b0, IronA11yKeysBehavior as b1, PrivacyPageBrowserProxyImpl as b2, SecureDnsMode as b3, SecureDnsUiManagementMode as b4, StaticShortcutAction as b5, EventTracker as b6, getInputDeviceSettingsProvider as b7, FakeInputDeviceSettingsProvider as b8, ButtonPressObserverReceiver as b9, SettingsMultideviceCombinedSetupItemElement as bA, SettingsMultideviceFeatureItemElement as bB, SettingsMultideviceFeatureToggleElement as bC, SettingsMultideviceSubpageElement as bD, SettingsMultideviceTaskContinuationDisabledLinkElement as bE, SettingsMultideviceTaskContinuationItemElement as bF, SettingsMultideviceWifiSyncDisabledLinkElement as bG, NearbyShareReceiveDialogElement as bH, SettingsNearbyShareSubpageElement as bI, SettingsAndroidAppsSubpageElement as bJ, AppManagementAppDetailViewElement as bK, AppManagementAppDetailsItem as bL, AppManagementAppItemElement as bM, SettingsAppManagementPageElement as bN, AppManagementArcDetailViewElement as bO, AppManagementBorealisDetailViewElement as bP, AppManagementChromeAppDetailViewElement as bQ, AppManagementDomSwitchElement as bR, AppManagementMainViewElement as bS, AppManagementPermissionHeadingElement as bT, AppManagementPinToShelfItemElement as bU, AppManagementPluginVmDetailViewElement as bV, AppManagementPwaDetailViewElement as bW, AppManagementResizeLockItemElement as bX, AppManagementSubAppsItemElement as bY, AppNotificationRowElement as bZ, SettingsAppNotificationsManagerSubpage as b_, buttonsAreEqual as ba, getShortcutInputProvider as bb, keyEventsAreEqual as bc, AudioAndCaptionsPageBrowserProxyImpl as bd, SmbBrowserProxyImpl as be, SmbMountResult as bf, AppManagementSupportedLinksItemElement as bg, AppManagementSupportedLinksOverlappingAppsDialogElement as bh, AppLanguageSelectionDialogElement as bi, AppLanguageSelectionItemElement as bj, SettingsRadioGroupElement as bk, DateTimeSettingsCardElement as bl, TimezoneSelectorElement as bm, SettingsCustomizeMouseButtonsSubpageElement as bn, SettingsCustomizePenButtonsSubpageElement as bo, SettingsCustomizeTabletButtonsSubpageElement as bp, SettingsKeyboardElement as bq, SettingsPointersElement as br, SettingsPowerElement as bs, SettingsStorageElement as bt, SettingsStylusElement as bu, CROSTINI_TYPE as bv, GuestOsBrowserProxyImpl as bw, PLUGIN_VM_TYPE as bx, ContainerSelectElement as by, SettingsGuestOsSharedPathsElement as bz, assert$1 as c, ButtonState$1 as c$, SettingsBluetoothChangeDeviceNameDialogElement as c0, SettingsBluetoothDeviceDetailSubpageElement as c1, SettingsBluetoothDevicesSubpageElement as c2, SettingsBluetoothSavedDevicesSubpageElement as c3, SettingsBluetoothTrueWirelessImagesElement as c4, SettingsPairedBluetoothListElement as c5, SettingsPairedBluetoothListItemElement as c6, SettingsSavedDevicesListElement as c7, FilesSettingsCardElement as c8, SettingsGoogleDriveSubpageElement as c9, FILES_SECTION_PATH as cA, PRINTING_SECTION_PATH as cB, CROSTINI_SECTION_PATH as cC, RESET_SECTION_PATH as cD, getDeviceName as cE, KeyboardSettingsObserverReceiver as cF, MouseSettingsObserverReceiver as cG, PointingStickSettingsObserverReceiver as cH, TouchpadSettingsObserverReceiver as cI, routesMojom as cJ, getDisplayApi as cK, IronResizableBehavior as cL, PaperRippleMixin as cM, getDeviceStateChangesToAnnounce as cN, CrLinkRowElement as cO, Fkey as cP, ExtendedFkeysModifier as cQ, TopRowActionKey as cR, MetaKey as cS, ModifierKey$1 as cT, SixPackShortcutModifier as cU, SixPackKey as cV, PolicyStatus as cW, isInputDeviceSettingsSplitEnabled as cX, isExternalStorageEnabled as cY, GraphicsTabletSettingsObserverReceiver as cZ, Button as c_, LanguageSettingsCardElement as ca, SettingsLanguagesElement as cb, PrintingSettingsCardElement as cc, SettingsPrivacyHubGeolocationSubpage as cd, SettingsPrivacyHubSubpage as ce, OsSettingsPowerwashDialogElement as cf, OsResetBrowserProxyImpl as cg, OsSettingsSanitizeDialogElement as ch, ResetSettingsCardElement as ci, listenOnce as cj, ABOUT_CHROME_OS_SECTION_PATH as ck, isAdvancedRoute as cl, NETWORK_SECTION_PATH as cm, BLUETOOTH_SECTION_PATH as cn, MULTI_DEVICE_SECTION_PATH as co, PEOPLE_SECTION_PATH as cp, KERBEROS_SECTION_PATH as cq, DEVICE_SECTION_PATH as cr, PERSONALIZATION_SECTION_PATH as cs, PRIVACY_AND_SECURITY_SECTION_PATH as ct, APPS_SECTION_PATH as cu, ACCESSIBILITY_SECTION_PATH as cv, SYSTEM_PREFERENCES_SECTION_PATH as cw, SEARCH_AND_ASSISTANT_SECTION_PATH as cx, DATE_AND_TIME_SECTION_PATH as cy, LANGUAGES_AND_INPUT_SECTION_PATH as cz, cast as d, ExtensionControlBrowserProxyImpl as d$, hasActiveCellularNetwork as d0, getESimProfile as d1, stringToMojoString16 as d2, NetworkConfigElementBehavior as d3, assertNotReached as d4, htmlEscape as d5, isConnectedToNonCellularNetwork as d6, getNumESimProfiles as d7, LockScreenUnlockType as d8, PhoneHubPermissionsSetupFlowScreens as d9, CrSearchFieldMixin as dA, SectionSpec as dB, SubpageSpec as dC, SettingSpec as dD, OpenWindowProxyImpl as dE, recordSearch as dF, CrContainerShadowMixin as dG, setGlobalScrollTarget as dH, recordPageFocus as dI, recordPageBlur as dJ, recordClick as dK, recordNavigation as dL, getPrefPolicyFields as dM, settingsAreEqual as dN, CustomizationRestriction as dO, SimulateRightClickModifier as dP, recordSavedDevicesUiEventMetrics as dQ, FastPairSavedDevicesUiEvent as dR, ColorChangeUpdater as dS, getContactManager as dT, observeContactManager as dU, setContactManagerForTesting as dV, NearbyProgressElement as dW, nearby_share_mojomWebui as dX, setNearbyShareSettingsForTesting as dY, DEFAULT_CHECKED_VALUE as dZ, DEFAULT_UNCHECKED_VALUE as d_, PhoneHubPermissionsSetupAction as da, PhoneHubPermissionsSetupFeatureCombination as db, getNearbyShareSettings as dc, observeNearbyShareSettings as dd, PhoneHubFeatureAccessStatus as de, OsBluetoothDevicesSubpageBrowserProxyImpl as df, ButtonState as dg, ButtonName as dh, DeviceItemState as di, PairingAuthType as dj, recordBluetoothUiSurfaceMetrics as dk, BluetoothUiSurface as dl, isAccountManagerEnabled as dm, AUTH_TOKEN_INVALID_EVENT_TYPE as dn, PrivacyHubNavigationOrigin as dp, isQuickAnswersSupported as dq, isAssistantAllowed as dr, shouldShowMultitasking as ds, isGuest as dt, isPowerwashAllowed as du, shouldShowStartup as dv, getTrustedScriptURL as dw, isAboutRoute as dx, AndroidAppsBrowserProxyImpl as dy, isBasicRoute as dz, equalContainerId as e, getReceiveManager as e$, ApnDetailDialog as e0, AppManagementFileHandlingItemElement as e1, AppManagementToggleRowElement as e2, LocalizedLinkElement as e3, SettingsPrefsElement as e4, CrSettingsPrefs as e5, CrCheckboxElement as e6, CrCardRadioButtonElement as e7, CrRadioButtonElement as e8, CrRadioGroupElement as e9, setDisplayApiForTesting as eA, StorageSpaceState as eB, fakeGraphicsTabletButtonActions as eC, fakeGraphicsTablets as eD, fakeKeyboards as eE, fakeKeyboards2 as eF, fakeMice as eG, fakeMice2 as eH, fakeMouseButtonActions as eI, fakePointingSticks as eJ, fakePointingSticks2 as eK, fakeStyluses as eL, fakeTouchpads as eM, fakeTouchpads2 as eN, setInputDeviceSettingsProviderForTesting as eO, setupFakeInputDeviceSettingsProvider as eP, Vkey as eQ, setUserActionRecorderForTesting as eR, app_notification_handler_mojomWebui as eS, app_permission_handler_mojomWebui as eT, setting_mojomWebui as eU, user_action_recorder_mojomWebui as eV, PhoneHubFeatureAccessProhibitedReason as eW, PhoneHubPermissionsSetupMode as eX, NearbyAccountManagerBrowserProxyImpl as eY, NearbyShareConfirmPageElement as eZ, NearbyShareHighVisibilityPageElement as e_, CrSearchFieldElement as ea, CrSearchableDropDownElement as eb, CrSliderElement as ec, CrTextareaElement as ed, CrToastElement as ee, CrPolicyIndicatorElement as ef, CrTooltipIconElement as eg, addApp$1 as eh, changeApp$1 as ei, removeApp$1 as ej, updateSelectedAppId$1 as ek, updateSubAppToParentAppId$1 as el, reduceAction as em, updateApps as en, AppManagementStore as eo, resetGlobalScrollTargetForTesting as ep, LacrosExtensionControlBrowserProxyImpl as eq, LacrosExtensionControlledIndicatorElement as er, ControlledButtonElement as es, ControlledRadioButtonElement as et, ExtensionControlledIndicatorElement as eu, SettingsDropdownMenuElement as ev, SettingsSliderElement as ew, IdleBehavior as ex, LidClosedBehavior as ey, NoteAppLockScreenSupport as ez, containerLabel as f, observeReceiveManager as f0, setReceiveManagerForTesting as f1, dataUsageStringToEnum as f2, NearbyShareDataUsage as f3, PluginVmBrowserProxyImpl as f4, setAppNotificationProviderForTesting as f5, OsSettingsAppsPageElement as f6, FastPairSavedDevicesOptInStatus as f7, GoogleDriveBrowserProxy as f8, PageCallbackRouter as f9, PageHandlerRemote as fa, PageRemote as fb, Stage as fc, ConfirmationDialogType as fd, PageCallbackRouter$2 as fe, PageHandlerRemote$2 as ff, PageRemote$2 as fg, MetricsConsentBrowserProxyImpl as fh, setAppPermissionProviderForTesting as fi, SettingsPrivacyHubAppPermissionRow as fj, SettingsPrivacyHubSystemServiceRow as fk, SettingsSearchEngineElement as fl, SearchEnginesBrowserProxyImpl as fm, SettingsCardElement as fn, createRouter as fo, Route as fp, SettingsGuestOsSharedUsbDevicesElement as g, castExists$1 as h, RouteOriginMixin as i, Router as j, isCrostiniSupported as k, isCrostiniAllowed as l, isRevampWayfindingEnabled as m, Section as n, browserChannelToI18nId as o, PrinterSetupResult as p, PrintServerResult as q, recordSettingChange as r, sanitizeInnerHtml$1 as s, CupsPrintersBrowserProxyImpl as t, focusWithoutInk as u, LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME as v, GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE as w, TimeZoneBrowserProxyImpl as x, isChild as y, I18nBehavior as z };
 //# sourceMappingURL=shared.rollup.js.map

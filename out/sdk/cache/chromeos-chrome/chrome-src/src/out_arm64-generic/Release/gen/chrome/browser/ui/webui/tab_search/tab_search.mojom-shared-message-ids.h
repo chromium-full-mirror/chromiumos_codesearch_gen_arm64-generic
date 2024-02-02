@@ -40,6 +40,7 @@ constexpr uint32_t kPage_TabsChanged_Name = 1;
 constexpr uint32_t kPage_TabUpdated_Name = 2;
 constexpr uint32_t kPage_TabsRemoved_Name = 3;
 constexpr uint32_t kPage_TabSearchTabIndexChanged_Name = 4;
+constexpr uint32_t kPage_TabOrganizationEnabledChanged_Name = 5;
 
 }  // namespace internal
 

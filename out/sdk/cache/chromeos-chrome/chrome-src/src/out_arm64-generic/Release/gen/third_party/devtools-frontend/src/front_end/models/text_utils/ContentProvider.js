@@ -47,6 +47,7 @@ export const contentAsDataURL = function (content, mimeType, contentEncoded, cha
     if (content === undefined || content === null || (limitSize && content.length > maxDataUrlSize)) {
         return null;
     }
+    content = contentEncoded ? content : encodeURIComponent(content);
     return 'data:' + mimeType + (charset ? ';charset=' + charset : '') + (contentEncoded ? ';base64' : '') + ',' +
         content;
 };

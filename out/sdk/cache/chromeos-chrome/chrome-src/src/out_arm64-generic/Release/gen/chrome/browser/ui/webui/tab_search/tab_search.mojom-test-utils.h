@@ -81,6 +81,7 @@ class  PageInterceptorForTesting : public Page {
   void TabUpdated(TabUpdateInfoPtr tabUpdateInfo) override;
   void TabsRemoved(TabsRemovedInfoPtr tabsRemovedInfo) override;
   void TabSearchTabIndexChanged(int32_t index) override;
+  void TabOrganizationEnabledChanged(bool enabled) override;
 };
 class  PageAsyncWaiter {
  public:

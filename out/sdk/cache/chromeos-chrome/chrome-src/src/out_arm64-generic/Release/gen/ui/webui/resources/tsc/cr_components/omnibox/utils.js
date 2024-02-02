@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { assertNotReached } from '//resources/js/assert.js';
-import { SideType } from './omnibox.mojom-webui.js';
+import { RenderType, SideType } from './omnibox.mojom-webui.js';
 /** Converts a String16 to a JavaScript String. */
 export function decodeString16(str) {
     return str ? str.data.map(ch => String.fromCodePoint(ch)).join('') : '';
@@ -31,5 +31,18 @@ export function sideTypeToClass(sideType) {
             return 'secondary-side';
         default:
             assertNotReached('Unexpected side type');
+    }
+}
+/** Converts a render type to a string to be used in CSS. */
+export function renderTypeToClass(renderType) {
+    switch (renderType) {
+        case RenderType.kDefaultVertical:
+            return 'vertical';
+        case RenderType.kHorizontal:
+            return 'horizontal';
+        case RenderType.kGrid:
+            return 'grid';
+        default:
+            assertNotReached('Unexpected render type');
     }
 }

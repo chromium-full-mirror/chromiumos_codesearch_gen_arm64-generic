@@ -12,7 +12,7 @@ sysroot = "/"
 libdir = "/usr/lib64"
 build_root = "/var/cache/portage/chromeos-base/session_manager-client"
 platform2_root = "/var/tmp/portage/chromeos-base/session_manager-client-0.0.1-r2716/work/session_manager-client-0.0.1"
-libbase_ver = "1253750"
+libbase_ver = "1254430"
 enable_exceptions = false
 external_cflags = [
   "-O2",

@@ -122,9 +122,9 @@ class COMPONENT_EXPORT(MOJOM_SHARED_CONTENT_EXPORT) SellerWorklet_ReportResult_P
   double browser_signal_highest_scoring_other_bid;
   mojo::internal::Pointer<::blink::mojom::internal::AdCurrency_Data> browser_signal_highest_scoring_other_bid_currency;
   mojo::internal::Pointer<internal::ComponentAuctionReportResultParams_Data> browser_signals_component_auction_report_result_params;
-  uint32_t scoring_signals_data_version;
-  uint8_t has_scoring_signals_data_version : 1;
-  uint8_t pad16_[3];
+  uint8_t scoring_signals_data_version_$flag : 1;
+  uint8_t pad15_[3];
+  uint32_t scoring_signals_data_version_$value;
   uint64_t trace_id;
 
  private:
@@ -809,11 +809,11 @@ static_assert(
     return mojo::internal::Deserialize<::auction_worklet::mojom::ComponentAuctionReportResultParamsDataView>(
         pointer, output, message_);
   }
-  uint32_t scoring_signals_data_version() const {
-    return data_->scoring_signals_data_version;
-  }
-  bool has_scoring_signals_data_version() const {
-    return data_->has_scoring_signals_data_version;
+  std::optional<uint32_t> scoring_signals_data_version() const {
+
+    return data_->scoring_signals_data_version_$flag
+        ? std::make_optional(data_->scoring_signals_data_version_$value)
+        : std::nullopt;
   }
   uint64_t trace_id() const {
     return data_->trace_id;

@@ -11,9 +11,10 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+from components.sync.protocol import unique_position_pb2 as components_dot_sync_dot_protocol_dot_unique__position__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n>components/sync/protocol/shared_tab_group_data_specifics.proto\x12\x07sync_pb\"+\n\x1bSharedTabGroupDataSpecifics\x12\x0c\n\x04guid\x18\x01 \x01(\tB+\n%org.chromium.components.sync.protocolH\x03P\x01')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n>components/sync/protocol/shared_tab_group_data_specifics.proto\x12\x07sync_pb\x1a.components/sync/protocol/unique_position.proto\"\xc2\x01\n\x1bSharedTabGroupDataSpecifics\x12\x0c\n\x04guid\x18\x01 \x01(\t\x12\x18\n\x10\x63ollaboration_id\x18\x02 \x01(\t\x12 \n\x18last_modification_author\x18\x03 \x01(\t\x12,\n\ttab_group\x18\x04 \x01(\x0b\x32\x17.sync_pb.SharedTabGroupH\x00\x12!\n\x03tab\x18\x05 \x01(\x0b\x32\x12.sync_pb.SharedTabH\x00\x42\x08\n\x06\x65ntity\"\xc7\x01\n\x0eSharedTabGroup\x12\r\n\x05title\x18\x01 \x01(\t\x12,\n\x05\x63olor\x18\x02 \x01(\x0e\x32\x1d.sync_pb.SharedTabGroup.Color\"x\n\x05\x43olor\x12\x0f\n\x0bUNSPECIFIED\x10\x00\x12\x08\n\x04GREY\x10\x01\x12\x08\n\x04\x42LUE\x10\x02\x12\x07\n\x03RED\x10\x03\x12\n\n\x06YELLOW\x10\x04\x12\t\n\x05GREEN\x10\x05\x12\x08\n\x04PINK\x10\x06\x12\n\n\x06PURPLE\x10\x07\x12\x08\n\x04\x43YAN\x10\x08\x12\n\n\x06ORANGE\x10\t\"\x8d\x01\n\tSharedTab\x12\x0b\n\x03url\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x13\n\x0b\x66\x61vicon_url\x18\x03 \x01(\t\x12\x1d\n\x15shared_tab_group_guid\x18\x04 \x01(\t\x12\x30\n\x0funique_position\x18\x05 \x01(\x0b\x32\x17.sync_pb.UniquePositionB+\n%org.chromium.components.sync.protocolH\x03P\x01')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'components.sync.protocol.shared_tab_group_data_specifics_pb2', globals())
@@ -21,6 +22,12 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   DESCRIPTOR._serialized_options = b'\n%org.chromium.components.sync.protocolH\003P\001'
-  _SHAREDTABGROUPDATASPECIFICS._serialized_start=75
-  _SHAREDTABGROUPDATASPECIFICS._serialized_end=118
+  _SHAREDTABGROUPDATASPECIFICS._serialized_start=124
+  _SHAREDTABGROUPDATASPECIFICS._serialized_end=318
+  _SHAREDTABGROUP._serialized_start=321
+  _SHAREDTABGROUP._serialized_end=520
+  _SHAREDTABGROUP_COLOR._serialized_start=400
+  _SHAREDTABGROUP_COLOR._serialized_end=520
+  _SHAREDTAB._serialized_start=523
+  _SHAREDTAB._serialized_end=664
 # @@protoc_insertion_point(module_scope)

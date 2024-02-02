@@ -156,7 +156,7 @@ class CONTENT_EXPORT SellerWorklet
 
   using ReportResultCallback = base::OnceCallback<void(const std::optional<std::string>&, const std::optional<::GURL>&, const base::flat_map<std::string, ::GURL>&, std::vector<::auction_worklet::mojom::PrivateAggregationRequestPtr>, ::base::TimeDelta, const std::vector<std::string>&)>;
   
-  virtual void ReportResult(const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const std::optional<::GURL>& direct_from_seller_seller_signals, const std::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const ::url::Origin& browser_signal_interest_group_owner, const std::optional<std::string>& browser_signal_buyer_and_seller_reporting_id, const ::GURL& browser_signal_render_url, double browser_signal_bid, const std::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_desirability, double browser_signal_highest_scoring_other_bid, const std::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, ComponentAuctionReportResultParamsPtr browser_signals_component_auction_report_result_params, uint32_t scoring_signals_data_version, bool has_scoring_signals_data_version, uint64_t trace_id, ReportResultCallback callback) = 0;
+  virtual void ReportResult(const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const std::optional<::GURL>& direct_from_seller_seller_signals, const std::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const ::url::Origin& browser_signal_interest_group_owner, const std::optional<std::string>& browser_signal_buyer_and_seller_reporting_id, const ::GURL& browser_signal_render_url, double browser_signal_bid, const std::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_desirability, double browser_signal_highest_scoring_other_bid, const std::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, ComponentAuctionReportResultParamsPtr browser_signals_component_auction_report_result_params, std::optional<uint32_t> scoring_signals_data_version, uint64_t trace_id, ReportResultCallback callback) = 0;
 
   
   virtual void ConnectDevToolsAgent(::mojo::PendingAssociatedReceiver<::blink::mojom::DevToolsAgent> agent) = 0;
@@ -190,7 +190,7 @@ class CONTENT_EXPORT SellerWorkletProxy
   
   void SendPendingSignalsRequests() final;
   
-  void ReportResult(const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const std::optional<::GURL>& direct_from_seller_seller_signals, const std::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const ::url::Origin& browser_signal_interest_group_owner, const std::optional<std::string>& browser_signal_buyer_and_seller_reporting_id, const ::GURL& browser_signal_render_url, double browser_signal_bid, const std::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_desirability, double browser_signal_highest_scoring_other_bid, const std::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, ComponentAuctionReportResultParamsPtr browser_signals_component_auction_report_result_params, uint32_t scoring_signals_data_version, bool has_scoring_signals_data_version, uint64_t trace_id, ReportResultCallback callback) final;
+  void ReportResult(const ::blink::AuctionConfig::NonSharedParams& auction_ad_config_non_shared_params, const std::optional<::GURL>& direct_from_seller_seller_signals, const std::optional<std::string>& direct_from_seller_seller_signals_header_ad_slot, const std::optional<::GURL>& direct_from_seller_auction_signals, const std::optional<std::string>& direct_from_seller_auction_signals_header_ad_slot, ComponentAuctionOtherSellerPtr browser_signals_other_seller, const ::url::Origin& browser_signal_interest_group_owner, const std::optional<std::string>& browser_signal_buyer_and_seller_reporting_id, const ::GURL& browser_signal_render_url, double browser_signal_bid, const std::optional<::blink::AdCurrency>& browser_signal_bid_currency, double browser_signal_desirability, double browser_signal_highest_scoring_other_bid, const std::optional<::blink::AdCurrency>& browser_signal_highest_scoring_other_bid_currency, ComponentAuctionReportResultParamsPtr browser_signals_component_auction_report_result_params, std::optional<uint32_t> scoring_signals_data_version, uint64_t trace_id, ReportResultCallback callback) final;
   
   void ConnectDevToolsAgent(::mojo::PendingAssociatedReceiver<::blink::mojom::DevToolsAgent> agent) final;
 
@@ -325,8 +325,7 @@ class CONTENT_EXPORT ComponentAuctionReportResultParams {
 
   ComponentAuctionReportResultParams(
       const std::string& top_level_seller_signals,
-      double modified_bid,
-      bool has_modified_bid);
+      std::optional<double> modified_bid);
 
 
   ~ComponentAuctionReportResultParams();
@@ -348,7 +347,6 @@ class CONTENT_EXPORT ComponentAuctionReportResultParams {
 
   template <typename T, ComponentAuctionReportResultParams::EnableIfSame<T>* = nullptr>
   bool operator!=(const T& rhs) const { return !operator==(rhs); }
-  size_t Hash(size_t seed) const;
   template <typename UserType>
   static std::vector<uint8_t> Serialize(UserType* input) {
     return mojo::internal::SerializeImpl<
@@ -407,9 +405,7 @@ class CONTENT_EXPORT ComponentAuctionReportResultParams {
   
   std::string top_level_seller_signals;
   
-  double modified_bid;
-  
-  bool has_modified_bid;
+  std::optional<double> modified_bid;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -605,9 +601,8 @@ class CONTENT_EXPORT ComponentAuctionModifiedBidParams {
 
   ComponentAuctionModifiedBidParams(
       const std::string& ad,
-      double bid,
-      const std::optional<::blink::AdCurrency>& bid_currency,
-      bool has_bid);
+      std::optional<double> bid,
+      const std::optional<::blink::AdCurrency>& bid_currency);
 
 
   ~ComponentAuctionModifiedBidParams();
@@ -687,11 +682,9 @@ class CONTENT_EXPORT ComponentAuctionModifiedBidParams {
   
   std::string ad;
   
-  double bid;
+  std::optional<double> bid;
   
   std::optional<::blink::AdCurrency> bid_currency;
-  
-  bool has_bid;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -903,8 +896,7 @@ ComponentAuctionModifiedBidParamsPtr ComponentAuctionModifiedBidParams::Clone() 
   return New(
       mojo::Clone(ad),
       mojo::Clone(bid),
-      mojo::Clone(bid_currency),
-      mojo::Clone(has_bid)
+      mojo::Clone(bid_currency)
   );
 }
 
@@ -915,8 +907,6 @@ bool ComponentAuctionModifiedBidParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->bid, other_struct.bid))
     return false;
   if (!mojo::Equals(this->bid_currency, other_struct.bid_currency))
-    return false;
-  if (!mojo::Equals(this->has_bid, other_struct.has_bid))
     return false;
   return true;
 }
@@ -935,18 +925,13 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.bid_currency < lhs.bid_currency)
     return false;
-  if (lhs.has_bid < rhs.has_bid)
-    return true;
-  if (rhs.has_bid < lhs.has_bid)
-    return false;
   return false;
 }
 template <typename StructPtrType>
 ComponentAuctionReportResultParamsPtr ComponentAuctionReportResultParams::Clone() const {
   return New(
       mojo::Clone(top_level_seller_signals),
-      mojo::Clone(modified_bid),
-      mojo::Clone(has_modified_bid)
+      mojo::Clone(modified_bid)
   );
 }
 
@@ -955,8 +940,6 @@ bool ComponentAuctionReportResultParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->top_level_seller_signals, other_struct.top_level_seller_signals))
     return false;
   if (!mojo::Equals(this->modified_bid, other_struct.modified_bid))
-    return false;
-  if (!mojo::Equals(this->has_modified_bid, other_struct.has_modified_bid))
     return false;
   return true;
 }
@@ -970,10 +953,6 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.modified_bid < rhs.modified_bid)
     return true;
   if (rhs.modified_bid < lhs.modified_bid)
-    return false;
-  if (lhs.has_modified_bid < rhs.has_modified_bid)
-    return true;
-  if (rhs.has_modified_bid < lhs.has_modified_bid)
     return false;
   return false;
 }
@@ -1041,11 +1020,6 @@ struct CONTENT_EXPORT StructTraits<::auction_worklet::mojom::ComponentAuctionMod
     return input->bid_currency;
   }
 
-  static decltype(::auction_worklet::mojom::ComponentAuctionModifiedBidParams::has_bid) has_bid(
-      const ::auction_worklet::mojom::ComponentAuctionModifiedBidParamsPtr& input) {
-    return input->has_bid;
-  }
-
   static bool Read(::auction_worklet::mojom::ComponentAuctionModifiedBidParams::DataView input, ::auction_worklet::mojom::ComponentAuctionModifiedBidParamsPtr* output);
 };
 
@@ -1064,11 +1038,6 @@ struct CONTENT_EXPORT StructTraits<::auction_worklet::mojom::ComponentAuctionRep
   static decltype(::auction_worklet::mojom::ComponentAuctionReportResultParams::modified_bid) modified_bid(
       const ::auction_worklet::mojom::ComponentAuctionReportResultParamsPtr& input) {
     return input->modified_bid;
-  }
-
-  static decltype(::auction_worklet::mojom::ComponentAuctionReportResultParams::has_modified_bid) has_modified_bid(
-      const ::auction_worklet::mojom::ComponentAuctionReportResultParamsPtr& input) {
-    return input->has_modified_bid;
   }
 
   static bool Read(::auction_worklet::mojom::ComponentAuctionReportResultParams::DataView input, ::auction_worklet::mojom::ComponentAuctionReportResultParamsPtr* output);

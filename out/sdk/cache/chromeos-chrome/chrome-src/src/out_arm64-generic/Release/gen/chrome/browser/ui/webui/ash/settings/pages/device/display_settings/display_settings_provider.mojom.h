@@ -417,7 +417,9 @@ class  DisplaySettingsValue {
       std::optional<int64_t> display_id,
       std::optional<DisplaySettingsOrientationOption> orientation,
       std::optional<bool> night_light_status,
-      std::optional<DisplaySettingsNightLightScheduleOption> night_light_schedule);
+      std::optional<DisplaySettingsNightLightScheduleOption> night_light_schedule,
+      std::optional<bool> mirror_mode_status,
+      std::optional<bool> unified_mode_status);
 
 
   ~DisplaySettingsValue();
@@ -504,6 +506,10 @@ class  DisplaySettingsValue {
   std::optional<bool> night_light_status;
   
   std::optional<DisplaySettingsNightLightScheduleOption> night_light_schedule;
+  
+  std::optional<bool> mirror_mode_status;
+  
+  std::optional<bool> unified_mode_status;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -541,7 +547,9 @@ DisplaySettingsValuePtr DisplaySettingsValue::Clone() const {
       mojo::Clone(display_id),
       mojo::Clone(orientation),
       mojo::Clone(night_light_status),
-      mojo::Clone(night_light_schedule)
+      mojo::Clone(night_light_schedule),
+      mojo::Clone(mirror_mode_status),
+      mojo::Clone(unified_mode_status)
   );
 }
 
@@ -556,6 +564,10 @@ bool DisplaySettingsValue::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->night_light_status, other_struct.night_light_status))
     return false;
   if (!mojo::Equals(this->night_light_schedule, other_struct.night_light_schedule))
+    return false;
+  if (!mojo::Equals(this->mirror_mode_status, other_struct.mirror_mode_status))
+    return false;
+  if (!mojo::Equals(this->unified_mode_status, other_struct.unified_mode_status))
     return false;
   return true;
 }
@@ -581,6 +593,14 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.night_light_schedule < rhs.night_light_schedule)
     return true;
   if (rhs.night_light_schedule < lhs.night_light_schedule)
+    return false;
+  if (lhs.mirror_mode_status < rhs.mirror_mode_status)
+    return true;
+  if (rhs.mirror_mode_status < lhs.mirror_mode_status)
+    return false;
+  if (lhs.unified_mode_status < rhs.unified_mode_status)
+    return true;
+  if (rhs.unified_mode_status < lhs.unified_mode_status)
     return false;
   return false;
 }
@@ -620,6 +640,16 @@ struct  StructTraits<::ash::settings::mojom::DisplaySettingsValue::DataView,
   static decltype(::ash::settings::mojom::DisplaySettingsValue::night_light_schedule) night_light_schedule(
       const ::ash::settings::mojom::DisplaySettingsValuePtr& input) {
     return input->night_light_schedule;
+  }
+
+  static decltype(::ash::settings::mojom::DisplaySettingsValue::mirror_mode_status) mirror_mode_status(
+      const ::ash::settings::mojom::DisplaySettingsValuePtr& input) {
+    return input->mirror_mode_status;
+  }
+
+  static decltype(::ash::settings::mojom::DisplaySettingsValue::unified_mode_status) unified_mode_status(
+      const ::ash::settings::mojom::DisplaySettingsValuePtr& input) {
+    return input->unified_mode_status;
   }
 
   static bool Read(::ash::settings::mojom::DisplaySettingsValue::DataView input, ::ash::settings::mojom::DisplaySettingsValuePtr* output);

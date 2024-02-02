@@ -13,7 +13,7 @@ libdir = "/usr/lib64"
 build_root = "/var/cache/portage/chromeos-base/libhwsec"
 platform2_root =
     "/var/tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1"
-libbase_ver = "1253750"
+libbase_ver = "1254430"
 enable_exceptions = false
 external_cflags = [
   "-O2",

@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { assert } from 'chrome://resources/js/assert.js';
+import { getEntryProperties } from '../../../common/js/api.js';
 import { unwrapEntry } from '../../../common/js/entry_utils.js';
 import { MetadataItem } from './metadata_item.js';
 import { MetadataProvider } from './metadata_provider.js';
@@ -64,19 +65,15 @@ export class ExternalMetadataProvider extends MetadataProvider {
             }
         }
         const properties = Array.from(nameSet);
-        return new Promise(fulfill => {
-            chrome.fileManagerPrivate.getEntryProperties(entries, properties, (results) => {
-                if (!chrome.runtime.lastError) {
-                    assert(results);
-                    fulfill(this.convertResults_(requests, nameSet, results));
-                }
-                else {
-                    fulfill(requests.map(() => {
-                        return new MetadataItem();
-                    }));
-                }
-            });
-        });
+        try {
+            const props = properties;
+            const results = await getEntryProperties(entries, props);
+            assert(results);
+            return this.convertResults_(requests, nameSet, results);
+        }
+        catch (error) {
+            return requests.map(() => new MetadataItem());
+        }
     }
     /**
      * @param nameSet A set of property names that will be used to copy the value

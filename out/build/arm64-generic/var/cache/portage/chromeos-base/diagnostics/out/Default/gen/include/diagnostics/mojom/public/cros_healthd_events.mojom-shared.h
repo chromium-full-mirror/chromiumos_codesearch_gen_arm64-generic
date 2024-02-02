@@ -1060,7 +1060,7 @@ static_assert(
         ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `pressure` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPressure` instead "
     "of `ReadPressure if you're fine with null values being "
@@ -1080,7 +1080,7 @@ static_assert(
         ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `touch_major` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTouchMajor` instead "
     "of `ReadTouchMajor if you're fine with null values being "
@@ -1100,7 +1100,7 @@ static_assert(
         ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `touch_minor` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTouchMinor` instead "
     "of `ReadTouchMinor if you're fine with null values being "
@@ -1207,7 +1207,7 @@ static_assert(
         ::ash::cros_healthd::mojom::ExternalDisplayInfoDataView, UserType>(),
     "Attempting to read the optional `display_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadDisplayInfo` instead "
     "of `ReadDisplayInfo if you're fine with null values being "
@@ -1325,7 +1325,7 @@ static_assert(
         ::ash::cros_healthd::mojom::NullableUint32DataView, UserType>(),
     "Attempting to read the optional `pressure` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadPressure` instead "
     "of `ReadPressure if you're fine with null values being "
@@ -1361,7 +1361,7 @@ static_assert(
         ::ash::cros_healthd::mojom::StylusTouchPointInfoDataView, UserType>(),
     "Attempting to read the optional `touch_point` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadTouchPoint` instead "
     "of `ReadTouchPoint if you're fine with null values being "
@@ -1490,7 +1490,7 @@ static_assert(
         ::ash::cros_healthd::mojom::CrashUploadInfoDataView, UserType>(),
     "Attempting to read the optional `upload_info` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadUploadInfo` instead "
     "of `ReadUploadInfo if you're fine with null values being "

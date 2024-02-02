@@ -477,6 +477,23 @@ class  Page_TabSearchTabIndexChanged_Params_Data {
 };
 static_assert(sizeof(Page_TabSearchTabIndexChanged_Params_Data) == 16,
               "Bad sizeof(Page_TabSearchTabIndexChanged_Params_Data)");
+class  Page_TabOrganizationEnabledChanged_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint8_t enabled : 1;
+  uint8_t padfinal_[7];
+
+ private:
+  friend class mojo::internal::MessageFragment<Page_TabOrganizationEnabledChanged_Params_Data>;
+
+  Page_TabOrganizationEnabledChanged_Params_Data();
+  ~Page_TabOrganizationEnabledChanged_Params_Data() = delete;
+};
+static_assert(sizeof(Page_TabOrganizationEnabledChanged_Params_Data) == 16,
+              "Bad sizeof(Page_TabOrganizationEnabledChanged_Params_Data)");
 
 }  // namespace internal
 
@@ -1081,6 +1098,24 @@ class Page_TabSearchTabIndexChanged_ParamsDataView {
 };
 
 
+class Page_TabOrganizationEnabledChanged_ParamsDataView {
+ public:
+  Page_TabOrganizationEnabledChanged_ParamsDataView() = default;
+
+  Page_TabOrganizationEnabledChanged_ParamsDataView(
+      internal::Page_TabOrganizationEnabledChanged_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  bool enabled() const {
+    return data_->enabled;
+  }
+ private:
+  internal::Page_TabOrganizationEnabledChanged_Params_Data* data_ = nullptr;
+};
+
+
 
 
 
@@ -1182,6 +1217,8 @@ inline void Page_TabsRemoved_ParamsDataView::GetTabsRemovedInfoDataView(
   auto pointer = data_->tabsRemovedInfo.Get();
   *output = TabsRemovedInfoDataView(pointer, message_);
 }
+
+
 
 
 

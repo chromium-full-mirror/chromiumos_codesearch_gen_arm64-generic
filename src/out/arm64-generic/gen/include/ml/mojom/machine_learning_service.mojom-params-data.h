@@ -900,7 +900,7 @@ static_assert(
         ::chromeos::machine_learning::mojom::TextSuggesterSpecDataView, UserType>(),
     "Attempting to read the optional `spec` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadSpec` instead "
     "of `ReadSpec if you're fine with null values being "
@@ -1031,7 +1031,7 @@ static_assert(
         ::chromeos::machine_learning::mojom::DocumentScannerConfigDataView, UserType>(),
     "Attempting to read the optional `config` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
-    "with absl::optional, ensure that any corresponding "
+    "with std::optional, ensure that any corresponding "
     "{Struct/Union/Array/String}Traits define the necessary IsNull and "
     "SetToNull methods, or use `MaybeReadConfig` instead "
     "of `ReadConfig if you're fine with null values being "

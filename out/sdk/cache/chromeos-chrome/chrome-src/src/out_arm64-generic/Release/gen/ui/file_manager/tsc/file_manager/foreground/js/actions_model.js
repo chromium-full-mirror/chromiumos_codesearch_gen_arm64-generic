@@ -4,6 +4,7 @@
 import { dispatchSimpleEvent } from 'chrome://resources/ash/common/cr_deprecated.js';
 import { NativeEventTarget as EventTarget } from 'chrome://resources/ash/common/event_target.js';
 import { assert } from 'chrome://resources/js/assert.js';
+import { getEntryProperties } from '../../common/js/api.js';
 import { isDirectoryEntry, isSameVolume, unwrapEntry } from '../../common/js/entry_utils.js';
 import { recordBoolean } from '../../common/js/metrics.js';
 import { strf } from '../../common/js/translations.js';
@@ -29,14 +30,11 @@ class DriveShareAction {
     }
     execute() {
         // Open the Sharing dialog in a new window.
-        chrome.fileManagerPrivate.getEntryProperties([unwrapEntry(this.entry_)], ['shareUrl'], (results) => {
-            if (chrome.runtime.lastError) {
-                console.error(chrome.runtime.lastError.message);
-                return;
-            }
+        const props = [chrome.fileManagerPrivate.EntryPropertyName.SHARE_URL];
+        getEntryProperties([this.entry_], props).then((results) => {
             if (results.length !== 1) {
-                console.warn('getEntryProperties for shareUrl should return 1 entry ' +
-                    '(returned ' + results.length + ')');
+                console.warn(`getEntryProperties for shareUrl should return 1 entry ` +
+                    `(returned ${results.length})`);
                 return;
             }
             if (results[0].shareUrl === undefined) {
@@ -229,14 +227,11 @@ class DriveManageAction {
         return new DriveManageAction(entries[0], volumeManager);
     }
     execute() {
-        chrome.fileManagerPrivate.getEntryProperties([unwrapEntry(this.entry_)], ['alternateUrl'], (results) => {
-            if (chrome.runtime.lastError) {
-                console.error(chrome.runtime.lastError.message);
-                return;
-            }
+        const props = [chrome.fileManagerPrivate.EntryPropertyName.ALTERNATE_URL];
+        getEntryProperties([this.entry_], props).then((results) => {
             if (results.length !== 1) {
-                console.warn('getEntryProperties for alternateUrl should return 1 entry ' +
-                    '(returned ' + results.length + ')');
+                console.warn(`getEntryProperties for alternateUrl should return 1 entry ` +
+                    `(returned ${results.length})`);
                 return;
             }
             if (results[0].alternateUrl === undefined) {

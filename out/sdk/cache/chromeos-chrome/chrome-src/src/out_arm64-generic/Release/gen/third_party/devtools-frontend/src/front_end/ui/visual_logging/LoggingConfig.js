@@ -26,7 +26,7 @@ var VisualElements;
     VisualElements[VisualElements["TreeItemExpand"] = 14] = "TreeItemExpand";
     VisualElements[VisualElements["ToggleSubpane"] = 15] = "ToggleSubpane";
     VisualElements[VisualElements["ControlPoint"] = 16] = "ControlPoint";
-    /* 17 used to be AddElementClassPrompt, but free to grab now */
+    VisualElements[VisualElements["Toolbar"] = 17] = "Toolbar";
     /* 18 used to be ElementStatesPan, but free to grab now */
     /* 19 used to be CssLayersPane, but free to grab now */
     VisualElements[VisualElements["DropDown"] = 20] = "DropDown";

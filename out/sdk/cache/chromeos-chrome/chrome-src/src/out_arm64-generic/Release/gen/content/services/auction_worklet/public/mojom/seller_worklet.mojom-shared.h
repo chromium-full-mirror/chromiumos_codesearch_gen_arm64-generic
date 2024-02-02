@@ -132,8 +132,11 @@ class ComponentAuctionModifiedBidParamsDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  double bid() const {
-    return data_->bid;
+  std::optional<double> bid() const {
+
+    return data_->bid_$flag
+        ? std::make_optional(data_->bid_$value)
+        : std::nullopt;
   }
   inline void GetBidCurrencyDataView(
       ::blink::mojom::AdCurrencyDataView* output);
@@ -154,9 +157,6 @@ static_assert(
     auto* pointer = data_->bid_currency.Get();
     return mojo::internal::Deserialize<::blink::mojom::AdCurrencyDataView>(
         pointer, output, message_);
-  }
-  bool has_bid() const {
-    return data_->has_bid;
   }
  private:
   internal::ComponentAuctionModifiedBidParams_Data* data_ = nullptr;
@@ -184,11 +184,11 @@ class ComponentAuctionReportResultParamsDataView {
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
-  double modified_bid() const {
-    return data_->modified_bid;
-  }
-  bool has_modified_bid() const {
-    return data_->has_modified_bid;
+  std::optional<double> modified_bid() const {
+
+    return data_->modified_bid_$flag
+        ? std::make_optional(data_->modified_bid_$value)
+        : std::nullopt;
   }
  private:
   internal::ComponentAuctionReportResultParams_Data* data_ = nullptr;
@@ -354,7 +354,10 @@ struct Serializer<::auction_worklet::mojom::ComponentAuctionModifiedBidParamsDat
         fragment->ad.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null ad in ComponentAuctionModifiedBidParams struct");
-    fragment->bid = Traits::bid(input);
+    fragment->bid_$flag = Traits::bid(input).has_value();
+    if (Traits::bid(input).has_value()) {
+      fragment->bid_$value = Traits::bid(input).value();
+    }
     decltype(Traits::bid_currency(input)) in_bid_currency = Traits::bid_currency(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->bid_currency)::BaseType> bid_currency_fragment(
@@ -363,7 +366,6 @@ struct Serializer<::auction_worklet::mojom::ComponentAuctionModifiedBidParamsDat
         in_bid_currency, bid_currency_fragment);
     fragment->bid_currency.Set(
         bid_currency_fragment.is_null() ? nullptr : bid_currency_fragment.data());
-    fragment->has_bid = Traits::has_bid(input);
   }
 
   static bool Deserialize(::auction_worklet::mojom::internal::ComponentAuctionModifiedBidParams_Data* input,
@@ -405,8 +407,10 @@ struct Serializer<::auction_worklet::mojom::ComponentAuctionReportResultParamsDa
         fragment->top_level_seller_signals.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null top_level_seller_signals in ComponentAuctionReportResultParams struct");
-    fragment->modified_bid = Traits::modified_bid(input);
-    fragment->has_modified_bid = Traits::has_modified_bid(input);
+    fragment->modified_bid_$flag = Traits::modified_bid(input).has_value();
+    if (Traits::modified_bid(input).has_value()) {
+      fragment->modified_bid_$value = Traits::modified_bid(input).value();
+    }
   }
 
   static bool Deserialize(::auction_worklet::mojom::internal::ComponentAuctionReportResultParams_Data* input,

@@ -16,7 +16,6 @@
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-shared-internal.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_probe.mojom-shared-internal.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-shared-internal.h"
-#include "chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom-shared-internal.h"
 #include "chromeos/services/network_health/public/mojom/network_diagnostics.mojom-shared-internal.h"
 #include "chromeos/services/network_health/public/mojom/network_health.mojom-shared-internal.h"
 #include "mojo/public/cpp/bindings/lib/native_enum_data.h"

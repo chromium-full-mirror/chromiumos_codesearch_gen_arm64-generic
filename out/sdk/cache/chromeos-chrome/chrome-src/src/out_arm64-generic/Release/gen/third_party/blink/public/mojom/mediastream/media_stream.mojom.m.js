@@ -1983,9 +1983,9 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'deviceId', 8,
+        'deviceIds', 8,
         0,
-        mojo.internal.String,
+        mojo.internal.Array(mojo.internal.String, false),
         null,
         false /* nullable */,
         0,
@@ -2002,8 +2002,8 @@ export class TrackControls {
   constructor() {
     /** @type { !MediaStreamType } */
     this.streamType;
-    /** @type { !string } */
-    this.deviceId;
+    /** @type { !Array<!string> } */
+    this.deviceIds;
   }
 }
 

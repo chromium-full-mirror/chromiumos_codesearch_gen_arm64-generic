@@ -4269,7 +4269,7 @@ const char* StartVmRequest::_InternalParse(const char* ptr, ::_pbi::ParseContext
         } else
           goto handle_unusual;
         continue;
-      // bool run_as_untrusted = 10;
+      // bool run_as_untrusted = 10 [deprecated = true];
       case 10:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 80)) {
           run_as_untrusted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -4512,7 +4512,7 @@ uint8_t* StartVmRequest::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteBoolToArray(9, this->_internal_software_tpm(), target);
   }
 
-  // bool run_as_untrusted = 10;
+  // bool run_as_untrusted = 10 [deprecated = true];
   if (this->_internal_run_as_untrusted() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(10, this->_internal_run_as_untrusted(), target);
@@ -4749,7 +4749,7 @@ size_t StartVmRequest::ByteSizeLong() const {
     total_size += 1 + 1;
   }
 
-  // bool run_as_untrusted = 10;
+  // bool run_as_untrusted = 10 [deprecated = true];
   if (this->_internal_run_as_untrusted() != 0) {
     total_size += 1 + 1;
   }
@@ -22128,7 +22128,7 @@ const char* GetVmLaunchAllowedRequest::_InternalParse(const char* ptr, ::_pbi::P
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // bool run_as_untrusted = 1;
+      // bool run_as_untrusted = 1 [deprecated = true];
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           run_as_untrusted_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -22136,7 +22136,7 @@ const char* GetVmLaunchAllowedRequest::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
-      // bool is_trusted_image = 2;
+      // bool is_trusted_image = 2 [deprecated = true];
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
           is_trusted_image_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -22144,7 +22144,7 @@ const char* GetVmLaunchAllowedRequest::_InternalParse(const char* ptr, ::_pbi::P
         } else
           goto handle_unusual;
         continue;
-      // bool has_custom_kernel_params = 3;
+      // bool has_custom_kernel_params = 3 [deprecated = true];
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
           has_custom_kernel_params_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
@@ -22181,19 +22181,19 @@ uint8_t* GetVmLaunchAllowedRequest::_InternalSerialize(
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // bool run_as_untrusted = 1;
+  // bool run_as_untrusted = 1 [deprecated = true];
   if (this->_internal_run_as_untrusted() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(1, this->_internal_run_as_untrusted(), target);
   }
 
-  // bool is_trusted_image = 2;
+  // bool is_trusted_image = 2 [deprecated = true];
   if (this->_internal_is_trusted_image() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(2, this->_internal_is_trusted_image(), target);
   }
 
-  // bool has_custom_kernel_params = 3;
+  // bool has_custom_kernel_params = 3 [deprecated = true];
   if (this->_internal_has_custom_kernel_params() != 0) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_has_custom_kernel_params(), target);
@@ -22215,17 +22215,17 @@ size_t GetVmLaunchAllowedRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // bool run_as_untrusted = 1;
+  // bool run_as_untrusted = 1 [deprecated = true];
   if (this->_internal_run_as_untrusted() != 0) {
     total_size += 1 + 1;
   }
 
-  // bool is_trusted_image = 2;
+  // bool is_trusted_image = 2 [deprecated = true];
   if (this->_internal_is_trusted_image() != 0) {
     total_size += 1 + 1;
   }
 
-  // bool has_custom_kernel_params = 3;
+  // bool has_custom_kernel_params = 3 [deprecated = true];
   if (this->_internal_has_custom_kernel_params() != 0) {
     total_size += 1 + 1;
   }

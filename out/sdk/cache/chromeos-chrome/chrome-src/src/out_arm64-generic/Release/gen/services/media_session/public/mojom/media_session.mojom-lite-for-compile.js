@@ -2593,16 +2593,8 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
-      mojo.internal.StructField(
-        'ignoreForActiveSession', 4,
-        7,
-        mojo.internal.Bool,
-        false,
-        false, /* nullable */
-        0 /* minVersion */,
-      ),
     ],
-    [[0, 16],[1, 24],[2, 24],[4, 24],[6, 24],[7, 24],[8, 32],[9, 40],[10, 48],[11, 56],[12, 56],[14, 56],[15, 64],[16, 64],[20, 64],]);
+    [[0, 16],[1, 24],[2, 24],[4, 24],[6, 24],[7, 24],[8, 32],[9, 40],[10, 48],[11, 56],[12, 56],[14, 56],[15, 64],[16, 64],]);
 
 
 
@@ -2643,8 +2635,6 @@ mediaSession.mojom.MediaSessionInfo = class {
     this.remotePlaybackMetadata;
     /** @export { !boolean } */
     this.hideMetadata;
-    /** @export { !boolean } */
-    this.ignoreForActiveSession;
   }
 };
 

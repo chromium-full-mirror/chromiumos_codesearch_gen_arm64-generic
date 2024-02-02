@@ -38,6 +38,22 @@ class  UserInput_SendSyntheticKeyEventForShortcutOrNavigation_Params_Data {
 };
 static_assert(sizeof(UserInput_SendSyntheticKeyEventForShortcutOrNavigation_Params_Data) == 16,
               "Bad sizeof(UserInput_SendSyntheticKeyEventForShortcutOrNavigation_Params_Data)");
+class  UserInput_SendSyntheticMouseEvent_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::SyntheticMouseEvent_Data> mouse_event;
+
+ private:
+  friend class mojo::internal::MessageFragment<UserInput_SendSyntheticMouseEvent_Params_Data>;
+
+  UserInput_SendSyntheticMouseEvent_Params_Data();
+  ~UserInput_SendSyntheticMouseEvent_Params_Data() = delete;
+};
+static_assert(sizeof(UserInput_SendSyntheticMouseEvent_Params_Data) == 16,
+              "Bad sizeof(UserInput_SendSyntheticMouseEvent_Params_Data)");
 
 }  // namespace internal
 
@@ -67,10 +83,43 @@ class UserInput_SendSyntheticKeyEventForShortcutOrNavigation_ParamsDataView {
   mojo::Message* message_ = nullptr;
 };
 
+
+class UserInput_SendSyntheticMouseEvent_ParamsDataView {
+ public:
+  UserInput_SendSyntheticMouseEvent_ParamsDataView() = default;
+
+  UserInput_SendSyntheticMouseEvent_ParamsDataView(
+      internal::UserInput_SendSyntheticMouseEvent_Params_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetMouseEventDataView(
+      SyntheticMouseEventDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMouseEvent(UserType* output) {
+    
+    auto* pointer = data_->mouse_event.Get();
+    return mojo::internal::Deserialize<::ax::mojom::SyntheticMouseEventDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::UserInput_SendSyntheticMouseEvent_Params_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
 inline void UserInput_SendSyntheticKeyEventForShortcutOrNavigation_ParamsDataView::GetKeyEventDataView(
     SyntheticKeyEventDataView* output) {
   auto pointer = data_->key_event.Get();
   *output = SyntheticKeyEventDataView(pointer, message_);
+}
+
+
+inline void UserInput_SendSyntheticMouseEvent_ParamsDataView::GetMouseEventDataView(
+    SyntheticMouseEventDataView* output) {
+  auto pointer = data_->mouse_event.Get();
+  *output = SyntheticMouseEventDataView(pointer, message_);
 }
 
 

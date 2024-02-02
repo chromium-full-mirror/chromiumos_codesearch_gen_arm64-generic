@@ -30,7 +30,6 @@
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_exception.mojom-shared.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/cros_healthd_probe.mojom-shared.h"
 #include "chromeos/ash/services/cros_healthd/public/mojom/nullable_primitives.mojom-shared.h"
-#include "chromeos/ash/services/cros_healthd/public/mojom/wilco_ec.mojom-shared.h"
 #include "chromeos/services/network_health/public/mojom/network_diagnostics.mojom-shared.h"
 #include "chromeos/services/network_health/public/mojom/network_health.mojom-shared.h"
 #include "mojo/public/cpp/bindings/lib/interface_serialization.h"
@@ -114,16 +113,6 @@ using CrosHealthdSystemServiceAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<CrosHealthdSystemServiceInterfaceBase>;
 using CrosHealthdSystemServiceAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<CrosHealthdSystemServiceInterfaceBase>;
-class WilcoEcServiceControllerInterfaceBase {};
-
-using WilcoEcServiceControllerPtrDataView =
-    mojo::InterfacePtrDataView<WilcoEcServiceControllerInterfaceBase>;
-using WilcoEcServiceControllerRequestDataView =
-    mojo::InterfaceRequestDataView<WilcoEcServiceControllerInterfaceBase>;
-using WilcoEcServiceControllerAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<WilcoEcServiceControllerInterfaceBase>;
-using WilcoEcServiceControllerAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<WilcoEcServiceControllerInterfaceBase>;
 
 
 class ServiceStatusDataView {

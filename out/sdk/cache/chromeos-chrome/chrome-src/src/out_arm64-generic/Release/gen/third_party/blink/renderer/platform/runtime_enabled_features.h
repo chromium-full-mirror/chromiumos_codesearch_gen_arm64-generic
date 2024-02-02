@@ -168,6 +168,8 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_css_color_typed_om_enabled_;
     bool is_css_content_visibility_implies_contain_intrinsic_size_auto_enabled_;
     bool is_css_cross_fade_enabled_;
+    bool is_css_custom_state_deprecated_syntax_enabled_;
+    bool is_css_custom_state_new_syntax_enabled_;
     bool is_css_display_animation_enabled_;
     bool is_css_display_ruby_enabled_;
     bool is_css_dynamic_range_limit_enabled_;
@@ -453,6 +455,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_navigation_activation_enabled_;
     bool is_navigation_id_enabled_;
     bool is_navigator_content_utils_enabled_;
+    bool is_nested_top_layer_support_enabled_;
     bool is_net_info_constant_type_enabled_;
     bool is_net_info_downlink_max_enabled_;
     bool is_next_sibling_position_use_next_candidate_enabled_;
@@ -1425,6 +1428,18 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   }
 
   static bool CSSCrossFadeEnabled(const FeatureContext*) { return CSSCrossFadeEnabled(); }
+
+  static bool CSSCustomStateDeprecatedSyntaxEnabled() {
+    return is_css_custom_state_deprecated_syntax_enabled_;
+  }
+
+  static bool CSSCustomStateDeprecatedSyntaxEnabled(const FeatureContext*) { return CSSCustomStateDeprecatedSyntaxEnabled(); }
+
+  static bool CSSCustomStateNewSyntaxEnabled() {
+    return is_css_custom_state_new_syntax_enabled_;
+  }
+
+  static bool CSSCustomStateNewSyntaxEnabled(const FeatureContext*) { return CSSCustomStateNewSyntaxEnabled(); }
 
   static bool CSSDisplayAnimationEnabled() {
     return is_css_display_animation_enabled_;
@@ -3047,6 +3062,12 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   }
 
   static bool NavigatorContentUtilsEnabled(const FeatureContext*) { return NavigatorContentUtilsEnabled(); }
+
+  static bool NestedTopLayerSupportEnabled() {
+    return is_nested_top_layer_support_enabled_;
+  }
+
+  static bool NestedTopLayerSupportEnabled(const FeatureContext*) { return NestedTopLayerSupportEnabled(); }
 
   static bool NetInfoConstantTypeEnabled() {
     return is_net_info_constant_type_enabled_;
@@ -5107,6 +5128,8 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetCSSColorTypedOMEnabled(bool enabled) { is_css_color_typed_om_enabled_ = enabled; }
   static void SetCSSContentVisibilityImpliesContainIntrinsicSizeAutoEnabled(bool enabled) { is_css_content_visibility_implies_contain_intrinsic_size_auto_enabled_ = enabled; }
   static void SetCSSCrossFadeEnabled(bool enabled) { is_css_cross_fade_enabled_ = enabled; }
+  static void SetCSSCustomStateDeprecatedSyntaxEnabled(bool enabled) { is_css_custom_state_deprecated_syntax_enabled_ = enabled; }
+  static void SetCSSCustomStateNewSyntaxEnabled(bool enabled) { is_css_custom_state_new_syntax_enabled_ = enabled; }
   static void SetCSSDisplayAnimationEnabled(bool enabled) { is_css_display_animation_enabled_ = enabled; }
   static void SetCssDisplayRubyEnabled(bool enabled) { is_css_display_ruby_enabled_ = enabled; }
   static void SetCSSDynamicRangeLimitEnabled(bool enabled) { is_css_dynamic_range_limit_enabled_ = enabled; }
@@ -5392,6 +5415,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetNavigationActivationEnabled(bool enabled) { is_navigation_activation_enabled_ = enabled; }
   static void SetNavigationIdEnabled(bool enabled) { is_navigation_id_enabled_ = enabled; }
   static void SetNavigatorContentUtilsEnabled(bool enabled) { is_navigator_content_utils_enabled_ = enabled; }
+  static void SetNestedTopLayerSupportEnabled(bool enabled) { is_nested_top_layer_support_enabled_ = enabled; }
   static void SetNetInfoConstantTypeEnabled(bool enabled) { is_net_info_constant_type_enabled_ = enabled; }
   static void SetNetInfoDownlinkMaxEnabled(bool enabled) { is_net_info_downlink_max_enabled_ = enabled; }
   static void SetNextSiblingPositionUseNextCandidateEnabled(bool enabled) { is_next_sibling_position_use_next_candidate_enabled_ = enabled; }
@@ -5840,6 +5864,8 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_css_color_typed_om_enabled_;
   static bool is_css_content_visibility_implies_contain_intrinsic_size_auto_enabled_;
   static bool is_css_cross_fade_enabled_;
+  static bool is_css_custom_state_deprecated_syntax_enabled_;
+  static bool is_css_custom_state_new_syntax_enabled_;
   static bool is_css_display_animation_enabled_;
   static bool is_css_display_ruby_enabled_;
   static bool is_css_dynamic_range_limit_enabled_;
@@ -6125,6 +6151,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_navigation_activation_enabled_;
   static bool is_navigation_id_enabled_;
   static bool is_navigator_content_utils_enabled_;
+  static bool is_nested_top_layer_support_enabled_;
   static bool is_net_info_constant_type_enabled_;
   static bool is_net_info_downlink_max_enabled_;
   static bool is_next_sibling_position_use_next_candidate_enabled_;

@@ -1242,9 +1242,10 @@ PROTOBUF_CONSTEXPR ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties:
     ::_pbi::ConstantInitialized)
   : client_version_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
   , google_play_services_version_(int64_t{0})
-  , is_instant_apps_(false)
   , url_api_type_(0)
-{}
+
+  , is_instant_apps_(false)
+  , is_async_check_(false){}
 struct ClientSafeBrowsingReportRequest_SafeBrowsingClientPropertiesDefaultTypeInternal {
   PROTOBUF_CONSTEXPR ClientSafeBrowsingReportRequest_SafeBrowsingClientPropertiesDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -31245,10 +31246,13 @@ class ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::_Internal {
     (*has_bits)[0] |= 2u;
   }
   static void set_has_is_instant_apps(HasBits* has_bits) {
-    (*has_bits)[0] |= 4u;
+    (*has_bits)[0] |= 8u;
   }
   static void set_has_url_api_type(HasBits* has_bits) {
-    (*has_bits)[0] |= 8u;
+    (*has_bits)[0] |= 4u;
+  }
+  static void set_has_is_async_check(HasBits* has_bits) {
+    (*has_bits)[0] |= 16u;
   }
 };
 
@@ -31271,8 +31275,8 @@ ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::ClientSafeBrowsing
       GetArenaForAllocation());
   }
   ::memcpy(&google_play_services_version_, &from.google_play_services_version_,
-    static_cast<size_t>(reinterpret_cast<char*>(&url_api_type_) -
-    reinterpret_cast<char*>(&google_play_services_version_)) + sizeof(url_api_type_));
+    static_cast<size_t>(reinterpret_cast<char*>(&is_async_check_) -
+    reinterpret_cast<char*>(&google_play_services_version_)) + sizeof(is_async_check_));
   // @@protoc_insertion_point(copy_constructor:safe_browsing.ClientSafeBrowsingReportRequest.SafeBrowsingClientProperties)
 }
 
@@ -31283,8 +31287,8 @@ client_version_.InitDefault();
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 ::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
     reinterpret_cast<char*>(&google_play_services_version_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&url_api_type_) -
-    reinterpret_cast<char*>(&google_play_services_version_)) + sizeof(url_api_type_));
+    0, static_cast<size_t>(reinterpret_cast<char*>(&is_async_check_) -
+    reinterpret_cast<char*>(&google_play_services_version_)) + sizeof(is_async_check_));
 }
 
 ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::~ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties() {
@@ -31315,10 +31319,10 @@ void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::Clear() {
   if (cached_has_bits & 0x00000001u) {
     client_version_.ClearNonDefaultToEmpty();
   }
-  if (cached_has_bits & 0x0000000eu) {
+  if (cached_has_bits & 0x0000001eu) {
     ::memset(&google_play_services_version_, 0, static_cast<size_t>(
-        reinterpret_cast<char*>(&url_api_type_) -
-        reinterpret_cast<char*>(&google_play_services_version_)) + sizeof(url_api_type_));
+        reinterpret_cast<char*>(&is_async_check_) -
+        reinterpret_cast<char*>(&google_play_services_version_)) + sizeof(is_async_check_));
   }
   _has_bits_.Clear();
   _internal_metadata_.Clear<std::string>();
@@ -31371,6 +31375,15 @@ const char* ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::_Inter
         } else
           goto handle_unusual;
         continue;
+      // optional bool is_async_check = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 56)) {
+          _Internal::set_has_is_async_check(&has_bits);
+          is_async_check_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -31415,16 +31428,22 @@ uint8_t* ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::_Internal
   }
 
   // optional bool is_instant_apps = 3;
-  if (cached_has_bits & 0x00000004u) {
+  if (cached_has_bits & 0x00000008u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteBoolToArray(3, this->_internal_is_instant_apps(), target);
   }
 
   // optional .safe_browsing.ClientSafeBrowsingReportRequest.SafeBrowsingUrlApiType url_api_type = 4;
-  if (cached_has_bits & 0x00000008u) {
+  if (cached_has_bits & 0x00000004u) {
     target = stream->EnsureSpace(target);
     target = ::_pbi::WireFormatLite::WriteEnumToArray(
       4, this->_internal_url_api_type(), target);
+  }
+
+  // optional bool is_async_check = 7;
+  if (cached_has_bits & 0x00000010u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteBoolToArray(7, this->_internal_is_async_check(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -31444,7 +31463,7 @@ size_t ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::ByteSizeLon
   (void) cached_has_bits;
 
   cached_has_bits = _has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     // optional string client_version = 1;
     if (cached_has_bits & 0x00000001u) {
       total_size += 1 +
@@ -31457,15 +31476,20 @@ size_t ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::ByteSizeLon
       total_size += ::_pbi::WireFormatLite::Int64SizePlusOne(this->_internal_google_play_services_version());
     }
 
-    // optional bool is_instant_apps = 3;
+    // optional .safe_browsing.ClientSafeBrowsingReportRequest.SafeBrowsingUrlApiType url_api_type = 4;
     if (cached_has_bits & 0x00000004u) {
+      total_size += 1 +
+        ::_pbi::WireFormatLite::EnumSize(this->_internal_url_api_type());
+    }
+
+    // optional bool is_instant_apps = 3;
+    if (cached_has_bits & 0x00000008u) {
       total_size += 1 + 1;
     }
 
-    // optional .safe_browsing.ClientSafeBrowsingReportRequest.SafeBrowsingUrlApiType url_api_type = 4;
-    if (cached_has_bits & 0x00000008u) {
-      total_size += 1 +
-        ::_pbi::WireFormatLite::EnumSize(this->_internal_url_api_type());
+    // optional bool is_async_check = 7;
+    if (cached_has_bits & 0x00000010u) {
+      total_size += 1 + 1;
     }
 
   }
@@ -31490,7 +31514,7 @@ void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::MergeFrom(con
   (void) cached_has_bits;
 
   cached_has_bits = from._has_bits_[0];
-  if (cached_has_bits & 0x0000000fu) {
+  if (cached_has_bits & 0x0000001fu) {
     if (cached_has_bits & 0x00000001u) {
       _internal_set_client_version(from._internal_client_version());
     }
@@ -31498,10 +31522,13 @@ void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::MergeFrom(con
       google_play_services_version_ = from.google_play_services_version_;
     }
     if (cached_has_bits & 0x00000004u) {
-      is_instant_apps_ = from.is_instant_apps_;
+      url_api_type_ = from.url_api_type_;
     }
     if (cached_has_bits & 0x00000008u) {
-      url_api_type_ = from.url_api_type_;
+      is_instant_apps_ = from.is_instant_apps_;
+    }
+    if (cached_has_bits & 0x00000010u) {
+      is_async_check_ = from.is_async_check_;
     }
     _has_bits_[0] |= cached_has_bits;
   }
@@ -31530,8 +31557,8 @@ void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::InternalSwap(
       &other->client_version_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties, url_api_type_)
-      + sizeof(ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::url_api_type_)
+      PROTOBUF_FIELD_OFFSET(ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties, is_async_check_)
+      + sizeof(ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::is_async_check_)
       - PROTOBUF_FIELD_OFFSET(ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties, google_play_services_version_)>(
           reinterpret_cast<char*>(&google_play_services_version_),
           reinterpret_cast<char*>(&other->google_play_services_version_));

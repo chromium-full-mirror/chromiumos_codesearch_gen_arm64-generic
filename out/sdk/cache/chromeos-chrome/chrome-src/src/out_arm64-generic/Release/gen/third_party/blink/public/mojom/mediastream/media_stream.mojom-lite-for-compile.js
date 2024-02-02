@@ -2134,9 +2134,9 @@ mojo.internal.Struct(
         0 /* minVersion */,
       ),
       mojo.internal.StructField(
-        'deviceId', 8,
+        'deviceIds', 8,
         0,
-        mojo.internal.String,
+        mojo.internal.Array(mojo.internal.String, false),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -2153,8 +2153,8 @@ blink.mojom.TrackControls = class {
   constructor() {
     /** @export { !blink.mojom.MediaStreamType } */
     this.streamType;
-    /** @export { !string } */
-    this.deviceId;
+    /** @export { !Array<!string> } */
+    this.deviceIds;
   }
 };
 

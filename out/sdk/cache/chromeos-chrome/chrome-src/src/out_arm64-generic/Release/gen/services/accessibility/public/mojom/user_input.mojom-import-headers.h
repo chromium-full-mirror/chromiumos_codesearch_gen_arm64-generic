@@ -10,5 +10,7 @@
 #include "ui/events/mojom/event.mojom-import-headers.h"
 #include "ui/events/mojom/event_constants.mojom.h"
 #include "ui/events/mojom/event_constants.mojom-import-headers.h"
+#include "ui/gfx/geometry/mojom/geometry.mojom.h"
+#include "ui/gfx/geometry/mojom/geometry.mojom-import-headers.h"
 
 #endif  // SERVICES_ACCESSIBILITY_PUBLIC_MOJOM_USER_INPUT_MOJOM_IMPORT_HEADERS_H_

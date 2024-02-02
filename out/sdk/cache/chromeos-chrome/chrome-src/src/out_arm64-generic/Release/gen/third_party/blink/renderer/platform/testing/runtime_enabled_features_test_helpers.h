@@ -271,6 +271,10 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_css_content_visibility_implies_contain_intrinsic_size_auto_enabled_>;
   using ScopedCSSCrossFade = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_cross_fade_enabled_>;
+  using ScopedCSSCustomStateDeprecatedSyntax = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_css_custom_state_deprecated_syntax_enabled_>;
+  using ScopedCSSCustomStateNewSyntax = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_css_custom_state_new_syntax_enabled_>;
   using ScopedCSSDisplayAnimation = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_css_display_animation_enabled_>;
   using ScopedCssDisplayRuby = ScopedRuntimeEnabledFeature<
@@ -841,6 +845,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_navigation_id_enabled_>;
   using ScopedNavigatorContentUtils = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_navigator_content_utils_enabled_>;
+  using ScopedNestedTopLayerSupport = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_nested_top_layer_support_enabled_>;
   using ScopedNetInfoConstantType = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_net_info_constant_type_enabled_>;
   using ScopedNetInfoDownlinkMax = ScopedRuntimeEnabledFeature<
@@ -1731,6 +1737,10 @@ using ScopedCSSContentVisibilityImpliesContainIntrinsicSizeAutoForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSContentVisibilityImpliesContainIntrinsicSizeAuto;
 using ScopedCSSCrossFadeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSCrossFade;
+using ScopedCSSCustomStateDeprecatedSyntaxForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedCSSCustomStateDeprecatedSyntax;
+using ScopedCSSCustomStateNewSyntaxForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedCSSCustomStateNewSyntax;
 using ScopedCSSDisplayAnimationForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedCSSDisplayAnimation;
 using ScopedCssDisplayRubyForTest =
@@ -2301,6 +2311,8 @@ using ScopedNavigationIdForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedNavigationId;
 using ScopedNavigatorContentUtilsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedNavigatorContentUtils;
+using ScopedNestedTopLayerSupportForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedNestedTopLayerSupport;
 using ScopedNetInfoConstantTypeForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedNetInfoConstantType;
 using ScopedNetInfoDownlinkMaxForTest =

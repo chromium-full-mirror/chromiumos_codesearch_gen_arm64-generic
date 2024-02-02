@@ -33,6 +33,7 @@ class ArcDoNotDisturbStatus_Data;
 class ArcNotificationUserActionData_Data;
 class ArcLockScreenNotificationSetting_Data;
 class NotificationConfiguration_Data;
+class ArcNotificationMessage_Data;
 
 struct ArcNotificationEvent_Data {
  public:
@@ -393,6 +394,7 @@ class  ArcNotificationData_Data {
   int32_t reply_button_index;
   uint8_t pad34_[4];
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ArcNotificationData_Data>>> children_data;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ArcNotificationMessage_Data>>> messages;
 
  private:
   friend class mojo::internal::MessageFragment<ArcNotificationData_Data>;
@@ -400,7 +402,7 @@ class  ArcNotificationData_Data {
   ArcNotificationData_Data();
   ~ArcNotificationData_Data() = delete;
 };
-static_assert(sizeof(ArcNotificationData_Data) == 200,
+static_assert(sizeof(ArcNotificationData_Data) == 208,
               "Bad sizeof(ArcNotificationData_Data)");
 // Used by ArcNotificationData::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>
@@ -634,6 +636,56 @@ struct NotificationConfiguration_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     NotificationConfiguration_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ArcNotificationMessage_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> message;
+  mojo::internal::Pointer<mojo::internal::String_Data> sender_name;
+  mojo::internal::Pointer<::arc::mojom::internal::ArcBitmap_Data> sender_icon;
+
+ private:
+  friend class mojo::internal::MessageFragment<ArcNotificationMessage_Data>;
+
+  ArcNotificationMessage_Data();
+  ~ArcNotificationMessage_Data() = delete;
+};
+static_assert(sizeof(ArcNotificationMessage_Data) == 32,
+              "Bad sizeof(ArcNotificationMessage_Data)");
+// Used by ArcNotificationMessage::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ArcNotificationMessage_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ArcNotificationMessage_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ArcNotificationMessage_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ArcNotificationMessage_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ArcNotificationMessage_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

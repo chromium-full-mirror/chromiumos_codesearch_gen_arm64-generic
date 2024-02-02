@@ -208,7 +208,7 @@ export class HeaderSectionRow extends HTMLElement {
       ${this.#header.isResponseHeader && !this.#header.isDeleted ? html `
         <${Buttons.Button.Button.litTagName}
           title=${i18nString(UIStrings.editHeader)}
-          .size=${"TINY" /* Buttons.Button.Size.TINY */}
+          .size=${"SMALL" /* Buttons.Button.Size.SMALL */}
           .iconUrl=${editIconUrl}
           .variant=${"round" /* Buttons.Button.Variant.ROUND */}
           @click=${() => {
@@ -231,7 +231,7 @@ export class HeaderSectionRow extends HTMLElement {
       ${this.#maybeRenderHeaderValueSuffix(this.#header)}
       <${Buttons.Button.Button.litTagName}
         title=${i18nString(UIStrings.removeOverride)}
-        .size=${"TINY" /* Buttons.Button.Size.TINY */}
+        .size=${"SMALL" /* Buttons.Button.Size.SMALL */}
         .iconUrl=${trashIconUrl}
         .variant=${"round" /* Buttons.Button.Variant.ROUND */}
         class="remove-header inline-button"

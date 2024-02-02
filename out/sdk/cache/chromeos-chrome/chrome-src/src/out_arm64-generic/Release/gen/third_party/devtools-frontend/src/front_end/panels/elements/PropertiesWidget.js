@@ -80,7 +80,7 @@ export class PropertiesWidget extends UI.ThrottledWidget.ThrottledWidget {
     lastRequestedNode;
     constructor(throttlingTimeout) {
         super(true /* isWebComponent */, throttlingTimeout);
-        this.showAllPropertiesSetting = Common.Settings.Settings.instance().createSetting('showAllProperties', false);
+        this.showAllPropertiesSetting = Common.Settings.Settings.instance().createSetting('show-all-properties', false);
         this.showAllPropertiesSetting.addChangeListener(this.filterList.bind(this));
         SDK.TargetManager.TargetManager.instance().addModelListener(SDK.DOMModel.DOMModel, SDK.DOMModel.Events.AttrModified, this.onNodeChange, this, { scoped: true });
         SDK.TargetManager.TargetManager.instance().addModelListener(SDK.DOMModel.DOMModel, SDK.DOMModel.Events.AttrRemoved, this.onNodeChange, this, { scoped: true });

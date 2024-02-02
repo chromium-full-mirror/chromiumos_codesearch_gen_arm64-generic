@@ -23,11 +23,8 @@ message CloudPolicySubProto1 {
   optional StringPolicyProto GoogleWorkspaceCloudUpload = 106;
   optional StringPolicyProto MicrosoftOfficeCloudUpload = 105;
   optional BooleanPolicyProto DataUrlInSvgUseEnabled = 69;
-  optional IntegerPolicyProto DefaultMidiSetting = 88;
   optional IntegerPolicyProto DefaultThirdPartyStoragePartitioningSetting = 50;
   optional IntegerPolicyProto DefaultWindowManagementSetting = 27;
-  optional StringListPolicyProto MidiAllowedForUrls = 89;
-  optional StringListPolicyProto MidiBlockedForUrls = 90;
   optional StringListPolicyProto ThirdPartyStoragePartitioningBlockedForOrigins = 51;
   optional StringListPolicyProto WindowManagementAllowedForUrls = 28;
   optional StringListPolicyProto WindowManagementBlockedForUrls = 29;

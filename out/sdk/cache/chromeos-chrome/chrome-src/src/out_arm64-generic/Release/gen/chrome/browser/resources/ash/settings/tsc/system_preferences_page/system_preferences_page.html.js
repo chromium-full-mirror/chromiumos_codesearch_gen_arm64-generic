@@ -91,7 +91,7 @@ export function getTemplate() {
   </template>
 
   
-  <template is="dom-if" if="[[shouldShowQuickAnswersSettings_]]">
+  <template is="dom-if" if="[[isQuickAnswersSupported_]]">
     <template is="dom-if" route-path="/osSearch/search">
       <os-settings-subpage page-title="$i18n{searchSubpageTitle}">
         <settings-search-subpage prefs="{{prefs}}">

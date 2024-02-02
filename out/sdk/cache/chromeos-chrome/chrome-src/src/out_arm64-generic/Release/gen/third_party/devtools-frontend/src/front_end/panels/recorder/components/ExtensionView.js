@@ -76,7 +76,7 @@ export class ExtensionView extends HTMLElement {
               jslog=${VisualLogging.close().track({ click: true })}
               .data=${{
             variant: "round" /* Buttons.Button.Variant.ROUND */,
-            size: "TINY" /* Buttons.Button.Size.TINY */,
+            size: "SMALL" /* Buttons.Button.Size.SMALL */,
             iconName: 'cross',
         }}
               @click=${this.#closeView}

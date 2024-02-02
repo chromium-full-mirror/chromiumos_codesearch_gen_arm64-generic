@@ -54,7 +54,7 @@ class  ProbeError {
   template <typename... Args>
   static ProbeErrorPtr New(Args&&... args) {
     return ProbeErrorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -201,7 +201,7 @@ class  NvmeDeviceInfo {
   template <typename... Args>
   static NvmeDeviceInfoPtr New(Args&&... args) {
     return NvmeDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -351,7 +351,7 @@ class  EmmcDeviceInfo {
   template <typename... Args>
   static EmmcDeviceInfoPtr New(Args&&... args) {
     return EmmcDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -501,7 +501,7 @@ class  UfsDeviceInfo {
   template <typename... Args>
   static UfsDeviceInfoPtr New(Args&&... args) {
     return UfsDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -648,7 +648,7 @@ class  VirtualizationInfo {
   template <typename... Args>
   static VirtualizationInfoPtr New(Args&&... args) {
     return VirtualizationInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -796,7 +796,7 @@ class  VulnerabilityInfo {
   template <typename... Args>
   static VulnerabilityInfoPtr New(Args&&... args) {
     return VulnerabilityInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -940,7 +940,7 @@ class  KeylockerInfo {
   template <typename... Args>
   static KeylockerInfoPtr New(Args&&... args) {
     return KeylockerInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1083,7 +1083,7 @@ class  CpuVirtualizationInfo {
   template <typename... Args>
   static CpuVirtualizationInfoPtr New(Args&&... args) {
     return CpuVirtualizationInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1231,7 +1231,7 @@ class  CpuCStateInfo {
   template <typename... Args>
   static CpuCStateInfoPtr New(Args&&... args) {
     return CpuCStateInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1375,7 +1375,7 @@ class  CpuTemperatureChannel {
   template <typename... Args>
   static CpuTemperatureChannelPtr New(Args&&... args) {
     return CpuTemperatureChannelPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1518,7 +1518,7 @@ class  TimezoneInfo {
   template <typename... Args>
   static TimezoneInfoPtr New(Args&&... args) {
     return TimezoneInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1663,7 +1663,7 @@ class  MemoryEncryptionInfo {
   template <typename... Args>
   static MemoryEncryptionInfoPtr New(Args&&... args) {
     return MemoryEncryptionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1813,7 +1813,7 @@ class  BacklightInfo {
   template <typename... Args>
   static BacklightInfoPtr New(Args&&... args) {
     return BacklightInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -1960,7 +1960,7 @@ class  FanInfo {
   template <typename... Args>
   static FanInfoPtr New(Args&&... args) {
     return FanInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2101,7 +2101,7 @@ class  StatefulPartitionInfo {
   template <typename... Args>
   static StatefulPartitionInfoPtr New(Args&&... args) {
     return StatefulPartitionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2253,7 +2253,7 @@ class  DEPRECATED_SupportedCapabilities {
   template <typename... Args>
   static DEPRECATED_SupportedCapabilitiesPtr New(Args&&... args) {
     return DEPRECATED_SupportedCapabilitiesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2395,7 +2395,7 @@ class  PsrEvent {
   template <typename... Args>
   static PsrEventPtr New(Args&&... args) {
     return PsrEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2549,7 +2549,7 @@ class  HDAudioCodec {
   template <typename... Args>
   static HDAudioCodecPtr New(Args&&... args) {
     return HDAudioCodecPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2697,7 +2697,7 @@ class  FwupdFirmwareVersionInfo {
   template <typename... Args>
   static FwupdFirmwareVersionInfoPtr New(Args&&... args) {
     return FwupdFirmwareVersionInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2844,7 +2844,7 @@ class  TpmStatus {
   template <typename... Args>
   static TpmStatusPtr New(Args&&... args) {
     return TpmStatusPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -2991,7 +2991,7 @@ class  TpmDictionaryAttack {
   template <typename... Args>
   static TpmDictionaryAttackPtr New(Args&&... args) {
     return TpmDictionaryAttackPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3141,7 +3141,7 @@ class  TpmAttestation {
   template <typename... Args>
   static TpmAttestationPtr New(Args&&... args) {
     return TpmAttestationPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3285,7 +3285,7 @@ class  TpmSupportedFeatures {
   template <typename... Args>
   static TpmSupportedFeaturesPtr New(Args&&... args) {
     return TpmSupportedFeaturesPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3447,7 +3447,7 @@ class  InputDevice {
   template <typename... Args>
   static InputDevicePtr New(Args&&... args) {
     return InputDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3600,7 +3600,7 @@ class  Sensor {
   template <typename... Args>
   static SensorPtr New(Args&&... args) {
     return SensorPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3751,7 +3751,7 @@ class  ThermalSensorInfo {
   template <typename... Args>
   static ThermalSensorInfoPtr New(Args&&... args) {
     return ThermalSensorInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -3909,7 +3909,7 @@ class  ProcessResult {
   static ProcessResultPtr
   NewProcessInfo(
       ProcessInfoPtr value) {
-    auto result = ProcessResultPtr(absl::in_place);
+    auto result = ProcessResultPtr(std::in_place);
     result->set_process_info(std::move(value));
     return result;
   }
@@ -3917,7 +3917,7 @@ class  ProcessResult {
   static ProcessResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = ProcessResultPtr(absl::in_place);
+    auto result = ProcessResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -4039,7 +4039,7 @@ class  BatteryResult {
   static BatteryResultPtr
   NewBatteryInfo(
       BatteryInfoPtr value) {
-    auto result = BatteryResultPtr(absl::in_place);
+    auto result = BatteryResultPtr(std::in_place);
     result->set_battery_info(std::move(value));
     return result;
   }
@@ -4047,7 +4047,7 @@ class  BatteryResult {
   static BatteryResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = BatteryResultPtr(absl::in_place);
+    auto result = BatteryResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -4169,7 +4169,7 @@ class  NonRemovableBlockDeviceResult {
   static NonRemovableBlockDeviceResultPtr
   NewBlockDeviceInfo(
       std::vector<NonRemovableBlockDeviceInfoPtr> value) {
-    auto result = NonRemovableBlockDeviceResultPtr(absl::in_place);
+    auto result = NonRemovableBlockDeviceResultPtr(std::in_place);
     result->set_block_device_info(std::move(value));
     return result;
   }
@@ -4177,7 +4177,7 @@ class  NonRemovableBlockDeviceResult {
   static NonRemovableBlockDeviceResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = NonRemovableBlockDeviceResultPtr(absl::in_place);
+    auto result = NonRemovableBlockDeviceResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -4299,7 +4299,7 @@ class  BlockDeviceVendor {
   static BlockDeviceVendorPtr
   NewNvmeSubsystemVendor(
       uint32_t value) {
-    auto result = BlockDeviceVendorPtr(absl::in_place);
+    auto result = BlockDeviceVendorPtr(std::in_place);
     result->set_nvme_subsystem_vendor(std::move(value));
     return result;
   }
@@ -4307,7 +4307,7 @@ class  BlockDeviceVendor {
   static BlockDeviceVendorPtr
   NewEmmcOemid(
       uint16_t value) {
-    auto result = BlockDeviceVendorPtr(absl::in_place);
+    auto result = BlockDeviceVendorPtr(std::in_place);
     result->set_emmc_oemid(std::move(value));
     return result;
   }
@@ -4315,7 +4315,7 @@ class  BlockDeviceVendor {
   static BlockDeviceVendorPtr
   NewOther(
       uint16_t value) {
-    auto result = BlockDeviceVendorPtr(absl::in_place);
+    auto result = BlockDeviceVendorPtr(std::in_place);
     result->set_other(std::move(value));
     return result;
   }
@@ -4323,7 +4323,7 @@ class  BlockDeviceVendor {
   static BlockDeviceVendorPtr
   NewUnknown(
       uint64_t value) {
-    auto result = BlockDeviceVendorPtr(absl::in_place);
+    auto result = BlockDeviceVendorPtr(std::in_place);
     result->set_unknown(std::move(value));
     return result;
   }
@@ -4331,7 +4331,7 @@ class  BlockDeviceVendor {
   static BlockDeviceVendorPtr
   NewJedecManfid(
       uint16_t value) {
-    auto result = BlockDeviceVendorPtr(absl::in_place);
+    auto result = BlockDeviceVendorPtr(std::in_place);
     result->set_jedec_manfid(std::move(value));
     return result;
   }
@@ -4489,7 +4489,7 @@ class  BlockDeviceProduct {
   static BlockDeviceProductPtr
   NewNvmeSubsystemDevice(
       uint32_t value) {
-    auto result = BlockDeviceProductPtr(absl::in_place);
+    auto result = BlockDeviceProductPtr(std::in_place);
     result->set_nvme_subsystem_device(std::move(value));
     return result;
   }
@@ -4497,7 +4497,7 @@ class  BlockDeviceProduct {
   static BlockDeviceProductPtr
   NewEmmcPnm(
       uint64_t value) {
-    auto result = BlockDeviceProductPtr(absl::in_place);
+    auto result = BlockDeviceProductPtr(std::in_place);
     result->set_emmc_pnm(std::move(value));
     return result;
   }
@@ -4505,7 +4505,7 @@ class  BlockDeviceProduct {
   static BlockDeviceProductPtr
   NewOther(
       uint16_t value) {
-    auto result = BlockDeviceProductPtr(absl::in_place);
+    auto result = BlockDeviceProductPtr(std::in_place);
     result->set_other(std::move(value));
     return result;
   }
@@ -4513,7 +4513,7 @@ class  BlockDeviceProduct {
   static BlockDeviceProductPtr
   NewUnknown(
       uint64_t value) {
-    auto result = BlockDeviceProductPtr(absl::in_place);
+    auto result = BlockDeviceProductPtr(std::in_place);
     result->set_unknown(std::move(value));
     return result;
   }
@@ -4658,7 +4658,7 @@ class  BlockDeviceRevision {
   static BlockDeviceRevisionPtr
   NewNvmePcieRev(
       uint8_t value) {
-    auto result = BlockDeviceRevisionPtr(absl::in_place);
+    auto result = BlockDeviceRevisionPtr(std::in_place);
     result->set_nvme_pcie_rev(std::move(value));
     return result;
   }
@@ -4666,7 +4666,7 @@ class  BlockDeviceRevision {
   static BlockDeviceRevisionPtr
   NewEmmcPrv(
       uint8_t value) {
-    auto result = BlockDeviceRevisionPtr(absl::in_place);
+    auto result = BlockDeviceRevisionPtr(std::in_place);
     result->set_emmc_prv(std::move(value));
     return result;
   }
@@ -4674,7 +4674,7 @@ class  BlockDeviceRevision {
   static BlockDeviceRevisionPtr
   NewOther(
       uint16_t value) {
-    auto result = BlockDeviceRevisionPtr(absl::in_place);
+    auto result = BlockDeviceRevisionPtr(std::in_place);
     result->set_other(std::move(value));
     return result;
   }
@@ -4682,7 +4682,7 @@ class  BlockDeviceRevision {
   static BlockDeviceRevisionPtr
   NewUnknown(
       uint64_t value) {
-    auto result = BlockDeviceRevisionPtr(absl::in_place);
+    auto result = BlockDeviceRevisionPtr(std::in_place);
     result->set_unknown(std::move(value));
     return result;
   }
@@ -4827,7 +4827,7 @@ class  BlockDeviceFirmware {
   static BlockDeviceFirmwarePtr
   NewNvmeFirmwareRev(
       uint64_t value) {
-    auto result = BlockDeviceFirmwarePtr(absl::in_place);
+    auto result = BlockDeviceFirmwarePtr(std::in_place);
     result->set_nvme_firmware_rev(std::move(value));
     return result;
   }
@@ -4835,7 +4835,7 @@ class  BlockDeviceFirmware {
   static BlockDeviceFirmwarePtr
   NewEmmcFwrev(
       uint64_t value) {
-    auto result = BlockDeviceFirmwarePtr(absl::in_place);
+    auto result = BlockDeviceFirmwarePtr(std::in_place);
     result->set_emmc_fwrev(std::move(value));
     return result;
   }
@@ -4843,7 +4843,7 @@ class  BlockDeviceFirmware {
   static BlockDeviceFirmwarePtr
   NewOther(
       uint16_t value) {
-    auto result = BlockDeviceFirmwarePtr(absl::in_place);
+    auto result = BlockDeviceFirmwarePtr(std::in_place);
     result->set_other(std::move(value));
     return result;
   }
@@ -4851,7 +4851,7 @@ class  BlockDeviceFirmware {
   static BlockDeviceFirmwarePtr
   NewUnknown(
       uint64_t value) {
-    auto result = BlockDeviceFirmwarePtr(absl::in_place);
+    auto result = BlockDeviceFirmwarePtr(std::in_place);
     result->set_unknown(std::move(value));
     return result;
   }
@@ -4859,7 +4859,7 @@ class  BlockDeviceFirmware {
   static BlockDeviceFirmwarePtr
   NewUfsFwrev(
       uint64_t value) {
-    auto result = BlockDeviceFirmwarePtr(absl::in_place);
+    auto result = BlockDeviceFirmwarePtr(std::in_place);
     result->set_ufs_fwrev(std::move(value));
     return result;
   }
@@ -5017,7 +5017,7 @@ class  BlockDeviceInfo {
   static BlockDeviceInfoPtr
   NewUnrecognized(
       bool value) {
-    auto result = BlockDeviceInfoPtr(absl::in_place);
+    auto result = BlockDeviceInfoPtr(std::in_place);
     result->set_unrecognized(std::move(value));
     return result;
   }
@@ -5025,7 +5025,7 @@ class  BlockDeviceInfo {
   static BlockDeviceInfoPtr
   NewNvmeDeviceInfo(
       NvmeDeviceInfoPtr value) {
-    auto result = BlockDeviceInfoPtr(absl::in_place);
+    auto result = BlockDeviceInfoPtr(std::in_place);
     result->set_nvme_device_info(std::move(value));
     return result;
   }
@@ -5033,7 +5033,7 @@ class  BlockDeviceInfo {
   static BlockDeviceInfoPtr
   NewEmmcDeviceInfo(
       EmmcDeviceInfoPtr value) {
-    auto result = BlockDeviceInfoPtr(absl::in_place);
+    auto result = BlockDeviceInfoPtr(std::in_place);
     result->set_emmc_device_info(std::move(value));
     return result;
   }
@@ -5041,7 +5041,7 @@ class  BlockDeviceInfo {
   static BlockDeviceInfoPtr
   NewUfsDeviceInfo(
       UfsDeviceInfoPtr value) {
-    auto result = BlockDeviceInfoPtr(absl::in_place);
+    auto result = BlockDeviceInfoPtr(std::in_place);
     result->set_ufs_device_info(std::move(value));
     return result;
   }
@@ -5190,7 +5190,7 @@ class  CpuResult {
   static CpuResultPtr
   NewCpuInfo(
       CpuInfoPtr value) {
-    auto result = CpuResultPtr(absl::in_place);
+    auto result = CpuResultPtr(std::in_place);
     result->set_cpu_info(std::move(value));
     return result;
   }
@@ -5198,7 +5198,7 @@ class  CpuResult {
   static CpuResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = CpuResultPtr(absl::in_place);
+    auto result = CpuResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -5320,7 +5320,7 @@ class  TimezoneResult {
   static TimezoneResultPtr
   NewTimezoneInfo(
       TimezoneInfoPtr value) {
-    auto result = TimezoneResultPtr(absl::in_place);
+    auto result = TimezoneResultPtr(std::in_place);
     result->set_timezone_info(std::move(value));
     return result;
   }
@@ -5328,7 +5328,7 @@ class  TimezoneResult {
   static TimezoneResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = TimezoneResultPtr(absl::in_place);
+    auto result = TimezoneResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -5451,7 +5451,7 @@ class  MemoryResult {
   static MemoryResultPtr
   NewMemoryInfo(
       MemoryInfoPtr value) {
-    auto result = MemoryResultPtr(absl::in_place);
+    auto result = MemoryResultPtr(std::in_place);
     result->set_memory_info(std::move(value));
     return result;
   }
@@ -5459,7 +5459,7 @@ class  MemoryResult {
   static MemoryResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = MemoryResultPtr(absl::in_place);
+    auto result = MemoryResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -5581,7 +5581,7 @@ class  BacklightResult {
   static BacklightResultPtr
   NewBacklightInfo(
       std::vector<BacklightInfoPtr> value) {
-    auto result = BacklightResultPtr(absl::in_place);
+    auto result = BacklightResultPtr(std::in_place);
     result->set_backlight_info(std::move(value));
     return result;
   }
@@ -5589,7 +5589,7 @@ class  BacklightResult {
   static BacklightResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = BacklightResultPtr(absl::in_place);
+    auto result = BacklightResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -5711,7 +5711,7 @@ class  FanResult {
   static FanResultPtr
   NewFanInfo(
       std::vector<FanInfoPtr> value) {
-    auto result = FanResultPtr(absl::in_place);
+    auto result = FanResultPtr(std::in_place);
     result->set_fan_info(std::move(value));
     return result;
   }
@@ -5719,7 +5719,7 @@ class  FanResult {
   static FanResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = FanResultPtr(absl::in_place);
+    auto result = FanResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -5841,7 +5841,7 @@ class  StatefulPartitionResult {
   static StatefulPartitionResultPtr
   NewPartitionInfo(
       StatefulPartitionInfoPtr value) {
-    auto result = StatefulPartitionResultPtr(absl::in_place);
+    auto result = StatefulPartitionResultPtr(std::in_place);
     result->set_partition_info(std::move(value));
     return result;
   }
@@ -5849,7 +5849,7 @@ class  StatefulPartitionResult {
   static StatefulPartitionResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = StatefulPartitionResultPtr(absl::in_place);
+    auto result = StatefulPartitionResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -5972,7 +5972,7 @@ class  BluetoothResult {
   static BluetoothResultPtr
   NewBluetoothAdapterInfo(
       std::vector<BluetoothAdapterInfoPtr> value) {
-    auto result = BluetoothResultPtr(absl::in_place);
+    auto result = BluetoothResultPtr(std::in_place);
     result->set_bluetooth_adapter_info(std::move(value));
     return result;
   }
@@ -5980,7 +5980,7 @@ class  BluetoothResult {
   static BluetoothResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = BluetoothResultPtr(absl::in_place);
+    auto result = BluetoothResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -6102,7 +6102,7 @@ class  DEPRECATED_SystemResult {
   static DEPRECATED_SystemResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = DEPRECATED_SystemResultPtr(absl::in_place);
+    auto result = DEPRECATED_SystemResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -6212,7 +6212,7 @@ class  SystemResult {
   static SystemResultPtr
   NewSystemInfo(
       SystemInfoPtr value) {
-    auto result = SystemResultPtr(absl::in_place);
+    auto result = SystemResultPtr(std::in_place);
     result->set_system_info(std::move(value));
     return result;
   }
@@ -6220,7 +6220,7 @@ class  SystemResult {
   static SystemResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = SystemResultPtr(absl::in_place);
+    auto result = SystemResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -6342,7 +6342,7 @@ class  NetworkResult {
   static NetworkResultPtr
   NewNetworkHealth(
       ::chromeos::network_health::mojom::NetworkHealthStatePtr value) {
-    auto result = NetworkResultPtr(absl::in_place);
+    auto result = NetworkResultPtr(std::in_place);
     result->set_network_health(std::move(value));
     return result;
   }
@@ -6350,7 +6350,7 @@ class  NetworkResult {
   static NetworkResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = NetworkResultPtr(absl::in_place);
+    auto result = NetworkResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -6472,7 +6472,7 @@ class  NetworkInterfaceResult {
   static NetworkInterfaceResultPtr
   NewNetworkInterfaceInfo(
       std::vector<NetworkInterfaceInfoPtr> value) {
-    auto result = NetworkInterfaceResultPtr(absl::in_place);
+    auto result = NetworkInterfaceResultPtr(std::in_place);
     result->set_network_interface_info(std::move(value));
     return result;
   }
@@ -6480,7 +6480,7 @@ class  NetworkInterfaceResult {
   static NetworkInterfaceResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = NetworkInterfaceResultPtr(absl::in_place);
+    auto result = NetworkInterfaceResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -6602,7 +6602,7 @@ class  NetworkInterfaceInfo {
   static NetworkInterfaceInfoPtr
   NewWirelessInterfaceInfo(
       WirelessInterfaceInfoPtr value) {
-    auto result = NetworkInterfaceInfoPtr(absl::in_place);
+    auto result = NetworkInterfaceInfoPtr(std::in_place);
     result->set_wireless_interface_info(std::move(value));
     return result;
   }
@@ -6711,7 +6711,7 @@ class  AudioResult {
   static AudioResultPtr
   NewAudioInfo(
       AudioInfoPtr value) {
-    auto result = AudioResultPtr(absl::in_place);
+    auto result = AudioResultPtr(std::in_place);
     result->set_audio_info(std::move(value));
     return result;
   }
@@ -6719,7 +6719,7 @@ class  AudioResult {
   static AudioResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = AudioResultPtr(absl::in_place);
+    auto result = AudioResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -6841,7 +6841,7 @@ class  AudioHardwareResult {
   static AudioHardwareResultPtr
   NewAudioHardwareInfo(
       AudioHardwareInfoPtr value) {
-    auto result = AudioHardwareResultPtr(absl::in_place);
+    auto result = AudioHardwareResultPtr(std::in_place);
     result->set_audio_hardware_info(std::move(value));
     return result;
   }
@@ -6849,7 +6849,7 @@ class  AudioHardwareResult {
   static AudioHardwareResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = AudioHardwareResultPtr(absl::in_place);
+    auto result = AudioHardwareResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -6971,7 +6971,7 @@ class  BootPerformanceResult {
   static BootPerformanceResultPtr
   NewBootPerformanceInfo(
       BootPerformanceInfoPtr value) {
-    auto result = BootPerformanceResultPtr(absl::in_place);
+    auto result = BootPerformanceResultPtr(std::in_place);
     result->set_boot_performance_info(std::move(value));
     return result;
   }
@@ -6979,7 +6979,7 @@ class  BootPerformanceResult {
   static BootPerformanceResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = BootPerformanceResultPtr(absl::in_place);
+    auto result = BootPerformanceResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -7101,7 +7101,7 @@ class  BusResult {
   static BusResultPtr
   NewBusDevices(
       std::vector<BusDevicePtr> value) {
-    auto result = BusResultPtr(absl::in_place);
+    auto result = BusResultPtr(std::in_place);
     result->set_bus_devices(std::move(value));
     return result;
   }
@@ -7109,7 +7109,7 @@ class  BusResult {
   static BusResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = BusResultPtr(absl::in_place);
+    auto result = BusResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -7231,7 +7231,7 @@ class  BusInfo {
   static BusInfoPtr
   NewPciBusInfo(
       PciBusInfoPtr value) {
-    auto result = BusInfoPtr(absl::in_place);
+    auto result = BusInfoPtr(std::in_place);
     result->set_pci_bus_info(std::move(value));
     return result;
   }
@@ -7239,7 +7239,7 @@ class  BusInfo {
   static BusInfoPtr
   NewUsbBusInfo(
       UsbBusInfoPtr value) {
-    auto result = BusInfoPtr(absl::in_place);
+    auto result = BusInfoPtr(std::in_place);
     result->set_usb_bus_info(std::move(value));
     return result;
   }
@@ -7247,7 +7247,7 @@ class  BusInfo {
   static BusInfoPtr
   NewThunderboltBusInfo(
       ThunderboltBusInfoPtr value) {
-    auto result = BusInfoPtr(absl::in_place);
+    auto result = BusInfoPtr(std::in_place);
     result->set_thunderbolt_bus_info(std::move(value));
     return result;
   }
@@ -7255,7 +7255,7 @@ class  BusInfo {
   static BusInfoPtr
   NewUnmappedField(
       bool value) {
-    auto result = BusInfoPtr(absl::in_place);
+    auto result = BusInfoPtr(std::in_place);
     result->set_unmapped_field(std::move(value));
     return result;
   }
@@ -7403,7 +7403,7 @@ class  TpmResult {
   static TpmResultPtr
   NewTpmInfo(
       TpmInfoPtr value) {
-    auto result = TpmResultPtr(absl::in_place);
+    auto result = TpmResultPtr(std::in_place);
     result->set_tpm_info(std::move(value));
     return result;
   }
@@ -7411,7 +7411,7 @@ class  TpmResult {
   static TpmResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = TpmResultPtr(absl::in_place);
+    auto result = TpmResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -7533,7 +7533,7 @@ class  GraphicsResult {
   static GraphicsResultPtr
   NewGraphicsInfo(
       GraphicsInfoPtr value) {
-    auto result = GraphicsResultPtr(absl::in_place);
+    auto result = GraphicsResultPtr(std::in_place);
     result->set_graphics_info(std::move(value));
     return result;
   }
@@ -7541,7 +7541,7 @@ class  GraphicsResult {
   static GraphicsResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = GraphicsResultPtr(absl::in_place);
+    auto result = GraphicsResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -7663,7 +7663,7 @@ class  DisplayResult {
   static DisplayResultPtr
   NewDisplayInfo(
       DisplayInfoPtr value) {
-    auto result = DisplayResultPtr(absl::in_place);
+    auto result = DisplayResultPtr(std::in_place);
     result->set_display_info(std::move(value));
     return result;
   }
@@ -7671,7 +7671,7 @@ class  DisplayResult {
   static DisplayResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = DisplayResultPtr(absl::in_place);
+    auto result = DisplayResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -7793,7 +7793,7 @@ class  InputResult {
   static InputResultPtr
   NewInputInfo(
       InputInfoPtr value) {
-    auto result = InputResultPtr(absl::in_place);
+    auto result = InputResultPtr(std::in_place);
     result->set_input_info(std::move(value));
     return result;
   }
@@ -7801,7 +7801,7 @@ class  InputResult {
   static InputResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = InputResultPtr(absl::in_place);
+    auto result = InputResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -7923,7 +7923,7 @@ class  SensorResult {
   static SensorResultPtr
   NewSensorInfo(
       SensorInfoPtr value) {
-    auto result = SensorResultPtr(absl::in_place);
+    auto result = SensorResultPtr(std::in_place);
     result->set_sensor_info(std::move(value));
     return result;
   }
@@ -7931,7 +7931,7 @@ class  SensorResult {
   static SensorResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = SensorResultPtr(absl::in_place);
+    auto result = SensorResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -8053,7 +8053,7 @@ class  ThermalResult {
   static ThermalResultPtr
   NewThermalInfo(
       ThermalInfoPtr value) {
-    auto result = ThermalResultPtr(absl::in_place);
+    auto result = ThermalResultPtr(std::in_place);
     result->set_thermal_info(std::move(value));
     return result;
   }
@@ -8061,7 +8061,7 @@ class  ThermalResult {
   static ThermalResultPtr
   NewError(
       ProbeErrorPtr value) {
-    auto result = ThermalResultPtr(absl::in_place);
+    auto result = ThermalResultPtr(std::in_place);
     result->set_error(std::move(value));
     return result;
   }
@@ -8176,7 +8176,7 @@ class  MultipleProcessResult {
   template <typename... Args>
   static MultipleProcessResultPtr New(Args&&... args) {
     return MultipleProcessResultPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -8321,7 +8321,7 @@ class  ProcessInfo {
   template <typename... Args>
   static ProcessInfoPtr New(Args&&... args) {
     return ProcessInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -8561,7 +8561,7 @@ class  BatteryInfo {
   template <typename... Args>
   static BatteryInfoPtr New(Args&&... args) {
     return BatteryInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -8745,7 +8745,7 @@ class  NonRemovableBlockDeviceInfo {
   template <typename... Args>
   static NonRemovableBlockDeviceInfoPtr New(Args&&... args) {
     return NonRemovableBlockDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -8980,7 +8980,7 @@ class  CpuInfo {
   template <typename... Args>
   static CpuInfoPtr New(Args&&... args) {
     return CpuInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -9150,7 +9150,7 @@ class  PhysicalCpuInfo {
   template <typename... Args>
   static PhysicalCpuInfoPtr New(Args&&... args) {
     return PhysicalCpuInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -9306,7 +9306,7 @@ class  LogicalCpuInfo {
   template <typename... Args>
   static LogicalCpuInfoPtr New(Args&&... args) {
     return LogicalCpuInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -9481,7 +9481,7 @@ class  MemoryInfo {
   template <typename... Args>
   static MemoryInfoPtr New(Args&&... args) {
     return MemoryInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -9645,7 +9645,7 @@ class  BluetoothAdapterInfo {
   template <typename... Args>
   static BluetoothAdapterInfoPtr New(Args&&... args) {
     return BluetoothAdapterInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -9834,7 +9834,7 @@ class  BluetoothDeviceInfo {
   template <typename... Args>
   static BluetoothDeviceInfoPtr New(Args&&... args) {
     return BluetoothDeviceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -10025,7 +10025,7 @@ class  SystemInfo {
   template <typename... Args>
   static SystemInfoPtr New(Args&&... args) {
     return SystemInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -10182,7 +10182,7 @@ class  OsInfo {
   template <typename... Args>
   static OsInfoPtr New(Args&&... args) {
     return OsInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -10352,7 +10352,7 @@ class  OsVersion {
   template <typename... Args>
   static OsVersionPtr New(Args&&... args) {
     return OsVersionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -10510,7 +10510,7 @@ class  VpdInfo {
   template <typename... Args>
   static VpdInfoPtr New(Args&&... args) {
     return VpdInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -10676,7 +10676,7 @@ class  DmiInfo {
   template <typename... Args>
   static DmiInfoPtr New(Args&&... args) {
     return DmiInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -10850,7 +10850,7 @@ class  PsrInfo {
   template <typename... Args>
   static PsrInfoPtr New(Args&&... args) {
     return PsrInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -11054,7 +11054,7 @@ class  WirelessInterfaceInfo {
   template <typename... Args>
   static WirelessInterfaceInfoPtr New(Args&&... args) {
     return WirelessInterfaceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -11202,7 +11202,7 @@ class  WirelessLinkInfo {
   template <typename... Args>
   static WirelessLinkInfoPtr New(Args&&... args) {
     return WirelessLinkInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -11361,7 +11361,7 @@ class  AudioInfo {
   template <typename... Args>
   static AudioInfoPtr New(Args&&... args) {
     return AudioInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -11540,7 +11540,7 @@ class  AudioNodeInfo {
   template <typename... Args>
   static AudioNodeInfoPtr New(Args&&... args) {
     return AudioNodeInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -11696,7 +11696,7 @@ class  AudioHardwareInfo {
   template <typename... Args>
   static AudioHardwareInfoPtr New(Args&&... args) {
     return AudioHardwareInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -11838,7 +11838,7 @@ class  AudioCard {
   template <typename... Args>
   static AudioCardPtr New(Args&&... args) {
     return AudioCardPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -11987,7 +11987,7 @@ class  BootPerformanceInfo {
   template <typename... Args>
   static BootPerformanceInfoPtr New(Args&&... args) {
     return BootPerformanceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -12174,7 +12174,7 @@ class  BusDevice {
   template <typename... Args>
   static BusDevicePtr New(Args&&... args) {
     return BusDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -12325,7 +12325,7 @@ class  PciBusInfo {
   template <typename... Args>
   static PciBusInfoPtr New(Args&&... args) {
     return PciBusInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -12496,7 +12496,7 @@ class  UsbBusInfo {
   template <typename... Args>
   static UsbBusInfoPtr New(Args&&... args) {
     return UsbBusInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -12680,7 +12680,7 @@ class  UsbBusInterfaceInfo {
   template <typename... Args>
   static UsbBusInterfaceInfoPtr New(Args&&... args) {
     return UsbBusInterfaceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -12832,7 +12832,7 @@ class  TpmInfo {
   template <typename... Args>
   static TpmInfoPtr New(Args&&... args) {
     return TpmInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -12989,7 +12989,7 @@ class  TpmVersion {
   template <typename... Args>
   static TpmVersionPtr New(Args&&... args) {
     return TpmVersionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -13151,7 +13151,7 @@ class  GraphicsInfo {
   template <typename... Args>
   static GraphicsInfoPtr New(Args&&... args) {
     return GraphicsInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -13296,7 +13296,7 @@ class  GLESInfo {
   template <typename... Args>
   static GLESInfoPtr New(Args&&... args) {
     return GLESInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -13448,7 +13448,7 @@ class  EGLInfo {
   template <typename... Args>
   static EGLInfoPtr New(Args&&... args) {
     return EGLInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -13597,7 +13597,7 @@ class  DisplayInfo {
   template <typename... Args>
   static DisplayInfoPtr New(Args&&... args) {
     return DisplayInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -13745,7 +13745,7 @@ class  EmbeddedDisplayInfo {
   template <typename... Args>
   static EmbeddedDisplayInfoPtr New(Args&&... args) {
     return EmbeddedDisplayInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -13942,7 +13942,7 @@ class  ExternalDisplayInfo {
   template <typename... Args>
   static ExternalDisplayInfoPtr New(Args&&... args) {
     return ExternalDisplayInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -14127,7 +14127,7 @@ class  ThunderboltBusInterfaceInfo {
   template <typename... Args>
   static ThunderboltBusInterfaceInfoPtr New(Args&&... args) {
     return ThunderboltBusInterfaceInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -14289,7 +14289,7 @@ class  ThunderboltBusInfo {
   template <typename... Args>
   static ThunderboltBusInfoPtr New(Args&&... args) {
     return ThunderboltBusInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -14434,7 +14434,7 @@ class  InputInfo {
   template <typename... Args>
   static InputInfoPtr New(Args&&... args) {
     return InputInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -14586,7 +14586,7 @@ class  TouchscreenDevice {
   template <typename... Args>
   static TouchscreenDevicePtr New(Args&&... args) {
     return TouchscreenDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -14738,7 +14738,7 @@ class  TouchpadDevice {
   template <typename... Args>
   static TouchpadDevicePtr New(Args&&... args) {
     return TouchpadDevicePtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -14885,7 +14885,7 @@ class  SensorInfo {
   template <typename... Args>
   static SensorInfoPtr New(Args&&... args) {
     return SensorInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -15034,7 +15034,7 @@ class  ThermalInfo {
   template <typename... Args>
   static ThermalInfoPtr New(Args&&... args) {
     return ThermalInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -15177,7 +15177,7 @@ class  TelemetryInfo {
   template <typename... Args>
   static TelemetryInfoPtr New(Args&&... args) {
     return TelemetryInfoPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

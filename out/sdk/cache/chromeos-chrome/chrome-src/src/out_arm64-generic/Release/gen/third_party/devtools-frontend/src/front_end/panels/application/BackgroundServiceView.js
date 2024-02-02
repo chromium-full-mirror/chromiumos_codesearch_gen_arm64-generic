@@ -182,6 +182,7 @@ export class BackgroundServiceView extends UI.Widget.VBox {
         this.storageKeyManager.addEventListener("MainStorageKeyChanged" /* SDK.StorageKeyManager.Events.MainStorageKeyChanged */, () => this.onStorageKeyChanged());
         this.recordAction = UI.ActionRegistry.ActionRegistry.instance().getAction('background-service.toggle-recording');
         this.toolbar = new UI.Toolbar.Toolbar('background-service-toolbar', this.contentElement);
+        this.toolbar.element.setAttribute('jslog', `${VisualLogging.toolbar()}`);
         void this.setupToolbar();
         /**
          * This will contain the DataGrid for displaying events, and a panel at the bottom for showing

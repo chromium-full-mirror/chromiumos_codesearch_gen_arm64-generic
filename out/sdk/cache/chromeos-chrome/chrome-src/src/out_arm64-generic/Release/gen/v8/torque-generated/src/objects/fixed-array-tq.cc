@@ -89,9 +89,9 @@ class TorqueGeneratedFixedDoubleArrayAsserts {
 
 // Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=19&c=1
 class TorqueGeneratedTrustedFixedArrayAsserts {
-  static constexpr int kStartOfStrongFieldsOffset = ExposedTrustedObject::kHeaderSize;
+  static constexpr int kStartOfStrongFieldsOffset = TrustedObject::kHeaderSize;
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=21&c=9
-  static constexpr int kLengthOffset = ExposedTrustedObject::kHeaderSize;
+  static constexpr int kLengthOffset = TrustedObject::kHeaderSize;
   static constexpr int kLengthOffsetEnd = kLengthOffset + kTaggedSize - 1;
   static constexpr int kHeaderSize = kLengthOffsetEnd + 1;
   // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/objects/fixed-array.tq?l=22&c=3

@@ -142,6 +142,7 @@ SettingsBase::SettingsBase()
     , place_rtl_scrollbars_on_left_side_in_main_frame_(false)
     , plugins_enabled_(false)
     , prefer_hidden_volume_controls_(false)
+    , prefers_default_scrollbar_styles_(false)
     , prefers_reduced_motion_(false)
     , prefers_reduced_transparency_(false)
     , presentation_receiver_(false)
@@ -859,6 +860,13 @@ void SettingsBase::SetPreferredContrast(mojom::blink::PreferredContrast preferre
     return;
   preferred_contrast_ = preferred_contrast;
   Invalidate(SettingsDelegate::ChangeType::kMediaQuery);
+}
+
+void SettingsBase::SetPrefersDefaultScrollbarStyles(bool prefers_default_scrollbar_styles) {
+  if (prefers_default_scrollbar_styles_ == prefers_default_scrollbar_styles)
+    return;
+  prefers_default_scrollbar_styles_ = prefers_default_scrollbar_styles;
+  Invalidate(SettingsDelegate::ChangeType::kStyle);
 }
 
 void SettingsBase::SetPrefersReducedMotion(bool prefers_reduced_motion) {
@@ -1704,6 +1712,10 @@ void SettingsBase::SetFromStrings(const String& name, const String& value) {
   }
   if (name == "preferredContrast") {
     SetPreferredContrast(FromString<mojom::blink::PreferredContrast>()(value));
+    return;
+  }
+  if (name == "prefersDefaultScrollbarStyles") {
+    SetPrefersDefaultScrollbarStyles(FromString<bool>()(value));
     return;
   }
   if (name == "prefersReducedMotion") {

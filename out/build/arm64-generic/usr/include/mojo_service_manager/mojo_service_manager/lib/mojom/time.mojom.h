@@ -53,7 +53,7 @@ class  TimeDelta {
   template <typename... Args>
   static TimeDeltaPtr New(Args&&... args) {
     return TimeDeltaPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

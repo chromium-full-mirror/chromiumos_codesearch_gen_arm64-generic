@@ -163,7 +163,7 @@ class  HeatmapPalmRejectionConfig {
   template <typename... Args>
   static HeatmapPalmRejectionConfigPtr New(Args&&... args) {
     return HeatmapPalmRejectionConfigPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -322,7 +322,7 @@ class  HeatmapProcessedEvent {
   template <typename... Args>
   static HeatmapProcessedEventPtr New(Args&&... args) {
     return HeatmapProcessedEventPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

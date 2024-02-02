@@ -49,6 +49,8 @@ class ArcLockScreenNotificationSettingDataView;
 
 class NotificationConfigurationDataView;
 
+class ArcNotificationMessageDataView;
+
 
 
 }  // arc::mojom
@@ -101,6 +103,13 @@ struct MojomTypeTraits<::arc::mojom::ArcLockScreenNotificationSettingDataView> {
 template <>
 struct MojomTypeTraits<::arc::mojom::NotificationConfigurationDataView> {
   using Data = ::arc::mojom::internal::NotificationConfiguration_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::arc::mojom::ArcNotificationMessageDataView> {
+  using Data = ::arc::mojom::internal::ArcNotificationMessage_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -836,6 +845,27 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<::arc::mojom::ArcNotificationDataDataView>>(
         pointer, output, message_);
   }
+  inline void GetMessagesDataView(
+      mojo::ArrayDataView<ArcNotificationMessageDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMessages(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::ArrayDataView<::arc::mojom::ArcNotificationMessageDataView>, UserType>(),
+    "Attempting to read the optional `messages` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadMessages` instead "
+    "of `ReadMessages if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->header_.version >= 35
+                    ? data_->messages.Get() : nullptr;
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::arc::mojom::ArcNotificationMessageDataView>>(
+        pointer, output, message_);
+  }
  private:
   internal::ArcNotificationData_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
@@ -931,6 +961,82 @@ class NotificationConfigurationDataView {
   }
  private:
   internal::NotificationConfiguration_Data* data_ = nullptr;
+};
+
+
+class ArcNotificationMessageDataView {
+ public:
+  ArcNotificationMessageDataView() = default;
+
+  ArcNotificationMessageDataView(
+      internal::ArcNotificationMessage_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetMessageDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadMessage(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `message` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadMessage` instead "
+    "of `ReadMessage if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->message.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetSenderNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSenderName(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        mojo::StringDataView, UserType>(),
+    "Attempting to read the optional `sender_name` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSenderName` instead "
+    "of `ReadSenderName if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->sender_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetSenderIconDataView(
+      ::arc::mojom::ArcBitmapDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSenderIcon(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::arc::mojom::ArcBitmapDataView, UserType>(),
+    "Attempting to read the optional `sender_icon` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadSenderIcon` instead "
+    "of `ReadSenderIcon if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->sender_icon.Get();
+    return mojo::internal::Deserialize<::arc::mojom::ArcBitmapDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ArcNotificationMessage_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
 };
 
 
@@ -1408,6 +1514,16 @@ struct Serializer<::arc::mojom::ArcNotificationDataDataView, MaybeConstUserType>
         in_children_data, children_data_fragment, &children_data_validate_params);
     fragment->children_data.Set(
         children_data_fragment.is_null() ? nullptr : children_data_fragment.data());
+    decltype(Traits::messages(input)) in_messages = Traits::messages(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->messages)::BaseType>
+        messages_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& messages_validate_params =
+        mojo::internal::GetArrayValidator<0, false, nullptr>();
+    mojo::internal::Serialize<mojo::ArrayDataView<::arc::mojom::ArcNotificationMessageDataView>>(
+        in_messages, messages_fragment, &messages_validate_params);
+    fragment->messages.Set(
+        messages_fragment.is_null() ? nullptr : messages_fragment.data());
   }
 
   static bool Deserialize(::arc::mojom::internal::ArcNotificationData_Data* input,
@@ -1558,6 +1674,59 @@ struct Serializer<::arc::mojom::NotificationConfigurationDataView, MaybeConstUse
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::arc::mojom::ArcNotificationMessageDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::arc::mojom::ArcNotificationMessageDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::arc::mojom::internal::ArcNotificationMessage_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::message(input)) in_message = Traits::message(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->message)::BaseType> message_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_message, message_fragment);
+    fragment->message.Set(
+        message_fragment.is_null() ? nullptr : message_fragment.data());
+    decltype(Traits::sender_name(input)) in_sender_name = Traits::sender_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->sender_name)::BaseType> sender_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_sender_name, sender_name_fragment);
+    fragment->sender_name.Set(
+        sender_name_fragment.is_null() ? nullptr : sender_name_fragment.data());
+    decltype(Traits::sender_icon(input)) in_sender_icon = Traits::sender_icon(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->sender_icon)::BaseType> sender_icon_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::arc::mojom::ArcBitmapDataView>(
+        in_sender_icon, sender_icon_fragment);
+    fragment->sender_icon.Set(
+        sender_icon_fragment.is_null() ? nullptr : sender_icon_fragment.data());
+  }
+
+  static bool Deserialize(::arc::mojom::internal::ArcNotificationMessage_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::arc::mojom::ArcNotificationMessageDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -1674,6 +1843,12 @@ inline void ArcNotificationDataDataView::GetChildrenDataDataView(
                  ? data_->children_data.Get() : nullptr;
   *output = mojo::ArrayDataView<ArcNotificationDataDataView>(pointer, message_);
 }
+inline void ArcNotificationDataDataView::GetMessagesDataView(
+    mojo::ArrayDataView<ArcNotificationMessageDataView>* output) {
+  auto pointer = data_->header_.version >= 35
+                 ? data_->messages.Get() : nullptr;
+  *output = mojo::ArrayDataView<ArcNotificationMessageDataView>(pointer, message_);
+}
 
 
 
@@ -1687,6 +1862,23 @@ inline void ArcNotificationUserActionDataDataView::GetTopLevelNotificationKeyDep
 
 
 
+
+
+inline void ArcNotificationMessageDataView::GetMessageDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->message.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void ArcNotificationMessageDataView::GetSenderNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->sender_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void ArcNotificationMessageDataView::GetSenderIconDataView(
+    ::arc::mojom::ArcBitmapDataView* output) {
+  auto pointer = data_->sender_icon.Get();
+  *output = ::arc::mojom::ArcBitmapDataView(pointer, message_);
+}
 
 
 

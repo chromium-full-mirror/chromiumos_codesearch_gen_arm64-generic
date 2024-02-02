@@ -5550,27 +5550,6 @@ message DefaultMediaStreamSettingProto {
   optional int64 DefaultMediaStreamSetting = 2;
 }
 
-// Default MIDI permission setting
-//
-// Setting the policy to BlockMidi (value 2) automatically blocks sites from
-// using MIDI devices such as musical instruments and controllers.
-//
-// Setting the policy to AskMidi (value 3) will prompt the user when a site
-// wants to use MIDI devices.
-//
-// Leaving the policy unset means AskMidi policy applies, but users can change
-// this setting.
-//
-// Valid values:
-//   2: Denies the MIDI permission on all sites by default
-//   3: Ask every time a site wants to obtain the MIDI permission
-//
-// Supported on: android, chrome_os, fuchsia, linux, mac, win
-message DefaultMidiSettingProto {
-  optional PolicyOptions policy_options = 1;
-  optional int64 DefaultMidiSetting = 2;
-}
-
 // Default notification setting
 //
 // Setting the policy to 1 lets websites display desktop notifications. Setting
@@ -12684,48 +12663,6 @@ message MicrosoftOneDriveAccountRestrictionsProto {
 message MicrosoftOneDriveMountProto {
   optional PolicyOptions policy_options = 1;
   optional string MicrosoftOneDriveMount = 2;
-}
-
-// Allow MIDI permission on these sites
-//
-// Sets a list of site url patterns that specify sites which will automatically
-// grant the MIDI permission. This will allow sites to use MIDI devices such as
-// musical instruments and controllers.
-//
-// For detailed information on valid site url patterns, please see
-// https://cloud.google.com/docs/chrome-enterprise/policies/url-patterns.
-// Wildcards, *, are allowed. This policy only matches based on origin, so any
-// path in the URL pattern is ignored.
-//
-// If this policy is not set for a site then the policy from DefaultMidiSetting
-// applies to the site, if set, otherwise the permission will follow the
-// browser's defaults and allow users to choose this permission per site.
-//
-// Supported on: android, chrome_os, fuchsia, linux, mac, win
-message MidiAllowedForUrlsProto {
-  optional PolicyOptions policy_options = 1;
-  optional StringList MidiAllowedForUrls = 2;
-}
-
-// Block MIDI permission on these sites
-//
-// Sets a list of site url patterns that specify sites which will automatically
-// deny the MIDI permission. This will block sites from using MIDI devices such
-// as musical instruments and controllers.
-//
-// For detailed information on valid site url patterns, please see
-// https://cloud.google.com/docs/chrome-enterprise/policies/url-patterns.
-// Wildcards, *, are allowed. This policy only matches based on origin, so any
-// path in the URL pattern is ignored.
-//
-// If this policy is not set for a site then the policy from DefaultMidiSetting
-// applies to the site, if set, otherwise the permission will follow the
-// browser's defaults and allow users to choose this permission per site.
-//
-// Supported on: android, chrome_os, fuchsia, linux, mac, win
-message MidiBlockedForUrlsProto {
-  optional PolicyOptions policy_options = 1;
-  optional StringList MidiBlockedForUrls = 2;
 }
 
 // Enable mixed content autoupgrading on HTTPS sites
@@ -25422,7 +25359,6 @@ message ChromeSettingsProto {
   optional DefaultKeygenSettingProto DefaultKeygenSetting = 315;
   optional DefaultLocalFontsSettingProto DefaultLocalFontsSetting = 979;
   optional DefaultMediaStreamSettingProto DefaultMediaStreamSetting = 151;
-  optional DefaultMidiSettingProto DefaultMidiSetting = 1130;
   optional DefaultNotificationsSettingProto DefaultNotificationsSetting = 55;
   optional DefaultPluginsSettingProto DefaultPluginsSetting = 53;
   optional DefaultPopupsSettingProto DefaultPopupsSetting = 54;
@@ -25704,8 +25640,6 @@ message ChromeSettingsProto {
   optional MicrosoftOfficeCloudUploadProto MicrosoftOfficeCloudUpload = 1147;
   optional MicrosoftOneDriveAccountRestrictionsProto MicrosoftOneDriveAccountRestrictions = 1176;
   optional MicrosoftOneDriveMountProto MicrosoftOneDriveMount = 1150;
-  optional MidiAllowedForUrlsProto MidiAllowedForUrls = 1131;
-  optional MidiBlockedForUrlsProto MidiBlockedForUrls = 1132;
   optional MixedContentAutoupgradeEnabledProto MixedContentAutoupgradeEnabled = 1074;
   optional MonoAudioEnabledProto MonoAudioEnabled = 598;
   optional NTLMShareAuthenticationEnabledProto NTLMShareAuthenticationEnabled = 491;

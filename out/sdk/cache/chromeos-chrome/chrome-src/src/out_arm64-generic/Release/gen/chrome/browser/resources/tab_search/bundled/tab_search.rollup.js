@@ -1935,6 +1935,11 @@ let PageRemote$1 = class PageRemote {
             index
         ]);
     }
+    tabOrganizationEnabledChanged(enabled) {
+        this.proxy.sendMessage(5, Page_TabOrganizationEnabledChanged_ParamsSpec.$, null, [
+            enabled
+        ]);
+    }
 };
 /**
  * An object which receives request messages for the Page
@@ -1962,6 +1967,9 @@ let PageCallbackRouter$1 = class PageCallbackRouter {
         this.tabSearchTabIndexChanged =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(4, Page_TabSearchTabIndexChanged_ParamsSpec.$, null, this.tabSearchTabIndexChanged.createReceiverHandler(false /* expectsResponse */));
+        this.tabOrganizationEnabledChanged =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(5, Page_TabOrganizationEnabledChanged_ParamsSpec.$, null, this.tabOrganizationEnabledChanged.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -2011,6 +2019,7 @@ const Page_TabsChanged_ParamsSpec = { $: {} };
 const Page_TabUpdated_ParamsSpec = { $: {} };
 const Page_TabsRemoved_ParamsSpec = { $: {} };
 const Page_TabSearchTabIndexChanged_ParamsSpec = { $: {} };
+const Page_TabOrganizationEnabledChanged_ParamsSpec = { $: {} };
 mojo.internal.Struct(ProfileDataSpec.$, 'ProfileData', [
     mojo.internal.StructField('windows', 0, 0, mojo.internal.Array(WindowSpec.$, false), null, false /* nullable */, 0),
     mojo.internal.StructField('tabGroups', 8, 0, mojo.internal.Array(TabGroupSpec.$, false), null, false /* nullable */, 0),
@@ -2154,6 +2163,9 @@ mojo.internal.Struct(Page_TabsRemoved_ParamsSpec.$, 'Page_TabsRemoved_Params', [
 ], [[0, 16],]);
 mojo.internal.Struct(Page_TabSearchTabIndexChanged_ParamsSpec.$, 'Page_TabSearchTabIndexChanged_Params', [
     mojo.internal.StructField('index', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(Page_TabOrganizationEnabledChanged_ParamsSpec.$, 'Page_TabOrganizationEnabledChanged_Params', [
+    mojo.internal.StructField('enabled', 0, 0, mojo.internal.Bool, false, false /* nullable */, 0),
 ], [[0, 16],]);
 
 // Copyright 2023 The Chromium Authors
@@ -8767,9 +8779,7 @@ class TabSearchAppElement extends PolymerElement {
             },
             tabIcons_: {
                 type: Array,
-                value: () => ['images/tab_search.svg',
-                    'images/auto_tab_groups.svg',
-                ],
+                value: () => ['images/tab_search.svg', 'images/auto_tab_groups.svg'],
             },
             tabOrganizationEnabled_: {
                 type: Boolean,
@@ -8784,6 +8794,7 @@ class TabSearchAppElement extends PolymerElement {
         super.connectedCallback();
         const callbackRouter = this.apiProxy_.getCallbackRouter();
         this.listenerIds_.push(callbackRouter.tabSearchTabIndexChanged.addListener(this.onTabIndexChanged_.bind(this)));
+        this.listenerIds_.push(callbackRouter.tabOrganizationEnabledChanged.addListener(this.onTabOrganizationEnabledChanged_.bind(this)));
     }
     disconnectedCallback() {
         super.disconnectedCallback();
@@ -8791,6 +8802,9 @@ class TabSearchAppElement extends PolymerElement {
     }
     onTabIndexChanged_(index) {
         this.selectedTabIndex_ = index;
+    }
+    onTabOrganizationEnabledChanged_(enabled) {
+        this.tabOrganizationEnabled_ = enabled;
     }
     onSelectedTabChanged_(event) {
         if (event.detail.value === 1) {

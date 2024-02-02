@@ -1275,6 +1275,30 @@ inline CSSValueID platformEnumToCSSValueIDGenerated(EPointerEvents v) {
 
 
 template <>
+inline EPositionTryOrder cssValueIDToPlatformEnumGenerated(CSSValueID v) {
+  switch (v) {
+    case CSSValueID::kNormal:
+      return EPositionTryOrder::kNormal;
+    default:
+      DCHECK_GE(v, CSSValueID::kMostWidth);
+      DCHECK_LE(v, CSSValueID::kMostInlineSize);
+      return static_cast<EPositionTryOrder>(static_cast<int>(v) - static_cast<int>(CSSValueID::kMostWidth) + static_cast<int>(EPositionTryOrder::kMostWidth));
+  }
+}
+
+inline CSSValueID platformEnumToCSSValueIDGenerated(EPositionTryOrder v) {
+  switch (v) {
+    case EPositionTryOrder::kNormal:
+      return CSSValueID::kNormal;
+    default:
+      DCHECK_GE(v, EPositionTryOrder::kMostWidth);
+      DCHECK_LE(v, EPositionTryOrder::kMostInlineSize);
+      return static_cast<CSSValueID>(static_cast<int>(v) - static_cast<int>(EPositionTryOrder::kMostWidth) + static_cast<int>(CSSValueID::kMostWidth));
+  }
+}
+
+
+template <>
 inline EResize cssValueIDToPlatformEnumGenerated(CSSValueID v) {
   switch (v) {
     case CSSValueID::kNone:

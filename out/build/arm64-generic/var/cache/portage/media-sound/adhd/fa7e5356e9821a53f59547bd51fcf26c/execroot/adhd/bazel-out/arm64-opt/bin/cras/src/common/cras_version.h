@@ -1,1 +1,0 @@
-#define VCSID "0.0.7-r3543-af96c233341669a1725ad5b647a2e3c4dcade001"

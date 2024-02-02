@@ -1,10 +1,11 @@
-import { s as startInterval, r as recordEnum, i as internals, _ as __decorate$1, a as requestUpdateOnAriaChange, b as isActivationClick, d as dispatchActivationClick, m as mixinElementInternals, A as AsyncQueue, o as openWindow, R as RootType, c as assert, N as NativeEventTarget, e as RateLimiter, g as getStore, u as unwrapEntry, t as toFilesAppURL, f as urlToEntry, h as strf, j as str, v as visitURL, V as VolumeType, k as startIOTask, l as checkAPIError, n as getFileErrorString, p as isRecentRootType, q as isDriveFsBulkPinningEnabled, F as FakeEntryImpl, S as SHARED_DRIVES_DIRECTORY_NAME, C as COMPUTERS_DIRECTORY_NAME, w as assert$1, x as promisify, y as VolumeError, z as removeVolume, B as isSameFileSystem, D as isSameEntry, E as isFakeEntry, G as getRootType, H as SHARED_DRIVES_DIRECTORY_PATH, I as isTeamDriveRoot, J as COMPUTERS_DIRECTORY_PATH, K as isComputersRoot, L as getRootTypeFromVolumeType, M as getMediaViewRootTypeFromVolumeId, O as MediaViewRootType, P as timeoutPromise, Q as addVolume, T as recordInterval, U as VOLUME_ALREADY_MOUNTED, W as isInGuestMode, X as getDirectory, Y as ARCHIVE_OPENED_EVENT_TYPE, Z as Source, $ as assertNotReached, a0 as descriptorEqual, a1 as XfBase, a2 as isCrosComponentsEnabled, a3 as DialogType, a4 as isFuseBoxDebugEnabled, a5 as AllowedPaths, a6 as isNative, a7 as parseTrashInfoFiles, a8 as recordMediumCount, a9 as isFileEntry, aa as isDirectoryEntry, ab as getLocaleBasedWeekStart, ac as SearchRecency, ad as getMediaType, ae as isImage, af as isVideo, ag as isRaw, ah as isPDF, ai as getType, aj as getContentMetadata, ak as testSendMessage, al as getContentMimeType, am as isDlpEnabled, an as getDlpMetadata, ao as entriesToURLs, ap as isTrashEntry$1, aq as compareName, ar as compareLabel, as as collator, at as dispatchSimpleEvent, au as createDOMError, av as FileErrorToDomError, aw as getDefaultSearchOptions, ax as readEntriesRecursively, ay as isDriveRootType, az as SearchLocation, aA as CROSTINI_CONNECT_ERR, aB as mountGuest, aC as LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES, aD as ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES, aE as FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES, aF as DLP_METADATA_PREFETCH_PROPERTY_NAMES, aG as ConcurrentQueue, aH as isType, aI as dispatchPropertyChange, aJ as Aggregator, aK as PropStatus, aL as recordUserAction, aM as FileSystemType, aN as getVolumeTypeFromRootType, aO as convertURLsToEntries, aP as isNativeEntry, aQ as isOneDriveId, aR as getFileData, aS as getVolume, aT as getMyFiles, aU as changeDirectory, aV as getEntryLabel, aW as clearSearch, aX as isGuestOs, aY as updateSearch, aZ as crInjectTypeAndInit, a_ as boolAttrSetter, a$ as convertToKebabCase, b0 as domAttrSetter, b1 as assertInstanceof, b2 as CrButtonElement, b3 as isTreeItem$1, b4 as isXfTree$1, b5 as handleTreeSlotChange, b6 as refreshNavigationRoots, b7 as NavigationType, b8 as isVolumeEntry, b9 as isOneDrive, ba as isDriveRootEntryList, bb as ICON_TYPES, bc as shouldSupportDriveSpecificIcons, bd as vmTypeToIconName, be as isMyFilesEntry$1, bf as readSubDirectoriesToCheckDirectoryChildren, bg as updateFileData, bh as readSubDirectories, bi as shouldDelayLoadingChildren, bj as isEntryScannable, bk as RootTypesForUMA, bl as maybeShowTooltip, bm as convertEntryToFileData, bn as isEntryInsideDrive, bo as isGrandRootEntryInDrives, bp as getEntry, bq as driveRootEntryListKey, br as VolumeEntry, bs as traverseAndExpandPathEntries, bt as getTrustedHTML, bu as isNewDirectoryTreeEnabled, bv as storage, bw as isSameVolume, bx as FSP_ACTION_HIDDEN_ONEDRIVE_URL, by as FSP_ACTION_HIDDEN_ONEDRIVE_USER_EMAIL, bz as FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED, bA as recordBoolean, bB as updateSelection, bC as isEncrypted, bD as refreshFolderShortcut, bE as recordSmallCount, bF as getPreferences, bG as comparePath, bH as addFolderShortcut, bI as removeFolderShortcut, bJ as Group, bK as addAndroidApps, bL as assertNotReached$1, bM as EntryList, bN as isGuestOsEnabled, bO as isArcVmEnabled, bP as isSinglePartitionFormatEnabled, bQ as getPropertyDescriptor, bR as PropertyKind, bS as assertInstanceof$1, bT as isSharedDriveEntry, bU as isComputersEntry, bV as isDescendantEntry, bW as getIconOverrides, bX as compareLabelAndGroupBottomEntries, bY as iconSetToCSSBackgroundImageValue, bZ as shouldProvideIcons, b_ as FocusOutlineManager, b$ as mouseEnterMaybeShowTooltip, c0 as getCrActionMenuTop, c1 as SEARCH_RESULTS_KEY, c2 as getVolumeType, c3 as XfCloudPanel, c4 as canBulkPinningCloudPanelShow, c5 as CloudPanelType, c6 as queryRequiredElement, c7 as isSearchEmpty, c8 as PathComponent, c9 as bytesToString, ca as recordValue, cb as PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID, cc as DEFAULT_CROSTINI_VM, cd as PLUGIN_VM$1, ce as isGoogleOneOfferFilesBannerEligibleAndEnabled, cf as getTeamDriveName, cg as getDriveQuotaMetadata, ch as getSizeStats, ci as isNullOrUndefined, cj as queryDecoratedElement, ck as getFilesAppModalDialogInstance, cl as jsSetter, cm as getFileTypeForName, cn as getKeyModifiers, co as getCurrentLocaleOrDefault, cp as isAudio, cq as getIcon, cr as secondsToRemainingTimeString, cs as PanelType, ct as getFocusedTreeItem, cu as getTreeItemEntry, cv as isRecentRoot, cw as isInteractiveVolume, cx as isTeamDrivesGrandRoot, cy as isTrashRootType, cz as isDirectoryTree, cA as isDirectoryTreeItem, cB as isTrashRoot, cC as isNonModifiable, cD as isRecentArcEntry, cE as getHoldingSpaceState, cF as getDlpRestrictionDetails, cG as getExtension, cH as isMirrorSyncEnabled, cI as DEFAULT_BRUSCHETTA_VM, cJ as addUiEntry, cK as removeUiEntry, cL as crostiniPlaceHolderKey, cM as UserCanceledError, cN as validateEntryName, cO as renameEntry, cP as readSubDirectoriesForRenamedEntry, cQ as getODFSMetadataQueryEntry, cR as updateIsInteractiveVolume, cS as getDisallowedTransfers, cT as htmlEscape, cU as isSiblingEntry, cV as grantAccess, cW as getParentEntry$1, cX as getFile, cY as updateMetadata, cZ as TaskHistory, c_ as EventType$2, c$ as getFilesData, d0 as fetchFileTasks, d1 as getMimeType, d2 as recordDirectoryListLoadWithTolerance, d3 as waitForState, d4 as getDefaultTask, d5 as getFileTasks, d6 as INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR, d7 as annotateTasks, d8 as recordTime, d9 as parseActionId, da as isFilesAppId, db as splitExtension, dc as LEGACY_FILES_EXTENSION_ID, dd as executeTask, de as isTeleported, df as makeTaskID, dg as extractFilePath, dh as USER_CANCELLED, di as createChild, dj as listMountableGuests, dk as GuestOsPlaceholder, dl as toSandboxedURL, dm as validateFileName, dn as updateDirectoryContent, dp as getLastVisitedURL, dq as getBulkPinProgress, dr as updateBulkPinProgress, ds as getEmptyState, dt as setLaunchParameters, du as runningInBrowser, dv as getDialogCaller, dw as getDlpBlockedComponents, dx as updatePreferences, dy as getDriveConnectionState, dz as updateDriveConnectionStatus, dA as updateDeviceConnectionState, dB as trashRootKey } from './shared.rollup.js';
+import { s as startInterval, r as recordEnum, i as internals, _ as __decorate$1, a as requestUpdateOnAriaChange, b as isActivationClick, d as dispatchActivationClick, m as mixinElementInternals, A as AsyncQueue, o as openWindow, R as RootType, c as assert, N as NativeEventTarget, e as RateLimiter, g as getStore, u as unwrapEntry, t as toFilesAppURL, f as urlToEntry, h as strf, j as str, v as visitURL, V as VolumeType, k as startIOTask, l as checkAPIError, n as getFileErrorString, p as isRecentRootType, q as isDriveFsBulkPinningEnabled, F as FakeEntryImpl, S as SHARED_DRIVES_DIRECTORY_NAME, C as COMPUTERS_DIRECTORY_NAME, w as assert$1, x as promisify, y as VolumeError, z as removeVolume, B as isSameFileSystem, D as isSameEntry, E as isFakeEntry, G as getRootType, H as SHARED_DRIVES_DIRECTORY_PATH, I as isTeamDriveRoot, J as COMPUTERS_DIRECTORY_PATH, K as isComputersRoot, L as getRootTypeFromVolumeType, M as getMediaViewRootTypeFromVolumeId, O as MediaViewRootType, P as timeoutPromise, Q as addVolume, T as recordInterval, U as VOLUME_ALREADY_MOUNTED, W as isInGuestMode, X as getDirectory, Y as ARCHIVE_OPENED_EVENT_TYPE, Z as Source, $ as assertNotReached, a0 as descriptorEqual, a1 as XfBase, a2 as isCrosComponentsEnabled, a3 as DialogType, a4 as isFuseBoxDebugEnabled, a5 as AllowedPaths, a6 as isNative, a7 as parseTrashInfoFiles, a8 as recordMediumCount, a9 as isFileEntry, aa as isDirectoryEntry, ab as getLocaleBasedWeekStart, ac as SearchRecency, ad as getMediaType, ae as isImage, af as isVideo, ag as isRaw, ah as isPDF, ai as getType, aj as getContentMetadata, ak as testSendMessage, al as getContentMimeType, am as isDlpEnabled, an as getDlpMetadata, ao as getEntryProperties, ap as entriesToURLs, aq as isTrashEntry$1, ar as MetadataStats, as as compareName, at as compareLabel, au as collator, av as dispatchSimpleEvent, aw as createDOMError, ax as FileErrorToDomError, ay as getDefaultSearchOptions, az as readEntriesRecursively, aA as isDriveRootType, aB as SearchLocation, aC as CROSTINI_CONNECT_ERR, aD as mountGuest, aE as LIST_CONTAINER_METADATA_PREFETCH_PROPERTY_NAMES, aF as ACTIONS_MODEL_METADATA_PREFETCH_PROPERTY_NAMES, aG as FILE_SELECTION_METADATA_PREFETCH_PROPERTY_NAMES, aH as DLP_METADATA_PREFETCH_PROPERTY_NAMES, aI as ConcurrentQueue, aJ as isType, aK as dispatchPropertyChange, aL as Aggregator, aM as PropStatus, aN as recordUserAction, aO as FileSystemType, aP as getVolumeTypeFromRootType, aQ as convertURLsToEntries, aR as isNativeEntry, aS as isOneDriveId, aT as getFileData, aU as getVolume, aV as getMyFiles, aW as changeDirectory, aX as getEntryLabel, aY as clearSearch, aZ as isGuestOs, a_ as updateSearch, a$ as crInjectTypeAndInit, b0 as boolAttrSetter, b1 as convertToKebabCase, b2 as domAttrSetter, b3 as assertInstanceof, b4 as CrButtonElement, b5 as isTreeItem$1, b6 as isXfTree$1, b7 as handleTreeSlotChange, b8 as refreshNavigationRoots, b9 as NavigationType, ba as isVolumeEntry, bb as isOneDrive, bc as isDriveRootEntryList, bd as ICON_TYPES, be as shouldSupportDriveSpecificIcons, bf as vmTypeToIconName, bg as isMyFilesEntry$1, bh as readSubDirectoriesToCheckDirectoryChildren, bi as updateFileData, bj as readSubDirectories, bk as shouldDelayLoadingChildren, bl as isEntryScannable, bm as RootTypesForUMA, bn as maybeShowTooltip, bo as convertEntryToFileData, bp as isEntryInsideDrive, bq as isGrandRootEntryInDrives, br as getEntry, bs as driveRootEntryListKey, bt as VolumeEntry, bu as traverseAndExpandPathEntries, bv as getTrustedHTML, bw as isNewDirectoryTreeEnabled, bx as storage, by as isSameVolume, bz as FSP_ACTION_HIDDEN_ONEDRIVE_URL, bA as FSP_ACTION_HIDDEN_ONEDRIVE_USER_EMAIL, bB as FSP_ACTION_HIDDEN_ONEDRIVE_REAUTHENTICATION_REQUIRED, bC as recordBoolean, bD as updateSelection, bE as isEncrypted, bF as refreshFolderShortcut, bG as recordSmallCount, bH as getPreferences, bI as comparePath, bJ as addFolderShortcut, bK as removeFolderShortcut, bL as Group, bM as addAndroidApps, bN as assertNotReached$1, bO as EntryList, bP as isGuestOsEnabled, bQ as isArcVmEnabled, bR as isSinglePartitionFormatEnabled, bS as getPropertyDescriptor, bT as PropertyKind, bU as assertInstanceof$1, bV as isSharedDriveEntry, bW as isComputersEntry, bX as isDescendantEntry, bY as getIconOverrides, bZ as compareLabelAndGroupBottomEntries, b_ as iconSetToCSSBackgroundImageValue, b$ as shouldProvideIcons, c0 as FocusOutlineManager, c1 as mouseEnterMaybeShowTooltip, c2 as getCrActionMenuTop, c3 as SEARCH_RESULTS_KEY, c4 as getVolumeType, c5 as XfCloudPanel, c6 as canBulkPinningCloudPanelShow, c7 as CloudPanelType, c8 as queryRequiredElement, c9 as isSearchEmpty, ca as PathComponent, cb as bytesToString, cc as recordValue, cd as PHOTOS_DOCUMENTS_PROVIDER_VOLUME_ID, ce as DEFAULT_CROSTINI_VM, cf as PLUGIN_VM$1, cg as isGoogleOneOfferFilesBannerEligibleAndEnabled, ch as getTeamDriveName, ci as getDriveQuotaMetadata, cj as getSizeStats, ck as isNullOrUndefined, cl as queryDecoratedElement, cm as getFilesAppModalDialogInstance, cn as jsSetter, co as getFileTypeForName, cp as getKeyModifiers, cq as getCurrentLocaleOrDefault, cr as isAudio, cs as getIcon, ct as secondsToRemainingTimeString, cu as PanelType, cv as getFocusedTreeItem, cw as getTreeItemEntry, cx as isRecentRoot, cy as isInteractiveVolume, cz as isTeamDrivesGrandRoot, cA as isTrashRootType, cB as isDirectoryTree, cC as isDirectoryTreeItem, cD as isTrashRoot, cE as isNonModifiable, cF as isRecentArcEntry, cG as getHoldingSpaceState, cH as getDlpRestrictionDetails, cI as getExtension, cJ as isMirrorSyncEnabled, cK as DEFAULT_BRUSCHETTA_VM, cL as addUiEntry, cM as removeUiEntry, cN as crostiniPlaceHolderKey, cO as UserCanceledError, cP as validateEntryName, cQ as renameEntry, cR as readSubDirectoriesForRenamedEntry, cS as getODFSMetadataQueryEntry, cT as updateIsInteractiveVolume, cU as getDisallowedTransfers, cV as htmlEscape, cW as isSiblingEntry, cX as grantAccess, cY as getParentEntry$1, cZ as getFile, c_ as updateMetadata, c$ as TaskHistory, d0 as EventType$2, d1 as getFilesData, d2 as fetchFileTasks, d3 as getMimeType, d4 as recordDirectoryListLoadWithTolerance, d5 as waitForState, d6 as getDefaultTask, d7 as getFileTasks, d8 as INSTALL_LINUX_PACKAGE_TASK_DESCRIPTOR, d9 as annotateTasks, da as recordTime, db as parseActionId, dc as isFilesAppId, dd as splitExtension, de as LEGACY_FILES_EXTENSION_ID, df as executeTask, dg as isTeleported, dh as makeTaskID, di as extractFilePath, dj as USER_CANCELLED, dk as createChild, dl as listMountableGuests, dm as GuestOsPlaceholder, dn as toSandboxedURL, dp as validateFileName, dq as updateDirectoryContent, dr as getLastVisitedURL, ds as getBulkPinProgress, dt as updateBulkPinProgress, du as getEmptyState, dv as setLaunchParameters, dw as runningInBrowser, dx as getDialogCaller, dy as getDlpBlockedComponents, dz as updatePreferences, dA as getDriveConnectionState, dB as updateDriveConnectionStatus, dC as updateDeviceConnectionState, dD as trashRootKey } from './shared.rollup.js';
 import 'chrome://file-manager/strings.m.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { isServer, property, query, html, classMap, nothing, LitElement, css, customElement, state, ifDefined, styleMap } from 'chrome://resources/mwc/lit/index.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import 'chrome://resources/js/cr.js';
 import { html as html$1, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
+import { css as css$1, html as html$2, nothing as nothing$1, CrLitElement } from 'chrome://resources/lit/v3_0/lit.rollup.js';
 
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -3937,8 +3938,9 @@ class FileManagerBase {
      * @param event Event details.
      */
     onMountCompletedInternal_(event) {
-        const statusOK = event.status === VolumeError.SUCCESS ||
-            event.status === VolumeError.PATH_ALREADY_MOUNTED;
+        const statusOK = event.status === chrome.fileManagerPrivate.MountError.SUCCESS ||
+            event.status ===
+                chrome.fileManagerPrivate.MountError.PATH_ALREADY_MOUNTED;
         const volumeTypeOK = event.volumeMetadata.volumeType === VolumeType.PROVIDED &&
             event.volumeMetadata.source === Source.FILE;
         if (event.eventType === 'mount' && statusOK &&
@@ -4269,12 +4271,9 @@ test.util.sync.overrideTasks =
             }
         };
         executedTasks = [];
-        contentWindow.chrome.fileManagerPrivate.getFileTasks =
-            getFileTasks;
-        contentWindow.chrome.fileManagerPrivate.executeTask =
-            executeTask;
-        contentWindow.chrome.fileManagerPrivate.setDefaultTask =
-            setDefaultTask;
+        contentWindow.chrome.fileManagerPrivate.getFileTasks = getFileTasks;
+        contentWindow.chrome.fileManagerPrivate.executeTask = executeTask;
+        contentWindow.chrome.fileManagerPrivate.setDefaultTask = setDefaultTask;
         return true;
     };
 /**
@@ -7669,19 +7668,15 @@ class ExternalMetadataProvider extends MetadataProvider {
             }
         }
         const properties = Array.from(nameSet);
-        return new Promise(fulfill => {
-            chrome.fileManagerPrivate.getEntryProperties(entries, properties, (results) => {
-                if (!chrome.runtime.lastError) {
-                    assert$1(results);
-                    fulfill(this.convertResults_(requests, nameSet, results));
-                }
-                else {
-                    fulfill(requests.map(() => {
-                        return new MetadataItem();
-                    }));
-                }
-            });
-        });
+        try {
+            const props = properties;
+            const results = await getEntryProperties(entries, props);
+            assert$1(results);
+            return this.convertResults_(requests, nameSet, results);
+        }
+        catch (error) {
+            return requests.map(() => new MetadataItem());
+        }
     }
     /**
      * @param nameSet A set of property names that will be used to copy the value
@@ -8317,23 +8312,6 @@ class MultiMetadataProvider extends MetadataProvider {
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * Stats collected about Metadata handling for tests.
- */
-class MetadataStats {
-    constructor() {
-        /** Total of entries fulfilled from cache. */
-        this.fromCache = 0;
-        /** Total of entries that requested to backends. */
-        this.fullFetch = 0;
-        /** Total of entries that called to invalidate. */
-        this.invalidateCount = 0;
-        /** Total of entries that called to clear. */
-        this.clearCacheCount = 0;
-        /** Total of calls to function clearAllCache. */
-        this.clearAllCount = 0;
-    }
-}
 class MetadataModel {
     constructor(rawProvider_) {
         this.rawProvider_ = rawProvider_;
@@ -15136,6 +15114,7 @@ function getCSS$4() {
       border: none;
       color: var(--cros-sys-on_surface);
       display: none;
+      font: var(--cros-body-2-font);
       height: 20px;
       margin: 0 10px;
       outline: 2px solid var(--cros-sys-focus_ring);
@@ -16657,7 +16636,7 @@ class DirectoryTreeContainer {
     }
 }
 
-function getTemplate$q() {
+function getTemplate$p() {
     return getTrustedHTML `<!--_html_template_start_--><style>
 #container > * {
   background-color: var(--cros-sys-primary);
@@ -16762,7 +16741,7 @@ class XfNudge extends HTMLElement {
          */
         this.repositions_ = 0;
         const template = document.createElement('template');
-        template.innerHTML = getTemplate$q();
+        template.innerHTML = getTemplate$p();
         const fragment = template.content.cloneNode(true);
         this.attachShadow({ mode: 'open' }).appendChild(fragment);
         this.bubble_ = this.shadowRoot.getElementById('bubble');
@@ -17504,14 +17483,11 @@ class DriveShareAction {
     }
     execute() {
         // Open the Sharing dialog in a new window.
-        chrome.fileManagerPrivate.getEntryProperties([unwrapEntry(this.entry_)], ['shareUrl'], (results) => {
-            if (chrome.runtime.lastError) {
-                console.error(chrome.runtime.lastError.message);
-                return;
-            }
+        const props = [chrome.fileManagerPrivate.EntryPropertyName.SHARE_URL];
+        getEntryProperties([this.entry_], props).then((results) => {
             if (results.length !== 1) {
-                console.warn('getEntryProperties for shareUrl should return 1 entry ' +
-                    '(returned ' + results.length + ')');
+                console.warn(`getEntryProperties for shareUrl should return 1 entry ` +
+                    `(returned ${results.length})`);
                 return;
             }
             if (results[0].shareUrl === undefined) {
@@ -17704,14 +17680,11 @@ class DriveManageAction {
         return new DriveManageAction(entries[0], volumeManager);
     }
     execute() {
-        chrome.fileManagerPrivate.getEntryProperties([unwrapEntry(this.entry_)], ['alternateUrl'], (results) => {
-            if (chrome.runtime.lastError) {
-                console.error(chrome.runtime.lastError.message);
-                return;
-            }
+        const props = [chrome.fileManagerPrivate.EntryPropertyName.ALTERNATE_URL];
+        getEntryProperties([this.entry_], props).then((results) => {
             if (results.length !== 1) {
-                console.warn('getEntryProperties for alternateUrl should return 1 entry ' +
-                    '(returned ' + results.length + ')');
+                console.warn(`getEntryProperties for alternateUrl should return 1 entry ` +
+                    `(returned ${results.length})`);
                 return;
             }
             if (results[0].alternateUrl === undefined) {
@@ -24325,17 +24298,21 @@ function focusWithoutInk(toFocus) {
     toFocusWithNoInk.noink = noink;
 }
 
-function getTemplate$p() {
-    return html$1 `<!--_html_template_start_-->    <style>:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
-            var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
-                var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
-            var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
-            var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}</style>
-    <dialog id="dialog" part="dialog" on-close="onNativeDialogClose_" role="application" aria-roledescription$="[[roleDescription]]">
-      <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label$="[[accessibilityLabel]]">
-        <slot id="contentNode" on-slotchange="onSlotchange_"></slot>
-      </div>
-    </dialog>
+function getCss() {
+    return css$1 `:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
+      var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
+          var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
+      var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
+      var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}`;
+}
+
+function getHtml() {
+    return html$2 `<!--_html_template_start_-->
+<dialog id="dialog" part="dialog" @close="${this.onNativeDialogClose_}" role="application" aria-roledescription="${this.roleDescription || nothing$1}">
+  <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label="${this.accessibilityLabel || nothing$1}">
+    <slot id="contentNode" @slotchange="${this.onSlotchange_}"></slot>
+  </div>
+</dialog>
 <!--_html_template_end_-->`;
 }
 
@@ -24401,9 +24378,11 @@ function getDefaultShowConfig() {
         maxY: 0,
     };
 }
-class CrActionMenuElement extends PolymerElement {
+class CrActionMenuElement extends CrLitElement {
     constructor() {
         super(...arguments);
+        this.autoReposition = false;
+        this.open = false;
         this.boundClose_ = null;
         this.resizeObserver_ = null;
         this.hasMousemoveListener_ = false;
@@ -24413,31 +24392,26 @@ class CrActionMenuElement extends PolymerElement {
     static get is() {
         return 'cr-action-menu';
     }
-    static get template() {
-        return getTemplate$p();
+    static get styles() {
+        return getCss();
+    }
+    render() {
+        return getHtml.bind(this)();
     }
     static get properties() {
         return {
             // Accessibility text of the menu. Should be something along the lines of
             // "actions", or "more actions".
-            accessibilityLabel: String,
+            accessibilityLabel: { type: String },
             // Setting this flag will make the menu listen for content size changes
             // and reposition to its anchor accordingly.
-            autoReposition: {
-                type: Boolean,
-                value: false,
-            },
-            open: {
-                type: Boolean,
-                notify: true,
-                value: false,
-            },
+            autoReposition: { type: Boolean },
+            open: { type: Boolean },
             // Descriptor of the menu. Should be something along the lines of "menu"
-            roleDescription: String,
+            roleDescription: { type: String },
         };
     }
-    ready() {
-        super.ready();
+    firstUpdated() {
         this.addEventListener('keydown', this.onKeyDown_.bind(this));
         this.addEventListener('mouseover', this.onMouseover_);
         this.addEventListener('click', this.onClick_);
@@ -24537,6 +24511,9 @@ class CrActionMenuElement extends PolymerElement {
         options[index].focus();
     }
     close() {
+        if (!this.open) {
+            return;
+        }
         // Removing 'resize' and 'popstate' listeners when dialog is closed.
         this.removeListeners_();
         this.$.dialog.close();
@@ -24549,6 +24526,7 @@ class CrActionMenuElement extends PolymerElement {
         if (this.lastConfig_) {
             this.lastConfig_ = null;
         }
+        this.fire_('open-changed', { value: this.open });
     }
     /**
      * Shows the menu anchored to the given element.
@@ -24637,6 +24615,7 @@ class CrActionMenuElement extends PolymerElement {
                 });
             }
         }
+        this.fire_('open-changed', { value: this.open });
     }
     resetStyle_() {
         this.$.dialog.style.left = '';

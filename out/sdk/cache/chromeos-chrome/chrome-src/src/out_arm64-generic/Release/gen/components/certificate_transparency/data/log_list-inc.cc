@@ -1,7 +1,7 @@
 // This file is auto-generated, DO NOT EDIT.
 
 // The time at which this log list was last updated.
-const base::Time kLogListTimestamp = base::Time::FromTimeT(1706619270);
+const base::Time kLogListTimestamp = base::Time::FromTimeT(1706705735);
 
 // Previous operators for presently-qualifying CT logs.
 

@@ -11,8 +11,8 @@ OS = "linux"
 sysroot = "/"
 libdir = "/usr/lib64"
 build_root = "/var/cache/portage/chromeos-base/system_api"
-platform2_root = "/var/tmp/portage/chromeos-base/system_api-0.0.1-r5628/work/system_api-0.0.1"
-libbase_ver = "1253750"
+platform2_root = "/mnt/host/source/src/platform2"
+libbase_ver = "1254430"
 enable_exceptions = false
 external_cflags = [
   "-O2",

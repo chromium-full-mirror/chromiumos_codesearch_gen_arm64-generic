@@ -403,7 +403,7 @@ class  Action {
   template <typename... Args>
   static ActionPtr New(Args&&... args) {
     return ActionPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>
@@ -549,7 +549,7 @@ class  HeartbeatServiceArgument {
   template <typename... Args>
   static HeartbeatServiceArgumentPtr New(Args&&... args) {
     return HeartbeatServiceArgumentPtr(
-        absl::in_place, std::forward<Args>(args)...);
+        std::in_place, std::forward<Args>(args)...);
   }
 
   template <typename U>

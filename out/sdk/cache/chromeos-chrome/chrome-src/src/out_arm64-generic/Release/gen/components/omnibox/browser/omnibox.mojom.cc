@@ -490,6 +490,7 @@ SuggestionGroup::SuggestionGroup()
       hide_group_a11y_label(),
       show_group_a11y_label(),
       hidden(),
+      render_type(RenderType::kDefaultVertical),
       side_type(SideType::kDefaultPrimary) {}
 
 SuggestionGroup::SuggestionGroup(
@@ -497,11 +498,13 @@ SuggestionGroup::SuggestionGroup(
     const ::std::u16string& hide_group_a11y_label_in,
     const ::std::u16string& show_group_a11y_label_in,
     bool hidden_in,
+    RenderType render_type_in,
     SideType side_type_in)
     : header(std::move(header_in)),
       hide_group_a11y_label(std::move(hide_group_a11y_label_in)),
       show_group_a11y_label(std::move(show_group_a11y_label_in)),
       hidden(std::move(hidden_in)),
+      render_type(std::move(render_type_in)),
       side_type(std::move(side_type_in)) {}
 
 SuggestionGroup::~SuggestionGroup() = default;
@@ -541,6 +544,15 @@ void SuggestionGroup::WriteIntoTrace(
       "hidden"), this->hidden,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type bool>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "render_type"), this->render_type,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type RenderType>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -2341,6 +2353,8 @@ bool StructTraits<::omnibox::mojom::SuggestionGroup::DataView, ::omnibox::mojom:
         success = false;
       if (success)
         result->hidden = input.hidden();
+      if (success && !input.ReadRenderType(&result->render_type))
+        success = false;
       if (success && !input.ReadSideType(&result->side_type))
         success = false;
   *output = std::move(result);

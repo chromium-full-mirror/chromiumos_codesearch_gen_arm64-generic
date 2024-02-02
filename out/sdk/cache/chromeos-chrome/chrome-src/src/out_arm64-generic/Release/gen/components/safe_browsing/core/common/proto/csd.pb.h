@@ -18542,8 +18542,9 @@ class ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties final :
   enum : int {
     kClientVersionFieldNumber = 1,
     kGooglePlayServicesVersionFieldNumber = 2,
-    kIsInstantAppsFieldNumber = 3,
     kUrlApiTypeFieldNumber = 4,
+    kIsInstantAppsFieldNumber = 3,
+    kIsAsyncCheckFieldNumber = 7,
   };
   // optional string client_version = 1;
   bool has_client_version() const;
@@ -18576,19 +18577,6 @@ class ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties final :
   void _internal_set_google_play_services_version(int64_t value);
   public:
 
-  // optional bool is_instant_apps = 3;
-  bool has_is_instant_apps() const;
-  private:
-  bool _internal_has_is_instant_apps() const;
-  public:
-  void clear_is_instant_apps();
-  bool is_instant_apps() const;
-  void set_is_instant_apps(bool value);
-  private:
-  bool _internal_is_instant_apps() const;
-  void _internal_set_is_instant_apps(bool value);
-  public:
-
   // optional .safe_browsing.ClientSafeBrowsingReportRequest.SafeBrowsingUrlApiType url_api_type = 4;
   bool has_url_api_type() const;
   private:
@@ -18602,6 +18590,32 @@ class ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties final :
   void _internal_set_url_api_type(::safe_browsing::ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType value);
   public:
 
+  // optional bool is_instant_apps = 3;
+  bool has_is_instant_apps() const;
+  private:
+  bool _internal_has_is_instant_apps() const;
+  public:
+  void clear_is_instant_apps();
+  bool is_instant_apps() const;
+  void set_is_instant_apps(bool value);
+  private:
+  bool _internal_is_instant_apps() const;
+  void _internal_set_is_instant_apps(bool value);
+  public:
+
+  // optional bool is_async_check = 7;
+  bool has_is_async_check() const;
+  private:
+  bool _internal_has_is_async_check() const;
+  public:
+  void clear_is_async_check();
+  bool is_async_check() const;
+  void set_is_async_check(bool value);
+  private:
+  bool _internal_is_async_check() const;
+  void _internal_set_is_async_check(bool value);
+  public:
+
   // @@protoc_insertion_point(class_scope:safe_browsing.ClientSafeBrowsingReportRequest.SafeBrowsingClientProperties)
  private:
   class _Internal;
@@ -18613,8 +18627,9 @@ class ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties final :
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr client_version_;
   int64_t google_play_services_version_;
-  bool is_instant_apps_;
   int url_api_type_;
+  bool is_instant_apps_;
+  bool is_async_check_;
   friend struct ::TableStruct_components_2fsafe_5fbrowsing_2fcore_2fcommon_2fproto_2fcsd_2eproto;
 };
 // -------------------------------------------------------------------
@@ -45000,7 +45015,7 @@ inline void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::set_go
 
 // optional bool is_instant_apps = 3;
 inline bool ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::_internal_has_is_instant_apps() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
+  bool value = (_has_bits_[0] & 0x00000008u) != 0;
   return value;
 }
 inline bool ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::has_is_instant_apps() const {
@@ -45008,7 +45023,7 @@ inline bool ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::has_is
 }
 inline void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::clear_is_instant_apps() {
   is_instant_apps_ = false;
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline bool ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::_internal_is_instant_apps() const {
   return is_instant_apps_;
@@ -45018,7 +45033,7 @@ inline bool ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::is_ins
   return _internal_is_instant_apps();
 }
 inline void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::_internal_set_is_instant_apps(bool value) {
-  _has_bits_[0] |= 0x00000004u;
+  _has_bits_[0] |= 0x00000008u;
   is_instant_apps_ = value;
 }
 inline void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::set_is_instant_apps(bool value) {
@@ -45028,7 +45043,7 @@ inline void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::set_is
 
 // optional .safe_browsing.ClientSafeBrowsingReportRequest.SafeBrowsingUrlApiType url_api_type = 4;
 inline bool ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::_internal_has_url_api_type() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
+  bool value = (_has_bits_[0] & 0x00000004u) != 0;
   return value;
 }
 inline bool ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::has_url_api_type() const {
@@ -45036,7 +45051,7 @@ inline bool ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::has_ur
 }
 inline void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::clear_url_api_type() {
   url_api_type_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000004u;
 }
 inline ::safe_browsing::ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::_internal_url_api_type() const {
   return static_cast< ::safe_browsing::ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType >(url_api_type_);
@@ -45047,12 +45062,40 @@ inline ::safe_browsing::ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType C
 }
 inline void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::_internal_set_url_api_type(::safe_browsing::ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType value) {
   assert(::safe_browsing::ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType_IsValid(value));
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000004u;
   url_api_type_ = value;
 }
 inline void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::set_url_api_type(::safe_browsing::ClientSafeBrowsingReportRequest_SafeBrowsingUrlApiType value) {
   _internal_set_url_api_type(value);
   // @@protoc_insertion_point(field_set:safe_browsing.ClientSafeBrowsingReportRequest.SafeBrowsingClientProperties.url_api_type)
+}
+
+// optional bool is_async_check = 7;
+inline bool ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::_internal_has_is_async_check() const {
+  bool value = (_has_bits_[0] & 0x00000010u) != 0;
+  return value;
+}
+inline bool ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::has_is_async_check() const {
+  return _internal_has_is_async_check();
+}
+inline void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::clear_is_async_check() {
+  is_async_check_ = false;
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline bool ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::_internal_is_async_check() const {
+  return is_async_check_;
+}
+inline bool ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::is_async_check() const {
+  // @@protoc_insertion_point(field_get:safe_browsing.ClientSafeBrowsingReportRequest.SafeBrowsingClientProperties.is_async_check)
+  return _internal_is_async_check();
+}
+inline void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::_internal_set_is_async_check(bool value) {
+  _has_bits_[0] |= 0x00000010u;
+  is_async_check_ = value;
+}
+inline void ClientSafeBrowsingReportRequest_SafeBrowsingClientProperties::set_is_async_check(bool value) {
+  _internal_set_is_async_check(value);
+  // @@protoc_insertion_point(field_set:safe_browsing.ClientSafeBrowsingReportRequest.SafeBrowsingClientProperties.is_async_check)
 }
 
 // -------------------------------------------------------------------
