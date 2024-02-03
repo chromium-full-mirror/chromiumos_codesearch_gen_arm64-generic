@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r400/work/secagentd-0.0.1/platform2 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/secagentd-0.0.1-r401/work/secagentd-0.0.1/platform2 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 

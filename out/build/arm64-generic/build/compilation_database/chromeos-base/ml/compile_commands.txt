@@ -1,0 +1,11 @@
+compile_commands_*.json are compilation databases for chromeos-base/ml. The
+files can be used by tools that support the commonly used JSON compilation
+database format.
+
+To use the compilation database with an IDE or other tools outside of the
+chroot create a symlink named 'compile_commands.json' in the ml source
+directory (outside of the chroot) to compile_commands_no_chroot.json. Also
+make sure that you have libc++ installed:
+
+	$ sudo apt-get install libc++-dev
+

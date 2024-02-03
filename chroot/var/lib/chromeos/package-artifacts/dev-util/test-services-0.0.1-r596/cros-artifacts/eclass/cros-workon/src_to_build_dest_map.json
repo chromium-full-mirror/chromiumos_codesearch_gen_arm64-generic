@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/../platform/dev",
+      "build_dest_path": "/var/tmp/portage/dev-util/test-services-0.0.1-r596/work/test-services-0.0.1"
+    }
+  ]
+}
