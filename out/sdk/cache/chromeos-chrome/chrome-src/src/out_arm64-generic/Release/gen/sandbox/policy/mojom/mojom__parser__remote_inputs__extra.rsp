@@ -22,6 +22,6 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/sandbox/p
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/sandbox/policy/mojom/mojom__parser.rsp
 home/chrome-bot/chrome_root/src/sandbox/policy/mojom/context.mojom
 home/chrome-bot/chrome_root/src/sandbox/policy/mojom/sandbox.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/sandbox/policy/mojom/mojom.build_metadata
 home/chrome-bot/chrome_root/src/sandbox/policy/mojom/context.mojom
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/sandbox/policy/mojom/mojom.build_metadata
 home/chrome-bot/chrome_root/src/sandbox/policy/mojom/sandbox.mojom
