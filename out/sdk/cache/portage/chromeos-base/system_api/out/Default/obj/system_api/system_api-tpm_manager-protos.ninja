@@ -1,0 +1,15 @@
+defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
+include_dirs = -Igen/include/tpm_manager/proto_bindings -Igen/include -I../../../../../../tmp/portage/chromeos-base/system_api-0.0.1-r5632/work/system_api-0.0.1 -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIC -fvisibility=default
+cflags_cc = -Wno-unreachable-code -Wno-deprecated-declarations -std=gnu++20 -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
+root_out_dir = .
+target_output_name = libsystem_api-tpm_manager-protos
+
+build obj/gen/include/tpm_manager/proto_bindings/libsystem_api-tpm_manager-protos.tpm_manager.pb.o: cxx gen/include/tpm_manager/proto_bindings/tpm_manager.pb.cc || obj/system_api/system_api-tpm_manager-protos_gen.stamp
+  source_file_part = tpm_manager.pb.cc
+  source_name_part = tpm_manager.pb
+
+build ./libsystem_api-tpm_manager-protos.a: alink obj/gen/include/tpm_manager/proto_bindings/libsystem_api-tpm_manager-protos.tpm_manager.pb.o || obj/system_api/system_api-tpm_manager-protos_gen.stamp
+  arflags = rcs
+  output_extension = .a
+  output_dir = 

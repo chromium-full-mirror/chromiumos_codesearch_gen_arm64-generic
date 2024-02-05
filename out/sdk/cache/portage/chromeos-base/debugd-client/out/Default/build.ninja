@@ -1,0 +1,44 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2632/work/debugd-client-0.0.1 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _libdebugd-client-test.pc-install_config: phony obj/debugd/client/_libdebugd-client-test.pc-install_config.stamp
+build _libdebugd-client.pc-install_config: phony obj/debugd/client/_libdebugd-client.pc-install_config.stamp
+build libdebugd-client-headers: phony obj/debugd/client/libdebugd-client-headers.stamp
+build libdebugd-client-test.pc: phony obj/debugd/client/libdebugd-client-test.pc.stamp
+build libdebugd-client.pc: phony obj/debugd/client/libdebugd-client.pc.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build debugd/client$:_libdebugd-client-test.pc-install_config: phony obj/debugd/client/_libdebugd-client-test.pc-install_config.stamp
+build debugd/client$:_libdebugd-client.pc-install_config: phony obj/debugd/client/_libdebugd-client.pc-install_config.stamp
+build debugd/client$:all: phony obj/debugd/client/all.stamp
+build debugd/client$:libdebugd-client-headers: phony obj/debugd/client/libdebugd-client-headers.stamp
+build debugd/client$:libdebugd-client-test.pc: phony obj/debugd/client/libdebugd-client-test.pc.stamp
+build debugd/client$:libdebugd-client.pc: phony obj/debugd/client/libdebugd-client.pc.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    obj/debugd/client/_libdebugd-client-test.pc-install_config.stamp $
+    obj/debugd/client/_libdebugd-client.pc-install_config.stamp $
+    obj/debugd/client/all.stamp $
+    obj/debugd/client/libdebugd-client-headers.stamp $
+    obj/debugd/client/libdebugd-client-test.pc.stamp $
+    obj/debugd/client/libdebugd-client.pc.stamp
+
+default all

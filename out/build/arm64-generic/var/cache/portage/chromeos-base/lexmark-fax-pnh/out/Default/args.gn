@@ -13,7 +13,7 @@ libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/lexmark-fax-pnh"
 platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/lexmark-fax-pnh-0.0.1-r375/work/lexmark-fax-pnh-0.0.1/platform2"
-libbase_ver = "1254430"
+libbase_ver = "1255387"
 enable_exceptions = false
 external_cflags = [
   "-Os",

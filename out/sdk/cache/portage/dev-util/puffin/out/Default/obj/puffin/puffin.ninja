@@ -1,0 +1,21 @@
+defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_BRILLO
+include_dirs = -Igen/include -I../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2 -I../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2/puffin/src/include -Igen
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIE -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/perfetto -I/usr/include/nss -I/usr/include/nspr -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include -I/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -Wextra -I/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/usr/include/glib-2.0 -I/usr/lib64/glib-2.0/include -I/usr/include/perfetto -I/usr/include/nss -I/usr/include/nspr -I/usr/include/dbus-1.0 -I/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
+cflags_cc = -std=gnu++20 -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -Wnon-virtual-dtor
+root_out_dir = .
+target_output_name = puffin
+
+build obj/puffin/src/puffin.extent_stream.o: cxx ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2/puffin/src/extent_stream.cc || obj/puffin/libpuffin-proto_gen.stamp
+  source_file_part = extent_stream.cc
+  source_name_part = extent_stream
+build obj/puffin/src/puffin.main.o: cxx ../../../../../../tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2/puffin/src/main.cc || obj/puffin/libpuffin-proto_gen.stamp
+  source_file_part = main.cc
+  source_name_part = main
+
+build ./puffin: link obj/puffin/src/puffin.extent_stream.o obj/puffin/src/puffin.main.o ./libpuffdiff.a ./libpuffpatch.a
+  ldflags = -Wl,-O2 -Wl,--as-needed -Wl,-O2 -Wl,--as-needed -Wl,-z,relro -Wl,-z,noexecstack -Wl,-z,now -Wl,--as-needed -pie -L/usr/lib
+  libs = -lbrillo -lbase -lpthread -lprotobuf-lite -labsl_log_internal_check_op -labsl_log_internal_nullguard -labsl_log_severity -labsl_strings -labsl_string_view -labsl_base -lrt -labsl_raw_logging_internal -labsl_spinlock_wait -labsl_throw_delegate -labsl_strings_internal -labsl_int128 -labsl_log_internal_message -labsl_examine_stack -labsl_stacktrace -labsl_debugging_internal -labsl_symbolize -labsl_demangle_internal -labsl_malloc_internal -labsl_log_internal_format -labsl_log_internal_globals -labsl_time -labsl_civil_time -labsl_time_zone -labsl_str_format_internal -labsl_log_internal_proto -labsl_log_internal_log_sink_set -labsl_log_globals -labsl_hash -labsl_city -labsl_bad_optional_access -labsl_bad_variant_access -labsl_low_level_hash -labsl_log_entry -labsl_log_sink -labsl_synchronization -labsl_graphcycles_internal -labsl_kernel_timeout_internal -labsl_strerror -labsl_log_internal_conditions -labsl_cord -labsl_cord_internal -labsl_crc_cord_state -labsl_crc32c -labsl_crc_cpu_detect -labsl_crc_internal -labsl_cordz_functions -labsl_exponential_biased -labsl_cordz_info -labsl_cordz_handle -labsl_leak_check -labsl_die_if_null -labsl_flags -labsl_flags_commandlineflag -labsl_flags_commandlineflag_internal -labsl_flags_config -labsl_flags_program_name -labsl_flags_internal -labsl_flags_marshalling -labsl_flags_reflection -labsl_flags_private_handle_accessor -labsl_raw_hash_set -labsl_hashtablez_sampler -labsl_log_initialize -labsl_status -labsl_statusor -lutf8_validity -lutf8_range -lbsdiff -lbz2 -lbrotlienc -ldivsufsort -ldivsufsort64 -lbspatch -lbrotlidec
+  frameworks =
+  swiftmodules =
+  output_extension = 
+  output_dir = .

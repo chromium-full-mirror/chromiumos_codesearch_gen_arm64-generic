@@ -1,0 +1,70 @@
+ninja_required_version = 1.7.2
+
+rule gn
+  command = ../../../../../../../usr/bin/gn --root=../../../../../../tmp/portage/chromeos-base/imageloader-0.0.1-r1983/work/imageloader-0.0.1 -q --regeneration gen .
+  pool = console
+  description = Regenerating ninja files
+
+# The 'gn' rule also writes build.ninja, unbeknownst to ninja. The
+# build.ninja edge is separate to prevent ninja from deleting it
+# (due to depfile usage) if interrupted. gn uses atomic writes to
+# ensure that build.ninja is always valid even if interrupted.
+build build.ninja.stamp: gn
+  generator = 1
+  depfile = build.ninja.d
+
+build build.ninja: phony build.ninja.stamp
+  generator = 1
+
+subninja toolchain.ninja
+
+build _imageloader-install_config: phony obj/imageloader/_imageloader-install_config.stamp
+build _libimageloader-manifest-install_config: phony obj/imageloader/_libimageloader-manifest-install_config.stamp
+build imageloader-adaptors: phony obj/imageloader/imageloader-adaptors.stamp
+build install_dbus_config: phony obj/imageloader/install_dbus_config.stamp
+build install_dbus_service: phony obj/imageloader/install_dbus_service.stamp
+build install_header: phony obj/imageloader/install_header.stamp
+build install_init: phony obj/imageloader/install_init.stamp
+build install_pkgconfig: phony obj/imageloader/install_pkgconfig.stamp
+build install_seccomp_policy: phony obj/imageloader/install_seccomp_policy.stamp
+build libimageloader-manifest: phony ./lib/libimageloader-manifest.so
+build libimageloader_static: phony ./libimageloader_static.a
+build protos: phony ./libprotos.a
+build protos_gen: phony obj/imageloader/protos_gen.stamp
+build root: phony obj/common-mk/gn_root/root.stamp
+build common-mk/gn_root$:root: phony obj/common-mk/gn_root/root.stamp
+build imageloader$:_imageloader-install_config: phony obj/imageloader/_imageloader-install_config.stamp
+build imageloader$:_libimageloader-manifest-install_config: phony obj/imageloader/_libimageloader-manifest-install_config.stamp
+build imageloader$:all: phony obj/imageloader/all.stamp
+build imageloader$:imageloader: phony ./imageloader
+build imageloader$:imageloader-adaptors: phony obj/imageloader/imageloader-adaptors.stamp
+build imageloader$:install_dbus_config: phony obj/imageloader/install_dbus_config.stamp
+build imageloader$:install_dbus_service: phony obj/imageloader/install_dbus_service.stamp
+build imageloader$:install_header: phony obj/imageloader/install_header.stamp
+build imageloader$:install_init: phony obj/imageloader/install_init.stamp
+build imageloader$:install_pkgconfig: phony obj/imageloader/install_pkgconfig.stamp
+build imageloader$:install_seccomp_policy: phony obj/imageloader/install_seccomp_policy.stamp
+build imageloader$:libimageloader-manifest: phony ./lib/libimageloader-manifest.so
+build imageloader$:libimageloader_static: phony ./libimageloader_static.a
+build imageloader$:protos: phony ./libprotos.a
+build imageloader$:protos_gen: phony obj/imageloader/protos_gen.stamp
+
+build all: phony $
+    obj/common-mk/gn_root/root.stamp $
+    obj/imageloader/_imageloader-install_config.stamp $
+    obj/imageloader/_libimageloader-manifest-install_config.stamp $
+    obj/imageloader/all.stamp $
+    ./imageloader $
+    obj/imageloader/imageloader-adaptors.stamp $
+    obj/imageloader/install_dbus_config.stamp $
+    obj/imageloader/install_dbus_service.stamp $
+    obj/imageloader/install_header.stamp $
+    obj/imageloader/install_init.stamp $
+    obj/imageloader/install_pkgconfig.stamp $
+    obj/imageloader/install_seccomp_policy.stamp $
+    ./lib/libimageloader-manifest.so $
+    ./libimageloader_static.a $
+    ./libprotos.a $
+    obj/imageloader/protos_gen.stamp
+
+default all

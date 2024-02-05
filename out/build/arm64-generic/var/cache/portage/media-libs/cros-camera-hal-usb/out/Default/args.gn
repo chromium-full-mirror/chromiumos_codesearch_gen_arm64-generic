@@ -13,7 +13,7 @@ libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/media-libs/cros-camera-hal-usb"
 platform2_root = "/build/arm64-generic/tmp/portage/media-libs/cros-camera-hal-usb-0.0.1-r1687/work/cros-camera-hal-usb-0.0.1"
-libbase_ver = "1254430"
+libbase_ver = "1255387"
 enable_exceptions = false
 external_cflags = [
   "-Os",

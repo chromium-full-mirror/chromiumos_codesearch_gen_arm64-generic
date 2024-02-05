@@ -39,7 +39,7 @@ rule __camera_hal_adapter__install_cros_camera_policy-check_seccomp___common-mk_
   description = ACTION //camera/hal_adapter:_install_cros_camera_policy-check_seccomp(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/camera/hal_adapter/seccomp/cros-camera-arm64.bpf: __camera_hal_adapter__install_cros_camera_policy-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1967/work/cros-camera-0.0.1/camera/hal_adapter/seccomp_filter/cros-camera-arm64.policy | ../../../../../../../../../usr/bin/compile_seccomp_policy ../../../../../../../build/share/constants.json
+build gen/camera/hal_adapter/seccomp/cros-camera-arm64.bpf: __camera_hal_adapter__install_cros_camera_policy-check_seccomp___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/cros-camera-0.0.1-r1968/work/cros-camera-0.0.1/camera/hal_adapter/seccomp_filter/cros-camera-arm64.policy | ../../../../../../../../../usr/bin/compile_seccomp_policy ../../../../../../../build/share/constants.json
   source_name_part = cros-camera-arm64
 
 build obj/camera/hal_adapter/_install_cros_camera_policy-check_seccomp.stamp: stamp gen/camera/hal_adapter/seccomp/cros-camera-arm64.bpf

@@ -12,7 +12,7 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root = "/build/arm64-generic/var/cache/portage/media-libs/cros-camera-document-scanning-test"
 platform2_root = "/build/arm64-generic/tmp/portage/media-libs/cros-camera-document-scanning-test-0.0.1-r309/work/cros-camera-document-scanning-test-0.0.1"
-libbase_ver = "1254430"
+libbase_ver = "1255387"
 enable_exceptions = false
 external_cflags = [
   "-Os",

@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "dev-rust", "name": "minijail", "version": "0.2.3", "revision": 28, "fullname": "dev-rust/minijail", "fullnamerev": "dev-rust/minijail-0.2.3-r28", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://google.github.io/minijail"], "skip": false, "tainted": false, "ebuild_path": null}
