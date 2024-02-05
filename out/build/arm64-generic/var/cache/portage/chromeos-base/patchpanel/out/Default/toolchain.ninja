@@ -44,42 +44,42 @@ build obj/patchpanel/install_setuid_restriction.stamp: stamp
 subninja obj/patchpanel/libpatchpanel.ninja
 subninja obj/patchpanel/libpatchpanel-util.ninja
 rule __patchpanel_patchpanel_dbus_adaptors___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/include/patchpanel/dbus_adaptors/${source_name_part}.h -service-config=/mnt/host/source/src/platform2/patchpanel/dbus_bindings/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1350/work/patchpanel-0.0.2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/include/patchpanel/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/patchpanel-0.0.2-r1350/work/patchpanel-0.0.2/patchpanel/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //patchpanel:patchpanel_dbus_adaptors(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/patchpanel/dbus_adaptors/org.chromium.patchpanel.h: __patchpanel_patchpanel_dbus_adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/patchpanel/dbus_bindings/org.chromium.patchpanel.xml | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py
+build gen/include/patchpanel/dbus_adaptors/org.chromium.patchpanel.h: __patchpanel_patchpanel_dbus_adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1350/work/patchpanel-0.0.2/patchpanel/dbus_bindings/org.chromium.patchpanel.xml | ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1350/work/patchpanel-0.0.2/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.patchpanel
 
 build obj/patchpanel/patchpanel_dbus_adaptors.stamp: stamp gen/include/patchpanel/dbus_adaptors/org.chromium.patchpanel.h
 subninja obj/patchpanel/patchpanel_ipc_protos.ninja
 rule __patchpanel_patchpanel_ipc_protos_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py protoc ipc.proto --proto_path /mnt/host/source/src/platform2/patchpanel --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/include/patchpanel
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1350/work/patchpanel-0.0.2/common-mk/file_generator_wrapper.py protoc ipc.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/patchpanel-0.0.2-r1350/work/patchpanel-0.0.2/patchpanel --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/include/patchpanel
   description = ACTION //patchpanel:patchpanel_ipc_protos_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/patchpanel/ipc.pb.cc gen/include/patchpanel/ipc.pb.h: __patchpanel_patchpanel_ipc_protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../../../mnt/host/source/src/platform2/patchpanel/ipc.proto
+build gen/include/patchpanel/ipc.pb.cc gen/include/patchpanel/ipc.pb.h: __patchpanel_patchpanel_ipc_protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1350/work/patchpanel-0.0.2/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1350/work/patchpanel-0.0.2/patchpanel/ipc.proto
 
 build obj/patchpanel/patchpanel_ipc_protos_gen.stamp: stamp gen/include/patchpanel/ipc.pb.cc gen/include/patchpanel/ipc.pb.h
 subninja obj/patchpanel/patchpaneld.ninja
 subninja obj/patchpanel/util_sources.ninja
 build obj/patchpanel/bpf/_patchpanel_bpf_loader-install_config.stamp: stamp
 rule __patchpanel_bpf_ebpf_webrtc_detection___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-ebpf.py compile_bpf --out-obj=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/bpf/${source_name_part}.o --source=${in} --arch=arm64 --sysroot=/build/arm64-generic --include /mnt/host/source/src/platform2 /build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen --defines USE_MIN_CORE_BTF=1 --out-min-btf=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/bpf/${source_name_part}.min.btf --vmlinux-btf=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/bpf/vmlinux.full.btf
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1350/work/patchpanel-0.0.2/common-mk/generate-ebpf.py compile_bpf --out-obj=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/bpf/${source_name_part}.o --source=${in} --arch=arm64 --sysroot=/build/arm64-generic --include /build/arm64-generic/tmp/portage/chromeos-base/patchpanel-0.0.2-r1350/work/patchpanel-0.0.2 /build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen --defines USE_MIN_CORE_BTF=1 --out-min-btf=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/bpf/${source_name_part}.min.btf --vmlinux-btf=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/bpf/vmlinux.full.btf
   description = ACTION //patchpanel/bpf:ebpf_webrtc_detection(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/bpf/webrtc_detection.o gen/bpf/webrtc_detection.min.btf: __patchpanel_bpf_ebpf_webrtc_detection___common-mk_toolchain_toolchain__rule ../../../../../../../../../mnt/host/source/src/platform2/patchpanel/bpf/webrtc_detection.c | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-ebpf.py obj/patchpanel/bpf/vmlinux_h.stamp
+build gen/bpf/webrtc_detection.o gen/bpf/webrtc_detection.min.btf: __patchpanel_bpf_ebpf_webrtc_detection___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1350/work/patchpanel-0.0.2/patchpanel/bpf/webrtc_detection.c | ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1350/work/patchpanel-0.0.2/common-mk/generate-ebpf.py obj/patchpanel/bpf/vmlinux_h.stamp
   source_name_part = webrtc_detection
 
 build obj/patchpanel/bpf/ebpf_webrtc_detection.stamp: stamp gen/bpf/webrtc_detection.o gen/bpf/webrtc_detection.min.btf
 subninja obj/patchpanel/bpf/patchpanel_bpf_loader.ninja
 build obj/patchpanel/bpf/patchpanel_ebpf.stamp: stamp obj/patchpanel/bpf/ebpf_webrtc_detection.stamp ./patchpanel_bpf_loader
 rule __patchpanel_bpf_vmlinux_h___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-ebpf.py gen_vmlinux --sysroot=/build/arm64-generic --out-header=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/include/patchpanel/vmlinux/vmlinux.h --out-btf=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/bpf/vmlinux.full.btf
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1350/work/patchpanel-0.0.2/common-mk/generate-ebpf.py gen_vmlinux --sysroot=/build/arm64-generic --out-header=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/include/patchpanel/vmlinux/vmlinux.h --out-btf=/build/arm64-generic/var/cache/portage/chromeos-base/patchpanel/out/Default/gen/bpf/vmlinux.full.btf
   description = ACTION //patchpanel/bpf:vmlinux_h(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/patchpanel/vmlinux/vmlinux.h: __patchpanel_bpf_vmlinux_h___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/generate-ebpf.py
+build gen/include/patchpanel/vmlinux/vmlinux.h: __patchpanel_bpf_vmlinux_h___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1350/work/patchpanel-0.0.2/common-mk/generate-ebpf.py
 
 build obj/patchpanel/bpf/vmlinux_h.stamp: stamp gen/include/patchpanel/vmlinux/vmlinux.h

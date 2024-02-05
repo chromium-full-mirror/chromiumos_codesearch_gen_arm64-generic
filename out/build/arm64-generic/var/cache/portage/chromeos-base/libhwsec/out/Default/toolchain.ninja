@@ -38,7 +38,7 @@ build obj/libhwsec/_libhwsec-install_config.stamp: stamp
 build obj/libhwsec/_libhwsec_client-install_config.stamp: stamp
 build obj/libhwsec/all.stamp: stamp obj/libhwsec/install_error_h.stamp obj/libhwsec/install_headers.stamp obj/libhwsec/install_headers_overalls.stamp obj/libhwsec/install_headers_structures.stamp ./lib/libhwsec.so ./libhwsec_client
 subninja obj/libhwsec/error_library.ninja
-build gen/python/flatbuffer_cpp_binding_generator.py: copy ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec-foundation/flatbuffers/flatbuffer_cpp_binding_generator.py || obj/libhwsec/python-flatbuffers-reflection.stamp
+build gen/python/flatbuffer_cpp_binding_generator.py: copy ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/libhwsec-foundation/flatbuffers/flatbuffer_cpp_binding_generator.py || obj/libhwsec/python-flatbuffers-reflection.stamp
 
 build obj/libhwsec/flatbuffers-binding-generator.stamp: stamp gen/python/flatbuffer_cpp_binding_generator.py
 subninja obj/libhwsec/hardware_abstraction_external_library.ninja
@@ -55,40 +55,40 @@ subninja obj/libhwsec/libhwsec.ninja
 subninja obj/libhwsec/libhwsec_client.ninja
 subninja obj/libhwsec/oobe_config_encrypted_data_proto.ninja
 rule __libhwsec_oobe_config_encrypted_data_proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py protoc frontend/oobe_config/encrypted_data.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/libhwsec/out/Default/gen/include/libhwsec/
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py protoc frontend/oobe_config/encrypted_data.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/libhwsec --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/libhwsec/out/Default/gen/include/libhwsec/
   description = ACTION //libhwsec:oobe_config_encrypted_data_proto_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/libhwsec/frontend/oobe_config/encrypted_data.pb.cc gen/include/libhwsec/frontend/oobe_config/encrypted_data.pb.h: __libhwsec_oobe_config_encrypted_data_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/frontend/oobe_config/encrypted_data.proto
+build gen/include/libhwsec/frontend/oobe_config/encrypted_data.pb.cc gen/include/libhwsec/frontend/oobe_config/encrypted_data.pb.h: __libhwsec_oobe_config_encrypted_data_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/libhwsec/frontend/oobe_config/encrypted_data.proto
 
 build obj/libhwsec/oobe_config_encrypted_data_proto_gen.stamp: stamp gen/include/libhwsec/frontend/oobe_config/encrypted_data.pb.cc gen/include/libhwsec/frontend/oobe_config/encrypted_data.pb.h
 subninja obj/libhwsec/overalls_library.ninja
 subninja obj/libhwsec/pinweaver_manager_proto.ninja
 rule __libhwsec_pinweaver_manager_proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py protoc pinweaver_leaf_label_data.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/pinweaver_manager --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/libhwsec/out/Default/gen/include/libhwsec
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py protoc pinweaver_leaf_label_data.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/libhwsec/backend/pinweaver_manager --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/libhwsec/out/Default/gen/include/libhwsec
   description = ACTION //libhwsec:pinweaver_manager_proto_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/libhwsec/pinweaver_leaf_label_data.pb.cc gen/include/libhwsec/pinweaver_leaf_label_data.pb.h: __libhwsec_pinweaver_manager_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/backend/pinweaver_manager/pinweaver_leaf_label_data.proto
+build gen/include/libhwsec/pinweaver_leaf_label_data.pb.cc gen/include/libhwsec/pinweaver_leaf_label_data.pb.h: __libhwsec_pinweaver_manager_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/libhwsec/backend/pinweaver_manager/pinweaver_leaf_label_data.proto
 
 build obj/libhwsec/pinweaver_manager_proto_gen.stamp: stamp gen/include/libhwsec/pinweaver_leaf_label_data.pb.cc gen/include/libhwsec/pinweaver_leaf_label_data.pb.h
 subninja obj/libhwsec/python-flatbuffers-reflection.ninja
 rule __libhwsec_python-flatbuffers-reflection_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py flatc --python -o /build/arm64-generic/var/cache/portage/chromeos-base/libhwsec/out/Default/gen/python -I ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/ ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py flatc --python -o /build/arm64-generic/var/cache/portage/chromeos-base/libhwsec/out/Default/gen/python -I ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/ ${in}
   description = ACTION //libhwsec:python-flatbuffers-reflection_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/python/reflection_generated.h: __libhwsec_python-flatbuffers-reflection_gen___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/include/flatbuffers/reflection.fbs | ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py
+build gen/python/reflection_generated.h: __libhwsec_python-flatbuffers-reflection_gen___common-mk_toolchain_toolchain__rule /build/arm64-generic/usr/include/flatbuffers/reflection.fbs | ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py
 
 build obj/libhwsec/python-flatbuffers-reflection_gen.stamp: stamp gen/python/reflection_generated.h
 subninja obj/libhwsec/signature-sealed-data-flatbuffers.ninja
 subninja obj/libhwsec/signature-sealed-data-flatbuffers-binding-binary.ninja
 rule __libhwsec_signature-sealed-data-flatbuffers-binding-binary_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py flatc --binary --schema -o /build/arm64-generic/var/cache/portage/chromeos-base/libhwsec/out/Default/gen/bfbs -I ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/ ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py flatc --binary --schema -o /build/arm64-generic/var/cache/portage/chromeos-base/libhwsec/out/Default/gen/bfbs -I ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/ ${in}
   description = ACTION //libhwsec:signature-sealed-data-flatbuffers-binding-binary_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/bfbs/signature_sealed_data_generated.h: __libhwsec_signature-sealed-data-flatbuffers-binding-binary_gen___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/structures/signature_sealed_data.fbs | ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py
+build gen/bfbs/signature_sealed_data_generated.h: __libhwsec_signature-sealed-data-flatbuffers-binding-binary_gen___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/libhwsec/structures/signature_sealed_data.fbs | ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py
 
 build obj/libhwsec/signature-sealed-data-flatbuffers-binding-binary_gen.stamp: stamp gen/bfbs/signature_sealed_data_generated.h
 rule __libhwsec_signature-sealed-data-flatbuffers-binding-generate___common-mk_toolchain_toolchain__rule
@@ -96,14 +96,14 @@ rule __libhwsec_signature-sealed-data-flatbuffers-binding-generate___common-mk_t
   description = ACTION //libhwsec:signature-sealed-data-flatbuffers-binding-generate(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/libhwsec/structures/signature_sealed_data.h gen/include/libhwsec/structures/signature_sealed_data_flatbuffer.h gen/include/libhwsec/structures/signature_sealed_data.cc gen/include/libhwsec/structures/signature_sealed_data_test_utils.h: __libhwsec_signature-sealed-data-flatbuffers-binding-generate___common-mk_toolchain_toolchain__rule | gen/python/flatbuffer_cpp_binding_generator.py ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/structures/signature_sealed_data.fbs obj/libhwsec/flatbuffers-binding-generator.stamp obj/libhwsec/signature-sealed-data-flatbuffers.stamp obj/libhwsec/signature-sealed-data-flatbuffers-binding-binary.stamp
+build gen/include/libhwsec/structures/signature_sealed_data.h gen/include/libhwsec/structures/signature_sealed_data_flatbuffer.h gen/include/libhwsec/structures/signature_sealed_data.cc gen/include/libhwsec/structures/signature_sealed_data_test_utils.h: __libhwsec_signature-sealed-data-flatbuffers-binding-generate___common-mk_toolchain_toolchain__rule | gen/python/flatbuffer_cpp_binding_generator.py ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/libhwsec/structures/signature_sealed_data.fbs obj/libhwsec/flatbuffers-binding-generator.stamp obj/libhwsec/signature-sealed-data-flatbuffers.stamp obj/libhwsec/signature-sealed-data-flatbuffers-binding-binary.stamp
 
 build obj/libhwsec/signature-sealed-data-flatbuffers-binding-generate.stamp: stamp gen/include/libhwsec/structures/signature_sealed_data.h gen/include/libhwsec/structures/signature_sealed_data_flatbuffer.h gen/include/libhwsec/structures/signature_sealed_data.cc gen/include/libhwsec/structures/signature_sealed_data_test_utils.h
 rule __libhwsec_signature-sealed-data-flatbuffers_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py flatc --cpp --keep-prefix --scoped-enums -o /build/arm64-generic/var/cache/portage/chromeos-base/libhwsec/out/Default/gen/include/libhwsec/structures -I ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/ ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py flatc --cpp --keep-prefix --scoped-enums -o /build/arm64-generic/var/cache/portage/chromeos-base/libhwsec/out/Default/gen/include/libhwsec/structures -I ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/ ${in}
   description = ACTION //libhwsec:signature-sealed-data-flatbuffers_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/libhwsec/structures/signature_sealed_data_generated.h: __libhwsec_signature-sealed-data-flatbuffers_gen___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/libhwsec/structures/signature_sealed_data.fbs | ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1065/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py
+build gen/include/libhwsec/structures/signature_sealed_data_generated.h: __libhwsec_signature-sealed-data-flatbuffers_gen___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/libhwsec/structures/signature_sealed_data.fbs | ../../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1066/work/libhwsec-0.0.1/common-mk/file_generator_wrapper.py
 
 build obj/libhwsec/signature-sealed-data-flatbuffers_gen.stamp: stamp gen/include/libhwsec/structures/signature_sealed_data_generated.h

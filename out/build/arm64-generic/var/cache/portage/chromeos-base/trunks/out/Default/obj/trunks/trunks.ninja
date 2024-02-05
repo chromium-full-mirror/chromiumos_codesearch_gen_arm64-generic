@@ -1,81 +1,81 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_GENERIC_TPM2=false
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1 -I/build/arm64-generic/usr/include -Igen
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1 -I/build/arm64-generic/usr/include -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIC -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libtrunks
 
 build obj/trunks/trunks.inputdeps.stamp: stamp obj/trunks/interface_proto_gen.stamp obj/trunks/pinweaver_proto_gen.stamp obj/trunks/trunks_proxies.stamp
-build obj/trunks/libtrunks.background_command_transceiver.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/background_command_transceiver.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.background_command_transceiver.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/background_command_transceiver.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = background_command_transceiver.cc
   source_name_part = background_command_transceiver
-build obj/trunks/libtrunks.blob_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/blob_parser.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.blob_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/blob_parser.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = blob_parser.cc
   source_name_part = blob_parser
-build obj/trunks/libtrunks.command_codes.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/command_codes.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.command_codes.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/command_codes.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = command_codes.cc
   source_name_part = command_codes
-build obj/trunks/libtrunks.error_codes.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/error_codes.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.error_codes.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/error_codes.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = error_codes.cc
   source_name_part = error_codes
-build obj/trunks/libtrunks.hmac_authorization_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/hmac_authorization_delegate.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.hmac_authorization_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/hmac_authorization_delegate.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = hmac_authorization_delegate.cc
   source_name_part = hmac_authorization_delegate
-build obj/trunks/libtrunks.hmac_session_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/hmac_session_impl.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.hmac_session_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/hmac_session_impl.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = hmac_session_impl.cc
   source_name_part = hmac_session_impl
-build obj/trunks/libtrunks.multiple_authorization_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/multiple_authorization_delegate.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.multiple_authorization_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/multiple_authorization_delegate.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = multiple_authorization_delegate.cc
   source_name_part = multiple_authorization_delegate
-build obj/trunks/libtrunks.openssl_utility.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/openssl_utility.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.openssl_utility.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/openssl_utility.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = openssl_utility.cc
   source_name_part = openssl_utility
-build obj/trunks/libtrunks.password_authorization_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/password_authorization_delegate.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.password_authorization_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/password_authorization_delegate.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = password_authorization_delegate.cc
   source_name_part = password_authorization_delegate
-build obj/trunks/libtrunks.policy_session_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/policy_session_impl.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.policy_session_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/policy_session_impl.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = policy_session_impl.cc
   source_name_part = policy_session_impl
-build obj/trunks/libtrunks.real_command_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/real_command_parser.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.real_command_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/real_command_parser.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = real_command_parser.cc
   source_name_part = real_command_parser
-build obj/trunks/libtrunks.real_response_serializer.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/real_response_serializer.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.real_response_serializer.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/real_response_serializer.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = real_response_serializer.cc
   source_name_part = real_response_serializer
-build obj/trunks/libtrunks.scoped_key_handle.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/scoped_key_handle.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.scoped_key_handle.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/scoped_key_handle.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = scoped_key_handle.cc
   source_name_part = scoped_key_handle
-build obj/trunks/libtrunks.session_manager_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/session_manager_impl.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.session_manager_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/session_manager_impl.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = session_manager_impl.cc
   source_name_part = session_manager_impl
-build obj/trunks/libtrunks.tpm_cache_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/tpm_cache_impl.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.tpm_cache_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/tpm_cache_impl.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = tpm_cache_impl.cc
   source_name_part = tpm_cache_impl
-build obj/trunks/libtrunks.tpm_extended.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/tpm_extended.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.tpm_extended.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/tpm_extended.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = tpm_extended.cc
   source_name_part = tpm_extended
-build obj/trunks/libtrunks.tpm_generated.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/tpm_generated.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.tpm_generated.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/tpm_generated.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = tpm_generated.cc
   source_name_part = tpm_generated
-build obj/trunks/libtrunks.tpm_pinweaver.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/tpm_pinweaver.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.tpm_pinweaver.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/tpm_pinweaver.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = tpm_pinweaver.cc
   source_name_part = tpm_pinweaver
-build obj/trunks/libtrunks.tpm_state_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/tpm_state_impl.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.tpm_state_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/tpm_state_impl.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = tpm_state_impl.cc
   source_name_part = tpm_state_impl
-build obj/trunks/libtrunks.tpm_structure_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/tpm_structure_parser.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.tpm_structure_parser.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/tpm_structure_parser.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = tpm_structure_parser.cc
   source_name_part = tpm_structure_parser
-build obj/trunks/libtrunks.tpm_u2f.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/tpm_u2f.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.tpm_u2f.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/tpm_u2f.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = tpm_u2f.cc
   source_name_part = tpm_u2f
-build obj/trunks/libtrunks.tpm_utility_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/tpm_utility_impl.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.tpm_utility_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/tpm_utility_impl.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = tpm_utility_impl.cc
   source_name_part = tpm_utility_impl
-build obj/trunks/libtrunks.trunks_dbus_proxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/trunks_dbus_proxy.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.trunks_dbus_proxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/trunks_dbus_proxy.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = trunks_dbus_proxy.cc
   source_name_part = trunks_dbus_proxy
-build obj/trunks/libtrunks.trunks_factory_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3745/work/trunks-0.0.1/trunks/trunks_factory_impl.cc || obj/trunks/trunks.inputdeps.stamp
+build obj/trunks/libtrunks.trunks_factory_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/trunks-0.0.1-r3746/work/trunks-0.0.1/trunks/trunks_factory_impl.cc || obj/trunks/trunks.inputdeps.stamp
   source_file_part = trunks_factory_impl.cc
   source_name_part = trunks_factory_impl
 
