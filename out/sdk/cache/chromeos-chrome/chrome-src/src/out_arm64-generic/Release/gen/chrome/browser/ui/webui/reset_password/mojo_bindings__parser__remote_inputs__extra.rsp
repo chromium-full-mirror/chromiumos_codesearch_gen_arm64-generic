@@ -21,5 +21,5 @@ home/chrome-bot/chrome_root/src/third_party/ply/yacc.py
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/reset_password/mojo_bindings.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/reset_password/mojo_bindings__parser.rsp
 home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/reset_password/reset_password.mojom
-home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/reset_password/reset_password.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/chrome/browser/ui/webui/reset_password/mojo_bindings.build_metadata
+home/chrome-bot/chrome_root/src/chrome/browser/ui/webui/reset_password/reset_password.mojom

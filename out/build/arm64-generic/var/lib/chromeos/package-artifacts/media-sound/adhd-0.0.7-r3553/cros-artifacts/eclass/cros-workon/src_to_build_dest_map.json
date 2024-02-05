@@ -1,0 +1,17 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/adhd",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/media-sound/adhd-0.0.7-r3553/work/adhd-0.0.7/adhd"
+    },
+    {
+      "src_path": "src/third_party/webrtc-apm",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/media-sound/adhd-0.0.7-r3553/work/adhd-0.0.7/webrtc-apm"
+    },
+    {
+      "src_path": "src/third_party/../platform2",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/media-sound/adhd-0.0.7-r3553/work/adhd-0.0.7/platform2"
+    }
+  ]
+}
