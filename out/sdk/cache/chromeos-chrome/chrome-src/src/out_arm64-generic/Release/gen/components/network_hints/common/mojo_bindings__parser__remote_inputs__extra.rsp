@@ -23,6 +23,6 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/component
 home/chrome-bot/chrome_root/src/components/network_hints/common/network_hints.mojom
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/network_hints/common/mojo_bindings.build_metadata
 home/chrome-bot/chrome_root/src/components/network_hints/common/network_hints.mojom
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/url/mojom/scheme_host_port.mojom-module
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/url/mojom/url_mojom_scheme_host_port.build_metadata
 home/chrome-bot/chrome_root/src/url/mojom/scheme_host_port.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/url/mojom/scheme_host_port.mojom-module

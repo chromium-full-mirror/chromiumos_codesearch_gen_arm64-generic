@@ -23,7 +23,7 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/base/m
 home/chrome-bot/chrome_root/src/ui/base/mojom/themes.mojom
 home/chrome-bot/chrome_root/src/ui/base/mojom/ui_base_types.mojom
 home/chrome-bot/chrome_root/src/ui/base/mojom/window_open_disposition.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/base/mojom/mojom.build_metadata
-home/chrome-bot/chrome_root/src/ui/base/mojom/window_open_disposition.mojom
 home/chrome-bot/chrome_root/src/ui/base/mojom/ui_base_types.mojom
 home/chrome-bot/chrome_root/src/ui/base/mojom/themes.mojom
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/base/mojom/mojom.build_metadata
+home/chrome-bot/chrome_root/src/ui/base/mojom/window_open_disposition.mojom

@@ -1,5 +1,5 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/frameworks/proto_logging/stats/enums/bluetooth -Igen/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5352/work/floss-0.0.2/platform2 -I/build/arm64-generic/usr/include -Igen
+include_dirs = -Igen/frameworks/proto_logging/stats/enums/bluetooth -Igen/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2 -I/build/arm64-generic/usr/include -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -fPIC
 cflags_cc = -Wno-unreachable-code -Wno-deprecated-declarations -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -Wno-vla-cxx-extension -Wno-deprecated-this-capture -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
