@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/../platform2",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/dev-rust/system_api-0.24.53-r1279/work/system_api-0.24.53"
+    }
+  ]
+}
