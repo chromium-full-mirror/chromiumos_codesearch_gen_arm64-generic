@@ -1,0 +1,9 @@
+{
+  "version": 1.0,
+  "mapping": [
+    {
+      "src_path": "src/third_party/autotest/files",
+      "build_dest_path": "/build/arm64-generic/tmp/portage/chromeos-base/autotest-deps-policy-0.0.1-r8951/work/autotest-deps-policy-0.0.1"
+    }
+  ]
+}

@@ -22,7 +22,7 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/projector_app/mojom/annotator_mojo_bindings__parser.rsp
 home/chrome-bot/chrome_root/src/ash/webui/projector_app/mojom/untrusted_annotator.mojom
 home/chrome-bot/chrome_root/src/ash/webui/projector_app/mojom/untrusted_annotator.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/projector_app/public/mojom/annotator_mojo_bindings.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/projector_app/public/mojom/annotator_structs.mojom-module
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/projector_app/mojom/annotator_mojo_bindings.build_metadata
 home/chrome-bot/chrome_root/src/ash/webui/projector_app/public/mojom/annotator_structs.mojom
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/projector_app/public/mojom/annotator_mojo_bindings.build_metadata
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ash/webui/projector_app/mojom/annotator_mojo_bindings.build_metadata
