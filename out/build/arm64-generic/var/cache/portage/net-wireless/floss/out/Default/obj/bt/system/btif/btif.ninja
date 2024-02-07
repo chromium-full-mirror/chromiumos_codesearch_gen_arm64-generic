@@ -1,183 +1,183 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DTARGET_FLOSS -DEXPORT_SYMBOL=__attribute__\(\(visibility\(\"default\"\)\)\) -DFALLTHROUGH_INTENDED=\[\[clang$:$:fallthrough\]\] -DEXCLUDE_NONSTANDARD_CODECS
-include_dirs = -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/bta/dm -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/linux_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/audio_a2dp_hw/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/audio_hearing_aid_hw/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/bta/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/bta/sys -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/device/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/embdrv/sbc/encoder/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/embdrv/sbc/decoder/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/gd -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/stack/a2dp -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/stack/btm -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/stack/l2cap -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/stack/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/udrv/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/vnd/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/profile/avrcp -Igen/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/flags/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/sysprop/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/types -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/include -Igen/bt/system/gd -Igen/bt/system/gd/dumpsys/bundler -Igen -Igen/bt/system/gd/rust/shim -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/gd/rust/shim
-cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -fPIC -Wno-non-c-typedef-for-linkage -Wno-unreachable-code-return -Wno-defaulted-function-deleted -Wno-gnu-variable-sized-type-not-at-end -Wno-format-nonliteral -Wno-inconsistent-missing-override -Wno-unreachable-code -Wno-range-loop-construct -Wno-reorder-init-list -Wno-unused-function -Wno-unused-result -Wno-unused-variable -Wno-unused-const-variable -Wno-format -Wno-pessimizing-move -Wno-unknown-warning-option -Wno-final-dtor-non-final-class -ffile-prefix-map=../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/=\$  -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/metrics -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
+include_dirs = -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/bta/dm -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/linux_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/audio_a2dp_hw/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/audio_hearing_aid_hw/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/bta/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/bta/sys -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/device/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/embdrv/sbc/encoder/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/embdrv/sbc/decoder/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/gd -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/stack/a2dp -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/stack/btm -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/stack/l2cap -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/stack/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/udrv/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/vnd/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/profile/avrcp -Igen/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2 -I/build/arm64-generic/usr/include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/flags/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/sysprop/exported_include -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/types -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/include -Igen/bt/system/gd -Igen/bt/system/gd/dumpsys/bundler -Igen -Igen/bt/system/gd/rust/shim -I../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/gd/rust/shim
+cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -fPIC -Wno-non-c-typedef-for-linkage -Wno-unreachable-code-return -Wno-defaulted-function-deleted -Wno-gnu-variable-sized-type-not-at-end -Wno-format-nonliteral -Wno-inconsistent-missing-override -Wno-unreachable-code -Wno-range-loop-construct -Wno-reorder-init-list -Wno-unused-function -Wno-unused-result -Wno-unused-variable -Wno-unused-const-variable -Wno-format -Wno-pessimizing-move -Wno-unknown-warning-option -Wno-final-dtor-non-final-class -ffile-prefix-map=../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/=\$  -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -I/build/arm64-generic/usr/include/metrics -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -Wno-vla-cxx-extension -Wno-deprecated-this-capture -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables -std=c++20
 root_out_dir = .
 target_output_name = libbtif
 
 build obj/bt/system/btif/btif.inputdeps.stamp: stamp obj/bt/system/gd/rust/shim/cxxlibheader.stamp obj/bt/system/gd/rust/shim/init_flags_bridge_code_gen.stamp obj/bt/system/gd/rust/shim/init_flags_bridge_header.stamp obj/external/proto_logging/stats/enums/bluetooth/libbt-platform-protos-lite_gen.stamp
-build obj/bt/system/audio_a2dp_hw/src/libbtif.audio_a2dp_hw_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/audio_a2dp_hw/src/audio_a2dp_hw_utils.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/audio_a2dp_hw/src/libbtif.audio_a2dp_hw_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/audio_a2dp_hw/src/audio_a2dp_hw_utils.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = audio_a2dp_hw_utils.cc
   source_name_part = audio_a2dp_hw_utils
-build obj/bt/system/audio_hearing_aid_hw/src/libbtif.audio_hearing_aid_hw_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/audio_hearing_aid_hw/src/audio_hearing_aid_hw_utils.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/audio_hearing_aid_hw/src/libbtif.audio_hearing_aid_hw_utils.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/audio_hearing_aid_hw/src/audio_hearing_aid_hw_utils.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = audio_hearing_aid_hw_utils.cc
   source_name_part = audio_hearing_aid_hw_utils
-build obj/bt/system/btif/avrcp/libbtif.avrcp_service.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/avrcp/avrcp_service.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/avrcp/libbtif.avrcp_service.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/avrcp/avrcp_service.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = avrcp_service.cc
   source_name_part = avrcp_service
-build obj/bt/system/btif/co/libbtif.bta_av_co.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/co/bta_av_co.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/co/libbtif.bta_av_co.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/co/bta_av_co.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = bta_av_co.cc
   source_name_part = bta_av_co
-build obj/bt/system/btif/co/libbtif.bta_dm_co.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/co/bta_dm_co.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/co/libbtif.bta_dm_co.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/co/bta_dm_co.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = bta_dm_co.cc
   source_name_part = bta_dm_co
-build obj/bt/system/btif/co/libbtif.bta_gatts_co.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/co/bta_gatts_co.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/co/libbtif.bta_gatts_co.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/co/bta_gatts_co.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = bta_gatts_co.cc
   source_name_part = bta_gatts_co
-build obj/bt/system/btif/co/libbtif.bta_hh_co.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/co/bta_hh_co.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/co/libbtif.bta_hh_co.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/co/bta_hh_co.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = bta_hh_co.cc
   source_name_part = bta_hh_co
-build obj/bt/system/btif/co/libbtif.bta_pan_co.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/co/bta_pan_co.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/co/libbtif.bta_pan_co.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/co/bta_pan_co.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = bta_pan_co.cc
   source_name_part = bta_pan_co
-build obj/bt/system/btif/src/libbtif.bluetooth.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/bluetooth.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.bluetooth.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/bluetooth.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = bluetooth.cc
   source_name_part = bluetooth
-build obj/bt/system/btif/src/libbtif.btif_a2dp.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_a2dp.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_a2dp.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_a2dp.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_a2dp.cc
   source_name_part = btif_a2dp
-build obj/bt/system/btif/src/libbtif.btif_a2dp_control.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_a2dp_control.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_a2dp_control.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_a2dp_control.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_a2dp_control.cc
   source_name_part = btif_a2dp_control
-build obj/bt/system/btif/src/libbtif.btif_a2dp_sink.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_a2dp_sink.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_a2dp_sink.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_a2dp_sink.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_a2dp_sink.cc
   source_name_part = btif_a2dp_sink
-build obj/bt/system/btif/src/libbtif.btif_a2dp_source.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_a2dp_source.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_a2dp_source.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_a2dp_source.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_a2dp_source.cc
   source_name_part = btif_a2dp_source
-build obj/bt/system/btif/src/libbtif.btif_av.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_av.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_av.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_av.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_av.cc
   source_name_part = btif_av
-build obj/bt/system/btif/src/libbtif.btif_avrcp_audio_track_linux.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_avrcp_audio_track_linux.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_avrcp_audio_track_linux.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_avrcp_audio_track_linux.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_avrcp_audio_track_linux.cc
   source_name_part = btif_avrcp_audio_track_linux
-build obj/bt/system/btif/src/libbtif.btif_ble_scanner.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_ble_scanner.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_ble_scanner.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_ble_scanner.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_ble_scanner.cc
   source_name_part = btif_ble_scanner
-build obj/bt/system/btif/src/libbtif.btif_bqr.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_bqr.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_bqr.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_bqr.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_bqr.cc
   source_name_part = btif_bqr
-build obj/bt/system/btif/src/libbtif.btif_csis_client.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_csis_client.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_csis_client.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_csis_client.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_csis_client.cc
   source_name_part = btif_csis_client
-build obj/bt/system/btif/src/libbtif.btif_config.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_config.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_config.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_config.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_config.cc
   source_name_part = btif_config
-build obj/bt/system/btif/src/libbtif.btif_config_cache.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_config_cache.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_config_cache.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_config_cache.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_config_cache.cc
   source_name_part = btif_config_cache
-build obj/bt/system/btif/src/libbtif.btif_core.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_core.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_core.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_core.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_core.cc
   source_name_part = btif_core
-build obj/bt/system/btif/src/libbtif.btif_debug_conn.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_debug_conn.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_debug_conn.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_debug_conn.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_debug_conn.cc
   source_name_part = btif_debug_conn
-build obj/bt/system/btif/src/libbtif.btif_dm.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_dm.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_dm.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_dm.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_dm.cc
   source_name_part = btif_dm
-build obj/bt/system/btif/src/libbtif.btif_gatt.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_gatt.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_gatt.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_gatt.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_gatt.cc
   source_name_part = btif_gatt
-build obj/bt/system/btif/src/libbtif.btif_gatt_client.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_gatt_client.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_gatt_client.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_gatt_client.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_gatt_client.cc
   source_name_part = btif_gatt_client
-build obj/bt/system/btif/src/libbtif.btif_gatt_server.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_gatt_server.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_gatt_server.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_gatt_server.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_gatt_server.cc
   source_name_part = btif_gatt_server
-build obj/bt/system/btif/src/libbtif.btif_gatt_test.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_gatt_test.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_gatt_test.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_gatt_test.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_gatt_test.cc
   source_name_part = btif_gatt_test
-build obj/bt/system/btif/src/libbtif.btif_gatt_util.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_gatt_util.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_gatt_util.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_gatt_util.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_gatt_util.cc
   source_name_part = btif_gatt_util
-build obj/bt/system/btif/src/libbtif.btif_hd.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_hd.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_hd.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_hd.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_hd.cc
   source_name_part = btif_hd
-build obj/bt/system/btif/src/libbtif.btif_vc.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_vc.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_vc.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_vc.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_vc.cc
   source_name_part = btif_vc
-build obj/bt/system/btif/src/libbtif.btif_le_audio_broadcaster.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_le_audio_broadcaster.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_le_audio_broadcaster.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_le_audio_broadcaster.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_le_audio_broadcaster.cc
   source_name_part = btif_le_audio_broadcaster
-build obj/bt/system/btif/src/libbtif.btif_has_client.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_has_client.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_has_client.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_has_client.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_has_client.cc
   source_name_part = btif_has_client
-build obj/bt/system/btif/src/libbtif.btif_hearing_aid.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_hearing_aid.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_hearing_aid.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_hearing_aid.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_hearing_aid.cc
   source_name_part = btif_hearing_aid
-build obj/bt/system/btif/src/libbtif.btif_hf.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_hf.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_hf.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_hf.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_hf.cc
   source_name_part = btif_hf
-build obj/bt/system/btif/src/libbtif.btif_hf_client.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_hf_client.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_hf_client.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_hf_client.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_hf_client.cc
   source_name_part = btif_hf_client
-build obj/bt/system/btif/src/libbtif.btif_hh.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_hh.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_hh.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_hh.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_hh.cc
   source_name_part = btif_hh
-build obj/bt/system/btif/src/libbtif.btif_iot_config.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_iot_config.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_iot_config.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_iot_config.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_iot_config.cc
   source_name_part = btif_iot_config
-build obj/bt/system/btif/src/libbtif.btif_jni_task.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_jni_task.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_jni_task.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_jni_task.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_jni_task.cc
   source_name_part = btif_jni_task
-build obj/bt/system/btif/src/libbtif.btif_keystore.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_keystore.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_keystore.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_keystore.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_keystore.cc
   source_name_part = btif_keystore
-build obj/bt/system/btif/src/libbtif.btif_le_audio.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_le_audio.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_le_audio.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_le_audio.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_le_audio.cc
   source_name_part = btif_le_audio
-build obj/bt/system/btif/src/libbtif.btif_metrics_logging.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_metrics_logging.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_metrics_logging.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_metrics_logging.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_metrics_logging.cc
   source_name_part = btif_metrics_logging
-build obj/bt/system/btif/src/libbtif.btif_pan.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_pan.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_pan.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_pan.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_pan.cc
   source_name_part = btif_pan
-build obj/bt/system/btif/src/libbtif.btif_profile_queue.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_profile_queue.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_profile_queue.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_profile_queue.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_profile_queue.cc
   source_name_part = btif_profile_queue
-build obj/bt/system/btif/src/libbtif.btif_profile_storage.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_profile_storage.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_profile_storage.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_profile_storage.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_profile_storage.cc
   source_name_part = btif_profile_storage
-build obj/bt/system/btif/src/libbtif.btif_rc.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_rc.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_rc.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_rc.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_rc.cc
   source_name_part = btif_rc
-build obj/bt/system/btif/src/libbtif.btif_sdp.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sdp.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_sdp.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sdp.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_sdp.cc
   source_name_part = btif_sdp
-build obj/bt/system/btif/src/libbtif.btif_sdp_server.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sdp_server.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_sdp_server.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sdp_server.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_sdp_server.cc
   source_name_part = btif_sdp_server
-build obj/bt/system/btif/src/libbtif.btif_sock.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sock.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_sock.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sock.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_sock.cc
   source_name_part = btif_sock
-build obj/bt/system/btif/src/libbtif.btif_sock_l2cap.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sock_l2cap.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_sock_l2cap.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sock_l2cap.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_sock_l2cap.cc
   source_name_part = btif_sock_l2cap
-build obj/bt/system/btif/src/libbtif.btif_sock_rfc.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sock_rfc.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_sock_rfc.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sock_rfc.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_sock_rfc.cc
   source_name_part = btif_sock_rfc
-build obj/bt/system/btif/src/libbtif.btif_sock_sco.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sock_sco.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_sock_sco.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sock_sco.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_sock_sco.cc
   source_name_part = btif_sock_sco
-build obj/bt/system/btif/src/libbtif.btif_sock_sdp.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sock_sdp.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_sock_sdp.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sock_sdp.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_sock_sdp.cc
   source_name_part = btif_sock_sdp
-build obj/bt/system/btif/src/libbtif.btif_sock_thread.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sock_thread.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_sock_thread.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sock_thread.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_sock_thread.cc
   source_name_part = btif_sock_thread
-build obj/bt/system/btif/src/libbtif.btif_sock_util.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sock_util.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_sock_util.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_sock_util.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_sock_util.cc
   source_name_part = btif_sock_util
-build obj/bt/system/btif/src/libbtif.btif_storage.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_storage.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_storage.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_storage.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_storage.cc
   source_name_part = btif_storage
-build obj/bt/system/btif/src/libbtif.btif_uid.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_uid.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_uid.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_uid.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_uid.cc
   source_name_part = btif_uid
-build obj/bt/system/btif/src/libbtif.btif_util.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/btif_util.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.btif_util.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/btif_util.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = btif_util.cc
   source_name_part = btif_util
-build obj/bt/system/btif/src/libbtif.stack_manager.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5354/work/floss-0.0.2/platform2/bt/system/btif/src/stack_manager.cc || obj/bt/system/btif/btif.inputdeps.stamp
+build obj/bt/system/btif/src/libbtif.stack_manager.o: cxx ../../../../../../../tmp/portage/net-wireless/floss-0.0.2-r5362/work/floss-0.0.2/platform2/bt/system/btif/src/stack_manager.cc || obj/bt/system/btif/btif.inputdeps.stamp
   source_file_part = stack_manager.cc
   source_name_part = stack_manager
 

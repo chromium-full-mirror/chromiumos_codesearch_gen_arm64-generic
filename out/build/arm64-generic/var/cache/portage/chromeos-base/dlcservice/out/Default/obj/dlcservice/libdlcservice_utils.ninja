@@ -1,32 +1,32 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DUSE_LVM_STATEFUL_PARTITION=false
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1189/work/dlcservice-0.0.1 -I/build/arm64-generic/usr/include
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1190/work/dlcservice-0.0.1 -I/build/arm64-generic/usr/include
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DUSE_RTTI_FOR_TYPE_TAGS=1 -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -I/build/arm64-generic/usr/include/imageloader-client -I/build/arm64-generic/usr/include/update_engine-client
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libdlcservice_utils
 
-build obj/dlcservice/boot/libdlcservice_utils.boot_device.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1189/work/dlcservice-0.0.1/dlcservice/boot/boot_device.cc
+build obj/dlcservice/boot/libdlcservice_utils.boot_device.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1190/work/dlcservice-0.0.1/dlcservice/boot/boot_device.cc
   source_file_part = boot_device.cc
   source_name_part = boot_device
-build obj/dlcservice/boot/libdlcservice_utils.boot_slot.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1189/work/dlcservice-0.0.1/dlcservice/boot/boot_slot.cc
+build obj/dlcservice/boot/libdlcservice_utils.boot_slot.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1190/work/dlcservice-0.0.1/dlcservice/boot/boot_slot.cc
   source_file_part = boot_slot.cc
   source_name_part = boot_slot
-build obj/dlcservice/libdlcservice_utils.error.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1189/work/dlcservice-0.0.1/dlcservice/error.cc
+build obj/dlcservice/libdlcservice_utils.error.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1190/work/dlcservice-0.0.1/dlcservice/error.cc
   source_file_part = error.cc
   source_name_part = error
-build obj/dlcservice/libdlcservice_utils.metrics.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1189/work/dlcservice-0.0.1/dlcservice/metrics.cc
+build obj/dlcservice/libdlcservice_utils.metrics.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1190/work/dlcservice-0.0.1/dlcservice/metrics.cc
   source_file_part = metrics.cc
   source_name_part = metrics
-build obj/dlcservice/libdlcservice_utils.proto_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1189/work/dlcservice-0.0.1/dlcservice/proto_utils.cc
+build obj/dlcservice/libdlcservice_utils.proto_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1190/work/dlcservice-0.0.1/dlcservice/proto_utils.cc
   source_file_part = proto_utils.cc
   source_name_part = proto_utils
-build obj/dlcservice/libdlcservice_utils.system_properties.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1189/work/dlcservice-0.0.1/dlcservice/system_properties.cc
+build obj/dlcservice/libdlcservice_utils.system_properties.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1190/work/dlcservice-0.0.1/dlcservice/system_properties.cc
   source_file_part = system_properties.cc
   source_name_part = system_properties
-build obj/dlcservice/libdlcservice_utils.system_state.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1189/work/dlcservice-0.0.1/dlcservice/system_state.cc
+build obj/dlcservice/libdlcservice_utils.system_state.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1190/work/dlcservice-0.0.1/dlcservice/system_state.cc
   source_file_part = system_state.cc
   source_name_part = system_state
-build obj/dlcservice/libdlcservice_utils.utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1189/work/dlcservice-0.0.1/dlcservice/utils.cc
+build obj/dlcservice/libdlcservice_utils.utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/dlcservice-0.0.1-r1190/work/dlcservice-0.0.1/dlcservice/utils.cc
   source_file_part = utils.cc
   source_name_part = utils
 

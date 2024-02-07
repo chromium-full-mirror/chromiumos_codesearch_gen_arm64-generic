@@ -12,7 +12,7 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/dlcservice-metadata"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/dlcservice-metadata-0.0.1-r78/work/dlcservice-metadata-0.0.1"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/dlcservice-metadata-0.0.1-r79/work/dlcservice-metadata-0.0.1"
 libbase_ver = "1255387"
 enable_exceptions = false
 external_cflags = [

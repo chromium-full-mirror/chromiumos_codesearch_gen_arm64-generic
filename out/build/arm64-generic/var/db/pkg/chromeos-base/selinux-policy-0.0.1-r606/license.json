@@ -1,1 +1,0 @@
-{"sysroot": null, "category": "chromeos-base", "name": "selinux-policy", "version": "0.0.1", "revision": 606, "fullname": "chromeos-base/selinux-policy", "fullnamerev": "chromeos-base/selinux-policy-0.0.1-r606", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": [], "skip": false, "tainted": false, "ebuild_path": null}

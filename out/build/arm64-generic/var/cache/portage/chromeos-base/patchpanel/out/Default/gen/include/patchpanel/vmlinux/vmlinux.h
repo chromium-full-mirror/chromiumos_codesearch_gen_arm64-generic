@@ -68555,6 +68555,7 @@ struct drm_dp_aux {
 	unsigned int i2c_defer_count;
 	struct drm_dp_aux_cec cec;
 	bool is_remote;
+	bool powered_down;
 };
 
 struct drm_dp_aux_msg {
@@ -79100,6 +79101,7 @@ struct ps8640 {
 	bool pre_enabled;
 	bool need_post_hpd_delay;
 	struct mutex aux_lock;
+	struct mutex hpd_lock;
 };
 
 struct auxiliary_device;

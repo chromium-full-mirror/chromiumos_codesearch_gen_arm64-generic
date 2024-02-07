@@ -1,44 +1,44 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r561/work/libvda-gpu-tests-0.0.1 -I/build/arm64-generic/usr/include
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r562/work/libvda-gpu-tests-0.0.1 -I/build/arm64-generic/usr/include
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -DPROTOBUF_USE_DLLS -Wno-cast-qual -Wno-cast-align -fPIC -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS -Wno-cast-qual -Wno-cast-align
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libvda_source_set
 
-build obj/arc/vm/libvda/decode/fake/libvda_source_set.fake_vda_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r561/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/decode/fake/fake_vda_impl.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
+build obj/arc/vm/libvda/decode/fake/libvda_source_set.fake_vda_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r562/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/decode/fake/fake_vda_impl.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
   source_file_part = fake_vda_impl.cc
   source_name_part = fake_vda_impl
-build obj/arc/vm/libvda/decode/gpu/libvda_source_set.decode_helpers.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r561/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/decode/gpu/decode_helpers.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
+build obj/arc/vm/libvda/decode/gpu/libvda_source_set.decode_helpers.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r562/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/decode/gpu/decode_helpers.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
   source_file_part = decode_helpers.cc
   source_name_part = decode_helpers
-build obj/arc/vm/libvda/decode/gpu/libvda_source_set.gpu_vd_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r561/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/decode/gpu/gpu_vd_impl.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
+build obj/arc/vm/libvda/decode/gpu/libvda_source_set.gpu_vd_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r562/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/decode/gpu/gpu_vd_impl.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
   source_file_part = gpu_vd_impl.cc
   source_name_part = gpu_vd_impl
-build obj/arc/vm/libvda/decode/gpu/libvda_source_set.gpu_vda_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r561/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/decode/gpu/gpu_vda_impl.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
+build obj/arc/vm/libvda/decode/gpu/libvda_source_set.gpu_vda_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r562/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/decode/gpu/gpu_vda_impl.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
   source_file_part = gpu_vda_impl.cc
   source_name_part = gpu_vda_impl
-build obj/arc/vm/libvda/libvda_source_set.decode_wrapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r561/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/decode_wrapper.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
+build obj/arc/vm/libvda/libvda_source_set.decode_wrapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r562/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/decode_wrapper.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
   source_file_part = decode_wrapper.cc
   source_name_part = decode_wrapper
-build obj/arc/vm/libvda/encode/fake/libvda_source_set.fake_vea_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r561/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/encode/fake/fake_vea_impl.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
+build obj/arc/vm/libvda/encode/fake/libvda_source_set.fake_vea_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r562/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/encode/fake/fake_vea_impl.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
   source_file_part = fake_vea_impl.cc
   source_name_part = fake_vea_impl
-build obj/arc/vm/libvda/encode/gpu/libvda_source_set.gpu_vea_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r561/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/encode/gpu/gpu_vea_impl.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
+build obj/arc/vm/libvda/encode/gpu/libvda_source_set.gpu_vea_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r562/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/encode/gpu/gpu_vea_impl.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
   source_file_part = gpu_vea_impl.cc
   source_name_part = gpu_vea_impl
-build obj/arc/vm/libvda/libvda_source_set.encode_wrapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r561/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/encode_wrapper.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
+build obj/arc/vm/libvda/libvda_source_set.encode_wrapper.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r562/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/encode_wrapper.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
   source_file_part = encode_wrapper.cc
   source_name_part = encode_wrapper
-build obj/arc/vm/libvda/libvda_source_set.event_pipe.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r561/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/event_pipe.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
+build obj/arc/vm/libvda/libvda_source_set.event_pipe.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r562/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/event_pipe.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
   source_file_part = event_pipe.cc
   source_name_part = event_pipe
-build obj/arc/vm/libvda/libvda_source_set.gbm_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r561/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/gbm_util.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
+build obj/arc/vm/libvda/libvda_source_set.gbm_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r562/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/gbm_util.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
   source_file_part = gbm_util.cc
   source_name_part = gbm_util
-build obj/arc/vm/libvda/gpu/libvda_source_set.format_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r561/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/gpu/format_util.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
+build obj/arc/vm/libvda/gpu/libvda_source_set.format_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r562/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/gpu/format_util.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
   source_file_part = format_util.cc
   source_name_part = format_util
-build obj/arc/vm/libvda/gpu/libvda_source_set.vaf_connection.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r561/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/gpu/vaf_connection.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
+build obj/arc/vm/libvda/gpu/libvda_source_set.vaf_connection.o: cxx ../../../../../../../tmp/portage/chromeos-base/libvda-gpu-tests-0.0.1-r562/work/libvda-gpu-tests-0.0.1/arc/vm/libvda/gpu/vaf_connection.cc || obj/arc/vm/libvda/video_mojo_bindings_gen.stamp
   source_file_part = vaf_connection.cc
   source_name_part = vaf_connection
 

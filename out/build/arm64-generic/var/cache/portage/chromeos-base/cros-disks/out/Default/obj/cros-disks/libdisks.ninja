@@ -1,122 +1,122 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1 -I/build/arm64-generic/usr/include
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1 -I/build/arm64-generic/usr/include
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/blkid -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/session_manager-client
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libdisks
 
-build obj/cros-disks/libdisks.archive_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/archive_manager.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.archive_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/archive_manager.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = archive_manager.cc
   source_name_part = archive_manager
-build obj/cros-disks/libdisks.archive_mounter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/archive_mounter.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.archive_mounter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/archive_mounter.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = archive_mounter.cc
   source_name_part = archive_mounter
-build obj/cros-disks/libdisks.cros_disks_server.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/cros_disks_server.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.cros_disks_server.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/cros_disks_server.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = cros_disks_server.cc
   source_name_part = cros_disks_server
-build obj/cros-disks/libdisks.daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/daemon.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/daemon.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = daemon.cc
   source_name_part = daemon
-build obj/cros-disks/libdisks.device_ejector.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/device_ejector.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.device_ejector.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/device_ejector.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = device_ejector.cc
   source_name_part = device_ejector
-build obj/cros-disks/libdisks.device_event.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/device_event.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.device_event.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/device_event.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = device_event.cc
   source_name_part = device_event
-build obj/cros-disks/libdisks.device_event_moderator.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/device_event_moderator.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.device_event_moderator.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/device_event_moderator.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = device_event_moderator.cc
   source_name_part = device_event_moderator
-build obj/cros-disks/libdisks.device_event_queue.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/device_event_queue.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.device_event_queue.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/device_event_queue.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = device_event_queue.cc
   source_name_part = device_event_queue
-build obj/cros-disks/libdisks.disk.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/disk.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.disk.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/disk.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = disk.cc
   source_name_part = disk
-build obj/cros-disks/libdisks.disk_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/disk_manager.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.disk_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/disk_manager.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = disk_manager.cc
   source_name_part = disk_manager
-build obj/cros-disks/libdisks.disk_monitor.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/disk_monitor.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.disk_monitor.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/disk_monitor.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = disk_monitor.cc
   source_name_part = disk_monitor
-build obj/cros-disks/libdisks.drivefs_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/drivefs_helper.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.drivefs_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/drivefs_helper.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = drivefs_helper.cc
   source_name_part = drivefs_helper
-build obj/cros-disks/libdisks.file_reader.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/file_reader.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.file_reader.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/file_reader.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = file_reader.cc
   source_name_part = file_reader
-build obj/cros-disks/libdisks.filesystem_label.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/filesystem_label.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.filesystem_label.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/filesystem_label.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = filesystem_label.cc
   source_name_part = filesystem_label
-build obj/cros-disks/libdisks.format_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/format_manager.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.format_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/format_manager.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = format_manager.cc
   source_name_part = format_manager
-build obj/cros-disks/libdisks.fuse_mount_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/fuse_mount_manager.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.fuse_mount_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/fuse_mount_manager.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = fuse_mount_manager.cc
   source_name_part = fuse_mount_manager
-build obj/cros-disks/libdisks.fuse_mounter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/fuse_mounter.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.fuse_mounter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/fuse_mounter.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = fuse_mounter.cc
   source_name_part = fuse_mounter
-build obj/cros-disks/libdisks.fusebox_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/fusebox_helper.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.fusebox_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/fusebox_helper.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = fusebox_helper.cc
   source_name_part = fusebox_helper
-build obj/cros-disks/libdisks.metrics.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/metrics.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.metrics.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/metrics.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = metrics.cc
   source_name_part = metrics
-build obj/cros-disks/libdisks.mount_info.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/mount_info.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.mount_info.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/mount_info.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = mount_info.cc
   source_name_part = mount_info
-build obj/cros-disks/libdisks.mount_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/mount_manager.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.mount_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/mount_manager.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = mount_manager.cc
   source_name_part = mount_manager
-build obj/cros-disks/libdisks.mount_options.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/mount_options.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.mount_options.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/mount_options.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = mount_options.cc
   source_name_part = mount_options
-build obj/cros-disks/libdisks.mount_point.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/mount_point.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.mount_point.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/mount_point.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = mount_point.cc
   source_name_part = mount_point
-build obj/cros-disks/libdisks.partition_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/partition_manager.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.partition_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/partition_manager.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = partition_manager.cc
   source_name_part = partition_manager
-build obj/cros-disks/libdisks.platform.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/platform.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.platform.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/platform.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = platform.cc
   source_name_part = platform
-build obj/cros-disks/libdisks.process.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/process.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.process.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/process.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = process.cc
   source_name_part = process
-build obj/cros-disks/libdisks.quote.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/quote.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.quote.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/quote.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = quote.cc
   source_name_part = quote
-build obj/cros-disks/libdisks.rar_mounter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/rar_mounter.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.rar_mounter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/rar_mounter.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = rar_mounter.cc
   source_name_part = rar_mounter
-build obj/cros-disks/libdisks.rename_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/rename_manager.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.rename_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/rename_manager.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = rename_manager.cc
   source_name_part = rename_manager
-build obj/cros-disks/libdisks.sandboxed_init.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/sandboxed_init.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.sandboxed_init.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/sandboxed_init.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = sandboxed_init.cc
   source_name_part = sandboxed_init
-build obj/cros-disks/libdisks.sandboxed_process.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/sandboxed_process.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.sandboxed_process.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/sandboxed_process.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = sandboxed_process.cc
   source_name_part = sandboxed_process
-build obj/cros-disks/libdisks.session_manager_proxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/session_manager_proxy.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.session_manager_proxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/session_manager_proxy.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = session_manager_proxy.cc
   source_name_part = session_manager_proxy
-build obj/cros-disks/libdisks.smbfs_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/smbfs_helper.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.smbfs_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/smbfs_helper.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = smbfs_helper.cc
   source_name_part = smbfs_helper
-build obj/cros-disks/libdisks.sshfs_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/sshfs_helper.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.sshfs_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/sshfs_helper.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = sshfs_helper.cc
   source_name_part = sshfs_helper
-build obj/cros-disks/libdisks.system_mounter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/system_mounter.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.system_mounter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/system_mounter.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = system_mounter.cc
   source_name_part = system_mounter
-build obj/cros-disks/libdisks.udev_device.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/udev_device.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.udev_device.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/udev_device.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = udev_device.cc
   source_name_part = udev_device
-build obj/cros-disks/libdisks.uri.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/uri.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.uri.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/uri.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = uri.cc
   source_name_part = uri
-build obj/cros-disks/libdisks.usb_device_info.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3885/work/cros-disks-0.0.1/cros-disks/usb_device_info.cc || obj/cros-disks/libdisks-adaptors.stamp
+build obj/cros-disks/libdisks.usb_device_info.o: cxx ../../../../../../../tmp/portage/chromeos-base/cros-disks-0.0.1-r3886/work/cros-disks-0.0.1/cros-disks/usb_device_info.cc || obj/cros-disks/libdisks-adaptors.stamp
   source_file_part = usb_device_info.cc
   source_name_part = usb_device_info
 

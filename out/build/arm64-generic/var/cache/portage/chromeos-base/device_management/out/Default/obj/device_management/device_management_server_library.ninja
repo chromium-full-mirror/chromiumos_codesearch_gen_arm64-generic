@@ -1,29 +1,29 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DPLATFORM_FWMP_INDEX=false -DUSE_TPM_INSECURE_FALLBACK=false
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r213/work/device_management-0.0.1 -I/build/arm64-generic/usr/include -I/build/arm64-generic/usr/include/device_management/proto_bindings
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r214/work/device_management-0.0.1 -I/build/arm64-generic/usr/include -I/build/arm64-generic/usr/include/device_management/proto_bindings
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -Wconsumed -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = device_management_server_library
 
-build obj/device_management/device_management_server_library.device_management_adaptor.o: cxx ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r213/work/device_management-0.0.1/device_management/device_management_adaptor.cc || obj/device_management/print_proto_library.stamp
+build obj/device_management/device_management_server_library.device_management_adaptor.o: cxx ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r214/work/device_management-0.0.1/device_management/device_management_adaptor.cc || obj/device_management/print_proto_library.stamp
   source_file_part = device_management_adaptor.cc
   source_name_part = device_management_adaptor
-build obj/device_management/device_management_server_library.device_management_daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r213/work/device_management-0.0.1/device_management/device_management_daemon.cc || obj/device_management/print_proto_library.stamp
+build obj/device_management/device_management_server_library.device_management_daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r214/work/device_management-0.0.1/device_management/device_management_daemon.cc || obj/device_management/print_proto_library.stamp
   source_file_part = device_management_daemon.cc
   source_name_part = device_management_daemon
-build obj/device_management/device_management_server_library.device_management_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r213/work/device_management-0.0.1/device_management/device_management_service.cc || obj/device_management/print_proto_library.stamp
+build obj/device_management/device_management_server_library.device_management_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r214/work/device_management-0.0.1/device_management/device_management_service.cc || obj/device_management/print_proto_library.stamp
   source_file_part = device_management_service.cc
   source_name_part = device_management_service
-build obj/device_management/fwmp/device_management_server_library.firmware_management_parameters.o: cxx ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r213/work/device_management-0.0.1/device_management/fwmp/firmware_management_parameters.cc || obj/device_management/print_proto_library.stamp
+build obj/device_management/fwmp/device_management_server_library.firmware_management_parameters.o: cxx ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r214/work/device_management-0.0.1/device_management/fwmp/firmware_management_parameters.cc || obj/device_management/print_proto_library.stamp
   source_file_part = firmware_management_parameters.cc
   source_name_part = firmware_management_parameters
-build obj/device_management/install_attributes/device_management_server_library.install_attributes.o: cxx ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r213/work/device_management-0.0.1/device_management/install_attributes/install_attributes.cc || obj/device_management/print_proto_library.stamp
+build obj/device_management/install_attributes/device_management_server_library.install_attributes.o: cxx ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r214/work/device_management-0.0.1/device_management/install_attributes/install_attributes.cc || obj/device_management/print_proto_library.stamp
   source_file_part = install_attributes.cc
   source_name_part = install_attributes
-build obj/device_management/install_attributes/device_management_server_library.lockbox.o: cxx ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r213/work/device_management-0.0.1/device_management/install_attributes/lockbox.cc || obj/device_management/print_proto_library.stamp
+build obj/device_management/install_attributes/device_management_server_library.lockbox.o: cxx ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r214/work/device_management-0.0.1/device_management/install_attributes/lockbox.cc || obj/device_management/print_proto_library.stamp
   source_file_part = lockbox.cc
   source_name_part = lockbox
-build obj/device_management/install_attributes/device_management_server_library.platform.o: cxx ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r213/work/device_management-0.0.1/device_management/install_attributes/platform.cc || obj/device_management/print_proto_library.stamp
+build obj/device_management/install_attributes/device_management_server_library.platform.o: cxx ../../../../../../../tmp/portage/chromeos-base/device_management-0.0.1-r214/work/device_management-0.0.1/device_management/install_attributes/platform.cc || obj/device_management/print_proto_library.stamp
   source_file_part = platform.cc
   source_name_part = platform
 

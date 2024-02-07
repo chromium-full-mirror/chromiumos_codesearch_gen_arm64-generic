@@ -43,11 +43,11 @@ build obj/smbprovider/install_policy.stamp: stamp
 subninja obj/smbprovider/libsmbprovider.ninja
 subninja obj/smbprovider/smbproviderd.ninja
 rule __smbprovider_smbproviderd_adaptors___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1056/work/smbprovider-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/smbprovider/out/Default/gen/include/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/smbprovider-0.0.1-r1056/work/smbprovider-0.0.1/smbprovider/dbus_bindings/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1057/work/smbprovider-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/smbprovider/out/Default/gen/include/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/smbprovider-0.0.1-r1057/work/smbprovider-0.0.1/smbprovider/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //smbprovider:smbproviderd_adaptors(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/dbus_adaptors/org.chromium.SmbProvider.h: __smbprovider_smbproviderd_adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1056/work/smbprovider-0.0.1/smbprovider/dbus_bindings/org.chromium.SmbProvider.xml | ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1056/work/smbprovider-0.0.1/common-mk/file_generator_wrapper.py
+build gen/include/dbus_adaptors/org.chromium.SmbProvider.h: __smbprovider_smbproviderd_adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1057/work/smbprovider-0.0.1/smbprovider/dbus_bindings/org.chromium.SmbProvider.xml | ../../../../../../../tmp/portage/chromeos-base/smbprovider-0.0.1-r1057/work/smbprovider-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.SmbProvider
 
 build obj/smbprovider/smbproviderd_adaptors.stamp: stamp gen/include/dbus_adaptors/org.chromium.SmbProvider.h

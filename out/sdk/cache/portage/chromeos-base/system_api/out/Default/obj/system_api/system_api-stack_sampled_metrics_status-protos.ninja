@@ -1,5 +1,5 @@
 defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include/stack_sampled_metrics_status/proto_bindings -Igen/include -I../../../../../../tmp/portage/chromeos-base/system_api-0.0.1-r5633/work/system_api-0.0.1 -Igen
+include_dirs = -Igen/include/stack_sampled_metrics_status/proto_bindings -Igen/include -I../../../../../../tmp/portage/chromeos-base/system_api-0.0.1-r5634/work/system_api-0.0.1 -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -fPIE -fvisibility=default
 cflags_cc = -Wno-unreachable-code -Wno-deprecated-declarations -std=gnu++20 -DNDEBUG -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -O2 -pipe -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .

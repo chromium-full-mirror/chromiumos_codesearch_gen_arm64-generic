@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/tpm_softclear_utils-0.0.1-r932/work/tpm_softclear_utils-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/tpm_softclear_utils-0.0.1-r933/work/tpm_softclear_utils-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 

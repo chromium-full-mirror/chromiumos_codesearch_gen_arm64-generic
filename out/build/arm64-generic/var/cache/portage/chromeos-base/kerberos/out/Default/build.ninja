@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/kerberos-0.0.1-r890/work/kerberos-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/kerberos-0.0.1-r891/work/kerberos-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 

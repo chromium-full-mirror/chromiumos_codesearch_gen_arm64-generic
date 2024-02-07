@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/media-libs/cros-camera-usb-tests-0.0.1-r610/work/cros-camera-usb-tests-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/media-libs/cros-camera-usb-tests-0.0.1-r611/work/cros-camera-usb-tests-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
