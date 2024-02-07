@@ -38,26 +38,26 @@ build obj/debugd/client/_libdebugd-client-test.pc-install_config.stamp: stamp
 build obj/debugd/client/_libdebugd-client.pc-install_config.stamp: stamp
 build obj/debugd/client/all.stamp: stamp obj/debugd/client/libdebugd-client-headers.stamp obj/debugd/client/libdebugd-client-test.pc.stamp obj/debugd/client/libdebugd-client.pc.stamp
 rule __debugd_client_libdebugd-client-headers___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2634/work/debugd-client-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config=/var/tmp/portage/chromeos-base/debugd-client-0.0.1-r2634/work/debugd-client-0.0.1/debugd/dbus_bindings/dbus-service-config.json -proxy=/var/cache/portage/chromeos-base/debugd-client/out/Default/gen/include/debugd/dbus-proxies.h -mock=/var/cache/portage/chromeos-base/debugd-client/out/Default/gen/include/debugd/dbus-proxy-mocks.h -proxy-path-for-mocks=debugd/dbus-proxies.h ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2634/work/debugd-client-0.0.1/debugd/dbus_bindings/org.chromium.debugd.xml
+  command = /usr/bin/env ../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config=/mnt/host/source/src/platform2/debugd/dbus_bindings/dbus-service-config.json -proxy=/var/cache/portage/chromeos-base/debugd-client/out/Default/gen/include/debugd/dbus-proxies.h -mock=/var/cache/portage/chromeos-base/debugd-client/out/Default/gen/include/debugd/dbus-proxy-mocks.h -proxy-path-for-mocks=debugd/dbus-proxies.h ../../../../../../../mnt/host/source/src/platform2/debugd/dbus_bindings/org.chromium.debugd.xml
   description = ACTION //debugd/client:libdebugd-client-headers(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/debugd/dbus-proxies.h gen/include/debugd/dbus-proxy-mocks.h: __debugd_client_libdebugd-client-headers___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2634/work/debugd-client-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2634/work/debugd-client-0.0.1/debugd/dbus_bindings/org.chromium.debugd.xml
+build gen/include/debugd/dbus-proxies.h gen/include/debugd/dbus-proxy-mocks.h: __debugd_client_libdebugd-client-headers___common-mk_toolchain_toolchain__rule | ../../../../../../../mnt/host/source/src/platform2/common-mk/file_generator_wrapper.py ../../../../../../../mnt/host/source/src/platform2/debugd/dbus_bindings/org.chromium.debugd.xml
 
 build obj/debugd/client/libdebugd-client-headers.stamp: stamp gen/include/debugd/dbus-proxies.h gen/include/debugd/dbus-proxy-mocks.h
 rule __debugd_client_libdebugd-client-test.pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2634/work/debugd-client-0.0.1/common-mk/generate-pc.py --output /var/cache/portage/chromeos-base/debugd-client/out/Default/obj/debugd/client/libdebugd-client-test.pc --name=libdebugd-client-test --description=debugd\$ client\$ interface\$ mock\$ library --version=0.0.1 --cflags=-I/usr/include/debugd-client-test
+  command = /usr/bin/env ../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /var/cache/portage/chromeos-base/debugd-client/out/Default/obj/debugd/client/libdebugd-client-test.pc --name=libdebugd-client-test --description=debugd\$ client\$ interface\$ mock\$ library --version=0.0.1 --cflags=-I/usr/include/debugd-client-test
   description = ACTION //debugd/client:libdebugd-client-test.pc(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/debugd/client/libdebugd-client-test.pc: __debugd_client_libdebugd-client-test.pc___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2634/work/debugd-client-0.0.1/common-mk/generate-pc.py obj/debugd/client/_libdebugd-client-test.pc-install_config.stamp
+build obj/debugd/client/libdebugd-client-test.pc: __debugd_client_libdebugd-client-test.pc___common-mk_toolchain_toolchain__rule | ../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/debugd/client/_libdebugd-client-test.pc-install_config.stamp
 
 build obj/debugd/client/libdebugd-client-test.pc.stamp: stamp obj/debugd/client/libdebugd-client-test.pc
 rule __debugd_client_libdebugd-client.pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2634/work/debugd-client-0.0.1/common-mk/generate-pc.py --output /var/cache/portage/chromeos-base/debugd-client/out/Default/obj/debugd/client/libdebugd-client.pc --name=libdebugd-client --description=debugd\$ client\$ interface\$ library --version=0.0.1 --cflags=-I/usr/include/debugd-client
+  command = /usr/bin/env ../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py --output /var/cache/portage/chromeos-base/debugd-client/out/Default/obj/debugd/client/libdebugd-client.pc --name=libdebugd-client --description=debugd\$ client\$ interface\$ library --version=0.0.1 --cflags=-I/usr/include/debugd-client
   description = ACTION //debugd/client:libdebugd-client.pc(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/debugd/client/libdebugd-client.pc: __debugd_client_libdebugd-client.pc___common-mk_toolchain_toolchain__rule | ../../../../../../tmp/portage/chromeos-base/debugd-client-0.0.1-r2634/work/debugd-client-0.0.1/common-mk/generate-pc.py obj/debugd/client/_libdebugd-client.pc-install_config.stamp
+build obj/debugd/client/libdebugd-client.pc: __debugd_client_libdebugd-client.pc___common-mk_toolchain_toolchain__rule | ../../../../../../../mnt/host/source/src/platform2/common-mk/generate-pc.py obj/debugd/client/_libdebugd-client.pc-install_config.stamp
 
 build obj/debugd/client/libdebugd-client.pc.stamp: stamp obj/debugd/client/libdebugd-client.pc

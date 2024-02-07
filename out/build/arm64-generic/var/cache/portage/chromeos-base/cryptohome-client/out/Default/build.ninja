@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/cryptohome-client-0.0.1-r3106/work/cryptohome-client-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/cryptohome-client-0.0.1-r3107/work/cryptohome-client-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 

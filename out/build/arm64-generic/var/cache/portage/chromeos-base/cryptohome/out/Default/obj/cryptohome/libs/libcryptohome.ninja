@@ -1,234 +1,234 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -DPLATFORM_FWMP_INDEX=false -DUSE_FUZZER=false -DUSE_PINWEAVER=true -DUSE_SELINUX=true -DUSE_TPM_DYNAMIC=false -DUSE_TPM_INSECURE_FALLBACK=false -DUSE_TPM1=false -DUSE_TPM2=true -DUSE_TPM2_SIMULATOR=false -DUSE_VTPM_PROXY=false -DUSE_MOUNT_OOP=false -DUSE_USER_SESSION_ISOLATION=false -DUSE_SLOW_MOUNT=false
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2 -I/build/arm64-generic/usr/include -I/build/arm64-generic/usr/include/cryptohome/proto_bindings -Igen
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2 -I/build/arm64-generic/usr/include -I/build/arm64-generic/usr/include/cryptohome/proto_bindings -Igen
 cflags = -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/attestation-client -I/build/arm64-generic/usr/include/libxml2 -I/build/arm64-generic/usr/include/bootlockbox-client -Wconsumed -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/chromeos -I/build/arm64-generic/usr/include/libchrome -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -DPROTOBUF_USE_DLLS
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libcryptohome
 
 build obj/cryptohome/libs/libcryptohome.inputdeps.stamp: stamp obj/common-mk/external_dependencies/policy-protos_gen.stamp obj/common-mk/external_dependencies/policy_common_definitions-protos_gen.stamp obj/common-mk/external_dependencies/user_policy-protos_gen.stamp obj/cryptohome/libs/auth-block-state-flatbuffers-binding-generate.stamp obj/cryptohome/libs/auth-factor-flatbuffers-binding-generate.stamp obj/cryptohome/libs/cryptohome-flatbuffers_gen.stamp obj/cryptohome/libs/cryptohome-key-delegate-proxies.stamp obj/cryptohome/libs/cryptohome-proto_gen.stamp obj/cryptohome/libs/enumerations-flatbuffers-binding-generate.stamp obj/cryptohome/libs/namespace-mounter-ipc-proto_gen.stamp obj/cryptohome/libs/structures-flatbuffers-binding-generate.stamp obj/cryptohome/libs/user-policy-flatbuffers-binding-generate.stamp obj/cryptohome/libs/user-secret-stash-flatbuffers-binding-generate.stamp obj/cryptohome/libs/userdataauth_adaptors.stamp
-build obj/cryptohome/auth_factor/libcryptohome.flatbuffer.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/flatbuffer.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/libcryptohome.flatbuffer.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/flatbuffer.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = flatbuffer.cc
   source_name_part = flatbuffer
-build obj/cryptohome/auth_factor/libcryptohome.map.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/map.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/libcryptohome.map.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/map.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = map.cc
   source_name_part = map
-build obj/cryptohome/auth_factor/libcryptohome.metadata.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/metadata.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/libcryptohome.metadata.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/metadata.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = metadata.cc
   source_name_part = metadata
-build obj/cryptohome/auth_factor/libcryptohome.protobuf.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/protobuf.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/libcryptohome.protobuf.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/protobuf.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = protobuf.cc
   source_name_part = protobuf
-build obj/cryptohome/auth_factor/libcryptohome.storage_type.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/storage_type.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/libcryptohome.storage_type.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/storage_type.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = storage_type.cc
   source_name_part = storage_type
-build obj/cryptohome/auth_factor/libcryptohome.type.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/type.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/libcryptohome.type.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/type.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = type.cc
   source_name_part = type
-build obj/cryptohome/auth_factor/types/libcryptohome.common.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/common.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/types/libcryptohome.common.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/common.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = common.cc
   source_name_part = common
-build obj/cryptohome/auth_factor/types/libcryptohome.cryptohome_recovery.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/cryptohome_recovery.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/types/libcryptohome.cryptohome_recovery.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/cryptohome_recovery.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = cryptohome_recovery.cc
   source_name_part = cryptohome_recovery
-build obj/cryptohome/auth_factor/types/libcryptohome.fingerprint.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/fingerprint.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/types/libcryptohome.fingerprint.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/fingerprint.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = fingerprint.cc
   source_name_part = fingerprint
-build obj/cryptohome/auth_factor/types/libcryptohome.kiosk.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/kiosk.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/types/libcryptohome.kiosk.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/kiosk.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = kiosk.cc
   source_name_part = kiosk
-build obj/cryptohome/auth_factor/types/libcryptohome.legacy_fingerprint.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/legacy_fingerprint.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/types/libcryptohome.legacy_fingerprint.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/legacy_fingerprint.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = legacy_fingerprint.cc
   source_name_part = legacy_fingerprint
-build obj/cryptohome/auth_factor/types/libcryptohome.manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/manager.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/types/libcryptohome.manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/manager.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = manager.cc
   source_name_part = manager
-build obj/cryptohome/auth_factor/types/libcryptohome.password.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/password.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/types/libcryptohome.password.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/password.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = password.cc
   source_name_part = password
-build obj/cryptohome/auth_factor/types/libcryptohome.pin.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/pin.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/types/libcryptohome.pin.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/pin.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = pin.cc
   source_name_part = pin
-build obj/cryptohome/auth_factor/types/libcryptohome.smart_card.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/smart_card.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/types/libcryptohome.smart_card.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/types/smart_card.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = smart_card.cc
   source_name_part = smart_card
-build obj/cryptohome/auth_factor/verifiers/libcryptohome.scrypt.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/verifiers/scrypt.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/verifiers/libcryptohome.scrypt.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/verifiers/scrypt.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = scrypt.cc
   source_name_part = scrypt
-build obj/cryptohome/auth_factor/verifiers/libcryptohome.smart_card.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/verifiers/smart_card.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/verifiers/libcryptohome.smart_card.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/verifiers/smart_card.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = smart_card.cc
   source_name_part = smart_card
-build obj/cryptohome/auth_factor/libcryptohome.with_driver.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/with_driver.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/auth_factor/libcryptohome.with_driver.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_factor/with_driver.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = with_driver.cc
   source_name_part = with_driver
-build obj/cryptohome/libcryptohome.auth_input_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/auth_input_utils.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/libcryptohome.auth_input_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/auth_input_utils.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = auth_input_utils.cc
   source_name_part = auth_input_utils
-build obj/cryptohome/challenge_credentials/libcryptohome.challenge_credentials_constants.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/challenge_credentials/challenge_credentials_constants.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/challenge_credentials/libcryptohome.challenge_credentials_constants.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/challenge_credentials/challenge_credentials_constants.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = challenge_credentials_constants.cc
   source_name_part = challenge_credentials_constants
-build obj/cryptohome/challenge_credentials/libcryptohome.challenge_credentials_decrypt_operation.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/challenge_credentials/challenge_credentials_decrypt_operation.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/challenge_credentials/libcryptohome.challenge_credentials_decrypt_operation.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/challenge_credentials/challenge_credentials_decrypt_operation.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = challenge_credentials_decrypt_operation.cc
   source_name_part = challenge_credentials_decrypt_operation
-build obj/cryptohome/challenge_credentials/libcryptohome.challenge_credentials_generate_new_operation.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/challenge_credentials/challenge_credentials_generate_new_operation.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/challenge_credentials/libcryptohome.challenge_credentials_generate_new_operation.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/challenge_credentials/challenge_credentials_generate_new_operation.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = challenge_credentials_generate_new_operation.cc
   source_name_part = challenge_credentials_generate_new_operation
-build obj/cryptohome/challenge_credentials/libcryptohome.challenge_credentials_helper_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/challenge_credentials/challenge_credentials_helper_impl.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/challenge_credentials/libcryptohome.challenge_credentials_helper_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/challenge_credentials/challenge_credentials_helper_impl.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = challenge_credentials_helper_impl.cc
   source_name_part = challenge_credentials_helper_impl
-build obj/cryptohome/challenge_credentials/libcryptohome.challenge_credentials_operation.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/challenge_credentials/challenge_credentials_operation.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/challenge_credentials/libcryptohome.challenge_credentials_operation.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/challenge_credentials/challenge_credentials_operation.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = challenge_credentials_operation.cc
   source_name_part = challenge_credentials_operation
-build obj/cryptohome/challenge_credentials/libcryptohome.challenge_credentials_verify_key_operation.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/challenge_credentials/challenge_credentials_verify_key_operation.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/challenge_credentials/libcryptohome.challenge_credentials_verify_key_operation.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/challenge_credentials/challenge_credentials_verify_key_operation.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = challenge_credentials_verify_key_operation.cc
   source_name_part = challenge_credentials_verify_key_operation
-build obj/cryptohome/challenge_credentials/libcryptohome.fido_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/challenge_credentials/fido_utils.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/challenge_credentials/libcryptohome.fido_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/challenge_credentials/fido_utils.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = fido_utils.cc
   source_name_part = fido_utils
-build obj/cryptohome/libcryptohome.chaps_client_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/chaps_client_factory.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/libcryptohome.chaps_client_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/chaps_client_factory.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = chaps_client_factory.cc
   source_name_part = chaps_client_factory
-build obj/cryptohome/cleanup/libcryptohome.disk_cleanup.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/cleanup/disk_cleanup.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/cleanup/libcryptohome.disk_cleanup.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/cleanup/disk_cleanup.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = disk_cleanup.cc
   source_name_part = disk_cleanup
-build obj/cryptohome/cleanup/libcryptohome.disk_cleanup_routines.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/cleanup/disk_cleanup_routines.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/cleanup/libcryptohome.disk_cleanup_routines.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/cleanup/disk_cleanup_routines.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = disk_cleanup_routines.cc
   source_name_part = disk_cleanup_routines
-build obj/cryptohome/cleanup/libcryptohome.low_disk_space_handler.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/cleanup/low_disk_space_handler.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/cleanup/libcryptohome.low_disk_space_handler.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/cleanup/low_disk_space_handler.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = low_disk_space_handler.cc
   source_name_part = low_disk_space_handler
-build obj/cryptohome/cleanup/libcryptohome.user_oldest_activity_timestamp_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/cleanup/user_oldest_activity_timestamp_manager.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/cleanup/libcryptohome.user_oldest_activity_timestamp_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/cleanup/user_oldest_activity_timestamp_manager.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = user_oldest_activity_timestamp_manager.cc
   source_name_part = user_oldest_activity_timestamp_manager
-build obj/cryptohome/libcryptohome.credential_verifier.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/credential_verifier.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/libcryptohome.credential_verifier.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/credential_verifier.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = credential_verifier.cc
   source_name_part = credential_verifier
-build obj/cryptohome/cryptorecovery/libcryptohome.inclusion_proof.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/cryptorecovery/inclusion_proof.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/cryptorecovery/libcryptohome.inclusion_proof.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/cryptorecovery/inclusion_proof.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = inclusion_proof.cc
   source_name_part = inclusion_proof
-build obj/cryptohome/cryptorecovery/libcryptohome.inclusion_proof_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/cryptorecovery/inclusion_proof_util.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/cryptorecovery/libcryptohome.inclusion_proof_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/cryptorecovery/inclusion_proof_util.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = inclusion_proof_util.cc
   source_name_part = inclusion_proof_util
-build obj/cryptohome/cryptorecovery/libcryptohome.recovery_crypto.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/cryptorecovery/recovery_crypto.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/cryptorecovery/libcryptohome.recovery_crypto.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/cryptorecovery/recovery_crypto.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = recovery_crypto.cc
   source_name_part = recovery_crypto
-build obj/cryptohome/cryptorecovery/libcryptohome.recovery_crypto_hsm_cbor_serialization.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/cryptorecovery/recovery_crypto_hsm_cbor_serialization.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/cryptorecovery/libcryptohome.recovery_crypto_hsm_cbor_serialization.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/cryptorecovery/recovery_crypto_hsm_cbor_serialization.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = recovery_crypto_hsm_cbor_serialization.cc
   source_name_part = recovery_crypto_hsm_cbor_serialization
-build obj/cryptohome/cryptorecovery/libcryptohome.recovery_crypto_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/cryptorecovery/recovery_crypto_impl.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/cryptorecovery/libcryptohome.recovery_crypto_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/cryptorecovery/recovery_crypto_impl.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = recovery_crypto_impl.cc
   source_name_part = recovery_crypto_impl
-build obj/cryptohome/data_migrator/libcryptohome.migration_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/data_migrator/migration_helper.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/data_migrator/libcryptohome.migration_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/data_migrator/migration_helper.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = migration_helper.cc
   source_name_part = migration_helper
-build obj/cryptohome/error/libcryptohome.converter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/error/converter.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/error/libcryptohome.converter.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/error/converter.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = converter.cc
   source_name_part = converter
-build obj/cryptohome/error/libcryptohome.cryptohome_crypto_error.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/error/cryptohome_crypto_error.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/error/libcryptohome.cryptohome_crypto_error.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/error/cryptohome_crypto_error.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = cryptohome_crypto_error.cc
   source_name_part = cryptohome_crypto_error
-build obj/cryptohome/error/libcryptohome.cryptohome_error.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/error/cryptohome_error.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/error/libcryptohome.cryptohome_error.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/error/cryptohome_error.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = cryptohome_error.cc
   source_name_part = cryptohome_error
-build obj/cryptohome/error/libcryptohome.cryptohome_mount_error.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/error/cryptohome_mount_error.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/error/libcryptohome.cryptohome_mount_error.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/error/cryptohome_mount_error.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = cryptohome_mount_error.cc
   source_name_part = cryptohome_mount_error
-build obj/cryptohome/error/libcryptohome.cryptohome_tpm_error.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/error/cryptohome_tpm_error.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/error/libcryptohome.cryptohome_tpm_error.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/error/cryptohome_tpm_error.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = cryptohome_tpm_error.cc
   source_name_part = cryptohome_tpm_error
-build obj/cryptohome/error/libcryptohome.reap.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/error/reap.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/error/libcryptohome.reap.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/error/reap.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = reap.cc
   source_name_part = reap
-build obj/cryptohome/error/libcryptohome.reporting.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/error/reporting.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/error/libcryptohome.reporting.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/error/reporting.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = reporting.cc
   source_name_part = reporting
-build obj/cryptohome/error/libcryptohome.utilities.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/error/utilities.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/error/libcryptohome.utilities.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/error/utilities.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = utilities.cc
   source_name_part = utilities
-build obj/cryptohome/libcryptohome.features.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/features.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/libcryptohome.features.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/features.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = features.cc
   source_name_part = features
-build obj/cryptohome/libcryptohome.filesystem_layout.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/filesystem_layout.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/libcryptohome.filesystem_layout.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/filesystem_layout.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = filesystem_layout.cc
   source_name_part = filesystem_layout
-build obj/cryptohome/libcryptohome.fingerprint_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/fingerprint_manager.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/libcryptohome.fingerprint_manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/fingerprint_manager.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = fingerprint_manager.cc
   source_name_part = fingerprint_manager
-build obj/cryptohome/libcryptohome.key_challenge_service_factory_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/key_challenge_service_factory_impl.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/libcryptohome.key_challenge_service_factory_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/key_challenge_service_factory_impl.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = key_challenge_service_factory_impl.cc
   source_name_part = key_challenge_service_factory_impl
-build obj/cryptohome/libcryptohome.key_challenge_service_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/key_challenge_service_impl.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/libcryptohome.key_challenge_service_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/key_challenge_service_impl.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = key_challenge_service_impl.cc
   source_name_part = key_challenge_service_impl
-build obj/cryptohome/libcryptohome.keyset_management.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/keyset_management.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/libcryptohome.keyset_management.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/keyset_management.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = keyset_management.cc
   source_name_part = keyset_management
-build obj/cryptohome/libcryptohome.lockbox-cache.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/lockbox-cache.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/libcryptohome.lockbox-cache.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/lockbox-cache.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = lockbox-cache.cc
   source_name_part = lockbox-cache
-build obj/cryptohome/pkcs11/libcryptohome.real_pkcs11_token.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/pkcs11/real_pkcs11_token.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/pkcs11/libcryptohome.real_pkcs11_token.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/pkcs11/real_pkcs11_token.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = real_pkcs11_token.cc
   source_name_part = real_pkcs11_token
-build obj/cryptohome/recoverable_key_store/libcryptohome.backend_cert_provider_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/recoverable_key_store/backend_cert_provider_impl.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/recoverable_key_store/libcryptohome.backend_cert_provider_impl.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/recoverable_key_store/backend_cert_provider_impl.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = backend_cert_provider_impl.cc
   source_name_part = backend_cert_provider_impl
-build obj/cryptohome/recoverable_key_store/libcryptohome.backend_cert_verify.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/recoverable_key_store/backend_cert_verify.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/recoverable_key_store/libcryptohome.backend_cert_verify.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/recoverable_key_store/backend_cert_verify.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = backend_cert_verify.cc
   source_name_part = backend_cert_verify
-build obj/cryptohome/recoverable_key_store/libcryptohome.generate.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/recoverable_key_store/generate.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/recoverable_key_store/libcryptohome.generate.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/recoverable_key_store/generate.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = generate.cc
   source_name_part = generate
-build obj/cryptohome/libcryptohome.service_userdataauth.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/service_userdataauth.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/libcryptohome.service_userdataauth.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/service_userdataauth.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = service_userdataauth.cc
   source_name_part = service_userdataauth
-build obj/cryptohome/storage/libcryptohome.cryptohome_vault.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/storage/cryptohome_vault.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/storage/libcryptohome.cryptohome_vault.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/storage/cryptohome_vault.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = cryptohome_vault.cc
   source_name_part = cryptohome_vault
-build obj/cryptohome/storage/libcryptohome.cryptohome_vault_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/storage/cryptohome_vault_factory.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/storage/libcryptohome.cryptohome_vault_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/storage/cryptohome_vault_factory.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = cryptohome_vault_factory.cc
   source_name_part = cryptohome_vault_factory
-build obj/cryptohome/storage/libcryptohome.dircrypto_migration_helper_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/storage/dircrypto_migration_helper_delegate.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/storage/libcryptohome.dircrypto_migration_helper_delegate.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/storage/dircrypto_migration_helper_delegate.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = dircrypto_migration_helper_delegate.cc
   source_name_part = dircrypto_migration_helper_delegate
-build obj/cryptohome/storage/libcryptohome.ephemeral_policy_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/storage/ephemeral_policy_util.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/storage/libcryptohome.ephemeral_policy_util.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/storage/ephemeral_policy_util.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = ephemeral_policy_util.cc
   source_name_part = ephemeral_policy_util
-build obj/cryptohome/storage/libcryptohome.file_system_keyset.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/storage/file_system_keyset.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/storage/libcryptohome.file_system_keyset.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/storage/file_system_keyset.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = file_system_keyset.cc
   source_name_part = file_system_keyset
-build obj/cryptohome/storage/libcryptohome.homedirs.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/storage/homedirs.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/storage/libcryptohome.homedirs.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/storage/homedirs.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = homedirs.cc
   source_name_part = homedirs
-build obj/cryptohome/storage/libcryptohome.mount.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/storage/mount.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/storage/libcryptohome.mount.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/storage/mount.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = mount.cc
   source_name_part = mount
-build obj/cryptohome/storage/libcryptohome.mount_constants.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/storage/mount_constants.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/storage/libcryptohome.mount_constants.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/storage/mount_constants.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = mount_constants.cc
   source_name_part = mount_constants
-build obj/cryptohome/storage/libcryptohome.mount_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/storage/mount_factory.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/storage/libcryptohome.mount_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/storage/mount_factory.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = mount_factory.cc
   source_name_part = mount_factory
-build obj/cryptohome/storage/libcryptohome.mount_stack.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/storage/mount_stack.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/storage/libcryptohome.mount_stack.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/storage/mount_stack.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = mount_stack.cc
   source_name_part = mount_stack
-build obj/cryptohome/storage/libcryptohome.mount_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/storage/mount_utils.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/storage/libcryptohome.mount_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/storage/mount_utils.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = mount_utils.cc
   source_name_part = mount_utils
-build obj/cryptohome/storage/libcryptohome.out_of_process_mount_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/storage/out_of_process_mount_helper.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/storage/libcryptohome.out_of_process_mount_helper.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/storage/out_of_process_mount_helper.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = out_of_process_mount_helper.cc
   source_name_part = out_of_process_mount_helper
-build obj/cryptohome/user_session/libcryptohome.real_user_session.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/user_session/real_user_session.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/user_session/libcryptohome.real_user_session.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/user_session/real_user_session.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = real_user_session.cc
   source_name_part = real_user_session
-build obj/cryptohome/user_session/libcryptohome.user_session.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/user_session/user_session.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/user_session/libcryptohome.user_session.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/user_session/user_session.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = user_session.cc
   source_name_part = user_session
-build obj/cryptohome/user_session/libcryptohome.user_session_map.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/user_session/user_session_map.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/user_session/libcryptohome.user_session_map.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/user_session/user_session_map.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = user_session_map.cc
   source_name_part = user_session_map
-build obj/cryptohome/libcryptohome.userdataauth.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/userdataauth.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/libcryptohome.userdataauth.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/userdataauth.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = userdataauth.cc
   source_name_part = userdataauth
-build obj/cryptohome/libcryptohome.vault_keyset_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5677/work/cryptohome-0.0.2/platform2/cryptohome/vault_keyset_factory.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
+build obj/cryptohome/libcryptohome.vault_keyset_factory.o: cxx ../../../../../../../tmp/portage/chromeos-base/cryptohome-0.0.2-r5678/work/cryptohome-0.0.2/platform2/cryptohome/vault_keyset_factory.cc || obj/cryptohome/libs/libcryptohome.inputdeps.stamp
   source_file_part = vault_keyset_factory.cc
   source_name_part = vault_keyset_factory
 
