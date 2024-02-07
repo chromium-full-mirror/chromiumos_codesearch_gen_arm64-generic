@@ -5,13 +5,13 @@
  * @fileoverview Polymer element for displaying a summary of Cellular network
  * states
  */
-import 'chrome://resources/cr_elements/cr_action_menu/cr_action_menu.js';
-import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
-import 'chrome://resources/cr_elements/cr_icons.css.js';
-import 'chrome://resources/cr_elements/cr_lazy_render/cr_lazy_render.js';
-import 'chrome://resources/cr_elements/cr_shared_style.css.js';
-import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
-import 'chrome://resources/cr_elements/policy/cr_policy_indicator.js';
+import 'chrome://resources/ash/common/cr_elements/cr_action_menu/cr_action_menu.js';
+import 'chrome://resources/ash/common/cr_elements/cr_icon_button/cr_icon_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_icons.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_lazy_render/cr_lazy_render.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_style.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_vars.css.js';
+import 'chrome://resources/ash/common/cr_elements/policy/cr_policy_indicator.js';
 import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
 import '../os_settings_icons.css.js';
 import './esim_install_error_dialog.js';
@@ -23,8 +23,8 @@ import { getSimSlotCount } from 'chrome://resources/ash/common/network/cellular_
 import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network/mojo_interface_provider.js';
 import { NetworkList } from 'chrome://resources/ash/common/network/network_list_types.js';
 import { OncMojo } from 'chrome://resources/ash/common/network/onc_mojo.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
-import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
+import { WebUiListenerMixin } from 'chrome://resources/ash/common/cr_elements/web_ui_listener_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { ProfileInstallResult, ProfileState } from 'chrome://resources/mojo/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-webui.js';

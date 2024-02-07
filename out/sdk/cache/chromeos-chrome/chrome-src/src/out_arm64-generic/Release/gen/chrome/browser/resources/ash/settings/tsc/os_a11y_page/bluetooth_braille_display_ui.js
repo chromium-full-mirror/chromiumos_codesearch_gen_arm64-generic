@@ -5,13 +5,13 @@
  * @fileoverview A widget that exposes UI for interacting with a list of braille
  * displays.
  */
-import 'chrome://resources/cr_components/localized_link/localized_link.js';
-import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
+import 'chrome://resources/ash/common/cr_elements/localized_link/localized_link.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_vars.css.js';
 import '../settings_shared.css.js';
 import { afterNextRender } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
-import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
+import { WebUiListenerMixin } from 'chrome://resources/ash/common/cr_elements/web_ui_listener_mixin.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';

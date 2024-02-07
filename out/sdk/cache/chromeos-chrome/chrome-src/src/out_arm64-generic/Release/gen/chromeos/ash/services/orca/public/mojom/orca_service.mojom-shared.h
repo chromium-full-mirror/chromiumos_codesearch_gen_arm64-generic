@@ -207,16 +207,16 @@ using EditorEventSinkAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<EditorEventSinkInterfaceBase>;
 using EditorEventSinkAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<EditorEventSinkInterfaceBase>;
-class TextActuatorInterfaceBase {};
+class SystemActuatorInterfaceBase {};
 
-using TextActuatorPtrDataView =
-    mojo::InterfacePtrDataView<TextActuatorInterfaceBase>;
-using TextActuatorRequestDataView =
-    mojo::InterfaceRequestDataView<TextActuatorInterfaceBase>;
-using TextActuatorAssociatedPtrInfoDataView =
-    mojo::AssociatedInterfacePtrInfoDataView<TextActuatorInterfaceBase>;
-using TextActuatorAssociatedRequestDataView =
-    mojo::AssociatedInterfaceRequestDataView<TextActuatorInterfaceBase>;
+using SystemActuatorPtrDataView =
+    mojo::InterfacePtrDataView<SystemActuatorInterfaceBase>;
+using SystemActuatorRequestDataView =
+    mojo::InterfaceRequestDataView<SystemActuatorInterfaceBase>;
+using SystemActuatorAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<SystemActuatorInterfaceBase>;
+using SystemActuatorAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<SystemActuatorInterfaceBase>;
 class TextQueryProviderInterfaceBase {};
 
 using TextQueryProviderPtrDataView =

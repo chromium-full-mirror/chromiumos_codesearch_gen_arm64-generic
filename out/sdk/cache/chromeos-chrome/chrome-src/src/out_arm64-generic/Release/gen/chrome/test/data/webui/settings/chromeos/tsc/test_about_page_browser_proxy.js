@@ -5,6 +5,8 @@ import { BrowserChannel, UpdateStatus } from 'chrome://os-settings/os_settings.j
 import { webUIListenerCallback } from 'chrome://resources/js/cr.js';
 import { TestBrowserProxy } from 'chrome://webui-test/test_browser_proxy.js';
 export class TestAboutPageBrowserProxy extends TestBrowserProxy {
+    /* Used from tests to delay the resolving of the getChannelInfo() method. */
+    fakeChannelInfoDelay = null;
     updateStatus_ = UpdateStatus.UPDATED;
     sendUpdateStatus_ = true;
     versionInfo_ = {
@@ -122,9 +124,18 @@ export class TestAboutPageBrowserProxy extends TestBrowserProxy {
         this.methodCalled('getVersionInfo');
         return Promise.resolve(this.versionInfo_);
     }
-    getChannelInfo() {
+    getVersionInfoForTesting() {
+        return this.versionInfo_;
+    }
+    async getChannelInfo() {
+        if (this.fakeChannelInfoDelay) {
+            await this.fakeChannelInfoDelay;
+        }
         this.methodCalled('getChannelInfo');
-        return Promise.resolve(this.channelInfo_);
+        return this.channelInfo_;
+    }
+    getChannelInfoForTesting() {
+        return this.channelInfo_;
     }
     canChangeChannel() {
         this.methodCalled('canChangeChannel');

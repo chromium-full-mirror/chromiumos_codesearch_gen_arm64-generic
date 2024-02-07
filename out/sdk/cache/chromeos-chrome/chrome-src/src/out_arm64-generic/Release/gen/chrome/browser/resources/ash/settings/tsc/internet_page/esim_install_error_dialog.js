@@ -5,11 +5,11 @@
  * @fileoverview Polymer element handling errors when installing an eSIM
  * profile, such as requiring a confirmation code.
  */
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
-import 'chrome://resources/cr_elements/cr_input/cr_input.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_input/cr_input.js';
 import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
 import '../settings_shared.css.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { ESimOperationResult, ProfileInstallResult } from 'chrome://resources/mojo/chromeos/ash/services/cellular_setup/public/mojom/esim_manager.mojom-webui.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './esim_install_error_dialog.html.js';

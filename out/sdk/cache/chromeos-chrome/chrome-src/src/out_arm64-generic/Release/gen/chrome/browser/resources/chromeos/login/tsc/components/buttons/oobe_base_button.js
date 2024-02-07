@@ -1,7 +1,7 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import '//resources/cr_elements/cr_button/cr_button.js';
+import '//resources/ash/common/cr_elements/cr_button/cr_button.js';
 import { assert } from '//resources/js/assert.js';
 import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { OobeI18nBehavior } from '../behaviors/oobe_i18n_behavior.js';

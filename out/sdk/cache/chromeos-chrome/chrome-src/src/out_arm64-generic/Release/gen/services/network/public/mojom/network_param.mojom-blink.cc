@@ -260,13 +260,13 @@ bool ProxyServer::Validate(
 }
 ProxyChain::ProxyChain()
     : proxy_servers(),
-      is_for_ip_protection() {}
+      ip_protection_chain_id() {}
 
 ProxyChain::ProxyChain(
     std::optional<WTF::Vector<ProxyServerPtr>> proxy_servers_in,
-    bool is_for_ip_protection_in)
+    int32_t ip_protection_chain_id_in)
     : proxy_servers(std::move(proxy_servers_in)),
-      is_for_ip_protection(std::move(is_for_ip_protection_in)) {}
+      ip_protection_chain_id(std::move(ip_protection_chain_id_in)) {}
 
 ProxyChain::~ProxyChain() = default;
 
@@ -284,9 +284,9 @@ void ProxyChain::WriteIntoTrace(
     );
   perfetto::WriteIntoTracedValueWithFallback(
     dict.AddItem(
-      "is_for_ip_protection"), this->is_for_ip_protection,
+      "ip_protection_chain_id"), this->ip_protection_chain_id,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-      "<value of type bool>"
+      "<value of type int32_t>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -549,7 +549,7 @@ bool StructTraits<::network::mojom::blink::ProxyChain::DataView, ::network::mojo
       if (success && !input.ReadProxyServers(&result->proxy_servers))
         success = false;
       if (success)
-        result->is_for_ip_protection = input.is_for_ip_protection();
+        result->ip_protection_chain_id = input.ip_protection_chain_id();
   *output = std::move(result);
   return success;
 }

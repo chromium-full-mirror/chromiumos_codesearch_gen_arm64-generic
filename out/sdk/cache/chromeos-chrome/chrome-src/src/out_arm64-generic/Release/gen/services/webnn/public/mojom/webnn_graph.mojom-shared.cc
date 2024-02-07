@@ -711,10 +711,20 @@ bool Operation_Data::Validate(
         return false;
       return true;
     }
+    case Operation_Tag::kHardSwish: {
+
+      if (!mojo::internal::ValidatePointerNonNullable(
+              object->data.f_hard_swish, 13, validation_context)) {
+        return false;
+      }
+      if (!mojo::internal::ValidateStruct(object->data.f_hard_swish, validation_context))
+        return false;
+      return true;
+    }
     case Operation_Tag::kLayerNormalization: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_layer_normalization, 13, validation_context)) {
+              object->data.f_layer_normalization, 14, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_layer_normalization, validation_context))
@@ -724,7 +734,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kInstanceNormalization: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_instance_normalization, 14, validation_context)) {
+              object->data.f_instance_normalization, 15, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_instance_normalization, validation_context))
@@ -734,7 +744,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kLeakyRelu: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_leaky_relu, 15, validation_context)) {
+              object->data.f_leaky_relu, 16, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_leaky_relu, validation_context))
@@ -744,7 +754,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kLinear: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_linear, 16, validation_context)) {
+              object->data.f_linear, 17, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_linear, validation_context))
@@ -754,7 +764,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kMatmul: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_matmul, 17, validation_context)) {
+              object->data.f_matmul, 18, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_matmul, validation_context))
@@ -764,7 +774,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kPad: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_pad, 18, validation_context)) {
+              object->data.f_pad, 19, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_pad, validation_context))
@@ -774,7 +784,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kPool2d: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_pool2d, 19, validation_context)) {
+              object->data.f_pool2d, 20, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_pool2d, validation_context))
@@ -784,7 +794,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kPrelu: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_prelu, 20, validation_context)) {
+              object->data.f_prelu, 21, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_prelu, validation_context))
@@ -794,7 +804,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kReduce: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_reduce, 21, validation_context)) {
+              object->data.f_reduce, 22, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_reduce, validation_context))
@@ -804,7 +814,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kRelu: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_relu, 22, validation_context)) {
+              object->data.f_relu, 23, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_relu, validation_context))
@@ -814,7 +824,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kResample2d: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_resample2d, 23, validation_context)) {
+              object->data.f_resample2d, 24, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_resample2d, validation_context))
@@ -824,7 +834,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kReshape: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_reshape, 24, validation_context)) {
+              object->data.f_reshape, 25, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_reshape, validation_context))
@@ -834,7 +844,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kSigmoid: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_sigmoid, 25, validation_context)) {
+              object->data.f_sigmoid, 26, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_sigmoid, validation_context))
@@ -844,7 +854,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kSlice: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_slice, 26, validation_context)) {
+              object->data.f_slice, 27, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_slice, validation_context))
@@ -854,7 +864,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kSoftmax: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_softmax, 27, validation_context)) {
+              object->data.f_softmax, 28, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_softmax, validation_context))
@@ -864,7 +874,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kSoftplus: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_softplus, 28, validation_context)) {
+              object->data.f_softplus, 29, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_softplus, validation_context))
@@ -874,7 +884,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kSoftsign: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_softsign, 29, validation_context)) {
+              object->data.f_softsign, 30, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_softsign, validation_context))
@@ -884,7 +894,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kSplit: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_split, 30, validation_context)) {
+              object->data.f_split, 31, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_split, validation_context))
@@ -894,7 +904,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kTanh: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_tanh, 31, validation_context)) {
+              object->data.f_tanh, 32, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_tanh, validation_context))
@@ -904,7 +914,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kTranspose: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_transpose, 32, validation_context)) {
+              object->data.f_transpose, 33, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_transpose, validation_context))
@@ -914,7 +924,7 @@ bool Operation_Data::Validate(
     case Operation_Tag::kWhere: {
 
       if (!mojo::internal::ValidatePointerNonNullable(
-              object->data.f_where, 33, validation_context)) {
+              object->data.f_where, 34, validation_context)) {
         return false;
       }
       if (!mojo::internal::ValidateStruct(object->data.f_where, validation_context))
@@ -1804,6 +1814,29 @@ bool HardSigmoid_Data::Validate(
 }
 
 HardSigmoid_Data::HardSigmoid_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool HardSwish_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 24, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const HardSwish_Data* object =
+      static_cast<const HardSwish_Data*>(data);
+
+  return true;
+}
+
+HardSwish_Data::HardSwish_Data()
     : header_({sizeof(*this), 0}) {}
 
 

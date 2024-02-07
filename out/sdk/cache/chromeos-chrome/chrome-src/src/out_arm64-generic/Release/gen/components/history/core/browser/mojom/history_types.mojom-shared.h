@@ -108,12 +108,22 @@ class TabDataView {
         pointer, output, message_);
   }
   inline void GetRelativeTimeDataView(
-      mojo::StringDataView* output);
+      ::mojo_base::mojom::TimeDeltaDataView* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadRelativeTime(UserType* output) {
     
     auto* pointer = data_->relative_time.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::TimeDeltaDataView>(
+        pointer, output, message_);
+  }
+  inline void GetRelativeTimeTextDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadRelativeTimeText(UserType* output) {
+    
+    auto* pointer = data_->relative_time_text.Get();
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
@@ -197,7 +207,7 @@ struct Serializer<::history::mojom::TabDataView, MaybeConstUserType> {
     mojo::internal::MessageFragment<
         typename decltype(fragment->relative_time)::BaseType> relative_time_fragment(
             fragment.message());
-    mojo::internal::Serialize<mojo::StringDataView>(
+    mojo::internal::Serialize<::mojo_base::mojom::TimeDeltaDataView>(
         in_relative_time, relative_time_fragment);
     fragment->relative_time.Set(
         relative_time_fragment.is_null() ? nullptr : relative_time_fragment.data());
@@ -205,6 +215,18 @@ struct Serializer<::history::mojom::TabDataView, MaybeConstUserType> {
         fragment->relative_time.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null relative_time in Tab struct");
+    decltype(Traits::relative_time_text(input)) in_relative_time_text = Traits::relative_time_text(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->relative_time_text)::BaseType> relative_time_text_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_relative_time_text, relative_time_text_fragment);
+    fragment->relative_time_text.Set(
+        relative_time_text_fragment.is_null() ? nullptr : relative_time_text_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->relative_time_text.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null relative_time_text in Tab struct");
   }
 
   static bool Deserialize(::history::mojom::internal::Tab_Data* input,
@@ -246,8 +268,13 @@ inline void TabDataView::GetTitleDataView(
   *output = mojo::StringDataView(pointer, message_);
 }
 inline void TabDataView::GetRelativeTimeDataView(
-    mojo::StringDataView* output) {
+    ::mojo_base::mojom::TimeDeltaDataView* output) {
   auto pointer = data_->relative_time.Get();
+  *output = ::mojo_base::mojom::TimeDeltaDataView(pointer, message_);
+}
+inline void TabDataView::GetRelativeTimeTextDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->relative_time_text.Get();
   *output = mojo::StringDataView(pointer, message_);
 }
 

@@ -95,8 +95,8 @@ class  EditorEventSinkAsyncWaiter {
 };
 
 
-class  TextActuatorInterceptorForTesting : public TextActuator {
-  virtual TextActuator* GetForwardingInterface() = 0;
+class  SystemActuatorInterceptorForTesting : public SystemActuator {
+  virtual SystemActuator* GetForwardingInterface() = 0;
   void InsertText(const std::string& text) override;
   void ApproveConsent() override;
   void DeclineConsent() override;
@@ -105,17 +105,17 @@ class  TextActuatorInterceptorForTesting : public TextActuator {
   void CloseUI() override;
   void SubmitFeedback(const std::string& description) override;
 };
-class  TextActuatorAsyncWaiter {
+class  SystemActuatorAsyncWaiter {
  public:
-  explicit TextActuatorAsyncWaiter(TextActuator* proxy);
+  explicit SystemActuatorAsyncWaiter(SystemActuator* proxy);
 
-  TextActuatorAsyncWaiter(const TextActuatorAsyncWaiter&) = delete;
-  TextActuatorAsyncWaiter& operator=(const TextActuatorAsyncWaiter&) = delete;
+  SystemActuatorAsyncWaiter(const SystemActuatorAsyncWaiter&) = delete;
+  SystemActuatorAsyncWaiter& operator=(const SystemActuatorAsyncWaiter&) = delete;
 
-  ~TextActuatorAsyncWaiter();
+  ~SystemActuatorAsyncWaiter();
 
  private:
-  TextActuator* const proxy_;
+  SystemActuator* const proxy_;
 };
 
 
@@ -142,7 +142,7 @@ class  TextQueryProviderAsyncWaiter {
 
 class  OrcaServiceInterceptorForTesting : public OrcaService {
   virtual OrcaService* GetForwardingInterface() = 0;
-  void BindEditor(::mojo::PendingAssociatedRemote<TextActuator> text_actuator, ::mojo::PendingAssociatedRemote<TextQueryProvider> text_query_provider, ::mojo::PendingAssociatedReceiver<EditorClientConnector> client_connector, ::mojo::PendingAssociatedReceiver<EditorEventSink> event_sink) override;
+  void BindEditor(::mojo::PendingAssociatedRemote<SystemActuator> system_actuator, ::mojo::PendingAssociatedRemote<TextQueryProvider> text_query_provider, ::mojo::PendingAssociatedReceiver<EditorClientConnector> client_connector, ::mojo::PendingAssociatedReceiver<EditorEventSink> event_sink) override;
 };
 class  OrcaServiceAsyncWaiter {
  public:

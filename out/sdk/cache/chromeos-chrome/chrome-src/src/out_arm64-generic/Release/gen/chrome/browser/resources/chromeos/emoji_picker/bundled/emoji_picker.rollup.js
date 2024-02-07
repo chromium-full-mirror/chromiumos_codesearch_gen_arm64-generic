@@ -2745,7 +2745,7 @@ function getTemplate$d() {
  * iron-icon element.
  *
  * Example of using a cr-icon:
- * <link rel="import" href="chrome://resources/cr_elements/cr_icons.css.html">
+ * <link rel="import" href="chrome://resources/ash/common/cr_elements/cr_icons.css.html">
  * <dom-module id="module">
  *   <template>
  *     <style includes="cr-icons"></style>
@@ -2758,7 +2758,7 @@ function getTemplate$d() {
  *
  * Example of using an iron-icon:
  * In the TS file:
- * import 'chrome://resources/cr_elements/icons.html.js';
+ * import 'chrome://resources/ash/common/cr_elements/icons.html.js';
  *
  * In the HTML template file:
  * <cr-icon-button iron-icon="cr:icon-key"></cr-icon-button>
@@ -5142,7 +5142,7 @@ function getTemplate$5() {
       <div id="search-results">
 
         <template is="dom-repeat" items="[[searchResults]]">
-          <emoji-group data="[[item.emoji]]" category$="[[item.category]]" gif-support$="[[gifSupport]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]" use-grouped-preference="[[useGroupedPreference]">
+          <emoji-group data="[[item.emoji]]" category$="[[item.category]]" gif-support$="[[gifSupport]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]" use-grouped-preference="[[useGroupedPreference]]">
           </emoji-group>
         </template>
     </div>
@@ -6216,7 +6216,7 @@ function getTemplate() {
 </div>
 
 <div id="message" class="sr-only" aria-live="polite"></div>
-  <emoji-search class="search-side-padding" id="search-container" categories-data="[[categoriesData]]" lazy-indexing="[[searchLazyIndexing]]" on-scroll="onSearchScroll" category-metadata="[[getCategoryMetadata(gifSupport, category)]]" gif-support$="[[gifSupport]]" seal-support$="[[sealSupport]]" close-gif-nudge-overlay="[[closeGifNudgeOverlay]]" use-grouped-preference="[[shouldUseGroupedPreference(false)]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]">
+  <emoji-search class="search-side-padding" id="search-container" categories-data="[[categoriesData]]" lazy-indexing="[[searchLazyIndexing]]" on-scroll="onSearchScroll" category-metadata="[[getCategoryMetadata(gifSupport, category)]]" gif-support$="[[gifSupport]]" seal-support$="[[sealSupport]]" close-gif-nudge-overlay="[[closeGifNudgeOverlay]]" use-grouped-preference="[[variantGroupingSupport]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]">
   </emoji-search>
 
 <div id="list-container" class$="[[computeListContainerClass(category, status)]]">

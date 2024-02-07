@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 /** Base template with elements common to all Cellular Setup flow sub-pages. */
 import './cellular_setup_icons.html.js';
-import '//resources/cr_elements/chromeos/cros_color_overrides.css.js';
-import '//resources/cr_elements/cr_shared_vars.css.js';
+import '//resources/ash/common/cr_elements/cros_color_overrides.css.js';
+import '//resources/ash/common/cr_elements/cr_shared_vars.css.js';
 import '//resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './base_page.html.js';

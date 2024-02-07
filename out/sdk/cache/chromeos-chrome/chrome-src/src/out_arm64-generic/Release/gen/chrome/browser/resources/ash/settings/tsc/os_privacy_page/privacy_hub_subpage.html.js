@@ -27,7 +27,7 @@ export function getTemplate() {
       </cr-link-row>
       <div class="separator"></div>
       <div id="cameraToggleWrapper">
-        <cr-toggle id="cameraToggle" class="margin-matches-padding" checked="{{prefs.ash.user.camera_allowed.value}}" disabled="[[shouldDisableCameraToggle_]]" aria-label="$i18n{cameraToggleTitle}" aria-description="[[cameraSubLabel_]]">
+        <cr-toggle id="cameraToggle" class="margin-matches-padding" checked="{{prefs.ash.user.camera_allowed.value}}" disabled="[[shouldDisableCameraToggle_]]" aria-label="$i18n{cameraToggleTitle}" aria-description="[[cameraRowSubtext_]]">
         </cr-toggle>
       </div>
       <paper-tooltip id="cameraToggleTooltip" hidden="[[!isCameraListEmpty_]]" aria-hidden="true" for="cameraToggleWrapper" fit-to-visible-bounds>

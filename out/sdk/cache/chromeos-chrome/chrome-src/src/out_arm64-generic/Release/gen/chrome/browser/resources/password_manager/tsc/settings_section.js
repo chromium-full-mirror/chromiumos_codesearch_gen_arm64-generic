@@ -25,6 +25,7 @@ import { SyncBrowserProxyImpl, TrustedVaultBannerState } from './sync_browser_pr
 import { UserUtilMixin } from './user_utils_mixin.js';
 const PASSWORD_MANAGER_ADD_SHORTCUT_ELEMENT_ID = 'PasswordManagerUI::kAddShortcutElementId';
 const PASSWORD_MANAGER_ADD_SHORTCUT_CUSTOM_EVENT_ID = 'PasswordManagerUI::kAddShortcutCustomEventId';
+export const PASSWORD_MANAGER_ACCOUNT_STORE_TOGGLE_ELEMENT_ID = 'PasswordManagerUI::kAccountStoreToggleElementId';
 const SettingsSectionElementBase = HelpBubbleMixin(RouteObserverMixin(PrefsMixin(UserUtilMixin(WebUiListenerMixin(I18nMixin(PolymerElement))))));
 export class SettingsSectionElement extends SettingsSectionElementBase {
     constructor() {
@@ -122,13 +123,17 @@ export class SettingsSectionElement extends SettingsSectionElementBase {
         this.setCredentialsChangedListener_ = null;
     }
     currentRouteChanged(route) {
-        const param = route.queryParameters.get(UrlParam.START_IMPORT) || '';
-        if (param === 'true') {
+        const triggerImportParam = route.queryParameters.get(UrlParam.START_IMPORT) || '';
+        const accountStoreIphParam = route.queryParameters.get(UrlParam.SHOW_ACCOUNT_STORE_IPH) || '';
+        if (triggerImportParam === 'true') {
             const importer = this.shadowRoot.querySelector('passwords-importer');
             assert(importer);
             importer.launchImport();
             const params = new URLSearchParams();
             Router.getInstance().updateRouterParams(params);
+        }
+        else if (accountStoreIphParam === 'true') {
+            this.registerHelpBubble(PASSWORD_MANAGER_ACCOUNT_STORE_TOGGLE_ELEMENT_ID, this.$.accountStorageToggle);
         }
     }
     onShortcutBannerDomChanged_() {

@@ -2202,6 +2202,150 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  HardSwish {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<HardSwish, T>::value>;
+  using DataView = HardSwishDataView;
+  using Data_ = internal::HardSwish_Data;
+
+  template <typename... Args>
+  static HardSwishPtr New(Args&&... args) {
+    return HardSwishPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static HardSwishPtr From(const U& u) {
+    return mojo::TypeConverter<HardSwishPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, HardSwish>::Convert(*this);
+  }
+
+
+  HardSwish();
+
+  HardSwish(
+      uint64_t input_operand_id,
+      uint64_t output_operand_id);
+
+
+  ~HardSwish();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = HardSwishPtr>
+  HardSwishPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, HardSwish::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, HardSwish::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, HardSwish::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        HardSwish::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        HardSwish::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::HardSwish_UnserializedMessageContext<
+            UserType, HardSwish::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<HardSwish::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return HardSwish::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::HardSwish_UnserializedMessageContext<
+            UserType, HardSwish::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<HardSwish::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  uint64_t input_operand_id;
+  
+  uint64_t output_operand_id;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, HardSwish::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, HardSwish::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, HardSwish::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, HardSwish::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 
 class  LeakyRelu {
  public:
@@ -4417,6 +4561,14 @@ class  Operation {
     result->set_hard_sigmoid(std::move(value));
     return result;
   }
+  // Construct an instance holding |hard_swish|.
+  static OperationPtr
+  NewHardSwish(
+      HardSwishPtr value) {
+    auto result = OperationPtr(std::in_place);
+    result->set_hard_swish(std::move(value));
+    return result;
+  }
   // Construct an instance holding |layer_normalization|.
   static OperationPtr
   NewLayerNormalization(
@@ -4772,6 +4924,18 @@ class  Operation {
   void set_hard_sigmoid(
       HardSigmoidPtr hard_sigmoid);
   
+  bool is_hard_swish() const { return tag_ == Tag::kHardSwish; }
+
+  
+  HardSwishPtr& get_hard_swish() const {
+    CHECK(tag_ == Tag::kHardSwish);
+    return *(data_.hard_swish);
+  }
+
+  
+  void set_hard_swish(
+      HardSwishPtr hard_swish);
+  
   bool is_layer_normalization() const { return tag_ == Tag::kLayerNormalization; }
 
   
@@ -5053,6 +5217,7 @@ class  Operation {
     GatherPtr* gather;
     GemmPtr* gemm;
     HardSigmoidPtr* hard_sigmoid;
+    HardSwishPtr* hard_swish;
     LayerNormalizationPtr* layer_normalization;
     InstanceNormalizationPtr* instance_normalization;
     LeakyReluPtr* leaky_relu;
@@ -7106,6 +7271,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  LayerNormalization {
  public:
   template <typename T>
@@ -8014,6 +8180,9 @@ OperationPtr Operation::Clone() const {
     case Tag::kHardSigmoid:
       return NewHardSigmoid(
           mojo::Clone(*data_.hard_sigmoid));
+    case Tag::kHardSwish:
+      return NewHardSwish(
+          mojo::Clone(*data_.hard_swish));
     case Tag::kLayerNormalization:
       return NewLayerNormalization(
           mojo::Clone(*data_.layer_normalization));
@@ -8113,6 +8282,8 @@ bool Operation::Equals(const T& other) const {
       return mojo::Equals(*(data_.gemm), *(other.data_.gemm));
     case Tag::kHardSigmoid:
       return mojo::Equals(*(data_.hard_sigmoid), *(other.data_.hard_sigmoid));
+    case Tag::kHardSwish:
+      return mojo::Equals(*(data_.hard_swish), *(other.data_.hard_swish));
     case Tag::kLayerNormalization:
       return mojo::Equals(*(data_.layer_normalization), *(other.data_.layer_normalization));
     case Tag::kInstanceNormalization:
@@ -9289,6 +9460,35 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.beta < rhs.beta)
     return true;
   if (rhs.beta < lhs.beta)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+HardSwishPtr HardSwish::Clone() const {
+  return New(
+      mojo::Clone(input_operand_id),
+      mojo::Clone(output_operand_id)
+  );
+}
+
+template <typename T, HardSwish::EnableIfSame<T>*>
+bool HardSwish::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->input_operand_id, other_struct.input_operand_id))
+    return false;
+  if (!mojo::Equals(this->output_operand_id, other_struct.output_operand_id))
+    return false;
+  return true;
+}
+
+template <typename T, HardSwish::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.input_operand_id < rhs.input_operand_id)
+    return true;
+  if (rhs.input_operand_id < lhs.input_operand_id)
+    return false;
+  if (lhs.output_operand_id < rhs.output_operand_id)
+    return true;
+  if (rhs.output_operand_id < lhs.output_operand_id)
     return false;
   return false;
 }
@@ -10667,6 +10867,26 @@ struct  StructTraits<::webnn::mojom::HardSigmoid::DataView,
 
 
 template <>
+struct  StructTraits<::webnn::mojom::HardSwish::DataView,
+                                         ::webnn::mojom::HardSwishPtr> {
+  static bool IsNull(const ::webnn::mojom::HardSwishPtr& input) { return !input; }
+  static void SetToNull(::webnn::mojom::HardSwishPtr* output) { output->reset(); }
+
+  static decltype(::webnn::mojom::HardSwish::input_operand_id) input_operand_id(
+      const ::webnn::mojom::HardSwishPtr& input) {
+    return input->input_operand_id;
+  }
+
+  static decltype(::webnn::mojom::HardSwish::output_operand_id) output_operand_id(
+      const ::webnn::mojom::HardSwishPtr& input) {
+    return input->output_operand_id;
+  }
+
+  static bool Read(::webnn::mojom::HardSwish::DataView input, ::webnn::mojom::HardSwishPtr* output);
+};
+
+
+template <>
 struct  StructTraits<::webnn::mojom::LayerNormalization::DataView,
                                          ::webnn::mojom::LayerNormalizationPtr> {
   static bool IsNull(const ::webnn::mojom::LayerNormalizationPtr& input) { return !input; }
@@ -11225,6 +11445,10 @@ struct  UnionTraits<::webnn::mojom::Operation::DataView,
 
   static const ::webnn::mojom::HardSigmoidPtr& hard_sigmoid(const ::webnn::mojom::OperationPtr& input) {
     return input->get_hard_sigmoid();
+  }
+
+  static const ::webnn::mojom::HardSwishPtr& hard_swish(const ::webnn::mojom::OperationPtr& input) {
+    return input->get_hard_swish();
   }
 
   static const ::webnn::mojom::LayerNormalizationPtr& layer_normalization(const ::webnn::mojom::OperationPtr& input) {

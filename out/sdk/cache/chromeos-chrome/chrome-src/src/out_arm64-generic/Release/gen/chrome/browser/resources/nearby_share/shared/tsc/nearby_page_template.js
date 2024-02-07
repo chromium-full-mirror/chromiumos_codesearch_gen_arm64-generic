@@ -6,9 +6,9 @@
  * provide a consistent setup for all pages with title, sub-title, body slot
  * and button options.
  */
-import 'chrome://resources/cr_elements/cr_shared_style.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_style.css.js';
 // 
-import 'chrome://resources/cr_elements/chromeos/cros_color_overrides.css.js';
+import 'chrome://resources/ash/common/cr_elements/cros_color_overrides.css.js';
 // 
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './nearby_page_template.html.js';

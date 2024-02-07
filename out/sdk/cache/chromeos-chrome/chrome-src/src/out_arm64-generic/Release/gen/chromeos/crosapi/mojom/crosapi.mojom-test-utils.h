@@ -168,7 +168,7 @@ class  BrowserServiceInterceptorForTesting : public BrowserService {
   void NewFullscreenWindow(const ::GURL& url, int64_t target_display_id, NewFullscreenWindowCallback callback) override;
   void NewWindowForDetachingTab(const ::std::u16string& tab_id, const ::std::u16string& group_id, NewWindowForDetachingTabCallback callback) override;
   void NewGuestWindow(int64_t target_display_id, NewGuestWindowCallback callback) override;
-  void NewTab(NewTabCallback callback) override;
+  void NewTab(std::optional<uint64_t> profile_id, NewTabCallback callback) override;
   void REMOVED_7(bool should_trigger_session_restore, REMOVED_7Callback callback) override;
   void OpenUrl(const ::GURL& url, OpenUrlParamsPtr params, OpenUrlCallback callback) override;
   void RestoreTab(RestoreTabCallback callback) override;
@@ -209,8 +209,8 @@ class  BrowserServiceAsyncWaiter {
       int64_t target_display_id, CreationResult* out_result);
   CreationResult NewGuestWindow(int64_t target_display_id);
   void NewTab(
-      CreationResult* out_result);
-  CreationResult NewTab();
+      std::optional<uint64_t> profile_id, CreationResult* out_result);
+  CreationResult NewTab(std::optional<uint64_t> profile_id);
   void REMOVED_7(
       bool should_trigger_session_restore);
   

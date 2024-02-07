@@ -115,8 +115,13 @@ export class OcrUntrustedPageHandlerRemote {
             pageMetadata
         ]);
     }
+    pageContentsUpdated(dirtyPageId) {
+        this.proxy.sendMessage(1, OcrUntrustedPageHandler_PageContentsUpdated_ParamsSpec.$, null, [
+            dirtyPageId
+        ]);
+    }
     viewportUpdated(viewportBox, scaleFactor) {
-        this.proxy.sendMessage(1, OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$, null, [
+        this.proxy.sendMessage(2, OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$, null, [
             viewportBox,
             scaleFactor
         ]);
@@ -136,7 +141,8 @@ export class OcrUntrustedPageHandlerReceiver {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(OcrUntrustedPageHandlerRemote);
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, OcrUntrustedPageHandler_PageMetadataUpdated_ParamsSpec.$, null, impl.pageMetadataUpdated.bind(impl));
-        this.helper_internal_.registerHandler(1, OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$, null, impl.viewportUpdated.bind(impl));
+        this.helper_internal_.registerHandler(1, OcrUntrustedPageHandler_PageContentsUpdated_ParamsSpec.$, null, impl.pageContentsUpdated.bind(impl));
+        this.helper_internal_.registerHandler(2, OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$, null, impl.viewportUpdated.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -166,6 +172,7 @@ export class OcrUntrustedPageHandlerCallbackRouter {
     $;
     router_;
     pageMetadataUpdated;
+    pageContentsUpdated;
     viewportUpdated;
     onConnectionError;
     constructor() {
@@ -175,9 +182,12 @@ export class OcrUntrustedPageHandlerCallbackRouter {
         this.pageMetadataUpdated =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(0, OcrUntrustedPageHandler_PageMetadataUpdated_ParamsSpec.$, null, this.pageMetadataUpdated.createReceiverHandler(false /* expectsResponse */));
+        this.pageContentsUpdated =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(1, OcrUntrustedPageHandler_PageContentsUpdated_ParamsSpec.$, null, this.pageContentsUpdated.createReceiverHandler(false /* expectsResponse */));
         this.viewportUpdated =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
-        this.helper_internal_.registerHandler(1, OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$, null, this.viewportUpdated.createReceiverHandler(false /* expectsResponse */));
+        this.helper_internal_.registerHandler(2, OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$, null, this.viewportUpdated.createReceiverHandler(false /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -277,6 +287,7 @@ export class OcrUntrustedPageCallbackRouter {
 export const PageMetadataSpec = { $: {} };
 export const UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec = { $: {} };
 export const OcrUntrustedPageHandler_PageMetadataUpdated_ParamsSpec = { $: {} };
+export const OcrUntrustedPageHandler_PageContentsUpdated_ParamsSpec = { $: {} };
 export const OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec = { $: {} };
 export const OcrUntrustedPage_SetViewport_ParamsSpec = { $: {} };
 mojo.internal.Struct(PageMetadataSpec.$, 'PageMetadata', [
@@ -289,6 +300,9 @@ mojo.internal.Struct(UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_P
 ], [[0, 24],]);
 mojo.internal.Struct(OcrUntrustedPageHandler_PageMetadataUpdated_ParamsSpec.$, 'OcrUntrustedPageHandler_PageMetadataUpdated_Params', [
     mojo.internal.StructField('pageMetadata', 0, 0, mojo.internal.Array(PageMetadataSpec.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(OcrUntrustedPageHandler_PageContentsUpdated_ParamsSpec.$, 'OcrUntrustedPageHandler_PageContentsUpdated_Params', [
+    mojo.internal.StructField('dirtyPageId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$, 'OcrUntrustedPageHandler_ViewportUpdated_Params', [
     mojo.internal.StructField('viewportBox', 0, 0, gfx_mojom_RectFSpec.$, null, false /* nullable */, 0),

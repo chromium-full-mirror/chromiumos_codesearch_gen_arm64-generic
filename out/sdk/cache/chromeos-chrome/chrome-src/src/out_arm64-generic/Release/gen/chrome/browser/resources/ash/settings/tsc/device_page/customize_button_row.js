@@ -3,13 +3,13 @@
 // found in the LICENSE file.
 import 'chrome://resources/cr_components/settings_prefs/prefs.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
-import 'chrome://resources/cr_elements/md_select.css.js';
+import 'chrome://resources/ash/common/cr_elements/md_select.css.js';
 import './customize_button_select.js';
 import '../settings_shared.css.js';
 import '../controls/settings_dropdown_menu.js';
 import '../os_settings_icons.html.js';
 import { strictQuery } from 'chrome://resources/ash/common/typescript_utils/strict_query.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { ButtonPressObserverReceiver } from '../mojom-webui/input_device_settings_provider.mojom-webui.js';
 import { getTemplate } from './customize_button_row.html.js';

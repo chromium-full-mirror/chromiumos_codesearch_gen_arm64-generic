@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/system_api-0.0.1-r5634/work/system_api-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/system_api-0.0.1-r5637/work/system_api-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 
@@ -129,6 +129,36 @@ build _system_api-vm_sk_forwarding-protos-headers-install_config: phony obj/syst
 build _system_api-vm_sk_forwarding-protos-lib-install_config: phony obj/system_api/_system_api-vm_sk_forwarding-protos-lib-install_config.stamp
 build _system_api-vm_wl-protos-headers-install_config: phony obj/system_api/_system_api-vm_wl-protos-headers-install_config.stamp
 build _system_api-vm_wl-protos-lib-install_config: phony obj/system_api/_system_api-vm_wl-protos-lib-install_config.stamp
+build install_dbus_headers: phony obj/system_api/install_dbus_headers.stamp
+build install_header_anomaly_detector: phony obj/system_api/install_header_anomaly_detector.stamp
+build install_header_attestation: phony obj/system_api/install_header_attestation.stamp
+build install_header_biod: phony obj/system_api/install_header_biod.stamp
+build install_header_chunneld: phony obj/system_api/install_header_chunneld.stamp
+build install_header_crash-reporter: phony obj/system_api/install_header_crash-reporter.stamp
+build install_header_cros-disks: phony obj/system_api/install_header_cros-disks.stamp
+build install_header_cros_healthd: phony obj/system_api/install_header_cros_healthd.stamp
+build install_header_cryptohome: phony obj/system_api/install_header_cryptohome.stamp
+build install_header_debugd: phony obj/system_api/install_header_debugd.stamp
+build install_header_discod: phony obj/system_api/install_header_discod.stamp
+build install_header_dlcservice: phony obj/system_api/install_header_dlcservice.stamp
+build install_header_fbpreprocessor: phony obj/system_api/install_header_fbpreprocessor.stamp
+build install_header_kerberos: phony obj/system_api/install_header_kerberos.stamp
+build install_header_login_manager: phony obj/system_api/install_header_login_manager.stamp
+build install_header_lorgnette: phony obj/system_api/install_header_lorgnette.stamp
+build install_header_oobe_config: phony obj/system_api/install_header_oobe_config.stamp
+build install_header_pciguard: phony obj/system_api/install_header_pciguard.stamp
+build install_header_permission_broker: phony obj/system_api/install_header_permission_broker.stamp
+build install_header_power_manager: phony obj/system_api/install_header_power_manager.stamp
+build install_header_printscanmgr: phony obj/system_api/install_header_printscanmgr.stamp
+build install_header_rgbkbd: phony obj/system_api/install_header_rgbkbd.stamp
+build install_header_rmad: phony obj/system_api/install_header_rmad.stamp
+build install_header_runtime_probe: phony obj/system_api/install_header_runtime_probe.stamp
+build install_header_shadercached: phony obj/system_api/install_header_shadercached.stamp
+build install_header_shill: phony obj/system_api/install_header_shill.stamp
+build install_header_smbprovider: phony obj/system_api/install_header_smbprovider.stamp
+build install_header_tpm_manager: phony obj/system_api/install_header_tpm_manager.stamp
+build install_header_u2f: phony obj/system_api/install_header_u2f.stamp
+build install_header_update_engine: phony obj/system_api/install_header_update_engine.stamp
 build install_headers: phony obj/system_api/install_headers.stamp
 build install_pkg_config: phony obj/system_api/install_pkg_config.stamp
 build libsystem_api: phony ./lib/libsystem_api.so
@@ -387,6 +417,36 @@ build system_api$:_system_api-vm_sk_forwarding-protos-lib-install_config: phony 
 build system_api$:_system_api-vm_wl-protos-headers-install_config: phony obj/system_api/_system_api-vm_wl-protos-headers-install_config.stamp
 build system_api$:_system_api-vm_wl-protos-lib-install_config: phony obj/system_api/_system_api-vm_wl-protos-lib-install_config.stamp
 build system_api$:all: phony obj/system_api/all.stamp
+build system_api$:install_dbus_headers: phony obj/system_api/install_dbus_headers.stamp
+build system_api$:install_header_anomaly_detector: phony obj/system_api/install_header_anomaly_detector.stamp
+build system_api$:install_header_attestation: phony obj/system_api/install_header_attestation.stamp
+build system_api$:install_header_biod: phony obj/system_api/install_header_biod.stamp
+build system_api$:install_header_chunneld: phony obj/system_api/install_header_chunneld.stamp
+build system_api$:install_header_crash-reporter: phony obj/system_api/install_header_crash-reporter.stamp
+build system_api$:install_header_cros-disks: phony obj/system_api/install_header_cros-disks.stamp
+build system_api$:install_header_cros_healthd: phony obj/system_api/install_header_cros_healthd.stamp
+build system_api$:install_header_cryptohome: phony obj/system_api/install_header_cryptohome.stamp
+build system_api$:install_header_debugd: phony obj/system_api/install_header_debugd.stamp
+build system_api$:install_header_discod: phony obj/system_api/install_header_discod.stamp
+build system_api$:install_header_dlcservice: phony obj/system_api/install_header_dlcservice.stamp
+build system_api$:install_header_fbpreprocessor: phony obj/system_api/install_header_fbpreprocessor.stamp
+build system_api$:install_header_kerberos: phony obj/system_api/install_header_kerberos.stamp
+build system_api$:install_header_login_manager: phony obj/system_api/install_header_login_manager.stamp
+build system_api$:install_header_lorgnette: phony obj/system_api/install_header_lorgnette.stamp
+build system_api$:install_header_oobe_config: phony obj/system_api/install_header_oobe_config.stamp
+build system_api$:install_header_pciguard: phony obj/system_api/install_header_pciguard.stamp
+build system_api$:install_header_permission_broker: phony obj/system_api/install_header_permission_broker.stamp
+build system_api$:install_header_power_manager: phony obj/system_api/install_header_power_manager.stamp
+build system_api$:install_header_printscanmgr: phony obj/system_api/install_header_printscanmgr.stamp
+build system_api$:install_header_rgbkbd: phony obj/system_api/install_header_rgbkbd.stamp
+build system_api$:install_header_rmad: phony obj/system_api/install_header_rmad.stamp
+build system_api$:install_header_runtime_probe: phony obj/system_api/install_header_runtime_probe.stamp
+build system_api$:install_header_shadercached: phony obj/system_api/install_header_shadercached.stamp
+build system_api$:install_header_shill: phony obj/system_api/install_header_shill.stamp
+build system_api$:install_header_smbprovider: phony obj/system_api/install_header_smbprovider.stamp
+build system_api$:install_header_tpm_manager: phony obj/system_api/install_header_tpm_manager.stamp
+build system_api$:install_header_u2f: phony obj/system_api/install_header_u2f.stamp
+build system_api$:install_header_update_engine: phony obj/system_api/install_header_update_engine.stamp
 build system_api$:install_headers: phony obj/system_api/install_headers.stamp
 build system_api$:install_pkg_config: phony obj/system_api/install_pkg_config.stamp
 build system_api$:libsystem_api: phony ./lib/libsystem_api.so
@@ -646,6 +706,36 @@ build all: phony $
     obj/system_api/_system_api-vm_wl-protos-headers-install_config.stamp $
     obj/system_api/_system_api-vm_wl-protos-lib-install_config.stamp $
     obj/system_api/all.stamp $
+    obj/system_api/install_dbus_headers.stamp $
+    obj/system_api/install_header_anomaly_detector.stamp $
+    obj/system_api/install_header_attestation.stamp $
+    obj/system_api/install_header_biod.stamp $
+    obj/system_api/install_header_chunneld.stamp $
+    obj/system_api/install_header_crash-reporter.stamp $
+    obj/system_api/install_header_cros-disks.stamp $
+    obj/system_api/install_header_cros_healthd.stamp $
+    obj/system_api/install_header_cryptohome.stamp $
+    obj/system_api/install_header_debugd.stamp $
+    obj/system_api/install_header_discod.stamp $
+    obj/system_api/install_header_dlcservice.stamp $
+    obj/system_api/install_header_fbpreprocessor.stamp $
+    obj/system_api/install_header_kerberos.stamp $
+    obj/system_api/install_header_login_manager.stamp $
+    obj/system_api/install_header_lorgnette.stamp $
+    obj/system_api/install_header_oobe_config.stamp $
+    obj/system_api/install_header_pciguard.stamp $
+    obj/system_api/install_header_permission_broker.stamp $
+    obj/system_api/install_header_power_manager.stamp $
+    obj/system_api/install_header_printscanmgr.stamp $
+    obj/system_api/install_header_rgbkbd.stamp $
+    obj/system_api/install_header_rmad.stamp $
+    obj/system_api/install_header_runtime_probe.stamp $
+    obj/system_api/install_header_shadercached.stamp $
+    obj/system_api/install_header_shill.stamp $
+    obj/system_api/install_header_smbprovider.stamp $
+    obj/system_api/install_header_tpm_manager.stamp $
+    obj/system_api/install_header_u2f.stamp $
+    obj/system_api/install_header_update_engine.stamp $
     obj/system_api/install_headers.stamp $
     obj/system_api/install_pkg_config.stamp $
     ./lib/libsystem_api.so $

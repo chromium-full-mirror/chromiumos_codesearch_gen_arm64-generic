@@ -8,7 +8,7 @@
 import '../settings_shared.css.js';
 import './os_paired_bluetooth_list_item.js';
 import 'chrome://resources/polymer/v3_0/iron-list/iron-list.js';
-import { CrScrollableMixin } from 'chrome://resources/cr_elements/cr_scrollable_mixin.js';
+import { CrScrollableMixin } from 'chrome://resources/ash/common/cr_elements/cr_scrollable_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './os_paired_bluetooth_list.html.js';
 const SettingsPairedBluetoothListElementBase = CrScrollableMixin(PolymerElement);

@@ -10323,7 +10323,7 @@
     {
       "caption": "Enable/disable Extended Automatic Updates",
       "default": false,
-      "desc": "If the policy is true, devices will opt in to Extended Automatic Updates.\n\nIf the policy is set to false or unset, devices will stop receiving updates\nafter Auto Update Expiration.\n\nExtended Automatic Updates and Auto Updates are documented at\nhttps://support.google.com/chrome/a?p=auto-update-policy.",
+      "desc": "Allow eligible devices that will lose Android support to be opted into\nExtended Automatic Updates.\n\nIf the policy is Enabled, devices will opt in to Extended Automatic Updates.\n\nIf the policy is Disabled or unset, devices will stop receiving updates\nafter the original Auto Update Expiration date.\n\nThis policy is only relevant for older models not automatically receiving\nextended updates.\n\nFor more details please see\nhttps://support.google.com/chrome/a/?p=extended_updates_support.",
       "device_only": true,
       "example_value": true,
       "features": {
@@ -10336,11 +10336,11 @@
       "id": 1195,
       "items": [
         {
-          "caption": "Opt in to Extended Automatic Updates",
+          "caption": "Allow extended automatic updates",
           "value": true
         },
         {
-          "caption": "Do not opt in to Extended Automatic Updates",
+          "caption": "Do not allow extended automatic updates",
           "value": false
         }
       ],
@@ -36098,9 +36098,6 @@
         "dynamic_refresh": true,
         "per_profile": true
       },
-      "future_on": [
-        "ios"
-      ],
       "id": 1203,
       "name": "WebAnnotations",
       "owners": [
@@ -36175,6 +36172,9 @@
         },
         "type": "object"
       },
+      "supported_on": [
+        "ios:123-"
+      ],
       "tags": [],
       "type": "dict"
     },

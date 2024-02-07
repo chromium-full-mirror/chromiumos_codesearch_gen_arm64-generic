@@ -37,6 +37,7 @@
     "useUnknownInCatchVariables": false
   },
   "files": [
+    "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/ActionRegistration_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/ContextMenu_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/DockController_test.ts",
     "../../../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/Infobar_test.ts",

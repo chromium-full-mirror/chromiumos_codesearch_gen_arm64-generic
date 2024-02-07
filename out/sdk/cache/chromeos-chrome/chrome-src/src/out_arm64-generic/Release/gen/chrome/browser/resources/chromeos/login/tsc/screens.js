@@ -95,7 +95,6 @@ export const commonScreensList = [
     {
         tag: 'apply-online-password-element',
         id: 'apply-online-password',
-        condition: 'isOobeConsumersLocalPasswordsEnabled',
     },
     { tag: 'autolaunch-element', id: 'autolaunch' },
     {
@@ -136,7 +135,6 @@ export const commonScreensList = [
     {
         tag: 'local-password-setup-element',
         id: 'local-password-setup',
-        condition: 'isOobeConsumersLocalPasswordsEnabled',
     },
     {
         tag: 'local-data-loss-warning-element',
@@ -164,7 +162,6 @@ export const commonScreensList = [
     {
         tag: 'password-selection-element',
         id: 'password-selection',
-        condition: 'isOobeConsumersLocalPasswordsEnabled',
     },
     { tag: 'pin-setup-element', id: 'pin-setup' },
     { tag: 'quick-start-element', id: 'quick-start' },

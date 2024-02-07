@@ -1203,7 +1203,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0x7a7c427a,  // Blimp.Tab.Visible
   0x7a831ef8,  // Apps.AppList.UserEvent.TypeAbandon.Chip
   0x7a8dc82d,  // Platform.Storage.Flash.BadBlocks.TZ-B
-  0x7ab23f10,  // NetworkService.URLLoaderFactory.OriginHeaderSameAsRequestOrigin
   0x7abb73c9,  // Net.HttpProxy.ConnectLatency.Secure.Success
   0x7ae4cc9b,  // Notifications.Scheduler.UserAction.FeatureGuide
   0x7af51fa6,  // ExploreSites.ImageDecoded
@@ -1577,7 +1576,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0x9eaf15e9,  // Apps.ActivatedCount.StandaloneBrowserChromeApp
   0x9f023311,  // ServiceWorker.RequestFileSystemAccessTime
   0x9f0641de,  // WebRTC.Stun.BatchSuccessPercent.UnknownNAT.50ms.2
-  0x9f1b534f,  // InputMethod.MultilingualExperiment.Autocorrect.Delay
   0x9f4f6d78,  // Net.QuicSession.NumActiveStreamsOnIdleTimeout
   0x9f56c76d,  // QuickAnswers.V2.Consent.Impression.Dismiss
   0x9f6b7f11,  // HeapProfiling.InProcess.AndroidShortStacks.Utility
@@ -1833,7 +1831,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0xb9540e8a,  // Apps.AppList.UserEvent.TypeAbandon.ListZeroState
   0xb964587e,  // Notifications.Scheduler.UserAction.ReadingList
   0xb9746b2e,  // WebRTC.Stun.BatchSuccessPercent.SymNAT.50ms.1
-  0xb99d9ba9,  // Tabs.StateTransfer.NumberOfOtherTabsActivatedBeforeMadeActive
   0xb9a74a4d,  // QuickAnswers.V2.Consent.Duration.Dismiss
   0xba05a2ed,  // NewTabPage.Languages.UILanguageRatioInTwoTopLanguages
   0xba0cf168,  // WebRTC.Stun.ResponseLatency.NoNAT.35ms
@@ -1986,7 +1983,6 @@ const uint32_t kExpiredHistogramsHashes[] = {
   0xc837dd43,  // V8.MemoryExternalFragmentationLoSpace
   0xc84f693c,  // Permissions.Engagement.Ignored
   0xc857a42b,  // Network.Shill.TimeToDrop
-  0xc8b66bc3,  // InputMethod.MultilingualExperiment.Autocorrect.Count
   0xc8cc95cb,  // Net.TrustTokens.OperationServerTime.Failure.Signing
   0xc90a1685,  // PaymentRequest.SecurePaymentConfirmationCredentialIdSizeInBytes
   0xc9157bcf,  // Apps.RunningPercentage.StandaloneBrowser

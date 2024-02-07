@@ -127,6 +127,24 @@ v8::Local<v8::Value> v8_return_value = ToV8Traits<WebPrintJobAttributes>::ToV8(s
 bindings::V8SetReturnValue(info, v8_return_value);
 }
 
+void CancelOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_WebPrintJob_cancel");
+BLINK_BINDINGS_TRACE_EVENT("WebPrintJob.cancel");
+
+
+
+
+
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+WebPrintJob* blink_receiver = V8WebPrintJob::ToWrappableUnsafe(isolate, v8_receiver);
+blink_receiver->cancel();
+
+}
+
 
 }  // namespace v8_web_print_job
 
@@ -171,6 +189,7 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_template, prototy
 {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"attributes", AttributesOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"cancel", CancelOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
 IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
 }

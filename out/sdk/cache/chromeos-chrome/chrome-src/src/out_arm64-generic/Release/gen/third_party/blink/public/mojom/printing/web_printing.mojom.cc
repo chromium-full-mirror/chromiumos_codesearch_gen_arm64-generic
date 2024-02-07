@@ -473,15 +473,18 @@ bool WebPrintJobUpdate::Validate(
 WebPrintJobInfo::WebPrintJobInfo()
     : job_name(),
       job_pages(),
-      observer() {}
+      observer(),
+      controller() {}
 
 WebPrintJobInfo::WebPrintJobInfo(
     const std::string& job_name_in,
     uint32_t job_pages_in,
-    ::mojo::PendingReceiver<WebPrintJobStateObserver> observer_in)
+    ::mojo::PendingReceiver<WebPrintJobStateObserver> observer_in,
+    ::mojo::PendingRemote<WebPrintJobController> controller_in)
     : job_name(std::move(job_name_in)),
       job_pages(std::move(job_pages_in)),
-      observer(std::move(observer_in)) {}
+      observer(std::move(observer_in)),
+      controller(std::move(controller_in)) {}
 
 WebPrintJobInfo::~WebPrintJobInfo() = default;
 
@@ -511,6 +514,15 @@ void WebPrintJobInfo::WriteIntoTrace(
       "observer"), this->observer,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type ::mojo::PendingReceiver<WebPrintJobStateObserver>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "controller"), this->controller,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::mojo::PendingRemote<WebPrintJobController>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -835,6 +847,158 @@ static const mojo::internal::GenericValidationInfo kWebPrintJobStateObserverVali
 bool WebPrintJobStateObserverRequestValidator::Accept(mojo::Message* message) {
   const char* name = ::blink::mojom::WebPrintJobStateObserver::Name_;
   return mojo::internal::ValidateRequestGenericPacked(message, name, kWebPrintJobStateObserverValidationInfo);
+}
+
+const char WebPrintJobController::Name_[] = "blink.mojom.WebPrintJobController";
+
+WebPrintJobController::IPCStableHashFunction WebPrintJobController::MessageToMethodInfo_(mojo::Message& message) {
+#if !BUILDFLAG(IS_FUCHSIA)
+  switch (message.name()) {
+    case internal::kWebPrintJobController_Cancel_Name: {
+      return &WebPrintJobController::Cancel_Sym::IPCStableHash;
+    }
+  }
+#endif  // !BUILDFLAG(IS_FUCHSIA)
+  return nullptr;
+}
+
+
+const char* WebPrintJobController::MessageToMethodName_(mojo::Message& message) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (!is_response) {
+    switch (message.name()) {
+      case internal::kWebPrintJobController_Cancel_Name:
+            return "Receive blink::mojom::WebPrintJobController::Cancel";
+    }
+  } else {
+    switch (message.name()) {
+      case internal::kWebPrintJobController_Cancel_Name:
+            return "Receive reply blink::mojom::WebPrintJobController::Cancel";
+    }
+  }
+  return "Receive unknown mojo message";
+#else
+  bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
+  if (is_response) {
+    return "Receive mojo reply";
+  } else {
+    return "Receive mojo message";
+  }
+#endif // BUILDFLAG(MOJO_TRACE_ENABLED)
+}
+
+#if !BUILDFLAG(IS_FUCHSIA)
+uint32_t WebPrintJobController::Cancel_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)blink::mojom::WebPrintJobController::Cancel");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+# endif // !BUILDFLAG(IS_FUCHSIA)
+
+WebPrintJobControllerProxy::WebPrintJobControllerProxy(mojo::MessageReceiverWithResponder* receiver)
+    : receiver_(receiver) {
+}
+
+void WebPrintJobControllerProxy::Cancel(
+    ) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send blink::mojom::WebPrintJobController::Cancel");
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kWebPrintJobController_Cancel_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::blink::mojom::internal::WebPrintJobController_Cancel_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(WebPrintJobController::Name_);
+  message.set_method_name("Cancel");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
+// static
+bool WebPrintJobControllerStubDispatch::Accept(
+    WebPrintJobController* impl,
+    mojo::Message* message) {
+  switch (message->header()->name) {
+    case internal::kWebPrintJobController_Cancel_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::WebPrintJobController_Cancel_Params_Data* params =
+          reinterpret_cast<internal::WebPrintJobController_Cancel_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for WebPrintJobController.0
+      bool success = true;
+      WebPrintJobController_Cancel_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            WebPrintJobController::Name_, 0, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->Cancel(        );
+      return true;
+    }
+  }
+  return false;
+}
+
+// static
+bool WebPrintJobControllerStubDispatch::AcceptWithResponder(
+    WebPrintJobController* impl,
+    mojo::Message* message,
+    std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+  [[maybe_unused]] const bool message_is_sync =
+      message->has_flag(mojo::Message::kFlagIsSync);
+  [[maybe_unused]] const uint64_t request_id = message->request_id();
+  switch (message->header()->name) {
+    case internal::kWebPrintJobController_Cancel_Name: {
+      break;
+    }
+  }
+  return false;
+}
+namespace {
+}  // namespace
+static const mojo::internal::GenericValidationInfo kWebPrintJobControllerValidationInfo[] = {
+    { &internal::WebPrintJobController_Cancel_Params_Data::Validate,
+     nullptr /* no response */},
+};
+
+bool WebPrintJobControllerRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::blink::mojom::WebPrintJobController::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kWebPrintJobControllerValidationInfo);
 }
 
 const char WebPrinter::Name_[] = "blink.mojom.WebPrinter";
@@ -1861,6 +2025,10 @@ bool StructTraits<::blink::mojom::WebPrintJobInfo::DataView, ::blink::mojom::Web
         result->observer =
             input.TakeObserver<decltype(result->observer)>();
       }
+      if (success) {
+        result->controller =
+            input.TakeController<decltype(result->controller)>();
+      }
   *output = std::move(result);
   return success;
 }
@@ -1978,6 +2146,17 @@ WebPrintJobStateObserverAsyncWaiter::WebPrintJobStateObserverAsyncWaiter(
     WebPrintJobStateObserver* proxy) : proxy_(proxy) {}
 
 WebPrintJobStateObserverAsyncWaiter::~WebPrintJobStateObserverAsyncWaiter() = default;
+
+
+
+
+void WebPrintJobControllerInterceptorForTesting::Cancel() {
+  GetForwardingInterface()->Cancel();
+}
+WebPrintJobControllerAsyncWaiter::WebPrintJobControllerAsyncWaiter(
+    WebPrintJobController* proxy) : proxy_(proxy) {}
+
+WebPrintJobControllerAsyncWaiter::~WebPrintJobControllerAsyncWaiter() = default;
 
 
 

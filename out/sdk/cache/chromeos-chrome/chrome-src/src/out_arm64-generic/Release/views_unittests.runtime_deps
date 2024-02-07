@@ -54,6 +54,7 @@ test_fonts/Tinos-Regular.ttf
 etc/fonts/fonts.conf
 mojo_service_manager/camera_hal_dispatcher_mojo_policy.jsonc
 mojo_service_manager/jpeg_accelerator_mojo_policy.jsonc
+mojo_service_manager/system_event_monitor.jsonc
 ../../../../../../../home/chrome-bot/chrome_root/src/tools/skia_goldctl/linux/goldctl
 bin/run_views_unittests
 ../../../../../../../home/chrome-bot/chrome_root/src/.vpython3

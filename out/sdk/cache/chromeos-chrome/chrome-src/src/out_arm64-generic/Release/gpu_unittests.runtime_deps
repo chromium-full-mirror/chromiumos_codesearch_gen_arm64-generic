@@ -48,6 +48,7 @@ test_fonts/Tinos-Regular.ttf
 etc/fonts/fonts.conf
 mojo_service_manager/camera_hal_dispatcher_mojo_policy.jsonc
 mojo_service_manager/jpeg_accelerator_mojo_policy.jsonc
+mojo_service_manager/system_event_monitor.jsonc
 ../../../../../../../home/chrome-bot/chrome_root/src/net/data/cert_net_fetcher_impl_unittest/
 ../../../../../../../home/chrome-bot/chrome_root/src/net/data/dns/
 ../../../../../../../home/chrome-bot/chrome_root/src/net/data/ov_name_constraints/

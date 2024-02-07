@@ -3,11 +3,11 @@
 // found in the LICENSE file.
 import './shimless_rma_shared.css.js';
 import './icons.html.js';
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/icons.html.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/icons.html.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import 'chrome://resources/polymer/v3_0/paper-tooltip/paper-tooltip.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { CLICK_REPAIR_COMPONENT_BUTTON, createCustomEvent } from './events.js';
 import { getTemplate } from './repair_component_chip.html.js';

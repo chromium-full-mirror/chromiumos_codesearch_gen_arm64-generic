@@ -76,6 +76,7 @@ test_fonts/Tinos-Regular.ttf
 etc/fonts/fonts.conf
 mojo_service_manager/camera_hal_dispatcher_mojo_policy.jsonc
 mojo_service_manager/jpeg_accelerator_mojo_policy.jsonc
+mojo_service_manager/system_event_monitor.jsonc
 snapshot_blob.bin
 snapshot_blob.bin
 pyproto/google/protobuf/__init__.py
@@ -719,6 +720,7 @@ gen/third_party/devtools-frontend/src/front_end/models/text_utils/CodeMirrorUtil
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/ContentData.js
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/ContentProvider.js
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/StaticContentProvider.js
+gen/third_party/devtools-frontend/src/front_end/models/text_utils/StreamingContentData.js
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/Text.js
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/TextCursor.js
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/TextRange.js
@@ -727,6 +729,7 @@ gen/third_party/devtools-frontend/src/front_end/models/text_utils/CodeMirrorUtil
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/ContentData.js.map
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/ContentProvider.js.map
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/StaticContentProvider.js.map
+gen/third_party/devtools-frontend/src/front_end/models/text_utils/StreamingContentData.js.map
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/Text.js.map
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/TextCursor.js.map
 gen/third_party/devtools-frontend/src/front_end/models/text_utils/TextRange.js.map
@@ -5031,12 +5034,14 @@ gen/third_party/devtools-frontend/src/test/unittests/front_end/models/source_map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/source_map_scopes/ScopeTreeCache_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/ContentData_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/StaticContentProvider_test.js
+gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/StreamingContentData_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/TextCursor_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/TextRange_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/TextUtils_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/Text_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/ContentData_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/StaticContentProvider_test.js.map
+gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/StreamingContentData_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/TextCursor_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/TextRange_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/models/text_utils/TextUtils_test.js.map
@@ -5679,6 +5684,7 @@ gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/components/spl
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/components/split_view/split-view_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/components/two_states_counter/TwoStatesCounter_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/components/two_states_counter/TwoStatesCounter_test.js.map
+gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/ActionRegistration_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/ContextMenu_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/DockController_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/Infobar_test.js
@@ -5687,6 +5693,7 @@ gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/Toolbar
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/Treeoutline_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/UIUtils_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/XLink_test.js
+gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/ActionRegistration_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/ContextMenu_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/DockController_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/Infobar_test.js.map
@@ -5741,7 +5748,9 @@ gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/compone
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/components/perf_ui/TimelineOverviewCalculator_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/components/quick_open/CommandMenu_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/components/quick_open/CommandMenu_test.js.map
+gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/components/source_frame/ResourceSourceFrame_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/components/source_frame/SourceFrame_test.js
+gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/components/source_frame/ResourceSourceFrame_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/components/source_frame/SourceFrame_test.js.map
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/components/utils/JSPresentationUtils_test.js
 gen/third_party/devtools-frontend/src/test/unittests/front_end/ui/legacy/components/utils/Linkifier_test.js

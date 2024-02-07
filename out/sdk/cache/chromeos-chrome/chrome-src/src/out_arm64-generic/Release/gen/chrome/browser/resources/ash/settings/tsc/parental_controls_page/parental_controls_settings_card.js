@@ -6,10 +6,10 @@
  * 'parental-controls-settings-card' is the card element for managing Parental
  * Controls features
  */
-import 'chrome://resources/cr_elements/icons.html.js';
+import 'chrome://resources/ash/common/cr_elements/icons.html.js';
 import '../settings_shared.css.js';
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';
 import { DeepLinkingMixin } from '../common/deep_linking_mixin.js';

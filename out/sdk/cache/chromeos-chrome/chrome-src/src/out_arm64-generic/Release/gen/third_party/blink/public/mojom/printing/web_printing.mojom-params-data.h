@@ -38,6 +38,21 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrintJobStateObserve
 };
 static_assert(sizeof(WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data) == 16,
               "Bad sizeof(WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data)");
+class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrintJobController_Cancel_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<WebPrintJobController_Cancel_Params_Data>;
+
+  WebPrintJobController_Cancel_Params_Data();
+  ~WebPrintJobController_Cancel_Params_Data() = delete;
+};
+static_assert(sizeof(WebPrintJobController_Cancel_Params_Data) == 8,
+              "Bad sizeof(WebPrintJobController_Cancel_Params_Data)");
 class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrinter_FetchAttributes_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -160,6 +175,21 @@ class WebPrintJobStateObserver_OnWebPrintJobUpdate_ParamsDataView {
  private:
   internal::WebPrintJobStateObserver_OnWebPrintJobUpdate_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
+};
+
+
+class WebPrintJobController_Cancel_ParamsDataView {
+ public:
+  WebPrintJobController_Cancel_ParamsDataView() = default;
+
+  WebPrintJobController_Cancel_ParamsDataView(
+      internal::WebPrintJobController_Cancel_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::WebPrintJobController_Cancel_Params_Data* data_ = nullptr;
 };
 
 
@@ -310,6 +340,8 @@ inline void WebPrintJobStateObserver_OnWebPrintJobUpdate_ParamsDataView::GetUpda
   auto pointer = data_->update.Get();
   *output = WebPrintJobUpdateDataView(pointer, message_);
 }
+
+
 
 
 

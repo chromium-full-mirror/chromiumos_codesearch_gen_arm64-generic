@@ -326,6 +326,7 @@ class WasmSuspenderObject;
 class WasmExceptionTag;
 class WasmExceptionPackage;
 class WasmModuleObject;
+class WasmDispatchTable;
 class WasmTableObject;
 class WasmMemoryObject;
 class WasmGlobalObject;

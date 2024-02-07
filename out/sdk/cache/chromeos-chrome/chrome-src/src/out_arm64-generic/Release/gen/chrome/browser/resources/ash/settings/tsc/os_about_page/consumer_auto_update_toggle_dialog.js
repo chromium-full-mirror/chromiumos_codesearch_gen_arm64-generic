@@ -1,10 +1,10 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './consumer_auto_update_toggle_dialog.html.js';
-class SettingsConsumerAutoUpdateToggleDialogElement extends PolymerElement {
+export class SettingsConsumerAutoUpdateToggleDialogElement extends PolymerElement {
     static get is() {
         return 'settings-consumer-auto-update-toggle-dialog';
     }

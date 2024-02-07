@@ -7,6 +7,12 @@
     "declaration": true,
     "tsBuildInfoFile": "tsconfig_build_ts.tsbuildinfo",
     "paths": {
+      "//resources/ash/common/cr_elements/*": [
+        "./../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
+      ],
+      "chrome://resources/ash/common/cr_elements/*": [
+        "./../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
+      ],
       "//resources/ash/common/personalization/*": [
         "./../../../../../ash/webui/common/resources/preprocessed/personalization/*"
       ],
@@ -24,12 +30,6 @@
       ],
       "chrome://resources/polymer/v3_0/*": [
         "./../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
-      ],
-      "//resources/cr_elements/*": [
-        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
-      ],
-      "chrome://resources/cr_elements/*": [
-        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
       ],
       "//resources/js/*": [
         "./../../../../../ui/webui/resources/tsc/js/*"
@@ -88,13 +88,13 @@
   ],
   "references": [
     {
+      "path": "../cr_elements/tsconfig_build_ts.json"
+    },
+    {
       "path": "../personalization/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../third_party/polymer/v3_0/tsconfig_library.json"
-    },
-    {
-      "path": "../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../ui/webui/resources/js/tsconfig_build_ts.json"

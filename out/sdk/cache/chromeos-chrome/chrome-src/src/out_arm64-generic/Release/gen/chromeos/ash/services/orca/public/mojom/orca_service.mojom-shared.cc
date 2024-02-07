@@ -1078,7 +1078,7 @@ EditorEventSink_OnContextUpdated_Params_Data::EditorEventSink_OnContextUpdated_P
 
 
 // static
-bool TextActuator_InsertText_Params_Data::Validate(
+bool SystemActuator_InsertText_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1090,8 +1090,8 @@ bool TextActuator_InsertText_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const TextActuator_InsertText_Params_Data* object =
-      static_cast<const TextActuator_InsertText_Params_Data*>(data);
+  [[maybe_unused]] const SystemActuator_InsertText_Params_Data* object =
+      static_cast<const SystemActuator_InsertText_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->text, 1, validation_context)) {
@@ -1107,12 +1107,12 @@ bool TextActuator_InsertText_Params_Data::Validate(
   return true;
 }
 
-TextActuator_InsertText_Params_Data::TextActuator_InsertText_Params_Data()
+SystemActuator_InsertText_Params_Data::SystemActuator_InsertText_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool TextActuator_ApproveConsent_Params_Data::Validate(
+bool SystemActuator_ApproveConsent_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1124,18 +1124,18 @@ bool TextActuator_ApproveConsent_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const TextActuator_ApproveConsent_Params_Data* object =
-      static_cast<const TextActuator_ApproveConsent_Params_Data*>(data);
+  [[maybe_unused]] const SystemActuator_ApproveConsent_Params_Data* object =
+      static_cast<const SystemActuator_ApproveConsent_Params_Data*>(data);
 
   return true;
 }
 
-TextActuator_ApproveConsent_Params_Data::TextActuator_ApproveConsent_Params_Data()
+SystemActuator_ApproveConsent_Params_Data::SystemActuator_ApproveConsent_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool TextActuator_DeclineConsent_Params_Data::Validate(
+bool SystemActuator_DeclineConsent_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1147,18 +1147,18 @@ bool TextActuator_DeclineConsent_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const TextActuator_DeclineConsent_Params_Data* object =
-      static_cast<const TextActuator_DeclineConsent_Params_Data*>(data);
+  [[maybe_unused]] const SystemActuator_DeclineConsent_Params_Data* object =
+      static_cast<const SystemActuator_DeclineConsent_Params_Data*>(data);
 
   return true;
 }
 
-TextActuator_DeclineConsent_Params_Data::TextActuator_DeclineConsent_Params_Data()
+SystemActuator_DeclineConsent_Params_Data::SystemActuator_DeclineConsent_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool TextActuator_OpenUrlInNewWindow_Params_Data::Validate(
+bool SystemActuator_OpenUrlInNewWindow_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1170,8 +1170,8 @@ bool TextActuator_OpenUrlInNewWindow_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const TextActuator_OpenUrlInNewWindow_Params_Data* object =
-      static_cast<const TextActuator_OpenUrlInNewWindow_Params_Data*>(data);
+  [[maybe_unused]] const SystemActuator_OpenUrlInNewWindow_Params_Data* object =
+      static_cast<const SystemActuator_OpenUrlInNewWindow_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->url, 1, validation_context)) {
@@ -1183,12 +1183,12 @@ bool TextActuator_OpenUrlInNewWindow_Params_Data::Validate(
   return true;
 }
 
-TextActuator_OpenUrlInNewWindow_Params_Data::TextActuator_OpenUrlInNewWindow_Params_Data()
+SystemActuator_OpenUrlInNewWindow_Params_Data::SystemActuator_OpenUrlInNewWindow_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool TextActuator_ShowUI_Params_Data::Validate(
+bool SystemActuator_ShowUI_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1200,18 +1200,18 @@ bool TextActuator_ShowUI_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const TextActuator_ShowUI_Params_Data* object =
-      static_cast<const TextActuator_ShowUI_Params_Data*>(data);
+  [[maybe_unused]] const SystemActuator_ShowUI_Params_Data* object =
+      static_cast<const SystemActuator_ShowUI_Params_Data*>(data);
 
   return true;
 }
 
-TextActuator_ShowUI_Params_Data::TextActuator_ShowUI_Params_Data()
+SystemActuator_ShowUI_Params_Data::SystemActuator_ShowUI_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool TextActuator_CloseUI_Params_Data::Validate(
+bool SystemActuator_CloseUI_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1223,18 +1223,18 @@ bool TextActuator_CloseUI_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const TextActuator_CloseUI_Params_Data* object =
-      static_cast<const TextActuator_CloseUI_Params_Data*>(data);
+  [[maybe_unused]] const SystemActuator_CloseUI_Params_Data* object =
+      static_cast<const SystemActuator_CloseUI_Params_Data*>(data);
 
   return true;
 }
 
-TextActuator_CloseUI_Params_Data::TextActuator_CloseUI_Params_Data()
+SystemActuator_CloseUI_Params_Data::SystemActuator_CloseUI_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool TextActuator_SubmitFeedback_Params_Data::Validate(
+bool SystemActuator_SubmitFeedback_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -1246,8 +1246,8 @@ bool TextActuator_SubmitFeedback_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const TextActuator_SubmitFeedback_Params_Data* object =
-      static_cast<const TextActuator_SubmitFeedback_Params_Data*>(data);
+  [[maybe_unused]] const SystemActuator_SubmitFeedback_Params_Data* object =
+      static_cast<const SystemActuator_SubmitFeedback_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
           object->description, 1, validation_context)) {
@@ -1263,7 +1263,7 @@ bool TextActuator_SubmitFeedback_Params_Data::Validate(
   return true;
 }
 
-TextActuator_SubmitFeedback_Params_Data::TextActuator_SubmitFeedback_Params_Data()
+SystemActuator_SubmitFeedback_Params_Data::SystemActuator_SubmitFeedback_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
@@ -1344,10 +1344,10 @@ bool OrcaService_BindEditor_Params_Data::Validate(
       static_cast<const OrcaService_BindEditor_Params_Data*>(data);
 
   if (!mojo::internal::ValidateHandleOrInterfaceNonNullable(
-          object->text_actuator, 1, validation_context)) {
+          object->system_actuator, 1, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateHandleOrInterface(object->text_actuator,
+  if (!mojo::internal::ValidateHandleOrInterface(object->system_actuator,
                                                  validation_context)) {
     return false;
   }

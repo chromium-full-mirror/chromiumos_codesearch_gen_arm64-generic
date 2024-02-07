@@ -43,6 +43,12 @@ class ConsentMetadataDataView;
 
 class DeviceTrustStateDataView;
 
+class CertificateMetadataDataView;
+
+class ClientIdentityDataView;
+
+class ClientCertificateStateDataView;
+
 
 
 }  // connectors_internals::mojom
@@ -81,6 +87,27 @@ struct MojomTypeTraits<::connectors_internals::mojom::ConsentMetadataDataView> {
 template <>
 struct MojomTypeTraits<::connectors_internals::mojom::DeviceTrustStateDataView> {
   using Data = ::connectors_internals::mojom::internal::DeviceTrustState_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::connectors_internals::mojom::CertificateMetadataDataView> {
+  using Data = ::connectors_internals::mojom::internal::CertificateMetadata_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::connectors_internals::mojom::ClientIdentityDataView> {
+  using Data = ::connectors_internals::mojom::internal::ClientIdentity_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::connectors_internals::mojom::ClientCertificateStateDataView> {
+  using Data = ::connectors_internals::mojom::internal::ClientCertificateState_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -405,6 +432,194 @@ static_assert(
   }
  private:
   internal::DeviceTrustState_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class CertificateMetadataDataView {
+ public:
+  CertificateMetadataDataView() = default;
+
+  CertificateMetadataDataView(
+      internal::CertificateMetadata_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetThumbprintDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadThumbprint(UserType* output) {
+    
+    auto* pointer = data_->thumbprint.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetExpirationDateStringDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadExpirationDateString(UserType* output) {
+    
+    auto* pointer = data_->expiration_date_string.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetSubjectDisplayNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadSubjectDisplayName(UserType* output) {
+    
+    auto* pointer = data_->subject_display_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetIssuerDisplayNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadIssuerDisplayName(UserType* output) {
+    
+    auto* pointer = data_->issuer_display_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::CertificateMetadata_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ClientIdentityDataView {
+ public:
+  ClientIdentityDataView() = default;
+
+  ClientIdentityDataView(
+      internal::ClientIdentity_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetIdentityNameDataView(
+      mojo::StringDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadIdentityName(UserType* output) {
+    
+    auto* pointer = data_->identity_name.Get();
+    return mojo::internal::Deserialize<mojo::StringDataView>(
+        pointer, output, message_);
+  }
+  inline void GetLoadedKeyInfoDataView(
+      LoadedKeyInfoDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadLoadedKeyInfo(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::connectors_internals::mojom::LoadedKeyInfoDataView, UserType>(),
+    "Attempting to read the optional `loaded_key_info` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadLoadedKeyInfo` instead "
+    "of `ReadLoadedKeyInfo if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->loaded_key_info.Get();
+    return mojo::internal::Deserialize<::connectors_internals::mojom::LoadedKeyInfoDataView>(
+        pointer, output, message_);
+  }
+  inline void GetCertificateMetadataDataView(
+      CertificateMetadataDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadCertificateMetadata(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::connectors_internals::mojom::CertificateMetadataDataView, UserType>(),
+    "Attempting to read the optional `certificate_metadata` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadCertificateMetadata` instead "
+    "of `ReadCertificateMetadata if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->certificate_metadata.Get();
+    return mojo::internal::Deserialize<::connectors_internals::mojom::CertificateMetadataDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ClientIdentity_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class ClientCertificateStateDataView {
+ public:
+  ClientCertificateStateDataView() = default;
+
+  ClientCertificateStateDataView(
+      internal::ClientCertificateState_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetPolicyEnabledLevelsDataView(
+      mojo::ArrayDataView<mojo::StringDataView>* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadPolicyEnabledLevels(UserType* output) {
+    
+    auto* pointer = data_->policy_enabled_levels.Get();
+    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        pointer, output, message_);
+  }
+  inline void GetManagedProfileIdentityDataView(
+      ClientIdentityDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadManagedProfileIdentity(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::connectors_internals::mojom::ClientIdentityDataView, UserType>(),
+    "Attempting to read the optional `managed_profile_identity` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadManagedProfileIdentity` instead "
+    "of `ReadManagedProfileIdentity if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->managed_profile_identity.Get();
+    return mojo::internal::Deserialize<::connectors_internals::mojom::ClientIdentityDataView>(
+        pointer, output, message_);
+  }
+  inline void GetManagedBrowserIdentityDataView(
+      ClientIdentityDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadManagedBrowserIdentity(UserType* output) {
+    
+static_assert(
+    mojo::internal::IsValidUserTypeForOptionalValue<
+        ::connectors_internals::mojom::ClientIdentityDataView, UserType>(),
+    "Attempting to read the optional `managed_browser_identity` field into a type which "
+    "cannot represent a null value. Either wrap the destination object "
+    "with std::optional, ensure that any corresponding "
+    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
+    "SetToNull methods, or use `MaybeReadManagedBrowserIdentity` instead "
+    "of `ReadManagedBrowserIdentity if you're fine with null values being "
+    "silently ignored in this case.");
+    auto* pointer = data_->managed_browser_identity.Get();
+    return mojo::internal::Deserialize<::connectors_internals::mojom::ClientIdentityDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::ClientCertificateState_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -744,6 +959,199 @@ struct Serializer<::connectors_internals::mojom::DeviceTrustStateDataView, Maybe
 
 }  // namespace internal
 
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::connectors_internals::mojom::CertificateMetadataDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::connectors_internals::mojom::CertificateMetadataDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::connectors_internals::mojom::internal::CertificateMetadata_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::thumbprint(input)) in_thumbprint = Traits::thumbprint(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->thumbprint)::BaseType> thumbprint_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_thumbprint, thumbprint_fragment);
+    fragment->thumbprint.Set(
+        thumbprint_fragment.is_null() ? nullptr : thumbprint_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->thumbprint.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null thumbprint in CertificateMetadata struct");
+    decltype(Traits::expiration_date_string(input)) in_expiration_date_string = Traits::expiration_date_string(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->expiration_date_string)::BaseType> expiration_date_string_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_expiration_date_string, expiration_date_string_fragment);
+    fragment->expiration_date_string.Set(
+        expiration_date_string_fragment.is_null() ? nullptr : expiration_date_string_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->expiration_date_string.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null expiration_date_string in CertificateMetadata struct");
+    decltype(Traits::subject_display_name(input)) in_subject_display_name = Traits::subject_display_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->subject_display_name)::BaseType> subject_display_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_subject_display_name, subject_display_name_fragment);
+    fragment->subject_display_name.Set(
+        subject_display_name_fragment.is_null() ? nullptr : subject_display_name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->subject_display_name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null subject_display_name in CertificateMetadata struct");
+    decltype(Traits::issuer_display_name(input)) in_issuer_display_name = Traits::issuer_display_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->issuer_display_name)::BaseType> issuer_display_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_issuer_display_name, issuer_display_name_fragment);
+    fragment->issuer_display_name.Set(
+        issuer_display_name_fragment.is_null() ? nullptr : issuer_display_name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->issuer_display_name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null issuer_display_name in CertificateMetadata struct");
+  }
+
+  static bool Deserialize(::connectors_internals::mojom::internal::CertificateMetadata_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::connectors_internals::mojom::CertificateMetadataDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::connectors_internals::mojom::ClientIdentityDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::connectors_internals::mojom::ClientIdentityDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::connectors_internals::mojom::internal::ClientIdentity_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::identity_name(input)) in_identity_name = Traits::identity_name(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->identity_name)::BaseType> identity_name_fragment(
+            fragment.message());
+    mojo::internal::Serialize<mojo::StringDataView>(
+        in_identity_name, identity_name_fragment);
+    fragment->identity_name.Set(
+        identity_name_fragment.is_null() ? nullptr : identity_name_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->identity_name.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null identity_name in ClientIdentity struct");
+    decltype(Traits::loaded_key_info(input)) in_loaded_key_info = Traits::loaded_key_info(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->loaded_key_info)::BaseType> loaded_key_info_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::connectors_internals::mojom::LoadedKeyInfoDataView>(
+        in_loaded_key_info, loaded_key_info_fragment);
+    fragment->loaded_key_info.Set(
+        loaded_key_info_fragment.is_null() ? nullptr : loaded_key_info_fragment.data());
+    decltype(Traits::certificate_metadata(input)) in_certificate_metadata = Traits::certificate_metadata(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->certificate_metadata)::BaseType> certificate_metadata_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::connectors_internals::mojom::CertificateMetadataDataView>(
+        in_certificate_metadata, certificate_metadata_fragment);
+    fragment->certificate_metadata.Set(
+        certificate_metadata_fragment.is_null() ? nullptr : certificate_metadata_fragment.data());
+  }
+
+  static bool Deserialize(::connectors_internals::mojom::internal::ClientIdentity_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::connectors_internals::mojom::ClientIdentityDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
+struct Serializer<::connectors_internals::mojom::ClientCertificateStateDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::connectors_internals::mojom::ClientCertificateStateDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::connectors_internals::mojom::internal::ClientCertificateState_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::policy_enabled_levels(input)) in_policy_enabled_levels = Traits::policy_enabled_levels(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->policy_enabled_levels)::BaseType>
+        policy_enabled_levels_fragment(fragment.message());
+    constexpr const mojo::internal::ContainerValidateParams& policy_enabled_levels_validate_params =
+        mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+    mojo::internal::Serialize<mojo::ArrayDataView<mojo::StringDataView>>(
+        in_policy_enabled_levels, policy_enabled_levels_fragment, &policy_enabled_levels_validate_params);
+    fragment->policy_enabled_levels.Set(
+        policy_enabled_levels_fragment.is_null() ? nullptr : policy_enabled_levels_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->policy_enabled_levels.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null policy_enabled_levels in ClientCertificateState struct");
+    decltype(Traits::managed_profile_identity(input)) in_managed_profile_identity = Traits::managed_profile_identity(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->managed_profile_identity)::BaseType> managed_profile_identity_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::connectors_internals::mojom::ClientIdentityDataView>(
+        in_managed_profile_identity, managed_profile_identity_fragment);
+    fragment->managed_profile_identity.Set(
+        managed_profile_identity_fragment.is_null() ? nullptr : managed_profile_identity_fragment.data());
+    decltype(Traits::managed_browser_identity(input)) in_managed_browser_identity = Traits::managed_browser_identity(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->managed_browser_identity)::BaseType> managed_browser_identity_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::connectors_internals::mojom::ClientIdentityDataView>(
+        in_managed_browser_identity, managed_browser_identity_fragment);
+    fragment->managed_browser_identity.Set(
+        managed_browser_identity_fragment.is_null() ? nullptr : managed_browser_identity_fragment.data());
+  }
+
+  static bool Deserialize(::connectors_internals::mojom::internal::ClientCertificateState_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::connectors_internals::mojom::ClientCertificateStateDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
 }  // namespace mojo
 
 
@@ -791,6 +1199,62 @@ inline void DeviceTrustStateDataView::GetConsentMetadataDataView(
     ConsentMetadataDataView* output) {
   auto pointer = data_->consent_metadata.Get();
   *output = ConsentMetadataDataView(pointer, message_);
+}
+
+
+inline void CertificateMetadataDataView::GetThumbprintDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->thumbprint.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void CertificateMetadataDataView::GetExpirationDateStringDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->expiration_date_string.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void CertificateMetadataDataView::GetSubjectDisplayNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->subject_display_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void CertificateMetadataDataView::GetIssuerDisplayNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->issuer_display_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+
+
+inline void ClientIdentityDataView::GetIdentityNameDataView(
+    mojo::StringDataView* output) {
+  auto pointer = data_->identity_name.Get();
+  *output = mojo::StringDataView(pointer, message_);
+}
+inline void ClientIdentityDataView::GetLoadedKeyInfoDataView(
+    LoadedKeyInfoDataView* output) {
+  auto pointer = data_->loaded_key_info.Get();
+  *output = LoadedKeyInfoDataView(pointer, message_);
+}
+inline void ClientIdentityDataView::GetCertificateMetadataDataView(
+    CertificateMetadataDataView* output) {
+  auto pointer = data_->certificate_metadata.Get();
+  *output = CertificateMetadataDataView(pointer, message_);
+}
+
+
+inline void ClientCertificateStateDataView::GetPolicyEnabledLevelsDataView(
+    mojo::ArrayDataView<mojo::StringDataView>* output) {
+  auto pointer = data_->policy_enabled_levels.Get();
+  *output = mojo::ArrayDataView<mojo::StringDataView>(pointer, message_);
+}
+inline void ClientCertificateStateDataView::GetManagedProfileIdentityDataView(
+    ClientIdentityDataView* output) {
+  auto pointer = data_->managed_profile_identity.Get();
+  *output = ClientIdentityDataView(pointer, message_);
+}
+inline void ClientCertificateStateDataView::GetManagedBrowserIdentityDataView(
+    ClientIdentityDataView* output) {
+  auto pointer = data_->managed_browser_identity.Get();
+  *output = ClientIdentityDataView(pointer, message_);
 }
 
 

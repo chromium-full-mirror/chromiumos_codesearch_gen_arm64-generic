@@ -119,6 +119,7 @@ ControllerServiceWorkerInfo::ControllerServiceWorkerInfo()
       effective_fetch_handler_type(::blink::mojom::ServiceWorkerFetchHandlerType::kNoHandler),
       fetch_handler_bypass_option(::blink::mojom::ServiceWorkerFetchHandlerBypassOption::kDefault),
       sha256_script_checksum(),
+      need_router_evaluate(),
       router_data(),
       remote_controller(),
       client_id(),
@@ -132,6 +133,7 @@ ControllerServiceWorkerInfo::ControllerServiceWorkerInfo(
     ::blink::mojom::ServiceWorkerFetchHandlerType effective_fetch_handler_type_in,
     ::blink::mojom::ServiceWorkerFetchHandlerBypassOption fetch_handler_bypass_option_in,
     const std::optional<std::string>& sha256_script_checksum_in,
+    bool need_router_evaluate_in,
     ServiceWorkerRouterDataPtr router_data_in,
     ::mojo::PendingRemote<ControllerServiceWorker> remote_controller_in,
     const std::string& client_id_in,
@@ -143,6 +145,7 @@ ControllerServiceWorkerInfo::ControllerServiceWorkerInfo(
       effective_fetch_handler_type(std::move(effective_fetch_handler_type_in)),
       fetch_handler_bypass_option(std::move(fetch_handler_bypass_option_in)),
       sha256_script_checksum(std::move(sha256_script_checksum_in)),
+      need_router_evaluate(std::move(need_router_evaluate_in)),
       router_data(std::move(router_data_in)),
       remote_controller(std::move(remote_controller_in)),
       client_id(std::move(client_id_in)),
@@ -196,6 +199,15 @@ void ControllerServiceWorkerInfo::WriteIntoTrace(
       "sha256_script_checksum"), this->sha256_script_checksum,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::optional<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "need_router_evaluate"), this->need_router_evaluate,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type bool>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -942,6 +954,8 @@ bool StructTraits<::blink::mojom::ControllerServiceWorkerInfo::DataView, ::blink
         success = false;
       if (success && !input.ReadSha256ScriptChecksum(&result->sha256_script_checksum))
         success = false;
+      if (success)
+        result->need_router_evaluate = input.need_router_evaluate();
       if (success && !input.ReadRouterData(&result->router_data))
         success = false;
       if (success) {

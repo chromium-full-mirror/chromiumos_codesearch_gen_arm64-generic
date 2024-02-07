@@ -1,7 +1,7 @@
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { CrButtonElement } from 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import { CrButtonElement } from 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
 import { createChild } from '../../common/js/dom_utils.js';
 import { isSameEntry } from '../../common/js/entry_utils.js';
 import { FakeEntry } from '../../common/js/files_app_entry_types.js';

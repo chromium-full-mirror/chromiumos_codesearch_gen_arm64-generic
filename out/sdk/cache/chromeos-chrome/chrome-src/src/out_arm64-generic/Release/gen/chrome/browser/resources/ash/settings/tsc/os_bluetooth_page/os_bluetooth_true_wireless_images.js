@@ -10,7 +10,7 @@ import '../settings_shared.css.js';
 import 'chrome://resources/ash/common/bluetooth/bluetooth_battery_icon_percentage.js';
 import { BatteryType } from 'chrome://resources/ash/common/bluetooth/bluetooth_types.js';
 import { getBatteryPercentage, hasAnyDetailedBatteryInfo, hasDefaultImage, hasTrueWirelessImages } from 'chrome://resources/ash/common/bluetooth/bluetooth_utils.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { assertNotReached } from 'chrome://resources/js/assert.js';
 import { DeviceConnectionState } from 'chrome://resources/mojo/chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-webui.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';

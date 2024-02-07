@@ -5,7 +5,7 @@
  * @fileoverview Defines StoreClient, a Polymer mixin to tie a front-end
  * element to back-end data from the store.
  */
-import { makeStoreClientMixin } from 'chrome://resources/cr_elements/store_client/store_client.js';
+import { makeStoreClientMixin } from 'chrome://resources/ash/common/cr_elements/store_client/store_client.js';
 import { initStoreAndListeners } from './api_listener.js';
 import { AppManagementStore } from './store.js';
 initStoreAndListeners();

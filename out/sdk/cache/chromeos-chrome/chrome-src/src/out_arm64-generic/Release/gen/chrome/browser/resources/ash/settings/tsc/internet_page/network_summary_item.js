@@ -8,14 +8,14 @@
  * section. See crbug.com/726380.
  */
 import 'chrome://resources/ash/common/network/network_icon.js';
-import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
-import 'chrome://resources/cr_elements/cr_toggle/cr_toggle.js';
-import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_icon_button/cr_icon_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_toggle/cr_toggle.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_vars.css.js';
 import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
 import { getSimSlotCount } from 'chrome://resources/ash/common/network/cellular_utils.js';
 import { CrPolicyNetworkBehaviorMojo } from 'chrome://resources/ash/common/network/cr_policy_network_behavior_mojo.js';
 import { OncMojo } from 'chrome://resources/ash/common/network/onc_mojo.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { VpnType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';

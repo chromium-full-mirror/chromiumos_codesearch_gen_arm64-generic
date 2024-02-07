@@ -32,6 +32,24 @@ class BLINK_COMMON_EXPORT WebPrintJobStateObserverAsyncWaiter {
 };
 
 
+class BLINK_COMMON_EXPORT WebPrintJobControllerInterceptorForTesting : public WebPrintJobController {
+  virtual WebPrintJobController* GetForwardingInterface() = 0;
+  void Cancel() override;
+};
+class BLINK_COMMON_EXPORT WebPrintJobControllerAsyncWaiter {
+ public:
+  explicit WebPrintJobControllerAsyncWaiter(WebPrintJobController* proxy);
+
+  WebPrintJobControllerAsyncWaiter(const WebPrintJobControllerAsyncWaiter&) = delete;
+  WebPrintJobControllerAsyncWaiter& operator=(const WebPrintJobControllerAsyncWaiter&) = delete;
+
+  ~WebPrintJobControllerAsyncWaiter();
+
+ private:
+  WebPrintJobController* const proxy_;
+};
+
+
 class BLINK_COMMON_EXPORT WebPrinterInterceptorForTesting : public WebPrinter {
   virtual WebPrinter* GetForwardingInterface() = 0;
   void FetchAttributes(FetchAttributesCallback callback) override;

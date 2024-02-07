@@ -150,8 +150,8 @@ class BLINK_PLATFORM_EXPORT IpProtectionConfigGetterAsyncWaiter {
       uint32_t batch_size, IpProtectionProxyLayer proxy_layer, std::optional<WTF::Vector<BlindSignedAuthTokenPtr>>* out_bsa_tokens, std::optional<::base::Time>* out_try_again_after);
   
   void GetProxyList(
-      std::optional<WTF::Vector<WTF::Vector<WTF::String>>>* out_proxy_list);
-  std::optional<WTF::Vector<WTF::Vector<WTF::String>>> GetProxyList();
+      std::optional<WTF::Vector<::net::ProxyChain>>* out_proxy_list);
+  std::optional<WTF::Vector<::net::ProxyChain>> GetProxyList();
 
  private:
   IpProtectionConfigGetter* const proxy_;

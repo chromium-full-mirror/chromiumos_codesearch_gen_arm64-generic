@@ -1,9 +1,9 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_input/cr_input.js';
-import 'chrome://resources/cr_elements/cr_toggle/cr_toggle.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_input/cr_input.js';
+import 'chrome://resources/ash/common/cr_elements/cr_toggle/cr_toggle.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { pageHandler } from './page_handler.js';
 import { getTemplate } from './privacy_indicator_app.html.js';

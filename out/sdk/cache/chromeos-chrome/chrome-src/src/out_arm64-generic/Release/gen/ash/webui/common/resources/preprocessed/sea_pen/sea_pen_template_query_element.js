@@ -9,7 +9,7 @@ import 'chrome://resources/ash/common/personalization/common.css.js';
 import 'chrome://resources/ash/common/personalization/cros_button_style.css.js';
 import 'chrome://resources/ash/common/personalization/personalization_shared_icons.html.js';
 import 'chrome://resources/ash/common/sea_pen/sea_pen_icons.html.js';
-import { AnchorAlignment } from 'chrome://resources/cr_elements/cr_action_menu/cr_action_menu.js';
+import { AnchorAlignment } from 'chrome://resources/ash/common/cr_elements/cr_action_menu/cr_action_menu.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { getSeaPenTemplates } from './constants.js';
 import { searchSeaPenThumbnails } from './sea_pen_controller.js';

@@ -1803,6 +1803,67 @@ PasswordGenerationUIData_Data::PasswordGenerationUIData_Data()
 
 
 // static
+bool PasswordSuggestionRequest_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 72, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PasswordSuggestionRequest_Data* object =
+      static_cast<const PasswordSuggestionRequest_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->element_id, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->element_id, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->form_data, 2, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->form_data, validation_context))
+    return false;
+
+
+  if (!::autofill::mojom::internal::AutofillSuggestionTriggerSource_Data
+        ::Validate(object->trigger_source, validation_context))
+    return false;
+
+
+  if (!::mojo_base::mojom::internal::TextDirection_Data
+        ::Validate(object->text_direction, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->typed_username, 7, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->typed_username, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->bounds, 9, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->bounds, validation_context))
+    return false;
+
+  return true;
+}
+
+PasswordSuggestionRequest_Data::PasswordSuggestionRequest_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool ParsingResult_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {

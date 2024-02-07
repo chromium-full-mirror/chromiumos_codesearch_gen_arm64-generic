@@ -47,7 +47,6 @@ export function getLocalizationStringForContentType(contentSettingsType) {
             return 'siteSettingsFontAccessMidSentence';
         case ContentSettingsTypes.MIC:
             return 'siteSettingsMicMidSentence';
-        case ContentSettingsTypes.MIDI:
         case ContentSettingsTypes.MIDI_DEVICES:
             return 'siteSettingsMidiDevicesMidSentence';
         case ContentSettingsTypes.MIXEDSCRIPT:

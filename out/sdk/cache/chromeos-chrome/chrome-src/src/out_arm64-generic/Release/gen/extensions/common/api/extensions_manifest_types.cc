@@ -44,7 +44,6 @@ Automation::Object& Automation::Object::operator=(Object&& rhs) noexcept = defau
 Automation::Object Automation::Object::Clone() const {
   Object out;
   out.desktop = desktop;
-  out.matches = matches;
   return out;
 }
 
@@ -62,26 +61,6 @@ bool Automation::Object::Populate(
         return false;
       }
       out.desktop = *temp;
-    }
-  }
-
-  const base::Value* matches_value = dict.Find("matches");
-  if (matches_value) {
-    {
-      if (!(*matches_value).is_list()) {
-        DCHECK(error.empty());
-        error = u"'matches': expected list, got " + UTF8ToUTF16(base::Value::GetTypeName((*matches_value).type()));
-        return false;
-      }
-      else {
-        std::u16string array_parse_error;
-        if (!json_schema_compiler::util::PopulateOptionalArrayFromList((*matches_value).GetList(), out.matches, array_parse_error)) {
-          array_parse_error = u"Error at key 'matches': " + array_parse_error;
-          DCHECK(error.empty());
-          error = array_parse_error;
-          return false;
-        }
-      }
     }
   }
 
@@ -128,10 +107,6 @@ base::Value::Dict Automation::Object::ToValue() const {
 
   if (this->desktop) {
     to_value_result.Set("desktop", *this->desktop);
-
-  }
-  if (this->matches) {
-    to_value_result.Set("matches", json_schema_compiler::util::CreateValueFromArray(*this->matches));
 
   }
 

@@ -5,9 +5,9 @@
  * @fileoverview 'add-printer-manually-dialog' is a dialog in which user can
  * manually enter the information to set up a new printer.
  */
-import 'chrome://resources/cr_components/localized_link/localized_link.js';
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_input/cr_input.js';
+import 'chrome://resources/ash/common/cr_elements/localized_link/localized_link.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_input/cr_input.js';
 import './cups_add_print_server_dialog.js';
 import './cups_add_printer_dialog.js';
 import './cups_printer_dialog_error.js';

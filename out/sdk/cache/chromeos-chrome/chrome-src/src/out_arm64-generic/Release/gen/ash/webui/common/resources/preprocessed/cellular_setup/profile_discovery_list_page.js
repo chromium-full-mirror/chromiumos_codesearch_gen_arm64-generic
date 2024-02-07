@@ -5,13 +5,13 @@
  * @fileoverview
  * Page in eSIM Setup flow that displays a choice of available eSIM Profiles.
  */
-import '//resources/cr_elements/cr_shared_style.css.js';
+import '//resources/ash/common/cr_elements/cr_shared_style.css.js';
 import '//resources/polymer/v3_0/iron-list/iron-list.js';
-import '//resources/cr_components/localized_link/localized_link.js';
+import '//resources/ash/common/cr_elements/localized_link/localized_link.js';
 import './base_page.js';
 import './profile_discovery_list_item.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { getTemplate } from './profile_discovery_list_page.html.js';
 const ProfileDiscoveryListPageElementBase = I18nMixin(PolymerElement);
 export class ProfileDiscoveryListPageElement extends ProfileDiscoveryListPageElementBase {

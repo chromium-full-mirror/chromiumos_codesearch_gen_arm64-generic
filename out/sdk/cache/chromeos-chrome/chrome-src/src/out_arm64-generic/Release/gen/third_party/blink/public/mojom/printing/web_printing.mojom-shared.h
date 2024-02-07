@@ -375,6 +375,16 @@ using WebPrintJobStateObserverAssociatedPtrInfoDataView =
     mojo::AssociatedInterfacePtrInfoDataView<WebPrintJobStateObserverInterfaceBase>;
 using WebPrintJobStateObserverAssociatedRequestDataView =
     mojo::AssociatedInterfaceRequestDataView<WebPrintJobStateObserverInterfaceBase>;
+class WebPrintJobControllerInterfaceBase {};
+
+using WebPrintJobControllerPtrDataView =
+    mojo::InterfacePtrDataView<WebPrintJobControllerInterfaceBase>;
+using WebPrintJobControllerRequestDataView =
+    mojo::InterfaceRequestDataView<WebPrintJobControllerInterfaceBase>;
+using WebPrintJobControllerAssociatedPtrInfoDataView =
+    mojo::AssociatedInterfacePtrInfoDataView<WebPrintJobControllerInterfaceBase>;
+using WebPrintJobControllerAssociatedRequestDataView =
+    mojo::AssociatedInterfaceRequestDataView<WebPrintJobControllerInterfaceBase>;
 class WebPrinterInterfaceBase {};
 
 using WebPrinterPtrDataView =
@@ -793,6 +803,15 @@ class WebPrintJobInfoDataView {
     bool ret =
         mojo::internal::Deserialize<mojo::InterfaceRequestDataView<::blink::mojom::WebPrintJobStateObserverInterfaceBase>>(
             &data_->observer, &result, message_);
+    DCHECK(ret);
+    return result;
+  }
+  template <typename UserType>
+  UserType TakeController() {
+    UserType result;
+    bool ret =
+        mojo::internal::Deserialize<mojo::InterfacePtrDataView<::blink::mojom::WebPrintJobControllerInterfaceBase>>(
+            &data_->controller, &result, message_);
     DCHECK(ret);
     return result;
   }
@@ -1593,6 +1612,13 @@ struct Serializer<::blink::mojom::WebPrintJobInfoDataView, MaybeConstUserType> {
         !mojo::internal::IsHandleOrInterfaceValid(fragment->observer),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
         "invalid observer in WebPrintJobInfo struct");
+    decltype(Traits::controller(input)) in_controller = Traits::controller(input);
+    mojo::internal::Serialize<mojo::InterfacePtrDataView<::blink::mojom::WebPrintJobControllerInterfaceBase>>(
+        in_controller, &fragment->controller, &fragment.message());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        !mojo::internal::IsHandleOrInterfaceValid(fragment->controller),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_HANDLE,
+        "invalid controller in WebPrintJobInfo struct");
   }
 
   static bool Deserialize(::blink::mojom::internal::WebPrintJobInfo_Data* input,

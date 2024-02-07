@@ -1,6 +1,7 @@
 #ifndef SRC_TRACE_PROCESSOR_TABLES_TRACE_PROTO_TABLES_PY_H_
 #define SRC_TRACE_PROCESSOR_TABLES_TRACE_PROTO_TABLES_PY_H_
 
+#include "src/trace_processor/db/typed_column.h"
 #include "src/trace_processor/tables/macros_internal.h"
 
 

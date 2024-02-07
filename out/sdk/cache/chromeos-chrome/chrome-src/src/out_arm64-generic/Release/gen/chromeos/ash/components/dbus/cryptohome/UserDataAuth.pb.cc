@@ -1963,7 +1963,10 @@ struct MountStartedDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MountStartedDefaultTypeInternal _MountStarted_default_instance_;
 PROTOBUF_CONSTEXPR MountCompleted::MountCompleted(
     ::_pbi::ConstantInitialized)
-  : operation_id_(uint64_t{0u}){}
+  : error_info_(nullptr)
+  , operation_id_(uint64_t{0u})
+  , error_(0)
+{}
 struct MountCompletedDefaultTypeInternal {
   PROTOBUF_CONSTEXPR MountCompletedDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -34944,8 +34947,13 @@ std::string MountStarted::GetTypeName() const {
 
 class MountCompleted::_Internal {
  public:
+  static const ::user_data_auth::CryptohomeErrorInfo& error_info(const MountCompleted* msg);
 };
 
+const ::user_data_auth::CryptohomeErrorInfo&
+MountCompleted::_Internal::error_info(const MountCompleted* msg) {
+  return *msg->error_info_;
+}
 MountCompleted::MountCompleted(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena, is_message_owned) {
@@ -34955,12 +34963,22 @@ MountCompleted::MountCompleted(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 MountCompleted::MountCompleted(const MountCompleted& from)
   : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
-  operation_id_ = from.operation_id_;
+  if (from._internal_has_error_info()) {
+    error_info_ = new ::user_data_auth::CryptohomeErrorInfo(*from.error_info_);
+  } else {
+    error_info_ = nullptr;
+  }
+  ::memcpy(&operation_id_, &from.operation_id_,
+    static_cast<size_t>(reinterpret_cast<char*>(&error_) -
+    reinterpret_cast<char*>(&operation_id_)) + sizeof(error_));
   // @@protoc_insertion_point(copy_constructor:user_data_auth.MountCompleted)
 }
 
 inline void MountCompleted::SharedCtor() {
-operation_id_ = uint64_t{0u};
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&error_info_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&error_) -
+    reinterpret_cast<char*>(&error_info_)) + sizeof(error_));
 }
 
 MountCompleted::~MountCompleted() {
@@ -34974,6 +34992,7 @@ MountCompleted::~MountCompleted() {
 
 inline void MountCompleted::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+  if (this != internal_default_instance()) delete error_info_;
 }
 
 void MountCompleted::SetCachedSize(int size) const {
@@ -34986,7 +35005,13 @@ void MountCompleted::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  operation_id_ = uint64_t{0u};
+  if (GetArenaForAllocation() == nullptr && error_info_ != nullptr) {
+    delete error_info_;
+  }
+  error_info_ = nullptr;
+  ::memset(&operation_id_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&error_) -
+      reinterpret_cast<char*>(&operation_id_)) + sizeof(error_));
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -35000,6 +35025,23 @@ const char* MountCompleted::_InternalParse(const char* ptr, ::_pbi::ParseContext
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
           operation_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.CryptohomeErrorCode error = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
+          uint64_t val = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+          _internal_set_error(static_cast<::user_data_auth::CryptohomeErrorCode>(val));
+        } else
+          goto handle_unusual;
+        continue;
+      // .user_data_auth.CryptohomeErrorInfo error_info = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 26)) {
+          ptr = ctx->ParseMessage(_internal_mutable_error_info(), ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -35039,6 +35081,20 @@ uint8_t* MountCompleted::_InternalSerialize(
     target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_operation_id(), target);
   }
 
+  // .user_data_auth.CryptohomeErrorCode error = 2;
+  if (this->_internal_error() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteEnumToArray(
+      2, this->_internal_error(), target);
+  }
+
+  // .user_data_auth.CryptohomeErrorInfo error_info = 3;
+  if (this->_internal_has_error_info()) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, _Internal::error_info(this),
+        _Internal::error_info(this).GetCachedSize(), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -35055,9 +35111,22 @@ size_t MountCompleted::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
+  // .user_data_auth.CryptohomeErrorInfo error_info = 3;
+  if (this->_internal_has_error_info()) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
+        *error_info_);
+  }
+
   // uint64 operation_id = 1;
   if (this->_internal_operation_id() != 0) {
     total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_operation_id());
+  }
+
+  // .user_data_auth.CryptohomeErrorCode error = 2;
+  if (this->_internal_error() != 0) {
+    total_size += 1 +
+      ::_pbi::WireFormatLite::EnumSize(this->_internal_error());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -35080,8 +35149,14 @@ void MountCompleted::MergeFrom(const MountCompleted& from) {
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
+  if (from._internal_has_error_info()) {
+    _internal_mutable_error_info()->::user_data_auth::CryptohomeErrorInfo::MergeFrom(from._internal_error_info());
+  }
   if (from._internal_operation_id() != 0) {
     _internal_set_operation_id(from._internal_operation_id());
+  }
+  if (from._internal_error() != 0) {
+    _internal_set_error(from._internal_error());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -35100,7 +35175,12 @@ bool MountCompleted::IsInitialized() const {
 void MountCompleted::InternalSwap(MountCompleted* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(operation_id_, other->operation_id_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(MountCompleted, error_)
+      + sizeof(MountCompleted::error_)
+      - PROTOBUF_FIELD_OFFSET(MountCompleted, error_info_)>(
+          reinterpret_cast<char*>(&error_info_),
+          reinterpret_cast<char*>(&other->error_info_));
 }
 
 std::string MountCompleted::GetTypeName() const {

@@ -3,12 +3,12 @@
 // found in the LICENSE file.
 import 'chrome://resources/ash/common/shortcut_input_ui/shortcut_input_key.js';
 import 'chrome://resources/ash/common/shortcut_input_ui/shortcut_input.js';
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
-import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_vars.css.js';
 import './input_device_settings_shared.css.js';
 import '../settings_shared.css.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { EventTracker } from 'chrome://resources/js/event_tracker.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { keyEventsAreEqual } from './input_device_settings_utils.js';

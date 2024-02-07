@@ -2606,7 +2606,7 @@ TNode<TurboshaftType> DownCastForTorqueClass_TurboshaftType_0(compiler::CodeAsse
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(205), static_cast<InstanceType>(213))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(214), static_cast<InstanceType>(222))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -2649,7 +2649,7 @@ TNode<TurboshaftType> DownCastForTorqueClass_TurboshaftType_0(compiler::CodeAsse
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(205));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(214));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -2683,12 +2683,12 @@ TNode<TurboshaftType> DownCastForTorqueClass_TurboshaftType_0(compiler::CodeAsse
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(213), static_cast<InstanceType>(205))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(222), static_cast<InstanceType>(214))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(205));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(214));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -2751,7 +2751,7 @@ TNode<TurboshaftWord32Type> DownCastForTorqueClass_TurboshaftWord32Type_0(compil
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(208), static_cast<InstanceType>(210))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(217), static_cast<InstanceType>(219))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -2794,7 +2794,7 @@ TNode<TurboshaftWord32Type> DownCastForTorqueClass_TurboshaftWord32Type_0(compil
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(208));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(217));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -2828,12 +2828,12 @@ TNode<TurboshaftWord32Type> DownCastForTorqueClass_TurboshaftWord32Type_0(compil
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(210), static_cast<InstanceType>(208))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(219), static_cast<InstanceType>(217))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(208));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(217));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -2896,7 +2896,7 @@ TNode<TurboshaftWord32RangeType> DownCastForTorqueClass_TurboshaftWord32RangeTyp
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(209), static_cast<InstanceType>(209))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(218), static_cast<InstanceType>(218))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -2939,7 +2939,7 @@ TNode<TurboshaftWord32RangeType> DownCastForTorqueClass_TurboshaftWord32RangeTyp
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(209));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(218));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -2973,12 +2973,12 @@ TNode<TurboshaftWord32RangeType> DownCastForTorqueClass_TurboshaftWord32RangeTyp
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(209), static_cast<InstanceType>(209))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(218), static_cast<InstanceType>(218))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(209));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(218));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -3041,7 +3041,7 @@ TNode<TurboshaftWord32SetType> DownCastForTorqueClass_TurboshaftWord32SetType_0(
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(210), static_cast<InstanceType>(210))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(219), static_cast<InstanceType>(219))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -3084,7 +3084,7 @@ TNode<TurboshaftWord32SetType> DownCastForTorqueClass_TurboshaftWord32SetType_0(
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(210));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(219));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -3118,12 +3118,12 @@ TNode<TurboshaftWord32SetType> DownCastForTorqueClass_TurboshaftWord32SetType_0(
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(210), static_cast<InstanceType>(210))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(219), static_cast<InstanceType>(219))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(210));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(219));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -3186,7 +3186,7 @@ TNode<TurboshaftWord64Type> DownCastForTorqueClass_TurboshaftWord64Type_0(compil
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(211), static_cast<InstanceType>(213))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(220), static_cast<InstanceType>(222))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -3229,7 +3229,7 @@ TNode<TurboshaftWord64Type> DownCastForTorqueClass_TurboshaftWord64Type_0(compil
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(211));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(220));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -3263,12 +3263,12 @@ TNode<TurboshaftWord64Type> DownCastForTorqueClass_TurboshaftWord64Type_0(compil
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(213), static_cast<InstanceType>(211))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(222), static_cast<InstanceType>(220))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(211));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(220));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -3331,7 +3331,7 @@ TNode<TurboshaftWord64RangeType> DownCastForTorqueClass_TurboshaftWord64RangeTyp
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(212), static_cast<InstanceType>(212))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(221), static_cast<InstanceType>(221))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -3374,7 +3374,7 @@ TNode<TurboshaftWord64RangeType> DownCastForTorqueClass_TurboshaftWord64RangeTyp
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(212));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(221));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -3408,12 +3408,12 @@ TNode<TurboshaftWord64RangeType> DownCastForTorqueClass_TurboshaftWord64RangeTyp
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(212), static_cast<InstanceType>(212))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(221), static_cast<InstanceType>(221))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(212));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(221));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -3476,7 +3476,7 @@ TNode<TurboshaftWord64SetType> DownCastForTorqueClass_TurboshaftWord64SetType_0(
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(213), static_cast<InstanceType>(213))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(222), static_cast<InstanceType>(222))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -3519,7 +3519,7 @@ TNode<TurboshaftWord64SetType> DownCastForTorqueClass_TurboshaftWord64SetType_0(
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(213));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(222));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -3553,12 +3553,12 @@ TNode<TurboshaftWord64SetType> DownCastForTorqueClass_TurboshaftWord64SetType_0(
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(213), static_cast<InstanceType>(213))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(222), static_cast<InstanceType>(222))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(213));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(222));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -3621,7 +3621,7 @@ TNode<TurboshaftFloat64Type> DownCastForTorqueClass_TurboshaftFloat64Type_0(comp
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(205), static_cast<InstanceType>(207))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(214), static_cast<InstanceType>(216))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -3664,7 +3664,7 @@ TNode<TurboshaftFloat64Type> DownCastForTorqueClass_TurboshaftFloat64Type_0(comp
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(205));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(214));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -3698,12 +3698,12 @@ TNode<TurboshaftFloat64Type> DownCastForTorqueClass_TurboshaftFloat64Type_0(comp
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(207), static_cast<InstanceType>(205))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(216), static_cast<InstanceType>(214))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(205));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(214));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -3766,7 +3766,7 @@ TNode<TurboshaftFloat64RangeType> DownCastForTorqueClass_TurboshaftFloat64RangeT
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(206), static_cast<InstanceType>(206))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(215), static_cast<InstanceType>(215))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -3809,7 +3809,7 @@ TNode<TurboshaftFloat64RangeType> DownCastForTorqueClass_TurboshaftFloat64RangeT
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(206));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(215));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -3843,12 +3843,12 @@ TNode<TurboshaftFloat64RangeType> DownCastForTorqueClass_TurboshaftFloat64RangeT
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(206), static_cast<InstanceType>(206))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(215), static_cast<InstanceType>(215))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(206));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(215));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -3911,7 +3911,7 @@ TNode<TurboshaftFloat64SetType> DownCastForTorqueClass_TurboshaftFloat64SetType_
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(207), static_cast<InstanceType>(207))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(216), static_cast<InstanceType>(216))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -3954,7 +3954,7 @@ TNode<TurboshaftFloat64SetType> DownCastForTorqueClass_TurboshaftFloat64SetType_
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(207));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(216));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -3988,12 +3988,12 @@ TNode<TurboshaftFloat64SetType> DownCastForTorqueClass_TurboshaftFloat64SetType_
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(207), static_cast<InstanceType>(207))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(216), static_cast<InstanceType>(216))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(207));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(216));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});

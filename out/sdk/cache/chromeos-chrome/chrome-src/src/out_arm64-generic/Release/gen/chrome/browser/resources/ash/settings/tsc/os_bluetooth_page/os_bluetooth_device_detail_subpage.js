@@ -8,7 +8,7 @@
  */
 import '../settings_shared.css.js';
 import 'chrome://resources/ash/common/bluetooth/bluetooth_icon.js';
-import 'chrome://resources/cr_elements/policy/cr_tooltip_icon.js';
+import 'chrome://resources/ash/common/cr_elements/policy/cr_tooltip_icon.js';
 import './os_bluetooth_change_device_name_dialog.js';
 import './os_bluetooth_true_wireless_images.js';
 import 'chrome://resources/ash/common/bluetooth/bluetooth_device_battery_info.js';
@@ -16,8 +16,8 @@ import { BluetoothUiSurface, recordBluetoothUiSurfaceMetrics } from 'chrome://re
 import { BatteryType } from 'chrome://resources/ash/common/bluetooth/bluetooth_types.js';
 import { getBatteryPercentage, getDeviceName, hasAnyDetailedBatteryInfo, hasDefaultImage, hasTrueWirelessImages } from 'chrome://resources/ash/common/bluetooth/bluetooth_utils.js';
 import { getBluetoothConfig } from 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
-import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
+import { WebUiListenerMixin } from 'chrome://resources/ash/common/cr_elements/web_ui_listener_mixin.js';
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { AudioOutputCapability, DeviceConnectionState, DeviceType } from 'chrome://resources/mojo/chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-webui.js';

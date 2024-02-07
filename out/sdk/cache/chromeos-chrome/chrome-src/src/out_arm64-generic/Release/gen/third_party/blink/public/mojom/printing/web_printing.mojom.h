@@ -88,6 +88,51 @@ class BLINK_COMMON_EXPORT WebPrintJobStateObserver
   virtual void OnWebPrintJobUpdate(WebPrintJobUpdatePtr update) = 0;
 };
 
+class WebPrintJobControllerProxy;
+
+template <typename ImplRefTraits>
+class WebPrintJobControllerStub;
+
+class WebPrintJobControllerRequestValidator;
+
+
+class BLINK_COMMON_EXPORT WebPrintJobController
+    : public WebPrintJobControllerInterfaceBase {
+ public:
+  using IPCStableHashFunction = uint32_t(*)();
+
+  static const char Name_[];
+  static IPCStableHashFunction MessageToMethodInfo_(mojo::Message& message);
+  static const char* MessageToMethodName_(mojo::Message& message);
+  static constexpr uint32_t Version_ = 0;
+  static constexpr bool PassesAssociatedKinds_ = false;
+  static constexpr bool HasUninterruptableMethods_ = false;
+
+  using Base_ = WebPrintJobControllerInterfaceBase;
+  using Proxy_ = WebPrintJobControllerProxy;
+
+  template <typename ImplRefTraits>
+  using Stub_ = WebPrintJobControllerStub<ImplRefTraits>;
+
+  using RequestValidator_ = WebPrintJobControllerRequestValidator;
+  using ResponseValidator_ = mojo::PassThroughFilter;
+  enum MethodMinVersions : uint32_t {
+    kCancelMinVersion = 0,
+  };
+
+// crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
+// with not having this data in traces there.
+#if !BUILDFLAG(IS_FUCHSIA)
+  struct Cancel_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+#endif // !BUILDFLAG(IS_FUCHSIA)
+  virtual ~WebPrintJobController() = default;
+
+  
+  virtual void Cancel() = 0;
+};
+
 class WebPrinterProxy;
 
 template <typename ImplRefTraits>
@@ -210,6 +255,21 @@ class BLINK_COMMON_EXPORT WebPrintJobStateObserverProxy
 
 
 
+class BLINK_COMMON_EXPORT WebPrintJobControllerProxy
+    : public WebPrintJobController {
+ public:
+  using InterfaceType = WebPrintJobController;
+
+  explicit WebPrintJobControllerProxy(mojo::MessageReceiverWithResponder* receiver);
+  
+  void Cancel() final;
+
+ private:
+  mojo::MessageReceiverWithResponder* receiver_;
+};
+
+
+
 class BLINK_COMMON_EXPORT WebPrinterProxy
     : public WebPrinter {
  public:
@@ -274,6 +334,47 @@ class WebPrintJobStateObserverStub
     if (ImplRefTraits::IsNull(sink_))
       return false;
     return WebPrintJobStateObserverStubDispatch::AcceptWithResponder(
+        ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
+  }
+
+ private:
+  ImplPointerType sink_;
+};
+class BLINK_COMMON_EXPORT WebPrintJobControllerStubDispatch {
+ public:
+  static bool Accept(WebPrintJobController* impl, mojo::Message* message);
+  static bool AcceptWithResponder(
+      WebPrintJobController* impl,
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
+};
+
+template <typename ImplRefTraits =
+              mojo::RawPtrImplRefTraits<WebPrintJobController>>
+class WebPrintJobControllerStub
+    : public mojo::MessageReceiverWithResponderStatus {
+ public:
+  using ImplPointerType = typename ImplRefTraits::PointerType;
+
+  WebPrintJobControllerStub() = default;
+  ~WebPrintJobControllerStub() override = default;
+
+  void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
+  ImplPointerType& sink() { return sink_; }
+
+  bool Accept(mojo::Message* message) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return WebPrintJobControllerStubDispatch::Accept(
+        ImplRefTraits::GetRawPointer(&sink_), message);
+  }
+
+  bool AcceptWithResponder(
+      mojo::Message* message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
+    if (ImplRefTraits::IsNull(sink_))
+      return false;
+    return WebPrintJobControllerStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
@@ -363,6 +464,10 @@ class WebPrintingServiceStub
   ImplPointerType sink_;
 };
 class BLINK_COMMON_EXPORT WebPrintJobStateObserverRequestValidator : public mojo::MessageReceiver {
+ public:
+  bool Accept(mojo::Message* message) override;
+};
+class BLINK_COMMON_EXPORT WebPrintJobControllerRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
@@ -1584,7 +1689,8 @@ class BLINK_COMMON_EXPORT WebPrintJobInfo {
   WebPrintJobInfo(
       const std::string& job_name,
       uint32_t job_pages,
-      ::mojo::PendingReceiver<WebPrintJobStateObserver> observer);
+      ::mojo::PendingReceiver<WebPrintJobStateObserver> observer,
+      ::mojo::PendingRemote<WebPrintJobController> controller);
 
 WebPrintJobInfo(const WebPrintJobInfo&) = delete;
 WebPrintJobInfo& operator=(const WebPrintJobInfo&) = delete;
@@ -1664,6 +1770,8 @@ WebPrintJobInfo& operator=(const WebPrintJobInfo&) = delete;
   uint32_t job_pages;
   
   ::mojo::PendingReceiver<WebPrintJobStateObserver> observer;
+  
+  ::mojo::PendingRemote<WebPrintJobController> controller;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -2057,7 +2165,8 @@ WebPrintJobInfoPtr WebPrintJobInfo::Clone() const {
   return New(
       mojo::Clone(job_name),
       mojo::Clone(job_pages),
-      mojo::Clone(observer)
+      mojo::Clone(observer),
+      mojo::Clone(controller)
   );
 }
 
@@ -2068,6 +2177,8 @@ bool WebPrintJobInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->job_pages, other_struct.job_pages))
     return false;
   if (!mojo::Equals(this->observer, other_struct.observer))
+    return false;
+  if (!mojo::Equals(this->controller, other_struct.controller))
     return false;
   return true;
 }
@@ -2085,6 +2196,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.observer < rhs.observer)
     return true;
   if (rhs.observer < lhs.observer)
+    return false;
+  if (lhs.controller < rhs.controller)
+    return true;
+  if (rhs.controller < lhs.controller)
     return false;
   return false;
 }
@@ -2304,6 +2419,11 @@ struct BLINK_COMMON_EXPORT StructTraits<::blink::mojom::WebPrintJobInfo::DataVie
   static  decltype(::blink::mojom::WebPrintJobInfo::observer)& observer(
        ::blink::mojom::WebPrintJobInfoPtr& input) {
     return input->observer;
+  }
+
+  static  decltype(::blink::mojom::WebPrintJobInfo::controller)& controller(
+       ::blink::mojom::WebPrintJobInfoPtr& input) {
+    return input->controller;
   }
 
   static bool Read(::blink::mojom::WebPrintJobInfo::DataView input, ::blink::mojom::WebPrintJobInfoPtr* output);

@@ -2918,31 +2918,31 @@ bool EditorEventSinkRequestValidator::Accept(mojo::Message* message) {
   return mojo::internal::ValidateRequestGenericPacked(message, name, kEditorEventSinkValidationInfo);
 }
 
-const char TextActuator::Name_[] = "ash.orca.mojom.TextActuator";
+const char SystemActuator::Name_[] = "ash.orca.mojom.SystemActuator";
 
-TextActuator::IPCStableHashFunction TextActuator::MessageToMethodInfo_(mojo::Message& message) {
+SystemActuator::IPCStableHashFunction SystemActuator::MessageToMethodInfo_(mojo::Message& message) {
 #if !BUILDFLAG(IS_FUCHSIA)
   switch (message.name()) {
-    case internal::kTextActuator_InsertText_Name: {
-      return &TextActuator::InsertText_Sym::IPCStableHash;
+    case internal::kSystemActuator_InsertText_Name: {
+      return &SystemActuator::InsertText_Sym::IPCStableHash;
     }
-    case internal::kTextActuator_ApproveConsent_Name: {
-      return &TextActuator::ApproveConsent_Sym::IPCStableHash;
+    case internal::kSystemActuator_ApproveConsent_Name: {
+      return &SystemActuator::ApproveConsent_Sym::IPCStableHash;
     }
-    case internal::kTextActuator_DeclineConsent_Name: {
-      return &TextActuator::DeclineConsent_Sym::IPCStableHash;
+    case internal::kSystemActuator_DeclineConsent_Name: {
+      return &SystemActuator::DeclineConsent_Sym::IPCStableHash;
     }
-    case internal::kTextActuator_OpenUrlInNewWindow_Name: {
-      return &TextActuator::OpenUrlInNewWindow_Sym::IPCStableHash;
+    case internal::kSystemActuator_OpenUrlInNewWindow_Name: {
+      return &SystemActuator::OpenUrlInNewWindow_Sym::IPCStableHash;
     }
-    case internal::kTextActuator_ShowUI_Name: {
-      return &TextActuator::ShowUI_Sym::IPCStableHash;
+    case internal::kSystemActuator_ShowUI_Name: {
+      return &SystemActuator::ShowUI_Sym::IPCStableHash;
     }
-    case internal::kTextActuator_CloseUI_Name: {
-      return &TextActuator::CloseUI_Sym::IPCStableHash;
+    case internal::kSystemActuator_CloseUI_Name: {
+      return &SystemActuator::CloseUI_Sym::IPCStableHash;
     }
-    case internal::kTextActuator_SubmitFeedback_Name: {
-      return &TextActuator::SubmitFeedback_Sym::IPCStableHash;
+    case internal::kSystemActuator_SubmitFeedback_Name: {
+      return &SystemActuator::SubmitFeedback_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -2950,42 +2950,42 @@ TextActuator::IPCStableHashFunction TextActuator::MessageToMethodInfo_(mojo::Mes
 }
 
 
-const char* TextActuator::MessageToMethodName_(mojo::Message& message) {
+const char* SystemActuator::MessageToMethodName_(mojo::Message& message) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   bool is_response = message.has_flag(mojo::Message::kFlagIsResponse);
   if (!is_response) {
     switch (message.name()) {
-      case internal::kTextActuator_InsertText_Name:
-            return "Receive ash::orca::mojom::TextActuator::InsertText";
-      case internal::kTextActuator_ApproveConsent_Name:
-            return "Receive ash::orca::mojom::TextActuator::ApproveConsent";
-      case internal::kTextActuator_DeclineConsent_Name:
-            return "Receive ash::orca::mojom::TextActuator::DeclineConsent";
-      case internal::kTextActuator_OpenUrlInNewWindow_Name:
-            return "Receive ash::orca::mojom::TextActuator::OpenUrlInNewWindow";
-      case internal::kTextActuator_ShowUI_Name:
-            return "Receive ash::orca::mojom::TextActuator::ShowUI";
-      case internal::kTextActuator_CloseUI_Name:
-            return "Receive ash::orca::mojom::TextActuator::CloseUI";
-      case internal::kTextActuator_SubmitFeedback_Name:
-            return "Receive ash::orca::mojom::TextActuator::SubmitFeedback";
+      case internal::kSystemActuator_InsertText_Name:
+            return "Receive ash::orca::mojom::SystemActuator::InsertText";
+      case internal::kSystemActuator_ApproveConsent_Name:
+            return "Receive ash::orca::mojom::SystemActuator::ApproveConsent";
+      case internal::kSystemActuator_DeclineConsent_Name:
+            return "Receive ash::orca::mojom::SystemActuator::DeclineConsent";
+      case internal::kSystemActuator_OpenUrlInNewWindow_Name:
+            return "Receive ash::orca::mojom::SystemActuator::OpenUrlInNewWindow";
+      case internal::kSystemActuator_ShowUI_Name:
+            return "Receive ash::orca::mojom::SystemActuator::ShowUI";
+      case internal::kSystemActuator_CloseUI_Name:
+            return "Receive ash::orca::mojom::SystemActuator::CloseUI";
+      case internal::kSystemActuator_SubmitFeedback_Name:
+            return "Receive ash::orca::mojom::SystemActuator::SubmitFeedback";
     }
   } else {
     switch (message.name()) {
-      case internal::kTextActuator_InsertText_Name:
-            return "Receive reply ash::orca::mojom::TextActuator::InsertText";
-      case internal::kTextActuator_ApproveConsent_Name:
-            return "Receive reply ash::orca::mojom::TextActuator::ApproveConsent";
-      case internal::kTextActuator_DeclineConsent_Name:
-            return "Receive reply ash::orca::mojom::TextActuator::DeclineConsent";
-      case internal::kTextActuator_OpenUrlInNewWindow_Name:
-            return "Receive reply ash::orca::mojom::TextActuator::OpenUrlInNewWindow";
-      case internal::kTextActuator_ShowUI_Name:
-            return "Receive reply ash::orca::mojom::TextActuator::ShowUI";
-      case internal::kTextActuator_CloseUI_Name:
-            return "Receive reply ash::orca::mojom::TextActuator::CloseUI";
-      case internal::kTextActuator_SubmitFeedback_Name:
-            return "Receive reply ash::orca::mojom::TextActuator::SubmitFeedback";
+      case internal::kSystemActuator_InsertText_Name:
+            return "Receive reply ash::orca::mojom::SystemActuator::InsertText";
+      case internal::kSystemActuator_ApproveConsent_Name:
+            return "Receive reply ash::orca::mojom::SystemActuator::ApproveConsent";
+      case internal::kSystemActuator_DeclineConsent_Name:
+            return "Receive reply ash::orca::mojom::SystemActuator::DeclineConsent";
+      case internal::kSystemActuator_OpenUrlInNewWindow_Name:
+            return "Receive reply ash::orca::mojom::SystemActuator::OpenUrlInNewWindow";
+      case internal::kSystemActuator_ShowUI_Name:
+            return "Receive reply ash::orca::mojom::SystemActuator::ShowUI";
+      case internal::kSystemActuator_CloseUI_Name:
+            return "Receive reply ash::orca::mojom::SystemActuator::CloseUI";
+      case internal::kSystemActuator_SubmitFeedback_Name:
+            return "Receive reply ash::orca::mojom::SystemActuator::SubmitFeedback";
     }
   }
   return "Receive unknown mojo message";
@@ -3000,7 +3000,7 @@ const char* TextActuator::MessageToMethodName_(mojo::Message& message) {
 }
 
 #if !BUILDFLAG(IS_FUCHSIA)
-uint32_t TextActuator::InsertText_Sym::IPCStableHash() {
+uint32_t SystemActuator::InsertText_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -3008,12 +3008,12 @@ uint32_t TextActuator::InsertText_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::orca::mojom::TextActuator::InsertText");
+          "(Impl)ash::orca::mojom::SystemActuator::InsertText");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t TextActuator::ApproveConsent_Sym::IPCStableHash() {
+uint32_t SystemActuator::ApproveConsent_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -3021,12 +3021,12 @@ uint32_t TextActuator::ApproveConsent_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::orca::mojom::TextActuator::ApproveConsent");
+          "(Impl)ash::orca::mojom::SystemActuator::ApproveConsent");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t TextActuator::DeclineConsent_Sym::IPCStableHash() {
+uint32_t SystemActuator::DeclineConsent_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -3034,12 +3034,12 @@ uint32_t TextActuator::DeclineConsent_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::orca::mojom::TextActuator::DeclineConsent");
+          "(Impl)ash::orca::mojom::SystemActuator::DeclineConsent");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t TextActuator::OpenUrlInNewWindow_Sym::IPCStableHash() {
+uint32_t SystemActuator::OpenUrlInNewWindow_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -3047,12 +3047,12 @@ uint32_t TextActuator::OpenUrlInNewWindow_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::orca::mojom::TextActuator::OpenUrlInNewWindow");
+          "(Impl)ash::orca::mojom::SystemActuator::OpenUrlInNewWindow");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t TextActuator::ShowUI_Sym::IPCStableHash() {
+uint32_t SystemActuator::ShowUI_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -3060,12 +3060,12 @@ uint32_t TextActuator::ShowUI_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::orca::mojom::TextActuator::ShowUI");
+          "(Impl)ash::orca::mojom::SystemActuator::ShowUI");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t TextActuator::CloseUI_Sym::IPCStableHash() {
+uint32_t SystemActuator::CloseUI_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -3073,12 +3073,12 @@ uint32_t TextActuator::CloseUI_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::orca::mojom::TextActuator::CloseUI");
+          "(Impl)ash::orca::mojom::SystemActuator::CloseUI");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
-uint32_t TextActuator::SubmitFeedback_Sym::IPCStableHash() {
+uint32_t SystemActuator::SubmitFeedback_Sym::IPCStableHash() {
   // This method's address is used for indetifiying the mojo method name after
   // symbolization. So each IPCStableHash should have a unique address.
   // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
@@ -3086,22 +3086,22 @@ uint32_t TextActuator::SubmitFeedback_Sym::IPCStableHash() {
   // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
-          "(Impl)ash::orca::mojom::TextActuator::SubmitFeedback");
+          "(Impl)ash::orca::mojom::SystemActuator::SubmitFeedback");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
 }
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
-TextActuatorProxy::TextActuatorProxy(mojo::MessageReceiverWithResponder* receiver)
+SystemActuatorProxy::SystemActuatorProxy(mojo::MessageReceiverWithResponder* receiver)
     : receiver_(receiver) {
 }
 
-void TextActuatorProxy::InsertText(
+void SystemActuatorProxy::InsertText(
     const std::string& in_text) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::orca::mojom::TextActuator::InsertText", "input_parameters",
+    "mojom", "Send ash::orca::mojom::SystemActuator::InsertText", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -3122,9 +3122,9 @@ void TextActuatorProxy::InsertText(
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kTextActuator_InsertText_Name, kFlags, 0, 0, nullptr);
+      internal::kSystemActuator_InsertText_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::orca::mojom::internal::TextActuator_InsertText_Params_Data> params(
+      ::ash::orca::mojom::internal::SystemActuator_InsertText_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -3137,10 +3137,10 @@ void TextActuatorProxy::InsertText(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->text.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null text in TextActuator.InsertText request");
+      "null text in SystemActuator.InsertText request");
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(TextActuator::Name_);
+  message.set_interface_name(SystemActuator::Name_);
   message.set_method_name("InsertText");
 #endif
   // This return value may be ignored as false implies the Connector has
@@ -3148,10 +3148,10 @@ void TextActuatorProxy::InsertText(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void TextActuatorProxy::ApproveConsent(
+void SystemActuatorProxy::ApproveConsent(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::orca::mojom::TextActuator::ApproveConsent");
+  TRACE_EVENT0("mojom", "Send ash::orca::mojom::SystemActuator::ApproveConsent");
 #endif
 
   const bool kExpectsResponse = false;
@@ -3166,14 +3166,14 @@ void TextActuatorProxy::ApproveConsent(
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kTextActuator_ApproveConsent_Name, kFlags, 0, 0, nullptr);
+      internal::kSystemActuator_ApproveConsent_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::orca::mojom::internal::TextActuator_ApproveConsent_Params_Data> params(
+      ::ash::orca::mojom::internal::SystemActuator_ApproveConsent_Params_Data> params(
           message);
   params.Allocate();
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(TextActuator::Name_);
+  message.set_interface_name(SystemActuator::Name_);
   message.set_method_name("ApproveConsent");
 #endif
   // This return value may be ignored as false implies the Connector has
@@ -3181,10 +3181,10 @@ void TextActuatorProxy::ApproveConsent(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void TextActuatorProxy::DeclineConsent(
+void SystemActuatorProxy::DeclineConsent(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::orca::mojom::TextActuator::DeclineConsent");
+  TRACE_EVENT0("mojom", "Send ash::orca::mojom::SystemActuator::DeclineConsent");
 #endif
 
   const bool kExpectsResponse = false;
@@ -3199,14 +3199,14 @@ void TextActuatorProxy::DeclineConsent(
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kTextActuator_DeclineConsent_Name, kFlags, 0, 0, nullptr);
+      internal::kSystemActuator_DeclineConsent_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::orca::mojom::internal::TextActuator_DeclineConsent_Params_Data> params(
+      ::ash::orca::mojom::internal::SystemActuator_DeclineConsent_Params_Data> params(
           message);
   params.Allocate();
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(TextActuator::Name_);
+  message.set_interface_name(SystemActuator::Name_);
   message.set_method_name("DeclineConsent");
 #endif
   // This return value may be ignored as false implies the Connector has
@@ -3214,11 +3214,11 @@ void TextActuatorProxy::DeclineConsent(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void TextActuatorProxy::OpenUrlInNewWindow(
+void SystemActuatorProxy::OpenUrlInNewWindow(
     const ::GURL& in_url) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::orca::mojom::TextActuator::OpenUrlInNewWindow", "input_parameters",
+    "mojom", "Send ash::orca::mojom::SystemActuator::OpenUrlInNewWindow", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -3239,9 +3239,9 @@ void TextActuatorProxy::OpenUrlInNewWindow(
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kTextActuator_OpenUrlInNewWindow_Name, kFlags, 0, 0, nullptr);
+      internal::kSystemActuator_OpenUrlInNewWindow_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::orca::mojom::internal::TextActuator_OpenUrlInNewWindow_Params_Data> params(
+      ::ash::orca::mojom::internal::SystemActuator_OpenUrlInNewWindow_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -3254,10 +3254,10 @@ void TextActuatorProxy::OpenUrlInNewWindow(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->url.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null url in TextActuator.OpenUrlInNewWindow request");
+      "null url in SystemActuator.OpenUrlInNewWindow request");
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(TextActuator::Name_);
+  message.set_interface_name(SystemActuator::Name_);
   message.set_method_name("OpenUrlInNewWindow");
 #endif
   // This return value may be ignored as false implies the Connector has
@@ -3265,10 +3265,10 @@ void TextActuatorProxy::OpenUrlInNewWindow(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void TextActuatorProxy::ShowUI(
+void SystemActuatorProxy::ShowUI(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::orca::mojom::TextActuator::ShowUI");
+  TRACE_EVENT0("mojom", "Send ash::orca::mojom::SystemActuator::ShowUI");
 #endif
 
   const bool kExpectsResponse = false;
@@ -3283,14 +3283,14 @@ void TextActuatorProxy::ShowUI(
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kTextActuator_ShowUI_Name, kFlags, 0, 0, nullptr);
+      internal::kSystemActuator_ShowUI_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::orca::mojom::internal::TextActuator_ShowUI_Params_Data> params(
+      ::ash::orca::mojom::internal::SystemActuator_ShowUI_Params_Data> params(
           message);
   params.Allocate();
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(TextActuator::Name_);
+  message.set_interface_name(SystemActuator::Name_);
   message.set_method_name("ShowUI");
 #endif
   // This return value may be ignored as false implies the Connector has
@@ -3298,10 +3298,10 @@ void TextActuatorProxy::ShowUI(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void TextActuatorProxy::CloseUI(
+void SystemActuatorProxy::CloseUI(
     ) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send ash::orca::mojom::TextActuator::CloseUI");
+  TRACE_EVENT0("mojom", "Send ash::orca::mojom::SystemActuator::CloseUI");
 #endif
 
   const bool kExpectsResponse = false;
@@ -3316,14 +3316,14 @@ void TextActuatorProxy::CloseUI(
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kTextActuator_CloseUI_Name, kFlags, 0, 0, nullptr);
+      internal::kSystemActuator_CloseUI_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::orca::mojom::internal::TextActuator_CloseUI_Params_Data> params(
+      ::ash::orca::mojom::internal::SystemActuator_CloseUI_Params_Data> params(
           message);
   params.Allocate();
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(TextActuator::Name_);
+  message.set_interface_name(SystemActuator::Name_);
   message.set_method_name("CloseUI");
 #endif
   // This return value may be ignored as false implies the Connector has
@@ -3331,11 +3331,11 @@ void TextActuatorProxy::CloseUI(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
-void TextActuatorProxy::SubmitFeedback(
+void SystemActuatorProxy::SubmitFeedback(
     const std::string& in_description) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
-    "mojom", "Send ash::orca::mojom::TextActuator::SubmitFeedback", "input_parameters",
+    "mojom", "Send ash::orca::mojom::SystemActuator::SubmitFeedback", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
@@ -3356,9 +3356,9 @@ void TextActuatorProxy::SubmitFeedback(
       ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
   
   mojo::Message message(
-      internal::kTextActuator_SubmitFeedback_Name, kFlags, 0, 0, nullptr);
+      internal::kSystemActuator_SubmitFeedback_Name, kFlags, 0, 0, nullptr);
   mojo::internal::MessageFragment<
-      ::ash::orca::mojom::internal::TextActuator_SubmitFeedback_Params_Data> params(
+      ::ash::orca::mojom::internal::SystemActuator_SubmitFeedback_Params_Data> params(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
@@ -3371,10 +3371,10 @@ void TextActuatorProxy::SubmitFeedback(
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
       params->description.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null description in TextActuator.SubmitFeedback request");
+      "null description in SystemActuator.SubmitFeedback request");
 
 #if defined(ENABLE_IPC_FUZZER)
-  message.set_interface_name(TextActuator::Name_);
+  message.set_interface_name(SystemActuator::Name_);
   message.set_method_name("SubmitFeedback");
 #endif
   // This return value may be ignored as false implies the Connector has
@@ -3383,22 +3383,22 @@ void TextActuatorProxy::SubmitFeedback(
 }
 
 // static
-bool TextActuatorStubDispatch::Accept(
-    TextActuator* impl,
+bool SystemActuatorStubDispatch::Accept(
+    SystemActuator* impl,
     mojo::Message* message) {
   switch (message->header()->name) {
-    case internal::kTextActuator_InsertText_Name: {
+    case internal::kSystemActuator_InsertText_Name: {
 
       DCHECK(message->is_serialized());
-      internal::TextActuator_InsertText_Params_Data* params =
-          reinterpret_cast<internal::TextActuator_InsertText_Params_Data*>(
+      internal::SystemActuator_InsertText_Params_Data* params =
+          reinterpret_cast<internal::SystemActuator_InsertText_Params_Data*>(
               message->mutable_payload());
       
       
-      // Validation for TextActuator.0
+      // Validation for SystemActuator.0
       bool success = true;
       std::string p_text{};
-      TextActuator_InsertText_ParamsDataView input_data_view(params, message);
+      SystemActuator_InsertText_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadText(&p_text))
         success = false;
@@ -3406,7 +3406,7 @@ bool TextActuatorStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            TextActuator::Name_, 0, false);
+            SystemActuator::Name_, 0, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3415,23 +3415,23 @@ bool TextActuatorStubDispatch::Accept(
         std::move(p_text));
       return true;
     }
-    case internal::kTextActuator_ApproveConsent_Name: {
+    case internal::kSystemActuator_ApproveConsent_Name: {
 
       DCHECK(message->is_serialized());
-      internal::TextActuator_ApproveConsent_Params_Data* params =
-          reinterpret_cast<internal::TextActuator_ApproveConsent_Params_Data*>(
+      internal::SystemActuator_ApproveConsent_Params_Data* params =
+          reinterpret_cast<internal::SystemActuator_ApproveConsent_Params_Data*>(
               message->mutable_payload());
       
       
-      // Validation for TextActuator.1
+      // Validation for SystemActuator.1
       bool success = true;
-      TextActuator_ApproveConsent_ParamsDataView input_data_view(params, message);
+      SystemActuator_ApproveConsent_ParamsDataView input_data_view(params, message);
       
       if (!success) {
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            TextActuator::Name_, 1, false);
+            SystemActuator::Name_, 1, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3439,23 +3439,23 @@ bool TextActuatorStubDispatch::Accept(
       impl->ApproveConsent(        );
       return true;
     }
-    case internal::kTextActuator_DeclineConsent_Name: {
+    case internal::kSystemActuator_DeclineConsent_Name: {
 
       DCHECK(message->is_serialized());
-      internal::TextActuator_DeclineConsent_Params_Data* params =
-          reinterpret_cast<internal::TextActuator_DeclineConsent_Params_Data*>(
+      internal::SystemActuator_DeclineConsent_Params_Data* params =
+          reinterpret_cast<internal::SystemActuator_DeclineConsent_Params_Data*>(
               message->mutable_payload());
       
       
-      // Validation for TextActuator.2
+      // Validation for SystemActuator.2
       bool success = true;
-      TextActuator_DeclineConsent_ParamsDataView input_data_view(params, message);
+      SystemActuator_DeclineConsent_ParamsDataView input_data_view(params, message);
       
       if (!success) {
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            TextActuator::Name_, 2, false);
+            SystemActuator::Name_, 2, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3463,18 +3463,18 @@ bool TextActuatorStubDispatch::Accept(
       impl->DeclineConsent(        );
       return true;
     }
-    case internal::kTextActuator_OpenUrlInNewWindow_Name: {
+    case internal::kSystemActuator_OpenUrlInNewWindow_Name: {
 
       DCHECK(message->is_serialized());
-      internal::TextActuator_OpenUrlInNewWindow_Params_Data* params =
-          reinterpret_cast<internal::TextActuator_OpenUrlInNewWindow_Params_Data*>(
+      internal::SystemActuator_OpenUrlInNewWindow_Params_Data* params =
+          reinterpret_cast<internal::SystemActuator_OpenUrlInNewWindow_Params_Data*>(
               message->mutable_payload());
       
       
-      // Validation for TextActuator.3
+      // Validation for SystemActuator.3
       bool success = true;
       ::GURL p_url{};
-      TextActuator_OpenUrlInNewWindow_ParamsDataView input_data_view(params, message);
+      SystemActuator_OpenUrlInNewWindow_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadUrl(&p_url))
         success = false;
@@ -3482,7 +3482,7 @@ bool TextActuatorStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            TextActuator::Name_, 3, false);
+            SystemActuator::Name_, 3, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3491,23 +3491,23 @@ bool TextActuatorStubDispatch::Accept(
         std::move(p_url));
       return true;
     }
-    case internal::kTextActuator_ShowUI_Name: {
+    case internal::kSystemActuator_ShowUI_Name: {
 
       DCHECK(message->is_serialized());
-      internal::TextActuator_ShowUI_Params_Data* params =
-          reinterpret_cast<internal::TextActuator_ShowUI_Params_Data*>(
+      internal::SystemActuator_ShowUI_Params_Data* params =
+          reinterpret_cast<internal::SystemActuator_ShowUI_Params_Data*>(
               message->mutable_payload());
       
       
-      // Validation for TextActuator.4
+      // Validation for SystemActuator.4
       bool success = true;
-      TextActuator_ShowUI_ParamsDataView input_data_view(params, message);
+      SystemActuator_ShowUI_ParamsDataView input_data_view(params, message);
       
       if (!success) {
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            TextActuator::Name_, 4, false);
+            SystemActuator::Name_, 4, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3515,23 +3515,23 @@ bool TextActuatorStubDispatch::Accept(
       impl->ShowUI(        );
       return true;
     }
-    case internal::kTextActuator_CloseUI_Name: {
+    case internal::kSystemActuator_CloseUI_Name: {
 
       DCHECK(message->is_serialized());
-      internal::TextActuator_CloseUI_Params_Data* params =
-          reinterpret_cast<internal::TextActuator_CloseUI_Params_Data*>(
+      internal::SystemActuator_CloseUI_Params_Data* params =
+          reinterpret_cast<internal::SystemActuator_CloseUI_Params_Data*>(
               message->mutable_payload());
       
       
-      // Validation for TextActuator.5
+      // Validation for SystemActuator.5
       bool success = true;
-      TextActuator_CloseUI_ParamsDataView input_data_view(params, message);
+      SystemActuator_CloseUI_ParamsDataView input_data_view(params, message);
       
       if (!success) {
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            TextActuator::Name_, 5, false);
+            SystemActuator::Name_, 5, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3539,18 +3539,18 @@ bool TextActuatorStubDispatch::Accept(
       impl->CloseUI(        );
       return true;
     }
-    case internal::kTextActuator_SubmitFeedback_Name: {
+    case internal::kSystemActuator_SubmitFeedback_Name: {
 
       DCHECK(message->is_serialized());
-      internal::TextActuator_SubmitFeedback_Params_Data* params =
-          reinterpret_cast<internal::TextActuator_SubmitFeedback_Params_Data*>(
+      internal::SystemActuator_SubmitFeedback_Params_Data* params =
+          reinterpret_cast<internal::SystemActuator_SubmitFeedback_Params_Data*>(
               message->mutable_payload());
       
       
-      // Validation for TextActuator.6
+      // Validation for SystemActuator.6
       bool success = true;
       std::string p_description{};
-      TextActuator_SubmitFeedback_ParamsDataView input_data_view(params, message);
+      SystemActuator_SubmitFeedback_ParamsDataView input_data_view(params, message);
       
       if (success && !input_data_view.ReadDescription(&p_description))
         success = false;
@@ -3558,7 +3558,7 @@ bool TextActuatorStubDispatch::Accept(
         ReportValidationErrorForMessage(
             message,
             mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
-            TextActuator::Name_, 6, false);
+            SystemActuator::Name_, 6, false);
         return false;
       }
       // A null |impl| means no implementation was bound.
@@ -3572,33 +3572,33 @@ bool TextActuatorStubDispatch::Accept(
 }
 
 // static
-bool TextActuatorStubDispatch::AcceptWithResponder(
-    TextActuator* impl,
+bool SystemActuatorStubDispatch::AcceptWithResponder(
+    SystemActuator* impl,
     mojo::Message* message,
     std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
   [[maybe_unused]] const bool message_is_sync =
       message->has_flag(mojo::Message::kFlagIsSync);
   [[maybe_unused]] const uint64_t request_id = message->request_id();
   switch (message->header()->name) {
-    case internal::kTextActuator_InsertText_Name: {
+    case internal::kSystemActuator_InsertText_Name: {
       break;
     }
-    case internal::kTextActuator_ApproveConsent_Name: {
+    case internal::kSystemActuator_ApproveConsent_Name: {
       break;
     }
-    case internal::kTextActuator_DeclineConsent_Name: {
+    case internal::kSystemActuator_DeclineConsent_Name: {
       break;
     }
-    case internal::kTextActuator_OpenUrlInNewWindow_Name: {
+    case internal::kSystemActuator_OpenUrlInNewWindow_Name: {
       break;
     }
-    case internal::kTextActuator_ShowUI_Name: {
+    case internal::kSystemActuator_ShowUI_Name: {
       break;
     }
-    case internal::kTextActuator_CloseUI_Name: {
+    case internal::kSystemActuator_CloseUI_Name: {
       break;
     }
-    case internal::kTextActuator_SubmitFeedback_Name: {
+    case internal::kSystemActuator_SubmitFeedback_Name: {
       break;
     }
   }
@@ -3606,26 +3606,26 @@ bool TextActuatorStubDispatch::AcceptWithResponder(
 }
 namespace {
 }  // namespace
-static const mojo::internal::GenericValidationInfo kTextActuatorValidationInfo[] = {
-    { &internal::TextActuator_InsertText_Params_Data::Validate,
+static const mojo::internal::GenericValidationInfo kSystemActuatorValidationInfo[] = {
+    { &internal::SystemActuator_InsertText_Params_Data::Validate,
      nullptr /* no response */},
-    { &internal::TextActuator_ApproveConsent_Params_Data::Validate,
+    { &internal::SystemActuator_ApproveConsent_Params_Data::Validate,
      nullptr /* no response */},
-    { &internal::TextActuator_DeclineConsent_Params_Data::Validate,
+    { &internal::SystemActuator_DeclineConsent_Params_Data::Validate,
      nullptr /* no response */},
-    { &internal::TextActuator_OpenUrlInNewWindow_Params_Data::Validate,
+    { &internal::SystemActuator_OpenUrlInNewWindow_Params_Data::Validate,
      nullptr /* no response */},
-    { &internal::TextActuator_ShowUI_Params_Data::Validate,
+    { &internal::SystemActuator_ShowUI_Params_Data::Validate,
      nullptr /* no response */},
-    { &internal::TextActuator_CloseUI_Params_Data::Validate,
+    { &internal::SystemActuator_CloseUI_Params_Data::Validate,
      nullptr /* no response */},
-    { &internal::TextActuator_SubmitFeedback_Params_Data::Validate,
+    { &internal::SystemActuator_SubmitFeedback_Params_Data::Validate,
      nullptr /* no response */},
 };
 
-bool TextActuatorRequestValidator::Accept(mojo::Message* message) {
-  const char* name = ::ash::orca::mojom::TextActuator::Name_;
-  return mojo::internal::ValidateRequestGenericPacked(message, name, kTextActuatorValidationInfo);
+bool SystemActuatorRequestValidator::Accept(mojo::Message* message) {
+  const char* name = ::ash::orca::mojom::SystemActuator::Name_;
+  return mojo::internal::ValidateRequestGenericPacked(message, name, kSystemActuatorValidationInfo);
 }
 
 const char TextQueryProvider::Name_[] = "ash.orca.mojom.TextQueryProvider";
@@ -4015,15 +4015,15 @@ OrcaServiceProxy::OrcaServiceProxy(mojo::MessageReceiverWithResponder* receiver)
 }
 
 void OrcaServiceProxy::BindEditor(
-    ::mojo::PendingAssociatedRemote<TextActuator> in_text_actuator, ::mojo::PendingAssociatedRemote<TextQueryProvider> in_text_query_provider, ::mojo::PendingAssociatedReceiver<EditorClientConnector> in_client_connector, ::mojo::PendingAssociatedReceiver<EditorEventSink> in_event_sink) {
+    ::mojo::PendingAssociatedRemote<SystemActuator> in_system_actuator, ::mojo::PendingAssociatedRemote<TextQueryProvider> in_text_query_provider, ::mojo::PendingAssociatedReceiver<EditorClientConnector> in_client_connector, ::mojo::PendingAssociatedReceiver<EditorEventSink> in_event_sink) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::orca::mojom::OrcaService::BindEditor", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("text_actuator"), in_text_actuator,
-                        "<value of type ::mojo::PendingAssociatedRemote<TextActuator>>");
+           dict.AddItem("system_actuator"), in_system_actuator,
+                        "<value of type ::mojo::PendingAssociatedRemote<SystemActuator>>");
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("text_query_provider"), in_text_query_provider,
                         "<value of type ::mojo::PendingAssociatedRemote<TextQueryProvider>>");
@@ -4053,12 +4053,12 @@ void OrcaServiceProxy::BindEditor(
       ::ash::orca::mojom::internal::OrcaService_BindEditor_Params_Data> params(
           message);
   params.Allocate();
-  mojo::internal::Serialize<::ash::orca::mojom::TextActuatorAssociatedPtrInfoDataView>(
-      in_text_actuator, &params->text_actuator, &params.message());
+  mojo::internal::Serialize<::ash::orca::mojom::SystemActuatorAssociatedPtrInfoDataView>(
+      in_system_actuator, &params->system_actuator, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      !mojo::internal::IsHandleOrInterfaceValid(params->text_actuator),
+      !mojo::internal::IsHandleOrInterfaceValid(params->system_actuator),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_INVALID_INTERFACE_ID,
-      "invalid text_actuator in OrcaService.BindEditor request");
+      "invalid system_actuator in OrcaService.BindEditor request");
   mojo::internal::Serialize<::ash::orca::mojom::TextQueryProviderAssociatedPtrInfoDataView>(
       in_text_query_provider, &params->text_query_provider, &params.message());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
@@ -4102,15 +4102,15 @@ bool OrcaServiceStubDispatch::Accept(
       
       // Validation for OrcaService.0
       bool success = true;
-      ::mojo::PendingAssociatedRemote<TextActuator> p_text_actuator{};
+      ::mojo::PendingAssociatedRemote<SystemActuator> p_system_actuator{};
       ::mojo::PendingAssociatedRemote<TextQueryProvider> p_text_query_provider{};
       ::mojo::PendingAssociatedReceiver<EditorClientConnector> p_client_connector{};
       ::mojo::PendingAssociatedReceiver<EditorEventSink> p_event_sink{};
       OrcaService_BindEditor_ParamsDataView input_data_view(params, message);
       
       if (success) {
-        p_text_actuator =
-            input_data_view.TakeTextActuator<decltype(p_text_actuator)>();
+        p_system_actuator =
+            input_data_view.TakeSystemActuator<decltype(p_system_actuator)>();
       }
       if (success) {
         p_text_query_provider =
@@ -4134,7 +4134,7 @@ bool OrcaServiceStubDispatch::Accept(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->BindEditor(        
-        std::move(p_text_actuator), 
+        std::move(p_system_actuator), 
         std::move(p_text_query_provider), 
         std::move(p_client_connector), 
         std::move(p_event_sink));
@@ -4508,31 +4508,31 @@ EditorEventSinkAsyncWaiter::~EditorEventSinkAsyncWaiter() = default;
 
 
 
-void TextActuatorInterceptorForTesting::InsertText(const std::string& text) {
+void SystemActuatorInterceptorForTesting::InsertText(const std::string& text) {
   GetForwardingInterface()->InsertText(std::move(text));
 }
-void TextActuatorInterceptorForTesting::ApproveConsent() {
+void SystemActuatorInterceptorForTesting::ApproveConsent() {
   GetForwardingInterface()->ApproveConsent();
 }
-void TextActuatorInterceptorForTesting::DeclineConsent() {
+void SystemActuatorInterceptorForTesting::DeclineConsent() {
   GetForwardingInterface()->DeclineConsent();
 }
-void TextActuatorInterceptorForTesting::OpenUrlInNewWindow(const ::GURL& url) {
+void SystemActuatorInterceptorForTesting::OpenUrlInNewWindow(const ::GURL& url) {
   GetForwardingInterface()->OpenUrlInNewWindow(std::move(url));
 }
-void TextActuatorInterceptorForTesting::ShowUI() {
+void SystemActuatorInterceptorForTesting::ShowUI() {
   GetForwardingInterface()->ShowUI();
 }
-void TextActuatorInterceptorForTesting::CloseUI() {
+void SystemActuatorInterceptorForTesting::CloseUI() {
   GetForwardingInterface()->CloseUI();
 }
-void TextActuatorInterceptorForTesting::SubmitFeedback(const std::string& description) {
+void SystemActuatorInterceptorForTesting::SubmitFeedback(const std::string& description) {
   GetForwardingInterface()->SubmitFeedback(std::move(description));
 }
-TextActuatorAsyncWaiter::TextActuatorAsyncWaiter(
-    TextActuator* proxy) : proxy_(proxy) {}
+SystemActuatorAsyncWaiter::SystemActuatorAsyncWaiter(
+    SystemActuator* proxy) : proxy_(proxy) {}
 
-TextActuatorAsyncWaiter::~TextActuatorAsyncWaiter() = default;
+SystemActuatorAsyncWaiter::~SystemActuatorAsyncWaiter() = default;
 
 
 
@@ -4571,8 +4571,8 @@ TextQueryResponsePtr TextQueryProviderAsyncWaiter::Process(
 
 
 
-void OrcaServiceInterceptorForTesting::BindEditor(::mojo::PendingAssociatedRemote<TextActuator> text_actuator, ::mojo::PendingAssociatedRemote<TextQueryProvider> text_query_provider, ::mojo::PendingAssociatedReceiver<EditorClientConnector> client_connector, ::mojo::PendingAssociatedReceiver<EditorEventSink> event_sink) {
-  GetForwardingInterface()->BindEditor(std::move(text_actuator), std::move(text_query_provider), std::move(client_connector), std::move(event_sink));
+void OrcaServiceInterceptorForTesting::BindEditor(::mojo::PendingAssociatedRemote<SystemActuator> system_actuator, ::mojo::PendingAssociatedRemote<TextQueryProvider> text_query_provider, ::mojo::PendingAssociatedReceiver<EditorClientConnector> client_connector, ::mojo::PendingAssociatedReceiver<EditorEventSink> event_sink) {
+  GetForwardingInterface()->BindEditor(std::move(system_actuator), std::move(text_query_provider), std::move(client_connector), std::move(event_sink));
 }
 OrcaServiceAsyncWaiter::OrcaServiceAsyncWaiter(
     OrcaService* proxy) : proxy_(proxy) {}

@@ -414,7 +414,7 @@ class  IpProtectionConfigGetter_GetProxyList_ResponseParams_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>>>> proxy_list;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<::network::mojom::internal::ProxyChain_Data>>> proxy_list;
 
  private:
   friend class mojo::internal::MessageFragment<IpProtectionConfigGetter_GetProxyList_ResponseParams_Data>;
@@ -3174,14 +3174,14 @@ class IpProtectionConfigGetter_GetProxyList_ResponseParamsDataView {
 
   bool is_null() const { return !data_; }
   inline void GetProxyListDataView(
-      mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>* output);
+      mojo::ArrayDataView<::network::mojom::ProxyChainDataView>* output);
 
   template <typename UserType>
   [[nodiscard]] bool ReadProxyList(UserType* output) {
     
 static_assert(
     mojo::internal::IsValidUserTypeForOptionalValue<
-        mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>, UserType>(),
+        mojo::ArrayDataView<::network::mojom::ProxyChainDataView>, UserType>(),
     "Attempting to read the optional `proxy_list` field into a type which "
     "cannot represent a null value. Either wrap the destination object "
     "with std::optional, ensure that any corresponding "
@@ -3190,7 +3190,7 @@ static_assert(
     "of `ReadProxyList if you're fine with null values being "
     "silently ignored in this case.");
     auto* pointer = data_->proxy_list.Get();
-    return mojo::internal::Deserialize<mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>>(
+    return mojo::internal::Deserialize<mojo::ArrayDataView<::network::mojom::ProxyChainDataView>>(
         pointer, output, message_);
   }
  private:
@@ -7264,9 +7264,9 @@ inline void IpProtectionConfigGetter_TryGetAuthTokens_ResponseParamsDataView::Ge
 
 
 inline void IpProtectionConfigGetter_GetProxyList_ResponseParamsDataView::GetProxyListDataView(
-    mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>* output) {
+    mojo::ArrayDataView<::network::mojom::ProxyChainDataView>* output) {
   auto pointer = data_->proxy_list.Get();
-  *output = mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>(pointer, message_);
+  *output = mojo::ArrayDataView<::network::mojom::ProxyChainDataView>(pointer, message_);
 }
 
 

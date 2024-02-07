@@ -1,9 +1,9 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import '//resources/cr_elements/chromeos/cros_color_overrides.css.js';
-import '//resources/cr_elements/cr_slider/cr_slider.js';
-import '//resources/cr_elements/icons.html.js';
+import '//resources/ash/common/cr_elements/cros_color_overrides.css.js';
+import '//resources/ash/common/cr_elements/cr_slider/cr_slider.js';
+import '//resources/ash/common/cr_elements/icons.html.js';
 import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { OobeI18nBehavior, OobeI18nBehaviorInterface } from './behaviors/oobe_i18n_behavior.js';
 const DEFAULT_APP_ICON_SIZE = 48;

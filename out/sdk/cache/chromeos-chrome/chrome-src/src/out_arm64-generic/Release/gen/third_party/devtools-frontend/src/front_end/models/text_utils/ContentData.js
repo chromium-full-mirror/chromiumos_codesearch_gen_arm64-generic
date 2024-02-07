@@ -21,11 +21,11 @@ import { contentAsDataURL } from './ContentProvider.js';
  */
 export class ContentData {
     mimeType;
-    #charset;
+    charset;
     #contentAsBase64;
     #contentAsText;
     constructor(data, isBase64, mimeType, charset) {
-        this.#charset = charset;
+        this.charset = charset || 'utf-8';
         if (isBase64) {
             this.#contentAsBase64 = data;
         }
@@ -63,10 +63,9 @@ export class ContentData {
         if (!this.isTextContent) {
             throw new Error('Cannot interpret binary data as text');
         }
-        const charset = this.#charset || 'utf-8';
         const binaryString = window.atob(this.#contentAsBase64);
         const bytes = Uint8Array.from(binaryString, m => m.codePointAt(0));
-        this.#contentAsText = new TextDecoder(charset).decode(bytes);
+        this.#contentAsText = new TextDecoder(this.charset).decode(bytes);
         return this.#contentAsText;
     }
     get isTextContent() {
@@ -76,11 +75,15 @@ export class ContentData {
         // Don't trigger unnecessary decoding. Only check if both of the strings are empty.
         return !Boolean(this.#contentAsBase64) && !Boolean(this.#contentAsText);
     }
+    get createdFromBase64() {
+        return this.#contentAsBase64 !== undefined;
+    }
     asDataUrl() {
         // To keep with existing behavior we prefer to return the content
         // encoded if that is how this ContentData was constructed with.
         if (this.#contentAsBase64 !== undefined) {
-            return contentAsDataURL(this.#contentAsBase64, this.mimeType ?? '', true, this.#charset ?? null);
+            const charset = this.isTextContent ? this.charset : null;
+            return contentAsDataURL(this.#contentAsBase64, this.mimeType ?? '', true, charset);
         }
         return contentAsDataURL(this.text, this.mimeType ?? '', false);
     }

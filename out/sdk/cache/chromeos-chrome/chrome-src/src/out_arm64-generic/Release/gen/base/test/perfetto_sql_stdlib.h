@@ -219,7 +219,7 @@ R"_d3l1m1t3r_(    AND power_state = 0                      -- Track full-power s
     ORDER BY ts ASC;
 
 -- We do not want scheduler slices with utid = 0 (the 'swapper' kernel thread).
-CREATE PERFETTO VIEW internal_cpu_power_valid_sched_slice AS
+CREATE PERFETTO VIEW _cpu_power_valid_sched_slice AS
   SELECT *
   FROM sched_slice
   WHERE utid != 0;
@@ -238,11 +238,11 @@ CREATE PERFETTO VIEW internal_cpu_power_valid_sched_slice AS
 --
 -- Here threads T1 and T2 executed in CPU power slice [A,B].  The
 -- time between F and G represents time between threads in the kernel.
-CREATE VIRTUAL TABLE internal_cpu_power_and_sched_slice
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(USING
+CREATE VIRTUAL TABLE _cpu_power_and_sched_slice
+USING
   SPAN_JOIN(chrome_cpu_power_slice PARTITIONED cpu,
-            internal_cpu_power_valid_sched_slice PARTITIONED cpu);
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(            _cpu_power_valid_sched_slice PARTITIONED cpu);
 
 -- The Linux scheduler slices that executed immediately after a
 -- CPU power up.
@@ -270,24 +270,24 @@ SELECT
   utid,
   previous_power_state,
   powerup_id
-FROM internal_cpu_power_and_sched_slice
+FROM _cpu_power_and_sched_slice
 WHERE power_state = 0     -- Power-ups only.
 GROUP BY cpu, powerup_id
 HAVING ts = MIN(ts)       -- There will only be one MIN sched slice
                           -- per CPU power up.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(ORDER BY ts ASC;
+ORDER BY ts ASC;
 
 -- A view joining thread tracks and top-level slices.
 --
--- This view is intended to be intersected by time with the scheduler
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(-- This view is intended to be intersected by time with the scheduler
 -- slices scheduled after a CPU power up.
 --
 --   utid      Thread unique id.
 --   slice_id  The slice_id for the top-level slice.
 --   ts        Starting timestamp for the slice.
 --   dur       The duration for the slice.
-CREATE PERFETTO VIEW internal_cpu_power_thread_and_toplevel_slice AS
+CREATE PERFETTO VIEW _cpu_power_thread_and_toplevel_slice AS
   SELECT
     t.utid AS utid,
     s.id AS slice_id,
@@ -307,15 +307,15 @@ CREATE PERFETTO VIEW internal_cpu_power_thread_and_toplevel_slice AS
 -- @column cpu        The CPU the sched slice ran on.
 -- @column utid       Unique thread id for the slice.
 -- @column sched_id   'id' field from the sched_slice table.
+-- @column type       From the sched_slice table, always 'sched_slice'.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- @column type       From the sched_slice table, always 'sched_slice'.
--- @column end_state  The ending state for the sched_slice
+R"_d3l1m1t3r_(-- @column end_state  The ending state for the sched_slice
 -- @column priority   The kernel thread priority
 -- @column slice_id   Id of the top-level slice for this (sched) slice.
 CREATE VIRTUAL TABLE chrome_cpu_power_post_powerup_slice
 USING
   SPAN_JOIN(chrome_cpu_power_first_sched_slice_after_powerup PARTITIONED utid,
-            internal_cpu_power_thread_and_toplevel_slice PARTITIONED utid);
+            _cpu_power_thread_and_toplevel_slice PARTITIONED utid);
 
 -- The first top-level slice that ran after a CPU power-up.
 CREATE PERFETTO VIEW chrome_cpu_power_first_toplevel_slice_after_powerup(
@@ -668,7 +668,7 @@ const char kPageLoads[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Authors
 
 INCLUDE PERFETTO MODULE common.slices;
 
-CREATE PERFETTO VIEW internal_fcp_metrics AS
+CREATE PERFETTO VIEW _fcp_metrics AS
 SELECT
   ts,
   dur,
@@ -678,7 +678,7 @@ SELECT
 FROM process_slice
 WHERE name = 'PageLoadMetrics.NavigationToFirstContentfulPaint';
 
-CREATE PERFETTO FUNCTION internal_page_load_metrics(event_name STRING)
+CREATE PERFETTO FUNCTION _page_load_metrics(event_name STRING)
 RETURNS TABLE(
   ts LONG,
   dur LONG,
@@ -689,9 +689,9 @@ SELECT
   ts,
   dur,
   EXTRACT_ARG(arg_set_id, 'page_load.navigation_id')
+    AS navigation_id,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    AS navigation_id,
-  upid AS browser_upid
+R"_d3l1m1t3r_(  upid AS browser_upid
 FROM process_slice
 WHERE name = $event_name;
 
@@ -754,25 +754,25 @@ R"_d3l1m1t3r_(  fcp.dur AS fcp,
   timing_interactive.ts AS mark_interactive_ts,
   fcp.url,
   fcp.browser_upid
-FROM internal_fcp_metrics fcp
+FROM _fcp_metrics fcp
 LEFT JOIN
-  internal_page_load_metrics('PageLoadMetrics.NavigationToLargestContentfulPaint') lcp
+  _page_load_metrics('PageLoadMetrics.NavigationToLargestContentfulPaint') lcp
     USING (navigation_id, browser_upid)
 LEFT JOIN
-  internal_page_load_metrics('PageLoadMetrics.NavigationToDOMContentLoadedEventFired') load_fired
+  _page_load_metrics('PageLoadMetrics.NavigationToDOMContentLoadedEventFired') load_fired
     USING (navigation_id, browser_upid)
 LEFT JOIN
-  internal_page_load_metrics('PageLoadMetrics.NavigationToMainFrameOnLoad') start_load
+  _page_load_metrics('PageLoadMetrics.NavigationToMainFrameOnLoad') start_load
     USING (navigation_id, browser_upid)
 LEFT JOIN
-  internal_page_load_metrics('PageLoadMetrics.UserTimingMarkFullyLoaded') timing_loaded
+  _page_load_metrics('PageLoadMetrics.UserTimingMarkFullyLoaded') timing_loaded
     USING (navigation_id, browser_upid)
 LEFT JOIN
-  internal_page_load_metrics('PageLoadMetrics.UserTimingMarkFullyVisible') timing_visible
+  _page_load_metrics('PageLoadMetrics.UserTimingMarkFullyVisible') timing_visible
+    USING (navigation_id, browser_upid)
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    USING (navigation_id, browser_upid)
-LEFT JOIN
-  internal_page_load_metrics('PageLoadMetrics.UserTimingMarkInteractive') timing_interactive
+R"_d3l1m1t3r_(LEFT JOIN
+  _page_load_metrics('PageLoadMetrics.UserTimingMarkInteractive') timing_interactive
     USING (navigation_id, browser_upid);
 
 )_d3l1m1t3r_"
@@ -814,7 +814,7 @@ R"_d3l1m1t3r_(--       over all iterations you get the final Speedometer score f
 -- @column suite_name    Suite name
 -- @column test_name     Test name
 -- @column mark_type     Type of mark (start, sync-end, async-end)
-CREATE PERFETTO VIEW internal_chrome_speedometer_mark
+CREATE PERFETTO VIEW _chrome_speedometer_mark
 AS
 WITH
   speedometer_21_suite_name(suite_name) AS (
@@ -916,7 +916,7 @@ R"_d3l1m1t3r_(  augmented AS (
       COUNT()
         OVER (PARTITION BY iteration, suite_name, test_name ORDER BY ts ASC)
         AS mark_count
-    FROM internal_chrome_speedometer_mark
+    FROM _chrome_speedometer_mark
     JOIN slice
       USING (slice_id)
   ),
@@ -1001,7 +1001,7 @@ INCLUDE PERFETTO MODULE common.slices;
 -- If TimeToFirstVisibleContent is available, then this event will be the
 -- main event of the startup. Otherwise, the event for the start timestamp will
 -- be used.
-CREATE PERFETTO VIEW internal_startup_start_events AS
+CREATE PERFETTO VIEW _startup_start_events AS
 WITH
 starts AS (
   SELECT
@@ -1027,9 +1027,9 @@ all_activity_ids AS (
   SELECT
     DISTINCT activity_id,
     browser_upid
+  FROM starts
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  FROM starts
-  UNION ALL
+R"_d3l1m1t3r_(  UNION ALL
   SELECT
     DISTINCT activity_id,
     browser_upid
@@ -1054,17 +1054,17 @@ FROM activity_ids
 
 -- Chrome launch causes, not recorded at start time; use the activity id to
 -- join with the actual startup events.
-CREATE PERFETTO VIEW internal_launch_causes AS
+CREATE PERFETTO VIEW _launch_causes AS
 SELECT
   EXTRACT_ARG(arg_set_id, 'startup.activity_id') AS activity_id,
   EXTRACT_ARG(arg_set_id, 'startup.launch_cause') AS launch_cause,
   upid AS browser_upid
 FROM thread_slice
 WHERE name = 'Startup.LaunchCause';
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+
 -- Chrome startups, including launch cause.
-CREATE PERFETTO TABLE chrome_startups(
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(CREATE PERFETTO TABLE chrome_startups(
   -- Unique ID
   id INT,
   -- Chrome Activity event id of the launch.
@@ -1088,8 +1088,8 @@ SELECT
   start_events.first_visible_content_ts,
   launches.launch_cause,
   start_events.browser_upid
-FROM internal_startup_start_events start_events
-  LEFT JOIN internal_launch_causes launches
+FROM _startup_start_events start_events
+  LEFT JOIN _launch_causes launches
   USING(activity_id, browser_upid);
 
 )_d3l1m1t3r_"
@@ -1105,7 +1105,7 @@ INCLUDE PERFETTO MODULE common.slices;
 -- argument of descendant ScopedSetIpcHash slice.
 -- This is relevant only for the older Chrome traces, where mojo IPC
 -- hash was reported in a separate ScopedSetIpcHash slice.
-CREATE PERFETTO FUNCTION internal_extract_mojo_ipc_hash(slice_id INT)
+CREATE PERFETTO FUNCTION _extract_mojo_ipc_hash(slice_id INT)
 RETURNS INT AS
 SELECT EXTRACT_ARG(arg_set_id, "chrome_mojo_event_info.ipc_hash")
 FROM descendant_slice($slice_id)
@@ -1115,21 +1115,21 @@ LIMIT 1;
 
 -- Returns the frame type (main frame vs subframe) for key navigation tasks
 -- which capture the associated RenderFrameHost in an argument.
-CREATE PERFETTO FUNCTION internal_extract_frame_type(slice_id INT)
+CREATE PERFETTO FUNCTION _extract_frame_type(slice_id INT)
 RETURNS INT AS
 SELECT EXTRACT_ARG(arg_set_id, "render_frame_host.frame_type")
 FROM descendant_slice($slice_id)
 WHERE name IN (
+  "RenderFrameHostImpl::BeginNavigation",
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  "RenderFrameHostImpl::BeginNavigation",
-  "RenderFrameHostImpl::DidCommitProvisionalLoad",
+R"_d3l1m1t3r_(  "RenderFrameHostImpl::DidCommitProvisionalLoad",
   "RenderFrameHostImpl::DidCommitSameDocumentNavigation",
   "RenderFrameHostImpl::DidStopLoading"
 )
 LIMIT 1;
 
 -- Human-readable aliases for a few key navigation tasks.
-CREATE PERFETTO FUNCTION internal_human_readable_navigation_task_name(
+CREATE PERFETTO FUNCTION _human_readable_navigation_task_name(
   task_name STRING)
 RETURNS STRING AS
 SELECT
@@ -1145,20 +1145,20 @@ SELECT
   END;
 
 -- Takes a task name and formats it correctly for scheduler tasks.
-CREATE PERFETTO FUNCTION internal_format_scheduler_task_name(task_name STRING)
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(RETURNS STRING AS
+CREATE PERFETTO FUNCTION _format_scheduler_task_name(task_name STRING)
+RETURNS STRING AS
 SELECT printf("RunTask(posted_from=%s)", $task_name);
-
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(
 -- Takes the category and determines whether it is "Java" only, as opposed to
 -- "toplevel,Java".
-CREATE PERFETTO FUNCTION internal_java_not_top_level_category(category STRING)
+CREATE PERFETTO FUNCTION _java_not_top_level_category(category STRING)
 RETURNS BOOL AS
 SELECT $category GLOB "*Java*" AND $category not GLOB "*toplevel*";
 
 -- Takes the category and determines whether is any valid
 -- toplevel category or combination of categories.
-CREATE PERFETTO FUNCTION internal_any_top_level_category(category STRING)
+CREATE PERFETTO FUNCTION _any_top_level_category(category STRING)
 RETURNS BOOL AS
 SELECT $category IN ("toplevel", "toplevel,viz", "toplevel,Java");
 
@@ -1168,11 +1168,11 @@ SELECT $category IN ("toplevel", "toplevel,viz", "toplevel,Java");
 -- scheduler tasks). Currently this is not the case and needs a cleanup.
 -- Also we should align this with how table inheritance should work for
 -- `CREATE PERFETTO TABLE`.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+
 -- Get task type for a given task kind.
-CREATE PERFETTO FUNCTION internal_get_java_views_task_type(kind STRING)
-RETURNS STRING AS
+CREATE PERFETTO FUNCTION _get_java_views_task_type(kind STRING)
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(RETURNS STRING AS
 SELECT
   CASE $kind
     WHEN "Choreographer" THEN "choreographer"
@@ -1192,11 +1192,11 @@ SELECT
 --
 -- Note: this might include messages received within a sync mojo call.
 -- TODO(altimin): This should use EXTEND_TABLE when it becomes available.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(CREATE TABLE internal_chrome_mojo_slices AS
+CREATE TABLE _chrome_mojo_slices AS
 WITH
 -- Select all new-style (post crrev.com/c/3270337) mojo slices and
--- generate |task_name| for them.
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(-- generate |task_name| for them.
 -- If extended tracing is enabled, the slice name will have the full method
 -- name (i.e. "Receive content::mojom::FrameHost::DidStopLoading") and we
 -- should use it as a full name.
@@ -1220,14 +1220,14 @@ new_mojo_slices AS (
 old_associated_mojo_slices AS (
   SELECT
     name AS interface_name,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    internal_extract_mojo_ipc_hash(id) AS ipc_hash,
+    _extract_mojo_ipc_hash(id) AS ipc_hash,
     "message" AS message_type,
     id
   FROM slice
   WHERE
     category GLOB "*mojom*"
-    AND name GLOB '*.mojom.*'
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    AND name GLOB '*.mojom.*'
 ),
 -- Select old-style slices for non-(channel-associated) mojo events.
 old_non_associated_mojo_slices AS (
@@ -1236,7 +1236,7 @@ old_non_associated_mojo_slices AS (
       EXTRACT_ARG(arg_set_id, "chrome_mojo_event_info.watcher_notify_interface_tag"),
       EXTRACT_ARG(arg_set_id, "chrome_mojo_event_info.mojo_interface_tag")
     ) AS interface_name,
-    internal_extract_mojo_ipc_hash(id) AS ipc_hash,
+    _extract_mojo_ipc_hash(id) AS ipc_hash,
     "message" AS message_type,
     id
   FROM slice
@@ -1250,15 +1250,15 @@ SELECT * FROM old_associated_mojo_slices
 UNION ALL
 SELECT * FROM old_non_associated_mojo_slices;
 
--- As we lookup by ID on |internal_chrome_mojo_slices| table, add an index on
+-- As we lookup by ID on |_chrome_mojo_slices| table, add an index on
 -- id to make lookups fast.
-CREATE INDEX internal_chrome_mojo_slices_idx ON internal_chrome_mojo_slices(id);
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+CREATE INDEX _chrome_mojo_slices_idx ON _chrome_mojo_slices(id);
+
 -- This table contains a list of slices corresponding to the _representative_
 -- Chrome Java view operations.
 -- These are the outermost Java view slices after filtering out generic framework views
--- (like FitWindowsLinearLayout) and selecting the outermost slices from the remaining ones.
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(-- (like FitWindowsLinearLayout) and selecting the outermost slices from the remaining ones.
 --
 -- @column id INT                       Slice id.
 -- @column ts INT                       Timestamp.
@@ -1268,14 +1268,13 @@ R"_d3l1m1t3r_(
 --                                      capture toolbar screenshot.
 -- @column is_hardware_screenshot BOOL  Whether this slice is a part of accelerated
 --                                      capture toolbar screenshot.
-CREATE TABLE internal_chrome_java_views AS
+CREATE TABLE _chrome_java_views AS
 WITH
 -- .draw, .onLayout and .onMeasure parts of the java view names don't add much, strip them.
 java_slices_with_trimmed_names AS (
   SELECT
     id,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(    REPLACE(
+    REPLACE(
       REPLACE(
         REPLACE(
           REPLACE(
@@ -1285,7 +1284,8 @@ R"_d3l1m1t3r_(    REPLACE(
             ".onLayout", ""),
           ".onMeasure", ""),
         ".Layout", ""),
-      ".Measure", "") AS name,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      ".Measure", "") AS name,
       ts,
       dur
     FROM
@@ -1294,7 +1294,7 @@ R"_d3l1m1t3r_(    REPLACE(
     -- with either category = "toplevel" or category = "toplevel,Java".
     -- Also filter out the zero duration slices as an attempt to reduce noise as
     -- "Java" category contains misc events (as it's hard to add new categories).
-    WHERE internal_java_not_top_level_category(category) AND dur > 0
+    WHERE _java_not_top_level_category(category) AND dur > 0
   ),
   -- We filter out generic slices from various UI frameworks which don't tell us much about
   -- what exactly this view is doing.
@@ -1306,15 +1306,15 @@ R"_d3l1m1t3r_(    REPLACE(
       -- AndroidX.
       "FitWindowsFrameLayout",
       "FitWindowsLinearLayout",
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(      "ContentFrameLayout",
+      "ContentFrameLayout",
       "CoordinatorLayout",
       -- Other non-Chrome UI libraries.
       "ComponentHost",
       -- Generic Chrome frameworks.
       "CompositorView:finalizeLayers",
       "CompositorViewHolder",
-      "CompositorViewHolder:layout",
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(      "CompositorViewHolder:layout",
       "CompositorViewHolder:updateContentViewChildrenDimension",
       "CoordinatorLayoutForPointer",
       "OptimizedFrameLayout",
@@ -1337,14 +1337,14 @@ SELECT
   has_parent_slice_with_name(
     s1.id,
     "ViewResourceAdapter:captureWithSoftwareDraw"
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  ) AS is_software_screenshot,
+  ) AS is_software_screenshot,
   has_parent_slice_with_name(
     s1.id,
     "ViewResourceAdapter:captureWithHardwareDraw"
   ) AS is_hardware_screenshot
 FROM interesting_java_slices s1
--- We select "outermost" interesting slices: interesting slices which
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(-- We select "outermost" interesting slices: interesting slices which
 -- do not another interesting slice in their parent chain.
 WHERE (SELECT count()
   FROM ancestor_slice(s1.id) s2
@@ -1362,21 +1362,21 @@ CREATE PERFETTO VIEW chrome_java_views(
   -- Whether this slice is a part of non-accelerated capture toolbar screenshot.
   is_software_screenshot BOOL,
   -- Whether this slice is a part of accelerated capture toolbar screenshot.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  is_hardware_screenshot BOOL,
+  is_hardware_screenshot BOOL,
   -- Slice id.
   slice_id INT
 ) AS
 SELECT
   java_view.name AS filtered_name,
   java_view.is_software_screenshot,
-  java_view.is_hardware_screenshot,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  java_view.is_hardware_screenshot,
   slice.id as slice_id
-FROM internal_chrome_java_views java_view
+FROM _chrome_java_views java_view
 JOIN slice USING (id);
 
 -- A list of Choreographer tasks (Android frame generation) in Chrome.
-CREATE PERFETTO VIEW internal_chrome_choreographer_tasks
+CREATE PERFETTO VIEW _chrome_choreographer_tasks
 AS
 SELECT
   id,
@@ -1388,7 +1388,7 @@ FROM slice
 WHERE name GLOB "Looper.dispatch: android.view.Choreographer$FrameHandler*";
 
 -- Extract task's posted_from information from task's arguments.
-CREATE PERFETTO FUNCTION internal_get_posted_from(arg_set_id INT)
+CREATE PERFETTO FUNCTION _get_posted_from(arg_set_id INT)
 RETURNS STRING AS
 WITH posted_from as (
   SELECT
@@ -1399,10 +1399,10 @@ SELECT file_name || ":" || function_name as posted_from
 FROM posted_from;
 
 -- Selects the BeginMainFrame slices (which as posted from ScheduledActionSendBeginMainFrame),
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- used for root-level processing. In top-level/Java based slices, these will correspond to the
+-- used for root-level processing. In top-level/Java based slices, these will correspond to the
 -- ancestor of descendant slices; in long-task tracking, these tasks will be
--- on a custom track and will need to be associated with children by timestamp
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(-- on a custom track and will need to be associated with children by timestamp
 -- and duration. Corresponds with the Choreographer root slices in
 -- chrome_choreographer_tasks below.
 --
@@ -1411,7 +1411,7 @@ R"_d3l1m1t3r_(-- used for root-level processing. In top-level/Java based slices,
 -- @column kind          The type of Java slice.
 -- @column ts            The timestamp of the slice.
 -- @column name          The name of the slice.
-CREATE PERFETTO FUNCTION internal_select_begin_main_frame_java_slices(
+CREATE PERFETTO FUNCTION _select_begin_main_frame_java_slices(
   name STRING)
 RETURNS TABLE(id INT, kind STRING, ts LONG, dur LONG, name STRING) AS
 SELECT
@@ -1423,24 +1423,24 @@ SELECT
 FROM slice
 WHERE
   (name = $name
-    AND internal_get_posted_from(arg_set_id) =
+    AND _get_posted_from(arg_set_id) =
         "cc/trees/single_thread_proxy.cc:ScheduledActionSendBeginMainFrame");
 
 -- A list of Chrome tasks which were performing operations with Java views,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- together with the names of these views.
+-- together with the names of these views.
 -- @column id INT            Slice id.
 -- @column kind STRING       Type of the task.
 -- @column java_views STRING Concatenated names of Java views used by the task.
-CREATE PERFETTO VIEW internal_chrome_slices_with_java_views AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(CREATE PERFETTO VIEW _chrome_slices_with_java_views AS
 WITH
   -- Select UI thread BeginMainFrames (which are Chrome scheduler tasks) and
   -- Choreographer frames (which are looper tasks).
   root_slices AS (
     SELECT id, kind
-    FROM INTERNAL_SELECT_BEGIN_MAIN_FRAME_JAVA_SLICES('ThreadControllerImpl::RunTask')
+    FROM _SELECT_BEGIN_MAIN_FRAME_JAVA_SLICES('ThreadControllerImpl::RunTask')
     UNION ALL
-    SELECT id, kind FROM internal_chrome_choreographer_tasks
+    SELECT id, kind FROM _chrome_choreographer_tasks
   ),
   -- Intermediate step to allow us to sort java view names.
   root_slice_and_java_view_not_grouped AS (
@@ -1448,23 +1448,23 @@ WITH
       root.id, root.kind, java_view.name AS java_view_name
     FROM root_slices root
     JOIN descendant_slice(root.id) child
-    JOIN internal_chrome_java_views java_view ON java_view.id = child.id
+    JOIN _chrome_java_views java_view ON java_view.id = child.id
   )
 SELECT
   root.id,
   root.kind,
   GROUP_CONCAT(DISTINCT java_view.java_view_name) AS java_views
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM root_slices root
+FROM root_slices root
 LEFT JOIN root_slice_and_java_view_not_grouped java_view USING (id)
 GROUP BY root.id;
 
 -- A list of tasks executed by Chrome scheduler.
-CREATE TABLE internal_chrome_scheduler_tasks AS
+CREATE TABLE _chrome_scheduler_tasks AS
 SELECT
   id
 FROM slice
-WHERE
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(WHERE
   category GLOB "*toplevel*"
   AND (name = "ThreadControllerImpl::RunTask" OR name = "ThreadPool_RunTask")
 ORDER BY id;
@@ -1497,8 +1497,7 @@ CREATE PERFETTO VIEW chrome_scheduler_tasks(
   depth INT,
   -- Same as slice.parent_id.
   parent_id INT,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  -- Same as slice.arg_set_id.
+  -- Same as slice.arg_set_id.
   arg_set_id INT,
   -- Same as slice.thread_ts.
   thread_ts INT,
@@ -1508,10 +1507,11 @@ R"_d3l1m1t3r_(  -- Same as slice.arg_set_id.
   posted_from STRING
 ) AS
 SELECT
-  task.id,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  task.id,
   "chrome_scheduler_tasks" as type,
-  internal_format_scheduler_task_name(
-    internal_get_posted_from(slice.arg_set_id)) as name,
+  _format_scheduler_task_name(
+    _get_posted_from(slice.arg_set_id)) as name,
   slice.ts,
   slice.dur,
   thread.utid,
@@ -1525,8 +1525,8 @@ SELECT
   slice.arg_set_id,
   slice.thread_ts,
   slice.thread_dur,
-  internal_get_posted_from(slice.arg_set_id) as posted_from
-FROM internal_chrome_scheduler_tasks task
+  _get_posted_from(slice.arg_set_id) as posted_from
+FROM _chrome_scheduler_tasks task
 JOIN slice using (id)
 JOIN thread_track ON slice.track_id = thread_track.id
 JOIN thread using (utid)
@@ -1535,9 +1535,8 @@ ORDER BY task.id;
 
 -- Select the slice that might be the descendant mojo slice for the given task
 -- slice if it exists.
-CREATE PERFETTO FUNCTION internal_get_descendant_mojo_slice_candidate(
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  slice_id INT
+CREATE PERFETTO FUNCTION _get_descendant_mojo_slice_candidate(
+  slice_id INT
 )
 RETURNS INT AS
 SELECT
@@ -1547,7 +1546,8 @@ WHERE
   -- The tricky case here is dealing with sync mojo IPCs: we do not want to
   -- pick up sync IPCs when we are in a non-IPC task.
   -- So we look at all toplevel events and pick up the first one:
-  -- for sync mojo messages, it will be "Send mojo message", which then
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  -- for sync mojo messages, it will be "Send mojo message", which then
   -- will fail.
   -- Some events are excluded as they can legimately appear under "RunTask"
   -- before "Receive mojo message".
@@ -1558,25 +1558,25 @@ WHERE
 ORDER by depth, ts
 LIMIT 1;
 
-CREATE PERFETTO FUNCTION internal_descendant_mojo_slice(slice_id INT)
+CREATE PERFETTO FUNCTION _descendant_mojo_slice(slice_id INT)
 RETURNS TABLE(task_name STRING) AS
 SELECT
   printf("%s %s (hash=%d)",
     mojo.interface_name, mojo.message_type, mojo.ipc_hash) AS task_name
 FROM slice task
-JOIN internal_chrome_mojo_slices mojo
-  ON mojo.id = internal_get_descendant_mojo_slice_candidate($slice_id)
+JOIN _chrome_mojo_slices mojo
+  ON mojo.id = _get_descendant_mojo_slice_candidate($slice_id)
 WHERE task.id = $slice_id;
 
 -- A list of "Chrome tasks": top-level execution units (e.g. scheduler tasks /
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- IPCs / system callbacks) run by Chrome. For a given thread, the tasks
+-- IPCs / system callbacks) run by Chrome. For a given thread, the tasks
 -- will not intersect.
 --
 -- @column task_name STRING  Name for the given task.
 -- @column task_type STRING  Type of the task (e.g. "scheduler").
 -- @column scheduling_delay INT
-CREATE TABLE internal_chrome_tasks AS
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(CREATE TABLE _chrome_tasks AS
 WITH
 -- Select slices from "toplevel" category which do not have another
 -- "toplevel" slice as ancestor. The possible cases include sync mojo messages
@@ -1585,15 +1585,14 @@ WITH
 non_embedded_toplevel_slices AS (
   SELECT * FROM slice
   WHERE
-    internal_any_top_level_category(category)
+    _any_top_level_category(category)
     AND (SELECT count() FROM ancestor_slice(slice.id) anc
       WHERE anc.category GLOB "*toplevel*" or anc.category GLOB "*toplevel.viz*") = 0
 ),
 -- Select slices from "Java" category which do not have another "Java" or
 -- "toplevel" slice as parent. In the longer term they should probably belong
 -- to "toplevel" category as well, but for now this will have to do. Ensure
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- that "Java" slices do not include "toplevel" slices as those would be
+-- that "Java" slices do not include "toplevel" slices as those would be
 -- handled elsewhere.
 non_embedded_java_slices AS (
   SELECT
@@ -1602,8 +1601,9 @@ non_embedded_java_slices AS (
     "java" as task_type
   FROM slice s
   WHERE
-    internal_java_not_top_level_category(category)
-    AND (SELECT count()
+    _java_not_top_level_category(category)
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    AND (SELECT count()
       FROM ancestor_slice(s.id) s2
       WHERE s2.category GLOB "*toplevel*" OR s2.category GLOB "*Java*") = 0
 ),
@@ -1612,8 +1612,8 @@ java_views_tasks AS (
   SELECT
     id,
     printf('%s(java_views=%s)', kind, java_views) AS task_name,
-    internal_get_java_views_task_type(kind) AS task_type
-  FROM internal_chrome_slices_with_java_views
+    _get_java_views_task_type(kind) AS task_type
+  FROM _chrome_slices_with_java_views
 ),
 scheduler_tasks AS (
   SELECT
@@ -1626,8 +1626,7 @@ scheduler_tasks AS (
 -- as full names for these slices.
 -- We restrict this to specific scheduler tasks which are expected to run mojo
 -- tasks due to sync mojo events, which also emit similar events.
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(scheduler_tasks_with_mojo AS (
+scheduler_tasks_with_mojo AS (
   SELECT
     -- We use the "RunTask" as the task, and pick up the name from its child
     -- "Receive mojo message" event.
@@ -1636,7 +1635,8 @@ R"_d3l1m1t3r_(scheduler_tasks_with_mojo AS (
     "mojo" AS task_type
   FROM
     chrome_scheduler_tasks task
-  JOIN INTERNAL_DESCENDANT_MOJO_SLICE(task.id) receive_message
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  JOIN _DESCENDANT_MOJO_SLICE(task.id) receive_message
   WHERE
     task.posted_from IN (
       "mojo/public/cpp/system/simple_watcher.cc:Notify",
@@ -1648,8 +1648,8 @@ navigation_tasks AS (
   WITH tasks_with_readable_names AS (
     SELECT
       id,
-      internal_human_readable_navigation_task_name(task_name) as readable_name,
-      IFNULL(internal_extract_frame_type(id), 'unknown frame type') as frame_type
+      _human_readable_navigation_task_name(task_name) as readable_name,
+      IFNULL(_extract_frame_type(id), 'unknown frame type') as frame_type
     FROM
       scheduler_tasks_with_mojo
   )
@@ -1657,8 +1657,7 @@ navigation_tasks AS (
     id,
     printf("%s (%s)", readable_name, frame_type) as task_name,
     'navigation_task' AS task_type
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  FROM tasks_with_readable_names
+  FROM tasks_with_readable_names
   WHERE readable_name IS NOT NULL
 ),
 -- Add scheduler and mojo full names to non-embedded slices from
@@ -1667,7 +1666,8 @@ non_embedded_toplevel_slices_with_task_name AS (
   SELECT
     task.id AS id,
     COALESCE(
-        navigation.task_name,
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(        navigation.task_name,
         java_views.task_name,
         mojo.task_name,
         scheduler.task_name,
@@ -1688,8 +1688,7 @@ non_embedded_toplevel_slices_with_task_name AS (
 )
 -- Merge slices from toplevel and Java categories.
 SELECT * FROM non_embedded_toplevel_slices_with_task_name
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(UNION ALL
+UNION ALL
 SELECT * FROM non_embedded_java_slices
 ORDER BY id;
 
@@ -1697,7 +1696,8 @@ ORDER BY id;
 -- IPCs / system callbacks) run by Chrome. For a given thread, the slices
 -- corresponding to these tasks will not intersect.
 CREATE PERFETTO VIEW chrome_tasks(
-  -- Id for the given task, also the id of the slice this task corresponds to.
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  -- Id for the given task, also the id of the slice this task corresponds to.
   id INT,
   -- Name for the given task.
   name STRING,
@@ -1727,8 +1727,7 @@ CREATE PERFETTO VIEW chrome_tasks(
   thread_dur INT,
   -- STRING    Legacy alias for |name|.
   full_name STRING
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_() AS
+) AS
 SELECT
   cti.id,
   cti.name,
@@ -1745,9 +1744,10 @@ SELECT
   s.thread_ts,
   s.thread_dur,
   cti.name as full_name
-FROM internal_chrome_tasks cti
+FROM _chrome_tasks cti
 JOIN slice s ON cti.id = s.id
-JOIN thread_track tt ON s.track_id = tt.id
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(JOIN thread_track tt ON s.track_id = tt.id
 JOIN thread USING (utid)
 JOIN process USING (upid);
 
@@ -2000,7 +2000,7 @@ const char kScrollJankScrollJankCauseUtils[] = R"_d3l1m1t3r_(-- Copyright 2023 T
 
 -- Function to retrieve the upid for a surfaceflinger, as these are attributed
 -- to the GPU but are recorded on a different data source (and track group).
-CREATE PERFETTO FUNCTION internal_get_process_id_for_surfaceflinger()
+CREATE PERFETTO FUNCTION _get_process_id_for_surfaceflinger()
 -- The process id for surfaceflinger.
 RETURNS INT AS
 SELECT
@@ -2011,7 +2011,7 @@ LIMIT 1;
 
 -- Map a generic process type to a specific name or substring of a name that
 -- can be found in the trace process table.
-CREATE PERFETTO TABLE internal_process_type_to_name (
+CREATE PERFETTO TABLE _process_type_to_name (
   -- The process type: one of 'Browser' or 'GPU'.
   process_type STRING,
   -- The process name for Chrome traces.
@@ -2027,15 +2027,15 @@ WITH process_names (
 AS (
 VALUES
   ('Browser', 'Browser', '*.chrome'),
+  ('GPU', 'Gpu', '*.chrome*:privileged_process*'))
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  ('GPU', 'Gpu', '*.chrome*:privileged_process*'))
-SELECT
+R"_d3l1m1t3r_(SELECT
   process_type,
   process_name,
   process_glob
 FROM process_names;
 
-CREATE PERFETTO FUNCTION internal_get_process_name(
+CREATE PERFETTO FUNCTION _get_process_name(
   -- The process type: one of 'Browser' or 'GPU'.
   type STRING
 )
@@ -2043,11 +2043,11 @@ CREATE PERFETTO FUNCTION internal_get_process_name(
 RETURNS STRING AS
 SELECT
     process_name
-FROM internal_process_type_to_name
+FROM _process_type_to_name
 WHERE process_type = $type
 LIMIT 1;
 
-CREATE PERFETTO FUNCTION internal_get_process_glob(
+CREATE PERFETTO FUNCTION _get_process_glob(
   -- The process type: one of 'Browser' or 'GPU'.
   type STRING
 )
@@ -2055,7 +2055,7 @@ CREATE PERFETTO FUNCTION internal_get_process_glob(
 RETURNS STRING AS
 SELECT
     process_glob
-FROM internal_process_type_to_name
+FROM _process_type_to_name
 WHERE process_type = $type
 LIMIT 1;
 
@@ -2064,10 +2064,10 @@ LIMIT 1;
 -- Function to retrieve the chrome process ID for a specific process type. Does
 -- not retrieve the Renderer process, as this is determined when the
 -- EventLatency is known. See function
+-- _get_renderer_upid_for_event_latency below.
+CREATE PERFETTO FUNCTION _get_process_id_by_type(
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- internal_get_renderer_upid_for_event_latency below.
-CREATE PERFETTO FUNCTION internal_get_process_id_by_type(
-  -- The process type: one of 'Browser' or 'GPU'.
+R"_d3l1m1t3r_(  -- The process type: one of 'Browser' or 'GPU'.
   type STRING
 )
 RETURNS TABLE (
@@ -2077,12 +2077,12 @@ RETURNS TABLE (
 SELECT
   upid
 FROM process
-WHERE name = internal_get_process_name($type)
-  OR name GLOB internal_get_process_glob($type);
+WHERE name = _get_process_name($type)
+  OR name GLOB _get_process_glob($type);
 
 -- Function to retrieve the chrome process ID that a given EventLatency slice
 -- occurred on. This is the Renderer process.
-CREATE PERFETTO FUNCTION internal_get_renderer_upid_for_event_latency(
+CREATE PERFETTO FUNCTION _get_renderer_upid_for_event_latency(
   -- The slice id for an EventLatency slice.
   id INT
 )
@@ -2095,16 +2095,16 @@ WHERE id = $id;
 
 -- Helper function to retrieve all of the upids for a given process, thread,
 -- or EventLatency.
-CREATE PERFETTO FUNCTION internal_processes_by_type_for_event_latency(
+CREATE PERFETTO FUNCTION _processes_by_type_for_event_latency(
   -- The process type that the thread is on: one of 'Browser', 'Renderer' or
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  -- 'GPU'.
+  -- 'GPU'.
   type STRING,
   -- The name of the thread.
   thread STRING,
   -- The slice id of an EventLatency slice.
   event_latency_id INT)
-RETURNS TABLE (
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(RETURNS TABLE (
     upid INT
 ) AS
 WITH all_upids AS (
@@ -2113,7 +2113,7 @@ WITH all_upids AS (
     $type AS process,
     $thread AS thread,
     $event_latency_id AS event_latency_id,
-    internal_get_renderer_upid_for_event_latency($event_latency_id) AS upid
+    _get_renderer_upid_for_event_latency($event_latency_id) AS upid
   WHERE $type = 'Renderer'
   UNION ALL
   -- surfaceflinger upids
@@ -2121,7 +2121,7 @@ WITH all_upids AS (
     $type AS process,
     $thread AS thread,
     $event_latency_id AS event_latency_id,
-    internal_get_process_id_for_surfaceflinger() AS upid
+    _get_process_id_for_surfaceflinger() AS upid
   WHERE $type = 'GPU' AND $thread = 'surfaceflinger'
   UNION ALL
   -- Generic Browser and GPU process upids
@@ -2130,7 +2130,7 @@ WITH all_upids AS (
     $thread AS thread,
     $event_latency_id AS event_latency_id,
     upid
-  FROM internal_get_process_id_by_type($type)
+  FROM _get_process_id_by_type($type)
   WHERE $type = 'Browser'
     OR ($type = 'GPU' AND $thread != 'surfaceflinger')
 )
@@ -2139,10 +2139,10 @@ SELECT
 FROM all_upids;
 
 -- Function to retrieve the thread id of the thread on a particular process if
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- there are any slices during a particular EventLatency slice duration; this
+-- there are any slices during a particular EventLatency slice duration; this
 -- upid/thread combination refers to a cause of Scroll Jank.
-CREATE PERFETTO FUNCTION chrome_select_scroll_jank_cause_thread(
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(CREATE PERFETTO FUNCTION chrome_select_scroll_jank_cause_thread(
   -- The slice id of an EventLatency slice.
   event_latency_id INT,
   -- The process type that the thread is on: one of 'Browser', 'Renderer' or
@@ -2162,7 +2162,7 @@ WITH threads AS (
     (
       SELECT DISTINCT
         upid
-      FROM internal_processes_by_type_for_event_latency(
+      FROM _processes_by_type_for_event_latency(
         $process_type,
         $thread_name,
         $event_latency_id)
@@ -2180,8 +2180,7 @@ WHERE utid IN
   )
   AND ts >= (SELECT ts FROM slice WHERE id = $event_latency_id LIMIT 1)
   AND ts <= (SELECT ts + dur FROM slice WHERE id = $event_latency_id LIMIT 1);
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(
+
 )_d3l1m1t3r_"
 ;
 
@@ -2467,7 +2466,7 @@ R"_d3l1m1t3r_(  EXTRACT_ARG(arg_set_id, 'chrome_latency_info.gesture_scroll_id')
 FROM slice
 WHERE name = "InputLatency::GestureScrollUpdate" AND dur != -1;
 
-CREATE PERFETTO TABLE internal_non_coalesced_gesture_scrolls AS
+CREATE PERFETTO TABLE _non_coalesced_gesture_scrolls AS
 SELECT
   id,
   ts,
@@ -2505,7 +2504,7 @@ scroll_updates_with_coalesce_info as MATERIALIZED (
     -- presented scroll update they have been coalesced into.
     (
       SELECT id
-      FROM internal_non_coalesced_gesture_scrolls non_coalesced
+      FROM _non_coalesced_gesture_scrolls non_coalesced
       WHERE non_coalesced.ts <= scroll_update.ts
       ORDER BY ts DESC
       LIMIT 1
@@ -2523,14 +2522,14 @@ SELECT
     FROM scroll_updates_with_coalesce_info coalesce_info
     WHERE
       coalesce_info.coalesced_to_scroll_update_slice_id =
-        internal_non_coalesced_gesture_scrolls.id
+        _non_coalesced_gesture_scrolls.id
     ORDER BY ts DESC
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(    LIMIT 1
   ) as last_coalesced_input_ts,
   scroll_update_id,
   scroll_id
-FROM internal_non_coalesced_gesture_scrolls;
+FROM _non_coalesced_gesture_scrolls;
 
 -- Associate every trace_id with it's perceived delta_y on the screen after
 -- prediction.
@@ -2978,7 +2977,7 @@ R"_d3l1m1t3r_(-- Offsets are calculated by summing all of the deltas, ordered by
 INCLUDE PERFETTO MODULE chrome.scroll_jank.scroll_jank_v3;
 
 -- Non-coalesced scroll update events and their timestamps.
-CREATE PERFETTO VIEW internal_non_coalesced_scrolls AS
+CREATE PERFETTO VIEW _non_coalesced_scrolls AS
 SELECT
   scroll_update_id,
   ts
@@ -2992,7 +2991,7 @@ WHERE is_coalesced = False;
 -- values that the Browser receives from Android, and the only processing is
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(-- scaling and translation.
-CREATE PERFETTO TABLE internal_scroll_deltas AS
+CREATE PERFETTO TABLE _scroll_deltas AS
 SELECT
   EXTRACT_ARG(arg_set_id, 'scroll_deltas.trace_id') AS scroll_update_id,
   EXTRACT_ARG(arg_set_id, 'scroll_deltas.original_delta_y') AS delta_y,
@@ -3000,18 +2999,18 @@ SELECT
 FROM slice
 WHERE name = "TranslateAndScaleWebInputEvent";
 
--- Associate the raw (original) deltas (internal_scroll_deltas) with the
+-- Associate the raw (original) deltas (_scroll_deltas) with the
 -- corresponding non-coalesced scroll updates
--- (internal_non_coalesced_scroll_updates) to get the timestamp of the event
+-- (_non_coalesced_scroll_updates) to get the timestamp of the event
 -- those deltas. This allows for ordering delta recordings to track them over
 -- time.
-CREATE PERFETTO VIEW internal_non_coalesced_deltas AS
+CREATE PERFETTO VIEW _non_coalesced_deltas AS
 SELECT
   scroll_update_id,
   ts,
   delta_y
-FROM internal_non_coalesced_scrolls
-INNER JOIN internal_scroll_deltas
+FROM _non_coalesced_scrolls
+INNER JOIN _scroll_deltas
   USING (scroll_update_id);
 
 -- Selecting information scroll update events that have been coalesced,
@@ -3019,7 +3018,7 @@ INNER JOIN internal_scroll_deltas
 -- coalesced into. Recordings of deltas will need to be associated with the
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(-- timestamp of the scroll update they were coalesced into.
-CREATE PERFETTO TABLE internal_scroll_update_coalesce_info AS
+CREATE PERFETTO TABLE _scroll_update_coalesce_info AS
 SELECT
   ts,
   EXTRACT_ARG(arg_set_id, 'scroll_deltas.coalesced_to_trace_id') AS coalesced_to_scroll_update_id,
@@ -3028,21 +3027,21 @@ FROM slice
 WHERE name = "WebCoalescedInputEvent::CoalesceWith" AND
   coalesced_to_scroll_update_id IS NOT NULL;
 
--- Associate the raw (original) deltas (internal_scroll_deltas) with the
--- corresponding coalesced scroll updates (internal_scroll_update_coalesce_info)
+-- Associate the raw (original) deltas (_scroll_deltas) with the
+-- corresponding coalesced scroll updates (_scroll_update_coalesce_info)
 -- to get the timestamp of the event those deltas were coalesced into. This
 -- allows us to get the scaled coordinates for all of the input events
 -- (original input coordinates can't be used due to scaling).
-CREATE PERFETTO VIEW internal_coalesced_deltas AS
+CREATE PERFETTO VIEW _coalesced_deltas AS
 SELECT
-  internal_scroll_update_coalesce_info.coalesced_to_scroll_update_id AS scroll_update_id,
+  _scroll_update_coalesce_info.coalesced_to_scroll_update_id AS scroll_update_id,
   ts,
-  internal_scroll_deltas.delta_y AS delta_y,
+  _scroll_deltas.delta_y AS delta_y,
   TRUE AS is_coalesced
+FROM _scroll_update_coalesce_info
+LEFT JOIN _scroll_deltas
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM internal_scroll_update_coalesce_info
-LEFT JOIN internal_scroll_deltas
-  USING (scroll_update_id);
+R"_d3l1m1t3r_(  USING (scroll_update_id);
 
 -- All of the presented frame scroll update ids.
 CREATE PERFETTO VIEW chrome_deltas_presented_frame_scroll_update_ids(
@@ -3064,18 +3063,18 @@ AND args.flat_key GLOB 'scroll_deltas.trace_ids_in_gpu_frame*';;
 -- When every GestureScrollUpdate event is processed, the offset set by the
 -- compositor is recorded. This offset is scaled to the device screen size, and
 -- can be used to calculate deltas.
-CREATE PERFETTO VIEW internal_presented_frame_offsets AS
+CREATE PERFETTO VIEW _presented_frame_offsets AS
 SELECT
   EXTRACT_ARG(arg_set_id, 'scroll_deltas.trace_id') AS scroll_update_id,
   EXTRACT_ARG(arg_set_id, 'scroll_deltas.visual_offset_y') AS visual_offset_y
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM slice
+FROM slice
 WHERE name = 'InputHandlerProxy::HandleGestureScrollUpdate_Result';
 
 -- The raw coordinates and pixel offsets for all input events which were part of
--- a scroll. This includes input events that were converted to scroll events
--- which were presented (internal_non_coalesced_scrolls) and scroll events which
--- were coalesced (internal_coalesced_deltas).
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(-- a scroll. This includes input events that were converted to scroll events
+-- which were presented (_non_coalesced_scrolls) and scroll events which
+-- were coalesced (_coalesced_deltas).
 CREATE PERFETTO TABLE chrome_scroll_input_offsets(
   -- Trace id associated with the scroll.
   scroll_update_id INT,
@@ -3093,22 +3092,22 @@ WITH all_deltas AS (
     scroll_update_id,
     ts,
     delta_y
-  FROM internal_non_coalesced_deltas
+  FROM _non_coalesced_deltas
   WHERE delta_y IS NOT NULL
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  UNION
+  UNION
   SELECT
     scroll_update_id,
     ts,
     delta_y
-  FROM internal_coalesced_deltas
+  FROM _coalesced_deltas
   WHERE delta_y IS NOT NULL
   ORDER BY scroll_update_id, ts)
 SELECT
   scroll_update_id,
   ts,
   delta_y,
-  SUM(IFNULL(delta_y, 0)) OVER (
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(  SUM(IFNULL(delta_y, 0)) OVER (
     ORDER BY scroll_update_id, ts
     ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS offset_y
 FROM all_deltas;
@@ -3116,24 +3115,24 @@ FROM all_deltas;
 -- Calculate the total visual offset for all presented frames (non-coalesced
 -- scroll updates) that have raw deltas recorded. These visual offsets
 -- correspond with the inverse of the deltas for the presented frame.
-CREATE PERFETTO VIEW internal_preprocessed_presented_frame_offsets AS
+CREATE PERFETTO VIEW _preprocessed_presented_frame_offsets AS
 SELECT
   chrome_full_frame_view.scroll_update_id,
   chrome_full_frame_view.presentation_timestamp AS ts,
   chrome_deltas_presented_frame_scroll_update_ids.id,
-  internal_presented_frame_offsets.visual_offset_y -
-    LAG(internal_presented_frame_offsets.visual_offset_y)
+  _presented_frame_offsets.visual_offset_y -
+    LAG(_presented_frame_offsets.visual_offset_y)
     OVER (ORDER BY chrome_full_frame_view.presentation_timestamp)
       AS presented_frame_visual_offset_y
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(FROM chrome_full_frame_view
-LEFT JOIN internal_scroll_deltas
+FROM chrome_full_frame_view
+LEFT JOIN _scroll_deltas
   USING (scroll_update_id)
 LEFT JOIN chrome_deltas_presented_frame_scroll_update_ids
   USING (scroll_update_id)
-LEFT JOIN internal_presented_frame_offsets
+LEFT JOIN _presented_frame_offsets
   USING (scroll_update_id)
-WHERE internal_scroll_deltas.delta_y IS NOT NULL;
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(WHERE _scroll_deltas.delta_y IS NOT NULL;
 
 -- The scrolling offsets for the actual (applied) scroll events. These are not
 -- necessarily inclusive of all user scroll events, rather those scroll events
@@ -3156,8 +3155,7 @@ WITH all_deltas AS (
     id,
     MAX(ts) AS ts,
     SUM(presented_frame_visual_offset_y) * -1 AS delta_y
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  FROM internal_preprocessed_presented_frame_offsets
+  FROM _preprocessed_presented_frame_offsets
   GROUP BY id
   ORDER BY ts)
 SELECT
@@ -3167,7 +3165,8 @@ SELECT
   SUM(IFNULL(delta_y, 0)) OVER (
     ORDER BY scroll_update_id, ts
     ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS offset_y
-FROM all_deltas;
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(FROM all_deltas;
 
 )_d3l1m1t3r_"
 ;
@@ -3192,7 +3191,7 @@ const char kScrollJankUtils[] = R"_d3l1m1t3r_(-- Copyright 2023 The Chromium Aut
 -- the same scroll, and makes sure the frame ts occured within the scroll
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(-- timestamp of the neighbour and computes whether the frame was janky or not.
-CREATE PERFETTO FUNCTION internal_is_janky_frame(cur_gesture_id LONG,
+CREATE PERFETTO FUNCTION _is_janky_frame(cur_gesture_id LONG,
                                       neighbour_gesture_id LONG,
                                       neighbour_ts LONG,
                                       cur_gesture_begin_ts LONG,
@@ -3221,7 +3220,7 @@ R"_d3l1m1t3r_(-- frame.
 --
 -- Returns the jank budget in percentage (i.e. 0.75) of vsync interval
 -- percentage.
-CREATE PERFETTO FUNCTION internal_jank_budget(
+CREATE PERFETTO FUNCTION _jank_budget(
   cur_frame_exact FLOAT,
   prev_frame_exact FLOAT,
   next_frame_exact FLOAT
@@ -3239,9 +3238,9 @@ RETURNS FLOAT AS
 -- we want to output minimum amount required.
 SELECT
   COALESCE(
+    -- Could be null if next or previous is null.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(    -- Could be null if next or previous is null.
-    MAX(
+R"_d3l1m1t3r_(    MAX(
       ($cur_frame_exact - $prev_frame_exact),
       ($cur_frame_exact - $next_frame_exact)
     ),
@@ -3270,9 +3269,9 @@ RETURNS TABLE(
 ) AS
 SELECT
   EXTRACT_ARG(s.arg_set_id, "chrome_mojo_event_info.mojo_interface_tag") AS interface_name,
+  EXTRACT_ARG(arg_set_id, "chrome_mojo_event_info.ipc_hash") AS ipc_hash,
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(  EXTRACT_ARG(arg_set_id, "chrome_mojo_event_info.ipc_hash") AS ipc_hash,
-  CASE
+R"_d3l1m1t3r_(  CASE
     WHEN EXTRACT_ARG(arg_set_id, "chrome_mojo_event_info.is_reply") THEN "reply"
     ELSE "message"
   END AS message_type,

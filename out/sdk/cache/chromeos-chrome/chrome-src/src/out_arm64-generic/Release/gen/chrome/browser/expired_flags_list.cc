@@ -386,7 +386,6 @@ const ExpiredFlag kExpiredFlags[] = {
   {"shelf-stacked-hotseat", 116},
   {"shopping-list", 122},
   {"shopping-page-types", 120},
-  {"shortcut-customization-jelly", 122},
   {"show-metered-toggle", 122},
   {"side-panel-improved-clobbering", 110},
   {"side-panel-journeys", 115},

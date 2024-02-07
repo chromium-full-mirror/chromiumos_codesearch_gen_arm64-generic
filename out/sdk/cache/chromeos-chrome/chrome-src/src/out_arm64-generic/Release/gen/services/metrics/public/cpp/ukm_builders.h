@@ -12501,6 +12501,62 @@ class ThirdPartyCookies_BreakageIndicator final : public ::ukm::internal::UkmEnt
 
 };
 
+class ThirdPartyCookies_BreakageIndicator_HTTPError final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit ThirdPartyCookies_BreakageIndicator_HTTPError(ukm::SourceId source_id);
+  explicit ThirdPartyCookies_BreakageIndicator_HTTPError(ukm::SourceIdObj source_id);
+  ~ThirdPartyCookies_BreakageIndicator_HTTPError() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(9088201269784118104);
+
+
+  static const char kTPCBlockedName[];
+  static constexpr uint64_t kTPCBlockedNameHash = UINT64_C(5869361073952519652);
+  ThirdPartyCookies_BreakageIndicator_HTTPError& SetTPCBlocked(int64_t value);
+
+  static const char kTPCBlockedInSettingsName[];
+  static constexpr uint64_t kTPCBlockedInSettingsNameHash = UINT64_C(6655776299050811376);
+  ThirdPartyCookies_BreakageIndicator_HTTPError& SetTPCBlockedInSettings(int64_t value);
+
+};
+
+class ThirdPartyCookies_BreakageIndicator_UncaughtJSError final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit ThirdPartyCookies_BreakageIndicator_UncaughtJSError(ukm::SourceId source_id);
+  explicit ThirdPartyCookies_BreakageIndicator_UncaughtJSError(ukm::SourceIdObj source_id);
+  ~ThirdPartyCookies_BreakageIndicator_UncaughtJSError() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(15404660138221362264);
+
+
+  static const char kHasOccurredName[];
+  static constexpr uint64_t kHasOccurredNameHash = UINT64_C(1401967873843414280);
+  ThirdPartyCookies_BreakageIndicator_UncaughtJSError& SetHasOccurred(int64_t value);
+
+};
+
+class ThirdPartyCookies_BreakageIndicator_UserReload final : public ::ukm::internal::UkmEntryBuilderBase {
+ public:
+  explicit ThirdPartyCookies_BreakageIndicator_UserReload(ukm::SourceId source_id);
+  explicit ThirdPartyCookies_BreakageIndicator_UserReload(ukm::SourceIdObj source_id);
+  ~ThirdPartyCookies_BreakageIndicator_UserReload() override;
+
+  static const char kEntryName[];
+  static constexpr uint64_t kEntryNameHash = UINT64_C(18163975266525876574);
+
+
+  static const char kTPCBlockedName[];
+  static constexpr uint64_t kTPCBlockedNameHash = UINT64_C(5869361073952519652);
+  ThirdPartyCookies_BreakageIndicator_UserReload& SetTPCBlocked(int64_t value);
+
+  static const char kTPCBlockedInSettingsName[];
+  static constexpr uint64_t kTPCBlockedInSettingsNameHash = UINT64_C(6655776299050811376);
+  ThirdPartyCookies_BreakageIndicator_UserReload& SetTPCBlockedInSettings(int64_t value);
+
+};
+
 class ThirdPartyCookies_CookieControlsActivated final : public ::ukm::internal::UkmEntryBuilderBase {
  public:
   explicit ThirdPartyCookies_CookieControlsActivated(ukm::SourceId source_id);

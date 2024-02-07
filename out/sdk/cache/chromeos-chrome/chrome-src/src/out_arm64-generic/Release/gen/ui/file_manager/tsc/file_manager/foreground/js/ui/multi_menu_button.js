@@ -1,7 +1,7 @@
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { CrButtonElement } from 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import { CrButtonElement } from 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { crInjectTypeAndInit } from '../../../common/js/cr_ui.js';
 import { Menu } from './menu.js';

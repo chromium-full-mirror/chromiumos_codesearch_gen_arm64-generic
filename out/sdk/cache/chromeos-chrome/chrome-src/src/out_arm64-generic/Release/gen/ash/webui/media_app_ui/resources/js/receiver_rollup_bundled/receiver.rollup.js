@@ -773,8 +773,13 @@ class OcrUntrustedPageHandlerRemote {
             pageMetadata
         ]);
     }
+    pageContentsUpdated(dirtyPageId) {
+        this.proxy.sendMessage(1, OcrUntrustedPageHandler_PageContentsUpdated_ParamsSpec.$, null, [
+            dirtyPageId
+        ]);
+    }
     viewportUpdated(viewportBox, scaleFactor) {
-        this.proxy.sendMessage(1, OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$, null, [
+        this.proxy.sendMessage(2, OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$, null, [
             viewportBox,
             scaleFactor
         ]);
@@ -837,6 +842,7 @@ class OcrUntrustedPageCallbackRouter {
 const PageMetadataSpec = { $: {} };
 const UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_ParamsSpec = { $: {} };
 const OcrUntrustedPageHandler_PageMetadataUpdated_ParamsSpec = { $: {} };
+const OcrUntrustedPageHandler_PageContentsUpdated_ParamsSpec = { $: {} };
 const OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec = { $: {} };
 const OcrUntrustedPage_SetViewport_ParamsSpec = { $: {} };
 mojo.internal.Struct(PageMetadataSpec.$, 'PageMetadata', [
@@ -849,6 +855,9 @@ mojo.internal.Struct(UntrustedPageHandlerFactory_CreateOcrUntrustedPageHandler_P
 ], [[0, 24],]);
 mojo.internal.Struct(OcrUntrustedPageHandler_PageMetadataUpdated_ParamsSpec.$, 'OcrUntrustedPageHandler_PageMetadataUpdated_Params', [
     mojo.internal.StructField('pageMetadata', 0, 0, mojo.internal.Array(PageMetadataSpec.$, false), null, false /* nullable */, 0),
+], [[0, 16],]);
+mojo.internal.Struct(OcrUntrustedPageHandler_PageContentsUpdated_ParamsSpec.$, 'OcrUntrustedPageHandler_PageContentsUpdated_Params', [
+    mojo.internal.StructField('dirtyPageId', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(OcrUntrustedPageHandler_ViewportUpdated_ParamsSpec.$, 'OcrUntrustedPageHandler_ViewportUpdated_Params', [
     mojo.internal.StructField('viewportBox', 0, 0, RectFSpec.$, null, false /* nullable */, 0),

@@ -17,8 +17,8 @@
  *  Note: This element assumes that load_time_data is included in the enclosing
  *  document level.
  */
-import '//resources/cr_elements/cr_icon_button/cr_icon_button.js';
-import '//resources/cr_elements/icons.html.js';
+import '//resources/ash/common/cr_elements/cr_icon_button/cr_icon_button.js';
+import '//resources/ash/common/cr_elements/icons.html.js';
 import './common_styles/oobe_common_styles.css.js';
 import { loadTimeData } from '//resources/ash/common/load_time_data.m.js';
 import { html, mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';

@@ -6,7 +6,7 @@
  * Use this behavior if you want to receive a dynamically updated list of both
  * saved and nearby printers.
  */
-import { ListPropertyUpdateMixin } from 'chrome://resources/cr_elements/list_property_update_mixin.js';
+import { ListPropertyUpdateMixin } from 'chrome://resources/ash/common/cr_elements/list_property_update_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { dedupingMixin } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { findDifference } from './cups_printer_dialog_util.js';

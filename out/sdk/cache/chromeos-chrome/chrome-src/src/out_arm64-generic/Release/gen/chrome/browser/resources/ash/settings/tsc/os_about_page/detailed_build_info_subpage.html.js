@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}#command-line{overflow-wrap:break-word;width:100%}#managedEolTooltipIcon{margin-inline-end:48px}#changeChannelCrButton{margin-inline-start:16px}:host-context(body:not(.revamp-wayfinding-enabled)) #buildDetailsLinkContainer{border-bottom:var(--cr-separator-line)}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}#command-line{overflow-wrap:break-word;width:100%}#managedEolTooltipIcon{margin-inline-end:48px}#changeChannelButton{margin-inline-start:16px}:host-context(body:not(.revamp-wayfinding-enabled)) #buildDetailsLinkContainer{border-bottom:var(--cr-separator-line)}</style>
 <div class="settings-box two-line first">
   <div class="start">
     <div role="heading" aria-level="2">$i18n{aboutChannelLabel}</div>
@@ -14,7 +14,7 @@ export function getTemplate() {
             canChangeChannel_)]]">
     </cr-policy-indicator>
   </template>
-  <cr-button id="changeChannelCrButton" on-click="onChangeChannelClick_" aria-describedby="currentlyOnChannelText" disabled="[[!canChangeChannel_]]" deep-link-focus-id$="[[Setting.kChangeChromeChannel]]">
+  <cr-button id="changeChannelButton" on-click="onChangeChannelClick_" aria-describedby="currentlyOnChannelText" disabled="[[!canChangeChannel_]]" deep-link-focus-id$="[[Setting.kChangeChromeChannel]]">
     $i18n{aboutChangeChannel}
   </cr-button>
   <template is="dom-if" if="[[showChannelSwitcherDialog_]]" restamp>

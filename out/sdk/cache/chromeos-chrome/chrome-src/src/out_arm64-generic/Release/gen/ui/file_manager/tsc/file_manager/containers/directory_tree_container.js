@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { isRTL } from 'chrome://resources/ash/common/util.js';
-import { CrButtonElement } from 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import { CrButtonElement } from 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
 import { maybeShowTooltip } from '../common/js/dom_utils.js';
 import { isDriveRootEntryList, isEntryInsideDrive, isEntryScannable, isGrandRootEntryInDrives, isMyFilesEntry, isOneDrive, isOneDriveId, isTrashEntry, isVolumeEntry, shouldSupportDriveSpecificIcons } from '../common/js/entry_utils.js';
 import { EntryList, FakeEntryImpl, VolumeEntry } from '../common/js/files_app_entry_types.js';

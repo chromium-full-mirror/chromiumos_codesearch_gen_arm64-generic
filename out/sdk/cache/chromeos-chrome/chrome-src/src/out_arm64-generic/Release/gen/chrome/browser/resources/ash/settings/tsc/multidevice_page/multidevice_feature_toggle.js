@@ -9,7 +9,7 @@
  * for the user. It also receives real time updates on feature states and
  * reflects them in the toggle status.
  */
-import 'chrome://resources/cr_elements/cr_toggle/cr_toggle.js';
+import 'chrome://resources/ash/common/cr_elements/cr_toggle/cr_toggle.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { MultiDeviceFeature, MultiDeviceFeatureState } from './multidevice_constants.js';
 import { MultiDeviceFeatureMixin } from './multidevice_feature_mixin.js';

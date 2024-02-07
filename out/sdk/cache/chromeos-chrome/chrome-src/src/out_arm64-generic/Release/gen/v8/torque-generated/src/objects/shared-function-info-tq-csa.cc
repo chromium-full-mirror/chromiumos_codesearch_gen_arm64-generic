@@ -1804,7 +1804,7 @@ TNode<PreparseData> DownCastForTorqueClass_PreparseData_0(compiler::CodeAssemble
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(267), static_cast<InstanceType>(267))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(268), static_cast<InstanceType>(268))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -1847,7 +1847,7 @@ TNode<PreparseData> DownCastForTorqueClass_PreparseData_0(compiler::CodeAssemble
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(267));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(268));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -1881,12 +1881,12 @@ TNode<PreparseData> DownCastForTorqueClass_PreparseData_0(compiler::CodeAssemble
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(267), static_cast<InstanceType>(267))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(268), static_cast<InstanceType>(268))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(267));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(268));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -1949,7 +1949,7 @@ TNode<InterpreterData> DownCastForTorqueClass_InterpreterData_0(compiler::CodeAs
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(216), static_cast<InstanceType>(216))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(207), static_cast<InstanceType>(207))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -1992,7 +1992,7 @@ TNode<InterpreterData> DownCastForTorqueClass_InterpreterData_0(compiler::CodeAs
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(216));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(207));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -2026,12 +2026,12 @@ TNode<InterpreterData> DownCastForTorqueClass_InterpreterData_0(compiler::CodeAs
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(216), static_cast<InstanceType>(216))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(207), static_cast<InstanceType>(207))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(216));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(207));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -2094,7 +2094,7 @@ TNode<SharedFunctionInfo> DownCastForTorqueClass_SharedFunctionInfo_0(compiler::
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(273), static_cast<InstanceType>(273))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(274), static_cast<InstanceType>(274))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -2137,7 +2137,7 @@ TNode<SharedFunctionInfo> DownCastForTorqueClass_SharedFunctionInfo_0(compiler::
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(273));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(274));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -2171,12 +2171,12 @@ TNode<SharedFunctionInfo> DownCastForTorqueClass_SharedFunctionInfo_0(compiler::
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(273), static_cast<InstanceType>(273))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(274), static_cast<InstanceType>(274))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(273));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(274));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -2239,7 +2239,7 @@ TNode<UncompiledData> DownCastForTorqueClass_UncompiledData_0(compiler::CodeAsse
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(227), static_cast<InstanceType>(230))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(228), static_cast<InstanceType>(231))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -2282,7 +2282,7 @@ TNode<UncompiledData> DownCastForTorqueClass_UncompiledData_0(compiler::CodeAsse
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(227));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(228));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -2316,12 +2316,12 @@ TNode<UncompiledData> DownCastForTorqueClass_UncompiledData_0(compiler::CodeAsse
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(230), static_cast<InstanceType>(227))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(231), static_cast<InstanceType>(228))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(227));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(228));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -2384,7 +2384,7 @@ TNode<UncompiledDataWithoutPreparseData> DownCastForTorqueClass_UncompiledDataWi
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(229), static_cast<InstanceType>(230))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(230), static_cast<InstanceType>(231))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -2427,7 +2427,7 @@ TNode<UncompiledDataWithoutPreparseData> DownCastForTorqueClass_UncompiledDataWi
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(229));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(230));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -2461,12 +2461,12 @@ TNode<UncompiledDataWithoutPreparseData> DownCastForTorqueClass_UncompiledDataWi
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(230), static_cast<InstanceType>(229))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(231), static_cast<InstanceType>(230))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(229));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(230));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -2529,7 +2529,7 @@ TNode<UncompiledDataWithPreparseData> DownCastForTorqueClass_UncompiledDataWithP
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(227), static_cast<InstanceType>(228))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(228), static_cast<InstanceType>(229))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -2572,7 +2572,7 @@ TNode<UncompiledDataWithPreparseData> DownCastForTorqueClass_UncompiledDataWithP
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(227));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(228));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -2606,12 +2606,12 @@ TNode<UncompiledDataWithPreparseData> DownCastForTorqueClass_UncompiledDataWithP
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(228), static_cast<InstanceType>(227))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(229), static_cast<InstanceType>(228))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(227));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(228));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -2674,7 +2674,7 @@ TNode<UncompiledDataWithoutPreparseDataWithJob> DownCastForTorqueClass_Uncompile
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(230), static_cast<InstanceType>(230))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(231), static_cast<InstanceType>(231))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -2717,7 +2717,7 @@ TNode<UncompiledDataWithoutPreparseDataWithJob> DownCastForTorqueClass_Uncompile
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(230));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(231));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -2751,12 +2751,12 @@ TNode<UncompiledDataWithoutPreparseDataWithJob> DownCastForTorqueClass_Uncompile
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(230), static_cast<InstanceType>(230))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(231), static_cast<InstanceType>(231))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(230));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(231));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -2819,7 +2819,7 @@ TNode<UncompiledDataWithPreparseDataAndJob> DownCastForTorqueClass_UncompiledDat
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(228), static_cast<InstanceType>(228))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(229), static_cast<InstanceType>(229))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -2862,7 +2862,7 @@ TNode<UncompiledDataWithPreparseDataAndJob> DownCastForTorqueClass_UncompiledDat
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(228));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(229));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -2896,12 +2896,12 @@ TNode<UncompiledDataWithPreparseDataAndJob> DownCastForTorqueClass_UncompiledDat
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(228), static_cast<InstanceType>(228))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(229), static_cast<InstanceType>(229))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(228));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(229));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});
@@ -2964,7 +2964,7 @@ TNode<OnHeapBasicBlockProfilerData> DownCastForTorqueClass_OnHeapBasicBlockProfi
     ca_.Bind(&block0);
     tmp0 = FromConstexpr_intptr_constexpr_int31_0(state_, 0);
     tmp1 = CodeStubAssembler(state_).LoadReference<Map>(CodeStubAssembler::Reference{p_o, tmp0});
-    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(266), static_cast<InstanceType>(266))))) {
+    if (((CodeStubAssembler(state_).ConstexprInt31Equal(static_cast<InstanceType>(267), static_cast<InstanceType>(267))))) {
       ca_.Goto(&block3);
     } else {
       ca_.Goto(&block4);
@@ -3007,7 +3007,7 @@ TNode<OnHeapBasicBlockProfilerData> DownCastForTorqueClass_OnHeapBasicBlockProfi
     ca_.Bind(&block7);
     tmp4 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp5 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp4});
-    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(266));
+    tmp6 = FromConstexpr_uint32_constexpr_uint32_0(state_, static_cast<InstanceType>(267));
     tmp7 = CodeStubAssembler(state_).Word32NotEqual(TNode<Uint32T>{tmp5}, TNode<Uint32T>{tmp6});
     ca_.Branch(tmp7, &block11, std::vector<compiler::Node*>{}, &block12, std::vector<compiler::Node*>{});
   }
@@ -3041,12 +3041,12 @@ TNode<OnHeapBasicBlockProfilerData> DownCastForTorqueClass_OnHeapBasicBlockProfi
   TNode<BoolT> tmp19;
   if (block4.is_used()) {
     ca_.Bind(&block4);
-    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(266), static_cast<InstanceType>(266))));
+    tmp8 = FromConstexpr_int32_constexpr_int32_0(state_, (CodeStubAssembler(state_).ConstexprUint32Sub(static_cast<InstanceType>(267), static_cast<InstanceType>(267))));
     tmp9 = FromConstexpr_intptr_constexpr_int31_0(state_, 8);
     tmp10 = CodeStubAssembler(state_).LoadReference<Uint16T>(CodeStubAssembler::Reference{tmp1, tmp9});
     tmp11 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp10});
     tmp12 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp11});
-    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(266));
+    tmp13 = FromConstexpr_InstanceType_constexpr_InstanceType_0(state_, static_cast<InstanceType>(267));
     tmp14 = Convert_uint16_InstanceType_0(state_, TNode<Uint16T>{tmp13});
     tmp15 = Convert_int32_uint16_0(state_, TNode<Uint16T>{tmp14});
     tmp16 = CodeStubAssembler(state_).Int32Sub(TNode<Int32T>{tmp12}, TNode<Int32T>{tmp15});

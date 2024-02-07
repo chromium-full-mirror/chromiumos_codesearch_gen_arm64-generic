@@ -5,15 +5,15 @@
  * @fileoverview 'settings-cups-enterprise-printers' is a list container for
  * Enterprise Printers.
  */
-import 'chrome://resources/cr_elements/cr_action_menu/cr_action_menu.js';
-import 'chrome://resources/cr_elements/icons.html.js';
+import 'chrome://resources/ash/common/cr_elements/cr_action_menu/cr_action_menu.js';
+import 'chrome://resources/ash/common/cr_elements/icons.html.js';
 import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
 import 'chrome://resources/polymer/v3_0/iron-list/iron-list.js';
 import '../settings_shared.css.js';
 import './cups_printer_types.js';
 import './cups_printers_browser_proxy.js';
 import './cups_printers_entry.js';
-import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
+import { WebUiListenerMixin } from 'chrome://resources/ash/common/cr_elements/web_ui_listener_mixin.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { castExists } from '../assert_extras.js';

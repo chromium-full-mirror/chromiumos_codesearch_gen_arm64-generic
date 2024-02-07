@@ -244,17 +244,21 @@ enum class OriginTrialFeature : int32_t {
   
   kWebAppUrlHandling = 100,
   
-  kWebAssemblyJSStringBuiltins = 101,
+  kWebAssemblyJSPromiseIntegration = 101,
   
-  kWebTransportCustomCertificates = 102,
+  kWebAssemblyJSStringBuiltins = 102,
   
-  kWebViewXRequestedWithDeprecation = 103,
+  kWebIdentityDigitalCredentials = 103,
   
-  kWebXRImageTracking = 104,
+  kWebTransportCustomCertificates = 104,
   
-  kWebXRPlaneDetection = 105,
+  kWebViewXRequestedWithDeprecation = 105,
+  
+  kWebXRImageTracking = 106,
+  
+  kWebXRPlaneDetection = 107,
   kMinValue = 0,
-  kMaxValue = 105,
+  kMaxValue = 107,
 };
 
 COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) std::ostream& operator<<(std::ostream& os, OriginTrialFeature value);

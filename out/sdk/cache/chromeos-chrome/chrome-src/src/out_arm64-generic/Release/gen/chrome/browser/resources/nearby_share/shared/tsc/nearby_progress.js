@@ -7,9 +7,9 @@
  * and a circular progress bar that can show either progress as a percentage or
  * an animation if the percentage is indeterminate.
  */
-import 'chrome://resources/cr_elements/cr_auto_img/cr_auto_img.js';
-import 'chrome://resources/cr_elements/cr_shared_style.css.js';
-import 'chrome://resources/cr_elements/cr_icons.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_auto_img/cr_auto_img.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_style.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_icons.css.js';
 import './nearby_shared_icons.html.js';
 import './nearby_device_icon.js';
 import { assert } from 'chrome://resources/js/assert.js';

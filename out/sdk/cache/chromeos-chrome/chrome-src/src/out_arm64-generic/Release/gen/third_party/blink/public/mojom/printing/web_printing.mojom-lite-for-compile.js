@@ -446,6 +446,189 @@ blink.mojom.WebPrintJobStateObserverCallbackRouter = class {
 };
 
 
+goog.provide('blink.mojom.WebPrintJobController');
+goog.provide('blink.mojom.WebPrintJobControllerReceiver');
+goog.provide('blink.mojom.WebPrintJobControllerCallbackRouter');
+goog.provide('blink.mojom.WebPrintJobControllerInterface');
+goog.provide('blink.mojom.WebPrintJobControllerRemote');
+goog.provide('blink.mojom.WebPrintJobControllerPendingReceiver');
+
+
+/**
+ * @implements {mojo.internal.interfaceSupport.PendingReceiver}
+ * @export
+ */
+blink.mojom.WebPrintJobControllerPendingReceiver = class {
+  /**
+   * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
+   */
+  constructor(handle) {
+    /** @public {!mojo.internal.interfaceSupport.Endpoint} */
+    this.handle = mojo.internal.interfaceSupport.getEndpointForReceiver(handle);
+  }
+
+  /** @param {string=} scope */
+  bindInBrowser(scope = 'context') {
+    mojo.internal.interfaceSupport.bind(
+        this.handle,
+        blink.mojom.WebPrintJobController.$interfaceName,
+        scope);
+  }
+};
+
+/** @interface */
+blink.mojom.WebPrintJobControllerInterface = class {
+  
+  /**
+   */
+
+  cancel() {}
+};
+
+/**
+ * @export
+ * @implements { blink.mojom.WebPrintJobControllerInterface }
+ */
+blink.mojom.WebPrintJobControllerRemote = class {
+  /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
+  constructor(handle = undefined) {
+    /**
+     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!blink.mojom.WebPrintJobControllerPendingReceiver>}
+     */
+    this.proxy =
+        new mojo.internal.interfaceSupport.InterfaceRemoteBase(
+          blink.mojom.WebPrintJobControllerPendingReceiver,
+          handle);
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!blink.mojom.WebPrintJobControllerPendingReceiver>}
+     */
+    this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
+
+    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
+    this.onConnectionError = this.proxy.getConnectionErrorEventRouter();
+  }
+
+  
+  /**
+   */
+
+  cancel() {
+    this.proxy.sendMessage(
+        0,
+        blink.mojom.WebPrintJobController_Cancel_ParamsSpec.$,
+        null,
+        [
+        ]);
+  }
+};
+
+/**
+ * An object which receives request messages for the WebPrintJobController
+ * mojom interface. Must be constructed over an object which implements that
+ * interface.
+ *
+ * @export
+ */
+blink.mojom.WebPrintJobControllerReceiver = class {
+  /**
+   * @param {!blink.mojom.WebPrintJobControllerInterface } impl
+   */
+  constructor(impl) {
+    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!blink.mojom.WebPrintJobControllerRemote>} */
+    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
+        blink.mojom.WebPrintJobControllerRemote);
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!blink.mojom.WebPrintJobControllerRemote>}
+     */
+    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+
+
+    this.helper_internal_.registerHandler(
+        0,
+        blink.mojom.WebPrintJobController_Cancel_ParamsSpec.$,
+        null,
+        impl.cancel.bind(impl));
+    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
+    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+  }
+};
+
+/**
+ *  @export
+ */
+blink.mojom.WebPrintJobController = class {
+  /**
+   * @return {!string}
+   */
+  static get $interfaceName() {
+    return "blink.mojom.WebPrintJobController";
+  }
+
+  /**
+   * Returns a remote for this interface which sends messages to the browser.
+   * The browser must have an interface request binder registered for this
+   * interface and accessible to the calling document's frame.
+   *
+   * @return {!blink.mojom.WebPrintJobControllerRemote}
+   * @export
+   */
+  static getRemote() {
+    let remote = new blink.mojom.WebPrintJobControllerRemote;
+    remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
+    return remote;
+  }
+};
+
+
+/**
+ * An object which receives request messages for the WebPrintJobController
+ * mojom interface and dispatches them as callbacks. One callback receiver exists
+ * on this object for each message defined in the mojom interface, and each
+ * receiver can have any number of listeners added to it.
+ *
+ * @export
+ */
+blink.mojom.WebPrintJobControllerCallbackRouter = class {
+  constructor() {
+    this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
+      blink.mojom.WebPrintJobControllerRemote);
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!blink.mojom.WebPrintJobControllerRemote>}
+     */
+    this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
+
+    this.router_ = new mojo.internal.interfaceSupport.CallbackRouter;
+
+    /**
+     * @public {!mojo.internal.interfaceSupport.InterfaceCallbackReceiver}
+     */
+    this.cancel =
+        new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(
+            this.router_);
+
+    this.helper_internal_.registerHandler(
+        0,
+        blink.mojom.WebPrintJobController_Cancel_ParamsSpec.$,
+        null,
+        this.cancel.createReceiverHandler(false /* expectsResponse */));
+    /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
+    this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
+  }
+
+  /**
+   * @param {number} id An ID returned by a prior call to addListener.
+   * @return {boolean} True iff the identified listener was found and removed.
+   * @export
+   */
+  removeListener(id) {
+    return this.router_.removeListener(id);
+  }
+};
+
+
 goog.provide('blink.mojom.WebPrinter');
 goog.provide('blink.mojom.WebPrinterReceiver');
 goog.provide('blink.mojom.WebPrinterCallbackRouter');
@@ -927,6 +1110,14 @@ goog.provide('blink.mojom.WebPrintJobStateObserver_OnWebPrintJobUpdate_ParamsSpe
  * @export
  */
 blink.mojom.WebPrintJobStateObserver_OnWebPrintJobUpdate_ParamsSpec =
+    { $: /** @type {!mojo.internal.MojomType} */ ({}) };
+
+goog.provide('blink.mojom.WebPrintJobController_Cancel_ParamsSpec');
+/**
+ * @const { {$:!mojo.internal.MojomType}}
+ * @export
+ */
+blink.mojom.WebPrintJobController_Cancel_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 goog.provide('blink.mojom.WebPrinter_FetchAttributes_ParamsSpec');
@@ -1492,8 +1683,16 @@ mojo.internal.Struct(
         false, /* nullable */
         0 /* minVersion */,
       ),
+      mojo.internal.StructField(
+        'controller', 16,
+        0,
+        mojo.internal.InterfaceProxy(blink.mojom.WebPrintJobControllerRemote),
+        null,
+        false, /* nullable */
+        0 /* minVersion */,
+      ),
     ],
-    [[0, 24],]);
+    [[0, 32],]);
 
 
 
@@ -1508,6 +1707,8 @@ blink.mojom.WebPrintJobInfo = class {
     this.jobPages;
     /** @export { !blink.mojom.WebPrintJobStateObserverPendingReceiver } */
     this.observer;
+    /** @export { !blink.mojom.WebPrintJobControllerRemote } */
+    this.controller;
   }
 };
 
@@ -1537,6 +1738,25 @@ blink.mojom.WebPrintJobStateObserver_OnWebPrintJobUpdate_Params = class {
   constructor() {
     /** @export { !blink.mojom.WebPrintJobUpdate } */
     this.update;
+  }
+};
+
+
+
+mojo.internal.Struct(
+    blink.mojom.WebPrintJobController_Cancel_ParamsSpec.$,
+    'WebPrintJobController_Cancel_Params',
+    [
+    ],
+    [[0, 8],]);
+
+
+
+goog.provide('blink.mojom.WebPrintJobController_Cancel_Params');
+
+/** @record */
+blink.mojom.WebPrintJobController_Cancel_Params = class {
+  constructor() {
   }
 };
 

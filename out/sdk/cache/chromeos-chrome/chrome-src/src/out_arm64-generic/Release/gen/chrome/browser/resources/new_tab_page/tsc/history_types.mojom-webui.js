@@ -3,6 +3,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import { mojo } from '//resources/mojo/mojo/public/js/bindings.js';
+import { TimeDeltaSpec as mojoBase_mojom_TimeDeltaSpec } from '//resources/mojo/mojo/public/mojom/base/time.mojom-webui.js';
 import { UrlSpec as url_mojom_UrlSpec } from '//resources/mojo/url/mojom/url.mojom-webui.js';
 export const TabSpec = { $: {} };
 mojo.internal.Struct(TabSpec.$, 'Tab', [
@@ -10,5 +11,6 @@ mojo.internal.Struct(TabSpec.$, 'Tab', [
     mojo.internal.StructField('sessionName', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('url', 16, 0, url_mojom_UrlSpec.$, null, false /* nullable */, 0),
     mojo.internal.StructField('title', 24, 0, mojo.internal.String, null, false /* nullable */, 0),
-    mojo.internal.StructField('relativeTime', 32, 0, mojo.internal.String, null, false /* nullable */, 0),
-], [[0, 48],]);
+    mojo.internal.StructField('relativeTime', 32, 0, mojoBase_mojom_TimeDeltaSpec.$, null, false /* nullable */, 0),
+    mojo.internal.StructField('relativeTimeText', 40, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 56],]);

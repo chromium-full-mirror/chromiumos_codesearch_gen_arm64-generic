@@ -2832,6 +2832,10 @@ bool IDBFactory_GetDatabaseInfo_ResponseParams_Data::Validate(
     return false;
   }
 
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->error, 2, validation_context)) {
+    return false;
+  }
   if (!mojo::internal::ValidateStruct(object->error, validation_context))
     return false;
 

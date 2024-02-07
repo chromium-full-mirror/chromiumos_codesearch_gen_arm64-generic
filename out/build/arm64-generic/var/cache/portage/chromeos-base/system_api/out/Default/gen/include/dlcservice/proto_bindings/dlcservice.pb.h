@@ -216,6 +216,7 @@ class InstallRequest final :
     kIdFieldNumber = 1,
     kOmahaUrlFieldNumber = 2,
     kReserveFieldNumber = 3,
+    kForceOtaFieldNumber = 2047,
   };
   // string id = 1;
   void clear_id() ;
@@ -267,6 +268,16 @@ class InstallRequest final :
   void _internal_set_reserve(bool value);
 
   public:
+  // bool force_ota = 2047;
+  void clear_force_ota() ;
+  bool force_ota() const;
+  void set_force_ota(bool value);
+
+  private:
+  bool _internal_force_ota() const;
+  void _internal_set_force_ota(bool value);
+
+  public:
   // @@protoc_insertion_point(class_scope:dlcservice.InstallRequest)
  private:
   class _Internal;
@@ -278,6 +289,7 @@ class InstallRequest final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr id_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr omaha_url_;
     bool reserve_;
+    bool force_ota_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   };
   union { Impl_ _impl_; };
@@ -1043,6 +1055,26 @@ inline bool InstallRequest::_internal_reserve() const {
 inline void InstallRequest::_internal_set_reserve(bool value) {
   ;
   _impl_.reserve_ = value;
+}
+
+// bool force_ota = 2047;
+inline void InstallRequest::clear_force_ota() {
+  _impl_.force_ota_ = false;
+}
+inline bool InstallRequest::force_ota() const {
+  // @@protoc_insertion_point(field_get:dlcservice.InstallRequest.force_ota)
+  return _internal_force_ota();
+}
+inline void InstallRequest::set_force_ota(bool value) {
+  _internal_set_force_ota(value);
+  // @@protoc_insertion_point(field_set:dlcservice.InstallRequest.force_ota)
+}
+inline bool InstallRequest::_internal_force_ota() const {
+  return _impl_.force_ota_;
+}
+inline void InstallRequest::_internal_set_force_ota(bool value) {
+  ;
+  _impl_.force_ota_ = value;
 }
 
 // -------------------------------------------------------------------

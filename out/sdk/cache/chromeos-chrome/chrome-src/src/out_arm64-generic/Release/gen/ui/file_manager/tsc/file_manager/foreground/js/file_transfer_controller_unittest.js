@@ -1,9 +1,9 @@
 // Copyright 2019 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_input/cr_input.js';
+import 'chrome://resources/ash/common/cr_elements/cr_input/cr_input.js';
 import { assertNotReached } from 'chrome://resources/ash/common/assert.js';
-import { CrInputElement } from 'chrome://resources/cr_elements/cr_input/cr_input.js';
+import { CrInputElement } from 'chrome://resources/ash/common/cr_elements/cr_input/cr_input.js';
 import { getTrustedHTML } from 'chrome://resources/js/static_types.js';
 import { assertEquals, assertFalse, assertTrue } from 'chrome://webui-test/chromeos/chai_assert.js';
 import { MockVolumeManager } from '../../background/js/mock_volume_manager.js';

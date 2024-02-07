@@ -5,11 +5,11 @@
  * @fileoverview Polymer element for displaying and modifying always-on VPN
  * settings.
  */
-import 'chrome://resources/cr_elements/cr_toggle/cr_toggle.js';
-import 'chrome://resources/cr_elements/md_select.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_toggle/cr_toggle.js';
+import 'chrome://resources/ash/common/cr_elements/md_select.css.js';
 import 'chrome://resources/ash/common/network/network_shared.css.js';
-import { CrToggleElement } from 'chrome://resources/cr_elements/cr_toggle/cr_toggle.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { CrToggleElement } from 'chrome://resources/ash/common/cr_elements/cr_toggle/cr_toggle.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { AlwaysOnVpnMode } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { cast } from '../assert_extras.js';

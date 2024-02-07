@@ -105,6 +105,8 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ControllerServiceWorker
   int32_t effective_fetch_handler_type;
   int32_t fetch_handler_bypass_option;
   mojo::internal::Pointer<mojo::internal::String_Data> sha256_script_checksum;
+  uint8_t need_router_evaluate : 1;
+  uint8_t pad5_[7];
   mojo::internal::Pointer<internal::ServiceWorkerRouterData_Data> router_data;
   mojo::internal::Interface_Data remote_controller;
   mojo::internal::Pointer<mojo::internal::String_Data> client_id;
@@ -118,7 +120,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) ControllerServiceWorker
   ControllerServiceWorkerInfo_Data();
   ~ControllerServiceWorkerInfo_Data() = delete;
 };
-static_assert(sizeof(ControllerServiceWorkerInfo_Data) == 80,
+static_assert(sizeof(ControllerServiceWorkerInfo_Data) == 88,
               "Bad sizeof(ControllerServiceWorkerInfo_Data)");
 // Used by ControllerServiceWorkerInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

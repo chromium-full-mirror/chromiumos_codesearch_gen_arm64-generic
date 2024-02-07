@@ -913,6 +913,7 @@
     this.jobName = null;
     this.jobPages = 0;
     this.observer = new bindings.InterfaceRequest();
+    this.controller = new WebPrintJobControllerPtr();
   };
   WebPrintJobInfo.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -928,7 +929,7 @@
         return err;
 
     var kVersionSizes = [
-      {version: 0, numBytes: 24}
+      {version: 0, numBytes: 32}
     ];
     err = messageValidator.validateStructVersion(offset, kVersionSizes);
     if (err !== validator.validationError.NONE)
@@ -947,10 +948,16 @@
     if (err !== validator.validationError.NONE)
         return err;
 
+
+    // validate WebPrintJobInfo.controller
+    err = messageValidator.validateInterface(offset + codec.kStructHeaderSize + 16, false);
+    if (err !== validator.validationError.NONE)
+        return err;
+
     return validator.validationError.NONE;
   };
 
-  WebPrintJobInfo.encodedSize = codec.kStructHeaderSize + 16;
+  WebPrintJobInfo.encodedSize = codec.kStructHeaderSize + 24;
 
   WebPrintJobInfo.decode = function(decoder) {
     var packed;
@@ -963,6 +970,8 @@
         decoder.decodeStruct(codec.Uint32);
     val.observer =
         decoder.decodeStruct(codec.InterfaceRequest);
+    val.controller =
+        decoder.decodeStruct(new codec.Interface(WebPrintJobControllerPtr));
     return val;
   };
 
@@ -973,6 +982,7 @@
     encoder.encodeStruct(codec.String, val.jobName);
     encoder.encodeStruct(codec.Uint32, val.jobPages);
     encoder.encodeStruct(codec.InterfaceRequest, val.observer);
+    encoder.encodeStruct(new codec.Interface(WebPrintJobControllerPtr), val.controller);
   };
   function WebPrintJobStateObserver_OnWebPrintJobUpdate_Params(values) {
     this.initDefaults_();
@@ -1029,6 +1039,52 @@
     encoder.writeUint32(WebPrintJobStateObserver_OnWebPrintJobUpdate_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStructPointer(WebPrintJobUpdate, val.update);
+  };
+  function WebPrintJobController_Cancel_Params(values) {
+    this.initDefaults_();
+    this.initFields_(values);
+  }
+
+
+  WebPrintJobController_Cancel_Params.prototype.initDefaults_ = function() {
+  };
+  WebPrintJobController_Cancel_Params.prototype.initFields_ = function(fields) {
+    for(var field in fields) {
+        if (this.hasOwnProperty(field))
+          this[field] = fields[field];
+    }
+  };
+
+  WebPrintJobController_Cancel_Params.validate = function(messageValidator, offset) {
+    var err;
+    err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    var kVersionSizes = [
+      {version: 0, numBytes: 8}
+    ];
+    err = messageValidator.validateStructVersion(offset, kVersionSizes);
+    if (err !== validator.validationError.NONE)
+        return err;
+
+    return validator.validationError.NONE;
+  };
+
+  WebPrintJobController_Cancel_Params.encodedSize = codec.kStructHeaderSize + 0;
+
+  WebPrintJobController_Cancel_Params.decode = function(decoder) {
+    var packed;
+    var val = new WebPrintJobController_Cancel_Params();
+    var numberOfBytes = decoder.readUint32();
+    var version = decoder.readUint32();
+    return val;
+  };
+
+  WebPrintJobController_Cancel_Params.encode = function(encoder, val) {
+    var packed;
+    encoder.writeUint32(WebPrintJobController_Cancel_Params.encodedSize);
+    encoder.writeUint32(0);
   };
   function WebPrinter_FetchAttributes_Params(values) {
     this.initDefaults_();
@@ -1908,6 +1964,98 @@
   };
   WebPrintJobStateObserverStub.prototype.validator = validateWebPrintJobStateObserverRequest;
   WebPrintJobStateObserverProxy.prototype.validator = null;
+  var kWebPrintJobController_Cancel_Name = 0;
+
+  function WebPrintJobControllerPtr(handleOrPtrInfo) {
+    this.ptr = new bindings.InterfacePtrController(WebPrintJobController,
+                                                   handleOrPtrInfo);
+  }
+
+  function WebPrintJobControllerAssociatedPtr(associatedInterfacePtrInfo) {
+    this.ptr = new associatedBindings.AssociatedInterfacePtrController(
+        WebPrintJobController, associatedInterfacePtrInfo);
+  }
+
+  WebPrintJobControllerAssociatedPtr.prototype =
+      Object.create(WebPrintJobControllerPtr.prototype);
+  WebPrintJobControllerAssociatedPtr.prototype.constructor =
+      WebPrintJobControllerAssociatedPtr;
+
+  function WebPrintJobControllerProxy(receiver) {
+    this.receiver_ = receiver;
+  }
+  WebPrintJobControllerPtr.prototype.cancel = function() {
+    return WebPrintJobControllerProxy.prototype.cancel
+        .apply(this.ptr.getProxy(), arguments);
+  };
+
+  WebPrintJobControllerProxy.prototype.cancel = function() {
+    var params_ = new WebPrintJobController_Cancel_Params();
+    var builder = new codec.MessageV0Builder(
+        kWebPrintJobController_Cancel_Name,
+        codec.align(WebPrintJobController_Cancel_Params.encodedSize));
+    builder.encodeStruct(WebPrintJobController_Cancel_Params, params_);
+    var message = builder.finish();
+    this.receiver_.accept(message);
+  };
+
+  function WebPrintJobControllerStub(delegate) {
+    this.delegate_ = delegate;
+  }
+  WebPrintJobControllerStub.prototype.cancel = function() {
+    return this.delegate_ && this.delegate_.cancel && this.delegate_.cancel();
+  }
+
+  WebPrintJobControllerStub.prototype.accept = function(message) {
+    var reader = new codec.MessageReader(message);
+    switch (reader.messageName) {
+    case kWebPrintJobController_Cancel_Name:
+      var params = reader.decodeStruct(WebPrintJobController_Cancel_Params);
+      this.cancel();
+      return true;
+    default:
+      return false;
+    }
+  };
+
+  WebPrintJobControllerStub.prototype.acceptWithResponder =
+      function(message, responder) {
+    var reader = new codec.MessageReader(message);
+    switch (reader.messageName) {
+    default:
+      return false;
+    }
+  };
+
+  function validateWebPrintJobControllerRequest(messageValidator) {
+    var message = messageValidator.message;
+    var paramsClass = null;
+    switch (message.getName()) {
+      case kWebPrintJobController_Cancel_Name:
+        if (!message.expectsResponse() && !message.isResponse())
+          paramsClass = WebPrintJobController_Cancel_Params;
+      break;
+    }
+    if (paramsClass === null)
+      return validator.validationError.NONE;
+    return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
+  }
+
+  function validateWebPrintJobControllerResponse(messageValidator) {
+    return validator.validationError.NONE;
+  }
+
+  var WebPrintJobController = {
+    name: 'blink.mojom.WebPrintJobController',
+    kVersion: 0,
+    ptrClass: WebPrintJobControllerPtr,
+    proxyClass: WebPrintJobControllerProxy,
+    stubClass: WebPrintJobControllerStub,
+    validateRequest: validateWebPrintJobControllerRequest,
+    validateResponse: null,
+  };
+  WebPrintJobControllerStub.prototype.validator = validateWebPrintJobControllerRequest;
+  WebPrintJobControllerProxy.prototype.validator = null;
   var kWebPrinter_FetchAttributes_Name = 0;
   var kWebPrinter_Print_Name = 1;
 
@@ -2232,6 +2380,9 @@
   exports.WebPrintJobStateObserver = WebPrintJobStateObserver;
   exports.WebPrintJobStateObserverPtr = WebPrintJobStateObserverPtr;
   exports.WebPrintJobStateObserverAssociatedPtr = WebPrintJobStateObserverAssociatedPtr;
+  exports.WebPrintJobController = WebPrintJobController;
+  exports.WebPrintJobControllerPtr = WebPrintJobControllerPtr;
+  exports.WebPrintJobControllerAssociatedPtr = WebPrintJobControllerAssociatedPtr;
   exports.WebPrinter = WebPrinter;
   exports.WebPrinterPtr = WebPrinterPtr;
   exports.WebPrinterAssociatedPtr = WebPrinterAssociatedPtr;

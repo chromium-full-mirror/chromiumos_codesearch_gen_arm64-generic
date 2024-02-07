@@ -1,7 +1,7 @@
 /*
  *
  * Automatically generated file; DO NOT EDIT.
- * Linux/arm64 5.15.147 Kernel Configuration
+ * Linux/arm64 5.15.148 Kernel Configuration
  *
  */
 #define CONFIG_RING_BUFFER 1
@@ -272,7 +272,7 @@
 #define CONFIG_MTD 1
 #define CONFIG_MIGRATION 1
 #define CONFIG_HAVE_ARCH_JUMP_LABEL 1
-#define CONFIG_BUILD_SALT "chromeos-kernel-5_15-5.15.147-r2679"
+#define CONFIG_BUILD_SALT "chromeos-kernel-5_15-5.15.148-r2681"
 #define CONFIG_MMC_BLOCK_MINORS 16
 #define CONFIG_HID_PRIMAX_MODULE 1
 #define CONFIG_HAVE_ARCH_PREL32_RELOCATIONS 1

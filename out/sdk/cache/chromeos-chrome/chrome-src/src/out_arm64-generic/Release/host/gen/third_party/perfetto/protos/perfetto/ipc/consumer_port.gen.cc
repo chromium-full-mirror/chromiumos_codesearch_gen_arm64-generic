@@ -151,7 +151,8 @@ CloneSessionRequest& CloneSessionRequest::operator=(CloneSessionRequest&&) = def
 
 bool CloneSessionRequest::operator==(const CloneSessionRequest& other) const {
   return ::protozero::internal::gen_helpers::EqualsField(unknown_fields_, other.unknown_fields_)
-   && ::protozero::internal::gen_helpers::EqualsField(session_id_, other.session_id_);
+   && ::protozero::internal::gen_helpers::EqualsField(session_id_, other.session_id_)
+   && ::protozero::internal::gen_helpers::EqualsField(skip_trace_filter_, other.skip_trace_filter_);
 }
 
 bool CloneSessionRequest::ParseFromArray(const void* raw, size_t size) {
@@ -166,6 +167,9 @@ bool CloneSessionRequest::ParseFromArray(const void* raw, size_t size) {
     switch (field.id()) {
       case 1 /* session_id */:
         field.get(&session_id_);
+        break;
+      case 2 /* skip_trace_filter */:
+        field.get(&skip_trace_filter_);
         break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
@@ -191,6 +195,11 @@ void CloneSessionRequest::Serialize(::protozero::Message* msg) const {
   // Field 1: session_id
   if (_has_field_[1]) {
     ::protozero::internal::gen_helpers::SerializeVarInt(1, session_id_, msg);
+  }
+
+  // Field 2: skip_trace_filter
+  if (_has_field_[2]) {
+    ::protozero::internal::gen_helpers::SerializeTinyVarInt(2, skip_trace_filter_, msg);
   }
 
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);
@@ -471,7 +480,8 @@ QueryServiceStateRequest::QueryServiceStateRequest(QueryServiceStateRequest&&) n
 QueryServiceStateRequest& QueryServiceStateRequest::operator=(QueryServiceStateRequest&&) = default;
 
 bool QueryServiceStateRequest::operator==(const QueryServiceStateRequest& other) const {
-  return ::protozero::internal::gen_helpers::EqualsField(unknown_fields_, other.unknown_fields_);
+  return ::protozero::internal::gen_helpers::EqualsField(unknown_fields_, other.unknown_fields_)
+   && ::protozero::internal::gen_helpers::EqualsField(sessions_only_, other.sessions_only_);
 }
 
 bool QueryServiceStateRequest::ParseFromArray(const void* raw, size_t size) {
@@ -484,6 +494,9 @@ bool QueryServiceStateRequest::ParseFromArray(const void* raw, size_t size) {
       _has_field_.set(field.id());
     }
     switch (field.id()) {
+      case 1 /* sessions_only */:
+        field.get(&sessions_only_);
+        break;
       default:
         field.SerializeAndAppendTo(&unknown_fields_);
         break;
@@ -505,6 +518,11 @@ std::vector<uint8_t> QueryServiceStateRequest::SerializeAsArray() const {
 }
 
 void QueryServiceStateRequest::Serialize(::protozero::Message* msg) const {
+  // Field 1: sessions_only
+  if (_has_field_[1]) {
+    ::protozero::internal::gen_helpers::SerializeTinyVarInt(1, sessions_only_, msg);
+  }
+
   protozero::internal::gen_helpers::SerializeUnknownFields(unknown_fields_, msg);
 }
 

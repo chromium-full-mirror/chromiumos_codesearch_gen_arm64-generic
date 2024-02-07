@@ -1,7 +1,7 @@
 #ifndef __VMLINUX_H__
 #define __VMLINUX_H__
 
-#define LINUX_VERSION_CODE 331667
+#define LINUX_VERSION_CODE 331668
 
 #ifndef BPF_NO_PRESERVE_ACCESS_INDEX
 #pragma clang attribute push (__attribute__((preserve_access_index)), apply_to = record)
@@ -38919,7 +38919,6 @@ enum {
 enum blk_default_limits {
 	BLK_MAX_SEGMENTS = 128,
 	BLK_SAFE_MAX_SECTORS = 255,
-	BLK_DEF_MAX_SECTORS = 2560,
 	BLK_MAX_SEGMENT_SIZE = 65536,
 	BLK_SEG_BOUNDARY_MASK = 4294967295,
 };
@@ -41921,8 +41920,13 @@ enum {
 
 struct debugfs_fsdata {
 	const struct file_operations *real_fops;
-	refcount_t active_users;
-	struct completion active_users_drained;
+	union {
+		debugfs_automount_t automount;
+		struct {
+			refcount_t active_users;
+			struct completion active_users_drained;
+		};
+	};
 };
 
 struct debugfs_mount_opts {
@@ -93329,6 +93333,7 @@ struct xhci_hcd_mtk {
 	struct regmap *uwk;
 	u32 uwk_reg_base;
 	u32 uwk_vers;
+	u32 rxfifo_depth;
 };
 
 struct mu3h_sch_bw_info {
@@ -97267,6 +97272,7 @@ struct rk3x_i2c {
 	struct clk *clk;
 	struct clk *pclk;
 	struct notifier_block clk_rate_nb;
+	int irq;
 	struct i2c_timings t;
 	spinlock_t lock;
 	wait_queue_head_t wait;
@@ -110338,7 +110344,7 @@ struct etmv4_drvdata {
 	u8 ctxid_size;
 	u8 vmid_size;
 	u8 ccsize;
-	u8 ccitmin;
+	u16 ccitmin;
 	u8 s_ex_level;
 	u8 ns_ex_level;
 	u8 q_support;

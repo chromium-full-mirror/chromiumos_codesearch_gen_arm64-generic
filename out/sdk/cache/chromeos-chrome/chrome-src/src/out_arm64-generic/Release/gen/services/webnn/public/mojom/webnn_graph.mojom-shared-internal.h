@@ -52,6 +52,7 @@ class Elu_Data;
 class Gather_Data;
 class Gemm_Data;
 class HardSigmoid_Data;
+class HardSwish_Data;
 class LayerNormalization_Data;
 class LeakyRelu_Data;
 class Linear_Data;
@@ -545,6 +546,8 @@ class  Operation_Data {
     
     kHardSigmoid,
     
+    kHardSwish,
+    
     kLayerNormalization,
     
     kInstanceNormalization,
@@ -605,6 +608,7 @@ class  Operation_Data {
     mojo::internal::Pointer<internal::Gather_Data> f_gather;
     mojo::internal::Pointer<internal::Gemm_Data> f_gemm;
     mojo::internal::Pointer<internal::HardSigmoid_Data> f_hard_sigmoid;
+    mojo::internal::Pointer<internal::HardSwish_Data> f_hard_swish;
     mojo::internal::Pointer<internal::LayerNormalization_Data> f_layer_normalization;
     mojo::internal::Pointer<internal::InstanceNormalization_Data> f_instance_normalization;
     mojo::internal::Pointer<internal::LeakyRelu_Data> f_leaky_relu;
@@ -2032,6 +2036,55 @@ struct HardSigmoid_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     HardSigmoid_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  HardSwish_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  uint64_t input_operand_id;
+  uint64_t output_operand_id;
+
+ private:
+  friend class mojo::internal::MessageFragment<HardSwish_Data>;
+
+  HardSwish_Data();
+  ~HardSwish_Data() = delete;
+};
+static_assert(sizeof(HardSwish_Data) == 24,
+              "Bad sizeof(HardSwish_Data)");
+// Used by HardSwish::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct HardSwish_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  HardSwish_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~HardSwish_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<HardSwish_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    HardSwish_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  LayerNormalization_Data {
  public:
   static bool Validate(const void* data,

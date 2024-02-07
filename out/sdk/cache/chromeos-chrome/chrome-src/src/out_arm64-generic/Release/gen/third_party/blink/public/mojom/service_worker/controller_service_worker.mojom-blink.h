@@ -469,6 +469,7 @@ class CORE_EXPORT ControllerServiceWorkerInfo {
       ::blink::mojom::blink::ServiceWorkerFetchHandlerType effective_fetch_handler_type,
       ::blink::mojom::blink::ServiceWorkerFetchHandlerBypassOption fetch_handler_bypass_option,
       const WTF::String& sha256_script_checksum,
+      bool need_router_evaluate,
       ServiceWorkerRouterDataPtr router_data,
       ::mojo::PendingRemote<ControllerServiceWorker> remote_controller,
       const WTF::String& client_id,
@@ -558,6 +559,8 @@ ControllerServiceWorkerInfo& operator=(const ControllerServiceWorkerInfo&) = del
   ::blink::mojom::blink::ServiceWorkerFetchHandlerBypassOption fetch_handler_bypass_option;
   
   WTF::String sha256_script_checksum;
+  
+  bool need_router_evaluate;
   
   ServiceWorkerRouterDataPtr router_data;
   
@@ -651,6 +654,7 @@ ControllerServiceWorkerInfoPtr ControllerServiceWorkerInfo::Clone() const {
       mojo::Clone(effective_fetch_handler_type),
       mojo::Clone(fetch_handler_bypass_option),
       mojo::Clone(sha256_script_checksum),
+      mojo::Clone(need_router_evaluate),
       mojo::Clone(router_data),
       mojo::Clone(remote_controller),
       mojo::Clone(client_id),
@@ -671,6 +675,8 @@ bool ControllerServiceWorkerInfo::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->fetch_handler_bypass_option, other_struct.fetch_handler_bypass_option))
     return false;
   if (!mojo::Equals(this->sha256_script_checksum, other_struct.sha256_script_checksum))
+    return false;
+  if (!mojo::Equals(this->need_router_evaluate, other_struct.need_router_evaluate))
     return false;
   if (!mojo::Equals(this->router_data, other_struct.router_data))
     return false;
@@ -708,6 +714,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.sha256_script_checksum < rhs.sha256_script_checksum)
     return true;
   if (rhs.sha256_script_checksum < lhs.sha256_script_checksum)
+    return false;
+  if (lhs.need_router_evaluate < rhs.need_router_evaluate)
+    return true;
+  if (rhs.need_router_evaluate < lhs.need_router_evaluate)
     return false;
   if (lhs.router_data < rhs.router_data)
     return true;
@@ -801,6 +811,11 @@ struct CORE_EXPORT StructTraits<::blink::mojom::blink::ControllerServiceWorkerIn
   static const decltype(::blink::mojom::blink::ControllerServiceWorkerInfo::sha256_script_checksum)& sha256_script_checksum(
       const ::blink::mojom::blink::ControllerServiceWorkerInfoPtr& input) {
     return input->sha256_script_checksum;
+  }
+
+  static decltype(::blink::mojom::blink::ControllerServiceWorkerInfo::need_router_evaluate) need_router_evaluate(
+      const ::blink::mojom::blink::ControllerServiceWorkerInfoPtr& input) {
+    return input->need_router_evaluate;
   }
 
   static  decltype(::blink::mojom::blink::ControllerServiceWorkerInfo::router_data)& router_data(

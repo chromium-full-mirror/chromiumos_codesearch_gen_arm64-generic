@@ -4,6 +4,7 @@
 const { assert } = chai;
 import * as SDK from '../../../../../front_end/core/sdk/sdk.js';
 import * as Platform from '../../../../../front_end/core/platform/platform.js';
+import * as TextUtils from '../../../../../front_end/models/text_utils/text_utils.js';
 import { expectCookie } from '../../helpers/Cookies.js';
 import { createTarget } from '../../helpers/EnvironmentHelpers.js';
 import { describeWithMockConnection, setMockConnectionResponseHandler } from '../../helpers/MockConnection.js';
@@ -176,7 +177,7 @@ describeWithMockConnection('NetworkRequest', () => {
         networkDispatcher.loadingFinished({ requestId: 'requestId', timestamp: 42, encodedDataLength: 42 });
         assert.isTrue(addBlockedCookieSpy.calledOnceWith(cookie, [
             {
-                attribute: "same-site" /* SDK.Cookie.Attributes.SameSite */,
+                attribute: "same-site" /* SDK.Cookie.Attribute.SameSite */,
                 uiString: 'This cookie was blocked because it had the "SameSite=Lax" attribute and the request was made from a different site and was not initiated by a top-level navigation.',
             },
         ]));
@@ -281,6 +282,93 @@ data: bar\n\n`;
         assert.lengthOf(networkEvents, 2);
         assert.deepInclude(networkEvents[0], { data: 'foo', eventId: 'fooId', eventName: 'fooName' });
         assert.deepInclude(networkEvents[1], { data: 'bar', eventId: 'barId', eventName: 'barName' });
+    });
+});
+describeWithMockConnection('requestStreamingContent', () => {
+    let target;
+    let networkManager;
+    beforeEach(() => {
+        target = createTarget();
+        networkManager = target.model(SDK.NetworkManager.NetworkManager);
+    });
+    it('retrieves the full response body for finished requests', () => {
+        networkManager.dispatcher.requestWillBeSent({
+            requestId: '1',
+            request: {
+                url: 'https://example.com/index.html',
+            },
+            type: 'Document',
+        });
+        networkManager.dispatcher.responseReceived({
+            requestId: '1',
+            response: {
+                url: 'https://example.com/index.html',
+                mimeType: 'text/html',
+            },
+        });
+        networkManager.dispatcher.loadingFinished({
+            requestId: '1',
+        });
+        const request = networkManager.requestForId('1');
+        assertNotNullOrUndefined(request);
+        const responseBodySpy = sinon.spy(target.networkAgent(), 'invoke_getResponseBody');
+        void request.requestStreamingContent();
+        assert.isTrue(responseBodySpy.calledOnce);
+    });
+    it('streams the full response body for in-flight requests', () => {
+        networkManager.dispatcher.requestWillBeSent({
+            requestId: '1',
+            request: {
+                url: 'https://example.com/index.html',
+            },
+            type: 'Document',
+        });
+        networkManager.dispatcher.responseReceived({
+            requestId: '1',
+            response: {
+                url: 'https://example.com/index.html',
+                mimeType: 'text/html',
+            },
+        });
+        const request = networkManager.requestForId('1');
+        assertNotNullOrUndefined(request);
+        const responseBodySpy = sinon.spy(target.networkAgent(), 'invoke_streamResourceContent');
+        void request.requestStreamingContent();
+        assert.isTrue(responseBodySpy.calledOnce);
+    });
+    it('sends ChunkAdded events when new data is received', async () => {
+        networkManager.dispatcher.requestWillBeSent({
+            requestId: '1',
+            request: {
+                url: 'https://example.com/index.html',
+            },
+            type: 'Document',
+        });
+        networkManager.dispatcher.responseReceived({
+            requestId: '1',
+            response: {
+                url: 'https://example.com/index.html',
+                mimeType: 'text/html',
+            },
+        });
+        const request = networkManager.requestForId('1');
+        assertNotNullOrUndefined(request);
+        sinon.stub(SDK.NetworkManager.NetworkManager, 'streamResponseBody')
+            .returns(Promise.resolve(new TextUtils.ContentData.ContentData('Zm9v', true, 'text/html')));
+        const maybeStreamingContent = await request.requestStreamingContent();
+        assert.isFalse(TextUtils.StreamingContentData.isError(maybeStreamingContent));
+        const streamingContent = maybeStreamingContent;
+        const eventPromise = streamingContent.once("ChunkAdded" /* TextUtils.StreamingContentData.Events.ChunkAdded */);
+        networkManager.dispatcher.dataReceived({
+            requestId: '1',
+            data: 'YmFy',
+            dataLength: 4,
+            encodedDataLength: 4,
+            timestamp: 42,
+        });
+        const { chunk } = await eventPromise;
+        assert.strictEqual(chunk, 'YmFy');
+        assert.strictEqual(streamingContent.content().text, 'foobar');
     });
 });
 //# sourceMappingURL=NetworkRequest_test.js.map

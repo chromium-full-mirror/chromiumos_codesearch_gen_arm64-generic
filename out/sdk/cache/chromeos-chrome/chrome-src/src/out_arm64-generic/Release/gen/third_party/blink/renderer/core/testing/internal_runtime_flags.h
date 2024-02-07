@@ -2077,6 +2077,9 @@ class InternalRuntimeFlags : public ScriptWrappable {
   bool webAppUrlHandlingEnabled() {
     return RuntimeEnabledFeatures::WebAppUrlHandlingEnabledByRuntimeFlag();
   }
+  bool webAssemblyJSPromiseIntegrationEnabled() {
+    return RuntimeEnabledFeatures::WebAssemblyJSPromiseIntegrationEnabledByRuntimeFlag();
+  }
   bool webAssemblyJSStringBuiltinsEnabled() {
     return RuntimeEnabledFeatures::WebAssemblyJSStringBuiltinsEnabledByRuntimeFlag();
   }
@@ -2159,7 +2162,7 @@ class InternalRuntimeFlags : public ScriptWrappable {
     return RuntimeEnabledFeatures::WebHIDOnServiceWorkersEnabled();
   }
   bool webIdentityDigitalCredentialsEnabled() {
-    return RuntimeEnabledFeatures::WebIdentityDigitalCredentialsEnabled();
+    return RuntimeEnabledFeatures::WebIdentityDigitalCredentialsEnabledByRuntimeFlag();
   }
   bool webIDLBigIntUsesToBigIntEnabled() {
     return RuntimeEnabledFeatures::WebIDLBigIntUsesToBigIntEnabled();

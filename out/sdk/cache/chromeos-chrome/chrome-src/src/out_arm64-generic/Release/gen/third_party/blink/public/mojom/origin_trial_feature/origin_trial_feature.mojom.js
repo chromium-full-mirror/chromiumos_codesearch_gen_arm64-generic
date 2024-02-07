@@ -123,13 +123,15 @@
   OriginTrialFeature.kWebAppTabStrip = 98;
   OriginTrialFeature.kWebAppTabStripCustomizations = 99;
   OriginTrialFeature.kWebAppUrlHandling = 100;
-  OriginTrialFeature.kWebAssemblyJSStringBuiltins = 101;
-  OriginTrialFeature.kWebTransportCustomCertificates = 102;
-  OriginTrialFeature.kWebViewXRequestedWithDeprecation = 103;
-  OriginTrialFeature.kWebXRImageTracking = 104;
-  OriginTrialFeature.kWebXRPlaneDetection = 105;
+  OriginTrialFeature.kWebAssemblyJSPromiseIntegration = 101;
+  OriginTrialFeature.kWebAssemblyJSStringBuiltins = 102;
+  OriginTrialFeature.kWebIdentityDigitalCredentials = 103;
+  OriginTrialFeature.kWebTransportCustomCertificates = 104;
+  OriginTrialFeature.kWebViewXRequestedWithDeprecation = 105;
+  OriginTrialFeature.kWebXRImageTracking = 106;
+  OriginTrialFeature.kWebXRPlaneDetection = 107;
   OriginTrialFeature.MIN_VALUE = 0;
-  OriginTrialFeature.MAX_VALUE = 105;
+  OriginTrialFeature.MAX_VALUE = 107;
 
   OriginTrialFeature.isKnownEnumValue = function(value) {
     switch (value) {
@@ -239,6 +241,8 @@
     case 103:
     case 104:
     case 105:
+    case 106:
+    case 107:
       return true;
     }
     return false;

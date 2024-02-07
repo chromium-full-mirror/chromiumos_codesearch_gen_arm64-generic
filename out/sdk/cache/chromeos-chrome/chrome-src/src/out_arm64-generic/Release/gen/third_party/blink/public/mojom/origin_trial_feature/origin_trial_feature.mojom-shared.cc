@@ -226,8 +226,12 @@ NOINLINE static const char* OriginTrialFeatureToStringHelper(OriginTrialFeature 
       return "kWebAppTabStripCustomizations";
     case OriginTrialFeature::kWebAppUrlHandling:
       return "kWebAppUrlHandling";
+    case OriginTrialFeature::kWebAssemblyJSPromiseIntegration:
+      return "kWebAssemblyJSPromiseIntegration";
     case OriginTrialFeature::kWebAssemblyJSStringBuiltins:
       return "kWebAssemblyJSStringBuiltins";
+    case OriginTrialFeature::kWebIdentityDigitalCredentials:
+      return "kWebIdentityDigitalCredentials";
     case OriginTrialFeature::kWebTransportCustomCertificates:
       return "kWebTransportCustomCertificates";
     case OriginTrialFeature::kWebViewXRequestedWithDeprecation:

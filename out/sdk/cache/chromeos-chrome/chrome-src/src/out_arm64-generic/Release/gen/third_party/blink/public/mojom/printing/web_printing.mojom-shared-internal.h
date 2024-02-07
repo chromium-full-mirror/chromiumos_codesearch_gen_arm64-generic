@@ -753,6 +753,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrintJobInfo_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> job_name;
   uint32_t job_pages;
   mojo::internal::Handle_Data observer;
+  mojo::internal::Interface_Data controller;
 
  private:
   friend class mojo::internal::MessageFragment<WebPrintJobInfo_Data>;
@@ -760,7 +761,7 @@ class COMPONENT_EXPORT(MOJOM_SHARED_BLINK_COMMON_EXPORT) WebPrintJobInfo_Data {
   WebPrintJobInfo_Data();
   ~WebPrintJobInfo_Data() = delete;
 };
-static_assert(sizeof(WebPrintJobInfo_Data) == 24,
+static_assert(sizeof(WebPrintJobInfo_Data) == 32,
               "Bad sizeof(WebPrintJobInfo_Data)");
 // Used by WebPrintJobInfo::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

@@ -78,6 +78,8 @@ class PasswordFormGenerationDataDataView;
 
 class PasswordGenerationUIDataDataView;
 
+class PasswordSuggestionRequestDataView;
+
 class ParsingResultDataView;
 
 class SectionValueDataView;
@@ -224,6 +226,13 @@ struct MojomTypeTraits<::autofill::mojom::PasswordFormGenerationDataDataView> {
 template <>
 struct MojomTypeTraits<::autofill::mojom::PasswordGenerationUIDataDataView> {
   using Data = ::autofill::mojom::internal::PasswordGenerationUIData_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::autofill::mojom::PasswordSuggestionRequestDataView> {
+  using Data = ::autofill::mojom::internal::PasswordSuggestionRequest_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -1982,6 +1991,91 @@ class PasswordGenerationUIDataDataView {
   }
  private:
   internal::PasswordGenerationUIData_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
+class PasswordSuggestionRequestDataView {
+ public:
+  PasswordSuggestionRequestDataView() = default;
+
+  PasswordSuggestionRequestDataView(
+      internal::PasswordSuggestionRequest_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetElementIdDataView(
+      FieldRendererIdDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadElementId(UserType* output) {
+    
+    auto* pointer = data_->element_id.Get();
+    return mojo::internal::Deserialize<::autofill::mojom::FieldRendererIdDataView>(
+        pointer, output, message_);
+  }
+  inline void GetFormDataDataView(
+      FormDataDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadFormData(UserType* output) {
+    
+    auto* pointer = data_->form_data.Get();
+    return mojo::internal::Deserialize<::autofill::mojom::FormDataDataView>(
+        pointer, output, message_);
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadTriggerSource(UserType* output) const {
+    auto data_value = data_->trigger_source;
+    return mojo::internal::Deserialize<::autofill::mojom::AutofillSuggestionTriggerSource>(
+        data_value, output);
+  }
+  AutofillSuggestionTriggerSource trigger_source() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::autofill::mojom::AutofillSuggestionTriggerSource>(data_->trigger_source));
+  }
+  uint64_t username_field_index() const {
+    return data_->username_field_index;
+  }
+  uint64_t password_field_index() const {
+    return data_->password_field_index;
+  }
+  template <typename UserType>
+  [[nodiscard]] bool ReadTextDirection(UserType* output) const {
+    auto data_value = data_->text_direction;
+    return mojo::internal::Deserialize<::mojo_base::mojom::TextDirection>(
+        data_value, output);
+  }
+  ::mojo_base::mojom::TextDirection text_direction() const {
+    return ::mojo::internal::ToKnownEnumValueHelper(
+          static_cast<::mojo_base::mojom::TextDirection>(data_->text_direction));
+  }
+  inline void GetTypedUsernameDataView(
+      ::mojo_base::mojom::String16DataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadTypedUsername(UserType* output) {
+    
+    auto* pointer = data_->typed_username.Get();
+    return mojo::internal::Deserialize<::mojo_base::mojom::String16DataView>(
+        pointer, output, message_);
+  }
+  int32_t options() const {
+    return data_->options;
+  }
+  inline void GetBoundsDataView(
+      ::gfx::mojom::RectFDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadBounds(UserType* output) {
+    
+    auto* pointer = data_->bounds.Get();
+    return mojo::internal::Deserialize<::gfx::mojom::RectFDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PasswordSuggestionRequest_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -3972,6 +4066,90 @@ struct Serializer<::autofill::mojom::PasswordGenerationUIDataDataView, MaybeCons
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::autofill::mojom::PasswordSuggestionRequestDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::autofill::mojom::PasswordSuggestionRequestDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::autofill::mojom::internal::PasswordSuggestionRequest_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    decltype(Traits::element_id(input)) in_element_id = Traits::element_id(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->element_id)::BaseType> element_id_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::autofill::mojom::FieldRendererIdDataView>(
+        in_element_id, element_id_fragment);
+    fragment->element_id.Set(
+        element_id_fragment.is_null() ? nullptr : element_id_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->element_id.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null element_id in PasswordSuggestionRequest struct");
+    decltype(Traits::form_data(input)) in_form_data = Traits::form_data(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->form_data)::BaseType> form_data_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::autofill::mojom::FormDataDataView>(
+        in_form_data, form_data_fragment);
+    fragment->form_data.Set(
+        form_data_fragment.is_null() ? nullptr : form_data_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->form_data.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null form_data in PasswordSuggestionRequest struct");
+    mojo::internal::Serialize<::autofill::mojom::AutofillSuggestionTriggerSource>(
+        Traits::trigger_source(input), &fragment->trigger_source);
+    fragment->username_field_index = Traits::username_field_index(input);
+    fragment->password_field_index = Traits::password_field_index(input);
+    mojo::internal::Serialize<::mojo_base::mojom::TextDirection>(
+        Traits::text_direction(input), &fragment->text_direction);
+    decltype(Traits::typed_username(input)) in_typed_username = Traits::typed_username(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->typed_username)::BaseType> typed_username_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::mojo_base::mojom::String16DataView>(
+        in_typed_username, typed_username_fragment);
+    fragment->typed_username.Set(
+        typed_username_fragment.is_null() ? nullptr : typed_username_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->typed_username.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null typed_username in PasswordSuggestionRequest struct");
+    fragment->options = Traits::options(input);
+    decltype(Traits::bounds(input)) in_bounds = Traits::bounds(input);
+    mojo::internal::MessageFragment<
+        typename decltype(fragment->bounds)::BaseType> bounds_fragment(
+            fragment.message());
+    mojo::internal::Serialize<::gfx::mojom::RectFDataView>(
+        in_bounds, bounds_fragment);
+    fragment->bounds.Set(
+        bounds_fragment.is_null() ? nullptr : bounds_fragment.data());
+    MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+        fragment->bounds.is_null(),
+        mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+        "null bounds in PasswordSuggestionRequest struct");
+  }
+
+  static bool Deserialize(::autofill::mojom::internal::PasswordSuggestionRequest_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::autofill::mojom::PasswordSuggestionRequestDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::autofill::mojom::ParsingResultDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::autofill::mojom::ParsingResultDataView, UserType>;
@@ -4516,6 +4694,28 @@ inline void PasswordGenerationUIDataDataView::GetFormDataDataView(
     FormDataDataView* output) {
   auto pointer = data_->form_data.Get();
   *output = FormDataDataView(pointer, message_);
+}
+
+
+inline void PasswordSuggestionRequestDataView::GetElementIdDataView(
+    FieldRendererIdDataView* output) {
+  auto pointer = data_->element_id.Get();
+  *output = FieldRendererIdDataView(pointer, message_);
+}
+inline void PasswordSuggestionRequestDataView::GetFormDataDataView(
+    FormDataDataView* output) {
+  auto pointer = data_->form_data.Get();
+  *output = FormDataDataView(pointer, message_);
+}
+inline void PasswordSuggestionRequestDataView::GetTypedUsernameDataView(
+    ::mojo_base::mojom::String16DataView* output) {
+  auto pointer = data_->typed_username.Get();
+  *output = ::mojo_base::mojom::String16DataView(pointer, message_);
+}
+inline void PasswordSuggestionRequestDataView::GetBoundsDataView(
+    ::gfx::mojom::RectFDataView* output) {
+  auto pointer = data_->bounds.Get();
+  *output = ::gfx::mojom::RectFDataView(pointer, message_);
 }
 
 

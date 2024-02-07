@@ -24619,9 +24619,16 @@ void BrowserServiceProxy::NewGuestWindow(
 }
 
 void BrowserServiceProxy::NewTab(
-    NewTabCallback callback) {
+    std::optional<uint64_t> in_profile_id, NewTabCallback callback) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
-  TRACE_EVENT0("mojom", "Send crosapi::mojom::BrowserService::NewTab");
+  TRACE_EVENT1(
+    "mojom", "Send crosapi::mojom::BrowserService::NewTab", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("profile_id"), in_profile_id,
+                        "<value of type std::optional<uint64_t>>");
+   });
 #endif
 
   const bool kExpectsResponse = true;
@@ -24641,6 +24648,10 @@ void BrowserServiceProxy::NewTab(
       ::crosapi::mojom::internal::BrowserService_NewTab_Params_Data> params(
           message);
   params.Allocate();
+  params->profile_id_$flag = in_profile_id.has_value();
+  if (in_profile_id.has_value()) {
+    params->profile_id_$value = in_profile_id.value();
+  }
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(BrowserService::Name_);
@@ -27403,8 +27414,12 @@ bool BrowserServiceStubDispatch::AcceptWithResponder(
       
       // Validation for BrowserService.20
       bool success = true;
+      std::optional<uint64_t> p_profile_id{};
       BrowserService_NewTab_ParamsDataView input_data_view(params, message);
       
+      if (success) {
+        p_profile_id = input_data_view.profile_id();
+      }
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -27417,7 +27432,8 @@ bool BrowserServiceStubDispatch::AcceptWithResponder(
               *message, std::move(responder));
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
-      impl->NewTab(std::move(callback));
+      impl->NewTab(        
+        std::move(p_profile_id), std::move(callback));
       return true;
     }
     case internal::kBrowserService_REMOVED_7_Name: {
@@ -28737,8 +28753,8 @@ void BrowserServiceInterceptorForTesting::NewWindowForDetachingTab(const ::std::
 void BrowserServiceInterceptorForTesting::NewGuestWindow(int64_t target_display_id, NewGuestWindowCallback callback) {
   GetForwardingInterface()->NewGuestWindow(std::move(target_display_id), std::move(callback));
 }
-void BrowserServiceInterceptorForTesting::NewTab(NewTabCallback callback) {
-  GetForwardingInterface()->NewTab(std::move(callback));
+void BrowserServiceInterceptorForTesting::NewTab(std::optional<uint64_t> profile_id, NewTabCallback callback) {
+  GetForwardingInterface()->NewTab(std::move(profile_id), std::move(callback));
 }
 void BrowserServiceInterceptorForTesting::REMOVED_7(bool should_trigger_session_restore, REMOVED_7Callback callback) {
   GetForwardingInterface()->REMOVED_7(std::move(should_trigger_session_restore), std::move(callback));
@@ -28905,9 +28921,9 @@ CreationResult BrowserServiceAsyncWaiter::NewGuestWindow(
 }
 
 void BrowserServiceAsyncWaiter::NewTab(
-    CreationResult* out_result) {
+    std::optional<uint64_t> profile_id, CreationResult* out_result) {
   base::RunLoop loop;
-  proxy_->NewTab(
+  proxy_->NewTab(std::move(profile_id),
       base::BindOnce(
           [](base::RunLoop* loop,
              CreationResult* out_result
@@ -28921,9 +28937,9 @@ void BrowserServiceAsyncWaiter::NewTab(
 }
 
 CreationResult BrowserServiceAsyncWaiter::NewTab(
-    ) {
+    std::optional<uint64_t> profile_id) {
   CreationResult async_wait_result;
-  NewTab(&async_wait_result);
+  NewTab(std::move(profile_id),&async_wait_result);
   return async_wait_result;
 }
 

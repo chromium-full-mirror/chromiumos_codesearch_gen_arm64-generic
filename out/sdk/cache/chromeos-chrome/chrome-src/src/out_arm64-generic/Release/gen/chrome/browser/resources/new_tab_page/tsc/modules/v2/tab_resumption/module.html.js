@@ -17,7 +17,7 @@ export function getTemplate() {
         <div class="tab-description">
           <div class="tab-domain">[[item.url.url]]</div>
           <span class="dot">&nbsp&#8226&nbsp</span>
-          <div class="date">[[item.relativeTime]]</div>
+          <div class="date">[[item.relativeTimeText]]</div>
         </div>
       </div>
     </a>

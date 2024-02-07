@@ -22,6 +22,6 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/color/
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/color/mojom__parser.rsp
 home/chrome-bot/chrome_root/src/ui/color/color_id.mojom
 home/chrome-bot/chrome_root/src/ui/color/scheme_variant.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/color/mojom.build_metadata
-home/chrome-bot/chrome_root/src/ui/color/color_id.mojom
 home/chrome-bot/chrome_root/src/ui/color/scheme_variant.mojom
+home/chrome-bot/chrome_root/src/ui/color/color_id.mojom
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/ui/color/mojom.build_metadata

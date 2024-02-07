@@ -79,6 +79,10 @@
       {
         "cpp": "::autofill::password_generation::PasswordGenerationUIData",
         "mojom": "autofill.mojom.PasswordGenerationUIData"
+      },
+      {
+        "cpp": "::autofill::PasswordSuggestionRequest",
+        "mojom": "autofill.mojom.PasswordSuggestionRequest"
       }
     ]
   }

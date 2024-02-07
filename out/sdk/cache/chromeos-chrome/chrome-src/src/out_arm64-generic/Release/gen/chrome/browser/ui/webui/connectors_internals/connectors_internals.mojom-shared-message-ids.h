@@ -16,6 +16,7 @@ namespace internal {
 
 constexpr uint32_t kPageHandler_GetDeviceTrustState_Name = 0;
 constexpr uint32_t kPageHandler_DeleteDeviceTrustKey_Name = 1;
+constexpr uint32_t kPageHandler_GetClientCertificateState_Name = 2;
 
 }  // namespace internal
 

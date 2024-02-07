@@ -1627,7 +1627,7 @@ bool IpProtectionConfigGetter_GetProxyList_ResponseParams_Data::Validate(
       static_cast<const IpProtectionConfigGetter_GetProxyList_ResponseParams_Data*>(data);
 
   constexpr const mojo::internal::ContainerValidateParams& proxy_list_validate_params =
-      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
   if (!mojo::internal::ValidateContainer(object->proxy_list, validation_context,
                                          &proxy_list_validate_params)) {
     return false;

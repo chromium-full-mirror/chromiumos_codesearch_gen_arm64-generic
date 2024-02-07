@@ -637,6 +637,7 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+
 class  SectionValue {
  public:
   using DataView = SectionValueDataView;
@@ -3312,6 +3313,170 @@ bool operator>=(const T& lhs, const T& rhs) {
 
 
 
+class  PasswordSuggestionRequest {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<PasswordSuggestionRequest, T>::value>;
+  using DataView = PasswordSuggestionRequestDataView;
+  using Data_ = internal::PasswordSuggestionRequest_Data;
+
+  template <typename... Args>
+  static PasswordSuggestionRequestPtr New(Args&&... args) {
+    return PasswordSuggestionRequestPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static PasswordSuggestionRequestPtr From(const U& u) {
+    return mojo::TypeConverter<PasswordSuggestionRequestPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, PasswordSuggestionRequest>::Convert(*this);
+  }
+
+
+  PasswordSuggestionRequest();
+
+  PasswordSuggestionRequest(
+      ::autofill::FieldRendererId element_id,
+      const ::autofill::FormData& form_data,
+      AutofillSuggestionTriggerSource trigger_source,
+      uint64_t username_field_index,
+      uint64_t password_field_index,
+      ::base::i18n::TextDirection text_direction,
+      const ::std::u16string& typed_username,
+      int32_t options,
+      const ::gfx::RectF& bounds);
+
+
+  ~PasswordSuggestionRequest();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = PasswordSuggestionRequestPtr>
+  PasswordSuggestionRequestPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, PasswordSuggestionRequest::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, PasswordSuggestionRequest::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, PasswordSuggestionRequest::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        PasswordSuggestionRequest::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        PasswordSuggestionRequest::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::PasswordSuggestionRequest_UnserializedMessageContext<
+            UserType, PasswordSuggestionRequest::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<PasswordSuggestionRequest::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return PasswordSuggestionRequest::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::PasswordSuggestionRequest_UnserializedMessageContext<
+            UserType, PasswordSuggestionRequest::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<PasswordSuggestionRequest::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  ::autofill::FieldRendererId element_id;
+  
+  ::autofill::FormData form_data;
+  
+  AutofillSuggestionTriggerSource trigger_source;
+  
+  uint64_t username_field_index;
+  
+  uint64_t password_field_index;
+  
+  ::base::i18n::TextDirection text_direction;
+  
+  ::std::u16string typed_username;
+  
+  int32_t options;
+  
+  ::gfx::RectF bounds;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, PasswordSuggestionRequest::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, PasswordSuggestionRequest::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, PasswordSuggestionRequest::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, PasswordSuggestionRequest::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
 class  ParsingResult {
  public:
   template <typename T>
@@ -4576,6 +4741,84 @@ bool operator<(const T& lhs, const T& rhs) {
   return false;
 }
 template <typename StructPtrType>
+PasswordSuggestionRequestPtr PasswordSuggestionRequest::Clone() const {
+  return New(
+      mojo::Clone(element_id),
+      mojo::Clone(form_data),
+      mojo::Clone(trigger_source),
+      mojo::Clone(username_field_index),
+      mojo::Clone(password_field_index),
+      mojo::Clone(text_direction),
+      mojo::Clone(typed_username),
+      mojo::Clone(options),
+      mojo::Clone(bounds)
+  );
+}
+
+template <typename T, PasswordSuggestionRequest::EnableIfSame<T>*>
+bool PasswordSuggestionRequest::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->element_id, other_struct.element_id))
+    return false;
+  if (!mojo::Equals(this->form_data, other_struct.form_data))
+    return false;
+  if (!mojo::Equals(this->trigger_source, other_struct.trigger_source))
+    return false;
+  if (!mojo::Equals(this->username_field_index, other_struct.username_field_index))
+    return false;
+  if (!mojo::Equals(this->password_field_index, other_struct.password_field_index))
+    return false;
+  if (!mojo::Equals(this->text_direction, other_struct.text_direction))
+    return false;
+  if (!mojo::Equals(this->typed_username, other_struct.typed_username))
+    return false;
+  if (!mojo::Equals(this->options, other_struct.options))
+    return false;
+  if (!mojo::Equals(this->bounds, other_struct.bounds))
+    return false;
+  return true;
+}
+
+template <typename T, PasswordSuggestionRequest::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.element_id < rhs.element_id)
+    return true;
+  if (rhs.element_id < lhs.element_id)
+    return false;
+  if (lhs.form_data < rhs.form_data)
+    return true;
+  if (rhs.form_data < lhs.form_data)
+    return false;
+  if (lhs.trigger_source < rhs.trigger_source)
+    return true;
+  if (rhs.trigger_source < lhs.trigger_source)
+    return false;
+  if (lhs.username_field_index < rhs.username_field_index)
+    return true;
+  if (rhs.username_field_index < lhs.username_field_index)
+    return false;
+  if (lhs.password_field_index < rhs.password_field_index)
+    return true;
+  if (rhs.password_field_index < lhs.password_field_index)
+    return false;
+  if (lhs.text_direction < rhs.text_direction)
+    return true;
+  if (rhs.text_direction < lhs.text_direction)
+    return false;
+  if (lhs.typed_username < rhs.typed_username)
+    return true;
+  if (rhs.typed_username < lhs.typed_username)
+    return false;
+  if (lhs.options < rhs.options)
+    return true;
+  if (rhs.options < lhs.options)
+    return false;
+  if (lhs.bounds < rhs.bounds)
+    return true;
+  if (rhs.bounds < lhs.bounds)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
 ParsingResultPtr ParsingResult::Clone() const {
   return New(
       mojo::Clone(username_renderer_id),
@@ -5382,6 +5625,61 @@ struct  StructTraits<::autofill::mojom::PasswordGenerationUIData::DataView,
   }
 
   static bool Read(::autofill::mojom::PasswordGenerationUIData::DataView input, ::autofill::mojom::PasswordGenerationUIDataPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::autofill::mojom::PasswordSuggestionRequest::DataView,
+                                         ::autofill::mojom::PasswordSuggestionRequestPtr> {
+  static bool IsNull(const ::autofill::mojom::PasswordSuggestionRequestPtr& input) { return !input; }
+  static void SetToNull(::autofill::mojom::PasswordSuggestionRequestPtr* output) { output->reset(); }
+
+  static const decltype(::autofill::mojom::PasswordSuggestionRequest::element_id)& element_id(
+      const ::autofill::mojom::PasswordSuggestionRequestPtr& input) {
+    return input->element_id;
+  }
+
+  static const decltype(::autofill::mojom::PasswordSuggestionRequest::form_data)& form_data(
+      const ::autofill::mojom::PasswordSuggestionRequestPtr& input) {
+    return input->form_data;
+  }
+
+  static decltype(::autofill::mojom::PasswordSuggestionRequest::trigger_source) trigger_source(
+      const ::autofill::mojom::PasswordSuggestionRequestPtr& input) {
+    return input->trigger_source;
+  }
+
+  static decltype(::autofill::mojom::PasswordSuggestionRequest::username_field_index) username_field_index(
+      const ::autofill::mojom::PasswordSuggestionRequestPtr& input) {
+    return input->username_field_index;
+  }
+
+  static decltype(::autofill::mojom::PasswordSuggestionRequest::password_field_index) password_field_index(
+      const ::autofill::mojom::PasswordSuggestionRequestPtr& input) {
+    return input->password_field_index;
+  }
+
+  static decltype(::autofill::mojom::PasswordSuggestionRequest::text_direction) text_direction(
+      const ::autofill::mojom::PasswordSuggestionRequestPtr& input) {
+    return input->text_direction;
+  }
+
+  static const decltype(::autofill::mojom::PasswordSuggestionRequest::typed_username)& typed_username(
+      const ::autofill::mojom::PasswordSuggestionRequestPtr& input) {
+    return input->typed_username;
+  }
+
+  static decltype(::autofill::mojom::PasswordSuggestionRequest::options) options(
+      const ::autofill::mojom::PasswordSuggestionRequestPtr& input) {
+    return input->options;
+  }
+
+  static const decltype(::autofill::mojom::PasswordSuggestionRequest::bounds)& bounds(
+      const ::autofill::mojom::PasswordSuggestionRequestPtr& input) {
+    return input->bounds;
+  }
+
+  static bool Read(::autofill::mojom::PasswordSuggestionRequest::DataView input, ::autofill::mojom::PasswordSuggestionRequestPtr* output);
 };
 
 

@@ -1,6 +1,7 @@
 #ifndef SRC_TRACE_PROCESSOR_PERFETTO_SQL_INTRINSICS_TABLE_FUNCTIONS_TABLES_PY_H_
 #define SRC_TRACE_PROCESSOR_PERFETTO_SQL_INTRINSICS_TABLE_FUNCTIONS_TABLES_PY_H_
 
+#include "src/trace_processor/db/typed_column.h"
 #include "src/trace_processor/tables/macros_internal.h"
 
 #include "src/trace_processor/tables/counter_tables_py.h"
@@ -3596,6 +3597,429 @@ class DescendantSliceTable : public macros_internal::MacroTable {
   }
   SliceTable* parent_ = nullptr;
   ColumnStorage<ColumnType::start_id::stored_type> start_id_;
+};
+  
+
+class DfsTable : public macros_internal::MacroTable {
+ public:
+  struct Id : public BaseId {
+    Id() = default;
+    explicit constexpr Id(uint32_t v) : BaseId(v) {}
+  };
+  static_assert(std::is_trivially_destructible<Id>::value,
+                "Inheritance used without trivial destruction");
+    
+  struct ColumnIndex {
+    static constexpr uint32_t id = 0;
+    static constexpr uint32_t type = 1;
+    static constexpr uint32_t node_id = 2;
+    static constexpr uint32_t parent_node_id = 3;
+    static constexpr uint32_t in_source_node_ids = 4;
+    static constexpr uint32_t in_dest_node_ids = 5;
+    static constexpr uint32_t in_start_node_id = 6;
+  };
+  struct ColumnType {
+    using id = IdColumn<DfsTable::Id>;
+    using type = TypedColumn<StringPool::Id>;
+    using node_id = TypedColumn<uint32_t>;
+    using parent_node_id = TypedColumn<std::optional<uint32_t>>;
+    using in_source_node_ids = TypedColumn<std::optional<StringPool::Id>>;
+    using in_dest_node_ids = TypedColumn<std::optional<StringPool::Id>>;
+    using in_start_node_id = TypedColumn<std::optional<uint32_t>>;
+  };
+  struct Row : public macros_internal::RootParentTable::Row {
+    Row(uint32_t in_node_id = {},
+        std::optional<uint32_t> in_parent_node_id = {},
+        std::optional<StringPool::Id> in_in_source_node_ids = {},
+        std::optional<StringPool::Id> in_in_dest_node_ids = {},
+        std::optional<uint32_t> in_in_start_node_id = {},
+        std::nullptr_t = nullptr)
+        : macros_internal::RootParentTable::Row(),
+          node_id(std::move(in_node_id)),
+          parent_node_id(std::move(in_parent_node_id)),
+          in_source_node_ids(std::move(in_in_source_node_ids)),
+          in_dest_node_ids(std::move(in_in_dest_node_ids)),
+          in_start_node_id(std::move(in_in_start_node_id)) {
+      type_ = "__intrinsic_dfs";
+    }
+    uint32_t node_id;
+    std::optional<uint32_t> parent_node_id;
+    std::optional<StringPool::Id> in_source_node_ids;
+    std::optional<StringPool::Id> in_dest_node_ids;
+    std::optional<uint32_t> in_start_node_id;
+
+    bool operator==(const DfsTable::Row& other) const {
+      return type() == other.type() && ColumnType::node_id::Equals(node_id, other.node_id) &&
+       ColumnType::parent_node_id::Equals(parent_node_id, other.parent_node_id) &&
+       ColumnType::in_source_node_ids::Equals(in_source_node_ids, other.in_source_node_ids) &&
+       ColumnType::in_dest_node_ids::Equals(in_dest_node_ids, other.in_dest_node_ids) &&
+       ColumnType::in_start_node_id::Equals(in_start_node_id, other.in_start_node_id);
+    }
+  };
+  struct ColumnFlag {
+    static constexpr uint32_t node_id = ColumnType::node_id::default_flags();
+    static constexpr uint32_t parent_node_id = ColumnType::parent_node_id::default_flags();
+    static constexpr uint32_t in_source_node_ids = static_cast<uint32_t>(ColumnLegacy::Flag::kHidden) | ColumnType::in_source_node_ids::default_flags();
+    static constexpr uint32_t in_dest_node_ids = static_cast<uint32_t>(ColumnLegacy::Flag::kHidden) | ColumnType::in_dest_node_ids::default_flags();
+    static constexpr uint32_t in_start_node_id = static_cast<uint32_t>(ColumnLegacy::Flag::kHidden) | ColumnType::in_start_node_id::default_flags();
+  };
+
+  class RowNumber;
+  class ConstRowReference;
+  class RowReference;
+
+  class RowNumber : public macros_internal::AbstractRowNumber<
+      DfsTable, ConstRowReference, RowReference> {
+   public:
+    explicit RowNumber(uint32_t row_number)
+        : AbstractRowNumber(row_number) {}
+  };
+  static_assert(std::is_trivially_destructible<RowNumber>::value,
+                "Inheritance used without trivial destruction");
+
+  class ConstRowReference : public macros_internal::AbstractConstRowReference<
+    DfsTable, RowNumber> {
+   public:
+    ConstRowReference(const DfsTable* table, uint32_t row_number)
+        : AbstractConstRowReference(table, row_number) {}
+
+    ColumnType::id::type id() const {
+      return table_->id()[row_number_];
+    }
+    ColumnType::type::type type() const {
+      return table_->type()[row_number_];
+    }
+    ColumnType::node_id::type node_id() const {
+      return table_->node_id()[row_number_];
+    }
+    ColumnType::parent_node_id::type parent_node_id() const {
+      return table_->parent_node_id()[row_number_];
+    }
+    ColumnType::in_source_node_ids::type in_source_node_ids() const {
+      return table_->in_source_node_ids()[row_number_];
+    }
+    ColumnType::in_dest_node_ids::type in_dest_node_ids() const {
+      return table_->in_dest_node_ids()[row_number_];
+    }
+    ColumnType::in_start_node_id::type in_start_node_id() const {
+      return table_->in_start_node_id()[row_number_];
+    }
+  };
+  static_assert(std::is_trivially_destructible<ConstRowReference>::value,
+                "Inheritance used without trivial destruction");
+  class RowReference : public ConstRowReference {
+   public:
+    RowReference(const DfsTable* table, uint32_t row_number)
+        : ConstRowReference(table, row_number) {}
+
+    void set_node_id(
+        ColumnType::node_id::non_optional_type v) {
+      return mutable_table()->mutable_node_id()->Set(row_number_, v);
+    }
+    void set_parent_node_id(
+        ColumnType::parent_node_id::non_optional_type v) {
+      return mutable_table()->mutable_parent_node_id()->Set(row_number_, v);
+    }
+    void set_in_source_node_ids(
+        ColumnType::in_source_node_ids::non_optional_type v) {
+      return mutable_table()->mutable_in_source_node_ids()->Set(row_number_, v);
+    }
+    void set_in_dest_node_ids(
+        ColumnType::in_dest_node_ids::non_optional_type v) {
+      return mutable_table()->mutable_in_dest_node_ids()->Set(row_number_, v);
+    }
+    void set_in_start_node_id(
+        ColumnType::in_start_node_id::non_optional_type v) {
+      return mutable_table()->mutable_in_start_node_id()->Set(row_number_, v);
+    }
+
+   private:
+    DfsTable* mutable_table() const {
+      return const_cast<DfsTable*>(table_);
+    }
+  };
+  static_assert(std::is_trivially_destructible<RowReference>::value,
+                "Inheritance used without trivial destruction");
+
+  class ConstIterator;
+  class ConstIterator : public macros_internal::AbstractConstIterator<
+    ConstIterator, DfsTable, RowNumber, ConstRowReference> {
+   public:
+    ColumnType::id::type id() const {
+      const auto& col = table_->id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::type::type type() const {
+      const auto& col = table_->type();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::node_id::type node_id() const {
+      const auto& col = table_->node_id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::parent_node_id::type parent_node_id() const {
+      const auto& col = table_->parent_node_id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::in_source_node_ids::type in_source_node_ids() const {
+      const auto& col = table_->in_source_node_ids();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::in_dest_node_ids::type in_dest_node_ids() const {
+      const auto& col = table_->in_dest_node_ids();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::in_start_node_id::type in_start_node_id() const {
+      const auto& col = table_->in_start_node_id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+
+   protected:
+    explicit ConstIterator(const DfsTable* table,
+                           std::vector<ColumnStorageOverlay> overlays)
+        : AbstractConstIterator(table, std::move(overlays)) {}
+
+    uint32_t CurrentRowNumber() const {
+      return its_.back().index();
+    }
+
+   private:
+    friend class DfsTable;
+    friend class macros_internal::AbstractConstIterator<
+      ConstIterator, DfsTable, RowNumber, ConstRowReference>;
+  };
+  class Iterator : public ConstIterator {
+    public:
+    void set_node_id(ColumnType::node_id::non_optional_type v) {
+        auto* col = mutable_table_->mutable_node_id();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_parent_node_id(ColumnType::parent_node_id::non_optional_type v) {
+        auto* col = mutable_table_->mutable_parent_node_id();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_in_source_node_ids(ColumnType::in_source_node_ids::non_optional_type v) {
+        auto* col = mutable_table_->mutable_in_source_node_ids();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_in_dest_node_ids(ColumnType::in_dest_node_ids::non_optional_type v) {
+        auto* col = mutable_table_->mutable_in_dest_node_ids();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_in_start_node_id(ColumnType::in_start_node_id::non_optional_type v) {
+        auto* col = mutable_table_->mutable_in_start_node_id();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+
+    RowReference row_reference() const {
+      return RowReference(mutable_table_, CurrentRowNumber());
+    }
+
+    private:
+    friend class DfsTable;
+
+    explicit Iterator(DfsTable* table,
+                      std::vector<ColumnStorageOverlay> overlays)
+        : ConstIterator(table, std::move(overlays)),
+          mutable_table_(table) {}
+
+    DfsTable* mutable_table_ = nullptr;
+  };
+
+  struct IdAndRow {
+    Id id;
+    uint32_t row;
+    RowReference row_reference;
+    RowNumber row_number;
+  };
+
+  explicit DfsTable(StringPool* pool)
+      : macros_internal::MacroTable(pool, nullptr),
+        node_id_(ColumnStorage<ColumnType::node_id::stored_type>::Create<false>()),
+        parent_node_id_(ColumnStorage<ColumnType::parent_node_id::stored_type>::Create<false>()),
+        in_source_node_ids_(ColumnStorage<ColumnType::in_source_node_ids::stored_type>::Create<false>()),
+        in_dest_node_ids_(ColumnStorage<ColumnType::in_dest_node_ids::stored_type>::Create<false>()),
+        in_start_node_id_(ColumnStorage<ColumnType::in_start_node_id::stored_type>::Create<false>()) {
+    static_assert(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::node_id::stored_type>(
+          ColumnFlag::node_id),
+        "Column type and flag combination is not valid");
+      static_assert(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::parent_node_id::stored_type>(
+          ColumnFlag::parent_node_id),
+        "Column type and flag combination is not valid");
+      static_assert(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::in_source_node_ids::stored_type>(
+          ColumnFlag::in_source_node_ids),
+        "Column type and flag combination is not valid");
+      static_assert(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::in_dest_node_ids::stored_type>(
+          ColumnFlag::in_dest_node_ids),
+        "Column type and flag combination is not valid");
+      static_assert(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::in_start_node_id::stored_type>(
+          ColumnFlag::in_start_node_id),
+        "Column type and flag combination is not valid");
+    uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
+    columns_.emplace_back("node_id", &node_id_, ColumnFlag::node_id,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("parent_node_id", &parent_node_id_, ColumnFlag::parent_node_id,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("in_source_node_ids", &in_source_node_ids_, ColumnFlag::in_source_node_ids,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("in_dest_node_ids", &in_dest_node_ids_, ColumnFlag::in_dest_node_ids,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("in_start_node_id", &in_start_node_id_, ColumnFlag::in_start_node_id,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+  }
+  ~DfsTable() override;
+
+  static const char* Name() { return "__intrinsic_dfs"; }
+
+  static Table::Schema ComputeStaticSchema() {
+    Table::Schema schema;
+    schema.columns.emplace_back(Table::Schema::Column{
+        "id", SqlValue::Type::kLong, true, true, false, false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "type", SqlValue::Type::kString, false, false, false, false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "node_id", ColumnType::node_id::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "parent_node_id", ColumnType::parent_node_id::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "in_source_node_ids", ColumnType::in_source_node_ids::SqlValueType(), false,
+        false,
+        true,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "in_dest_node_ids", ColumnType::in_dest_node_ids::SqlValueType(), false,
+        false,
+        true,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "in_start_node_id", ColumnType::in_start_node_id::SqlValueType(), false,
+        false,
+        true,
+        false});
+    return schema;
+  }
+
+  ConstIterator IterateRows() const {
+    return ConstIterator(this, CopyOverlays());
+  }
+
+  Iterator IterateRows() { return Iterator(this, CopyOverlays()); }
+
+  ConstIterator FilterToIterator(
+      const std::vector<Constraint>& cs,
+      RowMap::OptimizeFor opt = RowMap::OptimizeFor::kMemory) const {
+    return ConstIterator(this, FilterAndApplyToOverlays(cs, opt));
+  }
+
+  Iterator FilterToIterator(
+      const std::vector<Constraint>& cs,
+      RowMap::OptimizeFor opt = RowMap::OptimizeFor::kMemory) {
+    return Iterator(this, FilterAndApplyToOverlays(cs, opt));
+  }
+
+  void ShrinkToFit() {
+    type_.ShrinkToFit();
+    node_id_.ShrinkToFit();
+    parent_node_id_.ShrinkToFit();
+    in_source_node_ids_.ShrinkToFit();
+    in_dest_node_ids_.ShrinkToFit();
+    in_start_node_id_.ShrinkToFit();
+  }
+
+  std::optional<ConstRowReference> FindById(Id find_id) const {
+    std::optional<uint32_t> row = id().IndexOf(find_id);
+    return row ? std::make_optional(ConstRowReference(this, *row))
+               : std::nullopt;
+  }
+
+  std::optional<RowReference> FindById(Id find_id) {
+    std::optional<uint32_t> row = id().IndexOf(find_id);
+    return row ? std::make_optional(RowReference(this, *row)) : std::nullopt;
+  }
+
+  IdAndRow Insert(const Row& row) {
+    uint32_t row_number = row_count();
+    Id id = Id{row_number};
+    type_.Append(string_pool_->InternString(row.type()));
+    mutable_node_id()->Append(std::move(row.node_id));
+    mutable_parent_node_id()->Append(std::move(row.parent_node_id));
+    mutable_in_source_node_ids()->Append(std::move(row.in_source_node_ids));
+    mutable_in_dest_node_ids()->Append(std::move(row.in_dest_node_ids));
+    mutable_in_start_node_id()->Append(std::move(row.in_start_node_id));
+    UpdateSelfOverlayAfterInsert();
+    return IdAndRow{std::move(id), row_number, RowReference(this, row_number),
+                     RowNumber(row_number)};
+  }
+
+  
+
+  const IdColumn<DfsTable::Id>& id() const {
+    return static_cast<const ColumnType::id&>(columns_[ColumnIndex::id]);
+  }
+  const TypedColumn<StringPool::Id>& type() const {
+    return static_cast<const ColumnType::type&>(columns_[ColumnIndex::type]);
+  }
+  const TypedColumn<uint32_t>& node_id() const {
+    return static_cast<const ColumnType::node_id&>(columns_[ColumnIndex::node_id]);
+  }
+  const TypedColumn<std::optional<uint32_t>>& parent_node_id() const {
+    return static_cast<const ColumnType::parent_node_id&>(columns_[ColumnIndex::parent_node_id]);
+  }
+  const TypedColumn<std::optional<StringPool::Id>>& in_source_node_ids() const {
+    return static_cast<const ColumnType::in_source_node_ids&>(columns_[ColumnIndex::in_source_node_ids]);
+  }
+  const TypedColumn<std::optional<StringPool::Id>>& in_dest_node_ids() const {
+    return static_cast<const ColumnType::in_dest_node_ids&>(columns_[ColumnIndex::in_dest_node_ids]);
+  }
+  const TypedColumn<std::optional<uint32_t>>& in_start_node_id() const {
+    return static_cast<const ColumnType::in_start_node_id&>(columns_[ColumnIndex::in_start_node_id]);
+  }
+
+  TypedColumn<uint32_t>* mutable_node_id() {
+    return static_cast<ColumnType::node_id*>(
+        &columns_[ColumnIndex::node_id]);
+  }
+  TypedColumn<std::optional<uint32_t>>* mutable_parent_node_id() {
+    return static_cast<ColumnType::parent_node_id*>(
+        &columns_[ColumnIndex::parent_node_id]);
+  }
+  TypedColumn<std::optional<StringPool::Id>>* mutable_in_source_node_ids() {
+    return static_cast<ColumnType::in_source_node_ids*>(
+        &columns_[ColumnIndex::in_source_node_ids]);
+  }
+  TypedColumn<std::optional<StringPool::Id>>* mutable_in_dest_node_ids() {
+    return static_cast<ColumnType::in_dest_node_ids*>(
+        &columns_[ColumnIndex::in_dest_node_ids]);
+  }
+  TypedColumn<std::optional<uint32_t>>* mutable_in_start_node_id() {
+    return static_cast<ColumnType::in_start_node_id*>(
+        &columns_[ColumnIndex::in_start_node_id]);
+  }
+
+ private:
+  
+  
+  ColumnStorage<ColumnType::node_id::stored_type> node_id_;
+  ColumnStorage<ColumnType::parent_node_id::stored_type> parent_node_id_;
+  ColumnStorage<ColumnType::in_source_node_ids::stored_type> in_source_node_ids_;
+  ColumnStorage<ColumnType::in_dest_node_ids::stored_type> in_dest_node_ids_;
+  ColumnStorage<ColumnType::in_start_node_id::stored_type> in_start_node_id_;
 };
   
 

@@ -1,7 +1,7 @@
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/icons.html.js';
+import 'chrome://resources/ash/common/cr_elements/icons.html.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import './data_point.js';
 import './diagnostics_card.js';
@@ -11,7 +11,7 @@ import './percent_bar_chart.js';
 import './routine_section.js';
 import './strings.m.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { convertKibToGibDecimalString, convertKibToMib } from './diagnostics_utils.js';
 import { getTemplate } from './memory_card.html.js';

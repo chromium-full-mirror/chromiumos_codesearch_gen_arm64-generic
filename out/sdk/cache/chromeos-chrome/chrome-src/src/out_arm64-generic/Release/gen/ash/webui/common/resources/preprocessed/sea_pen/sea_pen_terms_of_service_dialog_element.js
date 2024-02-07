@@ -5,8 +5,8 @@
  * @fileoverview Displays a dialog asking the user to review the Sea Pen
  * wallpaper terms before accessing Sea Pen feature.
  */
-import 'chrome://resources/cr_elements/cr_auto_img/cr_auto_img.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import 'chrome://resources/ash/common/cr_elements/cr_auto_img/cr_auto_img.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './sea_pen_terms_of_service_dialog_element.html.js';
 export class SeaPenTermsAcceptEvent extends CustomEvent {

@@ -26,7 +26,7 @@
 #include "components/history/core/browser/mojom/history_types.mojom-features.h"
 #include "components/history/core/browser/mojom/history_types.mojom-shared.h"
 #include "components/history/core/browser/mojom/history_types.mojom-forward.h"
-#include "mojo/public/mojom/base/time.mojom-forward.h"
+#include "mojo/public/mojom/base/time.mojom.h"
 #include "url/mojom/url.mojom.h"
 #include <string>
 #include <vector>
@@ -78,7 +78,8 @@ class  Tab {
       const std::string& session_name,
       const ::GURL& url,
       const std::string& title,
-      const std::string& relative_time);
+      ::base::TimeDelta relative_time,
+      const std::string& relative_time_text);
 
 
   ~Tab();
@@ -164,7 +165,9 @@ class  Tab {
   
   std::string title;
   
-  std::string relative_time;
+  ::base::TimeDelta relative_time;
+  
+  std::string relative_time_text;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -202,7 +205,8 @@ TabPtr Tab::Clone() const {
       mojo::Clone(session_name),
       mojo::Clone(url),
       mojo::Clone(title),
-      mojo::Clone(relative_time)
+      mojo::Clone(relative_time),
+      mojo::Clone(relative_time_text)
   );
 }
 
@@ -217,6 +221,8 @@ bool Tab::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->title, other_struct.title))
     return false;
   if (!mojo::Equals(this->relative_time, other_struct.relative_time))
+    return false;
+  if (!mojo::Equals(this->relative_time_text, other_struct.relative_time_text))
     return false;
   return true;
 }
@@ -242,6 +248,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.relative_time < rhs.relative_time)
     return true;
   if (rhs.relative_time < lhs.relative_time)
+    return false;
+  if (lhs.relative_time_text < rhs.relative_time_text)
+    return true;
+  if (rhs.relative_time_text < lhs.relative_time_text)
     return false;
   return false;
 }
@@ -281,6 +291,11 @@ struct  StructTraits<::history::mojom::Tab::DataView,
   static const decltype(::history::mojom::Tab::relative_time)& relative_time(
       const ::history::mojom::TabPtr& input) {
     return input->relative_time;
+  }
+
+  static const decltype(::history::mojom::Tab::relative_time_text)& relative_time_text(
+      const ::history::mojom::TabPtr& input) {
+    return input->relative_time_text;
   }
 
   static bool Read(::history::mojom::Tab::DataView input, ::history::mojom::TabPtr* output);

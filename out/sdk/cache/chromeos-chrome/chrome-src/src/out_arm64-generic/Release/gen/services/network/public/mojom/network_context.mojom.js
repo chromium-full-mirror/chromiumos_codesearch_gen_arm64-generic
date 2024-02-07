@@ -3637,7 +3637,7 @@
 
 
     // validate IpProtectionConfigGetter_GetProxyList_ResponseParams.proxyList
-    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.ArrayOf(codec.String), true, [0, 0, 0], 0);
+    err = messageValidator.validateArrayPointer(offset + codec.kStructHeaderSize + 0, 8, new codec.PointerTo(network_param$.ProxyChain), true, [0], 0);
     if (err !== validator.validationError.NONE)
         return err;
 
@@ -3652,7 +3652,7 @@
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.proxyList =
-        decoder.decodeArrayPointer(new codec.ArrayOf(codec.String));
+        decoder.decodeArrayPointer(new codec.PointerTo(network_param$.ProxyChain));
     return val;
   };
 
@@ -3660,7 +3660,7 @@
     var packed;
     encoder.writeUint32(IpProtectionConfigGetter_GetProxyList_ResponseParams.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeArrayPointer(new codec.ArrayOf(codec.String), val.proxyList);
+    encoder.encodeArrayPointer(new codec.PointerTo(network_param$.ProxyChain), val.proxyList);
   };
   function IpProtectionProxyDelegate_VerifyIpProtectionConfigGetterForTesting_Params(values) {
     this.initDefaults_();

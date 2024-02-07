@@ -123,14 +123,8 @@ export function getTemplate() {
       </site-details-permission>
       <site-details-permission category="[[contentSettingsTypesEnum_.AUTOMATIC_DOWNLOADS]]" icon="cr:file-download" label="$i18n{siteSettingsAutomaticDownloads}">
       </site-details-permission>
-      <template is="dom-if" if="[[!blockMidiByDefault_]]">
-        <site-details-permission category="[[contentSettingsTypesEnum_.MIDI_DEVICES]]" icon="settings:midi" label="$i18n{siteSettingsMidiDevices}">
-        </site-details-permission>
-      </template>
-      <template is="dom-if" if="[[blockMidiByDefault_]]">
-        <site-details-permission category="[[contentSettingsTypesEnum_.MIDI]]" icon="settings:midi" label="$i18n{siteSettingsMidiDevices}">
-        </site-details-permission>
-      </template>
+      <site-details-permission category="[[contentSettingsTypesEnum_.MIDI_DEVICES]]" icon="settings:midi" label="$i18n{siteSettingsMidiDevices}">
+      </site-details-permission>
       <site-details-permission category="[[contentSettingsTypesEnum_.USB_DEVICES]]" icon="settings:usb" label="$i18n{siteSettingsUsbDevices}" chooser-type="[[chooserTypeEnum_.USB_DEVICES]]">
       </site-details-permission>
       <site-details-permission category="[[contentSettingsTypesEnum_.SERIAL_PORTS]]" icon="settings:serial-port" label="$i18n{siteSettingsSerialPorts}" chooser-type="[[chooserTypeEnum_.SERIAL_PORTS]]">

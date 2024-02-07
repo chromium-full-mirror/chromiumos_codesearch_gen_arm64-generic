@@ -2163,7 +2163,7 @@ Value<std::tuple<uintptr_t, intptr_t, intptr_t>> TqDebugFieldSliceInternalClassW
 #ifndef V8_INTERNAL_DEFINED_TqDebugFieldSliceWasmTypeInfoSupertypes
 #define V8_INTERNAL_DEFINED_TqDebugFieldSliceWasmTypeInfoSupertypes
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=224&c=3
 Value<std::tuple<uintptr_t, intptr_t, intptr_t>> TqDebugFieldSliceWasmTypeInfoSupertypes(d::MemoryAccessor accessor, uintptr_t p_o) {
   intptr_t tmp0{}; USE(tmp0);
   uintptr_t tmp1{}; USE(tmp1);

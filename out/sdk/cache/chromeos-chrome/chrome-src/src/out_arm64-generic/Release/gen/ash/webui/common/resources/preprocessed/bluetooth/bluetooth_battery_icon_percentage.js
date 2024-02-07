@@ -7,11 +7,11 @@
  * corresponding battery percentage string for a given device and battery
  * type.
  */
-import '//resources/cr_elements/cr_shared_style.css.js';
+import '//resources/ash/common/cr_elements/cr_shared_style.css.js';
 import './bluetooth_icons.html.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { getTemplate } from './bluetooth_battery_icon_percentage.html.js';
 import { BatteryType } from './bluetooth_types.js';
 import { getBatteryPercentage } from './bluetooth_utils.js';

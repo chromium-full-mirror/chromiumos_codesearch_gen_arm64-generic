@@ -2470,36 +2470,15 @@ void PasswordManagerDriverProxy::UserModifiedNonPasswordField(
 }
 
 void PasswordManagerDriverProxy::ShowPasswordSuggestions(
-    ::autofill::FieldRendererId in_element_id, const ::autofill::FormData& in_form, uint64_t in_username_field_index, uint64_t in_password_field_index, ::base::i18n::TextDirection in_text_direction, const ::std::u16string& in_typed_username, int32_t in_options, const ::gfx::RectF& in_bounds) {
+    const ::autofill::PasswordSuggestionRequest& in_request) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send autofill::mojom::PasswordManagerDriver::ShowPasswordSuggestions", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("element_id"), in_element_id,
-                        "<value of type ::autofill::FieldRendererId>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("form"), in_form,
-                        "<value of type const ::autofill::FormData&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("username_field_index"), in_username_field_index,
-                        "<value of type uint64_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("password_field_index"), in_password_field_index,
-                        "<value of type uint64_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("text_direction"), in_text_direction,
-                        "<value of type ::base::i18n::TextDirection>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("typed_username"), in_typed_username,
-                        "<value of type const ::std::u16string&>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("options"), in_options,
-                        "<value of type int32_t>");
-      perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("bounds"), in_bounds,
-                        "<value of type const ::gfx::RectF&>");
+           dict.AddItem("request"), in_request,
+                        "<value of type const ::autofill::PasswordSuggestionRequest&>");
    });
 #endif
 
@@ -2521,54 +2500,16 @@ void PasswordManagerDriverProxy::ShowPasswordSuggestions(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
-      typename decltype(params->element_id)::BaseType> element_id_fragment(
+      typename decltype(params->request)::BaseType> request_fragment(
           params.message());
-  mojo::internal::Serialize<::autofill::mojom::FieldRendererIdDataView>(
-      in_element_id, element_id_fragment);
-  params->element_id.Set(
-      element_id_fragment.is_null() ? nullptr : element_id_fragment.data());
+  mojo::internal::Serialize<::autofill::mojom::PasswordSuggestionRequestDataView>(
+      in_request, request_fragment);
+  params->request.Set(
+      request_fragment.is_null() ? nullptr : request_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->element_id.is_null(),
+      params->request.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null element_id in PasswordManagerDriver.ShowPasswordSuggestions request");
-  mojo::internal::MessageFragment<
-      typename decltype(params->form)::BaseType> form_fragment(
-          params.message());
-  mojo::internal::Serialize<::autofill::mojom::FormDataDataView>(
-      in_form, form_fragment);
-  params->form.Set(
-      form_fragment.is_null() ? nullptr : form_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->form.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null form in PasswordManagerDriver.ShowPasswordSuggestions request");
-  params->username_field_index = in_username_field_index;
-  params->password_field_index = in_password_field_index;
-  mojo::internal::Serialize<::mojo_base::mojom::TextDirection>(
-      in_text_direction, &params->text_direction);
-  mojo::internal::MessageFragment<
-      typename decltype(params->typed_username)::BaseType> typed_username_fragment(
-          params.message());
-  mojo::internal::Serialize<::mojo_base::mojom::String16DataView>(
-      in_typed_username, typed_username_fragment);
-  params->typed_username.Set(
-      typed_username_fragment.is_null() ? nullptr : typed_username_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->typed_username.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null typed_username in PasswordManagerDriver.ShowPasswordSuggestions request");
-  params->options = in_options;
-  mojo::internal::MessageFragment<
-      typename decltype(params->bounds)::BaseType> bounds_fragment(
-          params.message());
-  mojo::internal::Serialize<::gfx::mojom::RectFDataView>(
-      in_bounds, bounds_fragment);
-  params->bounds.Set(
-      bounds_fragment.is_null() ? nullptr : bounds_fragment.data());
-  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->bounds.is_null(),
-      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null bounds in PasswordManagerDriver.ShowPasswordSuggestions request");
+      "null request in PasswordManagerDriver.ShowPasswordSuggestions request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(PasswordManagerDriver::Name_);
@@ -3030,31 +2971,10 @@ bool PasswordManagerDriverStubDispatch::Accept(
       
       // Validation for PasswordManagerDriver.9
       bool success = true;
-      ::autofill::FieldRendererId p_element_id{};
-      ::autofill::FormData p_form{};
-      uint64_t p_username_field_index{};
-      uint64_t p_password_field_index{};
-      ::base::i18n::TextDirection p_text_direction{};
-      ::std::u16string p_typed_username{};
-      int32_t p_options{};
-      ::gfx::RectF p_bounds{};
+      ::autofill::PasswordSuggestionRequest p_request{};
       PasswordManagerDriver_ShowPasswordSuggestions_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadElementId(&p_element_id))
-        success = false;
-      if (success && !input_data_view.ReadForm(&p_form))
-        success = false;
-      if (success)
-        p_username_field_index = input_data_view.username_field_index();
-      if (success)
-        p_password_field_index = input_data_view.password_field_index();
-      if (success && !input_data_view.ReadTextDirection(&p_text_direction))
-        success = false;
-      if (success && !input_data_view.ReadTypedUsername(&p_typed_username))
-        success = false;
-      if (success)
-        p_options = input_data_view.options();
-      if (success && !input_data_view.ReadBounds(&p_bounds))
+      if (success && !input_data_view.ReadRequest(&p_request))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -3066,14 +2986,7 @@ bool PasswordManagerDriverStubDispatch::Accept(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->ShowPasswordSuggestions(        
-        std::move(p_element_id), 
-        std::move(p_form), 
-        std::move(p_username_field_index), 
-        std::move(p_password_field_index), 
-        std::move(p_text_direction), 
-        std::move(p_typed_username), 
-        std::move(p_options), 
-        std::move(p_bounds));
+        std::move(p_request));
       return true;
     }
     case internal::kPasswordManagerDriver_CheckSafeBrowsingReputation_Name: {
@@ -4158,8 +4071,8 @@ void PasswordManagerDriverInterceptorForTesting::UserModifiedPasswordField() {
 void PasswordManagerDriverInterceptorForTesting::UserModifiedNonPasswordField(::autofill::FieldRendererId renderer_id, const ::std::u16string& value, bool autocomplete_attribute_has_username, bool is_likely_otp) {
   GetForwardingInterface()->UserModifiedNonPasswordField(std::move(renderer_id), std::move(value), std::move(autocomplete_attribute_has_username), std::move(is_likely_otp));
 }
-void PasswordManagerDriverInterceptorForTesting::ShowPasswordSuggestions(::autofill::FieldRendererId element_id, const ::autofill::FormData& form, uint64_t username_field_index, uint64_t password_field_index, ::base::i18n::TextDirection text_direction, const ::std::u16string& typed_username, int32_t options, const ::gfx::RectF& bounds) {
-  GetForwardingInterface()->ShowPasswordSuggestions(std::move(element_id), std::move(form), std::move(username_field_index), std::move(password_field_index), std::move(text_direction), std::move(typed_username), std::move(options), std::move(bounds));
+void PasswordManagerDriverInterceptorForTesting::ShowPasswordSuggestions(const ::autofill::PasswordSuggestionRequest& request) {
+  GetForwardingInterface()->ShowPasswordSuggestions(std::move(request));
 }
 void PasswordManagerDriverInterceptorForTesting::CheckSafeBrowsingReputation(const ::GURL& form_action, const ::GURL& frame_url) {
   GetForwardingInterface()->CheckSafeBrowsingReputation(std::move(form_action), std::move(frame_url));

@@ -720,6 +720,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
     bool is_web_app_tab_strip_customizations_enabled_;
     bool is_web_app_translations_enabled_;
     bool is_web_app_url_handling_enabled_;
+    bool is_web_assembly_js_promise_integration_enabled_;
     bool is_web_assembly_js_string_builtins_enabled_;
     bool is_web_auth_enabled_;
     bool is_web_auth_allow_create_in_cross_origin_frame_enabled_;
@@ -4466,14 +4467,6 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
 
   static bool WebHIDOnServiceWorkersEnabled(const FeatureContext*) { return WebHIDOnServiceWorkersEnabled(); }
 
-  static bool WebIdentityDigitalCredentialsEnabled() {
-    if (!FedCmEnabled())
-      return false;
-    return is_web_identity_digital_credentials_enabled_;
-  }
-
-  static bool WebIdentityDigitalCredentialsEnabled(const FeatureContext*) { return WebIdentityDigitalCredentialsEnabled(); }
-
   static bool WebIDLBigIntUsesToBigIntEnabled() {
     return is_web_idl_big_int_uses_to_big_int_enabled_;
   }
@@ -4976,8 +4969,14 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool WebAppUrlHandlingEnabledByRuntimeFlag() { return WebAppUrlHandlingEnabled(nullptr); }
   static bool WebAppUrlHandlingEnabled(const FeatureContext*);
 
+  static bool WebAssemblyJSPromiseIntegrationEnabledByRuntimeFlag() { return WebAssemblyJSPromiseIntegrationEnabled(nullptr); }
+  static bool WebAssemblyJSPromiseIntegrationEnabled(const FeatureContext*);
+
   static bool WebAssemblyJSStringBuiltinsEnabledByRuntimeFlag() { return WebAssemblyJSStringBuiltinsEnabled(nullptr); }
   static bool WebAssemblyJSStringBuiltinsEnabled(const FeatureContext*);
+
+  static bool WebIdentityDigitalCredentialsEnabledByRuntimeFlag() { return WebIdentityDigitalCredentialsEnabled(nullptr); }
+  static bool WebIdentityDigitalCredentialsEnabled(const FeatureContext*);
 
   static bool WebTransportCustomCertificatesEnabledByRuntimeFlag() { return WebTransportCustomCertificatesEnabled(nullptr); }
   static bool WebTransportCustomCertificatesEnabled(const FeatureContext*);
@@ -5673,6 +5672,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static void SetWebAppTabStripCustomizationsEnabled(bool enabled) { is_web_app_tab_strip_customizations_enabled_ = enabled; }
   static void SetWebAppTranslationsEnabled(bool enabled) { is_web_app_translations_enabled_ = enabled; }
   static void SetWebAppUrlHandlingEnabled(bool enabled) { is_web_app_url_handling_enabled_ = enabled; }
+  static void SetWebAssemblyJSPromiseIntegrationEnabled(bool enabled) { is_web_assembly_js_promise_integration_enabled_ = enabled; }
   static void SetWebAssemblyJSStringBuiltinsEnabled(bool enabled) { is_web_assembly_js_string_builtins_enabled_ = enabled; }
   static void SetWebAuthEnabled(bool enabled) { is_web_auth_enabled_ = enabled; }
   static void SetWebAuthAllowCreateInCrossOriginFrameEnabled(bool enabled) { is_web_auth_allow_create_in_cross_origin_frame_enabled_ = enabled; }
@@ -6408,6 +6408,7 @@ class PLATFORM_EXPORT RuntimeEnabledFeaturesBase {
   static bool is_web_app_tab_strip_customizations_enabled_;
   static bool is_web_app_translations_enabled_;
   static bool is_web_app_url_handling_enabled_;
+  static bool is_web_assembly_js_promise_integration_enabled_;
   static bool is_web_assembly_js_string_builtins_enabled_;
   static bool is_web_auth_enabled_;
   static bool is_web_auth_allow_create_in_cross_origin_frame_enabled_;

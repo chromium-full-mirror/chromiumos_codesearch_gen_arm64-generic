@@ -473,20 +473,10 @@ export function getTemplate() {
           <div class="content-settings-header secondary">
             $i18n{siteSettingsMidiDescription}
           </div>
-          <template is="dom-if" if="[[!blockMidiByDefault_]]" no-search>
-            
-            <settings-category-default-radio-group category="[[contentSettingsTypesEnum_.MIDI_DEVICES]]" allow-option-label="$i18n{siteSettingsMidiAllowed}" allow-option-icon="settings:midi" block-option-label="$i18n{siteSettingsMidiBlocked}" block-option-icon="settings:midi-off">
-            </settings-category-default-radio-group>
-            <category-setting-exceptions category="[[contentSettingsTypesEnum_.MIDI_DEVICES]]" read-only-list allow-header="$i18n{siteSettingsMidiAllowedExceptions}" block-header="$i18n{siteSettingsMidiBlockedExceptions}" search-filter="[[searchFilter_]]">
-            </category-setting-exceptions>
-          </template>
-          <template is="dom-if" if="[[blockMidiByDefault_]]" no-search>
-            
-            <settings-category-default-radio-group category="[[contentSettingsTypesEnum_.MIDI]]" allow-option-label="$i18n{siteSettingsMidiAllowed}" allow-option-icon="settings:midi" block-option-label="$i18n{siteSettingsMidiBlocked}" block-option-icon="settings:midi-off">
-            </settings-category-default-radio-group>
-            <category-setting-exceptions category="[[contentSettingsTypesEnum_.MIDI]]" read-only-list allow-header="$i18n{siteSettingsMidiAllowedExceptions}" block-header="$i18n{siteSettingsMidiBlockedExceptions}" search-filter="[[searchFilter_]]">
-            </category-setting-exceptions>
-          </template>
+          <settings-category-default-radio-group category="[[contentSettingsTypesEnum_.MIDI_DEVICES]]" allow-option-label="$i18n{siteSettingsMidiAllowed}" allow-option-icon="settings:midi" block-option-label="$i18n{siteSettingsMidiBlocked}" block-option-icon="settings:midi-off">
+          </settings-category-default-radio-group>
+          <category-setting-exceptions category="[[contentSettingsTypesEnum_.MIDI_DEVICES]]" read-only-list allow-header="$i18n{siteSettingsMidiAllowedExceptions}" block-header="$i18n{siteSettingsMidiBlockedExceptions}" search-filter="[[searchFilter_]]">
+          </category-setting-exceptions>
         </settings-subpage>
       </template>
       <template is="dom-if" route-path="/content/usbDevices" no-search>

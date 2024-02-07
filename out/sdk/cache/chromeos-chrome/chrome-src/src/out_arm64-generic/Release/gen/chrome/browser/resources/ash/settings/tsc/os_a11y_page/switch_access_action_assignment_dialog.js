@@ -7,10 +7,10 @@
  * Note that command and action are used interchangeably with command used
  * internally and action used for user-facing UI.
  */
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
-import 'chrome://resources/cr_elements/cr_shared_style.css.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_style.css.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { assertNotReached } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './switch_access_action_assignment_dialog.html.js';

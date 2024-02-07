@@ -1,6 +1,7 @@
 #ifndef SRC_TRACE_PROCESSOR_TABLES_WINSCOPE_TABLES_PY_H_
 #define SRC_TRACE_PROCESSOR_TABLES_WINSCOPE_TABLES_PY_H_
 
+#include "src/trace_processor/db/typed_column.h"
 #include "src/trace_processor/tables/macros_internal.h"
 
 
@@ -8,6 +9,384 @@
 namespace perfetto {
 namespace trace_processor {
 namespace tables {
+
+class ProtoLogTable : public macros_internal::MacroTable {
+ public:
+  struct Id : public BaseId {
+    Id() = default;
+    explicit constexpr Id(uint32_t v) : BaseId(v) {}
+  };
+  static_assert(std::is_trivially_destructible<Id>::value,
+                "Inheritance used without trivial destruction");
+    
+  struct ColumnIndex {
+    static constexpr uint32_t id = 0;
+    static constexpr uint32_t type = 1;
+    static constexpr uint32_t ts = 2;
+    static constexpr uint32_t level = 3;
+    static constexpr uint32_t tag = 4;
+    static constexpr uint32_t message = 5;
+  };
+  struct ColumnType {
+    using id = IdColumn<ProtoLogTable::Id>;
+    using type = TypedColumn<StringPool::Id>;
+    using ts = TypedColumn<int64_t>;
+    using level = TypedColumn<StringPool::Id>;
+    using tag = TypedColumn<StringPool::Id>;
+    using message = TypedColumn<StringPool::Id>;
+  };
+  struct Row : public macros_internal::RootParentTable::Row {
+    Row(int64_t in_ts = {},
+        StringPool::Id in_level = {},
+        StringPool::Id in_tag = {},
+        StringPool::Id in_message = {},
+        std::nullptr_t = nullptr)
+        : macros_internal::RootParentTable::Row(),
+          ts(std::move(in_ts)),
+          level(std::move(in_level)),
+          tag(std::move(in_tag)),
+          message(std::move(in_message)) {
+      type_ = "protolog";
+    }
+    int64_t ts;
+    StringPool::Id level;
+    StringPool::Id tag;
+    StringPool::Id message;
+
+    bool operator==(const ProtoLogTable::Row& other) const {
+      return type() == other.type() && ColumnType::ts::Equals(ts, other.ts) &&
+       ColumnType::level::Equals(level, other.level) &&
+       ColumnType::tag::Equals(tag, other.tag) &&
+       ColumnType::message::Equals(message, other.message);
+    }
+  };
+  struct ColumnFlag {
+    static constexpr uint32_t ts = ColumnType::ts::default_flags();
+    static constexpr uint32_t level = ColumnType::level::default_flags();
+    static constexpr uint32_t tag = ColumnType::tag::default_flags();
+    static constexpr uint32_t message = ColumnType::message::default_flags();
+  };
+
+  class RowNumber;
+  class ConstRowReference;
+  class RowReference;
+
+  class RowNumber : public macros_internal::AbstractRowNumber<
+      ProtoLogTable, ConstRowReference, RowReference> {
+   public:
+    explicit RowNumber(uint32_t row_number)
+        : AbstractRowNumber(row_number) {}
+  };
+  static_assert(std::is_trivially_destructible<RowNumber>::value,
+                "Inheritance used without trivial destruction");
+
+  class ConstRowReference : public macros_internal::AbstractConstRowReference<
+    ProtoLogTable, RowNumber> {
+   public:
+    ConstRowReference(const ProtoLogTable* table, uint32_t row_number)
+        : AbstractConstRowReference(table, row_number) {}
+
+    ColumnType::id::type id() const {
+      return table_->id()[row_number_];
+    }
+    ColumnType::type::type type() const {
+      return table_->type()[row_number_];
+    }
+    ColumnType::ts::type ts() const {
+      return table_->ts()[row_number_];
+    }
+    ColumnType::level::type level() const {
+      return table_->level()[row_number_];
+    }
+    ColumnType::tag::type tag() const {
+      return table_->tag()[row_number_];
+    }
+    ColumnType::message::type message() const {
+      return table_->message()[row_number_];
+    }
+  };
+  static_assert(std::is_trivially_destructible<ConstRowReference>::value,
+                "Inheritance used without trivial destruction");
+  class RowReference : public ConstRowReference {
+   public:
+    RowReference(const ProtoLogTable* table, uint32_t row_number)
+        : ConstRowReference(table, row_number) {}
+
+    void set_ts(
+        ColumnType::ts::non_optional_type v) {
+      return mutable_table()->mutable_ts()->Set(row_number_, v);
+    }
+    void set_level(
+        ColumnType::level::non_optional_type v) {
+      return mutable_table()->mutable_level()->Set(row_number_, v);
+    }
+    void set_tag(
+        ColumnType::tag::non_optional_type v) {
+      return mutable_table()->mutable_tag()->Set(row_number_, v);
+    }
+    void set_message(
+        ColumnType::message::non_optional_type v) {
+      return mutable_table()->mutable_message()->Set(row_number_, v);
+    }
+
+   private:
+    ProtoLogTable* mutable_table() const {
+      return const_cast<ProtoLogTable*>(table_);
+    }
+  };
+  static_assert(std::is_trivially_destructible<RowReference>::value,
+                "Inheritance used without trivial destruction");
+
+  class ConstIterator;
+  class ConstIterator : public macros_internal::AbstractConstIterator<
+    ConstIterator, ProtoLogTable, RowNumber, ConstRowReference> {
+   public:
+    ColumnType::id::type id() const {
+      const auto& col = table_->id();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::type::type type() const {
+      const auto& col = table_->type();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::ts::type ts() const {
+      const auto& col = table_->ts();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::level::type level() const {
+      const auto& col = table_->level();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::tag::type tag() const {
+      const auto& col = table_->tag();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+    ColumnType::message::type message() const {
+      const auto& col = table_->message();
+      return col.GetAtIdx(its_[col.overlay_index()].index());
+    }
+
+   protected:
+    explicit ConstIterator(const ProtoLogTable* table,
+                           std::vector<ColumnStorageOverlay> overlays)
+        : AbstractConstIterator(table, std::move(overlays)) {}
+
+    uint32_t CurrentRowNumber() const {
+      return its_.back().index();
+    }
+
+   private:
+    friend class ProtoLogTable;
+    friend class macros_internal::AbstractConstIterator<
+      ConstIterator, ProtoLogTable, RowNumber, ConstRowReference>;
+  };
+  class Iterator : public ConstIterator {
+    public:
+    void set_ts(ColumnType::ts::non_optional_type v) {
+        auto* col = mutable_table_->mutable_ts();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_level(ColumnType::level::non_optional_type v) {
+        auto* col = mutable_table_->mutable_level();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_tag(ColumnType::tag::non_optional_type v) {
+        auto* col = mutable_table_->mutable_tag();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+      void set_message(ColumnType::message::non_optional_type v) {
+        auto* col = mutable_table_->mutable_message();
+        col->SetAtIdx(its_[col->overlay_index()].index(), v);
+      }
+
+    RowReference row_reference() const {
+      return RowReference(mutable_table_, CurrentRowNumber());
+    }
+
+    private:
+    friend class ProtoLogTable;
+
+    explicit Iterator(ProtoLogTable* table,
+                      std::vector<ColumnStorageOverlay> overlays)
+        : ConstIterator(table, std::move(overlays)),
+          mutable_table_(table) {}
+
+    ProtoLogTable* mutable_table_ = nullptr;
+  };
+
+  struct IdAndRow {
+    Id id;
+    uint32_t row;
+    RowReference row_reference;
+    RowNumber row_number;
+  };
+
+  explicit ProtoLogTable(StringPool* pool)
+      : macros_internal::MacroTable(pool, nullptr),
+        ts_(ColumnStorage<ColumnType::ts::stored_type>::Create<false>()),
+        level_(ColumnStorage<ColumnType::level::stored_type>::Create<false>()),
+        tag_(ColumnStorage<ColumnType::tag::stored_type>::Create<false>()),
+        message_(ColumnStorage<ColumnType::message::stored_type>::Create<false>()) {
+    static_assert(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::ts::stored_type>(
+          ColumnFlag::ts),
+        "Column type and flag combination is not valid");
+      static_assert(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::level::stored_type>(
+          ColumnFlag::level),
+        "Column type and flag combination is not valid");
+      static_assert(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::tag::stored_type>(
+          ColumnFlag::tag),
+        "Column type and flag combination is not valid");
+      static_assert(
+        ColumnLegacy::IsFlagsAndTypeValid<ColumnType::message::stored_type>(
+          ColumnFlag::message),
+        "Column type and flag combination is not valid");
+    uint32_t olay_idx = static_cast<uint32_t>(overlays_.size()) - 1;
+    columns_.emplace_back("ts", &ts_, ColumnFlag::ts,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("level", &level_, ColumnFlag::level,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("tag", &tag_, ColumnFlag::tag,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+    columns_.emplace_back("message", &message_, ColumnFlag::message,
+                          this, static_cast<uint32_t>(columns_.size()),
+                          olay_idx);
+  }
+  ~ProtoLogTable() override;
+
+  static const char* Name() { return "protolog"; }
+
+  static Table::Schema ComputeStaticSchema() {
+    Table::Schema schema;
+    schema.columns.emplace_back(Table::Schema::Column{
+        "id", SqlValue::Type::kLong, true, true, false, false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "type", SqlValue::Type::kString, false, false, false, false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "ts", ColumnType::ts::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "level", ColumnType::level::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "tag", ColumnType::tag::SqlValueType(), false,
+        false,
+        false,
+        false});
+    schema.columns.emplace_back(Table::Schema::Column{
+        "message", ColumnType::message::SqlValueType(), false,
+        false,
+        false,
+        false});
+    return schema;
+  }
+
+  ConstIterator IterateRows() const {
+    return ConstIterator(this, CopyOverlays());
+  }
+
+  Iterator IterateRows() { return Iterator(this, CopyOverlays()); }
+
+  ConstIterator FilterToIterator(
+      const std::vector<Constraint>& cs,
+      RowMap::OptimizeFor opt = RowMap::OptimizeFor::kMemory) const {
+    return ConstIterator(this, FilterAndApplyToOverlays(cs, opt));
+  }
+
+  Iterator FilterToIterator(
+      const std::vector<Constraint>& cs,
+      RowMap::OptimizeFor opt = RowMap::OptimizeFor::kMemory) {
+    return Iterator(this, FilterAndApplyToOverlays(cs, opt));
+  }
+
+  void ShrinkToFit() {
+    type_.ShrinkToFit();
+    ts_.ShrinkToFit();
+    level_.ShrinkToFit();
+    tag_.ShrinkToFit();
+    message_.ShrinkToFit();
+  }
+
+  std::optional<ConstRowReference> FindById(Id find_id) const {
+    std::optional<uint32_t> row = id().IndexOf(find_id);
+    return row ? std::make_optional(ConstRowReference(this, *row))
+               : std::nullopt;
+  }
+
+  std::optional<RowReference> FindById(Id find_id) {
+    std::optional<uint32_t> row = id().IndexOf(find_id);
+    return row ? std::make_optional(RowReference(this, *row)) : std::nullopt;
+  }
+
+  IdAndRow Insert(const Row& row) {
+    uint32_t row_number = row_count();
+    Id id = Id{row_number};
+    type_.Append(string_pool_->InternString(row.type()));
+    mutable_ts()->Append(std::move(row.ts));
+    mutable_level()->Append(std::move(row.level));
+    mutable_tag()->Append(std::move(row.tag));
+    mutable_message()->Append(std::move(row.message));
+    UpdateSelfOverlayAfterInsert();
+    return IdAndRow{std::move(id), row_number, RowReference(this, row_number),
+                     RowNumber(row_number)};
+  }
+
+  
+
+  const IdColumn<ProtoLogTable::Id>& id() const {
+    return static_cast<const ColumnType::id&>(columns_[ColumnIndex::id]);
+  }
+  const TypedColumn<StringPool::Id>& type() const {
+    return static_cast<const ColumnType::type&>(columns_[ColumnIndex::type]);
+  }
+  const TypedColumn<int64_t>& ts() const {
+    return static_cast<const ColumnType::ts&>(columns_[ColumnIndex::ts]);
+  }
+  const TypedColumn<StringPool::Id>& level() const {
+    return static_cast<const ColumnType::level&>(columns_[ColumnIndex::level]);
+  }
+  const TypedColumn<StringPool::Id>& tag() const {
+    return static_cast<const ColumnType::tag&>(columns_[ColumnIndex::tag]);
+  }
+  const TypedColumn<StringPool::Id>& message() const {
+    return static_cast<const ColumnType::message&>(columns_[ColumnIndex::message]);
+  }
+
+  TypedColumn<int64_t>* mutable_ts() {
+    return static_cast<ColumnType::ts*>(
+        &columns_[ColumnIndex::ts]);
+  }
+  TypedColumn<StringPool::Id>* mutable_level() {
+    return static_cast<ColumnType::level*>(
+        &columns_[ColumnIndex::level]);
+  }
+  TypedColumn<StringPool::Id>* mutable_tag() {
+    return static_cast<ColumnType::tag*>(
+        &columns_[ColumnIndex::tag]);
+  }
+  TypedColumn<StringPool::Id>* mutable_message() {
+    return static_cast<ColumnType::message*>(
+        &columns_[ColumnIndex::message]);
+  }
+
+ private:
+  
+  
+  ColumnStorage<ColumnType::ts::stored_type> ts_;
+  ColumnStorage<ColumnType::level::stored_type> level_;
+  ColumnStorage<ColumnType::tag::stored_type> tag_;
+  ColumnStorage<ColumnType::message::stored_type> message_;
+};
+  
 
 class SurfaceFlingerLayersSnapshotTable : public macros_internal::MacroTable {
  public:

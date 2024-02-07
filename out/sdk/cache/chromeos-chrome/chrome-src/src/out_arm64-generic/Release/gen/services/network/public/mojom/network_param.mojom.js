@@ -542,7 +542,7 @@
 
   ProxyChain.prototype.initDefaults_ = function() {
     this.proxyServers = null;
-    this.isForIpProtection = false;
+    this.ipProtectionChainId = 0;
   };
   ProxyChain.prototype.initFields_ = function(fields) {
     for(var field in fields) {
@@ -583,11 +583,8 @@
     var version = decoder.readUint32();
     val.proxyServers =
         decoder.decodeArrayPointer(new codec.PointerTo(ProxyServer));
-    packed = decoder.readUint8();
-    val.isForIpProtection = (packed >> 0) & 1 ? true : false;
-    decoder.skip(1);
-    decoder.skip(1);
-    decoder.skip(1);
+    val.ipProtectionChainId =
+        decoder.decodeStruct(codec.Int32);
     decoder.skip(1);
     decoder.skip(1);
     decoder.skip(1);
@@ -600,12 +597,7 @@
     encoder.writeUint32(ProxyChain.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeArrayPointer(new codec.PointerTo(ProxyServer), val.proxyServers);
-    packed = 0;
-    packed |= (val.isForIpProtection & 1) << 0
-    encoder.writeUint8(packed);
-    encoder.skip(1);
-    encoder.skip(1);
-    encoder.skip(1);
+    encoder.encodeStruct(codec.Int32, val.ipProtectionChainId);
     encoder.skip(1);
     encoder.skip(1);
     encoder.skip(1);

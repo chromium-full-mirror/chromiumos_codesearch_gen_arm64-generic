@@ -80,7 +80,7 @@ bool ControllerServiceWorkerInfo_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 80, validation_context)) {
+          data, 88, validation_context)) {
     return false;
   }
 
@@ -125,7 +125,7 @@ bool ControllerServiceWorkerInfo_Data::Validate(
   }
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->client_id, 8, validation_context)) {
+          object->client_id, 9, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& client_id_validate_params =
@@ -142,7 +142,7 @@ bool ControllerServiceWorkerInfo_Data::Validate(
     return false;
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->used_features, 11, validation_context)) {
+          object->used_features, 12, validation_context)) {
     return false;
   }
   constexpr const mojo::internal::ContainerValidateParams& used_features_validate_params =

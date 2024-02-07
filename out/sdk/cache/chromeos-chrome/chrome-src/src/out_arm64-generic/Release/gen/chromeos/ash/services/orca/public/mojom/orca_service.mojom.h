@@ -279,16 +279,16 @@ class EditorEventSink
   virtual void OnContextUpdated(ContextPtr context) = 0;
 };
 
-class TextActuatorProxy;
+class SystemActuatorProxy;
 
 template <typename ImplRefTraits>
-class TextActuatorStub;
+class SystemActuatorStub;
 
-class TextActuatorRequestValidator;
+class SystemActuatorRequestValidator;
 
 
-class TextActuator
-    : public TextActuatorInterfaceBase {
+class SystemActuator
+    : public SystemActuatorInterfaceBase {
  public:
   using IPCStableHashFunction = uint32_t(*)();
 
@@ -299,13 +299,13 @@ class TextActuator
   static constexpr bool PassesAssociatedKinds_ = false;
   static constexpr bool HasUninterruptableMethods_ = false;
 
-  using Base_ = TextActuatorInterfaceBase;
-  using Proxy_ = TextActuatorProxy;
+  using Base_ = SystemActuatorInterfaceBase;
+  using Proxy_ = SystemActuatorProxy;
 
   template <typename ImplRefTraits>
-  using Stub_ = TextActuatorStub<ImplRefTraits>;
+  using Stub_ = SystemActuatorStub<ImplRefTraits>;
 
-  using RequestValidator_ = TextActuatorRequestValidator;
+  using RequestValidator_ = SystemActuatorRequestValidator;
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kInsertTextMinVersion = 0,
@@ -342,7 +342,7 @@ class TextActuator
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
-  virtual ~TextActuator() = default;
+  virtual ~SystemActuator() = default;
 
   
   virtual void InsertText(const std::string& text) = 0;
@@ -457,7 +457,7 @@ class OrcaService
   virtual ~OrcaService() = default;
 
   
-  virtual void BindEditor(::mojo::PendingAssociatedRemote<TextActuator> text_actuator, ::mojo::PendingAssociatedRemote<TextQueryProvider> text_query_provider, ::mojo::PendingAssociatedReceiver<EditorClientConnector> client_connector, ::mojo::PendingAssociatedReceiver<EditorEventSink> event_sink) = 0;
+  virtual void BindEditor(::mojo::PendingAssociatedRemote<SystemActuator> system_actuator, ::mojo::PendingAssociatedRemote<TextQueryProvider> text_query_provider, ::mojo::PendingAssociatedReceiver<EditorClientConnector> client_connector, ::mojo::PendingAssociatedReceiver<EditorEventSink> event_sink) = 0;
 };
 
 
@@ -533,12 +533,12 @@ class  EditorEventSinkProxy
 
 
 
-class  TextActuatorProxy
-    : public TextActuator {
+class  SystemActuatorProxy
+    : public SystemActuator {
  public:
-  using InterfaceType = TextActuator;
+  using InterfaceType = SystemActuator;
 
-  explicit TextActuatorProxy(mojo::MessageReceiverWithResponder* receiver);
+  explicit SystemActuatorProxy(mojo::MessageReceiverWithResponder* receiver);
   
   void InsertText(const std::string& text) final;
   
@@ -582,7 +582,7 @@ class  OrcaServiceProxy
 
   explicit OrcaServiceProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void BindEditor(::mojo::PendingAssociatedRemote<TextActuator> text_actuator, ::mojo::PendingAssociatedRemote<TextQueryProvider> text_query_provider, ::mojo::PendingAssociatedReceiver<EditorClientConnector> client_connector, ::mojo::PendingAssociatedReceiver<EditorEventSink> event_sink) final;
+  void BindEditor(::mojo::PendingAssociatedRemote<SystemActuator> system_actuator, ::mojo::PendingAssociatedRemote<TextQueryProvider> text_query_provider, ::mojo::PendingAssociatedReceiver<EditorClientConnector> client_connector, ::mojo::PendingAssociatedReceiver<EditorEventSink> event_sink) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -710,24 +710,24 @@ class EditorEventSinkStub
  private:
   ImplPointerType sink_;
 };
-class  TextActuatorStubDispatch {
+class  SystemActuatorStubDispatch {
  public:
-  static bool Accept(TextActuator* impl, mojo::Message* message);
+  static bool Accept(SystemActuator* impl, mojo::Message* message);
   static bool AcceptWithResponder(
-      TextActuator* impl,
+      SystemActuator* impl,
       mojo::Message* message,
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder);
 };
 
 template <typename ImplRefTraits =
-              mojo::RawPtrImplRefTraits<TextActuator>>
-class TextActuatorStub
+              mojo::RawPtrImplRefTraits<SystemActuator>>
+class SystemActuatorStub
     : public mojo::MessageReceiverWithResponderStatus {
  public:
   using ImplPointerType = typename ImplRefTraits::PointerType;
 
-  TextActuatorStub() = default;
-  ~TextActuatorStub() override = default;
+  SystemActuatorStub() = default;
+  ~SystemActuatorStub() override = default;
 
   void set_sink(ImplPointerType sink) { sink_ = std::move(sink); }
   ImplPointerType& sink() { return sink_; }
@@ -735,7 +735,7 @@ class TextActuatorStub
   bool Accept(mojo::Message* message) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return TextActuatorStubDispatch::Accept(
+    return SystemActuatorStubDispatch::Accept(
         ImplRefTraits::GetRawPointer(&sink_), message);
   }
 
@@ -744,7 +744,7 @@ class TextActuatorStub
       std::unique_ptr<mojo::MessageReceiverWithStatus> responder) override {
     if (ImplRefTraits::IsNull(sink_))
       return false;
-    return TextActuatorStubDispatch::AcceptWithResponder(
+    return SystemActuatorStubDispatch::AcceptWithResponder(
         ImplRefTraits::GetRawPointer(&sink_), message, std::move(responder));
   }
 
@@ -845,7 +845,7 @@ class  EditorEventSinkRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };
-class  TextActuatorRequestValidator : public mojo::MessageReceiver {
+class  SystemActuatorRequestValidator : public mojo::MessageReceiver {
  public:
   bool Accept(mojo::Message* message) override;
 };

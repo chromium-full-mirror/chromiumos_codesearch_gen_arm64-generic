@@ -33,7 +33,6 @@ export var ContentSettingsTypes;
     ContentSettingsTypes["JAVASCRIPT_JIT"] = "javascript-jit";
     ContentSettingsTypes["LOCAL_FONTS"] = "local-fonts";
     ContentSettingsTypes["MIC"] = "media-stream-mic";
-    ContentSettingsTypes["MIDI"] = "midi";
     ContentSettingsTypes["MIDI_DEVICES"] = "midi-sysex";
     ContentSettingsTypes["MIXEDSCRIPT"] = "mixed-script";
     ContentSettingsTypes["NOTIFICATIONS"] = "notifications";

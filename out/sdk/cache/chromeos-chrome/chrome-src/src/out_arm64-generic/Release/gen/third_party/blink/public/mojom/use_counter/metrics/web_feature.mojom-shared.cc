@@ -7326,12 +7326,12 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kAuthorizationCrossOrigin";
     case WebFeature::kCSSColorMixFunction:
       return "kCSSColorMixFunction";
-    case WebFeature::kCSSColorColorSpecifiedSpace:
-      return "kCSSColorColorSpecifiedSpace";
-    case WebFeature::kCSSColorLabOklab:
-      return "kCSSColorLabOklab";
-    case WebFeature::kCSSColorLchOklch:
-      return "kCSSColorLchOklch";
+    case WebFeature::kOBSOLETE_CSSColorColorSpecifiedSpace:
+      return "kOBSOLETE_CSSColorColorSpecifiedSpace";
+    case WebFeature::kOBSOLETE_CSSColorLabOklab:
+      return "kOBSOLETE_CSSColorLabOklab";
+    case WebFeature::kOBSOLETE_CSSColorLchOklch:
+      return "kOBSOLETE_CSSColorLchOklch";
     case WebFeature::kOBSOLETE_CreateNSResolverWithNonElements2:
       return "kOBSOLETE_CreateNSResolverWithNonElements2";
     case WebFeature::kGetDisplayMediaWithPreferCurrentTabTrue:
@@ -8048,6 +8048,16 @@ NOINLINE static const char* WebFeatureToStringHelper(WebFeature value) {
       return "kSpeculationRulesBrowserPrerenderRule";
     case WebFeature::kFirstPartySharedWorkerSameSiteCookiesNone:
       return "kFirstPartySharedWorkerSameSiteCookiesNone";
+    case WebFeature::kCSSCustomStateDeprecatedSyntax:
+      return "kCSSCustomStateDeprecatedSyntax";
+    case WebFeature::kCSSColor_SpaceRGB:
+      return "kCSSColor_SpaceRGB";
+    case WebFeature::kCSSColor_SpaceRGB_outOfRec2020:
+      return "kCSSColor_SpaceRGB_outOfRec2020";
+    case WebFeature::kCSSColor_SpaceOkLxx:
+      return "kCSSColor_SpaceOkLxx";
+    case WebFeature::kCSSColor_SpaceOkLxx_OutOfRange:
+      return "kCSSColor_SpaceOkLxx_OutOfRange";
     case WebFeature::kNumberOfFeatures:
       return "kNumberOfFeatures";
     default:

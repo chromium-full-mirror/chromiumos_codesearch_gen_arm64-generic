@@ -1025,7 +1025,7 @@ ash.orca.mojom.EditorEventSinkCallbackRouter = class {
  * @implements {mojo.internal.interfaceSupport.PendingReceiver}
  * @export
  */
-ash.orca.mojom.TextActuatorPendingReceiver = class {
+ash.orca.mojom.SystemActuatorPendingReceiver = class {
   /**
    * @param {!MojoHandle|!mojo.internal.interfaceSupport.Endpoint} handle
    */
@@ -1038,7 +1038,7 @@ ash.orca.mojom.TextActuatorPendingReceiver = class {
   bindInBrowser(scope = 'context') {
     mojo.internal.interfaceSupport.bind(
         this.handle,
-        ash.orca.mojom.TextActuator.$interfaceName,
+        ash.orca.mojom.SystemActuator.$interfaceName,
         scope);
   }
 };
@@ -1047,21 +1047,21 @@ ash.orca.mojom.TextActuatorPendingReceiver = class {
 
 /**
  * @export
- * @implements { ash.orca.mojom.TextActuatorInterface }
+ * @implements { ash.orca.mojom.SystemActuatorInterface }
  */
-ash.orca.mojom.TextActuatorRemote = class {
+ash.orca.mojom.SystemActuatorRemote = class {
   /** @param {MojoHandle|mojo.internal.interfaceSupport.Endpoint=} handle */
   constructor(handle = undefined) {
     /**
-     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!ash.orca.mojom.TextActuatorPendingReceiver>}
+     * @private {!mojo.internal.interfaceSupport.InterfaceRemoteBase<!ash.orca.mojom.SystemActuatorPendingReceiver>}
      */
     this.proxy =
         new mojo.internal.interfaceSupport.InterfaceRemoteBase(
-          ash.orca.mojom.TextActuatorPendingReceiver,
+          ash.orca.mojom.SystemActuatorPendingReceiver,
           handle);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!ash.orca.mojom.TextActuatorPendingReceiver>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper<!ash.orca.mojom.SystemActuatorPendingReceiver>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceRemoteBaseWrapper(this.proxy);
 
@@ -1078,7 +1078,7 @@ ash.orca.mojom.TextActuatorRemote = class {
       text) {
     this.proxy.sendMessage(
         0,
-        ash.orca.mojom.TextActuator_InsertText_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_InsertText_ParamsSpec.$,
         null,
         [
           text
@@ -1092,7 +1092,7 @@ ash.orca.mojom.TextActuatorRemote = class {
   approveConsent() {
     this.proxy.sendMessage(
         1,
-        ash.orca.mojom.TextActuator_ApproveConsent_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_ApproveConsent_ParamsSpec.$,
         null,
         [
         ]);
@@ -1105,7 +1105,7 @@ ash.orca.mojom.TextActuatorRemote = class {
   declineConsent() {
     this.proxy.sendMessage(
         2,
-        ash.orca.mojom.TextActuator_DeclineConsent_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_DeclineConsent_ParamsSpec.$,
         null,
         [
         ]);
@@ -1120,7 +1120,7 @@ ash.orca.mojom.TextActuatorRemote = class {
       url) {
     this.proxy.sendMessage(
         3,
-        ash.orca.mojom.TextActuator_OpenUrlInNewWindow_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_OpenUrlInNewWindow_ParamsSpec.$,
         null,
         [
           url
@@ -1134,7 +1134,7 @@ ash.orca.mojom.TextActuatorRemote = class {
   showUI() {
     this.proxy.sendMessage(
         4,
-        ash.orca.mojom.TextActuator_ShowUI_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_ShowUI_ParamsSpec.$,
         null,
         [
         ]);
@@ -1147,7 +1147,7 @@ ash.orca.mojom.TextActuatorRemote = class {
   closeUI() {
     this.proxy.sendMessage(
         5,
-        ash.orca.mojom.TextActuator_CloseUI_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_CloseUI_ParamsSpec.$,
         null,
         [
         ]);
@@ -1162,7 +1162,7 @@ ash.orca.mojom.TextActuatorRemote = class {
       description) {
     this.proxy.sendMessage(
         6,
-        ash.orca.mojom.TextActuator_SubmitFeedback_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_SubmitFeedback_ParamsSpec.$,
         null,
         [
           description
@@ -1171,60 +1171,60 @@ ash.orca.mojom.TextActuatorRemote = class {
 };
 
 /**
- * An object which receives request messages for the TextActuator
+ * An object which receives request messages for the SystemActuator
  * mojom interface. Must be constructed over an object which implements that
  * interface.
  *
  * @export
  */
-ash.orca.mojom.TextActuatorReceiver = class {
+ash.orca.mojom.SystemActuatorReceiver = class {
   /**
-   * @param {!ash.orca.mojom.TextActuatorInterface } impl
+   * @param {!ash.orca.mojom.SystemActuatorInterface } impl
    */
   constructor(impl) {
-    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!ash.orca.mojom.TextActuatorRemote>} */
+    /** @private {!mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal<!ash.orca.mojom.SystemActuatorRemote>} */
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-        ash.orca.mojom.TextActuatorRemote);
+        ash.orca.mojom.SystemActuatorRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.orca.mojom.TextActuatorRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.orca.mojom.SystemActuatorRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
 
     this.helper_internal_.registerHandler(
         0,
-        ash.orca.mojom.TextActuator_InsertText_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_InsertText_ParamsSpec.$,
         null,
         impl.insertText.bind(impl));
     this.helper_internal_.registerHandler(
         1,
-        ash.orca.mojom.TextActuator_ApproveConsent_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_ApproveConsent_ParamsSpec.$,
         null,
         impl.approveConsent.bind(impl));
     this.helper_internal_.registerHandler(
         2,
-        ash.orca.mojom.TextActuator_DeclineConsent_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_DeclineConsent_ParamsSpec.$,
         null,
         impl.declineConsent.bind(impl));
     this.helper_internal_.registerHandler(
         3,
-        ash.orca.mojom.TextActuator_OpenUrlInNewWindow_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_OpenUrlInNewWindow_ParamsSpec.$,
         null,
         impl.openUrlInNewWindow.bind(impl));
     this.helper_internal_.registerHandler(
         4,
-        ash.orca.mojom.TextActuator_ShowUI_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_ShowUI_ParamsSpec.$,
         null,
         impl.showUI.bind(impl));
     this.helper_internal_.registerHandler(
         5,
-        ash.orca.mojom.TextActuator_CloseUI_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_CloseUI_ParamsSpec.$,
         null,
         impl.closeUI.bind(impl));
     this.helper_internal_.registerHandler(
         6,
-        ash.orca.mojom.TextActuator_SubmitFeedback_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_SubmitFeedback_ParamsSpec.$,
         null,
         impl.submitFeedback.bind(impl));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
@@ -1235,12 +1235,12 @@ ash.orca.mojom.TextActuatorReceiver = class {
 /**
  *  @export
  */
-ash.orca.mojom.TextActuator = class {
+ash.orca.mojom.SystemActuator = class {
   /**
    * @return {!string}
    */
   static get $interfaceName() {
-    return "ash.orca.mojom.TextActuator";
+    return "ash.orca.mojom.SystemActuator";
   }
 
   /**
@@ -1248,11 +1248,11 @@ ash.orca.mojom.TextActuator = class {
    * The browser must have an interface request binder registered for this
    * interface and accessible to the calling document's frame.
    *
-   * @return {!ash.orca.mojom.TextActuatorRemote}
+   * @return {!ash.orca.mojom.SystemActuatorRemote}
    * @export
    */
   static getRemote() {
-    let remote = new ash.orca.mojom.TextActuatorRemote;
+    let remote = new ash.orca.mojom.SystemActuatorRemote;
     remote.$.bindNewPipeAndPassReceiver().bindInBrowser();
     return remote;
   }
@@ -1260,20 +1260,20 @@ ash.orca.mojom.TextActuator = class {
 
 
 /**
- * An object which receives request messages for the TextActuator
+ * An object which receives request messages for the SystemActuator
  * mojom interface and dispatches them as callbacks. One callback receiver exists
  * on this object for each message defined in the mojom interface, and each
  * receiver can have any number of listeners added to it.
  *
  * @export
  */
-ash.orca.mojom.TextActuatorCallbackRouter = class {
+ash.orca.mojom.SystemActuatorCallbackRouter = class {
   constructor() {
     this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(
-      ash.orca.mojom.TextActuatorRemote);
+      ash.orca.mojom.SystemActuatorRemote);
 
     /**
-     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.orca.mojom.TextActuatorRemote>}
+     * @public {!mojo.internal.interfaceSupport.InterfaceReceiverHelper<!ash.orca.mojom.SystemActuatorRemote>}
      */
     this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
 
@@ -1288,7 +1288,7 @@ ash.orca.mojom.TextActuatorCallbackRouter = class {
 
     this.helper_internal_.registerHandler(
         0,
-        ash.orca.mojom.TextActuator_InsertText_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_InsertText_ParamsSpec.$,
         null,
         this.insertText.createReceiverHandler(false /* expectsResponse */));
     /**
@@ -1300,7 +1300,7 @@ ash.orca.mojom.TextActuatorCallbackRouter = class {
 
     this.helper_internal_.registerHandler(
         1,
-        ash.orca.mojom.TextActuator_ApproveConsent_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_ApproveConsent_ParamsSpec.$,
         null,
         this.approveConsent.createReceiverHandler(false /* expectsResponse */));
     /**
@@ -1312,7 +1312,7 @@ ash.orca.mojom.TextActuatorCallbackRouter = class {
 
     this.helper_internal_.registerHandler(
         2,
-        ash.orca.mojom.TextActuator_DeclineConsent_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_DeclineConsent_ParamsSpec.$,
         null,
         this.declineConsent.createReceiverHandler(false /* expectsResponse */));
     /**
@@ -1324,7 +1324,7 @@ ash.orca.mojom.TextActuatorCallbackRouter = class {
 
     this.helper_internal_.registerHandler(
         3,
-        ash.orca.mojom.TextActuator_OpenUrlInNewWindow_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_OpenUrlInNewWindow_ParamsSpec.$,
         null,
         this.openUrlInNewWindow.createReceiverHandler(false /* expectsResponse */));
     /**
@@ -1336,7 +1336,7 @@ ash.orca.mojom.TextActuatorCallbackRouter = class {
 
     this.helper_internal_.registerHandler(
         4,
-        ash.orca.mojom.TextActuator_ShowUI_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_ShowUI_ParamsSpec.$,
         null,
         this.showUI.createReceiverHandler(false /* expectsResponse */));
     /**
@@ -1348,7 +1348,7 @@ ash.orca.mojom.TextActuatorCallbackRouter = class {
 
     this.helper_internal_.registerHandler(
         5,
-        ash.orca.mojom.TextActuator_CloseUI_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_CloseUI_ParamsSpec.$,
         null,
         this.closeUI.createReceiverHandler(false /* expectsResponse */));
     /**
@@ -1360,7 +1360,7 @@ ash.orca.mojom.TextActuatorCallbackRouter = class {
 
     this.helper_internal_.registerHandler(
         6,
-        ash.orca.mojom.TextActuator_SubmitFeedback_ParamsSpec.$,
+        ash.orca.mojom.SystemActuator_SubmitFeedback_ParamsSpec.$,
         null,
         this.submitFeedback.createReceiverHandler(false /* expectsResponse */));
     /** @public {!mojo.internal.interfaceSupport.ConnectionErrorEventRouter} */
@@ -1606,14 +1606,14 @@ ash.orca.mojom.OrcaServiceRemote = class {
 
   
   /**
-   * @param { !Object } textActuator
+   * @param { !Object } systemActuator
    * @param { !Object } textQueryProvider
    * @param { !Object } clientConnector
    * @param { !Object } eventSink
    */
 
   bindEditor(
-      textActuator,
+      systemActuator,
       textQueryProvider,
       clientConnector,
       eventSink) {
@@ -1622,7 +1622,7 @@ ash.orca.mojom.OrcaServiceRemote = class {
         ash.orca.mojom.OrcaService_BindEditor_ParamsSpec.$,
         null,
         [
-          textActuator,
+          systemActuator,
           textQueryProvider,
           clientConnector,
           eventSink
@@ -1957,7 +1957,7 @@ ash.orca.mojom.EditorEventSink_OnContextUpdated_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-ash.orca.mojom.TextActuator_InsertText_ParamsSpec =
+ash.orca.mojom.SystemActuator_InsertText_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1965,7 +1965,7 @@ ash.orca.mojom.TextActuator_InsertText_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-ash.orca.mojom.TextActuator_ApproveConsent_ParamsSpec =
+ash.orca.mojom.SystemActuator_ApproveConsent_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1973,7 +1973,7 @@ ash.orca.mojom.TextActuator_ApproveConsent_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-ash.orca.mojom.TextActuator_DeclineConsent_ParamsSpec =
+ash.orca.mojom.SystemActuator_DeclineConsent_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1981,7 +1981,7 @@ ash.orca.mojom.TextActuator_DeclineConsent_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-ash.orca.mojom.TextActuator_OpenUrlInNewWindow_ParamsSpec =
+ash.orca.mojom.SystemActuator_OpenUrlInNewWindow_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1989,7 +1989,7 @@ ash.orca.mojom.TextActuator_OpenUrlInNewWindow_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-ash.orca.mojom.TextActuator_ShowUI_ParamsSpec =
+ash.orca.mojom.SystemActuator_ShowUI_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -1997,7 +1997,7 @@ ash.orca.mojom.TextActuator_ShowUI_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-ash.orca.mojom.TextActuator_CloseUI_ParamsSpec =
+ash.orca.mojom.SystemActuator_CloseUI_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -2005,7 +2005,7 @@ ash.orca.mojom.TextActuator_CloseUI_ParamsSpec =
  * @const { {$:!mojo.internal.MojomType}}
  * @export
  */
-ash.orca.mojom.TextActuator_SubmitFeedback_ParamsSpec =
+ash.orca.mojom.SystemActuator_SubmitFeedback_ParamsSpec =
     { $: /** @type {!mojo.internal.MojomType} */ ({}) };
 
 
@@ -2877,8 +2877,8 @@ ash.orca.mojom.EditorEventSink_OnContextUpdated_Params = class {
 
 
 mojo.internal.Struct(
-    ash.orca.mojom.TextActuator_InsertText_ParamsSpec.$,
-    'TextActuator_InsertText_Params',
+    ash.orca.mojom.SystemActuator_InsertText_ParamsSpec.$,
+    'SystemActuator_InsertText_Params',
     [
       mojo.internal.StructField(
         'text', 0,
@@ -2896,7 +2896,7 @@ mojo.internal.Struct(
 
 
 /** @record */
-ash.orca.mojom.TextActuator_InsertText_Params = class {
+ash.orca.mojom.SystemActuator_InsertText_Params = class {
   constructor() {
     /** @export { !string } */
     this.text;
@@ -2906,8 +2906,8 @@ ash.orca.mojom.TextActuator_InsertText_Params = class {
 
 
 mojo.internal.Struct(
-    ash.orca.mojom.TextActuator_ApproveConsent_ParamsSpec.$,
-    'TextActuator_ApproveConsent_Params',
+    ash.orca.mojom.SystemActuator_ApproveConsent_ParamsSpec.$,
+    'SystemActuator_ApproveConsent_Params',
     [
     ],
     [[0, 8],]);
@@ -2917,7 +2917,7 @@ mojo.internal.Struct(
 
 
 /** @record */
-ash.orca.mojom.TextActuator_ApproveConsent_Params = class {
+ash.orca.mojom.SystemActuator_ApproveConsent_Params = class {
   constructor() {
   }
 };
@@ -2925,8 +2925,8 @@ ash.orca.mojom.TextActuator_ApproveConsent_Params = class {
 
 
 mojo.internal.Struct(
-    ash.orca.mojom.TextActuator_DeclineConsent_ParamsSpec.$,
-    'TextActuator_DeclineConsent_Params',
+    ash.orca.mojom.SystemActuator_DeclineConsent_ParamsSpec.$,
+    'SystemActuator_DeclineConsent_Params',
     [
     ],
     [[0, 8],]);
@@ -2936,7 +2936,7 @@ mojo.internal.Struct(
 
 
 /** @record */
-ash.orca.mojom.TextActuator_DeclineConsent_Params = class {
+ash.orca.mojom.SystemActuator_DeclineConsent_Params = class {
   constructor() {
   }
 };
@@ -2944,8 +2944,8 @@ ash.orca.mojom.TextActuator_DeclineConsent_Params = class {
 
 
 mojo.internal.Struct(
-    ash.orca.mojom.TextActuator_OpenUrlInNewWindow_ParamsSpec.$,
-    'TextActuator_OpenUrlInNewWindow_Params',
+    ash.orca.mojom.SystemActuator_OpenUrlInNewWindow_ParamsSpec.$,
+    'SystemActuator_OpenUrlInNewWindow_Params',
     [
       mojo.internal.StructField(
         'url', 0,
@@ -2963,7 +2963,7 @@ mojo.internal.Struct(
 
 
 /** @record */
-ash.orca.mojom.TextActuator_OpenUrlInNewWindow_Params = class {
+ash.orca.mojom.SystemActuator_OpenUrlInNewWindow_Params = class {
   constructor() {
     /** @export { !url.mojom.Url } */
     this.url;
@@ -2973,8 +2973,8 @@ ash.orca.mojom.TextActuator_OpenUrlInNewWindow_Params = class {
 
 
 mojo.internal.Struct(
-    ash.orca.mojom.TextActuator_ShowUI_ParamsSpec.$,
-    'TextActuator_ShowUI_Params',
+    ash.orca.mojom.SystemActuator_ShowUI_ParamsSpec.$,
+    'SystemActuator_ShowUI_Params',
     [
     ],
     [[0, 8],]);
@@ -2984,7 +2984,7 @@ mojo.internal.Struct(
 
 
 /** @record */
-ash.orca.mojom.TextActuator_ShowUI_Params = class {
+ash.orca.mojom.SystemActuator_ShowUI_Params = class {
   constructor() {
   }
 };
@@ -2992,8 +2992,8 @@ ash.orca.mojom.TextActuator_ShowUI_Params = class {
 
 
 mojo.internal.Struct(
-    ash.orca.mojom.TextActuator_CloseUI_ParamsSpec.$,
-    'TextActuator_CloseUI_Params',
+    ash.orca.mojom.SystemActuator_CloseUI_ParamsSpec.$,
+    'SystemActuator_CloseUI_Params',
     [
     ],
     [[0, 8],]);
@@ -3003,7 +3003,7 @@ mojo.internal.Struct(
 
 
 /** @record */
-ash.orca.mojom.TextActuator_CloseUI_Params = class {
+ash.orca.mojom.SystemActuator_CloseUI_Params = class {
   constructor() {
   }
 };
@@ -3011,8 +3011,8 @@ ash.orca.mojom.TextActuator_CloseUI_Params = class {
 
 
 mojo.internal.Struct(
-    ash.orca.mojom.TextActuator_SubmitFeedback_ParamsSpec.$,
-    'TextActuator_SubmitFeedback_Params',
+    ash.orca.mojom.SystemActuator_SubmitFeedback_ParamsSpec.$,
+    'SystemActuator_SubmitFeedback_Params',
     [
       mojo.internal.StructField(
         'description', 0,
@@ -3030,7 +3030,7 @@ mojo.internal.Struct(
 
 
 /** @record */
-ash.orca.mojom.TextActuator_SubmitFeedback_Params = class {
+ash.orca.mojom.SystemActuator_SubmitFeedback_Params = class {
   constructor() {
     /** @export { !string } */
     this.description;
@@ -3102,9 +3102,9 @@ mojo.internal.Struct(
     'OrcaService_BindEditor_Params',
     [
       mojo.internal.StructField(
-        'textActuator', 0,
+        'systemActuator', 0,
         0,
-        mojo.internal.AssociatedInterfaceProxy(ash.orca.mojom.TextActuatorRemote),
+        mojo.internal.AssociatedInterfaceProxy(ash.orca.mojom.SystemActuatorRemote),
         null,
         false, /* nullable */
         0 /* minVersion */,
@@ -3144,7 +3144,7 @@ mojo.internal.Struct(
 ash.orca.mojom.OrcaService_BindEditor_Params = class {
   constructor() {
     /** @export { !Object } */
-    this.textActuator;
+    this.systemActuator;
     /** @export { !Object } */
     this.textQueryProvider;
     /** @export { !Object } */

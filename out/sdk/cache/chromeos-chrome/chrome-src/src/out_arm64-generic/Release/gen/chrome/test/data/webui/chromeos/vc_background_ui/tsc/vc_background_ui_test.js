@@ -1,7 +1,7 @@
 // Copyright 2023 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_action_menu/cr_action_menu.js';
+import 'chrome://resources/ash/common/cr_elements/cr_action_menu/cr_action_menu.js';
 import { getSeaPenTemplates } from 'chrome://resources/ash/common/sea_pen/constants.js';
 import { SeaPenPaths } from 'chrome://resources/ash/common/sea_pen/sea_pen_router_element.js';
 import { assertArrayEquals, assertEquals, assertFalse, assertTrue } from 'chrome://webui-test/chai_assert.js';

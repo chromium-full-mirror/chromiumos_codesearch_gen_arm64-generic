@@ -51,6 +51,15 @@ export class SettingsDropdownMenuElement extends SettingsDropdownMenuElementBase
                 value: null,
             },
             /**
+             * If true, do not automatically set the preference value. This allows the
+             * container to confirm the change first then call either sendPrefChange
+             * or resetToPrefValue accordingly.
+             */
+            noSetPref: {
+                type: Boolean,
+                value: false,
+            },
+            /**
              * The value of the "custom" item.
              */
             notFoundValue: {
@@ -70,15 +79,10 @@ export class SettingsDropdownMenuElement extends SettingsDropdownMenuElementBase
     focus() {
         this.$.dropdownMenu.focus();
     }
-    /**
-     * Pass the selection change to the pref value.
-     */
-    onChange_() {
-        const selected = this.$.dropdownMenu.value;
-        if (selected === this.notFoundValue) {
-            return;
-        }
+    /** Update the pref to the current selected value. */
+    sendPrefChange() {
         assert(this.pref);
+        const selected = this.$.dropdownMenu.value;
         if (this.prefKey) {
             this.set(`pref.value.${this.prefKey}`, selected);
         }
@@ -87,6 +91,17 @@ export class SettingsDropdownMenuElement extends SettingsDropdownMenuElementBase
             if (prefValue !== undefined) {
                 this.set('pref.value', prefValue);
             }
+        }
+    }
+    /**
+     * Pass the selection change to the pref value.
+     */
+    onChange_() {
+        if (this.$.dropdownMenu.value === this.notFoundValue) {
+            return;
+        }
+        if (!this.noSetPref) {
+            this.sendPrefChange();
         }
         // settings-control-change only fires when the selection is changed to
         // a valid property.

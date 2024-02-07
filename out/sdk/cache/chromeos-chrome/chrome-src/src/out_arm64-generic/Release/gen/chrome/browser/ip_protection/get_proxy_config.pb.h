@@ -298,6 +298,7 @@ class GetProxyConfigResponse_ProxyChain final :
   enum : int {
     kProxyAFieldNumber = 1,
     kProxyBFieldNumber = 2,
+    kChainIdFieldNumber = 3,
   };
   // string proxy_a = 1;
   void clear_proxy_a();
@@ -327,6 +328,15 @@ class GetProxyConfigResponse_ProxyChain final :
   std::string* _internal_mutable_proxy_b();
   public:
 
+  // int32 chain_id = 3;
+  void clear_chain_id();
+  int32_t chain_id() const;
+  void set_chain_id(int32_t value);
+  private:
+  int32_t _internal_chain_id() const;
+  void _internal_set_chain_id(int32_t value);
+  public:
+
   // @@protoc_insertion_point(class_scope:ip_protection.GetProxyConfigResponse.ProxyChain)
  private:
   class _Internal;
@@ -336,6 +346,7 @@ class GetProxyConfigResponse_ProxyChain final :
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr proxy_a_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr proxy_b_;
+  int32_t chain_id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_get_5fproxy_5fconfig_2eproto;
 };
@@ -666,6 +677,26 @@ inline void GetProxyConfigResponse_ProxyChain::set_allocated_proxy_b(std::string
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:ip_protection.GetProxyConfigResponse.ProxyChain.proxy_b)
+}
+
+// int32 chain_id = 3;
+inline void GetProxyConfigResponse_ProxyChain::clear_chain_id() {
+  chain_id_ = 0;
+}
+inline int32_t GetProxyConfigResponse_ProxyChain::_internal_chain_id() const {
+  return chain_id_;
+}
+inline int32_t GetProxyConfigResponse_ProxyChain::chain_id() const {
+  // @@protoc_insertion_point(field_get:ip_protection.GetProxyConfigResponse.ProxyChain.chain_id)
+  return _internal_chain_id();
+}
+inline void GetProxyConfigResponse_ProxyChain::_internal_set_chain_id(int32_t value) {
+  
+  chain_id_ = value;
+}
+inline void GetProxyConfigResponse_ProxyChain::set_chain_id(int32_t value) {
+  _internal_set_chain_id(value);
+  // @@protoc_insertion_point(field_set:ip_protection.GetProxyConfigResponse.ProxyChain.chain_id)
 }
 
 // -------------------------------------------------------------------

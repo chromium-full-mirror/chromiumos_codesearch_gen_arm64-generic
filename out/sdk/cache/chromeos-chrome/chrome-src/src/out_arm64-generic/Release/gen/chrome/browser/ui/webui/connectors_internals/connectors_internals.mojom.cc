@@ -313,6 +313,181 @@ bool DeviceTrustState::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+CertificateMetadata::CertificateMetadata()
+    : thumbprint(),
+      expiration_date_string(),
+      subject_display_name(),
+      issuer_display_name() {}
+
+CertificateMetadata::CertificateMetadata(
+    const std::string& thumbprint_in,
+    const std::string& expiration_date_string_in,
+    const std::string& subject_display_name_in,
+    const std::string& issuer_display_name_in)
+    : thumbprint(std::move(thumbprint_in)),
+      expiration_date_string(std::move(expiration_date_string_in)),
+      subject_display_name(std::move(subject_display_name_in)),
+      issuer_display_name(std::move(issuer_display_name_in)) {}
+
+CertificateMetadata::~CertificateMetadata() = default;
+size_t CertificateMetadata::Hash(size_t seed) const {
+  seed = mojo::internal::Hash(seed, this->thumbprint);
+  seed = mojo::internal::Hash(seed, this->expiration_date_string);
+  seed = mojo::internal::Hash(seed, this->subject_display_name);
+  seed = mojo::internal::Hash(seed, this->issuer_display_name);
+  return seed;
+}
+
+void CertificateMetadata::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "thumbprint"), this->thumbprint,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "expiration_date_string"), this->expiration_date_string,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "subject_display_name"), this->subject_display_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "issuer_display_name"), this->issuer_display_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool CertificateMetadata::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ClientIdentity::ClientIdentity()
+    : identity_name(),
+      loaded_key_info(),
+      certificate_metadata() {}
+
+ClientIdentity::ClientIdentity(
+    const std::string& identity_name_in,
+    LoadedKeyInfoPtr loaded_key_info_in,
+    CertificateMetadataPtr certificate_metadata_in)
+    : identity_name(std::move(identity_name_in)),
+      loaded_key_info(std::move(loaded_key_info_in)),
+      certificate_metadata(std::move(certificate_metadata_in)) {}
+
+ClientIdentity::~ClientIdentity() = default;
+
+void ClientIdentity::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "identity_name"), this->identity_name,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "loaded_key_info"), this->loaded_key_info,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type LoadedKeyInfoPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "certificate_metadata"), this->certificate_metadata,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type CertificateMetadataPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ClientIdentity::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
+ClientCertificateState::ClientCertificateState()
+    : policy_enabled_levels(),
+      managed_profile_identity(),
+      managed_browser_identity() {}
+
+ClientCertificateState::ClientCertificateState(
+    std::vector<std::string> policy_enabled_levels_in,
+    ClientIdentityPtr managed_profile_identity_in,
+    ClientIdentityPtr managed_browser_identity_in)
+    : policy_enabled_levels(std::move(policy_enabled_levels_in)),
+      managed_profile_identity(std::move(managed_profile_identity_in)),
+      managed_browser_identity(std::move(managed_browser_identity_in)) {}
+
+ClientCertificateState::~ClientCertificateState() = default;
+
+void ClientCertificateState::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "policy_enabled_levels"), this->policy_enabled_levels,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const std::vector<std::string>&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "managed_profile_identity"), this->managed_profile_identity,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ClientIdentityPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "managed_browser_identity"), this->managed_browser_identity,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ClientIdentityPtr>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool ClientCertificateState::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 const char PageHandler::Name_[] = "connectors_internals.mojom.PageHandler";
 
 PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Message& message) {
@@ -323,6 +498,9 @@ PageHandler::IPCStableHashFunction PageHandler::MessageToMethodInfo_(mojo::Messa
     }
     case internal::kPageHandler_DeleteDeviceTrustKey_Name: {
       return &PageHandler::DeleteDeviceTrustKey_Sym::IPCStableHash;
+    }
+    case internal::kPageHandler_GetClientCertificateState_Name: {
+      return &PageHandler::GetClientCertificateState_Sym::IPCStableHash;
     }
   }
 #endif  // !BUILDFLAG(IS_FUCHSIA)
@@ -339,6 +517,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive connectors_internals::mojom::PageHandler::GetDeviceTrustState";
       case internal::kPageHandler_DeleteDeviceTrustKey_Name:
             return "Receive connectors_internals::mojom::PageHandler::DeleteDeviceTrustKey";
+      case internal::kPageHandler_GetClientCertificateState_Name:
+            return "Receive connectors_internals::mojom::PageHandler::GetClientCertificateState";
     }
   } else {
     switch (message.name()) {
@@ -346,6 +526,8 @@ const char* PageHandler::MessageToMethodName_(mojo::Message& message) {
             return "Receive reply connectors_internals::mojom::PageHandler::GetDeviceTrustState";
       case internal::kPageHandler_DeleteDeviceTrustKey_Name:
             return "Receive reply connectors_internals::mojom::PageHandler::DeleteDeviceTrustKey";
+      case internal::kPageHandler_GetClientCertificateState_Name:
+            return "Receive reply connectors_internals::mojom::PageHandler::GetClientCertificateState";
     }
   }
   return "Receive unknown mojo message";
@@ -386,6 +568,19 @@ uint32_t PageHandler::DeleteDeviceTrustKey_Sym::IPCStableHash() {
   base::debug::Alias(&hash);
   return hash;
 }
+uint32_t PageHandler::GetClientCertificateState_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)connectors_internals::mojom::PageHandler::GetClientCertificateState");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
 # endif // !BUILDFLAG(IS_FUCHSIA)
 
 class PageHandler_GetDeviceTrustState_ForwardToCallback
@@ -418,6 +613,22 @@ class PageHandler_DeleteDeviceTrustKey_ForwardToCallback
   bool Accept(mojo::Message* message) override;
  private:
   PageHandler::DeleteDeviceTrustKeyCallback callback_;
+};
+
+class PageHandler_GetClientCertificateState_ForwardToCallback
+    : public mojo::MessageReceiver {
+ public:
+  PageHandler_GetClientCertificateState_ForwardToCallback(
+      PageHandler::GetClientCertificateStateCallback callback
+      ) : callback_(std::move(callback)) {
+  }
+
+  PageHandler_GetClientCertificateState_ForwardToCallback(const PageHandler_GetClientCertificateState_ForwardToCallback&) = delete;
+  PageHandler_GetClientCertificateState_ForwardToCallback& operator=(const PageHandler_GetClientCertificateState_ForwardToCallback&) = delete;
+
+  bool Accept(mojo::Message* message) override;
+ private:
+  PageHandler::GetClientCertificateStateCallback callback_;
 };
 
 PageHandlerProxy::PageHandlerProxy(mojo::MessageReceiverWithResponder* receiver)
@@ -488,6 +699,40 @@ void PageHandlerProxy::DeleteDeviceTrustKey(
 #endif
   std::unique_ptr<mojo::MessageReceiver> responder(
       new PageHandler_DeleteDeviceTrustKey_ForwardToCallback(
+          std::move(callback)));
+  ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
+}
+
+void PageHandlerProxy::GetClientCertificateState(
+    GetClientCertificateStateCallback callback) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT0("mojom", "Send connectors_internals::mojom::PageHandler::GetClientCertificateState");
+#endif
+
+  const bool kExpectsResponse = true;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_GetClientCertificateState_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::connectors_internals::mojom::internal::PageHandler_GetClientCertificateState_Params_Data> params(
+          message);
+  params.Allocate();
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("GetClientCertificateState");
+#endif
+  std::unique_ptr<mojo::MessageReceiver> responder(
+      new PageHandler_GetClientCertificateState_ForwardToCallback(
           std::move(callback)));
   ::mojo::internal::SendMojoMessage(*receiver_, message, std::move(responder));
 }
@@ -731,6 +976,137 @@ void PageHandler_DeleteDeviceTrustKey_ProxyToResponder::Run(
   // way to do that from here. We should add a way.
   responder_ = nullptr;
 }
+class PageHandler_GetClientCertificateState_ProxyToResponder : public ::mojo::internal::ProxyToResponder {
+ public:
+  static PageHandler::GetClientCertificateStateCallback CreateCallback(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder) {
+    std::unique_ptr<PageHandler_GetClientCertificateState_ProxyToResponder> proxy(
+        new PageHandler_GetClientCertificateState_ProxyToResponder(
+            message, std::move(responder)));
+    return base::BindOnce(&PageHandler_GetClientCertificateState_ProxyToResponder::Run,
+                          std::move(proxy));
+  }
+
+  ~PageHandler_GetClientCertificateState_ProxyToResponder() {
+#if DCHECK_IS_ON()
+    if (responder_) {
+      // If we're being destroyed without being run, we want to ensure the
+      // binding endpoint has been closed. This checks for that asynchronously.
+      // We pass a bound generated callback to handle the response so that any
+      // resulting DCHECK stack will have useful interface type information.
+      // Instantiate a ScopedFizzleBlockShutdownTasks to allow this request to
+      // fizzle if this happens after shutdown and the endpoint is bound to a
+      // BLOCK_SHUTDOWN sequence.
+      base::ThreadPoolInstance::ScopedFizzleBlockShutdownTasks fizzler;
+      responder_->IsConnectedAsync(base::BindOnce(&OnIsConnectedComplete));
+    }
+#endif
+  }
+
+ private:
+  PageHandler_GetClientCertificateState_ProxyToResponder(
+      ::mojo::Message& message,
+      std::unique_ptr<mojo::MessageReceiverWithStatus> responder)
+      : ::mojo::internal::ProxyToResponder(message, std::move(responder)) {
+  }
+
+#if DCHECK_IS_ON()
+  static void OnIsConnectedComplete(bool connected) {
+    DCHECK(!connected)
+        << "PageHandler::GetClientCertificateStateCallback was destroyed without "
+        << "first either being run or its corresponding binding being closed. "
+        << "It is an error to drop response callbacks which still correspond "
+        << "to an open interface pipe.";
+  }
+#endif
+
+  void Run(
+      ClientCertificateStatePtr in_state);
+};
+
+bool PageHandler_GetClientCertificateState_ForwardToCallback::Accept(
+    mojo::Message* message) {
+
+  DCHECK(message->is_serialized());
+  internal::PageHandler_GetClientCertificateState_ResponseParams_Data* params =
+      reinterpret_cast<
+          internal::PageHandler_GetClientCertificateState_ResponseParams_Data*>(
+              message->mutable_payload());
+  
+  
+  // Validation for PageHandler.2
+  bool success = true;
+  ClientCertificateStatePtr p_state{};
+  PageHandler_GetClientCertificateState_ResponseParamsDataView input_data_view(params, message);
+  
+  if (success && !input_data_view.ReadState(&p_state))
+    success = false;
+  if (!success) {
+    ReportValidationErrorForMessage(
+        message,
+        mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+        PageHandler::Name_, 2, true);
+    return false;
+  }
+  if (!callback_.is_null())
+    std::move(callback_).Run(
+std::move(p_state));
+  return true;
+}
+
+void PageHandler_GetClientCertificateState_ProxyToResponder::Run(
+    ClientCertificateStatePtr in_state) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send reply connectors_internals::mojom::PageHandler::GetClientCertificateState", "async_response_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("state"), in_state,
+                        "<value of type ClientCertificateStatePtr>");
+   });
+#endif
+  
+  const uint32_t kFlags = mojo::Message::kFlagIsResponse |
+      ((is_sync_) ? mojo::Message::kFlagIsSync : 0) |
+      ((true) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((false) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kPageHandler_GetClientCertificateState_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::connectors_internals::mojom::internal::PageHandler_GetClientCertificateState_ResponseParams_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->state)::BaseType> state_fragment(
+          params.message());
+  mojo::internal::Serialize<::connectors_internals::mojom::ClientCertificateStateDataView>(
+      in_state, state_fragment);
+  params->state.Set(
+      state_fragment.is_null() ? nullptr : state_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->state.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null state in ");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(PageHandler::Name_);
+  message.set_method_name("GetClientCertificateState");
+#endif
+
+  message.set_request_id(request_id_);
+  message.set_trace_nonce(trace_nonce_);
+  ::mojo::internal::SendMojoMessage(*responder_, message);
+  // SendMojoMessage() fails silently if the responder connection is closed,
+  // or if the message is malformed.
+  //
+  // TODO(darin): If Accept() returns false due to a malformed message, that
+  // may be good reason to close the connection. However, we don't have a
+  // way to do that from here. We should add a way.
+  responder_ = nullptr;
+}
 
 // static
 bool PageHandlerStubDispatch::Accept(
@@ -741,6 +1117,9 @@ bool PageHandlerStubDispatch::Accept(
       break;
     }
     case internal::kPageHandler_DeleteDeviceTrustKey_Name: {
+      break;
+    }
+    case internal::kPageHandler_GetClientCertificateState_Name: {
       break;
     }
   }
@@ -810,6 +1189,33 @@ bool PageHandlerStubDispatch::AcceptWithResponder(
       impl->DeleteDeviceTrustKey(std::move(callback));
       return true;
     }
+    case internal::kPageHandler_GetClientCertificateState_Name: {
+
+      internal::PageHandler_GetClientCertificateState_Params_Data* params =
+          reinterpret_cast<
+              internal::PageHandler_GetClientCertificateState_Params_Data*>(
+                  message->mutable_payload());
+      
+      
+      // Validation for PageHandler.2
+      bool success = true;
+      PageHandler_GetClientCertificateState_ParamsDataView input_data_view(params, message);
+      
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            PageHandler::Name_, 2, false);
+        return false;
+      }
+      PageHandler::GetClientCertificateStateCallback callback =
+          PageHandler_GetClientCertificateState_ProxyToResponder::CreateCallback(
+              *message, std::move(responder));
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
+      impl->GetClientCertificateState(std::move(callback));
+      return true;
+    }
   }
   return false;
 }
@@ -820,6 +1226,8 @@ static const mojo::internal::GenericValidationInfo kPageHandlerValidationInfo[] 
      &internal::PageHandler_GetDeviceTrustState_ResponseParams_Data::Validate},
     { &internal::PageHandler_DeleteDeviceTrustKey_Params_Data::Validate,
      &internal::PageHandler_DeleteDeviceTrustKey_ResponseParams_Data::Validate},
+    { &internal::PageHandler_GetClientCertificateState_Params_Data::Validate,
+     &internal::PageHandler_GetClientCertificateState_ResponseParams_Data::Validate},
 };
 
 bool PageHandlerRequestValidator::Accept(mojo::Message* message) {
@@ -928,6 +1336,62 @@ bool StructTraits<::connectors_internals::mojom::DeviceTrustState::DataView, ::c
   return success;
 }
 
+
+// static
+bool StructTraits<::connectors_internals::mojom::CertificateMetadata::DataView, ::connectors_internals::mojom::CertificateMetadataPtr>::Read(
+    ::connectors_internals::mojom::CertificateMetadata::DataView input,
+    ::connectors_internals::mojom::CertificateMetadataPtr* output) {
+  bool success = true;
+  ::connectors_internals::mojom::CertificateMetadataPtr result(::connectors_internals::mojom::CertificateMetadata::New());
+  
+      if (success && !input.ReadThumbprint(&result->thumbprint))
+        success = false;
+      if (success && !input.ReadExpirationDateString(&result->expiration_date_string))
+        success = false;
+      if (success && !input.ReadSubjectDisplayName(&result->subject_display_name))
+        success = false;
+      if (success && !input.ReadIssuerDisplayName(&result->issuer_display_name))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::connectors_internals::mojom::ClientIdentity::DataView, ::connectors_internals::mojom::ClientIdentityPtr>::Read(
+    ::connectors_internals::mojom::ClientIdentity::DataView input,
+    ::connectors_internals::mojom::ClientIdentityPtr* output) {
+  bool success = true;
+  ::connectors_internals::mojom::ClientIdentityPtr result(::connectors_internals::mojom::ClientIdentity::New());
+  
+      if (success && !input.ReadIdentityName(&result->identity_name))
+        success = false;
+      if (success && !input.ReadLoadedKeyInfo(&result->loaded_key_info))
+        success = false;
+      if (success && !input.ReadCertificateMetadata(&result->certificate_metadata))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::connectors_internals::mojom::ClientCertificateState::DataView, ::connectors_internals::mojom::ClientCertificateStatePtr>::Read(
+    ::connectors_internals::mojom::ClientCertificateState::DataView input,
+    ::connectors_internals::mojom::ClientCertificateStatePtr* output) {
+  bool success = true;
+  ::connectors_internals::mojom::ClientCertificateStatePtr result(::connectors_internals::mojom::ClientCertificateState::New());
+  
+      if (success && !input.ReadPolicyEnabledLevels(&result->policy_enabled_levels))
+        success = false;
+      if (success && !input.ReadManagedProfileIdentity(&result->managed_profile_identity))
+        success = false;
+      if (success && !input.ReadManagedBrowserIdentity(&result->managed_browser_identity))
+        success = false;
+  *output = std::move(result);
+  return success;
+}
+
 }  // namespace mojo
 
 
@@ -943,6 +1407,9 @@ void PageHandlerInterceptorForTesting::GetDeviceTrustState(GetDeviceTrustStateCa
 }
 void PageHandlerInterceptorForTesting::DeleteDeviceTrustKey(DeleteDeviceTrustKeyCallback callback) {
   GetForwardingInterface()->DeleteDeviceTrustKey(std::move(callback));
+}
+void PageHandlerInterceptorForTesting::GetClientCertificateState(GetClientCertificateStateCallback callback) {
+  GetForwardingInterface()->GetClientCertificateState(std::move(callback));
 }
 PageHandlerAsyncWaiter::PageHandlerAsyncWaiter(
     PageHandler* proxy) : proxy_(proxy) {}
@@ -985,6 +1452,29 @@ void PageHandlerAsyncWaiter::DeleteDeviceTrustKey(
 }
 
 
+
+void PageHandlerAsyncWaiter::GetClientCertificateState(
+    ClientCertificateStatePtr* out_state) {
+  base::RunLoop loop;
+  proxy_->GetClientCertificateState(
+      base::BindOnce(
+          [](base::RunLoop* loop,
+             ClientCertificateStatePtr* out_state
+,
+             ClientCertificateStatePtr state) {*out_state = std::move(state);
+            loop->Quit();
+          },
+          &loop,
+          out_state));
+  loop.Run();
+}
+
+ClientCertificateStatePtr PageHandlerAsyncWaiter::GetClientCertificateState(
+    ) {
+  ClientCertificateStatePtr async_wait_result;
+  GetClientCertificateState(&async_wait_result);
+  return async_wait_result;
+}
 
 
 

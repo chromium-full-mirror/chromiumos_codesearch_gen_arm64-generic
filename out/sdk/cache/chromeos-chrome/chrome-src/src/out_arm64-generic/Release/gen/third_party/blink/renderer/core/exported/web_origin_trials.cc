@@ -626,8 +626,20 @@ bool WebOriginTrials::isTrialEnabled(const WebDocument* web_document, const WebS
           return false;
         }
         break;
+      case mojom::blink::OriginTrialFeature::kWebAssemblyJSPromiseIntegration:
+        if (!RuntimeEnabledFeatures::WebAssemblyJSPromiseIntegrationEnabled(
+                document->GetExecutionContext())) {
+          return false;
+        }
+        break;
       case mojom::blink::OriginTrialFeature::kWebAssemblyJSStringBuiltins:
         if (!RuntimeEnabledFeatures::WebAssemblyJSStringBuiltinsEnabled(
+                document->GetExecutionContext())) {
+          return false;
+        }
+        break;
+      case mojom::blink::OriginTrialFeature::kWebIdentityDigitalCredentials:
+        if (!RuntimeEnabledFeatures::WebIdentityDigitalCredentialsEnabled(
                 document->GetExecutionContext())) {
           return false;
         }

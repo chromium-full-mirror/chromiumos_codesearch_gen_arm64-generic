@@ -9,7 +9,7 @@ import './test_util.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { entriesToURLs } from '../../common/js/entry_utils.js';
 import { recordEnum } from '../../common/js/metrics.js';
-import { VolumeType } from '../../common/js/volume_manager_types.js';
+import { VolumeType } from '../../common/js/shared_types.js';
 import { test } from './test_util_base.js';
 /**
  * Extract the information of the given element.

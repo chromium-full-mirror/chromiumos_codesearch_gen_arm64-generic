@@ -8014,6 +8014,10 @@ void IDBFactory_GetDatabaseInfo_ProxyToResponder::Run(
       in_error, error_fragment);
   params->error.Set(
       error_fragment.is_null() ? nullptr : error_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->error.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null error in ");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(IDBFactory::Name_);

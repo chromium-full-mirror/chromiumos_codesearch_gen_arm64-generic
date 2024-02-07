@@ -32,6 +32,7 @@
 #include "third_party/blink/renderer/bindings/modules/v8/v8_browser_capture_media_stream_track.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_can_make_payment_event.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_capture_controller.h"
+#include "third_party/blink/renderer/bindings/modules/v8/v8_credentials_container.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_install_event.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_launch_params.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_media_devices.h"
@@ -402,6 +403,13 @@ selected_wti_list = wti_list;
   case mojom::blink::OriginTrialFeature::kWebAppLaunchQueue: {
     static const WrapperTypeInfo* const wti_list[] = {
 V8Window::GetWrapperTypeInfo(), 
+};
+selected_wti_list = wti_list;
+    break;
+  }
+  case mojom::blink::OriginTrialFeature::kWebIdentityDigitalCredentials: {
+    static const WrapperTypeInfo* const wti_list[] = {
+V8CredentialsContainer::GetWrapperTypeInfo(), 
 };
 selected_wti_list = wti_list;
     break;

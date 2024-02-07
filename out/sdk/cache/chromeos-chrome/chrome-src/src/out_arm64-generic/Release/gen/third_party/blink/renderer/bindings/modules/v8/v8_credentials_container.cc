@@ -53,7 +53,7 @@ return is_in_secure_context && execution_context->IsWindow();
 const WrapperTypeInfo V8CredentialsContainer::wrapper_type_info_{
     gin::kEmbedderBlink,
     V8CredentialsContainer::InstallInterfaceTemplate,
-    nullptr,
+    V8CredentialsContainer::InstallContextDependentProperties,
     "CredentialsContainer",
     nullptr,
     WrapperTypeInfo::kWrapperTypeObjectPrototype,
@@ -316,7 +316,6 @@ bindings::SetupIDLInterfaceTemplate(isolate, wrapper_type_info, instance_object_
 v8::Local<v8::Template> instance_template = instance_object_template;
 v8::Local<v8::Template> prototype_template = prototype_object_template;
 InstallUnconditionalProperties(isolate, world, instance_template, prototype_template, interface_template);
-InstallContextIndependentProperties(isolate, world, instance_template, prototype_template, interface_template);
 }
 
 void V8CredentialsContainer::InstallUnconditionalProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
@@ -342,25 +341,28 @@ IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototy
 
 }
 
-void V8CredentialsContainer::InstallContextIndependentProperties(v8::Isolate* isolate, const DOMWrapperWorld& world, v8::Local<v8::Template> instance_template, v8::Local<v8::Template> prototype_template, v8::Local<v8::Template> interface_template) {
+
+void V8CredentialsContainer::InstallContextDependentProperties(v8::Local<v8::Context> context, const DOMWrapperWorld& world, v8::Local<v8::Object> instance_object, v8::Local<v8::Object> prototype_object, v8::Local<v8::Object> interface_object, v8::Local<v8::Template> interface_template, FeatureSelector feature_selector) {
   using bindings::IDLMemberInstaller;
 
 
 
 
 
-if (RuntimeEnabledFeatures::WebIdentityDigitalCredentialsEnabled()) {
+ScriptState* script_state = ScriptState::From(context);
+ExecutionContext* execution_context = ToExecutionContext(script_state);
+if ((feature_selector.IsAll() && RuntimeEnabledFeatures::WebIdentityDigitalCredentialsEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kWebIdentityDigitalCredentials)) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
 {"requestIdentity", RequestIdentityOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 };
+v8::Isolate* isolate = context->GetIsolate();
 v8::Local<v8::FunctionTemplate> interface_function_template = interface_template.As<v8::FunctionTemplate>();
 v8::Local<v8::Signature> signature = v8::Signature::New(isolate, interface_function_template);
-IDLMemberInstaller::InstallOperations(isolate, world, instance_template, prototype_template, interface_template, signature, kOperationTable);
+IDLMemberInstaller::InstallOperations(isolate, world, instance_object, prototype_object, interface_object, signature, kOperationTable);
 }
 
 
 }
-
 
 
 }  // namespace blink

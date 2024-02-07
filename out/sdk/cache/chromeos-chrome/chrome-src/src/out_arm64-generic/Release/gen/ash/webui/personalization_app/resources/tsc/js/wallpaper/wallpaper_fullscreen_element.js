@@ -5,7 +5,7 @@
  * @fileoverview A polymer component that displays a transparent full screen
  * viewing mode of the currently selected wallpaper.
  */
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import '../../common/icons.html.js';
 import { isNonEmptyFilePath } from 'chrome://resources/ash/common/sea_pen/sea_pen_utils.js';

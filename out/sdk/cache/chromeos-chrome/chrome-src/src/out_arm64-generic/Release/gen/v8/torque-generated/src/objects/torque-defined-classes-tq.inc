@@ -1204,10 +1204,10 @@ class SortState : public TorqueGeneratedSortState<SortState, HeapObject> {
 };
 
 // Alias for IsWasmStringViewIter() that avoids inlining.
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=243&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=245&c=1
 V8_EXPORT_PRIVATE bool IsWasmStringViewIter_NonInline(Tagged<HeapObject> o);
 
-// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=243&c=1
+// Definition https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=245&c=1
 template <class D, class P>
 class TorqueGeneratedWasmStringViewIter : public P {
   static_assert(
@@ -1222,22 +1222,22 @@ class TorqueGeneratedWasmStringViewIter : public P {
   using TorqueGeneratedClass = TorqueGeneratedWasmStringViewIter<D,P>;
 
  protected: // not extern or @export
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=244&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=246&c=3
   inline Tagged<String> string() const;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=244&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=246&c=3
   inline Tagged<String> string(PtrComprCageBase cage_base) const;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=244&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=246&c=3
   inline void set_string(Tagged<String> value, WriteBarrierMode mode = UPDATE_WRITE_BARRIER);
 
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=245&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=247&c=3
   inline uint32_t offset() const;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=245&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=247&c=3
   inline void set_offset(uint32_t value);
 
  public:
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=243&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=245&c=1
   V8_INLINE static Tagged<D> cast(Tagged<Object> object);
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=243&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=245&c=1
   V8_INLINE static Tagged<D> unchecked_cast(Tagged<Object> object) {
     return Tagged<D>::unchecked_cast(object);
   }
@@ -1245,19 +1245,19 @@ class TorqueGeneratedWasmStringViewIter : public P {
   DECL_PRINTER(WasmStringViewIter)
 
 #ifdef VERIFY_HEAP
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=243&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=245&c=1
   V8_EXPORT_PRIVATE void WasmStringViewIterVerify(Isolate* isolate);
 #endif  // VERIFY_HEAP
 
   static constexpr int kStartOfStrongFieldsOffset = P::kHeaderSize;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=244&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=246&c=3
   static constexpr int kStringOffset = P::kHeaderSize;
   static constexpr int kStringOffsetEnd = kStringOffset + kTaggedSize - 1;
   static constexpr int kEndOfStrongFieldsOffset = kStringOffsetEnd + 1;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=245&c=3
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=247&c=3
   static constexpr int kOffsetOffset = kStringOffsetEnd + 1;
   static constexpr int kOffsetOffsetEnd = kOffsetOffset + kInt32Size - 1;
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=248&c=31
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=250&c=31
   static constexpr int kOptionalPaddingOffset = kOffsetOffsetEnd + 1;
   static constexpr int kOptionalPaddingOffsetEnd = kOptionalPaddingOffset + 0 - 1;
   static constexpr int kStartOfWeakFieldsOffset = kOptionalPaddingOffsetEnd + 1;
@@ -1265,14 +1265,14 @@ class TorqueGeneratedWasmStringViewIter : public P {
   static constexpr int kHeaderSize = kOptionalPaddingOffsetEnd + 1;
   static constexpr int kSize = kOptionalPaddingOffsetEnd + 1;
 
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=243&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=245&c=1
   V8_INLINE static constexpr int32_t SizeFor() {
     DCHECK(kHeaderSize == kSize && kHeaderSize == 12);
     int32_t size = kHeaderSize;
     return size;
   }
 
-  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=243&c=1
+  // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=245&c=1
   V8_INLINE int32_t AllocatedSize() const {
     return SizeFor();
   }

@@ -2394,16 +2394,6 @@ class IDBFactory_GetDatabaseInfo_ResponseParamsDataView {
   template <typename UserType>
   [[nodiscard]] bool ReadError(UserType* output) {
     
-static_assert(
-    mojo::internal::IsValidUserTypeForOptionalValue<
-        ::blink::mojom::IDBErrorDataView, UserType>(),
-    "Attempting to read the optional `error` field into a type which "
-    "cannot represent a null value. Either wrap the destination object "
-    "with std::optional, ensure that any corresponding "
-    "{Struct/Union/Array/String}Traits define the necessary IsNull and "
-    "SetToNull methods, or use `MaybeReadError` instead "
-    "of `ReadError if you're fine with null values being "
-    "silently ignored in this case.");
     auto* pointer = data_->error.Get();
     return mojo::internal::Deserialize<::blink::mojom::IDBErrorDataView>(
         pointer, output, message_);

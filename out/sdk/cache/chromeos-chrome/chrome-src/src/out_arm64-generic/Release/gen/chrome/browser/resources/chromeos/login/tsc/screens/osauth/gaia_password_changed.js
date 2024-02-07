@@ -4,7 +4,7 @@
 /**
  * @fileoverview Polymer element for GAIA password changed screen.
  */
-import '//resources/cr_elements/chromeos/cros_color_overrides.css.js';
+import '//resources/ash/common/cr_elements/cros_color_overrides.css.js';
 import '//resources/polymer/v3_0/iron-icon/iron-icon.js';
 import '//resources/polymer/v3_0/iron-media-query/iron-media-query.js';
 import '../../components/oobe_icons.html.js';
@@ -14,7 +14,7 @@ import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_adaptive_dialog.js';
 import '../../components/dialogs/oobe_loading_dialog.js';
 import '../../components/buttons/oobe_text_button.js';
-import { CrInputElement } from '//resources/cr_elements/cr_input/cr_input.js';
+import { CrInputElement } from '//resources/ash/common/cr_elements/cr_input/cr_input.js';
 import { assert } from '//resources/js/assert.js';
 import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';

@@ -1,11 +1,11 @@
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import '//resources/cr_elements/cr_button/cr_button.js';
-import '//resources/cr_elements/cr_input/cr_input.js';
-import '//resources/cr_elements/cr_radio_button/cr_radio_button.js';
-import '//resources/cr_elements/cr_radio_group/cr_radio_group.js';
-import '//resources/cr_elements/cr_shared_style.css.js';
+import '//resources/ash/common/cr_elements/cr_button/cr_button.js';
+import '//resources/ash/common/cr_elements/cr_input/cr_input.js';
+import '//resources/ash/common/cr_elements/cr_radio_button/cr_radio_button.js';
+import '//resources/ash/common/cr_elements/cr_radio_group/cr_radio_group.js';
+import '//resources/ash/common/cr_elements/cr_shared_style.css.js';
 import '../settings_shared.css.js';
 import '../settings_vars.css.js';
 import { assert } from '//resources/js/assert.js';

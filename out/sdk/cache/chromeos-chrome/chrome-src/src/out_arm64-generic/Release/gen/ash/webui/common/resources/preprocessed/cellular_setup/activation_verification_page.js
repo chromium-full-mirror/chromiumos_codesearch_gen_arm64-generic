@@ -10,7 +10,7 @@ import '//resources/polymer/v3_0/paper-spinner/paper-spinner-lite.js';
 import '//resources/polymer/v3_0/iron-media-query/iron-media-query.js';
 import 'chrome://resources/cros_components/lottie_renderer/lottie-renderer.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { getTemplate } from './activation_verification_page.html.js';
 const ActivationVerificationPageElementBase = I18nMixin(PolymerElement);
 export class ActivationVerificationPageElement extends ActivationVerificationPageElementBase {

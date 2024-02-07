@@ -91,6 +91,7 @@ gen/third_party/devtools-frontend/src/front_end/core/common/ColorUtils.js
 gen/third_party/devtools-frontend/src/front_end/core/common/ColorUtils.js.map
 mojo_service_manager/camera_hal_dispatcher_mojo_policy.jsonc
 mojo_service_manager/jpeg_accelerator_mojo_policy.jsonc
+mojo_service_manager/system_event_monitor.jsonc
 snapshot_blob.bin
 snapshot_blob.bin
 ../../../../../../../home/chrome-bot/chrome_root/src/net/data/cert_net_fetcher_impl_unittest/

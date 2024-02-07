@@ -18,9 +18,9 @@
  *  - showConfirmPage()
  */
 import 'chrome://resources/cr_components/settings_prefs/prefs.js';
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
-import 'chrome://resources/cr_elements/cr_view_manager/cr_view_manager.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_view_manager/cr_view_manager.js';
 import '../settings_shared.css.js';
 import '/shared/nearby_onboarding_one_page.js';
 import '/shared/nearby_onboarding_page.js';

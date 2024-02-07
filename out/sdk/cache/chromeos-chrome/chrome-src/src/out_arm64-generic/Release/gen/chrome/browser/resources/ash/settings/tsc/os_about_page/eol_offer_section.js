@@ -6,7 +6,7 @@
  * offer related to the device's end of life.
  */
 import '../os_settings_icons.html.js';
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';

@@ -13,9 +13,13 @@ const webui::ResourcePath kConnectorsInternalsResources[] = {
   {"app.js", IDR_CONNECTORS_INTERNALS_APP_JS},
   {"connectors_tabs.js", IDR_CONNECTORS_INTERNALS_CONNECTORS_TABS_JS},
   {"device_trust_connector.js", IDR_CONNECTORS_INTERNALS_DEVICE_TRUST_CONNECTOR_JS},
+  {"managed_client_certificate.js", IDR_CONNECTORS_INTERNALS_MANAGED_CLIENT_CERTIFICATE_JS},
+  {"browser_proxy.js", IDR_CONNECTORS_INTERNALS_BROWSER_PROXY_JS},
+  {"connectors_utils.js", IDR_CONNECTORS_INTERNALS_CONNECTORS_UTILS_JS},
   {"app.html.js", IDR_CONNECTORS_INTERNALS_APP_HTML_JS},
   {"connectors_tabs.html.js", IDR_CONNECTORS_INTERNALS_CONNECTORS_TABS_HTML_JS},
   {"device_trust_connector.html.js", IDR_CONNECTORS_INTERNALS_DEVICE_TRUST_CONNECTOR_HTML_JS},
+  {"managed_client_certificate.html.js", IDR_CONNECTORS_INTERNALS_MANAGED_CLIENT_CERTIFICATE_HTML_JS},
   {"connectors_internals.mojom-webui.js", IDR_CONNECTORS_INTERNALS_CONNECTORS_INTERNALS_MOJOM_WEBUI_JS},
 };
 

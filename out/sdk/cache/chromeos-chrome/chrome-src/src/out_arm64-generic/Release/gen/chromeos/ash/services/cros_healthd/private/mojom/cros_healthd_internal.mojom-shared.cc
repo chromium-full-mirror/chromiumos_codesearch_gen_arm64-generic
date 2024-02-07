@@ -308,7 +308,7 @@ ChromiumDataCollector_SetPrivacyScreenState_ResponseParams_Data::ChromiumDataCol
 
 
 // static
-bool ChromiumDataCollector_SetAudioOutputMute_Params_Data::Validate(
+bool ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -320,18 +320,18 @@ bool ChromiumDataCollector_SetAudioOutputMute_Params_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const ChromiumDataCollector_SetAudioOutputMute_Params_Data* object =
-      static_cast<const ChromiumDataCollector_SetAudioOutputMute_Params_Data*>(data);
+  [[maybe_unused]] const ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data* object =
+      static_cast<const ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data*>(data);
 
   return true;
 }
 
-ChromiumDataCollector_SetAudioOutputMute_Params_Data::ChromiumDataCollector_SetAudioOutputMute_Params_Data()
+ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data::ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_Params_Data()
     : header_({sizeof(*this), 0}) {}
 
 
 // static
-bool ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data::Validate(
+bool ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
   if (!data)
@@ -343,13 +343,13 @@ bool ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data::Validate(
 
   // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
   // the message comes from an older version.
-  [[maybe_unused]] const ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data* object =
-      static_cast<const ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data*>(data);
+  [[maybe_unused]] const ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data* object =
+      static_cast<const ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data*>(data);
 
   return true;
 }
 
-ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data::ChromiumDataCollector_SetAudioOutputMute_ResponseParams_Data()
+ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data::ChromiumDataCollector_DEPRECATED_SetAudioOutputMute_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

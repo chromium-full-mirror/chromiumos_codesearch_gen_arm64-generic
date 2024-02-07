@@ -456,7 +456,7 @@ class IpProtectionConfigGetter
   virtual void TryGetAuthTokens(uint32_t batch_size, IpProtectionProxyLayer proxy_layer, TryGetAuthTokensCallback callback) = 0;
 
 
-  using GetProxyListCallback = base::OnceCallback<void(const std::optional<std::vector<std::vector<std::string>>>&)>;
+  using GetProxyListCallback = base::OnceCallback<void(const std::optional<std::vector<::net::ProxyChain>>&)>;
   
   virtual void GetProxyList(GetProxyListCallback callback) = 0;
 };

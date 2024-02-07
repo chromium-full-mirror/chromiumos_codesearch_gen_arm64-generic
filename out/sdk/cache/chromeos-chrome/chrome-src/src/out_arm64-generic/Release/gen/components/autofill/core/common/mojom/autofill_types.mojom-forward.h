@@ -62,6 +62,8 @@ class PasswordFormGenerationDataDataView;
 
 class PasswordGenerationUIDataDataView;
 
+class PasswordSuggestionRequestDataView;
+
 class ParsingResultDataView;
 
 class SectionValueDataView;
@@ -156,6 +158,9 @@ using PasswordFormGenerationDataPtr = mojo::StructPtr<PasswordFormGenerationData
 
 class PasswordGenerationUIData;
 using PasswordGenerationUIDataPtr = mojo::StructPtr<PasswordGenerationUIData>;
+
+class PasswordSuggestionRequest;
+using PasswordSuggestionRequestPtr = mojo::StructPtr<PasswordSuggestionRequest>;
 
 class ParsingResult;
 using ParsingResultPtr = mojo::StructPtr<ParsingResult>;

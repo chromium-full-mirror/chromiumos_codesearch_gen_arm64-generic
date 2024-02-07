@@ -33,6 +33,8 @@ export var UrlParam;
     UrlParam["START_CHECK"] = "start";
     // Triggers import on the Settings page.
     UrlParam["START_IMPORT"] = "import";
+    // Triggers iph for disabling the account storage.
+    UrlParam["SHOW_ACCOUNT_STORE_IPH"] = "accountStoreIPH";
 })(UrlParam || (UrlParam = {}));
 export class Route {
     constructor(page, queryParameters, details) {

@@ -1,6 +1,6 @@
 import { html } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export function getTemplate() {
-    return html `<!--_html_template_start_--><link rel="import" href="chrome://resources/cr_elements/cr_icons.css.html">
+    return html `<!--_html_template_start_--><link rel="import" href="chrome://resources/ash/common/cr_elements/cr_icons.css.html">
 <style include="cr-shared-style settings-shared">cr-dialog::part(dialog){height:380px;width:600px}.sa-setup-title{line-height:150%}.sa-setup-body{height:233px;margin-top:5px}.sa-setup-contents{width:335px}.flex{display:flex;flex-direction:row;justify-content:space-between}.illustration{height:173px;margin-top:15px;padding:16px;width:183px}#buttonContainer{padding:24px}cr-button{margin:4px}.radio-button-title{color:var(--cr-primary-text-color);font-size:14px}.radio-button-description{padding-bottom:16px}#bluetooth{margin-inline-end:324px}#exit{float:right;margin-top:-6px;padding:none}</style>
 <cr-dialog id="switchAccessSetupGuideDialog" show-on-attach>
   <div slot="title" class="sa-setup-title" id="title">

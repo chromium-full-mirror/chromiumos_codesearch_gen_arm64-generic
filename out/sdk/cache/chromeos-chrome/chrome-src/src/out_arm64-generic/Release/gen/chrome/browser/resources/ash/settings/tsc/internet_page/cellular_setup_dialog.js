@@ -6,10 +6,10 @@
  * that is shared with OOBE in a dialog with OS Settings stylizations.
  */
 import 'chrome://resources/ash/common/cellular_setup/cellular_setup.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
-import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_vars.css.js';
 import '../settings_shared.css.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './cellular_setup_dialog.html.js';
 import { CellularSetupSettingsDelegate } from './cellular_setup_settings_delegate.js';

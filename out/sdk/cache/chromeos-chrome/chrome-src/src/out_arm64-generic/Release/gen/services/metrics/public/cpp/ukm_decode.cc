@@ -7608,6 +7608,46 @@ std::map<uint64_t, EntryDecoder> CreateDecodeMap() {
     },
 
     {
+      UINT64_C(9088201269784118104),
+      {
+        ThirdPartyCookies_BreakageIndicator_HTTPError::kEntryName,
+        {
+          
+    {ThirdPartyCookies_BreakageIndicator_HTTPError::kTPCBlockedNameHash, ThirdPartyCookies_BreakageIndicator_HTTPError::kTPCBlockedName},
+
+    {ThirdPartyCookies_BreakageIndicator_HTTPError::kTPCBlockedInSettingsNameHash, ThirdPartyCookies_BreakageIndicator_HTTPError::kTPCBlockedInSettingsName},
+
+        }
+      }
+    },
+
+    {
+      UINT64_C(15404660138221362264),
+      {
+        ThirdPartyCookies_BreakageIndicator_UncaughtJSError::kEntryName,
+        {
+          
+    {ThirdPartyCookies_BreakageIndicator_UncaughtJSError::kHasOccurredNameHash, ThirdPartyCookies_BreakageIndicator_UncaughtJSError::kHasOccurredName},
+
+        }
+      }
+    },
+
+    {
+      UINT64_C(18163975266525876574),
+      {
+        ThirdPartyCookies_BreakageIndicator_UserReload::kEntryName,
+        {
+          
+    {ThirdPartyCookies_BreakageIndicator_UserReload::kTPCBlockedNameHash, ThirdPartyCookies_BreakageIndicator_UserReload::kTPCBlockedName},
+
+    {ThirdPartyCookies_BreakageIndicator_UserReload::kTPCBlockedInSettingsNameHash, ThirdPartyCookies_BreakageIndicator_UserReload::kTPCBlockedInSettingsName},
+
+        }
+      }
+    },
+
+    {
       UINT64_C(14349625384099335005),
       {
         ThirdPartyCookies_CookieControlsActivated::kEntryName,

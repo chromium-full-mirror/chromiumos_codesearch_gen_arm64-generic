@@ -32,6 +32,24 @@ class PLATFORM_EXPORT WebPrintJobStateObserverAsyncWaiter {
 };
 
 
+class PLATFORM_EXPORT WebPrintJobControllerInterceptorForTesting : public WebPrintJobController {
+  virtual WebPrintJobController* GetForwardingInterface() = 0;
+  void Cancel() override;
+};
+class PLATFORM_EXPORT WebPrintJobControllerAsyncWaiter {
+ public:
+  explicit WebPrintJobControllerAsyncWaiter(WebPrintJobController* proxy);
+
+  WebPrintJobControllerAsyncWaiter(const WebPrintJobControllerAsyncWaiter&) = delete;
+  WebPrintJobControllerAsyncWaiter& operator=(const WebPrintJobControllerAsyncWaiter&) = delete;
+
+  ~WebPrintJobControllerAsyncWaiter();
+
+ private:
+  WebPrintJobController* const proxy_;
+};
+
+
 class PLATFORM_EXPORT WebPrinterInterceptorForTesting : public WebPrinter {
   virtual WebPrinter* GetForwardingInterface() = 0;
   void FetchAttributes(FetchAttributesCallback callback) override;

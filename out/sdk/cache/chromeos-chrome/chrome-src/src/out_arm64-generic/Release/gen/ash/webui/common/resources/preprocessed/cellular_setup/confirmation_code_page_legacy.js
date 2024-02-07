@@ -11,7 +11,7 @@ import '//resources/polymer/v3_0/iron-media-query/iron-media-query.js';
 import '//resources/polymer/v3_0/paper-spinner/paper-spinner-lite.js';
 import './base_page.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { getTemplate } from './confirmation_code_page_legacy.html.js';
 const ConfirmationCodePageLegacyElementBase = I18nMixin(PolymerElement);

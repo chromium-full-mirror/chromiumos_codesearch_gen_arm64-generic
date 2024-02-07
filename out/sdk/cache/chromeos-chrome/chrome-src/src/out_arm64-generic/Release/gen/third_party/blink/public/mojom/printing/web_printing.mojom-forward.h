@@ -89,6 +89,8 @@ using WebPrintResultPtr = mojo::StructPtr<WebPrintResult>;
 
 class WebPrintJobStateObserver;
 
+class WebPrintJobController;
+
 class WebPrinter;
 
 class WebPrintingService;

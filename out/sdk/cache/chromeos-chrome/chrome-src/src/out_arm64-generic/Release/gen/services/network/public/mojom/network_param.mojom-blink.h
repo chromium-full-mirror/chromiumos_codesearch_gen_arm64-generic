@@ -827,7 +827,7 @@ class BLINK_PLATFORM_EXPORT ProxyChain {
 
   ProxyChain(
       std::optional<WTF::Vector<ProxyServerPtr>> proxy_servers,
-      bool is_for_ip_protection);
+      int32_t ip_protection_chain_id);
 
 ProxyChain(const ProxyChain&) = delete;
 ProxyChain& operator=(const ProxyChain&) = delete;
@@ -909,7 +909,7 @@ ProxyChain& operator=(const ProxyChain&) = delete;
   
   std::optional<WTF::Vector<ProxyServerPtr>> proxy_servers;
   
-  bool is_for_ip_protection;
+  int32_t ip_protection_chain_id;
 
   // Serialise this struct into a trace.
   void WriteIntoTrace(perfetto::TracedValue traced_context) const;
@@ -1386,7 +1386,7 @@ template <typename StructPtrType>
 ProxyChainPtr ProxyChain::Clone() const {
   return New(
       mojo::Clone(proxy_servers),
-      mojo::Clone(is_for_ip_protection)
+      mojo::Clone(ip_protection_chain_id)
   );
 }
 
@@ -1394,7 +1394,7 @@ template <typename T, ProxyChain::EnableIfSame<T>*>
 bool ProxyChain::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->proxy_servers, other_struct.proxy_servers))
     return false;
-  if (!mojo::Equals(this->is_for_ip_protection, other_struct.is_for_ip_protection))
+  if (!mojo::Equals(this->ip_protection_chain_id, other_struct.ip_protection_chain_id))
     return false;
   return true;
 }
@@ -1405,9 +1405,9 @@ bool operator<(const T& lhs, const T& rhs) {
     return true;
   if (rhs.proxy_servers < lhs.proxy_servers)
     return false;
-  if (lhs.is_for_ip_protection < rhs.is_for_ip_protection)
+  if (lhs.ip_protection_chain_id < rhs.ip_protection_chain_id)
     return true;
-  if (rhs.is_for_ip_protection < lhs.is_for_ip_protection)
+  if (rhs.ip_protection_chain_id < lhs.ip_protection_chain_id)
     return false;
   return false;
 }
@@ -1637,9 +1637,9 @@ struct BLINK_PLATFORM_EXPORT StructTraits<::network::mojom::blink::ProxyChain::D
     return input->proxy_servers;
   }
 
-  static decltype(::network::mojom::blink::ProxyChain::is_for_ip_protection) is_for_ip_protection(
+  static decltype(::network::mojom::blink::ProxyChain::ip_protection_chain_id) ip_protection_chain_id(
       const ::network::mojom::blink::ProxyChainPtr& input) {
-    return input->is_for_ip_protection;
+    return input->ip_protection_chain_id;
   }
 
   static bool Read(::network::mojom::blink::ProxyChain::DataView input, ::network::mojom::blink::ProxyChainPtr* output);

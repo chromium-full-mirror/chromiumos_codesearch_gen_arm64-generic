@@ -6732,235 +6732,235 @@ return LoadWasmModuleObjectScript_0(state_, p_o);}
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmModuleObjectScript(TNode<WasmModuleObject> p_o, TNode<Script> p_v) {
 return StoreWasmModuleObjectScript_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=153&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=155&c=3
 TNode<HeapObject> TorqueGeneratedExportedMacrosAssembler::LoadWasmTableObjectInstance(TNode<WasmTableObject> p_o) {
 return LoadWasmTableObjectInstance_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=153&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=155&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmTableObjectInstance(TNode<WasmTableObject> p_o, TNode<HeapObject> p_v) {
 return StoreWasmTableObjectInstance_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=162&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=164&c=3
 TNode<FixedArray> TorqueGeneratedExportedMacrosAssembler::LoadWasmTableObjectEntries(TNode<WasmTableObject> p_o) {
 return LoadWasmTableObjectEntries_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=162&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=164&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmTableObjectEntries(TNode<WasmTableObject> p_o, TNode<FixedArray> p_v) {
 return StoreWasmTableObjectEntries_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=163&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=165&c=3
 TNode<Smi> TorqueGeneratedExportedMacrosAssembler::LoadWasmTableObjectCurrentLength(TNode<WasmTableObject> p_o) {
 return LoadWasmTableObjectCurrentLength_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=163&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=165&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmTableObjectCurrentLength(TNode<WasmTableObject> p_o, TNode<Smi> p_v) {
 return StoreWasmTableObjectCurrentLength_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=164&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=166&c=3
 TNode<Object> TorqueGeneratedExportedMacrosAssembler::LoadWasmTableObjectMaximumLength(TNode<WasmTableObject> p_o) {
 return LoadWasmTableObjectMaximumLength_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=164&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=166&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmTableObjectMaximumLength(TNode<WasmTableObject> p_o, TNode<Object> p_v) {
 return StoreWasmTableObjectMaximumLength_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=167&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=169&c=3
 TNode<FixedArray> TorqueGeneratedExportedMacrosAssembler::LoadWasmTableObjectUses(TNode<WasmTableObject> p_o) {
 return LoadWasmTableObjectUses_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=167&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=169&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmTableObjectUses(TNode<WasmTableObject> p_o, TNode<FixedArray> p_v) {
 return StoreWasmTableObjectUses_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=168&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=170&c=3
 TNode<Smi> TorqueGeneratedExportedMacrosAssembler::LoadWasmTableObjectRawType(TNode<WasmTableObject> p_o) {
 return LoadWasmTableObjectRawType_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=168&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=170&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmTableObjectRawType(TNode<WasmTableObject> p_o, TNode<Smi> p_v) {
 return StoreWasmTableObjectRawType_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=172&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=174&c=3
 TNode<JSArrayBuffer> TorqueGeneratedExportedMacrosAssembler::LoadWasmMemoryObjectArrayBuffer(TNode<WasmMemoryObject> p_o) {
 return LoadWasmMemoryObjectArrayBuffer_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=172&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=174&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmMemoryObjectArrayBuffer(TNode<WasmMemoryObject> p_o, TNode<JSArrayBuffer> p_v) {
 return StoreWasmMemoryObjectArrayBuffer_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=173&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=175&c=3
 TNode<Smi> TorqueGeneratedExportedMacrosAssembler::LoadWasmMemoryObjectMaximumPages(TNode<WasmMemoryObject> p_o) {
 return LoadWasmMemoryObjectMaximumPages_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=173&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=175&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmMemoryObjectMaximumPages(TNode<WasmMemoryObject> p_o, TNode<Smi> p_v) {
 return StoreWasmMemoryObjectMaximumPages_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=174&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=176&c=3
 TNode<Smi> TorqueGeneratedExportedMacrosAssembler::LoadWasmMemoryObjectIsMemory64(TNode<WasmMemoryObject> p_o) {
 return LoadWasmMemoryObjectIsMemory64_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=174&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=176&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmMemoryObjectIsMemory64(TNode<WasmMemoryObject> p_o, TNode<Smi> p_v) {
 return StoreWasmMemoryObjectIsMemory64_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=175&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=177&c=3
 TNode<WeakArrayList> TorqueGeneratedExportedMacrosAssembler::LoadWasmMemoryObjectInstances(TNode<WasmMemoryObject> p_o) {
 return LoadWasmMemoryObjectInstances_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=175&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=177&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmMemoryObjectInstances(TNode<WasmMemoryObject> p_o, TNode<WeakArrayList> p_v) {
 return StoreWasmMemoryObjectInstances_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=183&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=185&c=3
 TNode<HeapObject> TorqueGeneratedExportedMacrosAssembler::LoadWasmGlobalObjectInstance(TNode<WasmGlobalObject> p_o) {
 return LoadWasmGlobalObjectInstance_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=183&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=185&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmGlobalObjectInstance(TNode<WasmGlobalObject> p_o, TNode<HeapObject> p_v) {
 return StoreWasmGlobalObjectInstance_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=184&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=186&c=3
 TNode<HeapObject> TorqueGeneratedExportedMacrosAssembler::LoadWasmGlobalObjectUntaggedBuffer(TNode<WasmGlobalObject> p_o) {
 return LoadWasmGlobalObjectUntaggedBuffer_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=184&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=186&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmGlobalObjectUntaggedBuffer(TNode<WasmGlobalObject> p_o, TNode<HeapObject> p_v) {
 return StoreWasmGlobalObjectUntaggedBuffer_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=185&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=187&c=3
 TNode<HeapObject> TorqueGeneratedExportedMacrosAssembler::LoadWasmGlobalObjectTaggedBuffer(TNode<WasmGlobalObject> p_o) {
 return LoadWasmGlobalObjectTaggedBuffer_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=185&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=187&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmGlobalObjectTaggedBuffer(TNode<WasmGlobalObject> p_o, TNode<HeapObject> p_v) {
 return StoreWasmGlobalObjectTaggedBuffer_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=186&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=188&c=3
 TNode<Smi> TorqueGeneratedExportedMacrosAssembler::LoadWasmGlobalObjectOffset(TNode<WasmGlobalObject> p_o) {
 return LoadWasmGlobalObjectOffset_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=186&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=188&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmGlobalObjectOffset(TNode<WasmGlobalObject> p_o, TNode<Smi> p_v) {
 return StoreWasmGlobalObjectOffset_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=187&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=189&c=3
 TNode<Smi> TorqueGeneratedExportedMacrosAssembler::LoadWasmGlobalObjectRawType(TNode<WasmGlobalObject> p_o) {
 return LoadWasmGlobalObjectRawType_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=187&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=189&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmGlobalObjectRawType(TNode<WasmGlobalObject> p_o, TNode<Smi> p_v) {
 return StoreWasmGlobalObjectRawType_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=190&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=192&c=3
 TNode<Smi> TorqueGeneratedExportedMacrosAssembler::LoadWasmGlobalObjectIsMutable(TNode<WasmGlobalObject> p_o) {
 return LoadWasmGlobalObjectIsMutable_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=190&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=192&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmGlobalObjectIsMutable(TNode<WasmGlobalObject> p_o, TNode<Smi> p_v) {
 return StoreWasmGlobalObjectIsMutable_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=194&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=196&c=3
 TNode<ByteArray> TorqueGeneratedExportedMacrosAssembler::LoadWasmTagObjectSerializedSignature(TNode<WasmTagObject> p_o) {
 return LoadWasmTagObjectSerializedSignature_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=194&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=196&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmTagObjectSerializedSignature(TNode<WasmTagObject> p_o, TNode<ByteArray> p_v) {
 return StoreWasmTagObjectSerializedSignature_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=195&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=197&c=3
 TNode<HeapObject> TorqueGeneratedExportedMacrosAssembler::LoadWasmTagObjectTag(TNode<WasmTagObject> p_o) {
 return LoadWasmTagObjectTag_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=195&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=197&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmTagObjectTag(TNode<WasmTagObject> p_o, TNode<HeapObject> p_v) {
 return StoreWasmTagObjectTag_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=196&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=198&c=3
 TNode<Smi> TorqueGeneratedExportedMacrosAssembler::LoadWasmTagObjectCanonicalTypeIndex(TNode<WasmTagObject> p_o) {
 return LoadWasmTagObjectCanonicalTypeIndex_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=196&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=198&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmTagObjectCanonicalTypeIndex(TNode<WasmTagObject> p_o, TNode<Smi> p_v) {
 return StoreWasmTagObjectCanonicalTypeIndex_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=202&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=204&c=3
 TNode<Foreign> TorqueGeneratedExportedMacrosAssembler::LoadAsmWasmDataManagedNativeModule(TNode<AsmWasmData> p_o) {
 return LoadAsmWasmDataManagedNativeModule_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=202&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=204&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreAsmWasmDataManagedNativeModule(TNode<AsmWasmData> p_o, TNode<Foreign> p_v) {
 return StoreAsmWasmDataManagedNativeModule_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=203&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=205&c=3
 TNode<HeapNumber> TorqueGeneratedExportedMacrosAssembler::LoadAsmWasmDataUsesBitset(TNode<AsmWasmData> p_o) {
 return LoadAsmWasmDataUsesBitset_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=203&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=205&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreAsmWasmDataUsesBitset(TNode<AsmWasmData> p_o, TNode<HeapNumber> p_v) {
 return StoreAsmWasmDataUsesBitset_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=215&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=217&c=3
 TNode<ExternalPointerT> TorqueGeneratedExportedMacrosAssembler::LoadWasmTypeInfoNativeType(TNode<WasmTypeInfo> p_o) {
 return LoadWasmTypeInfoNativeType_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=215&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=217&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmTypeInfoNativeType(TNode<WasmTypeInfo> p_o, TNode<ExternalPointerT> p_v) {
 return StoreWasmTypeInfoNativeType_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=216&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=218&c=3
 TNode<Uint32T> TorqueGeneratedExportedMacrosAssembler::LoadWasmTypeInfoTypeIndex(TNode<WasmTypeInfo> p_o) {
 return LoadWasmTypeInfoTypeIndex_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=216&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=218&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmTypeInfoTypeIndex(TNode<WasmTypeInfo> p_o, TNode<Uint32T> p_v) {
 return StoreWasmTypeInfoTypeIndex_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=220&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
 TNode<HeapObject> TorqueGeneratedExportedMacrosAssembler::LoadWasmTypeInfoInstance(TNode<WasmTypeInfo> p_o) {
 return LoadWasmTypeInfoInstance_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=220&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmTypeInfoInstance(TNode<WasmTypeInfo> p_o, TNode<HeapObject> p_v) {
 return StoreWasmTypeInfoInstance_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=221&c=9
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=223&c=9
 TNode<Smi> TorqueGeneratedExportedMacrosAssembler::LoadWasmTypeInfoSupertypesLength(TNode<WasmTypeInfo> p_o) {
 return LoadWasmTypeInfoSupertypesLength_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=224&c=3
 TorqueStructSlice_Object_MutableReference_Object_0 TorqueGeneratedExportedMacrosAssembler::FieldSliceWasmTypeInfoSupertypes(TNode<WasmTypeInfo> p_o) {
 return FieldSliceWasmTypeInfoSupertypes_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=224&c=3
 TNode<Object> TorqueGeneratedExportedMacrosAssembler::LoadWasmTypeInfoSupertypes(TNode<WasmTypeInfo> p_o, TNode<IntPtrT> p_i) {
 return LoadWasmTypeInfoSupertypes_0(state_, p_o, p_i);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=224&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmTypeInfoSupertypes(TNode<WasmTypeInfo> p_o, TNode<IntPtrT> p_i, TNode<Object> p_v) {
 return StoreWasmTypeInfoSupertypes_0(state_, p_o, p_i, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=237&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=239&c=3
 TNode<Uint32T> TorqueGeneratedExportedMacrosAssembler::LoadWasmArrayLength(TNode<WasmArray> p_o) {
 return LoadWasmArrayLength_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=237&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=239&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmArrayLength(TNode<WasmArray> p_o, TNode<Uint32T> p_v) {
 return StoreWasmArrayLength_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=244&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=246&c=3
 TNode<String> TorqueGeneratedExportedMacrosAssembler::LoadWasmStringViewIterString(TNode<WasmStringViewIter> p_o) {
 return LoadWasmStringViewIterString_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=244&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=246&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmStringViewIterString(TNode<WasmStringViewIter> p_o, TNode<String> p_v) {
 return StoreWasmStringViewIterString_0(state_, p_o, p_v);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=245&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=247&c=3
 TNode<Uint32T> TorqueGeneratedExportedMacrosAssembler::LoadWasmStringViewIterOffset(TNode<WasmStringViewIter> p_o) {
 return LoadWasmStringViewIterOffset_0(state_, p_o);}
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=245&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=247&c=3
 void TorqueGeneratedExportedMacrosAssembler::StoreWasmStringViewIterOffset(TNode<WasmStringViewIter> p_o, TNode<Uint32T> p_v) {
 return StoreWasmStringViewIterOffset_0(state_, p_o, p_v);}
 

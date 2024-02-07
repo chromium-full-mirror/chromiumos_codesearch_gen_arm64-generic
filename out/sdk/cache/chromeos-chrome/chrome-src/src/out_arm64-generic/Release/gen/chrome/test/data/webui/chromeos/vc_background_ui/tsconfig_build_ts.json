@@ -22,11 +22,11 @@
       "chrome://resources/ash/common/sea_pen/*": [
         "./../../../../../../ash/webui/common/resources/preprocessed/sea_pen/*"
       ],
-      "//resources/cr_elements/*": [
-        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
+      "//resources/ash/common/cr_elements/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
       ],
-      "chrome://resources/cr_elements/*": [
-        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
+      "chrome://resources/ash/common/cr_elements/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
       ],
       "/tools/typescript/definitions/*": [
         "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
@@ -59,7 +59,7 @@
       "path": "../../../../../../ash/webui/vc_background_ui/resources/tsconfig_build_ts.json"
     },
     {
-      "path": "../../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+      "path": "../../../../../../ash/webui/common/resources/cr_elements/tsconfig_build_ts.json"
     }
   ]
 }

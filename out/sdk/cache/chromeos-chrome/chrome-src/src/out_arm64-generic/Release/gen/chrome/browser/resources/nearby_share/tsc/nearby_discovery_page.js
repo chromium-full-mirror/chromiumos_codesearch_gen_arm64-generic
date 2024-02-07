@@ -5,8 +5,8 @@
  * @fileoverview The 'nearby-discovery-page' component shows the discovery UI of
  * the Nearby Share flow. It shows a list of devices to select from.
  */
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_lottie/cr_lottie.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_lottie/cr_lottie.js';
 import 'chrome://resources/cros_components/lottie_renderer/lottie-renderer.js';
 import 'chrome://resources/polymer/v3_0/iron-media-query/iron-media-query.js';
 import 'chrome://resources/polymer/v3_0/iron-list/iron-list.js';
@@ -15,7 +15,7 @@ import '/shared/nearby_page_template.js';
 import '/shared/nearby_preview.js';
 import './strings.m.js';
 import { SelectShareTargetResult, ShareTargetListenerCallbackRouter, StartDiscoveryResult } from '/shared/nearby_share.mojom-webui.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { sanitizeInnerHtml } from 'chrome://resources/js/parse_html_subset.js';

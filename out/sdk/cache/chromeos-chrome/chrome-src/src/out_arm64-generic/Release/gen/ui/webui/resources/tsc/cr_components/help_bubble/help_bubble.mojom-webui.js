@@ -355,6 +355,15 @@ mojo.internal.Struct(HelpBubbleParamsSpec.$, 'HelpBubbleParams', [
     mojo.internal.StructField('bodyIconAltText', 48, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('progress', 56, 0, ProgressSpec.$, null, true /* nullable */, 0),
     mojo.internal.StructField('buttons', 64, 0, mojo.internal.Array(HelpBubbleButtonParamsSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('focus_on_show_hint_$flag', 12, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "focus_on_show_hint_$value",
+        originalFieldName: "focusOnShowHint",
+    }),
+    mojo.internal.StructField('focus_on_show_hint_$value', 12, 1, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "focusOnShowHint",
+    }),
     mojo.internal.StructField('timeout', 72, 0, mojoBase_mojom_TimeDeltaSpec.$, null, true /* nullable */, 0),
 ], [[0, 88],]);
 mojo.internal.Struct(HelpBubbleHandlerFactory_CreateHelpBubbleHandler_ParamsSpec.$, 'HelpBubbleHandlerFactory_CreateHelpBubbleHandler_Params', [

@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 import 'chrome://resources/ash/common/navigation_view_panel.js';
 import 'chrome://resources/ash/common/page_toolbar.js';
-import 'chrome://resources/cr_elements/cr_toast/cr_toast.js';
+import 'chrome://resources/ash/common/cr_elements/cr_toast/cr_toast.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import './diagnostics_sticky_banner.js';
 import './diagnostics_shared.css.js';
@@ -13,7 +13,7 @@ import './strings.m.js';
 import './system_page.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { ColorChangeUpdater } from 'chrome://resources/cr_components/color_change_listener/colors_css_updater.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './diagnostics_app.html.js';

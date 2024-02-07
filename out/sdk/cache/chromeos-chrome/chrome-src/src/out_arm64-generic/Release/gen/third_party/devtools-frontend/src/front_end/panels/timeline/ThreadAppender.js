@@ -185,7 +185,7 @@ export class ThreadAppender {
     }
     modifyTree(traceEvent, action) {
         if (this.#entriesFilter) {
-            this.#entriesFilter.applyAction({ type: action, entry: traceEvent });
+            this.#entriesFilter.applyFilterAction({ type: action, entry: traceEvent });
         }
         else {
             console.warn('Could not modify tree because entriesFilter does not exist');

@@ -73,6 +73,11 @@ const DeprecationInfo GetDeprecationInfo(WebFeature feature) {
         feature,
         "CrossOriginWindowConfirm",
         "Triggering window.confirm from cross origin iframes has been deprecated and will be removed in the future.");
+    case WebFeature::kCSSCustomStateDeprecatedSyntax:
+      return DeprecationInfo::Create(
+        feature,
+        "CSSCustomStateDeprecatedSyntax",
+        "`:--customstatename` is deprecated. Please use the `:state(customstatename)` syntax instead.");
     case WebFeature::kCSSSelectorInternalMediaControlsOverlayCastButton:
       return DeprecationInfo::Create(
         feature,

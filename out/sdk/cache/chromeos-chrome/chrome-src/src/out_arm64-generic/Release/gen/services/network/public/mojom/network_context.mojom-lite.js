@@ -1351,7 +1351,7 @@ network.mojom.IpProtectionConfigGetterRemote = class {
   
   /**
    * @return {!Promise<{
-        proxyList: ?Array<!Array<!string>>,
+        proxyList: ?Array<!network.mojom.ProxyChain>,
    *  }>}
    */
 
@@ -8339,7 +8339,7 @@ mojo.internal.Struct(
       mojo.internal.StructField(
         'proxyList', 0,
         0,
-        mojo.internal.Array(mojo.internal.Array(mojo.internal.String, false), false),
+        mojo.internal.Array(network.mojom.ProxyChainSpec.$, false),
         null,
         true, /* nullable */
         0 /* minVersion */,
@@ -8354,7 +8354,7 @@ mojo.internal.Struct(
 /** @record */
 network.mojom.IpProtectionConfigGetter_GetProxyList_ResponseParams = class {
   constructor() {
-    /** @export { (Array<!Array<!string>>|undefined) } */
+    /** @export { (Array<!network.mojom.ProxyChain>|undefined) } */
     this.proxyList;
   }
 };

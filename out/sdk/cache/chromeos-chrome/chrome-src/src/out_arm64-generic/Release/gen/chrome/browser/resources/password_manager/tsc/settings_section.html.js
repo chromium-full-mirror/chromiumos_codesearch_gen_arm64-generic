@@ -16,10 +16,8 @@ export function getTemplate() {
   <pref-toggle-button id="autosigninToggle" class="hr" label="$i18n{autosigninLabel}" sub-label="$i18n{autosigninDescription}" pref="{{prefs.credentials_enable_autosignin}}">
   </pref-toggle-button>
   
-  <template is="dom-if" if="[[isEligibleForAccountStorage]]">
-    <pref-toggle-button id="accountStorageToggle" class="hr" label="$i18n{accountStorageToggleLabel}" sub-label="[[getToggleSubLabelForAccountStorageOptIn_(accountEmail)]]" checked="[[isAccountStoreUser]]" change-requires-validation on-validate-and-change-pref="changeAccountStorageOptIn_">
+    <pref-toggle-button id="accountStorageToggle" class="hr" hidden="[[!isEligibleForAccountStorage]]" label="$i18n{accountStorageToggleLabel}" sub-label="[[getToggleSubLabelForAccountStorageOptIn_(accountEmail)]]" checked="[[isAccountStoreUser]]" change-requires-validation on-validate-and-change-pref="changeAccountStorageOptIn_">
     </pref-toggle-button>
-  </template>
   <template is="dom-if" if="[[shouldShowMovePasswordsEntry_(isAccountStoreUser, passwordsOnDevice_)]]" restamp>
     <cr-link-row class="cr-row" non-clickable label="[[movePasswordsLabel_]]" sub-label="$i18n{movePasswordsInSettingsSubLabel}" hide-icon>
       <cr-button id="movePasswordsButton" on-click="onMovePasswordsClicked_">

@@ -385,10 +385,10 @@ mojo.internal.Struct(
         0,
       ),
       mojo.internal.StructField(
-        'isForIpProtection', 8,
+        'ipProtectionChainId', 8,
         0,
-        mojo.internal.Bool,
-        false,
+        mojo.internal.Int32,
+        0,
         false /* nullable */,
         0,
       ),
@@ -404,8 +404,8 @@ export class ProxyChain {
   constructor() {
     /** @type { (Array<!ProxyServer>|undefined) } */
     this.proxyServers;
-    /** @type { !boolean } */
-    this.isForIpProtection;
+    /** @type { !number } */
+    this.ipProtectionChainId;
   }
 }
 

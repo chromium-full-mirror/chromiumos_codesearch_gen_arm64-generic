@@ -1769,6 +1769,51 @@ bool HardSigmoid::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+HardSwish::HardSwish()
+    : input_operand_id(),
+      output_operand_id() {}
+
+HardSwish::HardSwish(
+    uint64_t input_operand_id_in,
+    uint64_t output_operand_id_in)
+    : input_operand_id(std::move(input_operand_id_in)),
+      output_operand_id(std::move(output_operand_id_in)) {}
+
+HardSwish::~HardSwish() = default;
+size_t HardSwish::Hash(size_t seed) const {
+  seed = mojo::internal::WTFHash(seed, this->input_operand_id);
+  seed = mojo::internal::WTFHash(seed, this->output_operand_id);
+  return seed;
+}
+
+void HardSwish::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "input_operand_id"), this->input_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "output_operand_id"), this->output_operand_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool HardSwish::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 LayerNormalization::LayerNormalization()
     : input_operand_id(),
       output_operand_id(),
@@ -3155,6 +3200,17 @@ void Operation::set_hard_sigmoid(
         std::move(hard_sigmoid));
   }
 }
+void Operation::set_hard_swish(
+    HardSwishPtr hard_swish) {
+  if (tag_ == Tag::kHardSwish) {
+    *(data_.hard_swish) = std::move(hard_swish);
+  } else {
+    DestroyActive();
+    tag_ = Tag::kHardSwish;
+    data_.hard_swish = new HardSwishPtr(
+        std::move(hard_swish));
+  }
+}
 void Operation::set_layer_normalization(
     LayerNormalizationPtr layer_normalization) {
   if (tag_ == Tag::kLayerNormalization) {
@@ -3437,6 +3493,10 @@ void Operation::DestroyActive() {
     case Tag::kHardSigmoid:
 
       delete data_.hard_sigmoid;
+      break;
+    case Tag::kHardSwish:
+
+      delete data_.hard_swish;
       break;
     case Tag::kLayerNormalization:
 
@@ -4557,6 +4617,22 @@ bool StructTraits<::webnn::mojom::blink::HardSigmoid::DataView, ::webnn::mojom::
 
 
 // static
+bool StructTraits<::webnn::mojom::blink::HardSwish::DataView, ::webnn::mojom::blink::HardSwishPtr>::Read(
+    ::webnn::mojom::blink::HardSwish::DataView input,
+    ::webnn::mojom::blink::HardSwishPtr* output) {
+  bool success = true;
+  ::webnn::mojom::blink::HardSwishPtr result(::webnn::mojom::blink::HardSwish::New());
+  
+      if (success)
+        result->input_operand_id = input.input_operand_id();
+      if (success)
+        result->output_operand_id = input.output_operand_id();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
 bool StructTraits<::webnn::mojom::blink::LayerNormalization::DataView, ::webnn::mojom::blink::LayerNormalizationPtr>::Read(
     ::webnn::mojom::blink::LayerNormalization::DataView input,
     ::webnn::mojom::blink::LayerNormalizationPtr* output) {
@@ -5130,6 +5206,15 @@ bool UnionTraits<::webnn::mojom::blink::Operation::DataView, ::webnn::mojom::bli
 
       *output = UnionType::NewHardSigmoid(
           std::move(result_hard_sigmoid));
+      break;
+    }
+    case Tag::kHardSwish: {
+      ::webnn::mojom::blink::HardSwishPtr result_hard_swish;
+      if (!input.ReadHardSwish(&result_hard_swish))
+        return false;
+
+      *output = UnionType::NewHardSwish(
+          std::move(result_hard_swish));
       break;
     }
     case Tag::kLayerNormalization: {

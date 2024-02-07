@@ -23,7 +23,6 @@ import 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby
 import 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
 import 'chrome://resources/mojo/chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-webui.js';
 import 'chrome://resources/mojo/services/network/public/mojom/ip_address.mojom-webui.js';
-import 'chrome://resources/lit/v3_0/lit.rollup.js';
 
 function getTemplate$2i() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
@@ -19104,101 +19103,132 @@ function getTemplate$1o() {
 /**
  * Polymer class definition for 'network-list'.
  */
-Polymer({
-  _template: getTemplate$1o(),
-  is: 'network-list',
 
-  properties: {
-    /**
-     * The list of network state properties for the items to display.
-     * @type {!Array<!OncMojo.NetworkStateProperties>}
-     */
-    networks: {
-      type: Array,
-      value() {
-        return [];
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {CrScrollableBehaviorInterface}
+ * @implements {ListPropertyUpdateBehaviorInterface}
+ */
+const NetworkListElementBase = mixinBehaviors(
+    [CrScrollableBehavior, ListPropertyUpdateBehavior], PolymerElement);
+
+/** @polymer */
+class NetworkListElement extends NetworkListElementBase {
+  static get is() {
+    return 'network-list';
+  }
+
+  static get template() {
+    return getTemplate$1o();
+  }
+
+  static get properties() {
+    return {
+      /**
+       * The list of network state properties for the items to display.
+       * @type {!Array<!OncMojo.NetworkStateProperties>}
+       */
+      networks: {
+        type: Array,
+        value() {
+          return [];
+        },
       },
-    },
 
-    /**
-     * The list of custom items to display after the list of networks.
-     * @type {!Array<!NetworkList.CustomItemState>}
-     */
-    customItems: {
-      type: Array,
-      value() {
-        return [];
+      /**
+       * The list of custom items to display after the list of networks.
+       * @type {!Array<!NetworkList.CustomItemState>}
+       */
+      customItems: {
+        type: Array,
+        value() {
+          return [];
+        },
       },
-    },
 
-    /** True if action buttons should be shown for the itmes. */
-    showButtons: {
-      type: Boolean,
-      value: false,
-      reflectToAttribute: true,
-    },
-
-    /** Whether to show technology badges on mobile network icons. */
-    showTechnologyBadge: {type: Boolean, value: true},
-
-    /**
-     * Reflects the iron-list selecteditem property.
-     * @type {!NetworkList.NetworkListItemType}
-     */
-    selectedItem: {
-      type: Object,
-      observer: 'selectedItemChanged_',
-    },
-
-    /** Whether cellular activation is unavailable in the current context. */
-    activationUnavailable: Boolean,
-
-    /**
-     * DeviceState associated with the type of |networks| listed, or undefined
-     * if none was provided.
-     * @private {!OncMojo.DeviceStateProperties|undefined} deviceState
-     */
-    deviceState: Object,
-
-    /** @type {!GlobalPolicy|undefined} */
-    globalPolicy: Object,
-
-    /**
-     * Contains |networks| + |customItems|.
-     * @private {!Array<!NetworkList.NetworkListItemType>}
-     */
-    listItems_: {
-      type: Array,
-      value() {
-        return [];
+      /** True if action buttons should be shown for the items. */
+      showButtons: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true,
       },
-    },
 
-    /**
-     * Used by FocusRowBehavior to track the last focused element on a row.
-     * @private
-     */
-    lastFocused_: Object,
+      /** Whether to show technology badges on mobile network icons. */
+      showTechnologyBadge: {type: Boolean, value: true},
 
-    /**
-     * Used by FocusRowBehavior to track if the list has been blurred.
-     * @private
-     */
-    listBlurred_: Boolean,
+      /**
+       * Reflects the iron-list selecteditem property.
+       * @type {!NetworkList.NetworkListItemType}
+       */
+      selectedItem: {
+        type: Object,
+        observer: 'selectedItemChanged_',
+      },
 
-    /** Disables all the network items. */
-    disabled: Boolean,
-  },
+      /** Whether cellular activation is unavailable in the current context. */
+      activationUnavailable: Boolean,
 
-  behaviors: [CrScrollableBehavior, ListPropertyUpdateBehavior],
+      /**
+       * DeviceState associated with the type of |networks| listed, or undefined
+       * if none was provided.
+       * @private {!OncMojo.DeviceStateProperties|undefined} deviceState
+       */
+      deviceState: Object,
 
-  observers: ['updateListItems_(networks, customItems)'],
+      /** @type {!GlobalPolicy|undefined} */
+      globalPolicy: Object,
 
-  /** @type {ResizeObserver} used to observer size changes to this element */
-  resizeObserver_: null,
+      /**
+       * Contains |networks| + |customItems|.
+       * @private {!Array<!NetworkList.NetworkListItemType>}
+       */
+      listItems_: {
+        type: Array,
+        value() {
+          return [];
+        },
+      },
+
+      /**
+       * Used by FocusRowBehavior to track the last focused element on a row.
+       * @private
+       */
+      lastFocused_: Object,
+
+      /**
+       * Used by FocusRowBehavior to track if the list has been blurred.
+       * @private
+       */
+      listBlurred_: Boolean,
+
+      /** Disables all the network items. */
+      disabled: Boolean,
+    };
+  }
+
+  static get observers() {
+    return ['updateListItems_(networks, customItems)'];
+  }
 
   /** @override */
-  attached() {
+  constructor() {
+    super();
+
+    /**
+     * @private @type {ResizeObserver} used to observer size changes to this
+     *     element
+     */
+    this.resizeObserver_ = null;
+
+    /** @private {boolean} */
+    this.focusRequested_ = false;
+  }
+
+  /** @override */
+  connectedCallback() {
+    super.connectedCallback();
+
     // This is a required work around to get the iron-list to display on first
     // view. Currently iron-list won't generate item elements on attach if the
     // element is not visible. Because there are some instances where this
@@ -19206,29 +19236,29 @@ Polymer({
     // resize events and manually call notifyResize on the iron-list
     this.resizeObserver_ = new ResizeObserver(entries => {
       const networkList =
-          /** @type {IronListElement} */ (this.$$('#networkList'));
+          /** @type {IronListElement} */ (
+              this.shadowRoot.querySelector('#networkList'));
       if (networkList) {
         networkList.notifyResize();
       }
     });
     this.resizeObserver_.observe(this);
-  },
+  }
 
   /** @override */
-  detached() {
-    this.resizeObserver_.disconnect();
-  },
+  disconnectedCallback() {
+    super.disconnectedCallback();
 
-  /** @private {boolean} */
-  focusRequested_: false,
+    this.resizeObserver_.disconnect();
+  }
 
   focus() {
     this.focusRequested_ = true;
     this.focusFirstItem_();
-  },
+  }
 
   /** @private */
-  updateListItems_: function() {
+  updateListItems_() {
     const beforeNetworks =
         this.customItems.filter(n => n.showBeforeNetworksList === true);
     const afterNetworks =
@@ -19239,23 +19269,25 @@ Polymer({
 
     this.updateScrollableContents();
     if (this.focusRequested_) {
-      this.async(function() {
+      microTask.run(function() {
         this.focusFirstItem_();
       });
     }
-  },
+  }
 
   /** @private */
   focusFirstItem_() {
     // Select the first network-list-item if there is one.
-    const item = this.$$('network-list-item');
+    const item = this.shadowRoot.querySelector('network-list-item');
     if (!item) {
       return;
     }
     item.focus();
     this.focusRequested_ = false;
-  },
-});
+  }
+}
+
+customElements.define(NetworkListElement.is, NetworkListElement);
 
 function getTemplate$1n() {
     return html `<!--_html_template_start_-->
@@ -26013,7 +26045,7 @@ class SettingsSwitchAccessActionAssignmentPaneElement extends SettingsSwitchAcce
 customElements.define(SettingsSwitchAccessActionAssignmentPaneElement.is, SettingsSwitchAccessActionAssignmentPaneElement);
 
 function getTemplate$13() {
-    return html `<!--_html_template_start_--><link rel="import" href="chrome://resources/cr_elements/cr_icons.css.html">
+    return html `<!--_html_template_start_--><link rel="import" href="chrome://resources/ash/common/cr_elements/cr_icons.css.html">
 <style include="cr-shared-style settings-shared">cr-dialog::part(dialog){height:380px;width:600px}.sa-setup-title{line-height:150%}.sa-setup-body{height:233px;margin-top:5px}.sa-setup-contents{width:335px}.flex{display:flex;flex-direction:row;justify-content:space-between}.illustration{height:173px;margin-top:15px;padding:16px;width:183px}#buttonContainer{padding:24px}cr-button{margin:4px}.radio-button-title{color:var(--cr-primary-text-color);font-size:14px}.radio-button-description{padding-bottom:16px}#bluetooth{margin-inline-end:324px}#exit{float:right;margin-top:-6px;padding:none}</style>
 <cr-dialog id="switchAccessSetupGuideDialog" show-on-attach>
   <div slot="title" class="sa-setup-title" id="title">
@@ -27918,7 +27950,7 @@ class EditHostnameDialogElement extends EditHostnameDialogElementBase {
 customElements.define(EditHostnameDialogElement.is, EditHostnameDialogElement);
 
 function getTemplate$X() {
-    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}#command-line{overflow-wrap:break-word;width:100%}#managedEolTooltipIcon{margin-inline-end:48px}#changeChannelCrButton{margin-inline-start:16px}:host-context(body:not(.revamp-wayfinding-enabled)) #buildDetailsLinkContainer{border-bottom:var(--cr-separator-line)}</style>
+    return html `<!--_html_template_start_--><style include="settings-shared">cr-policy-indicator{margin-inline-start:var(--cr-controlled-by-spacing)}#command-line{overflow-wrap:break-word;width:100%}#managedEolTooltipIcon{margin-inline-end:48px}#changeChannelButton{margin-inline-start:16px}:host-context(body:not(.revamp-wayfinding-enabled)) #buildDetailsLinkContainer{border-bottom:var(--cr-separator-line)}</style>
 <div class="settings-box two-line first">
   <div class="start">
     <div role="heading" aria-level="2">$i18n{aboutChannelLabel}</div>
@@ -27932,7 +27964,7 @@ function getTemplate$X() {
             canChangeChannel_)]]">
     </cr-policy-indicator>
   </template>
-  <cr-button id="changeChannelCrButton" on-click="onChangeChannelClick_" aria-describedby="currentlyOnChannelText" disabled="[[!canChangeChannel_]]" deep-link-focus-id$="[[Setting.kChangeChromeChannel]]">
+  <cr-button id="changeChannelButton" on-click="onChangeChannelClick_" aria-describedby="currentlyOnChannelText" disabled="[[!canChangeChannel_]]" deep-link-focus-id$="[[Setting.kChangeChromeChannel]]">
     $i18n{aboutChangeChannel}
   </cr-button>
   <template is="dom-if" if="[[showChannelSwitcherDialog_]]" restamp>
@@ -43423,5 +43455,5 @@ class ManageIsolatedWebAppsSubpageElement extends ManageIsolatedWebAppsSubpageBa
 }
 customElements.define(ManageIsolatedWebAppsSubpageElement.is, ManageIsolatedWebAppsSubpageElement);
 
-export { AccountManagerBrowserProxyImpl, AddPrintServerDialogElement, AddPrinterManuallyDialogElement, AddPrinterManufacturerModelDialogElement, ApnSubpageElement, AppManagementAppLanguageItemElement, BluetoothBrailleDisplayManager, BluetoothBrailleDisplayUiElement, BruschettaSubpageElement, CellularNetworksListElement, CellularRoamingToggleButtonElement, ChangeDictationLocaleDialog, ConsentStatus, CrCheckboxWithPolicyElement, CrostiniBrowserProxyImpl, CrostiniPortForwardingElement, CrostiniPortProtocol, CrostiniSettingsCardElement, CrostiniSharedUsbDevicesElement, CupsPrintersBrowserProxyImpl, CupsPrintersEntryManager, CustomizeButtonDropdownItemElement, CustomizeButtonRowElement, CustomizeButtonSelectElement, CustomizeButtonsSubsectionElement, DragAndDropManager, DspHotwordState, EsimInstallErrorDialogElement, ExtraContainersCreateDialog, ExtraContainersElement, FingerprintBrowserProxyImpl, FingerprintResultType, FingerprintSetupStep, GoogleAssistantBrowserProxyImpl, InputsShortcutReminderState, KerberosAccountsBrowserProxyImpl, KerberosAddAccountDialogElement, KerberosConfigErrorCode, KerberosErrorType, KeyCombinationInputDialogElement, KeyboardShortcutBanner, LanguagesBrowserProxyImpl, LanguagesMetricsProxyImpl, LanguagesPageInteraction, LifetimeBrowserProxyImpl, ManageIsolatedWebAppsSubpageElement, MediaDevicesProxy, NetworkAlwaysOnVpnElement, NetworkDeviceInfoDialogElement, NetworkProxySectionElement, OsSettingsAddItemsDialogElement, OsSettingsAppLanguagesPageElement, OsSettingsChangeDeviceLanguageDialogElement, OsSettingsClearPersonalizedDataDialogElement, OsSettingsEditDictionaryPageElement, OsSettingsFilesPageElement, OsSettingsInputPageElement, OsSettingsLanguagesPageV2Element, OsSettingsPersonalizationOptionsElement, OsSettingsPrintingPageElement, OsSettingsResetPageElement, OsSettingsSubpageElement, OsSyncBrowserProxyImpl, OsSyncControlsSubpageElement, PasspointRemoveDialogElement, PdfOcrUserSelection, PrintServerResult, PrinterDialogErrorElement, PrinterSettingsUserAction, PrinterSetupResult, PrinterState, PrinterStatusReason, PrinterStatusSeverity, PrinterType, PrivacyHubBrowserProxyImpl, ScreenAiInstallStatus, SecureDnsInputElement, SecureDnsResolverType, SettingsAccountManagerSubpageElement, SettingsAudioAndCaptionsPageElement, SettingsChannelSwitcherDialogElement, SettingsChromeVoxSubpageElement, SettingsCrostiniArcAdbElement, SettingsCrostiniConfirmationDialogElement, SettingsCrostiniDiskResizeDialogElement, SettingsCrostiniExportImportElement, SettingsCrostiniPageElement, SettingsCrostiniSubpageElement, SettingsCupsAddPrinterDialogElement, SettingsCupsEditPrinterDialogElement, SettingsCupsEnterprisePrintersElement, SettingsCupsNearbyPrintersElement, SettingsCupsPrintersElement, SettingsCupsPrintersEntryElement, SettingsCupsSavedPrintersElement, SettingsCursorAndTouchpadPageElement, SettingsDateTimePageElement, SettingsDisplayAndMagnificationSubpageElement, SettingsFaceGazeCursorSubpageElement, SettingsFaceGazeFacialExpressionSubpageElement, SettingsFingerprintListSubpageElement, SettingsGoogleAssistantSubpageElement, SettingsGuestOsSharedUsbDevicesElement, SettingsHotspotSubpageElement, SettingsInputMethodOptionsPageElement, SettingsInternetDetailPageElement, SettingsInternetKnownNetworksPageElement, SettingsInternetSubpageElement, SettingsInternetSubpageMenuElement, SettingsKerberosAccountsSubpageElement, SettingsKeyboardAndTextInputPageElement, SettingsLockScreenElement, SettingsManageUsersSubpageElement, SettingsMultideviceSmartlockItemElement, SettingsOfficePageElement, SettingsOneDriveSubpageElement, SettingsPasspointSubpageElement, SettingsPrivacyHubCameraSubpage, SettingsPrivacyHubGeolocationAdvancedSubpage, SettingsPrivacyHubMicrophoneSubpage, SettingsSearchSubpageElement, SettingsSecureDnsDialogElement, SettingsSecureDnsElement, SettingsSelectToSpeakSubpageElement, SettingsSetupFingerprintDialogElement, SettingsSmartPrivacySubpage, SettingsSmbSharesPageElement, SettingsSwitchAccessActionAssignmentDialogElement, SettingsSwitchAccessActionAssignmentPaneElement, SettingsSwitchAccessSetupGuideDialogElement, SettingsSwitchAccessSubpageElement, SettingsTextToSpeechSubpageElement, SettingsTrafficCountersElement, SettingsTtsVoiceSubpageElement, SettingsUserListElement, SettingsUsersAddUserDialogElement, SwitchAccessCommand, TetherConnectionDialogElement, TimeZoneAutoDetectMethod, TimeZoneBrowserProxyImpl, TimezoneSubpageElement, computePrinterState, getDataTransferOriginIndex, getStatusReasonFromPrinterStatus, sanitizeInnerHtml, setDataTransferOriginIndex };
+export { AccountManagerBrowserProxyImpl, AddPrintServerDialogElement, AddPrinterManuallyDialogElement, AddPrinterManufacturerModelDialogElement, ApnSubpageElement, AppManagementAppLanguageItemElement, BluetoothBrailleDisplayManager, BluetoothBrailleDisplayUiElement, BruschettaSubpageElement, CellularNetworksListElement, CellularRoamingToggleButtonElement, ChangeDictationLocaleDialog, ConsentStatus, CrCheckboxWithPolicyElement, CrostiniBrowserProxyImpl, CrostiniPortForwardingElement, CrostiniPortProtocol, CrostiniSettingsCardElement, CrostiniSharedUsbDevicesElement, CupsPrintersBrowserProxyImpl, CupsPrintersEntryManager, CustomizeButtonDropdownItemElement, CustomizeButtonRowElement, CustomizeButtonSelectElement, CustomizeButtonsSubsectionElement, DragAndDropManager, DspHotwordState, EditHostnameDialogElement, EsimInstallErrorDialogElement, ExtraContainersCreateDialog, ExtraContainersElement, FingerprintBrowserProxyImpl, FingerprintResultType, FingerprintSetupStep, GoogleAssistantBrowserProxyImpl, InputsShortcutReminderState, KerberosAccountsBrowserProxyImpl, KerberosAddAccountDialogElement, KerberosConfigErrorCode, KerberosErrorType, KeyCombinationInputDialogElement, KeyboardShortcutBanner, LanguagesBrowserProxyImpl, LanguagesMetricsProxyImpl, LanguagesPageInteraction, LifetimeBrowserProxyImpl, ManageIsolatedWebAppsSubpageElement, MediaDevicesProxy, NetworkAlwaysOnVpnElement, NetworkDeviceInfoDialogElement, NetworkProxySectionElement, OsSettingsAddItemsDialogElement, OsSettingsAppLanguagesPageElement, OsSettingsChangeDeviceLanguageDialogElement, OsSettingsClearPersonalizedDataDialogElement, OsSettingsEditDictionaryPageElement, OsSettingsFilesPageElement, OsSettingsInputPageElement, OsSettingsLanguagesPageV2Element, OsSettingsPersonalizationOptionsElement, OsSettingsPrintingPageElement, OsSettingsResetPageElement, OsSettingsSubpageElement, OsSyncBrowserProxyImpl, OsSyncControlsSubpageElement, PasspointRemoveDialogElement, PdfOcrUserSelection, PrintServerResult, PrinterDialogErrorElement, PrinterSettingsUserAction, PrinterSetupResult, PrinterState, PrinterStatusReason, PrinterStatusSeverity, PrinterType, PrivacyHubBrowserProxyImpl, ScreenAiInstallStatus, SecureDnsInputElement, SecureDnsResolverType, SettingsAccountManagerSubpageElement, SettingsAudioAndCaptionsPageElement, SettingsChannelSwitcherDialogElement, SettingsChromeVoxSubpageElement, SettingsConsumerAutoUpdateToggleDialogElement, SettingsCrostiniArcAdbElement, SettingsCrostiniConfirmationDialogElement, SettingsCrostiniDiskResizeDialogElement, SettingsCrostiniExportImportElement, SettingsCrostiniPageElement, SettingsCrostiniSubpageElement, SettingsCupsAddPrinterDialogElement, SettingsCupsEditPrinterDialogElement, SettingsCupsEnterprisePrintersElement, SettingsCupsNearbyPrintersElement, SettingsCupsPrintersElement, SettingsCupsPrintersEntryElement, SettingsCupsSavedPrintersElement, SettingsCursorAndTouchpadPageElement, SettingsDateTimePageElement, SettingsDetailedBuildInfoSubpageElement, SettingsDisplayAndMagnificationSubpageElement, SettingsFaceGazeCursorSubpageElement, SettingsFaceGazeFacialExpressionSubpageElement, SettingsFingerprintListSubpageElement, SettingsGoogleAssistantSubpageElement, SettingsGuestOsSharedUsbDevicesElement, SettingsHotspotSubpageElement, SettingsInputMethodOptionsPageElement, SettingsInternetDetailPageElement, SettingsInternetKnownNetworksPageElement, SettingsInternetSubpageElement, SettingsInternetSubpageMenuElement, SettingsKerberosAccountsSubpageElement, SettingsKeyboardAndTextInputPageElement, SettingsLockScreenElement, SettingsManageUsersSubpageElement, SettingsMultideviceSmartlockItemElement, SettingsOfficePageElement, SettingsOneDriveSubpageElement, SettingsPasspointSubpageElement, SettingsPrivacyHubCameraSubpage, SettingsPrivacyHubGeolocationAdvancedSubpage, SettingsPrivacyHubMicrophoneSubpage, SettingsSearchSubpageElement, SettingsSecureDnsDialogElement, SettingsSecureDnsElement, SettingsSelectToSpeakSubpageElement, SettingsSetupFingerprintDialogElement, SettingsSmartPrivacySubpage, SettingsSmbSharesPageElement, SettingsSwitchAccessActionAssignmentDialogElement, SettingsSwitchAccessActionAssignmentPaneElement, SettingsSwitchAccessSetupGuideDialogElement, SettingsSwitchAccessSubpageElement, SettingsTextToSpeechSubpageElement, SettingsTrafficCountersElement, SettingsTtsVoiceSubpageElement, SettingsUserListElement, SettingsUsersAddUserDialogElement, SwitchAccessCommand, TetherConnectionDialogElement, TimeZoneAutoDetectMethod, TimeZoneBrowserProxyImpl, TimezoneSubpageElement, computePrinterState, getDataTransferOriginIndex, getStatusReasonFromPrinterStatus, sanitizeInnerHtml, setDataTransferOriginIndex };
 //# sourceMappingURL=lazy_load.rollup.js.map

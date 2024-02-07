@@ -5,8 +5,8 @@
  * @fileoverview
  * 'settings-smart-privacy-subpage' contains smart privacy settings.
  */
-import 'chrome://resources/cr_elements/cr_shared_style.css.js';
-import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_style.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_vars.css.js';
 import '../controls/extension_controlled_indicator.js';
 import '../controls/settings_slider.js';
 import '../settings_shared.css.js';

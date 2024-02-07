@@ -5637,6 +5637,15 @@ mojo.internal.Struct(HelpBubbleParamsSpec.$, 'HelpBubbleParams', [
     mojo.internal.StructField('bodyIconAltText', 48, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('progress', 56, 0, ProgressSpec.$, null, true /* nullable */, 0),
     mojo.internal.StructField('buttons', 64, 0, mojo.internal.Array(HelpBubbleButtonParamsSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('focus_on_show_hint_$flag', 12, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "focus_on_show_hint_$value",
+        originalFieldName: "focusOnShowHint",
+    }),
+    mojo.internal.StructField('focus_on_show_hint_$value', 12, 1, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "focusOnShowHint",
+    }),
     mojo.internal.StructField('timeout', 72, 0, TimeDeltaSpec.$, null, true /* nullable */, 0),
 ], [[0, 88],]);
 mojo.internal.Struct(HelpBubbleHandlerFactory_CreateHelpBubbleHandler_ParamsSpec.$, 'HelpBubbleHandlerFactory_CreateHelpBubbleHandler_Params', [
@@ -5711,6 +5720,7 @@ class HelpBubbleElement extends PolymerElement {
         this.debouncedUpdate = null;
         this.padding = { top: 0, bottom: 0, left: 0, right: 0 };
         this.fixed = false;
+        this.focusAnchor = false;
         /**
          * HTMLElement corresponding to |this.nativeId|.
          */
@@ -5836,11 +5846,23 @@ class HelpBubbleElement extends PolymerElement {
      * Focuses a button in the bubble.
      */
     focus() {
+        // First try to focus either the default button or any action button.
         this.$.buttonlist.render();
-        const button = this.$.buttons.querySelector('cr-button.default-button') ||
-            this.$.buttons.querySelector('cr-button') || this.$.close;
-        assert(button);
-        button.focus();
+        const defaultButton = this.$.buttons.querySelector('cr-button.default-button') ||
+            this.$.buttons.querySelector('cr-button');
+        if (defaultButton instanceof HTMLElement) {
+            defaultButton.focus();
+            return;
+        }
+        // As a fallback, focus the close button before trying to focus the anchor;
+        // this will allow the focus to stay on the close button if the anchor
+        // cannot be focused.
+        this.$.close.focus();
+        // Maybe try to focus the anchor. This is preferable to focusing the close
+        // button, but not every element can be focused.
+        if (this.anchorElement_ && this.focusAnchor) {
+            this.anchorElement_.focus();
+        }
     }
     /**
      * Returns whether the default button is leading (true on Windows) vs trailing
@@ -6284,6 +6306,7 @@ class HelpBubbleController {
         this.bubble_.progress = params.progress || null;
         this.bubble_.buttons = params.buttons;
         this.bubble_.padding = this.options_.padding;
+        this.bubble_.focusAnchor = params.focusOnShowHint === false;
         if (params.timeout) {
             this.bubble_.timeoutMs = Number(params.timeout.microseconds / 1000n);
             assert(this.bubble_.timeoutMs > 0);

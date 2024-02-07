@@ -7,10 +7,10 @@
  * |target-channel-changed| event is fired if the user does select a different
  * release channel to notify parents of this dialog.
  */
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
-import 'chrome://resources/cr_elements/cr_radio_button/cr_radio_button.js';
-import 'chrome://resources/cr_elements/cr_radio_group/cr_radio_group.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_radio_button/cr_radio_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_radio_group/cr_radio_group.js';
 import 'chrome://resources/polymer/v3_0/iron-selector/iron-selector.js';
 import '../settings_shared.css.js';
 import { assert } from 'chrome://resources/js/assert.js';

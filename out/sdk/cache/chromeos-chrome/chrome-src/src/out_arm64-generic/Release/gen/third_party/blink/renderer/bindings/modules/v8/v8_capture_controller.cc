@@ -181,19 +181,8 @@ void GetZoomLevelOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& in
   RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_CaptureController_getZoomLevel");
 BLINK_BINDINGS_TRACE_EVENT("CaptureController.getZoomLevel");
 
-// Promise returning function: Convert a TypeError to a reject promise.
-v8::Isolate* isolate = info.GetIsolate();
-v8::Local<v8::Object> v8_receiver = info.This();
-if (!V8CaptureController::HasInstance(isolate, v8_receiver)) {
-  const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
-const char* const class_like_name = "CaptureController";
-const char* const property_name = "getZoomLevel";
-ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
-ExceptionToRejectPromiseScope reject_promise_scope(info, exception_state);
-exception_state.ThrowTypeError("Illegal invocation");
-return;
-}
 
+v8::Isolate* isolate = info.GetIsolate();
 v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
 ScriptState* current_script_state = ScriptState::From(current_context);
 ExecutionContext* current_execution_context = ToExecutionContext(current_script_state);
@@ -205,11 +194,17 @@ UseCounter::Count(current_execution_context, WebFeature::kCapturedSurfaceControl
 
 
 
+v8::Local<v8::Object> v8_receiver = info.This();
 CaptureController* blink_receiver = V8CaptureController::ToWrappableUnsafe(isolate, v8_receiver);
-ScriptState* receiver_script_state = ScriptState::ForRelevantRealm(v8_receiver);
-ScriptState* script_state = receiver_script_state;
-auto&& return_value = blink_receiver->getZoomLevel(script_state);
-bindings::V8SetReturnValue(info, return_value);
+const ExceptionContextType exception_context_type = ExceptionContextType::kOperationInvoke;
+const char* const class_like_name = "CaptureController";
+const char* const property_name = "getZoomLevel";
+ExceptionState exception_state(isolate, exception_context_type, class_like_name, property_name);
+auto&& return_value = blink_receiver->getZoomLevel(exception_state);
+if (UNLIKELY(exception_state.HadException())) {
+  return;
+}
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<int32_t>());
 }
 
 void SendWheelOperationCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
@@ -447,7 +442,7 @@ IDLMemberInstaller::InstallAttributes(isolate, world, instance_object, prototype
 
 if ((feature_selector.IsAll() && RuntimeEnabledFeatures::CapturedSurfaceControlEnabled(execution_context)) || feature_selector.IsAnyOf(mojom::blink::OriginTrialFeature::kCapturedSurfaceControl)) {
   static const IDLMemberInstaller::OperationConfig kOperationTable[] = {
-{"getZoomLevel", GetZoomLevelOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
+{"getZoomLevel", GetZoomLevelOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"sendWheel", SendWheelOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"setZoomLevel", SetZoomLevelOperationCallback, 1, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 
 {"getSupportedZoomLevels", GetSupportedZoomLevelsStaticOperationCallback, 0, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kInterface), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kDoNotCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kDoNotCheck), unsigned(v8::SideEffectType::kHasSideEffect)}, 

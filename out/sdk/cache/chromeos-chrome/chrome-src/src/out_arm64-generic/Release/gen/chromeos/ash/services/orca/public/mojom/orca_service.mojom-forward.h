@@ -67,7 +67,7 @@ class EditorClientConnector;
 
 class EditorEventSink;
 
-class TextActuator;
+class SystemActuator;
 
 class TextQueryProvider;
 

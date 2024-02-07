@@ -692,6 +692,7 @@ RuntimeEnabledFeaturesBase::Backup::Backup()
     is_web_app_tab_strip_customizations_enabled_(RuntimeEnabledFeaturesBase::is_web_app_tab_strip_customizations_enabled_),
     is_web_app_translations_enabled_(RuntimeEnabledFeaturesBase::is_web_app_translations_enabled_),
     is_web_app_url_handling_enabled_(RuntimeEnabledFeaturesBase::is_web_app_url_handling_enabled_),
+    is_web_assembly_js_promise_integration_enabled_(RuntimeEnabledFeaturesBase::is_web_assembly_js_promise_integration_enabled_),
     is_web_assembly_js_string_builtins_enabled_(RuntimeEnabledFeaturesBase::is_web_assembly_js_string_builtins_enabled_),
     is_web_auth_enabled_(RuntimeEnabledFeaturesBase::is_web_auth_enabled_),
     is_web_auth_allow_create_in_cross_origin_frame_enabled_(RuntimeEnabledFeaturesBase::is_web_auth_allow_create_in_cross_origin_frame_enabled_),
@@ -1425,6 +1426,7 @@ void RuntimeEnabledFeaturesBase::Backup::Restore() {
   RuntimeEnabledFeaturesBase::is_web_app_tab_strip_customizations_enabled_ = is_web_app_tab_strip_customizations_enabled_;
   RuntimeEnabledFeaturesBase::is_web_app_translations_enabled_ = is_web_app_translations_enabled_;
   RuntimeEnabledFeaturesBase::is_web_app_url_handling_enabled_ = is_web_app_url_handling_enabled_;
+  RuntimeEnabledFeaturesBase::is_web_assembly_js_promise_integration_enabled_ = is_web_assembly_js_promise_integration_enabled_;
   RuntimeEnabledFeaturesBase::is_web_assembly_js_string_builtins_enabled_ = is_web_assembly_js_string_builtins_enabled_;
   RuntimeEnabledFeaturesBase::is_web_auth_enabled_ = is_web_auth_enabled_;
   RuntimeEnabledFeaturesBase::is_web_auth_allow_create_in_cross_origin_frame_enabled_ = is_web_auth_allow_create_in_cross_origin_frame_enabled_;
@@ -1612,6 +1614,7 @@ void RuntimeEnabledFeaturesBase::SetStableFeaturesEnabled(bool enable) {
   SetMessagePortCloseEventEnabled(enable);
   SetMouseDragFromIframeOnCancelledMouseDownEnabled(enable);
   SetMutationEventsEnabled(enable);
+  SetNavigationActivationEnabled(enable);
   SetNextSiblingPositionUseNextCandidateEnabled(enable);
   SetNonComposedEnterLeaveEventsEnabled(enable);
   SetNonStandardAppearanceValuesHighUsageEnabled(enable);
@@ -2032,7 +2035,6 @@ void RuntimeEnabledFeaturesBase::SetExperimentalFeaturesEnabled(bool enable) {
   SetMouseDragOnCancelledMouseMoveEnabled(enable);
   SetNavigateEventCommitBehaviorEnabled(enable);
   SetNavigateEventSourceElementEnabled(enable);
-  SetNavigationActivationEnabled(enable);
   SetNavigationIdEnabled(enable);
   SetNestedTopLayerSupportEnabled(enable);
   SetNotificationTriggersEnabled(enable);
@@ -2105,6 +2107,7 @@ void RuntimeEnabledFeaturesBase::SetExperimentalFeaturesEnabled(bool enable) {
   SetWebAppTabStripCustomizationsEnabled(enable);
   SetWebAppTranslationsEnabled(enable);
   SetWebAppUrlHandlingEnabled(enable);
+  SetWebAssemblyJSPromiseIntegrationEnabled(enable);
   SetWebAssemblyJSStringBuiltinsEnabled(enable);
   SetWebAuthenticationHintsEnabled(enable);
   SetWebAuthenticationJSONSerializationEnabled(enable);
@@ -2448,7 +2451,9 @@ void RuntimeEnabledFeaturesBase::SetOriginTrialControlledFeaturesEnabled(bool en
   SetWebAppTabStripEnabled(enable);
   SetWebAppTabStripCustomizationsEnabled(enable);
   SetWebAppUrlHandlingEnabled(enable);
+  SetWebAssemblyJSPromiseIntegrationEnabled(enable);
   SetWebAssemblyJSStringBuiltinsEnabled(enable);
+  SetWebIdentityDigitalCredentialsEnabled(enable);
   SetWebTransportCustomCertificatesEnabled(enable);
   SetWebViewXRequestedWithDeprecationEnabled(enable);
   SetWebXRImageTrackingEnabled(enable);
@@ -3133,6 +3138,7 @@ void RuntimeEnabledFeaturesBase::SetFeatureEnabledFromString(
     {"WebAppTranslations", &is_web_app_translations_enabled_},
     {"WebAppUrlHandling", &is_web_app_url_handling_enabled_},
     {"WebAppsLockScreen", &is_web_apps_lock_screen_enabled_},
+    {"WebAssemblyJSPromiseIntegration", &is_web_assembly_js_promise_integration_enabled_},
     {"WebAssemblyJSStringBuiltins", &is_web_assembly_js_string_builtins_enabled_},
     {"WebAuth", &is_web_auth_enabled_},
     {"WebAuthAllowCreateInCrossOriginFrame", &is_web_auth_allow_create_in_cross_origin_frame_enabled_},
@@ -4723,10 +4729,26 @@ bool RuntimeEnabledFeaturesBase::WebAppUrlHandlingEnabled(const FeatureContext* 
 }
 
 
+bool RuntimeEnabledFeaturesBase::WebAssemblyJSPromiseIntegrationEnabled(const FeatureContext* context) {
+  if (is_web_assembly_js_promise_integration_enabled_)
+    return true;
+  return context && context->FeatureEnabled(mojom::blink::OriginTrialFeature::kWebAssemblyJSPromiseIntegration);
+}
+
+
 bool RuntimeEnabledFeaturesBase::WebAssemblyJSStringBuiltinsEnabled(const FeatureContext* context) {
   if (is_web_assembly_js_string_builtins_enabled_)
     return true;
   return context && context->FeatureEnabled(mojom::blink::OriginTrialFeature::kWebAssemblyJSStringBuiltins);
+}
+
+
+bool RuntimeEnabledFeaturesBase::WebIdentityDigitalCredentialsEnabled(const FeatureContext* context) {
+  if (!RuntimeEnabledFeaturesBase::FedCmEnabled(context))
+    return false;
+  if (is_web_identity_digital_credentials_enabled_)
+    return true;
+  return context && context->FeatureEnabled(mojom::blink::OriginTrialFeature::kWebIdentityDigitalCredentials);
 }
 
 
@@ -5134,7 +5156,7 @@ bool RuntimeEnabledFeaturesBase::is_mouse_drag_on_cancelled_mouse_move_enabled_ 
 bool RuntimeEnabledFeaturesBase::is_mutation_events_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_navigate_event_commit_behavior_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_navigate_event_source_element_enabled_ = false;
-bool RuntimeEnabledFeaturesBase::is_navigation_activation_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_navigation_activation_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_navigation_id_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_nested_top_layer_support_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_net_info_constant_type_enabled_ = false;
@@ -5383,6 +5405,7 @@ bool RuntimeEnabledFeaturesBase::is_web_app_tab_strip_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_web_app_tab_strip_customizations_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_web_app_translations_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_web_app_url_handling_enabled_ = false;
+bool RuntimeEnabledFeaturesBase::is_web_assembly_js_promise_integration_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_web_assembly_js_string_builtins_enabled_ = false;
 bool RuntimeEnabledFeaturesBase::is_web_auth_enabled_ = true;
 bool RuntimeEnabledFeaturesBase::is_web_auth_allow_create_in_cross_origin_frame_enabled_ = true;

@@ -6,7 +6,7 @@ import './diagnostics_shared.css.js';
 import './icons.html.js';
 import './network_card.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { afterNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { DiagnosticsBrowserProxyImpl } from './diagnostics_browser_proxy.js';

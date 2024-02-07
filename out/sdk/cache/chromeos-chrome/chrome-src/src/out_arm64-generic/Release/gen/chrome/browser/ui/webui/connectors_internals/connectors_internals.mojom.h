@@ -71,6 +71,7 @@ class PageHandler
   enum MethodMinVersions : uint32_t {
     kGetDeviceTrustStateMinVersion = 0,
     kDeleteDeviceTrustKeyMinVersion = 0,
+    kGetClientCertificateStateMinVersion = 0,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -80,6 +81,9 @@ class PageHandler
     NOINLINE static uint32_t IPCStableHash();
   };
   struct DeleteDeviceTrustKey_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct GetClientCertificateState_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -94,6 +98,11 @@ class PageHandler
   using DeleteDeviceTrustKeyCallback = base::OnceCallback<void()>;
   
   virtual void DeleteDeviceTrustKey(DeleteDeviceTrustKeyCallback callback) = 0;
+
+
+  using GetClientCertificateStateCallback = base::OnceCallback<void(ClientCertificateStatePtr)>;
+  
+  virtual void GetClientCertificateState(GetClientCertificateStateCallback callback) = 0;
 };
 
 
@@ -108,6 +117,8 @@ class  PageHandlerProxy
   void GetDeviceTrustState(GetDeviceTrustStateCallback callback) final;
   
   void DeleteDeviceTrustKey(DeleteDeviceTrustKeyCallback callback) final;
+  
+  void GetClientCertificateState(GetClientCertificateStateCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -448,6 +459,158 @@ template <typename T, ConsentMetadata::EnableIfSame<T>* = nullptr>
 bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
+
+
+
+
+
+
+class  CertificateMetadata {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<CertificateMetadata, T>::value>;
+  using DataView = CertificateMetadataDataView;
+  using Data_ = internal::CertificateMetadata_Data;
+
+  template <typename... Args>
+  static CertificateMetadataPtr New(Args&&... args) {
+    return CertificateMetadataPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static CertificateMetadataPtr From(const U& u) {
+    return mojo::TypeConverter<CertificateMetadataPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, CertificateMetadata>::Convert(*this);
+  }
+
+
+  CertificateMetadata();
+
+  CertificateMetadata(
+      const std::string& thumbprint,
+      const std::string& expiration_date_string,
+      const std::string& subject_display_name,
+      const std::string& issuer_display_name);
+
+
+  ~CertificateMetadata();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = CertificateMetadataPtr>
+  CertificateMetadataPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, CertificateMetadata::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, CertificateMetadata::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, CertificateMetadata::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  size_t Hash(size_t seed) const;
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        CertificateMetadata::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        CertificateMetadata::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::CertificateMetadata_UnserializedMessageContext<
+            UserType, CertificateMetadata::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<CertificateMetadata::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return CertificateMetadata::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::CertificateMetadata_UnserializedMessageContext<
+            UserType, CertificateMetadata::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<CertificateMetadata::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string thumbprint;
+  
+  std::string expiration_date_string;
+  
+  std::string subject_display_name;
+  
+  std::string issuer_display_name;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, CertificateMetadata::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, CertificateMetadata::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, CertificateMetadata::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, CertificateMetadata::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 
 
 
@@ -907,6 +1070,303 @@ bool operator>=(const T& lhs, const T& rhs) {
   return !(lhs < rhs);
 }
 
+
+
+
+
+
+class  ClientIdentity {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ClientIdentity, T>::value>;
+  using DataView = ClientIdentityDataView;
+  using Data_ = internal::ClientIdentity_Data;
+
+  template <typename... Args>
+  static ClientIdentityPtr New(Args&&... args) {
+    return ClientIdentityPtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ClientIdentityPtr From(const U& u) {
+    return mojo::TypeConverter<ClientIdentityPtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ClientIdentity>::Convert(*this);
+  }
+
+
+  ClientIdentity();
+
+  ClientIdentity(
+      const std::string& identity_name,
+      LoadedKeyInfoPtr loaded_key_info,
+      CertificateMetadataPtr certificate_metadata);
+
+ClientIdentity(const ClientIdentity&) = delete;
+ClientIdentity& operator=(const ClientIdentity&) = delete;
+
+  ~ClientIdentity();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ClientIdentityPtr>
+  ClientIdentityPtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ClientIdentity::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ClientIdentity::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ClientIdentity::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ClientIdentity::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ClientIdentity::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ClientIdentity_UnserializedMessageContext<
+            UserType, ClientIdentity::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ClientIdentity::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ClientIdentity::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ClientIdentity_UnserializedMessageContext<
+            UserType, ClientIdentity::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ClientIdentity::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::string identity_name;
+  
+  LoadedKeyInfoPtr loaded_key_info;
+  
+  CertificateMetadataPtr certificate_metadata;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ClientIdentity::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ClientIdentity::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ClientIdentity::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ClientIdentity::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
+
+
+
+
+class  ClientCertificateState {
+ public:
+  template <typename T>
+  using EnableIfSame = std::enable_if_t<std::is_same<ClientCertificateState, T>::value>;
+  using DataView = ClientCertificateStateDataView;
+  using Data_ = internal::ClientCertificateState_Data;
+
+  template <typename... Args>
+  static ClientCertificateStatePtr New(Args&&... args) {
+    return ClientCertificateStatePtr(
+        std::in_place, std::forward<Args>(args)...);
+  }
+
+  template <typename U>
+  static ClientCertificateStatePtr From(const U& u) {
+    return mojo::TypeConverter<ClientCertificateStatePtr, U>::Convert(u);
+  }
+
+  template <typename U>
+  U To() const {
+    return mojo::TypeConverter<U, ClientCertificateState>::Convert(*this);
+  }
+
+
+  ClientCertificateState();
+
+  ClientCertificateState(
+      std::vector<std::string> policy_enabled_levels,
+      ClientIdentityPtr managed_profile_identity,
+      ClientIdentityPtr managed_browser_identity);
+
+ClientCertificateState(const ClientCertificateState&) = delete;
+ClientCertificateState& operator=(const ClientCertificateState&) = delete;
+
+  ~ClientCertificateState();
+
+  // Clone() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Clone() or copy
+  // constructor/assignment are available for members.
+  template <typename StructPtrType = ClientCertificateStatePtr>
+  ClientCertificateStatePtr Clone() const;
+
+  // Equals() is a template so it is only instantiated if it is used. Thus, the
+  // bindings generator does not need to know whether Equals() or == operator
+  // are available for members.
+  template <typename T, ClientCertificateState::EnableIfSame<T>* = nullptr>
+  bool Equals(const T& other) const;
+
+  template <typename T, ClientCertificateState::EnableIfSame<T>* = nullptr>
+  bool operator==(const T& rhs) const { return Equals(rhs); }
+
+  template <typename T, ClientCertificateState::EnableIfSame<T>* = nullptr>
+  bool operator!=(const T& rhs) const { return !operator==(rhs); }
+  template <typename UserType>
+  static std::vector<uint8_t> Serialize(UserType* input) {
+    return mojo::internal::SerializeImpl<
+        ClientCertificateState::DataView, std::vector<uint8_t>>(input);
+  }
+
+  template <typename UserType>
+  static mojo::Message SerializeAsMessage(UserType* input) {
+    return mojo::internal::SerializeAsMessageImpl<
+        ClientCertificateState::DataView>(input);
+  }
+
+  // The returned Message is serialized only if the message is moved
+  // cross-process or cross-language. Otherwise if the message is Deserialized
+  // as the same UserType |input| will just be moved to |output| in
+  // DeserializeFromMessage.
+  template <typename UserType>
+  static mojo::Message WrapAsMessage(UserType input) {
+    return mojo::Message(std::make_unique<
+        internal::ClientCertificateState_UnserializedMessageContext<
+            UserType, ClientCertificateState::DataView>>(0, 0, std::move(input)),
+        MOJO_CREATE_MESSAGE_FLAG_NONE);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const void* data,
+                          size_t data_num_bytes,
+                          UserType* output) {
+    mojo::Message message;
+    return mojo::internal::DeserializeImpl<ClientCertificateState::DataView>(
+        message, data, data_num_bytes, output, Validate);
+  }
+
+  template <typename UserType>
+  static bool Deserialize(const std::vector<uint8_t>& input,
+                          UserType* output) {
+    return ClientCertificateState::Deserialize(
+        input.size() == 0 ? nullptr : &input.front(), input.size(), output);
+  }
+
+  template <typename UserType>
+  static bool DeserializeFromMessage(mojo::Message input,
+                                     UserType* output) {
+    auto context = input.TakeUnserializedContext<
+        internal::ClientCertificateState_UnserializedMessageContext<
+            UserType, ClientCertificateState::DataView>>();
+    if (context) {
+      *output = std::move(context->TakeData());
+      return true;
+    }
+    input.SerializeIfNecessary();
+    return mojo::internal::DeserializeImpl<ClientCertificateState::DataView>(
+        input, input.payload(), input.payload_num_bytes(), output, Validate);
+  }
+
+  
+  std::vector<std::string> policy_enabled_levels;
+  
+  ClientIdentityPtr managed_profile_identity;
+  
+  ClientIdentityPtr managed_browser_identity;
+
+  // Serialise this struct into a trace.
+  void WriteIntoTrace(perfetto::TracedValue traced_context) const;
+
+ private:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+};
+
+// The comparison operators are templates, so they are only instantiated if they
+// are used. Thus, the bindings generator does not need to know whether
+// comparison operators are available for members.
+template <typename T, ClientCertificateState::EnableIfSame<T>* = nullptr>
+bool operator<(const T& lhs, const T& rhs);
+
+template <typename T, ClientCertificateState::EnableIfSame<T>* = nullptr>
+bool operator<=(const T& lhs, const T& rhs) {
+  return !(rhs < lhs);
+}
+
+template <typename T, ClientCertificateState::EnableIfSame<T>* = nullptr>
+bool operator>(const T& lhs, const T& rhs) {
+  return rhs < lhs;
+}
+
+template <typename T, ClientCertificateState::EnableIfSame<T>* = nullptr>
+bool operator>=(const T& lhs, const T& rhs) {
+  return !(lhs < rhs);
+}
+
 template <typename StructPtrType>
 Int32ValuePtr Int32Value::Clone() const {
   return New(
@@ -1087,6 +1547,121 @@ bool operator<(const T& lhs, const T& rhs) {
     return false;
   return false;
 }
+template <typename StructPtrType>
+CertificateMetadataPtr CertificateMetadata::Clone() const {
+  return New(
+      mojo::Clone(thumbprint),
+      mojo::Clone(expiration_date_string),
+      mojo::Clone(subject_display_name),
+      mojo::Clone(issuer_display_name)
+  );
+}
+
+template <typename T, CertificateMetadata::EnableIfSame<T>*>
+bool CertificateMetadata::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->thumbprint, other_struct.thumbprint))
+    return false;
+  if (!mojo::Equals(this->expiration_date_string, other_struct.expiration_date_string))
+    return false;
+  if (!mojo::Equals(this->subject_display_name, other_struct.subject_display_name))
+    return false;
+  if (!mojo::Equals(this->issuer_display_name, other_struct.issuer_display_name))
+    return false;
+  return true;
+}
+
+template <typename T, CertificateMetadata::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.thumbprint < rhs.thumbprint)
+    return true;
+  if (rhs.thumbprint < lhs.thumbprint)
+    return false;
+  if (lhs.expiration_date_string < rhs.expiration_date_string)
+    return true;
+  if (rhs.expiration_date_string < lhs.expiration_date_string)
+    return false;
+  if (lhs.subject_display_name < rhs.subject_display_name)
+    return true;
+  if (rhs.subject_display_name < lhs.subject_display_name)
+    return false;
+  if (lhs.issuer_display_name < rhs.issuer_display_name)
+    return true;
+  if (rhs.issuer_display_name < lhs.issuer_display_name)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ClientIdentityPtr ClientIdentity::Clone() const {
+  return New(
+      mojo::Clone(identity_name),
+      mojo::Clone(loaded_key_info),
+      mojo::Clone(certificate_metadata)
+  );
+}
+
+template <typename T, ClientIdentity::EnableIfSame<T>*>
+bool ClientIdentity::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->identity_name, other_struct.identity_name))
+    return false;
+  if (!mojo::Equals(this->loaded_key_info, other_struct.loaded_key_info))
+    return false;
+  if (!mojo::Equals(this->certificate_metadata, other_struct.certificate_metadata))
+    return false;
+  return true;
+}
+
+template <typename T, ClientIdentity::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.identity_name < rhs.identity_name)
+    return true;
+  if (rhs.identity_name < lhs.identity_name)
+    return false;
+  if (lhs.loaded_key_info < rhs.loaded_key_info)
+    return true;
+  if (rhs.loaded_key_info < lhs.loaded_key_info)
+    return false;
+  if (lhs.certificate_metadata < rhs.certificate_metadata)
+    return true;
+  if (rhs.certificate_metadata < lhs.certificate_metadata)
+    return false;
+  return false;
+}
+template <typename StructPtrType>
+ClientCertificateStatePtr ClientCertificateState::Clone() const {
+  return New(
+      mojo::Clone(policy_enabled_levels),
+      mojo::Clone(managed_profile_identity),
+      mojo::Clone(managed_browser_identity)
+  );
+}
+
+template <typename T, ClientCertificateState::EnableIfSame<T>*>
+bool ClientCertificateState::Equals(const T& other_struct) const {
+  if (!mojo::Equals(this->policy_enabled_levels, other_struct.policy_enabled_levels))
+    return false;
+  if (!mojo::Equals(this->managed_profile_identity, other_struct.managed_profile_identity))
+    return false;
+  if (!mojo::Equals(this->managed_browser_identity, other_struct.managed_browser_identity))
+    return false;
+  return true;
+}
+
+template <typename T, ClientCertificateState::EnableIfSame<T>*>
+bool operator<(const T& lhs, const T& rhs) {
+  if (lhs.policy_enabled_levels < rhs.policy_enabled_levels)
+    return true;
+  if (rhs.policy_enabled_levels < lhs.policy_enabled_levels)
+    return false;
+  if (lhs.managed_profile_identity < rhs.managed_profile_identity)
+    return true;
+  if (rhs.managed_profile_identity < lhs.managed_profile_identity)
+    return false;
+  if (lhs.managed_browser_identity < rhs.managed_browser_identity)
+    return true;
+  if (rhs.managed_browser_identity < lhs.managed_browser_identity)
+    return false;
+  return false;
+}
 
 
 }  // connectors_internals::mojom
@@ -1216,6 +1791,86 @@ struct  StructTraits<::connectors_internals::mojom::DeviceTrustState::DataView,
   }
 
   static bool Read(::connectors_internals::mojom::DeviceTrustState::DataView input, ::connectors_internals::mojom::DeviceTrustStatePtr* output);
+};
+
+
+template <>
+struct  StructTraits<::connectors_internals::mojom::CertificateMetadata::DataView,
+                                         ::connectors_internals::mojom::CertificateMetadataPtr> {
+  static bool IsNull(const ::connectors_internals::mojom::CertificateMetadataPtr& input) { return !input; }
+  static void SetToNull(::connectors_internals::mojom::CertificateMetadataPtr* output) { output->reset(); }
+
+  static const decltype(::connectors_internals::mojom::CertificateMetadata::thumbprint)& thumbprint(
+      const ::connectors_internals::mojom::CertificateMetadataPtr& input) {
+    return input->thumbprint;
+  }
+
+  static const decltype(::connectors_internals::mojom::CertificateMetadata::expiration_date_string)& expiration_date_string(
+      const ::connectors_internals::mojom::CertificateMetadataPtr& input) {
+    return input->expiration_date_string;
+  }
+
+  static const decltype(::connectors_internals::mojom::CertificateMetadata::subject_display_name)& subject_display_name(
+      const ::connectors_internals::mojom::CertificateMetadataPtr& input) {
+    return input->subject_display_name;
+  }
+
+  static const decltype(::connectors_internals::mojom::CertificateMetadata::issuer_display_name)& issuer_display_name(
+      const ::connectors_internals::mojom::CertificateMetadataPtr& input) {
+    return input->issuer_display_name;
+  }
+
+  static bool Read(::connectors_internals::mojom::CertificateMetadata::DataView input, ::connectors_internals::mojom::CertificateMetadataPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::connectors_internals::mojom::ClientIdentity::DataView,
+                                         ::connectors_internals::mojom::ClientIdentityPtr> {
+  static bool IsNull(const ::connectors_internals::mojom::ClientIdentityPtr& input) { return !input; }
+  static void SetToNull(::connectors_internals::mojom::ClientIdentityPtr* output) { output->reset(); }
+
+  static const decltype(::connectors_internals::mojom::ClientIdentity::identity_name)& identity_name(
+      const ::connectors_internals::mojom::ClientIdentityPtr& input) {
+    return input->identity_name;
+  }
+
+  static const decltype(::connectors_internals::mojom::ClientIdentity::loaded_key_info)& loaded_key_info(
+      const ::connectors_internals::mojom::ClientIdentityPtr& input) {
+    return input->loaded_key_info;
+  }
+
+  static const decltype(::connectors_internals::mojom::ClientIdentity::certificate_metadata)& certificate_metadata(
+      const ::connectors_internals::mojom::ClientIdentityPtr& input) {
+    return input->certificate_metadata;
+  }
+
+  static bool Read(::connectors_internals::mojom::ClientIdentity::DataView input, ::connectors_internals::mojom::ClientIdentityPtr* output);
+};
+
+
+template <>
+struct  StructTraits<::connectors_internals::mojom::ClientCertificateState::DataView,
+                                         ::connectors_internals::mojom::ClientCertificateStatePtr> {
+  static bool IsNull(const ::connectors_internals::mojom::ClientCertificateStatePtr& input) { return !input; }
+  static void SetToNull(::connectors_internals::mojom::ClientCertificateStatePtr* output) { output->reset(); }
+
+  static const decltype(::connectors_internals::mojom::ClientCertificateState::policy_enabled_levels)& policy_enabled_levels(
+      const ::connectors_internals::mojom::ClientCertificateStatePtr& input) {
+    return input->policy_enabled_levels;
+  }
+
+  static const decltype(::connectors_internals::mojom::ClientCertificateState::managed_profile_identity)& managed_profile_identity(
+      const ::connectors_internals::mojom::ClientCertificateStatePtr& input) {
+    return input->managed_profile_identity;
+  }
+
+  static const decltype(::connectors_internals::mojom::ClientCertificateState::managed_browser_identity)& managed_browser_identity(
+      const ::connectors_internals::mojom::ClientCertificateStatePtr& input) {
+    return input->managed_browser_identity;
+  }
+
+  static bool Read(::connectors_internals::mojom::ClientCertificateState::DataView input, ::connectors_internals::mojom::ClientCertificateStatePtr* output);
 };
 
 }  // namespace mojo

@@ -351,8 +351,8 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<::network::mojom::ProxyServerDataView>>(
         pointer, output, message_);
   }
-  bool is_for_ip_protection() const {
-    return data_->is_for_ip_protection;
+  int32_t ip_protection_chain_id() const {
+    return data_->ip_protection_chain_id;
   }
  private:
   internal::ProxyChain_Data* data_ = nullptr;
@@ -720,7 +720,7 @@ struct Serializer<::network::mojom::ProxyChainDataView, MaybeConstUserType> {
         in_proxy_servers, proxy_servers_fragment, &proxy_servers_validate_params);
     fragment->proxy_servers.Set(
         proxy_servers_fragment.is_null() ? nullptr : proxy_servers_fragment.data());
-    fragment->is_for_ip_protection = Traits::is_for_ip_protection(input);
+    fragment->ip_protection_chain_id = Traits::ip_protection_chain_id(input);
   }
 
   static bool Deserialize(::network::mojom::internal::ProxyChain_Data* input,

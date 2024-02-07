@@ -403,14 +403,7 @@ class  PasswordManagerDriver_ShowPasswordSuggestions_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::Pointer<::autofill::mojom::internal::FieldRendererId_Data> element_id;
-  mojo::internal::Pointer<::autofill::mojom::internal::FormData_Data> form;
-  uint64_t username_field_index;
-  uint64_t password_field_index;
-  int32_t text_direction;
-  int32_t options;
-  mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> typed_username;
-  mojo::internal::Pointer<::gfx::mojom::internal::RectF_Data> bounds;
+  mojo::internal::Pointer<::autofill::mojom::internal::PasswordSuggestionRequest_Data> request;
 
  private:
   friend class mojo::internal::MessageFragment<PasswordManagerDriver_ShowPasswordSuggestions_Params_Data>;
@@ -418,7 +411,7 @@ class  PasswordManagerDriver_ShowPasswordSuggestions_Params_Data {
   PasswordManagerDriver_ShowPasswordSuggestions_Params_Data();
   ~PasswordManagerDriver_ShowPasswordSuggestions_Params_Data() = delete;
 };
-static_assert(sizeof(PasswordManagerDriver_ShowPasswordSuggestions_Params_Data) == 64,
+static_assert(sizeof(PasswordManagerDriver_ShowPasswordSuggestions_Params_Data) == 16,
               "Bad sizeof(PasswordManagerDriver_ShowPasswordSuggestions_Params_Data)");
 class  PasswordManagerDriver_CheckSafeBrowsingReputation_Params_Data {
  public:
@@ -1319,63 +1312,14 @@ class PasswordManagerDriver_ShowPasswordSuggestions_ParamsDataView {
       : data_(data), message_(message) {}
 
   bool is_null() const { return !data_; }
-  inline void GetElementIdDataView(
-      ::autofill::mojom::FieldRendererIdDataView* output);
+  inline void GetRequestDataView(
+      ::autofill::mojom::PasswordSuggestionRequestDataView* output);
 
   template <typename UserType>
-  [[nodiscard]] bool ReadElementId(UserType* output) {
+  [[nodiscard]] bool ReadRequest(UserType* output) {
     
-    auto* pointer = data_->element_id.Get();
-    return mojo::internal::Deserialize<::autofill::mojom::FieldRendererIdDataView>(
-        pointer, output, message_);
-  }
-  inline void GetFormDataView(
-      ::autofill::mojom::FormDataDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadForm(UserType* output) {
-    
-    auto* pointer = data_->form.Get();
-    return mojo::internal::Deserialize<::autofill::mojom::FormDataDataView>(
-        pointer, output, message_);
-  }
-  uint64_t username_field_index() const {
-    return data_->username_field_index;
-  }
-  uint64_t password_field_index() const {
-    return data_->password_field_index;
-  }
-  template <typename UserType>
-  [[nodiscard]] bool ReadTextDirection(UserType* output) const {
-    auto data_value = data_->text_direction;
-    return mojo::internal::Deserialize<::mojo_base::mojom::TextDirection>(
-        data_value, output);
-  }
-  ::mojo_base::mojom::TextDirection text_direction() const {
-    return ::mojo::internal::ToKnownEnumValueHelper(
-          static_cast<::mojo_base::mojom::TextDirection>(data_->text_direction));
-  }
-  inline void GetTypedUsernameDataView(
-      ::mojo_base::mojom::String16DataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadTypedUsername(UserType* output) {
-    
-    auto* pointer = data_->typed_username.Get();
-    return mojo::internal::Deserialize<::mojo_base::mojom::String16DataView>(
-        pointer, output, message_);
-  }
-  int32_t options() const {
-    return data_->options;
-  }
-  inline void GetBoundsDataView(
-      ::gfx::mojom::RectFDataView* output);
-
-  template <typename UserType>
-  [[nodiscard]] bool ReadBounds(UserType* output) {
-    
-    auto* pointer = data_->bounds.Get();
-    return mojo::internal::Deserialize<::gfx::mojom::RectFDataView>(
+    auto* pointer = data_->request.Get();
+    return mojo::internal::Deserialize<::autofill::mojom::PasswordSuggestionRequestDataView>(
         pointer, output, message_);
   }
  private:
@@ -1882,25 +1826,10 @@ inline void PasswordManagerDriver_UserModifiedNonPasswordField_ParamsDataView::G
 }
 
 
-inline void PasswordManagerDriver_ShowPasswordSuggestions_ParamsDataView::GetElementIdDataView(
-    ::autofill::mojom::FieldRendererIdDataView* output) {
-  auto pointer = data_->element_id.Get();
-  *output = ::autofill::mojom::FieldRendererIdDataView(pointer, message_);
-}
-inline void PasswordManagerDriver_ShowPasswordSuggestions_ParamsDataView::GetFormDataView(
-    ::autofill::mojom::FormDataDataView* output) {
-  auto pointer = data_->form.Get();
-  *output = ::autofill::mojom::FormDataDataView(pointer, message_);
-}
-inline void PasswordManagerDriver_ShowPasswordSuggestions_ParamsDataView::GetTypedUsernameDataView(
-    ::mojo_base::mojom::String16DataView* output) {
-  auto pointer = data_->typed_username.Get();
-  *output = ::mojo_base::mojom::String16DataView(pointer, message_);
-}
-inline void PasswordManagerDriver_ShowPasswordSuggestions_ParamsDataView::GetBoundsDataView(
-    ::gfx::mojom::RectFDataView* output) {
-  auto pointer = data_->bounds.Get();
-  *output = ::gfx::mojom::RectFDataView(pointer, message_);
+inline void PasswordManagerDriver_ShowPasswordSuggestions_ParamsDataView::GetRequestDataView(
+    ::autofill::mojom::PasswordSuggestionRequestDataView* output) {
+  auto pointer = data_->request.Get();
+  *output = ::autofill::mojom::PasswordSuggestionRequestDataView(pointer, message_);
 }
 
 

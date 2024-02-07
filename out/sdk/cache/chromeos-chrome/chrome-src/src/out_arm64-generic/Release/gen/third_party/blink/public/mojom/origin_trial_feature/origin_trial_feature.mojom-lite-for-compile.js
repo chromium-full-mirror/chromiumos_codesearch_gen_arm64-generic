@@ -130,13 +130,15 @@ blink.mojom.OriginTrialFeature = {
   kWebAppTabStrip: 98,
   kWebAppTabStripCustomizations: 99,
   kWebAppUrlHandling: 100,
-  kWebAssemblyJSStringBuiltins: 101,
-  kWebTransportCustomCertificates: 102,
-  kWebViewXRequestedWithDeprecation: 103,
-  kWebXRImageTracking: 104,
-  kWebXRPlaneDetection: 105,
+  kWebAssemblyJSPromiseIntegration: 101,
+  kWebAssemblyJSStringBuiltins: 102,
+  kWebIdentityDigitalCredentials: 103,
+  kWebTransportCustomCertificates: 104,
+  kWebViewXRequestedWithDeprecation: 105,
+  kWebXRImageTracking: 106,
+  kWebXRPlaneDetection: 107,
   MIN_VALUE: 0,
-  MAX_VALUE: 105,
+  MAX_VALUE: 107,
 };
 
 

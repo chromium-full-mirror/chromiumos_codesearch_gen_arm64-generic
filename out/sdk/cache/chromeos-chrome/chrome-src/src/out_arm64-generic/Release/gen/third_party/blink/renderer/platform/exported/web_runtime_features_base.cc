@@ -1351,7 +1351,7 @@ void WebRuntimeFeaturesBase::EnableWebIdentityDigitalCredentials(bool enable) {
 
 // static
 bool WebRuntimeFeaturesBase::IsWebIdentityDigitalCredentialsEnabled() {
-  return RuntimeEnabledFeatures::WebIdentityDigitalCredentialsEnabled();
+  return RuntimeEnabledFeatures::WebIdentityDigitalCredentialsEnabledByRuntimeFlag();
 }
 
 // static

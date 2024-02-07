@@ -208,21 +208,15 @@ SELECT
       SELECT
         RepeatedField(
           AdServicesUiMetric(
-            'main_actitivity_creation_latency', (
+            'main_activity_creation_latency',
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(              GET_LATENCY('AdServicesSettingsMainActivity#OnCreate')
-            ),
-            'consent_manager_read_latency', (
-              GET_LATENCY('ConsentManager#ReadOperation')
-            ),
-            'consent_manager_write_latency', (
-              GET_LATENCY('ConsentManager#WriteOperation')
-            ),
-            'consent_manager_initialization_latency', (
-              GET_LATENCY('ConsentManager#Initialization')
-            )
-          )
-        )
+R"_d3l1m1t3r_(            (GET_LATENCY('AdServicesSettingsMainActivity#OnCreate')),
+            'consent_manager_read_latency',
+            (GET_LATENCY('ConsentManager#ReadOperation')),
+            'consent_manager_write_latency',
+            (GET_LATENCY('ConsentManager#WriteOperation')),
+            'consent_manager_initialization_latency',
+            (GET_LATENCY('ConsentManager#Initialization'))))
     ),
     'app_set_id_metric',
     (
@@ -236,6 +230,21 @@ R"_d3l1m1t3r_(              GET_LATENCY('AdServicesSettingsMainActivity#OnCreate
       SELECT
         RepeatedField(
           AdServicesAdIdMetric('latency', GET_LATENCY('AppSetIdEvent')))
+    ),
+    'odp_metric',
+    (
+      SELECT
+        RepeatedField(
+          OnDevicePersonalizationMetric(
+            'managing_service_initialization_latency',
+            (GET_LATENCY('OdpManagingService#Initialization')),
+            'service_delegate_execute_flow_latency',
+            (GET_LATENCY('OdpManagingServiceDelegate#Execute')),
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(            'service_delegate_request_surface_package_latency',
+            (GET_LATENCY('OdpManagingServiceDelegate#RequestSurfacePackage')),
+            'service_delegate_register_web_trigger_latency',
+            (GET_LATENCY('OdpManagingServiceDelegate#RegisterWebTrigger'))))
     ));
 
 )_d3l1m1t3r_"
@@ -5093,7 +5102,7 @@ R"_d3l1m1t3r_(      )),
       launch_to_main_thread_slice_proto(launches.startup_id, 'bindApplication'),
       'time_activity_manager', (
         SELECT startup_slice_proto(l.ts - launches.ts)
-        FROM internal_startup_events l
+        FROM _startup_events l
         WHERE l.ts BETWEEN launches.ts AND launches.ts + launches.dur
       ),
       'time_post_fork',
@@ -11252,7 +11261,7 @@ JOIN process USING(upid);
 
 DROP VIEW IF EXISTS uid_package_count;
 CREATE PERFETTO VIEW uid_package_count AS
-SELECT * FROM internal_uid_package_count;
+SELECT * FROM _uid_package_count;
 
 DROP VIEW IF EXISTS process_metadata;
 )_d3l1m1t3r_"
@@ -11862,7 +11871,7 @@ SELECT startup_id AS launch_id, * FROM android_startup_threads;
 
 DROP VIEW IF EXISTS launching_events;
 CREATE PERFETTO VIEW launching_events AS
-SELECT * FROM internal_startup_events;
+SELECT * FROM _startup_events;
 
 )_d3l1m1t3r_"
 ;
@@ -13645,7 +13654,7 @@ WITH
       mojo.interface_name,
       mojo.ipc_hash,
       mojo.message_type,
-      internal_get_posted_from(s.arg_set_id) as posted_from
+      _get_posted_from(s.arg_set_id) as posted_from
     FROM long_tasks_extracted_slices mojo
     JOIN slice s ON mojo.id = s.id
   )
@@ -13656,7 +13665,7 @@ SELECT
       THEN printf('%s %s (hash=%d)', interface_name, message_type, ipc_hash)
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(    ELSE
-      internal_format_scheduler_task_name(posted_from)
+      _format_scheduler_task_name(posted_from)
     END AS full_name,
   interface_name IS NOT NULL AS is_mojo
 FROM raw_extracted_values;
@@ -13671,7 +13680,7 @@ WITH
   -- Select UI thread BeginMainFrames frames.
   root_slices AS (
     SELECT *
-    FROM INTERNAL_SELECT_BEGIN_MAIN_FRAME_JAVA_SLICES('LongTaskTracker')
+    FROM _SELECT_BEGIN_MAIN_FRAME_JAVA_SLICES('LongTaskTracker')
     UNION ALL
     SELECT id, "Choreographer" as kind, ts, dur, name
     FROM slice
@@ -13684,7 +13693,7 @@ WITH
       s1.id, s1.kind, s2.name AS java_view_name
 )_d3l1m1t3r_"
 R"_d3l1m1t3r_(    FROM root_slices s1
-    JOIN internal_chrome_java_views s2
+    JOIN _chrome_java_views s2
       ON (
         s1.ts < s2.ts AND s1.ts + s1.dur > s2.ts + s2.dur)
   )
@@ -13703,7 +13712,7 @@ WITH -- Generate full names for tasks with java views.
   java_views_tasks AS (
     SELECT
       printf('%s(java_views=%s)', kind, java_views) as full_name,
-      internal_get_java_views_task_type(kind) AS task_type,
+      _get_java_views_task_type(kind) AS task_type,
       id
     FROM long_task_slices_with_java_views
     WHERE kind = "SingleThreadProxy::BeginMainFrame"
@@ -13719,15 +13728,15 @@ WITH -- Generate full names for tasks with java views.
   navigation_tasks AS (
     SELECT
       -- NOTE: unless Navigation category is enabled and recorded on the same
+      -- track as the LongTaskTracker slice, frame type will always be unknown.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(      -- track as the LongTaskTracker slice, frame type will always be unknown.
-      printf('%s (%s)',
-        internal_human_readable_navigation_task_name(full_name),
-        IFNULL(internal_extract_frame_type(id), 'unknown frame type')) AS full_name,
+R"_d3l1m1t3r_(      printf('%s (%s)',
+        _human_readable_navigation_task_name(full_name),
+        IFNULL(_extract_frame_type(id), 'unknown frame type')) AS full_name,
       'navigation_task' AS task_type,
       id
     FROM scheduler_tasks_with_mojo
-    WHERE internal_human_readable_navigation_task_name(full_name) IS NOT NULL
+    WHERE _human_readable_navigation_task_name(full_name) IS NOT NULL
   )
 SELECT
   COALESCE(s4.full_name, s3.full_name, s2.full_name, s1.full_name) AS full_name,
@@ -13742,12 +13751,12 @@ UNION ALL
 -- LongTaskTracker slice, so join them separately.
 SELECT
   printf('%s(java_views=%s)', kind, java_views) as full_name,
-  internal_get_java_views_task_type(kind) AS task_type,
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(  id
+  _get_java_views_task_type(kind) AS task_type,
+  id
 FROM long_task_slices_with_java_views
 WHERE kind = "Choreographer";
-
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(
 DROP VIEW IF EXISTS chrome_long_tasks;
 CREATE PERFETTO VIEW chrome_long_tasks AS
 SELECT
@@ -14476,7 +14485,7 @@ SELECT ChromeSliceNames(
   'chrome_version_code', (
     SELECT RepeatedField(int_value)
     FROM metadata
-    WHERE name = 'cr-playstore_version_code'
+    WHERE name GLOB 'cr-*playstore_version_code'
     ORDER BY int_value
   ),
   'slice_name', (
@@ -15807,10 +15816,10 @@ DROP VIEW IF EXISTS {{prefix}}_jank_maybe_null_prev_and_next;
 R"_d3l1m1t3r_(CREATE PERFETTO VIEW {{prefix}}_jank_maybe_null_prev_and_next AS
 SELECT
   *,
-  internal_is_janky_frame({{id_field}}, prev_{{id_field}},
+    _is_janky_frame({{id_field}}, prev_{{id_field}},
     prev_ts, begin_ts, maybe_gesture_end,
     gesture_frames_exact, prev_gesture_frames_exact) AS prev_jank,
-  internal_is_janky_frame({{id_field}}, next_{{id_field}},
+    _is_janky_frame({{id_field}}, next_{{id_field}},
     next_ts, begin_ts, maybe_gesture_end,
     gesture_frames_exact, next_gesture_frames_exact) AS next_jank
 FROM {{prefix}}_jank_maybe_null_prev_and_next_without_precompute
@@ -15826,16 +15835,16 @@ ORDER BY {{id_field}} ASC, ts ASC;
 -- For jank_budget we use the frames_exact of current, previous and next to find
 -- the jank budget in exact frame count. We then multiply by avg_vsync_internal
 -- to get the jank budget time.
+-- Note: Logic is inside the jank_budget function found in jank_utilities.sql.
 )_d3l1m1t3r_"
-R"_d3l1m1t3r_(-- Note: Logic is inside the jank_budget function found in jank_utilities.sql.
-DROP VIEW IF EXISTS {{prefix}}_jank;
+R"_d3l1m1t3r_(DROP VIEW IF EXISTS {{prefix}}_jank;
 CREATE PERFETTO VIEW {{prefix}}_jank AS
 SELECT
   id AS slice_id,
   (next_jank IS NOT NULL AND next_jank)
   OR (prev_jank IS NOT NULL AND prev_jank)
   AS jank,
-  internal_jank_budget(gesture_frames_exact, prev_gesture_frames_exact,
+  _jank_budget(gesture_frames_exact, prev_gesture_frames_exact,
     next_gesture_frames_exact) * avg_vsync_interval AS jank_budget,
   *
 FROM {{prefix}}_jank_maybe_null_prev_and_next
@@ -15860,11 +15869,11 @@ SELECT
           MAX({{prefix}}_dur) AS {{prefix}}_dur
         FROM {{prefix}}_jank
         GROUP BY {{id_field}}
-)_d3l1m1t3r_"
-R"_d3l1m1t3r_(      )
+      )
     ),
     '{{prefix}}_processing_ms', CAST(SUM(dur) / 1e6 AS REAL),
-    '{{prefix}}_jank_processing_ms', (
+)_d3l1m1t3r_"
+R"_d3l1m1t3r_(    '{{prefix}}_jank_processing_ms', (
       SELECT CAST(SUM(dur) / 1e6 AS REAL) FROM {{prefix}}_jank WHERE jank
     ),
     'num_{{prefix}}_update_count', COUNT(*),

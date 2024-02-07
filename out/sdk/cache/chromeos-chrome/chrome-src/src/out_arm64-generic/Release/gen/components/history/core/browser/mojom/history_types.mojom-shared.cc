@@ -31,7 +31,7 @@ bool Tab_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 48, validation_context)) {
+          data, 56, validation_context)) {
     return false;
   }
 
@@ -84,10 +84,17 @@ bool Tab_Data::Validate(
           object->relative_time, 5, validation_context)) {
     return false;
   }
-  constexpr const mojo::internal::ContainerValidateParams& relative_time_validate_params =
+  if (!mojo::internal::ValidateStruct(object->relative_time, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->relative_time_text, 6, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& relative_time_text_validate_params =
       mojo::internal::GetArrayValidator<0, false, nullptr>();
-  if (!mojo::internal::ValidateContainer(object->relative_time, validation_context,
-                                         &relative_time_validate_params)) {
+  if (!mojo::internal::ValidateContainer(object->relative_time_text, validation_context,
+                                         &relative_time_text_validate_params)) {
     return false;
   }
 

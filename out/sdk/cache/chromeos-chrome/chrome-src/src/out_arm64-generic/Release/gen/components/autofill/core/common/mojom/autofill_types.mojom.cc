@@ -1719,6 +1719,130 @@ bool PasswordGenerationUIData::Validate(
     mojo::internal::ValidationContext* validation_context) {
   return Data_::Validate(data, validation_context);
 }
+PasswordSuggestionRequest::PasswordSuggestionRequest()
+    : element_id(),
+      form_data(),
+      trigger_source(),
+      username_field_index(),
+      password_field_index(),
+      text_direction(),
+      typed_username(),
+      options(),
+      bounds() {}
+
+PasswordSuggestionRequest::PasswordSuggestionRequest(
+    ::autofill::FieldRendererId element_id_in,
+    const ::autofill::FormData& form_data_in,
+    AutofillSuggestionTriggerSource trigger_source_in,
+    uint64_t username_field_index_in,
+    uint64_t password_field_index_in,
+    ::base::i18n::TextDirection text_direction_in,
+    const ::std::u16string& typed_username_in,
+    int32_t options_in,
+    const ::gfx::RectF& bounds_in)
+    : element_id(std::move(element_id_in)),
+      form_data(std::move(form_data_in)),
+      trigger_source(std::move(trigger_source_in)),
+      username_field_index(std::move(username_field_index_in)),
+      password_field_index(std::move(password_field_index_in)),
+      text_direction(std::move(text_direction_in)),
+      typed_username(std::move(typed_username_in)),
+      options(std::move(options_in)),
+      bounds(std::move(bounds_in)) {}
+
+PasswordSuggestionRequest::~PasswordSuggestionRequest() = default;
+
+void PasswordSuggestionRequest::WriteIntoTrace(
+    perfetto::TracedValue traced_context) const {
+  [[maybe_unused]] auto dict = std::move(traced_context).WriteDictionary();
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "element_id"), this->element_id,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::autofill::FieldRendererId>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "form_data"), this->form_data,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::autofill::FormData&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "trigger_source"), this->trigger_source,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type AutofillSuggestionTriggerSource>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "username_field_index"), this->username_field_index,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "password_field_index"), this->password_field_index,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type uint64_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "text_direction"), this->text_direction,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::i18n::TextDirection>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "typed_username"), this->typed_username,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::std::u16string&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "options"), this->options,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type int32_t>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "bounds"), this->bounds,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type const ::gfx::RectF&>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+}
+
+bool PasswordSuggestionRequest::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  return Data_::Validate(data, validation_context);
+}
 ParsingResult::ParsingResult()
     : username_renderer_id(),
       password_renderer_id(),
@@ -2312,6 +2436,36 @@ bool StructTraits<::autofill::mojom::PasswordGenerationUIData::DataView, ::autof
         success = false;
       if (success)
         result->input_field_empty = input.input_field_empty();
+  *output = std::move(result);
+  return success;
+}
+
+
+// static
+bool StructTraits<::autofill::mojom::PasswordSuggestionRequest::DataView, ::autofill::mojom::PasswordSuggestionRequestPtr>::Read(
+    ::autofill::mojom::PasswordSuggestionRequest::DataView input,
+    ::autofill::mojom::PasswordSuggestionRequestPtr* output) {
+  bool success = true;
+  ::autofill::mojom::PasswordSuggestionRequestPtr result(::autofill::mojom::PasswordSuggestionRequest::New());
+  
+      if (success && !input.ReadElementId(&result->element_id))
+        success = false;
+      if (success && !input.ReadFormData(&result->form_data))
+        success = false;
+      if (success && !input.ReadTriggerSource(&result->trigger_source))
+        success = false;
+      if (success)
+        result->username_field_index = input.username_field_index();
+      if (success)
+        result->password_field_index = input.password_field_index();
+      if (success && !input.ReadTextDirection(&result->text_direction))
+        success = false;
+      if (success && !input.ReadTypedUsername(&result->typed_username))
+        success = false;
+      if (success)
+        result->options = input.options();
+      if (success && !input.ReadBounds(&result->bounds))
+        success = false;
   *output = std::move(result);
   return success;
 }

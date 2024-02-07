@@ -317,6 +317,153 @@ DeviceTrustState_Data::DeviceTrustState_Data()
 
 
 // static
+bool CertificateMetadata_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 40, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const CertificateMetadata_Data* object =
+      static_cast<const CertificateMetadata_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->thumbprint, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& thumbprint_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->thumbprint, validation_context,
+                                         &thumbprint_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->expiration_date_string, 2, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& expiration_date_string_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->expiration_date_string, validation_context,
+                                         &expiration_date_string_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->subject_display_name, 3, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& subject_display_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->subject_display_name, validation_context,
+                                         &subject_display_name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->issuer_display_name, 4, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& issuer_display_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->issuer_display_name, validation_context,
+                                         &issuer_display_name_validate_params)) {
+    return false;
+  }
+
+  return true;
+}
+
+CertificateMetadata_Data::CertificateMetadata_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ClientIdentity_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ClientIdentity_Data* object =
+      static_cast<const ClientIdentity_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->identity_name, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& identity_name_validate_params =
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  if (!mojo::internal::ValidateContainer(object->identity_name, validation_context,
+                                         &identity_name_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateStruct(object->loaded_key_info, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->certificate_metadata, validation_context))
+    return false;
+
+  return true;
+}
+
+ClientIdentity_Data::ClientIdentity_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool ClientCertificateState_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 32, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const ClientCertificateState_Data* object =
+      static_cast<const ClientCertificateState_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->policy_enabled_levels, 1, validation_context)) {
+    return false;
+  }
+  constexpr const mojo::internal::ContainerValidateParams& policy_enabled_levels_validate_params =
+      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>();
+  if (!mojo::internal::ValidateContainer(object->policy_enabled_levels, validation_context,
+                                         &policy_enabled_levels_validate_params)) {
+    return false;
+  }
+
+  if (!mojo::internal::ValidateStruct(object->managed_profile_identity, validation_context))
+    return false;
+
+  if (!mojo::internal::ValidateStruct(object->managed_browser_identity, validation_context))
+    return false;
+
+  return true;
+}
+
+ClientCertificateState_Data::ClientCertificateState_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
 bool PageHandler_GetDeviceTrustState_Params_Data::Validate(
     const void* data,
     mojo::internal::ValidationContext* validation_context) {
@@ -412,6 +559,59 @@ bool PageHandler_DeleteDeviceTrustKey_ResponseParams_Data::Validate(
 }
 
 PageHandler_DeleteDeviceTrustKey_ResponseParams_Data::PageHandler_DeleteDeviceTrustKey_ResponseParams_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_GetClientCertificateState_Params_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 8, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_GetClientCertificateState_Params_Data* object =
+      static_cast<const PageHandler_GetClientCertificateState_Params_Data*>(data);
+
+  return true;
+}
+
+PageHandler_GetClientCertificateState_Params_Data::PageHandler_GetClientCertificateState_Params_Data()
+    : header_({sizeof(*this), 0}) {}
+
+
+// static
+bool PageHandler_GetClientCertificateState_ResponseParams_Data::Validate(
+    const void* data,
+    mojo::internal::ValidationContext* validation_context) {
+  if (!data)
+    return true;
+  if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
+          data, 16, validation_context)) {
+    return false;
+  }
+
+  // NOTE: The memory backing |object| may be smaller than |sizeof(*object)| if
+  // the message comes from an older version.
+  [[maybe_unused]] const PageHandler_GetClientCertificateState_ResponseParams_Data* object =
+      static_cast<const PageHandler_GetClientCertificateState_ResponseParams_Data*>(data);
+
+  if (!mojo::internal::ValidatePointerNonNullable(
+          object->state, 1, validation_context)) {
+    return false;
+  }
+  if (!mojo::internal::ValidateStruct(object->state, validation_context))
+    return false;
+
+  return true;
+}
+
+PageHandler_GetClientCertificateState_ResponseParams_Data::PageHandler_GetClientCertificateState_ResponseParams_Data()
     : header_({sizeof(*this), 0}) {}
 
 }  // namespace internal

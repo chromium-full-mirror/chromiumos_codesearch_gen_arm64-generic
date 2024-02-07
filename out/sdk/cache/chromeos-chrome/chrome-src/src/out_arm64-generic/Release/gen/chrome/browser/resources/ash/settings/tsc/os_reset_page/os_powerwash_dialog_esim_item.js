@@ -7,7 +7,7 @@
  * installed eSIM profile shown in a list in the device reset dialog.
  */
 import '../settings_shared.css.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { sanitizeInnerHtml } from 'chrome://resources/js/parse_html_subset.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';

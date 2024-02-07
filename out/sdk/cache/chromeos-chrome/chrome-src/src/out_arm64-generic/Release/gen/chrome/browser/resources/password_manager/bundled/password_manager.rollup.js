@@ -5581,6 +5581,8 @@ var UrlParam;
     UrlParam["START_CHECK"] = "start";
     // Triggers import on the Settings page.
     UrlParam["START_IMPORT"] = "import";
+    // Triggers iph for disabling the account storage.
+    UrlParam["SHOW_ACCOUNT_STORE_IPH"] = "accountStoreIPH";
 })(UrlParam || (UrlParam = {}));
 class Route {
     constructor(page, queryParameters, details) {
@@ -12460,6 +12462,15 @@ mojo.internal.Struct(HelpBubbleParamsSpec.$, 'HelpBubbleParams', [
     mojo.internal.StructField('bodyIconAltText', 48, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('progress', 56, 0, ProgressSpec.$, null, true /* nullable */, 0),
     mojo.internal.StructField('buttons', 64, 0, mojo.internal.Array(HelpBubbleButtonParamsSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('focus_on_show_hint_$flag', 12, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "focus_on_show_hint_$value",
+        originalFieldName: "focusOnShowHint",
+    }),
+    mojo.internal.StructField('focus_on_show_hint_$value', 12, 1, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "focusOnShowHint",
+    }),
     mojo.internal.StructField('timeout', 72, 0, TimeDeltaSpec.$, null, true /* nullable */, 0),
 ], [[0, 88],]);
 mojo.internal.Struct(HelpBubbleHandlerFactory_CreateHelpBubbleHandler_ParamsSpec.$, 'HelpBubbleHandlerFactory_CreateHelpBubbleHandler_Params', [
@@ -12534,6 +12545,7 @@ class HelpBubbleElement extends PolymerElement {
         this.debouncedUpdate = null;
         this.padding = { top: 0, bottom: 0, left: 0, right: 0 };
         this.fixed = false;
+        this.focusAnchor = false;
         /**
          * HTMLElement corresponding to |this.nativeId|.
          */
@@ -12659,11 +12671,23 @@ class HelpBubbleElement extends PolymerElement {
      * Focuses a button in the bubble.
      */
     focus() {
+        // First try to focus either the default button or any action button.
         this.$.buttonlist.render();
-        const button = this.$.buttons.querySelector('cr-button.default-button') ||
-            this.$.buttons.querySelector('cr-button') || this.$.close;
-        assert(button);
-        button.focus();
+        const defaultButton = this.$.buttons.querySelector('cr-button.default-button') ||
+            this.$.buttons.querySelector('cr-button');
+        if (defaultButton instanceof HTMLElement) {
+            defaultButton.focus();
+            return;
+        }
+        // As a fallback, focus the close button before trying to focus the anchor;
+        // this will allow the focus to stay on the close button if the anchor
+        // cannot be focused.
+        this.$.close.focus();
+        // Maybe try to focus the anchor. This is preferable to focusing the close
+        // button, but not every element can be focused.
+        if (this.anchorElement_ && this.focusAnchor) {
+            this.anchorElement_.focus();
+        }
     }
     /**
      * Returns whether the default button is leading (true on Windows) vs trailing
@@ -13107,6 +13131,7 @@ class HelpBubbleController {
         this.bubble_.progress = params.progress || null;
         this.bubble_.buttons = params.buttons;
         this.bubble_.padding = this.options_.padding;
+        this.bubble_.focusAnchor = params.focusOnShowHint === false;
         if (params.timeout) {
             this.bubble_.timeoutMs = Number(params.timeout.microseconds / 1000n);
             assert(this.bubble_.timeoutMs > 0);
@@ -18594,10 +18619,8 @@ function getTemplate$9() {
   <pref-toggle-button id="autosigninToggle" class="hr" label="$i18n{autosigninLabel}" sub-label="$i18n{autosigninDescription}" pref="{{prefs.credentials_enable_autosignin}}">
   </pref-toggle-button>
   
-  <template is="dom-if" if="[[isEligibleForAccountStorage]]">
-    <pref-toggle-button id="accountStorageToggle" class="hr" label="$i18n{accountStorageToggleLabel}" sub-label="[[getToggleSubLabelForAccountStorageOptIn_(accountEmail)]]" checked="[[isAccountStoreUser]]" change-requires-validation on-validate-and-change-pref="changeAccountStorageOptIn_">
+    <pref-toggle-button id="accountStorageToggle" class="hr" hidden="[[!isEligibleForAccountStorage]]" label="$i18n{accountStorageToggleLabel}" sub-label="[[getToggleSubLabelForAccountStorageOptIn_(accountEmail)]]" checked="[[isAccountStoreUser]]" change-requires-validation on-validate-and-change-pref="changeAccountStorageOptIn_">
     </pref-toggle-button>
-  </template>
   <template is="dom-if" if="[[shouldShowMovePasswordsEntry_(isAccountStoreUser, passwordsOnDevice_)]]" restamp>
     <cr-link-row class="cr-row" non-clickable label="[[movePasswordsLabel_]]" sub-label="$i18n{movePasswordsInSettingsSubLabel}" hide-icon>
       <cr-button id="movePasswordsButton" on-click="onMovePasswordsClicked_">
@@ -18656,6 +18679,7 @@ function getTemplate$9() {
 // found in the LICENSE file.
 const PASSWORD_MANAGER_ADD_SHORTCUT_ELEMENT_ID = 'PasswordManagerUI::kAddShortcutElementId';
 const PASSWORD_MANAGER_ADD_SHORTCUT_CUSTOM_EVENT_ID = 'PasswordManagerUI::kAddShortcutCustomEventId';
+const PASSWORD_MANAGER_ACCOUNT_STORE_TOGGLE_ELEMENT_ID = 'PasswordManagerUI::kAccountStoreToggleElementId';
 const SettingsSectionElementBase = HelpBubbleMixin(RouteObserverMixin(PrefsMixin(UserUtilMixin(WebUiListenerMixin(I18nMixin(PolymerElement))))));
 class SettingsSectionElement extends SettingsSectionElementBase {
     constructor() {
@@ -18753,13 +18777,17 @@ class SettingsSectionElement extends SettingsSectionElementBase {
         this.setCredentialsChangedListener_ = null;
     }
     currentRouteChanged(route) {
-        const param = route.queryParameters.get(UrlParam.START_IMPORT) || '';
-        if (param === 'true') {
+        const triggerImportParam = route.queryParameters.get(UrlParam.START_IMPORT) || '';
+        const accountStoreIphParam = route.queryParameters.get(UrlParam.SHOW_ACCOUNT_STORE_IPH) || '';
+        if (triggerImportParam === 'true') {
             const importer = this.shadowRoot.querySelector('passwords-importer');
             assert(importer);
             importer.launchImport();
             const params = new URLSearchParams();
             Router.getInstance().updateRouterParams(params);
+        }
+        else if (accountStoreIphParam === 'true') {
+            this.registerHelpBubble(PASSWORD_MANAGER_ACCOUNT_STORE_TOGGLE_ELEMENT_ID, this.$.accountStorageToggle);
         }
     }
     onShortcutBannerDomChanged_() {
@@ -20990,5 +21018,5 @@ class PasswordsImporterElement extends PasswordsImporterElementBase {
 }
 customElements.define(PasswordsImporterElement.is, PasswordsImporterElement);
 
-export { AddPasswordDialogElement, AuthTimedOutDialogElement, CheckupSubpage, CrButtonElement, CrDialogElement, CrExpandButtonElement, CrInputElement, CrSettingsPrefs, CredentialFieldElement, CredentialNoteElement, DeletePasskeyDialogElement, EditPasskeyDialogElement, EditPasswordDialogElement, OpenWindowProxyImpl, PASSWORD_SHARE_BUTTON_BUTTON_ELEMENT_ID, Page, PasskeyDetailsCardElement, PasswordCheckInteraction, PasswordDetailsCardElement, PasswordDetailsSectionElement, PasswordListItemElement, PasswordManagerAppElement, PasswordManagerImpl, PasswordManagerSideBarElement, PasswordManagerToolbarElement, PasswordViewPageInteractions, PasswordsExporterElement, PasswordsImporterElement, PasswordsSectionElement, PluralStringProxyImpl, PrefToggleButtonElement, PromoCardsProxyImpl, Route, RouteObserverMixin, Router, SettingsPrefsElement, SettingsSectionElement, ShareFlowState, SharePasswordConfirmationDialogElement, SharePasswordFlowElement, SharePasswordGroupAvatarElement, SharePasswordLoadingDialogElement, SharePasswordRecipientElement, SiteFaviconElement, SyncBrowserProxyImpl, TrustedVaultBannerState, UrlParam };
+export { AddPasswordDialogElement, AuthTimedOutDialogElement, CheckupSubpage, CrButtonElement, CrDialogElement, CrExpandButtonElement, CrInputElement, CrSettingsPrefs, CredentialFieldElement, CredentialNoteElement, DeletePasskeyDialogElement, EditPasskeyDialogElement, EditPasswordDialogElement, OpenWindowProxyImpl, PASSWORD_MANAGER_ACCOUNT_STORE_TOGGLE_ELEMENT_ID, PASSWORD_SHARE_BUTTON_BUTTON_ELEMENT_ID, Page, PasskeyDetailsCardElement, PasswordCheckInteraction, PasswordDetailsCardElement, PasswordDetailsSectionElement, PasswordListItemElement, PasswordManagerAppElement, PasswordManagerImpl, PasswordManagerSideBarElement, PasswordManagerToolbarElement, PasswordViewPageInteractions, PasswordsExporterElement, PasswordsImporterElement, PasswordsSectionElement, PluralStringProxyImpl, PrefToggleButtonElement, PromoCardsProxyImpl, Route, RouteObserverMixin, Router, SettingsPrefsElement, SettingsSectionElement, ShareFlowState, SharePasswordConfirmationDialogElement, SharePasswordFlowElement, SharePasswordGroupAvatarElement, SharePasswordLoadingDialogElement, SharePasswordRecipientElement, SiteFaviconElement, SyncBrowserProxyImpl, TrustedVaultBannerState, UrlParam };
 //# sourceMappingURL=password_manager.rollup.js.map

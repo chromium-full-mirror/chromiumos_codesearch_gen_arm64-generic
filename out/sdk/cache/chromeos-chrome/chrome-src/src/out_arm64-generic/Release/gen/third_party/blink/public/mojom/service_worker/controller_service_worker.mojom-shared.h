@@ -225,6 +225,9 @@ static_assert(
     return mojo::internal::Deserialize<mojo::StringDataView>(
         pointer, output, message_);
   }
+  bool need_router_evaluate() const {
+    return data_->need_router_evaluate;
+  }
   inline void GetRouterDataDataView(
       ServiceWorkerRouterDataDataView* output);
 
@@ -411,6 +414,7 @@ struct Serializer<::blink::mojom::ControllerServiceWorkerInfoDataView, MaybeCons
         in_sha256_script_checksum, sha256_script_checksum_fragment);
     fragment->sha256_script_checksum.Set(
         sha256_script_checksum_fragment.is_null() ? nullptr : sha256_script_checksum_fragment.data());
+    fragment->need_router_evaluate = Traits::need_router_evaluate(input);
     decltype(Traits::router_data(input)) in_router_data = Traits::router_data(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->router_data)::BaseType> router_data_fragment(

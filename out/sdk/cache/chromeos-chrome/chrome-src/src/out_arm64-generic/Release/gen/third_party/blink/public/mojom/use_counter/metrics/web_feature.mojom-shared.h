@@ -7344,11 +7344,11 @@ enum class WebFeature : int32_t {
   
   kCSSColorMixFunction = 4471,
   
-  kCSSColorColorSpecifiedSpace = 4472,
+  kOBSOLETE_CSSColorColorSpecifiedSpace = 4472,
   
-  kCSSColorLabOklab = 4473,
+  kOBSOLETE_CSSColorLabOklab = 4473,
   
-  kCSSColorLchOklch = 4474,
+  kOBSOLETE_CSSColorLchOklch = 4474,
   
   kOBSOLETE_CreateNSResolverWithNonElements2 = 4475,
   
@@ -8066,9 +8066,19 @@ enum class WebFeature : int32_t {
   
   kFirstPartySharedWorkerSameSiteCookiesNone = 4833,
   
-  kNumberOfFeatures = 4834,
+  kCSSCustomStateDeprecatedSyntax = 4834,
+  
+  kCSSColor_SpaceRGB = 4835,
+  
+  kCSSColor_SpaceRGB_outOfRec2020 = 4836,
+  
+  kCSSColor_SpaceOkLxx = 4837,
+  
+  kCSSColor_SpaceOkLxx_OutOfRange = 4838,
+  
+  kNumberOfFeatures = 4839,
   kMinValue = 0,
-  kMaxValue = 4834,
+  kMaxValue = 4839,
 };
 
 COMPONENT_EXPORT(WEB_FEATURE_MOJO_BINDINGS_MOJOM_SHARED) std::ostream& operator<<(std::ostream& os, WebFeature value);

@@ -6,8 +6,8 @@
  * Contains utilities that help identify the current way that the lock screen
  * will be displayed.
  */
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
-import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
+import { WebUiListenerMixin } from 'chrome://resources/ash/common/cr_elements/web_ui_listener_mixin.js';
 import { AuthFactorConfig, PinFactorEditor, RecoveryFactorEditor } from 'chrome://resources/mojo/chromeos/ash/services/auth_factor_config/public/mojom/auth_factor_config.mojom-webui.js';
 import { dedupingMixin } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export var LockScreenUnlockType;

@@ -280,8 +280,8 @@ class  ProxyChain_Data {
 
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<internal::ProxyServer_Data>>> proxy_servers;
-  uint8_t is_for_ip_protection : 1;
-  uint8_t padfinal_[7];
+  int32_t ip_protection_chain_id;
+  uint8_t padfinal_[4];
 
  private:
   friend class mojo::internal::MessageFragment<ProxyChain_Data>;

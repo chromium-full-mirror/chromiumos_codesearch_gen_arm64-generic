@@ -2,9 +2,9 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import './app_management_cros_shared_style.css.js';
-import '//resources/cr_elements/cr_toggle/cr_toggle.js';
-import '//resources/cr_elements/policy/cr_policy_indicator.js';
-import '//resources/cr_elements/icons.html.js';
+import '//resources/ash/common/cr_elements/cr_toggle/cr_toggle.js';
+import '//resources/ash/common/cr_elements/policy/cr_policy_indicator.js';
+import '//resources/ash/common/cr_elements/icons.html.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './toggle_row.html.js';
 export class AppManagementToggleRowElement extends PolymerElement {

@@ -1,4 +1,4 @@
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=224&c=3
 inline std::tuple<Tagged<Object>, intptr_t, intptr_t> TqRuntimeFieldSliceWasmTypeInfoSupertypes(Tagged<WasmTypeInfo> p_o);
 
 // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/convert.tq?l=73&c=1
@@ -19,7 +19,7 @@ inline intptr_t TqRuntimeFromConstexpr_intptr_constexpr_intptr_0(intptr_t p_i);
 #ifndef V8_INTERNAL_DEFINED_TqRuntimeFieldSliceWasmTypeInfoSupertypes
 #define V8_INTERNAL_DEFINED_TqRuntimeFieldSliceWasmTypeInfoSupertypes
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=224&c=3
 std::tuple<Tagged<Object>, intptr_t, intptr_t> TqRuntimeFieldSliceWasmTypeInfoSupertypes(Tagged<WasmTypeInfo> p_o) {
   DisallowGarbageCollection no_gc;
   intptr_t tmp0{}; USE(tmp0);
@@ -206,7 +206,7 @@ inline TorqueGeneratedWasmInternalFunction<D, P>::TorqueGeneratedWasmInternalFun
     : P(ptr) {
   SLOW_DCHECK(IsWasmInternalFunction_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=251&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=253&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedWasmNull<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -1080,14 +1080,14 @@ inline TorqueGeneratedWasmModuleObject<D, P>::TorqueGeneratedWasmModuleObject(Ad
     : P(ptr) {
   SLOW_DCHECK(IsWasmModuleObject_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=153&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=155&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedWasmTableObject<D, P>::instance() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedWasmTableObject::instance(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=153&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=155&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedWasmTableObject<D, P>::instance(PtrComprCageBase cage_base) const {
   Tagged<HeapObject> value = TaggedField<Tagged<HeapObject>>::load(cage_base, *this, kInstanceOffset);
@@ -1095,7 +1095,7 @@ Tagged<HeapObject> TorqueGeneratedWasmTableObject<D, P>::instance(PtrComprCageBa
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=153&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=155&c=3
 template<class D, class P>
 void TorqueGeneratedWasmTableObject<D, P>::set_instance(Tagged<HeapObject> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsUndefined(value) || IsWasmInstanceObject(value));
@@ -1103,14 +1103,14 @@ void TorqueGeneratedWasmTableObject<D, P>::set_instance(Tagged<HeapObject> value
   CONDITIONAL_WRITE_BARRIER(*this, kInstanceOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=162&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=164&c=3
 template<class D, class P>
 Tagged<FixedArray> TorqueGeneratedWasmTableObject<D, P>::entries() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedWasmTableObject::entries(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=162&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=164&c=3
 template<class D, class P>
 Tagged<FixedArray> TorqueGeneratedWasmTableObject<D, P>::entries(PtrComprCageBase cage_base) const {
   Tagged<FixedArray> value = TaggedField<Tagged<FixedArray>>::load(cage_base, *this, kEntriesOffset);
@@ -1118,7 +1118,7 @@ Tagged<FixedArray> TorqueGeneratedWasmTableObject<D, P>::entries(PtrComprCageBas
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=162&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=164&c=3
 template<class D, class P>
 void TorqueGeneratedWasmTableObject<D, P>::set_entries(Tagged<FixedArray> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsFixedArray(value));
@@ -1126,27 +1126,27 @@ void TorqueGeneratedWasmTableObject<D, P>::set_entries(Tagged<FixedArray> value,
   CONDITIONAL_WRITE_BARRIER(*this, kEntriesOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=163&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=165&c=3
 template<class D, class P>
 int TorqueGeneratedWasmTableObject<D, P>::current_length() const {
   int value = TaggedField<Smi>::load(*this, kCurrentLengthOffset).value();
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=163&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=165&c=3
 template<class D, class P>
 void TorqueGeneratedWasmTableObject<D, P>::set_current_length(int value) {
   WRITE_FIELD(*this, kCurrentLengthOffset, Smi::FromInt(value));
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=164&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=166&c=3
 template<class D, class P>
 Tagged<Object> TorqueGeneratedWasmTableObject<D, P>::maximum_length() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedWasmTableObject::maximum_length(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=164&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=166&c=3
 template<class D, class P>
 Tagged<Object> TorqueGeneratedWasmTableObject<D, P>::maximum_length(PtrComprCageBase cage_base) const {
   Tagged<Object> value = TaggedField<Tagged<Object>>::load(cage_base, *this, kMaximumLengthOffset);
@@ -1154,7 +1154,7 @@ Tagged<Object> TorqueGeneratedWasmTableObject<D, P>::maximum_length(PtrComprCage
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=164&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=166&c=3
 template<class D, class P>
 void TorqueGeneratedWasmTableObject<D, P>::set_maximum_length(Tagged<Object> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsSmi(value) || IsHeapNumber(value) || IsUndefined(value));
@@ -1162,14 +1162,14 @@ void TorqueGeneratedWasmTableObject<D, P>::set_maximum_length(Tagged<Object> val
   CONDITIONAL_WRITE_BARRIER(*this, kMaximumLengthOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=167&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=169&c=3
 template<class D, class P>
 Tagged<FixedArray> TorqueGeneratedWasmTableObject<D, P>::uses() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedWasmTableObject::uses(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=167&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=169&c=3
 template<class D, class P>
 Tagged<FixedArray> TorqueGeneratedWasmTableObject<D, P>::uses(PtrComprCageBase cage_base) const {
   Tagged<FixedArray> value = TaggedField<Tagged<FixedArray>>::load(cage_base, *this, kUsesOffset);
@@ -1177,7 +1177,7 @@ Tagged<FixedArray> TorqueGeneratedWasmTableObject<D, P>::uses(PtrComprCageBase c
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=167&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=169&c=3
 template<class D, class P>
 void TorqueGeneratedWasmTableObject<D, P>::set_uses(Tagged<FixedArray> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsFixedArray(value));
@@ -1185,20 +1185,20 @@ void TorqueGeneratedWasmTableObject<D, P>::set_uses(Tagged<FixedArray> value, Wr
   CONDITIONAL_WRITE_BARRIER(*this, kUsesOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=168&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=170&c=3
 template<class D, class P>
 int TorqueGeneratedWasmTableObject<D, P>::raw_type() const {
   int value = TaggedField<Smi>::load(*this, kRawTypeOffset).value();
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=168&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=170&c=3
 template<class D, class P>
 void TorqueGeneratedWasmTableObject<D, P>::set_raw_type(int value) {
   WRITE_FIELD(*this, kRawTypeOffset, Smi::FromInt(value));
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=149&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=151&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedWasmTableObject<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -1209,14 +1209,14 @@ inline TorqueGeneratedWasmTableObject<D, P>::TorqueGeneratedWasmTableObject(Addr
     : P(ptr) {
   SLOW_DCHECK(IsWasmTableObject_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=172&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=174&c=3
 template<class D, class P>
 Tagged<JSArrayBuffer> TorqueGeneratedWasmMemoryObject<D, P>::array_buffer() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedWasmMemoryObject::array_buffer(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=172&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=174&c=3
 template<class D, class P>
 Tagged<JSArrayBuffer> TorqueGeneratedWasmMemoryObject<D, P>::array_buffer(PtrComprCageBase cage_base) const {
   Tagged<JSArrayBuffer> value = TaggedField<Tagged<JSArrayBuffer>>::load(cage_base, *this, kArrayBufferOffset);
@@ -1224,7 +1224,7 @@ Tagged<JSArrayBuffer> TorqueGeneratedWasmMemoryObject<D, P>::array_buffer(PtrCom
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=172&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=174&c=3
 template<class D, class P>
 void TorqueGeneratedWasmMemoryObject<D, P>::set_array_buffer(Tagged<JSArrayBuffer> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsJSArrayBuffer(value));
@@ -1232,40 +1232,40 @@ void TorqueGeneratedWasmMemoryObject<D, P>::set_array_buffer(Tagged<JSArrayBuffe
   CONDITIONAL_WRITE_BARRIER(*this, kArrayBufferOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=173&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=175&c=3
 template<class D, class P>
 int TorqueGeneratedWasmMemoryObject<D, P>::maximum_pages() const {
   int value = TaggedField<Smi>::load(*this, kMaximumPagesOffset).value();
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=173&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=175&c=3
 template<class D, class P>
 void TorqueGeneratedWasmMemoryObject<D, P>::set_maximum_pages(int value) {
   WRITE_FIELD(*this, kMaximumPagesOffset, Smi::FromInt(value));
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=174&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=176&c=3
 template<class D, class P>
 int TorqueGeneratedWasmMemoryObject<D, P>::is_memory64() const {
   int value = TaggedField<Smi>::load(*this, kIsMemory64Offset).value();
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=174&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=176&c=3
 template<class D, class P>
 void TorqueGeneratedWasmMemoryObject<D, P>::set_is_memory64(int value) {
   WRITE_FIELD(*this, kIsMemory64Offset, Smi::FromInt(value));
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=175&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=177&c=3
 template<class D, class P>
 Tagged<WeakArrayList> TorqueGeneratedWasmMemoryObject<D, P>::instances() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedWasmMemoryObject::instances(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=175&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=177&c=3
 template<class D, class P>
 Tagged<WeakArrayList> TorqueGeneratedWasmMemoryObject<D, P>::instances(PtrComprCageBase cage_base) const {
   Tagged<WeakArrayList> value = TaggedField<Tagged<WeakArrayList>>::load(cage_base, *this, kInstancesOffset);
@@ -1273,7 +1273,7 @@ Tagged<WeakArrayList> TorqueGeneratedWasmMemoryObject<D, P>::instances(PtrComprC
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=175&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=177&c=3
 template<class D, class P>
 void TorqueGeneratedWasmMemoryObject<D, P>::set_instances(Tagged<WeakArrayList> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsWeakArrayList(value));
@@ -1281,7 +1281,7 @@ void TorqueGeneratedWasmMemoryObject<D, P>::set_instances(Tagged<WeakArrayList> 
   CONDITIONAL_WRITE_BARRIER(*this, kInstancesOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=171&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=173&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedWasmMemoryObject<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -1292,14 +1292,14 @@ inline TorqueGeneratedWasmMemoryObject<D, P>::TorqueGeneratedWasmMemoryObject(Ad
     : P(ptr) {
   SLOW_DCHECK(IsWasmMemoryObject_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=183&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=185&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedWasmGlobalObject<D, P>::instance() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedWasmGlobalObject::instance(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=183&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=185&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedWasmGlobalObject<D, P>::instance(PtrComprCageBase cage_base) const {
   Tagged<HeapObject> value = TaggedField<Tagged<HeapObject>>::load(cage_base, *this, kInstanceOffset);
@@ -1307,7 +1307,7 @@ Tagged<HeapObject> TorqueGeneratedWasmGlobalObject<D, P>::instance(PtrComprCageB
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=183&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=185&c=3
 template<class D, class P>
 void TorqueGeneratedWasmGlobalObject<D, P>::set_instance(Tagged<HeapObject> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsUndefined(value) || IsWasmInstanceObject(value));
@@ -1315,14 +1315,14 @@ void TorqueGeneratedWasmGlobalObject<D, P>::set_instance(Tagged<HeapObject> valu
   CONDITIONAL_WRITE_BARRIER(*this, kInstanceOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=184&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=186&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedWasmGlobalObject<D, P>::untagged_buffer() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedWasmGlobalObject::untagged_buffer(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=184&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=186&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedWasmGlobalObject<D, P>::untagged_buffer(PtrComprCageBase cage_base) const {
   Tagged<HeapObject> value = TaggedField<Tagged<HeapObject>>::load(cage_base, *this, kUntaggedBufferOffset);
@@ -1330,7 +1330,7 @@ Tagged<HeapObject> TorqueGeneratedWasmGlobalObject<D, P>::untagged_buffer(PtrCom
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=184&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=186&c=3
 template<class D, class P>
 void TorqueGeneratedWasmGlobalObject<D, P>::set_untagged_buffer(Tagged<HeapObject> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsUndefined(value) || IsJSArrayBuffer(value));
@@ -1338,14 +1338,14 @@ void TorqueGeneratedWasmGlobalObject<D, P>::set_untagged_buffer(Tagged<HeapObjec
   CONDITIONAL_WRITE_BARRIER(*this, kUntaggedBufferOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=185&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=187&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedWasmGlobalObject<D, P>::tagged_buffer() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedWasmGlobalObject::tagged_buffer(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=185&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=187&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedWasmGlobalObject<D, P>::tagged_buffer(PtrComprCageBase cage_base) const {
   Tagged<HeapObject> value = TaggedField<Tagged<HeapObject>>::load(cage_base, *this, kTaggedBufferOffset);
@@ -1353,7 +1353,7 @@ Tagged<HeapObject> TorqueGeneratedWasmGlobalObject<D, P>::tagged_buffer(PtrCompr
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=185&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=187&c=3
 template<class D, class P>
 void TorqueGeneratedWasmGlobalObject<D, P>::set_tagged_buffer(Tagged<HeapObject> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsUndefined(value) || IsFixedArray(value));
@@ -1361,46 +1361,46 @@ void TorqueGeneratedWasmGlobalObject<D, P>::set_tagged_buffer(Tagged<HeapObject>
   CONDITIONAL_WRITE_BARRIER(*this, kTaggedBufferOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=186&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=188&c=3
 template<class D, class P>
 int TorqueGeneratedWasmGlobalObject<D, P>::offset() const {
   int value = TaggedField<Smi>::load(*this, kOffsetOffset).value();
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=186&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=188&c=3
 template<class D, class P>
 void TorqueGeneratedWasmGlobalObject<D, P>::set_offset(int value) {
   WRITE_FIELD(*this, kOffsetOffset, Smi::FromInt(value));
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=187&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=189&c=3
 template<class D, class P>
 int TorqueGeneratedWasmGlobalObject<D, P>::raw_type() const {
   int value = TaggedField<Smi>::load(*this, kRawTypeOffset).value();
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=187&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=189&c=3
 template<class D, class P>
 void TorqueGeneratedWasmGlobalObject<D, P>::set_raw_type(int value) {
   WRITE_FIELD(*this, kRawTypeOffset, Smi::FromInt(value));
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=190&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=192&c=3
 template<class D, class P>
 int TorqueGeneratedWasmGlobalObject<D, P>::is_mutable() const {
   int value = TaggedField<Smi>::load(*this, kIsMutableOffset).value();
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=190&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=192&c=3
 template<class D, class P>
 void TorqueGeneratedWasmGlobalObject<D, P>::set_is_mutable(int value) {
   WRITE_FIELD(*this, kIsMutableOffset, Smi::FromInt(value));
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=178&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=180&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedWasmGlobalObject<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -1411,14 +1411,14 @@ inline TorqueGeneratedWasmGlobalObject<D, P>::TorqueGeneratedWasmGlobalObject(Ad
     : P(ptr) {
   SLOW_DCHECK(IsWasmGlobalObject_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=194&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=196&c=3
 template<class D, class P>
 Tagged<PodArray<wasm::ValueType>> TorqueGeneratedWasmTagObject<D, P>::serialized_signature() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedWasmTagObject::serialized_signature(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=194&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=196&c=3
 template<class D, class P>
 Tagged<PodArray<wasm::ValueType>> TorqueGeneratedWasmTagObject<D, P>::serialized_signature(PtrComprCageBase cage_base) const {
   Tagged<PodArray<wasm::ValueType>> value = TaggedField<Tagged<PodArray<wasm::ValueType>>>::load(cage_base, *this, kSerializedSignatureOffset);
@@ -1426,7 +1426,7 @@ Tagged<PodArray<wasm::ValueType>> TorqueGeneratedWasmTagObject<D, P>::serialized
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=194&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=196&c=3
 template<class D, class P>
 void TorqueGeneratedWasmTagObject<D, P>::set_serialized_signature(Tagged<PodArray<wasm::ValueType>> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsByteArray(value));
@@ -1434,14 +1434,14 @@ void TorqueGeneratedWasmTagObject<D, P>::set_serialized_signature(Tagged<PodArra
   CONDITIONAL_WRITE_BARRIER(*this, kSerializedSignatureOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=195&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=197&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedWasmTagObject<D, P>::tag() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedWasmTagObject::tag(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=195&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=197&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedWasmTagObject<D, P>::tag(PtrComprCageBase cage_base) const {
   Tagged<HeapObject> value = TaggedField<Tagged<HeapObject>>::load(cage_base, *this, kTagOffset);
@@ -1449,7 +1449,7 @@ Tagged<HeapObject> TorqueGeneratedWasmTagObject<D, P>::tag(PtrComprCageBase cage
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=195&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=197&c=3
 template<class D, class P>
 void TorqueGeneratedWasmTagObject<D, P>::set_tag(Tagged<HeapObject> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsHeapObject(value));
@@ -1457,20 +1457,20 @@ void TorqueGeneratedWasmTagObject<D, P>::set_tag(Tagged<HeapObject> value, Write
   CONDITIONAL_WRITE_BARRIER(*this, kTagOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=196&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=198&c=3
 template<class D, class P>
 int TorqueGeneratedWasmTagObject<D, P>::canonical_type_index() const {
   int value = TaggedField<Smi>::load(*this, kCanonicalTypeIndexOffset).value();
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=196&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=198&c=3
 template<class D, class P>
 void TorqueGeneratedWasmTagObject<D, P>::set_canonical_type_index(int value) {
   WRITE_FIELD(*this, kCanonicalTypeIndexOffset, Smi::FromInt(value));
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=193&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=195&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedWasmTagObject<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -1481,14 +1481,14 @@ inline TorqueGeneratedWasmTagObject<D, P>::TorqueGeneratedWasmTagObject(Address 
     : P(ptr) {
   SLOW_DCHECK(IsWasmTagObject_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=202&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=204&c=3
 template<class D, class P>
 Tagged<Managed<wasm::NativeModule>> TorqueGeneratedAsmWasmData<D, P>::managed_native_module() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedAsmWasmData::managed_native_module(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=202&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=204&c=3
 template<class D, class P>
 Tagged<Managed<wasm::NativeModule>> TorqueGeneratedAsmWasmData<D, P>::managed_native_module(PtrComprCageBase cage_base) const {
   Tagged<Managed<wasm::NativeModule>> value = TaggedField<Tagged<Managed<wasm::NativeModule>>>::load(cage_base, *this, kManagedNativeModuleOffset);
@@ -1496,7 +1496,7 @@ Tagged<Managed<wasm::NativeModule>> TorqueGeneratedAsmWasmData<D, P>::managed_na
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=202&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=204&c=3
 template<class D, class P>
 void TorqueGeneratedAsmWasmData<D, P>::set_managed_native_module(Tagged<Managed<wasm::NativeModule>> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsForeign(value));
@@ -1504,14 +1504,14 @@ void TorqueGeneratedAsmWasmData<D, P>::set_managed_native_module(Tagged<Managed<
   CONDITIONAL_WRITE_BARRIER(*this, kManagedNativeModuleOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=203&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=205&c=3
 template<class D, class P>
 Tagged<HeapNumber> TorqueGeneratedAsmWasmData<D, P>::uses_bitset() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedAsmWasmData::uses_bitset(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=203&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=205&c=3
 template<class D, class P>
 Tagged<HeapNumber> TorqueGeneratedAsmWasmData<D, P>::uses_bitset(PtrComprCageBase cage_base) const {
   Tagged<HeapNumber> value = TaggedField<Tagged<HeapNumber>>::load(cage_base, *this, kUsesBitsetOffset);
@@ -1519,7 +1519,7 @@ Tagged<HeapNumber> TorqueGeneratedAsmWasmData<D, P>::uses_bitset(PtrComprCageBas
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=203&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=205&c=3
 template<class D, class P>
 void TorqueGeneratedAsmWasmData<D, P>::set_uses_bitset(Tagged<HeapNumber> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsHeapNumber(value));
@@ -1527,7 +1527,7 @@ void TorqueGeneratedAsmWasmData<D, P>::set_uses_bitset(Tagged<HeapNumber> value,
   CONDITIONAL_WRITE_BARRIER(*this, kUsesBitsetOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=201&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=203&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedAsmWasmData<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -1538,27 +1538,27 @@ inline TorqueGeneratedAsmWasmData<D, P>::TorqueGeneratedAsmWasmData(Address ptr)
     : P(ptr) {
   SLOW_DCHECK(IsAsmWasmData_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=216&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=218&c=3
 template<class D, class P>
 uint32_t TorqueGeneratedWasmTypeInfo<D, P>::type_index() const {
   uint32_t value = this->template ReadField<uint32_t>(kTypeIndexOffset);
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=216&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=218&c=3
 template<class D, class P>
 void TorqueGeneratedWasmTypeInfo<D, P>::set_type_index(uint32_t value) {
   this->template WriteField<uint32_t>(kTypeIndexOffset, value);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=220&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedWasmTypeInfo<D, P>::instance() const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedWasmTypeInfo::instance(cage_base);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=220&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
 template<class D, class P>
 Tagged<HeapObject> TorqueGeneratedWasmTypeInfo<D, P>::instance(PtrComprCageBase cage_base) const {
   Tagged<HeapObject> value = TaggedField<Tagged<HeapObject>>::load(cage_base, *this, kInstanceOffset);
@@ -1566,7 +1566,7 @@ Tagged<HeapObject> TorqueGeneratedWasmTypeInfo<D, P>::instance(PtrComprCageBase 
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=220&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
 template<class D, class P>
 void TorqueGeneratedWasmTypeInfo<D, P>::set_instance(Tagged<HeapObject> value, WriteBarrierMode mode) {
   SLOW_DCHECK(IsUndefined(value) || IsWasmInstanceObject(value));
@@ -1574,27 +1574,27 @@ void TorqueGeneratedWasmTypeInfo<D, P>::set_instance(Tagged<HeapObject> value, W
   CONDITIONAL_WRITE_BARRIER(*this, kInstanceOffset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=221&c=9
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=223&c=9
 template<class D, class P>
 int TorqueGeneratedWasmTypeInfo<D, P>::supertypes_length() const {
   int value = TaggedField<Smi>::load(*this, kSupertypesLengthOffset).value();
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=221&c=9
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=223&c=9
 template<class D, class P>
 void TorqueGeneratedWasmTypeInfo<D, P>::set_supertypes_length(int value) {
   WRITE_FIELD(*this, kSupertypesLengthOffset, Smi::FromInt(value));
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=224&c=3
 template<class D, class P>
 Tagged<Object> TorqueGeneratedWasmTypeInfo<D, P>::supertypes(int i) const {
   PtrComprCageBase cage_base = GetPtrComprCageBase(*this);
   return TorqueGeneratedWasmTypeInfo::supertypes(cage_base, i);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=224&c=3
 template<class D, class P>
 Tagged<Object> TorqueGeneratedWasmTypeInfo<D, P>::supertypes(PtrComprCageBase cage_base, int i) const {
   DCHECK_GE(i, 0);
@@ -1605,7 +1605,7 @@ Tagged<Object> TorqueGeneratedWasmTypeInfo<D, P>::supertypes(PtrComprCageBase ca
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=222&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=224&c=3
 template<class D, class P>
 void TorqueGeneratedWasmTypeInfo<D, P>::set_supertypes(int i, Tagged<Object> value, WriteBarrierMode mode) {
   DCHECK_GE(i, 0);
@@ -1616,7 +1616,7 @@ void TorqueGeneratedWasmTypeInfo<D, P>::set_supertypes(int i, Tagged<Object> val
   CONDITIONAL_WRITE_BARRIER(*this, offset, value, mode);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=206&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=208&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedWasmTypeInfo<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -1627,7 +1627,7 @@ inline TorqueGeneratedWasmTypeInfo<D, P>::TorqueGeneratedWasmTypeInfo(Address pt
     : P(ptr) {
   SLOW_DCHECK(IsWasmTypeInfo_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=229&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=231&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedWasmObject<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -1638,7 +1638,7 @@ inline TorqueGeneratedWasmObject<D, P>::TorqueGeneratedWasmObject(Address ptr)
     : P(ptr) {
   SLOW_DCHECK(IsWasmObject_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=232&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=234&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedWasmStruct<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));
@@ -1649,20 +1649,20 @@ inline TorqueGeneratedWasmStruct<D, P>::TorqueGeneratedWasmStruct(Address ptr)
     : P(ptr) {
   SLOW_DCHECK(IsWasmStruct_NonInline(*this));
 }
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=237&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=239&c=3
 template<class D, class P>
 uint32_t TorqueGeneratedWasmArray<D, P>::length() const {
   uint32_t value = this->template ReadField<uint32_t>(kLengthOffset);
   return value;
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=237&c=3
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=239&c=3
 template<class D, class P>
 void TorqueGeneratedWasmArray<D, P>::set_length(uint32_t value) {
   this->template WriteField<uint32_t>(kLengthOffset, value);
 }
 
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=235&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=237&c=1
 template<class D, class P>
 Tagged<D> TorqueGeneratedWasmArray<D, P>::cast(Tagged<Object> object) {
     return Tagged<D>(D(object.ptr()));

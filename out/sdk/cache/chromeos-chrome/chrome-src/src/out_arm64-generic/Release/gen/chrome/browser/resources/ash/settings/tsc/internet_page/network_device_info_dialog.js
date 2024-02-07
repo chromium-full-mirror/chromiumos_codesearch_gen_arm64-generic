@@ -5,10 +5,10 @@
  * @fileoverview Polymer element for displaying cellular EID and QR code
  */
 import '//resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
-import '//resources/cr_elements/cr_dialog/cr_dialog.js';
-import '//resources/cr_elements/cr_shared_style.css.js';
-import '//resources/cr_elements/cr_shared_vars.css.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import '//resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
+import '//resources/ash/common/cr_elements/cr_shared_style.css.js';
+import '//resources/ash/common/cr_elements/cr_shared_vars.css.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { flush, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './network_device_info_dialog.html.js';

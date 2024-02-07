@@ -6,8 +6,8 @@
  * device. This might be a user defined image or a generic icon based on device
  * type.
  */
-import 'chrome://resources/cr_elements/cr_shared_style.css.js';
-import 'chrome://resources/cr_elements/cr_icons.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_style.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_icons.css.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import './nearby_shared_icons.html.js';
 import { ShareTargetType } from 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_target_types.mojom-webui.js';

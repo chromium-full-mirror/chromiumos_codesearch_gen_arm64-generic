@@ -97,7 +97,7 @@ describeWithEnvironment('TimelineFlameChartView', function () {
             throw new Error('Could not find a visible node with children');
         }
         // Apply COLLAPSE_FUNCTION action to the node. This action will hide all the children of the passed node and add HIDDEN_DESCENDANTS_ARROW decoration to it.
-        flameChartView.getMainFlameChart().modifyTree("COLLAPSE_FUNCTION" /* TraceEngine.EntriesFilter.FilterApplyAction.COLLAPSE_FUNCTION */, node?.id);
+        flameChartView.getMainFlameChart().modifyTree("COLLAPSE_FUNCTION" /* TraceEngine.EntriesFilter.FilterAction.COLLAPSE_FUNCTION */, node?.id);
         const decorationsForEntry = flameChartView.getMainFlameChart().timelineData()?.entryDecorations[node?.id];
         assert.deepEqual(decorationsForEntry, [
             {
@@ -170,7 +170,7 @@ describeWithEnvironment('TimelineFlameChartView', function () {
         }
         // Apply COLLAPSE_FUNCTION Context Menu action to the node.
         // This action will hide all the children of the passed node and add HIDDEN_DESCENDANTS_ARROW decoration to it.
-        flameChartView.getMainFlameChart().modifyTree("COLLAPSE_FUNCTION" /* TraceEngine.EntriesFilter.FilterApplyAction.COLLAPSE_FUNCTION */, node?.id);
+        flameChartView.getMainFlameChart().modifyTree("COLLAPSE_FUNCTION" /* TraceEngine.EntriesFilter.FilterAction.COLLAPSE_FUNCTION */, node?.id);
         let decorationsForEntry = flameChartView.getMainFlameChart().timelineData()?.entryDecorations[node?.id];
         assert.deepEqual(decorationsForEntry, [
             {
@@ -184,7 +184,7 @@ describeWithEnvironment('TimelineFlameChartView', function () {
             throw new Error('Could not find main track');
         }
         // Apply a RESET_CHILDREN action that will reveal all of the hidden children of the passed node and remove HIDDEN_DESCENDANTS_ARROW decoration from it.
-        flameChartView.getMainFlameChart().modifyTree("RESET_CHILDREN" /* TraceEngine.EntriesFilter.FilterUndoAction.RESET_CHILDREN */, node?.id);
+        flameChartView.getMainFlameChart().modifyTree("RESET_CHILDREN" /* TraceEngine.EntriesFilter.FilterAction.RESET_CHILDREN */, node?.id);
         // No decorations should exist on the node
         decorationsForEntry = flameChartView.getMainFlameChart().timelineData()?.entryDecorations[node?.id];
         assert.isUndefined(decorationsForEntry);
@@ -343,7 +343,7 @@ describeWithEnvironment('TimelineFlameChartView', function () {
             assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.at(1)?.buildDescriptor().label, 'Reset trace');
             // Check that Reset Trace is disabled
             assert.strictEqual(flameChartView.getMainFlameChart().getContextMenu()?.defaultSection().items.at(1)?.buildDescriptor().enabled, false);
-            flameChartView.getMainFlameChart().modifyTree("MERGE_FUNCTION" /* TraceEngine.EntriesFilter.FilterApplyAction.MERGE_FUNCTION */, iDOfNode);
+            flameChartView.getMainFlameChart().modifyTree("MERGE_FUNCTION" /* TraceEngine.EntriesFilter.FilterAction.MERGE_FUNCTION */, iDOfNode);
             flameChartView.getMainFlameChart().highlightEntry(iDOfNode);
             flameChartView.getMainFlameChart().onContextMenu(new Event(''));
             // Check that Reset Trace is enabled

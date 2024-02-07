@@ -103,7 +103,7 @@
   ],
   "references": [
     {
-      "path": "../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+      "path": "cr_elements/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../ui/webui/resources/js/tsconfig_build_ts.json"

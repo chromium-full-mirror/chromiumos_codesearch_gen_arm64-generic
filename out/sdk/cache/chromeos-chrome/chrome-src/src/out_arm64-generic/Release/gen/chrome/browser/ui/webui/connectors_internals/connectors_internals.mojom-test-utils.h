@@ -17,6 +17,7 @@ class  PageHandlerInterceptorForTesting : public PageHandler {
   virtual PageHandler* GetForwardingInterface() = 0;
   void GetDeviceTrustState(GetDeviceTrustStateCallback callback) override;
   void DeleteDeviceTrustKey(DeleteDeviceTrustKeyCallback callback) override;
+  void GetClientCertificateState(GetClientCertificateStateCallback callback) override;
 };
 class  PageHandlerAsyncWaiter {
  public:
@@ -32,6 +33,9 @@ class  PageHandlerAsyncWaiter {
   void DeleteDeviceTrustKey(
       );
   
+  void GetClientCertificateState(
+      ClientCertificateStatePtr* out_state);
+  ClientCertificateStatePtr GetClientCertificateState();
 
  private:
   PageHandler* const proxy_;

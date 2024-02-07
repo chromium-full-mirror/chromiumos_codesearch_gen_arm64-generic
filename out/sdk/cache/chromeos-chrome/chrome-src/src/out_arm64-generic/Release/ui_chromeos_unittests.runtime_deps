@@ -51,6 +51,7 @@ test_fonts/Tinos-Regular.ttf
 etc/fonts/fonts.conf
 mojo_service_manager/camera_hal_dispatcher_mojo_policy.jsonc
 mojo_service_manager/jpeg_accelerator_mojo_policy.jsonc
+mojo_service_manager/system_event_monitor.jsonc
 snapshot_blob.bin
 snapshot_blob.bin
 bin/run_ui_chromeos_unittests

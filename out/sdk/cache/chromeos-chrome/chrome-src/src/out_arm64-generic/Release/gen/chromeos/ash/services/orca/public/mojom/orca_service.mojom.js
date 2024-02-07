@@ -1704,23 +1704,23 @@
     encoder.writeUint32(0);
     encoder.encodeStructPointer(Context, val.context);
   };
-  function TextActuator_InsertText_Params(values) {
+  function SystemActuator_InsertText_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  TextActuator_InsertText_Params.prototype.initDefaults_ = function() {
+  SystemActuator_InsertText_Params.prototype.initDefaults_ = function() {
     this.text = null;
   };
-  TextActuator_InsertText_Params.prototype.initFields_ = function(fields) {
+  SystemActuator_InsertText_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  TextActuator_InsertText_Params.validate = function(messageValidator, offset) {
+  SystemActuator_InsertText_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -1734,7 +1734,7 @@
         return err;
 
 
-    // validate TextActuator_InsertText_Params.text
+    // validate SystemActuator_InsertText_Params.text
     err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
     if (err !== validator.validationError.NONE)
         return err;
@@ -1742,11 +1742,11 @@
     return validator.validationError.NONE;
   };
 
-  TextActuator_InsertText_Params.encodedSize = codec.kStructHeaderSize + 8;
+  SystemActuator_InsertText_Params.encodedSize = codec.kStructHeaderSize + 8;
 
-  TextActuator_InsertText_Params.decode = function(decoder) {
+  SystemActuator_InsertText_Params.decode = function(decoder) {
     var packed;
-    var val = new TextActuator_InsertText_Params();
+    var val = new SystemActuator_InsertText_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.text =
@@ -1754,28 +1754,28 @@
     return val;
   };
 
-  TextActuator_InsertText_Params.encode = function(encoder, val) {
+  SystemActuator_InsertText_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(TextActuator_InsertText_Params.encodedSize);
+    encoder.writeUint32(SystemActuator_InsertText_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.String, val.text);
   };
-  function TextActuator_ApproveConsent_Params(values) {
+  function SystemActuator_ApproveConsent_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  TextActuator_ApproveConsent_Params.prototype.initDefaults_ = function() {
+  SystemActuator_ApproveConsent_Params.prototype.initDefaults_ = function() {
   };
-  TextActuator_ApproveConsent_Params.prototype.initFields_ = function(fields) {
+  SystemActuator_ApproveConsent_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  TextActuator_ApproveConsent_Params.validate = function(messageValidator, offset) {
+  SystemActuator_ApproveConsent_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -1791,37 +1791,37 @@
     return validator.validationError.NONE;
   };
 
-  TextActuator_ApproveConsent_Params.encodedSize = codec.kStructHeaderSize + 0;
+  SystemActuator_ApproveConsent_Params.encodedSize = codec.kStructHeaderSize + 0;
 
-  TextActuator_ApproveConsent_Params.decode = function(decoder) {
+  SystemActuator_ApproveConsent_Params.decode = function(decoder) {
     var packed;
-    var val = new TextActuator_ApproveConsent_Params();
+    var val = new SystemActuator_ApproveConsent_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     return val;
   };
 
-  TextActuator_ApproveConsent_Params.encode = function(encoder, val) {
+  SystemActuator_ApproveConsent_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(TextActuator_ApproveConsent_Params.encodedSize);
+    encoder.writeUint32(SystemActuator_ApproveConsent_Params.encodedSize);
     encoder.writeUint32(0);
   };
-  function TextActuator_DeclineConsent_Params(values) {
+  function SystemActuator_DeclineConsent_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  TextActuator_DeclineConsent_Params.prototype.initDefaults_ = function() {
+  SystemActuator_DeclineConsent_Params.prototype.initDefaults_ = function() {
   };
-  TextActuator_DeclineConsent_Params.prototype.initFields_ = function(fields) {
+  SystemActuator_DeclineConsent_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  TextActuator_DeclineConsent_Params.validate = function(messageValidator, offset) {
+  SystemActuator_DeclineConsent_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -1837,38 +1837,38 @@
     return validator.validationError.NONE;
   };
 
-  TextActuator_DeclineConsent_Params.encodedSize = codec.kStructHeaderSize + 0;
+  SystemActuator_DeclineConsent_Params.encodedSize = codec.kStructHeaderSize + 0;
 
-  TextActuator_DeclineConsent_Params.decode = function(decoder) {
+  SystemActuator_DeclineConsent_Params.decode = function(decoder) {
     var packed;
-    var val = new TextActuator_DeclineConsent_Params();
+    var val = new SystemActuator_DeclineConsent_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     return val;
   };
 
-  TextActuator_DeclineConsent_Params.encode = function(encoder, val) {
+  SystemActuator_DeclineConsent_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(TextActuator_DeclineConsent_Params.encodedSize);
+    encoder.writeUint32(SystemActuator_DeclineConsent_Params.encodedSize);
     encoder.writeUint32(0);
   };
-  function TextActuator_OpenUrlInNewWindow_Params(values) {
+  function SystemActuator_OpenUrlInNewWindow_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  TextActuator_OpenUrlInNewWindow_Params.prototype.initDefaults_ = function() {
+  SystemActuator_OpenUrlInNewWindow_Params.prototype.initDefaults_ = function() {
     this.url = null;
   };
-  TextActuator_OpenUrlInNewWindow_Params.prototype.initFields_ = function(fields) {
+  SystemActuator_OpenUrlInNewWindow_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  TextActuator_OpenUrlInNewWindow_Params.validate = function(messageValidator, offset) {
+  SystemActuator_OpenUrlInNewWindow_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -1882,7 +1882,7 @@
         return err;
 
 
-    // validate TextActuator_OpenUrlInNewWindow_Params.url
+    // validate SystemActuator_OpenUrlInNewWindow_Params.url
     err = messageValidator.validateStructPointer(offset + codec.kStructHeaderSize + 0, url$.Url, false);
     if (err !== validator.validationError.NONE)
         return err;
@@ -1890,11 +1890,11 @@
     return validator.validationError.NONE;
   };
 
-  TextActuator_OpenUrlInNewWindow_Params.encodedSize = codec.kStructHeaderSize + 8;
+  SystemActuator_OpenUrlInNewWindow_Params.encodedSize = codec.kStructHeaderSize + 8;
 
-  TextActuator_OpenUrlInNewWindow_Params.decode = function(decoder) {
+  SystemActuator_OpenUrlInNewWindow_Params.decode = function(decoder) {
     var packed;
-    var val = new TextActuator_OpenUrlInNewWindow_Params();
+    var val = new SystemActuator_OpenUrlInNewWindow_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.url =
@@ -1902,28 +1902,28 @@
     return val;
   };
 
-  TextActuator_OpenUrlInNewWindow_Params.encode = function(encoder, val) {
+  SystemActuator_OpenUrlInNewWindow_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(TextActuator_OpenUrlInNewWindow_Params.encodedSize);
+    encoder.writeUint32(SystemActuator_OpenUrlInNewWindow_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStructPointer(url$.Url, val.url);
   };
-  function TextActuator_ShowUI_Params(values) {
+  function SystemActuator_ShowUI_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  TextActuator_ShowUI_Params.prototype.initDefaults_ = function() {
+  SystemActuator_ShowUI_Params.prototype.initDefaults_ = function() {
   };
-  TextActuator_ShowUI_Params.prototype.initFields_ = function(fields) {
+  SystemActuator_ShowUI_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  TextActuator_ShowUI_Params.validate = function(messageValidator, offset) {
+  SystemActuator_ShowUI_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -1939,37 +1939,37 @@
     return validator.validationError.NONE;
   };
 
-  TextActuator_ShowUI_Params.encodedSize = codec.kStructHeaderSize + 0;
+  SystemActuator_ShowUI_Params.encodedSize = codec.kStructHeaderSize + 0;
 
-  TextActuator_ShowUI_Params.decode = function(decoder) {
+  SystemActuator_ShowUI_Params.decode = function(decoder) {
     var packed;
-    var val = new TextActuator_ShowUI_Params();
+    var val = new SystemActuator_ShowUI_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     return val;
   };
 
-  TextActuator_ShowUI_Params.encode = function(encoder, val) {
+  SystemActuator_ShowUI_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(TextActuator_ShowUI_Params.encodedSize);
+    encoder.writeUint32(SystemActuator_ShowUI_Params.encodedSize);
     encoder.writeUint32(0);
   };
-  function TextActuator_CloseUI_Params(values) {
+  function SystemActuator_CloseUI_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  TextActuator_CloseUI_Params.prototype.initDefaults_ = function() {
+  SystemActuator_CloseUI_Params.prototype.initDefaults_ = function() {
   };
-  TextActuator_CloseUI_Params.prototype.initFields_ = function(fields) {
+  SystemActuator_CloseUI_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  TextActuator_CloseUI_Params.validate = function(messageValidator, offset) {
+  SystemActuator_CloseUI_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -1985,38 +1985,38 @@
     return validator.validationError.NONE;
   };
 
-  TextActuator_CloseUI_Params.encodedSize = codec.kStructHeaderSize + 0;
+  SystemActuator_CloseUI_Params.encodedSize = codec.kStructHeaderSize + 0;
 
-  TextActuator_CloseUI_Params.decode = function(decoder) {
+  SystemActuator_CloseUI_Params.decode = function(decoder) {
     var packed;
-    var val = new TextActuator_CloseUI_Params();
+    var val = new SystemActuator_CloseUI_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     return val;
   };
 
-  TextActuator_CloseUI_Params.encode = function(encoder, val) {
+  SystemActuator_CloseUI_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(TextActuator_CloseUI_Params.encodedSize);
+    encoder.writeUint32(SystemActuator_CloseUI_Params.encodedSize);
     encoder.writeUint32(0);
   };
-  function TextActuator_SubmitFeedback_Params(values) {
+  function SystemActuator_SubmitFeedback_Params(values) {
     this.initDefaults_();
     this.initFields_(values);
   }
 
 
-  TextActuator_SubmitFeedback_Params.prototype.initDefaults_ = function() {
+  SystemActuator_SubmitFeedback_Params.prototype.initDefaults_ = function() {
     this.description = null;
   };
-  TextActuator_SubmitFeedback_Params.prototype.initFields_ = function(fields) {
+  SystemActuator_SubmitFeedback_Params.prototype.initFields_ = function(fields) {
     for(var field in fields) {
         if (this.hasOwnProperty(field))
           this[field] = fields[field];
     }
   };
 
-  TextActuator_SubmitFeedback_Params.validate = function(messageValidator, offset) {
+  SystemActuator_SubmitFeedback_Params.validate = function(messageValidator, offset) {
     var err;
     err = messageValidator.validateStructHeader(offset, codec.kStructHeaderSize);
     if (err !== validator.validationError.NONE)
@@ -2030,7 +2030,7 @@
         return err;
 
 
-    // validate TextActuator_SubmitFeedback_Params.description
+    // validate SystemActuator_SubmitFeedback_Params.description
     err = messageValidator.validateStringPointer(offset + codec.kStructHeaderSize + 0, false)
     if (err !== validator.validationError.NONE)
         return err;
@@ -2038,11 +2038,11 @@
     return validator.validationError.NONE;
   };
 
-  TextActuator_SubmitFeedback_Params.encodedSize = codec.kStructHeaderSize + 8;
+  SystemActuator_SubmitFeedback_Params.encodedSize = codec.kStructHeaderSize + 8;
 
-  TextActuator_SubmitFeedback_Params.decode = function(decoder) {
+  SystemActuator_SubmitFeedback_Params.decode = function(decoder) {
     var packed;
-    var val = new TextActuator_SubmitFeedback_Params();
+    var val = new SystemActuator_SubmitFeedback_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
     val.description =
@@ -2050,9 +2050,9 @@
     return val;
   };
 
-  TextActuator_SubmitFeedback_Params.encode = function(encoder, val) {
+  SystemActuator_SubmitFeedback_Params.encode = function(encoder, val) {
     var packed;
-    encoder.writeUint32(TextActuator_SubmitFeedback_Params.encodedSize);
+    encoder.writeUint32(SystemActuator_SubmitFeedback_Params.encodedSize);
     encoder.writeUint32(0);
     encoder.encodeStruct(codec.String, val.description);
   };
@@ -2175,7 +2175,7 @@
 
 
   OrcaService_BindEditor_Params.prototype.initDefaults_ = function() {
-    this.textActuator = new associatedBindings.AssociatedInterfacePtrInfo();
+    this.systemActuator = new associatedBindings.AssociatedInterfacePtrInfo();
     this.textQueryProvider = new associatedBindings.AssociatedInterfacePtrInfo();
     this.clientConnector = new associatedBindings.AssociatedInterfaceRequest();
     this.eventSink = new associatedBindings.AssociatedInterfaceRequest();
@@ -2201,7 +2201,7 @@
         return err;
 
 
-    // validate OrcaService_BindEditor_Params.textActuator
+    // validate OrcaService_BindEditor_Params.systemActuator
     err = messageValidator.validateAssociatedInterface(offset + codec.kStructHeaderSize + 0, false);
     if (err !== validator.validationError.NONE)
         return err;
@@ -2234,7 +2234,7 @@
     var val = new OrcaService_BindEditor_Params();
     var numberOfBytes = decoder.readUint32();
     var version = decoder.readUint32();
-    val.textActuator =
+    val.systemActuator =
         decoder.decodeStruct(codec.AssociatedInterfacePtrInfo);
     val.textQueryProvider =
         decoder.decodeStruct(codec.AssociatedInterfacePtrInfo);
@@ -2249,7 +2249,7 @@
     var packed;
     encoder.writeUint32(OrcaService_BindEditor_Params.encodedSize);
     encoder.writeUint32(0);
-    encoder.encodeStruct(codec.AssociatedInterfacePtrInfo, val.textActuator);
+    encoder.encodeStruct(codec.AssociatedInterfacePtrInfo, val.systemActuator);
     encoder.encodeStruct(codec.AssociatedInterfacePtrInfo, val.textQueryProvider);
     encoder.encodeStruct(codec.AssociatedInterfaceRequest, val.clientConnector);
     encoder.encodeStruct(codec.AssociatedInterfaceRequest, val.eventSink);
@@ -3170,188 +3170,188 @@
   };
   EditorEventSinkStub.prototype.validator = validateEditorEventSinkRequest;
   EditorEventSinkProxy.prototype.validator = null;
-  var kTextActuator_InsertText_Name = 0;
-  var kTextActuator_ApproveConsent_Name = 1;
-  var kTextActuator_DeclineConsent_Name = 2;
-  var kTextActuator_OpenUrlInNewWindow_Name = 3;
-  var kTextActuator_ShowUI_Name = 4;
-  var kTextActuator_CloseUI_Name = 5;
-  var kTextActuator_SubmitFeedback_Name = 6;
+  var kSystemActuator_InsertText_Name = 0;
+  var kSystemActuator_ApproveConsent_Name = 1;
+  var kSystemActuator_DeclineConsent_Name = 2;
+  var kSystemActuator_OpenUrlInNewWindow_Name = 3;
+  var kSystemActuator_ShowUI_Name = 4;
+  var kSystemActuator_CloseUI_Name = 5;
+  var kSystemActuator_SubmitFeedback_Name = 6;
 
-  function TextActuatorPtr(handleOrPtrInfo) {
-    this.ptr = new bindings.InterfacePtrController(TextActuator,
+  function SystemActuatorPtr(handleOrPtrInfo) {
+    this.ptr = new bindings.InterfacePtrController(SystemActuator,
                                                    handleOrPtrInfo);
   }
 
-  function TextActuatorAssociatedPtr(associatedInterfacePtrInfo) {
+  function SystemActuatorAssociatedPtr(associatedInterfacePtrInfo) {
     this.ptr = new associatedBindings.AssociatedInterfacePtrController(
-        TextActuator, associatedInterfacePtrInfo);
+        SystemActuator, associatedInterfacePtrInfo);
   }
 
-  TextActuatorAssociatedPtr.prototype =
-      Object.create(TextActuatorPtr.prototype);
-  TextActuatorAssociatedPtr.prototype.constructor =
-      TextActuatorAssociatedPtr;
+  SystemActuatorAssociatedPtr.prototype =
+      Object.create(SystemActuatorPtr.prototype);
+  SystemActuatorAssociatedPtr.prototype.constructor =
+      SystemActuatorAssociatedPtr;
 
-  function TextActuatorProxy(receiver) {
+  function SystemActuatorProxy(receiver) {
     this.receiver_ = receiver;
   }
-  TextActuatorPtr.prototype.insertText = function() {
-    return TextActuatorProxy.prototype.insertText
+  SystemActuatorPtr.prototype.insertText = function() {
+    return SystemActuatorProxy.prototype.insertText
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  TextActuatorProxy.prototype.insertText = function(text) {
-    var params_ = new TextActuator_InsertText_Params();
+  SystemActuatorProxy.prototype.insertText = function(text) {
+    var params_ = new SystemActuator_InsertText_Params();
     params_.text = text;
     var builder = new codec.MessageV0Builder(
-        kTextActuator_InsertText_Name,
-        codec.align(TextActuator_InsertText_Params.encodedSize));
-    builder.encodeStruct(TextActuator_InsertText_Params, params_);
+        kSystemActuator_InsertText_Name,
+        codec.align(SystemActuator_InsertText_Params.encodedSize));
+    builder.encodeStruct(SystemActuator_InsertText_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  TextActuatorPtr.prototype.approveConsent = function() {
-    return TextActuatorProxy.prototype.approveConsent
+  SystemActuatorPtr.prototype.approveConsent = function() {
+    return SystemActuatorProxy.prototype.approveConsent
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  TextActuatorProxy.prototype.approveConsent = function() {
-    var params_ = new TextActuator_ApproveConsent_Params();
+  SystemActuatorProxy.prototype.approveConsent = function() {
+    var params_ = new SystemActuator_ApproveConsent_Params();
     var builder = new codec.MessageV0Builder(
-        kTextActuator_ApproveConsent_Name,
-        codec.align(TextActuator_ApproveConsent_Params.encodedSize));
-    builder.encodeStruct(TextActuator_ApproveConsent_Params, params_);
+        kSystemActuator_ApproveConsent_Name,
+        codec.align(SystemActuator_ApproveConsent_Params.encodedSize));
+    builder.encodeStruct(SystemActuator_ApproveConsent_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  TextActuatorPtr.prototype.declineConsent = function() {
-    return TextActuatorProxy.prototype.declineConsent
+  SystemActuatorPtr.prototype.declineConsent = function() {
+    return SystemActuatorProxy.prototype.declineConsent
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  TextActuatorProxy.prototype.declineConsent = function() {
-    var params_ = new TextActuator_DeclineConsent_Params();
+  SystemActuatorProxy.prototype.declineConsent = function() {
+    var params_ = new SystemActuator_DeclineConsent_Params();
     var builder = new codec.MessageV0Builder(
-        kTextActuator_DeclineConsent_Name,
-        codec.align(TextActuator_DeclineConsent_Params.encodedSize));
-    builder.encodeStruct(TextActuator_DeclineConsent_Params, params_);
+        kSystemActuator_DeclineConsent_Name,
+        codec.align(SystemActuator_DeclineConsent_Params.encodedSize));
+    builder.encodeStruct(SystemActuator_DeclineConsent_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  TextActuatorPtr.prototype.openUrlInNewWindow = function() {
-    return TextActuatorProxy.prototype.openUrlInNewWindow
+  SystemActuatorPtr.prototype.openUrlInNewWindow = function() {
+    return SystemActuatorProxy.prototype.openUrlInNewWindow
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  TextActuatorProxy.prototype.openUrlInNewWindow = function(url) {
-    var params_ = new TextActuator_OpenUrlInNewWindow_Params();
+  SystemActuatorProxy.prototype.openUrlInNewWindow = function(url) {
+    var params_ = new SystemActuator_OpenUrlInNewWindow_Params();
     params_.url = url;
     var builder = new codec.MessageV0Builder(
-        kTextActuator_OpenUrlInNewWindow_Name,
-        codec.align(TextActuator_OpenUrlInNewWindow_Params.encodedSize));
-    builder.encodeStruct(TextActuator_OpenUrlInNewWindow_Params, params_);
+        kSystemActuator_OpenUrlInNewWindow_Name,
+        codec.align(SystemActuator_OpenUrlInNewWindow_Params.encodedSize));
+    builder.encodeStruct(SystemActuator_OpenUrlInNewWindow_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  TextActuatorPtr.prototype.showUI = function() {
-    return TextActuatorProxy.prototype.showUI
+  SystemActuatorPtr.prototype.showUI = function() {
+    return SystemActuatorProxy.prototype.showUI
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  TextActuatorProxy.prototype.showUI = function() {
-    var params_ = new TextActuator_ShowUI_Params();
+  SystemActuatorProxy.prototype.showUI = function() {
+    var params_ = new SystemActuator_ShowUI_Params();
     var builder = new codec.MessageV0Builder(
-        kTextActuator_ShowUI_Name,
-        codec.align(TextActuator_ShowUI_Params.encodedSize));
-    builder.encodeStruct(TextActuator_ShowUI_Params, params_);
+        kSystemActuator_ShowUI_Name,
+        codec.align(SystemActuator_ShowUI_Params.encodedSize));
+    builder.encodeStruct(SystemActuator_ShowUI_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  TextActuatorPtr.prototype.closeUI = function() {
-    return TextActuatorProxy.prototype.closeUI
+  SystemActuatorPtr.prototype.closeUI = function() {
+    return SystemActuatorProxy.prototype.closeUI
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  TextActuatorProxy.prototype.closeUI = function() {
-    var params_ = new TextActuator_CloseUI_Params();
+  SystemActuatorProxy.prototype.closeUI = function() {
+    var params_ = new SystemActuator_CloseUI_Params();
     var builder = new codec.MessageV0Builder(
-        kTextActuator_CloseUI_Name,
-        codec.align(TextActuator_CloseUI_Params.encodedSize));
-    builder.encodeStruct(TextActuator_CloseUI_Params, params_);
+        kSystemActuator_CloseUI_Name,
+        codec.align(SystemActuator_CloseUI_Params.encodedSize));
+    builder.encodeStruct(SystemActuator_CloseUI_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
-  TextActuatorPtr.prototype.submitFeedback = function() {
-    return TextActuatorProxy.prototype.submitFeedback
+  SystemActuatorPtr.prototype.submitFeedback = function() {
+    return SystemActuatorProxy.prototype.submitFeedback
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  TextActuatorProxy.prototype.submitFeedback = function(description) {
-    var params_ = new TextActuator_SubmitFeedback_Params();
+  SystemActuatorProxy.prototype.submitFeedback = function(description) {
+    var params_ = new SystemActuator_SubmitFeedback_Params();
     params_.description = description;
     var builder = new codec.MessageV0Builder(
-        kTextActuator_SubmitFeedback_Name,
-        codec.align(TextActuator_SubmitFeedback_Params.encodedSize));
-    builder.encodeStruct(TextActuator_SubmitFeedback_Params, params_);
+        kSystemActuator_SubmitFeedback_Name,
+        codec.align(SystemActuator_SubmitFeedback_Params.encodedSize));
+    builder.encodeStruct(SystemActuator_SubmitFeedback_Params, params_);
     var message = builder.finish();
     this.receiver_.accept(message);
   };
 
-  function TextActuatorStub(delegate) {
+  function SystemActuatorStub(delegate) {
     this.delegate_ = delegate;
   }
-  TextActuatorStub.prototype.insertText = function(text) {
+  SystemActuatorStub.prototype.insertText = function(text) {
     return this.delegate_ && this.delegate_.insertText && this.delegate_.insertText(text);
   }
-  TextActuatorStub.prototype.approveConsent = function() {
+  SystemActuatorStub.prototype.approveConsent = function() {
     return this.delegate_ && this.delegate_.approveConsent && this.delegate_.approveConsent();
   }
-  TextActuatorStub.prototype.declineConsent = function() {
+  SystemActuatorStub.prototype.declineConsent = function() {
     return this.delegate_ && this.delegate_.declineConsent && this.delegate_.declineConsent();
   }
-  TextActuatorStub.prototype.openUrlInNewWindow = function(url) {
+  SystemActuatorStub.prototype.openUrlInNewWindow = function(url) {
     return this.delegate_ && this.delegate_.openUrlInNewWindow && this.delegate_.openUrlInNewWindow(url);
   }
-  TextActuatorStub.prototype.showUI = function() {
+  SystemActuatorStub.prototype.showUI = function() {
     return this.delegate_ && this.delegate_.showUI && this.delegate_.showUI();
   }
-  TextActuatorStub.prototype.closeUI = function() {
+  SystemActuatorStub.prototype.closeUI = function() {
     return this.delegate_ && this.delegate_.closeUI && this.delegate_.closeUI();
   }
-  TextActuatorStub.prototype.submitFeedback = function(description) {
+  SystemActuatorStub.prototype.submitFeedback = function(description) {
     return this.delegate_ && this.delegate_.submitFeedback && this.delegate_.submitFeedback(description);
   }
 
-  TextActuatorStub.prototype.accept = function(message) {
+  SystemActuatorStub.prototype.accept = function(message) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
-    case kTextActuator_InsertText_Name:
-      var params = reader.decodeStruct(TextActuator_InsertText_Params);
+    case kSystemActuator_InsertText_Name:
+      var params = reader.decodeStruct(SystemActuator_InsertText_Params);
       this.insertText(params.text);
       return true;
-    case kTextActuator_ApproveConsent_Name:
-      var params = reader.decodeStruct(TextActuator_ApproveConsent_Params);
+    case kSystemActuator_ApproveConsent_Name:
+      var params = reader.decodeStruct(SystemActuator_ApproveConsent_Params);
       this.approveConsent();
       return true;
-    case kTextActuator_DeclineConsent_Name:
-      var params = reader.decodeStruct(TextActuator_DeclineConsent_Params);
+    case kSystemActuator_DeclineConsent_Name:
+      var params = reader.decodeStruct(SystemActuator_DeclineConsent_Params);
       this.declineConsent();
       return true;
-    case kTextActuator_OpenUrlInNewWindow_Name:
-      var params = reader.decodeStruct(TextActuator_OpenUrlInNewWindow_Params);
+    case kSystemActuator_OpenUrlInNewWindow_Name:
+      var params = reader.decodeStruct(SystemActuator_OpenUrlInNewWindow_Params);
       this.openUrlInNewWindow(params.url);
       return true;
-    case kTextActuator_ShowUI_Name:
-      var params = reader.decodeStruct(TextActuator_ShowUI_Params);
+    case kSystemActuator_ShowUI_Name:
+      var params = reader.decodeStruct(SystemActuator_ShowUI_Params);
       this.showUI();
       return true;
-    case kTextActuator_CloseUI_Name:
-      var params = reader.decodeStruct(TextActuator_CloseUI_Params);
+    case kSystemActuator_CloseUI_Name:
+      var params = reader.decodeStruct(SystemActuator_CloseUI_Params);
       this.closeUI();
       return true;
-    case kTextActuator_SubmitFeedback_Name:
-      var params = reader.decodeStruct(TextActuator_SubmitFeedback_Params);
+    case kSystemActuator_SubmitFeedback_Name:
+      var params = reader.decodeStruct(SystemActuator_SubmitFeedback_Params);
       this.submitFeedback(params.description);
       return true;
     default:
@@ -3359,7 +3359,7 @@
     }
   };
 
-  TextActuatorStub.prototype.acceptWithResponder =
+  SystemActuatorStub.prototype.acceptWithResponder =
       function(message, responder) {
     var reader = new codec.MessageReader(message);
     switch (reader.messageName) {
@@ -3368,37 +3368,37 @@
     }
   };
 
-  function validateTextActuatorRequest(messageValidator) {
+  function validateSystemActuatorRequest(messageValidator) {
     var message = messageValidator.message;
     var paramsClass = null;
     switch (message.getName()) {
-      case kTextActuator_InsertText_Name:
+      case kSystemActuator_InsertText_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = TextActuator_InsertText_Params;
+          paramsClass = SystemActuator_InsertText_Params;
       break;
-      case kTextActuator_ApproveConsent_Name:
+      case kSystemActuator_ApproveConsent_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = TextActuator_ApproveConsent_Params;
+          paramsClass = SystemActuator_ApproveConsent_Params;
       break;
-      case kTextActuator_DeclineConsent_Name:
+      case kSystemActuator_DeclineConsent_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = TextActuator_DeclineConsent_Params;
+          paramsClass = SystemActuator_DeclineConsent_Params;
       break;
-      case kTextActuator_OpenUrlInNewWindow_Name:
+      case kSystemActuator_OpenUrlInNewWindow_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = TextActuator_OpenUrlInNewWindow_Params;
+          paramsClass = SystemActuator_OpenUrlInNewWindow_Params;
       break;
-      case kTextActuator_ShowUI_Name:
+      case kSystemActuator_ShowUI_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = TextActuator_ShowUI_Params;
+          paramsClass = SystemActuator_ShowUI_Params;
       break;
-      case kTextActuator_CloseUI_Name:
+      case kSystemActuator_CloseUI_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = TextActuator_CloseUI_Params;
+          paramsClass = SystemActuator_CloseUI_Params;
       break;
-      case kTextActuator_SubmitFeedback_Name:
+      case kSystemActuator_SubmitFeedback_Name:
         if (!message.expectsResponse() && !message.isResponse())
-          paramsClass = TextActuator_SubmitFeedback_Params;
+          paramsClass = SystemActuator_SubmitFeedback_Params;
       break;
     }
     if (paramsClass === null)
@@ -3406,21 +3406,21 @@
     return paramsClass.validate(messageValidator, messageValidator.message.getHeaderNumBytes());
   }
 
-  function validateTextActuatorResponse(messageValidator) {
+  function validateSystemActuatorResponse(messageValidator) {
     return validator.validationError.NONE;
   }
 
-  var TextActuator = {
-    name: 'ash.orca.mojom.TextActuator',
+  var SystemActuator = {
+    name: 'ash.orca.mojom.SystemActuator',
     kVersion: 7,
-    ptrClass: TextActuatorPtr,
-    proxyClass: TextActuatorProxy,
-    stubClass: TextActuatorStub,
-    validateRequest: validateTextActuatorRequest,
+    ptrClass: SystemActuatorPtr,
+    proxyClass: SystemActuatorProxy,
+    stubClass: SystemActuatorStub,
+    validateRequest: validateSystemActuatorRequest,
     validateResponse: null,
   };
-  TextActuatorStub.prototype.validator = validateTextActuatorRequest;
-  TextActuatorProxy.prototype.validator = null;
+  SystemActuatorStub.prototype.validator = validateSystemActuatorRequest;
+  SystemActuatorProxy.prototype.validator = null;
   var kTextQueryProvider_Process_Name = 0;
 
   function TextQueryProviderPtr(handleOrPtrInfo) {
@@ -3571,9 +3571,9 @@
         .apply(this.ptr.getProxy(), arguments);
   };
 
-  OrcaServiceProxy.prototype.bindEditor = function(textActuator, textQueryProvider, clientConnector, eventSink) {
+  OrcaServiceProxy.prototype.bindEditor = function(systemActuator, textQueryProvider, clientConnector, eventSink) {
     var params_ = new OrcaService_BindEditor_Params();
-    params_.textActuator = textActuator;
+    params_.systemActuator = systemActuator;
     params_.textQueryProvider = textQueryProvider;
     params_.clientConnector = clientConnector;
     params_.eventSink = eventSink;
@@ -3588,8 +3588,8 @@
   function OrcaServiceStub(delegate) {
     this.delegate_ = delegate;
   }
-  OrcaServiceStub.prototype.bindEditor = function(textActuator, textQueryProvider, clientConnector, eventSink) {
-    return this.delegate_ && this.delegate_.bindEditor && this.delegate_.bindEditor(textActuator, textQueryProvider, clientConnector, eventSink);
+  OrcaServiceStub.prototype.bindEditor = function(systemActuator, textQueryProvider, clientConnector, eventSink) {
+    return this.delegate_ && this.delegate_.bindEditor && this.delegate_.bindEditor(systemActuator, textQueryProvider, clientConnector, eventSink);
   }
 
   OrcaServiceStub.prototype.accept = function(message) {
@@ -3597,7 +3597,7 @@
     switch (reader.messageName) {
     case kOrcaService_BindEditor_Name:
       var params = reader.decodeStruct(OrcaService_BindEditor_Params);
-      this.bindEditor(params.textActuator, params.textQueryProvider, params.clientConnector, params.eventSink);
+      this.bindEditor(params.systemActuator, params.textQueryProvider, params.clientConnector, params.eventSink);
       return true;
     default:
       return false;
@@ -3660,9 +3660,9 @@
   exports.EditorEventSink = EditorEventSink;
   exports.EditorEventSinkPtr = EditorEventSinkPtr;
   exports.EditorEventSinkAssociatedPtr = EditorEventSinkAssociatedPtr;
-  exports.TextActuator = TextActuator;
-  exports.TextActuatorPtr = TextActuatorPtr;
-  exports.TextActuatorAssociatedPtr = TextActuatorAssociatedPtr;
+  exports.SystemActuator = SystemActuator;
+  exports.SystemActuatorPtr = SystemActuatorPtr;
+  exports.SystemActuatorAssociatedPtr = SystemActuatorAssociatedPtr;
   exports.TextQueryProvider = TextQueryProvider;
   exports.TextQueryProviderPtr = TextQueryProviderPtr;
   exports.TextQueryProviderAssociatedPtr = TextQueryProviderAssociatedPtr;

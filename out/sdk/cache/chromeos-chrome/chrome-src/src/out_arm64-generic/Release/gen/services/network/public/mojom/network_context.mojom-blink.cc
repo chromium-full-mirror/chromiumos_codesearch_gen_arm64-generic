@@ -4979,7 +4979,7 @@ class IpProtectionConfigGetter_GetProxyList_ProxyToResponder : public ::mojo::in
 #endif
 
   void Run(
-      const std::optional<WTF::Vector<WTF::Vector<WTF::String>>>& in_proxy_list);
+      const std::optional<WTF::Vector<::net::ProxyChain>>& in_proxy_list);
 };
 
 bool IpProtectionConfigGetter_GetProxyList_ForwardToCallback::Accept(
@@ -4994,7 +4994,7 @@ bool IpProtectionConfigGetter_GetProxyList_ForwardToCallback::Accept(
   
   // Validation for IpProtectionConfigGetter.1
   bool success = true;
-  std::optional<WTF::Vector<WTF::Vector<WTF::String>>> p_proxy_list{};
+  std::optional<WTF::Vector<::net::ProxyChain>> p_proxy_list{};
   IpProtectionConfigGetter_GetProxyList_ResponseParamsDataView input_data_view(params, message);
   
   if (success && !input_data_view.ReadProxyList(&p_proxy_list))
@@ -5013,7 +5013,7 @@ std::move(p_proxy_list));
 }
 
 void IpProtectionConfigGetter_GetProxyList_ProxyToResponder::Run(
-    const std::optional<WTF::Vector<WTF::Vector<WTF::String>>>& in_proxy_list) {
+    const std::optional<WTF::Vector<::net::ProxyChain>>& in_proxy_list) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send reply network::mojom::IpProtectionConfigGetter::GetProxyList", "async_response_parameters",
@@ -5021,7 +5021,7 @@ void IpProtectionConfigGetter_GetProxyList_ProxyToResponder::Run(
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
            dict.AddItem("proxy_list"), in_proxy_list,
-                        "<value of type const std::optional<WTF::Vector<WTF::Vector<WTF::String>>>&>");
+                        "<value of type const std::optional<WTF::Vector<::net::ProxyChain>>&>");
    });
 #endif
   
@@ -5040,8 +5040,8 @@ void IpProtectionConfigGetter_GetProxyList_ProxyToResponder::Run(
       typename decltype(params->proxy_list)::BaseType>
       proxy_list_fragment(params.message());
   constexpr const mojo::internal::ContainerValidateParams& proxy_list_validate_params =
-      mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, &mojo::internal::GetArrayValidator<0, false, nullptr>()>()>();
-  mojo::internal::Serialize<mojo::ArrayDataView<mojo::ArrayDataView<mojo::StringDataView>>>(
+      mojo::internal::GetArrayValidator<0, false, nullptr>();
+  mojo::internal::Serialize<mojo::ArrayDataView<::network::mojom::ProxyChainDataView>>(
       in_proxy_list, proxy_list_fragment, &proxy_list_validate_params);
   params->proxy_list.Set(
       proxy_list_fragment.is_null() ? nullptr : proxy_list_fragment.data());
@@ -21741,14 +21741,14 @@ void IpProtectionConfigGetterAsyncWaiter::TryGetAuthTokens(
 
 
 void IpProtectionConfigGetterAsyncWaiter::GetProxyList(
-    std::optional<WTF::Vector<WTF::Vector<WTF::String>>>* out_proxy_list) {
+    std::optional<WTF::Vector<::net::ProxyChain>>* out_proxy_list) {
   base::RunLoop loop;
   proxy_->GetProxyList(
       base::BindOnce(
           [](base::RunLoop* loop,
-             std::optional<WTF::Vector<WTF::Vector<WTF::String>>>* out_proxy_list
+             std::optional<WTF::Vector<::net::ProxyChain>>* out_proxy_list
 ,
-             const std::optional<WTF::Vector<WTF::Vector<WTF::String>>>& proxy_list) {*out_proxy_list = std::move(proxy_list);
+             const std::optional<WTF::Vector<::net::ProxyChain>>& proxy_list) {*out_proxy_list = std::move(proxy_list);
             loop->Quit();
           },
           &loop,
@@ -21756,9 +21756,9 @@ void IpProtectionConfigGetterAsyncWaiter::GetProxyList(
   loop.Run();
 }
 
-std::optional<WTF::Vector<WTF::Vector<WTF::String>>> IpProtectionConfigGetterAsyncWaiter::GetProxyList(
+std::optional<WTF::Vector<::net::ProxyChain>> IpProtectionConfigGetterAsyncWaiter::GetProxyList(
     ) {
-  std::optional<WTF::Vector<WTF::Vector<WTF::String>>> async_wait_result;
+  std::optional<WTF::Vector<::net::ProxyChain>> async_wait_result;
   GetProxyList(&async_wait_result);
   return async_wait_result;
 }

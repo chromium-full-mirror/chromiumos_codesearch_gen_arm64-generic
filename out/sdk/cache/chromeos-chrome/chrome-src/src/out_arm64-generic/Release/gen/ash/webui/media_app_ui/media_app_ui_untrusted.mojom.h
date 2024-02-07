@@ -115,6 +115,7 @@ class OcrUntrustedPageHandler
   using ResponseValidator_ = mojo::PassThroughFilter;
   enum MethodMinVersions : uint32_t {
     kPageMetadataUpdatedMinVersion = 0,
+    kPageContentsUpdatedMinVersion = 0,
     kViewportUpdatedMinVersion = 0,
   };
 
@@ -122,6 +123,9 @@ class OcrUntrustedPageHandler
 // with not having this data in traces there.
 #if !BUILDFLAG(IS_FUCHSIA)
   struct PageMetadataUpdated_Sym {
+    NOINLINE static uint32_t IPCStableHash();
+  };
+  struct PageContentsUpdated_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
   struct ViewportUpdated_Sym {
@@ -134,7 +138,10 @@ class OcrUntrustedPageHandler
   virtual void PageMetadataUpdated(std::vector<PageMetadataPtr> page_metadata) = 0;
 
   
-  virtual void ViewportUpdated(const ::gfx::RectF& viewportBox, float scaleFactor) = 0;
+  virtual void PageContentsUpdated(const std::string& dirty_page_id) = 0;
+
+  
+  virtual void ViewportUpdated(const ::gfx::RectF& viewport_box, float scale_factor) = 0;
 };
 
 class OcrUntrustedPageProxy;
@@ -179,7 +186,7 @@ class OcrUntrustedPage
   virtual ~OcrUntrustedPage() = default;
 
   
-  virtual void SetViewport(const ::gfx::RectF& viewportBox) = 0;
+  virtual void SetViewport(const ::gfx::RectF& viewport_box) = 0;
 };
 
 
@@ -208,7 +215,9 @@ class  OcrUntrustedPageHandlerProxy
   
   void PageMetadataUpdated(std::vector<PageMetadataPtr> page_metadata) final;
   
-  void ViewportUpdated(const ::gfx::RectF& viewportBox, float scaleFactor) final;
+  void PageContentsUpdated(const std::string& dirty_page_id) final;
+  
+  void ViewportUpdated(const ::gfx::RectF& viewport_box, float scale_factor) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;
@@ -223,7 +232,7 @@ class  OcrUntrustedPageProxy
 
   explicit OcrUntrustedPageProxy(mojo::MessageReceiverWithResponder* receiver);
   
-  void SetViewport(const ::gfx::RectF& viewportBox) final;
+  void SetViewport(const ::gfx::RectF& viewport_box) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

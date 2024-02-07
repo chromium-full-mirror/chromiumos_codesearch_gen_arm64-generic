@@ -32,6 +32,12 @@ class ConsentMetadataDataView;
 
 class DeviceTrustStateDataView;
 
+class CertificateMetadataDataView;
+
+class ClientIdentityDataView;
+
+class ClientCertificateStateDataView;
+
 
 enum class KeyManagerInitializedValue : int32_t;
 
@@ -54,6 +60,15 @@ using ConsentMetadataPtr = mojo::InlinedStructPtr<ConsentMetadata>;
 
 class DeviceTrustState;
 using DeviceTrustStatePtr = mojo::StructPtr<DeviceTrustState>;
+
+class CertificateMetadata;
+using CertificateMetadataPtr = mojo::InlinedStructPtr<CertificateMetadata>;
+
+class ClientIdentity;
+using ClientIdentityPtr = mojo::StructPtr<ClientIdentity>;
+
+class ClientCertificateState;
+using ClientCertificateStatePtr = mojo::StructPtr<ClientCertificateState>;
 
 class PageHandler;
 

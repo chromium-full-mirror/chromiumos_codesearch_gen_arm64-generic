@@ -10377,6 +10377,21 @@ bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::Primitiv
 }
 
 
+void WebAssemblyJSPromiseIntegrationEnabledAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
+  
+RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalRuntimeFlags_webAssemblyJSPromiseIntegrationEnabled_Getter");
+BLINK_BINDINGS_TRACE_EVENT("InternalRuntimeFlags.webAssemblyJSPromiseIntegrationEnabled.get");
+
+
+
+v8::Isolate* isolate = info.GetIsolate();
+v8::Local<v8::Object> v8_receiver = info.This();
+InternalRuntimeFlags* blink_receiver = V8InternalRuntimeFlags::ToWrappableUnsafe(isolate, v8_receiver);
+auto&& return_value = blink_receiver->webAssemblyJSPromiseIntegrationEnabled();
+bindings::V8SetReturnValue(info, return_value, bindings::V8ReturnValue::PrimitiveType<bool>());
+}
+
+
 void WebAssemblyJSStringBuiltinsEnabledAttributeGetCallback(const v8::FunctionCallbackInfo<v8::Value>& info) {
   
 RUNTIME_CALL_TIMER_SCOPE_DISABLED_BY_DEFAULT(info.GetIsolate(), "Blink_InternalRuntimeFlags_webAssemblyJSStringBuiltinsEnabled_Getter");
@@ -11978,6 +11993,7 @@ void V8InternalRuntimeFlags::InstallUnconditionalProperties(v8::Isolate* isolate
 {"webAppTabStripCustomizationsEnabled", WebAppTabStripCustomizationsEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"webAppTranslationsEnabled", WebAppTranslationsEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"webAppUrlHandlingEnabled", WebAppUrlHandlingEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
+{"webAssemblyJSPromiseIntegrationEnabled", WebAssemblyJSPromiseIntegrationEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"webAssemblyJSStringBuiltinsEnabled", WebAssemblyJSStringBuiltinsEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"webAuthEnabled", WebAuthEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},
 {"webAuthAllowCreateInCrossOriginFrameEnabled", WebAuthAllowCreateInCrossOriginFrameEnabledAttributeGetCallback, nullptr, unsigned(v8::None), unsigned(IDLMemberInstaller::FlagLocation::kPrototype), unsigned(IDLMemberInstaller::FlagWorld::kAllWorlds), unsigned(IDLMemberInstaller::FlagReceiverCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(IDLMemberInstaller::FlagCrossOriginCheck::kCheck), unsigned(v8::SideEffectType::kHasNoSideEffect), unsigned(V8PrivateProperty::CachedAccessor::kNone)},

@@ -29,11 +29,11 @@
       "chrome://resources/cr_components/color_change_listener/*": [
         "./../../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
       ],
-      "//resources/cr_elements/*": [
-        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      "//resources/ash/common/cr_elements/*": [
+        "./../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
       ],
-      "chrome://resources/cr_elements/*": [
-        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      "chrome://resources/ash/common/cr_elements/*": [
+        "./../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
       ],
       "//resources/js/*": [
         "./../../../../../ui/webui/resources/tsc/js/*"
@@ -88,7 +88,6 @@
     "preprocessed/components/quick_start_entry_point.js",
     "preprocessed/components/quick_start_pin.js",
     "preprocessed/components/security_token_pin.js",
-    "preprocessed/components/throbber_notice.js",
     "preprocessed/screens/oobe/auto_enrollment_check.ts",
     "preprocessed/screens/oobe/consumer_update.ts",
     "preprocessed/screens/oobe/demo_preferences.ts",
@@ -252,13 +251,15 @@
     "preprocessed/components/buttons/oobe_text_button.html.ts",
     "preprocessed/components/gaia_button.ts",
     "preprocessed/components/gaia_dialog.ts",
-    "preprocessed/components/oobe_apps_list.ts",
     "preprocessed/components/network_select_login.ts",
+    "preprocessed/components/oobe_apps_list.ts",
+    "preprocessed/components/throbber_notice.ts",
     "preprocessed/components/web_view_helper.ts",
     "preprocessed/components/gaia_button.html.ts",
     "preprocessed/components/gaia_dialog.html.ts",
-    "preprocessed/components/oobe_apps_list.html.ts",
     "preprocessed/components/network_select_login.html.ts",
+    "preprocessed/components/oobe_apps_list.html.ts",
+    "preprocessed/components/throbber_notice.html.ts",
     "preprocessed/components/display_manager_types.js",
     "preprocessed/components/keyboard_utils.js",
     "preprocessed/components/keyboard_utils_oobe.js",
@@ -279,7 +280,7 @@
     "preprocessed/oobe_trace_start.js",
     "preprocessed/priority_screens_common_flow.js",
     "preprocessed/priority_screens_oobe_flow.js",
-    "preprocessed/screens.js",
+    "preprocessed/screens.ts",
     "preprocessed/debug/no_debug.js",
     "preprocessed/test_api/no_test_api.js",
     "preprocessed/components/oobe_vars/oobe_custom_vars.css.js",
@@ -307,7 +308,7 @@
       "path": "../../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
     },
     {
-      "path": "../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+      "path": "../../../../../ash/webui/common/resources/cr_elements/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../ui/webui/resources/js/tsconfig_build_ts.json"

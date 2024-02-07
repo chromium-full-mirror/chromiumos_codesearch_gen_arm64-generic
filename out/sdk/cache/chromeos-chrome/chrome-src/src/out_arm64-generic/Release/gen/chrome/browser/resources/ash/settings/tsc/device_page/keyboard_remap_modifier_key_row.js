@@ -11,7 +11,7 @@ import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import '../settings_shared.css.js';
 import '../controls/settings_dropdown_menu.js';
 import '../os_settings_icons.html.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { assertNotReached } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { MetaKey, ModifierKey } from './input_device_settings_types.js';

@@ -14,6 +14,7 @@
 #include "third_party/blink/renderer/bindings/core/v8/native_value_traits_impl.h"
 #include "third_party/blink/renderer/bindings/core/v8/to_v8_traits.h"
 #include "third_party/blink/renderer/bindings/modules/v8/v8_digital_credential_provider.h"
+#include "third_party/blink/renderer/core/execution_context/execution_context.h"
 #include "third_party/blink/renderer/platform/bindings/exception_messages.h"
 #include "third_party/blink/renderer/platform/bindings/exception_state.h"
 #include "third_party/blink/renderer/platform/bindings/v8_per_isolate_data.h"
@@ -144,7 +145,10 @@ if (hasConfigURL()) {
   values[1] = ToV8Traits<IDLUSVString>::ToV8(script_state, member_config_url_);
 DCHECK(!values[1].IsEmpty());
 }
-if (RuntimeEnabledFeatures::WebIdentityDigitalCredentialsEnabled()) {
+v8::Isolate* isolate = script_state->GetIsolate();
+v8::Local<v8::Context> current_context = isolate->GetCurrentContext();
+ExecutionContext* execution_context = ExecutionContext::From(current_context);
+if (RuntimeEnabledFeatures::WebIdentityDigitalCredentialsEnabled(execution_context)) {
   if (hasHolder()) {
   values[2] = ToV8Traits<DigitalCredentialProvider>::ToV8(script_state, member_holder_.Get());
 DCHECK(!values[2].IsEmpty());
@@ -177,7 +181,8 @@ exception_context_scope.ChangePropertyNameAsOptimizationHack("configURL");
 if (!bindings::GetDictionaryMemberFromV8Object<IDLUSVString, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[1].Get(isolate), has_config_url_, member_config_url_, try_block, exception_state)) {
   return;
 }
-if (RuntimeEnabledFeatures::WebIdentityDigitalCredentialsEnabled()) {
+ExecutionContext* execution_context = ExecutionContext::From(current_context);
+if (RuntimeEnabledFeatures::WebIdentityDigitalCredentialsEnabled(execution_context)) {
   exception_context_scope.ChangePropertyNameAsOptimizationHack("holder");
 if (!bindings::GetDictionaryMemberFromV8Object<DigitalCredentialProvider, is_optional>(isolate, current_context, v8_dictionary, v8_own_member_names[2].Get(isolate), has_holder_, member_holder_, try_block, exception_state)) {
   return;

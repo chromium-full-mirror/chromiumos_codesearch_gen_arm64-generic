@@ -162,10 +162,6 @@ export class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
                     return loadTimeData.getBoolean('showPersistentPermissions');
                 },
             },
-            blockMidiByDefault_: {
-                type: Boolean,
-                value: () => loadTimeData.getBoolean('blockMidiByDefault'),
-            },
             isProactiveTopicsBlockingEnabled_: {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('isProactiveTopicsBlockingEnabled'),

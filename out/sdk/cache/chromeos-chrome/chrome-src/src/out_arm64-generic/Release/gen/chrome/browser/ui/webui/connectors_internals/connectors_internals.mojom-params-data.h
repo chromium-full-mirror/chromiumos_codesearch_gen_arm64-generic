@@ -83,6 +83,37 @@ class  PageHandler_DeleteDeviceTrustKey_ResponseParams_Data {
 };
 static_assert(sizeof(PageHandler_DeleteDeviceTrustKey_ResponseParams_Data) == 8,
               "Bad sizeof(PageHandler_DeleteDeviceTrustKey_ResponseParams_Data)");
+class  PageHandler_GetClientCertificateState_Params_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_GetClientCertificateState_Params_Data>;
+
+  PageHandler_GetClientCertificateState_Params_Data();
+  ~PageHandler_GetClientCertificateState_Params_Data() = delete;
+};
+static_assert(sizeof(PageHandler_GetClientCertificateState_Params_Data) == 8,
+              "Bad sizeof(PageHandler_GetClientCertificateState_Params_Data)");
+class  PageHandler_GetClientCertificateState_ResponseParams_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::ClientCertificateState_Data> state;
+
+ private:
+  friend class mojo::internal::MessageFragment<PageHandler_GetClientCertificateState_ResponseParams_Data>;
+
+  PageHandler_GetClientCertificateState_ResponseParams_Data();
+  ~PageHandler_GetClientCertificateState_ResponseParams_Data() = delete;
+};
+static_assert(sizeof(PageHandler_GetClientCertificateState_ResponseParams_Data) == 16,
+              "Bad sizeof(PageHandler_GetClientCertificateState_ResponseParams_Data)");
 
 }  // namespace internal
 
@@ -158,6 +189,47 @@ class PageHandler_DeleteDeviceTrustKey_ResponseParamsDataView {
 };
 
 
+class PageHandler_GetClientCertificateState_ParamsDataView {
+ public:
+  PageHandler_GetClientCertificateState_ParamsDataView() = default;
+
+  PageHandler_GetClientCertificateState_ParamsDataView(
+      internal::PageHandler_GetClientCertificateState_Params_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+ private:
+  internal::PageHandler_GetClientCertificateState_Params_Data* data_ = nullptr;
+};
+
+
+class PageHandler_GetClientCertificateState_ResponseParamsDataView {
+ public:
+  PageHandler_GetClientCertificateState_ResponseParamsDataView() = default;
+
+  PageHandler_GetClientCertificateState_ResponseParamsDataView(
+      internal::PageHandler_GetClientCertificateState_ResponseParams_Data* data,
+      mojo::Message* message)
+      : data_(data), message_(message) {}
+
+  bool is_null() const { return !data_; }
+  inline void GetStateDataView(
+      ClientCertificateStateDataView* output);
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadState(UserType* output) {
+    
+    auto* pointer = data_->state.Get();
+    return mojo::internal::Deserialize<::connectors_internals::mojom::ClientCertificateStateDataView>(
+        pointer, output, message_);
+  }
+ private:
+  internal::PageHandler_GetClientCertificateState_ResponseParams_Data* data_ = nullptr;
+  mojo::Message* message_ = nullptr;
+};
+
+
 
 inline void PageHandler_GetDeviceTrustState_ResponseParamsDataView::GetStateDataView(
     DeviceTrustStateDataView* output) {
@@ -168,6 +240,15 @@ inline void PageHandler_GetDeviceTrustState_ResponseParamsDataView::GetStateData
 
 
 
+
+
+
+
+inline void PageHandler_GetClientCertificateState_ResponseParamsDataView::GetStateDataView(
+    ClientCertificateStateDataView* output) {
+  auto pointer = data_->state.Get();
+  *output = ClientCertificateStateDataView(pointer, message_);
+}
 
 
 

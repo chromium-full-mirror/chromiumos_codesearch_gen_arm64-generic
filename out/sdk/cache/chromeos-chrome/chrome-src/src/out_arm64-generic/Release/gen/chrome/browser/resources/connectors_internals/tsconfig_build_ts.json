@@ -25,9 +25,13 @@
     "preprocessed/app.ts",
     "preprocessed/connectors_tabs.ts",
     "preprocessed/device_trust_connector.ts",
+    "preprocessed/managed_client_certificate.ts",
+    "preprocessed/browser_proxy.ts",
+    "preprocessed/connectors_utils.ts",
     "preprocessed/app.html.ts",
     "preprocessed/connectors_tabs.html.ts",
     "preprocessed/device_trust_connector.html.ts",
+    "preprocessed/managed_client_certificate.html.ts",
     "preprocessed/connectors_internals.mojom-webui.ts"
   ],
   "references": [

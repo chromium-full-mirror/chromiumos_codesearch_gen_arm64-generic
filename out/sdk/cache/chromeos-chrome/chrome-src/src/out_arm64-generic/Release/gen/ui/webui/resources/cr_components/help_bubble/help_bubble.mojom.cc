@@ -144,6 +144,7 @@ HelpBubbleParams::HelpBubbleParams()
       body_icon_alt_text(),
       progress(),
       buttons(),
+      focus_on_show_hint(),
       timeout() {}
 
 HelpBubbleParams::HelpBubbleParams(
@@ -156,6 +157,7 @@ HelpBubbleParams::HelpBubbleParams(
     const std::string& body_icon_alt_text_in,
     ProgressPtr progress_in,
     std::vector<HelpBubbleButtonParamsPtr> buttons_in,
+    std::optional<bool> focus_on_show_hint_in,
     std::optional<::base::TimeDelta> timeout_in)
     : native_identifier(std::move(native_identifier_in)),
       position(std::move(position_in)),
@@ -166,6 +168,7 @@ HelpBubbleParams::HelpBubbleParams(
       body_icon_alt_text(std::move(body_icon_alt_text_in)),
       progress(std::move(progress_in)),
       buttons(std::move(buttons_in)),
+      focus_on_show_hint(std::move(focus_on_show_hint_in)),
       timeout(std::move(timeout_in)) {}
 
 HelpBubbleParams::~HelpBubbleParams() = default;
@@ -250,6 +253,15 @@ void HelpBubbleParams::WriteIntoTrace(
       "buttons"), this->buttons,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type std::vector<HelpBubbleButtonParamsPtr>>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "focus_on_show_hint"), this->focus_on_show_hint,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type std::optional<bool>>"
 #else
       "<value>"
 #endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
@@ -1666,6 +1678,9 @@ bool StructTraits<::help_bubble::mojom::HelpBubbleParams::DataView, ::help_bubbl
         success = false;
       if (success && !input.ReadButtons(&result->buttons))
         success = false;
+      if (success) {
+        result->focus_on_show_hint = input.focus_on_show_hint();
+      }
       if (success && !input.ReadTimeout(&result->timeout))
         success = false;
   *output = std::move(result);

@@ -59,6 +59,7 @@ vk_swiftshader_icd.json
 ./libvulkan.so.1
 mojo_service_manager/camera_hal_dispatcher_mojo_policy.jsonc
 mojo_service_manager/jpeg_accelerator_mojo_policy.jsonc
+mojo_service_manager/system_event_monitor.jsonc
 ./libtest_trace_processor.so
 test_fonts/LICENSE
 test_fonts/Ahem.ttf

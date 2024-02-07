@@ -7,8 +7,8 @@
  * connected android phone.
  */
 import '../settings_shared.css.js';
-import 'chrome://resources/cr_elements/cr_input/cr_input.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_input/cr_input.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './multidevice_forget_device_dialog.html.js';
 class SettingsMultideviceForgetDeviceDialogElement extends PolymerElement {

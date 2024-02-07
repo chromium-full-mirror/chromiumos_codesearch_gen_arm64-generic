@@ -1,9 +1,6 @@
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Behavior for policy controlled settings prefs.
- */
 import { dedupingMixin } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 export const CrPolicyPrefMixin = dedupingMixin((superClass) => {
     class CrPolicyPrefMixin extends superClass {

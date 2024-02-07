@@ -5,11 +5,11 @@
  * @fileoverview 'os-settings-input-page' is the input sub-page
  * for language and input method settings.
  */
-import 'chrome://resources/cr_components/localized_link/localized_link.js';
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
-import 'chrome://resources/cr_elements/cr_link_row/cr_link_row.js';
-import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
+import 'chrome://resources/ash/common/cr_elements/localized_link/localized_link.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_icon_button/cr_icon_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_link_row/cr_link_row.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_vars.css.js';
 import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import 'chrome://resources/polymer/v3_0/paper-spinner/paper-spinner-lite.js';
@@ -21,7 +21,7 @@ import '../controls/settings_toggle_button.js';
 import '../settings_shared.css.js';
 import '../os_settings_page/os_settings_animated_pages.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { focusWithoutInk } from 'chrome://resources/js/focus_without_ink.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';

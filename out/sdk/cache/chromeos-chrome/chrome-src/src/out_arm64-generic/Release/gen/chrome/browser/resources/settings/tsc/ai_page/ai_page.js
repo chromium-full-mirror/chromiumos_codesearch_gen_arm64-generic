@@ -2,14 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import '../controls/settings_toggle_button.js';
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_toast/cr_toast.js';
 import 'chrome://resources/polymer/v3_0/iron-collapse/iron-collapse.js';
-// 
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from '../i18n_setup.js';
-import { RelaunchMixin, RestartType } from '../relaunch_mixin.js';
 import { getTemplate } from './ai_page.html.js';
 // These values must stay in sync with
 // optimization_guide::prefs::FeatureOptInState in
@@ -28,7 +24,7 @@ export var SettingsAiPageFeaturePrefName;
     SettingsAiPageFeaturePrefName["TAB_ORGANIZATION"] = "optimization_guide.tab_organization_setting_state";
     SettingsAiPageFeaturePrefName["WALLPAPER_SEARCH"] = "optimization_guide.wallpaper_search_setting_state";
 })(SettingsAiPageFeaturePrefName || (SettingsAiPageFeaturePrefName = {}));
-const SettingsAiPageElementBase = RelaunchMixin(PrefsMixin(PolymerElement));
+const SettingsAiPageElementBase = PrefsMixin(PolymerElement);
 export class SettingsAiPageElement extends SettingsAiPageElementBase {
     static get is() {
         return 'settings-ai-page';
@@ -63,13 +59,6 @@ export class SettingsAiPageElement extends SettingsAiPageElementBase {
                 value: () => [FeatureOptInState.DISABLED, FeatureOptInState.NOT_INITIALIZED],
             },
         };
-    }
-    onToggleChange_() {
-        this.$.toast.show();
-    }
-    onRestartClick_(e) {
-        e.stopPropagation();
-        this.performRestart(RestartType.RESTART);
     }
     isExpanded_() {
         return this.getPref(SettingsAiPageFeaturePrefName.MAIN).value ===

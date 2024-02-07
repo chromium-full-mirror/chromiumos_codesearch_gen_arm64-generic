@@ -42,6 +42,7 @@ enum class WebPrinterFetchError : int32_t;
 
 enum class WebPrintError : int32_t;
 class WebPrintJobStateObserverInterfaceBase;
+class WebPrintJobControllerInterfaceBase;
 class WebPrinterInterfaceBase;
 class WebPrintingServiceInterfaceBase;
 
@@ -62,6 +63,7 @@ using GetPrintersError = GetPrintersError;
 using WebPrinterFetchError = WebPrinterFetchError;
 using WebPrintError = WebPrintError;
 using WebPrintJobStateObserverInterfaceBase = WebPrintJobStateObserverInterfaceBase;
+using WebPrintJobControllerInterfaceBase = WebPrintJobControllerInterfaceBase;
 using WebPrinterInterfaceBase = WebPrinterInterfaceBase;
 using WebPrintingServiceInterfaceBase = WebPrintingServiceInterfaceBase;
 class WebPrinterInfo;
@@ -95,6 +97,8 @@ class WebPrintResult;
 using WebPrintResultPtr = mojo::StructPtr<WebPrintResult>;
 
 class WebPrintJobStateObserver;
+
+class WebPrintJobController;
 
 class WebPrinter;
 

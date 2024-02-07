@@ -6,11 +6,11 @@
  * 'os-settings-powerwash-dialog' is a dialog shown to request confirmation
  * from the user for a device reset (aka powerwash).
  */
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_checkbox/cr_checkbox.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_checkbox/cr_checkbox.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
 import 'chrome://resources/polymer/v3_0/iron-list/iron-list.js';
-import 'chrome://resources/cr_components/localized_link/localized_link.js';
+import 'chrome://resources/ash/common/cr_elements/localized_link/localized_link.js';
 import '../settings_shared.css.js';
 import './os_powerwash_dialog_esim_item.js';
 import { LifetimeBrowserProxyImpl } from '/shared/settings/lifetime_browser_proxy.js';

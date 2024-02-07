@@ -12,7 +12,7 @@ import './input_device_settings_shared.css.js';
 import '../icons.html.js';
 import '../settings_shared.css.js';
 import '../controls/settings_dropdown_menu.js';
-import 'chrome://resources/cr_elements/cr_shared_vars.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_shared_vars.css.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';

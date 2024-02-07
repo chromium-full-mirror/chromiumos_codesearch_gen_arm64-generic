@@ -6,7 +6,7 @@
  * intended to facilitate passing data between elements in the MultiDevice page
  * cleanly and concisely. It includes some constants and utility methods.
  */
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { dedupingMixin } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { isRevampWayfindingEnabled } from '../common/load_time_booleans.js';
 import { MultiDeviceFeature, MultiDeviceFeatureState, MultiDeviceSettingsMode, PhoneHubFeatureAccessStatus } from './multidevice_constants.js';

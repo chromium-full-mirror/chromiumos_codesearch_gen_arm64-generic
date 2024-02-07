@@ -89,12 +89,6 @@ struct Automation {
     // included and do not need to be requested separately.
     std::optional<bool> desktop;
 
-    // A list of URL patterns for which this extension may request an automation
-    // tree. If not specified, automation permission will be granted for the sites
-    // for which the extension has a <a
-    // href='https://developer.chrome.com/extensions/declare_permissions#host-permissions'>host permission</a> or <a href='https://developer.chrome.com/extensions/declare_permissions#activeTab'>activeTab permission</a>).
-    std::optional<std::vector<std::string>> matches;
-
   };
 
 

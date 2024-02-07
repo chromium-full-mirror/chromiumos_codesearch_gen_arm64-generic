@@ -6,7 +6,7 @@
  * UI element for displaying Bluetooth pairing dialog.
  */
 import 'chrome://resources/ash/common/bluetooth/bluetooth_pairing_ui.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
 import '../settings_shared.css.js';
 import { BluetoothUiSurface, recordBluetoothUiSurfaceMetrics } from 'chrome://resources/ash/common/bluetooth/bluetooth_metrics_utils.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';

@@ -6,7 +6,7 @@
  * 'startup-settings-card' is the card element containing settings that allow
  * the user to configure the restore apps and pages options on startup.
  */
-import 'chrome://resources/cr_elements/cr_link_row/cr_link_row.js';
+import 'chrome://resources/ash/common/cr_elements/cr_link_row/cr_link_row.js';
 import '../os_settings_page/settings_card.js';
 import '../settings_shared.css.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';

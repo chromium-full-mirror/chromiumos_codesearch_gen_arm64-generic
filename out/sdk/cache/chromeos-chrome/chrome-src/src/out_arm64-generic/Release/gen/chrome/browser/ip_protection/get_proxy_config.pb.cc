@@ -33,7 +33,8 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT_WITH_PTR PROTOBUF_ATTRIBUTE_INI
 PROTOBUF_CONSTEXPR GetProxyConfigResponse_ProxyChain::GetProxyConfigResponse_ProxyChain(
     ::_pbi::ConstantInitialized)
   : proxy_a_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
-  , proxy_b_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}){}
+  , proxy_b_(&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{})
+  , chain_id_(0){}
 struct GetProxyConfigResponse_ProxyChainDefaultTypeInternal {
   PROTOBUF_CONSTEXPR GetProxyConfigResponse_ProxyChainDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
@@ -282,6 +283,7 @@ GetProxyConfigResponse_ProxyChain::GetProxyConfigResponse_ProxyChain(const GetPr
     proxy_b_.Set(from._internal_proxy_b(), 
       GetArenaForAllocation());
   }
+  chain_id_ = from.chain_id_;
   // @@protoc_insertion_point(copy_constructor:ip_protection.GetProxyConfigResponse.ProxyChain)
 }
 
@@ -294,6 +296,7 @@ proxy_b_.InitDefault();
 #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
   proxy_b_.Set("", GetArenaForAllocation());
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+chain_id_ = 0;
 }
 
 GetProxyConfigResponse_ProxyChain::~GetProxyConfigResponse_ProxyChain() {
@@ -323,6 +326,7 @@ void GetProxyConfigResponse_ProxyChain::Clear() {
 
   proxy_a_.ClearToEmpty();
   proxy_b_.ClearToEmpty();
+  chain_id_ = 0;
   _internal_metadata_.Clear<std::string>();
 }
 
@@ -349,6 +353,14 @@ const char* GetProxyConfigResponse_ProxyChain::_InternalParse(const char* ptr, :
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
           CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else
+          goto handle_unusual;
+        continue;
+      // int32 chain_id = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 24)) {
+          chain_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
@@ -401,6 +413,12 @@ uint8_t* GetProxyConfigResponse_ProxyChain::_InternalSerialize(
         2, this->_internal_proxy_b(), target);
   }
 
+  // int32 chain_id = 3;
+  if (this->_internal_chain_id() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteInt32ToArray(3, this->_internal_chain_id(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -431,6 +449,11 @@ size_t GetProxyConfigResponse_ProxyChain::ByteSizeLong() const {
         this->_internal_proxy_b());
   }
 
+  // int32 chain_id = 3;
+  if (this->_internal_chain_id() != 0) {
+    total_size += ::_pbi::WireFormatLite::Int32SizePlusOne(this->_internal_chain_id());
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
   }
@@ -456,6 +479,9 @@ void GetProxyConfigResponse_ProxyChain::MergeFrom(const GetProxyConfigResponse_P
   }
   if (!from._internal_proxy_b().empty()) {
     _internal_set_proxy_b(from._internal_proxy_b());
+  }
+  if (from._internal_chain_id() != 0) {
+    _internal_set_chain_id(from._internal_chain_id());
   }
   _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
 }
@@ -484,6 +510,7 @@ void GetProxyConfigResponse_ProxyChain::InternalSwap(GetProxyConfigResponse_Prox
       &proxy_b_, lhs_arena,
       &other->proxy_b_, rhs_arena
   );
+  swap(chain_id_, other->chain_id_);
 }
 
 std::string GetProxyConfigResponse_ProxyChain::GetTypeName() const {

@@ -164,6 +164,7 @@ class PERFETTO_EXPORT_COMPONENT CloneSessionRequest : public ::protozero::CppMes
  public:
   enum FieldNumbers {
     kSessionIdFieldNumber = 1,
+    kSkipTraceFilterFieldNumber = 2,
   };
 
   CloneSessionRequest();
@@ -184,14 +185,19 @@ class PERFETTO_EXPORT_COMPONENT CloneSessionRequest : public ::protozero::CppMes
   uint64_t session_id() const { return session_id_; }
   void set_session_id(uint64_t value) { session_id_ = value; _has_field_.set(1); }
 
+  bool has_skip_trace_filter() const { return _has_field_[2]; }
+  bool skip_trace_filter() const { return skip_trace_filter_; }
+  void set_skip_trace_filter(bool value) { skip_trace_filter_ = value; _has_field_.set(2); }
+
  private:
   uint64_t session_id_{};
+  bool skip_trace_filter_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.
   std::string unknown_fields_;
 
-  std::bitset<2> _has_field_{};
+  std::bitset<3> _has_field_{};
 };
 
 
@@ -367,6 +373,7 @@ class PERFETTO_EXPORT_COMPONENT QueryServiceStateResponse : public ::protozero::
 class PERFETTO_EXPORT_COMPONENT QueryServiceStateRequest : public ::protozero::CppMessageObj {
  public:
   enum FieldNumbers {
+    kSessionsOnlyFieldNumber = 1,
   };
 
   QueryServiceStateRequest();
@@ -383,7 +390,12 @@ class PERFETTO_EXPORT_COMPONENT QueryServiceStateRequest : public ::protozero::C
   std::vector<uint8_t> SerializeAsArray() const override;
   void Serialize(::protozero::Message*) const;
 
+  bool has_sessions_only() const { return _has_field_[1]; }
+  bool sessions_only() const { return sessions_only_; }
+  void set_sessions_only(bool value) { sessions_only_ = value; _has_field_.set(1); }
+
  private:
+  bool sessions_only_{};
 
   // Allows to preserve unknown protobuf fields for compatibility
   // with future versions of .proto files.

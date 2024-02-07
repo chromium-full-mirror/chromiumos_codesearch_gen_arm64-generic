@@ -21942,6 +21942,91 @@ ThirdPartyCookies_BreakageIndicator& ThirdPartyCookies_BreakageIndicator::SetTPC
 }
 
 
+const char ThirdPartyCookies_BreakageIndicator_HTTPError::kEntryName[] = "ThirdPartyCookies.BreakageIndicator.HTTPError";
+const uint64_t ThirdPartyCookies_BreakageIndicator_HTTPError::kEntryNameHash;
+
+ThirdPartyCookies_BreakageIndicator_HTTPError::ThirdPartyCookies_BreakageIndicator_HTTPError(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+ThirdPartyCookies_BreakageIndicator_HTTPError::ThirdPartyCookies_BreakageIndicator_HTTPError(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+ThirdPartyCookies_BreakageIndicator_HTTPError::~ThirdPartyCookies_BreakageIndicator_HTTPError() = default;
+
+
+const char ThirdPartyCookies_BreakageIndicator_HTTPError::kTPCBlockedName[] = "TPCBlocked";
+const uint64_t ThirdPartyCookies_BreakageIndicator_HTTPError::kTPCBlockedNameHash;
+
+ThirdPartyCookies_BreakageIndicator_HTTPError& ThirdPartyCookies_BreakageIndicator_HTTPError::SetTPCBlocked(int64_t value) {
+  SetMetricInternal(kTPCBlockedNameHash, value);
+  return *this;
+}
+
+const char ThirdPartyCookies_BreakageIndicator_HTTPError::kTPCBlockedInSettingsName[] = "TPCBlockedInSettings";
+const uint64_t ThirdPartyCookies_BreakageIndicator_HTTPError::kTPCBlockedInSettingsNameHash;
+
+ThirdPartyCookies_BreakageIndicator_HTTPError& ThirdPartyCookies_BreakageIndicator_HTTPError::SetTPCBlockedInSettings(int64_t value) {
+  SetMetricInternal(kTPCBlockedInSettingsNameHash, value);
+  return *this;
+}
+
+
+const char ThirdPartyCookies_BreakageIndicator_UncaughtJSError::kEntryName[] = "ThirdPartyCookies.BreakageIndicator.UncaughtJSError";
+const uint64_t ThirdPartyCookies_BreakageIndicator_UncaughtJSError::kEntryNameHash;
+
+ThirdPartyCookies_BreakageIndicator_UncaughtJSError::ThirdPartyCookies_BreakageIndicator_UncaughtJSError(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+ThirdPartyCookies_BreakageIndicator_UncaughtJSError::ThirdPartyCookies_BreakageIndicator_UncaughtJSError(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+ThirdPartyCookies_BreakageIndicator_UncaughtJSError::~ThirdPartyCookies_BreakageIndicator_UncaughtJSError() = default;
+
+
+const char ThirdPartyCookies_BreakageIndicator_UncaughtJSError::kHasOccurredName[] = "HasOccurred";
+const uint64_t ThirdPartyCookies_BreakageIndicator_UncaughtJSError::kHasOccurredNameHash;
+
+ThirdPartyCookies_BreakageIndicator_UncaughtJSError& ThirdPartyCookies_BreakageIndicator_UncaughtJSError::SetHasOccurred(int64_t value) {
+  SetMetricInternal(kHasOccurredNameHash, value);
+  return *this;
+}
+
+
+const char ThirdPartyCookies_BreakageIndicator_UserReload::kEntryName[] = "ThirdPartyCookies.BreakageIndicator.UserReload";
+const uint64_t ThirdPartyCookies_BreakageIndicator_UserReload::kEntryNameHash;
+
+ThirdPartyCookies_BreakageIndicator_UserReload::ThirdPartyCookies_BreakageIndicator_UserReload(ukm::SourceId source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+ThirdPartyCookies_BreakageIndicator_UserReload::ThirdPartyCookies_BreakageIndicator_UserReload(ukm::SourceIdObj source_id) :
+  ::ukm::internal::UkmEntryBuilderBase(source_id, kEntryNameHash) {
+}
+
+ThirdPartyCookies_BreakageIndicator_UserReload::~ThirdPartyCookies_BreakageIndicator_UserReload() = default;
+
+
+const char ThirdPartyCookies_BreakageIndicator_UserReload::kTPCBlockedName[] = "TPCBlocked";
+const uint64_t ThirdPartyCookies_BreakageIndicator_UserReload::kTPCBlockedNameHash;
+
+ThirdPartyCookies_BreakageIndicator_UserReload& ThirdPartyCookies_BreakageIndicator_UserReload::SetTPCBlocked(int64_t value) {
+  SetMetricInternal(kTPCBlockedNameHash, value);
+  return *this;
+}
+
+const char ThirdPartyCookies_BreakageIndicator_UserReload::kTPCBlockedInSettingsName[] = "TPCBlockedInSettings";
+const uint64_t ThirdPartyCookies_BreakageIndicator_UserReload::kTPCBlockedInSettingsNameHash;
+
+ThirdPartyCookies_BreakageIndicator_UserReload& ThirdPartyCookies_BreakageIndicator_UserReload::SetTPCBlockedInSettings(int64_t value) {
+  SetMetricInternal(kTPCBlockedInSettingsNameHash, value);
+  return *this;
+}
+
+
 const char ThirdPartyCookies_CookieControlsActivated::kEntryName[] = "ThirdPartyCookies.CookieControlsActivated";
 const uint64_t ThirdPartyCookies_CookieControlsActivated::kEntryNameHash;
 

@@ -5,7 +5,7 @@
  * @fileoverview Polymer element for displaying material design Enable Kiosk
  * screen.
  */
-import '//resources/cr_elements/icons.html.js';
+import '//resources/ash/common/cr_elements/icons.html.js';
 import '../../components/buttons/oobe_text_button.js';
 import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_adaptive_dialog.js';

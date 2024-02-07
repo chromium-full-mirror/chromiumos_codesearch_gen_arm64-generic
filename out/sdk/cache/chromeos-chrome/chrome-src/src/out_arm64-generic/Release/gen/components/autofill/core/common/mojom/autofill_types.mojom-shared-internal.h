@@ -50,6 +50,7 @@ class PasswordAndMetadata_Data;
 class PasswordFormFillData_Data;
 class PasswordFormGenerationData_Data;
 class PasswordGenerationUIData_Data;
+class PasswordSuggestionRequest_Data;
 class ParsingResult_Data;
 class SectionValue_Data;
 
@@ -1676,6 +1677,63 @@ struct PasswordGenerationUIData_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     PasswordGenerationUIData_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  PasswordSuggestionRequest_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<internal::FieldRendererId_Data> element_id;
+  mojo::internal::Pointer<internal::FormData_Data> form_data;
+  int32_t trigger_source;
+  int32_t text_direction;
+  uint64_t username_field_index;
+  uint64_t password_field_index;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::String16_Data> typed_username;
+  int32_t options;
+  uint8_t pad7_[4];
+  mojo::internal::Pointer<::gfx::mojom::internal::RectF_Data> bounds;
+
+ private:
+  friend class mojo::internal::MessageFragment<PasswordSuggestionRequest_Data>;
+
+  PasswordSuggestionRequest_Data();
+  ~PasswordSuggestionRequest_Data() = delete;
+};
+static_assert(sizeof(PasswordSuggestionRequest_Data) == 72,
+              "Bad sizeof(PasswordSuggestionRequest_Data)");
+// Used by PasswordSuggestionRequest::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct PasswordSuggestionRequest_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  PasswordSuggestionRequest_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~PasswordSuggestionRequest_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<PasswordSuggestionRequest_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    PasswordSuggestionRequest_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 class  ParsingResult_Data {
  public:
   static bool Validate(const void* data,

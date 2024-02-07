@@ -1277,7 +1277,7 @@ class BrowserService
 
   using NewTabCallback = base::OnceCallback<void(CreationResult)>;
   
-  virtual void NewTab(NewTabCallback callback) = 0;
+  virtual void NewTab(std::optional<uint64_t> profile_id, NewTabCallback callback) = 0;
 
 
   using REMOVED_7Callback = base::OnceCallback<void()>;
@@ -1687,7 +1687,7 @@ class  BrowserServiceProxy
   
   void NewGuestWindow(int64_t target_display_id, NewGuestWindowCallback callback) final;
   
-  void NewTab(NewTabCallback callback) final;
+  void NewTab(std::optional<uint64_t> profile_id, NewTabCallback callback) final;
   
   void REMOVED_7(bool should_trigger_session_restore, REMOVED_7Callback callback) final;
   

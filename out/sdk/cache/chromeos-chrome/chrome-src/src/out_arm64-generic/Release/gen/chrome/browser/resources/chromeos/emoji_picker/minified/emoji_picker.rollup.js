@@ -1090,7 +1090,7 @@ const ARIA_LABELS_WITH_GIF_SUPPORT={[CategoryEnum.EMOJI]:"Emoji category",[Categ
       <div id="search-results">
 
         <template is="dom-repeat" items="[[searchResults]]">
-          <emoji-group data="[[item.emoji]]" category$="[[item.category]]" gif-support$="[[gifSupport]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]" use-grouped-preference="[[useGroupedPreference]">
+          <emoji-group data="[[item.emoji]]" category$="[[item.category]]" gif-support$="[[gifSupport]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]" use-grouped-preference="[[useGroupedPreference]]">
           </emoji-group>
         </template>
     </div>
@@ -1232,7 +1232,7 @@ const TIMEOUT_MS=150;const instances=new Map;function getInstance(container=docu
 </div>
 
 <div id="message" class="sr-only" aria-live="polite"></div>
-  <emoji-search class="search-side-padding" id="search-container" categories-data="[[categoriesData]]" lazy-indexing="[[searchLazyIndexing]]" on-scroll="onSearchScroll" category-metadata="[[getCategoryMetadata(gifSupport, category)]]" gif-support$="[[gifSupport]]" seal-support$="[[sealSupport]]" close-gif-nudge-overlay="[[closeGifNudgeOverlay]]" use-grouped-preference="[[shouldUseGroupedPreference(false)]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]">
+  <emoji-search class="search-side-padding" id="search-container" categories-data="[[categoriesData]]" lazy-indexing="[[searchLazyIndexing]]" on-scroll="onSearchScroll" category-metadata="[[getCategoryMetadata(gifSupport, category)]]" gif-support$="[[gifSupport]]" seal-support$="[[sealSupport]]" close-gif-nudge-overlay="[[closeGifNudgeOverlay]]" use-grouped-preference="[[variantGroupingSupport]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]">
   </emoji-search>
 
 <div id="list-container" class$="[[computeListContainerClass(category, status)]]">

@@ -87,7 +87,6 @@ build bssl_crypto_unittests_exe: phony ./bssl_crypto_unittests
 build bssl_sys_unittests_exe: phony ./bssl_sys_unittests
 build chrome_initial: phony ./chrome
 build chromedriver_server: phony ./chromedriver
-build client: phony ./test_sudo_helper_client
 build connect_test_app: phony ./connect_test_app.service
 build connect_test_class_app: phony ./connect_test_class_app.service
 build connect_test_package: phony ./connect_test_package.service
@@ -1019,6 +1018,7 @@ build blink_heap_unittests__runner: phony obj/third_party/blink/renderer/platfor
 build blink_heap_unittests_sources: phony obj/third_party/blink/renderer/platform/heap/blink_heap_unittests_sources.stamp
 build blink_html_tokenizer_fuzzer: phony obj/third_party/blink/renderer/core/blink_html_tokenizer_fuzzer.stamp
 build blink_http_parsers_fuzzer: phony obj/third_party/blink/renderer/platform/blink_http_parsers_fuzzer.stamp
+build blink_jpeg_decoder_fuzzer: phony obj/third_party/blink/renderer/platform/blink_jpeg_decoder_fuzzer.stamp
 build blink_json_parser_fuzzer: phony obj/third_party/blink/renderer/platform/blink_json_parser_fuzzer.stamp
 build blink_merge_web_test_results_py: phony obj/infra/orchestrator/blink_merge_web_test_results_py.stamp
 build blink_message_port_adapter: phony obj/components/cast/message_port/blink_message_port_adapter.stamp
@@ -2057,6 +2057,7 @@ build core_hot: phony obj/third_party/blink/renderer/core/libcore_hot.a
 build core_impl_for_fuzzers: phony obj/mojo/core/core_impl_for_fuzzers.stamp
 build core_keyed_service_factories: phony obj/extensions/browser/core_keyed_service_factories.stamp
 build core_unit_tests: phony obj/components/feed/core/v2/core_unit_tests.stamp
+build coreml_graph_builder: phony obj/services/webnn/coreml_graph_builder.stamp
 build corpus: phony obj/components/exo/wayland/fuzzer/corpus.stamp
 build cors_fuzzer: phony obj/services/network/public/cpp/cors_fuzzer.stamp
 build country_codes: phony obj/components/country_codes/libcountry_codes.a
@@ -2132,7 +2133,7 @@ build credential_ui_entry: phony obj/components/password_manager/core/browser/ui
 build credentialmanagement: phony obj/third_party/blink/renderer/modules/credentialmanagement/libcredentialmanagement.a
 build credentials: phony obj/chromeos/ash/components/nearby/presence/credentials/libcredentials.a
 build criticalsection: phony obj/third_party/webrtc/rtc_base/libcriticalsection.a
-build cronet: phony ./libcronet.123.0.6276.0.so.TOC
+build cronet: phony ./libcronet.123.0.6283.0.so.TOC
 build cronet_common: phony obj/components/cronet/cronet_common.stamp
 build cronet_common_unittests: phony obj/components/cronet/cronet_common_unittests.stamp
 build cronet_native_headers: phony obj/components/cronet/native/cronet_native_headers.stamp
@@ -2859,6 +2860,7 @@ build exo_wlcs: phony ./libexo_wlcs.so
 build expat: phony obj/third_party/expat/expat.stamp
 build expat_xml_parse_fuzzer: phony obj/third_party/expat/expat_xml_parse_fuzzer.stamp
 build expected_grd_files: phony obj/third_party/devtools-frontend/src/expected_grd_files.stamp
+build experimental: phony obj/third_party/perfetto/src/trace_processor/metrics/sql/experimental/experimental.stamp
 build experimental_slice_breakdown_bin: phony obj/third_party/perfetto/python/experimental_slice_breakdown_bin.stamp
 build experimental_slice_breakdown_lib: phony obj/third_party/perfetto/python/experimental_slice_breakdown_lib.stamp
 build expired_flags_list: phony obj/chrome/browser/expired_flags_list.stamp
@@ -3847,6 +3849,10 @@ build hibernate_manager: phony obj/chromeos/ash/components/login/hibernate/libhi
 build hid_detection: phony obj/chromeos/ash/components/hid_detection/libhid_detection.a
 build hid_report_descriptor_fuzzer: phony obj/services/device/hid/hid_report_descriptor_fuzzer.stamp
 build high_pass_filter: phony obj/third_party/webrtc/modules/audio_processing/libhigh_pass_filter.a
+build highcontrast: phony obj/ui/accessibility/extensions/highcontrast.stamp
+build highcontrast_copy: phony obj/ui/accessibility/extensions/highcontrast_copy.stamp
+build highcontrast_strings: phony obj/ui/accessibility/extensions/highcontrast_strings.stamp
+build highcontrast_strings_grit: phony obj/ui/accessibility/extensions/highcontrast_strings_grit.stamp
 build highcontrast_tests__runner: phony obj/ui/accessibility/extensions/highcontrast_tests__runner.stamp
 build highcontrast_webui_js_tests: phony obj/ui/accessibility/extensions/highcontrast_webui_js_tests.stamp
 build highcontrast_webui_js_tests_action: phony obj/ui/accessibility/extensions/highcontrast_webui_js_tests_action.stamp
@@ -5088,6 +5094,8 @@ build mod_ops: phony obj/third_party/webrtc/rtc_base/mod_ops.stamp
 build model_assets: phony obj/services/on_device_model/public/cpp/libmodel_assets.a
 build model_execution: phony obj/third_party/blink/renderer/modules/model_execution/libmodel_execution.a
 build model_executor: phony obj/components/optimization_guide/core/libmodel_executor.a
+build modelformat_proto: phony obj/third_party/coremltools/libmodelformat_proto.a
+build modelformat_proto_gen: phony obj/third_party/coremltools/modelformat_proto_gen.stamp
 build models: phony obj/third_party/devtools-frontend/src/test/unittests/front_end/panels/recorder/models/models.stamp
 build modp_b64: phony obj/third_party/modp_b64/libmodp_b64.a
 build module: phony obj/chrome/browser/extensions/api/module/module.stamp
@@ -8071,6 +8079,7 @@ build skia_path_fuzzer: phony obj/testing/libfuzzer/fuzzers/skia_path_fuzzer.sta
 build skia_pathop_fuzzer: phony obj/testing/libfuzzer/fuzzers/skia_pathop_fuzzer.stamp
 build skia_unittests__runner: phony obj/skia/skia_unittests__runner.stamp
 build skia_unittests_filters: phony obj/testing/buildbot/filters/skia_unittests_filters.stamp
+build slices: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/slices/slices.stamp
 build slim: phony obj/cc/slim/libslim.a
 build slow: phony obj/chrome/browser/resources/chromeos/slow.stamp
 build smart_card_provider_private: phony obj/chrome/browser/chromeos/extensions/smart_card_provider_private/smart_card_provider_private.stamp
@@ -8402,7 +8411,6 @@ build supervised_user_commands_mojom_js_library_for_compile: phony obj/chrome/co
 build supervised_user_commands_mojom_shared: phony obj/chrome/common/supervised_user_commands_mojom_shared.stamp
 build supervised_user_commands_mojom_shared__generator: phony obj/chrome/common/supervised_user_commands_mojom_shared__generator.stamp
 build supervised_user_commands_mojom_shared_cpp_sources: phony obj/chrome/common/supervised_user_commands_mojom_shared_cpp_sources.stamp
-build supervised_user_preferences: phony obj/components/supervised_user/core/browser/libsupervised_user_preferences.a
 build support_tool_proto: phony obj/chrome/browser/support_tool/libsupport_tool_proto.a
 build support_tool_proto_gen: phony obj/chrome/browser/support_tool/support_tool_proto_gen.stamp
 build surface: phony obj/ui/surface/libsurface.a
@@ -8489,6 +8497,28 @@ build sys_string_conversions_fuzzer: phony obj/base/sys_string_conversions_fuzze
 build syscall_table: phony obj/third_party/perfetto/src/kernel_utils/syscall_table.stamp
 build system_backend: phony obj/third_party/perfetto/src/tracing/system_backend.stamp
 build system_clock: phony obj/chromeos/ash/components/dbus/system_clock/libsystem_clock.a
+build system_event_monitor: phony obj/media/capture/video/chromeos/mojom/system_event_monitor.stamp
+build system_event_monitor__check_deps_are_all_mojom: phony obj/media/capture/video/chromeos/mojom/system_event_monitor__check_deps_are_all_mojom.stamp
+build system_event_monitor__generate_message_ids: phony obj/media/capture/video/chromeos/mojom/system_event_monitor__generate_message_ids.stamp
+build system_event_monitor__generator: phony obj/media/capture/video/chromeos/mojom/system_event_monitor__generator.stamp
+build system_event_monitor__is_mojom: phony obj/media/capture/video/chromeos/mojom/system_event_monitor__is_mojom.stamp
+build system_event_monitor__parser: phony obj/media/capture/video/chromeos/mojom/system_event_monitor__parser.stamp
+build system_event_monitor__type_mappings: phony obj/media/capture/video/chromeos/mojom/system_event_monitor__type_mappings.stamp
+build system_event_monitor__type_mappings__validator: phony obj/media/capture/video/chromeos/mojom/system_event_monitor__type_mappings__validator.stamp
+build system_event_monitor_blink: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_blink.stamp
+build system_event_monitor_blink__generator: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_blink__generator.stamp
+build system_event_monitor_blink__type_mappings: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_blink__type_mappings.stamp
+build system_event_monitor_blink__type_mappings__validator: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_blink__type_mappings__validator.stamp
+build system_event_monitor_blink_headers: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_blink_headers.stamp
+build system_event_monitor_headers: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_headers.stamp
+build system_event_monitor_js: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_js.stamp
+build system_event_monitor_js__generator: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_js__generator.stamp
+build system_event_monitor_js_data_deps: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_js_data_deps.stamp
+build system_event_monitor_js_library_for_compile: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_js_library_for_compile.stamp
+build system_event_monitor_mojo_policy: phony obj/media/capture/system_event_monitor_mojo_policy.stamp
+build system_event_monitor_shared: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_shared.stamp
+build system_event_monitor_shared__generator: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_shared__generator.stamp
+build system_event_monitor_shared_cpp_sources: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_shared_cpp_sources.stamp
 build system_info: phony obj/extensions/browser/api/system_info/system_info.stamp
 build system_info_provider: phony obj/ash/webui/eche_app_ui/libsystem_info_provider.a
 build system_logs: phony obj/extensions/shell/browser/system_logs/system_logs.stamp
@@ -9068,7 +9098,6 @@ build third_party_re2_fuzzer: phony obj/third_party/re2/third_party_re2_fuzzer.s
 build thread: phony obj/third_party/dawn/src/tint/thread.stamp
 build thread_pool: phony obj/third_party/abseil-cpp/absl/synchronization/thread_pool.stamp
 build thread_wrapper: phony obj/components/webrtc/thread_wrapper.stamp
-build throbber_notice: phony obj/chrome/browser/resources/chromeos/login/components/throbber_notice.stamp
 build throttles: phony obj/components/safe_browsing/content/renderer/throttles.stamp
 build throttles_unittest: phony obj/components/safe_browsing/content/renderer/throttles_unittest.stamp
 build throw_delegate: phony obj/third_party/abseil-cpp/absl/base/throw_delegate.stamp
@@ -9462,7 +9491,6 @@ build url_mojom_scheme_host_port_shared: phony obj/url/mojom/url_mojom_scheme_ho
 build url_mojom_scheme_host_port_shared__generator: phony obj/url/mojom/url_mojom_scheme_host_port_shared__generator.stamp
 build url_mojom_scheme_host_port_shared_cpp_sources: phony obj/url/mojom/url_mojom_scheme_host_port_shared_cpp_sources.stamp
 build url_parse_proto_fuzzer: phony obj/testing/libfuzzer/fuzzers/url_parse_proto_fuzzer.stamp
-build url_pattern: phony obj/third_party/blink/renderer/core/url_pattern/liburl_pattern.a
 build url_pattern_fuzzer: phony obj/third_party/blink/renderer/core/url_pattern/url_pattern_fuzzer.stamp
 build url_perftests__runner: phony obj/url/url_perftests__runner.stamp
 build url_proto: phony obj/testing/libfuzzer/proto/liburl_proto.a
@@ -9750,8 +9778,10 @@ build video_frame_i010: phony obj/third_party/webrtc/api/video/libvideo_frame_i0
 build video_frame_mapper_common: phony obj/media/gpu/video_frame_mapper_common.stamp
 build video_frame_metadata: phony obj/third_party/webrtc/api/video/video_frame_metadata.stamp
 build video_frame_metadata_unittest: phony obj/third_party/webrtc/api/video/video_frame_metadata_unittest.stamp
+build video_frame_resource: phony obj/media/gpu/chromeos/video_frame_resource.stamp
 build video_frame_tracking_id_injector: phony obj/third_party/webrtc/test/pc/e2e/analyzer/video/video_frame_tracking_id_injector.stamp
 build video_frame_type: phony obj/third_party/webrtc/api/video/video_frame_type.stamp
+build video_frame_utils: phony obj/media/gpu/chromeos/video_frame_utils.stamp
 build video_frame_writer: phony obj/third_party/webrtc/api/test/video/video_frame_writer.stamp
 build video_layers_allocation: phony obj/third_party/webrtc/api/video/video_layers_allocation.stamp
 build video_player: phony obj/media/gpu/test/libvideo_player.a
@@ -13730,7 +13760,6 @@ build chrome/browser/resources/chromeos/login/components$:qr_code_canvas: phony 
 build chrome/browser/resources/chromeos/login/components$:quick_start_entry_point: phony obj/chrome/browser/resources/chromeos/login/components/quick_start_entry_point.stamp
 build chrome/browser/resources/chromeos/login/components$:quick_start_pin: phony obj/chrome/browser/resources/chromeos/login/components/quick_start_pin.stamp
 build chrome/browser/resources/chromeos/login/components$:security_token_pin: phony obj/chrome/browser/resources/chromeos/login/components/security_token_pin.stamp
-build chrome/browser/resources/chromeos/login/components$:throbber_notice: phony obj/chrome/browser/resources/chromeos/login/components/throbber_notice.stamp
 build chrome/browser/resources/chromeos/login/components$:web_components: phony obj/chrome/browser/resources/chromeos/login/components/web_components.stamp
 build chrome/browser/resources/chromeos/login/components$:web_components_local: phony obj/chrome/browser/resources/chromeos/login/components/web_components_local.stamp
 build chrome/browser/resources/chromeos/login/components$:web_view_loader: phony obj/chrome/browser/resources/chromeos/login/components/web_view_loader.stamp
@@ -16363,7 +16392,6 @@ build chrome/test$:xr_browser_tests_common: phony obj/chrome/test/xr_browser_tes
 build chrome/test$:xr_browser_tests_runner: phony obj/chrome/test/xr_browser_tests_runner.stamp
 build chrome/test/base/chromeos/crosier$:proto: phony obj/chrome/test/base/chromeos/crosier/libproto.a
 build chrome/test/base/chromeos/crosier$:proto_gen: phony obj/chrome/test/base/chromeos/crosier/proto_gen.stamp
-build chrome/test/base/chromeos/crosier/helper$:client: phony ./test_sudo_helper_client
 build chrome/test/base/chromeos/crosier/helper$:common: phony obj/chrome/test/base/chromeos/crosier/helper/common.stamp
 build chrome/test/base/chromeos/crosier/helper$:helper: phony obj/chrome/test/base/chromeos/crosier/helper/helper.stamp
 build chrome/test/base/chromeos/crosier/helper: phony obj/chrome/test/base/chromeos/crosier/helper/helper.stamp
@@ -19558,8 +19586,8 @@ build components/crash/core/common$:crash_key: phony obj/components/crash/core/c
 build components/crash/core/common$:crash_key_lib: phony obj/components/crash/core/common/libcrash_key_lib.a
 build components/crash/core/common$:crash_key_utils: phony obj/components/crash/core/common/libcrash_key_utils.a
 build components/crash/core/common$:unit_tests: phony obj/components/crash/core/common/unit_tests.stamp
-build components/cronet$:cronet: phony ./libcronet.123.0.6276.0.so.TOC
-build components/cronet: phony ./libcronet.123.0.6276.0.so.TOC
+build components/cronet$:cronet: phony ./libcronet.123.0.6283.0.so.TOC
+build components/cronet: phony ./libcronet.123.0.6283.0.so.TOC
 build components/cronet$:cronet_buildflags: phony obj/components/cronet/cronet_buildflags.stamp
 build components/cronet$:cronet_common: phony obj/components/cronet/cronet_common.stamp
 build components/cronet$:cronet_common_unittests: phony obj/components/cronet/cronet_common_unittests.stamp
@@ -22933,7 +22961,6 @@ build components/supervised_user/core/browser$:fetcher: phony obj/components/sup
 build components/supervised_user/core/browser$:fetcher_config: phony obj/components/supervised_user/core/browser/libfetcher_config.a
 build components/supervised_user/core/browser$:list_family_members_service: phony obj/components/supervised_user/core/browser/liblist_family_members_service.a
 build components/supervised_user/core/browser$:mocked: phony obj/components/supervised_user/core/browser/libmocked.a
-build components/supervised_user/core/browser$:supervised_user_preferences: phony obj/components/supervised_user/core/browser/libsupervised_user_preferences.a
 build components/supervised_user/core/browser$:unit_tests: phony obj/components/supervised_user/core/browser/unit_tests.stamp
 build components/supervised_user/core/browser/proto$:proto: phony obj/components/supervised_user/core/browser/proto/libproto.a
 build components/supervised_user/core/browser/proto: phony obj/components/supervised_user/core/browser/proto/libproto.a
@@ -23214,6 +23241,8 @@ build components/url_matcher$:unit_tests: phony obj/components/url_matcher/unit_
 build components/url_matcher$:url_matcher: phony obj/components/url_matcher/liburl_matcher.a
 build components/url_matcher: phony obj/components/url_matcher/liburl_matcher.a
 build components/url_matcher$:url_matcher_fuzzer: phony obj/components/url_matcher/url_matcher_fuzzer.stamp
+build components/url_pattern$:url_pattern: phony obj/components/url_pattern/url_pattern.stamp
+build components/url_pattern: phony obj/components/url_pattern/url_pattern.stamp
 build components/url_pattern_index$:test_support: phony obj/components/url_pattern_index/libtest_support.a
 build components/url_pattern_index$:unit_tests: phony obj/components/url_pattern_index/unit_tests.stamp
 build components/url_pattern_index$:url_pattern_index: phony obj/components/url_pattern_index/liburl_pattern_index.a
@@ -25199,6 +25228,7 @@ build media/capture$:capture_switches: phony obj/media/capture/libcapture_switch
 build media/capture$:capture_unittests: phony ./capture_unittests
 build media/capture$:capture_unittests__runner: phony obj/media/capture/capture_unittests__runner.stamp
 build media/capture$:jpeg_accelerator_mojo_policy: phony obj/media/capture/jpeg_accelerator_mojo_policy.stamp
+build media/capture$:system_event_monitor_mojo_policy: phony obj/media/capture/system_event_monitor_mojo_policy.stamp
 build media/capture$:test_support: phony obj/media/capture/test_support.stamp
 build media/capture/mojom$:image_capture: phony obj/media/capture/mojom/image_capture.stamp
 build media/capture/mojom$:image_capture__check_deps_are_all_mojom: phony obj/media/capture/mojom/image_capture__check_deps_are_all_mojom.stamp
@@ -25351,6 +25381,27 @@ build media/capture/video/chromeos/mojom$:jpeg_accelerator_js_library_for_compil
 build media/capture/video/chromeos/mojom$:jpeg_accelerator_shared: phony obj/media/capture/video/chromeos/mojom/jpeg_accelerator_shared.stamp
 build media/capture/video/chromeos/mojom$:jpeg_accelerator_shared__generator: phony obj/media/capture/video/chromeos/mojom/jpeg_accelerator_shared__generator.stamp
 build media/capture/video/chromeos/mojom$:jpeg_accelerator_shared_cpp_sources: phony obj/media/capture/video/chromeos/mojom/jpeg_accelerator_shared_cpp_sources.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor: phony obj/media/capture/video/chromeos/mojom/system_event_monitor.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor__check_deps_are_all_mojom: phony obj/media/capture/video/chromeos/mojom/system_event_monitor__check_deps_are_all_mojom.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor__generate_message_ids: phony obj/media/capture/video/chromeos/mojom/system_event_monitor__generate_message_ids.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor__generator: phony obj/media/capture/video/chromeos/mojom/system_event_monitor__generator.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor__is_mojom: phony obj/media/capture/video/chromeos/mojom/system_event_monitor__is_mojom.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor__parser: phony obj/media/capture/video/chromeos/mojom/system_event_monitor__parser.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor__type_mappings: phony obj/media/capture/video/chromeos/mojom/system_event_monitor__type_mappings.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor__type_mappings__validator: phony obj/media/capture/video/chromeos/mojom/system_event_monitor__type_mappings__validator.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor_blink: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_blink.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor_blink__generator: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_blink__generator.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor_blink__type_mappings: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_blink__type_mappings.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor_blink__type_mappings__validator: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_blink__type_mappings__validator.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor_blink_headers: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_blink_headers.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor_headers: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_headers.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor_js: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_js.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor_js__generator: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_js__generator.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor_js_data_deps: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_js_data_deps.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor_js_library_for_compile: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_js_library_for_compile.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor_shared: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_shared.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor_shared__generator: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_shared__generator.stamp
+build media/capture/video/chromeos/mojom$:system_event_monitor_shared_cpp_sources: phony obj/media/capture/video/chromeos/mojom/system_event_monitor_shared_cpp_sources.stamp
 build media/capture/video/chromeos/public$:public: phony obj/media/capture/video/chromeos/public/public.stamp
 build media/capture/video/chromeos/public: phony obj/media/capture/video/chromeos/public/public.stamp
 build media/cast$:cast_unittests: phony ./cast_unittests
@@ -25429,6 +25480,8 @@ build media/gpu/chromeos$:image_processor_test: phony ./image_processor_test
 build media/gpu/chromeos$:image_processor_test__runner: phony obj/media/gpu/chromeos/image_processor_test__runner.stamp
 build media/gpu/chromeos$:unit_tests: phony obj/media/gpu/chromeos/unit_tests.stamp
 build media/gpu/chromeos$:video_frame_mapper: phony obj/media/gpu/chromeos/video_frame_mapper.stamp
+build media/gpu/chromeos$:video_frame_resource: phony obj/media/gpu/chromeos/video_frame_resource.stamp
+build media/gpu/chromeos$:video_frame_utils: phony obj/media/gpu/chromeos/video_frame_utils.stamp
 build media/gpu/ipc/common$:common: phony obj/media/gpu/ipc/common/common.stamp
 build media/gpu/ipc/common: phony obj/media/gpu/ipc/common/common.stamp
 build media/gpu/ipc/service$:service: phony obj/media/gpu/ipc/service/libservice.a
@@ -28717,6 +28770,7 @@ build services/viz/public/mojom$:singleplanar_format_js_library_for_compile: pho
 build services/viz/public/mojom$:singleplanar_format_shared: phony obj/services/viz/public/mojom/singleplanar_format_shared.stamp
 build services/viz/public/mojom$:singleplanar_format_shared__generator: phony obj/services/viz/public/mojom/singleplanar_format_shared__generator.stamp
 build services/viz/public/mojom$:singleplanar_format_shared_cpp_sources: phony obj/services/viz/public/mojom/singleplanar_format_shared_cpp_sources.stamp
+build services/webnn$:coreml_graph_builder: phony obj/services/webnn/coreml_graph_builder.stamp
 build services/webnn$:tests: phony obj/services/webnn/tests.stamp
 build services/webnn$:webnn_service: phony obj/services/webnn/libwebnn_service.a
 build services/webnn/public/mojom$:mojom: phony obj/services/webnn/public/mojom/mojom.stamp
@@ -30441,6 +30495,7 @@ build third_party/blink/renderer/platform$:blink_fuzzer_unittests: phony ./blink
 build third_party/blink/renderer/platform$:blink_fuzzer_unittests__runner: phony obj/third_party/blink/renderer/platform/blink_fuzzer_unittests__runner.stamp
 build third_party/blink/renderer/platform$:blink_harfbuzz_shaper_fuzzer: phony obj/third_party/blink/renderer/platform/blink_harfbuzz_shaper_fuzzer.stamp
 build third_party/blink/renderer/platform$:blink_http_parsers_fuzzer: phony obj/third_party/blink/renderer/platform/blink_http_parsers_fuzzer.stamp
+build third_party/blink/renderer/platform$:blink_jpeg_decoder_fuzzer: phony obj/third_party/blink/renderer/platform/blink_jpeg_decoder_fuzzer.stamp
 build third_party/blink/renderer/platform$:blink_json_parser_fuzzer: phony obj/third_party/blink/renderer/platform/blink_json_parser_fuzzer.stamp
 build third_party/blink/renderer/platform$:blink_platform_nocompile_tests: phony obj/third_party/blink/renderer/platform/blink_platform_nocompile_tests.stamp
 build third_party/blink/renderer/platform$:blink_platform_perftests: phony ./blink_platform_perftests
@@ -30657,6 +30712,8 @@ build third_party/content_analysis_sdk$:libagentsdk: phony obj/third_party/conte
 build third_party/content_analysis_sdk$:liblcasdk: phony obj/third_party/content_analysis_sdk/liblcasdk.stamp
 build third_party/content_analysis_sdk$:proto: phony obj/third_party/content_analysis_sdk/libproto.a
 build third_party/content_analysis_sdk$:proto_gen: phony obj/third_party/content_analysis_sdk/proto_gen.stamp
+build third_party/coremltools$:modelformat_proto: phony obj/third_party/coremltools/libmodelformat_proto.a
+build third_party/coremltools$:modelformat_proto_gen: phony obj/third_party/coremltools/modelformat_proto_gen.stamp
 build third_party/cpuinfo$:cpu_and_os_specific: phony obj/third_party/cpuinfo/cpu_and_os_specific.stamp
 build third_party/cpuinfo$:cpu_specific: phony obj/third_party/cpuinfo/cpu_specific.stamp
 build third_party/cpuinfo$:cpuinfo: phony obj/third_party/cpuinfo/cpuinfo.stamp
@@ -34139,6 +34196,7 @@ build third_party/perfetto/include/perfetto/ext/traced$:traced: phony obj/third_
 build third_party/perfetto/include/perfetto/ext/traced: phony obj/third_party/perfetto/include/perfetto/ext/traced/traced.stamp
 build third_party/perfetto/include/perfetto/ext/tracing/core$:core: phony obj/third_party/perfetto/include/perfetto/ext/tracing/core/core.stamp
 build third_party/perfetto/include/perfetto/ext/tracing/core: phony obj/third_party/perfetto/include/perfetto/ext/tracing/core/core.stamp
+build third_party/perfetto/include/perfetto/ext/tracing/core$:test_support: phony obj/third_party/perfetto/include/perfetto/ext/tracing/core/test_support.stamp
 build third_party/perfetto/include/perfetto/ext/tracing/ipc$:ipc: phony obj/third_party/perfetto/include/perfetto/ext/tracing/ipc/ipc.stamp
 build third_party/perfetto/include/perfetto/ext/tracing/ipc: phony obj/third_party/perfetto/include/perfetto/ext/tracing/ipc/ipc.stamp
 build third_party/perfetto/include/perfetto/profiling$:pprof_builder: phony obj/third_party/perfetto/include/perfetto/profiling/pprof_builder.stamp
@@ -34502,6 +34560,7 @@ build third_party/perfetto/src/ipc$:test_messages_zero: phony obj/third_party/pe
 build third_party/perfetto/src/ipc$:test_messages_zero_gen: phony obj/third_party/perfetto/src/ipc/test_messages_zero_gen.stamp
 build third_party/perfetto/src/ipc$:unittests: phony obj/third_party/perfetto/src/ipc/unittests.stamp
 build third_party/perfetto/src/kernel_utils$:syscall_table: phony obj/third_party/perfetto/src/kernel_utils/syscall_table.stamp
+build third_party/perfetto/src/kernel_utils$:unittests: phony obj/third_party/perfetto/src/kernel_utils/unittests.stamp
 build third_party/perfetto/src/profiling$:deobfuscator: phony obj/third_party/perfetto/src/profiling/deobfuscator.stamp
 build third_party/perfetto/src/profiling$:unittests: phony obj/third_party/perfetto/src/profiling/unittests.stamp
 build third_party/perfetto/src/profiling/symbolizer$:symbolize_database: phony obj/third_party/perfetto/src/profiling/symbolizer/symbolize_database.stamp
@@ -34569,6 +34628,7 @@ build third_party/perfetto/src/trace_processor/importers/common: phony obj/third
 build third_party/perfetto/src/trace_processor/importers/common$:parser_types: phony obj/third_party/perfetto/src/trace_processor/importers/common/parser_types.stamp
 build third_party/perfetto/src/trace_processor/importers/common$:trace_parser_hdr: phony obj/third_party/perfetto/src/trace_processor/importers/common/trace_parser_hdr.stamp
 build third_party/perfetto/src/trace_processor/importers/common$:unittests: phony obj/third_party/perfetto/src/trace_processor/importers/common/unittests.stamp
+build third_party/perfetto/src/trace_processor/importers/etw$:full: phony obj/third_party/perfetto/src/trace_processor/importers/etw/full.stamp
 build third_party/perfetto/src/trace_processor/importers/ftrace$:ftrace_descriptors: phony obj/third_party/perfetto/src/trace_processor/importers/ftrace/ftrace_descriptors.stamp
 build third_party/perfetto/src/trace_processor/importers/ftrace$:full: phony obj/third_party/perfetto/src/trace_processor/importers/ftrace/full.stamp
 build third_party/perfetto/src/trace_processor/importers/ftrace$:minimal: phony obj/third_party/perfetto/src/trace_processor/importers/ftrace/minimal.stamp
@@ -34654,8 +34714,6 @@ build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/android/start
 build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/chrome$:chrome_sql: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/chrome/chrome_sql.stamp
 build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/common$:common: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/common/common.stamp
 build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/common: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/common/common.stamp
-build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/experimental$:experimental: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/experimental/experimental.stamp
-build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/experimental: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/experimental/experimental.stamp
 build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/graphs$:graphs: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/graphs/graphs.stamp
 build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/graphs: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/graphs/graphs.stamp
 build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/intervals$:intervals: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/intervals/intervals.stamp
@@ -34668,6 +34726,8 @@ build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/prelude$:prel
 build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/prelude: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/prelude/prelude.stamp
 build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/sched$:sched: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/sched/sched.stamp
 build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/sched: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/sched/sched.stamp
+build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/slices$:slices: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/slices/slices.stamp
+build third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/slices: phony obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/slices/slices.stamp
 build third_party/perfetto/src/trace_processor/rpc$:httpd: phony obj/third_party/perfetto/src/trace_processor/rpc/httpd.stamp
 build third_party/perfetto/src/trace_processor/rpc$:rpc: phony obj/third_party/perfetto/src/trace_processor/rpc/rpc.stamp
 build third_party/perfetto/src/trace_processor/rpc: phony obj/third_party/perfetto/src/trace_processor/rpc/rpc.stamp
@@ -36341,6 +36401,10 @@ build ui/accessibility/extensions$:colorenhancer_tests__runner: phony obj/ui/acc
 build ui/accessibility/extensions$:extension_tests: phony obj/ui/accessibility/extensions/extension_tests.stamp
 build ui/accessibility/extensions$:extensions: phony obj/ui/accessibility/extensions/extensions.stamp
 build ui/accessibility/extensions: phony obj/ui/accessibility/extensions/extensions.stamp
+build ui/accessibility/extensions$:highcontrast: phony obj/ui/accessibility/extensions/highcontrast.stamp
+build ui/accessibility/extensions$:highcontrast_copy: phony obj/ui/accessibility/extensions/highcontrast_copy.stamp
+build ui/accessibility/extensions$:highcontrast_strings: phony obj/ui/accessibility/extensions/highcontrast_strings.stamp
+build ui/accessibility/extensions$:highcontrast_strings_grit: phony obj/ui/accessibility/extensions/highcontrast_strings_grit.stamp
 build ui/accessibility/extensions$:highcontrast_tests: phony ./highcontrast_tests
 build ui/accessibility/extensions$:highcontrast_tests__runner: phony obj/ui/accessibility/extensions/highcontrast_tests__runner.stamp
 build ui/accessibility/extensions$:highcontrast_webui_js_tests: phony obj/ui/accessibility/extensions/highcontrast_webui_js_tests.stamp
@@ -41235,7 +41299,6 @@ build all: phony $
     obj/chrome/browser/resources/chromeos/login/components/quick_start_entry_point.stamp $
     obj/chrome/browser/resources/chromeos/login/components/quick_start_pin.stamp $
     obj/chrome/browser/resources/chromeos/login/components/security_token_pin.stamp $
-    obj/chrome/browser/resources/chromeos/login/components/throbber_notice.stamp $
     obj/chrome/browser/resources/chromeos/login/components/web_components.stamp $
     obj/chrome/browser/resources/chromeos/login/components/web_components_local.stamp $
     obj/chrome/browser/resources/chromeos/login/components/web_view_loader.stamp $
@@ -43777,7 +43840,6 @@ build all: phony $
     obj/chrome/test/xr_browser_tests_runner.stamp $
     obj/chrome/test/base/chromeos/crosier/libproto.a $
     obj/chrome/test/base/chromeos/crosier/proto_gen.stamp $
-    ./test_sudo_helper_client $
     obj/chrome/test/base/chromeos/crosier/helper/common.stamp $
     obj/chrome/test/base/chromeos/crosier/helper/helper.stamp $
     ./fake_chrome $
@@ -46608,7 +46670,7 @@ build all: phony $
     obj/components/crash/core/common/libcrash_key_lib.a $
     obj/components/crash/core/common/libcrash_key_utils.a $
     obj/components/crash/core/common/unit_tests.stamp $
-    ./libcronet.123.0.6276.0.so.TOC $
+    ./libcronet.123.0.6283.0.so.TOC $
     obj/components/cronet/cronet_buildflags.stamp $
     obj/components/cronet/cronet_common.stamp $
     obj/components/cronet/cronet_common_unittests.stamp $
@@ -49594,7 +49656,6 @@ build all: phony $
     obj/components/supervised_user/core/browser/libfetcher_config.a $
     obj/components/supervised_user/core/browser/liblist_family_members_service.a $
     obj/components/supervised_user/core/browser/libmocked.a $
-    obj/components/supervised_user/core/browser/libsupervised_user_preferences.a $
     obj/components/supervised_user/core/browser/unit_tests.stamp $
     obj/components/supervised_user/core/browser/proto/libproto.a $
     obj/components/supervised_user/core/browser/proto/proto_gen.stamp $
@@ -49830,6 +49891,7 @@ build all: phony $
     obj/components/url_matcher/unit_tests.stamp $
     obj/components/url_matcher/liburl_matcher.a $
     obj/components/url_matcher/url_matcher_fuzzer.stamp $
+    obj/components/url_pattern/url_pattern.stamp $
     obj/components/url_pattern_index/libtest_support.a $
     obj/components/url_pattern_index/unit_tests.stamp $
     obj/components/url_pattern_index/liburl_pattern_index.a $
@@ -51637,6 +51699,7 @@ build all: phony $
     ./capture_unittests $
     obj/media/capture/capture_unittests__runner.stamp $
     obj/media/capture/jpeg_accelerator_mojo_policy.stamp $
+    obj/media/capture/system_event_monitor_mojo_policy.stamp $
     obj/media/capture/test_support.stamp $
     obj/media/capture/mojom/image_capture.stamp $
     obj/media/capture/mojom/image_capture__check_deps_are_all_mojom.stamp $
@@ -51789,6 +51852,27 @@ build all: phony $
     obj/media/capture/video/chromeos/mojom/jpeg_accelerator_shared.stamp $
     obj/media/capture/video/chromeos/mojom/jpeg_accelerator_shared__generator.stamp $
     obj/media/capture/video/chromeos/mojom/jpeg_accelerator_shared_cpp_sources.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor__check_deps_are_all_mojom.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor__generate_message_ids.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor__generator.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor__is_mojom.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor__parser.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor__type_mappings.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor__type_mappings__validator.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor_blink.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor_blink__generator.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor_blink__type_mappings.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor_blink__type_mappings__validator.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor_blink_headers.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor_headers.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor_js.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor_js__generator.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor_js_data_deps.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor_js_library_for_compile.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor_shared.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor_shared__generator.stamp $
+    obj/media/capture/video/chromeos/mojom/system_event_monitor_shared_cpp_sources.stamp $
     obj/media/capture/video/chromeos/public/public.stamp $
     ./cast_unittests $
     obj/media/cast/cast_unittests__runner.stamp $
@@ -51858,6 +51942,8 @@ build all: phony $
     obj/media/gpu/chromeos/image_processor_test__runner.stamp $
     obj/media/gpu/chromeos/unit_tests.stamp $
     obj/media/gpu/chromeos/video_frame_mapper.stamp $
+    obj/media/gpu/chromeos/video_frame_resource.stamp $
+    obj/media/gpu/chromeos/video_frame_utils.stamp $
     obj/media/gpu/ipc/common/common.stamp $
     obj/media/gpu/ipc/service/libservice.a $
     obj/media/gpu/ipc/service/unit_tests.stamp $
@@ -54960,6 +55046,7 @@ build all: phony $
     obj/services/viz/public/mojom/singleplanar_format_shared.stamp $
     obj/services/viz/public/mojom/singleplanar_format_shared__generator.stamp $
     obj/services/viz/public/mojom/singleplanar_format_shared_cpp_sources.stamp $
+    obj/services/webnn/coreml_graph_builder.stamp $
     obj/services/webnn/tests.stamp $
     obj/services/webnn/libwebnn_service.a $
     obj/services/webnn/public/mojom/mojom.stamp $
@@ -56502,6 +56589,7 @@ build all: phony $
     obj/third_party/blink/renderer/platform/blink_fuzzer_unittests__runner.stamp $
     obj/third_party/blink/renderer/platform/blink_harfbuzz_shaper_fuzzer.stamp $
     obj/third_party/blink/renderer/platform/blink_http_parsers_fuzzer.stamp $
+    obj/third_party/blink/renderer/platform/blink_jpeg_decoder_fuzzer.stamp $
     obj/third_party/blink/renderer/platform/blink_json_parser_fuzzer.stamp $
     obj/third_party/blink/renderer/platform/blink_platform_nocompile_tests.stamp $
     ./blink_platform_perftests $
@@ -56696,6 +56784,8 @@ build all: phony $
     obj/third_party/content_analysis_sdk/liblcasdk.stamp $
     obj/third_party/content_analysis_sdk/libproto.a $
     obj/third_party/content_analysis_sdk/proto_gen.stamp $
+    obj/third_party/coremltools/libmodelformat_proto.a $
+    obj/third_party/coremltools/modelformat_proto_gen.stamp $
     obj/third_party/cpuinfo/cpu_and_os_specific.stamp $
     obj/third_party/cpuinfo/cpu_specific.stamp $
     obj/third_party/cpuinfo/cpuinfo.stamp $
@@ -59531,6 +59621,7 @@ build all: phony $
     obj/third_party/perfetto/include/perfetto/ext/traced/sys_stats_counters.stamp $
     obj/third_party/perfetto/include/perfetto/ext/traced/traced.stamp $
     obj/third_party/perfetto/include/perfetto/ext/tracing/core/core.stamp $
+    obj/third_party/perfetto/include/perfetto/ext/tracing/core/test_support.stamp $
     obj/third_party/perfetto/include/perfetto/ext/tracing/ipc/ipc.stamp $
     obj/third_party/perfetto/include/perfetto/profiling/pprof_builder.stamp $
     obj/third_party/perfetto/include/perfetto/protozero/protozero.stamp $
@@ -59882,6 +59973,7 @@ build all: phony $
     obj/third_party/perfetto/src/ipc/test_messages_zero_gen.stamp $
     obj/third_party/perfetto/src/ipc/unittests.stamp $
     obj/third_party/perfetto/src/kernel_utils/syscall_table.stamp $
+    obj/third_party/perfetto/src/kernel_utils/unittests.stamp $
     obj/third_party/perfetto/src/profiling/deobfuscator.stamp $
     obj/third_party/perfetto/src/profiling/unittests.stamp $
     obj/third_party/perfetto/src/profiling/symbolizer/symbolize_database.stamp $
@@ -59940,6 +60032,7 @@ build all: phony $
     obj/third_party/perfetto/src/trace_processor/importers/common/parser_types.stamp $
     obj/third_party/perfetto/src/trace_processor/importers/common/trace_parser_hdr.stamp $
     obj/third_party/perfetto/src/trace_processor/importers/common/unittests.stamp $
+    obj/third_party/perfetto/src/trace_processor/importers/etw/full.stamp $
     obj/third_party/perfetto/src/trace_processor/importers/ftrace/ftrace_descriptors.stamp $
     obj/third_party/perfetto/src/trace_processor/importers/ftrace/full.stamp $
     obj/third_party/perfetto/src/trace_processor/importers/ftrace/minimal.stamp $
@@ -60009,13 +60102,13 @@ build all: phony $
     obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/android/startup/startup.stamp $
     obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/chrome/chrome_sql.stamp $
     obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/common/common.stamp $
-    obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/experimental/experimental.stamp $
     obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/graphs/graphs.stamp $
     obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/intervals/intervals.stamp $
     obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/linux/linux.stamp $
     obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/pkvm/pkvm.stamp $
     obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/prelude/prelude.stamp $
     obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/sched/sched.stamp $
+    obj/third_party/perfetto/src/trace_processor/perfetto_sql/stdlib/slices/slices.stamp $
     obj/third_party/perfetto/src/trace_processor/rpc/httpd.stamp $
     obj/third_party/perfetto/src/trace_processor/rpc/rpc.stamp $
     obj/third_party/perfetto/src/trace_processor/rpc/stdiod.stamp $
@@ -61570,6 +61663,10 @@ build all: phony $
     obj/ui/accessibility/extensions/colorenhancer_tests__runner.stamp $
     obj/ui/accessibility/extensions/extension_tests.stamp $
     obj/ui/accessibility/extensions/extensions.stamp $
+    obj/ui/accessibility/extensions/highcontrast.stamp $
+    obj/ui/accessibility/extensions/highcontrast_copy.stamp $
+    obj/ui/accessibility/extensions/highcontrast_strings.stamp $
+    obj/ui/accessibility/extensions/highcontrast_strings_grit.stamp $
     ./highcontrast_tests $
     obj/ui/accessibility/extensions/highcontrast_tests__runner.stamp $
     obj/ui/accessibility/extensions/highcontrast_webui_js_tests.stamp $

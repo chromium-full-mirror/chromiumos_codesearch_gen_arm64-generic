@@ -6,13 +6,13 @@
  * 'customize-buttons-subsection' contains a list of 'customize-button-row'
  * elements that allow users to remap buttons to actions or key combinations.
  */
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
-import 'chrome://resources/cr_elements/cr_input/cr_input.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_input/cr_input.js';
 import '../settings_shared.css.js';
 import './customize_button_row.js';
 import './key_combination_input_dialog.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './customize_buttons_subsection.html.js';
 import { DragAndDropManager } from './drag_and_drop_manager.js';

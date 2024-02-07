@@ -6,7 +6,7 @@ import './more_permissions_item.js';
 import './pin_to_shelf_item.js';
 import './app_management_cros_shared_style.css.js';
 import { getSelectedApp } from 'chrome://resources/cr_components/app_management/util.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { AppManagementBrowserProxy } from '../../common/app_management/browser_proxy.js';
 import { AppManagementStoreMixin } from '../../common/app_management/store_mixin.js';

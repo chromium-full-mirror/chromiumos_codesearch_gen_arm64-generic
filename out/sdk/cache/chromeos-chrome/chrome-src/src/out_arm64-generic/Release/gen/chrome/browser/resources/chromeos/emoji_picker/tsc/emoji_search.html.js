@@ -32,7 +32,7 @@ export function getTemplate() {
       <div id="search-results">
 
         <template is="dom-repeat" items="[[searchResults]]">
-          <emoji-group data="[[item.emoji]]" category$="[[item.category]]" gif-support$="[[gifSupport]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]" use-grouped-preference="[[useGroupedPreference]">
+          <emoji-group data="[[item.emoji]]" category$="[[item.category]]" gif-support$="[[gifSupport]]" global-tone="[[globalTone]]" global-gender="[[globalGender]]" use-grouped-preference="[[useGroupedPreference]]">
           </emoji-group>
         </template>
     </div>

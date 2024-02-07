@@ -5,7 +5,6 @@ import { isServer, property, query, html, classMap, nothing, LitElement, css, cu
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import 'chrome://resources/js/cr.js';
 import { html as html$1, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
-import { css as css$1, html as html$2, nothing as nothing$1, CrLitElement } from 'chrome://resources/lit/v3_0/lit.rollup.js';
 
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
@@ -16636,7 +16635,7 @@ class DirectoryTreeContainer {
     }
 }
 
-function getTemplate$p() {
+function getTemplate$q() {
     return getTrustedHTML `<!--_html_template_start_--><style>
 #container > * {
   background-color: var(--cros-sys-primary);
@@ -16741,7 +16740,7 @@ class XfNudge extends HTMLElement {
          */
         this.repositions_ = 0;
         const template = document.createElement('template');
-        template.innerHTML = getTemplate$p();
+        template.innerHTML = getTemplate$q();
         const fragment = template.content.cloneNode(true);
         this.attachShadow({ mode: 'open' }).appendChild(fragment);
         this.bubble_ = this.shadowRoot.getElementById('bubble');
@@ -24298,19 +24297,15 @@ function focusWithoutInk(toFocus) {
     toFocusWithNoInk.noink = noink;
 }
 
-function getCss() {
-    return css$1 `:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
-      var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
-          var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
-      var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
-      var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}`;
-}
-
-function getHtml() {
-    return html$2 `<!--_html_template_start_-->
-<dialog id="dialog" part="dialog" @close="${this.onNativeDialogClose_}" role="application" aria-roledescription="${this.roleDescription || nothing$1}">
-  <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label="${this.accessibilityLabel || nothing$1}">
-    <slot id="contentNode" @slotchange="${this.onSlotchange_}"></slot>
+function getTemplate$p() {
+    return html$1 `<!--_html_template_start_--><style>:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
+        var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
+            var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
+        var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
+        var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}</style>
+<dialog id="dialog" part="dialog" on-close="onNativeDialogClose_" role="application" aria-roledescription$="[[roleDescription]]">
+  <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label$="[[accessibilityLabel]]">
+    <slot id="contentNode" on-slotchange="onSlotchange_"></slot>
   </div>
 </dialog>
 <!--_html_template_end_-->`;
@@ -24319,6 +24314,7 @@ function getHtml() {
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// Forked from ui/webui/resources/cr_elements/cr_action_menu/cr_action_menu.ts
 var AnchorAlignment;
 (function (AnchorAlignment) {
     AnchorAlignment[AnchorAlignment["BEFORE_START"] = -2] = "BEFORE_START";
@@ -24378,11 +24374,9 @@ function getDefaultShowConfig() {
         maxY: 0,
     };
 }
-class CrActionMenuElement extends CrLitElement {
+class CrActionMenuElement extends PolymerElement {
     constructor() {
         super(...arguments);
-        this.autoReposition = false;
-        this.open = false;
         this.boundClose_ = null;
         this.resizeObserver_ = null;
         this.hasMousemoveListener_ = false;
@@ -24392,29 +24386,31 @@ class CrActionMenuElement extends CrLitElement {
     static get is() {
         return 'cr-action-menu';
     }
-    static get styles() {
-        return getCss();
-    }
-    render() {
-        return getHtml.bind(this)();
+    static get template() {
+        return getTemplate$p();
     }
     static get properties() {
         return {
             // Accessibility text of the menu. Should be something along the lines of
             // "actions", or "more actions".
-            accessibilityLabel: { type: String },
+            accessibilityLabel: String,
             // Setting this flag will make the menu listen for content size changes
             // and reposition to its anchor accordingly.
-            autoReposition: { type: Boolean },
+            autoReposition: {
+                type: Boolean,
+                value: false,
+            },
             open: {
                 type: Boolean,
                 notify: true,
+                value: false,
             },
             // Descriptor of the menu. Should be something along the lines of "menu"
-            roleDescription: { type: String },
+            roleDescription: String,
         };
     }
-    firstUpdated() {
+    ready() {
+        super.ready();
         this.addEventListener('keydown', this.onKeyDown_.bind(this));
         this.addEventListener('mouseover', this.onMouseover_);
         this.addEventListener('click', this.onClick_);
@@ -24422,6 +24418,9 @@ class CrActionMenuElement extends CrLitElement {
     disconnectedCallback() {
         super.disconnectedCallback();
         this.removeListeners_();
+    }
+    fire_(eventName, detail) {
+        this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
     }
     /**
      * Exposing internal <dialog> elements for tests.
@@ -24444,7 +24443,7 @@ class CrActionMenuElement extends CrLitElement {
         }
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.fire('close');
+        this.fire_('close');
     }
     onClick_(e) {
         if (e.target === this) {
@@ -24457,7 +24456,7 @@ class CrActionMenuElement extends CrLitElement {
         if (e.key === 'Tab' || e.key === 'Escape') {
             this.close();
             if (e.key === 'Tab') {
-                this.fire('tabkeyclose', { shiftKey: e.shiftKey });
+                this.fire_('tabkeyclose', { shiftKey: e.shiftKey });
             }
             e.preventDefault();
             return;
@@ -24511,9 +24510,6 @@ class CrActionMenuElement extends CrLitElement {
         options[index].focus();
     }
     close() {
-        if (!this.open) {
-            return;
-        }
         // Removing 'resize' and 'popstate' listeners when dialog is closed.
         this.removeListeners_();
         this.$.dialog.close();
@@ -24668,7 +24664,7 @@ class CrActionMenuElement extends CrLitElement {
             this.resizeObserver_ = new ResizeObserver(() => {
                 if (this.lastConfig_) {
                     this.positionDialog_(this.lastConfig_);
-                    this.fire('cr-action-menu-repositioned'); // For easier testing.
+                    this.fire_('cr-action-menu-repositioned'); // For easier testing.
                 }
             });
             this.resizeObserver_.observe(this.$.dialog);

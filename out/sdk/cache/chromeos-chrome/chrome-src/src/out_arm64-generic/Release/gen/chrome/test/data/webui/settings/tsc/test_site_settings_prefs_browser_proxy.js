@@ -88,6 +88,7 @@ export class TestSiteSettingsPrefsBrowserProxy extends TestBrowserProxy {
             ContentSettingsTypes.JAVASCRIPT_JIT,
             ContentSettingsTypes.LOCAL_FONTS,
             ContentSettingsTypes.MIC,
+            ContentSettingsTypes.MIDI_DEVICES,
             ContentSettingsTypes.MIXEDSCRIPT,
             ContentSettingsTypes.NOTIFICATIONS,
             ContentSettingsTypes.PAYMENT_HANDLER,
@@ -100,12 +101,6 @@ export class TestSiteSettingsPrefsBrowserProxy extends TestBrowserProxy {
             ContentSettingsTypes.VR,
             ContentSettingsTypes.WINDOW_MANAGEMENT,
         ];
-        if (loadTimeData.getBoolean('blockMidiByDefault')) {
-            this.categoryList_.push(ContentSettingsTypes.MIDI);
-        }
-        else {
-            this.categoryList_.push(ContentSettingsTypes.MIDI_DEVICES);
-        }
         if (loadTimeData.getBoolean('enableWebPrintingContentSetting')) {
             this.categoryList_.push(ContentSettingsTypes.WEB_PRINTING);
         }

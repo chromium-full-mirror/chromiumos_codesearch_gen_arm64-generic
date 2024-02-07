@@ -74,6 +74,8 @@ class GemmDataView;
 
 class HardSigmoidDataView;
 
+class HardSwishDataView;
+
 class LayerNormalizationDataView;
 
 class LeakyReluDataView;
@@ -207,6 +209,9 @@ using GemmPtr = mojo::StructPtr<Gemm>;
 
 class HardSigmoid;
 using HardSigmoidPtr = mojo::InlinedStructPtr<HardSigmoid>;
+
+class HardSwish;
+using HardSwishPtr = mojo::InlinedStructPtr<HardSwish>;
 
 class LayerNormalization;
 using LayerNormalizationPtr = mojo::StructPtr<LayerNormalization>;

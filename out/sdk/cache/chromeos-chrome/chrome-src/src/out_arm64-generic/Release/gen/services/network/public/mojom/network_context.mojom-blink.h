@@ -460,7 +460,7 @@ class BLINK_PLATFORM_EXPORT IpProtectionConfigGetter
   virtual void TryGetAuthTokens(uint32_t batch_size, IpProtectionProxyLayer proxy_layer, TryGetAuthTokensCallback callback) = 0;
 
 
-  using GetProxyListCallback = base::OnceCallback<void(const std::optional<WTF::Vector<WTF::Vector<WTF::String>>>&)>;
+  using GetProxyListCallback = base::OnceCallback<void(const std::optional<WTF::Vector<::net::ProxyChain>>&)>;
   
   virtual void GetProxyList(GetProxyListCallback callback) = 0;
 };

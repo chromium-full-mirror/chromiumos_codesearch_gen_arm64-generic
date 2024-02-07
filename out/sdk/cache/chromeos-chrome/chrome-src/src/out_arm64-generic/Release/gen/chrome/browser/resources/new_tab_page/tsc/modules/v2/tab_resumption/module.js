@@ -62,6 +62,17 @@ export class TabResumptionModuleElement extends I18nMixin(PolymerElement) {
     onMenuButtonClick_(e) {
         this.$.moduleHeaderElementV2.showAt(e);
     }
+    onTabClick_(e) {
+        chrome.metricsPrivate.recordSmallCount('NewTabPage.TabResumption.ClickIndex', e.model.index);
+        // Calculate the number of milliseconds in the difference. Max is 4 days.
+        chrome.metricsPrivate.recordValue({
+            metricName: 'NewTabPage.TabResumption.TimeElapsedSinceLastVisit',
+            type: chrome.metricsPrivate.MetricTypeType.HISTOGRAM_LOG,
+            min: 60 * 1000,
+            max: 4 * 24 * 60 * 60 * 1000,
+            buckets: 50,
+        }, Number(e.model.item.relativeTime.microseconds / 1000n));
+    }
 }
 customElements.define(TabResumptionModuleElement.is, TabResumptionModuleElement);
 async function createElement() {

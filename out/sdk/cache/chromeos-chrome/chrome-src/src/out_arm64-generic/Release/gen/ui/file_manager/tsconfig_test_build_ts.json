@@ -11,6 +11,12 @@
       "chrome://resources/ash/common/*": [
         "./../../ash/webui/common/resources/preprocessed/*"
       ],
+      "//resources/ash/common/cr_elements/*": [
+        "./../../ash/webui/common/resources/preprocessed/cr_elements/*"
+      ],
+      "chrome://resources/ash/common/cr_elements/*": [
+        "./../../ash/webui/common/resources/preprocessed/cr_elements/*"
+      ],
       "//resources/cros_components/*": [
         "./../../ui/webui/resources/tsc/cros_components/to_be_rewritten/*"
       ],
@@ -47,12 +53,6 @@
       "chrome://resources/cr_components/color_change_listener/*": [
         "./../../ui/webui/resources/tsc/cr_components/color_change_listener/*",
         "./../webui/resources/tsc/cr_components/color_change_listener/*"
-      ],
-      "//resources/cr_elements/*": [
-        "./../../ui/webui/resources/tsc/cr_elements/*"
-      ],
-      "chrome://resources/cr_elements/*": [
-        "./../../ui/webui/resources/tsc/cr_elements/*"
       ],
       "//resources/js/*": [
         "./../../ui/webui/resources/tsc/js/*"
@@ -112,13 +112,12 @@
     "preprocessed/file_manager/lib/base_store_unittest.ts",
     "preprocessed/file_manager/lib/for_tests.ts",
     "preprocessed/file_manager/lib/selector_unittest.ts",
-    "preprocessed/file_manager/state/for_tests.ts",
     "preprocessed/file_manager/state/ducks/all_entries_unittest.ts",
     "preprocessed/file_manager/state/ducks/android_apps_unittest.ts",
     "preprocessed/file_manager/state/ducks/bulk_pinning_unittest.ts",
+    "preprocessed/file_manager/state/ducks/current_directory_unittest.ts",
     "preprocessed/file_manager/state/ducks/device_unittest.ts",
     "preprocessed/file_manager/state/ducks/drive_unittest.ts",
-    "preprocessed/file_manager/state/ducks/current_directory_unittest.ts",
     "preprocessed/file_manager/state/ducks/folder_shortcuts_unittest.ts",
     "preprocessed/file_manager/state/ducks/launch_params_unittest.ts",
     "preprocessed/file_manager/state/ducks/navigation_unittest.ts",
@@ -126,10 +125,11 @@
     "preprocessed/file_manager/state/ducks/search_unittest.ts",
     "preprocessed/file_manager/state/ducks/ui_entries_unittest.ts",
     "preprocessed/file_manager/state/ducks/volumes_unittest.ts",
+    "preprocessed/file_manager/state/for_tests.ts",
     "preprocessed/file_manager/widgets/xf_breadcrumb_unittest.ts",
     "preprocessed/file_manager/widgets/xf_bulk_pinning_dialog_unittest.ts",
-    "preprocessed/file_manager/widgets/xf_conflict_dialog_unittest.ts",
     "preprocessed/file_manager/widgets/xf_cloud_panel_unittest.ts",
+    "preprocessed/file_manager/widgets/xf_conflict_dialog_unittest.ts",
     "preprocessed/file_manager/widgets/xf_dlp_restriction_details_dialog_unittest.ts",
     "preprocessed/file_manager/widgets/xf_icon_unittest.ts",
     "preprocessed/file_manager/widgets/xf_nudge_unittest.ts",
@@ -137,8 +137,8 @@
     "preprocessed/file_manager/widgets/xf_search_options_unittest.ts",
     "preprocessed/file_manager/widgets/xf_select_unittest.ts",
     "preprocessed/file_manager/widgets/xf_splitter_unittest.ts",
-    "preprocessed/file_manager/widgets/xf_tree_unittest.ts",
     "preprocessed/file_manager/widgets/xf_tree_item_unittest.ts",
+    "preprocessed/file_manager/widgets/xf_tree_unittest.ts",
     "preprocessed/file_manager/background/js/crostini_unittest.ts",
     "preprocessed/file_manager/background/js/drive_sync_handler_unittest.ts",
     "preprocessed/file_manager/background/js/volume_manager_unittest.ts",
@@ -164,6 +164,11 @@
     "preprocessed/file_manager/foreground/js/task_controller_unittest.ts",
     "preprocessed/file_manager/foreground/js/thumbnail_loader_unittest.ts",
     "preprocessed/file_manager/foreground/js/ui/actions_submenu_unittest.ts",
+    "preprocessed/file_manager/foreground/js/ui/banners/dlp_restricted_banner_unittest.ts",
+    "preprocessed/file_manager/foreground/js/ui/banners/drive_bulk_pinning_banner_unittest.ts",
+    "preprocessed/file_manager/foreground/js/ui/banners/educational_banner_unittest.ts",
+    "preprocessed/file_manager/foreground/js/ui/banners/state_banner_unittest.ts",
+    "preprocessed/file_manager/foreground/js/ui/banners/warning_banner_unittest.ts",
     "preprocessed/file_manager/foreground/js/ui/command_unittest.ts",
     "preprocessed/file_manager/foreground/js/ui/context_menu_handler_unittest.ts",
     "preprocessed/file_manager/foreground/js/ui/file_grid_unittest.ts",
@@ -174,18 +179,13 @@
     "preprocessed/file_manager/foreground/js/ui/file_tap_handler_unittest.ts",
     "preprocessed/file_manager/foreground/js/ui/grid_unittest.ts",
     "preprocessed/file_manager/foreground/js/ui/install_linux_package_dialog_unittest.ts",
-    "preprocessed/file_manager/foreground/js/ui/menu_unittest.ts",
-    "preprocessed/file_manager/foreground/js/ui/multi_menu_unittest.ts",
-    "preprocessed/file_manager/foreground/js/ui/list_single_selection_model_unittest.ts",
     "preprocessed/file_manager/foreground/js/ui/list_selection_model_test_util.ts",
     "preprocessed/file_manager/foreground/js/ui/list_selection_model_unittest.ts",
+    "preprocessed/file_manager/foreground/js/ui/list_single_selection_model_unittest.ts",
     "preprocessed/file_manager/foreground/js/ui/list_unittest.ts",
+    "preprocessed/file_manager/foreground/js/ui/menu_unittest.ts",
+    "preprocessed/file_manager/foreground/js/ui/multi_menu_unittest.ts",
     "preprocessed/file_manager/foreground/js/ui/position_util_unittest.ts",
-    "preprocessed/file_manager/foreground/js/ui/banners/drive_bulk_pinning_banner_unittest.ts",
-    "preprocessed/file_manager/foreground/js/ui/banners/state_banner_unittest.ts",
-    "preprocessed/file_manager/foreground/js/ui/banners/warning_banner_unittest.ts",
-    "preprocessed/file_manager/foreground/js/ui/banners/educational_banner_unittest.ts",
-    "preprocessed/file_manager/foreground/js/ui/banners/dlp_restricted_banner_unittest.ts",
     "preprocessed/file_manager/foreground/js/ui/splitter_unittest.ts",
     "preprocessed/file_manager/foreground/js/metadata/content_metadata_provider_unittest.ts",
     "preprocessed/file_manager/foreground/js/metadata/dlp_metadata_provider_unittest.ts",
@@ -223,6 +223,9 @@
       "path": "../../ash/webui/common/resources/tsconfig_build_ts.json"
     },
     {
+      "path": "../../ash/webui/common/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
       "path": "../../chrome/test/data/webui/tsconfig_build_ts.json"
     },
     {
@@ -242,9 +245,6 @@
     },
     {
       "path": "../webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
-    },
-    {
-      "path": "../webui/resources/cr_elements/tsconfig_build_ts.json"
     },
     {
       "path": "../webui/resources/js/tsconfig_build_ts.json"

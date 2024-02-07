@@ -78,7 +78,7 @@ describeWithMockConnection('CookieModel', () => {
         const blockedCookie = SDK.Cookie.Cookie.fromProtocolCookie(blockedProtocolCookie);
         model.addBlockedCookie(blockedCookie, [
             {
-                attribute: "same-site" /* SDK.Cookie.Attributes.SameSite */,
+                attribute: "same-site" /* SDK.Cookie.Attribute.SameSite */,
                 uiString: 'This cookie was blocked because it had the "SameSite=Lax" attribute and the request was made from a different site and was not initiated by a top-level navigation.',
             },
         ]);

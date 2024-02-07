@@ -1375,6 +1375,8 @@ class RuntimeEnabledFeaturesTestHelpers {
       RuntimeEnabledFeaturesBase::is_web_app_translations_enabled_>;
   using ScopedWebAppUrlHandling = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_web_app_url_handling_enabled_>;
+  using ScopedWebAssemblyJSPromiseIntegration = ScopedRuntimeEnabledFeature<
+      RuntimeEnabledFeaturesBase::is_web_assembly_js_promise_integration_enabled_>;
   using ScopedWebAssemblyJSStringBuiltins = ScopedRuntimeEnabledFeature<
       RuntimeEnabledFeaturesBase::is_web_assembly_js_string_builtins_enabled_>;
   using ScopedWebAuth = ScopedRuntimeEnabledFeature<
@@ -2839,6 +2841,8 @@ using ScopedWebAppTranslationsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebAppTranslations;
 using ScopedWebAppUrlHandlingForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebAppUrlHandling;
+using ScopedWebAssemblyJSPromiseIntegrationForTest =
+    RuntimeEnabledFeaturesTestHelpers::ScopedWebAssemblyJSPromiseIntegration;
 using ScopedWebAssemblyJSStringBuiltinsForTest =
     RuntimeEnabledFeaturesTestHelpers::ScopedWebAssemblyJSStringBuiltins;
 using ScopedWebAuthForTest =

@@ -3673,9 +3673,9 @@
   WebFeature.kServiceWorkerEventHandlerModifiedAfterInitialization = 4469;
   WebFeature.kAuthorizationCrossOrigin = 4470;
   WebFeature.kCSSColorMixFunction = 4471;
-  WebFeature.kCSSColorColorSpecifiedSpace = 4472;
-  WebFeature.kCSSColorLabOklab = 4473;
-  WebFeature.kCSSColorLchOklch = 4474;
+  WebFeature.kOBSOLETE_CSSColorColorSpecifiedSpace = 4472;
+  WebFeature.kOBSOLETE_CSSColorLabOklab = 4473;
+  WebFeature.kOBSOLETE_CSSColorLchOklch = 4474;
   WebFeature.kOBSOLETE_CreateNSResolverWithNonElements2 = 4475;
   WebFeature.kGetDisplayMediaWithPreferCurrentTabTrue = 4476;
   WebFeature.kFencedFrameConfigAttribute = 4477;
@@ -4034,9 +4034,14 @@
   WebFeature.kSpeculationRulesBrowserPrefetchRule = 4831;
   WebFeature.kSpeculationRulesBrowserPrerenderRule = 4832;
   WebFeature.kFirstPartySharedWorkerSameSiteCookiesNone = 4833;
-  WebFeature.kNumberOfFeatures = 4834;
+  WebFeature.kCSSCustomStateDeprecatedSyntax = 4834;
+  WebFeature.kCSSColor_SpaceRGB = 4835;
+  WebFeature.kCSSColor_SpaceRGB_outOfRec2020 = 4836;
+  WebFeature.kCSSColor_SpaceOkLxx = 4837;
+  WebFeature.kCSSColor_SpaceOkLxx_OutOfRange = 4838;
+  WebFeature.kNumberOfFeatures = 4839;
   WebFeature.MIN_VALUE = 0;
-  WebFeature.MAX_VALUE = 4834;
+  WebFeature.MAX_VALUE = 4839;
 
   WebFeature.isKnownEnumValue = function(value) {
     switch (value) {
@@ -8053,6 +8058,11 @@
     case 4832:
     case 4833:
     case 4834:
+    case 4835:
+    case 4836:
+    case 4837:
+    case 4838:
+    case 4839:
       return true;
     }
     return false;

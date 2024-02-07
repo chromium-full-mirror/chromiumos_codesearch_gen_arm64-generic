@@ -4,9 +4,9 @@
 // Some of the properties and class names doesn't follow naming convention.
 // Disable naming-convention checks.
 /* eslint-disable @typescript-eslint/naming-convention */
-import '//resources/cr_elements/chromeos/cros_color_overrides.css.js';
-import '//resources/cr_elements/cr_radio_button/cr_card_radio_button.js';
-import '//resources/cr_elements/cr_radio_group/cr_radio_group.js';
+import '//resources/ash/common/cr_elements/cros_color_overrides.css.js';
+import '//resources/ash/common/cr_elements/cr_radio_button/cr_card_radio_button.js';
+import '//resources/ash/common/cr_elements/cr_radio_group/cr_radio_group.js';
 import '//resources/js/action_link.js';
 import '//resources/polymer/v3_0/iron-icon/iron-icon.js';
 import '../../components/buttons/oobe_back_button.js';

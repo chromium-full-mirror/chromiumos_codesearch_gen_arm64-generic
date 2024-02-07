@@ -130,10 +130,7 @@ export class SearchView extends UI.Widget.VBox {
         this.searchResultsElement = this.contentElement.createChild('div');
         this.searchResultsElement.className = 'search-results';
         const searchContainer = document.createElement('div');
-        searchContainer.style.flex = 'auto';
-        searchContainer.style.justifyContent = 'start';
-        searchContainer.style.maxWidth = '300px';
-        searchContainer.style.overflow = 'revert';
+        searchContainer.classList.add('toolbar-item-search');
         this.search = UI.HistoryInput.HistoryInput.create();
         this.search.addEventListener('keydown', event => {
             this.onKeyDown(event);

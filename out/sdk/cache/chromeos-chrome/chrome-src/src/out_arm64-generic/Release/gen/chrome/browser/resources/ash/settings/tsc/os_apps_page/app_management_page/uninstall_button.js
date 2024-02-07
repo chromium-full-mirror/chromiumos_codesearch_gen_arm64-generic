@@ -2,8 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import './app_management_cros_shared_style.css.js';
-import '//resources/cr_elements/cr_button/cr_button.js';
-import '//resources/cr_elements/policy/cr_tooltip_icon.js';
+import '//resources/ash/common/cr_elements/cr_button/cr_button.js';
+import '//resources/ash/common/cr_elements/policy/cr_tooltip_icon.js';
 import { BrowserProxy } from '//resources/cr_components/app_management/browser_proxy.js';
 import { AppManagementUserAction, InstallReason } from '//resources/cr_components/app_management/constants.js';
 import { recordAppManagementUserAction } from '//resources/cr_components/app_management/util.js';

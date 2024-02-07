@@ -72,7 +72,7 @@ class ChromiumDataCollector
     kGetTouchscreenDevicesMinVersion = 0,
     kGetTouchpadLibraryNameMinVersion = 0,
     kSetPrivacyScreenStateMinVersion = 1,
-    kSetAudioOutputMuteMinVersion = 2,
+    kDEPRECATED_SetAudioOutputMuteMinVersion = 2,
   };
 
 // crbug.com/1340245 - this causes binary size bloat on Fuchsia, and we're OK
@@ -87,7 +87,7 @@ class ChromiumDataCollector
   struct SetPrivacyScreenState_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
-  struct SetAudioOutputMute_Sym {
+  struct DEPRECATED_SetAudioOutputMute_Sym {
     NOINLINE static uint32_t IPCStableHash();
   };
 #endif // !BUILDFLAG(IS_FUCHSIA)
@@ -109,9 +109,9 @@ class ChromiumDataCollector
   virtual void SetPrivacyScreenState(bool state, SetPrivacyScreenStateCallback callback) = 0;
 
 
-  using SetAudioOutputMuteCallback = base::OnceCallback<void(bool)>;
+  using DEPRECATED_SetAudioOutputMuteCallback = base::OnceCallback<void(bool)>;
   
-  virtual void SetAudioOutputMute(bool mute_on, SetAudioOutputMuteCallback callback) = 0;
+  virtual void DEPRECATED_SetAudioOutputMute(bool mute_on, DEPRECATED_SetAudioOutputMuteCallback callback) = 0;
 };
 
 
@@ -129,7 +129,7 @@ class  ChromiumDataCollectorProxy
   
   void SetPrivacyScreenState(bool state, SetPrivacyScreenStateCallback callback) final;
   
-  void SetAudioOutputMute(bool mute_on, SetAudioOutputMuteCallback callback) final;
+  void DEPRECATED_SetAudioOutputMute(bool mute_on, DEPRECATED_SetAudioOutputMuteCallback callback) final;
 
  private:
   mojo::MessageReceiverWithResponder* receiver_;

@@ -6,19 +6,19 @@
  * 'crostini-port-forwarding' is the settings port forwarding subpage for
  * Crostini.
  */
-import 'chrome://resources/cr_elements/icons.html.js';
-import 'chrome://resources/cr_elements/cr_action_menu/cr_action_menu.js';
-import 'chrome://resources/cr_elements/cr_lazy_render/cr_lazy_render.js';
-import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
-import 'chrome://resources/cr_elements/cr_toast/cr_toast.js';
-import 'chrome://resources/cr_elements/cr_toggle/cr_toggle.js';
+import 'chrome://resources/ash/common/cr_elements/icons.html.js';
+import 'chrome://resources/ash/common/cr_elements/cr_action_menu/cr_action_menu.js';
+import 'chrome://resources/ash/common/cr_elements/cr_lazy_render/cr_lazy_render.js';
+import 'chrome://resources/ash/common/cr_elements/cr_icon_button/cr_icon_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_toast/cr_toast.js';
+import 'chrome://resources/ash/common/cr_elements/cr_toggle/cr_toggle.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import '../controls/settings_toggle_button.js';
 import '../os_settings_page/settings_card.js';
 import '../settings_shared.css.js';
 import './crostini_port_forwarding_add_port_dialog.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
-import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
+import { WebUiListenerMixin } from 'chrome://resources/ash/common/cr_elements/web_ui_listener_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { containerLabel, equalContainerId } from '../guest_os/guest_os_container_select.js';

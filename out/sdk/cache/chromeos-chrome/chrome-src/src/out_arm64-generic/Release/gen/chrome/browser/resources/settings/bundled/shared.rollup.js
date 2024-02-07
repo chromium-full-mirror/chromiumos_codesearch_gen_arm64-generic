@@ -6158,9 +6158,6 @@ customElements.define(CrPolicyPrefIndicatorElement.is, CrPolicyPrefIndicatorElem
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Behavior for policy controlled settings prefs.
- */
 const CrPolicyPrefMixin = dedupingMixin((superClass) => {
     class CrPolicyPrefMixin extends superClass {
         static get properties() {
@@ -6578,97 +6575,6 @@ class SettingsToggleButtonElement extends SettingsToggleButtonElementBase {
     }
 }
 customElements.define(SettingsToggleButtonElement.is, SettingsToggleButtonElement);
-
-function getTemplate$F() {
-    return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:var(--cr-toast-max-width,568px);min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
-            var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
-            var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
-            var(--cr-fallback-color-inverse-on-surface));border-radius:8px;line-height:20px;padding:0 16px}:host-context([dir=ltr]){left:0}:host-context([dir=rtl]){right:0}:host([open]){opacity:1;transform:translateY(0);visibility:visible}:host ::slotted(*){color:var(--cr-toast-text-color)}:host ::slotted(cr-button){background-color:transparent!important;border:none!important;color:var(--cr-toast-button-color)!important;margin-inline-start:32px!important;min-width:52px!important;padding:8px!important}:host ::slotted(cr-button:hover){background-color:transparent!important}:host-context([chrome-refresh-2023]) ::slotted(cr-button:last-of-type){margin-inline-end:-8px}</style>
-    <slot></slot>
-<!--_html_template_end_-->`;
-}
-
-// Copyright 2017 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview A lightweight toast.
- */
-class CrToastElement extends PolymerElement {
-    constructor() {
-        super(...arguments);
-        this.hideTimeoutId_ = null;
-    }
-    static get is() {
-        return 'cr-toast';
-    }
-    static get template() {
-        return getTemplate$F();
-    }
-    static get properties() {
-        return {
-            duration: {
-                type: Number,
-                value: 0,
-            },
-            open: {
-                readOnly: true,
-                type: Boolean,
-                value: false,
-                reflectToAttribute: true,
-            },
-        };
-    }
-    static get observers() {
-        return ['resetAutoHide_(duration, open)'];
-    }
-    /**
-     * Cancels existing auto-hide, and sets up new auto-hide.
-     */
-    resetAutoHide_() {
-        if (this.hideTimeoutId_ !== null) {
-            window.clearTimeout(this.hideTimeoutId_);
-            this.hideTimeoutId_ = null;
-        }
-        if (this.open && this.duration !== 0) {
-            this.hideTimeoutId_ = window.setTimeout(() => {
-                this.hide();
-            }, this.duration);
-        }
-    }
-    /**
-     * Shows the toast and auto-hides after |this.duration| milliseconds has
-     * passed. If the toast is currently being shown, any preexisting auto-hide
-     * is cancelled and replaced with a new auto-hide.
-     */
-    show() {
-        // Force autohide to reset if calling show on an already shown toast.
-        const shouldResetAutohide = this.open;
-        // The role attribute is removed first so that screen readers to better
-        // ensure that screen readers will read out the content inside the toast.
-        // If the role is not removed and re-added back in, certain screen readers
-        // do not read out the contents, especially if the text remains exactly
-        // the same as a previous toast.
-        this.removeAttribute('role');
-        // Reset the aria-hidden attribute as screen readers need to access the
-        // contents of an opened toast.
-        this.removeAttribute('aria-hidden');
-        this._setOpen(true);
-        this.setAttribute('role', 'alert');
-        if (shouldResetAutohide) {
-            this.resetAutoHide_();
-        }
-    }
-    /**
-     * Hides the toast and ensures that screen readers cannot its contents while
-     * hidden.
-     */
-    hide() {
-        this.setAttribute('aria-hidden', 'true');
-        this._setOpen(false);
-    }
-}
-customElements.define(CrToastElement.is, CrToastElement);
 
 /**
 @license
@@ -7930,7 +7836,7 @@ function prefToString(pref) {
     }
 }
 
-function getTemplate$E() {
+function getTemplate$F() {
     return html `<!--_html_template_start_--><style include="cr-radio-button-style cros-color-overrides">:host([disabled]){opacity:1}:host([disabled]) #labelWrapper,:host([disabled]) .disc-wrapper{opacity:var(--cr-disabled-opacity)}cr-policy-pref-indicator{margin-inline-start:var(--cr-controlled-by-spacing);pointer-events:all}</style>
 
 <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -7962,7 +7868,7 @@ class ControlledRadioButtonElement extends ControlledRadioButtonElementBase {
         return 'controlled-radio-button';
     }
     static get template() {
-        return getTemplate$E();
+        return getTemplate$F();
     }
     static get observers() {
         return [
@@ -8037,7 +7943,7 @@ class ExtensionControlBrowserProxyImpl {
 }
 let instance$d = null;
 
-function getTemplate$D() {
+function getTemplate$E() {
     return html `<!--_html_template_start_--><style include="cros-color-overrides">:host{align-items:center;display:flex;margin-inline-start:36px;min-height:var(--cr-section-min-height)}img{margin-inline-end:16px}iron-icon[icon='cr:open-in-new']{fill:var(--text-color);height:var(--cr-icon-size);width:var(--cr-icon-size)}#disable{margin-inline-start:8px}:host>span{flex:1;margin-inline-end:8px}</style>
 <img role="presentation" src="chrome://extension-icon/[[extensionId]]/20/1">
 <span>[[getLabel_(extensionName)]]</span>
@@ -8059,7 +7965,7 @@ class ExtensionControlledIndicatorElement extends PolymerElement {
         return 'extension-controlled-indicator';
     }
     static get template() {
-        return getTemplate$D();
+        return getTemplate$E();
     }
     static get properties() {
         return {
@@ -8083,7 +7989,7 @@ class ExtensionControlledIndicatorElement extends PolymerElement {
 }
 customElements.define(ExtensionControlledIndicatorElement.is, ExtensionControlledIndicatorElement);
 
-function getTemplate$C() {
+function getTemplate$D() {
     return html `<!--_html_template_start_-->    <style include="cr-radio-button-style cr-hidden-style"></style>
 
     <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
@@ -8110,7 +8016,7 @@ class CrRadioButtonElement extends CrRadioButtonElementBase {
         return 'cr-radio-button';
     }
     static get template() {
-        return getTemplate$C();
+        return getTemplate$D();
     }
     // Overridden from CrRadioButtonMixin
     getPaperRipple() {
@@ -8191,7 +8097,7 @@ class EventTracker {
     }
 }
 
-function getTemplate$B() {
+function getTemplate$C() {
     return html `<!--_html_template_start_-->    <style>:host{display:inline-block}:host ::slotted(*){padding:var(--cr-radio-group-item-padding,12px)}:host([disabled]){cursor:initial;pointer-events:none;user-select:none}:host([disabled]) ::slotted(*){opacity:var(--cr-disabled-opacity)}</style>
     <slot></slot>
 <!--_html_template_end_-->`;
@@ -8217,7 +8123,7 @@ class CrRadioGroupElement extends PolymerElement {
         return 'cr-radio-group';
     }
     static get template() {
-        return getTemplate$B();
+        return getTemplate$C();
     }
     static get properties() {
         return {
@@ -8420,7 +8326,7 @@ class CrRadioGroupElement extends PolymerElement {
 }
 customElements.define(CrRadioGroupElement.is, CrRadioGroupElement);
 
-function getTemplate$A() {
+function getTemplate$B() {
     return html `<!--_html_template_start_--><style>cr-radio-group{width:100%}</style>
 <cr-radio-group selected="[[selected]]" on-selected-changed="onSelectedChanged_" aria-label$="[[groupAriaLabel]]" selectable-elements="[[selectableElements]]">
   <slot></slot>
@@ -8447,7 +8353,7 @@ class SettingsRadioGroupElement extends SettingsRadioGroupElementBase {
         return 'settings-radio-group';
     }
     static get template() {
-        return getTemplate$A();
+        return getTemplate$B();
     }
     static get properties() {
         return {
@@ -9426,7 +9332,7 @@ const RouteObserverMixin = dedupingMixin((superClass) => {
     return RouteObserverMixin;
 });
 
-function getTemplate$z() {
+function getTemplate$A() {
     return html `<!--_html_template_start_-->    <iron-pages id="animatedPages" attr-for-selected="route-path" on-iron-select="onIronSelect_">
       <slot></slot>
     </iron-pages>
@@ -9453,7 +9359,7 @@ class SettingsAnimatedPagesElement extends SettingsAnimatedPagesElementBase {
         return 'settings-animated-pages';
     }
     static get template() {
-        return getTemplate$z();
+        return getTemplate$A();
     }
     static get properties() {
         return {
@@ -9649,7 +9555,7 @@ styleMod$2.appendChild(html `
 `.content);
 styleMod$2.register('cr-input-style');
 
-function getTemplate$y() {
+function getTemplate$z() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
     <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
       [[label]]
@@ -9692,7 +9598,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$y();
+        return getTemplate$z();
     }
     static get properties() {
         return {
@@ -9918,7 +9824,7 @@ class CrInputElement extends PolymerElement {
 }
 customElements.define(CrInputElement.is, CrInputElement);
 
-function getTemplate$x() {
+function getTemplate$y() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
           var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
     <iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
@@ -9944,7 +9850,7 @@ class CrSearchFieldElement extends CrSearchFieldElementBase {
         return 'cr-search-field';
     }
     static get template() {
-        return getTemplate$x();
+        return getTemplate$y();
     }
     static get properties() {
         return {
@@ -10099,7 +10005,7 @@ function getFaviconForPageURL(url, isSyncedUrlForHistoryUi, remoteIconUrlForUma 
     return getImageSet(faviconUrl.toString());
 }
 
-function getTemplate$w() {
+function getTemplate$x() {
     return html `<!--_html_template_start_-->    <style>#favicon{background-repeat:no-repeat;background-size:contain;border-radius:var(--site-favicon-border-radius,inherit);display:block;height:var(--site-favicon-height,16px);width:var(--site-favicon-width,16px)}</style>
     <div id="favicon" style="background-image:[[getBackgroundImage_(faviconUrl,url,iconPath) ]]">
     </div>
@@ -10118,7 +10024,7 @@ class SiteFaviconElement extends PolymerElement {
         return 'site-favicon';
     }
     static get template() {
-        return getTemplate$w();
+        return getTemplate$x();
     }
     static get properties() {
         return {
@@ -10179,7 +10085,7 @@ class SiteFaviconElement extends PolymerElement {
 }
 customElements.define(SiteFaviconElement.is, SiteFaviconElement);
 
-function getTemplate$v() {
+function getTemplate$w() {
     return html `<!--_html_template_start_--><style include="md-select cros-color-overrides">:host{align-items:center;display:inline-flex}cr-policy-pref-indicator{height:var(--iron-icon-width,24px);margin:0 var(--cr-controlled-by-spacing);order:var(--settings-dropdown-menu-policy-order,0);width:var(--iron-icon-width,24px)}option:disabled{display:none}</style>
 <template is="dom-if" if="[[pref.controlledBy]]" restamp>
   <cr-policy-pref-indicator pref="[[pref]]"></cr-policy-pref-indicator>
@@ -10215,7 +10121,7 @@ class SettingsDropdownMenuElement extends SettingsDropdownMenuElementBase {
         return 'settings-dropdown-menu';
     }
     static get template() {
-        return getTemplate$v();
+        return getTemplate$w();
     }
     static get properties() {
         return {
@@ -10238,6 +10144,15 @@ class SettingsDropdownMenuElement extends SettingsDropdownMenuElementBase {
                 value: null,
             },
             /**
+             * If true, do not automatically set the preference value. This allows the
+             * container to confirm the change first then call either sendPrefChange
+             * or resetToPrefValue accordingly.
+             */
+            noSetPref: {
+                type: Boolean,
+                value: false,
+            },
+            /**
              * The value of the "custom" item.
              */
             notFoundValue: {
@@ -10257,15 +10172,10 @@ class SettingsDropdownMenuElement extends SettingsDropdownMenuElementBase {
     focus() {
         this.$.dropdownMenu.focus();
     }
-    /**
-     * Pass the selection change to the pref value.
-     */
-    onChange_() {
-        const selected = this.$.dropdownMenu.value;
-        if (selected === this.notFoundValue) {
-            return;
-        }
+    /** Update the pref to the current selected value. */
+    sendPrefChange() {
         assert(this.pref);
+        const selected = this.$.dropdownMenu.value;
         if (this.prefKey) {
             this.set(`pref.value.${this.prefKey}`, selected);
         }
@@ -10274,6 +10184,17 @@ class SettingsDropdownMenuElement extends SettingsDropdownMenuElementBase {
             if (prefValue !== undefined) {
                 this.set('pref.value', prefValue);
             }
+        }
+    }
+    /**
+     * Pass the selection change to the pref value.
+     */
+    onChange_() {
+        if (this.$.dropdownMenu.value === this.notFoundValue) {
+            return;
+        }
+        if (!this.noSetPref) {
+            this.sendPrefChange();
         }
         // settings-control-change only fires when the selection is changed to
         // a valid property.
@@ -11154,7 +11075,7 @@ const TooltipMixin = dedupingMixin((superClass) => {
     return TooltipMixin;
 });
 
-function getTemplate$u() {
+function getTemplate$v() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{display:block;--separator-line-height:16px;--cr-icon-button-margin-end:0}#header-wrapper{align-items:center;display:flex;flex:1}#header-text-wrapper{flex-direction:column;flex:1;margin-inline-end:24px}#header,#subheader,.display-name{font-size:.8125rem}#header{font-weight:500}#header-wrapper{min-height:calc(2em * 1.54)}iron-icon{--iron-icon-height:20px;--iron-icon-width:20px}iron-icon.green{--iron-icon-fill-color:var(--google-green-700)}iron-icon.blue{--iron-icon-fill-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){iron-icon.green{--iron-icon-fill-color:var(--google-green-300)}iron-icon.blue{--iron-icon-fill-color:var(--google-blue-300)}}.list-item{clip-path:polygon(0 0,0 100%,100% 100%,100% 0)}.display-name{flex:1;max-width:100%}#header-icon,.item-icon,site-favicon{padding-inline-end:16px}#line{box-sizing:border-box;height:var(--separator-line-height);border-bottom:1px solid var(--cr-separator-color);flex:1}paper-tooltip{--paper-tooltip-min-width:max-content}</style>
 
 <template is="dom-if" if="[[animated]]">
@@ -11230,7 +11151,7 @@ class SettingsSafetyHubModuleElement extends SettingsSafetyHubModuleElementBase 
         return 'settings-safety-hub-module';
     }
     static get template() {
-        return getTemplate$u();
+        return getTemplate$v();
     }
     static get properties() {
         return {
@@ -11448,7 +11369,7 @@ class SettingsSafetyHubModuleElement extends SettingsSafetyHubModuleElementBase 
 }
 customElements.define(SettingsSafetyHubModuleElement.is, SettingsSafetyHubModuleElement);
 
-function getTemplate$t() {
+function getTemplate$u() {
     return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
 
     <div id="label" aria-hidden="true"><slot></slot></div>
@@ -11470,7 +11391,7 @@ class CrExpandButtonElement extends PolymerElement {
         return 'cr-expand-button';
     }
     static get template() {
-        return getTemplate$t();
+        return getTemplate$u();
     }
     static get properties() {
         return {
@@ -11565,7 +11486,7 @@ class CrExpandButtonElement extends PolymerElement {
 }
 customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);
 
-function getTemplate$s() {
+function getTemplate$t() {
     return html `<!--_html_template_start_-->    <style include="settings-shared cr-radio-button-style">:host{display:block}:host([disabled]){opacity:1}:host([disabled]) cr-expand-button,cr-policy-pref-indicator{pointer-events:auto}:host([disabled]) .disc-wrapper{opacity:var(--cr-disabled-opacity)}iron-collapse{margin-inline-end:0;margin-inline-start:calc(var(--cr-radio-button-label-spacing,20px) + var(--cr-radio-button-size))}.disc-wrapper{margin-inline-end:var(--cr-radio-button-label-spacing,20px)}.separator{margin-inline-end:0;min-height:calc(var(--settings-collapse-toggle-min-height,48px)/ 2)}#borderWrapper{align-items:center;border-top:var(--settings-collapse-separator-line);display:flex;min-height:var(--settings-collapse-toggle-min-height);width:100%}#buttonIcon{padding-inline-end:6px}#labelWrapper{--cr-radio-button-label-spacing:0}#radioCollapse{align-items:center;display:flex}slot[name=noSelectionCollapse]{cursor:auto}</style>
     <div id="radioCollapse">
       <div aria-checked$="[[getAriaChecked_(checked)]]" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-focus="onRadioFocus_" on-keydown="onInputKeydown_">
@@ -11610,7 +11531,7 @@ class SettingsCollapseRadioButtonElement extends SettingsCollapseRadioButtonElem
         return 'settings-collapse-radio-button';
     }
     static get template() {
-        return getTemplate$s();
+        return getTemplate$t();
     }
     static get properties() {
         return {
@@ -11760,7 +11681,6 @@ var ContentSettingsTypes;
     ContentSettingsTypes["JAVASCRIPT_JIT"] = "javascript-jit";
     ContentSettingsTypes["LOCAL_FONTS"] = "local-fonts";
     ContentSettingsTypes["MIC"] = "media-stream-mic";
-    ContentSettingsTypes["MIDI"] = "midi";
     ContentSettingsTypes["MIDI_DEVICES"] = "midi-sysex";
     ContentSettingsTypes["MIXEDSCRIPT"] = "mixed-script";
     ContentSettingsTypes["NOTIFICATIONS"] = "notifications";
@@ -11921,7 +11841,7 @@ var CookiesExceptionType;
     CookiesExceptionType["COMBINED"] = "combined";
 })(CookiesExceptionType || (CookiesExceptionType = {}));
 
-function getTemplate$r() {
+function getTemplate$s() {
     return html `<!--_html_template_start_--><style include="settings-shared">#radioSection{padding:0 var(--cr-section-padding)}#radioGroupSubLabel{padding-bottom:10px}settings-collapse-radio-button{--settings-collapse-toggle-min-height:var(--cr-section-min-height)}settings-collapse-radio-button.two-line{--settings-collapse-toggle-min-height:var(--cr-section-two-line-min-height)}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}</style>
 <div id="radioSection">
   <h2>[[header]]</h2>
@@ -12264,7 +12184,7 @@ class SettingsCategoryDefaultRadioGroupElement extends SettingsCategoryDefaultRa
         return 'settings-category-default-radio-group';
     }
     static get template() {
-        return getTemplate$r();
+        return getTemplate$s();
     }
     static get properties() {
         return {
@@ -12344,7 +12264,6 @@ class SettingsCategoryDefaultRadioGroupElement extends SettingsCategoryDefaultRa
             case ContentSettingsTypes.IDLE_DETECTION:
             case ContentSettingsTypes.LOCAL_FONTS:
             case ContentSettingsTypes.MIC:
-            case ContentSettingsTypes.MIDI:
             case ContentSettingsTypes.MIDI_DEVICES:
             case ContentSettingsTypes.NOTIFICATIONS:
             case ContentSettingsTypes.SERIAL_PORTS:
@@ -12427,7 +12346,7 @@ class SettingsCategoryDefaultRadioGroupElement extends SettingsCategoryDefaultRa
 }
 customElements.define(SettingsCategoryDefaultRadioGroupElement.is, SettingsCategoryDefaultRadioGroupElement);
 
-function getTemplate$q() {
+function getTemplate$r() {
     return html `<!--_html_template_start_-->    <style>:host ::slotted([slot=view]){bottom:0;display:none;left:0;position:absolute;right:0;top:0}:host ::slotted(.active),:host ::slotted(.closing){display:block}</style>
     <slot name="view"></slot>
 <!--_html_template_end_-->`;
@@ -12490,7 +12409,7 @@ class CrViewManagerElement extends PolymerElement {
         return 'cr-view-manager';
     }
     static get template() {
-        return getTemplate$q();
+        return getTemplate$r();
     }
     exit_(element, animation) {
         const animationFunction = viewAnimations.get(animation);
@@ -12539,7 +12458,7 @@ class CrViewManagerElement extends PolymerElement {
 }
 customElements.define(CrViewManagerElement.is, CrViewManagerElement);
 
-function getTemplate$p() {
+function getTemplate$q() {
     return html `<!--_html_template_start_--><style include="cr-shared-style cr-actionable-row-style">:host{padding-inline-start:4px}#labelWrapper{flex:1;padding-inline-start:16px}#label{font-size:.875rem;padding-bottom:4px}cr-icon-button{--cr-icon-button-icon-size:24px;margin:2px}</style>
 <picture>
   <source srcset="[[darkImgSrc]]" media="(prefers-color-scheme: dark)">
@@ -12569,7 +12488,7 @@ class PrivacyGuideCompletionLinkRowElement extends PolymerElement {
         return 'privacy-guide-completion-link-row';
     }
     static get template() {
-        return getTemplate$p();
+        return getTemplate$q();
     }
     static get properties() {
         return {
@@ -12633,7 +12552,7 @@ class ClearBrowsingDataBrowserProxyImpl {
 }
 let instance$a = null;
 
-function getTemplate$o() {
+function getTemplate$p() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared">:host{display:flex;flex-flow:column;min-height:calc(432px - var(--privacy-guide-footer-total-height))}.headline{outline:0}.headline-container{padding:36px 120px 16px 120px;row-gap:8px}:host-context([is-privacy-guide-v2]) .header-phase2 picture{animation:fade-in var(--privacy-guide-animation-duration);animation-delay:.1s;animation-fill-mode:forwards;opacity:0}:host-context([is-privacy-guide-v2]) .cr-secondary-text,:host-context([is-privacy-guide-v2]) .headline{animation:fade-in var(--privacy-guide-animation-duration)}:host-context([is-privacy-guide-v2]) #privacySandboxRow,:host-context([is-privacy-guide-v2]) #waaRow{animation:fade-in var(--privacy-guide-animation-duration)}#picture-container{height:153px;margin-block-end:12px;position:relative;width:354px}:host-context([is-no-link-layout]) #picture-container{margin-block-end:32px;margin-block-start:24px}.picture-shapes-container{--shape-color-green:rgba(71, 166, 86, 1);--shape-color-red:rgba(255, 127, 116, 1);--shape-color-yellow:rgba(251, 188, 4, 1);animation:fade-in 50ms ease-in .2s forwards;opacity:0}@media (prefers-color-scheme:dark){.picture-shapes-container{--shape-color-green:rgba(129, 201, 149, 1);--shape-color-yellow:rgba(253, 214, 99, 1)}}.picture-shape{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:100% 100%;animation-delay:.2s;animation-duration:.3s;animation-fill-mode:forwards;left:0;position:absolute;top:0;transform-origin:center center}@keyframes circle{0%{transform:translate(134px,131px) rotate(80deg)}100%{transform:translate(0,117px) rotate(0)}}#circle{-webkit-mask-image:url(images/privacy_guide/completion_banner_circle.svg);animation-name:circle;animation-timing-function:cubic-bezier(.12,.44,.46,.78);background:var(--shape-color-yellow);height:18px;width:18px}@keyframes pill{0%{transform:translate(194px,91px) rotate(145deg)}100%{transform:translate(325px,29px) rotate(-125deg)}}#pill{-webkit-mask-image:url(images/privacy_guide/completion_banner_pill.svg);animation-name:pill;animation-timing-function:cubic-bezier(.06,.55,.44,.87);background:var(--shape-color-yellow);height:18px;width:25px}@keyframes square{0%{transform:translate(128px,99px) rotate(80deg)}100%{transform:translate(83px,8px) rotate(0)}}#square{-webkit-mask-image:url(images/privacy_guide/completion_banner_square.svg);animation-name:square;animation-timing-function:cubic-bezier(.26,.59,.54,.87);background:var(--shape-color-green);height:13px;width:13px}@keyframes triangle{0%{transform:translate(243px,103px) rotate(60deg)}100%{transform:translate(290px,96px) rotate(0)}}#triangle{-webkit-mask-image:url(images/privacy_guide/completion_banner_triangle.svg);animation-name:triangle;animation-timing-function:cubic-bezier(.19,.5,.52,.82);background:var(--shape-color-red);height:12px;width:13px}privacy-guide-completion-link-row{border-radius:4px}.footer{align-items:center;bottom:calc(-1 * var(--privacy-guide-footer-total-height));display:flex;justify-content:space-between;padding:var(--privacy-guide-footer-vertical-padding) 0;position:absolute;width:calc(100% - 48px)}</style>
 <div class="header-phase2">
   <div id="picture-container">
@@ -12693,7 +12612,7 @@ class PrivacyGuideCompletionFragmentElement extends PrivacyGuideCompletionFragme
         return 'privacy-guide-completion-fragment';
     }
     static get template() {
-        return getTemplate$o();
+        return getTemplate$p();
     }
     static get properties() {
         return {
@@ -12770,7 +12689,7 @@ class PrivacyGuideCompletionFragmentElement extends PrivacyGuideCompletionFragme
 }
 customElements.define(PrivacyGuideCompletionFragmentElement.is, PrivacyGuideCompletionFragmentElement);
 
-function getTemplate$n() {
+function getTemplate$o() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#descriptionItemWrapper{display:flex;margin:12px 0;padding-inline-end:12px}iron-icon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
         var(--google-grey-700));display:flex;flex-shrink:0;padding:2px 0;padding-inline-end:10px;width:var(--cr-link-row-icon-width,var(--cr-icon-size))}@media (prefers-color-scheme:dark){iron-icon{--iron-icon-fill-color:var(--cr-link-row-start-icon-color,
           var(--google-grey-500))}}</style>
@@ -12797,7 +12716,7 @@ class PrivacyGuideDescriptionItemElement extends PolymerElement {
         return 'privacy-guide-description-item';
     }
     static get template() {
-        return getTemplate$n();
+        return getTemplate$o();
     }
     static get properties() {
         return {
@@ -12821,7 +12740,7 @@ class PrivacyGuideDescriptionItemElement extends PolymerElement {
 }
 customElements.define(PrivacyGuideDescriptionItemElement.is, PrivacyGuideDescriptionItemElement);
 
-function getTemplate$m() {
+function getTemplate$n() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared"></style>
 <div class="header-phase2" focus-element tabindex="-1">
   <picture>
@@ -12905,7 +12824,7 @@ class PrivacyGuideCookiesFragmentElement extends PrivacyGuideCookiesFragmentBase
         return 'privacy-guide-cookies-fragment';
     }
     static get template() {
-        return getTemplate$m();
+        return getTemplate$n();
     }
     static get properties() {
         return {
@@ -13119,7 +13038,7 @@ var PrivacyGuideStepPg3Off;
     PrivacyGuideStepPg3Off["COMPLETION"] = "completion";
 })(PrivacyGuideStepPg3Off || (PrivacyGuideStepPg3Off = {}));
 
-function getTemplate$l() {
+function getTemplate$m() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared"></style>
 <div class="header-phase2" focus-element tabindex="-1">
   <picture>
@@ -13189,7 +13108,7 @@ class PrivacyGuideHistorySyncFragmentElement extends PrivacyGuideHistorySyncFrag
         return 'privacy-guide-history-sync-fragment';
     }
     static get template() {
-        return getTemplate$l();
+        return getTemplate$m();
     }
     static get properties() {
         return {
@@ -13308,7 +13227,7 @@ class PrivacyGuideHistorySyncFragmentElement extends PrivacyGuideHistorySyncFrag
 }
 customElements.define(PrivacyGuideHistorySyncFragmentElement.is, PrivacyGuideHistorySyncFragmentElement);
 
-function getTemplate$k() {
+function getTemplate$l() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared"></style>
 <div class="header-phase2" focus-element tabindex="-1">
   <picture>
@@ -13368,7 +13287,7 @@ class PrivacyGuideMsbbFragmentElement extends PrivacyGuideMsbbFragmentBase$1 {
         return 'privacy-guide-msbb-fragment';
     }
     static get template() {
-        return getTemplate$k();
+        return getTemplate$l();
     }
     static get properties() {
         return {
@@ -13426,7 +13345,7 @@ class PrivacyGuideMsbbFragmentElement extends PrivacyGuideMsbbFragmentBase$1 {
 }
 customElements.define(PrivacyGuideMsbbFragmentElement.is, PrivacyGuideMsbbFragmentElement);
 
-function getTemplate$j() {
+function getTemplate$k() {
     return html `<!--_html_template_start_--><style include="cr-hidden-style cr-input-style cr-shared-style">textarea{display:block;resize:none}#input-container{background-color:var(--cr-input-background-color)}:host([autogrow][has-max-height]) #input-container{box-sizing:content-box;max-height:var(--cr-textarea-autogrow-max-height);min-height:1lh}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}:host-context([chrome-refresh-2023]) #input{padding-bottom:var(--cr-input-padding-bottom);padding-inline-end:var(--cr-input-padding-end);padding-inline-start:var(--cr-input-padding-start);padding-top:var(--cr-input-padding-top)}#footerContainer{border-top:0;display:var(--cr-textarea-footer-display,none);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);justify-content:space-between;line-height:var(--cr-form-field-label-line-height);margin:8px 0;min-height:0;padding:0;white-space:var(--cr-input-error-white-space)}:host([invalid]) #footerContainer,:host([invalid]) #label{color:var(--cr-input-error-color)}#mirror{display:none}:host([autogrow]) #mirror{display:block;visibility:hidden;white-space:pre-wrap;word-wrap:break-word}:host([autogrow]) #mirror,:host([autogrow]) textarea{border:0;box-sizing:border-box;padding-bottom:var(--cr-input-padding-bottom,6px);padding-inline-end:var(--cr-input-padding-end,8px);padding-inline-start:var(--cr-input-padding-start,8px);padding-top:var(--cr-input-padding-top,6px)}:host([autogrow]) textarea{height:100%;left:0;overflow:hidden;position:absolute;resize:none;top:0;width:100%}:host([autogrow][has-max-height]) #mirror,:host([autogrow][has-max-height]) textarea{overflow-x:hidden;overflow-y:auto}:host-context([chrome-refresh-2023]) textarea{position:relative;z-index:1}:host-context([chrome-refresh-2023]):host([autogrow]) textarea{position:absolute}:host-context([chrome-refresh-2023]) #mirror{font-size:12px;line-height:16px}</style>
 <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
   [[label]]
@@ -13463,7 +13382,7 @@ class CrTextareaElement extends PolymerElement {
         return 'cr-textarea';
     }
     static get template() {
-        return getTemplate$j();
+        return getTemplate$k();
     }
     static get properties() {
         return {
@@ -13662,7 +13581,7 @@ class PrivacyPageBrowserProxyImpl {
 }
 let instance$8 = null;
 
-function getTemplate$i() {
+function getTemplate$j() {
     return html `<!--_html_template_start_-->    <style include="cros-color-overrides">:host{cursor:auto;display:block;width:100%}cr-textarea{width:100%;--cr-textarea-footer-display:flex}</style>
     
     <cr-textarea id="input" value="{{value}}" rows="1" autogrow="true" placeholder="$i18n{secureDnsCustomPlaceholder}" invalid="[[showError_]]" first-footer="[[errorText_]]" maxlength="102400" spellcheck="false" on-keypress="onKeyPress_" on-input="onInput_" on-blur="validate" on-change="validate">
@@ -13687,7 +13606,7 @@ class SecureDnsInputElement extends PolymerElement {
         return 'secure-dns-input';
     }
     static get template() {
-        return getTemplate$i();
+        return getTemplate$j();
     }
     static get properties() {
         return {
@@ -13760,7 +13679,7 @@ class SecureDnsInputElement extends PolymerElement {
 }
 customElements.define(SecureDnsInputElement.is, SecureDnsInputElement);
 
-function getTemplate$h() {
+function getTemplate$i() {
     return html `<!--_html_template_start_--><style include="settings-shared">#secureDnsDialogDescription{padding-top:10px}cr-dialog::part(dialog){width:370px}</style>
 
 <cr-dialog id="dialog" show-on-attach>
@@ -13797,7 +13716,7 @@ class SettingsSecureDnsDialogElement extends SettingsSecureDnsDialogElementBase 
         return 'settings-secure-dns-dialog';
     }
     static get template() {
-        return getTemplate$h();
+        return getTemplate$i();
     }
     /**
      * Sets the pref's mode to false which will turn off the toggle, and closes
@@ -13830,7 +13749,7 @@ class SettingsSecureDnsDialogElement extends SettingsSecureDnsDialogElementBase 
 }
 customElements.define(SettingsSecureDnsDialogElement.is, SettingsSecureDnsDialogElement);
 
-function getTemplate$g() {
+function getTemplate$h() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style md-select cros-color-overrides">#resolverSelect{width:inherit}#resolverLabel{flex:1}#privacyPolicy{display:none;padding:calc(var(--cr-section-padding)/ 2) var(--cr-section-padding)}#privacyPolicy a{color:var(--cr-link-color)}#secureDnsInputContainer{margin-top:calc(var(--cr-section-padding)/ 2)}:host-context(body.revamp-wayfinding-enabled) settings-toggle-button{--cr-icon-button-margin-end:16px;--iron-icon-fill-color:var(--cros-sys-primary)}</style>
 
 
@@ -13921,7 +13840,7 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
         return 'settings-secure-dns';
     }
     static get template() {
-        return getTemplate$g();
+        return getTemplate$h();
     }
     static get properties() {
         return {
@@ -14281,7 +14200,7 @@ class SettingsSecureDnsElement extends SettingsSecureDnsElementBase {
 }
 customElements.define(SettingsSecureDnsElement.is, SettingsSecureDnsElement);
 
-function getTemplate$f() {
+function getTemplate$g() {
     return html `<!--_html_template_start_--><cr-dialog id="dialog" close-text="$i18n{close}" show-on-attach>
   <div slot="title">[[titleText]]</div>
   <div slot="body">[[bodyText]]</div>
@@ -14310,7 +14229,7 @@ class SettingsSimpleConfirmationDialogElement extends PolymerElement {
         return 'settings-simple-confirmation-dialog';
     }
     static get template() {
-        return getTemplate$f();
+        return getTemplate$g();
     }
     static get properties() {
         return {
@@ -14363,7 +14282,7 @@ const template = html `<iron-iconset-svg name="iph" size="24">
 `;
 document.head.appendChild(template.content);
 
-function getTemplate$e() {
+function getTemplate$f() {
     return html `<!--_html_template_start_--><link rel="stylesheet" href="chrome://theme/colors.css?sets=ui,chrome&shadow_host=true">
 <style include="cr-hidden-style">:host{--help-bubble-background:var(--color-feature-promo-bubble-background,
         var(--google-blue-700));--help-bubble-foreground:var(--color-feature-promo-bubble-foreground,
@@ -14740,6 +14659,15 @@ mojo.internal.Struct(HelpBubbleParamsSpec.$, 'HelpBubbleParams', [
     mojo.internal.StructField('bodyIconAltText', 48, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('progress', 56, 0, ProgressSpec.$, null, true /* nullable */, 0),
     mojo.internal.StructField('buttons', 64, 0, mojo.internal.Array(HelpBubbleButtonParamsSpec.$, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('focus_on_show_hint_$flag', 12, 0, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: true,
+        linkedValueFieldName: "focus_on_show_hint_$value",
+        originalFieldName: "focusOnShowHint",
+    }),
+    mojo.internal.StructField('focus_on_show_hint_$value', 12, 1, mojo.internal.Bool, false, false /* nullable */, 0, {
+        isPrimary: false,
+        originalFieldName: "focusOnShowHint",
+    }),
     mojo.internal.StructField('timeout', 72, 0, TimeDeltaSpec.$, null, true /* nullable */, 0),
 ], [[0, 88],]);
 mojo.internal.Struct(HelpBubbleHandlerFactory_CreateHelpBubbleHandler_ParamsSpec.$, 'HelpBubbleHandlerFactory_CreateHelpBubbleHandler_Params', [
@@ -14814,6 +14742,7 @@ class HelpBubbleElement extends PolymerElement {
         this.debouncedUpdate = null;
         this.padding = { top: 0, bottom: 0, left: 0, right: 0 };
         this.fixed = false;
+        this.focusAnchor = false;
         /**
          * HTMLElement corresponding to |this.nativeId|.
          */
@@ -14834,7 +14763,7 @@ class HelpBubbleElement extends PolymerElement {
         return 'help-bubble';
     }
     static get template() {
-        return getTemplate$e();
+        return getTemplate$f();
     }
     static get properties() {
         return {
@@ -14939,11 +14868,23 @@ class HelpBubbleElement extends PolymerElement {
      * Focuses a button in the bubble.
      */
     focus() {
+        // First try to focus either the default button or any action button.
         this.$.buttonlist.render();
-        const button = this.$.buttons.querySelector('cr-button.default-button') ||
-            this.$.buttons.querySelector('cr-button') || this.$.close;
-        assert(button);
-        button.focus();
+        const defaultButton = this.$.buttons.querySelector('cr-button.default-button') ||
+            this.$.buttons.querySelector('cr-button');
+        if (defaultButton instanceof HTMLElement) {
+            defaultButton.focus();
+            return;
+        }
+        // As a fallback, focus the close button before trying to focus the anchor;
+        // this will allow the focus to stay on the close button if the anchor
+        // cannot be focused.
+        this.$.close.focus();
+        // Maybe try to focus the anchor. This is preferable to focusing the close
+        // button, but not every element can be focused.
+        if (this.anchorElement_ && this.focusAnchor) {
+            this.anchorElement_.focus();
+        }
     }
     /**
      * Returns whether the default button is leading (true on Windows) vs trailing
@@ -15387,6 +15328,7 @@ class HelpBubbleController {
         this.bubble_.progress = params.progress || null;
         this.bubble_.buttons = params.buttons;
         this.bubble_.padding = this.options_.padding;
+        this.bubble_.focusAnchor = params.focusOnShowHint === false;
         if (params.timeout) {
             this.bubble_.timeoutMs = Number(params.timeout.microseconds / 1000n);
             assert(this.bubble_.timeoutMs > 0);
@@ -16000,7 +15942,7 @@ class HatsBrowserProxyImpl {
 }
 let instance$6 = null;
 
-function getTemplate$d() {
+function getTemplate$e() {
     return html `<!--_html_template_start_-->    <style include="cr-shared-style settings-shared">img{width:100%}#safeBrowsingSection{padding:0 var(--cr-section-padding)}#httpsOnlyModeToggle{padding:0 var(--cr-section-padding)}.bullet-line{align-items:center;display:flex;min-height:var(--cr-section-min-height)}.bullet-line>div{padding-inline-start:var(--cr-radio-button-size)}#enhancedProtectionDescContainer{display:flex}#learnMoreLabelContainer{padding-top:10px}#thingsToConsiderContainer{padding-left:10px}#whenOnContainer{padding-right:5px}:is(#whenOnContainer,#thingsToConsiderContainer)>.bullet-line{padding-top:10px;align-items:flex-start;min-height:30px}settings-collapse-radio-button:not(:first-of-type){--settings-collapse-separator-line:var(--cr-separator-line)}settings-collapse-radio-button[hidden]+settings-collapse-radio-button{--settings-collapse-separator-line:0}settings-collapse-radio-button .bullet-line:last-child{padding-bottom:12px}settings-toggle-button{padding-inline-end:0;padding-inline-start:0}settings-toggle-button:not([disabled]){pointer-events:all}#safeBrowsingEnhanced .bullet-line:last-of-type{padding-bottom:12px}#safeBrowsingEnhanced{--cr-radio-button-unchecked-ripple-color:var(--cr-radio-button-checked-ripple-color)}#httpsFirstModeSettingHeader .cr-padded-text{padding-block-end:0}#httpsFirstModeRadioGroup .list-item{padding-block-start:var(--cr-section-vertical-padding);padding-block-end:var(--cr-section-vertical-padding)}</style>
     <picture>
       <source srcset="chrome://settings/images/safe_browsing_banner_dark.svg" media="(prefers-color-scheme: dark)">
@@ -16247,7 +16189,7 @@ class SettingsSecurityPageElement extends SettingsSecurityPageElementBase {
         return 'settings-security-page';
     }
     static get template() {
-        return getTemplate$d();
+        return getTemplate$e();
     }
     static get properties() {
         return {
@@ -16684,7 +16626,7 @@ class SettingsSecurityPageElement extends SettingsSecurityPageElementBase {
 }
 customElements.define(SettingsSecurityPageElement.is, SettingsSecurityPageElement);
 
-function getTemplate$c() {
+function getTemplate$d() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared"></style>
 <div class="header-phase2" focus-element tabindex="-1">
   <picture>
@@ -16820,7 +16762,7 @@ class PrivacyGuideSafeBrowsingFragmentElement extends PrivacyGuideSafeBrowsingFr
         return 'privacy-guide-safe-browsing-fragment';
     }
     static get template() {
-        return getTemplate$c();
+        return getTemplate$d();
     }
     static get properties() {
         return {
@@ -16918,7 +16860,7 @@ class PrivacyGuideSafeBrowsingFragmentElement extends PrivacyGuideSafeBrowsingFr
 }
 customElements.define(PrivacyGuideSafeBrowsingFragmentElement.is, PrivacyGuideSafeBrowsingFragmentElement);
 
-function getTemplate$b() {
+function getTemplate$c() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared"></style>
 <div class="header-phase2" focus-element tabindex="-1">
   <picture>
@@ -16979,7 +16921,7 @@ class PrivacyGuideSearchSuggestionsFragmentElement extends PrivacyGuideMsbbFragm
         return 'privacy-guide-search-suggestions-fragment';
     }
     static get template() {
-        return getTemplate$b();
+        return getTemplate$c();
     }
     static get properties() {
         return {
@@ -17037,7 +16979,7 @@ class PrivacyGuideSearchSuggestionsFragmentElement extends PrivacyGuideMsbbFragm
 }
 customElements.define(PrivacyGuideSearchSuggestionsFragmentElement.is, PrivacyGuideSearchSuggestionsFragmentElement);
 
-function getTemplate$a() {
+function getTemplate$b() {
     return html `<!--_html_template_start_--><style include="privacy-guide-fragment-shared">:host{display:flex;flex-flow:column;min-height:calc(432px - var(--privacy-guide-footer-total-height))}.headline{outline:0}.headline-container{padding:48px 116px var(--cr-section-padding) 116px;row-gap:12px}.footer{align-items:center;bottom:calc(-1 * var(--privacy-guide-footer-total-height));display:flex;justify-content:flex-end;padding-bottom:var(--privacy-guide-footer-vertical-padding);position:absolute;width:calc(100% - 48px)}:host-context([is-privacy-guide-v2]) picture{animation:fade-in 1.5s,slide-in .3s}:host-context([is-privacy-guide-v2]) .footer{animation:fade-in var(--privacy-guide-animation-duration)}</style>
 <div class="headline-container">
   <picture>
@@ -17070,7 +17012,7 @@ class PrivacyGuideWelcomeFragmentElement extends PolymerElement {
         return 'privacy-guide-welcome-fragment';
     }
     static get template() {
-        return getTemplate$a();
+        return getTemplate$b();
     }
     focus() {
         this.shadowRoot.querySelector('.headline').focus();
@@ -17082,7 +17024,7 @@ class PrivacyGuideWelcomeFragmentElement extends PolymerElement {
 }
 customElements.define(PrivacyGuideWelcomeFragmentElement.is, PrivacyGuideWelcomeFragmentElement);
 
-function getTemplate$9() {
+function getTemplate$a() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{align-items:center;display:flex}span{background:var(--google-grey-200);border-radius:50%;display:inline-block;height:8px;margin:0 4px;width:8px}span.active{background:var(--google-blue-600)}.screen-reader-only{clip:rect(0,0,0,0);position:fixed}@media (prefers-color-scheme:dark){span{background:var(--google-grey-500)}span.active{background:var(--google-blue-300)}}</style>
 <template is="dom-repeat" items="[[dots_]]">
   <span class$="[[getActiveClass_(index, model.active)]]"></span>
@@ -17141,7 +17083,7 @@ class StepIndicator extends StepIndicatorBase {
         return index === this.model.active ? 'active' : '';
     }
     static get template() {
-        return getTemplate$9();
+        return getTemplate$a();
     }
 }
 customElements.define(StepIndicator.is, StepIndicator);
@@ -17194,7 +17136,7 @@ const PrivacyGuideAvailabilityMixin = dedupingMixin((superClass) => {
     return PrivacyGuideAvailabilityMixinInternal;
 });
 
-function getTemplate$8() {
+function getTemplate$9() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{--privacy-guide-animation-duration:900ms;--privacy-guide-footer-vertical-padding:16px;--privacy-guide-footer-total-height:calc(var(--cr-button-height) +
         2 * var(--privacy-guide-footer-vertical-padding))}.footer{align-items:center;bottom:0;box-sizing:border-box;display:flex;justify-content:space-between;padding:var(--privacy-guide-footer-vertical-padding) 24px;position:absolute;width:100%}.managed-fragment{bottom:initial;grid-column-start:1;grid-row-start:1;left:initial;position:unset;right:initial;top:initial}#viewManager{position:relative}#viewManager>:not(.active){left:0;position:absolute;top:0}.visibility-hidden{visibility:hidden}#privacyGuideCard{background-color:var(--cr-card-background-color);border-radius:var(--cr-card-border-radius);box-shadow:var(--cr-card-shadow);box-sizing:border-box;display:flex;flex-flow:column;min-height:432px;padding-bottom:var(--privacy-guide-footer-total-height);position:relative}@keyframes fade-in{0%{opacity:0}100%{opacity:1}}#background{animation:fade-in var(--privacy-guide-animation-duration);height:100px;left:50%;position:absolute;top:24px;transform:translateX(-50%);width:360px}#background picture{display:block;height:100%;left:0;position:absolute;top:0;width:100%}#backgroundClouds{transform:translateX(calc(var(--privacy-guide-step) * -4px));transition:transform .3s cubic-bezier(.4,0,.2,1)}:host-context([dir=rtl]) #backgroundClouds{transform:translateX(calc(var(--privacy-guide-step) * 4px))}#backgroundHills{transform:translateX(calc(var(--privacy-guide-step) * -2px));transition:transform .3s cubic-bezier(.4,0,.2,1)}:host-context([dir=rtl]) #backgroundHills{transform:translateX(calc(var(--privacy-guide-step) * 2px))}</style>
 <div id="privacyGuideCard" on-keydown="onKeyDown_" part="privacyGuideCard" style="--privacy-guide-v2-translate-multiplier:[[translateMultiplier_]]">
@@ -17277,7 +17219,7 @@ class SettingsPrivacyGuidePageElement extends PrivacyGuideBase {
         return 'settings-privacy-guide-page';
     }
     static get template() {
-        return getTemplate$8();
+        return getTemplate$9();
     }
     static get properties() {
         return {
@@ -17804,7 +17746,7 @@ class SettingsPrivacyGuidePageElement extends PrivacyGuideBase {
 }
 customElements.define(SettingsPrivacyGuidePageElement.is, SettingsPrivacyGuidePageElement);
 
-function getTemplate$7() {
+function getTemplate$8() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">#headerLine{margin:8px}#backToSettingsButton{margin-inline-end:10px;margin-inline-start:-10px}#dialog{background-color:var(--cr-card-background-color);border:0;height:100vh;margin:0;max-height:100vh;max-width:100vw;padding:0;width:100vw}#dialog[open]{display:block}settings-privacy-guide-page::part(privacyGuideCard){background-color:transparent;box-shadow:none;margin:auto;max-width:680px;min-width:550px}</style>
 <dialog id="dialog" on-cancel="onDialogCancel_" on-close="onDialogClose_" aria-label="$i18n{privacyGuideLabel}">
   <div class="cr-row first" id="headerLine" slot="title">
@@ -17831,7 +17773,7 @@ class SettingsPrivacyGuideDialogElement extends PolymerElement {
         return 'settings-privacy-guide-dialog';
     }
     static get template() {
-        return getTemplate$7();
+        return getTemplate$8();
     }
     static get properties() {
         return {
@@ -18145,7 +18087,7 @@ function getTrustedScriptURL(literal) {
     return staticPolicy.createScriptURL('', literal);
 }
 
-function getTemplate$6() {
+function getTemplate$7() {
     return getTrustedHTML `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
 
 <div id="messages" role="alert" aria-live="polite" aria-relevant="additions">
@@ -18189,7 +18131,7 @@ class CrA11yAnnouncerElement extends CustomElement {
         return 'cr-a11y-announcer';
     }
     static get template() {
-        return getTemplate$6();
+        return getTemplate$7();
     }
     disconnectedCallback() {
         if (this.currentTimeout_ !== null) {
@@ -18228,7 +18170,7 @@ class CrA11yAnnouncerElement extends CustomElement {
 }
 customElements.define(CrA11yAnnouncerElement.is, CrA11yAnnouncerElement);
 
-function getTemplate$5() {
+function getTemplate$6() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{padding:8px 16px}</style>
 
 
@@ -18255,7 +18197,7 @@ class SettingsSafetyHubEntryPointElement extends SettingsSafetyHubEntryPointElem
         return 'settings-safety-hub-entry-point';
     }
     static get template() {
-        return getTemplate$5();
+        return getTemplate$6();
     }
     static get properties() {
         return {
@@ -21706,6 +21648,97 @@ const FocusRowMixin = dedupingMixin((superClass) => {
     }
     return FocusRowMixin;
 });
+
+function getTemplate$5() {
+    return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:var(--cr-toast-max-width,568px);min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
+            var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
+            var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
+            var(--cr-fallback-color-inverse-on-surface));border-radius:8px;line-height:20px;padding:0 16px}:host-context([dir=ltr]){left:0}:host-context([dir=rtl]){right:0}:host([open]){opacity:1;transform:translateY(0);visibility:visible}:host ::slotted(*){color:var(--cr-toast-text-color)}:host ::slotted(cr-button){background-color:transparent!important;border:none!important;color:var(--cr-toast-button-color)!important;margin-inline-start:32px!important;min-width:52px!important;padding:8px!important}:host ::slotted(cr-button:hover){background-color:transparent!important}:host-context([chrome-refresh-2023]) ::slotted(cr-button:last-of-type){margin-inline-end:-8px}</style>
+    <slot></slot>
+<!--_html_template_end_-->`;
+}
+
+// Copyright 2017 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @fileoverview A lightweight toast.
+ */
+class CrToastElement extends PolymerElement {
+    constructor() {
+        super(...arguments);
+        this.hideTimeoutId_ = null;
+    }
+    static get is() {
+        return 'cr-toast';
+    }
+    static get template() {
+        return getTemplate$5();
+    }
+    static get properties() {
+        return {
+            duration: {
+                type: Number,
+                value: 0,
+            },
+            open: {
+                readOnly: true,
+                type: Boolean,
+                value: false,
+                reflectToAttribute: true,
+            },
+        };
+    }
+    static get observers() {
+        return ['resetAutoHide_(duration, open)'];
+    }
+    /**
+     * Cancels existing auto-hide, and sets up new auto-hide.
+     */
+    resetAutoHide_() {
+        if (this.hideTimeoutId_ !== null) {
+            window.clearTimeout(this.hideTimeoutId_);
+            this.hideTimeoutId_ = null;
+        }
+        if (this.open && this.duration !== 0) {
+            this.hideTimeoutId_ = window.setTimeout(() => {
+                this.hide();
+            }, this.duration);
+        }
+    }
+    /**
+     * Shows the toast and auto-hides after |this.duration| milliseconds has
+     * passed. If the toast is currently being shown, any preexisting auto-hide
+     * is cancelled and replaced with a new auto-hide.
+     */
+    show() {
+        // Force autohide to reset if calling show on an already shown toast.
+        const shouldResetAutohide = this.open;
+        // The role attribute is removed first so that screen readers to better
+        // ensure that screen readers will read out the content inside the toast.
+        // If the role is not removed and re-added back in, certain screen readers
+        // do not read out the contents, especially if the text remains exactly
+        // the same as a previous toast.
+        this.removeAttribute('role');
+        // Reset the aria-hidden attribute as screen readers need to access the
+        // contents of an opened toast.
+        this.removeAttribute('aria-hidden');
+        this._setOpen(true);
+        this.setAttribute('role', 'alert');
+        if (shouldResetAutohide) {
+            this.resetAutoHide_();
+        }
+    }
+    /**
+     * Hides the toast and ensures that screen readers cannot its contents while
+     * hidden.
+     */
+    hide() {
+        this.setAttribute('aria-hidden', 'true');
+        this._setOpen(false);
+    }
+}
+customElements.define(CrToastElement.is, CrToastElement);
 
 function getTemplate$4() {
     return html `<!--_html_template_start_-->    <style include="cr-hidden-style"></style>

@@ -803,7 +803,7 @@ bool PasswordManagerDriver_ShowPasswordSuggestions_Params_Data::Validate(
   if (!data)
     return true;
   if (!ValidateUnversionedStructHeaderAndSizeAndClaimMemory(
-          data, 64, validation_context)) {
+          data, 16, validation_context)) {
     return false;
   }
 
@@ -813,36 +813,10 @@ bool PasswordManagerDriver_ShowPasswordSuggestions_Params_Data::Validate(
       static_cast<const PasswordManagerDriver_ShowPasswordSuggestions_Params_Data*>(data);
 
   if (!mojo::internal::ValidatePointerNonNullable(
-          object->element_id, 1, validation_context)) {
+          object->request, 1, validation_context)) {
     return false;
   }
-  if (!mojo::internal::ValidateStruct(object->element_id, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->form, 2, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->form, validation_context))
-    return false;
-
-
-  if (!::mojo_base::mojom::internal::TextDirection_Data
-        ::Validate(object->text_direction, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->typed_username, 6, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->typed_username, validation_context))
-    return false;
-
-  if (!mojo::internal::ValidatePointerNonNullable(
-          object->bounds, 8, validation_context)) {
-    return false;
-  }
-  if (!mojo::internal::ValidateStruct(object->bounds, validation_context))
+  if (!mojo::internal::ValidateStruct(object->request, validation_context))
     return false;
 
   return true;

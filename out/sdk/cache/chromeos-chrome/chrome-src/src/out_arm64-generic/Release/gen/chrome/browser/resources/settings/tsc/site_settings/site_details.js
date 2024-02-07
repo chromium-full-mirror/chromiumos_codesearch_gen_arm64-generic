@@ -103,10 +103,6 @@ export class SiteDetailsElement extends SiteDetailsElementBase {
                 type: Boolean,
                 value: () => loadTimeData.getBoolean('autoPictureInPictureEnabled'),
             },
-            blockMidiByDefault_: {
-                type: Boolean,
-                value: () => loadTimeData.getBoolean('blockMidiByDefault'),
-            },
             contentSettingsTypesEnum_: {
                 type: Object,
                 value: ContentSettingsTypes,

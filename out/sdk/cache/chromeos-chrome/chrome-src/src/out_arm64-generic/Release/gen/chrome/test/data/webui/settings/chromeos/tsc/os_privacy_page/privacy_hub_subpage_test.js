@@ -41,6 +41,7 @@ function overriddenValues(privacyHubVersion) {
                 showPrivacyHubPage: true,
                 showPrivacyHubLocationControl: false,
                 showSpeakOnMuteDetectionPage: true,
+                showAppPermissionsInsidePrivacyHub: false,
             };
         }
         case PrivacyHubVersion.V0AndLocation: {
@@ -48,6 +49,7 @@ function overriddenValues(privacyHubVersion) {
                 showPrivacyHubPage: true,
                 showPrivacyHubLocationControl: true,
                 showSpeakOnMuteDetectionPage: true,
+                showAppPermissionsInsidePrivacyHub: false,
             };
         }
         default: {
@@ -626,6 +628,22 @@ suite('<settings-privacy-hub-subpage> AllBuilds app permissions', () => {
         flush();
         assertEquals(privacyHubSubpage.i18n('privacyHubPageMicrophoneRowSubtext'), getMicrophoneRowSubtext());
     });
+    function getMicrophoneToggleAriaLabel() {
+        return getMicrophoneCrToggle().getAttribute('aria-label').trim();
+    }
+    function getMicrophoneToggleAriaDescription() {
+        return getMicrophoneCrToggle().getAttribute('aria-description').trim();
+    }
+    test('Microphone toggle aria label and description', async () => {
+        mediaDevices.addDevice('audioinput', 'Fake Mic');
+        await flushTasks();
+        assertEquals(privacyHubSubpage.i18n('microphoneToggleTitle'), getMicrophoneToggleAriaLabel());
+        assertEquals(getMicrophoneRowSubtext(), getMicrophoneToggleAriaDescription());
+        getMicrophoneCrToggle().click();
+        flush();
+        assertEquals(privacyHubSubpage.i18n('microphoneToggleTitle'), getMicrophoneToggleAriaLabel());
+        assertEquals(getMicrophoneRowSubtext(), getMicrophoneToggleAriaDescription());
+    });
     test('Camera row subtext', async () => {
         mediaDevices.addDevice('videoinput', 'Fake Camera');
         await flushTasks();
@@ -642,6 +660,22 @@ suite('<settings-privacy-hub-subpage> AllBuilds app permissions', () => {
         PrivacyHubBrowserProxyImpl.setInstanceForTesting(privacyHubBrowserProxy);
         await createSubpage();
         assertEquals(privacyHubSubpage.i18n('privacyHubPageCameraRowFallbackSubtext'), getCameraRowSubtext());
+    });
+    function getCameraToggleAriaLabel() {
+        return getCameraCrToggle().getAttribute('aria-label').trim();
+    }
+    function getCameraToggleAriaDescription() {
+        return getCameraCrToggle().getAttribute('aria-description').trim();
+    }
+    test('Camera toggle aria label and description', async () => {
+        mediaDevices.addDevice('videoinput', 'Fake Camera');
+        await flushTasks();
+        assertEquals(privacyHubSubpage.i18n('cameraToggleTitle'), getCameraToggleAriaLabel());
+        assertEquals(getCameraRowSubtext(), getCameraToggleAriaDescription());
+        getCameraCrToggle().click();
+        flush();
+        assertEquals(privacyHubSubpage.i18n('cameraToggleTitle'), getCameraToggleAriaLabel());
+        assertEquals(getCameraRowSubtext(), getCameraToggleAriaDescription());
     });
 });
 async function parametrizedTestsuiteForMetricsConsentToggle(isPrivacyHubVisible) {

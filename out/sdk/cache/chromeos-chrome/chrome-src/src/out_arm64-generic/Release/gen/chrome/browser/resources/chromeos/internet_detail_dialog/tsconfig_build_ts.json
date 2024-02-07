@@ -31,11 +31,11 @@
       "chrome://resources/cr_components/color_change_listener/*": [
         "./../../../../../ui/webui/resources/tsc/cr_components/color_change_listener/*"
       ],
-      "//resources/cr_elements/*": [
-        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      "//resources/ash/common/cr_elements/*": [
+        "./../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
       ],
-      "chrome://resources/cr_elements/*": [
-        "./../../../../../ui/webui/resources/tsc/cr_elements/*"
+      "chrome://resources/ash/common/cr_elements/*": [
+        "./../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
       ],
       "//resources/js/*": [
         "./../../../../../ui/webui/resources/tsc/js/*"
@@ -71,7 +71,7 @@
       "path": "../../../../../ui/webui/resources/cr_components/color_change_listener/tsconfig_build_ts.json"
     },
     {
-      "path": "../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+      "path": "../../../../../ash/webui/common/resources/cr_elements/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../ui/webui/resources/js/tsconfig_build_ts.json"

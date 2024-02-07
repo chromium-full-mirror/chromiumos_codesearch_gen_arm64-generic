@@ -1,7 +1,7 @@
 // Copyright 2022 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import { CrInputElement } from 'chrome://resources/cr_elements/cr_input/cr_input.js';
+import { CrInputElement } from 'chrome://resources/ash/common/cr_elements/cr_input/cr_input.js';
 import { queryRequiredElement } from '../common/js/dom_utils.js';
 import { isEntryInsideDrive } from '../common/js/entry_utils.js';
 import { recordUserAction } from '../common/js/metrics.js';

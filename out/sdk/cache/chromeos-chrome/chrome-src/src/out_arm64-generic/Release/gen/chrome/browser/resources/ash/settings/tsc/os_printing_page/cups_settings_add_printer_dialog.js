@@ -12,8 +12,8 @@
  * - 'add-print-server-dialog' is a dialog in which the user can
  *   add a print server.
  */
-import 'chrome://resources/cr_elements/cr_input/cr_input.js';
-import 'chrome://resources/cr_components/localized_link/localized_link.js';
+import 'chrome://resources/ash/common/cr_elements/cr_input/cr_input.js';
+import 'chrome://resources/ash/common/cr_elements/localized_link/localized_link.js';
 import './cups_add_print_server_dialog.js';
 import './cups_add_printer_manually_dialog.js';
 import './cups_add_printer_manufacturer_model_dialog.js';

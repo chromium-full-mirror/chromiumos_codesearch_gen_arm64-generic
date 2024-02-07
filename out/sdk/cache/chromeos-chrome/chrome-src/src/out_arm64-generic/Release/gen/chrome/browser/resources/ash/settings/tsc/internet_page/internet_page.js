@@ -8,11 +8,11 @@
  */
 import 'chrome://resources/ash/common/cellular_setup/cellular_setup_icons.html.js';
 import 'chrome://resources/ash/common/network/sim_lock_dialogs.js';
-import 'chrome://resources/cr_elements/cr_expand_button/cr_expand_button.js';
-import 'chrome://resources/cr_elements/cr_icon_button/cr_icon_button.js';
-import 'chrome://resources/cr_elements/cr_toast/cr_toast.js';
-import 'chrome://resources/cr_elements/icons.html.js';
-import 'chrome://resources/cr_elements/policy/cr_policy_indicator.js';
+import 'chrome://resources/ash/common/cr_elements/cr_expand_button/cr_expand_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_icon_button/cr_icon_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_toast/cr_toast.js';
+import 'chrome://resources/ash/common/cr_elements/icons.html.js';
+import 'chrome://resources/ash/common/cr_elements/policy/cr_policy_indicator.js';
 import 'chrome://resources/polymer/v3_0/iron-icon/iron-icon.js';
 import 'chrome://resources/polymer/v3_0/paper-tooltip/paper-tooltip.js';
 import 'chrome://resources/cr_components/settings_prefs/prefs.js';
@@ -36,8 +36,8 @@ import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network
 import { NetworkListenerBehavior } from 'chrome://resources/ash/common/network/network_listener_behavior.js';
 import { OncMojo } from 'chrome://resources/ash/common/network/onc_mojo.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
-import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
+import { WebUiListenerMixin } from 'chrome://resources/ash/common/cr_elements/web_ui_listener_mixin.js';
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { StartConnectResult } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/cros_network_config.mojom-webui.js';

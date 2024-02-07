@@ -36,6 +36,8 @@ pub struct InstallRequest {
     pub omaha_url: ::std::string::String,
     // @@protoc_insertion_point(field:dlcservice.InstallRequest.reserve)
     pub reserve: bool,
+    // @@protoc_insertion_point(field:dlcservice.InstallRequest.force_ota)
+    pub force_ota: bool,
     // special fields
     // @@protoc_insertion_point(special_field:dlcservice.InstallRequest.special_fields)
     pub special_fields: ::protobuf::SpecialFields,
@@ -72,6 +74,9 @@ impl ::protobuf::Message for InstallRequest {
                 24 => {
                     self.reserve = is.read_bool()?;
                 },
+                16376 => {
+                    self.force_ota = is.read_bool()?;
+                },
                 tag => {
                     ::protobuf::rt::read_unknown_or_skip_group(tag, is, self.special_fields.mut_unknown_fields())?;
                 },
@@ -93,6 +98,9 @@ impl ::protobuf::Message for InstallRequest {
         if self.reserve != false {
             my_size += 1 + 1;
         }
+        if self.force_ota != false {
+            my_size += 2 + 1;
+        }
         my_size += ::protobuf::rt::unknown_fields_size(self.special_fields.unknown_fields());
         self.special_fields.cached_size().set(my_size as u32);
         my_size
@@ -107,6 +115,9 @@ impl ::protobuf::Message for InstallRequest {
         }
         if self.reserve != false {
             os.write_bool(3, self.reserve)?;
+        }
+        if self.force_ota != false {
+            os.write_bool(2047, self.force_ota)?;
         }
         os.write_unknown_fields(self.special_fields.unknown_fields())?;
         ::std::result::Result::Ok(())
@@ -128,6 +139,7 @@ impl ::protobuf::Message for InstallRequest {
         self.id.clear();
         self.omaha_url.clear();
         self.reserve = false;
+        self.force_ota = false;
         self.special_fields.clear();
     }
 
@@ -136,6 +148,7 @@ impl ::protobuf::Message for InstallRequest {
             id: ::std::string::String::new(),
             omaha_url: ::std::string::String::new(),
             reserve: false,
+            force_ota: false,
             special_fields: ::protobuf::SpecialFields::new(),
         };
         &instance

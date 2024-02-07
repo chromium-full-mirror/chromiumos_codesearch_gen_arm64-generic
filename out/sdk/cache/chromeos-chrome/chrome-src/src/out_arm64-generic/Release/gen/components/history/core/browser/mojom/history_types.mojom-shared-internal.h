@@ -39,7 +39,8 @@ class  Tab_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> session_name;
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> url;
   mojo::internal::Pointer<mojo::internal::String_Data> title;
-  mojo::internal::Pointer<mojo::internal::String_Data> relative_time;
+  mojo::internal::Pointer<::mojo_base::mojom::internal::TimeDelta_Data> relative_time;
+  mojo::internal::Pointer<mojo::internal::String_Data> relative_time_text;
 
  private:
   friend class mojo::internal::MessageFragment<Tab_Data>;
@@ -47,7 +48,7 @@ class  Tab_Data {
   Tab_Data();
   ~Tab_Data() = delete;
 };
-static_assert(sizeof(Tab_Data) == 48,
+static_assert(sizeof(Tab_Data) == 56,
               "Bad sizeof(Tab_Data)");
 // Used by Tab::WrapAsMessage to lazily serialize the struct.
 template <typename UserType, typename DataView>

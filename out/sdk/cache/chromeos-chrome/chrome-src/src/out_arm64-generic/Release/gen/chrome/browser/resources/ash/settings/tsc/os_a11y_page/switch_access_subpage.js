@@ -5,8 +5,8 @@
  * @fileoverview 'switch-access-subpage' is the collapsible section containing
  * Switch Access settings.
  */
-import 'chrome://resources/cr_elements/md_select.css.js';
-import 'chrome://resources/cr_elements/cr_link_row/cr_link_row.js';
+import 'chrome://resources/ash/common/cr_elements/md_select.css.js';
+import 'chrome://resources/ash/common/cr_elements/cr_link_row/cr_link_row.js';
 import '../controls/settings_slider.js';
 import '../controls/settings_toggle_button.js';
 import '../settings_shared.css.js';
@@ -14,8 +14,8 @@ import './switch_access_action_assignment_dialog.js';
 import './switch_access_setup_guide_dialog.js';
 import './switch_access_setup_guide_warning_dialog.js';
 import { PrefsMixin } from 'chrome://resources/cr_components/settings_prefs/prefs_mixin.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
-import { WebUiListenerMixin } from 'chrome://resources/cr_elements/web_ui_listener_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
+import { WebUiListenerMixin } from 'chrome://resources/ash/common/cr_elements/web_ui_listener_mixin.js';
 import { assertNotReached } from 'chrome://resources/js/assert.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';

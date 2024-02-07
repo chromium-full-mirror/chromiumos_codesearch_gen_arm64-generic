@@ -46,37 +46,37 @@ build obj/spaced/install_init.stamp: stamp
 build obj/spaced/install_minijail_conf.stamp: stamp
 subninja obj/spaced/libspaced.ninja
 rule __spaced_libspaced-test_pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r929/work/spaced-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/spaced/out/Default/obj/spaced/libspaced-test.pc --name=libspaced-test --description=Library\$ for\$ disk\$ usage\$ introspection --version=0.0.1 --libs=-lspaced --cflags=-I/usr/include/spaced-client-test
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r932/work/spaced-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/spaced/out/Default/obj/spaced/libspaced-test.pc --name=libspaced-test --description=Library\$ for\$ disk\$ usage\$ introspection --version=0.0.1 --libs=-lspaced --cflags=-I/usr/include/spaced-client-test
   description = ACTION //spaced:libspaced-test_pc(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/spaced/libspaced-test.pc: __spaced_libspaced-test_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r929/work/spaced-0.0.1/common-mk/generate-pc.py obj/spaced/_libspaced-test_pc-install_config.stamp
+build obj/spaced/libspaced-test.pc: __spaced_libspaced-test_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r932/work/spaced-0.0.1/common-mk/generate-pc.py obj/spaced/_libspaced-test_pc-install_config.stamp
 
 build obj/spaced/libspaced-test_pc.stamp: stamp obj/spaced/libspaced-test.pc
 rule __spaced_libspaced_pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r929/work/spaced-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/spaced/out/Default/obj/spaced/libspaced.pc --name=libspaced --description=Library\$ for\$ disk\$ usage\$ introspection --version=0.0.1 --libs=-lspaced --cflags=-I/usr/include/spaced-client
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r932/work/spaced-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/spaced/out/Default/obj/spaced/libspaced.pc --name=libspaced --description=Library\$ for\$ disk\$ usage\$ introspection --version=0.0.1 --libs=-lspaced --cflags=-I/usr/include/spaced-client
   description = ACTION //spaced:libspaced_pc(//common-mk/toolchain:toolchain)
   restat = 1
 
-build obj/spaced/libspaced.pc: __spaced_libspaced_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r929/work/spaced-0.0.1/common-mk/generate-pc.py obj/spaced/_libspaced_pc-install_config.stamp
+build obj/spaced/libspaced.pc: __spaced_libspaced_pc___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r932/work/spaced-0.0.1/common-mk/generate-pc.py obj/spaced/_libspaced_pc-install_config.stamp
 
 build obj/spaced/libspaced_pc.stamp: stamp obj/spaced/libspaced.pc
 subninja obj/spaced/spaced.ninja
 rule __spaced_spaced_adaptor___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r929/work/spaced-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/spaced/out/Default/gen/include/spaced/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/spaced-0.0.1-r929/work/spaced-0.0.1/spaced/dbus_bindings/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r932/work/spaced-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/spaced/out/Default/gen/include/spaced/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/spaced-0.0.1-r932/work/spaced-0.0.1/spaced/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //spaced:spaced_adaptor(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/spaced/dbus_adaptors/org.chromium.Spaced.h: __spaced_spaced_adaptor___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r929/work/spaced-0.0.1/spaced/dbus_bindings/org.chromium.Spaced.xml | ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r929/work/spaced-0.0.1/common-mk/file_generator_wrapper.py
+build gen/include/spaced/dbus_adaptors/org.chromium.Spaced.h: __spaced_spaced_adaptor___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r932/work/spaced-0.0.1/spaced/dbus_bindings/org.chromium.Spaced.xml | ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r932/work/spaced-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.Spaced
 
 build obj/spaced/spaced_adaptor.stamp: stamp gen/include/spaced/dbus_adaptors/org.chromium.Spaced.h
 subninja obj/spaced/spaced_cli.ninja
 rule __spaced_spaced_proxy___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r929/work/spaced-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config=/build/arm64-generic/tmp/portage/chromeos-base/spaced-0.0.1-r929/work/spaced-0.0.1/spaced/dbus_bindings/dbus-service-config.json -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/spaced/out/Default/gen/include/spaced/dbus-proxies.h -mock=/build/arm64-generic/var/cache/portage/chromeos-base/spaced/out/Default/gen/include/spaced/dbus-proxy-mocks.h -proxy-path-for-mocks=spaced/dbus-proxies.h ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r929/work/spaced-0.0.1/spaced/dbus_bindings/org.chromium.Spaced.xml
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r932/work/spaced-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config=/build/arm64-generic/tmp/portage/chromeos-base/spaced-0.0.1-r932/work/spaced-0.0.1/spaced/dbus_bindings/dbus-service-config.json -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/spaced/out/Default/gen/include/spaced/dbus-proxies.h -mock=/build/arm64-generic/var/cache/portage/chromeos-base/spaced/out/Default/gen/include/spaced/dbus-proxy-mocks.h -proxy-path-for-mocks=spaced/dbus-proxies.h ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r932/work/spaced-0.0.1/spaced/dbus_bindings/org.chromium.Spaced.xml
   description = ACTION //spaced:spaced_proxy(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/spaced/dbus-proxies.h gen/include/spaced/dbus-proxy-mocks.h: __spaced_spaced_proxy___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r929/work/spaced-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r929/work/spaced-0.0.1/spaced/dbus_bindings/org.chromium.Spaced.xml
+build gen/include/spaced/dbus-proxies.h gen/include/spaced/dbus-proxy-mocks.h: __spaced_spaced_proxy___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r932/work/spaced-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/spaced-0.0.1-r932/work/spaced-0.0.1/spaced/dbus_bindings/org.chromium.Spaced.xml
 
 build obj/spaced/spaced_proxy.stamp: stamp gen/include/spaced/dbus-proxies.h gen/include/spaced/dbus-proxy-mocks.h

@@ -60,6 +60,7 @@ ui_test.pak
 ui_test.pak.info
 mojo_service_manager/camera_hal_dispatcher_mojo_policy.jsonc
 mojo_service_manager/jpeg_accelerator_mojo_policy.jsonc
+mojo_service_manager/system_event_monitor.jsonc
 bin/run_services_perftests
 ../../../../../../../home/chrome-bot/chrome_root/src/.vpython3
 ../../../../../../../home/chrome-bot/chrome_root/src/testing/location_tags.json

@@ -2,10 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 import '../settings_shared.css.js';
-import 'chrome://resources/cr_elements/cr_action_menu/cr_action_menu.js';
-import 'chrome://resources/cr_elements/cr_lazy_render/cr_lazy_render.js';
+import 'chrome://resources/ash/common/cr_elements/cr_action_menu/cr_action_menu.js';
+import 'chrome://resources/ash/common/cr_elements/cr_lazy_render/cr_lazy_render.js';
 import { alphabeticalSort, getAppIcon } from 'chrome://resources/cr_components/app_management/util.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { assert } from 'chrome://resources/js/assert.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { AppLanguageSelectionDialogEntryPoint } from '../common/app_language_selection_dialog/app_language_selection_dialog.js';

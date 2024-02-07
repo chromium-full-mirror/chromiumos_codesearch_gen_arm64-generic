@@ -198,7 +198,9 @@ class  HelpBubbleParams_Data {
   mojo::internal::StructHeader header_;
   mojo::internal::Pointer<mojo::internal::String_Data> native_identifier;
   int32_t position;
-  uint8_t pad1_[4];
+  uint8_t focus_on_show_hint_$flag : 1;
+  uint8_t focus_on_show_hint_$value : 1;
+  uint8_t pad3_[3];
   mojo::internal::Pointer<mojo::internal::String_Data> title_text;
   mojo::internal::Pointer<mojo::internal::String_Data> body_text;
   mojo::internal::Pointer<mojo::internal::String_Data> close_button_alt_text;

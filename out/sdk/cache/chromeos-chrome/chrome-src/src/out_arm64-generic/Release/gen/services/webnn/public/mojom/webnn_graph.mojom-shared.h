@@ -87,6 +87,8 @@ class GemmDataView;
 
 class HardSigmoidDataView;
 
+class HardSwishDataView;
+
 class LayerNormalizationDataView;
 
 class LeakyReluDataView;
@@ -308,6 +310,13 @@ struct MojomTypeTraits<::webnn::mojom::GemmDataView> {
 template <>
 struct MojomTypeTraits<::webnn::mojom::HardSigmoidDataView> {
   using Data = ::webnn::mojom::internal::HardSigmoid_Data;
+  using DataAsArrayElement = Pointer<Data>;
+  static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
+};
+
+template <>
+struct MojomTypeTraits<::webnn::mojom::HardSwishDataView> {
+  using Data = ::webnn::mojom::internal::HardSwish_Data;
   using DataAsArrayElement = Pointer<Data>;
   static constexpr MojomTypeCategory category = MojomTypeCategory::kStruct;
 };
@@ -1679,6 +1688,27 @@ class HardSigmoidDataView {
 };
 
 
+class HardSwishDataView {
+ public:
+  HardSwishDataView() = default;
+
+  HardSwishDataView(
+      internal::HardSwish_Data* data,
+      mojo::Message* message)
+      : data_(data) {}
+
+  bool is_null() const { return !data_; }
+  uint64_t input_operand_id() const {
+    return data_->input_operand_id;
+  }
+  uint64_t output_operand_id() const {
+    return data_->output_operand_id;
+  }
+ private:
+  internal::HardSwish_Data* data_ = nullptr;
+};
+
+
 class LayerNormalizationDataView {
  public:
   LayerNormalizationDataView() = default;
@@ -2536,6 +2566,17 @@ class OperationDataView {
     CHECK(is_hard_sigmoid());
     return mojo::internal::Deserialize<::webnn::mojom::HardSigmoidDataView>(
         data_->data.f_hard_sigmoid.Get(), output, message_);
+  }
+  bool is_hard_swish() const { return data_->tag == Tag::kHardSwish; }
+  inline void GetHardSwishDataView(
+      HardSwishDataView* output) const;
+
+  template <typename UserType>
+  [[nodiscard]] bool ReadHardSwish(UserType* output) const {
+    
+    CHECK(is_hard_swish());
+    return mojo::internal::Deserialize<::webnn::mojom::HardSwishDataView>(
+        data_->data.f_hard_swish.Get(), output, message_);
   }
   bool is_layer_normalization() const { return data_->tag == Tag::kLayerNormalization; }
   inline void GetLayerNormalizationDataView(
@@ -4177,6 +4218,37 @@ struct Serializer<::webnn::mojom::HardSigmoidDataView, MaybeConstUserType> {
 namespace internal {
 
 template <typename MaybeConstUserType>
+struct Serializer<::webnn::mojom::HardSwishDataView, MaybeConstUserType> {
+  using UserType = typename std::remove_const<MaybeConstUserType>::type;
+  using Traits = StructTraits<::webnn::mojom::HardSwishDataView, UserType>;
+
+  static void Serialize(
+      MaybeConstUserType& input,
+      mojo::internal::MessageFragment<::webnn::mojom::internal::HardSwish_Data>& fragment) {
+    if (CallIsNullIfExists<Traits>(input))
+      return;
+    fragment.Allocate();
+    fragment->input_operand_id = Traits::input_operand_id(input);
+    fragment->output_operand_id = Traits::output_operand_id(input);
+  }
+
+  static bool Deserialize(::webnn::mojom::internal::HardSwish_Data* input,
+                          UserType* output,
+                          Message* message) {
+    if (!input)
+      return CallSetToNullIfExists<Traits>(output);
+
+    ::webnn::mojom::HardSwishDataView data_view(input, message);
+    return Traits::Read(data_view, output);
+  }
+};
+
+}  // namespace internal
+
+
+namespace internal {
+
+template <typename MaybeConstUserType>
 struct Serializer<::webnn::mojom::LayerNormalizationDataView, MaybeConstUserType> {
   using UserType = typename std::remove_const<MaybeConstUserType>::type;
   using Traits = StructTraits<::webnn::mojom::LayerNormalizationDataView, UserType>;
@@ -5360,6 +5432,22 @@ struct Serializer<::webnn::mojom::OperationDataView, MaybeConstUserType> {
             value_fragment.is_null() ? nullptr : value_fragment.data());
         break;
       }
+      case ::webnn::mojom::OperationDataView::Tag::kHardSwish: {
+        decltype(Traits::hard_swish(input))
+            in_hard_swish = Traits::hard_swish(input);
+        mojo::internal::MessageFragment<
+            typename decltype(fragment->data.f_hard_swish)::BaseType>
+            value_fragment(fragment.message());
+        mojo::internal::Serialize<::webnn::mojom::HardSwishDataView>(
+            in_hard_swish, value_fragment);
+        MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+            value_fragment.is_null(),
+            mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+            "null hard_swish in Operation union");
+        fragment->data.f_hard_swish.Set(
+            value_fragment.is_null() ? nullptr : value_fragment.data());
+        break;
+      }
       case ::webnn::mojom::OperationDataView::Tag::kLayerNormalization: {
         decltype(Traits::layer_normalization(input))
             in_layer_normalization = Traits::layer_normalization(input);
@@ -5944,6 +6032,8 @@ inline void SliceDataView::GetStartsAndSizesDataView(
 
 
 
+
+
 inline void LayerNormalizationDataView::GetAxesDataView(
     mojo::ArrayDataView<uint32_t>* output) {
   auto pointer = data_->axes.Get();
@@ -6162,6 +6252,11 @@ inline void OperationDataView::GetHardSigmoidDataView(
     HardSigmoidDataView* output) const {
   CHECK(is_hard_sigmoid());
   *output = HardSigmoidDataView(data_->data.f_hard_sigmoid.Get(), message_);
+}
+inline void OperationDataView::GetHardSwishDataView(
+    HardSwishDataView* output) const {
+  CHECK(is_hard_swish());
+  *output = HardSwishDataView(data_->data.f_hard_swish.Get(), message_);
 }
 inline void OperationDataView::GetLayerNormalizationDataView(
     LayerNormalizationDataView* output) const {

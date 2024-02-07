@@ -6,8 +6,8 @@
  * 'nearby-share-contact-visibility-dialog' allows editing of the users contact
  * visibility settings.
  */
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
 import '/shared/nearby_contact_visibility.js';
 import '/shared/nearby_onboarding_page.js';
 import '/shared/nearby_visibility_page.js';

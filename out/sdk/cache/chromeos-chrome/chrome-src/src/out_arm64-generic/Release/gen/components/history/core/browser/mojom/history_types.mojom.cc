@@ -49,19 +49,22 @@ Tab::Tab()
       session_name(),
       url(),
       title(),
-      relative_time() {}
+      relative_time(),
+      relative_time_text() {}
 
 Tab::Tab(
     const std::string& session_tag_in,
     const std::string& session_name_in,
     const ::GURL& url_in,
     const std::string& title_in,
-    const std::string& relative_time_in)
+    ::base::TimeDelta relative_time_in,
+    const std::string& relative_time_text_in)
     : session_tag(std::move(session_tag_in)),
       session_name(std::move(session_name_in)),
       url(std::move(url_in)),
       title(std::move(title_in)),
-      relative_time(std::move(relative_time_in)) {}
+      relative_time(std::move(relative_time_in)),
+      relative_time_text(std::move(relative_time_text_in)) {}
 
 Tab::~Tab() = default;
 
@@ -108,6 +111,15 @@ void Tab::WriteIntoTrace(
     dict.AddItem(
       "relative_time"), this->relative_time,
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
+      "<value of type ::base::TimeDelta>"
+#else
+      "<value>"
+#endif  // BUILDFLAG(MOJO_TRACE_ENABLED)
+    );
+  perfetto::WriteIntoTracedValueWithFallback(
+    dict.AddItem(
+      "relative_time_text"), this->relative_time_text,
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
       "<value of type const std::string&>"
 #else
       "<value>"
@@ -144,6 +156,8 @@ bool StructTraits<::history::mojom::Tab::DataView, ::history::mojom::TabPtr>::Re
       if (success && !input.ReadTitle(&result->title))
         success = false;
       if (success && !input.ReadRelativeTime(&result->relative_time))
+        success = false;
+      if (success && !input.ReadRelativeTimeText(&result->relative_time_text))
         success = false;
   *output = std::move(result);
   return success;

@@ -117,7 +117,9 @@ static constexpr struct TrialToFeature {
     { "WebAppScopeExtensions", 1, {mojom::OriginTrialFeature::kWebAppScopeExtensions, } },
     { "WebAppTabStrip", 2, {mojom::OriginTrialFeature::kWebAppTabStrip,mojom::OriginTrialFeature::kWebAppTabStripCustomizations, } },
     { "WebAppUrlHandling", 1, {mojom::OriginTrialFeature::kWebAppUrlHandling, } },
+    { "WebAssemblyJSPromiseIntegration", 1, {mojom::OriginTrialFeature::kWebAssemblyJSPromiseIntegration, } },
     { "WebAssemblyJSStringBuiltins", 1, {mojom::OriginTrialFeature::kWebAssemblyJSStringBuiltins, } },
+    { "WebIdentityDigitalCredentials", 1, {mojom::OriginTrialFeature::kWebIdentityDigitalCredentials, } },
     { "WebTransportCustomCertificates", 1, {mojom::OriginTrialFeature::kWebTransportCustomCertificates, } },
     { "WebViewXRequestedWithDeprecation", 1, {mojom::OriginTrialFeature::kWebViewXRequestedWithDeprecation, } },
     { "WebXRImageTracking", 1, {mojom::OriginTrialFeature::kWebXRImageTracking, } },
@@ -530,8 +532,16 @@ bool origin_trials::FeatureEnabledForOS(mojom::OriginTrialFeature feature) {
 #else
       return false;
 #endif
+    case mojom::OriginTrialFeature::kWebAssemblyJSPromiseIntegration:
+      return true;
     case mojom::OriginTrialFeature::kWebAssemblyJSStringBuiltins:
       return true;
+    case mojom::OriginTrialFeature::kWebIdentityDigitalCredentials:
+#if BUILDFLAG(IS_ANDROID)
+      return true;
+#else
+      return false;
+#endif
     case mojom::OriginTrialFeature::kWebTransportCustomCertificates:
       return true;
     case mojom::OriginTrialFeature::kWebViewXRequestedWithDeprecation:

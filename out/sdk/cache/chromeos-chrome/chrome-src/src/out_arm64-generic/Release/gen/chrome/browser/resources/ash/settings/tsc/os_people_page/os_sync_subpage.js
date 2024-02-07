@@ -5,14 +5,14 @@
  * @fileoverview
  * 'os-settings-sync-subpage' is the settings page containing sync settings.
  */
-import '//resources/cr_elements/cr_button/cr_button.js';
-import '//resources/cr_elements/cr_dialog/cr_dialog.js';
-import '//resources/cr_elements/cr_input/cr_input.js';
-import '//resources/cr_elements/cr_link_row/cr_link_row.js';
-import '//resources/cr_elements/icons.html.js';
-import '//resources/cr_elements/cr_shared_style.css.js';
-import '//resources/cr_elements/cr_shared_vars.css.js';
-import '//resources/cr_elements/cr_expand_button/cr_expand_button.js';
+import '//resources/ash/common/cr_elements/cr_button/cr_button.js';
+import '//resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
+import '//resources/ash/common/cr_elements/cr_input/cr_input.js';
+import '//resources/ash/common/cr_elements/cr_link_row/cr_link_row.js';
+import '//resources/ash/common/cr_elements/icons.html.js';
+import '//resources/ash/common/cr_elements/cr_shared_style.css.js';
+import '//resources/ash/common/cr_elements/cr_shared_vars.css.js';
+import '//resources/ash/common/cr_elements/cr_expand_button/cr_expand_button.js';
 import '//resources/polymer/v3_0/iron-collapse/iron-collapse.js';
 import '//resources/polymer/v3_0/iron-icon/iron-icon.js';
 import '//resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
@@ -20,11 +20,11 @@ import '//resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
 import './os_sync_encryption_options.js';
 import '../settings_shared.css.js';
 import '../settings_vars.css.js';
-import { WebUiListenerMixin } from '//resources/cr_elements/web_ui_listener_mixin.js';
+import { WebUiListenerMixin } from '//resources/ash/common/cr_elements/web_ui_listener_mixin.js';
 import { assert, assertNotReached } from '//resources/js/assert.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { PageStatus, StatusAction, SyncBrowserProxyImpl } from '/shared/settings/people_page/sync_browser_proxy.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { RouteOriginMixin } from '../common/route_origin_mixin.js';
 import { Router, routes } from '../router.js';

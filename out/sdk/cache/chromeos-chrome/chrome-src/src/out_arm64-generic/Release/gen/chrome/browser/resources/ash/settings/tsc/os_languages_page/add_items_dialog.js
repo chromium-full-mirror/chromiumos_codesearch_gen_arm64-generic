@@ -6,16 +6,16 @@
  * unordered set of items at a time. The component supports suggested items, as
  * well as items being disabled by policy.
  */
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_search_field/cr_search_field.js';
-import 'chrome://resources/cr_elements/cr_dialog/cr_dialog.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_search_field/cr_search_field.js';
+import 'chrome://resources/ash/common/cr_elements/cr_dialog/cr_dialog.js';
 import 'chrome://resources/polymer/v3_0/iron-flex-layout/iron-flex-layout-classes.js';
 import 'chrome://resources/polymer/v3_0/iron-list/iron-list.js';
 import './cr_checkbox_with_policy.js';
 import './shared_style.css.js';
 import '../settings_shared.css.js';
-import { CrScrollableMixin } from 'chrome://resources/cr_elements/cr_scrollable_mixin.js';
-import { FindShortcutMixin } from 'chrome://resources/cr_elements/find_shortcut_mixin.js';
+import { CrScrollableMixin } from 'chrome://resources/ash/common/cr_elements/cr_scrollable_mixin.js';
+import { FindShortcutMixin } from 'chrome://resources/ash/common/cr_elements/find_shortcut_mixin.js';
 import { afterNextRender, PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getTemplate } from './add_items_dialog.html.js';
 const ITEMS_ADDED_EVENT_NAME = 'items-added';

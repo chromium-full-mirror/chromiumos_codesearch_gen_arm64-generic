@@ -6,9 +6,9 @@
  * screen when sending data to a stranger. Strangers are devices of people that
  * are not currently in the contacts of this user.
  */
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
-import 'chrome://resources/cr_elements/cr_checkbox/cr_checkbox.js';
-import 'chrome://resources/cr_elements/cr_lottie/cr_lottie.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_checkbox/cr_checkbox.js';
+import 'chrome://resources/ash/common/cr_elements/cr_lottie/cr_lottie.js';
 import 'chrome://resources/cros_components/lottie_renderer/lottie-renderer.js';
 import '/shared/nearby_page_template.js';
 import '/shared/nearby_preview.js';
@@ -16,7 +16,7 @@ import '/shared/nearby_progress.js';
 import './strings.m.js';
 import { TransferStatus, TransferUpdateListenerReceiver } from '/shared/nearby_share.mojom-webui.js';
 import { CloseReason } from '/shared/types.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getDiscoveryManager } from './discovery_manager.js';
 import { getTemplate } from './nearby_confirmation_page.html.js';

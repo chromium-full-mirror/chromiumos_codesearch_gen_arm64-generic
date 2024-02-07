@@ -86,6 +86,7 @@ vk_swiftshader_icd.json
 ./libvulkan.so.1
 mojo_service_manager/camera_hal_dispatcher_mojo_policy.jsonc
 mojo_service_manager/jpeg_accelerator_mojo_policy.jsonc
+mojo_service_manager/system_event_monitor.jsonc
 snapshot_blob.bin
 snapshot_blob.bin
 bin/run_blink_heap_unittests

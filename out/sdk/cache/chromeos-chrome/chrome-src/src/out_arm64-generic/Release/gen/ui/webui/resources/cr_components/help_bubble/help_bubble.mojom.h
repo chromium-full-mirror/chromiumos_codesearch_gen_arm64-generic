@@ -752,6 +752,7 @@ class  HelpBubbleParams {
       const std::string& body_icon_alt_text,
       ProgressPtr progress,
       std::vector<HelpBubbleButtonParamsPtr> buttons,
+      std::optional<bool> focus_on_show_hint,
       std::optional<::base::TimeDelta> timeout);
 
 HelpBubbleParams(const HelpBubbleParams&) = delete;
@@ -849,6 +850,8 @@ HelpBubbleParams& operator=(const HelpBubbleParams&) = delete;
   ProgressPtr progress;
   
   std::vector<HelpBubbleButtonParamsPtr> buttons;
+  
+  std::optional<bool> focus_on_show_hint;
   
   std::optional<::base::TimeDelta> timeout;
 
@@ -951,6 +954,7 @@ HelpBubbleParamsPtr HelpBubbleParams::Clone() const {
       mojo::Clone(body_icon_alt_text),
       mojo::Clone(progress),
       mojo::Clone(buttons),
+      mojo::Clone(focus_on_show_hint),
       mojo::Clone(timeout)
   );
 }
@@ -974,6 +978,8 @@ bool HelpBubbleParams::Equals(const T& other_struct) const {
   if (!mojo::Equals(this->progress, other_struct.progress))
     return false;
   if (!mojo::Equals(this->buttons, other_struct.buttons))
+    return false;
+  if (!mojo::Equals(this->focus_on_show_hint, other_struct.focus_on_show_hint))
     return false;
   if (!mojo::Equals(this->timeout, other_struct.timeout))
     return false;
@@ -1017,6 +1023,10 @@ bool operator<(const T& lhs, const T& rhs) {
   if (lhs.buttons < rhs.buttons)
     return true;
   if (rhs.buttons < lhs.buttons)
+    return false;
+  if (lhs.focus_on_show_hint < rhs.focus_on_show_hint)
+    return true;
+  if (rhs.focus_on_show_hint < lhs.focus_on_show_hint)
     return false;
   if (lhs.timeout < rhs.timeout)
     return true;
@@ -1120,6 +1130,11 @@ struct  StructTraits<::help_bubble::mojom::HelpBubbleParams::DataView,
   static const decltype(::help_bubble::mojom::HelpBubbleParams::buttons)& buttons(
       const ::help_bubble::mojom::HelpBubbleParamsPtr& input) {
     return input->buttons;
+  }
+
+  static decltype(::help_bubble::mojom::HelpBubbleParams::focus_on_show_hint) focus_on_show_hint(
+      const ::help_bubble::mojom::HelpBubbleParamsPtr& input) {
+    return input->focus_on_show_hint;
   }
 
   static const decltype(::help_bubble::mojom::HelpBubbleParams::timeout)& timeout(

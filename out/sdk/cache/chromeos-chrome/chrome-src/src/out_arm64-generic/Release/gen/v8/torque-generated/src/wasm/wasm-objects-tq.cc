@@ -20,7 +20,7 @@ void TorqueGeneratedWasmInternalFunction<WasmInternalFunction, HeapObject>::Wasm
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=251&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=253&c=1
 bool IsWasmNull_NonInline(Tagged<HeapObject> o) {
   return IsWasmNull(o);
 }
@@ -202,7 +202,7 @@ void TorqueGeneratedWasmModuleObject<WasmModuleObject, JSObject>::WasmModuleObje
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=149&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=151&c=1
 bool IsWasmTableObject_NonInline(Tagged<HeapObject> o) {
   return IsWasmTableObject(o);
 }
@@ -216,7 +216,7 @@ void TorqueGeneratedWasmTableObject<WasmTableObject, JSObject>::WasmTableObjectV
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=171&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=173&c=1
 bool IsWasmMemoryObject_NonInline(Tagged<HeapObject> o) {
   return IsWasmMemoryObject(o);
 }
@@ -230,7 +230,7 @@ void TorqueGeneratedWasmMemoryObject<WasmMemoryObject, JSObject>::WasmMemoryObje
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=178&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=180&c=1
 bool IsWasmGlobalObject_NonInline(Tagged<HeapObject> o) {
   return IsWasmGlobalObject(o);
 }
@@ -244,7 +244,7 @@ void TorqueGeneratedWasmGlobalObject<WasmGlobalObject, JSObject>::WasmGlobalObje
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=193&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=195&c=1
 bool IsWasmTagObject_NonInline(Tagged<HeapObject> o) {
   return IsWasmTagObject(o);
 }
@@ -258,7 +258,7 @@ void TorqueGeneratedWasmTagObject<WasmTagObject, JSObject>::WasmTagObjectVerify(
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=201&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=203&c=1
 bool IsAsmWasmData_NonInline(Tagged<HeapObject> o) {
   return IsAsmWasmData(o);
 }
@@ -272,7 +272,7 @@ void TorqueGeneratedAsmWasmData<AsmWasmData, Struct>::AsmWasmDataVerify(Isolate*
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=206&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=208&c=1
 bool IsWasmTypeInfo_NonInline(Tagged<HeapObject> o) {
   return IsWasmTypeInfo(o);
 }
@@ -286,7 +286,7 @@ void TorqueGeneratedWasmTypeInfo<WasmTypeInfo, HeapObject>::WasmTypeInfoVerify(I
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=229&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=231&c=1
 bool IsWasmObject_NonInline(Tagged<HeapObject> o) {
   return IsWasmObject(o);
 }
@@ -300,7 +300,7 @@ void TorqueGeneratedWasmObject<WasmObject, JSReceiver>::WasmObjectVerify(Isolate
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=232&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=234&c=1
 bool IsWasmStruct_NonInline(Tagged<HeapObject> o) {
   return IsWasmStruct(o);
 }
@@ -314,7 +314,7 @@ void TorqueGeneratedWasmStruct<WasmStruct, WasmObject>::WasmStructVerify(Isolate
 
 
 #endif  // VERIFY_HEAP
-// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=235&c=1
+// https://source.chromium.org/chromium/chromium/src/+/main:v8/src/wasm/wasm-objects.tq?l=237&c=1
 bool IsWasmArray_NonInline(Tagged<HeapObject> o) {
   return IsWasmArray(o);
 }

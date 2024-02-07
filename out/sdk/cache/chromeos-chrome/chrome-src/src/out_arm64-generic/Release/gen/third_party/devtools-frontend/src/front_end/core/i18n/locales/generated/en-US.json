@@ -425,6 +425,9 @@
   "core/sdk/sdk-meta.ts | captureAsyncStackTraces": {
     "message": "Capture async stack traces"
   },
+  "core/sdk/sdk-meta.ts | customFormatters": {
+    "message": "Custom formatters"
+  },
   "core/sdk/sdk-meta.ts | deuteranopia": {
     "message": "Deuteranopia (no green)"
   },
@@ -533,9 +536,6 @@
   "core/sdk/sdk-meta.ts | enableCache": {
     "message": "Enable cache"
   },
-  "core/sdk/sdk-meta.ts | enableCustomFormatters": {
-    "message": "Enable custom formatters"
-  },
   "core/sdk/sdk-meta.ts | enableJavascript": {
     "message": "Enable JavaScript"
   },
@@ -577,6 +577,9 @@
   },
   "core/sdk/sdk-meta.ts | highlightAdFrames": {
     "message": "Highlight ad frames"
+  },
+  "core/sdk/sdk-meta.ts | networkRequestBlocking": {
+    "message": "Network request blocking"
   },
   "core/sdk/sdk-meta.ts | noEmulation": {
     "message": "No emulation"
@@ -4885,6 +4888,9 @@
   },
   "panels/console/console-meta.ts | showTimestamps": {
     "message": "Show timestamps"
+  },
+  "panels/console/console-meta.ts | timestamps": {
+    "message": "Timestamps"
   },
   "panels/console/console-meta.ts | toggleConsole": {
     "message": "Toggle Console"
@@ -11663,6 +11669,9 @@
   "panels/sources/sources-meta.ts | createNewSnippet": {
     "message": "Create new snippet"
   },
+  "panels/sources/sources-meta.ts | cssSourceMaps": {
+    "message": "CSS source maps"
+  },
   "panels/sources/sources-meta.ts | deactivateBreakpoints": {
     "message": "Deactivate breakpoints"
   },
@@ -11687,7 +11696,7 @@
   "panels/sources/sources-meta.ts | disableCssSourceMaps": {
     "message": "Disable CSS source maps"
   },
-  "panels/sources/sources-meta.ts | disableJavascriptSourceMaps": {
+  "panels/sources/sources-meta.ts | disableJavaScriptSourceMaps": {
     "message": "Disable JavaScript source maps"
   },
   "panels/sources/sources-meta.ts | disableTabMovesFocus": {
@@ -11732,7 +11741,7 @@
   "panels/sources/sources-meta.ts | enableCssSourceMaps": {
     "message": "Enable CSS source maps"
   },
-  "panels/sources/sources-meta.ts | enableJavascriptSourceMaps": {
+  "panels/sources/sources-meta.ts | enableJavaScriptSourceMaps": {
     "message": "Enable JavaScript source maps"
   },
   "panels/sources/sources-meta.ts | enableTabMovesFocus": {
@@ -11758,6 +11767,9 @@
   },
   "panels/sources/sources-meta.ts | incrementCssUnitBy": {
     "message": "Increment CSS unit by {PH1}"
+  },
+  "panels/sources/sources-meta.ts | javaScriptSourceMaps": {
+    "message": "JavaScript source maps"
   },
   "panels/sources/sources-meta.ts | jumpToNextEditingLocation": {
     "message": "Jump to next editing location"
@@ -11878,6 +11890,9 @@
   },
   "panels/sources/sources-meta.ts | symbol": {
     "message": "Symbol"
+  },
+  "panels/sources/sources-meta.ts | tabMovesFocus": {
+    "message": "Tab moves focus"
   },
   "panels/sources/sources-meta.ts | threads": {
     "message": "Threads"

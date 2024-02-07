@@ -11,7 +11,7 @@ import './routine_result_list.js';
 import './text_badge.js';
 import './strings.m.js';
 import { loadTimeData } from 'chrome://resources/ash/common/load_time_data.m.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { assert, assertNotReached } from 'chrome://resources/js/assert.js';
 import { IronA11yAnnouncer } from 'chrome://resources/polymer/v3_0/iron-a11y-announcer/iron-a11y-announcer.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';

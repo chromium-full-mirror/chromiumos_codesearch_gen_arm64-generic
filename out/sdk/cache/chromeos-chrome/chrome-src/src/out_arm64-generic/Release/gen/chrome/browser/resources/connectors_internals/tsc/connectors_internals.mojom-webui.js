@@ -66,6 +66,9 @@ export class PageHandlerRemote {
     deleteDeviceTrustKey() {
         return this.proxy.sendMessage(1, PageHandler_DeleteDeviceTrustKey_ParamsSpec.$, PageHandler_DeleteDeviceTrustKey_ResponseParamsSpec.$, []);
     }
+    getClientCertificateState() {
+        return this.proxy.sendMessage(2, PageHandler_GetClientCertificateState_ParamsSpec.$, PageHandler_GetClientCertificateState_ResponseParamsSpec.$, []);
+    }
 }
 ;
 /**
@@ -82,6 +85,7 @@ export class PageHandlerReceiver {
         this.$ = new mojo.internal.interfaceSupport.InterfaceReceiverHelper(this.helper_internal_);
         this.helper_internal_.registerHandler(0, PageHandler_GetDeviceTrustState_ParamsSpec.$, PageHandler_GetDeviceTrustState_ResponseParamsSpec.$, impl.getDeviceTrustState.bind(impl));
         this.helper_internal_.registerHandler(1, PageHandler_DeleteDeviceTrustKey_ParamsSpec.$, PageHandler_DeleteDeviceTrustKey_ResponseParamsSpec.$, impl.deleteDeviceTrustKey.bind(impl));
+        this.helper_internal_.registerHandler(2, PageHandler_GetClientCertificateState_ParamsSpec.$, PageHandler_GetClientCertificateState_ResponseParamsSpec.$, impl.getClientCertificateState.bind(impl));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
 }
@@ -112,6 +116,7 @@ export class PageHandlerCallbackRouter {
     router_;
     getDeviceTrustState;
     deleteDeviceTrustKey;
+    getClientCertificateState;
     onConnectionError;
     constructor() {
         this.helper_internal_ = new mojo.internal.interfaceSupport.InterfaceReceiverHelperInternal(PageHandlerRemote);
@@ -123,6 +128,9 @@ export class PageHandlerCallbackRouter {
         this.deleteDeviceTrustKey =
             new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
         this.helper_internal_.registerHandler(1, PageHandler_DeleteDeviceTrustKey_ParamsSpec.$, PageHandler_DeleteDeviceTrustKey_ResponseParamsSpec.$, this.deleteDeviceTrustKey.createReceiverHandler(true /* expectsResponse */));
+        this.getClientCertificateState =
+            new mojo.internal.interfaceSupport.InterfaceCallbackReceiver(this.router_);
+        this.helper_internal_.registerHandler(2, PageHandler_GetClientCertificateState_ParamsSpec.$, PageHandler_GetClientCertificateState_ResponseParamsSpec.$, this.getClientCertificateState.createReceiverHandler(true /* expectsResponse */));
         this.onConnectionError = this.helper_internal_.getConnectionErrorEventRouter();
     }
     /**
@@ -138,10 +146,15 @@ export const LoadedKeyInfoSpec = { $: {} };
 export const KeyInfoSpec = { $: {} };
 export const ConsentMetadataSpec = { $: {} };
 export const DeviceTrustStateSpec = { $: {} };
+export const CertificateMetadataSpec = { $: {} };
+export const ClientIdentitySpec = { $: {} };
+export const ClientCertificateStateSpec = { $: {} };
 export const PageHandler_GetDeviceTrustState_ParamsSpec = { $: {} };
 export const PageHandler_GetDeviceTrustState_ResponseParamsSpec = { $: {} };
 export const PageHandler_DeleteDeviceTrustKey_ParamsSpec = { $: {} };
 export const PageHandler_DeleteDeviceTrustKey_ResponseParamsSpec = { $: {} };
+export const PageHandler_GetClientCertificateState_ParamsSpec = { $: {} };
+export const PageHandler_GetClientCertificateState_ResponseParamsSpec = { $: {} };
 mojo.internal.Struct(Int32ValueSpec.$, 'Int32Value', [
     mojo.internal.StructField('value', 0, 0, mojo.internal.Int32, 0, false /* nullable */, 0),
 ], [[0, 16],]);
@@ -167,9 +180,29 @@ mojo.internal.Struct(DeviceTrustStateSpec.$, 'DeviceTrustState', [
     mojo.internal.StructField('signalsJson', 24, 0, mojo.internal.String, null, false /* nullable */, 0),
     mojo.internal.StructField('consentMetadata', 32, 0, ConsentMetadataSpec.$, null, true /* nullable */, 0),
 ], [[0, 48],]);
+mojo.internal.Struct(CertificateMetadataSpec.$, 'CertificateMetadata', [
+    mojo.internal.StructField('thumbprint', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('expirationDateString', 8, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('subjectDisplayName', 16, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('issuerDisplayName', 24, 0, mojo.internal.String, null, false /* nullable */, 0),
+], [[0, 40],]);
+mojo.internal.Struct(ClientIdentitySpec.$, 'ClientIdentity', [
+    mojo.internal.StructField('identityName', 0, 0, mojo.internal.String, null, false /* nullable */, 0),
+    mojo.internal.StructField('loadedKeyInfo', 8, 0, LoadedKeyInfoSpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('certificateMetadata', 16, 0, CertificateMetadataSpec.$, null, true /* nullable */, 0),
+], [[0, 32],]);
+mojo.internal.Struct(ClientCertificateStateSpec.$, 'ClientCertificateState', [
+    mojo.internal.StructField('policyEnabledLevels', 0, 0, mojo.internal.Array(mojo.internal.String, false), null, false /* nullable */, 0),
+    mojo.internal.StructField('managedProfileIdentity', 8, 0, ClientIdentitySpec.$, null, true /* nullable */, 0),
+    mojo.internal.StructField('managedBrowserIdentity', 16, 0, ClientIdentitySpec.$, null, true /* nullable */, 0),
+], [[0, 32],]);
 mojo.internal.Struct(PageHandler_GetDeviceTrustState_ParamsSpec.$, 'PageHandler_GetDeviceTrustState_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandler_GetDeviceTrustState_ResponseParamsSpec.$, 'PageHandler_GetDeviceTrustState_ResponseParams', [
     mojo.internal.StructField('state', 0, 0, DeviceTrustStateSpec.$, null, false /* nullable */, 0),
 ], [[0, 16],]);
 mojo.internal.Struct(PageHandler_DeleteDeviceTrustKey_ParamsSpec.$, 'PageHandler_DeleteDeviceTrustKey_Params', [], [[0, 8],]);
 mojo.internal.Struct(PageHandler_DeleteDeviceTrustKey_ResponseParamsSpec.$, 'PageHandler_DeleteDeviceTrustKey_ResponseParams', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_GetClientCertificateState_ParamsSpec.$, 'PageHandler_GetClientCertificateState_Params', [], [[0, 8],]);
+mojo.internal.Struct(PageHandler_GetClientCertificateState_ResponseParamsSpec.$, 'PageHandler_GetClientCertificateState_ResponseParams', [
+    mojo.internal.StructField('state', 0, 0, ClientCertificateStateSpec.$, null, false /* nullable */, 0),
+], [[0, 16],]);

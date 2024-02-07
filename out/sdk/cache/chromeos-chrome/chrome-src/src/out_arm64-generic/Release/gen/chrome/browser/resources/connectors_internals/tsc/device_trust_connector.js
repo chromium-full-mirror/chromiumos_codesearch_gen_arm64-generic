@@ -3,18 +3,10 @@
 // found in the LICENSE file.
 import { CustomElement } from 'chrome://resources/js/custom_element.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
-import { KeyManagerInitializedValue, KeyManagerPermanentFailure, KeyTrustLevel, KeyType, PageHandler } from './connectors_internals.mojom-webui.js';
+import { BrowserProxy } from './browser_proxy.js';
+import { KeyManagerInitializedValue, KeyManagerPermanentFailure } from './connectors_internals.mojom-webui.js';
+import * as utils from './connectors_utils.js';
 import { getTemplate } from './device_trust_connector.html.js';
-const TrustLevelStringMap = {
-    [KeyTrustLevel.UNSPECIFIED]: 'Unspecified',
-    [KeyTrustLevel.HW]: 'HW',
-    [KeyTrustLevel.OS]: 'OS',
-};
-const KeyTypeStringMap = {
-    [KeyType.UNKNOWN]: 'Unknown',
-    [KeyType.RSA]: 'RSA',
-    [KeyType.EC]: 'EC',
-};
 const KeyPermanentFailureMap = {
     [KeyManagerPermanentFailure.CREATION_UPLOAD_CONFLICT]: 'A key already exists on the server for this device.',
     [KeyManagerPermanentFailure.INSUFFICIENT_PERMISSIONS]: 'The browser is missing permissions and is unable to create a Device ' +
@@ -87,11 +79,11 @@ export class DeviceTrustConnectorElement extends CustomElement {
             const keyMetadata = keyInfo.loadedKeyInfo;
             if (keyMetadata) {
                 trustLevelStateEl.innerText =
-                    this.trustLevelToString(keyMetadata.trustLevel);
-                keyTypeStateEl.innerText = this.keyTypeToString(keyMetadata.keyType);
+                    utils.trustLevelToString(keyMetadata.trustLevel);
+                keyTypeStateEl.innerText = utils.keyTypeToString(keyMetadata.keyType);
                 spkiHashStateEl.innerText = keyMetadata.encodedSpkiHash;
                 keySyncStateEl.innerText =
-                    this.keySyncCodeToString(keyMetadata.syncKeyResponseCode);
+                    utils.keySyncCodeToString(keyMetadata.syncKeyResponseCode);
                 this.showElement(keyLoadedRows);
             }
             else {
@@ -132,10 +124,11 @@ export class DeviceTrustConnectorElement extends CustomElement {
     get signalsString() {
         return this.signalsString_;
     }
-    pageHandler;
+    get pageHandler() {
+        return BrowserProxy.getInstance().handler;
+    }
     constructor() {
         super();
-        this.pageHandler = PageHandler.getRemote();
         this.fetchDeviceTrustValues();
         if (this.deleteKeyEnabled) {
             const deleteKeyButton = this.deleteKeyButton;
@@ -191,22 +184,6 @@ export class DeviceTrustConnectorElement extends CustomElement {
         else {
             console.error(`Could not find ${elementId} element.`);
         }
-    }
-    trustLevelToString(trustLevel) {
-        return TrustLevelStringMap[trustLevel] || 'invalid';
-    }
-    keyTypeToString(keyType) {
-        return KeyTypeStringMap[keyType] || 'invalid';
-    }
-    keySyncCodeToString(syncKeyResponseCode) {
-        if (!syncKeyResponseCode) {
-            return 'Undefined';
-        }
-        const value = syncKeyResponseCode.value;
-        if (value / 100 === 2) {
-            return `Success (${value})`;
-        }
-        return `Failure (${value})`;
     }
 }
 customElements.define(DeviceTrustConnectorElement.is, DeviceTrustConnectorElement);

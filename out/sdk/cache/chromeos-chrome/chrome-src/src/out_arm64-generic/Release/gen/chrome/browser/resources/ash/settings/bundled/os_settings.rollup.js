@@ -1,6 +1,6 @@
 import './strings.m.js';
-import { a as assertNotReached, cl as listenOnce, N as NetworkListenerBehavior, W as WebUiListenerMixin, R as RouteObserverMixin, I as I18nMixin, cm as ABOUT_CHROME_OS_SECTION_PATH, m as isRevampWayfindingEnabled, b7 as getInputDeviceSettingsProvider, a4 as MultiDeviceBrowserProxyImpl, j as Router, cn as isAdvancedRoute, co as NETWORK_SECTION_PATH, cp as BLUETOOTH_SECTION_PATH, cq as MULTI_DEVICE_SECTION_PATH, cr as PEOPLE_SECTION_PATH, cs as KERBEROS_SECTION_PATH, ct as DEVICE_SECTION_PATH, cu as PERSONALIZATION_SECTION_PATH, cv as PRIVACY_AND_SECURITY_SECTION_PATH, cw as APPS_SECTION_PATH, cx as ACCESSIBILITY_SECTION_PATH, cy as SYSTEM_PREFERENCES_SECTION_PATH, cz as SEARCH_AND_ASSISTANT_SECTION_PATH, cA as DATE_AND_TIME_SECTION_PATH, cB as LANGUAGES_AND_INPUT_SECTION_PATH, cC as FILES_SECTION_PATH, cD as PRINTING_SECTION_PATH, cE as CROSTINI_SECTION_PATH, cF as RESET_SECTION_PATH, aq as AccountManagerBrowserProxyImpl, _ as assertExists, h as castExists, cG as getDeviceName, ax as MultiDeviceSettingsMode, b8 as FakeInputDeviceSettingsProvider, cH as KeyboardSettingsObserverReceiver, cI as MouseSettingsObserverReceiver, cJ as PointingStickSettingsObserverReceiver, cK as TouchpadSettingsObserverReceiver, cL as routesMojom, O as OncMojo, c as assert, D as DeepLinkingMixin, P as PrefsMixin, S as Setting, bd as AudioAndCaptionsPageBrowserProxyImpl, b as routes, d as cast, cM as getDisplayApi, cN as IronResizableBehavior, ae as DevicePageBrowserProxyImpl, cO as PaperRippleMixin, G as GeolocationAccessLevel, u as focusWithoutInk, cP as getDeviceStateChangesToAnnounce, K as getInstance, cQ as CrLinkRowElement, cR as Fkey, cS as ExtendedFkeysModifier, cT as TopRowActionKey, cU as MetaKey, cV as ModifierKey, cW as SixPackShortcutModifier, cX as SixPackKey, cY as PolicyStatus, i as RouteOriginMixin, n as Section$1, cZ as isInputDeviceSettingsSplitEnabled, c_ as isExternalStorageEnabled, c$ as GraphicsTabletSettingsObserverReceiver, b0 as ACCESSIBILITY_COMMON_IME_ID, d0 as Button, d1 as ButtonState, a1 as mojoString16ToString, a5 as getEuicc, a7 as getPendingESimProfiles, d2 as hasActiveCellularNetwork, a2 as CellularSetupPageName, d3 as getESimProfile, d4 as stringToMojoString16, M as CrPolicyNetworkBehaviorMojo, d5 as NetworkConfigElementBehavior, z as I18nBehavior, d6 as assertNotReached$1, E as assert$1, d7 as htmlEscape, r as recordSettingChange, a3 as ESimManagerListenerMixin, Y as InternetPageBrowserProxyImpl, a6 as getSimSlotCount, d8 as isConnectedToNonCellularNetwork, d9 as getNumESimProfiles, aw as MultiDeviceFeature, au as LockStateMixin, aD as recordLockScreenProgress, aE as LockScreenProgress, da as LockScreenUnlockType, at as fireAuthTokenInvalidEvent, db as PhoneHubPermissionsSetupFlowScreens, dc as PhoneHubPermissionsSetupAction, dd as PhoneHubPermissionsSetupFeatureCombination, de as getNearbyShareSettings, df as observeNearbyShareSettings, av as MultiDeviceFeatureMixin, dg as PhoneHubFeatureAccessStatus, a8 as MultiDeviceFeatureState, dh as OsBluetoothDevicesSubpageBrowserProxyImpl, di as ButtonState$1, dj as ButtonName, F as FocusRowMixin, dk as DeviceItemState, aJ as CrScrollableMixin, dl as PairingAuthType, dm as recordBluetoothUiSurfaceMetrics, dn as BluetoothUiSurface, y as isChild, ar as ParentalControlsBrowserProxyImpl, ab as getImage, as as assertInstanceof, dp as isAccountManagerEnabled, aG as SyncBrowserProxyImpl, dq as AUTH_TOKEN_INVALID_EVENT_TYPE, dr as PrivacyHubNavigationOrigin, ds as isQuickAnswersSupported, dt as isAssistantAllowed, du as shouldShowMultitasking, dv as isGuest, dw as isPowerwashAllowed, dx as shouldShowStartup, dy as getTrustedScriptURL, dz as isAboutRoute, dA as AndroidAppsBrowserProxyImpl, A as AboutPageBrowserProxyImpl, dB as isBasicRoute, dC as CrSearchFieldMixin, dD as SectionSpec, dE as SubpageSpec, dF as SettingSpec, s as sanitizeInnerHtml, dG as OpenWindowProxyImpl, dH as recordSearch, a$ as FindShortcutMixin, dI as setGlobalScrollTarget, dJ as recordPageFocus, dK as recordPageBlur, dL as recordClick, dM as recordNavigation, dN as getPrefPolicyFields$1, dO as settingsAreEqual, aF as PluralStringProxyImpl, dP as CustomizationRestriction, dQ as SimulateRightClickModifier, dR as recordSavedDevicesUiEventMetrics, dS as FastPairSavedDevicesUiEvent, dT as ColorChangeUpdater } from './shared.rollup.js';
-export { e1 as ApnDetailDialog, aT as AppLanguageSelectionDialogEntryPoint, aX as AppManagementBrowserProxy, aa as AppManagementComponentBrowserProxy, f3 as AppManagementFileHandlingItemElement, en as AppManagementStore, aV as AppManagementStoreMixin, bY as AppManagementSupportedLinksItemElement, f5 as AppManagementToggleRowElement, al as BrowserChannel, ac as ChromeVoxSubpageBrowserProxyImpl, fe as ConfirmationDialogType, er as ControlledButtonElement, es as ControlledRadioButtonElement, aC as CrActionMenuElement, az as CrButtonElement, e6 as CrCardRadioButtonElement, e5 as CrCheckboxElement, aA as CrDialogElement, aB as CrIconButtonElement, ay as CrInputElement, ee as CrPolicyIndicatorElement, e7 as CrRadioButtonElement, e8 as CrRadioGroupElement, e9 as CrSearchFieldElement, ea as CrSearchableDropDownElement, e4 as CrSettingsPrefs, eb as CrSliderElement, ec as CrTextareaElement, ed as CrToastElement, a9 as CrToggleElement, ef as CrTooltipIconElement, d_ as DEFAULT_CHECKED_VALUE, d$ as DEFAULT_UNCHECKED_VALUE, an as DeviceNameBrowserProxyImpl, ap as DeviceNameState, e0 as ExtensionControlBrowserProxyImpl, et as ExtensionControlledIndicatorElement, f8 as FastPairSavedDevicesOptInStatus, f9 as GoogleDriveBrowserProxy, fa as GoogleDrivePageCallbackRouter, fb as GoogleDrivePageHandlerRemote, fc as GoogleDrivePageRemote, ew as IdleBehavior, ep as LacrosExtensionControlBrowserProxyImpl, eq as LacrosExtensionControlledIndicatorElement, ex as LidClosedBehavior, L as LifetimeBrowserProxyImpl, e2 as LocalizedLinkElement, fi as MetricsConsentBrowserProxyImpl, eX as NearbyAccountManagerBrowserProxyImpl, dX as NearbyProgressElement, eY as NearbyShareConfirmPageElement, f2 as NearbyShareDataUsage, eZ as NearbyShareHighVisibilityPageElement, ey as NoteAppLockScreenSupport, aU as OneDriveBrowserProxy, ff as OneDrivePageCallbackRouter, fg as OneDrivePageHandlerRemote, fh as OneDrivePageRemote, ci as OsResetBrowserProxyImpl, f7 as OsSettingsAppsPageElement, a_ as OsSettingsSubpageElement, aH as PageStatus, eV as PhoneHubFeatureAccessProhibitedReason, eW as PhoneHubPermissionsSetupMode, f4 as PluginVmBrowserProxyImpl, aQ as PrivacyHubSensorSubpageUserAction, b2 as PrivacyPageBrowserProxyImpl, fq as Route, fn as SearchEnginesBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, ag as SelectToSpeakSubpageBrowserProxyImpl, ao as SetDeviceNameResult, fo as SettingsCardElement, eu as SettingsDropdownMenuElement, cb as SettingsGoogleDriveSubpageElement, e3 as SettingsPrefsElement, fk as SettingsPrivacyHubAppPermissionRow, fl as SettingsPrivacyHubSystemServiceRow, fm as SettingsSearchEngineElement, ev as SettingsSliderElement, af as SettingsToggleButtonElement, fd as Stage, aI as StatusAction, eA as StorageSpaceState, ai as SwitchAccessSubpageBrowserProxyImpl, aj as TextToSpeechSubpageBrowserProxyImpl, ak as TtsVoiceSubpageBrowserProxyImpl, U as UpdateStatus, eP as Vkey, eg as addApp, eR as appNotificationHandlerMojom, eS as appPermissionHandlerMojom, eh as changeApp, fp as createRouterForTesting, f1 as dataUsageStringToEnum, eB as fakeGraphicsTabletButtonActions, eC as fakeGraphicsTablets, eD as fakeKeyboards, eE as fakeKeyboards2, eF as fakeMice, eG as fakeMice2, eH as fakeMouseButtonActions, eI as fakePointingSticks, eJ as fakePointingSticks2, eK as fakeStyluses, eL as fakeTouchpads, eM as fakeTouchpads2, dU as getContactManager, e_ as getReceiveManager, bb as getShortcutInputProvider, dY as nearbyShareMojom, dV as observeContactManager, e$ as observeReceiveManager, el as reduceAction, ei as removeApp, eo as resetGlobalScrollTargetForTesting, f6 as setAppNotificationProviderForTesting, fj as setAppPermissionProviderForTesting, dW as setContactManagerForTesting, ez as setDisplayApiForTesting, eN as setInputDeviceSettingsProviderForTesting, dZ as setNearbyShareSettingsForTesting, f0 as setReceiveManagerForTesting, eQ as setUserActionRecorderForTesting, eT as settingMojom, eO as setupFakeInputDeviceSettingsProvider, em as updateApps, ej as updateSelectedAppId, ek as updateSubAppToParentAppId, eU as userActionRecorderMojom } from './shared.rollup.js';
+import { a as assertNotReached, cl as listenOnce, N as NetworkListenerBehavior, W as WebUiListenerMixin, R as RouteObserverMixin, I as I18nMixin, cm as ABOUT_CHROME_OS_SECTION_PATH, m as isRevampWayfindingEnabled, b7 as getInputDeviceSettingsProvider, a4 as MultiDeviceBrowserProxyImpl, j as Router, cn as isAdvancedRoute, co as NETWORK_SECTION_PATH, cp as BLUETOOTH_SECTION_PATH, cq as MULTI_DEVICE_SECTION_PATH, cr as PEOPLE_SECTION_PATH, cs as KERBEROS_SECTION_PATH, ct as DEVICE_SECTION_PATH, cu as PERSONALIZATION_SECTION_PATH, cv as PRIVACY_AND_SECURITY_SECTION_PATH, cw as APPS_SECTION_PATH, cx as ACCESSIBILITY_SECTION_PATH, cy as SYSTEM_PREFERENCES_SECTION_PATH, cz as SEARCH_AND_ASSISTANT_SECTION_PATH, cA as DATE_AND_TIME_SECTION_PATH, cB as LANGUAGES_AND_INPUT_SECTION_PATH, cC as FILES_SECTION_PATH, cD as PRINTING_SECTION_PATH, cE as CROSTINI_SECTION_PATH, cF as RESET_SECTION_PATH, aq as AccountManagerBrowserProxyImpl, _ as assertExists, h as castExists, cG as getDeviceName, ax as MultiDeviceSettingsMode, b8 as FakeInputDeviceSettingsProvider, cH as KeyboardSettingsObserverReceiver, cI as MouseSettingsObserverReceiver, cJ as PointingStickSettingsObserverReceiver, cK as TouchpadSettingsObserverReceiver, cL as routesMojom, O as OncMojo, c as assert, D as DeepLinkingMixin, P as PrefsMixin, S as Setting, bd as AudioAndCaptionsPageBrowserProxyImpl, b as routes, d as cast, cM as getDisplayApi, cN as IronResizableBehavior, ae as DevicePageBrowserProxyImpl, cO as PaperRippleMixin, G as GeolocationAccessLevel, u as focusWithoutInk, cP as getDeviceStateChangesToAnnounce, K as getInstance, cQ as CrLinkRowElement, cR as Fkey, cS as ExtendedFkeysModifier, cT as TopRowActionKey, cU as MetaKey, cV as ModifierKey, cW as SixPackShortcutModifier, cX as SixPackKey, cY as PolicyStatus, i as RouteOriginMixin, n as Section$1, cZ as isInputDeviceSettingsSplitEnabled, c_ as isExternalStorageEnabled, c$ as GraphicsTabletSettingsObserverReceiver, b0 as ACCESSIBILITY_COMMON_IME_ID, d0 as Button, d1 as ButtonState, a1 as mojoString16ToString, a5 as getEuicc, a7 as getPendingESimProfiles, d2 as hasActiveCellularNetwork, a2 as CellularSetupPageName, d3 as getESimProfile, d4 as stringToMojoString16, M as CrPolicyNetworkBehaviorMojo, d5 as NetworkConfigElementBehavior, z as I18nBehavior, d6 as assertNotReached$1, E as assert$1, d7 as htmlEscape, r as recordSettingChange, a3 as ESimManagerListenerMixin, Y as InternetPageBrowserProxyImpl, a6 as getSimSlotCount, d8 as isConnectedToNonCellularNetwork, d9 as getNumESimProfiles, aw as MultiDeviceFeature, au as LockStateMixin, aD as recordLockScreenProgress, aE as LockScreenProgress, da as LockScreenUnlockType, at as fireAuthTokenInvalidEvent, db as PhoneHubPermissionsSetupFlowScreens, dc as PhoneHubPermissionsSetupAction, dd as PhoneHubPermissionsSetupFeatureCombination, de as getNearbyShareSettings, df as observeNearbyShareSettings, av as MultiDeviceFeatureMixin, dg as PhoneHubFeatureAccessStatus, a8 as MultiDeviceFeatureState, dh as OsBluetoothDevicesSubpageBrowserProxyImpl, di as ButtonState$1, dj as ButtonName, F as FocusRowMixin, dk as DeviceItemState, aJ as CrScrollableMixin, dl as PairingAuthType, dm as recordBluetoothUiSurfaceMetrics, dn as BluetoothUiSurface, y as isChild, ar as ParentalControlsBrowserProxyImpl, ab as getImage, as as assertInstanceof, dp as isAccountManagerEnabled, aG as SyncBrowserProxyImpl, dq as AUTH_TOKEN_INVALID_EVENT_TYPE, dr as PrivacyHubNavigationOrigin, ds as isQuickAnswersSupported, dt as isAssistantAllowed, du as shouldShowMultitasking, dv as isGuest, dw as isPowerwashAllowed, dx as shouldShowStartup, dy as isAboutRoute, dz as AndroidAppsBrowserProxyImpl, A as AboutPageBrowserProxyImpl, dA as isBasicRoute, dB as CrSearchFieldMixin, dC as SectionSpec, dD as SubpageSpec, dE as SettingSpec, s as sanitizeInnerHtml, dF as OpenWindowProxyImpl, dG as recordSearch, a$ as FindShortcutMixin, dH as CrContainerShadowMixin, dI as setGlobalScrollTarget, dJ as recordPageFocus, dK as recordPageBlur, dL as recordClick, dM as recordNavigation, dN as getPrefPolicyFields$1, dO as settingsAreEqual, aF as PluralStringProxyImpl, dP as CustomizationRestriction, dQ as SimulateRightClickModifier, dR as recordSavedDevicesUiEventMetrics, dS as FastPairSavedDevicesUiEvent, dT as ColorChangeUpdater } from './shared.rollup.js';
+export { ed as ApnDetailDialog, aT as AppLanguageSelectionDialogEntryPoint, aX as AppManagementBrowserProxy, aa as AppManagementComponentBrowserProxy, f3 as AppManagementFileHandlingItemElement, en as AppManagementStore, aV as AppManagementStoreMixin, bY as AppManagementSupportedLinksItemElement, f5 as AppManagementToggleRowElement, al as BrowserChannel, ac as ChromeVoxSubpageBrowserProxyImpl, fe as ConfirmationDialogType, er as ControlledButtonElement, es as ControlledRadioButtonElement, aC as CrActionMenuElement, az as CrButtonElement, e2 as CrCardRadioButtonElement, e1 as CrCheckboxElement, aA as CrDialogElement, aB as CrIconButtonElement, ay as CrInputElement, eb as CrPolicyIndicatorElement, e3 as CrRadioButtonElement, e4 as CrRadioGroupElement, e5 as CrSearchFieldElement, e6 as CrSearchableDropDownElement, ef as CrSettingsPrefs, e7 as CrSliderElement, e8 as CrTextareaElement, e9 as CrToastElement, a9 as CrToggleElement, ec as CrTooltipIconElement, d_ as DEFAULT_CHECKED_VALUE, d$ as DEFAULT_UNCHECKED_VALUE, an as DeviceNameBrowserProxyImpl, ap as DeviceNameState, e0 as ExtensionControlBrowserProxyImpl, et as ExtensionControlledIndicatorElement, f8 as FastPairSavedDevicesOptInStatus, f9 as GoogleDriveBrowserProxy, fa as GoogleDrivePageCallbackRouter, fb as GoogleDrivePageHandlerRemote, fc as GoogleDrivePageRemote, ew as IdleBehavior, ep as LacrosExtensionControlBrowserProxyImpl, eq as LacrosExtensionControlledIndicatorElement, ex as LidClosedBehavior, L as LifetimeBrowserProxyImpl, ea as LocalizedLinkElement, fi as MetricsConsentBrowserProxyImpl, eX as NearbyAccountManagerBrowserProxyImpl, dX as NearbyProgressElement, eY as NearbyShareConfirmPageElement, f2 as NearbyShareDataUsage, eZ as NearbyShareHighVisibilityPageElement, ey as NoteAppLockScreenSupport, aU as OneDriveBrowserProxy, ff as OneDrivePageCallbackRouter, fg as OneDrivePageHandlerRemote, fh as OneDrivePageRemote, ci as OsResetBrowserProxyImpl, f7 as OsSettingsAppsPageElement, a_ as OsSettingsSubpageElement, aH as PageStatus, eV as PhoneHubFeatureAccessProhibitedReason, eW as PhoneHubPermissionsSetupMode, f4 as PluginVmBrowserProxyImpl, aQ as PrivacyHubSensorSubpageUserAction, b2 as PrivacyPageBrowserProxyImpl, fq as Route, fn as SearchEnginesBrowserProxyImpl, b3 as SecureDnsMode, b4 as SecureDnsUiManagementMode, ag as SelectToSpeakSubpageBrowserProxyImpl, ao as SetDeviceNameResult, fo as SettingsCardElement, eu as SettingsDropdownMenuElement, cb as SettingsGoogleDriveSubpageElement, ee as SettingsPrefsElement, fk as SettingsPrivacyHubAppPermissionRow, fl as SettingsPrivacyHubSystemServiceRow, fm as SettingsSearchEngineElement, ev as SettingsSliderElement, af as SettingsToggleButtonElement, fd as Stage, aI as StatusAction, eA as StorageSpaceState, ai as SwitchAccessSubpageBrowserProxyImpl, aj as TextToSpeechSubpageBrowserProxyImpl, ak as TtsVoiceSubpageBrowserProxyImpl, U as UpdateStatus, eP as Vkey, eg as addApp, eR as appNotificationHandlerMojom, eS as appPermissionHandlerMojom, eh as changeApp, fp as createRouterForTesting, f1 as dataUsageStringToEnum, eB as fakeGraphicsTabletButtonActions, eC as fakeGraphicsTablets, eD as fakeKeyboards, eE as fakeKeyboards2, eF as fakeMice, eG as fakeMice2, eH as fakeMouseButtonActions, eI as fakePointingSticks, eJ as fakePointingSticks2, eK as fakeStyluses, eL as fakeTouchpads, eM as fakeTouchpads2, dU as getContactManager, e_ as getReceiveManager, bb as getShortcutInputProvider, dY as nearbyShareMojom, dV as observeContactManager, e$ as observeReceiveManager, el as reduceAction, ei as removeApp, eo as resetGlobalScrollTargetForTesting, f6 as setAppNotificationProviderForTesting, fj as setAppPermissionProviderForTesting, dW as setContactManagerForTesting, ez as setDisplayApiForTesting, eN as setInputDeviceSettingsProviderForTesting, dZ as setNearbyShareSettingsForTesting, f0 as setReceiveManagerForTesting, eQ as setUserActionRecorderForTesting, eT as settingMojom, eO as setupFakeInputDeviceSettingsProvider, em as updateApps, ej as updateSelectedAppId, ek as updateSubAppToParentAppId, eU as userActionRecorderMojom } from './shared.rollup.js';
 import { html, PolymerElement, mixinBehaviors, dedupingMixin, flush, afterNextRender, Polymer, beforeNextRender, templatize, microTask, Debouncer, timeOut } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { getBluetoothConfig } from 'chrome://resources/ash/common/bluetooth/cros_bluetooth_config.js';
 import { MojoInterfaceProviderImpl } from 'chrome://resources/ash/common/network/mojo_interface_provider.js';
@@ -23,24 +23,23 @@ import 'chrome://resources/mwc/lit/index.js';
 import 'chrome://resources/cr_components/app_management/app_management.mojom-webui.js';
 import 'chrome://resources/mojo/chromeos/ash/services/nearby/public/mojom/nearby_share_target_types.mojom-webui.js';
 import 'chrome://resources/mojo/services/network/public/mojom/ip_address.mojom-webui.js';
-import 'chrome://resources/lit/v3_0/lit.rollup.js';
 
 function getTemplate$1y() {
-    return html `<!--_html_template_start_-->    <style>:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);font:var(--cr-drawer-header-font,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
-    <dialog id="dialog" on-cancel="onDialogCancel_" on-click="onDialogClick_" on-close="onDialogClose_">
-      <div id="container" on-click="onContainerClick_">
-        <div class="drawer-header">
-          <slot name="header-icon">
-            <picture>
-              <source media="(prefers-color-scheme: dark)" srcset="//resources/images/chrome_logo_dark.svg">
-              <img id="product-logo" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" role="presentation">
-            </picture>
-          </slot>
-          <div id="heading" tabindex="-1">[[heading]]</div>
-        </div>
-        <slot name="body"></slot>
-      </div>
-    </dialog>
+    return html `<!--_html_template_start_--><style>:host{--cr-drawer-width:256px}:host dialog{--transition-timing:200ms ease;background-color:var(--cr-drawer-background-color,#fff);border:none;border-start-end-radius:var(--cr-drawer-border-start-end-radius,0);border-end-end-radius:var(--cr-drawer-border-end-end-radius,0);bottom:0;left:calc(-1 * var(--cr-drawer-width));margin:0;max-height:initial;max-width:initial;overflow:hidden;padding:0;position:absolute;top:0;transition:left var(--transition-timing);width:var(--cr-drawer-width)}@media (prefers-color-scheme:dark){:host dialog{background:var(--cr-drawer-background-color,var(--google-grey-900)) linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}#container,:host dialog{height:100%;word-break:break-word}:host([show_]) dialog{left:0}:host([align=rtl]) dialog{left:auto;right:calc(-1 * var(--cr-drawer-width));transition:right var(--transition-timing)}:host([show_][align=rtl]) dialog{right:0}:host dialog::backdrop{background:rgba(0,0,0,.5);bottom:0;left:0;opacity:0;position:absolute;right:0;top:0;transition:opacity var(--transition-timing)}:host([show_]) dialog::backdrop{opacity:1}.drawer-header{align-items:center;border-bottom:var(--cr-separator-line);color:var(--cr-drawer-header-color,inherit);display:flex;font-size:123.08%;font-weight:var(--cr-drawer-header-font-weight,inherit);font:var(--cr-drawer-header-font,inherit);min-height:56px;padding-inline-start:var(--cr-drawer-header-padding,24px)}@media (prefers-color-scheme:dark){.drawer-header{color:var(--cr-primary-text-color)}}#heading{outline:0}:host ::slotted([slot=body]){height:calc(100% - 56px);overflow:auto}picture{margin-inline-end:16px}#product-logo,picture{height:24px;width:24px}</style>
+<dialog id="dialog" on-cancel="onDialogCancel_" on-click="onDialogClick_" on-close="onDialogClose_">
+  <div id="container" on-click="onContainerClick_">
+    <div class="drawer-header">
+      <slot name="header-icon">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="//resources/images/chrome_logo_dark.svg">
+          <img id="product-logo" srcset="chrome://theme/current-channel-logo@1x, chrome://theme/current-channel-logo@2x 2x" role="presentation">
+        </picture>
+      </slot>
+      <div id="heading" tabindex="-1">[[heading]]</div>
+    </div>
+    <slot name="body"></slot>
+  </div>
+</dialog>
 <!--_html_template_end_-->`;
 }
 
@@ -1340,35 +1339,35 @@ mojo.internal.Struct(CrosAudioConfig_SetHfpMicSrEnabled_ParamsSpec.$, 'CrosAudio
 ], [[0, 16],]);
 
 var cros_audio_config_mojomWebui = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    AudioDeviceSpec: AudioDeviceSpec,
-    get AudioDeviceType () { return AudioDeviceType; },
-    AudioDeviceTypeSpec: AudioDeviceTypeSpec,
-    get AudioEffectState () { return AudioEffectState; },
-    AudioEffectStateSpec: AudioEffectStateSpec,
-    AudioSystemPropertiesObserver: AudioSystemPropertiesObserver,
-    AudioSystemPropertiesObserverCallbackRouter: AudioSystemPropertiesObserverCallbackRouter,
-    AudioSystemPropertiesObserverPendingReceiver: AudioSystemPropertiesObserverPendingReceiver,
-    AudioSystemPropertiesObserverReceiver: AudioSystemPropertiesObserverReceiver,
-    AudioSystemPropertiesObserverRemote: AudioSystemPropertiesObserverRemote,
-    AudioSystemPropertiesObserver_OnPropertiesUpdated_ParamsSpec: AudioSystemPropertiesObserver_OnPropertiesUpdated_ParamsSpec,
-    AudioSystemPropertiesSpec: AudioSystemPropertiesSpec,
-    CrosAudioConfig: CrosAudioConfig,
-    CrosAudioConfigCallbackRouter: CrosAudioConfigCallbackRouter,
-    CrosAudioConfigPendingReceiver: CrosAudioConfigPendingReceiver,
-    CrosAudioConfigReceiver: CrosAudioConfigReceiver,
-    CrosAudioConfigRemote: CrosAudioConfigRemote,
-    CrosAudioConfig_ObserveAudioSystemProperties_ParamsSpec: CrosAudioConfig_ObserveAudioSystemProperties_ParamsSpec,
-    CrosAudioConfig_SetActiveDevice_ParamsSpec: CrosAudioConfig_SetActiveDevice_ParamsSpec,
-    CrosAudioConfig_SetForceRespectUiGainsEnabled_ParamsSpec: CrosAudioConfig_SetForceRespectUiGainsEnabled_ParamsSpec,
-    CrosAudioConfig_SetHfpMicSrEnabled_ParamsSpec: CrosAudioConfig_SetHfpMicSrEnabled_ParamsSpec,
-    CrosAudioConfig_SetInputGainPercent_ParamsSpec: CrosAudioConfig_SetInputGainPercent_ParamsSpec,
-    CrosAudioConfig_SetInputMuted_ParamsSpec: CrosAudioConfig_SetInputMuted_ParamsSpec,
-    CrosAudioConfig_SetNoiseCancellationEnabled_ParamsSpec: CrosAudioConfig_SetNoiseCancellationEnabled_ParamsSpec,
-    CrosAudioConfig_SetOutputMuted_ParamsSpec: CrosAudioConfig_SetOutputMuted_ParamsSpec,
-    CrosAudioConfig_SetOutputVolumePercent_ParamsSpec: CrosAudioConfig_SetOutputVolumePercent_ParamsSpec,
-    get MuteState () { return MuteState; },
-    MuteStateSpec: MuteStateSpec
+  __proto__: null,
+  AudioDeviceSpec: AudioDeviceSpec,
+  get AudioDeviceType () { return AudioDeviceType; },
+  AudioDeviceTypeSpec: AudioDeviceTypeSpec,
+  get AudioEffectState () { return AudioEffectState; },
+  AudioEffectStateSpec: AudioEffectStateSpec,
+  AudioSystemPropertiesObserver: AudioSystemPropertiesObserver,
+  AudioSystemPropertiesObserverCallbackRouter: AudioSystemPropertiesObserverCallbackRouter,
+  AudioSystemPropertiesObserverPendingReceiver: AudioSystemPropertiesObserverPendingReceiver,
+  AudioSystemPropertiesObserverReceiver: AudioSystemPropertiesObserverReceiver,
+  AudioSystemPropertiesObserverRemote: AudioSystemPropertiesObserverRemote,
+  AudioSystemPropertiesObserver_OnPropertiesUpdated_ParamsSpec: AudioSystemPropertiesObserver_OnPropertiesUpdated_ParamsSpec,
+  AudioSystemPropertiesSpec: AudioSystemPropertiesSpec,
+  CrosAudioConfig: CrosAudioConfig,
+  CrosAudioConfigCallbackRouter: CrosAudioConfigCallbackRouter,
+  CrosAudioConfigPendingReceiver: CrosAudioConfigPendingReceiver,
+  CrosAudioConfigReceiver: CrosAudioConfigReceiver,
+  CrosAudioConfigRemote: CrosAudioConfigRemote,
+  CrosAudioConfig_ObserveAudioSystemProperties_ParamsSpec: CrosAudioConfig_ObserveAudioSystemProperties_ParamsSpec,
+  CrosAudioConfig_SetActiveDevice_ParamsSpec: CrosAudioConfig_SetActiveDevice_ParamsSpec,
+  CrosAudioConfig_SetForceRespectUiGainsEnabled_ParamsSpec: CrosAudioConfig_SetForceRespectUiGainsEnabled_ParamsSpec,
+  CrosAudioConfig_SetHfpMicSrEnabled_ParamsSpec: CrosAudioConfig_SetHfpMicSrEnabled_ParamsSpec,
+  CrosAudioConfig_SetInputGainPercent_ParamsSpec: CrosAudioConfig_SetInputGainPercent_ParamsSpec,
+  CrosAudioConfig_SetInputMuted_ParamsSpec: CrosAudioConfig_SetInputMuted_ParamsSpec,
+  CrosAudioConfig_SetNoiseCancellationEnabled_ParamsSpec: CrosAudioConfig_SetNoiseCancellationEnabled_ParamsSpec,
+  CrosAudioConfig_SetOutputMuted_ParamsSpec: CrosAudioConfig_SetOutputMuted_ParamsSpec,
+  CrosAudioConfig_SetOutputVolumePercent_ParamsSpec: CrosAudioConfig_SetOutputVolumePercent_ParamsSpec,
+  get MuteState () { return MuteState; },
+  MuteStateSpec: MuteStateSpec
 });
 
 function getTemplate$1u() {
@@ -1692,17 +1691,17 @@ class FakeCrosAudioConfig {
 }
 
 var fake_cros_audio_config = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    FakeCrosAudioConfig: FakeCrosAudioConfig,
-    createAudioDevice: createAudioDevice,
-    defaultFakeAudioSystemProperties: defaultFakeAudioSystemProperties,
-    defaultFakeMicJack: defaultFakeMicJack,
-    defaultFakeSpeaker: defaultFakeSpeaker,
-    fakeBluetoothMic: fakeBluetoothMic,
-    fakeInternalFrontMic: fakeInternalFrontMic,
-    fakeInternalMicActive: fakeInternalMicActive,
-    fakeMicJackInactive: fakeMicJackInactive,
-    fakeSpeakerActive: fakeSpeakerActive
+  __proto__: null,
+  FakeCrosAudioConfig: FakeCrosAudioConfig,
+  createAudioDevice: createAudioDevice,
+  defaultFakeAudioSystemProperties: defaultFakeAudioSystemProperties,
+  defaultFakeMicJack: defaultFakeMicJack,
+  defaultFakeSpeaker: defaultFakeSpeaker,
+  fakeBluetoothMic: fakeBluetoothMic,
+  fakeInternalFrontMic: fakeInternalFrontMic,
+  fakeInternalMicActive: fakeInternalMicActive,
+  fakeMicJackInactive: fakeMicJackInactive,
+  fakeSpeakerActive: fakeSpeakerActive
 });
 
 // Copyright 2022 The Chromium Authors
@@ -2039,17 +2038,15 @@ class SettingsAudioElement extends SettingsAudioElementBase {
 customElements.define(SettingsAudioElement.is, SettingsAudioElement);
 
 function getTemplate$1t() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator,.tab-indicator-background{bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0)}.tab-indicator{border-top-left-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));border-top-right-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));opacity:0;transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}.tab-indicator-background{background:var(--cr-tabs-unselected-color,var(--google-blue-600));opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);z-index:-1}@media (prefers-color-scheme:dark){.tab-indicator-background{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
-
-    <template is="dom-repeat" items="[[tabNames]]">
-      <div role="tab" class$="tab [[getSelectedClass_(index, selected)]]" on-click="onTabClick_" aria-selected$="[[getAriaSelected_(index, selected)]]" tabindex$="[[getTabindex_(index, selected)]]">
-        <div class="tab-icon" style$="[[getIconStyle_(index)]]">
-        </div>
-        [[item]]
-        <div class="tab-indicator-background"></div>
-        <div class="tab-indicator"></div>
-      </div>
-    </template>
+    return html `<!--_html_template_start_--><style include="cr-hidden-style">:host{cursor:pointer;display:flex;flex-direction:row;font-size:var(--cr-tabs-font-size,14px);font-weight:500;height:var(--cr-tabs-height,48px);user-select:none}.tab{align-items:center;color:var(--cr-secondary-text-color);display:flex;flex:var(--cr-tabs-flex,auto);height:100%;justify-content:center;opacity:.8;outline:0;padding:0 var(--cr-tabs-tab-inline-padding,0);position:relative;transition:opacity .1s cubic-bezier(.4,0,1,1)}:host-context([chrome-refresh-2023]) .tab{opacity:1}:host-context(.focus-outline-visible) .tab:focus{outline:var(--cr-tabs-focus-outline,auto);outline-offset:var(--cr-tabs-focus-outline-offset,0)}.selected{color:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}@media (prefers-color-scheme:dark){.selected{color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-icon{-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-tabs-icon-size,var(--cr-icon-size));background-color:var(--cr-secondary-text-color);display:none;height:var(--cr-tabs-icon-size,var(--cr-icon-size));margin-inline-end:var(--cr-tabs-icon-margin-end,var(--cr-icon-size));width:var(--cr-tabs-icon-size,var(--cr-icon-size))}.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-600))}@media (prefers-color-scheme:dark){.selected .tab-icon{background-color:var(--cr-tabs-selected-color,var(--google-blue-300))}}.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-600));border-top-left-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));border-top-right-radius:var(--cr-tabs-selection-bar-radius,var(--cr-tabs-selection-bar-width,2px));bottom:0;height:var(--cr-tabs-selection-bar-width,2px);left:var(--cr-tabs-tab-inline-padding,0);opacity:var(--cr-tabs-selection-bar-unselected-opacity,0);position:absolute;right:var(--cr-tabs-tab-inline-padding,0);transform-origin:left center;transition:transform}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-600));opacity:1}.tab-indicator.expand{transition-duration:150ms;transition-timing-function:cubic-bezier(.4,0,1,1)}.tab-indicator.contract{transition-duration:180ms;transition-timing-function:cubic-bezier(0,0,.2,1)}@media (prefers-color-scheme:dark){.tab-indicator{background:var(--cr-tabs-unselected-color,var(--google-blue-300))}.selected .tab-indicator{background:var(--cr-tabs-selected-color,var(--google-blue-300))}}@media (forced-colors:active){.tab-indicator{background:SelectedItem}}</style>
+<template is="dom-repeat" items="[[tabNames]]">
+  <div role="tab" class$="tab [[getSelectedClass_(index, selected)]]" on-click="onTabClick_" aria-selected$="[[getAriaSelected_(index, selected)]]" tabindex$="[[getTabindex_(index, selected)]]">
+    <div class="tab-icon" style$="[[getIconStyle_(index)]]">
+    </div>
+    [[item]]
+    <div class="tab-indicator"></div>
+  </div>
+</template>
 <!--_html_template_end_-->`;
 }
 
@@ -2072,6 +2069,8 @@ function getTemplate$1t() {
  *   - cr-tabs does not accept any <slot> (not necessary as of this writing)
  *   - no horizontal scrolling, it is assumed that tabs always fit in the
  *     available space
+ *
+ * Forked from ui/webui/resources/cr_elements/cr_tabs/cr_tabs.ts
  */
 class CrTabsElement extends PolymerElement {
     constructor() {
@@ -4540,35 +4539,35 @@ mojo.internal.Struct(DisplaySettingsProvider_RecordChangingDisplaySettings_Param
 ], [[0, 24],]);
 
 var display_settings_provider_mojomWebui = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    DisplayConfigurationObserver: DisplayConfigurationObserver,
-    DisplayConfigurationObserverCallbackRouter: DisplayConfigurationObserverCallbackRouter,
-    DisplayConfigurationObserverPendingReceiver: DisplayConfigurationObserverPendingReceiver,
-    DisplayConfigurationObserverReceiver: DisplayConfigurationObserverReceiver,
-    DisplayConfigurationObserverRemote: DisplayConfigurationObserverRemote,
-    DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec: DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec,
-    get DisplaySettingsNightLightScheduleOption () { return DisplaySettingsNightLightScheduleOption; },
-    DisplaySettingsNightLightScheduleOptionSpec: DisplaySettingsNightLightScheduleOptionSpec,
-    get DisplaySettingsOrientationOption () { return DisplaySettingsOrientationOption; },
-    DisplaySettingsOrientationOptionSpec: DisplaySettingsOrientationOptionSpec,
-    DisplaySettingsProvider: DisplaySettingsProvider,
-    DisplaySettingsProviderCallbackRouter: DisplaySettingsProviderCallbackRouter,
-    DisplaySettingsProviderPendingReceiver: DisplaySettingsProviderPendingReceiver,
-    DisplaySettingsProviderReceiver: DisplaySettingsProviderReceiver,
-    DisplaySettingsProviderRemote: DisplaySettingsProviderRemote,
-    DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec: DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec,
-    DisplaySettingsProvider_ObserveTabletMode_ParamsSpec: DisplaySettingsProvider_ObserveTabletMode_ParamsSpec,
-    DisplaySettingsProvider_ObserveTabletMode_ResponseParamsSpec: DisplaySettingsProvider_ObserveTabletMode_ResponseParamsSpec,
-    DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec: DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec,
-    get DisplaySettingsType () { return DisplaySettingsType; },
-    DisplaySettingsTypeSpec: DisplaySettingsTypeSpec,
-    DisplaySettingsValueSpec: DisplaySettingsValueSpec,
-    TabletModeObserver: TabletModeObserver,
-    TabletModeObserverCallbackRouter: TabletModeObserverCallbackRouter,
-    TabletModeObserverPendingReceiver: TabletModeObserverPendingReceiver,
-    TabletModeObserverReceiver: TabletModeObserverReceiver,
-    TabletModeObserverRemote: TabletModeObserverRemote,
-    TabletModeObserver_OnTabletModeChanged_ParamsSpec: TabletModeObserver_OnTabletModeChanged_ParamsSpec
+  __proto__: null,
+  DisplayConfigurationObserver: DisplayConfigurationObserver,
+  DisplayConfigurationObserverCallbackRouter: DisplayConfigurationObserverCallbackRouter,
+  DisplayConfigurationObserverPendingReceiver: DisplayConfigurationObserverPendingReceiver,
+  DisplayConfigurationObserverReceiver: DisplayConfigurationObserverReceiver,
+  DisplayConfigurationObserverRemote: DisplayConfigurationObserverRemote,
+  DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec: DisplayConfigurationObserver_OnDisplayConfigurationChanged_ParamsSpec,
+  get DisplaySettingsNightLightScheduleOption () { return DisplaySettingsNightLightScheduleOption; },
+  DisplaySettingsNightLightScheduleOptionSpec: DisplaySettingsNightLightScheduleOptionSpec,
+  get DisplaySettingsOrientationOption () { return DisplaySettingsOrientationOption; },
+  DisplaySettingsOrientationOptionSpec: DisplaySettingsOrientationOptionSpec,
+  DisplaySettingsProvider: DisplaySettingsProvider,
+  DisplaySettingsProviderCallbackRouter: DisplaySettingsProviderCallbackRouter,
+  DisplaySettingsProviderPendingReceiver: DisplaySettingsProviderPendingReceiver,
+  DisplaySettingsProviderReceiver: DisplaySettingsProviderReceiver,
+  DisplaySettingsProviderRemote: DisplaySettingsProviderRemote,
+  DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec: DisplaySettingsProvider_ObserveDisplayConfiguration_ParamsSpec,
+  DisplaySettingsProvider_ObserveTabletMode_ParamsSpec: DisplaySettingsProvider_ObserveTabletMode_ParamsSpec,
+  DisplaySettingsProvider_ObserveTabletMode_ResponseParamsSpec: DisplaySettingsProvider_ObserveTabletMode_ResponseParamsSpec,
+  DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec: DisplaySettingsProvider_RecordChangingDisplaySettings_ParamsSpec,
+  get DisplaySettingsType () { return DisplaySettingsType; },
+  DisplaySettingsTypeSpec: DisplaySettingsTypeSpec,
+  DisplaySettingsValueSpec: DisplaySettingsValueSpec,
+  TabletModeObserver: TabletModeObserver,
+  TabletModeObserverCallbackRouter: TabletModeObserverCallbackRouter,
+  TabletModeObserverPendingReceiver: TabletModeObserverPendingReceiver,
+  TabletModeObserverReceiver: TabletModeObserverReceiver,
+  TabletModeObserverRemote: TabletModeObserverRemote,
+  TabletModeObserver_OnTabletModeChanged_ParamsSpec: TabletModeObserver_OnTabletModeChanged_ParamsSpec
 });
 
 function getTemplate$1p() {
@@ -25873,6 +25872,58 @@ class SettingsSystemPreferencesPageElement extends SettingsSystemPreferencesPage
 }
 customElements.define(SettingsSystemPreferencesPageElement.is, SettingsSystemPreferencesPageElement);
 
+// Copyright 2021 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+/**
+ * @return Whether the passed tagged template literal is a valid array.
+ */
+function isValidArray(arr) {
+    if (arr instanceof Array && Object.isFrozen(arr)) {
+        return true;
+    }
+    return false;
+}
+/**
+ * Checks if the passed tagged template literal only contains static string.
+ * And return the string in the literal if so.
+ * Throws an Error if the passed argument is not supported literals.
+ */
+function getStaticString(literal) {
+    const isStaticString = isValidArray(literal) && !!literal.raw &&
+        isValidArray(literal.raw) && literal.length === literal.raw.length &&
+        literal.length === 1;
+    assert(isStaticString, 'static_types.js only allows static strings');
+    return literal.join('');
+}
+function createTypes(_ignore, literal) {
+    return getStaticString(literal);
+}
+/**
+ * Rules used to enforce static literal checks.
+ */
+const rules = {
+    createHTML: createTypes,
+    createScript: createTypes,
+    createScriptURL: createTypes,
+};
+/**
+ * This policy returns Trusted Types if the passed literal is static.
+ */
+let staticPolicy;
+if (window.trustedTypes) {
+    staticPolicy = window.trustedTypes.createPolicy('static-types', rules);
+}
+else {
+    staticPolicy = rules;
+}
+/**
+ * Returns TrustedScriptURL if the passed literal is static.
+ */
+function getTrustedScriptURL(literal) {
+    return staticPolicy.createScriptURL('', literal);
+}
+
 // Copyright 2020 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -27045,41 +27096,43 @@ class OsSettingsMainElement extends OsSettingsMainElementBase {
 customElements.define(OsSettingsMainElement.is, OsSettingsMainElement);
 
 function getTemplate$a() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{--cr-toolbar-search-field-hover-background:var(--color-toolbar-search-field-background-hover,
-                var(--cr-hover-background-color));isolation:isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
-            var(--color-toolbar-search-field-icon,
-            var(--cr-secondary-text-color)));--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 28px);--cr-icon-button-icon-size:20px;margin:var(--cr-toolbar-icon-margin,0)}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:var(
-              --cr-toolbar-search-field-input-icon-color,
-              var(--google-grey-700));--cr-icon-button-focus-outline-color:var(
-              --cr-toolbar-icon-button-focus-outline-color,
-              var(--cr-focus-outline-color))}}@media (prefers-color-scheme:dark){cr-icon-button{--cr-icon-button-fill-color:var(
-              --cr-toolbar-search-field-input-icon-color,
-              var(--google-grey-500))}}#icon{transition:margin 150ms,opacity .2s}#prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--google-grey-700));opacity:0}@media (prefers-color-scheme:dark){#prompt{color:var(--cr-toolbar-search-field-prompt-color,#fff)}}@media (prefers-color-scheme:dark){#prompt{--cr-toolbar-search-field-prompt-opacity:1;color:var(--cr-secondary-text-color,#fff)}}:host-context([chrome-refresh-2023]) #prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--color-toolbar-search-field-foreground-placeholder,var(--cr-secondary-text-color)))}paper-spinner-lite{--paper-spinner-color:var(--cr-toolbar-search-field-input-icon-color,
-                var(--google-grey-700));height:var(--cr-icon-size);margin:var(--cr-toolbar-search-field-paper-spinner-margin,0 6px);opacity:0;padding:6px;position:absolute;width:var(--cr-icon-size)}@media (prefers-color-scheme:dark){paper-spinner-lite{--paper-spinner-color:var(
-              --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-search-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
-    <div id="background"></div>
-    <div id="stateBackground"></div>
-    <div id="content">
-      <template is="dom-if" id="spinnerTemplate">
-        <paper-spinner-lite active="[[isSpinnerShown_]]">
-        </paper-spinner-lite>
-      </template>
-      <cr-icon-button id="icon" iron-icon="cr:search" title="[[label]]" dir="ltr" tabindex$="[[computeIconTabIndex_(narrow, hasSearchText)]]" aria-hidden$="[[computeIconAriaHidden_(narrow, hasSearchText)]]" on-click="onSearchIconClicked_" disabled="[[disabled]]">
-      </cr-icon-button>
-      <div id="searchTerm">
-        <label id="prompt" for="searchInput" aria-hidden="true">[[label]]</label>
-        <input id="searchInput" aria-labelledby="prompt" autocapitalize="off" autocomplete="off" type="search" on-input="onSearchTermInput" on-search="onSearchTermSearch" on-keydown="onSearchTermKeydown_" on-focus="onInputFocus_" on-blur="onInputBlur_" autofocus$="[[autofocus]]" spellcheck="false" disabled="[[disabled]]">
-      </div>
-      <template is="dom-if" if="[[hasSearchText]]">
-        <cr-icon-button id="clearSearch" iron-icon="cr:cancel" title="[[clearLabel]]" on-click="clearSearch_" disabled="[[disabled]]"></cr-icon-button>
-      </template>
-    </div>
+    return html `<!--_html_template_start_--><style include="cr-shared-style cr-icons">:host{display:block;height:40px;transition:background-color 150ms cubic-bezier(.4,0,.2,1),width 150ms cubic-bezier(.4,0,.2,1);width:44px}:host-context([chrome-refresh-2023]):host{--cr-toolbar-search-field-hover-background:var(--color-toolbar-search-field-background-hover,
+            var(--cr-hover-background-color)) isolation: isolate}:host([disabled]){opacity:var(--cr-disabled-opacity)}[hidden]{display:none!important}cr-icon-button{--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 32px);margin:var(--cr-toolbar-icon-margin,6px)}:host-context([chrome-refresh-2023]) cr-icon-button{--cr-icon-button-fill-color:var(--cr-toolbar-search-field-icon-color,
+        var(--color-toolbar-search-field-icon,
+        var(--cr-secondary-text-color)));--cr-icon-button-size:var(--cr-toolbar-icon-container-size, 28px);--cr-icon-button-icon-size:20px;margin:var(--cr-toolbar-icon-margin,0)}@media (prefers-color-scheme:light){cr-icon-button{--cr-icon-button-fill-color:var(
+          --cr-toolbar-search-field-input-icon-color,
+          var(--google-grey-700));--cr-icon-button-focus-outline-color:var(
+          --cr-toolbar-icon-button-focus-outline-color,
+          var(--cr-focus-outline-color))}}@media (prefers-color-scheme:dark){cr-icon-button{--cr-icon-button-fill-color:var(
+          --cr-toolbar-search-field-input-icon-color,
+          var(--google-grey-500))}}#icon{transition:margin 150ms,opacity .2s}#prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--google-grey-700));opacity:0}@media (prefers-color-scheme:dark){#prompt{color:var(--cr-toolbar-search-field-prompt-color,#fff)}}@media (prefers-color-scheme:dark){#prompt{--cr-toolbar-search-field-prompt-opacity:1;color:var(--cr-secondary-text-color,#fff)}}:host-context([chrome-refresh-2023]) #prompt{color:var(--cr-toolbar-search-field-prompt-color,var(--color-toolbar-search-field-foreground-placeholder,var(--cr-secondary-text-color)))}paper-spinner-lite{--paper-spinner-color:var(--cr-toolbar-search-field-input-icon-color,
+            var(--google-grey-700));height:var(--cr-icon-size);margin:var(--cr-toolbar-search-field-paper-spinner-margin,0 6px);opacity:0;padding:6px;position:absolute;width:var(--cr-icon-size)}@media (prefers-color-scheme:dark){paper-spinner-lite{--paper-spinner-color:var(
+          --cr-toolbar-search-field-input-icon-color, white)}}:host-context([chrome-refresh-2023]) paper-spinner-lite{margin:0;padding:2px}paper-spinner-lite[active]{opacity:1}#prompt,paper-spinner-lite{transition:opacity .2s}#searchTerm{-webkit-font-smoothing:antialiased;flex:1;line-height:185%;margin:var(--cr-toolbar-search-field-term-margin,0 2px);position:relative}:host-context([chrome-refresh-2023]) #searchTerm{font-size:12px;font-weight:500;margin:var(--cr-toolbar-search-field-term-margin,0)}label{bottom:0;cursor:var(--cr-toolbar-search-field-cursor,text);left:0;overflow:hidden;position:absolute;right:0;top:0;white-space:nowrap}:host([has-search-text]) label{visibility:hidden}input{-webkit-appearance:none;background:0 0;border:none;caret-color:var(--cr-toolbar-search-field-input-caret-color,var(--google-blue-700));color:var(--cr-toolbar-search-field-input-text-color,var(--google-grey-900));cursor:var(--cr-toolbar-search-field-cursor,text);font:inherit;outline:0;padding:0;position:relative;width:100%}@media (prefers-color-scheme:dark){input{color:var(--cr-toolbar-search-field-input-text-color,#fff)}}:host-context([chrome-refresh-2023]) input{caret-color:var(--cr-toolbar-search-field-input-caret-color,currentColor);color:var(--cr-toolbar-search-field-input-text-color,var(--color-toolbar-search-field-foreground,var(--cr-fallback-color-on-surface)));font-size:12px;font-weight:500}input[type=search]::-webkit-search-cancel-button{display:none}:host([narrow]){border-radius:var(--cr-toolbar-search-field-border-radius,0)}:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,var(--google-grey-100));border-radius:var(--cr-toolbar-search-field-border-radius,46px);cursor:var(--cr-toolbar-search-field-cursor,text);max-width:var(--cr-toolbar-field-max-width,none);padding-inline-end:0;width:var(--cr-toolbar-field-width,680px)}@media (prefers-color-scheme:dark){:host(:not([narrow])){background:var(--cr-toolbar-search-field-background,rgba(0,0,0,.22))}}:host-context([chrome-refresh-2023]):host(:not([narrow])){--cr-toolbar-search-field-border-radius:100px;background:0 0;height:36px;overflow:hidden;padding:0 6px;position:relative}#background,#stateBackground{display:none}:host-context([chrome-refresh-2023]):host(:not([narrow])) #background{background:var(--cr-toolbar-search-field-background,var(--color-toolbar-search-field-background,var(--cr-fallback-color-base-container)));border-radius:inherit;display:block;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host([search-focused_]:not([narrow])){outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host-context([chrome-refresh-2023]):host(:not([narrow])) #stateBackground{display:block;inset:0;pointer-events:none;position:absolute}:host-context([chrome-refresh-2023]):host(:hover:not([search-focused_],[narrow])) #stateBackground{background:var(--cr-toolbar-search-field-hover-background);z-index:1}:host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,.7)}:host-context([chrome-refresh-2023]):host(:not([narrow]):not([showing-search])) #icon{opacity:var(--cr-toolbar-search-field-icon-opacity,1)}:host(:not([narrow])) #prompt{opacity:var(--cr-toolbar-search-field-prompt-opacity,1)}:host([narrow]) #prompt{opacity:var(--cr-toolbar-search-field-narrow-mode-prompt-opacity,0)}:host([narrow]:not([showing-search])) #searchTerm{display:none}:host([showing-search][spinner-active]) #icon{opacity:0}:host([narrow][showing-search]){width:100%}:host([narrow][showing-search]) #icon,:host([narrow][showing-search]) paper-spinner-lite{margin-inline-start:var(--cr-toolbar-search-icon-margin-inline-start,18px)}#content{align-items:center;display:flex;height:100%}:host-context([chrome-refresh-2023]) #content{position:relative;z-index:2}</style>
+<div id="background"></div>
+<div id="stateBackground"></div>
+<div id="content">
+  <template is="dom-if" id="spinnerTemplate">
+    <paper-spinner-lite active="[[isSpinnerShown_]]">
+    </paper-spinner-lite>
+  </template>
+  <cr-icon-button id="icon" iron-icon="cr:search" title="[[label]]" dir="ltr" tabindex$="[[computeIconTabIndex_(narrow, hasSearchText)]]" aria-hidden$="[[computeIconAriaHidden_(narrow, hasSearchText)]]" on-click="onSearchIconClicked_" disabled="[[disabled]]">
+  </cr-icon-button>
+  <div id="searchTerm">
+    <label id="prompt" for="searchInput" aria-hidden="true">[[label]]</label>
+    <input id="searchInput" aria-labelledby="prompt" autocapitalize="off" autocomplete="off" type="search" on-input="onSearchTermInput" on-search="onSearchTermSearch" on-keydown="onSearchTermKeydown_" on-focus="onInputFocus_" on-blur="onInputBlur_" autofocus$="[[autofocus]]" spellcheck="false" disabled="[[disabled]]">
+  </div>
+  <template is="dom-if" if="[[hasSearchText]]">
+    <cr-icon-button id="clearSearch" iron-icon="cr:cancel" title="[[clearLabel]]" on-click="clearSearch_" disabled="[[disabled]]"></cr-icon-button>
+  </template>
+</div>
 <!--_html_template_end_-->`;
 }
 
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// Forked from
+// ui/webui/resources/cr_elements/cr_toolbar/cr_toolbar_search_field.ts
 const CrToolbarSearchFieldElementBase = CrSearchFieldMixin(PolymerElement);
 class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
     static get is() {
@@ -27098,6 +27151,7 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
                 type: Boolean,
                 value: false,
                 notify: true,
+                observer: 'showingSearchChanged_',
                 reflectToAttribute: true,
             },
             disabled: {
@@ -27169,22 +27223,29 @@ class CrToolbarSearchFieldElement extends CrToolbarSearchFieldElementBase {
     onSearchTermKeydown_(e) {
         if (e.key === 'Escape') {
             this.showingSearch = false;
-            this.setValue('');
-            this.getSearchInput().blur();
         }
     }
     showSearch_(e) {
         if (e.target !== this.shadowRoot.querySelector('#clearSearch')) {
             this.showingSearch = true;
         }
-        if (this.narrow) {
-            this.focus_();
-        }
     }
     clearSearch_() {
         this.setValue('');
         this.focus_();
         this.spinnerActive = false;
+    }
+    showingSearchChanged_(_current, previous) {
+        // Prevent unnecessary 'search-changed' event from firing on startup.
+        if (previous === undefined) {
+            return;
+        }
+        if (this.showingSearch) {
+            this.focus_();
+            return;
+        }
+        this.setValue('');
+        this.getSearchInput().blur();
     }
 }
 customElements.define(CrToolbarSearchFieldElement.is, CrToolbarSearchFieldElement);
@@ -27271,9 +27332,9 @@ var SearchResultIcon;
 })(SearchResultIcon || (SearchResultIcon = {}));
 
 var search_result_icon_mojomWebui = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    get SearchResultIcon () { return SearchResultIcon; },
-    SearchResultIconSpec: SearchResultIconSpec
+  __proto__: null,
+  get SearchResultIcon () { return SearchResultIcon; },
+  SearchResultIconSpec: SearchResultIconSpec
 });
 
 // chrome/browser/ui/webui/ash/settings/search/mojom/search.mojom-webui.ts is auto generated by mojom_bindings_generator.py, do not edit
@@ -27507,29 +27568,29 @@ mojo.internal.Union(SearchResultIdentifierSpec.$, 'SearchResultIdentifier', {
 });
 
 var search_mojomWebui = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    get ParentResultBehavior () { return ParentResultBehavior; },
-    ParentResultBehaviorSpec: ParentResultBehaviorSpec,
-    SearchHandler: SearchHandler$1,
-    SearchHandlerCallbackRouter: SearchHandlerCallbackRouter$1,
-    SearchHandlerPendingReceiver: SearchHandlerPendingReceiver$1,
-    SearchHandlerReceiver: SearchHandlerReceiver$1,
-    SearchHandlerRemote: SearchHandlerRemote$1,
-    SearchHandler_Observe_ParamsSpec: SearchHandler_Observe_ParamsSpec,
-    SearchHandler_Search_ParamsSpec: SearchHandler_Search_ParamsSpec$1,
-    SearchHandler_Search_ResponseParamsSpec: SearchHandler_Search_ResponseParamsSpec$1,
-    get SearchResultDefaultRank () { return SearchResultDefaultRank; },
-    SearchResultDefaultRankSpec: SearchResultDefaultRankSpec,
-    SearchResultIdentifierSpec: SearchResultIdentifierSpec,
-    SearchResultSpec: SearchResultSpec$1,
-    get SearchResultType () { return SearchResultType; },
-    SearchResultTypeSpec: SearchResultTypeSpec,
-    SearchResultsObserver: SearchResultsObserver$1,
-    SearchResultsObserverCallbackRouter: SearchResultsObserverCallbackRouter$1,
-    SearchResultsObserverPendingReceiver: SearchResultsObserverPendingReceiver$1,
-    SearchResultsObserverReceiver: SearchResultsObserverReceiver$1,
-    SearchResultsObserverRemote: SearchResultsObserverRemote$1,
-    SearchResultsObserver_OnSearchResultsChanged_ParamsSpec: SearchResultsObserver_OnSearchResultsChanged_ParamsSpec$1
+  __proto__: null,
+  get ParentResultBehavior () { return ParentResultBehavior; },
+  ParentResultBehaviorSpec: ParentResultBehaviorSpec,
+  SearchHandler: SearchHandler$1,
+  SearchHandlerCallbackRouter: SearchHandlerCallbackRouter$1,
+  SearchHandlerPendingReceiver: SearchHandlerPendingReceiver$1,
+  SearchHandlerReceiver: SearchHandlerReceiver$1,
+  SearchHandlerRemote: SearchHandlerRemote$1,
+  SearchHandler_Observe_ParamsSpec: SearchHandler_Observe_ParamsSpec,
+  SearchHandler_Search_ParamsSpec: SearchHandler_Search_ParamsSpec$1,
+  SearchHandler_Search_ResponseParamsSpec: SearchHandler_Search_ResponseParamsSpec$1,
+  get SearchResultDefaultRank () { return SearchResultDefaultRank; },
+  SearchResultDefaultRankSpec: SearchResultDefaultRankSpec,
+  SearchResultIdentifierSpec: SearchResultIdentifierSpec,
+  SearchResultSpec: SearchResultSpec$1,
+  get SearchResultType () { return SearchResultType; },
+  SearchResultTypeSpec: SearchResultTypeSpec,
+  SearchResultsObserver: SearchResultsObserver$1,
+  SearchResultsObserverCallbackRouter: SearchResultsObserverCallbackRouter$1,
+  SearchResultsObserverPendingReceiver: SearchResultsObserverPendingReceiver$1,
+  SearchResultsObserverReceiver: SearchResultsObserverReceiver$1,
+  SearchResultsObserverRemote: SearchResultsObserverRemote$1,
+  SearchResultsObserver_OnSearchResultsChanged_ParamsSpec: SearchResultsObserver_OnSearchResultsChanged_ParamsSpec$1
 });
 
 function getTemplate$9() {
@@ -28447,24 +28508,24 @@ mojo.internal.Struct(SearchHandler_AddObserver_ParamsSpec.$, 'SearchHandler_AddO
 ], [[0, 16],]);
 
 var personalization_search_mojomWebui = /*#__PURE__*/Object.freeze({
-    __proto__: null,
-    get SearchConceptId () { return SearchConceptId; },
-    SearchConceptIdSpec: SearchConceptIdSpec,
-    SearchHandler: SearchHandler,
-    SearchHandlerCallbackRouter: SearchHandlerCallbackRouter,
-    SearchHandlerPendingReceiver: SearchHandlerPendingReceiver,
-    SearchHandlerReceiver: SearchHandlerReceiver,
-    SearchHandlerRemote: SearchHandlerRemote,
-    SearchHandler_AddObserver_ParamsSpec: SearchHandler_AddObserver_ParamsSpec,
-    SearchHandler_Search_ParamsSpec: SearchHandler_Search_ParamsSpec,
-    SearchHandler_Search_ResponseParamsSpec: SearchHandler_Search_ResponseParamsSpec,
-    SearchResultSpec: SearchResultSpec,
-    SearchResultsObserver: SearchResultsObserver,
-    SearchResultsObserverCallbackRouter: SearchResultsObserverCallbackRouter,
-    SearchResultsObserverPendingReceiver: SearchResultsObserverPendingReceiver,
-    SearchResultsObserverReceiver: SearchResultsObserverReceiver,
-    SearchResultsObserverRemote: SearchResultsObserverRemote,
-    SearchResultsObserver_OnSearchResultsChanged_ParamsSpec: SearchResultsObserver_OnSearchResultsChanged_ParamsSpec
+  __proto__: null,
+  get SearchConceptId () { return SearchConceptId; },
+  SearchConceptIdSpec: SearchConceptIdSpec,
+  SearchHandler: SearchHandler,
+  SearchHandlerCallbackRouter: SearchHandlerCallbackRouter,
+  SearchHandlerPendingReceiver: SearchHandlerPendingReceiver,
+  SearchHandlerReceiver: SearchHandlerReceiver,
+  SearchHandlerRemote: SearchHandlerRemote,
+  SearchHandler_AddObserver_ParamsSpec: SearchHandler_AddObserver_ParamsSpec,
+  SearchHandler_Search_ParamsSpec: SearchHandler_Search_ParamsSpec,
+  SearchHandler_Search_ResponseParamsSpec: SearchHandler_Search_ResponseParamsSpec,
+  SearchResultSpec: SearchResultSpec,
+  SearchResultsObserver: SearchResultsObserver,
+  SearchResultsObserverCallbackRouter: SearchResultsObserverCallbackRouter,
+  SearchResultsObserverPendingReceiver: SearchResultsObserverPendingReceiver,
+  SearchResultsObserverReceiver: SearchResultsObserverReceiver,
+  SearchResultsObserverRemote: SearchResultsObserverRemote,
+  SearchResultsObserver_OnSearchResultsChanged_ParamsSpec: SearchResultsObserver_OnSearchResultsChanged_ParamsSpec
 });
 
 // Copyright 2022 The Chromium Authors
@@ -29062,140 +29123,6 @@ class OsToolbarElement extends PolymerElement {
     }
 }
 customElements.define(OsToolbarElement.is, OsToolbarElement);
-
-// Copyright 2017 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview CrContainerShadowMixin holds logic for showing a drop shadow
- * near the top of a container element, when the content has scrolled.
- *
- * Elements using this mixin are expected to define a #container element,
- * which is the element being scrolled. If the #container element has a
- * show-bottom-shadow attribute, a drop shadow will also be shown near the
- * bottom of the container element, when there is additional content to scroll
- * to. Examples:
- *
- * For both top and bottom shadows:
- * <div id="container" show-bottom-shadow>...</div>
- *
- * For top shadow only:
- * <div id="container">...</div>
- *
- * The mixin will take care of inserting an element with ID
- * 'cr-container-shadow-top' which holds the drop shadow effect, and,
- * optionally, an element with ID 'cr-container-shadow-bottom' which holds the
- * same effect. A 'has-shadow' CSS class is automatically added to/removed from
- * both elements while scrolling, as necessary. Note that the show-bottom-shadow
- * attribute is inspected only during attached(), and any changes to it that
- * occur after that point will not be respected.
- *
- * Clients should either use the existing shared styling in
- * cr_shared_style.css, '#cr-container-shadow-[top/bottom]' and
- * '#cr-container-shadow-[top/bottom].has-shadow', or define their own styles.
- */
-var CrContainerShadowSide;
-(function (CrContainerShadowSide) {
-    CrContainerShadowSide["TOP"] = "top";
-    CrContainerShadowSide["BOTTOM"] = "bottom";
-})(CrContainerShadowSide || (CrContainerShadowSide = {}));
-const CrContainerShadowMixin = dedupingMixin((superClass) => {
-    class CrContainerShadowMixin extends superClass {
-        constructor() {
-            super(...arguments);
-            this.intersectionObserver_ = null;
-            this.dropShadows_ = new Map();
-            this.intersectionProbes_ = new Map();
-            this.sides_ = null;
-        }
-        connectedCallback() {
-            super.connectedCallback();
-            const hasBottomShadow = this.getContainer_().hasAttribute('show-bottom-shadow');
-            this.sides_ = hasBottomShadow ?
-                [CrContainerShadowSide.TOP, CrContainerShadowSide.BOTTOM] :
-                [CrContainerShadowSide.TOP];
-            this.sides_.forEach(side => {
-                // The element holding the drop shadow effect to be shown.
-                const shadow = document.createElement('div');
-                shadow.id = `cr-container-shadow-${side}`;
-                shadow.classList.add('cr-container-shadow');
-                this.dropShadows_.set(side, shadow);
-                this.intersectionProbes_.set(side, document.createElement('div'));
-            });
-            this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.TOP), this.getContainer_());
-            this.getContainer_().prepend(this.intersectionProbes_.get(CrContainerShadowSide.TOP));
-            if (hasBottomShadow) {
-                this.getContainer_().parentNode.insertBefore(this.dropShadows_.get(CrContainerShadowSide.BOTTOM), this.getContainer_().nextSibling);
-                this.getContainer_().append(this.intersectionProbes_.get(CrContainerShadowSide.BOTTOM));
-            }
-            this.enableShadowBehavior(true);
-        }
-        disconnectedCallback() {
-            super.disconnectedCallback();
-            this.enableShadowBehavior(false);
-        }
-        getContainer_() {
-            return this.shadowRoot.querySelector('#container');
-        }
-        getIntersectionObserver_() {
-            const callback = (entries) => {
-                // In some rare cases, there could be more than one entry per
-                // observed element, in which case the last entry's result
-                // stands.
-                for (const entry of entries) {
-                    const target = entry.target;
-                    this.sides_.forEach(side => {
-                        if (target === this.intersectionProbes_.get(side)) {
-                            this.dropShadows_.get(side).classList.toggle('has-shadow', entry.intersectionRatio === 0);
-                        }
-                    });
-                }
-            };
-            return new IntersectionObserver(callback, { root: this.getContainer_(), threshold: 0 });
-        }
-        /**
-         * @param enable Whether to enable the mixin or disable it.
-         *     This function does nothing if the mixin is already in the
-         *     requested state.
-         */
-        enableShadowBehavior(enable) {
-            // Behavior is already enabled/disabled. Return early.
-            if (enable === !!this.intersectionObserver_) {
-                return;
-            }
-            if (!enable) {
-                this.intersectionObserver_.disconnect();
-                this.intersectionObserver_ = null;
-                return;
-            }
-            this.intersectionObserver_ = this.getIntersectionObserver_();
-            // Need to register the observer within a setTimeout() callback,
-            // otherwise the drop shadow flashes once on startup, because of the
-            // DOM modifications earlier in this function causing a relayout.
-            window.setTimeout(() => {
-                if (this.intersectionObserver_) {
-                    // In case this is already detached.
-                    this.intersectionProbes_.forEach(probe => {
-                        this.intersectionObserver_.observe(probe);
-                    });
-                }
-            });
-        }
-        /**
-         * Shows the shadows. The shadow mixin must be disabled before
-         * calling this method, otherwise the intersection observer might
-         * show the shadows again.
-         */
-        showDropShadows() {
-            assert(!this.intersectionObserver_);
-            assert(this.sides_);
-            for (const side of this.sides_) {
-                this.dropShadows_.get(side).classList.toggle('has-shadow', true);
-            }
-        }
-    }
-    return CrContainerShadowMixin;
-});
 
 /* Copyright 2020 The Chromium Authors
  * Use of this source code is governed by a BSD-style license that can be

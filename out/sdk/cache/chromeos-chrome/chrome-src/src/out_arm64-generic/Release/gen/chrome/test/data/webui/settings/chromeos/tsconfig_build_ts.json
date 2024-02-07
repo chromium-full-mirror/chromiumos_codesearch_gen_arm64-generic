@@ -11,6 +11,12 @@
       "chrome://resources/ash/common/*": [
         "./../../../../../../ash/webui/common/resources/preprocessed/*"
       ],
+      "//resources/ash/common/cr_elements/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
+      ],
+      "chrome://resources/ash/common/cr_elements/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
+      ],
       "//resources/polymer/v3_0/polymer/polymer_bundled.min.js": [
         "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/polymer/polymer.d.ts"
       ],
@@ -28,12 +34,6 @@
       ],
       "chrome://resources/cr_components/app_management/*": [
         "./../../../../../../ui/webui/resources/tsc/cr_components/app_management/*"
-      ],
-      "//resources/cr_elements/*": [
-        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
-      ],
-      "chrome://resources/cr_elements/*": [
-        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
       ],
       "//resources/js/*": [
         "./../../../../../../ui/webui/resources/tsc/js/*"
@@ -97,7 +97,6 @@
     "preprocessed/os_page_availability_test.ts",
     "preprocessed/test_about_page_browser_proxy.ts",
     "preprocessed/test_api.ts",
-    "preprocessed/test_device_name_browser_proxy.ts",
     "preprocessed/test_extension_control_browser_proxy.ts",
     "preprocessed/test_lacros_extension_control_browser_proxy.ts",
     "preprocessed/test_os_lifetime_browser_proxy.ts",
@@ -240,6 +239,10 @@
     "preprocessed/os_a11y_page/text_to_speech_subpage_test.ts",
     "preprocessed/os_a11y_page/tts_voice_subpage_test.ts",
     "preprocessed/os_about_page/channel_switcher_dialog_test.ts",
+    "preprocessed/os_about_page/consumer_auto_update_toggle_dialog_test.ts",
+    "preprocessed/os_about_page/detailed_build_info_subpage_test.ts",
+    "preprocessed/os_about_page/edit_hostname_dialog_test.ts",
+    "preprocessed/os_about_page/test_device_name_browser_proxy.ts",
     "preprocessed/os_apps_page/app_management_page/app_detail_view_test.ts",
     "preprocessed/os_apps_page/app_management_page/app_details_item_test.ts",
     "preprocessed/os_apps_page/app_management_page/app_item_test.ts",
@@ -403,6 +406,9 @@
       "path": "../../../../../../ash/webui/common/resources/tsconfig_build_ts.json"
     },
     {
+      "path": "../../../../../../ash/webui/common/resources/cr_elements/tsconfig_build_ts.json"
+    },
+    {
       "path": "../../../../../browser/resources/ash/settings/tsconfig_build_ts.json"
     },
     {
@@ -419,9 +425,6 @@
     },
     {
       "path": "../../../../../../ui/webui/resources/cr_components/app_management/tsconfig_build_ts.json"
-    },
-    {
-      "path": "../../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../../ui/webui/resources/js/tsconfig_build_ts.json"

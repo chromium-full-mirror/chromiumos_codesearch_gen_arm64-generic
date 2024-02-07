@@ -5,7 +5,7 @@
  * @fileoverview Polymer element for displaying material design Sync Consent
  * screen.
  */
-import '//resources/cr_elements/chromeos/cros_color_overrides.css.js';
+import '//resources/ash/common/cr_elements/cros_color_overrides.css.js';
 import '//resources/polymer/v3_0/iron-icon/iron-icon.js';
 import '//resources/polymer/v3_0/paper-tooltip/paper-tooltip.js';
 // 
@@ -15,7 +15,7 @@ import '../../components/hd_iron_icon.js';
 import '../../components/common_styles/oobe_common_styles.css.js';
 import '../../components/common_styles/oobe_dialog_host_styles.css.js';
 import '../../components/dialogs/oobe_loading_dialog.js';
-import { CrCheckboxElement } from '//resources/cr_elements/cr_checkbox/cr_checkbox.js';
+import { CrCheckboxElement } from '//resources/ash/common/cr_elements/cr_checkbox/cr_checkbox.js';
 import { assert, assertNotReached } from '//resources/js/assert.js';
 import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';

@@ -9,6 +9,7 @@ import { mixinBehaviors, PolymerElement } from '//resources/polymer/v3_0/polymer
 import { LoginScreenBehavior } from '../../components/behaviors/login_screen_behavior.js';
 import { MultiStepBehavior } from '../../components/behaviors/multi_step_behavior.js';
 import { OobeI18nBehavior } from '../../components/behaviors/oobe_i18n_behavior.js';
+import { GaiaButton } from '../../components/gaia_button.js';
 import { getTemplate } from './user_allowlist_check_screen.html.js';
 // The help topic regarding user not being in the allowlist.
 const HELP_CANT_ACCESS_ACCOUNT = 188036;
@@ -65,8 +66,7 @@ export class UserAllowlistCheckScreenElement extends UserAllowlistCheckScreenEle
             this.allowlistError = 'allowlistErrorConsumer';
         }
         const submitButton = this.shadowRoot?.querySelector('#submitButton');
-        if (submitButton instanceof HTMLElement) {
-            // TODO(b/320446861): Fix type once GaiaButton can be added.
+        if (submitButton instanceof GaiaButton) {
             submitButton.focus();
         }
     }

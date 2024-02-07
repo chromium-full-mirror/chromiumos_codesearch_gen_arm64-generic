@@ -6,9 +6,9 @@
  * settings in chrome://os-settings/audioAndCaptions and has been forked from
  * the equivalent Browser Settings UI (in chrome://settings/captions).
  */
-import '//resources/cr_elements/cr_shared_style.css.js';
+import '//resources/ash/common/cr_elements/cr_shared_style.css.js';
 import '../controls/settings_toggle_button.js';
-import { WebUiListenerMixin } from '//resources/cr_elements/web_ui_listener_mixin.js';
+import { WebUiListenerMixin } from '//resources/ash/common/cr_elements/web_ui_listener_mixin.js';
 import { loadTimeData } from '//resources/js/load_time_data.js';
 import { PolymerElement } from '//resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { CaptionsBrowserProxyImpl } from '/shared/settings/a11y_page/captions_browser_proxy.js';

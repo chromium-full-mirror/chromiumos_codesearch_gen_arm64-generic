@@ -1,7 +1,7 @@
 import { useShadow, dom, dashToCamelCase, Polymer, html, dedupingMixin, PolymerElement, FlattenedNodesObserver, microTask, DomIf, Base, mixinBehaviors, afterNextRender, Templatizer, OptionalMutableDataBehavior, animationFrame, idlePeriod, flush, Debouncer, enqueueDebouncer, matches as matches$1, translate, templatize, gestures, beforeNextRender } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { loadTimeData } from 'chrome://resources/js/load_time_data.js';
 import { sendWithPromise as sendWithPromise$1, addWebUiListener, removeWebUiListener } from 'chrome://resources/js/cr.js';
-import { isServer, property, LitElement, css as css$1, customElement, state, query, html as html$2, classMap, nothing as nothing$1 } from 'chrome://resources/mwc/lit/index.js';
+import { isServer, property, LitElement, css, customElement, state, query, html as html$1, classMap, nothing } from 'chrome://resources/mwc/lit/index.js';
 import { loadTimeData as loadTimeData$1 } from 'chrome://resources/ash/common/load_time_data.m.js';
 import { mojo } from 'chrome://resources/mojo/mojo/public/js/bindings.js';
 import { PortalState, ConnectionStateType, DeviceStateType, NetworkType, OncSource, PolicySource, IPConfigType } from 'chrome://resources/mojo/chromeos/services/network_config/public/mojom/network_types.mojom-webui.js';
@@ -17,7 +17,6 @@ import { getBluetoothConfig } from 'chrome://resources/ash/common/bluetooth/cros
 import { DeviceType, DeviceConnectionState, AudioOutputCapability, BluetoothSystemState } from 'chrome://resources/mojo/chromeos/ash/services/bluetooth_config/public/mojom/cros_bluetooth_config.mojom-webui.js';
 import { HotspotState } from 'chrome://resources/ash/common/hotspot/cros_hotspot_config.mojom-webui.js';
 import 'chrome://resources/mojo/services/network/public/mojom/ip_address.mojom-webui.js';
-import { css, html as html$1, nothing, CrLitElement } from 'chrome://resources/lit/v3_0/lit.rollup.js';
 
 /**
 @license
@@ -2073,7 +2072,7 @@ function getSettingIdParameter() {
     return Router.getInstance().getQueryParameters().get(SETTING_ID_URL_PARAM_NAME);
 }
 
-function getTemplate$2g() {
+function getTemplate$2i() {
     return html `<!--_html_template_start_--><iron-pages id="animatedPages" attr-for-selected="route-path" on-iron-select="onIronSelect_">
   <slot></slot>
 </iron-pages>
@@ -2100,7 +2099,7 @@ class OsSettingsAnimatedPagesElement extends OsSettingsAnimatedPagesElementBase 
         return 'os-settings-animated-pages';
     }
     static get template() {
-        return getTemplate$2g();
+        return getTemplate$2i();
     }
     static get properties() {
         return {
@@ -4007,11 +4006,11 @@ const PaperRippleMixin = dedupingMixin(superClass => {
   return PaperRippleMixin;
 });
 
-function getTemplate$2f() {
-    return html `<!--_html_template_start_-->    <style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
-    <div id="icon">
-      <div id="maskedImage"></div>
-    </div>
+function getTemplate$2h() {
+    return html `<!--_html_template_start_--><style>:host{--cr-icon-button-fill-color:var(--google-grey-700);--cr-icon-button-icon-start-offset:0;--cr-icon-button-icon-size:20px;--cr-icon-button-size:36px;--cr-icon-button-height:var(--cr-icon-button-size);--cr-icon-button-transition:150ms ease-in-out;--cr-icon-button-width:var(--cr-icon-button-size);-webkit-tap-highlight-color:transparent;border-radius:50%;color:var(--cr-icon-button-stroke-color,var(--cr-icon-button-fill-color));cursor:pointer;display:inline-flex;flex-shrink:0;height:var(--cr-icon-button-height);margin-inline-end:var(--cr-icon-button-margin-end,var(--cr-icon-ripple-margin));margin-inline-start:var(--cr-icon-button-margin-start);outline:0;overflow:hidden;user-select:none;vertical-align:middle;width:var(--cr-icon-button-width)}:host-context([chrome-refresh-2023]):host{--cr-icon-button-fill-color:currentColor;--cr-icon-button-size:32px;position:relative}:host(:hover){background-color:var(--cr-icon-button-hover-background-color,var(--cr-hover-background-color))}:host(:focus-visible:focus){box-shadow:inset 0 0 0 2px var(--cr-icon-button-focus-outline-color,var(--cr-focus-outline-color))}@media (forced-colors:active){:host(:focus-visible:focus){outline:var(--cr-focus-outline-hcm)}}:host-context(html:not([chrome-refresh-2023])) :host(:active){background-color:var(--cr-icon-button-active-background-color,var(--cr-active-background-color))}paper-ripple{display:none}:host-context([chrome-refresh-2023]) paper-ripple{--paper-ripple-opacity:1;color:var(--cr-active-background-color);display:block}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host(.no-overlap){--cr-icon-button-margin-end:0;--cr-icon-button-margin-start:0}:host-context([dir=rtl]):host(:not([dir=ltr]):not([multiple-icons_])){transform:scaleX(-1)}:host-context([dir=rtl]):host(:not([dir=ltr])[multiple-icons_]) iron-icon{transform:scaleX(-1)}:host(:not([iron-icon])) #maskedImage{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-button-icon-size);-webkit-transform:var(--cr-icon-image-transform,none);background-color:var(--cr-icon-button-fill-color);height:100%;transition:background-color var(--cr-icon-button-transition);width:100%}@media (forced-colors:active){:host(:not([iron-icon])) #maskedImage{background-color:ButtonText}}#icon{align-items:center;border-radius:4px;display:flex;height:100%;justify-content:center;padding-inline-start:var(--cr-icon-button-icon-start-offset);position:relative;width:100%}iron-icon{--iron-icon-fill-color:var(--cr-icon-button-fill-color);--iron-icon-stroke-color:var(--cr-icon-button-stroke-color, none);--iron-icon-height:var(--cr-icon-button-icon-size);--iron-icon-width:var(--cr-icon-button-icon-size);transition:fill var(--cr-icon-button-transition),stroke var(--cr-icon-button-transition)}@media (prefers-color-scheme:dark){:host{--cr-icon-button-fill-color:var(--google-grey-500)}}</style>
+<div id="icon">
+  <div id="maskedImage"></div>
+</div>
 <!--_html_template_end_-->`;
 }
 
@@ -4023,6 +4022,8 @@ function getTemplate$2f() {
  * ripple. It can be interacted with like a normal button using click as well as
  * space and enter to effectively click the button and fire a 'click' event.
  *
+ * Forked from ui/webui/resources/cr_elements/cr_icon_button/cr_icon_button.ts
+ *
  * There are two sources to icons, cr-icons and iron-iconset-svg. The cr-icon's
  * are defined as background images with a reference to a resource file
  * associated with a CSS class name. The iron-icon's are defined as inline SVG's
@@ -4030,7 +4031,7 @@ function getTemplate$2f() {
  * iron-icon element.
  *
  * Example of using a cr-icon:
- * <link rel="import" href="chrome://resources/cr_elements/cr_icons.css.html">
+ * <link rel="import" href="chrome://resources/ash/common/cr_elements/cr_icons.css.html">
  * <dom-module id="module">
  *   <template>
  *     <style includes="cr-icons"></style>
@@ -4043,7 +4044,7 @@ function getTemplate$2f() {
  *
  * Example of using an iron-icon:
  * In the TS file:
- * import 'chrome://resources/cr_elements/icons.html.js';
+ * import 'chrome://resources/ash/common/cr_elements/icons.html.js';
  *
  * In the HTML template file:
  * <cr-icon-button iron-icon="cr:icon-key"></cr-icon-button>
@@ -4065,7 +4066,7 @@ class CrIconButtonElement extends CrIconbuttonElementBase {
         return 'cr-icon-button';
     }
     static get template() {
-        return getTemplate$2f();
+        return getTemplate$2h();
     }
     static get properties() {
         return {
@@ -4245,41 +4246,41 @@ styleMod$c.appendChild(html `
                 var(--cr-fallback-on-surface-subtle));isolation:isolate}:host-context([chrome-refresh-2023]):host([readonly]){--cr-input-border-radius:8px 8px}@media (prefers-color-scheme:dark){:host{--cr-input-background-color:rgba(0, 0, 0, .3);--cr-input-error-color:var(--google-red-300);--cr-input-focus-color:var(--google-blue-300)}}:host-context(html:not([chrome-refresh-2023])):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-color)}:host-context([chrome-refresh-2023]) #label{color:var(--cr-input-label-color);font-size:11px;line-height:16px}:host-context([chrome-refresh-2023]):host([focused_]:not([readonly]):not([invalid])) #label{color:var(--cr-input-focus-label-color,var(--cr-input-label-color))}#input-container{border-radius:var(--cr-input-border-radius,4px);overflow:hidden;position:relative;width:var(--cr-input-width,100%)}:host-context([chrome-refresh-2023]):host([focused_]) #input-container{outline:var(--cr-input-focus-outline,none)}#inner-input-container{background-color:var(--cr-input-background-color);box-sizing:border-box;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted(*){--cr-icon-button-fill-color:var(--color-textfield-foreground-icon,
             var(--cr-fallback-color-on-surface-subtle));--cr-icon-button-icon-size:16px;--cr-icon-button-size:24px;--cr-icon-button-margin-start:0;--cr-icon-color:var(--color-textfield-foreground-icon,
             var(--cr-fallback-color-on-surface-subtle))}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-prefix]){--cr-icon-button-margin-start:-8px}:host-context([chrome-refresh-2023]) #inner-input-content ::slotted([slot=inline-suffix]){--cr-icon-button-margin-end:-4px}:host-context([chrome-refresh-2023]):host([invalid]) #inner-input-content ::slotted(*){--cr-icon-color:var(--cr-input-error-color);--cr-icon-button-fill-color:var(--cr-input-error-color)}#hover-layer{display:none}:host-context([chrome-refresh-2023]) #hover-layer{background-color:var(--cr-input-hover-background-color);inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:not([readonly]):not([disabled])) #input-container:hover #hover-layer{display:block}#input{-webkit-appearance:none;background-color:transparent;border:none;box-sizing:border-box;caret-color:var(--cr-input-focus-color);color:var(--cr-input-color);font-family:inherit;font-size:inherit;font-weight:inherit;line-height:inherit;min-height:var(--cr-input-min-height,auto);outline:0;padding-bottom:var(--cr-input-padding-bottom,6px);padding-inline-end:var(--cr-input-padding-end,8px);padding-inline-start:var(--cr-input-padding-start,8px);padding-top:var(--cr-input-padding-top,6px);text-align:inherit;text-overflow:ellipsis;width:100%}:host-context([chrome-refresh-2023]) #input{font-size:12px;line-height:16px;padding:0}:host-context([chrome-refresh-2023]) #inner-input-content{padding-bottom:var(--cr-input-padding-bottom);padding-inline-end:var(--cr-input-padding-end);padding-inline-start:var(--cr-input-padding-start);padding-top:var(--cr-input-padding-top)}#underline{border-bottom:2px solid var(--cr-input-focus-color);border-radius:var(--cr-input-underline-border-radius,0);bottom:0;box-sizing:border-box;display:var(--cr-input-underline-display);height:var(--cr-input-underline-height,0);left:0;margin:auto;opacity:0;position:absolute;right:0;transition:opacity 120ms ease-out,width 0s linear 180ms;width:0}:host([focused_]) #underline,:host([force-underline]) #underline,:host([invalid]) #underline{opacity:1;transition:opacity 120ms ease-in,width 180ms ease-out;width:100%}#underline-base{display:none}:host-context([chrome-refresh-2023]):host([readonly]) #underline{display:none}:host-context([chrome-refresh-2023]):host(:not([readonly])) #underline-base{border-bottom:var(--cr-input-border-bottom);bottom:0;display:block;left:0;position:absolute;right:0}:host-context([chrome-refresh-2023]):host([disabled]){color:var(--color-textfield-foreground-disabled,var(--cr-fallback-color-disabled-foreground));--cr-input-border-bottom:1px solid currentColor;--cr-input-placeholder-color:currentColor;--cr-input-color:currentColor;--cr-input-background-color:var(--color-textfield-background-disabled,
-            var(--cr-fallback-color-disabled-background))}:host-context([chrome-refresh-2023]):host([disabled]) #inner-input-content ::slotted(*){--cr-icon-color:currentColor;--cr-icon-button-fill-color:currentColor}:host-context([chrome-refresh-2023]):host(.stroked){--cr-input-background-color:transparent;--cr-input-border:1px solid var(--color-side-panel-textfield-border,
-            var(--cr-fallback-color-neutral-outline));--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-padding-bottom:9px;--cr-input-padding-end:9px;--cr-input-padding-start:9px;--cr-input-padding-top:9px;--cr-input-underline-display:none;--cr-input-min-height:36px;line-height:16px}:host-context([chrome-refresh-2023]):host(.stroked[focused_]){--cr-input-border:2px solid var(--cr-focus-outline-color);--cr-input-padding-bottom:8px;--cr-input-padding-end:8px;--cr-input-padding-start:8px;--cr-input-padding-top:8px}:host-context([chrome-refresh-2023]):host(.stroked[invalid]){--cr-input-border:1px solid var(--cr-input-error-color)}:host-context([chrome-refresh-2023]):host(.stroked[focused_][invalid]){--cr-input-border:2px solid var(--cr-input-error-color)}
+            var(--cr-fallback-color-disabled-background))}:host-context([chrome-refresh-2023]):host([disabled]) #inner-input-content ::slotted(*){--cr-icon-color:currentColor;--cr-icon-button-fill-color:currentColor}
     </style>
   </template>
 `.content);
 styleMod$c.register('cr-input-style');
 
-function getTemplate$2e() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
-    <div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
-      [[label]]
-    </div>
-    <div id="row-container" part="row-container">
-      <div id="input-container">
-        <div id="inner-input-container">
-          <div id="hover-layer"></div>
-          <div id="inner-input-content">
-            <slot name="inline-prefix"></slot>
-            
-            <input id="input" disabled="[[disabled]]" autofocus="[[autofocus]]" value="{{value::input}}" tabindex$="[[inputTabindex]]" type="[[type]]" readonly$="[[readonly]]" maxlength$="[[maxlength]]" pattern$="[[pattern]]" required="[[required]]" minlength$="[[minlength]]" inputmode$="[[inputmode]]" aria-description$="[[ariaDescription]]" aria-label$="[[getAriaLabel_(ariaLabel, label, placeholder)]]" aria-invalid$="[[getAriaInvalid_(invalid)]]" max="[[max]]" min="[[min]]" on-focus="onInputFocus_" on-blur="onInputBlur_" on-change="onInputChange_" part="input" autocomplete="off">
-            <slot name="inline-suffix"></slot>
-          </div>
-        </div>
-        <div id="underline-base"></div>
-        <div id="underline"></div>
+function getTemplate$2g() {
+    return html `<!--_html_template_start_--><style include="cr-hidden-style cr-input-style cr-shared-style">:host([disabled]) :-webkit-any(#label,#error,#input-container){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]) :is(#label,#error,#input-container){opacity:1}:host ::slotted(cr-button[slot=suffix]){margin-inline-start:var(--cr-button-edge-spacing)!important}:host([invalid]) #label{color:var(--cr-input-error-color)}#input{border-bottom:var(--cr-input-border-bottom,none);letter-spacing:var(--cr-input-letter-spacing)}:host-context([chrome-refresh-2023]) #input{border-bottom:none}:host-context([chrome-refresh-2023]) #input-container{border:var(--cr-input-border,none)}#input::placeholder{color:var(--cr-input-placeholder-color,var(--cr-secondary-text-color));letter-spacing:var(--cr-input-placeholder-letter-spacing)}:host([invalid]) #input{caret-color:var(--cr-input-error-color)}:host([readonly]) #input{opacity:var(--cr-input-readonly-opacity,.6)}:host([invalid]) #underline{border-color:var(--cr-input-error-color)}#error{color:var(--cr-input-error-color);display:var(--cr-input-error-display,block);font-size:var(--cr-form-field-label-font-size);height:var(--cr-form-field-label-height);line-height:var(--cr-form-field-label-line-height);margin:8px 0;visibility:hidden;white-space:var(--cr-input-error-white-space)}:host-context([chrome-refresh-2023]) #error{font-size:11px;line-height:16px;margin:4px 10px}:host([invalid]) #error{visibility:visible}#inner-input-content,#row-container{align-items:center;display:flex;justify-content:space-between;position:relative}:host-context([chrome-refresh-2023]) #inner-input-content{gap:4px;height:16px;z-index:1}#input[type=search]::-webkit-search-cancel-button{display:none}:host-context([dir=rtl]) #input[type=url]{text-align:right}#input[type=url]{direction:ltr}</style>
+<div id="label" class="cr-form-field-label" hidden="[[!label]]" aria-hidden="true">
+  [[label]]
+</div>
+<div id="row-container" part="row-container">
+  <div id="input-container">
+    <div id="inner-input-container">
+      <div id="hover-layer"></div>
+      <div id="inner-input-content">
+        <slot name="inline-prefix"></slot>
+        
+        <input id="input" disabled="[[disabled]]" autofocus="[[autofocus]]" value="{{value::input}}" tabindex$="[[inputTabindex]]" type="[[type]]" readonly$="[[readonly]]" maxlength$="[[maxlength]]" pattern$="[[pattern]]" required="[[required]]" minlength$="[[minlength]]" inputmode$="[[inputmode]]" aria-description$="[[ariaDescription]]" aria-label$="[[getAriaLabel_(ariaLabel, label, placeholder)]]" aria-invalid$="[[getAriaInvalid_(invalid)]]" max="[[max]]" min="[[min]]" on-focus="onInputFocus_" on-blur="onInputBlur_" on-change="onInputChange_" part="input" autocomplete="off">
+        <slot name="inline-suffix"></slot>
       </div>
-      <slot name="suffix"></slot>
     </div>
-    <div id="error" aria-live="assertive">[[displayErrorMessage_]]</div>
+    <div id="underline-base"></div>
+    <div id="underline"></div>
+  </div>
+  <slot name="suffix"></slot>
+</div>
+<div id="error" aria-live="assertive">[[displayErrorMessage_]]</div>
 <!--_html_template_end_-->`;
 }
 
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// Forked from ui/webui/resources/cr_elements/cr_input/cr_input.ts
 /**
  * Input types supported by cr-input.
  */
@@ -4295,7 +4296,7 @@ class CrInputElement extends PolymerElement {
         return 'cr-input';
     }
     static get template() {
-        return getTemplate$2e();
+        return getTemplate$2g();
     }
     static get properties() {
         return {
@@ -4810,10 +4811,6 @@ const template$d = html `
       <g id="menu">
         <path d="M2 4h16v2H2zM2 9h16v2H2zM2 14h16v2H2z"></path>
       </g>
-      <g id="password">
-        <path d="M5.833 11.667c.458 0 .847-.16 1.167-.479.333-.333.5-.729.5-1.188s-.167-.847-.5-1.167a1.555 1.555 0 0 0-1.167-.5c-.458 0-.854.167-1.188.5A1.588 1.588 0 0 0 4.166 10c0 .458.16.854.479 1.188.333.319.729.479 1.188.479Zm0 3.333c-1.389 0-2.569-.486-3.542-1.458C1.319 12.569.833 11.389.833 10c0-1.389.486-2.569 1.458-3.542C3.264 5.486 4.444 5 5.833 5c.944 0 1.813.243 2.604.729a4.752 4.752 0 0 1 1.833 1.979h7.23c.458 0 .847.167 1.167.5.333.319.5.708.5 1.167v3.958c0 .458-.167.854-.5 1.188A1.588 1.588 0 0 1 17.5 15h-3.75a1.658 1.658 0 0 1-1.188-.479 1.658 1.658 0 0 1-.479-1.188v-1.042H10.27a4.59 4.59 0 0 1-1.813 2A5.1 5.1 0 0 1 5.833 15Zm3.292-4.375h4.625v2.708H15v-1.042a.592.592 0 0 1 .167-.438.623.623 0 0 1 .458-.188c.181 0 .327.063.438.188a.558.558 0 0 1 .188.438v1.042H17.5V9.375H9.125a3.312 3.312 0 0 0-1.167-1.938 3.203 3.203 0 0 0-2.125-.77 3.21 3.21 0 0 0-2.354.979C2.827 8.298 2.5 9.083 2.5 10s.327 1.702.979 2.354a3.21 3.21 0 0 0 2.354.979c.806 0 1.514-.25 2.125-.75.611-.514 1-1.167 1.167-1.958Z"></path>
-      </g>
-      
         <g id="banner-warning">
           <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 1.50386C9.51566 0.832046 10.4844 0.832046 10.8683 1.50386L18.8683 15.5039C19.2492 16.1705 18.7678 17 18 17H2.00001C1.23219 17 0.750823 16.1705 1.13177 15.5039L9.13177 1.50386ZM10 4.01556L3.72321 15H16.2768L10 4.01556ZM9 11H11V7H9V11ZM11 14H9V12H11V14Z">
           </path>
@@ -4822,7 +4819,6 @@ const template$d = html `
           <path fill-rule="evenodd" clip-rule="evenodd" d="M9.13177 1.50386C9.51566 0.832046 10.4844 0.832046 10.8683 1.50386L18.8683 15.5039C19.2492 16.1705 18.7678 17 18 17H2.00001C1.23219 17 0.750823 16.1705 1.13177 15.5039L9.13177 1.50386ZM10 4.01556L3.72321 15H16.2768L10 4.01556ZM9 11H11V7H9V11ZM11 14H9V12H11V14Z">
           </path>
         </g>
-      
   </defs></svg>
 </iron-iconset-svg>
 
@@ -4858,7 +4854,6 @@ const template$d = html `
       <g id="arrow-right">
         <path d="M10 7l5 5-5 5z"></path>
       </g>
-      
         <g id="bluetooth">
           <path d="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z">
           </path>
@@ -4872,7 +4867,6 @@ const template$d = html `
           <path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z">
           </path>
         </g>
-      
       <g id="cancel">
         <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z">
         </path>
@@ -4935,12 +4929,10 @@ const template$d = html `
       <g id="file-download">
         <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path>
       </g>
-      
         <g id="folder-filled">
           <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z">
           </path>
         </g>
-      
       <g id="fullscreen">
         <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z">
         </path>
@@ -5009,7 +5001,6 @@ const template$d = html `
         <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z">
         </path>
       </g>
-      
         <g id="sim-card-alert">
           <path d="M18 2h-8L4.02 8 4 20c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 15h-2v-2h2v2zm0-4h-2V8h2v5z">
           </path>
@@ -5022,7 +5013,6 @@ const template$d = html `
           <path d="M20,2C21.1,2 22,2.9 22,4L22,16C22,17.1 21.1,18 20,18L6,18L2,22L2.01,4C2.01,2.9 2.9,2 4,2L20,2ZM8,8L4,12L8,16L8,13L14,13L14,11L8,11L8,8ZM19.666,7.872L16.038,4.372L16.038,6.997L10,6.997L10,9L16.038,9L16.038,11.372L19.666,7.872Z">
           </path>
         </g>
-      
       
       <g id="settings_icon">
         <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z">
@@ -5064,15 +5054,15 @@ const template$d = html `
 `;
 document.head.appendChild(template$d.content);
 
-function getTemplate$2d() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
-          var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
-    <iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
-    <cr-input id="searchInput" part="searchInput" on-search="onSearchTermSearch" on-input="onSearchTermInput" aria-label$="[[label]]" type="search" autofocus="[[autofocus]]" placeholder="[[label]]" spellcheck="false">
-      <iron-icon id="searchIconInline" slot="inline-prefix" icon="cr:search"></iron-icon>
-      <cr-icon-button id="clearSearch" class="icon-cancel" hidden$="[[!hasSearchText]]" slot="suffix" on-click="onTapClear_" title="[[clearLabel]]">
-      </cr-icon-button>
-    </cr-input>
+function getTemplate$2f() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style cr-input-style">:host{display:flex;user-select:none;--cr-search-field-clear-icon-fill:var(--google-grey-700);--cr-search-field-clear-icon-margin-end:-4px;--cr-search-field-input-border-bottom:1px solid var(--cr-secondary-text-color)}#searchIcon{align-self:center;display:var(--cr-search-field-search-icon-display,inherit);height:16px;padding:4px;vertical-align:middle;width:16px}#searchIconInline{--iron-icon-fill-color:var(--cr-search-field-search-icon-fill, inherit);display:var(--cr-search-field-search-icon-inline-display,none);margin-inline-start:var(--cr-search-field-search-icon-inline-margin-start,0)}#searchInput{--cr-input-background-color:transparent;--cr-input-border-bottom:var(--cr-search-field-input-border-bottom);--cr-input-border-radius:0;--cr-input-error-display:none;--cr-input-min-height:var(--cr-search-field-input-min-height, 24px);--cr-input-padding-end:0;--cr-input-padding-start:var(--cr-search-field-input-padding-start, 0);--cr-input-padding-bottom:var(--cr-search-field-input-padding-bottom, 2px);--cr-input-padding-top:var(--cr-search-field-input-padding-top, 2px);--cr-input-placeholder-color:var(--cr-search-field-placeholder-color);--cr-input-underline-display:var(--cr-search-field-underline-display);--cr-input-underline-border-radius:var(--cr-search-field-input-underline-border-radius, 0);--cr-input-underline-height:var(--cr-search-field-input-underline-height, 0);align-self:stretch;color:var(--cr-primary-text-color);display:block;font-size:92.3076923%;width:var(--cr-search-field-input-width,160px)}:host([has-search-text]) #searchInput{--cr-input-padding-end:calc(24px +
+      var(--cr-search-field-clear-icon-margin-end))}#clearSearch{--cr-icon-button-fill-color:var(--cr-search-field-clear-icon-fill);--cr-icon-button-icon-size:var(--cr-search-field-clear-icon-size, 16px);--cr-icon-button-size:var(--cr-search-field-clear-button-size, 24px);margin-inline-end:var(--cr-search-field-clear-icon-margin-end);margin-inline-start:4px;position:absolute;right:0}:host-context([chrome-refresh-2023]) #clearSearch{z-index:1}:host-context([dir=rtl]) #clearSearch{left:0;right:auto}</style>
+<iron-icon id="searchIcon" icon="cr:search" part="searchIcon"></iron-icon>
+<cr-input id="searchInput" part="searchInput" on-search="onSearchTermSearch" on-input="onSearchTermInput" aria-label$="[[label]]" type="search" autofocus="[[autofocus]]" placeholder="[[label]]" spellcheck="false">
+  <iron-icon id="searchIconInline" slot="inline-prefix" icon="cr:search"></iron-icon>
+  <cr-icon-button id="clearSearch" class="icon-cancel" hidden$="[[!hasSearchText]]" slot="suffix" on-click="onTapClear_" title="[[clearLabel]]">
+  </cr-icon-button>
+</cr-input>
 <!--_html_template_end_-->`;
 }
 
@@ -5082,6 +5072,9 @@ function getTemplate$2d() {
 /**
  * Helper functions for implementing an incremental search field. See
  * <settings-subpage-search> for a simple implementation.
+ *
+ * Forked from
+ * ui/webui/resources/cr_elements/cr_search_field/cr_search_field_mixin.ts
  */
 const CrSearchFieldMixin = dedupingMixin((superClass) => {
     class CrSearchFieldMixin extends superClass {
@@ -5212,6 +5205,9 @@ const CrSearchFieldMixin = dedupingMixin((superClass) => {
  * @fileoverview
  * 'cr-search-field' is a simple implementation of a polymer component that
  * uses CrSearchFieldMixin.
+ *
+ * Forked from
+ * ui/webui/resources/cr_elements/cr_search_field/cr_search_field.ts
  */
 const CrSearchFieldElementBase = CrSearchFieldMixin(PolymerElement);
 class CrSearchFieldElement extends CrSearchFieldElementBase {
@@ -5219,7 +5215,7 @@ class CrSearchFieldElement extends CrSearchFieldElementBase {
         return 'cr-search-field';
     }
     static get template() {
-        return getTemplate$2d();
+        return getTemplate$2f();
     }
     static get properties() {
         return {
@@ -5731,7 +5727,7 @@ const styleMod$a = document.createElement('dom-module');
 styleMod$a.appendChild(html `
   <template>
     <style>
-:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput),:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down::part(input){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context([cros][chrome-refresh-2023]) cr-searchable-drop-down,:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}:host-context([cros][chrome-refresh-2023]) cr-policy-indicator,:host-context([cros][chrome-refresh-2023]) cr-policy-pref-indicator,:host-context([cros][chrome-refresh-2023]) cr-tooltip-icon::part(tooltip),:host-context(body.jelly-enabled) cr-policy-indicator,:host-context(body.jelly-enabled) cr-policy-pref-indicator,:host-context(body.jelly-enabled) cr-tooltip-icon::part(tooltip){--paper-tooltip-background:var(--cros-sys-on_surface);--paper-tooltip-padding:5px 8px;--paper-tooltip-text-color:var(--cros-sys-inverse_on_surface);font:var(--cros-annotation-1-font)}
+:host-context([cros]) a:not(.item)[href]{color:var(--cros-link-color)}:host-context([cros]) cr-button[has-prefix-icon_],:host-context([cros]) cr-button[has-suffix-icon_]{--iron-icon-fill-color:currentColor}:host-context([cros]) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-bg-color-elevation-3);background-image:none;box-shadow:var(--cros-elevation-3-shadow)}:host-context([cros]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-radio-button-color);--cr-radio-button-checked-ripple-color:var(--cros-radio-button-ripple-color);--cr-radio-button-unchecked-color:var(--cros-radio-button-color-unchecked);--cr-radio-button-unchecked-ripple-color:var(--cros-radio-button-ripple-color-unchecked)}:host-context([cros]) cr-toast{--cr-toast-background-color:var(--cros-toast-background-color);--cr-toast-background:var(--cros-toast-background-color);--cr-toast-text-color:var(--cros-toast-text-color);--iron-icon-fill-color:var(--cros-toast-icon-color)}:host-context([cros]) cr-toast .error-message{color:var(--cros-toast-text-color)}:host-context([cros]) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-switch-track-color-active);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-switch-knob-color-active);--cr-toggle-checked-ripple-color:var(--cros-focus-aura-color);--cr-toggle-unchecked-bar-color:var(--cros-switch-track-color-inactive);--cr-toggle-unchecked-button-color:var(--cros-switch-knob-color-inactive);--cr-toggle-unchecked-ripple-color:var(--cros-ripple-color);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context([cros]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-focus-ring-color)}:host-context([cros]) paper-spinner-lite{--paper-spinner-color:var(--cros-icon-color-prominent)}:host-context([cros]) cr-tooltip-icon{--cr-link-color:var(--cros-tooltip-link-color)}:host-context(body.jelly-enabled){--cros-button-label-color-primary:var(--cros-sys-on_primary);--cros-link-color:var(--cros-sys-primary);--cros-separator-color:var(--cros-sys-separator);--cros-tab-slider-track-color:var(--cros-sys-surface_variant, 80%);--cr-form-field-label-color:var(--cros-sys-on_surface);--cr-link-color:var(--cros-sys-primary);--cr-primary-text-color:var(--cros-sys-on_surface);--cr-secondary-text-color:var(--cros-sys-on_surface_variant)}:host-context([cros][chrome-refresh-2023]){--cr-focus-outline-color:var(--cros-sys-focus_ring);--cr-disabled-opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-button{--text-color:var(--cros-sys-on_primary_container);--ink-color:var(--cros-sys-ripple_primary);--iron-icon-fill-color:currentColor;--hover-bg-color:var(--cros-sys-hover_on_subtle);--ripple-opacity:.1;--bg-action:var(--cros-sys-primary);--ink-color-action:var(--cros-sys-ripple_primary);--text-color-action:var(--cros-sys-on_primary);--hover-bg-action:var(--cros-sys-hover_on_prominent);--ripple-opacity-action:1;--disabled-bg:var(--cros-sys-disabled_container);--disabled-bg-action:var(--cros-sys-disabled_container);--disabled-text-color:var(--cros-sys-disabled);background-color:var(--cros-sys-primary_container);border:none}:host-context(body.jelly-enabled) cr-button:hover::part(hoverBackground){background-color:var(--hover-bg-color);display:block}:host-context(body.jelly-enabled) cr-button.action-button:not(:active):hover,:host-context(body.jelly-enabled) cr-button:active{box-shadow:none}:host-context(body.jelly-enabled) cr-button.action-button{background-color:var(--bg-action)}:host-context(body.jelly-enabled) cr-button.action-button:hover::part(hoverBackground){background-color:var(--hover-bg-action)}:host-context(body.jelly-enabled) cr-button[disabled]{background-color:var(--cros-sys-disabled_container)}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-button:focus{box-shadow:none;outline:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-checkbox{--cr-checkbox-checked-box-color:var(--cros-sys-primary);--cr-checkbox-ripple-checked-color:var(--cros-sys-ripple_primary);--cr-checkbox-checked-ripple-opacity:1;--cr-checkbox-mark-color:var(--cros-sys-inverse_on_surface);--cr-checkbox-ripple-unchecked-color:var(--cros-sys-ripple_primary);--cr-checkbox-unchecked-box-color:var(--cros-sys-on_surface);--cr-checkbox-unchecked-ripple-opacity:1}:host-context([cros][chrome-refresh-2023]) cr-checkbox{--cr-checkbox-focus-outline:none}:host-context([cros][chrome-refresh-2023]) cr-checkbox[disabled]{opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-checkbox:focus{--cr-checkbox-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context(body.jelly-enabled) cr-dialog::part(dialog){--cr-dialog-background-color:var(--cros-sys-base_elevated);background-image:none;box-shadow:0 0 12px 0 var(--cros-sys-shadow)}:host-context(body.jelly-enabled) cr-dialog>[slot=title]{font:var(--cros-display-7-font)}:host-context(body.jelly-enabled) cr-drawer{--cr-drawer-background-color:var(--cros-sys-app_base_shaded)}:host-context(body.jelly-enabled) cr-expand-button::part(icon),:host-context(body.jelly-enabled) cr-icon-button,:host-context(body.jelly-enabled) cr-link-row::part(icon){--cr-icon-button-fill-color:var(--cros-sys-secondary)}:host-context(body.jelly-enabled) cr-input,:host-context(body.jelly-enabled) cr-search-field::part(searchInput),:host-context(body.jelly-enabled) cr-searchable-drop-down::part(input),:host-context(body.jelly-enabled) cr-textarea{--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-error-color:var(--cros-sys-error);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-placeholder-color:var(--cros-sys-secondary)}:host-context([cros][chrome-refresh-2023]) cr-input,:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-background-color:var(--cros-sys-input_field_on_base);--cr-input-border:none;--cr-input-border-bottom:none;--cr-input-border-radius:8px;--cr-input-label-color:var(--cros-sys-on-surface);--cr-input-padding-start:16px;--cr-input-padding-end:16px;--cr-input-placeholder-color:var(--cros-sys-secondary);--cr-input-underline-display:none;font:var(--cros-body-2-font);--cr-input-focus-color:var(--cros-sys-primary);--cr-input-focus-label-color:var(--cros-sys-primary);--cr-input-focus-outline:2px solid var(--cros-sys-focus_ring);--cr-input-hover-background-color:transparent;--cr-input-error-color:var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-input[disabled]{color:currentColor;opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]) cr-input[invalid]{--cr-input-focus-outline:2px solid var(--cros-sys-error)}:host-context([cros][chrome-refresh-2023]) cr-toolbar-search-field{--cr-toolbar-search-field-hover-background:none}:host-context(body.jelly-enabled) .md-select{--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:var(--cros-sys-primary);--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-text-color:var(--cros-sys-on_surface)}:host-context([cros][chrome-refresh-2023]) .md-select{--md-arrow-width:7px;--md-select-bg-color:var(--cros-sys-input_field_on_base);--md-select-focus-shadow-color:transparent;--md-select-option-bg-color:var(--cros-sys-base_elevated);--md-select-side-padding:16px;--md-select-text-color:var(--cros-sys-on_surface);border:none;border-radius:8px;font:var(--cros-body-2-font);height:36px;line-height:36px}:host-context([cros][chrome-refresh-2023]) .md-select:hover{background-color:var(--md-select-bg-color)}:host-context([cros][chrome-refresh-2023]) .md-select[disabled]{background-color:var(--md-select-bg-color);border-color:transparent;color:var(--md-select-text-color);opacity:var(--cros-disabled-opacity)}:host-context(body.jelly-enabled) cr-action-menu{--cr-menu-background-color:var(--cros-sys-base_elevated);--cr-menu-background-focus-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled),:host-context(body.jelly-enabled) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle)}:host-context([cros][chrome-refresh-2023]),:host-context([cros][chrome-refresh-2023]) cr-radio-button{--cr-radio-button-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--cr-radio-button-unchecked-color:var(--cros-sys-on_surface);--cr-radio-button-unchecked-ripple-color:var(--cros-sys-ripple_neutral_on_subtle);--cr-radio-button-ink-size:40px}:host-context([cros][chrome-refresh-2023]) cr-radio-button[disabled]{--cr-radio-button-checked-color:var(--cros-sys-disabled);--cr-radio-button-unchecked-color:var(--cros-sys-disabled)}:host-context(body.jelly-enabled) cr-card-radio-button{--cr-card-background-color:var(--cros-sys-app_base);--cr-checked-color:var(--cros-sys-primary);--cr-radio-button-checked-ripple-color:var(--cros-sys-ripple_primary);--hover-bg-color:var(--cros-sys-hover_on_subtle)}:host-context(body.jelly-enabled) cr-search-field{--cr-search-field-clear-icon-fill:var(--cros-sys-primary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-input-border-bottom:none;--cr-search-field-input-padding-start:8px;--cr-search-field-input-underline-border-radius:4px;--cr-search-field-search-icon-display:none;--cr-search-field-search-icon-fill:var(--cros-sys-primary);--cr-search-field-search-icon-inline-display:block;--cr-search-field-search-icon-inline-margin-start:6px;border-radius:4px}:host-context([cros][chrome-refresh-2023]) cr-search-field{--cr-search-field-search-icon-fill:var(--cros-sys-secondary);--cr-search-field-search-icon-inline-margin-start:0;--cr-search-field-clear-icon-fill:var(--cros-sys-secondary);--cr-search-field-clear-icon-margin-end:6px;--cr-search-field-clear-icon-size:16px}:host-context([cros][chrome-refresh-2023]) cr-search-field::part(searchInput){--cr-input-padding-bottom:10px;--cr-input-padding-end:28px;--cr-input-padding-start:8px;--cr-input-padding-top:10px}:host-context(body.jelly-enabled) cr-searchable-drop-down{--cr-searchable-drop-down-bg-color:var(--cros-sys-base_elevated);--cr-searchable-drop-down-icon-color-focus:var(--cros-sys-primary);--cr-searchable-drop-down-list-bg-color-selected:var(--cros-sys-base_highlight);--cr-searchable-drop-down-list-item-color:var(--cros-sys-on_surface);--cr-searchable-drop-down-shadow:var(--cros-elevation-3-shadow)}:host-context(body.jelly-enabled) cr-slider{--cr-slider-active-color:var(--cros-sys-primary);--cr-slider-container-color:var(--cros-sys-primary_container);--cr-slider-container-disabled-color:var(--cros-sys-disabled_container);--cr-slider-disabled-color:var(--cros-sys-disabled);--cr-slider-knob-active-color:var(--cros-sys-primary);--cr-slider-knob-disabled-color:var(--cros-sys-disabled);--cr-slider-marker-active-color:var(--cros-sys-primary_container);--cr-slider-marker-color:var(--cros-sys-primary);--cr-slider-marker-disabled-color:var(--cros-sys-disabled);--cr-slider-ripple-color:var(--cros-sys-hover_on_prominent)}:host-context(body.jelly-enabled) cr-slider:not([disabled])::part(knob){background-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-slider[disabled]::part(knob){border:none}:host-context(body.jelly-enabled) cr-slider::part(label){background:var(--cros-sys-primary);color:var(--cros-sys-on_primary)}:host-context(body.jelly-enabled) cr-tabs{--cr-tabs-selected-color:var(--cros-sys-primary)}:host-context(body.jelly-enabled) cr-toggle{--cr-toggle-checked-bar-color:var(--cros-sys-primary_container);--cr-toggle-checked-bar-opacity:100%;--cr-toggle-checked-button-color:var(--cros-sys-primary);--cr-toggle-checked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-surface_variant);--cr-toggle-unchecked-ripple-color:var(--cros-sys-hover_on_prominent);--cr-toggle-box-shadow:var(--cros-elevation-1-shadow);--cr-toggle-ripple-diameter:32px}:host-context(body.jelly-enabled):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:2px solid var(--cros-sys-focus_ring)}:host-context([cros][chrome-refresh-2023]) cr-toggle{--cr-toggle-bar-width:32px;--cr-toggle-knob-diameter:12px;--cr-toggle-bar-border:none;--cr-toggle-checked-bar-color:var(--cros-sys-primary);--cr-toggle-checked-button-color:var(--cros-sys-on_primary);--cr-toggle-unchecked-bar-color:var(--cros-sys-secondary);--cr-toggle-unchecked-button-color:var(--cros-sys-on_secondary);--color-toggle-button-thumb-on-hover:var(--cros-sys-on_primary);--cr-toggle-disabled-opacity:var(--cros-disabled-opacity)}:host-context([cros][chrome-refresh-2023]):host-context(.focus-outline-visible) cr-toggle:focus{--cr-toggle-ripple-ring:none}
     </style>
   </template>
 `.content);
@@ -5747,7 +5743,7 @@ a[is=action-link]{user-select:none}h2{align-items:center;align-self:flex-start;c
 `.content);
 styleMod$9.register('settings-shared');
 
-function getTemplate$2c() {
+function getTemplate$2e() {
     return html `<!--_html_template_start_--><style>:host{--settings-card-bg-color:var(--cros-sys-app_base);--settings-card-border-radius:var(--cr-card-border-radius);display:flex;flex-direction:column;outline:0;position:relative}:host-context(body.revamp-wayfinding-enabled):host{--settings-card-border-radius:16px;margin-bottom:16px}@media (prefers-color-scheme:dark){:host-context(body.revamp-wayfinding-enabled):host{--settings-card-bg-color:var(--cros-sys-surface1)}}:host-context(body.revamp-wayfinding-enabled) #header{margin:0;padding:8px}:host-context(body:not(.revamp-wayfinding-enabled)) #headerText{color:var(--cr-primary-text-color);font-size:108%;font-weight:400;letter-spacing:.25px;margin-bottom:12px;margin-top:var(--cr-section-vertical-margin);outline:0;padding-bottom:4px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled) #headerText{color:var(--cros-sys-primary);font:var(--cros-button-2-font);margin:0;outline:0;padding:0}#card{background-color:var(--settings-card-bg-color);border-radius:var(--settings-card-border-radius);flex:1;overflow:hidden}:host-context(body:not(.revamp-wayfinding-enabled)) #card{box-shadow:var(--cr-card-shadow)}</style>
 <template is="dom-if" if="[[headerText]]" restamp>
   <div id="header">
@@ -5780,7 +5776,7 @@ class SettingsCardElement extends PolymerElement {
         return 'settings-card';
     }
     static get template() {
-        return getTemplate$2c();
+        return getTemplate$2e();
     }
     static get properties() {
         return {
@@ -6179,6 +6175,8 @@ function parseHtmlSubset$1(s, extraTags, extraAttrs) {
  * strings. Typically it is used as [[i18n('someString')]] computed bindings or
  * for this.i18n('foo'). It is not needed for HTML $i18n{otherString}, which is
  * handled by a C++ templatizer.
+ *
+ * Forked from ui/webui/resources/cr_elements/i18n_mixin.ts
  */
 const I18nMixin = dedupingMixin((superClass) => {
     class I18nMixin extends superClass {
@@ -6423,7 +6421,7 @@ function hasKeyModifiers(e) {
     return !!(e.altKey || e.ctrlKey || e.metaKey || e.shiftKey);
 }
 
-function getTemplate$2b() {
+function getTemplate$2d() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">:host{box-sizing:border-box;display:block}:host-context(body:not(.revamp-wayfinding-enabled)):host{background-color:var(--cros-sys-app_base);box-shadow:var(--cr-card-shadow);min-height:calc(100vh - var(--settings-toolbar-height));padding-bottom:60px}#subpageHeader{min-height:40px;padding-bottom:24px;padding-top:8px}:host-context(body.revamp-wayfinding-enabled) #subpageHeader{padding-top:16px;padding-bottom:16px}#subpageTitle{flex:1;font:var(--cros-button-1-font)}:host-context(body.revamp-wayfinding-enabled) #subpageTitle{color:var(--cros-sys-primary)}#titleIcon{height:36px;margin-inline-end:12px;margin-inline-start:2px;width:36px}#backButton{margin-inline-end:10px;margin-inline-start:-10px}:host-context(body.revamp-wayfinding-enabled) #backButton{--cr-icon-button-fill-color:var(--cros-sys-primary)}#cardBody{margin-bottom:0}paper-spinner-lite{height:var(--cr-icon-size);width:var(--cr-icon-size)}cr-search-field{--cr-search-field-input-width:200px;margin-inline-start:16px}:host-context(body.revamp-wayfinding-enabled) #searchField::part(searchInput){--cr-input-background-color:var(--cros-sys-input_field_on_shaded)}</style>
 <div id="subpageHeader" class="cr-row first">
   <cr-icon-button id="backButton" class="icon-arrow-back" hidden="[[hideBackButton]]" on-click="onBackClick_" aria-label$="[[getBackButtonAriaLabel_(pageTitle)]]" aria-roledescription$="[[getBackButtonAriaRoleDescription_(pageTitle)]]">
@@ -6472,7 +6470,7 @@ class OsSettingsSubpageElement extends OsSettingsSubpageElementBase {
         return 'os-settings-subpage';
     }
     static get template() {
-        return getTemplate$2b();
+        return getTemplate$2d();
     }
     static get properties() {
         return {
@@ -9468,7 +9466,7 @@ class GuestOsBrowserProxyImpl {
     }
 }
 
-function getTemplate$2a() {
+function getTemplate$2c() {
     return html `<!--_html_template_start_--><style include="settings-shared"></style>
 <div class="settings-box first">
   <div role="text">
@@ -9534,7 +9532,7 @@ class SettingsGuestOsSharedPathsElement extends SettingsGuestOsSharedPathsElemen
         return 'settings-guest-os-shared-paths';
     }
     static get template() {
-        return getTemplate$2a();
+        return getTemplate$2c();
     }
     static get properties() {
         return {
@@ -9704,24 +9702,24 @@ class FocusOutlineManager {
     }
 }
 
-function getTemplate$29() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
-                                             rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
-            var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
-            var(--cr-fallback-color-primary));--hover-bg-color:transparent;--hover-border-color:var(--border-color);--active-bg:transparent;--active-shadow:none;--ink-color:var(--cr-active-background-color);--ripple-opacity:1;--disabled-bg:transparent;--disabled-border-color:var(--color-button-border-disabled,
-            var(--cr-fallback-color-disabled-background));--disabled-text-color:var(--color-button-foreground-disabled,
-            var(--cr-fallback-color-disabled-foreground));--bg-action:var(--color-button-background-prominent,
-            var(--cr-fallback-color-primary));--text-color-action:var(--color-button-foreground-prominent,
-            var(--cr-fallback-color-on-primary));--hover-bg-action:var(--bg-action);--active-shadow-action:none;--ink-color-action:var(--cr-active-background-color);--ripple-opacity-action:1;--disabled-bg-action:var(--color-button-background-prominent-disabled,
-            var(--cr-fallback-color-disabled-background));background:0 0;border-radius:100px;isolation:isolate;line-height:20px}:host([has-prefix-icon_]),:host([has-suffix-icon_]){--iron-icon-height:16px;--iron-icon-width:16px;gap:8px;padding:8px}:host-context([chrome-refresh-2023]):host([has-prefix-icon_]),:host-context([chrome-refresh-2023]):host([has-suffix-icon_]){--iron-icon-height:20px;--iron-icon-width:20px;--icon-block-padding-large:16px;--icon-block-padding-small:12px;padding-block-end:8px;padding-block-start:8px}:host-context([chrome-refresh-2023]):host([has-prefix-icon_]){padding-inline-end:var(--icon-block-padding-large);padding-inline-start:var(--icon-block-padding-small)}:host-context([chrome-refresh-2023]):host([has-suffix-icon_]){padding-inline-end:var(--icon-block-padding-small);padding-inline-start:var(--icon-block-padding-large)}:host-context(.focus-outline-visible):host(:focus){box-shadow:0 0 0 2px var(--focus-shadow-color)}@media (forced-colors:active){:host-context(.focus-outline-visible):host(:focus){outline:var(--cr-focus-outline-hcm)}:host-context([chrome-refresh-2023]):host{forced-color-adjust:none}}:host-context([chrome-refresh-2023].focus-outline-visible):host(:focus){box-shadow:none;outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host(:active){background:var(--active-bg);box-shadow:var(--active-shadow,0 1px 2px 0 rgba(var(--active-shadow-rgb),.3),0 3px 6px 2px rgba(var(--active-shadow-rgb),.15))}:host(:hover){background-color:var(--hover-bg-color)}@media (prefers-color-scheme:light){:host(:hover){border-color:var(--hover-border-color)}}#background{border-radius:inherit;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:hover) #background{background-color:var(--hover-bg-color)}:host-context([chrome-refresh-2023].focus-outline-visible):host(:focus) #background{background-clip:padding-box}:host-context([chrome-refresh-2023]):host(.action-button) #background{background-color:var(--bg-action)}:host-context([chrome-refresh-2023]):host([disabled]) #background{background-color:var(--disabled-bg)}:host-context([chrome-refresh-2023]):host(.action-button[disabled]) #background{background-color:var(--disabled-bg-action)}:host-context([chrome-refresh-2023]):host(.floating-button) #background,:host-context([chrome-refresh-2023]):host(.tonal-button) #background{background-color:var(--color-button-background-tonal,var(--cr-fallback-color-secondary-container))}:host-context([chrome-refresh-2023]):host([disabled].floating-button) #background,:host-context([chrome-refresh-2023]):host([disabled].tonal-button) #background{background-color:var(--color-button-background-tonal-disabled,var(--cr-fallback-color-disabled-background))}#content{display:contents}:host-context([chrome-refresh-2023]) #content{display:inline;z-index:2}:host-context([chrome-refresh-2023]) ::slotted(*){z-index:2}#hoverBackground{content:'';display:none;inset:0;pointer-events:none;position:absolute;z-index:1}:host-context([chrome-refresh-2023]):host(:hover) #hoverBackground{background:var(--cr-hover-background-color);display:block}:host-context([chrome-refresh-2023]):host(.action-button:hover) #hoverBackground{background:var(--cr-hover-on-prominent-background-color)}:host(.action-button){--ink-color:var(--ink-color-action);--paper-ripple-opacity:var(--ripple-opacity-action);background-color:var(--bg-action);border:none;color:var(--text-color-action)}:host-context([chrome-refresh-2023]):host(.action-button){--ink-color:var(--cr-active-on-primary-background-color);background-color:transparent}:host(.action-button:active){box-shadow:var(--active-shadow-action,0 1px 2px 0 rgba(var(--active-shadow-action-rgb),.3),0 3px 6px 2px rgba(var(--active-shadow-action-rgb),.15))}:host(.action-button:hover){background:var(--hover-bg-action)}@media (prefers-color-scheme:light){:host(.action-button:not(:active):hover){box-shadow:0 1px 2px 0 rgba(var(--hover-shadow-action-rgb),.3),0 1px 3px 1px rgba(var(--hover-shadow-action-rgb),.15)}:host-context([chrome-refresh-2023]):host(.action-button:not(:active):hover){box-shadow:none}}:host([disabled]){background-color:var(--disabled-bg);border-color:var(--disabled-border-color);color:var(--disabled-text-color);cursor:auto;pointer-events:none}:host(.action-button[disabled]){background-color:var(--disabled-bg-action);border-color:transparent}:host(.cancel-button){margin-inline-end:8px}:host(.action-button),:host(.cancel-button){line-height:154%}:host-context([chrome-refresh-2023]):host(.floating-button),:host-context([chrome-refresh-2023]):host(.tonal-button){border:none;color:var(--color-button-foreground-tonal,var(--cr-fallback-color-on-tonal-container))}:host-context([chrome-refresh-2023]):host(.floating-button[disabled]),:host-context([chrome-refresh-2023]):host(.tonal-button[disabled]){border:none;color:var(--disabled-text-color)}:host-context([chrome-refresh-2023]):host(.floating-button){border-radius:8px;height:40px;transition:box-shadow 80ms linear}:host-context([chrome-refresh-2023]):host(.floating-button:hover){box-shadow:var(--cr-elevation-3)}paper-ripple{color:var(--ink-color);height:var(--paper-ripple-height);left:var(--paper-ripple-left,0);top:var(--paper-ripple-top,0);width:var(--paper-ripple-width)}:host-context([chrome-refresh-2023]) paper-ripple{z-index:1}</style>
+function getTemplate$2b() {
+    return html `<!--_html_template_start_--><style include="cr-hidden-style">:host{--active-shadow-rgb:var(--google-grey-800-rgb);--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-600);--border-color:var(--google-grey-300);--disabled-bg-action:var(--google-grey-100);--disabled-bg:white;--disabled-border-color:var(--google-grey-100);--disabled-text-color:var(--google-grey-600);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-action:rgba(var(--google-blue-600-rgb), .9);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04);--hover-border-color:var(--google-blue-100);--hover-shadow-action-rgb:var(--google-blue-500-rgb);--ink-color-action:white;--ink-color:var(--google-blue-600);--ripple-opacity-action:.32;--ripple-opacity:.1;--text-color-action:white;--text-color:var(--google-blue-600)}@media (prefers-color-scheme:dark){:host{--active-bg:black linear-gradient(rgba(255, 255, 255, .06),
+                                         rgba(255, 255, 255, .06));--active-shadow-rgb:0,0,0;--active-shadow-action-rgb:var(--google-blue-500-rgb);--bg-action:var(--google-blue-300);--border-color:var(--google-grey-700);--disabled-bg-action:var(--google-grey-800);--disabled-bg:transparent;--disabled-border-color:var(--google-grey-800);--disabled-text-color:var(--google-grey-500);--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-action:var(--bg-action) linear-gradient(rgba(0, 0, 0, .08), rgba(0, 0, 0, .08));--hover-bg-color:rgba(var(--google-blue-300-rgb), .08);--ink-color-action:black;--ink-color:var(--google-blue-300);--ripple-opacity-action:.16;--ripple-opacity:.16;--text-color-action:var(--google-grey-900);--text-color:var(--google-blue-300)}}:host{--paper-ripple-opacity:var(--ripple-opacity);-webkit-tap-highlight-color:transparent;align-items:center;border:1px solid var(--border-color);border-radius:4px;box-sizing:border-box;color:var(--text-color);cursor:pointer;display:inline-flex;flex-shrink:0;font-weight:500;height:var(--cr-button-height);justify-content:center;min-width:5.14em;outline-width:0;overflow:hidden;padding:8px 16px;position:relative;user-select:none}:host-context([chrome-refresh-2023]):host{--border-color:var(--color-button-border,
+        var(--cr-fallback-color-tonal-outline));--text-color:var(--color-button-foreground,
+        var(--cr-fallback-color-primary));--hover-bg-color:transparent;--hover-border-color:var(--border-color);--active-bg:transparent;--active-shadow:none;--ink-color:var(--cr-active-background-color);--ripple-opacity:1;--disabled-bg:transparent;--disabled-border-color:var(--color-button-border-disabled,
+        var(--cr-fallback-color-disabled-background));--disabled-text-color:var(--color-button-foreground-disabled,
+        var(--cr-fallback-color-disabled-foreground));--bg-action:var(--color-button-background-prominent,
+        var(--cr-fallback-color-primary));--text-color-action:var(--color-button-foreground-prominent,
+        var(--cr-fallback-color-on-primary));--hover-bg-action:var(--bg-action);--active-shadow-action:none;--ink-color-action:var(--cr-active-background-color);--ripple-opacity-action:1;--disabled-bg-action:var(--color-button-background-prominent-disabled,
+        var(--cr-fallback-color-disabled-background));background:0 0;border-radius:100px;isolation:isolate;line-height:20px}:host([has-prefix-icon_]),:host([has-suffix-icon_]){--iron-icon-height:16px;--iron-icon-width:16px;gap:8px;padding:8px}:host-context([chrome-refresh-2023]):host([has-prefix-icon_]),:host-context([chrome-refresh-2023]):host([has-suffix-icon_]){--iron-icon-height:20px;--iron-icon-width:20px;--icon-block-padding-large:16px;--icon-block-padding-small:12px;padding-block-end:8px;padding-block-start:8px}:host-context([chrome-refresh-2023]):host([has-prefix-icon_]){padding-inline-end:var(--icon-block-padding-large);padding-inline-start:var(--icon-block-padding-small)}:host-context([chrome-refresh-2023]):host([has-suffix-icon_]){padding-inline-end:var(--icon-block-padding-small);padding-inline-start:var(--icon-block-padding-large)}:host-context(.focus-outline-visible):host(:focus){box-shadow:0 0 0 2px var(--focus-shadow-color)}@media (forced-colors:active){:host-context(.focus-outline-visible):host(:focus){outline:var(--cr-focus-outline-hcm)}:host-context([chrome-refresh-2023]):host{forced-color-adjust:none}}:host-context([chrome-refresh-2023].focus-outline-visible):host(:focus){box-shadow:none;outline:2px solid var(--cr-focus-outline-color);outline-offset:2px}:host(:active){background:var(--active-bg);box-shadow:var(--active-shadow,0 1px 2px 0 rgba(var(--active-shadow-rgb),.3),0 3px 6px 2px rgba(var(--active-shadow-rgb),.15))}:host(:hover){background-color:var(--hover-bg-color)}@media (prefers-color-scheme:light){:host(:hover){border-color:var(--hover-border-color)}}#background{border-radius:inherit;inset:0;pointer-events:none;position:absolute;z-index:0}:host-context([chrome-refresh-2023]):host(:hover) #background{background-color:var(--hover-bg-color)}:host-context([chrome-refresh-2023].focus-outline-visible):host(:focus) #background{background-clip:padding-box}:host-context([chrome-refresh-2023]):host(.action-button) #background{background-color:var(--bg-action)}:host-context([chrome-refresh-2023]):host([disabled]) #background{background-color:var(--disabled-bg)}:host-context([chrome-refresh-2023]):host(.action-button[disabled]) #background{background-color:var(--disabled-bg-action)}:host-context([chrome-refresh-2023]):host(.floating-button) #background,:host-context([chrome-refresh-2023]):host(.tonal-button) #background{background-color:var(--color-button-background-tonal,var(--cr-fallback-color-secondary-container))}:host-context([chrome-refresh-2023]):host([disabled].floating-button) #background,:host-context([chrome-refresh-2023]):host([disabled].tonal-button) #background{background-color:var(--color-button-background-tonal-disabled,var(--cr-fallback-color-disabled-background))}#content{display:contents}:host-context([chrome-refresh-2023]) #content{display:inline;z-index:2}:host-context([chrome-refresh-2023]) ::slotted(*){z-index:2}#hoverBackground{content:'';display:none;inset:0;pointer-events:none;position:absolute;z-index:1}:host-context([chrome-refresh-2023]):host(:hover) #hoverBackground{background:var(--cr-hover-background-color);display:block}:host-context([chrome-refresh-2023]):host(.action-button:hover) #hoverBackground{background:var(--cr-hover-on-prominent-background-color)}:host(.action-button){--ink-color:var(--ink-color-action);--paper-ripple-opacity:var(--ripple-opacity-action);background-color:var(--bg-action);border:none;color:var(--text-color-action)}:host-context([chrome-refresh-2023]):host(.action-button){--ink-color:var(--cr-active-on-primary-background-color);background-color:transparent}:host(.action-button:active){box-shadow:var(--active-shadow-action,0 1px 2px 0 rgba(var(--active-shadow-action-rgb),.3),0 3px 6px 2px rgba(var(--active-shadow-action-rgb),.15))}:host(.action-button:hover){background:var(--hover-bg-action)}@media (prefers-color-scheme:light){:host(.action-button:not(:active):hover){box-shadow:0 1px 2px 0 rgba(var(--hover-shadow-action-rgb),.3),0 1px 3px 1px rgba(var(--hover-shadow-action-rgb),.15)}:host-context([chrome-refresh-2023]):host(.action-button:not(:active):hover){box-shadow:none}}:host([disabled]){background-color:var(--disabled-bg);border-color:var(--disabled-border-color);color:var(--disabled-text-color);cursor:auto;pointer-events:none}:host(.action-button[disabled]){background-color:var(--disabled-bg-action);border-color:transparent}:host(.cancel-button){margin-inline-end:8px}:host(.action-button),:host(.cancel-button){line-height:154%}:host-context([chrome-refresh-2023]):host(.floating-button),:host-context([chrome-refresh-2023]):host(.tonal-button){border:none;color:var(--color-button-foreground-tonal,var(--cr-fallback-color-on-tonal-container))}:host-context([chrome-refresh-2023]):host(.floating-button[disabled]),:host-context([chrome-refresh-2023]):host(.tonal-button[disabled]){border:none;color:var(--disabled-text-color)}:host-context([chrome-refresh-2023]):host(.floating-button){border-radius:8px;height:40px;transition:box-shadow 80ms linear}:host-context([chrome-refresh-2023]):host(.floating-button:hover){box-shadow:var(--cr-elevation-3)}paper-ripple{color:var(--ink-color);height:var(--paper-ripple-height);left:var(--paper-ripple-left,0);top:var(--paper-ripple-top,0);width:var(--paper-ripple-width)}:host-context([chrome-refresh-2023]) paper-ripple{z-index:1}</style>
 
-    <div id="background"></div>
-    <slot id="prefixIcon" name="prefix-icon" on-slotchange="onPrefixIconSlotChanged_">
-    </slot>
-    <span id="content"><slot></slot></span>
-    <slot id="suffixIcon" name="suffix-icon" on-slotchange="onSuffixIconSlotChanged_">
-    </slot>
-    <div id="hoverBackground" part="hoverBackground"></div>
+<div id="background"></div>
+<slot id="prefixIcon" name="prefix-icon" on-slotchange="onPrefixIconSlotChanged_">
+</slot>
+<span id="content"><slot></slot></span>
+<slot id="suffixIcon" name="suffix-icon" on-slotchange="onSuffixIconSlotChanged_">
+</slot>
+<div id="hoverBackground" part="hoverBackground"></div>
 <!--_html_template_end_-->`;
 }
 
@@ -9733,6 +9731,8 @@ function getTemplate$29() {
  * be interacted with like a normal button using click as well as space and
  * enter to effectively click the button and fire a 'click' event. It can also
  * style an icon inside of the button with the [has-icon] attribute.
+ *
+ * Forked from ui/webui/resources/cr_elements/cr_button/cr_button.ts
  */
 const CrButtonElementBase = PaperRippleMixin(PolymerElement);
 class CrButtonElement extends CrButtonElementBase {
@@ -9740,7 +9740,7 @@ class CrButtonElement extends CrButtonElementBase {
         return 'cr-button';
     }
     static get template() {
-        return getTemplate$29();
+        return getTemplate$2b();
     }
     static get properties() {
         return {
@@ -9914,26 +9914,26 @@ class CrButtonElement extends CrButtonElementBase {
 }
 customElements.define(CrButtonElement.is, CrButtonElement);
 
-function getTemplate$28() {
-    return html `<!--_html_template_start_-->    <style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
-                var(--cr-fallback-color-primary));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on,
-                var(--cr-fallback-color-on-primary));--cr-toggle-unchecked-bar-color:var(--color-toggle-button-track-off,
-                var(--cr-fallback-color-surface-variant));--cr-toggle-unchecked-button-color:var(--color-toggle-button-thumb-off,
-                var(--cr-fallback-color-outline));--cr-toggle-disabled-opacity:1;--cr-toggle-checked-ripple-color:var(--cr-active-background-color);--cr-toggle-unchecked-ripple-color:var(--cr-active-background-color);--cr-toggle-ripple-diameter:20px;--cr-toggle-bar-border-color:var(--cr-toggle-unchecked-button-color);--cr-toggle-bar-border:1px solid var(--cr-toggle-bar-border-color);--cr-toggle-bar-width:26px;--cr-toggle-knob-diameter:8px;height:fit-content;isolation:isolate;min-width:initial;width:fit-content}@media (forced-colors:active){:host{forced-color-adjust:none}}@media (prefers-color-scheme:dark){:host{--cr-toggle-checked-bar-color:var(--google-blue-300);--cr-toggle-checked-button-color:var(--google-blue-300);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-300-rgb), .4);--cr-toggle-unchecked-bar-color:var(--google-grey-500);--cr-toggle-unchecked-button-color:var(--google-grey-300);--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-300-rgb), .4)}}:host([dark]){--cr-toggle-checked-bar-color:var(--google-blue-300);--cr-toggle-checked-button-color:var(--google-blue-300);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-300-rgb), .4);--cr-toggle-unchecked-bar-color:var(--google-grey-500);--cr-toggle-unchecked-button-color:var(--google-grey-300);--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-300-rgb), .4)}:host-context([chrome-refresh-2023]):host(:active){--cr-toggle-knob-diameter:10px}:host-context([chrome-refresh-2023]):host([checked]){--cr-toggle-bar-border-color:var(--cr-toggle-checked-bar-color);--cr-toggle-knob-diameter:12px}:host-context([chrome-refresh-2023]):host([checked]:active){--cr-toggle-knob-diameter:14px}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]){--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on-disabled,
-                var(--cr-fallback-color-disabled-background));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on-disabled, var(--cr-fallback-color-surface));--cr-toggle-unchecked-bar-color:transparent;--cr-toggle-unchecked-button-color:var(--color-toggle-button-thumb-off-disabled,
-                var(--cr-fallback-color-disabled-foreground));--cr-toggle-bar-border-color:var(--cr-toggle-unchecked-button-color);opacity:var(--cr-toggle-disabled-opacity)}:host-context([chrome-refresh-2023]):host([checked][disabled]){--cr-toggle-bar-border:none}#bar{background-color:var(--cr-toggle-unchecked-bar-color);border-radius:8px;height:12px;left:3px;position:absolute;top:2px;transition:background-color linear 80ms;width:28px;z-index:0}:host([checked]) #bar{background-color:var(--cr-toggle-checked-bar-color);opacity:var(--cr-toggle-checked-bar-opacity,.5)}:host-context([chrome-refresh-2023]) #bar{border:var(--cr-toggle-bar-border);border-radius:50px;box-sizing:border-box;display:block;height:16px;opacity:1;position:initial;width:var(--cr-toggle-bar-width)}:host-context([chrome-refresh-2023]):host(:focus-visible) #bar{outline:2px solid var(--cr-toggle-checked-bar-color);outline-offset:2px}#knob{background-color:var(--cr-toggle-unchecked-button-color);border-radius:50%;box-shadow:var(--cr-toggle-box-shadow,0 1px 3px 0 rgba(0,0,0,.4));display:block;height:16px;position:relative;transition:transform linear 80ms,background-color linear 80ms;width:16px;z-index:1}:host([checked]) #knob{background-color:var(--cr-toggle-checked-button-color);transform:translate3d(18px,0,0)}:host-context([dir=rtl]):host([checked]) #knob{transform:translate3d(-18px,0,0)}:host-context([chrome-refresh-2023]) #knob{--cr-toggle-knob-center-edge-distance_:8px;--cr-toggle-knob-direction_:1;--cr-toggle-knob-travel-distance_:calc(
-            0.5 * var(--cr-toggle-bar-width) -
-            var(--cr-toggle-knob-center-edge-distance_));--cr-toggle-knob-position-center_:calc(
-            0.5 * var(--cr-toggle-bar-width) + -50%);--cr-toggle-knob-position-start_:calc(
-            var(--cr-toggle-knob-position-center_) -
-            var(--cr-toggle-knob-direction_) *
-            var(--cr-toggle-knob-travel-distance_));--cr-toggle-knob-position-end_:calc(
-            var(--cr-toggle-knob-position-center_) +
-            var(--cr-toggle-knob-direction_) *
-            var(--cr-toggle-knob-travel-distance_));box-shadow:none;height:var(--cr-toggle-knob-diameter);position:absolute;top:50%;transform:translate(var(--cr-toggle-knob-position-start_),-50%);transition:transform linear 80ms,background-color linear 80ms,width linear 80ms,height linear 80ms;width:var(--cr-toggle-knob-diameter)}:host-context([dir=rtl][chrome-refresh-2023]) #knob{left:0;--cr-toggle-knob-direction_:-1}:host-context([chrome-refresh-2023]):host([checked]) #knob{transform:translate(var(--cr-toggle-knob-position-end_),-50%)}:host-context([chrome-refresh-2023]):host([checked]:active) #knob,:host-context([chrome-refresh-2023]):host([checked]:hover) #knob{--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on-hover,
-                var(--cr-fallback-color-primary-container))}:host-context([chrome-refresh-2023]):host(:hover) #knob::before{background-color:var(--cr-hover-background-color);border-radius:50%;content:'';height:var(--cr-toggle-ripple-diameter);left:calc(var(--cr-toggle-knob-diameter)/ 2);position:absolute;top:calc(var(--cr-toggle-knob-diameter)/ 2);transform:translate(-50%,-50%);width:var(--cr-toggle-ripple-diameter)}paper-ripple{--paper-ripple-opacity:1;color:var(--cr-toggle-unchecked-ripple-color);height:var(--cr-toggle-ripple-diameter);left:50%;outline:var(--cr-toggle-ripple-ring,none);pointer-events:none;position:absolute;top:50%;transform:translate(-50%,-50%);transition:color linear 80ms;width:var(--cr-toggle-ripple-diameter)}:host([checked]) paper-ripple{color:var(--cr-toggle-checked-ripple-color)}:host-context([dir=rtl]) paper-ripple{left:auto;right:50%;transform:translate(50%,-50%)}</style>
-    <span id="bar"></span>
-    <span id="knob"></span>
+function getTemplate$2a() {
+    return html `<!--_html_template_start_--><style>:host{--cr-toggle-checked-bar-color:var(--google-blue-600);--cr-toggle-checked-button-color:var(--google-blue-600);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-toggle-ripple-diameter:40px;--cr-toggle-unchecked-bar-color:var(--google-grey-400);--cr-toggle-unchecked-button-color:white;--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;min-width:34px;outline:0;position:relative;width:34px}:host-context([chrome-refresh-2023]):host{--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on,
+            var(--cr-fallback-color-primary));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on,
+            var(--cr-fallback-color-on-primary));--cr-toggle-unchecked-bar-color:var(--color-toggle-button-track-off,
+            var(--cr-fallback-color-surface-variant));--cr-toggle-unchecked-button-color:var(--color-toggle-button-thumb-off,
+            var(--cr-fallback-color-outline));--cr-toggle-disabled-opacity:1;--cr-toggle-checked-ripple-color:var(--cr-active-background-color);--cr-toggle-unchecked-ripple-color:var(--cr-active-background-color);--cr-toggle-ripple-diameter:20px;--cr-toggle-bar-border-color:var(--cr-toggle-unchecked-button-color);--cr-toggle-bar-border:1px solid var(--cr-toggle-bar-border-color);--cr-toggle-bar-width:26px;--cr-toggle-knob-diameter:8px;height:fit-content;isolation:isolate;min-width:initial;width:fit-content}@media (forced-colors:active){:host{forced-color-adjust:none}}@media (prefers-color-scheme:dark){:host{--cr-toggle-checked-bar-color:var(--google-blue-300);--cr-toggle-checked-button-color:var(--google-blue-300);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-300-rgb), .4);--cr-toggle-unchecked-bar-color:var(--google-grey-500);--cr-toggle-unchecked-button-color:var(--google-grey-300);--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-300-rgb), .4)}}:host([dark]){--cr-toggle-checked-bar-color:var(--google-blue-300);--cr-toggle-checked-button-color:var(--google-blue-300);--cr-toggle-checked-ripple-color:rgba(var(--google-blue-300-rgb), .4);--cr-toggle-unchecked-bar-color:var(--google-grey-500);--cr-toggle-unchecked-button-color:var(--google-grey-300);--cr-toggle-unchecked-ripple-color:rgba(var(--google-grey-300-rgb), .4)}:host-context([chrome-refresh-2023]):host(:active){--cr-toggle-knob-diameter:10px}:host-context([chrome-refresh-2023]):host([checked]){--cr-toggle-bar-border-color:var(--cr-toggle-checked-bar-color);--cr-toggle-knob-diameter:12px}:host-context([chrome-refresh-2023]):host([checked]:active){--cr-toggle-knob-diameter:14px}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]){--cr-toggle-checked-bar-color:var(--color-toggle-button-track-on-disabled,
+            var(--cr-fallback-color-disabled-background));--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on-disabled, var(--cr-fallback-color-surface));--cr-toggle-unchecked-bar-color:transparent;--cr-toggle-unchecked-button-color:var(--color-toggle-button-thumb-off-disabled,
+            var(--cr-fallback-color-disabled-foreground));--cr-toggle-bar-border-color:var(--cr-toggle-unchecked-button-color);opacity:var(--cr-toggle-disabled-opacity)}:host-context([chrome-refresh-2023]):host([checked][disabled]){--cr-toggle-bar-border:none}#bar{background-color:var(--cr-toggle-unchecked-bar-color);border-radius:8px;height:12px;left:3px;position:absolute;top:2px;transition:background-color linear 80ms;width:28px;z-index:0}:host([checked]) #bar{background-color:var(--cr-toggle-checked-bar-color);opacity:var(--cr-toggle-checked-bar-opacity,.5)}:host-context([chrome-refresh-2023]) #bar{border:var(--cr-toggle-bar-border);border-radius:50px;box-sizing:border-box;display:block;height:16px;opacity:1;position:initial;width:var(--cr-toggle-bar-width)}:host-context([chrome-refresh-2023]):host(:focus-visible) #bar{outline:2px solid var(--cr-toggle-checked-bar-color);outline-offset:2px}#knob{background-color:var(--cr-toggle-unchecked-button-color);border-radius:50%;box-shadow:var(--cr-toggle-box-shadow,0 1px 3px 0 rgba(0,0,0,.4));display:block;height:16px;position:relative;transition:transform linear 80ms,background-color linear 80ms;width:16px;z-index:1}:host([checked]) #knob{background-color:var(--cr-toggle-checked-button-color);transform:translate3d(18px,0,0)}:host-context([dir=rtl]):host([checked]) #knob{transform:translate3d(-18px,0,0)}:host-context([chrome-refresh-2023]) #knob{--cr-toggle-knob-center-edge-distance_:8px;--cr-toggle-knob-direction_:1;--cr-toggle-knob-travel-distance_:calc(
+        0.5 * var(--cr-toggle-bar-width) -
+        var(--cr-toggle-knob-center-edge-distance_));--cr-toggle-knob-position-center_:calc(
+        0.5 * var(--cr-toggle-bar-width) + -50%);--cr-toggle-knob-position-start_:calc(
+        var(--cr-toggle-knob-position-center_) -
+        var(--cr-toggle-knob-direction_) *
+        var(--cr-toggle-knob-travel-distance_));--cr-toggle-knob-position-end_:calc(
+        var(--cr-toggle-knob-position-center_) +
+        var(--cr-toggle-knob-direction_) *
+        var(--cr-toggle-knob-travel-distance_));box-shadow:none;height:var(--cr-toggle-knob-diameter);position:absolute;top:50%;transform:translate(var(--cr-toggle-knob-position-start_),-50%);transition:transform linear 80ms,background-color linear 80ms,width linear 80ms,height linear 80ms;width:var(--cr-toggle-knob-diameter)}:host-context([dir=rtl][chrome-refresh-2023]) #knob{left:0;--cr-toggle-knob-direction_:-1}:host-context([chrome-refresh-2023]):host([checked]) #knob{transform:translate(var(--cr-toggle-knob-position-end_),-50%)}:host-context([chrome-refresh-2023]):host([checked]:active) #knob,:host-context([chrome-refresh-2023]):host([checked]:hover) #knob{--cr-toggle-checked-button-color:var(--color-toggle-button-thumb-on-hover,
+            var(--cr-fallback-color-primary-container))}:host-context([chrome-refresh-2023]):host(:hover) #knob::before{background-color:var(--cr-hover-background-color);border-radius:50%;content:'';height:var(--cr-toggle-ripple-diameter);left:calc(var(--cr-toggle-knob-diameter)/ 2);position:absolute;top:calc(var(--cr-toggle-knob-diameter)/ 2);transform:translate(-50%,-50%);width:var(--cr-toggle-ripple-diameter)}paper-ripple{--paper-ripple-opacity:1;color:var(--cr-toggle-unchecked-ripple-color);height:var(--cr-toggle-ripple-diameter);left:50%;outline:var(--cr-toggle-ripple-ring,none);pointer-events:none;position:absolute;top:50%;transform:translate(-50%,-50%);transition:color linear 80ms;width:var(--cr-toggle-ripple-diameter)}:host([checked]) paper-ripple{color:var(--cr-toggle-checked-ripple-color)}:host-context([dir=rtl]) paper-ripple{left:auto;right:50%;transform:translate(50%,-50%)}</style>
+<span id="bar"></span>
+<span id="knob"></span>
 <!--_html_template_end_-->`;
 }
 
@@ -9961,7 +9961,7 @@ class CrToggleElement extends CrToggleElementBase {
         return 'cr-toggle';
     }
     static get template() {
-        return getTemplate$28();
+        return getTemplate$2a();
     }
     static get properties() {
         return {
@@ -10748,24 +10748,26 @@ Polymer({
   }
 });
 
-function getTemplate$27() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style">:host{display:flex}iron-icon{--iron-icon-width:var(--cr-icon-size);--iron-icon-height:var(--cr-icon-size);--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-700))}@media (prefers-color-scheme:dark){iron-icon{--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-500))}}</style>
-    <iron-icon id="indicator" tabindex="0" aria-label$="[[iconAriaLabel]]" aria-describedby="tooltip" icon="[[iconClass]]" role="img"></iron-icon>
-    <paper-tooltip id="tooltip" for="indicator" position="[[tooltipPosition]]" fit-to-visible-bounds part="tooltip">
-      <slot name="tooltip-text">[[tooltipText]]</slot>
-    </paper-tooltip>
+function getTemplate$29() {
+    return html `<!--_html_template_start_--><style include="cr-shared-style">:host{display:flex}iron-icon{--iron-icon-width:var(--cr-icon-size);--iron-icon-height:var(--cr-icon-size);--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-700))}@media (prefers-color-scheme:dark){iron-icon{--iron-icon-fill-color:var(--cr-tooltip-icon-fill-color, var(--google-grey-500))}}</style>
+<iron-icon id="indicator" tabindex="0" aria-label$="[[iconAriaLabel]]" aria-describedby="tooltip" icon="[[iconClass]]" role="img">
+</iron-icon>
+<paper-tooltip id="tooltip" for="indicator" position="[[tooltipPosition]]" fit-to-visible-bounds part="tooltip">
+  <slot name="tooltip-text">[[tooltipText]]</slot>
+</paper-tooltip>
 <!--_html_template_end_-->`;
 }
 
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// Forked from ui/webui/resources/cr_elements/policy/cr_tooltip_icon.ts
 class CrTooltipIconElement extends PolymerElement {
     static get is() {
         return 'cr-tooltip-icon';
     }
     static get template() {
-        return getTemplate$27();
+        return getTemplate$29();
     }
     static get properties() {
         return {
@@ -10785,10 +10787,10 @@ class CrTooltipIconElement extends PolymerElement {
 }
 customElements.define(CrTooltipIconElement.is, CrTooltipIconElement);
 
-function getTemplate$26() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style"></style>
-    <cr-tooltip-icon hidden$="[[!indicatorVisible]]" tooltip-text="[[indicatorTooltip_]]" icon-class="[[indicatorIcon]]" icon-aria-label="[[iconAriaLabel]]">
-    </cr-tooltip-icon>
+function getTemplate$28() {
+    return html `<!--_html_template_start_--><style include="cr-hidden-style"></style>
+<cr-tooltip-icon hidden$="[[!indicatorVisible]]" tooltip-text="[[indicatorTooltip_]]" icon-class="[[indicatorIcon]]" icon-aria-label="[[iconAriaLabel]]">
+</cr-tooltip-icon>
 <!--_html_template_end_-->`;
 }
 
@@ -10799,6 +10801,8 @@ function getTemplate$26() {
  * @fileoverview Mixin for policy controlled indicators.
  * TODO(michaelpg): Since extensions can also control settings and be indicated,
  * rework the "policy" naming scheme throughout this directory.
+ * Forked from
+ * ui/webui/resources/cr_elements/policy/cr_policy_indicator_mixin.ts
  */
 /**
  * Possible policy indicators that can be shown in settings.
@@ -10894,14 +10898,12 @@ const CrPolicyIndicatorMixin = dedupingMixin((superClass) => {
                     return name.length > 0 ?
                         CrPolicyStrings.controlledSettingExtension.replace('$1', name) :
                         CrPolicyStrings.controlledSettingExtensionWithoutName;
-                // 
                 case CrPolicyIndicatorType$1.PRIMARY_USER:
                     return CrPolicyStrings.controlledSettingShared.replace('$1', name);
                 case CrPolicyIndicatorType$1.OWNER:
                     return name.length > 0 ?
                         CrPolicyStrings.controlledSettingWithOwner.replace('$1', name) :
                         CrPolicyStrings.controlledSettingNoOwner;
-                // 
                 case CrPolicyIndicatorType$1.USER_POLICY:
                 case CrPolicyIndicatorType$1.DEVICE_POLICY:
                     return CrPolicyStrings.controlledSettingPolicy;
@@ -10923,14 +10925,18 @@ const CrPolicyIndicatorMixin = dedupingMixin((superClass) => {
 // Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/** @fileoverview Polymer element for indicating policies by type. */
+/**
+ * @fileoverview Polymer element for indicating policies by type.
+ * Forked from
+ * ui/webui/resources/cr_elements/policy/cr_policy_indicator.ts
+ */
 const CrPolicyIndicatorElementBase = CrPolicyIndicatorMixin(PolymerElement);
 class CrPolicyIndicatorElement extends CrPolicyIndicatorElementBase {
     static get is() {
         return 'cr-policy-indicator';
     }
     static get template() {
-        return getTemplate$26();
+        return getTemplate$28();
     }
     static get properties() {
         return {
@@ -10952,14 +10958,14 @@ class CrPolicyIndicatorElement extends CrPolicyIndicatorElementBase {
 }
 customElements.define(CrPolicyIndicatorElement.is, CrPolicyIndicatorElement);
 
-// Copyright 2024 The Chromium Authors
+// Copyright 2017 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview CrContainerShadowMixinLit holds logic for showing a drop shadow
+ * @fileoverview CrContainerShadowMixin holds logic for showing a drop shadow
  * near the top of a container element, when the content has scrolled.
  *
- * Lit version of the equivalent CrContainerShadowMixin for Polymer.
+ * Forked from ui/webui/resources/cr_elements/cr_container_shadow_mixin.ts
  *
  * Elements using this mixin are expected to define a #container element,
  * which is the element being scrolled. If the #container element has a
@@ -10990,8 +10996,8 @@ var CrContainerShadowSide;
     CrContainerShadowSide["TOP"] = "top";
     CrContainerShadowSide["BOTTOM"] = "bottom";
 })(CrContainerShadowSide || (CrContainerShadowSide = {}));
-const CrContainerShadowMixinLit = (superClass) => {
-    class CrContainerShadowMixinLit extends superClass {
+const CrContainerShadowMixin = dedupingMixin((superClass) => {
+    class CrContainerShadowMixin extends superClass {
         constructor() {
             super(...arguments);
             this.intersectionObserver_ = null;
@@ -11085,31 +11091,19 @@ const CrContainerShadowMixinLit = (superClass) => {
             }
         }
     }
-    return CrContainerShadowMixinLit;
-};
+    return CrContainerShadowMixin;
+});
 
-function getCss$3() {
-    return css `:host([hidden]),[hidden]{display:none!important}`;
-}
-
-function getCss$2() {
-    return css `.icon-arrow-back{--cr-icon-image:url(chrome://resources/images/icon_arrow_back.svg)}.icon-arrow-dropdown{--cr-icon-image:url(chrome://resources/images/icon_arrow_dropdown.svg)}.icon-arrow-drop-down-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_down_cr23.svg)}.icon-arrow-drop-up-cr23{--cr-icon-image:url(chrome://resources/images/icon_arrow_drop_up_cr23.svg)}.icon-cancel{--cr-icon-image:url(chrome://resources/images/icon_cancel.svg)}.icon-clear{--cr-icon-image:url(chrome://resources/images/icon_clear.svg)}.icon-copy-content{--cr-icon-image:url(chrome://resources/images/icon_copy_content.svg)}.icon-delete-gray{--cr-icon-image:url(chrome://resources/images/icon_delete_gray.svg)}.icon-edit{--cr-icon-image:url(chrome://resources/images/icon_edit.svg)}.icon-file{--cr-icon-image:url(chrome://resources/images/icon_filetype_generic.svg)}.icon-folder-open{--cr-icon-image:url(chrome://resources/images/icon_folder_open.svg)}.icon-picture-delete{--cr-icon-image:url(chrome://resources/images/icon_picture_delete.svg)}.icon-expand-less{--cr-icon-image:url(chrome://resources/images/icon_expand_less.svg)}.icon-expand-more{--cr-icon-image:url(chrome://resources/images/icon_expand_more.svg)}.icon-external{--cr-icon-image:url(chrome://resources/images/open_in_new.svg)}.icon-more-vert{--cr-icon-image:url(chrome://resources/images/icon_more_vert.svg)}.icon-refresh{--cr-icon-image:url(chrome://resources/images/icon_refresh.svg)}.icon-search{--cr-icon-image:url(chrome://resources/images/icon_search.svg)}.icon-settings{--cr-icon-image:url(chrome://resources/images/icon_settings.svg)}.icon-visibility{--cr-icon-image:url(chrome://resources/images/icon_visibility.svg)}.icon-visibility-off{--cr-icon-image:url(chrome://resources/images/icon_visibility_off.svg)}.subpage-arrow{--cr-icon-image:url(chrome://resources/images/arrow_right.svg)}.cr-icon{-webkit-mask-image:var(--cr-icon-image);-webkit-mask-position:center;-webkit-mask-repeat:no-repeat;-webkit-mask-size:var(--cr-icon-size);background-color:var(--cr-icon-color,var(--google-grey-700));flex-shrink:0;height:var(--cr-icon-ripple-size);margin-inline-end:var(--cr-icon-ripple-margin);margin-inline-start:var(--cr-icon-button-margin-start);user-select:none;width:var(--cr-icon-ripple-size)}:host-context([dir=rtl]) .cr-icon{transform:scaleX(-1)}.cr-icon.no-overlap{margin-inline-end:0;margin-inline-start:0}@media (prefers-color-scheme:dark){.cr-icon{background-color:var(--cr-icon-color,var(--google-grey-500))}}`;
-}
-
-function getCss$1() {
-    return css `dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}`;
-}
-
-function getHtml$1() {
-    return html$1 `<!--_html_template_start_-->
-<dialog id="dialog" @close="${this.onNativeDialogClose_}" @cancel="${this.onNativeDialogCancel_}" part="dialog" aria-labelledby="title" aria-description="${this.ariaDescriptionText || nothing}">
+function getTemplate$27() {
+    return html `<!--_html_template_start_--><style include="cr-hidden-style cr-icons">dialog{--scroll-border-color:var(--paper-grey-300);--scroll-border:1px solid var(--scroll-border-color);background-color:var(--cr-dialog-background-color,#fff);border:0;border-radius:var(--cr-dialog-border-radius,8px);bottom:50%;box-shadow:0 0 16px rgba(0,0,0,.12),0 16px 16px rgba(0,0,0,.24);color:inherit;max-height:initial;max-width:initial;overflow-y:hidden;padding:0;position:absolute;top:50%;width:var(--cr-dialog-width,512px)}@media (prefers-color-scheme:dark){dialog{--scroll-border-color:var(--google-grey-700);background-color:var(--cr-dialog-background-color,var(--google-grey-900));background-image:linear-gradient(rgba(255,255,255,.04),rgba(255,255,255,.04))}}@media (forced-colors:active){dialog{border:var(--cr-border-hcm)}}dialog[open] #content-wrapper{display:flex;flex-direction:column;max-height:100vh;overflow:auto}.top-container,:host ::slotted([slot=button-container]),:host ::slotted([slot=footer]){flex-shrink:0}dialog::backdrop{background-color:rgba(0,0,0,.6);bottom:0;left:0;position:fixed;right:0;top:0}:host ::slotted([slot=body]){color:var(--cr-secondary-text-color);padding:0 var(--cr-dialog-body-padding-horizontal,20px)}:host ::slotted([slot=title]){color:var(--cr-primary-text-color);flex:1;font-family:var(--cr-dialog-font-family,inherit);font-size:var(--cr-dialog-title-font-size,calc(15 / 13 * 100%));line-height:1;padding-bottom:var(--cr-dialog-title-slot-padding-bottom,16px);padding-inline-end:var(--cr-dialog-title-slot-padding-end,20px);padding-inline-start:var(--cr-dialog-title-slot-padding-start,20px);padding-top:var(--cr-dialog-title-slot-padding-top,20px)}:host ::slotted([slot=button-container]){display:flex;justify-content:flex-end;padding-bottom:var(--cr-dialog-button-container-padding-bottom,16px);padding-inline-end:var(--cr-dialog-button-container-padding-horizontal,16px);padding-inline-start:var(--cr-dialog-button-container-padding-horizontal,16px);padding-top:var(--cr-dialog-button-container-padding-top,16px)}:host ::slotted([slot=footer]){border-bottom-left-radius:inherit;border-bottom-right-radius:inherit;border-top:1px solid #dbdbdb;margin:0;padding:16px 20px}:host([hide-backdrop]) dialog::backdrop{opacity:0}@media (prefers-color-scheme:dark){:host ::slotted([slot=footer]){border-top-color:var(--cr-separator-color)}}.body-container{box-sizing:border-box;display:flex;flex-direction:column;min-height:1.375rem;overflow:auto}:host{--transparent-border:1px solid transparent}#cr-container-shadow-top{border-bottom:var(--cr-dialog-body-border-top,var(--transparent-border))}#cr-container-shadow-bottom{border-bottom:var(--cr-dialog-body-border-bottom,var(--transparent-border))}#cr-container-shadow-bottom.has-shadow,#cr-container-shadow-top.has-shadow{border-bottom:var(--scroll-border)}.top-container{align-items:flex-start;display:flex;min-height:var(--cr-dialog-top-container-min-height,31px)}.title-container{display:flex;flex:1;font-size:inherit;font-weight:inherit;margin:0;outline:0}#close{align-self:flex-start;margin-inline-end:4px;margin-top:4px}</style>
+<dialog id="dialog" on-close="onNativeDialogClose_" on-cancel="onNativeDialogCancel_" part="dialog" aria-labelledby="title" aria-description$="[[ariaDescriptionText]]">
 
   <div id="content-wrapper" part="wrapper">
     <div class="top-container">
       <h2 id="title" class="title-container" tabindex="-1">
         <slot name="title"></slot>
       </h2>
-      <cr-icon-button id="close" class="icon-clear" ?hidden="${!this.showCloseButton}" aria-label="${this.closeText || nothing}" @click="${this.cancel}" @keypress="${this.onCloseKeypress_}">
+      <cr-icon-button id="close" class="icon-clear" hidden$="[[!showCloseButton]]" aria-label$="[[closeText]]" on-click="cancel" on-keypress="onCloseKeypress_">
       </cr-icon-button>
     </div>
     <slot name="header"></slot>
@@ -11142,18 +11136,13 @@ function getHtml$1() {
  * internal native <dialog>. Instead use cr-dialog::part(dialog) to specify
  * width/height (as well as other available mixins to style other parts of the
  * dialog contents).
+ *
+ * Forked from ui/webui/resources/cr_elements/cr_dialog/cr_dialog.ts
  */
-const CrDialogElementBase = CrContainerShadowMixinLit(CrLitElement);
+const CrDialogElementBase = CrContainerShadowMixin(PolymerElement);
 class CrDialogElement extends CrDialogElementBase {
     constructor() {
         super(...arguments);
-        this.consumeKeydownEvent = false;
-        this.ignoreEnterKey = false;
-        this.ignorePopstate = false;
-        this.noCancel = false;
-        this.open = false;
-        this.showCloseButton = false;
-        this.showOnAttach = false;
         this.intersectionObserver_ = null;
         this.mutationObserver_ = null;
         this.boundKeydown_ = null;
@@ -11161,56 +11150,69 @@ class CrDialogElement extends CrDialogElementBase {
     static get is() {
         return 'cr-dialog';
     }
-    static get styles() {
-        return [
-            getCss$3(),
-            getCss$2(),
-            getCss$1(),
-        ];
-    }
-    render() {
-        return getHtml$1.bind(this)();
+    static get template() {
+        return getTemplate$27();
     }
     static get properties() {
         return {
             open: {
                 type: Boolean,
-                reflect: true,
+                value: false,
+                reflectToAttribute: true,
             },
             /**
              * Alt-text for the dialog close button.
              */
-            closeText: { type: String },
+            closeText: String,
             /**
              * True if the dialog should remain open on 'popstate' events. This is
              * used for navigable dialogs that have their separate navigation handling
              * code.
              */
-            ignorePopstate: { type: Boolean },
+            ignorePopstate: {
+                type: Boolean,
+                value: false,
+            },
             /**
              * True if the dialog should ignore 'Enter' keypresses.
              */
-            ignoreEnterKey: { type: Boolean },
+            ignoreEnterKey: {
+                type: Boolean,
+                value: false,
+            },
             /**
              * True if the dialog should consume 'keydown' events. If ignoreEnterKey
              * is true, 'Enter' key won't be consumed.
              */
-            consumeKeydownEvent: { type: Boolean },
+            consumeKeydownEvent: {
+                type: Boolean,
+                value: false,
+            },
             /**
              * True if the dialog should not be able to be cancelled, which will
              * prevent 'Escape' key presses from closing the dialog.
              */
-            noCancel: { type: Boolean },
+            noCancel: {
+                type: Boolean,
+                value: false,
+            },
             // True if dialog should show the 'X' close button.
-            showCloseButton: { type: Boolean },
-            showOnAttach: { type: Boolean },
+            showCloseButton: {
+                type: Boolean,
+                value: false,
+            },
+            showOnAttach: {
+                type: Boolean,
+                value: false,
+            },
             /**
              * Text for the aria description.
              */
-            ariaDescriptionText: { type: String },
+            ariaDescriptionText: String,
         };
     }
-    firstUpdated() {
+    ready() {
+        super.ready();
         // If the active history entry changes (i.e. user clicks back button),
         // all open dialogs should be cancelled.
         window.addEventListener('popstate', () => {
@@ -11273,15 +11275,14 @@ class CrDialogElement extends CrDialogElementBase {
         document.body.removeEventListener('keydown', this.boundKeydown_);
         this.boundKeydown_ = null;
     }
-    async showModal() {
+    showModal() {
         this.$.dialog.showModal();
         assert$1(this.$.dialog.open);
         this.open = true;
-        await this.updateComplete;
-        this.fire('cr-dialog-open');
+        this.dispatchEvent(new CustomEvent('cr-dialog-open', { bubbles: true, composed: true }));
     }
     cancel() {
-        this.fire('cancel');
+        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
         this.$.dialog.close();
         assert$1(!this.$.dialog.open);
         this.open = false;
@@ -11311,9 +11312,9 @@ class CrDialogElement extends CrDialogElementBase {
         }
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.fire('close');
+        this.dispatchEvent(new CustomEvent('close', { bubbles: true, composed: true }));
     }
-    async onNativeDialogCancel_(e) {
+    onNativeDialogCancel_(e) {
         // Ignore any 'cancel' events not fired directly by the <dialog> element.
         if (e.target !== this.getNative()) {
             return;
@@ -11325,10 +11326,9 @@ class CrDialogElement extends CrDialogElementBase {
         // When the dialog is dismissed using the 'Esc' key, need to manually update
         // the |open| property (since close() is not called).
         this.open = false;
-        await this.updateComplete;
         // Catch and re-fire the native 'cancel' event such that it bubbles across
         // Shadow DOM v1.
-        this.fire('cancel');
+        this.dispatchEvent(new CustomEvent('cancel', { bubbles: true, composed: true }));
     }
     /**
      * Expose the inner native <dialog> for some rare cases where it needs to be
@@ -11399,7 +11399,7 @@ class CrDialogElement extends CrDialogElementBase {
 }
 customElements.define(CrDialogElement.is, CrDialogElement);
 
-function getTemplate$25() {
+function getTemplate$26() {
     return html `<!--_html_template_start_--><style include="cr-shared-style">:host{--cr-localized-link-display:inline;display:block}:host([link-disabled]){cursor:pointer;opacity:var(--cr-disabled-opacity);pointer-events:none}a{display:var(--cr-localized-link-display)}a[href]{color:var(--cr-link-color)}a[is=action-link]{user-select:none}#container{display:contents}</style>
 
 <div id="container"></div>
@@ -11425,13 +11425,15 @@ function getTemplate$25() {
  * case, the element gracefully falls back to normal text. This can be useful
  * when the property is data-bound to a function which sometimes returns a
  * string with a link and sometimes returns a normal string.
+ *
+ * Forked from ui/webui/resources/ash/common/cr_elements/localized_link/localized_link.ts
  */
 class LocalizedLinkElement extends PolymerElement {
     static get is() {
         return 'localized-link';
     }
     static get template() {
-        return getTemplate$25();
+        return getTemplate$26();
     }
     static get properties() {
         return {
@@ -11718,7 +11720,7 @@ styleMod$8.appendChild(html `
 `.content);
 styleMod$8.register('md-select');
 
-function getTemplate$24() {
+function getTemplate$25() {
     return html `<!--_html_template_start_--><style include="settings-shared md-select"></style>
 <label class="cr-form-field-label">Container</label>
 <select id="selectContainer" class="md-select" value="containerLabel_(containerId)" on-change="onSelectContainer_">
@@ -11753,7 +11755,7 @@ class ContainerSelectElement extends PolymerElement {
         return 'settings-guest-os-container-select';
     }
     static get template() {
-        return getTemplate$24();
+        return getTemplate$25();
     }
     static get properties() {
         return {
@@ -12052,19 +12054,15 @@ class FocusRow {
     }
 }
 
-function getCss() {
-    return css `:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
-      var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
-          var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
-      var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
-      var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}`;
-}
-
-function getHtml() {
-    return html$1 `<!--_html_template_start_-->
-<dialog id="dialog" part="dialog" @close="${this.onNativeDialogClose_}" role="application" aria-roledescription="${this.roleDescription || nothing}">
-  <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label="${this.accessibilityLabel || nothing}">
-    <slot id="contentNode" @slotchange="${this.onSlotchange_}"></slot>
+function getTemplate$24() {
+    return html `<!--_html_template_start_--><style>:host dialog{background-color:var(--cr-menu-background-color);border:none;border-radius:var(--cr-menu-border-radius,4px);box-shadow:var(--cr-menu-shadow);margin:0;min-width:128px;outline:0;padding:0;position:absolute}@media (forced-colors:active){:host dialog{border:var(--cr-border-hcm)}}:host-context([chrome-refresh-2023]){--cr-hairline:1px solid var(--color-menu-separator,
+        var(--cr-fallback-color-divider));--cr-action-menu-disabled-item-color:var(--color-menu-item-foreground-disabled,
+            var(--cr-fallback-color-disabled-foreground));--cr-action-menu-disabled-item-opacity:1;--cr-menu-background-color:var(--color-menu-background,
+        var(--cr-fallback-color-surface));--cr-menu-background-focus-color:var(--cr-hover-background-color);--cr-menu-shadow:var(--cr-elevation-2);--cr-primary-text-color:var(--color-menu-item-foreground,
+        var(--cr-fallback-color-on-surface))}:host dialog::backdrop{background-color:transparent}:host ::slotted(.dropdown-item){-webkit-tap-highlight-color:transparent;background:0 0;border:none;border-radius:0;box-sizing:border-box;color:var(--cr-primary-text-color);font:inherit;min-height:32px;padding:8px 24px;text-align:start;user-select:none;width:100%}:host ::slotted(.dropdown-item:not([hidden])){align-items:center;display:flex}:host ::slotted(.dropdown-item[disabled]){color:var(--cr-action-menu-disabled-item-color,var(--cr-primary-text-color));opacity:var(--cr-action-menu-disabled-item-opacity,.65)}:host ::slotted(.dropdown-item:not([disabled])){cursor:pointer}:host ::slotted(.dropdown-item:focus){background-color:var(--cr-menu-background-focus-color);outline:0}@media (forced-colors:active){:host ::slotted(.dropdown-item:focus){outline:var(--cr-focus-outline-hcm)}}.item-wrapper{background:var(--cr-menu-background-sheen);outline:0;padding:8px 0}:host-context([chrome-refresh-2023]) .item-wrapper{background:0 0}</style>
+<dialog id="dialog" part="dialog" on-close="onNativeDialogClose_" role="application" aria-roledescription$="[[roleDescription]]">
+  <div id="wrapper" class="item-wrapper" role="menu" tabindex="-1" aria-label$="[[accessibilityLabel]]">
+    <slot id="contentNode" on-slotchange="onSlotchange_"></slot>
   </div>
 </dialog>
 <!--_html_template_end_-->`;
@@ -12073,6 +12071,7 @@ function getHtml() {
 // Copyright 2016 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// Forked from ui/webui/resources/cr_elements/cr_action_menu/cr_action_menu.ts
 var AnchorAlignment;
 (function (AnchorAlignment) {
     AnchorAlignment[AnchorAlignment["BEFORE_START"] = -2] = "BEFORE_START";
@@ -12132,11 +12131,9 @@ function getDefaultShowConfig() {
         maxY: 0,
     };
 }
-class CrActionMenuElement extends CrLitElement {
+class CrActionMenuElement extends PolymerElement {
     constructor() {
         super(...arguments);
-        this.autoReposition = false;
-        this.open = false;
         this.boundClose_ = null;
         this.resizeObserver_ = null;
         this.hasMousemoveListener_ = false;
@@ -12146,29 +12143,31 @@ class CrActionMenuElement extends CrLitElement {
     static get is() {
         return 'cr-action-menu';
     }
-    static get styles() {
-        return getCss();
-    }
-    render() {
-        return getHtml.bind(this)();
+    static get template() {
+        return getTemplate$24();
     }
     static get properties() {
         return {
             // Accessibility text of the menu. Should be something along the lines of
             // "actions", or "more actions".
-            accessibilityLabel: { type: String },
+            accessibilityLabel: String,
             // Setting this flag will make the menu listen for content size changes
             // and reposition to its anchor accordingly.
-            autoReposition: { type: Boolean },
+            autoReposition: {
+                type: Boolean,
+                value: false,
+            },
             open: {
                 type: Boolean,
                 notify: true,
+                value: false,
             },
             // Descriptor of the menu. Should be something along the lines of "menu"
-            roleDescription: { type: String },
+            roleDescription: String,
         };
     }
-    firstUpdated() {
+    ready() {
+        super.ready();
         this.addEventListener('keydown', this.onKeyDown_.bind(this));
         this.addEventListener('mouseover', this.onMouseover_);
         this.addEventListener('click', this.onClick_);
@@ -12176,6 +12175,9 @@ class CrActionMenuElement extends CrLitElement {
     disconnectedCallback() {
         super.disconnectedCallback();
         this.removeListeners_();
+    }
+    fire_(eventName, detail) {
+        this.dispatchEvent(new CustomEvent(eventName, { bubbles: true, composed: true, detail }));
     }
     /**
      * Exposing internal <dialog> elements for tests.
@@ -12198,7 +12200,7 @@ class CrActionMenuElement extends CrLitElement {
         }
         // Catch and re-fire the 'close' event such that it bubbles across Shadow
         // DOM v1.
-        this.fire('close');
+        this.fire_('close');
     }
     onClick_(e) {
         if (e.target === this) {
@@ -12211,7 +12213,7 @@ class CrActionMenuElement extends CrLitElement {
         if (e.key === 'Tab' || e.key === 'Escape') {
             this.close();
             if (e.key === 'Tab') {
-                this.fire('tabkeyclose', { shiftKey: e.shiftKey });
+                this.fire_('tabkeyclose', { shiftKey: e.shiftKey });
             }
             e.preventDefault();
             return;
@@ -12265,9 +12267,6 @@ class CrActionMenuElement extends CrLitElement {
         options[index].focus();
     }
     close() {
-        if (!this.open) {
-            return;
-        }
         // Removing 'resize' and 'popstate' listeners when dialog is closed.
         this.removeListeners_();
         this.$.dialog.close();
@@ -12422,7 +12421,7 @@ class CrActionMenuElement extends CrLitElement {
             this.resizeObserver_ = new ResizeObserver(() => {
                 if (this.lastConfig_) {
                     this.positionDialog_(this.lastConfig_);
-                    this.fire('cr-action-menu-repositioned'); // For easier testing.
+                    this.fire_('cr-action-menu-repositioned'); // For easier testing.
                 }
             });
             this.resizeObserver_.observe(this.$.dialog);
@@ -12446,6 +12445,9 @@ customElements.define(CrActionMenuElement.is, CrActionMenuElement);
  *   </cr-lazy-render>
  *
  *   this.$.menu.get().show();
+ *
+ * Forked from
+ * ui/webui/resources/cr_elements/cr_lazy_render/cr_lazy_render.ts
  */
 class CrLazyRenderElement extends PolymerElement {
     constructor() {
@@ -12769,11 +12771,11 @@ Polymer({
 });
 
 function getTemplate$23() {
-    return html `<!--_html_template_start_-->    <style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:var(--cr-toast-max-width,568px);min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
-            var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
-            var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
-            var(--cr-fallback-color-inverse-on-surface));border-radius:8px;line-height:20px;padding:0 16px}:host-context([dir=ltr]){left:0}:host-context([dir=rtl]){right:0}:host([open]){opacity:1;transform:translateY(0);visibility:visible}:host ::slotted(*){color:var(--cr-toast-text-color)}:host ::slotted(cr-button){background-color:transparent!important;border:none!important;color:var(--cr-toast-button-color)!important;margin-inline-start:32px!important;min-width:52px!important;padding:8px!important}:host ::slotted(cr-button:hover){background-color:transparent!important}:host-context([chrome-refresh-2023]) ::slotted(cr-button:last-of-type){margin-inline-end:-8px}</style>
-    <slot></slot>
+    return html `<!--_html_template_start_--><style>:host{--cr-toast-background:#323232;--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:#fff}@media (prefers-color-scheme:dark){:host{--cr-toast-background:var(--google-grey-900) linear-gradient(rgba(255, 255, 255, .06), rgba(255, 255, 255, .06));--cr-toast-button-color:var(--google-blue-300);--cr-toast-text-color:var(--google-grey-200)}}:host{align-items:center;background:var(--cr-toast-background);border-radius:4px;bottom:0;box-shadow:0 2px 4px 0 rgba(0,0,0,.28);box-sizing:border-box;display:flex;margin:24px;max-width:568px;min-height:52px;min-width:288px;opacity:0;padding:0 24px;position:fixed;transform:translateY(100px);transition:opacity .3s,transform .3s;visibility:hidden;z-index:1}:host-context([chrome-refresh-2023]):host{--cr-toast-background:var(--color-toast-background,
+        var(--cr-fallback-color-inverse-surface));--cr-toast-button-color:var(--color-toast-button,
+        var(--cr-fallback-color-inverse-primary));--cr-toast-text-color:var(--color-toast-foreground,
+        var(--cr-fallback-color-inverse-on-surface));border-radius:8px;line-height:20px;padding:0 16px}:host-context([dir=ltr]){left:0}:host-context([dir=rtl]){right:0}:host([open]){opacity:1;transform:translateY(0);visibility:visible}:host ::slotted(*){color:var(--cr-toast-text-color)}:host ::slotted(cr-button){background-color:transparent!important;border:none!important;color:var(--cr-toast-button-color)!important;margin-inline-start:32px!important;min-width:52px!important;padding:8px!important}:host ::slotted(cr-button:hover){background-color:transparent!important}:host-context([chrome-refresh-2023]) ::slotted(cr-button:last-of-type){margin-inline-end:-8px}</style>
+<slot></slot>
 <!--_html_template_end_-->`;
 }
 
@@ -12782,6 +12784,8 @@ function getTemplate$23() {
 // found in the LICENSE file.
 /**
  * @fileoverview A lightweight toast.
+ *
+ * Forked from ui/webui/resources/cr_elements/cr_toast/cr_toast.ts
  */
 class CrToastElement extends PolymerElement {
     constructor() {
@@ -12870,9 +12874,9 @@ styleMod$7.appendChild(html `
 styleMod$7.register('action-link');
 
 function getTemplate$22() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style"></style>
-    <cr-tooltip-icon id="tooltipIcon" hidden$="[[!indicatorVisible]]" tooltip-text="[[indicatorTooltip]]" icon-class="[[indicatorIcon]]" icon-aria-label="[[iconAriaLabel]]" exportparts="tooltip">
-    </cr-tooltip-icon>
+    return html `<!--_html_template_start_--><style include="cr-hidden-style"></style>
+<cr-tooltip-icon id="tooltipIcon" hidden$="[[!indicatorVisible]]" tooltip-text="[[indicatorTooltip]]" icon-class="[[indicatorIcon]]" icon-aria-label="[[iconAriaLabel]]" exportparts="tooltip">
+</cr-tooltip-icon>
 <!--_html_template_end_-->`;
 }
 
@@ -12882,6 +12886,8 @@ function getTemplate$22() {
 /**
  * @fileoverview Polymer element for indicating policies that apply to an
  * element controlling a settings preference.
+ * Forked from
+ * ui/webui/resources/cr_elements/policy/cr_policy_pref_indicator.ts
  */
 const CrPolicyPrefIndicatorElementBase = CrPolicyIndicatorMixin(PolymerElement);
 class CrPolicyPrefIndicatorElement extends CrPolicyPrefIndicatorElementBase {
@@ -13325,9 +13331,6 @@ document.head.appendChild(template$9.content);
 // Copyright 2015 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-/**
- * @fileoverview Behavior for policy controlled settings prefs.
- */
 const CrPolicyPrefMixin = dedupingMixin((superClass) => {
     class CrPolicyPrefMixin extends superClass {
         static get properties() {
@@ -14362,6 +14365,8 @@ function getTemplate$1_() {
  * button (taking up the whole 'row'). The name link comes from the intended use
  * of this element to take the user to another page in the app or to an external
  * page (somewhat like an HTML link).
+ * Forked from
+ * ui/webui/resources/cr_elements/cr_link_row/cr_link_row.ts
  */
 class CrLinkRowElement extends PolymerElement {
     static get is() {
@@ -14432,20 +14437,20 @@ class CrLinkRowElement extends PolymerElement {
 customElements.define(CrLinkRowElement.is, CrLinkRowElement);
 
 function getTemplate$1Z() {
-    return html `<!--_html_template_start_-->    <style include="cr-hidden-style">:host{--cr-slider-active-color:var(--google-blue-600);--cr-slider-container-color:rgba(var(--google-blue-600-rgb), .24);--cr-slider-container-disabled-color:rgba(var(--google-grey-600-rgb), .24);--cr-slider-disabled-color:var(--google-grey-600);--cr-slider-knob-color-rgb:var(--google-blue-600-rgb);--cr-slider-knob-disabled-color:white;--cr-slider-marker-active-color:rgba(255, 255, 255, .54);--cr-slider-marker-color:rgba(26, 115, 232, .54);--cr-slider-marker-disabled-color:rgba(128, 134, 139, .54);--cr-slider-position-transition:80ms ease;--cr-slider-ripple-color:rgba(var(--cr-slider-knob-color-rgb), .25);-webkit-tap-highlight-color:transparent;cursor:default;height:32px;isolation:isolate;outline:0;padding:0 16px;user-select:none}@media (prefers-color-scheme:dark){:host{--cr-slider-active-color:var(--google-blue-300);--cr-slider-container-color:rgba(var(--google-blue-500-rgb), .48);--cr-slider-container-disabled-color:rgba(var(--google-grey-600-rgb), .48);--cr-slider-knob-color-rgb:var(--google-blue-300-rgb);--cr-slider-knob-disabled-color:var(--google-grey-900-white-4-percent);--cr-slider-marker-active-color:var(--google-blue-300);--cr-slider-marker-color:var(--google-blue-300);--cr-slider-marker-disabled-color:rgba(255, 255, 255, .54);--cr-slider-ripple-color:rgba(var(--cr-slider-knob-color-rgb), .4)}}:host,:host>#container{touch-action:none}#bar,#container{border-top-style:solid;border-top-width:2px}#container{border-top-color:var(--cr-slider-container-color);position:relative;top:16px}#container>div{position:absolute}#bar,#markers{top:-2px}#markers{display:flex;flex-direction:row;left:0;pointer-events:none;right:0}.active-marker,.inactive-marker{flex:1}#markers::after,#markers::before,.active-marker::after,.inactive-marker::after{border-radius:50%;content:'';display:block;height:2px;margin-inline-start:-1px;width:2px}#markers::before,.active-marker::after{background-color:var(--cr-slider-marker-active-color)}#markers::after,.inactive-marker::after{background-color:var(--cr-slider-marker-color)}#bar{border-top-color:var(--cr-slider-active-color)}:host([transiting_]) #bar{transition:width var(--cr-slider-position-transition)}#knobAndLabel{top:-1px}:host([transiting_]) #knobAndLabel{transition:margin-inline-start var(--cr-slider-position-transition)}#knob{background-color:rgb(var(--cr-slider-knob-color-rgb));border-radius:50%;box-shadow:0 1px 3px 0 rgba(0,0,0,.4);height:10px;outline:0;position:relative;transform:translate(-50%,-50%);width:10px}:host([is-rtl_]) #knob{transform:translate(50%,-50%)}#label{background:rgb(var(--cr-slider-knob-color-rgb));border-radius:.75em;bottom:22px;color:#fff;font-size:12px;line-height:1.5em;opacity:0;outline:1px transparent solid;padding:0 .67em;position:absolute;transform:translateX(-50%);transition:opacity 80ms ease-in-out;white-space:nowrap}:host([is-rtl_]) #label{transform:translateX(50%)}:host(:hover) #label,:host([show-label_]) #label{opacity:1}paper-ripple{--paper-ripple-opacity:var(--cr-slider-ripple-opacity, 1);color:var(--cr-slider-ripple-color);height:var(--cr-slider-ripple-size,32px);pointer-events:none;transition:color linear 80ms;transform:translate(-50%,-50%);top:50%;left:50%;width:var(--cr-slider-ripple-size,32px);z-index:var(--cr-slider-ripple-z-index,auto)}:host([disabled_]){pointer-events:none}:host([disabled_]) #container{border-top-color:var(--cr-slider-container-disabled-color)}:host([disabled_]) #bar{border-top-color:var(--cr-slider-disabled-color)}:host([disabled_]) #markers::after,:host([disabled_]) .inactive-marker::after{background-color:var(--cr-slider-marker-disabled-color)}:host([disabled_]) #knob{background-color:var(--cr-slider-disabled-color);border:2px solid var(--cr-slider-knob-disabled-color);box-shadow:unset}</style>
-    <div id="container" hidden part="container">
-      <div id="bar"></div>
-      <div id="markers" hidden$="[[!markerCount]]">
-        <template is="dom-repeat" items="[[getMarkers_(markerCount)]]">
-          <div class$="[[getMarkerClass_(index, value, min, max,
-                                         markerCount)]]"></div>
-        </template>
-      </div>
-      <div id="knobAndLabel" on-transitionend="onTransitionEnd_">
-        <div id="knob" part="knob"></div>
-        <div id="label" part="label">[[label_]]</div>
-      </div>
-    </div>
+    return html `<!--_html_template_start_--><style include="cr-hidden-style">:host{--cr-slider-active-color:var(--google-blue-600);--cr-slider-container-color:rgba(var(--google-blue-600-rgb), .24);--cr-slider-container-disabled-color:rgba(var(--google-grey-600-rgb), .24);--cr-slider-disabled-color:var(--google-grey-600);--cr-slider-knob-color-rgb:var(--google-blue-600-rgb);--cr-slider-knob-disabled-color:white;--cr-slider-marker-active-color:rgba(255, 255, 255, .54);--cr-slider-marker-color:rgba(26, 115, 232, .54);--cr-slider-marker-disabled-color:rgba(128, 134, 139, .54);--cr-slider-position-transition:80ms ease;--cr-slider-ripple-color:rgba(var(--cr-slider-knob-color-rgb), .25);-webkit-tap-highlight-color:transparent;cursor:default;height:32px;isolation:isolate;outline:0;padding:0 16px;user-select:none}@media (prefers-color-scheme:dark){:host{--cr-slider-active-color:var(--google-blue-300);--cr-slider-container-color:rgba(var(--google-blue-500-rgb), .48);--cr-slider-container-disabled-color:rgba(var(--google-grey-600-rgb), .48);--cr-slider-knob-color-rgb:var(--google-blue-300-rgb);--cr-slider-knob-disabled-color:var(--google-grey-900-white-4-percent);--cr-slider-marker-active-color:var(--google-blue-300);--cr-slider-marker-color:var(--google-blue-300);--cr-slider-marker-disabled-color:rgba(255, 255, 255, .54);--cr-slider-ripple-color:rgba(var(--cr-slider-knob-color-rgb), .4)}}:host,:host>#container{touch-action:none}#bar,#container{border-top-style:solid;border-top-width:2px}#container{border-top-color:var(--cr-slider-container-color);position:relative;top:16px}#container>div{position:absolute}#bar,#markers{top:-2px}#markers{display:flex;flex-direction:row;left:0;pointer-events:none;right:0}.active-marker,.inactive-marker{flex:1}#markers::after,#markers::before,.active-marker::after,.inactive-marker::after{border-radius:50%;content:'';display:block;height:2px;margin-inline-start:-1px;width:2px}#markers::before,.active-marker::after{background-color:var(--cr-slider-marker-active-color)}#markers::after,.inactive-marker::after{background-color:var(--cr-slider-marker-color)}#bar{border-top-color:var(--cr-slider-active-color)}:host([transiting_]) #bar{transition:width var(--cr-slider-position-transition)}#knobAndLabel{top:-1px}:host([transiting_]) #knobAndLabel{transition:margin-inline-start var(--cr-slider-position-transition)}#knob{background-color:rgb(var(--cr-slider-knob-color-rgb));border-radius:50%;box-shadow:0 1px 3px 0 rgba(0,0,0,.4);height:10px;outline:0;position:relative;transform:translate(-50%,-50%);width:10px}:host([is-rtl_]) #knob{transform:translate(50%,-50%)}#label{background:rgb(var(--cr-slider-knob-color-rgb));border-radius:.75em;bottom:22px;color:#fff;font-size:12px;line-height:1.5em;opacity:0;outline:1px transparent solid;padding:0 .67em;position:absolute;transform:translateX(-50%);transition:opacity 80ms ease-in-out;white-space:nowrap}:host([is-rtl_]) #label{transform:translateX(50%)}:host(:hover) #label,:host([show-label_]) #label{opacity:1}paper-ripple{--paper-ripple-opacity:var(--cr-slider-ripple-opacity, 1);color:var(--cr-slider-ripple-color);height:var(--cr-slider-ripple-size,32px);pointer-events:none;transition:color linear 80ms;transform:translate(-50%,-50%);top:50%;left:50%;width:var(--cr-slider-ripple-size,32px);z-index:var(--cr-slider-ripple-z-index,auto)}:host([disabled_]){pointer-events:none}:host([disabled_]) #container{border-top-color:var(--cr-slider-container-disabled-color)}:host([disabled_]) #bar{border-top-color:var(--cr-slider-disabled-color)}:host([disabled_]) #markers::after,:host([disabled_]) .inactive-marker::after{background-color:var(--cr-slider-marker-disabled-color)}:host([disabled_]) #knob{background-color:var(--cr-slider-disabled-color);border:2px solid var(--cr-slider-knob-disabled-color);box-shadow:unset}</style>
+<div id="container" hidden part="container">
+  <div id="bar"></div>
+  <div id="markers" hidden$="[[!markerCount]]">
+    <template is="dom-repeat" items="[[getMarkers_(markerCount)]]">
+      <div class$="[[getMarkerClass_(index, value, min, max,
+                                     markerCount)]]"></div>
+    </template>
+  </div>
+  <div id="knobAndLabel" on-transitionend="onTransitionEnd_">
+    <div id="knob" part="knob"></div>
+    <div id="label" part="label">[[label_]]</div>
+  </div>
+</div>
 <!--_html_template_end_-->`;
 }
 
@@ -14455,6 +14460,8 @@ function getTemplate$1Z() {
 /**
  * @fileoverview 'cr-slider' is a slider component used to select a number from
  * a continuous or discrete range of numbers.
+ *
+ * Forked from ui/webui/resources/cr_elements/cr_slider/cr_slider.ts
  */
 function clamp(min, max, value) {
     return Math.min(max, Math.max(min, value));
@@ -16520,29 +16527,29 @@ const template$7 = html `
 document.head.appendChild(template$7.content);
 
 function getTemplate$1V() {
-    return html `<!--_html_template_start_-->    <style>:host{-webkit-tap-highlight-color:transparent;align-items:center;cursor:pointer;display:flex;outline:0;user-select:none;--cr-checkbox-border-size:2px;--cr-checkbox-size:16px;--cr-checkbox-ripple-size:40px;--cr-checkbox-ripple-offset:calc(var(--cr-checkbox-size)/2 -
-            var(--cr-checkbox-ripple-size)/2 - var(--cr-checkbox-border-size));--cr-checkbox-checked-box-color:var(--cr-checked-color);--cr-checkbox-ripple-checked-color:var(--cr-checked-color);--cr-checkbox-checked-ripple-opacity:.2;--cr-checkbox-mark-color:white;--cr-checkbox-ripple-unchecked-color:var(--google-grey-900);--cr-checkbox-unchecked-box-color:var(--google-grey-700);--cr-checkbox-unchecked-ripple-opacity:.15}@media (prefers-color-scheme:dark){:host{--cr-checkbox-checked-ripple-opacity:.4;--cr-checkbox-mark-color:var(--google-grey-900);--cr-checkbox-ripple-unchecked-color:var(--google-grey-500);--cr-checkbox-unchecked-box-color:var(--google-grey-500);--cr-checkbox-unchecked-ripple-opacity:.4}}:host-context([chrome-refresh-2023]):host{--cr-checkbox-ripple-size:32px;--cr-checkbox-mark-color:var(--color-checkbox-check,
-            var(--cr-fallback-color-on-primary));--cr-checkbox-checked-box-color:var(--color-checkbox-foreground-checked,
-            var(--cr-fallback-color-primary));--cr-checkbox-unchecked-box-color:var(--color-checkbox-foreground-unchecked,
-            var(--cr-fallback-color-outline));--cr-checkbox-ripple-checked-color:var(--cr-active-background-color);--cr-checkbox-ripple-unchecked-color:var(--cr-active-background-color);--cr-checkbox-ripple-offset:50%;--cr-checkbox-ripple-opacity:1}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]){opacity:1;--cr-checkbox-checked-box-color:var(
-            --color-checkbox-container-disabled,
-            var(--cr-fallback-color-disabled-background));--cr-checkbox-unchecked-box-color:var(
-            --color-checkbox-outline-disabled,
-            var(--cr-fallback-color-disabled-background));--cr-checkbox-mark-color:var(--color-checkbox-check-disabled,
-            var(--cr-fallback-color-disabled-foreground))}#checkbox{background:0 0;border:var(--cr-checkbox-border-size) solid var(--cr-checkbox-unchecked-box-color);border-radius:2px;box-sizing:border-box;cursor:pointer;display:block;flex-shrink:0;height:var(--cr-checkbox-size);isolation:isolate;margin:0;outline:0;padding:0;position:relative;transform:none;width:var(--cr-checkbox-size)}:host-context([chrome-refresh-2023]):host([disabled][checked]) #checkbox{border-color:transparent}:host-context([chrome-refresh-2023]) #hover-layer{display:none}:host-context([chrome-refresh-2023]) #checkbox:hover #hover-layer{background-color:var(--cr-hover-background-color);border-radius:50%;display:block;height:32px;left:50%;overflow:hidden;pointer-events:none;position:absolute;top:50%;transform:translate(-50%,-50%);width:32px}@media (forced-colors:active){:host(:focus) #checkbox{outline:var(--cr-focus-outline-hcm)}}:host-context([chrome-refresh-2023]) #checkbox:focus-visible{outline:var(--cr-checkbox-focus-outline,2px solid var(--cr-focus-outline-color));outline-offset:2px}#checkmark{display:block;forced-color-adjust:auto;position:relative;transform:scale(0);z-index:1}#checkmark path{fill:var(--cr-checkbox-mark-color)}:host([checked]) #checkmark{transform:scale(1);transition:transform 140ms ease-out}:host([checked]) #checkbox{background:var(--cr-checkbox-checked-box-background-color,var(--cr-checkbox-checked-box-color));border-color:var(--cr-checkbox-checked-box-color)}paper-ripple{--paper-ripple-opacity:var(--cr-checkbox-ripple-opacity,
-            var(--cr-checkbox-unchecked-ripple-opacity));color:var(--cr-checkbox-ripple-unchecked-color);height:var(--cr-checkbox-ripple-size);left:var(--cr-checkbox-ripple-offset);outline:var(--cr-checkbox-ripple-ring,none);pointer-events:none;top:var(--cr-checkbox-ripple-offset);transition:color linear 80ms;width:var(--cr-checkbox-ripple-size)}:host([checked]) paper-ripple{--paper-ripple-opacity:var(--cr-checkbox-ripple-opacity,
-            var(--cr-checkbox-checked-ripple-opacity));color:var(--cr-checkbox-ripple-checked-color)}:host-context([dir=rtl]) paper-ripple{left:auto;right:var(--cr-checkbox-ripple-offset)}:host-context([chrome-refresh-2023]) paper-ripple{transform:translate(-50%,-50%)}:host-context([dir=rtl][chrome-refresh-2023]) paper-ripple{transform:translate(50%,-50%)}#label-container{color:var(--cr-checkbox-label-color,var(--cr-primary-text-color));padding-inline-start:var(--cr-checkbox-label-padding-start,20px);white-space:normal}:host(.label-first) #label-container{order:-1;padding-inline-end:var(--cr-checkbox-label-padding-end,20px);padding-inline-start:0}:host(.no-label) #label-container{display:none}#ariaDescription{height:0;overflow:hidden;width:0}</style>
-    <div id="checkbox" tabindex$="[[tabIndex]]" role="checkbox" on-keydown="onKeyDown_" on-keyup="onKeyUp_" aria-disabled="false" aria-checked="false" aria-labelledby="label-container" aria-describedby="ariaDescription">
-      
-      <svg id="checkmark" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="m10.192 2.121-6.01 6.01-2.121-2.12L1 7.07l2.121 2.121.707.707.354.354 7.071-7.071-1.06-1.06Z">
-      </path></svg>
-      <div id="hover-layer"></div>
-    </div>
-    <div id="label-container" aria-hidden="true" aria-label$="[[ariaLabelOverride]]" part="label-container">
-      <slot></slot>
-    </div>
-    <div id="ariaDescription" aria-hidden="true">[[ariaDescription]]</div>
+    return html `<!--_html_template_start_--><style>:host{-webkit-tap-highlight-color:transparent;align-items:center;cursor:pointer;display:flex;outline:0;user-select:none;--cr-checkbox-border-size:2px;--cr-checkbox-size:16px;--cr-checkbox-ripple-size:40px;--cr-checkbox-ripple-offset:calc(var(--cr-checkbox-size)/2 -
+        var(--cr-checkbox-ripple-size)/2 - var(--cr-checkbox-border-size));--cr-checkbox-checked-box-color:var(--cr-checked-color);--cr-checkbox-ripple-checked-color:var(--cr-checked-color);--cr-checkbox-checked-ripple-opacity:.2;--cr-checkbox-mark-color:white;--cr-checkbox-ripple-unchecked-color:var(--google-grey-900);--cr-checkbox-unchecked-box-color:var(--google-grey-700);--cr-checkbox-unchecked-ripple-opacity:.15}@media (prefers-color-scheme:dark){:host{--cr-checkbox-checked-ripple-opacity:.4;--cr-checkbox-mark-color:var(--google-grey-900);--cr-checkbox-ripple-unchecked-color:var(--google-grey-500);--cr-checkbox-unchecked-box-color:var(--google-grey-500);--cr-checkbox-unchecked-ripple-opacity:.4}}:host-context([chrome-refresh-2023]):host{--cr-checkbox-ripple-size:32px;--cr-checkbox-mark-color:var(--color-checkbox-check,
+        var(--cr-fallback-color-on-primary));--cr-checkbox-checked-box-color:var(--color-checkbox-foreground-checked,
+        var(--cr-fallback-color-primary));--cr-checkbox-unchecked-box-color:var(--color-checkbox-foreground-unchecked,
+        var(--cr-fallback-color-outline));--cr-checkbox-ripple-checked-color:var(--cr-active-background-color);--cr-checkbox-ripple-unchecked-color:var(--cr-active-background-color);--cr-checkbox-ripple-offset:50%;--cr-checkbox-ripple-opacity:1}:host([disabled]){cursor:initial;opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]){opacity:1;--cr-checkbox-checked-box-color:var(
+        --color-checkbox-container-disabled,
+        var(--cr-fallback-color-disabled-background));--cr-checkbox-unchecked-box-color:var(
+        --color-checkbox-outline-disabled,
+        var(--cr-fallback-color-disabled-background));--cr-checkbox-mark-color:var(--color-checkbox-check-disabled,
+        var(--cr-fallback-color-disabled-foreground))}#checkbox{background:0 0;border:var(--cr-checkbox-border-size) solid var(--cr-checkbox-unchecked-box-color);border-radius:2px;box-sizing:border-box;cursor:pointer;display:block;flex-shrink:0;height:var(--cr-checkbox-size);isolation:isolate;margin:0;outline:0;padding:0;position:relative;transform:none;width:var(--cr-checkbox-size)}:host-context([chrome-refresh-2023]):host([disabled][checked]) #checkbox{border-color:transparent}:host-context([chrome-refresh-2023]) #hover-layer{display:none}:host-context([chrome-refresh-2023]) #checkbox:hover #hover-layer{background-color:var(--cr-hover-background-color);border-radius:50%;display:block;height:32px;left:50%;overflow:hidden;pointer-events:none;position:absolute;top:50%;transform:translate(-50%,-50%);width:32px}@media (forced-colors:active){:host(:focus) #checkbox{outline:var(--cr-focus-outline-hcm)}}:host-context([chrome-refresh-2023]) #checkbox:focus-visible{outline:var(--cr-checkbox-focus-outline,2px solid var(--cr-focus-outline-color));outline-offset:2px}#checkmark{display:block;forced-color-adjust:auto;position:relative;transform:scale(0);z-index:1}#checkmark path{fill:var(--cr-checkbox-mark-color)}:host([checked]) #checkmark{transform:scale(1);transition:transform 140ms ease-out}:host([checked]) #checkbox{background:var(--cr-checkbox-checked-box-background-color,var(--cr-checkbox-checked-box-color));border-color:var(--cr-checkbox-checked-box-color)}paper-ripple{--paper-ripple-opacity:var(--cr-checkbox-ripple-opacity,
+        var(--cr-checkbox-unchecked-ripple-opacity));color:var(--cr-checkbox-ripple-unchecked-color);height:var(--cr-checkbox-ripple-size);left:var(--cr-checkbox-ripple-offset);outline:var(--cr-checkbox-ripple-ring,none);pointer-events:none;top:var(--cr-checkbox-ripple-offset);transition:color linear 80ms;width:var(--cr-checkbox-ripple-size)}:host([checked]) paper-ripple{--paper-ripple-opacity:var(--cr-checkbox-ripple-opacity,
+        var(--cr-checkbox-checked-ripple-opacity));color:var(--cr-checkbox-ripple-checked-color)}:host-context([dir=rtl]) paper-ripple{left:auto;right:var(--cr-checkbox-ripple-offset)}:host-context([chrome-refresh-2023]) paper-ripple{transform:translate(-50%,-50%)}:host-context([dir=rtl][chrome-refresh-2023]) paper-ripple{transform:translate(50%,-50%)}#label-container{color:var(--cr-checkbox-label-color,var(--cr-primary-text-color));padding-inline-start:var(--cr-checkbox-label-padding-start,20px);white-space:normal}:host(.label-first) #label-container{order:-1;padding-inline-end:var(--cr-checkbox-label-padding-end,20px);padding-inline-start:0}:host(.no-label) #label-container{display:none}#ariaDescription{height:0;overflow:hidden;width:0}</style>
+<div id="checkbox" tabindex$="[[tabIndex]]" role="checkbox" on-keydown="onKeyDown_" on-keyup="onKeyUp_" aria-disabled="false" aria-checked="false" aria-labelledby="label-container" aria-describedby="ariaDescription">
+  
+  <svg id="checkmark" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="m10.192 2.121-6.01 6.01-2.121-2.12L1 7.07l2.121 2.121.707.707.354.354 7.071-7.071-1.06-1.06Z">
+  </path></svg>
+  <div id="hover-layer"></div>
+</div>
+<div id="label-container" aria-hidden="true" aria-label$="[[ariaLabelOverride]]" part="label-container">
+  <slot></slot>
+</div>
+<div id="ariaDescription" aria-hidden="true">[[ariaDescription]]</div>
 <!--_html_template_end_-->`;
 }
 
@@ -16550,8 +16557,11 @@ function getTemplate$1V() {
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 /**
- * @fileoverview 'cr-checkbox' is a component similar to native checkbox. It
- * fires a 'change' event *only* when its state changes as a result of a user
+ * @fileoverview 'cr-checkbox' is a component similar to native checkbox.
+ *
+ * Forked from ui/webui/resources/cr_elements/cr_checkbox/cr_checkbox.ts
+ *
+ * Fires a 'change' event *only* when its state changes as a result of a user
  * interaction. By default it assumes there will be child(ren) passed in to be
  * used as labels. If no label will be provided, a .no-label class should be
  * added to hide the spacing between the checkbox and the label container.
@@ -16606,7 +16616,6 @@ class CrCheckboxElement extends CrCheckboxElementBase {
     }
     ready() {
         super.ready();
-        // 
         // TODO(b/309689294) Remove this once CrOS UIs migrate to Jellybean
         // components and no longer use cr-elements.
         // Force stamp the ripple element to enable CrOS focus styles. Ripple
@@ -16614,7 +16623,6 @@ class CrCheckboxElement extends CrCheckboxElementBase {
         if (document.documentElement.hasAttribute('chrome-refresh-2023')) {
             this.getRipple();
         }
-        // 
         this.removeAttribute('unresolved');
         this.addEventListener('click', this.onClick_.bind(this));
         this.addEventListener('pointerup', this.hideRipple_.bind(this));
@@ -21716,32 +21724,32 @@ Polymer({
 });
 
 function getTemplate$1R() {
-    return html `<!--_html_template_start_-->    <style include="cr-shared-style cr-hidden-style">:host(:not([error-message-allowed])) cr-input{--cr-input-error-display:none}:host([opened_]) cr-input{--cr-input-border-radius:4px 4px 0 0}cr-input,iron-dropdown{width:var(--cr-searchable-drop-down-width,472px)}cr-input{--cr-input-padding-start:8px;isolation:auto}iron-dropdown{max-height:270px}iron-dropdown [slot=dropdown-content]{background-color:var(--cr-searchable-drop-down-bg-color,#fff);border-radius:0 0 4px 4px;box-shadow:var(--cr-searchable-drop-down-shadow,0 2px 6px var(--paper-grey-500));min-width:128px;padding:8px 0}#input-overlay{border-radius:4px;height:100%;left:0;overflow:hidden;pointer-events:none;position:absolute;top:0;width:100%}#dropdown-icon{--iron-icon-height:20px;--iron-icon-width:20px;margin-top:-10px;padding-inline-end:6px;position:absolute;right:0;top:50%}:host-context([dir=rtl]) #dropdown-icon{left:0;right:unset}cr-input:focus-within #dropdown-icon{--iron-icon-fill-color:var(--cr-searchable-drop-down-icon-color-focus,
-          var(--google-blue-600))}#input-box{height:100%;left:0;pointer-events:none;top:0;width:100%}#dropdown-box{pointer-events:initial;width:100%}#loading-box{align-items:center;box-sizing:border-box;display:flex;height:32px;padding:0 8px;text-align:start;width:100%}#loading-box div{font-size:12px;padding:0 16px}#loading-box paper-spinner-lite{--paper-spinner-color:var(--cr-searchable-drop-down-spinner-color,
-          var(--google-blue-600));--paper-spinner-stroke-width:2px;height:16px;width:16px}.list-item{background:0 0;border:none;box-sizing:border-box;color:var(--cr-searchable-drop-down-list-item-color,var(--paper-grey-900));font:inherit;min-height:32px;padding:0 8px;text-align:start;width:100%}.list-item[selected_]{background-color:var(--cr-searchable-drop-down-list-bg-color-selected,rgba(0,0,0,.04));outline:0}.list-item:active{background-color:var(--cr-searchable-drop-down-list-bg-color-active,rgba(0,0,0,.12));outline:0}</style>
-    
-    <cr-input part="input" label="[[label]]" on-focus="onFocus_" on-keydown="onKeyDown_" value="[[value]]" on-input="onInput_" id="search" autofocus="[[autofocus]]" placeholder="[[placeholder]]" readonly="[[readonly]]" error-message="[[getErrorMessage_(errorMessage, errorMessageAllowed)]]" invalid="[[shouldShowErrorMessage_(errorMessage, errorMessageAllowed)]]" on-blur="onBlur_">
-      <div id="input-overlay" slot="suffix">
-        <div id="input-box">
-          <iron-icon id="dropdown-icon" icon="cr:arrow-drop-down"></iron-icon>
+    return html `<!--_html_template_start_--><style include="cr-shared-style cr-hidden-style">:host(:not([error-message-allowed])) cr-input{--cr-input-error-display:none}:host([opened_]) cr-input{--cr-input-border-radius:4px 4px 0 0}cr-input,iron-dropdown{width:var(--cr-searchable-drop-down-width,472px)}cr-input{--cr-input-padding-start:8px;isolation:auto}iron-dropdown{max-height:270px}iron-dropdown [slot=dropdown-content]{background-color:var(--cr-searchable-drop-down-bg-color,#fff);border-radius:0 0 4px 4px;box-shadow:var(--cr-searchable-drop-down-shadow,0 2px 6px var(--paper-grey-500));min-width:128px;padding:8px 0}#input-overlay{border-radius:4px;height:100%;left:0;overflow:hidden;pointer-events:none;position:absolute;top:0;width:100%}#dropdown-icon{--iron-icon-height:20px;--iron-icon-width:20px;margin-top:-10px;padding-inline-end:6px;position:absolute;right:0;top:50%}:host-context([dir=rtl]) #dropdown-icon{left:0;right:unset}cr-input:focus-within #dropdown-icon{--iron-icon-fill-color:var(--cr-searchable-drop-down-icon-color-focus,
+      var(--google-blue-600))}#input-box{height:100%;left:0;pointer-events:none;top:0;width:100%}#dropdown-box{pointer-events:initial;width:100%}#loading-box{align-items:center;box-sizing:border-box;display:flex;height:32px;padding:0 8px;text-align:start;width:100%}#loading-box div{font-size:12px;padding:0 16px}#loading-box paper-spinner-lite{--paper-spinner-color:var(--cr-searchable-drop-down-spinner-color,
+      var(--google-blue-600));--paper-spinner-stroke-width:2px;height:16px;width:16px}.list-item{background:0 0;border:none;box-sizing:border-box;color:var(--cr-searchable-drop-down-list-item-color,var(--paper-grey-900));font:inherit;min-height:32px;padding:0 8px;text-align:start;width:100%}.list-item[selected_]{background-color:var(--cr-searchable-drop-down-list-bg-color-selected,rgba(0,0,0,.04));outline:0}.list-item:active{background-color:var(--cr-searchable-drop-down-list-bg-color-active,rgba(0,0,0,.12));outline:0}</style>
+
+<cr-input part="input" label="[[label]]" on-focus="onFocus_" on-keydown="onKeyDown_" value="[[value]]" on-input="onInput_" id="search" autofocus="[[autofocus]]" placeholder="[[placeholder]]" readonly="[[readonly]]" error-message="[[getErrorMessage_(errorMessage, errorMessageAllowed)]]" invalid="[[shouldShowErrorMessage_(errorMessage, errorMessageAllowed)]]" on-blur="onBlur_">
+  <div id="input-overlay" slot="suffix">
+    <div id="input-box">
+      <iron-icon id="dropdown-icon" icon="cr:arrow-drop-down"></iron-icon>
+    </div>
+    <div id="dropdown-box">
+      <iron-dropdown id="dropdown" horizontal-align="left" vertical-align="top" vertical-offset="0" no-cancel-on-outside-click no-cancel-on-esc-key>
+        <div slot="dropdown-content">
+          <div id="loading-box" hidden="[[!showLoading]]">
+            <paper-spinner-lite active></paper-spinner-lite>
+            <div class="cr-secondary-text">[[loadingMessage]]</div>
+          </div>
+          <template is="dom-repeat" items="[[items]]" filter="[[filterItems_(searchTerm_)]]">
+            <button class="list-item" on-click="onSelect_" tabindex="-1">
+              [[item]]
+            </button>
+          </template>
         </div>
-        <div id="dropdown-box">
-          <iron-dropdown id="dropdown" horizontal-align="left" vertical-align="top" vertical-offset="0" no-cancel-on-outside-click no-cancel-on-esc-key>
-            <div slot="dropdown-content">
-              <div id="loading-box" hidden="[[!showLoading]]">
-                <paper-spinner-lite active></paper-spinner-lite>
-                <div class="cr-secondary-text">[[loadingMessage]]</div>
-              </div>
-              <template is="dom-repeat" items="[[items]]" filter="[[filterItems_(searchTerm_)]]">
-                <button class="list-item" on-click="onSelect_" tabindex="-1">
-                  [[item]]
-                </button>
-              </template>
-            </div>
-          </iron-dropdown>
-        </div>
-      </div>
-    </cr-input>
+      </iron-dropdown>
+    </div>
+  </div>
+</cr-input>
 <!--_html_template_end_-->`;
 }
 
@@ -21759,6 +21767,10 @@ function getTemplate$1R() {
  * The |invalid| property tracks whether the user's current text input in the
  * dropdown matches the previously saved dropdown value. This property can be
  * used to disable certain user actions when the dropdown is invalid.
+ *
+ * Forked from
+ * ui/webui/resources/cr_elements/cr_searchable_drop_down/
+ *     cr_searchable_drop_down.ts
  */
 class CrSearchableDropDownElement extends PolymerElement {
     constructor() {
@@ -22370,7 +22382,7 @@ const HANDLED_BY_FOCUS_RING = Symbol('handledByFocusRing');
   * Copyright 2022 Google LLC
   * SPDX-License-Identifier: Apache-2.0
   */
-const styles$2 = css$1 `:host{animation-delay:0s,calc(var(--md-focus-ring-duration, 600ms)*.25);animation-duration:calc(var(--md-focus-ring-duration, 600ms)*.25),calc(var(--md-focus-ring-duration, 600ms)*.75);animation-timing-function:cubic-bezier(0.2, 0, 0, 1);box-sizing:border-box;color:var(--md-focus-ring-color, var(--md-sys-color-secondary, #625b71));display:none;pointer-events:none;position:absolute}:host([visible]){display:flex}:host(:not([inward])){animation-name:outward-grow,outward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));inset:calc(-1*var(--md-focus-ring-outward-offset, 2px));outline:var(--md-focus-ring-width, 3px) solid currentColor}:host([inward]){animation-name:inward-grow,inward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border:var(--md-focus-ring-width, 3px) solid currentColor;inset:var(--md-focus-ring-inward-offset, 0px)}@keyframes outward-grow{from{outline-width:0}to{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes outward-shrink{from{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-grow{from{border-width:0}to{border-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-shrink{from{border-width:var(--md-focus-ring-active-width, 8px)}}@media(prefers-reduced-motion){:host{animation:none}}/*# sourceMappingURL=focus-ring-styles.css.map */
+const styles$2 = css `:host{animation-delay:0s,calc(var(--md-focus-ring-duration, 600ms)*.25);animation-duration:calc(var(--md-focus-ring-duration, 600ms)*.25),calc(var(--md-focus-ring-duration, 600ms)*.75);animation-timing-function:cubic-bezier(0.2, 0, 0, 1);box-sizing:border-box;color:var(--md-focus-ring-color, var(--md-sys-color-secondary, #625b71));display:none;pointer-events:none;position:absolute}:host([visible]){display:flex}:host(:not([inward])){animation-name:outward-grow,outward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, 9999px)) + var(--md-focus-ring-outward-offset, 2px));inset:calc(-1*var(--md-focus-ring-outward-offset, 2px));outline:var(--md-focus-ring-width, 3px) solid currentColor}:host([inward]){animation-name:inward-grow,inward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, 9999px)) - var(--md-focus-ring-inward-offset, 0px));border:var(--md-focus-ring-width, 3px) solid currentColor;inset:var(--md-focus-ring-inward-offset, 0px)}@keyframes outward-grow{from{outline-width:0}to{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes outward-shrink{from{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-grow{from{border-width:0}to{border-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-shrink{from{border-width:var(--md-focus-ring-active-width, 8px)}}@media(prefers-reduced-motion){:host{animation:none}}/*# sourceMappingURL=focus-ring-styles.css.map */
 `;
 
 /**
@@ -22542,7 +22554,7 @@ class Ripple extends LitElement {
             'hovered': this.hovered,
             'pressed': this.pressed,
         };
-        return html$2 `<div class="surface ${classMap(classes)}"></div>`;
+        return html$1 `<div class="surface ${classMap(classes)}"></div>`;
     }
     update(changedProps) {
         if (changedProps.has('disabled') && this.disabled) {
@@ -22831,7 +22843,7 @@ __decorate([
   * Copyright 2022 Google LLC
   * SPDX-License-Identifier: Apache-2.0
   */
-const styles$1 = css$1 `:host{--_hover-color: var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-opacity: var(--md-ripple-hover-opacity, 0.08);--_pressed-color: var(--md-ripple-pressed-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-opacity: var(--md-ripple-pressed-opacity, 0.12);display:flex;margin:auto;pointer-events:none}:host([disabled]){display:none}@media(forced-colors: active){:host{display:none}}:host,.surface{border-radius:inherit;position:absolute;inset:0;overflow:hidden}.surface{-webkit-tap-highlight-color:rgba(0,0,0,0)}.surface::before,.surface::after{content:"";opacity:0;position:absolute}.surface::before{background-color:var(--_hover-color);inset:0;transition:opacity 15ms linear,background-color 15ms linear}.surface::after{background:radial-gradient(closest-side, var(--_pressed-color) max(100% - 70px, 65%), transparent 100%);transform-origin:center center;transition:opacity 375ms linear}.hovered::before{background-color:var(--_hover-color);opacity:var(--_hover-opacity)}.pressed::after{opacity:var(--_pressed-opacity);transition-duration:105ms}/*# sourceMappingURL=ripple-styles.css.map */
+const styles$1 = css `:host{--_hover-color: var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-opacity: var(--md-ripple-hover-opacity, 0.08);--_pressed-color: var(--md-ripple-pressed-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-opacity: var(--md-ripple-pressed-opacity, 0.12);display:flex;margin:auto;pointer-events:none}:host([disabled]){display:none}@media(forced-colors: active){:host{display:none}}:host,.surface{border-radius:inherit;position:absolute;inset:0;overflow:hidden}.surface{-webkit-tap-highlight-color:rgba(0,0,0,0)}.surface::before,.surface::after{content:"";opacity:0;position:absolute}.surface::before{background-color:var(--_hover-color);inset:0;transition:opacity 15ms linear,background-color 15ms linear}.surface::after{background:radial-gradient(closest-side, var(--_pressed-color) max(100% - 70px, 65%), transparent 100%);transform-origin:center center;transition:opacity 375ms linear}.hovered::before{background-color:var(--_hover-color);opacity:var(--_hover-opacity)}.pressed::after{opacity:var(--_pressed-opacity);transition-duration:105ms}/*# sourceMappingURL=ripple-styles.css.map */
 `;
 
 /**
@@ -23655,14 +23667,14 @@ let Checkbox$1 = class Checkbox extends checkboxBaseClass {
         const { ariaLabel, ariaInvalid } = this;
         // Note: <input> needs to be rendered before the <svg> for
         // form.reportValidity() to work in Chrome.
-        return html$2 `
+        return html$1 `
       <div class="container ${containerClasses}">
         <input
           type="checkbox"
           id="input"
-          aria-checked=${isIndeterminate ? 'mixed' : nothing$1}
-          aria-label=${ariaLabel || nothing$1}
-          aria-invalid=${ariaInvalid || nothing$1}
+          aria-checked=${isIndeterminate ? 'mixed' : nothing}
+          aria-label=${ariaLabel || nothing}
+          aria-invalid=${ariaInvalid || nothing}
           ?disabled=${this.disabled}
           ?required=${this.required}
           .indeterminate=${this.indeterminate}
@@ -23753,7 +23765,7 @@ __decorate([
   * Copyright 2022 Google LLC
   * SPDX-License-Identifier: Apache-2.0
   */
-const styles = css$1 `:host{--_container-shape: var(--md-checkbox-container-shape, 2px);--_container-size: var(--md-checkbox-container-size, 18px);--_icon-size: var(--md-checkbox-icon-size, 18px);--_selected-container-color: var(--md-checkbox-selected-container-color, var(--md-sys-color-primary, #6750a4));--_selected-disabled-container-color: var(--md-checkbox-selected-disabled-container-color, var(--md-sys-color-on-surface, #1d1b20));--_selected-disabled-container-opacity: var(--md-checkbox-selected-disabled-container-opacity, 0.38);--_selected-disabled-icon-color: var(--md-checkbox-selected-disabled-icon-color, var(--md-sys-color-surface, #fef7ff));--_selected-focus-container-color: var(--md-checkbox-selected-focus-container-color, var(--md-sys-color-primary, #6750a4));--_selected-focus-icon-color: var(--md-checkbox-selected-focus-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-hover-container-color: var(--md-checkbox-selected-hover-container-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-icon-color: var(--md-checkbox-selected-hover-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-hover-state-layer-color: var(--md-checkbox-selected-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-state-layer-opacity: var(--md-checkbox-selected-hover-state-layer-opacity, 0.08);--_selected-icon-color: var(--md-checkbox-selected-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-pressed-container-color: var(--md-checkbox-selected-pressed-container-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-icon-color: var(--md-checkbox-selected-pressed-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-pressed-state-layer-color: var(--md-checkbox-selected-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_selected-pressed-state-layer-opacity: var(--md-checkbox-selected-pressed-state-layer-opacity, 0.12);--_state-layer-shape: var(--md-checkbox-state-layer-shape, 9999px);--_state-layer-size: var(--md-checkbox-state-layer-size, 40px);--_disabled-container-opacity: var(--md-checkbox-disabled-container-opacity, 0.38);--_disabled-outline-color: var(--md-checkbox-disabled-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-outline-width: var(--md-checkbox-disabled-outline-width, 2px);--_focus-outline-color: var(--md-checkbox-focus-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_focus-outline-width: var(--md-checkbox-focus-outline-width, 2px);--_hover-outline-color: var(--md-checkbox-hover-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-outline-width: var(--md-checkbox-hover-outline-width, 2px);--_hover-state-layer-color: var(--md-checkbox-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-opacity: var(--md-checkbox-hover-state-layer-opacity, 0.08);--_outline-color: var(--md-checkbox-outline-color, var(--md-sys-color-on-surface-variant, #49454f));--_outline-width: var(--md-checkbox-outline-width, 2px);--_pressed-outline-color: var(--md-checkbox-pressed-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-outline-width: var(--md-checkbox-pressed-outline-width, 2px);--_pressed-state-layer-color: var(--md-checkbox-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--_pressed-state-layer-opacity: var(--md-checkbox-pressed-state-layer-opacity, 0.12);--_container-shape-start-start: var( --md-checkbox-container-shape-start-start, var(--_container-shape) );--_container-shape-start-end: var( --md-checkbox-container-shape-start-end, var(--_container-shape) );--_container-shape-end-end: var( --md-checkbox-container-shape-end-end, var(--_container-shape) );--_container-shape-end-start: var( --md-checkbox-container-shape-end-start, var(--_container-shape) );border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-end-radius:var(--_container-shape-end-end);border-end-start-radius:var(--_container-shape-end-start);display:inline-flex;height:var(--_container-size);position:relative;vertical-align:top;width:var(--_container-size);-webkit-tap-highlight-color:rgba(0,0,0,0);cursor:pointer}:host([disabled]){cursor:default}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-size))/2)}md-focus-ring{height:44px;inset:unset;width:44px}input{appearance:none;height:48px;margin:0;opacity:0;outline:none;position:absolute;width:48px;z-index:1;cursor:inherit}:host([touch-target=none]) input{height:100%;width:100%}.container{border-radius:inherit;display:flex;height:100%;place-content:center;place-items:center;position:relative;width:100%}.outline,.background,.icon{inset:0;position:absolute}.outline,.background{border-radius:inherit}.outline{border-color:var(--_outline-color);border-style:solid;border-width:var(--_outline-width);box-sizing:border-box}.background{background-color:var(--_selected-container-color)}.background,.icon{opacity:0;transition-duration:150ms,50ms;transition-property:transform,opacity;transition-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15),linear;transform:scale(0.6)}:where(.selected) :is(.background,.icon){opacity:1;transition-duration:350ms,50ms;transition-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1),linear;transform:scale(1)}md-ripple{border-radius:var(--_state-layer-shape);height:var(--_state-layer-size);inset:unset;width:var(--_state-layer-size);--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}.selected md-ripple{--md-ripple-hover-color: var(--_selected-hover-state-layer-color);--md-ripple-hover-opacity: var(--_selected-hover-state-layer-opacity);--md-ripple-pressed-color: var(--_selected-pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_selected-pressed-state-layer-opacity)}.icon{fill:var(--_selected-icon-color);height:var(--_icon-size);width:var(--_icon-size)}.mark.short{height:2px;transition-property:transform,height;width:2px}.mark.long{height:2px;transition-property:transform,width;width:10px}.mark{animation-duration:150ms;animation-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15);transition-duration:150ms;transition-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15)}.selected .mark{animation-duration:350ms;animation-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1);transition-duration:350ms;transition-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1)}.checked .mark,.prev-checked.unselected .mark{transform:scaleY(-1) translate(7px, -14px) rotate(45deg)}.checked .mark.short,.prev-checked.unselected .mark.short{height:5.6568542495px}.checked .mark.long,.prev-checked.unselected .mark.long{width:11.313708499px}.indeterminate .mark,.prev-indeterminate.unselected .mark{transform:scaleY(-1) translate(4px, -10px) rotate(0deg)}.prev-unselected .mark{transition-property:none}.prev-unselected.checked .mark.long{animation-name:prev-unselected-to-checked}@keyframes prev-unselected-to-checked{from{width:0}}:where(:hover) .outline{border-color:var(--_hover-outline-color);border-width:var(--_hover-outline-width)}:where(:hover) .background{background:var(--_selected-hover-container-color)}:where(:hover) .icon{fill:var(--_selected-hover-icon-color)}:where(:focus-within) .outline{border-color:var(--_focus-outline-color);border-width:var(--_focus-outline-width)}:where(:focus-within) .background{background:var(--_selected-focus-container-color)}:where(:focus-within) .icon{fill:var(--_selected-focus-icon-color)}:where(:active) .outline{border-color:var(--_pressed-outline-color);border-width:var(--_pressed-outline-width)}:where(:active) .background{background:var(--_selected-pressed-container-color)}:where(:active) .icon{fill:var(--_selected-pressed-icon-color)}:where(.disabled,.prev-disabled) :is(.background,.icon,.mark){animation-duration:0s;transition-duration:0s}:where(.disabled) .outline{border-color:var(--_disabled-outline-color);border-width:var(--_disabled-outline-width);opacity:var(--_disabled-container-opacity)}:where(.selected.disabled) .outline{visibility:hidden}:where(.selected.disabled) .background{background:var(--_selected-disabled-container-color);opacity:var(--_selected-disabled-container-opacity)}:where(.disabled) .icon{fill:var(--_selected-disabled-icon-color)}@media(forced-colors: active){.background{background-color:CanvasText}.selected.disabled .background{background-color:GrayText;opacity:1}.outline{border-color:CanvasText}.disabled .outline{border-color:GrayText;opacity:1}.icon{fill:Canvas}}/*# sourceMappingURL=checkbox-styles.css.map */
+const styles = css `:host{--_container-shape: var(--md-checkbox-container-shape, 2px);--_container-size: var(--md-checkbox-container-size, 18px);--_icon-size: var(--md-checkbox-icon-size, 18px);--_selected-container-color: var(--md-checkbox-selected-container-color, var(--md-sys-color-primary, #6750a4));--_selected-disabled-container-color: var(--md-checkbox-selected-disabled-container-color, var(--md-sys-color-on-surface, #1d1b20));--_selected-disabled-container-opacity: var(--md-checkbox-selected-disabled-container-opacity, 0.38);--_selected-disabled-icon-color: var(--md-checkbox-selected-disabled-icon-color, var(--md-sys-color-surface, #fef7ff));--_selected-focus-container-color: var(--md-checkbox-selected-focus-container-color, var(--md-sys-color-primary, #6750a4));--_selected-focus-icon-color: var(--md-checkbox-selected-focus-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-hover-container-color: var(--md-checkbox-selected-hover-container-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-icon-color: var(--md-checkbox-selected-hover-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-hover-state-layer-color: var(--md-checkbox-selected-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-state-layer-opacity: var(--md-checkbox-selected-hover-state-layer-opacity, 0.08);--_selected-icon-color: var(--md-checkbox-selected-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-pressed-container-color: var(--md-checkbox-selected-pressed-container-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-icon-color: var(--md-checkbox-selected-pressed-icon-color, var(--md-sys-color-on-primary, #fff));--_selected-pressed-state-layer-color: var(--md-checkbox-selected-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_selected-pressed-state-layer-opacity: var(--md-checkbox-selected-pressed-state-layer-opacity, 0.12);--_state-layer-shape: var(--md-checkbox-state-layer-shape, 9999px);--_state-layer-size: var(--md-checkbox-state-layer-size, 40px);--_disabled-container-opacity: var(--md-checkbox-disabled-container-opacity, 0.38);--_disabled-outline-color: var(--md-checkbox-disabled-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-outline-width: var(--md-checkbox-disabled-outline-width, 2px);--_focus-outline-color: var(--md-checkbox-focus-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_focus-outline-width: var(--md-checkbox-focus-outline-width, 2px);--_hover-outline-color: var(--md-checkbox-hover-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-outline-width: var(--md-checkbox-hover-outline-width, 2px);--_hover-state-layer-color: var(--md-checkbox-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--_hover-state-layer-opacity: var(--md-checkbox-hover-state-layer-opacity, 0.08);--_outline-color: var(--md-checkbox-outline-color, var(--md-sys-color-on-surface-variant, #49454f));--_outline-width: var(--md-checkbox-outline-width, 2px);--_pressed-outline-color: var(--md-checkbox-pressed-outline-color, var(--md-sys-color-on-surface, #1d1b20));--_pressed-outline-width: var(--md-checkbox-pressed-outline-width, 2px);--_pressed-state-layer-color: var(--md-checkbox-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--_pressed-state-layer-opacity: var(--md-checkbox-pressed-state-layer-opacity, 0.12);--_container-shape-start-start: var( --md-checkbox-container-shape-start-start, var(--_container-shape) );--_container-shape-start-end: var( --md-checkbox-container-shape-start-end, var(--_container-shape) );--_container-shape-end-end: var( --md-checkbox-container-shape-end-end, var(--_container-shape) );--_container-shape-end-start: var( --md-checkbox-container-shape-end-start, var(--_container-shape) );border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-end-radius:var(--_container-shape-end-end);border-end-start-radius:var(--_container-shape-end-start);display:inline-flex;height:var(--_container-size);position:relative;vertical-align:top;width:var(--_container-size);-webkit-tap-highlight-color:rgba(0,0,0,0);cursor:pointer}:host([disabled]){cursor:default}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-size))/2)}md-focus-ring{height:44px;inset:unset;width:44px}input{appearance:none;height:48px;margin:0;opacity:0;outline:none;position:absolute;width:48px;z-index:1;cursor:inherit}:host([touch-target=none]) input{height:100%;width:100%}.container{border-radius:inherit;display:flex;height:100%;place-content:center;place-items:center;position:relative;width:100%}.outline,.background,.icon{inset:0;position:absolute}.outline,.background{border-radius:inherit}.outline{border-color:var(--_outline-color);border-style:solid;border-width:var(--_outline-width);box-sizing:border-box}.background{background-color:var(--_selected-container-color)}.background,.icon{opacity:0;transition-duration:150ms,50ms;transition-property:transform,opacity;transition-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15),linear;transform:scale(0.6)}:where(.selected) :is(.background,.icon){opacity:1;transition-duration:350ms,50ms;transition-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1),linear;transform:scale(1)}md-ripple{border-radius:var(--_state-layer-shape);height:var(--_state-layer-size);inset:unset;width:var(--_state-layer-size);--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}.selected md-ripple{--md-ripple-hover-color: var(--_selected-hover-state-layer-color);--md-ripple-hover-opacity: var(--_selected-hover-state-layer-opacity);--md-ripple-pressed-color: var(--_selected-pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_selected-pressed-state-layer-opacity)}.icon{fill:var(--_selected-icon-color);height:var(--_icon-size);width:var(--_icon-size)}.mark.short{height:2px;transition-property:transform,height;width:2px}.mark.long{height:2px;transition-property:transform,width;width:10px}.mark{animation-duration:150ms;animation-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15);transition-duration:150ms;transition-timing-function:cubic-bezier(0.3, 0, 0.8, 0.15)}.selected .mark{animation-duration:350ms;animation-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1);transition-duration:350ms;transition-timing-function:cubic-bezier(0.05, 0.7, 0.1, 1)}.checked .mark,.prev-checked.unselected .mark{transform:scaleY(-1) translate(7px, -14px) rotate(45deg)}.checked .mark.short,.prev-checked.unselected .mark.short{height:5.6568542495px}.checked .mark.long,.prev-checked.unselected .mark.long{width:11.313708499px}.indeterminate .mark,.prev-indeterminate.unselected .mark{transform:scaleY(-1) translate(4px, -10px) rotate(0deg)}.prev-unselected .mark{transition-property:none}.prev-unselected.checked .mark.long{animation-name:prev-unselected-to-checked}@keyframes prev-unselected-to-checked{from{width:0}}:where(:hover) .outline{border-color:var(--_hover-outline-color);border-width:var(--_hover-outline-width)}:where(:hover) .background{background:var(--_selected-hover-container-color)}:where(:hover) .icon{fill:var(--_selected-hover-icon-color)}:where(:focus-within) .outline{border-color:var(--_focus-outline-color);border-width:var(--_focus-outline-width)}:where(:focus-within) .background{background:var(--_selected-focus-container-color)}:where(:focus-within) .icon{fill:var(--_selected-focus-icon-color)}:where(:active) .outline{border-color:var(--_pressed-outline-color);border-width:var(--_pressed-outline-width)}:where(:active) .background{background:var(--_selected-pressed-container-color)}:where(:active) .icon{fill:var(--_selected-pressed-icon-color)}:where(.disabled,.prev-disabled) :is(.background,.icon,.mark){animation-duration:0s;transition-duration:0s}:where(.disabled) .outline{border-color:var(--_disabled-outline-color);border-width:var(--_disabled-outline-width);opacity:var(--_disabled-container-opacity)}:where(.selected.disabled) .outline{visibility:hidden}:where(.selected.disabled) .background{background:var(--_selected-disabled-container-color);opacity:var(--_selected-disabled-container-opacity)}:where(.disabled) .icon{fill:var(--_selected-disabled-icon-color)}@media(forced-colors: active){.background{background-color:CanvasText}.selected.disabled .background{background-color:GrayText;opacity:1}.outline{border-color:CanvasText}.disabled .outline{border-color:GrayText;opacity:1}.icon{fill:Canvas}}/*# sourceMappingURL=checkbox-styles.css.map */
 `;
 
 /**
@@ -23842,15 +23854,15 @@ function shouldProcessClick(event) {
  * SPDX-License-Identifier: Apache-2.0
  */
 // The spec says icon size is 20px, but that doesn't render to the same thing.
-const ICON_SIZE = css$1 `16px`;
-const TOUCH_TARGET_SIZE = css$1 `48px`;
-const RIPPLE_SIZE = css$1 `40px`;
+const ICON_SIZE = css `16px`;
+const TOUCH_TARGET_SIZE = css `48px`;
+const RIPPLE_SIZE = css `40px`;
 /**
  * A ChromeOS compliant checkbox.
  */
 class Checkbox extends LitElement {
     /** @nocollapse */
-    static { this.styles = css$1 `
+    static { this.styles = css `
     :host {
       display: inline-block;
       height: ${TOUCH_TARGET_SIZE};
@@ -23934,7 +23946,7 @@ class Checkbox extends LitElement {
         });
     }
     render() {
-        return html$2 `
+        return html$1 `
       <md-checkbox
           ?disabled=${this.disabled}
           ?checked=${this.checked}
@@ -27764,11 +27776,11 @@ styleMod$5.appendChild(html `
   <template>
     <style>
 :host{--cr-radio-button-checked-color:var(--google-blue-600);--cr-radio-button-checked-ripple-color:rgba(var(--google-blue-600-rgb), .2);--cr-radio-button-ink-size:40px;--cr-radio-button-size:16px;--cr-radio-button-unchecked-color:var(--google-grey-700);--cr-radio-button-unchecked-ripple-color:rgba(var(--google-grey-600-rgb), .15);--ink-to-circle:calc((var(--cr-radio-button-ink-size) -
-                               var(--cr-radio-button-size)) / 2);align-items:center;display:flex;flex-shrink:0;gap:var(--cr-radio-button-label-spacing,20px);outline:0}@media (prefers-color-scheme:dark){:host{--cr-radio-button-checked-color:var(--google-blue-300);--cr-radio-button-checked-ripple-color:rgba(var(--google-blue-300-rgb), .4);--cr-radio-button-unchecked-color:var(--google-grey-500);--cr-radio-button-unchecked-ripple-color:rgba(var(--google-grey-300-rgb), .4)}}:host-context([chrome-refresh-2023]):host{--cr-radio-button-ink-size:32px;--cr-radio-button-checked-color:var(--color-radio-button-foreground-checked,
-                var(--cr-fallback-color-primary));--cr-radio-button-checked-ripple-color:var(--cr-active-background-color);--cr-radio-button-unchecked-color:var(--color-radio-button-foreground-unchecked,
-                var(--cr-fallback-color-outline));--cr-radio-button-unchecked-ripple-color:var(--cr-active-background-color)}@media (forced-colors:active){:host{--cr-radio-button-checked-color:SelectedItem}}:host([disabled]){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]){opacity:1;--cr-radio-button-checked-color:var(--color-radio-foreground-disabled,
-            var(--cr-fallback-color-disabled-background));--cr-radio-button-unchecked-color:var(--color-radio-foreground-disabled,
-                var(--cr-fallback-color-disabled-background))}:host(:not([disabled])){cursor:pointer}:host(.label-first){flex-direction:row-reverse}#labelWrapper{flex:1}:host-context([chrome-refresh-2023]):host([disabled]) #labelWrapper{opacity:var(--cr-disabled-opacity)}#label{color:inherit}:host([hide-label-text]) #label{clip:rect(0,0,0,0);display:block;position:fixed}.disc,.disc-border,.disc-wrapper,paper-ripple{border-radius:50%}.disc-wrapper{height:var(--cr-radio-button-size);margin-block-start:var(--cr-radio-button-disc-margin-block-start,0);position:relative;width:var(--cr-radio-button-size)}.disc,.disc-border{box-sizing:border-box;height:var(--cr-radio-button-size);width:var(--cr-radio-button-size)}.disc-border{border:2px solid var(--cr-radio-button-unchecked-color)}:host([checked]) .disc-border{border-color:var(--cr-radio-button-checked-color)}#button:focus{outline:0}.disc{background-color:transparent;position:absolute;top:0;transform:scale(0);transition:border-color .2s,transform .2s}:host([checked]) .disc{background-color:var(--cr-radio-button-checked-color);transform:scale(.5)}:host-context([chrome-refresh-2023]) #overlay{border-radius:50%;box-sizing:border-box;display:none;height:var(--cr-radio-button-ink-size);left:50%;pointer-events:none;position:absolute;top:50%;transform:translate(-50%,-50%);width:var(--cr-radio-button-ink-size)}:host-context([chrome-refresh-2023]) #button:hover #overlay{background-color:var(--cr-hover-background-color);display:block}:host-context([chrome-refresh-2023]) #button:focus-visible #overlay{border:2px solid var(--cr-focus-outline-color);display:block}paper-ripple{--paper-ripple-opacity:1;color:var(--cr-radio-button-unchecked-ripple-color);height:var(--cr-radio-button-ink-size);left:calc(-1 * var(--ink-to-circle));pointer-events:none;position:absolute;top:calc(-1 * var(--ink-to-circle));transition:color linear 80ms;width:var(--cr-radio-button-ink-size)}:host-context([dir=rtl]) paper-ripple{left:auto;right:calc(-1 * var(--ink-to-circle))}:host([checked]) paper-ripple{color:var(--cr-radio-button-checked-ripple-color)}
+                         var(--cr-radio-button-size)) / 2);align-items:center;display:flex;flex-shrink:0;gap:var(--cr-radio-button-label-spacing,20px);outline:0}@media (prefers-color-scheme:dark){:host{--cr-radio-button-checked-color:var(--google-blue-300);--cr-radio-button-checked-ripple-color:rgba(var(--google-blue-300-rgb), .4);--cr-radio-button-unchecked-color:var(--google-grey-500);--cr-radio-button-unchecked-ripple-color:rgba(var(--google-grey-300-rgb), .4)}}:host-context([chrome-refresh-2023]):host{--cr-radio-button-ink-size:32px;--cr-radio-button-checked-color:var(--color-radio-button-foreground-checked,
+          var(--cr-fallback-color-primary));--cr-radio-button-checked-ripple-color:var(--cr-active-background-color);--cr-radio-button-unchecked-color:var(--color-radio-button-foreground-unchecked,
+          var(--cr-fallback-color-outline));--cr-radio-button-unchecked-ripple-color:var(--cr-active-background-color)}@media (forced-colors:active){:host{--cr-radio-button-checked-color:SelectedItem}}:host([disabled]){opacity:var(--cr-disabled-opacity);pointer-events:none}:host-context([chrome-refresh-2023]):host([disabled]){opacity:1;--cr-radio-button-checked-color:var(--color-radio-foreground-disabled,
+      var(--cr-fallback-color-disabled-background));--cr-radio-button-unchecked-color:var(--color-radio-foreground-disabled,
+          var(--cr-fallback-color-disabled-background))}:host(:not([disabled])){cursor:pointer}:host(.label-first){flex-direction:row-reverse}#labelWrapper{flex:1}:host-context([chrome-refresh-2023]):host([disabled]) #labelWrapper{opacity:var(--cr-disabled-opacity)}#label{color:inherit}:host([hide-label-text]) #label{clip:rect(0,0,0,0);display:block;position:fixed}.disc,.disc-border,.disc-wrapper,paper-ripple{border-radius:50%}.disc-wrapper{height:var(--cr-radio-button-size);margin-block-start:var(--cr-radio-button-disc-margin-block-start,0);position:relative;width:var(--cr-radio-button-size)}.disc,.disc-border{box-sizing:border-box;height:var(--cr-radio-button-size);width:var(--cr-radio-button-size)}.disc-border{border:2px solid var(--cr-radio-button-unchecked-color)}:host([checked]) .disc-border{border-color:var(--cr-radio-button-checked-color)}#button:focus{outline:0}.disc{background-color:transparent;position:absolute;top:0;transform:scale(0);transition:border-color .2s,transform .2s}:host([checked]) .disc{background-color:var(--cr-radio-button-checked-color);transform:scale(.5)}:host-context([chrome-refresh-2023]) #overlay{border-radius:50%;box-sizing:border-box;display:none;height:var(--cr-radio-button-ink-size);left:50%;pointer-events:none;position:absolute;top:50%;transform:translate(-50%,-50%);width:var(--cr-radio-button-ink-size)}:host-context([chrome-refresh-2023]) #button:hover #overlay{background-color:var(--cr-hover-background-color);display:block}:host-context([chrome-refresh-2023]) #button:focus-visible #overlay{border:2px solid var(--cr-focus-outline-color);display:block}paper-ripple{--paper-ripple-opacity:1;color:var(--cr-radio-button-unchecked-ripple-color);height:var(--cr-radio-button-ink-size);left:calc(-1 * var(--ink-to-circle));pointer-events:none;position:absolute;top:calc(-1 * var(--ink-to-circle));transition:color linear 80ms;width:var(--cr-radio-button-ink-size)}:host-context([dir=rtl]) paper-ripple{left:auto;right:calc(-1 * var(--ink-to-circle))}:host([checked]) paper-ripple{color:var(--cr-radio-button-checked-ripple-color)}
     </style>
   </template>
 `.content);
@@ -27779,6 +27791,8 @@ styleMod$5.register('cr-radio-button-style');
 // found in the LICENSE file.
 /**
  * @fileoverview Mixin for cr-radio-button-like elements.
+ * Forked from
+ * ui/webui/resources/cr_elements/cr_radio_button/cr_radio_button_mixin.ts
  */
 // clang-format off
 const CrRadioButtonMixin = dedupingMixin((superClass) => {
@@ -27960,26 +27974,28 @@ class ControlledRadioButtonElement extends ControlledRadioButtonElementBase {
 customElements.define(ControlledRadioButtonElement.is, ControlledRadioButtonElement);
 
 function getTemplate$1I() {
-    return html `<!--_html_template_start_-->    <style include="cr-radio-button-style cr-hidden-style"></style>
+    return html `<!--_html_template_start_--><style include="cr-radio-button-style cr-hidden-style"></style>
 
-    <div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
-      <div class="disc-border"></div>
-      <div class="disc"></div>
-      <div id="overlay"></div>
-    </div>
+<div aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" aria-labelledby="label" class="disc-wrapper" id="button" role="radio" tabindex$="[[buttonTabIndex_]]" on-keydown="onInputKeydown_">
+  <div class="disc-border"></div>
+  <div class="disc"></div>
+  <div id="overlay"></div>
+</div>
 
-    <div id="labelWrapper">
-      <span id="label" hidden$="[[!label]]" aria-hidden="true">[[label]]</span>
-      <span id="slotted-content">
-        <slot></slot>
-      </span>
-    </div>
+<div id="labelWrapper">
+  <span id="label" hidden$="[[!label]]" aria-hidden="true">[[label]]</span>
+  <span id="slotted-content">
+    <slot></slot>
+  </span>
+</div>
 <!--_html_template_end_-->`;
 }
 
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// Forked from
+// ui/webui/resources/cr_elements/cr_radio_button/cr_radio_button.ts
 const CrRadioButtonElementBase = PaperRippleMixin(CrRadioButtonMixin(PolymerElement));
 class CrRadioButtonElement extends CrRadioButtonElementBase {
     static get is() {
@@ -28006,14 +28022,16 @@ class CrRadioButtonElement extends CrRadioButtonElementBase {
 customElements.define(CrRadioButtonElement.is, CrRadioButtonElement);
 
 function getTemplate$1H() {
-    return html `<!--_html_template_start_-->    <style>:host{display:inline-block}:host ::slotted(*){padding:var(--cr-radio-group-item-padding,12px)}:host([disabled]){cursor:initial;pointer-events:none;user-select:none}:host([disabled]) ::slotted(*){opacity:var(--cr-disabled-opacity)}</style>
-    <slot></slot>
+    return html `<!--_html_template_start_--><style>:host{display:inline-block}:host ::slotted(*){padding:var(--cr-radio-group-item-padding,12px)}:host([disabled]){cursor:initial;pointer-events:none;user-select:none}:host([disabled]) ::slotted(*){opacity:var(--cr-disabled-opacity)}</style>
+<slot></slot>
 <!--_html_template_end_-->`;
 }
 
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// Forked from
+// ui/webui/resources/cr_elements/cr_radio_group/cr_radio_group.ts
 function isEnabled(radio) {
     return radio.matches(':not([disabled]):not([hidden])') &&
         radio.style.display !== 'none' && radio.style.visibility !== 'hidden';
@@ -32353,11 +32371,10 @@ function getApnDisplayName(i18nFunction, apn) {
 }
 
 function getTemplate$1A() {
-    return html `<!--_html_template_start_-->    <style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
+    return html `<!--_html_template_start_--><style include="cr-actionable-row-style">:host([disabled]){opacity:.65;pointer-events:none}:host([disabled]) cr-icon-button{display:var(--cr-expand-button-disabled-display,initial)}#label{flex:1;padding:var(--cr-section-vertical-padding) 0}cr-icon-button{--cr-icon-button-icon-size:var(--cr-expand-button-icon-size, 20px);--cr-icon-button-size:var(--cr-expand-button-size, 36px)}</style>
 
-    <div id="label" aria-hidden="true"><slot></slot></div>
-    <cr-icon-button id="icon" aria-labelledby="label" aria-expanded="[[getAriaExpanded_(expanded)]]" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon" iron-icon="[[icon_]]">
-    </cr-icon-button>
+<div id="label" aria-hidden="true"><slot></slot></div>
+<cr-icon-button id="icon" aria-labelledby="label" disabled="[[disabled]]" tabindex="[[tabIndex]]" part="icon"></cr-icon-button>
 <!--_html_template_end_-->`;
 }
 
@@ -32368,6 +32385,9 @@ function getTemplate$1A() {
  * @fileoverview
  * 'cr-expand-button' is a chrome-specific wrapper around a button that toggles
  * between an opened (expanded) and closed state.
+ *
+ * Forked from
+ * ui/webui/resources/cr_elements/cr_expand_button/cr_expand_button.ts
  */
 class CrExpandButtonElement extends PolymerElement {
     static get is() {
@@ -32387,6 +32407,7 @@ class CrExpandButtonElement extends PolymerElement {
                 type: Boolean,
                 value: false,
                 notify: true,
+                observer: 'onExpandedChange_',
             },
             /**
              * If true, the button will be disabled and grayed out.
@@ -32408,12 +32429,13 @@ class CrExpandButtonElement extends PolymerElement {
             expandIcon: {
                 type: String,
                 value: 'cr:expand-more',
+                observer: 'onIconChange_',
             },
             collapseIcon: {
                 type: String,
                 value: 'cr:expand-less',
+                observer: 'onIconChange_',
             },
-            icon_: String,
             expandTitle: String,
             collapseTitle: String,
             tooltipText_: {
@@ -32424,9 +32446,7 @@ class CrExpandButtonElement extends PolymerElement {
         };
     }
     static get observers() {
-        return [
-            'updateIcon_(collapseIcon, expandIcon, expanded)',
-        ];
+        return ['updateAriaExpanded_(disabled, expanded)'];
     }
     ready() {
         super.ready();
@@ -32451,8 +32471,14 @@ class CrExpandButtonElement extends PolymerElement {
             this.$.icon.setAttribute('aria-labelledby', 'label');
         }
     }
+    onExpandedChange_() {
+        this.updateIcon_();
+    }
+    onIconChange_() {
+        this.updateIcon_();
+    }
     updateIcon_() {
-        this.icon_ = this.expanded ? this.collapseIcon : this.expandIcon;
+        this.$.icon.ironIcon = this.expanded ? this.collapseIcon : this.expandIcon;
     }
     toggleExpand_(event) {
         // Prevent |click| event from bubbling. It can cause parents of this
@@ -32463,8 +32489,13 @@ class CrExpandButtonElement extends PolymerElement {
         this.expanded = !this.expanded;
         focusWithoutInk(this.$.icon);
     }
-    getAriaExpanded_() {
-        return this.expanded ? 'true' : 'false';
+    updateAriaExpanded_() {
+        if (this.disabled) {
+            this.$.icon.removeAttribute('aria-expanded');
+        }
+        else {
+            this.$.icon.setAttribute('aria-expanded', this.expanded ? 'true' : 'false');
+        }
     }
 }
 customElements.define(CrExpandButtonElement.is, CrExpandButtonElement);
@@ -33199,103 +33230,8 @@ class ApnDetailDialog extends ApnDetailDialogElementBase {
 
 customElements.define(ApnDetailDialog.is, ApnDetailDialog);
 
-// Copyright 2019 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @fileoverview Base class for Web Components that don't use Polymer.
- * See the following file for usage:
- * chrome/test/data/webui/js/custom_element_test.js
- */
-function emptyHTML() {
-    return window.trustedTypes ? window.trustedTypes.emptyHTML : '';
-}
-class CustomElement extends HTMLElement {
-    static get template() {
-        return emptyHTML();
-    }
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-        const template = document.createElement('template');
-        template.innerHTML =
-            this.constructor.template || emptyHTML();
-        this.shadowRoot.appendChild(template.content.cloneNode(true));
-    }
-    $(query) {
-        return this.shadowRoot.querySelector(query);
-    }
-    $all(query) {
-        return this.shadowRoot.querySelectorAll(query);
-    }
-    getRequiredElement(query) {
-        const el = this.shadowRoot.querySelector(query);
-        assert$1(el);
-        assert$1(el instanceof HTMLElement);
-        return el;
-    }
-}
-
-// Copyright 2021 The Chromium Authors
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-/**
- * @return Whether the passed tagged template literal is a valid array.
- */
-function isValidArray(arr) {
-    if (arr instanceof Array && Object.isFrozen(arr)) {
-        return true;
-    }
-    return false;
-}
-/**
- * Checks if the passed tagged template literal only contains static string.
- * And return the string in the literal if so.
- * Throws an Error if the passed argument is not supported literals.
- */
-function getStaticString(literal) {
-    const isStaticString = isValidArray(literal) && !!literal.raw &&
-        isValidArray(literal.raw) && literal.length === literal.raw.length &&
-        literal.length === 1;
-    assert$1(isStaticString, 'static_types.js only allows static strings');
-    return literal.join('');
-}
-function createTypes(_ignore, literal) {
-    return getStaticString(literal);
-}
-/**
- * Rules used to enforce static literal checks.
- */
-const rules = {
-    createHTML: createTypes,
-    createScript: createTypes,
-    createScriptURL: createTypes,
-};
-/**
- * This policy returns Trusted Types if the passed literal is static.
- */
-let staticPolicy;
-if (window.trustedTypes) {
-    staticPolicy = window.trustedTypes.createPolicy('static-types', rules);
-}
-else {
-    staticPolicy = rules;
-}
-/**
- * Returns TrustedHTML if the passed literal is static.
- */
-function getTrustedHTML(literal) {
-    return staticPolicy.createHTML('', literal);
-}
-/**
- * Returns TrustedScriptURL if the passed literal is static.
- */
-function getTrustedScriptURL(literal) {
-    return staticPolicy.createScriptURL('', literal);
-}
-
 function getTemplate$1y() {
-    return getTrustedHTML `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
+    return html `<!--_html_template_start_--><style>:host{clip:rect(0 0 0 0);height:1px;overflow:hidden;position:fixed;width:1px}</style>
 
 <div id="messages" role="alert" aria-live="polite" aria-relevant="additions">
 </div>
@@ -33328,7 +33264,7 @@ function getInstance(container = document.body) {
     instances.set(container, instance);
     return instance;
 }
-class CrA11yAnnouncerElement extends CustomElement {
+class CrA11yAnnouncerElement extends PolymerElement {
     constructor() {
         super(...arguments);
         this.currentTimeout_ = null;
@@ -33341,6 +33277,7 @@ class CrA11yAnnouncerElement extends CustomElement {
         return getTemplate$1y();
     }
     disconnectedCallback() {
+        super.disconnectedCallback();
         if (this.currentTimeout_ !== null) {
             clearTimeout(this.currentTimeout_);
             this.currentTimeout_ = null;
@@ -33361,7 +33298,6 @@ class CrA11yAnnouncerElement extends CustomElement {
         this.currentTimeout_ = setTimeout(() => {
             const messagesDiv = this.shadowRoot.querySelector('#messages');
             messagesDiv.innerHTML = window.trustedTypes.emptyHTML;
-            // 
             for (const message of this.messages_) {
                 const div = document.createElement('div');
                 div.textContent = message;
@@ -34273,92 +34209,108 @@ function getTemplate$1v() {
 // found in the LICENSE file.
 
 
-Polymer({
-  _template: getTemplate$1v(),
-  is: 'network-icon',
+/**
+ * @constructor
+ * @extends {PolymerElement}
+ * @implements {I18nBehaviorInterface}
+ */
+const NetworkIconElementBase = mixinBehaviors([I18nBehavior], PolymerElement);
 
-  behaviors: [
-    I18nBehavior,
-  ],
+/** @polymer */
+class NetworkIconElement extends NetworkIconElementBase {
+  static get is() {
+    return 'network-icon';
+  }
 
-  properties: {
-    /**
-     * If set, the ONC properties will be used to display the icon. This may
-     * either be the complete set of NetworkProperties or the subset of
-     * NetworkStateProperties.
-     * @type {!OncMojo.NetworkStateProperties|undefined}
-     */
-    networkState: Object,
+  static get template() {
+    return getTemplate$1v();
+  }
 
-    /**
-     * If set, hotspot state within this object will be used to update the
-     * hotspot icon.
-     */
-    hotspotInfo: Object,
+  static get properties() {
+    return {
+      /**
+       * If set, the ONC properties will be used to display the icon. This may
+       * either be the complete set of NetworkProperties or the subset of
+       * NetworkStateProperties.
+       * @type {!OncMojo.NetworkStateProperties|undefined}
+       */
+      networkState: Object,
 
-    /**
-     * If set, the device state for the network type. Otherwise it defaults to
-     * null rather than undefined so that it does not block computed bindings.
-     * @type {?OncMojo.DeviceStateProperties}
-     */
-    deviceState: {
-      type: Object,
-      value: null,
-    },
+      /**
+       * If set, hotspot state within this object will be used to update the
+       * hotspot icon.
+       */
+      hotspotInfo: Object,
 
-    /**
-     * If true, the icon is part of a list of networks and may be displayed
-     * differently, e.g. the disconnected image will never be shown for
-     * list items.
-     */
-    isListItem: {
-      type: Boolean,
-      value: false,
-    },
-
-    /**
-     * If true, cellular technology badge is displayed in the network icon.
-     */
-    showTechnologyBadge: {
-      type: Boolean,
-      value: true,
-    },
-
-    /**
-     * This provides an accessibility label that describes the connection state
-     * and signal level. This can be used by other components in a
-     * aria-describedby by referencing this elements id.
-     */
-    ariaLabel: {
-      type: String,
-      reflectToAttribute: true,
-      computed: 'computeAriaLabel_(locale, networkState, hotspotInfo)',
-    },
-
-    /** @private {boolean} */
-    isUserLoggedIn_: {
-      type: Boolean,
-      value() {
-        return loadTimeData$1.valueExists('isUserLoggedIn') &&
-            loadTimeData$1.getBoolean('isUserLoggedIn');
+      /**
+       * If set, the device state for the network type. Otherwise it defaults to
+       * null rather than undefined so that it does not block computed bindings.
+       * @type {?OncMojo.DeviceStateProperties}
+       */
+      deviceState: {
+        type: Object,
+        value: null,
       },
-    },
 
-    isCellularCarrierLockEnabled_: {
-      type: Boolean,
-      value() {
-        return loadTimeData$1.valueExists('isCellularCarrierLockEnabled') &&
-            loadTimeData$1.getBoolean('isCellularCarrierLockEnabled');
+      /**
+       * If true, the icon is part of a list of networks and may be displayed
+       * differently, e.g. the disconnected image will never be shown for
+       * list items.
+       */
+      isListItem: {
+        type: Boolean,
+        value: false,
       },
-    },
-  },
 
-  /**
-   * Number of network icons for different cellular or wifi network signal
-   * strengths.
-   * @private @const
-   */
-  networkIconCount_: 5,
+      /**
+       * If true, cellular technology badge is displayed in the network icon.
+       */
+      showTechnologyBadge: {
+        type: Boolean,
+        value: true,
+      },
+
+      /**
+       * This provides an accessibility label that describes the connection
+       * state and signal level. This can be used by other components in a
+       * aria-describedby by referencing this elements id.
+       */
+      ariaLabel: {
+        type: String,
+        reflectToAttribute: true,
+        computed: 'computeAriaLabel_(locale, networkState, hotspotInfo)',
+      },
+
+      /** @private {boolean} */
+      isUserLoggedIn_: {
+        type: Boolean,
+        value() {
+          return loadTimeData$1.valueExists('isUserLoggedIn') &&
+              loadTimeData$1.getBoolean('isUserLoggedIn');
+        },
+      },
+
+      /** @private {boolean} */
+      isCellularCarrierLockEnabled_: {
+        type: Boolean,
+        value() {
+          return loadTimeData$1.valueExists('isCellularCarrierLockEnabled') &&
+              loadTimeData$1.getBoolean('isCellularCarrierLockEnabled');
+        },
+      },
+    };
+  }
+
+  constructor() {
+    super();
+
+    /**
+     * Number of network icons for different cellular or wifi network signal
+     * strengths.
+     * @private @const {number}
+     */
+    this.networkIconCount_ = 5;
+  }
 
   /**
    * @return {string} The name of the svg icon image to show.
@@ -34426,7 +34378,7 @@ Polymer({
 
     const strength = OncMojo.getSignalStrength(this.networkState);
     return prefix + this.strengthToIndex_(strength).toString(10);
-  },
+  }
 
   /**
    * @param {string} locale The current local which is passed only to ensure
@@ -34508,7 +34460,7 @@ Polymer({
     return this.i18nDynamic(
         locale, 'networkIconLabelSignalStrength', networkTypeString,
         strength.toString(10));
-  },
+  }
 
   /**
    * @param {number} strength The signal strength from [0 - 100].
@@ -34528,7 +34480,7 @@ Polymer({
     const zeroBasedIndex =
         Math.trunc((strength - 1) * (this.networkIconCount_ - 1) / 100);
     return zeroBasedIndex + 1;
-  },
+  }
 
   /**
    * @return {boolean}
@@ -34541,7 +34493,7 @@ Polymer({
     return !this.showRoaming_() &&
         OncMojo.connectionStateIsConnected(this.networkState.connectionState) &&
         this.getTechnology_() !== '' && this.showTechnologyBadge;
-  },
+  }
 
   /**
    * @return {string}
@@ -34559,7 +34511,7 @@ Polymer({
       }
     }
     return '';
-  },
+  }
 
   /**
    * @param {string|undefined} networkTechnology
@@ -34591,7 +34543,7 @@ Polymer({
         return 'badge-5g';
     }
     return '';
-  },
+  }
 
   /**
    * @return {boolean}
@@ -34608,7 +34560,7 @@ Polymer({
     }
     return this.networkState.type === NetworkType.kWiFi &&
         this.networkState.typeState.wifi.security !== SecurityType.kNone;
-  },
+  }
 
   /**
    * @return {boolean}
@@ -34620,7 +34572,7 @@ Polymer({
     }
     return this.networkState.type === NetworkType.kCellular &&
         this.networkState.typeState.cellular.roaming;
-  },
+  }
 
   /**
    * @return {boolean}
@@ -34628,7 +34580,7 @@ Polymer({
    */
   showIcon_() {
     return !!this.networkState || !!this.hotspotInfo;
-  },
+  }
 
   /**
    * Return true if current network is pSIM, requires activation and user is
@@ -34645,9 +34597,10 @@ Polymer({
 
     return cellularProperties.activationState ==
         ActivationStateType.kNotActivated;
-  },
+  }
+}
 
-});
+customElements.define(NetworkIconElement.is, NetworkIconElement);
 
 function getTemplate$1u() {
   return html`<!--_html_template_start_--><style include="network-shared">
@@ -36411,6 +36364,8 @@ function getTemplate$1q() {
 /**
  * @fileoverview 'cr-textarea' is a component similar to native textarea,
  * and inherits styling from cr-input.
+ *
+ * Forked from ui/webui/resources/cr_elements/cr_textarea/cr_textarea.ts
  */
 class CrTextareaElement extends PolymerElement {
     static get is() {
@@ -40941,7 +40896,7 @@ class LottieRenderer extends LitElement {
         return this.renderRoot.querySelector('#onscreen-canvas');
     }
     /** @nocollapse */
-    static { this.styles = css$1 `
+    static { this.styles = css `
     :host {
       display: block;
     }
@@ -41062,7 +41017,7 @@ class LottieRenderer extends LitElement {
         }
     }
     render() {
-        return html$2 `
+        return html$1 `
         <canvas id='onscreen-canvas'></canvas>
       `;
     }
@@ -43872,7 +43827,7 @@ function getTemplate$V() {
       </cr-link-row>
       <div class="separator"></div>
       <div id="cameraToggleWrapper">
-        <cr-toggle id="cameraToggle" class="margin-matches-padding" checked="{{prefs.ash.user.camera_allowed.value}}" disabled="[[shouldDisableCameraToggle_]]" aria-label="$i18n{cameraToggleTitle}" aria-description="[[cameraSubLabel_]]">
+        <cr-toggle id="cameraToggle" class="margin-matches-padding" checked="{{prefs.ash.user.camera_allowed.value}}" disabled="[[shouldDisableCameraToggle_]]" aria-label="$i18n{cameraToggleTitle}" aria-description="[[cameraRowSubtext_]]">
         </cr-toggle>
       </div>
       <paper-tooltip id="cameraToggleTooltip" hidden="[[!isCameraListEmpty_]]" aria-hidden="true" for="cameraToggleWrapper" fit-to-visible-bounds>
@@ -44232,14 +44187,16 @@ class SettingsPrivacyHubSubpage extends SettingsPrivacyHubSubpageBase {
 customElements.define(SettingsPrivacyHubSubpage.is, SettingsPrivacyHubSubpage);
 
 function getTemplate$U() {
-    return html `<!--_html_template_start_-->    <style>:host ::slotted([slot=view]){bottom:0;display:none;left:0;position:absolute;right:0;top:0}:host ::slotted(.active),:host ::slotted(.closing){display:block}</style>
-    <slot name="view"></slot>
+    return html `<!--_html_template_start_--><style>:host ::slotted([slot=view]){bottom:0;display:none;left:0;position:absolute;right:0;top:0}:host ::slotted(.active),:host ::slotted(.closing){display:block}</style>
+<slot name="view"></slot>
 <!--_html_template_end_-->`;
 }
 
 // Copyright 2018 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
+// Forked from
+// ui/webui/resources/cr_elements/cr_view_manager/cr_view_manager.ts
 function getEffectiveView(element) {
     return element.matches('cr-lazy-render') ?
         element.get() :
@@ -45248,13 +45205,13 @@ class NearbyOnboardingPageElement extends NearbyOnboardingPageElementBase {
 customElements.define(NearbyOnboardingPageElement.is, NearbyOnboardingPageElement);
 
 function getTemplate$Q() {
-    return html `<!--_html_template_start_-->    <style include="cr-radio-button-style">:host{background-color:var(--cr-card-background-color);border-radius:8px;box-shadow:var(--cr-elevation-1);margin:var(--cr-card-radio-button-margin,8px);width:var(--cr-card-radio-button-width,200px);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04)}@media (prefers-color-scheme:dark){:host{--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-color:rgba(var(--google-blue-300-rgb), .08)}}.disc-wrapper,paper-ripple{border-radius:inherit}paper-ripple{height:var(--paper-ripple-height);left:var(--paper-ripple-left,0);top:var(--paper-ripple-top,0);width:var(--paper-ripple-width)}#button{height:var(--cr-card-radio-button-height,auto);padding:var(--cr-card-radio-button-padding,24px);position:relative;width:100%}:host-context(.focus-outline-visible) #button:focus{box-shadow:0 0 0 2px var(--focus-shadow-color)}#button:hover{background-color:var(--hover-bg-color)}#checkMark{fill:var(--cr-checked-color);left:var(--cr-card-radio-button-checkmark-left,auto);position:absolute;right:var(--cr-card-radio-button-checkmark-right,var(--cr-button-edge-spacing));top:var(--cr-card-radio-button-checkmark-top,var(--cr-button-edge-spacing))}:host-context([dir=rtl]) #checkMark{left:var(--cr-card-radio-button-checkmark-right,var(--cr-button-edge-spacing));right:var(--cr-card-radio-button-checkmark-left,auto)}:host(:not([checked])) #checkMark{display:none}#slottedContent{padding:var(--cr-card-radio-button-slotted-content-padding)}</style>
-    <div id="button" role="radio" aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" class="disc-wrapper" tabindex$="[[buttonTabIndex_]]" aria-labelledby="slotted-content" on-keydown="onInputKeydown_">
-      <iron-icon id="checkMark" icon="cr:check-circle"></iron-icon>
-      <span id="slottedContent">
-        <slot></slot>
-      </span>
-    </div>
+    return html `<!--_html_template_start_--><style include="cr-radio-button-style">:host{background-color:var(--cr-card-background-color);border-radius:8px;box-shadow:var(--cr-elevation-1);margin:var(--cr-card-radio-button-margin,8px);width:var(--cr-card-radio-button-width,200px);--focus-shadow-color:rgba(var(--google-blue-600-rgb), .4);--hover-bg-color:rgba(var(--google-blue-500-rgb), .04)}@media (prefers-color-scheme:dark){:host{--focus-shadow-color:rgba(var(--google-blue-300-rgb), .5);--hover-bg-color:rgba(var(--google-blue-300-rgb), .08)}}.disc-wrapper,paper-ripple{border-radius:inherit}paper-ripple{height:var(--paper-ripple-height);left:var(--paper-ripple-left,0);top:var(--paper-ripple-top,0);width:var(--paper-ripple-width)}#button{height:var(--cr-card-radio-button-height,auto);padding:var(--cr-card-radio-button-padding,24px);position:relative;width:100%}:host-context(.focus-outline-visible) #button:focus{box-shadow:0 0 0 2px var(--focus-shadow-color)}#button:hover{background-color:var(--hover-bg-color)}#checkMark{fill:var(--cr-checked-color);left:var(--cr-card-radio-button-checkmark-left,auto);position:absolute;right:var(--cr-card-radio-button-checkmark-right,var(--cr-button-edge-spacing));top:var(--cr-card-radio-button-checkmark-top,var(--cr-button-edge-spacing))}:host-context([dir=rtl]) #checkMark{left:var(--cr-card-radio-button-checkmark-right,var(--cr-button-edge-spacing));right:var(--cr-card-radio-button-checkmark-left,auto)}:host(:not([checked])) #checkMark{display:none}#slottedContent{padding:var(--cr-card-radio-button-slotted-content-padding)}</style>
+<div id="button" role="radio" aria-checked$="[[getAriaChecked_(checked)]]" aria-describedby="slotted-content" aria-disabled$="[[getAriaDisabled_(disabled)]]" class="disc-wrapper" tabindex$="[[buttonTabIndex_]]" aria-labelledby="slotted-content" on-keydown="onInputKeydown_">
+  <iron-icon id="checkMark" icon="cr:check-circle"></iron-icon>
+  <span id="slottedContent">
+    <slot></slot>
+  </span>
+</div>
 <!--_html_template_end_-->`;
 }
 
@@ -45265,6 +45222,9 @@ function getTemplate$Q() {
  * @fileoverview
  * 'cr-card-radio-button' is a radio button in the style of a card. A checkmark
  * is displayed in the upper right hand corner if the radio button is selected.
+ *
+ * Forked from
+ * ui/webui/resources/cr_elements/cr_radio_button/cr_card_radio_button.ts
  */
 const CrCardRadioButtonElementBase = PaperRippleMixin(CrRadioButtonMixin(PolymerElement));
 class CrCardRadioButtonElement extends CrCardRadioButtonElementBase {
@@ -46288,8 +46248,8 @@ class NearbyVisibilityPageElement extends NearbyVisibilityPageElementBase {
 customElements.define(NearbyVisibilityPageElement.is, NearbyVisibilityPageElement);
 
 function getTemplate$N() {
-    return html `<!--_html_template_start_-->    <style>canvas{height:100%;width:100%}</style>
-    <canvas id="canvas" hidden="[[hidden]]"></canvas>
+    return html `<!--_html_template_start_--><style>canvas{height:100%;width:100%}</style>
+<canvas id="canvas" hidden="[[hidden]]"></canvas>
 <!--_html_template_end_-->`;
 }
 
@@ -46311,6 +46271,8 @@ function getTemplate$N() {
  * Fires a 'cr-lottie-stopped' event when animation has stopped.
  * Fires a 'cr-lottie-resized' event when the canvas the animation is being
  * drawn on is resized.
+ *
+ * Forked from  ui/webui/resources/cr_elements/cr_lottie/cr_lottie.ts
  */
 let workerLoaderPolicy = null;
 function getLottieWorkerURL() {
@@ -46651,6 +46613,8 @@ customElements.define(CrLottieElement.is, CrLottieElement);
  *
  * NOTE: Since <cr-auto-img> may use the chrome://image data source some images
  * may be transcoded to PNG.
+ *
+ * Forked from ui/webui/resources/cr_elements/cr_auto_img/cr_auto_img.ts
  */
 const AUTO_SRC = 'auto-src';
 const CLEAR_SRC = 'clear-src';
@@ -57396,5 +57360,5 @@ class SettingsBluetoothSavedDevicesSubpageElement extends SettingsBluetoothSaved
 }
 customElements.define(SettingsBluetoothSavedDevicesSubpageElement.is, SettingsBluetoothSavedDevicesSubpageElement);
 
-export { assertInstanceof as $, AboutPageBrowserProxyImpl as A, getApnDisplayName as B, CrPolicyIndicatorType$1 as C, DeepLinkingMixin as D, assert as E, FocusRowMixin as F, GeolocationAccessLevel as G, ApnDetailDialogMode as H, I18nMixin as I, processDeviceState as J, getInstance as K, LifetimeBrowserProxyImpl as L, CrPolicyNetworkBehaviorMojo as M, NetworkListenerBehavior as N, OncMojo as O, PrefsMixin as P, FAKE_CREDENTIAL as Q, RouteObserverMixin as R, Setting as S, TERMINA_VM_TYPE as T, UpdateStatus as U, VM_DEVICE_MICROPHONE as V, WebUiListenerMixin as W, isActiveSim as X, InternetPageBrowserProxyImpl as Y, OsSyncBrowserProxyImpl as Z, assertExists$2 as _, assertNotReached$1 as a, FindShortcutMixin as a$, getESimProfileProperties as a0, mojoString16ToString as a1, CellularSetupPageName as a2, ESimManagerListenerMixin as a3, MultiDeviceBrowserProxyImpl as a4, getEuicc as a5, getSimSlotCount as a6, getPendingESimProfiles as a7, MultiDeviceFeatureState as a8, CrToggleElement as a9, CrDialogElement as aA, CrIconButtonElement as aB, CrActionMenuElement as aC, recordLockScreenProgress as aD, LockScreenProgress as aE, PluralStringProxyImpl as aF, SyncBrowserProxyImpl as aG, PageStatus as aH, StatusAction as aI, CrScrollableMixin as aJ, PrivacyHubBrowserProxyImpl as aK, getAppPermissionProvider as aL, MediaDevicesProxy as aM, AppPermissionsObserverReceiver as aN, isPermissionEnabled as aO, CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aP, PrivacyHubSensorSubpageUserAction as aQ, NUMBER_OF_POSSIBLE_USER_ACTIONS as aR, MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aS, AppLanguageSelectionDialogEntryPoint as aT, OneDriveBrowserProxy as aU, AppManagementStoreMixin as aV, getAppIcon as aW, AppManagementBrowserProxy as aX, alphabeticalSort as aY, GlobalScrollTargetMixin as aZ, OsSettingsSubpageElement as a_, BrowserProxy$1 as aa, getImage as ab, ChromeVoxSubpageBrowserProxyImpl as ac, assertExhaustive as ad, DevicePageBrowserProxyImpl as ae, SettingsToggleButtonElement as af, SelectToSpeakSubpageBrowserProxyImpl as ag, LanguagesBrowserProxyImpl as ah, SwitchAccessSubpageBrowserProxyImpl as ai, TextToSpeechSubpageBrowserProxyImpl as aj, TtsVoiceSubpageBrowserProxyImpl as ak, BrowserChannel as al, isTargetChannelMoreStable as am, DeviceNameBrowserProxyImpl as an, SetDeviceNameResult as ao, DeviceNameState as ap, AccountManagerBrowserProxyImpl as aq, ParentalControlsBrowserProxyImpl as ar, assertInstanceof$1 as as, fireAuthTokenInvalidEvent as at, LockStateMixin as au, MultiDeviceFeatureMixin as av, MultiDeviceFeature as aw, MultiDeviceSettingsMode as ax, CrInputElement as ay, CrButtonElement as az, routes as b, AppNotificationRowElement as b$, ACCESSIBILITY_COMMON_IME_ID as b0, IronA11yKeysBehavior as b1, PrivacyPageBrowserProxyImpl as b2, SecureDnsMode as b3, SecureDnsUiManagementMode as b4, StaticShortcutAction as b5, EventTracker as b6, getInputDeviceSettingsProvider as b7, FakeInputDeviceSettingsProvider as b8, ButtonPressObserverReceiver as b9, SettingsMultideviceFeatureToggleElement as bA, SettingsMultideviceSubpageElement as bB, SettingsMultideviceTaskContinuationDisabledLinkElement as bC, SettingsMultideviceTaskContinuationItemElement as bD, SettingsMultideviceWifiSyncDisabledLinkElement as bE, NearbyShareReceiveDialogElement as bF, SettingsNearbyShareSubpageElement as bG, SettingsAndroidAppsSubpageElement as bH, AppManagementAppDetailViewElement as bI, AppManagementAppDetailsItem as bJ, AppManagementAppItemElement as bK, SettingsAppManagementPageElement as bL, AppManagementArcDetailViewElement as bM, AppManagementBorealisDetailViewElement as bN, AppManagementChromeAppDetailViewElement as bO, AppManagementDomSwitchElement as bP, AppManagementMainViewElement as bQ, AppManagementPermissionHeadingElement as bR, AppManagementPermissionItemElement as bS, AppManagementPinToShelfItemElement as bT, AppManagementPluginVmDetailViewElement as bU, AppManagementPwaDetailViewElement as bV, AppManagementResizeLockItemElement as bW, AppManagementSubAppsItemElement as bX, AppManagementSupportedLinksItemElement as bY, AppManagementSupportedLinksOverlappingAppsDialogElement as bZ, AppManagementUninstallButtonElement as b_, buttonsAreEqual as ba, getShortcutInputProvider as bb, keyEventsAreEqual as bc, AudioAndCaptionsPageBrowserProxyImpl as bd, SmbBrowserProxyImpl as be, SmbMountResult as bf, AppLanguageSelectionDialogElement as bg, AppLanguageSelectionItemElement as bh, SettingsRadioGroupElement as bi, DateTimeSettingsCardElement as bj, TimezoneSelectorElement as bk, SettingsCustomizeMouseButtonsSubpageElement as bl, SettingsCustomizePenButtonsSubpageElement as bm, SettingsCustomizeTabletButtonsSubpageElement as bn, SettingsKeyboardElement as bo, SettingsPointersElement as bp, SettingsPowerElement as bq, SettingsStorageElement as br, SettingsStylusElement as bs, CROSTINI_TYPE as bt, GuestOsBrowserProxyImpl as bu, PLUGIN_VM_TYPE as bv, ContainerSelectElement as bw, SettingsGuestOsSharedPathsElement as bx, SettingsMultideviceCombinedSetupItemElement as by, SettingsMultideviceFeatureItemElement as bz, assert$1 as c, GraphicsTabletSettingsObserverReceiver as c$, SettingsAppNotificationsManagerSubpage as c0, AppNotificationsSubpage as c1, SettingsBluetoothChangeDeviceNameDialogElement as c2, SettingsBluetoothDeviceDetailSubpageElement as c3, SettingsBluetoothDevicesSubpageElement as c4, SettingsBluetoothSavedDevicesSubpageElement as c5, SettingsBluetoothTrueWirelessImagesElement as c6, SettingsPairedBluetoothListElement as c7, SettingsPairedBluetoothListItemElement as c8, SettingsSavedDevicesListElement as c9, DATE_AND_TIME_SECTION_PATH as cA, LANGUAGES_AND_INPUT_SECTION_PATH as cB, FILES_SECTION_PATH as cC, PRINTING_SECTION_PATH as cD, CROSTINI_SECTION_PATH as cE, RESET_SECTION_PATH as cF, getDeviceName as cG, KeyboardSettingsObserverReceiver as cH, MouseSettingsObserverReceiver as cI, PointingStickSettingsObserverReceiver as cJ, TouchpadSettingsObserverReceiver as cK, routesMojom as cL, getDisplayApi as cM, IronResizableBehavior as cN, PaperRippleMixin as cO, getDeviceStateChangesToAnnounce as cP, CrLinkRowElement as cQ, Fkey as cR, ExtendedFkeysModifier as cS, TopRowActionKey as cT, MetaKey as cU, ModifierKey$1 as cV, SixPackShortcutModifier as cW, SixPackKey as cX, PolicyStatus as cY, isInputDeviceSettingsSplitEnabled as cZ, isExternalStorageEnabled as c_, FilesSettingsCardElement as ca, SettingsGoogleDriveSubpageElement as cb, LanguageSettingsCardElement as cc, SettingsLanguagesElement as cd, PrintingSettingsCardElement as ce, SettingsPrivacyHubGeolocationSubpage as cf, SettingsPrivacyHubSubpage as cg, OsSettingsPowerwashDialogElement as ch, OsResetBrowserProxyImpl as ci, OsSettingsSanitizeDialogElement as cj, ResetSettingsCardElement as ck, listenOnce as cl, ABOUT_CHROME_OS_SECTION_PATH as cm, isAdvancedRoute as cn, NETWORK_SECTION_PATH as co, BLUETOOTH_SECTION_PATH as cp, MULTI_DEVICE_SECTION_PATH as cq, PEOPLE_SECTION_PATH as cr, KERBEROS_SECTION_PATH as cs, DEVICE_SECTION_PATH as ct, PERSONALIZATION_SECTION_PATH as cu, PRIVACY_AND_SECURITY_SECTION_PATH as cv, APPS_SECTION_PATH as cw, ACCESSIBILITY_SECTION_PATH as cx, SYSTEM_PREFERENCES_SECTION_PATH as cy, SEARCH_AND_ASSISTANT_SECTION_PATH as cz, cast as d, DEFAULT_UNCHECKED_VALUE as d$, Button as d0, ButtonState$1 as d1, hasActiveCellularNetwork as d2, getESimProfile as d3, stringToMojoString16 as d4, NetworkConfigElementBehavior as d5, assertNotReached as d6, htmlEscape as d7, isConnectedToNonCellularNetwork as d8, getNumESimProfiles as d9, AndroidAppsBrowserProxyImpl as dA, isBasicRoute as dB, CrSearchFieldMixin as dC, SectionSpec as dD, SubpageSpec as dE, SettingSpec as dF, OpenWindowProxyImpl as dG, recordSearch as dH, setGlobalScrollTarget as dI, recordPageFocus as dJ, recordPageBlur as dK, recordClick as dL, recordNavigation as dM, getPrefPolicyFields as dN, settingsAreEqual as dO, CustomizationRestriction as dP, SimulateRightClickModifier as dQ, recordSavedDevicesUiEventMetrics as dR, FastPairSavedDevicesUiEvent as dS, ColorChangeUpdater as dT, getContactManager as dU, observeContactManager as dV, setContactManagerForTesting as dW, NearbyProgressElement as dX, nearby_share_mojomWebui as dY, setNearbyShareSettingsForTesting as dZ, DEFAULT_CHECKED_VALUE as d_, LockScreenUnlockType as da, PhoneHubPermissionsSetupFlowScreens as db, PhoneHubPermissionsSetupAction as dc, PhoneHubPermissionsSetupFeatureCombination as dd, getNearbyShareSettings as de, observeNearbyShareSettings as df, PhoneHubFeatureAccessStatus as dg, OsBluetoothDevicesSubpageBrowserProxyImpl as dh, ButtonState as di, ButtonName as dj, DeviceItemState as dk, PairingAuthType as dl, recordBluetoothUiSurfaceMetrics as dm, BluetoothUiSurface as dn, isAccountManagerEnabled as dp, AUTH_TOKEN_INVALID_EVENT_TYPE as dq, PrivacyHubNavigationOrigin as dr, isQuickAnswersSupported as ds, isAssistantAllowed as dt, shouldShowMultitasking as du, isGuest as dv, isPowerwashAllowed as dw, shouldShowStartup as dx, getTrustedScriptURL as dy, isAboutRoute as dz, equalContainerId as e, observeReceiveManager as e$, ExtensionControlBrowserProxyImpl as e0, ApnDetailDialog as e1, LocalizedLinkElement as e2, SettingsPrefsElement as e3, CrSettingsPrefs as e4, CrCheckboxElement as e5, CrCardRadioButtonElement as e6, CrRadioButtonElement as e7, CrRadioGroupElement as e8, CrSearchFieldElement as e9, StorageSpaceState as eA, fakeGraphicsTabletButtonActions as eB, fakeGraphicsTablets as eC, fakeKeyboards as eD, fakeKeyboards2 as eE, fakeMice as eF, fakeMice2 as eG, fakeMouseButtonActions as eH, fakePointingSticks as eI, fakePointingSticks2 as eJ, fakeStyluses as eK, fakeTouchpads as eL, fakeTouchpads2 as eM, setInputDeviceSettingsProviderForTesting as eN, setupFakeInputDeviceSettingsProvider as eO, Vkey as eP, setUserActionRecorderForTesting as eQ, app_notification_handler_mojomWebui as eR, app_permission_handler_mojomWebui as eS, setting_mojomWebui as eT, user_action_recorder_mojomWebui as eU, PhoneHubFeatureAccessProhibitedReason as eV, PhoneHubPermissionsSetupMode as eW, NearbyAccountManagerBrowserProxyImpl as eX, NearbyShareConfirmPageElement as eY, NearbyShareHighVisibilityPageElement as eZ, getReceiveManager as e_, CrSearchableDropDownElement as ea, CrSliderElement as eb, CrTextareaElement as ec, CrToastElement as ed, CrPolicyIndicatorElement as ee, CrTooltipIconElement as ef, addApp$1 as eg, changeApp$1 as eh, removeApp$1 as ei, updateSelectedAppId$1 as ej, updateSubAppToParentAppId$1 as ek, reduceAction as el, updateApps as em, AppManagementStore as en, resetGlobalScrollTargetForTesting as eo, LacrosExtensionControlBrowserProxyImpl as ep, LacrosExtensionControlledIndicatorElement as eq, ControlledButtonElement as er, ControlledRadioButtonElement as es, ExtensionControlledIndicatorElement as et, SettingsDropdownMenuElement as eu, SettingsSliderElement as ev, IdleBehavior as ew, LidClosedBehavior as ex, NoteAppLockScreenSupport as ey, setDisplayApiForTesting as ez, containerLabel as f, setReceiveManagerForTesting as f0, dataUsageStringToEnum as f1, NearbyShareDataUsage as f2, AppManagementFileHandlingItemElement as f3, PluginVmBrowserProxyImpl as f4, AppManagementToggleRowElement as f5, setAppNotificationProviderForTesting as f6, OsSettingsAppsPageElement as f7, FastPairSavedDevicesOptInStatus as f8, GoogleDriveBrowserProxy as f9, PageCallbackRouter as fa, PageHandlerRemote as fb, PageRemote as fc, Stage as fd, ConfirmationDialogType as fe, PageCallbackRouter$2 as ff, PageHandlerRemote$2 as fg, PageRemote$2 as fh, MetricsConsentBrowserProxyImpl as fi, setAppPermissionProviderForTesting as fj, SettingsPrivacyHubAppPermissionRow as fk, SettingsPrivacyHubSystemServiceRow as fl, SettingsSearchEngineElement as fm, SearchEnginesBrowserProxyImpl as fn, SettingsCardElement as fo, createRouter as fp, Route as fq, SettingsGuestOsSharedUsbDevicesElement as g, castExists$1 as h, RouteOriginMixin as i, Router as j, isCrostiniSupported as k, isCrostiniAllowed as l, isRevampWayfindingEnabled as m, Section as n, browserChannelToI18nId as o, PrinterSetupResult as p, PrintServerResult as q, recordSettingChange as r, sanitizeInnerHtml$1 as s, CupsPrintersBrowserProxyImpl as t, focusWithoutInk as u, LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME as v, GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE as w, TimeZoneBrowserProxyImpl as x, isChild as y, I18nBehavior as z };
+export { assertInstanceof as $, AboutPageBrowserProxyImpl as A, getApnDisplayName as B, CrPolicyIndicatorType$1 as C, DeepLinkingMixin as D, assert as E, FocusRowMixin as F, GeolocationAccessLevel as G, ApnDetailDialogMode as H, I18nMixin as I, processDeviceState as J, getInstance as K, LifetimeBrowserProxyImpl as L, CrPolicyNetworkBehaviorMojo as M, NetworkListenerBehavior as N, OncMojo as O, PrefsMixin as P, FAKE_CREDENTIAL as Q, RouteObserverMixin as R, Setting as S, TERMINA_VM_TYPE as T, UpdateStatus as U, VM_DEVICE_MICROPHONE as V, WebUiListenerMixin as W, isActiveSim as X, InternetPageBrowserProxyImpl as Y, OsSyncBrowserProxyImpl as Z, assertExists$2 as _, assertNotReached$1 as a, FindShortcutMixin as a$, getESimProfileProperties as a0, mojoString16ToString as a1, CellularSetupPageName as a2, ESimManagerListenerMixin as a3, MultiDeviceBrowserProxyImpl as a4, getEuicc as a5, getSimSlotCount as a6, getPendingESimProfiles as a7, MultiDeviceFeatureState as a8, CrToggleElement as a9, CrDialogElement as aA, CrIconButtonElement as aB, CrActionMenuElement as aC, recordLockScreenProgress as aD, LockScreenProgress as aE, PluralStringProxyImpl as aF, SyncBrowserProxyImpl as aG, PageStatus as aH, StatusAction as aI, CrScrollableMixin as aJ, PrivacyHubBrowserProxyImpl as aK, getAppPermissionProvider as aL, MediaDevicesProxy as aM, AppPermissionsObserverReceiver as aN, isPermissionEnabled as aO, CAMERA_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aP, PrivacyHubSensorSubpageUserAction as aQ, NUMBER_OF_POSSIBLE_USER_ACTIONS as aR, MICROPHONE_SUBPAGE_USER_ACTION_HISTOGRAM_NAME as aS, AppLanguageSelectionDialogEntryPoint as aT, OneDriveBrowserProxy as aU, AppManagementStoreMixin as aV, getAppIcon as aW, AppManagementBrowserProxy as aX, alphabeticalSort as aY, GlobalScrollTargetMixin as aZ, OsSettingsSubpageElement as a_, BrowserProxy$1 as aa, getImage as ab, ChromeVoxSubpageBrowserProxyImpl as ac, assertExhaustive as ad, DevicePageBrowserProxyImpl as ae, SettingsToggleButtonElement as af, SelectToSpeakSubpageBrowserProxyImpl as ag, LanguagesBrowserProxyImpl as ah, SwitchAccessSubpageBrowserProxyImpl as ai, TextToSpeechSubpageBrowserProxyImpl as aj, TtsVoiceSubpageBrowserProxyImpl as ak, BrowserChannel as al, isTargetChannelMoreStable as am, DeviceNameBrowserProxyImpl as an, SetDeviceNameResult as ao, DeviceNameState as ap, AccountManagerBrowserProxyImpl as aq, ParentalControlsBrowserProxyImpl as ar, assertInstanceof$1 as as, fireAuthTokenInvalidEvent as at, LockStateMixin as au, MultiDeviceFeatureMixin as av, MultiDeviceFeature as aw, MultiDeviceSettingsMode as ax, CrInputElement as ay, CrButtonElement as az, routes as b, AppNotificationRowElement as b$, ACCESSIBILITY_COMMON_IME_ID as b0, IronA11yKeysBehavior as b1, PrivacyPageBrowserProxyImpl as b2, SecureDnsMode as b3, SecureDnsUiManagementMode as b4, StaticShortcutAction as b5, EventTracker as b6, getInputDeviceSettingsProvider as b7, FakeInputDeviceSettingsProvider as b8, ButtonPressObserverReceiver as b9, SettingsMultideviceFeatureToggleElement as bA, SettingsMultideviceSubpageElement as bB, SettingsMultideviceTaskContinuationDisabledLinkElement as bC, SettingsMultideviceTaskContinuationItemElement as bD, SettingsMultideviceWifiSyncDisabledLinkElement as bE, NearbyShareReceiveDialogElement as bF, SettingsNearbyShareSubpageElement as bG, SettingsAndroidAppsSubpageElement as bH, AppManagementAppDetailViewElement as bI, AppManagementAppDetailsItem as bJ, AppManagementAppItemElement as bK, SettingsAppManagementPageElement as bL, AppManagementArcDetailViewElement as bM, AppManagementBorealisDetailViewElement as bN, AppManagementChromeAppDetailViewElement as bO, AppManagementDomSwitchElement as bP, AppManagementMainViewElement as bQ, AppManagementPermissionHeadingElement as bR, AppManagementPermissionItemElement as bS, AppManagementPinToShelfItemElement as bT, AppManagementPluginVmDetailViewElement as bU, AppManagementPwaDetailViewElement as bV, AppManagementResizeLockItemElement as bW, AppManagementSubAppsItemElement as bX, AppManagementSupportedLinksItemElement as bY, AppManagementSupportedLinksOverlappingAppsDialogElement as bZ, AppManagementUninstallButtonElement as b_, buttonsAreEqual as ba, getShortcutInputProvider as bb, keyEventsAreEqual as bc, AudioAndCaptionsPageBrowserProxyImpl as bd, SmbBrowserProxyImpl as be, SmbMountResult as bf, AppLanguageSelectionDialogElement as bg, AppLanguageSelectionItemElement as bh, SettingsRadioGroupElement as bi, DateTimeSettingsCardElement as bj, TimezoneSelectorElement as bk, SettingsCustomizeMouseButtonsSubpageElement as bl, SettingsCustomizePenButtonsSubpageElement as bm, SettingsCustomizeTabletButtonsSubpageElement as bn, SettingsKeyboardElement as bo, SettingsPointersElement as bp, SettingsPowerElement as bq, SettingsStorageElement as br, SettingsStylusElement as bs, CROSTINI_TYPE as bt, GuestOsBrowserProxyImpl as bu, PLUGIN_VM_TYPE as bv, ContainerSelectElement as bw, SettingsGuestOsSharedPathsElement as bx, SettingsMultideviceCombinedSetupItemElement as by, SettingsMultideviceFeatureItemElement as bz, assert$1 as c, GraphicsTabletSettingsObserverReceiver as c$, SettingsAppNotificationsManagerSubpage as c0, AppNotificationsSubpage as c1, SettingsBluetoothChangeDeviceNameDialogElement as c2, SettingsBluetoothDeviceDetailSubpageElement as c3, SettingsBluetoothDevicesSubpageElement as c4, SettingsBluetoothSavedDevicesSubpageElement as c5, SettingsBluetoothTrueWirelessImagesElement as c6, SettingsPairedBluetoothListElement as c7, SettingsPairedBluetoothListItemElement as c8, SettingsSavedDevicesListElement as c9, DATE_AND_TIME_SECTION_PATH as cA, LANGUAGES_AND_INPUT_SECTION_PATH as cB, FILES_SECTION_PATH as cC, PRINTING_SECTION_PATH as cD, CROSTINI_SECTION_PATH as cE, RESET_SECTION_PATH as cF, getDeviceName as cG, KeyboardSettingsObserverReceiver as cH, MouseSettingsObserverReceiver as cI, PointingStickSettingsObserverReceiver as cJ, TouchpadSettingsObserverReceiver as cK, routesMojom as cL, getDisplayApi as cM, IronResizableBehavior as cN, PaperRippleMixin as cO, getDeviceStateChangesToAnnounce as cP, CrLinkRowElement as cQ, Fkey as cR, ExtendedFkeysModifier as cS, TopRowActionKey as cT, MetaKey as cU, ModifierKey$1 as cV, SixPackShortcutModifier as cW, SixPackKey as cX, PolicyStatus as cY, isInputDeviceSettingsSplitEnabled as cZ, isExternalStorageEnabled as c_, FilesSettingsCardElement as ca, SettingsGoogleDriveSubpageElement as cb, LanguageSettingsCardElement as cc, SettingsLanguagesElement as cd, PrintingSettingsCardElement as ce, SettingsPrivacyHubGeolocationSubpage as cf, SettingsPrivacyHubSubpage as cg, OsSettingsPowerwashDialogElement as ch, OsResetBrowserProxyImpl as ci, OsSettingsSanitizeDialogElement as cj, ResetSettingsCardElement as ck, listenOnce as cl, ABOUT_CHROME_OS_SECTION_PATH as cm, isAdvancedRoute as cn, NETWORK_SECTION_PATH as co, BLUETOOTH_SECTION_PATH as cp, MULTI_DEVICE_SECTION_PATH as cq, PEOPLE_SECTION_PATH as cr, KERBEROS_SECTION_PATH as cs, DEVICE_SECTION_PATH as ct, PERSONALIZATION_SECTION_PATH as cu, PRIVACY_AND_SECURITY_SECTION_PATH as cv, APPS_SECTION_PATH as cw, ACCESSIBILITY_SECTION_PATH as cx, SYSTEM_PREFERENCES_SECTION_PATH as cy, SEARCH_AND_ASSISTANT_SECTION_PATH as cz, cast as d, DEFAULT_UNCHECKED_VALUE as d$, Button as d0, ButtonState$1 as d1, hasActiveCellularNetwork as d2, getESimProfile as d3, stringToMojoString16 as d4, NetworkConfigElementBehavior as d5, assertNotReached as d6, htmlEscape as d7, isConnectedToNonCellularNetwork as d8, getNumESimProfiles as d9, isBasicRoute as dA, CrSearchFieldMixin as dB, SectionSpec as dC, SubpageSpec as dD, SettingSpec as dE, OpenWindowProxyImpl as dF, recordSearch as dG, CrContainerShadowMixin as dH, setGlobalScrollTarget as dI, recordPageFocus as dJ, recordPageBlur as dK, recordClick as dL, recordNavigation as dM, getPrefPolicyFields as dN, settingsAreEqual as dO, CustomizationRestriction as dP, SimulateRightClickModifier as dQ, recordSavedDevicesUiEventMetrics as dR, FastPairSavedDevicesUiEvent as dS, ColorChangeUpdater as dT, getContactManager as dU, observeContactManager as dV, setContactManagerForTesting as dW, NearbyProgressElement as dX, nearby_share_mojomWebui as dY, setNearbyShareSettingsForTesting as dZ, DEFAULT_CHECKED_VALUE as d_, LockScreenUnlockType as da, PhoneHubPermissionsSetupFlowScreens as db, PhoneHubPermissionsSetupAction as dc, PhoneHubPermissionsSetupFeatureCombination as dd, getNearbyShareSettings as de, observeNearbyShareSettings as df, PhoneHubFeatureAccessStatus as dg, OsBluetoothDevicesSubpageBrowserProxyImpl as dh, ButtonState as di, ButtonName as dj, DeviceItemState as dk, PairingAuthType as dl, recordBluetoothUiSurfaceMetrics as dm, BluetoothUiSurface as dn, isAccountManagerEnabled as dp, AUTH_TOKEN_INVALID_EVENT_TYPE as dq, PrivacyHubNavigationOrigin as dr, isQuickAnswersSupported as ds, isAssistantAllowed as dt, shouldShowMultitasking as du, isGuest as dv, isPowerwashAllowed as dw, shouldShowStartup as dx, isAboutRoute as dy, AndroidAppsBrowserProxyImpl as dz, equalContainerId as e, observeReceiveManager as e$, ExtensionControlBrowserProxyImpl as e0, CrCheckboxElement as e1, CrCardRadioButtonElement as e2, CrRadioButtonElement as e3, CrRadioGroupElement as e4, CrSearchFieldElement as e5, CrSearchableDropDownElement as e6, CrSliderElement as e7, CrTextareaElement as e8, CrToastElement as e9, StorageSpaceState as eA, fakeGraphicsTabletButtonActions as eB, fakeGraphicsTablets as eC, fakeKeyboards as eD, fakeKeyboards2 as eE, fakeMice as eF, fakeMice2 as eG, fakeMouseButtonActions as eH, fakePointingSticks as eI, fakePointingSticks2 as eJ, fakeStyluses as eK, fakeTouchpads as eL, fakeTouchpads2 as eM, setInputDeviceSettingsProviderForTesting as eN, setupFakeInputDeviceSettingsProvider as eO, Vkey as eP, setUserActionRecorderForTesting as eQ, app_notification_handler_mojomWebui as eR, app_permission_handler_mojomWebui as eS, setting_mojomWebui as eT, user_action_recorder_mojomWebui as eU, PhoneHubFeatureAccessProhibitedReason as eV, PhoneHubPermissionsSetupMode as eW, NearbyAccountManagerBrowserProxyImpl as eX, NearbyShareConfirmPageElement as eY, NearbyShareHighVisibilityPageElement as eZ, getReceiveManager as e_, LocalizedLinkElement as ea, CrPolicyIndicatorElement as eb, CrTooltipIconElement as ec, ApnDetailDialog as ed, SettingsPrefsElement as ee, CrSettingsPrefs as ef, addApp$1 as eg, changeApp$1 as eh, removeApp$1 as ei, updateSelectedAppId$1 as ej, updateSubAppToParentAppId$1 as ek, reduceAction as el, updateApps as em, AppManagementStore as en, resetGlobalScrollTargetForTesting as eo, LacrosExtensionControlBrowserProxyImpl as ep, LacrosExtensionControlledIndicatorElement as eq, ControlledButtonElement as er, ControlledRadioButtonElement as es, ExtensionControlledIndicatorElement as et, SettingsDropdownMenuElement as eu, SettingsSliderElement as ev, IdleBehavior as ew, LidClosedBehavior as ex, NoteAppLockScreenSupport as ey, setDisplayApiForTesting as ez, containerLabel as f, setReceiveManagerForTesting as f0, dataUsageStringToEnum as f1, NearbyShareDataUsage as f2, AppManagementFileHandlingItemElement as f3, PluginVmBrowserProxyImpl as f4, AppManagementToggleRowElement as f5, setAppNotificationProviderForTesting as f6, OsSettingsAppsPageElement as f7, FastPairSavedDevicesOptInStatus as f8, GoogleDriveBrowserProxy as f9, PageCallbackRouter as fa, PageHandlerRemote as fb, PageRemote as fc, Stage as fd, ConfirmationDialogType as fe, PageCallbackRouter$2 as ff, PageHandlerRemote$2 as fg, PageRemote$2 as fh, MetricsConsentBrowserProxyImpl as fi, setAppPermissionProviderForTesting as fj, SettingsPrivacyHubAppPermissionRow as fk, SettingsPrivacyHubSystemServiceRow as fl, SettingsSearchEngineElement as fm, SearchEnginesBrowserProxyImpl as fn, SettingsCardElement as fo, createRouter as fp, Route as fq, SettingsGuestOsSharedUsbDevicesElement as g, castExists$1 as h, RouteOriginMixin as i, Router as j, isCrostiniSupported as k, isCrostiniAllowed as l, isRevampWayfindingEnabled as m, Section as n, browserChannelToI18nId as o, PrinterSetupResult as p, PrintServerResult as q, recordSettingChange as r, sanitizeInnerHtml$1 as s, CupsPrintersBrowserProxyImpl as t, focusWithoutInk as u, LOCATION_PERMISSION_CHANGE_FROM_DIALOG_HISTOGRAM_NAME as v, GEOLOCATION_ACCESS_LEVEL_ENUM_SIZE as w, TimeZoneBrowserProxyImpl as x, isChild as y, I18nBehavior as z };
 //# sourceMappingURL=shared.rollup.js.map

@@ -2421,6 +2421,9 @@ class  BrowserService_NewTab_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
+  uint8_t profile_id_$flag : 1;
+  uint8_t pad0_[7];
+  uint64_t profile_id_$value;
 
  private:
   friend class mojo::internal::MessageFragment<BrowserService_NewTab_Params_Data>;
@@ -2428,7 +2431,7 @@ class  BrowserService_NewTab_Params_Data {
   BrowserService_NewTab_Params_Data();
   ~BrowserService_NewTab_Params_Data() = delete;
 };
-static_assert(sizeof(BrowserService_NewTab_Params_Data) == 8,
+static_assert(sizeof(BrowserService_NewTab_Params_Data) == 24,
               "Bad sizeof(BrowserService_NewTab_Params_Data)");
 class  BrowserService_NewTab_ResponseParams_Data {
  public:
@@ -6411,6 +6414,15 @@ class BrowserService_NewTab_ParamsDataView {
       : data_(data) {}
 
   bool is_null() const { return !data_; }
+  std::optional<uint64_t> profile_id() const {
+    if (data_->header_.version < 76) {
+      return std::nullopt;
+    }
+
+    return data_->profile_id_$flag
+        ? std::make_optional(data_->profile_id_$value)
+        : std::nullopt;
+  }
  private:
   internal::BrowserService_NewTab_Params_Data* data_ = nullptr;
 };

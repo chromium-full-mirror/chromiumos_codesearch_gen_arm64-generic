@@ -57,8 +57,8 @@ describeWithEnvironment('NetworkItemView', () => {
         const headersIcon = getIconDataInTab(networkItemView['tabs'], 'headersComponent');
         const responseIcon = getIconDataInTab(networkItemView['tabs'], 'response');
         networkItemView.detach();
-        assert(headersIcon.iconName, OVERRIDEN_ICON_NAME);
-        assert(responseIcon.iconName, OVERRIDEN_ICON_NAME);
+        assert.strictEqual(headersIcon.iconName, OVERRIDEN_ICON_NAME);
+        assert.strictEqual(responseIcon.iconName, OVERRIDEN_ICON_NAME);
     });
     it('shows indicator for overriden headers', () => {
         request.setWasIntercepted(true);
@@ -68,7 +68,7 @@ describeWithEnvironment('NetworkItemView', () => {
         const headersIcon = getIconDataInTab(networkItemView['tabs'], 'headersComponent');
         const responseIcon = getIconDataInTab(networkItemView['tabs'], 'response');
         networkItemView.detach();
-        assert(headersIcon.iconName, OVERRIDEN_ICON_NAME);
+        assert.strictEqual(headersIcon.iconName, OVERRIDEN_ICON_NAME);
         assert.isUndefined(responseIcon);
     });
     it('shows indicator for overriden content', () => {
@@ -79,7 +79,7 @@ describeWithEnvironment('NetworkItemView', () => {
         const responseIcon = getIconDataInTab(networkItemView['tabs'], 'response');
         networkItemView.detach();
         assert.isUndefined(headersIcon);
-        assert(responseIcon, OVERRIDEN_ICON_NAME);
+        assert.strictEqual(responseIcon.iconName, OVERRIDEN_ICON_NAME);
     });
     it('does not show indicator for unoverriden request', () => {
         const networkItemView = renderNetworkItemView(request);
@@ -88,6 +88,13 @@ describeWithEnvironment('NetworkItemView', () => {
         networkItemView.detach();
         assert.isUndefined(headersIcon);
         assert.isUndefined(responseIcon);
+    });
+    it('shows the Response and EventSource tab for text/event-stream requests', () => {
+        request.mimeType = 'text/event-stream';
+        const networkItemView = renderNetworkItemView(request);
+        assert.isTrue(networkItemView.hasTab("eventSource" /* NetworkForward.UIRequestLocation.UIRequestTabs.EventSource */));
+        assert.isTrue(networkItemView.hasTab("response" /* NetworkForward.UIRequestLocation.UIRequestTabs.Response */));
+        networkItemView.detach();
     });
 });
 //# sourceMappingURL=NetworkItemView_test.js.map

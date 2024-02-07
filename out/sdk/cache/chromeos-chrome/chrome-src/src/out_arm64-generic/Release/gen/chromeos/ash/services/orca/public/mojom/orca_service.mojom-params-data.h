@@ -356,7 +356,7 @@ class  EditorEventSink_OnContextUpdated_Params_Data {
 };
 static_assert(sizeof(EditorEventSink_OnContextUpdated_Params_Data) == 16,
               "Bad sizeof(EditorEventSink_OnContextUpdated_Params_Data)");
-class  TextActuator_InsertText_Params_Data {
+class  SystemActuator_InsertText_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -365,14 +365,14 @@ class  TextActuator_InsertText_Params_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> text;
 
  private:
-  friend class mojo::internal::MessageFragment<TextActuator_InsertText_Params_Data>;
+  friend class mojo::internal::MessageFragment<SystemActuator_InsertText_Params_Data>;
 
-  TextActuator_InsertText_Params_Data();
-  ~TextActuator_InsertText_Params_Data() = delete;
+  SystemActuator_InsertText_Params_Data();
+  ~SystemActuator_InsertText_Params_Data() = delete;
 };
-static_assert(sizeof(TextActuator_InsertText_Params_Data) == 16,
-              "Bad sizeof(TextActuator_InsertText_Params_Data)");
-class  TextActuator_ApproveConsent_Params_Data {
+static_assert(sizeof(SystemActuator_InsertText_Params_Data) == 16,
+              "Bad sizeof(SystemActuator_InsertText_Params_Data)");
+class  SystemActuator_ApproveConsent_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -380,14 +380,14 @@ class  TextActuator_ApproveConsent_Params_Data {
   mojo::internal::StructHeader header_;
 
  private:
-  friend class mojo::internal::MessageFragment<TextActuator_ApproveConsent_Params_Data>;
+  friend class mojo::internal::MessageFragment<SystemActuator_ApproveConsent_Params_Data>;
 
-  TextActuator_ApproveConsent_Params_Data();
-  ~TextActuator_ApproveConsent_Params_Data() = delete;
+  SystemActuator_ApproveConsent_Params_Data();
+  ~SystemActuator_ApproveConsent_Params_Data() = delete;
 };
-static_assert(sizeof(TextActuator_ApproveConsent_Params_Data) == 8,
-              "Bad sizeof(TextActuator_ApproveConsent_Params_Data)");
-class  TextActuator_DeclineConsent_Params_Data {
+static_assert(sizeof(SystemActuator_ApproveConsent_Params_Data) == 8,
+              "Bad sizeof(SystemActuator_ApproveConsent_Params_Data)");
+class  SystemActuator_DeclineConsent_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -395,14 +395,14 @@ class  TextActuator_DeclineConsent_Params_Data {
   mojo::internal::StructHeader header_;
 
  private:
-  friend class mojo::internal::MessageFragment<TextActuator_DeclineConsent_Params_Data>;
+  friend class mojo::internal::MessageFragment<SystemActuator_DeclineConsent_Params_Data>;
 
-  TextActuator_DeclineConsent_Params_Data();
-  ~TextActuator_DeclineConsent_Params_Data() = delete;
+  SystemActuator_DeclineConsent_Params_Data();
+  ~SystemActuator_DeclineConsent_Params_Data() = delete;
 };
-static_assert(sizeof(TextActuator_DeclineConsent_Params_Data) == 8,
-              "Bad sizeof(TextActuator_DeclineConsent_Params_Data)");
-class  TextActuator_OpenUrlInNewWindow_Params_Data {
+static_assert(sizeof(SystemActuator_DeclineConsent_Params_Data) == 8,
+              "Bad sizeof(SystemActuator_DeclineConsent_Params_Data)");
+class  SystemActuator_OpenUrlInNewWindow_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -411,14 +411,14 @@ class  TextActuator_OpenUrlInNewWindow_Params_Data {
   mojo::internal::Pointer<::url::mojom::internal::Url_Data> url;
 
  private:
-  friend class mojo::internal::MessageFragment<TextActuator_OpenUrlInNewWindow_Params_Data>;
+  friend class mojo::internal::MessageFragment<SystemActuator_OpenUrlInNewWindow_Params_Data>;
 
-  TextActuator_OpenUrlInNewWindow_Params_Data();
-  ~TextActuator_OpenUrlInNewWindow_Params_Data() = delete;
+  SystemActuator_OpenUrlInNewWindow_Params_Data();
+  ~SystemActuator_OpenUrlInNewWindow_Params_Data() = delete;
 };
-static_assert(sizeof(TextActuator_OpenUrlInNewWindow_Params_Data) == 16,
-              "Bad sizeof(TextActuator_OpenUrlInNewWindow_Params_Data)");
-class  TextActuator_ShowUI_Params_Data {
+static_assert(sizeof(SystemActuator_OpenUrlInNewWindow_Params_Data) == 16,
+              "Bad sizeof(SystemActuator_OpenUrlInNewWindow_Params_Data)");
+class  SystemActuator_ShowUI_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -426,14 +426,14 @@ class  TextActuator_ShowUI_Params_Data {
   mojo::internal::StructHeader header_;
 
  private:
-  friend class mojo::internal::MessageFragment<TextActuator_ShowUI_Params_Data>;
+  friend class mojo::internal::MessageFragment<SystemActuator_ShowUI_Params_Data>;
 
-  TextActuator_ShowUI_Params_Data();
-  ~TextActuator_ShowUI_Params_Data() = delete;
+  SystemActuator_ShowUI_Params_Data();
+  ~SystemActuator_ShowUI_Params_Data() = delete;
 };
-static_assert(sizeof(TextActuator_ShowUI_Params_Data) == 8,
-              "Bad sizeof(TextActuator_ShowUI_Params_Data)");
-class  TextActuator_CloseUI_Params_Data {
+static_assert(sizeof(SystemActuator_ShowUI_Params_Data) == 8,
+              "Bad sizeof(SystemActuator_ShowUI_Params_Data)");
+class  SystemActuator_CloseUI_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -441,14 +441,14 @@ class  TextActuator_CloseUI_Params_Data {
   mojo::internal::StructHeader header_;
 
  private:
-  friend class mojo::internal::MessageFragment<TextActuator_CloseUI_Params_Data>;
+  friend class mojo::internal::MessageFragment<SystemActuator_CloseUI_Params_Data>;
 
-  TextActuator_CloseUI_Params_Data();
-  ~TextActuator_CloseUI_Params_Data() = delete;
+  SystemActuator_CloseUI_Params_Data();
+  ~SystemActuator_CloseUI_Params_Data() = delete;
 };
-static_assert(sizeof(TextActuator_CloseUI_Params_Data) == 8,
-              "Bad sizeof(TextActuator_CloseUI_Params_Data)");
-class  TextActuator_SubmitFeedback_Params_Data {
+static_assert(sizeof(SystemActuator_CloseUI_Params_Data) == 8,
+              "Bad sizeof(SystemActuator_CloseUI_Params_Data)");
+class  SystemActuator_SubmitFeedback_Params_Data {
  public:
   static bool Validate(const void* data,
                        mojo::internal::ValidationContext* validation_context);
@@ -457,13 +457,13 @@ class  TextActuator_SubmitFeedback_Params_Data {
   mojo::internal::Pointer<mojo::internal::String_Data> description;
 
  private:
-  friend class mojo::internal::MessageFragment<TextActuator_SubmitFeedback_Params_Data>;
+  friend class mojo::internal::MessageFragment<SystemActuator_SubmitFeedback_Params_Data>;
 
-  TextActuator_SubmitFeedback_Params_Data();
-  ~TextActuator_SubmitFeedback_Params_Data() = delete;
+  SystemActuator_SubmitFeedback_Params_Data();
+  ~SystemActuator_SubmitFeedback_Params_Data() = delete;
 };
-static_assert(sizeof(TextActuator_SubmitFeedback_Params_Data) == 16,
-              "Bad sizeof(TextActuator_SubmitFeedback_Params_Data)");
+static_assert(sizeof(SystemActuator_SubmitFeedback_Params_Data) == 16,
+              "Bad sizeof(SystemActuator_SubmitFeedback_Params_Data)");
 class  TextQueryProvider_Process_Params_Data {
  public:
   static bool Validate(const void* data,
@@ -502,7 +502,7 @@ class  OrcaService_BindEditor_Params_Data {
                        mojo::internal::ValidationContext* validation_context);
 
   mojo::internal::StructHeader header_;
-  mojo::internal::AssociatedInterface_Data text_actuator;
+  mojo::internal::AssociatedInterface_Data system_actuator;
   mojo::internal::AssociatedInterface_Data text_query_provider;
   mojo::internal::AssociatedEndpointHandle_Data client_connector;
   mojo::internal::AssociatedEndpointHandle_Data event_sink;
@@ -1048,12 +1048,12 @@ class EditorEventSink_OnContextUpdated_ParamsDataView {
 };
 
 
-class TextActuator_InsertText_ParamsDataView {
+class SystemActuator_InsertText_ParamsDataView {
  public:
-  TextActuator_InsertText_ParamsDataView() = default;
+  SystemActuator_InsertText_ParamsDataView() = default;
 
-  TextActuator_InsertText_ParamsDataView(
-      internal::TextActuator_InsertText_Params_Data* data,
+  SystemActuator_InsertText_ParamsDataView(
+      internal::SystemActuator_InsertText_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -1069,47 +1069,47 @@ class TextActuator_InsertText_ParamsDataView {
         pointer, output, message_);
   }
  private:
-  internal::TextActuator_InsertText_Params_Data* data_ = nullptr;
+  internal::SystemActuator_InsertText_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class TextActuator_ApproveConsent_ParamsDataView {
+class SystemActuator_ApproveConsent_ParamsDataView {
  public:
-  TextActuator_ApproveConsent_ParamsDataView() = default;
+  SystemActuator_ApproveConsent_ParamsDataView() = default;
 
-  TextActuator_ApproveConsent_ParamsDataView(
-      internal::TextActuator_ApproveConsent_Params_Data* data,
+  SystemActuator_ApproveConsent_ParamsDataView(
+      internal::SystemActuator_ApproveConsent_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
  private:
-  internal::TextActuator_ApproveConsent_Params_Data* data_ = nullptr;
+  internal::SystemActuator_ApproveConsent_Params_Data* data_ = nullptr;
 };
 
 
-class TextActuator_DeclineConsent_ParamsDataView {
+class SystemActuator_DeclineConsent_ParamsDataView {
  public:
-  TextActuator_DeclineConsent_ParamsDataView() = default;
+  SystemActuator_DeclineConsent_ParamsDataView() = default;
 
-  TextActuator_DeclineConsent_ParamsDataView(
-      internal::TextActuator_DeclineConsent_Params_Data* data,
+  SystemActuator_DeclineConsent_ParamsDataView(
+      internal::SystemActuator_DeclineConsent_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
  private:
-  internal::TextActuator_DeclineConsent_Params_Data* data_ = nullptr;
+  internal::SystemActuator_DeclineConsent_Params_Data* data_ = nullptr;
 };
 
 
-class TextActuator_OpenUrlInNewWindow_ParamsDataView {
+class SystemActuator_OpenUrlInNewWindow_ParamsDataView {
  public:
-  TextActuator_OpenUrlInNewWindow_ParamsDataView() = default;
+  SystemActuator_OpenUrlInNewWindow_ParamsDataView() = default;
 
-  TextActuator_OpenUrlInNewWindow_ParamsDataView(
-      internal::TextActuator_OpenUrlInNewWindow_Params_Data* data,
+  SystemActuator_OpenUrlInNewWindow_ParamsDataView(
+      internal::SystemActuator_OpenUrlInNewWindow_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -1125,47 +1125,47 @@ class TextActuator_OpenUrlInNewWindow_ParamsDataView {
         pointer, output, message_);
   }
  private:
-  internal::TextActuator_OpenUrlInNewWindow_Params_Data* data_ = nullptr;
+  internal::SystemActuator_OpenUrlInNewWindow_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
 
-class TextActuator_ShowUI_ParamsDataView {
+class SystemActuator_ShowUI_ParamsDataView {
  public:
-  TextActuator_ShowUI_ParamsDataView() = default;
+  SystemActuator_ShowUI_ParamsDataView() = default;
 
-  TextActuator_ShowUI_ParamsDataView(
-      internal::TextActuator_ShowUI_Params_Data* data,
+  SystemActuator_ShowUI_ParamsDataView(
+      internal::SystemActuator_ShowUI_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
  private:
-  internal::TextActuator_ShowUI_Params_Data* data_ = nullptr;
+  internal::SystemActuator_ShowUI_Params_Data* data_ = nullptr;
 };
 
 
-class TextActuator_CloseUI_ParamsDataView {
+class SystemActuator_CloseUI_ParamsDataView {
  public:
-  TextActuator_CloseUI_ParamsDataView() = default;
+  SystemActuator_CloseUI_ParamsDataView() = default;
 
-  TextActuator_CloseUI_ParamsDataView(
-      internal::TextActuator_CloseUI_Params_Data* data,
+  SystemActuator_CloseUI_ParamsDataView(
+      internal::SystemActuator_CloseUI_Params_Data* data,
       mojo::Message* message)
       : data_(data) {}
 
   bool is_null() const { return !data_; }
  private:
-  internal::TextActuator_CloseUI_Params_Data* data_ = nullptr;
+  internal::SystemActuator_CloseUI_Params_Data* data_ = nullptr;
 };
 
 
-class TextActuator_SubmitFeedback_ParamsDataView {
+class SystemActuator_SubmitFeedback_ParamsDataView {
  public:
-  TextActuator_SubmitFeedback_ParamsDataView() = default;
+  SystemActuator_SubmitFeedback_ParamsDataView() = default;
 
-  TextActuator_SubmitFeedback_ParamsDataView(
-      internal::TextActuator_SubmitFeedback_Params_Data* data,
+  SystemActuator_SubmitFeedback_ParamsDataView(
+      internal::SystemActuator_SubmitFeedback_Params_Data* data,
       mojo::Message* message)
       : data_(data), message_(message) {}
 
@@ -1181,7 +1181,7 @@ class TextActuator_SubmitFeedback_ParamsDataView {
         pointer, output, message_);
   }
  private:
-  internal::TextActuator_SubmitFeedback_Params_Data* data_ = nullptr;
+  internal::SystemActuator_SubmitFeedback_Params_Data* data_ = nullptr;
   mojo::Message* message_ = nullptr;
 };
 
@@ -1249,11 +1249,11 @@ class OrcaService_BindEditor_ParamsDataView {
 
   bool is_null() const { return !data_; }
   template <typename UserType>
-  UserType TakeTextActuator() {
+  UserType TakeSystemActuator() {
     UserType result;
     bool ret =
-        mojo::internal::Deserialize<::ash::orca::mojom::TextActuatorAssociatedPtrInfoDataView>(
-            &data_->text_actuator, &result, message_);
+        mojo::internal::Deserialize<::ash::orca::mojom::SystemActuatorAssociatedPtrInfoDataView>(
+            &data_->system_actuator, &result, message_);
     DCHECK(ret);
     return result;
   }
@@ -1416,7 +1416,7 @@ inline void EditorEventSink_OnContextUpdated_ParamsDataView::GetContextDataView(
 }
 
 
-inline void TextActuator_InsertText_ParamsDataView::GetTextDataView(
+inline void SystemActuator_InsertText_ParamsDataView::GetTextDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->text.Get();
   *output = mojo::StringDataView(pointer, message_);
@@ -1427,7 +1427,7 @@ inline void TextActuator_InsertText_ParamsDataView::GetTextDataView(
 
 
 
-inline void TextActuator_OpenUrlInNewWindow_ParamsDataView::GetUrlDataView(
+inline void SystemActuator_OpenUrlInNewWindow_ParamsDataView::GetUrlDataView(
     ::url::mojom::UrlDataView* output) {
   auto pointer = data_->url.Get();
   *output = ::url::mojom::UrlDataView(pointer, message_);
@@ -1438,7 +1438,7 @@ inline void TextActuator_OpenUrlInNewWindow_ParamsDataView::GetUrlDataView(
 
 
 
-inline void TextActuator_SubmitFeedback_ParamsDataView::GetDescriptionDataView(
+inline void SystemActuator_SubmitFeedback_ParamsDataView::GetDescriptionDataView(
     mojo::StringDataView* output) {
   auto pointer = data_->description.Get();
   *output = mojo::StringDataView(pointer, message_);

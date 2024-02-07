@@ -1,7 +1,7 @@
 // Copyright 2021 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
-import 'chrome://resources/cr_elements/cr_button/cr_button.js';
+import 'chrome://resources/ash/common/cr_elements/cr_button/cr_button.js';
 import 'chrome://resources/mojo/mojo/public/mojom/base/big_buffer.mojom-webui.js';
 import 'chrome://resources/mojo/mojo/public/mojom/base/file_path.mojom-webui.js';
 import 'chrome://resources/mojo/mojo/public/mojom/base/string16.mojom-webui.js';
@@ -9,7 +9,7 @@ import './firmware_shared.css.js';
 import './firmware_shared_fonts.css.js';
 import './firmware_update.mojom-webui.js';
 import './strings.m.js';
-import { I18nMixin } from 'chrome://resources/cr_elements/i18n_mixin.js';
+import { I18nMixin } from 'chrome://resources/ash/common/cr_elements/i18n_mixin.js';
 import { mojoString16ToString } from 'chrome://resources/js/mojo_type_util.js';
 import { PolymerElement } from 'chrome://resources/polymer/v3_0/polymer/polymer_bundled.min.js';
 import { UpdatePriority } from './firmware_update.mojom-webui.js';

@@ -28,7 +28,7 @@
 #include "components/autofill/content/common/mojom/autofill_driver.mojom-forward.h"
 #include "components/autofill/core/common/mojom/autofill_types.mojom.h"
 #include "mojo/public/mojom/base/string16.mojom.h"
-#include "mojo/public/mojom/base/text_direction.mojom.h"
+#include "mojo/public/mojom/base/text_direction.mojom-forward.h"
 #include "mojo/public/mojom/base/time.mojom.h"
 #include "ui/gfx/geometry/mojom/geometry.mojom.h"
 #include "url/mojom/url.mojom.h"
@@ -291,7 +291,7 @@ class PasswordManagerDriver
   virtual void UserModifiedNonPasswordField(::autofill::FieldRendererId renderer_id, const ::std::u16string& value, bool autocomplete_attribute_has_username, bool is_likely_otp) = 0;
 
   
-  virtual void ShowPasswordSuggestions(::autofill::FieldRendererId element_id, const ::autofill::FormData& form, uint64_t username_field_index, uint64_t password_field_index, ::base::i18n::TextDirection text_direction, const ::std::u16string& typed_username, int32_t options, const ::gfx::RectF& bounds) = 0;
+  virtual void ShowPasswordSuggestions(const ::autofill::PasswordSuggestionRequest& request) = 0;
 
   
   virtual void CheckSafeBrowsingReputation(const ::GURL& form_action, const ::GURL& frame_url) = 0;
@@ -456,7 +456,7 @@ class  PasswordManagerDriverProxy
   
   void UserModifiedNonPasswordField(::autofill::FieldRendererId renderer_id, const ::std::u16string& value, bool autocomplete_attribute_has_username, bool is_likely_otp) final;
   
-  void ShowPasswordSuggestions(::autofill::FieldRendererId element_id, const ::autofill::FormData& form, uint64_t username_field_index, uint64_t password_field_index, ::base::i18n::TextDirection text_direction, const ::std::u16string& typed_username, int32_t options, const ::gfx::RectF& bounds) final;
+  void ShowPasswordSuggestions(const ::autofill::PasswordSuggestionRequest& request) final;
   
   void CheckSafeBrowsingReputation(const ::GURL& form_action, const ::GURL& frame_url) final;
   

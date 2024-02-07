@@ -927,27 +927,21 @@ customElements.define(SettingsAboutPageElement.is, SettingsAboutPageElement);
 function getTemplate$E() {
     return html `<!--_html_template_start_--><style include="cr-shared-style settings-shared">.list-frame{padding-inline-end:0}.list-frame settings-toggle-button{padding-inline-start:0}</style>
 
-<settings-toggle-button pref="{{prefs.optimization_guide.model_execution_main_toggle_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{aiPageMainLabel}" sub-label="$i18n{aiPageMainSublabel}" on-settings-boolean-control-change="onToggleChange_">
+<settings-toggle-button pref="{{prefs.optimization_guide.model_execution_main_toggle_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{aiPageMainLabel}" sub-label="$i18n{aiPageMainSublabel}">
 </settings-toggle-button>
 
 <iron-collapse opened="[[isExpanded_(
     prefs.optimization_guide.model_execution_main_toggle_setting_state.value)]]">
   <div class="list-frame">
-    <settings-toggle-button hidden="[[!showComposeControl_]]" pref="{{prefs.optimization_guide.compose_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{aiComposeLabel}" sub-label="$i18n{aiComposeSublabel}" on-settings-boolean-control-change="onToggleChange_">
+    <settings-toggle-button hidden="[[!showComposeControl_]]" pref="{{prefs.optimization_guide.compose_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{aiComposeLabel}" sub-label="$i18n{aiComposeSublabel}">
     </settings-toggle-button>
-    <settings-toggle-button class$="[[getTabOrganizationHrCssClass_(showComposeControl_)]]" hidden="[[!showTabOrganizationControl_]]" pref="{{prefs.optimization_guide.tab_organization_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{experimentalAdvancedFeature2Label}" sub-label="$i18n{experimentalAdvancedFeature2Sublabel}" on-settings-boolean-control-change="onToggleChange_">
+    <settings-toggle-button class$="[[getTabOrganizationHrCssClass_(showComposeControl_)]]" hidden="[[!showTabOrganizationControl_]]" pref="{{prefs.optimization_guide.tab_organization_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{experimentalAdvancedFeature2Label}" sub-label="$i18n{experimentalAdvancedFeature2Sublabel}">
     </settings-toggle-button>
     <settings-toggle-button class$="[[getWallpaperSearchHrCssClass_(
-            showComposeControl_, showTabOrganizationControl_)]]" hidden="[[!showWallpaperSearchControl_]]" pref="{{prefs.optimization_guide.wallpaper_search_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{experimentalAdvancedFeature3Label}" sub-label="$i18n{experimentalAdvancedFeature3Sublabel}" on-settings-boolean-control-change="onToggleChange_">
+            showComposeControl_, showTabOrganizationControl_)]]" hidden="[[!showWallpaperSearchControl_]]" pref="{{prefs.optimization_guide.wallpaper_search_setting_state}}" numeric-unchecked-values="[[numericUncheckedValues_]]" numeric-checked-value="[[featureOptInStateEnum_.ENABLED]]" label="$i18n{experimentalAdvancedFeature3Label}" sub-label="$i18n{experimentalAdvancedFeature3Sublabel}">
     </settings-toggle-button>
   </div>
 </iron-collapse>
-
-<cr-toast id="toast">
-  <div>$i18n{restartToApplyChanges}</div>
-  <cr-button on-click="onRestartClick_">$i18n{restart}</cr-button>
-</cr-toast>
-
 
 <!--_html_template_end_-->`;
 }
@@ -972,7 +966,7 @@ var SettingsAiPageFeaturePrefName;
     SettingsAiPageFeaturePrefName["TAB_ORGANIZATION"] = "optimization_guide.tab_organization_setting_state";
     SettingsAiPageFeaturePrefName["WALLPAPER_SEARCH"] = "optimization_guide.wallpaper_search_setting_state";
 })(SettingsAiPageFeaturePrefName || (SettingsAiPageFeaturePrefName = {}));
-const SettingsAiPageElementBase = RelaunchMixin(PrefsMixin(PolymerElement));
+const SettingsAiPageElementBase = PrefsMixin(PolymerElement);
 class SettingsAiPageElement extends SettingsAiPageElementBase {
     static get is() {
         return 'settings-ai-page';
@@ -1007,13 +1001,6 @@ class SettingsAiPageElement extends SettingsAiPageElementBase {
                 value: () => [FeatureOptInState.DISABLED, FeatureOptInState.NOT_INITIALIZED],
             },
         };
-    }
-    onToggleChange_() {
-        this.$.toast.show();
-    }
-    onRestartClick_(e) {
-        e.stopPropagation();
-        this.performRestart(RestartType.RESTART);
     }
     isExpanded_() {
         return this.getPref(SettingsAiPageFeaturePrefName.MAIN).value ===
@@ -2781,20 +2768,10 @@ function getTemplate$y() {
           <div class="content-settings-header secondary">
             $i18n{siteSettingsMidiDescription}
           </div>
-          <template is="dom-if" if="[[!blockMidiByDefault_]]" no-search>
-            
-            <settings-category-default-radio-group category="[[contentSettingsTypesEnum_.MIDI_DEVICES]]" allow-option-label="$i18n{siteSettingsMidiAllowed}" allow-option-icon="settings:midi" block-option-label="$i18n{siteSettingsMidiBlocked}" block-option-icon="settings:midi-off">
-            </settings-category-default-radio-group>
-            <category-setting-exceptions category="[[contentSettingsTypesEnum_.MIDI_DEVICES]]" read-only-list allow-header="$i18n{siteSettingsMidiAllowedExceptions}" block-header="$i18n{siteSettingsMidiBlockedExceptions}" search-filter="[[searchFilter_]]">
-            </category-setting-exceptions>
-          </template>
-          <template is="dom-if" if="[[blockMidiByDefault_]]" no-search>
-            
-            <settings-category-default-radio-group category="[[contentSettingsTypesEnum_.MIDI]]" allow-option-label="$i18n{siteSettingsMidiAllowed}" allow-option-icon="settings:midi" block-option-label="$i18n{siteSettingsMidiBlocked}" block-option-icon="settings:midi-off">
-            </settings-category-default-radio-group>
-            <category-setting-exceptions category="[[contentSettingsTypesEnum_.MIDI]]" read-only-list allow-header="$i18n{siteSettingsMidiAllowedExceptions}" block-header="$i18n{siteSettingsMidiBlockedExceptions}" search-filter="[[searchFilter_]]">
-            </category-setting-exceptions>
-          </template>
+          <settings-category-default-radio-group category="[[contentSettingsTypesEnum_.MIDI_DEVICES]]" allow-option-label="$i18n{siteSettingsMidiAllowed}" allow-option-icon="settings:midi" block-option-label="$i18n{siteSettingsMidiBlocked}" block-option-icon="settings:midi-off">
+          </settings-category-default-radio-group>
+          <category-setting-exceptions category="[[contentSettingsTypesEnum_.MIDI_DEVICES]]" read-only-list allow-header="$i18n{siteSettingsMidiAllowedExceptions}" block-header="$i18n{siteSettingsMidiBlockedExceptions}" search-filter="[[searchFilter_]]">
+          </category-setting-exceptions>
         </settings-subpage>
       </template>
       <template is="dom-if" route-path="/content/usbDevices" no-search>
@@ -3158,10 +3135,6 @@ class SettingsPrivacyPageElement extends SettingsPrivacyPageElementBase {
                 value: function () {
                     return loadTimeData.getBoolean('showPersistentPermissions');
                 },
-            },
-            blockMidiByDefault_: {
-                type: Boolean,
-                value: () => loadTimeData.getBoolean('blockMidiByDefault'),
             },
             isProactiveTopicsBlockingEnabled_: {
                 type: Boolean,
@@ -7500,12 +7473,12 @@ function getTemplate$8() {
                     prefs.default_search_provider_data.template_url_data)]]">
               $i18n{searchEnginesChange}
             </cr-button>
-            <template is="dom-if" if="[[showSearchEngineListDialog_]]" restamp>
-              <settings-search-engine-list-dialog search-engines="[[searchEngines_]]" on-close="onSearchEngineListDialogClose_" on-search-engine-changed="onDefaultSearchEngineChangedInDialog_">
-              </settings-search-engine-list-dialog>
-            </template>
           </div>
         </div>
+        <template is="dom-if" if="[[showSearchEngineListDialog_]]" restamp>
+          <settings-search-engine-list-dialog search-engines="[[searchEngines_]]" on-close="onSearchEngineListDialogClose_" on-search-engine-changed="onDefaultSearchEngineChangedInDialog_">
+          </settings-search-engine-list-dialog>
+        </template>
         <cr-toast id="confirmationToast" duration="10000">
           <div>[[confirmationToastLabel_]]</div>
         </cr-toast>

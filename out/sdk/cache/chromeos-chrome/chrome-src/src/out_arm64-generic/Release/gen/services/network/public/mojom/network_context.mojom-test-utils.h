@@ -149,8 +149,8 @@ class  IpProtectionConfigGetterAsyncWaiter {
       uint32_t batch_size, IpProtectionProxyLayer proxy_layer, std::optional<std::vector<BlindSignedAuthTokenPtr>>* out_bsa_tokens, std::optional<::base::Time>* out_try_again_after);
   
   void GetProxyList(
-      std::optional<std::vector<std::vector<std::string>>>* out_proxy_list);
-  std::optional<std::vector<std::vector<std::string>>> GetProxyList();
+      std::optional<std::vector<::net::ProxyChain>>* out_proxy_list);
+  std::optional<std::vector<::net::ProxyChain>> GetProxyList();
 
  private:
   IpProtectionConfigGetter* const proxy_;

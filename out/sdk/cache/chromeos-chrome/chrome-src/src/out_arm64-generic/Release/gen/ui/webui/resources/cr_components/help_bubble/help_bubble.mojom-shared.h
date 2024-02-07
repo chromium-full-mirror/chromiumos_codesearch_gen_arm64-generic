@@ -341,6 +341,12 @@ static_assert(
     return mojo::internal::Deserialize<mojo::ArrayDataView<::help_bubble::mojom::HelpBubbleButtonParamsDataView>>(
         pointer, output, message_);
   }
+  std::optional<bool> focus_on_show_hint() const {
+
+    return data_->focus_on_show_hint_$flag
+        ? std::make_optional(!!data_->focus_on_show_hint_$value)
+        : std::nullopt;
+  }
   inline void GetTimeoutDataView(
       ::mojo_base::mojom::TimeDeltaDataView* output);
 
@@ -598,6 +604,10 @@ struct Serializer<::help_bubble::mojom::HelpBubbleParamsDataView, MaybeConstUser
         fragment->buttons.is_null(),
         mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
         "null buttons in HelpBubbleParams struct");
+    fragment->focus_on_show_hint_$flag = Traits::focus_on_show_hint(input).has_value();
+    if (Traits::focus_on_show_hint(input).has_value()) {
+      fragment->focus_on_show_hint_$value = Traits::focus_on_show_hint(input).value();
+    }
     decltype(Traits::timeout(input)) in_timeout = Traits::timeout(input);
     mojo::internal::MessageFragment<
         typename decltype(fragment->timeout)::BaseType> timeout_fragment(

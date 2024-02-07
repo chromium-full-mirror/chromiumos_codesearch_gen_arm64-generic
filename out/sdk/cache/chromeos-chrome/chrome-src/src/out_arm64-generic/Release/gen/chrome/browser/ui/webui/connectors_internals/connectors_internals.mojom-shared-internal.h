@@ -29,6 +29,9 @@ class LoadedKeyInfo_Data;
 class KeyInfo_Data;
 class ConsentMetadata_Data;
 class DeviceTrustState_Data;
+class CertificateMetadata_Data;
+class ClientIdentity_Data;
+class ClientCertificateState_Data;
 
 struct KeyManagerInitializedValue_Data {
  public:
@@ -386,6 +389,157 @@ struct DeviceTrustState_UnserializedMessageContext
 template <typename UserType, typename DataView>
 const mojo::internal::UnserializedMessageContext::Tag
     DeviceTrustState_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  CertificateMetadata_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> thumbprint;
+  mojo::internal::Pointer<mojo::internal::String_Data> expiration_date_string;
+  mojo::internal::Pointer<mojo::internal::String_Data> subject_display_name;
+  mojo::internal::Pointer<mojo::internal::String_Data> issuer_display_name;
+
+ private:
+  friend class mojo::internal::MessageFragment<CertificateMetadata_Data>;
+
+  CertificateMetadata_Data();
+  ~CertificateMetadata_Data() = delete;
+};
+static_assert(sizeof(CertificateMetadata_Data) == 40,
+              "Bad sizeof(CertificateMetadata_Data)");
+// Used by CertificateMetadata::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct CertificateMetadata_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  CertificateMetadata_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~CertificateMetadata_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<CertificateMetadata_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    CertificateMetadata_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ClientIdentity_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::String_Data> identity_name;
+  mojo::internal::Pointer<internal::LoadedKeyInfo_Data> loaded_key_info;
+  mojo::internal::Pointer<internal::CertificateMetadata_Data> certificate_metadata;
+
+ private:
+  friend class mojo::internal::MessageFragment<ClientIdentity_Data>;
+
+  ClientIdentity_Data();
+  ~ClientIdentity_Data() = delete;
+};
+static_assert(sizeof(ClientIdentity_Data) == 32,
+              "Bad sizeof(ClientIdentity_Data)");
+// Used by ClientIdentity::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ClientIdentity_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ClientIdentity_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ClientIdentity_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ClientIdentity_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ClientIdentity_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
+class  ClientCertificateState_Data {
+ public:
+  static bool Validate(const void* data,
+                       mojo::internal::ValidationContext* validation_context);
+
+  mojo::internal::StructHeader header_;
+  mojo::internal::Pointer<mojo::internal::Array_Data<mojo::internal::Pointer<mojo::internal::String_Data>>> policy_enabled_levels;
+  mojo::internal::Pointer<internal::ClientIdentity_Data> managed_profile_identity;
+  mojo::internal::Pointer<internal::ClientIdentity_Data> managed_browser_identity;
+
+ private:
+  friend class mojo::internal::MessageFragment<ClientCertificateState_Data>;
+
+  ClientCertificateState_Data();
+  ~ClientCertificateState_Data() = delete;
+};
+static_assert(sizeof(ClientCertificateState_Data) == 32,
+              "Bad sizeof(ClientCertificateState_Data)");
+// Used by ClientCertificateState::WrapAsMessage to lazily serialize the struct.
+template <typename UserType, typename DataView>
+struct ClientCertificateState_UnserializedMessageContext
+    : public mojo::internal::UnserializedMessageContext {
+ public:
+  static const mojo::internal::UnserializedMessageContext::Tag kMessageTag;
+
+  ClientCertificateState_UnserializedMessageContext(
+    uint32_t message_name,
+    uint32_t message_flags,
+    UserType input)
+      : mojo::internal::UnserializedMessageContext(&kMessageTag, message_name, message_flags)
+      , user_data_(std::move(input)) {}
+  ~ClientCertificateState_UnserializedMessageContext() override = default;
+
+  UserType TakeData() {
+    return std::move(user_data_);
+  }
+
+ private:
+  // mojo::internal::UnserializedMessageContext:
+  void Serialize(mojo::Message& message) override {
+    mojo::internal::MessageFragment<ClientCertificateState_Data> fragment(message);
+    mojo::internal::Serialize<DataView>(user_data_, fragment);
+  }
+
+  UserType user_data_;
+};
+
+template <typename UserType, typename DataView>
+const mojo::internal::UnserializedMessageContext::Tag
+    ClientCertificateState_UnserializedMessageContext<UserType, DataView>::kMessageTag = {};
 
 #pragma pack(pop)
 

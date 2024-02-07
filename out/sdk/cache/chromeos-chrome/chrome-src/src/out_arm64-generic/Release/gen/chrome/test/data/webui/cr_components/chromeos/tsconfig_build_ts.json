@@ -32,11 +32,11 @@
       "chrome://resources/polymer/v3_0/*": [
         "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/third_party/polymer/v3_0/components-chromium/*"
       ],
-      "//resources/cr_elements/*": [
-        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
+      "//resources/ash/common/cr_elements/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
       ],
-      "chrome://resources/cr_elements/*": [
-        "./../../../../../../ui/webui/resources/tsc/cr_elements/*"
+      "chrome://resources/ash/common/cr_elements/*": [
+        "./../../../../../../ash/webui/common/resources/preprocessed/cr_elements/*"
       ],
       "//resources/js/*": [
         "./../../../../../../ui/webui/resources/tsc/js/*"
@@ -52,6 +52,9 @@
       ],
       "/tools/typescript/definitions/*": [
         "./../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/*"
+      ],
+      "chrome://webui-test/*": [
+        "./../../tsc/*"
       ]
     }
   },
@@ -119,7 +122,7 @@
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/cr_components/chromeos/network_health/network_diagnostics_test.js",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/cr_components/chromeos/network_health/network_health_test_utils.js",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/cr_components/chromeos/network_health/routine_group_test.js",
-    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/cr_components/chromeos/traffic_counters/traffic_counters_test.js",
+    "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/chrome/test/data/webui/cr_components/chromeos/traffic_counters/traffic_counters_test.ts",
     "../../../../../../../../../../../../../../home/chrome-bot/chrome_root/src/tools/typescript/definitions/pending.d.ts"
   ],
   "references": [
@@ -133,10 +136,13 @@
       "path": "../../chromeos/tsconfig_build_ts.json"
     },
     {
+      "path": "../../tsconfig_build_ts.json"
+    },
+    {
       "path": "../../../../../../third_party/polymer/v3_0/tsconfig_library.json"
     },
     {
-      "path": "../../../../../../ui/webui/resources/cr_elements/tsconfig_build_ts.json"
+      "path": "../../../../../../ash/webui/common/resources/cr_elements/tsconfig_build_ts.json"
     },
     {
       "path": "../../../../../../ui/webui/resources/js/tsconfig_build_ts.json"

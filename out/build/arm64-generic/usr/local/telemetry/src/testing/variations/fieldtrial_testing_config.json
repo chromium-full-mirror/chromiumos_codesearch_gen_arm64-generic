@@ -1815,6 +1815,28 @@
             ]
         }
     ],
+    "AutofillPreFilledFieldsCorrectly": [
+        {
+            "platforms": [
+                "android",
+                "chromeos",
+                "chromeos_lacros",
+                "ios",
+                "linux",
+                "mac",
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled_OverwritePlaceholdersOnly",
+                    "enable_features": [
+                        "AutofillOverwritePlaceholdersOnly",
+                        "AutofillSkipPreFilledFields"
+                    ]
+                }
+            ]
+        }
+    ],
     "AutofillRelaxCreditCardImport": [
         {
             "platforms": [
@@ -2367,6 +2389,27 @@
             ]
         }
     ],
+    "BackForwardCacheNotRestoredReasons": [
+        {
+            "platforms": [
+                "android",
+                "android_webview",
+                "chromeos_lacros",
+                "fuchsia",
+                "linux",
+                "mac",
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "BackForwardCacheSendNotRestoredReasons"
+                    ]
+                }
+            ]
+        }
+    ],
     "BackForwardCache_NoMemoryLimit_Trial": [
         {
             "platforms": [
@@ -2441,25 +2484,6 @@
                     "enable_features": [
                         "BackgroundResourceFetch",
                         "ReduceTransferSizeUpdatedIPC"
-                    ]
-                }
-            ]
-        }
-    ],
-    "BackgroundTabLoadingFromPerformanceManager": [
-        {
-            "platforms": [
-                "chromeos",
-                "chromeos_lacros",
-                "linux",
-                "mac",
-                "windows"
-            ],
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "enable_features": [
-                        "BackgroundTabLoadingFromPerformanceManager"
                     ]
                 }
             ]
@@ -3210,6 +3234,28 @@
                     "name": "Enabled",
                     "enable_features": [
                         "Canvas2DHibernation"
+                    ]
+                }
+            ]
+        }
+    ],
+    "Canvas2DHibernationReleaseTransferMemory": [
+        {
+            "platforms": [
+                "android",
+                "android_webview",
+                "chromeos",
+                "chromeos_lacros",
+                "fuchsia",
+                "linux",
+                "mac",
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "Canvas2DHibernationReleaseTransferMemory"
                     ]
                 }
             ]
@@ -5499,6 +5545,28 @@
             ]
         }
     ],
+    "DeferredOverlayRelease": [
+        {
+            "platforms": [
+                "android",
+                "android_webview",
+                "chromeos",
+                "chromeos_lacros",
+                "fuchsia",
+                "linux",
+                "mac",
+                "windows"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "DeferredOverlayRelease"
+                    ]
+                }
+            ]
+        }
+    ],
     "DeferredSparerRendererForTopChromeWebUI": [
         {
             "platforms": [
@@ -6977,9 +7045,11 @@
             ],
             "experiments": [
                 {
-                    "name": "Enabled",
+                    "name": "Enabled_20240201",
                     "enable_features": [
-                        "EvictionUnlocksResources"
+                        "BatchMainThreadReleaseCallbacks",
+                        "EvictionUnlocksResources",
+                        "ReclaimResourcesDelayedFlushInBackground"
                     ]
                 }
             ]
@@ -9508,21 +9578,6 @@
             ]
         }
     ],
-    "IOSTabGridAlwaysBounce": [
-        {
-            "platforms": [
-                "ios"
-            ],
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "enable_features": [
-                        "TabGridAlwaysBounce"
-                    ]
-                }
-            ]
-        }
-    ],
     "IOSTabGridCompositionalLayout": [
         {
             "platforms": [
@@ -9530,8 +9585,9 @@
             ],
             "experiments": [
                 {
-                    "name": "Enabled",
+                    "name": "CompositionalWithAlwaysBounce_20240201",
                     "enable_features": [
+                        "TabGridAlwaysBounce",
                         "TabGridCompositionalLayout"
                     ]
                 }
@@ -14373,6 +14429,22 @@
                     ],
                     "disable_features": [
                         "HappinessTrackingSurveysForDesktopPrivacyGuide"
+                    ]
+                }
+            ]
+        }
+    ],
+    "PrivacyHubAppPermissions": [
+        {
+            "platforms": [
+                "chromeos",
+                "chromeos_lacros"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "CrosPrivacyHubAppPermissions"
                     ]
                 }
             ]

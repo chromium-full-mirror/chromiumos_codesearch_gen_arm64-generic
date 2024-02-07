@@ -278,6 +278,9 @@ OcrUntrustedPageHandler::IPCStableHashFunction OcrUntrustedPageHandler::MessageT
     case internal::kOcrUntrustedPageHandler_PageMetadataUpdated_Name: {
       return &OcrUntrustedPageHandler::PageMetadataUpdated_Sym::IPCStableHash;
     }
+    case internal::kOcrUntrustedPageHandler_PageContentsUpdated_Name: {
+      return &OcrUntrustedPageHandler::PageContentsUpdated_Sym::IPCStableHash;
+    }
     case internal::kOcrUntrustedPageHandler_ViewportUpdated_Name: {
       return &OcrUntrustedPageHandler::ViewportUpdated_Sym::IPCStableHash;
     }
@@ -294,6 +297,8 @@ const char* OcrUntrustedPageHandler::MessageToMethodName_(mojo::Message& message
     switch (message.name()) {
       case internal::kOcrUntrustedPageHandler_PageMetadataUpdated_Name:
             return "Receive ash::media_app_ui::mojom::OcrUntrustedPageHandler::PageMetadataUpdated";
+      case internal::kOcrUntrustedPageHandler_PageContentsUpdated_Name:
+            return "Receive ash::media_app_ui::mojom::OcrUntrustedPageHandler::PageContentsUpdated";
       case internal::kOcrUntrustedPageHandler_ViewportUpdated_Name:
             return "Receive ash::media_app_ui::mojom::OcrUntrustedPageHandler::ViewportUpdated";
     }
@@ -301,6 +306,8 @@ const char* OcrUntrustedPageHandler::MessageToMethodName_(mojo::Message& message
     switch (message.name()) {
       case internal::kOcrUntrustedPageHandler_PageMetadataUpdated_Name:
             return "Receive reply ash::media_app_ui::mojom::OcrUntrustedPageHandler::PageMetadataUpdated";
+      case internal::kOcrUntrustedPageHandler_PageContentsUpdated_Name:
+            return "Receive reply ash::media_app_ui::mojom::OcrUntrustedPageHandler::PageContentsUpdated";
       case internal::kOcrUntrustedPageHandler_ViewportUpdated_Name:
             return "Receive reply ash::media_app_ui::mojom::OcrUntrustedPageHandler::ViewportUpdated";
     }
@@ -326,6 +333,19 @@ uint32_t OcrUntrustedPageHandler::PageMetadataUpdated_Sym::IPCStableHash() {
   // hash instead of __LINE__.
   constexpr uint32_t kHash = base::MD5Hash32Constexpr(
           "(Impl)ash::media_app_ui::mojom::OcrUntrustedPageHandler::PageMetadataUpdated");
+  const uint32_t hash = kHash;
+  base::debug::Alias(&hash);
+  return hash;
+}
+uint32_t OcrUntrustedPageHandler::PageContentsUpdated_Sym::IPCStableHash() {
+  // This method's address is used for indetifiying the mojo method name after
+  // symbolization. So each IPCStableHash should have a unique address.
+  // We cannot use NO_CODE_FOLDING() here - it relies on the uniqueness of
+  // __LINE__ value, which is not unique accross different mojo modules.
+  // The code below is very similar to NO_CODE_FOLDING, but it uses a unique
+  // hash instead of __LINE__.
+  constexpr uint32_t kHash = base::MD5Hash32Constexpr(
+          "(Impl)ash::media_app_ui::mojom::OcrUntrustedPageHandler::PageContentsUpdated");
   const uint32_t hash = kHash;
   base::debug::Alias(&hash);
   return hash;
@@ -402,18 +422,69 @@ void OcrUntrustedPageHandlerProxy::PageMetadataUpdated(
   ::mojo::internal::SendMojoMessage(*receiver_, message);
 }
 
+void OcrUntrustedPageHandlerProxy::PageContentsUpdated(
+    const std::string& in_dirty_page_id) {
+#if BUILDFLAG(MOJO_TRACE_ENABLED)
+  TRACE_EVENT1(
+    "mojom", "Send ash::media_app_ui::mojom::OcrUntrustedPageHandler::PageContentsUpdated", "input_parameters",
+    [&](perfetto::TracedValue context){
+      auto dict = std::move(context).WriteDictionary();
+      perfetto::WriteIntoTracedValueWithFallback(
+           dict.AddItem("dirty_page_id"), in_dirty_page_id,
+                        "<value of type const std::string&>");
+   });
+#endif
+
+  const bool kExpectsResponse = false;
+  const bool kIsSync = false;
+  const bool kAllowInterrupt = true;
+  const bool is_urgent = false;
+  
+  const uint32_t kFlags =
+      ((kExpectsResponse) ? mojo::Message::kFlagExpectsResponse : 0) |
+      ((kIsSync) ? mojo::Message::kFlagIsSync : 0) |
+      ((kAllowInterrupt) ? 0 : mojo::Message::kFlagNoInterrupt) |
+      ((is_urgent) ? mojo::Message::kFlagIsUrgent : 0);
+  
+  mojo::Message message(
+      internal::kOcrUntrustedPageHandler_PageContentsUpdated_Name, kFlags, 0, 0, nullptr);
+  mojo::internal::MessageFragment<
+      ::ash::media_app_ui::mojom::internal::OcrUntrustedPageHandler_PageContentsUpdated_Params_Data> params(
+          message);
+  params.Allocate();
+  mojo::internal::MessageFragment<
+      typename decltype(params->dirty_page_id)::BaseType> dirty_page_id_fragment(
+          params.message());
+  mojo::internal::Serialize<mojo::StringDataView>(
+      in_dirty_page_id, dirty_page_id_fragment);
+  params->dirty_page_id.Set(
+      dirty_page_id_fragment.is_null() ? nullptr : dirty_page_id_fragment.data());
+  MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
+      params->dirty_page_id.is_null(),
+      mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
+      "null dirty_page_id in OcrUntrustedPageHandler.PageContentsUpdated request");
+
+#if defined(ENABLE_IPC_FUZZER)
+  message.set_interface_name(OcrUntrustedPageHandler::Name_);
+  message.set_method_name("PageContentsUpdated");
+#endif
+  // This return value may be ignored as false implies the Connector has
+  // encountered an error, which will be visible through other means.
+  ::mojo::internal::SendMojoMessage(*receiver_, message);
+}
+
 void OcrUntrustedPageHandlerProxy::ViewportUpdated(
-    const ::gfx::RectF& in_viewportBox, float in_scaleFactor) {
+    const ::gfx::RectF& in_viewport_box, float in_scale_factor) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::media_app_ui::mojom::OcrUntrustedPageHandler::ViewportUpdated", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("viewportBox"), in_viewportBox,
+           dict.AddItem("viewport_box"), in_viewport_box,
                         "<value of type const ::gfx::RectF&>");
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("scaleFactor"), in_scaleFactor,
+           dict.AddItem("scale_factor"), in_scale_factor,
                         "<value of type float>");
    });
 #endif
@@ -436,17 +507,17 @@ void OcrUntrustedPageHandlerProxy::ViewportUpdated(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
-      typename decltype(params->viewportBox)::BaseType> viewportBox_fragment(
+      typename decltype(params->viewport_box)::BaseType> viewport_box_fragment(
           params.message());
   mojo::internal::Serialize<::gfx::mojom::RectFDataView>(
-      in_viewportBox, viewportBox_fragment);
-  params->viewportBox.Set(
-      viewportBox_fragment.is_null() ? nullptr : viewportBox_fragment.data());
+      in_viewport_box, viewport_box_fragment);
+  params->viewport_box.Set(
+      viewport_box_fragment.is_null() ? nullptr : viewport_box_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->viewportBox.is_null(),
+      params->viewport_box.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null viewportBox in OcrUntrustedPageHandler.ViewportUpdated request");
-  params->scaleFactor = in_scaleFactor;
+      "null viewport_box in OcrUntrustedPageHandler.ViewportUpdated request");
+  params->scale_factor = in_scale_factor;
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(OcrUntrustedPageHandler::Name_);
@@ -490,24 +561,21 @@ bool OcrUntrustedPageHandlerStubDispatch::Accept(
         std::move(p_page_metadata));
       return true;
     }
-    case internal::kOcrUntrustedPageHandler_ViewportUpdated_Name: {
+    case internal::kOcrUntrustedPageHandler_PageContentsUpdated_Name: {
 
       DCHECK(message->is_serialized());
-      internal::OcrUntrustedPageHandler_ViewportUpdated_Params_Data* params =
-          reinterpret_cast<internal::OcrUntrustedPageHandler_ViewportUpdated_Params_Data*>(
+      internal::OcrUntrustedPageHandler_PageContentsUpdated_Params_Data* params =
+          reinterpret_cast<internal::OcrUntrustedPageHandler_PageContentsUpdated_Params_Data*>(
               message->mutable_payload());
       
       
       // Validation for OcrUntrustedPageHandler.1
       bool success = true;
-      ::gfx::RectF p_viewportBox{};
-      float p_scaleFactor{};
-      OcrUntrustedPageHandler_ViewportUpdated_ParamsDataView input_data_view(params, message);
+      std::string p_dirty_page_id{};
+      OcrUntrustedPageHandler_PageContentsUpdated_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadViewportBox(&p_viewportBox))
+      if (success && !input_data_view.ReadDirtyPageId(&p_dirty_page_id))
         success = false;
-      if (success)
-        p_scaleFactor = input_data_view.scaleFactor();
       if (!success) {
         ReportValidationErrorForMessage(
             message,
@@ -517,9 +585,40 @@ bool OcrUntrustedPageHandlerStubDispatch::Accept(
       }
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
+      impl->PageContentsUpdated(        
+        std::move(p_dirty_page_id));
+      return true;
+    }
+    case internal::kOcrUntrustedPageHandler_ViewportUpdated_Name: {
+
+      DCHECK(message->is_serialized());
+      internal::OcrUntrustedPageHandler_ViewportUpdated_Params_Data* params =
+          reinterpret_cast<internal::OcrUntrustedPageHandler_ViewportUpdated_Params_Data*>(
+              message->mutable_payload());
+      
+      
+      // Validation for OcrUntrustedPageHandler.2
+      bool success = true;
+      ::gfx::RectF p_viewport_box{};
+      float p_scale_factor{};
+      OcrUntrustedPageHandler_ViewportUpdated_ParamsDataView input_data_view(params, message);
+      
+      if (success && !input_data_view.ReadViewportBox(&p_viewport_box))
+        success = false;
+      if (success)
+        p_scale_factor = input_data_view.scale_factor();
+      if (!success) {
+        ReportValidationErrorForMessage(
+            message,
+            mojo::internal::VALIDATION_ERROR_DESERIALIZATION_FAILED,
+            OcrUntrustedPageHandler::Name_, 2, false);
+        return false;
+      }
+      // A null |impl| means no implementation was bound.
+      DCHECK(impl);
       impl->ViewportUpdated(        
-        std::move(p_viewportBox), 
-        std::move(p_scaleFactor));
+        std::move(p_viewport_box), 
+        std::move(p_scale_factor));
       return true;
     }
   }
@@ -538,6 +637,9 @@ bool OcrUntrustedPageHandlerStubDispatch::AcceptWithResponder(
     case internal::kOcrUntrustedPageHandler_PageMetadataUpdated_Name: {
       break;
     }
+    case internal::kOcrUntrustedPageHandler_PageContentsUpdated_Name: {
+      break;
+    }
     case internal::kOcrUntrustedPageHandler_ViewportUpdated_Name: {
       break;
     }
@@ -548,6 +650,8 @@ namespace {
 }  // namespace
 static const mojo::internal::GenericValidationInfo kOcrUntrustedPageHandlerValidationInfo[] = {
     { &internal::OcrUntrustedPageHandler_PageMetadataUpdated_Params_Data::Validate,
+     nullptr /* no response */},
+    { &internal::OcrUntrustedPageHandler_PageContentsUpdated_Params_Data::Validate,
      nullptr /* no response */},
     { &internal::OcrUntrustedPageHandler_ViewportUpdated_Params_Data::Validate,
      nullptr /* no response */},
@@ -618,14 +722,14 @@ OcrUntrustedPageProxy::OcrUntrustedPageProxy(mojo::MessageReceiverWithResponder*
 }
 
 void OcrUntrustedPageProxy::SetViewport(
-    const ::gfx::RectF& in_viewportBox) {
+    const ::gfx::RectF& in_viewport_box) {
 #if BUILDFLAG(MOJO_TRACE_ENABLED)
   TRACE_EVENT1(
     "mojom", "Send ash::media_app_ui::mojom::OcrUntrustedPage::SetViewport", "input_parameters",
     [&](perfetto::TracedValue context){
       auto dict = std::move(context).WriteDictionary();
       perfetto::WriteIntoTracedValueWithFallback(
-           dict.AddItem("viewportBox"), in_viewportBox,
+           dict.AddItem("viewport_box"), in_viewport_box,
                         "<value of type const ::gfx::RectF&>");
    });
 #endif
@@ -648,16 +752,16 @@ void OcrUntrustedPageProxy::SetViewport(
           message);
   params.Allocate();
   mojo::internal::MessageFragment<
-      typename decltype(params->viewportBox)::BaseType> viewportBox_fragment(
+      typename decltype(params->viewport_box)::BaseType> viewport_box_fragment(
           params.message());
   mojo::internal::Serialize<::gfx::mojom::RectFDataView>(
-      in_viewportBox, viewportBox_fragment);
-  params->viewportBox.Set(
-      viewportBox_fragment.is_null() ? nullptr : viewportBox_fragment.data());
+      in_viewport_box, viewport_box_fragment);
+  params->viewport_box.Set(
+      viewport_box_fragment.is_null() ? nullptr : viewport_box_fragment.data());
   MOJO_INTERNAL_DLOG_SERIALIZATION_WARNING(
-      params->viewportBox.is_null(),
+      params->viewport_box.is_null(),
       mojo::internal::VALIDATION_ERROR_UNEXPECTED_NULL_POINTER,
-      "null viewportBox in OcrUntrustedPage.SetViewport request");
+      "null viewport_box in OcrUntrustedPage.SetViewport request");
 
 #if defined(ENABLE_IPC_FUZZER)
   message.set_interface_name(OcrUntrustedPage::Name_);
@@ -683,10 +787,10 @@ bool OcrUntrustedPageStubDispatch::Accept(
       
       // Validation for OcrUntrustedPage.0
       bool success = true;
-      ::gfx::RectF p_viewportBox{};
+      ::gfx::RectF p_viewport_box{};
       OcrUntrustedPage_SetViewport_ParamsDataView input_data_view(params, message);
       
-      if (success && !input_data_view.ReadViewportBox(&p_viewportBox))
+      if (success && !input_data_view.ReadViewportBox(&p_viewport_box))
         success = false;
       if (!success) {
         ReportValidationErrorForMessage(
@@ -698,7 +802,7 @@ bool OcrUntrustedPageStubDispatch::Accept(
       // A null |impl| means no implementation was bound.
       DCHECK(impl);
       impl->SetViewport(        
-        std::move(p_viewportBox));
+        std::move(p_viewport_box));
       return true;
     }
   }
@@ -779,8 +883,11 @@ UntrustedPageHandlerFactoryAsyncWaiter::~UntrustedPageHandlerFactoryAsyncWaiter(
 void OcrUntrustedPageHandlerInterceptorForTesting::PageMetadataUpdated(std::vector<PageMetadataPtr> page_metadata) {
   GetForwardingInterface()->PageMetadataUpdated(std::move(page_metadata));
 }
-void OcrUntrustedPageHandlerInterceptorForTesting::ViewportUpdated(const ::gfx::RectF& viewportBox, float scaleFactor) {
-  GetForwardingInterface()->ViewportUpdated(std::move(viewportBox), std::move(scaleFactor));
+void OcrUntrustedPageHandlerInterceptorForTesting::PageContentsUpdated(const std::string& dirty_page_id) {
+  GetForwardingInterface()->PageContentsUpdated(std::move(dirty_page_id));
+}
+void OcrUntrustedPageHandlerInterceptorForTesting::ViewportUpdated(const ::gfx::RectF& viewport_box, float scale_factor) {
+  GetForwardingInterface()->ViewportUpdated(std::move(viewport_box), std::move(scale_factor));
 }
 OcrUntrustedPageHandlerAsyncWaiter::OcrUntrustedPageHandlerAsyncWaiter(
     OcrUntrustedPageHandler* proxy) : proxy_(proxy) {}
@@ -790,8 +897,8 @@ OcrUntrustedPageHandlerAsyncWaiter::~OcrUntrustedPageHandlerAsyncWaiter() = defa
 
 
 
-void OcrUntrustedPageInterceptorForTesting::SetViewport(const ::gfx::RectF& viewportBox) {
-  GetForwardingInterface()->SetViewport(std::move(viewportBox));
+void OcrUntrustedPageInterceptorForTesting::SetViewport(const ::gfx::RectF& viewport_box) {
+  GetForwardingInterface()->SetViewport(std::move(viewport_box));
 }
 OcrUntrustedPageAsyncWaiter::OcrUntrustedPageAsyncWaiter(
     OcrUntrustedPage* proxy) : proxy_(proxy) {}
