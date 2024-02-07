@@ -50,12 +50,18 @@ namespace chaps {
 class MechanismInfo;
 struct MechanismInfoDefaultTypeInternal;
 extern MechanismInfoDefaultTypeInternal _MechanismInfo_default_instance_;
+class PrfDataParam;
+struct PrfDataParamDefaultTypeInternal;
+extern PrfDataParamDefaultTypeInternal _PrfDataParam_default_instance_;
 class SessionInfo;
 struct SessionInfoDefaultTypeInternal;
 extern SessionInfoDefaultTypeInternal _SessionInfo_default_instance_;
 class SlotInfo;
 struct SlotInfoDefaultTypeInternal;
 extern SlotInfoDefaultTypeInternal _SlotInfo_default_instance_;
+class Sp800108KdfParams;
+struct Sp800108KdfParamsDefaultTypeInternal;
+extern Sp800108KdfParamsDefaultTypeInternal _Sp800108KdfParams_default_instance_;
 class TokenInfo;
 struct TokenInfoDefaultTypeInternal;
 extern TokenInfoDefaultTypeInternal _TokenInfo_default_instance_;
@@ -67,9 +73,13 @@ PROTOBUF_NAMESPACE_OPEN
 template <>
 ::chaps::MechanismInfo* Arena::CreateMaybeMessage<::chaps::MechanismInfo>(Arena*);
 template <>
+::chaps::PrfDataParam* Arena::CreateMaybeMessage<::chaps::PrfDataParam>(Arena*);
+template <>
 ::chaps::SessionInfo* Arena::CreateMaybeMessage<::chaps::SessionInfo>(Arena*);
 template <>
 ::chaps::SlotInfo* Arena::CreateMaybeMessage<::chaps::SlotInfo>(Arena*);
+template <>
+::chaps::Sp800108KdfParams* Arena::CreateMaybeMessage<::chaps::Sp800108KdfParams>(Arena*);
 template <>
 ::chaps::TokenInfo* Arena::CreateMaybeMessage<::chaps::TokenInfo>(Arena*);
 template <>
@@ -1183,6 +1193,329 @@ class TokenInfo final :
     ::uint64_t free_public_memory_;
     ::uint64_t total_private_memory_;
     ::uint64_t free_private_memory_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_ck_5fstructs_2eproto;
+};// -------------------------------------------------------------------
+
+class PrfDataParam final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:chaps.PrfDataParam) */ {
+ public:
+  inline PrfDataParam() : PrfDataParam(nullptr) {}
+  ~PrfDataParam() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR PrfDataParam(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  PrfDataParam(const PrfDataParam& from);
+  PrfDataParam(PrfDataParam&& from) noexcept
+    : PrfDataParam() {
+    *this = ::std::move(from);
+  }
+
+  inline PrfDataParam& operator=(const PrfDataParam& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline PrfDataParam& operator=(PrfDataParam&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const PrfDataParam& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const PrfDataParam* internal_default_instance() {
+    return reinterpret_cast<const PrfDataParam*>(
+               &_PrfDataParam_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(PrfDataParam& a, PrfDataParam& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(PrfDataParam* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(PrfDataParam* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  PrfDataParam* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<PrfDataParam>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const PrfDataParam& from);
+  void MergeFrom(const PrfDataParam& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(PrfDataParam* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "chaps.PrfDataParam";
+  }
+  protected:
+  explicit PrfDataParam(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kValueFieldNumber = 2,
+    kTypeFieldNumber = 1,
+  };
+  // optional bytes value = 2;
+  bool has_value() const;
+  void clear_value() ;
+  const std::string& value() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_value(Arg_&& arg, Args_... args);
+  std::string* mutable_value();
+  PROTOBUF_NODISCARD std::string* release_value();
+  void set_allocated_value(std::string* ptr);
+
+  private:
+  const std::string& _internal_value() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_value(
+      const std::string& value);
+  std::string* _internal_mutable_value();
+
+  public:
+  // optional uint64 type = 1;
+  bool has_type() const;
+  void clear_type() ;
+  ::uint64_t type() const;
+  void set_type(::uint64_t value);
+
+  private:
+  ::uint64_t _internal_type() const;
+  void _internal_set_type(::uint64_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:chaps.PrfDataParam)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr value_;
+    ::uint64_t type_;
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_ck_5fstructs_2eproto;
+};// -------------------------------------------------------------------
+
+class Sp800108KdfParams final :
+    public ::PROTOBUF_NAMESPACE_ID::MessageLite /* @@protoc_insertion_point(class_definition:chaps.Sp800108KdfParams) */ {
+ public:
+  inline Sp800108KdfParams() : Sp800108KdfParams(nullptr) {}
+  ~Sp800108KdfParams() override;
+  template<typename = void>
+  explicit PROTOBUF_CONSTEXPR Sp800108KdfParams(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Sp800108KdfParams(const Sp800108KdfParams& from);
+  Sp800108KdfParams(Sp800108KdfParams&& from) noexcept
+    : Sp800108KdfParams() {
+    *this = ::std::move(from);
+  }
+
+  inline Sp800108KdfParams& operator=(const Sp800108KdfParams& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Sp800108KdfParams& operator=(Sp800108KdfParams&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()
+  #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
+        && GetOwningArena() != nullptr
+  #endif  // !PROTOBUF_FORCE_COPY_IN_MOVE
+    ) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const std::string& unknown_fields() const {
+    return _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString);
+  }
+  inline std::string* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields<std::string>();
+  }
+
+  static const Sp800108KdfParams& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Sp800108KdfParams* internal_default_instance() {
+    return reinterpret_cast<const Sp800108KdfParams*>(
+               &_Sp800108KdfParams_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  friend void swap(Sp800108KdfParams& a, Sp800108KdfParams& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Sp800108KdfParams* other) {
+    if (other == this) return;
+  #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() != nullptr &&
+        GetOwningArena() == other->GetOwningArena()) {
+   #else  // PROTOBUF_FORCE_COPY_IN_SWAP
+    if (GetOwningArena() == other->GetOwningArena()) {
+  #endif  // !PROTOBUF_FORCE_COPY_IN_SWAP
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Sp800108KdfParams* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Sp800108KdfParams* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<Sp800108KdfParams>(arena);
+  }
+  void CheckTypeAndMergeFrom(const ::PROTOBUF_NAMESPACE_ID::MessageLite& from)  final;
+  void CopyFrom(const Sp800108KdfParams& from);
+  void MergeFrom(const Sp800108KdfParams& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  ::size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(Sp800108KdfParams* other);
+
+  private:
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::absl::string_view FullMessageName() {
+    return "chaps.Sp800108KdfParams";
+  }
+  protected:
+  explicit Sp800108KdfParams(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  std::string GetTypeName() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kDataParamsFieldNumber = 2,
+    kPrfTypeFieldNumber = 1,
+  };
+  // repeated .chaps.PrfDataParam data_params = 2;
+  int data_params_size() const;
+  private:
+  int _internal_data_params_size() const;
+
+  public:
+  void clear_data_params() ;
+  ::chaps::PrfDataParam* mutable_data_params(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::chaps::PrfDataParam >*
+      mutable_data_params();
+  private:
+  const ::chaps::PrfDataParam& _internal_data_params(int index) const;
+  ::chaps::PrfDataParam* _internal_add_data_params();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::chaps::PrfDataParam>& _internal_data_params() const;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::chaps::PrfDataParam>* _internal_mutable_data_params();
+  public:
+  const ::chaps::PrfDataParam& data_params(int index) const;
+  ::chaps::PrfDataParam* add_data_params();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::chaps::PrfDataParam >&
+      data_params() const;
+  // optional uint64 prf_type = 1;
+  bool has_prf_type() const;
+  void clear_prf_type() ;
+  ::uint64_t prf_type() const;
+  void set_prf_type(::uint64_t value);
+
+  private:
+  ::uint64_t _internal_prf_type() const;
+  void _internal_set_prf_type(::uint64_t value);
+
+  public:
+  // @@protoc_insertion_point(class_scope:chaps.Sp800108KdfParams)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  struct Impl_ {
+    ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
+    mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+    ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::chaps::PrfDataParam > data_params_;
+    ::uint64_t prf_type_;
   };
   union { Impl_ _impl_; };
   friend struct ::TableStruct_ck_5fstructs_2eproto;
@@ -2481,6 +2814,177 @@ inline void TokenInfo::set_allocated_firmware_version(::chaps::Version* firmware
   }
   _impl_.firmware_version_ = firmware_version;
   // @@protoc_insertion_point(field_set_allocated:chaps.TokenInfo.firmware_version)
+}
+
+// -------------------------------------------------------------------
+
+// PrfDataParam
+
+// optional uint64 type = 1;
+inline bool PrfDataParam::has_type() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
+  return value;
+}
+inline void PrfDataParam::clear_type() {
+  _impl_.type_ = ::uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000002u;
+}
+inline ::uint64_t PrfDataParam::type() const {
+  // @@protoc_insertion_point(field_get:chaps.PrfDataParam.type)
+  return _internal_type();
+}
+inline void PrfDataParam::set_type(::uint64_t value) {
+  _internal_set_type(value);
+  // @@protoc_insertion_point(field_set:chaps.PrfDataParam.type)
+}
+inline ::uint64_t PrfDataParam::_internal_type() const {
+  return _impl_.type_;
+}
+inline void PrfDataParam::_internal_set_type(::uint64_t value) {
+  _impl_._has_bits_[0] |= 0x00000002u;
+  _impl_.type_ = value;
+}
+
+// optional bytes value = 2;
+inline bool PrfDataParam::has_value() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline void PrfDataParam::clear_value() {
+  _impl_.value_.ClearToEmpty();
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline const std::string& PrfDataParam::value() const {
+  // @@protoc_insertion_point(field_get:chaps.PrfDataParam.value)
+  return _internal_value();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void PrfDataParam::set_value(Arg_&& arg,
+                                                     Args_... args) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.value_.SetBytes(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:chaps.PrfDataParam.value)
+}
+inline std::string* PrfDataParam::mutable_value() {
+  std::string* _s = _internal_mutable_value();
+  // @@protoc_insertion_point(field_mutable:chaps.PrfDataParam.value)
+  return _s;
+}
+inline const std::string& PrfDataParam::_internal_value() const {
+  return _impl_.value_.Get();
+}
+inline void PrfDataParam::_internal_set_value(const std::string& value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+
+
+  _impl_.value_.Set(value, GetArenaForAllocation());
+}
+inline std::string* PrfDataParam::_internal_mutable_value() {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  return _impl_.value_.Mutable( GetArenaForAllocation());
+}
+inline std::string* PrfDataParam::release_value() {
+  // @@protoc_insertion_point(field_release:chaps.PrfDataParam.value)
+  if ((_impl_._has_bits_[0] & 0x00000001u) == 0) {
+    return nullptr;
+  }
+  _impl_._has_bits_[0] &= ~0x00000001u;
+  auto* released = _impl_.value_.Release();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.value_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  return released;
+}
+inline void PrfDataParam::set_allocated_value(std::string* value) {
+  if (value != nullptr) {
+    _impl_._has_bits_[0] |= 0x00000001u;
+  } else {
+    _impl_._has_bits_[0] &= ~0x00000001u;
+  }
+  _impl_.value_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.value_.IsDefault()) {
+          _impl_.value_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:chaps.PrfDataParam.value)
+}
+
+// -------------------------------------------------------------------
+
+// Sp800108KdfParams
+
+// optional uint64 prf_type = 1;
+inline bool Sp800108KdfParams::has_prf_type() const {
+  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
+  return value;
+}
+inline void Sp800108KdfParams::clear_prf_type() {
+  _impl_.prf_type_ = ::uint64_t{0u};
+  _impl_._has_bits_[0] &= ~0x00000001u;
+}
+inline ::uint64_t Sp800108KdfParams::prf_type() const {
+  // @@protoc_insertion_point(field_get:chaps.Sp800108KdfParams.prf_type)
+  return _internal_prf_type();
+}
+inline void Sp800108KdfParams::set_prf_type(::uint64_t value) {
+  _internal_set_prf_type(value);
+  // @@protoc_insertion_point(field_set:chaps.Sp800108KdfParams.prf_type)
+}
+inline ::uint64_t Sp800108KdfParams::_internal_prf_type() const {
+  return _impl_.prf_type_;
+}
+inline void Sp800108KdfParams::_internal_set_prf_type(::uint64_t value) {
+  _impl_._has_bits_[0] |= 0x00000001u;
+  _impl_.prf_type_ = value;
+}
+
+// repeated .chaps.PrfDataParam data_params = 2;
+inline int Sp800108KdfParams::_internal_data_params_size() const {
+  return _impl_.data_params_.size();
+}
+inline int Sp800108KdfParams::data_params_size() const {
+  return _internal_data_params_size();
+}
+inline void Sp800108KdfParams::clear_data_params() {
+  _internal_mutable_data_params()->Clear();
+}
+inline ::chaps::PrfDataParam* Sp800108KdfParams::mutable_data_params(int index) {
+  // @@protoc_insertion_point(field_mutable:chaps.Sp800108KdfParams.data_params)
+  return _internal_mutable_data_params()->Mutable(index);
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::chaps::PrfDataParam >*
+Sp800108KdfParams::mutable_data_params() {
+  // @@protoc_insertion_point(field_mutable_list:chaps.Sp800108KdfParams.data_params)
+  return _internal_mutable_data_params();
+}
+inline const ::chaps::PrfDataParam& Sp800108KdfParams::_internal_data_params(int index) const {
+  return _internal_data_params().Get(index);
+}
+inline const ::chaps::PrfDataParam& Sp800108KdfParams::data_params(int index) const {
+  // @@protoc_insertion_point(field_get:chaps.Sp800108KdfParams.data_params)
+  return _internal_data_params(index);
+}
+inline ::chaps::PrfDataParam* Sp800108KdfParams::_internal_add_data_params() {
+  return _internal_mutable_data_params()->Add();
+}
+inline ::chaps::PrfDataParam* Sp800108KdfParams::add_data_params() {
+  ::chaps::PrfDataParam* _add = _internal_add_data_params();
+  // @@protoc_insertion_point(field_add:chaps.Sp800108KdfParams.data_params)
+  return _add;
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::chaps::PrfDataParam >&
+Sp800108KdfParams::data_params() const {
+  // @@protoc_insertion_point(field_list:chaps.Sp800108KdfParams.data_params)
+  return _internal_data_params();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::chaps::PrfDataParam>&
+Sp800108KdfParams::_internal_data_params() const {
+  return _impl_.data_params_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<::chaps::PrfDataParam>*
+Sp800108KdfParams::_internal_mutable_data_params() {
+  return &_impl_.data_params_;
 }
 
 #ifdef __GNUC__

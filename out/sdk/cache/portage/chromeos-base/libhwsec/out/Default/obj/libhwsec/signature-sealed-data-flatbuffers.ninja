@@ -1,5 +1,5 @@
 defines = -DNDEBUG -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1067/work/libhwsec-0.0.1
+include_dirs = -Igen/include -I../../../../../../tmp/portage/chromeos-base/libhwsec-0.0.1-r1068/work/libhwsec-0.0.1
 root_out_dir = .
 target_output_name = signature-sealed-data-flatbuffers
 

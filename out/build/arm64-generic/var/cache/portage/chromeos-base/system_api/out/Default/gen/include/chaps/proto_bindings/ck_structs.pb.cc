@@ -161,6 +161,45 @@ struct TokenInfoDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 TokenInfoDefaultTypeInternal _TokenInfo_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR PrfDataParam::PrfDataParam(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.value_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
+  , /*decltype(_impl_.type_)*/ ::uint64_t{0u}
+} {}
+struct PrfDataParamDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR PrfDataParamDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~PrfDataParamDefaultTypeInternal() {}
+  union {
+    PrfDataParam _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 PrfDataParamDefaultTypeInternal _PrfDataParam_default_instance_;
+template <typename>
+PROTOBUF_CONSTEXPR Sp800108KdfParams::Sp800108KdfParams(
+    ::_pbi::ConstantInitialized): _impl_{
+    /*decltype(_impl_._has_bits_)*/{}
+  , /*decltype(_impl_._cached_size_)*/{}
+  , /*decltype(_impl_.data_params_)*/{}
+  , /*decltype(_impl_.prf_type_)*/ ::uint64_t{0u}
+} {}
+struct Sp800108KdfParamsDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR Sp800108KdfParamsDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~Sp800108KdfParamsDefaultTypeInternal() {}
+  union {
+    Sp800108KdfParams _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Sp800108KdfParamsDefaultTypeInternal _Sp800108KdfParams_default_instance_;
 }  // namespace chaps
 namespace chaps {
 // ===================================================================
@@ -2209,6 +2248,493 @@ std::string TokenInfo::GetTypeName() const {
   return "chaps.TokenInfo";
 }
 
+// ===================================================================
+
+class PrfDataParam::_Internal {
+ public:
+  using HasBits = decltype(std::declval<PrfDataParam>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(PrfDataParam, _impl_._has_bits_);
+  static void set_has_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 2u;
+  }
+  static void set_has_value(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+PrfDataParam::PrfDataParam(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:chaps.PrfDataParam)
+}
+PrfDataParam::PrfDataParam(const PrfDataParam& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  PrfDataParam* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.value_) {}
+
+    , decltype(_impl_.type_) {}
+  };
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _impl_.value_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.value_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_impl_.value_.Set(from._internal_value(), _this->GetArenaForAllocation());
+  }
+  _this->_impl_.type_ = from._impl_.type_;
+  // @@protoc_insertion_point(copy_constructor:chaps.PrfDataParam)
+}
+
+inline void PrfDataParam::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.value_) {}
+
+    , decltype(_impl_.type_) { ::uint64_t{0u} }
+
+  };
+  _impl_.value_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.value_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+}
+
+PrfDataParam::~PrfDataParam() {
+  // @@protoc_insertion_point(destructor:chaps.PrfDataParam)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void PrfDataParam::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _impl_.value_.Destroy();
+}
+
+void PrfDataParam::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void PrfDataParam::Clear() {
+// @@protoc_insertion_point(message_clear_start:chaps.PrfDataParam)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    _impl_.value_.ClearNonDefaultToEmpty();
+  }
+  _impl_.type_ = ::uint64_t{0u};
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* PrfDataParam::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional uint64 type = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          _Internal::set_has_type(&has_bits);
+          _impl_.type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // optional bytes value = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
+          auto str = _internal_mutable_value();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* PrfDataParam::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:chaps.PrfDataParam)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional uint64 type = 1;
+  if (cached_has_bits & 0x00000002u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_type(), target);
+  }
+
+  // optional bytes value = 2;
+  if (cached_has_bits & 0x00000001u) {
+    const std::string& _s = this->_internal_value();
+    target = stream->WriteBytesMaybeAliased(2, _s, target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:chaps.PrfDataParam)
+  return target;
+}
+
+::size_t PrfDataParam::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:chaps.PrfDataParam)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    // optional bytes value = 2;
+    if (cached_has_bits & 0x00000001u) {
+      total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
+                                      this->_internal_value());
+    }
+
+    // optional uint64 type = 1;
+    if (cached_has_bits & 0x00000002u) {
+      total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+          this->_internal_type());
+    }
+
+  }
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void PrfDataParam::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const PrfDataParam*>(
+      &from));
+}
+
+void PrfDataParam::MergeFrom(const PrfDataParam& from) {
+  PrfDataParam* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:chaps.PrfDataParam)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = from._impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000003u) {
+    if (cached_has_bits & 0x00000001u) {
+      _this->_internal_set_value(from._internal_value());
+    }
+    if (cached_has_bits & 0x00000002u) {
+      _this->_impl_.type_ = from._impl_.type_;
+    }
+    _this->_impl_._has_bits_[0] |= cached_has_bits;
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void PrfDataParam::CopyFrom(const PrfDataParam& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:chaps.PrfDataParam)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool PrfDataParam::IsInitialized() const {
+  return true;
+}
+
+void PrfDataParam::InternalSwap(PrfDataParam* other) {
+  using std::swap;
+  auto* lhs_arena = GetArenaForAllocation();
+  auto* rhs_arena = other->GetArenaForAllocation();
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.value_, lhs_arena,
+                                       &other->_impl_.value_, rhs_arena);
+
+  swap(_impl_.type_, other->_impl_.type_);
+}
+
+std::string PrfDataParam::GetTypeName() const {
+  return "chaps.PrfDataParam";
+}
+
+// ===================================================================
+
+class Sp800108KdfParams::_Internal {
+ public:
+  using HasBits = decltype(std::declval<Sp800108KdfParams>()._impl_._has_bits_);
+  static constexpr ::int32_t kHasBitsOffset =
+    8 * PROTOBUF_FIELD_OFFSET(Sp800108KdfParams, _impl_._has_bits_);
+  static void set_has_prf_type(HasBits* has_bits) {
+    (*has_bits)[0] |= 1u;
+  }
+};
+
+Sp800108KdfParams::Sp800108KdfParams(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite(arena) {
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:chaps.Sp800108KdfParams)
+}
+Sp800108KdfParams::Sp800108KdfParams(const Sp800108KdfParams& from)
+  : ::PROTOBUF_NAMESPACE_ID::MessageLite() {
+  Sp800108KdfParams* const _this = this; (void)_this;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){from._impl_._has_bits_}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.data_params_){from._impl_.data_params_}
+    , decltype(_impl_.prf_type_) {}
+  };
+
+  _internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+  _this->_impl_.prf_type_ = from._impl_.prf_type_;
+  // @@protoc_insertion_point(copy_constructor:chaps.Sp800108KdfParams)
+}
+
+inline void Sp800108KdfParams::SharedCtor(::_pb::Arena* arena) {
+  (void)arena;
+  new (&_impl_) Impl_{
+      decltype(_impl_._has_bits_){}
+    , /*decltype(_impl_._cached_size_)*/{}
+    , decltype(_impl_.data_params_){arena}
+    , decltype(_impl_.prf_type_) { ::uint64_t{0u} }
+
+  };
+}
+
+Sp800108KdfParams::~Sp800108KdfParams() {
+  // @@protoc_insertion_point(destructor:chaps.Sp800108KdfParams)
+  if (auto *arena = _internal_metadata_.DeleteReturnArena<std::string>()) {
+  (void)arena;
+    return;
+  }
+  SharedDtor();
+}
+
+inline void Sp800108KdfParams::SharedDtor() {
+  ABSL_DCHECK(GetArenaForAllocation() == nullptr);
+  _internal_mutable_data_params()->~RepeatedPtrField();
+}
+
+void Sp800108KdfParams::SetCachedSize(int size) const {
+  _impl_._cached_size_.Set(size);
+}
+
+void Sp800108KdfParams::Clear() {
+// @@protoc_insertion_point(message_clear_start:chaps.Sp800108KdfParams)
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _internal_mutable_data_params()->Clear();
+  _impl_.prf_type_ = ::uint64_t{0u};
+  _impl_._has_bits_.Clear();
+  _internal_metadata_.Clear<std::string>();
+}
+
+const char* Sp800108KdfParams::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  _Internal::HasBits has_bits{};
+  while (!ctx->Done(&ptr)) {
+    ::uint32_t tag;
+    ptr = ::_pbi::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // optional uint64 prf_type = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 8)) {
+          _Internal::set_has_prf_type(&has_bits);
+          _impl_.prf_type_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      // repeated .chaps.PrfDataParam data_params = 2;
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 18)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_data_params(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else {
+          goto handle_unusual;
+        }
+        continue;
+      default:
+        goto handle_unusual;
+    }  // switch
+  handle_unusual:
+    if ((tag == 0) || ((tag & 7) == 4)) {
+      CHK_(ptr);
+      ctx->SetLastTag(tag);
+      goto message_done;
+    }
+    ptr = UnknownFieldParse(
+        tag,
+        _internal_metadata_.mutable_unknown_fields<std::string>(),
+        ptr, ctx);
+    CHK_(ptr != nullptr);
+  }  // while
+message_done:
+  _impl_._has_bits_.Or(has_bits);
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto message_done;
+#undef CHK_
+}
+
+::uint8_t* Sp800108KdfParams::_InternalSerialize(
+    ::uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:chaps.Sp800108KdfParams)
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  cached_has_bits = _impl_._has_bits_[0];
+  // optional uint64 prf_type = 1;
+  if (cached_has_bits & 0x00000001u) {
+    target = stream->EnsureSpace(target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(
+        1, this->_internal_prf_type(), target);
+  }
+
+  // repeated .chaps.PrfDataParam data_params = 2;
+  for (unsigned i = 0,
+      n = static_cast<unsigned>(this->_internal_data_params_size()); i < n; i++) {
+    const auto& repfield = this->_internal_data_params(i);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+        InternalWriteMessage(2, repfield, repfield.GetCachedSize(), target, stream);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
+        static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:chaps.Sp800108KdfParams)
+  return target;
+}
+
+::size_t Sp800108KdfParams::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:chaps.Sp800108KdfParams)
+  ::size_t total_size = 0;
+
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated .chaps.PrfDataParam data_params = 2;
+  total_size += 1UL * this->_internal_data_params_size();
+  for (const auto& msg : this->_internal_data_params()) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // optional uint64 prf_type = 1;
+  cached_has_bits = _impl_._has_bits_[0];
+  if (cached_has_bits & 0x00000001u) {
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(
+        this->_internal_prf_type());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    total_size += _internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size();
+  }
+  int cached_size = ::_pbi::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+void Sp800108KdfParams::CheckTypeAndMergeFrom(
+    const ::PROTOBUF_NAMESPACE_ID::MessageLite& from) {
+  MergeFrom(*::_pbi::DownCast<const Sp800108KdfParams*>(
+      &from));
+}
+
+void Sp800108KdfParams::MergeFrom(const Sp800108KdfParams& from) {
+  Sp800108KdfParams* const _this = this;
+  // @@protoc_insertion_point(class_specific_merge_from_start:chaps.Sp800108KdfParams)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  _this->_internal_mutable_data_params()->MergeFrom(from._internal_data_params());
+  if ((from._impl_._has_bits_[0] & 0x00000001u) != 0) {
+    _this->_internal_set_prf_type(from._internal_prf_type());
+  }
+  _this->_internal_metadata_.MergeFrom<std::string>(from._internal_metadata_);
+}
+
+void Sp800108KdfParams::CopyFrom(const Sp800108KdfParams& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:chaps.Sp800108KdfParams)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Sp800108KdfParams::IsInitialized() const {
+  return true;
+}
+
+void Sp800108KdfParams::InternalSwap(Sp800108KdfParams* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
+  _internal_mutable_data_params()->InternalSwap(other->_internal_mutable_data_params());
+
+  swap(_impl_.prf_type_, other->_impl_.prf_type_);
+}
+
+std::string Sp800108KdfParams::GetTypeName() const {
+  return "chaps.Sp800108KdfParams";
+}
+
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace chaps
 PROTOBUF_NAMESPACE_OPEN
@@ -2231,6 +2757,14 @@ Arena::CreateMaybeMessage< ::chaps::SlotInfo >(Arena* arena) {
 template<> PROTOBUF_NOINLINE ::chaps::TokenInfo*
 Arena::CreateMaybeMessage< ::chaps::TokenInfo >(Arena* arena) {
   return Arena::CreateMessageInternal< ::chaps::TokenInfo >(arena);
+}
+template<> PROTOBUF_NOINLINE ::chaps::PrfDataParam*
+Arena::CreateMaybeMessage< ::chaps::PrfDataParam >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::chaps::PrfDataParam >(arena);
+}
+template<> PROTOBUF_NOINLINE ::chaps::Sp800108KdfParams*
+Arena::CreateMaybeMessage< ::chaps::Sp800108KdfParams >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::chaps::Sp800108KdfParams >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 // @@protoc_insertion_point(global_scope)
