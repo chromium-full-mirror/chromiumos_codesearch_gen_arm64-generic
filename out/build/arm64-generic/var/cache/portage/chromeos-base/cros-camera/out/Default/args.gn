@@ -12,7 +12,7 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root = "/build/arm64-generic/var/cache/portage/chromeos-base/cros-camera"
 platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/cros-camera-0.0.1-r1971/work/cros-camera-0.0.1"
-libbase_ver = "1255387"
+libbase_ver = "1256589"
 enable_exceptions = false
 external_cflags = [
   "-Os",

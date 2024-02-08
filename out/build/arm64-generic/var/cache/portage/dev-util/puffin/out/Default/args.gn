@@ -12,7 +12,7 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root = "/build/arm64-generic/var/cache/portage/dev-util/puffin"
 platform2_root = "/build/arm64-generic/tmp/portage/dev-util/puffin-1.0.0-r450/work/puffin-1.0.0/platform2"
-libbase_ver = "1255387"
+libbase_ver = "1256589"
 enable_exceptions = false
 external_cflags = [
   "-Os",

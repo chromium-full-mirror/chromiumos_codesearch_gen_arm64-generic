@@ -13,7 +13,7 @@ libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/virtual-usb-printer"
 platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/virtual-usb-printer-0.0.1-r636/work/virtual-usb-printer-0.0.1/platform2"
-libbase_ver = "1255387"
+libbase_ver = "1256589"
 enable_exceptions = false
 external_cflags = [
   "-Os",

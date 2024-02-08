@@ -63,7 +63,7 @@ build obj/metrics/structured/gen_structured_events.stamp: stamp gen/include/metr
 subninja obj/metrics/structured/libstructuredmetrics.ninja
 build obj/metrics/structured/libstructuredmetrics_install_headers.stamp: stamp
 rule __metrics_structured_libstructuredmetrics_pkg_config___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3780/work/metrics-0.0.2/platform2/common-mk/generate-pc.py --output /var/cache/portage/chromeos-base/metrics/out/Default/obj/metrics/structured/libstructuredmetrics.pc --name=libstructuredmetrics --description=Chrome\$ OS\$ structured\$ metrics\$ library --version=1255387 --requires-private=libmetrics --libs=-lstructuredmetrics --cflags=-I/usr/include/metrics
+  command = /usr/bin/env ../../../../../../tmp/portage/chromeos-base/metrics-0.0.2-r3780/work/metrics-0.0.2/platform2/common-mk/generate-pc.py --output /var/cache/portage/chromeos-base/metrics/out/Default/obj/metrics/structured/libstructuredmetrics.pc --name=libstructuredmetrics --description=Chrome\$ OS\$ structured\$ metrics\$ library --version=1256589 --requires-private=libmetrics --libs=-lstructuredmetrics --cflags=-I/usr/include/metrics
   description = ACTION //metrics/structured:libstructuredmetrics_pkg_config(//common-mk/toolchain:toolchain)
   restat = 1
 

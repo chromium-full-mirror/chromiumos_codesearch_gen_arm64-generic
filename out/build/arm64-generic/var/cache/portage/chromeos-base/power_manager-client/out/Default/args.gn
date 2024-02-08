@@ -12,8 +12,8 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root =
     "/build/arm64-generic/var/cache/portage/chromeos-base/power_manager-client"
-platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/power_manager-client-0.0.1-r2856/work/power_manager-client-0.0.1"
-libbase_ver = "1255387"
+platform2_root = "/mnt/host/source/src/platform2"
+libbase_ver = "1256589"
 enable_exceptions = false
 external_cflags = [
   "-Os",

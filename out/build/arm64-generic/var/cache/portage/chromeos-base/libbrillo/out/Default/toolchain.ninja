@@ -213,7 +213,7 @@ subninja obj/libbrillo/libbrillo-storage.ninja
 subninja obj/libbrillo/libbrillo-streams.ninja
 subninja obj/libbrillo/libbrillo-test.ninja
 rule __libbrillo_libbrillo-test_pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2408/work/libbrillo-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/obj/libbrillo/libbrillo-test.pc --name=libbrillo-test --description=brillo\$ test\$ library --version=1255387 --requires-private=libbrillo --requires-private=libchrome --libs=-lbrillo-test
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2408/work/libbrillo-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/obj/libbrillo/libbrillo-test.pc --name=libbrillo-test --description=brillo\$ test\$ library --version=1256589 --requires-private=libbrillo --requires-private=libchrome --libs=-lbrillo-test
   description = ACTION //libbrillo:libbrillo-test_pc(//common-mk/toolchain:toolchain)
   restat = 1
 
@@ -224,7 +224,7 @@ subninja obj/libbrillo/libbrillo-udev.ninja
 subninja obj/libbrillo/libbrillo-usb.ninja
 subninja obj/libbrillo/libbrillo-vboot.ninja
 rule __libbrillo_libbrillo_pc___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2408/work/libbrillo-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/obj/libbrillo/libbrillo.pc --name=libbrillo --description=brillo\$ base\$ library --version=1255387 --requires-private=libchrome --requires-private=openssl --requires-private=devmapper --requires-private=libcurl --requires-private=openssl --requires-private=libminijail --requires-private=protobuf --requires-private=grpc --requires-private=grpc++ --requires-private=protobuf --requires-private=vboot_host --requires-private=zlib --requires-private=dbus-1 --requires-private=libudev --requires-private=libusb-1.0 --libs=-lbrillo --cflags=-DUSE_RTTI_FOR_TYPE_TAGS=1
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/libbrillo-0.0.1-r2408/work/libbrillo-0.0.1/common-mk/generate-pc.py --output /build/arm64-generic/var/cache/portage/chromeos-base/libbrillo/out/Default/obj/libbrillo/libbrillo.pc --name=libbrillo --description=brillo\$ base\$ library --version=1256589 --requires-private=libchrome --requires-private=openssl --requires-private=devmapper --requires-private=libcurl --requires-private=openssl --requires-private=libminijail --requires-private=protobuf --requires-private=grpc --requires-private=grpc++ --requires-private=protobuf --requires-private=vboot_host --requires-private=zlib --requires-private=dbus-1 --requires-private=libudev --requires-private=libusb-1.0 --libs=-lbrillo --cflags=-DUSE_RTTI_FOR_TYPE_TAGS=1
   description = ACTION //libbrillo:libbrillo_pc(//common-mk/toolchain:toolchain)
   restat = 1
 

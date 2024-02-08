@@ -1,5 +1,5 @@
 defines = -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../../../mnt/host/source/src/platform2 -I/build/arm64-generic/usr/include
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/shill-0.0.6-r4761/work/shill-0.0.6 -I/build/arm64-generic/usr/include
 root_out_dir = .
 target_output_name = mobile_operator_db-test-db
 

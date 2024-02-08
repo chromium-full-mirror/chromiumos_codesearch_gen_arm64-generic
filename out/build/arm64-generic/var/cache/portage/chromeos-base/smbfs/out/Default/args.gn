@@ -12,7 +12,7 @@ sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root = "/build/arm64-generic/var/cache/portage/chromeos-base/smbfs"
 platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/smbfs-0.0.1-r553/work/smbfs-0.0.1/platform2"
-libbase_ver = "1255387"
+libbase_ver = "1256589"
 enable_exceptions = false
 external_cflags = [
   "-Os",

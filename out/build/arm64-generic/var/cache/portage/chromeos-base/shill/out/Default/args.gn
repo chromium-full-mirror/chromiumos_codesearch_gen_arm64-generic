@@ -11,8 +11,8 @@ OS = "linux"
 sysroot = "/build/arm64-generic"
 libdir = "/usr/lib64"
 build_root = "/build/arm64-generic/var/cache/portage/chromeos-base/shill"
-platform2_root = "/mnt/host/source/src/platform2"
-libbase_ver = "1255387"
+platform2_root = "/build/arm64-generic/tmp/portage/chromeos-base/shill-0.0.6-r4761/work/shill-0.0.6"
+libbase_ver = "1256589"
 enable_exceptions = false
 external_cflags = [
   "-Os",
