@@ -37,10 +37,10 @@ build obj/common-mk/gn_root/root.stamp: stamp obj/shill/dbus/client/all.stamp
 build obj/shill/dbus/client/all.stamp: stamp ./lib/libshill-dbus-client.so
 subninja obj/shill/dbus/client/libshill-dbus-client.ninja
 rule __shill_dbus_client_libshill-dbus-client_deps___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/shill-dbus-client-0.0.1-r2117/work/shill-dbus-client-0.0.1/common-mk/write_args.py --output /build/arm64-generic/var/cache/portage/chromeos-base/shill-dbus-client/out/Default/gen/libshill-dbus-client-deps.txt --
+  command = /usr/bin/env ../../../../../../../../../mnt/host/source/src/platform2/common-mk/write_args.py --output /build/arm64-generic/var/cache/portage/chromeos-base/shill-dbus-client/out/Default/gen/libshill-dbus-client-deps.txt --
   description = ACTION //shill/dbus/client:libshill-dbus-client_deps(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/libshill-dbus-client-deps.txt: __shill_dbus_client_libshill-dbus-client_deps___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/shill-dbus-client-0.0.1-r2117/work/shill-dbus-client-0.0.1/common-mk/write_args.py
+build gen/libshill-dbus-client-deps.txt: __shill_dbus_client_libshill-dbus-client_deps___common-mk_toolchain_toolchain__rule | ../../../../../../../../../mnt/host/source/src/platform2/common-mk/write_args.py
 
 build obj/shill/dbus/client/libshill-dbus-client_deps.stamp: stamp gen/libshill-dbus-client-deps.txt

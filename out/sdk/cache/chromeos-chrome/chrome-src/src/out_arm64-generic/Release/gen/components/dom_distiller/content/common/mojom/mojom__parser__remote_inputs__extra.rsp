@@ -22,9 +22,9 @@ var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/component
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/dom_distiller/content/common/mojom/mojom__parser.rsp
 home/chrome-bot/chrome_root/src/components/dom_distiller/content/common/mojom/distillability_service.mojom
 home/chrome-bot/chrome_root/src/components/dom_distiller/content/common/mojom/distiller_javascript_service.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/dom_distiller/core/mojom/mojom.build_metadata
 home/chrome-bot/chrome_root/src/components/dom_distiller/core/mojom/distilled_page_prefs.mojom
-var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/dom_distiller/content/common/mojom/mojom.build_metadata
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/dom_distiller/core/mojom/mojom.build_metadata
 var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/dom_distiller/core/mojom/distilled_page_prefs.mojom-module
-home/chrome-bot/chrome_root/src/components/dom_distiller/content/common/mojom/distiller_javascript_service.mojom
 home/chrome-bot/chrome_root/src/components/dom_distiller/content/common/mojom/distillability_service.mojom
+home/chrome-bot/chrome_root/src/components/dom_distiller/content/common/mojom/distiller_javascript_service.mojom
+var/cache/chromeos-chrome/chrome-src/src/out_arm64-generic/Release/gen/components/dom_distiller/content/common/mojom/mojom.build_metadata

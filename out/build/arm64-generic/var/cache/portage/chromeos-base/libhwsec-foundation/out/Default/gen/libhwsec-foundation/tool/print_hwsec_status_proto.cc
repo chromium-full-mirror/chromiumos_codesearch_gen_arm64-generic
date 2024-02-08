@@ -4,10 +4,10 @@
 
 // THIS CODE IS GENERATED.
 // Generated with command:
-// ../../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r704/work/libhwsec-foundation-0.0.1/libhwsec-foundation/utility/proto_print.py
+// ../../../../../../../tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/utility/proto_print.py
 // --package-dir libhwsec-foundation --subdir tool --output-dir
 // /build/arm64-generic/var/cache/portage/chromeos-base/libhwsec-foundation/out/Default/gen/libhwsec-foundation/tool
-// /build/arm64-generic/tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r704/work/libhwsec-foundation-0.0.1/libhwsec-foundation/tool/hwsec_status.proto
+// /build/arm64-generic/tmp/portage/chromeos-base/libhwsec-foundation-0.0.1-r705/work/libhwsec-foundation-0.0.1/libhwsec-foundation/tool/hwsec_status.proto
 
 #include "libhwsec-foundation/tool/print_hwsec_status_proto.h"
 

@@ -1,123 +1,123 @@
 defines = -DUSE_ARCVM=false -DUSE_ARCVM_NIC_HOTPLUG=false -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64
-include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2 -I/build/arm64-generic/usr/include -Igen
+include_dirs = -Igen/include -I../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2 -I/build/arm64-generic/usr/include -Igen
 cflags = -Wconversion -Wall -Wunused -Wbool-operation -Wfree-nonheap-object -Wint-in-bool-context -Wstring-compare -Wstring-plus-int -Wxor-used-as-pow -Wdeprecated-declarations -Wno-c99-designator -Wno-unused-parameter -Wunreachable-code -Wunreachable-code-return -ggdb3 -fstack-protector-strong -Wformat=2 -fvisibility=internal -Wa,--noexecstack -Wimplicit-fallthrough -Werror -Wno-error=deprecated-enum-enum-conversion -Wno-error=deprecated-this-capture -ftrivial-auto-var-init=pattern --sysroot=/build/arm64-generic -fPIE -Wconversion -Wno-deprecated-declarations -DUSE_RTTI_FOR_TYPE_TAGS=1 -I/build/arm64-generic/usr/include/libchrome -I/build/arm64-generic/usr/include/glib-2.0 -I/build/arm64-generic/usr/lib64/glib-2.0/include -I/build/arm64-generic/usr/include/perfetto -I/build/arm64-generic/usr/include/nss -I/build/arm64-generic/usr/include/nspr -I/build/arm64-generic/usr/include/dbus-1.0 -I/build/arm64-generic/usr/lib64/dbus-1.0/include -I/build/arm64-generic/usr/include/chromeos -DPROTOBUF_USE_DLLS -pthread -I/build/arm64-generic/usr/include/libusb-1.0 -Wno-unused-local-typedefs -DBASE_VER=1255387 -DBASE_USE_PERFETTO_CLIENT_LIBRARY -DPERFETTO_ENABLE_LEGACY_TRACE_EVENTS=1 -I/build/arm64-generic/usr/include/shill-client -DPROTOBUF_USE_DLLS
 cflags_cc = -std=gnu++20 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -Os -pipe -march=armv8-a -g -ffunction-sections -fdata-sections -fno-exceptions -fno-unwind-tables -fno-asynchronous-unwind-tables
 root_out_dir = .
 target_output_name = libpatchpanel
 
 build obj/patchpanel/libpatchpanel.inputdeps.stamp: stamp obj/patchpanel/patchpanel_dbus_adaptors.stamp obj/patchpanel/patchpanel_ipc_protos_gen.stamp
-build obj/patchpanel/libpatchpanel.adb_proxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/adb_proxy.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.adb_proxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/adb_proxy.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = adb_proxy.cc
   source_name_part = adb_proxy
-build obj/patchpanel/libpatchpanel.arc_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/arc_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.arc_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/arc_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = arc_service.cc
   source_name_part = arc_service
-build obj/patchpanel/libpatchpanel.broadcast_forwarder.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/broadcast_forwarder.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.broadcast_forwarder.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/broadcast_forwarder.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = broadcast_forwarder.cc
   source_name_part = broadcast_forwarder
-build obj/patchpanel/libpatchpanel.clat_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/clat_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.clat_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/clat_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = clat_service.cc
   source_name_part = clat_service
-build obj/patchpanel/libpatchpanel.connmark_updater.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/connmark_updater.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.connmark_updater.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/connmark_updater.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = connmark_updater.cc
   source_name_part = connmark_updater
-build obj/patchpanel/libpatchpanel.conntrack_monitor.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/conntrack_monitor.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.conntrack_monitor.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/conntrack_monitor.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = conntrack_monitor.cc
   source_name_part = conntrack_monitor
-build obj/patchpanel/libpatchpanel.counters_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/counters_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.counters_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/counters_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = counters_service.cc
   source_name_part = counters_service
-build obj/patchpanel/libpatchpanel.crostini_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/crostini_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.crostini_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/crostini_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = crostini_service.cc
   source_name_part = crostini_service
-build obj/patchpanel/libpatchpanel.datapath.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/datapath.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.datapath.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/datapath.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = datapath.cc
   source_name_part = datapath
-build obj/patchpanel/libpatchpanel.dhcp_server_controller.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/dhcp_server_controller.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.dhcp_server_controller.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/dhcp_server_controller.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = dhcp_server_controller.cc
   source_name_part = dhcp_server_controller
-build obj/patchpanel/libpatchpanel.downstream_network_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/downstream_network_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.downstream_network_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/downstream_network_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = downstream_network_service.cc
   source_name_part = downstream_network_service
-build obj/patchpanel/libpatchpanel.firewall.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/firewall.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.firewall.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/firewall.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = firewall.cc
   source_name_part = firewall
-build obj/patchpanel/libpatchpanel.guest_ipv6_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/guest_ipv6_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.guest_ipv6_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/guest_ipv6_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = guest_ipv6_service.cc
   source_name_part = guest_ipv6_service
-build obj/patchpanel/libpatchpanel.iptables.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/iptables.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.iptables.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/iptables.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = iptables.cc
   source_name_part = iptables
-build obj/patchpanel/libpatchpanel.manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/manager.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.manager.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/manager.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = manager.cc
   source_name_part = manager
-build obj/patchpanel/libpatchpanel.minijailed_process_runner.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/minijailed_process_runner.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.minijailed_process_runner.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/minijailed_process_runner.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = minijailed_process_runner.cc
   source_name_part = minijailed_process_runner
-build obj/patchpanel/libpatchpanel.multicast_counters_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/multicast_counters_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.multicast_counters_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/multicast_counters_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = multicast_counters_service.cc
   source_name_part = multicast_counters_service
-build obj/patchpanel/libpatchpanel.multicast_forwarder.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/multicast_forwarder.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.multicast_forwarder.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/multicast_forwarder.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = multicast_forwarder.cc
   source_name_part = multicast_forwarder
-build obj/patchpanel/libpatchpanel.multicast_metrics.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/multicast_metrics.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.multicast_metrics.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/multicast_metrics.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = multicast_metrics.cc
   source_name_part = multicast_metrics
-build obj/patchpanel/libpatchpanel.multicast_proxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/multicast_proxy.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.multicast_proxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/multicast_proxy.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = multicast_proxy.cc
   source_name_part = multicast_proxy
-build obj/patchpanel/libpatchpanel.ndproxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/ndproxy.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.ndproxy.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/ndproxy.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = ndproxy.cc
   source_name_part = ndproxy
-build obj/patchpanel/network/libpatchpanel.address_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/network/address_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/network/libpatchpanel.address_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/network/address_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = address_service.cc
   source_name_part = address_service
-build obj/patchpanel/network/libpatchpanel.network_applier.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/network/network_applier.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/network/libpatchpanel.network_applier.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/network/network_applier.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = network_applier.cc
   source_name_part = network_applier
-build obj/patchpanel/network/libpatchpanel.routing_policy_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/network/routing_policy_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/network/libpatchpanel.routing_policy_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/network/routing_policy_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = routing_policy_service.cc
   source_name_part = routing_policy_service
-build obj/patchpanel/network/libpatchpanel.routing_table.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/network/routing_table.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/network/libpatchpanel.routing_table.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/network/routing_table.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = routing_table.cc
   source_name_part = routing_table
-build obj/patchpanel/network/libpatchpanel.routing_table_entry.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/network/routing_table_entry.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/network/libpatchpanel.routing_table_entry.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/network/routing_table_entry.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = routing_table_entry.cc
   source_name_part = routing_table_entry
-build obj/patchpanel/libpatchpanel.network_monitor_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/network_monitor_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.network_monitor_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/network_monitor_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = network_monitor_service.cc
   source_name_part = network_monitor_service
-build obj/patchpanel/libpatchpanel.patchpanel_adaptor.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/patchpanel_adaptor.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.patchpanel_adaptor.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/patchpanel_adaptor.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = patchpanel_adaptor.cc
   source_name_part = patchpanel_adaptor
-build obj/patchpanel/libpatchpanel.patchpanel_daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/patchpanel_daemon.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.patchpanel_daemon.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/patchpanel_daemon.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = patchpanel_daemon.cc
   source_name_part = patchpanel_daemon
-build obj/patchpanel/libpatchpanel.proto_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/proto_utils.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.proto_utils.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/proto_utils.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = proto_utils.cc
   source_name_part = proto_utils
-build obj/patchpanel/libpatchpanel.qos_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/qos_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.qos_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/qos_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = qos_service.cc
   source_name_part = qos_service
-build obj/patchpanel/libpatchpanel.routing_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/routing_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.routing_service.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/routing_service.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = routing_service.cc
   source_name_part = routing_service
-build obj/patchpanel/libpatchpanel.rtnl_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/rtnl_client.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.rtnl_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/rtnl_client.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = rtnl_client.cc
   source_name_part = rtnl_client
-build obj/patchpanel/libpatchpanel.scoped_ns.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/scoped_ns.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.scoped_ns.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/scoped_ns.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = scoped_ns.cc
   source_name_part = scoped_ns
-build obj/patchpanel/libpatchpanel.shill_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/shill_client.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.shill_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/shill_client.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = shill_client.cc
   source_name_part = shill_client
-build obj/patchpanel/libpatchpanel.subprocess_controller.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/subprocess_controller.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.subprocess_controller.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/subprocess_controller.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = subprocess_controller.cc
   source_name_part = subprocess_controller
-build obj/patchpanel/libpatchpanel.system.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/system.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.system.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/system.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = system.cc
   source_name_part = system
-build obj/patchpanel/libpatchpanel.vm_concierge_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1352/work/patchpanel-0.0.2/patchpanel/vm_concierge_client.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
+build obj/patchpanel/libpatchpanel.vm_concierge_client.o: cxx ../../../../../../../tmp/portage/chromeos-base/patchpanel-0.0.2-r1353/work/patchpanel-0.0.2/patchpanel/vm_concierge_client.cc || obj/patchpanel/libpatchpanel.inputdeps.stamp
   source_file_part = vm_concierge_client.cc
   source_name_part = vm_concierge_client
 

@@ -1,0 +1,1 @@
+{"sysroot": null, "category": "chromeos-base", "name": "dlp", "version": "0.0.1", "revision": 589, "fullname": "chromeos-base/dlp", "fullnamerev": "chromeos-base/dlp-0.0.1-r589", "license_names": ["BSD-Google"], "license_text_scanned": [], "homepages": ["https://chromium.googlesource.com/chromiumos/platform2/+/HEAD/dlp/"], "skip": false, "tainted": false, "ebuild_path": null}

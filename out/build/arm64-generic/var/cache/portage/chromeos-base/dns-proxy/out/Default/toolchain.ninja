@@ -38,11 +38,11 @@ build obj/dns-proxy/_dnsproxyd-install_config.stamp: stamp
 build obj/dns-proxy/all.stamp: stamp ./dnsproxyd obj/dns-proxy/install_init_config.stamp obj/dns-proxy/install_seccomp_policy.stamp ./libdnsproxy.a obj/dns-proxy/tmpfiles.d/tmpfiles.d.stamp
 subninja obj/dns-proxy/dnsproxy_ipc_protos.ninja
 rule __dns-proxy_dnsproxy_ipc_protos_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/dns-proxy-0.0.1-r872/work/dns-proxy-0.0.1/common-mk/file_generator_wrapper.py protoc ipc.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/dns-proxy-0.0.1-r872/work/dns-proxy-0.0.1/dns-proxy --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/dns-proxy/out/Default/gen/include/dns-proxy
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/dns-proxy-0.0.1-r873/work/dns-proxy-0.0.1/common-mk/file_generator_wrapper.py protoc ipc.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/dns-proxy-0.0.1-r873/work/dns-proxy-0.0.1/dns-proxy --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/dns-proxy/out/Default/gen/include/dns-proxy
   description = ACTION //dns-proxy:dnsproxy_ipc_protos_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/dns-proxy/ipc.pb.cc gen/include/dns-proxy/ipc.pb.h: __dns-proxy_dnsproxy_ipc_protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/dns-proxy-0.0.1-r872/work/dns-proxy-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/dns-proxy-0.0.1-r872/work/dns-proxy-0.0.1/dns-proxy/ipc.proto
+build gen/include/dns-proxy/ipc.pb.cc gen/include/dns-proxy/ipc.pb.h: __dns-proxy_dnsproxy_ipc_protos_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/dns-proxy-0.0.1-r873/work/dns-proxy-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/dns-proxy-0.0.1-r873/work/dns-proxy-0.0.1/dns-proxy/ipc.proto
 
 build obj/dns-proxy/dnsproxy_ipc_protos_gen.stamp: stamp gen/include/dns-proxy/ipc.pb.cc gen/include/dns-proxy/ipc.pb.h
 subninja obj/dns-proxy/dnsproxyd.ninja

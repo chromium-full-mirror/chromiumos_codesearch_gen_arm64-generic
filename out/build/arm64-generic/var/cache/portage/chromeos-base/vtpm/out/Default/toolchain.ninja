@@ -39,11 +39,11 @@ build obj/vtpm/_vtpmd-install_config.stamp: stamp
 build obj/vtpm/all.stamp: stamp obj/vtpm/install_init.stamp obj/vtpm/install_minijail_conf.stamp obj/vtpm/install_policy.stamp obj/vtpm/install_systemd.stamp obj/vtpm/install_tmpfiles_config.stamp ./vtpm_client ./vtpmd
 subninja obj/vtpm/database_proto.ninja
 rule __vtpm_database_proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py protoc database.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/vtpm/backends --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/vtpm/out/Default/gen/include/vtpm/backends
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py protoc database.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/vtpm/backends --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/vtpm/out/Default/gen/include/vtpm/backends
   description = ACTION //vtpm:database_proto_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/vtpm/backends/database.pb.cc gen/include/vtpm/backends/database.pb.h: __vtpm_database_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/vtpm/backends/database.proto
+build gen/include/vtpm/backends/database.pb.cc gen/include/vtpm/backends/database.pb.h: __vtpm_database_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/vtpm/backends/database.proto
 
 build obj/vtpm/database_proto_gen.stamp: stamp gen/include/vtpm/backends/database.pb.cc gen/include/vtpm/backends/database.pb.h
 build obj/vtpm/install_init.stamp: stamp
@@ -53,29 +53,29 @@ build obj/vtpm/install_systemd.stamp: stamp
 build obj/vtpm/install_tmpfiles_config.stamp: stamp
 subninja obj/vtpm/interface_proto.ninja
 rule __vtpm_interface_proto_gen___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py protoc vtpm_interface.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/vtpm --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/vtpm/out/Default/gen/include/vtpm
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py protoc vtpm_interface.proto --proto_path /build/arm64-generic/tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/vtpm --proto_path /build/arm64-generic/usr/share/proto --cpp_out=/build/arm64-generic/var/cache/portage/chromeos-base/vtpm/out/Default/gen/include/vtpm
   description = ACTION //vtpm:interface_proto_gen(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/vtpm/vtpm_interface.pb.cc gen/include/vtpm/vtpm_interface.pb.h: __vtpm_interface_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/vtpm/vtpm_interface.proto
+build gen/include/vtpm/vtpm_interface.pb.cc gen/include/vtpm/vtpm_interface.pb.h: __vtpm_interface_proto_gen___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/vtpm/vtpm_interface.proto
 
 build obj/vtpm/interface_proto_gen.stamp: stamp gen/include/vtpm/vtpm_interface.pb.cc gen/include/vtpm/vtpm_interface.pb.h
 rule __vtpm_vtpm-adaptors___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/vtpm/out/Default/gen/include/vtpm/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/vtpm/dbus_bindings/dbus-service-config.json ${in}
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -adaptor=/build/arm64-generic/var/cache/portage/chromeos-base/vtpm/out/Default/gen/include/vtpm/dbus_adaptors/${source_name_part}.h -service-config=/build/arm64-generic/tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/vtpm/dbus_bindings/dbus-service-config.json ${in}
   description = ACTION //vtpm:vtpm-adaptors(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/vtpm/dbus_adaptors/org.chromium.Vtpm.h: __vtpm_vtpm-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/vtpm/dbus_bindings/org.chromium.Vtpm.xml | ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py
+build gen/include/vtpm/dbus_adaptors/org.chromium.Vtpm.h: __vtpm_vtpm-adaptors___common-mk_toolchain_toolchain__rule ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/vtpm/dbus_bindings/org.chromium.Vtpm.xml | ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py
   source_name_part = org.chromium.Vtpm
 
 build obj/vtpm/vtpm-adaptors.stamp: stamp gen/include/vtpm/dbus_adaptors/org.chromium.Vtpm.h
 subninja obj/vtpm/vtpm_client.ninja
 rule __vtpm_vtpm_proxies___common-mk_toolchain_toolchain__rule
-  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config= -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/vtpm/out/Default/gen/include/vtpm/dbus_proxies.h ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/vtpm/dbus_bindings/org.chromium.Vtpm.xml
+  command = /usr/bin/env ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py go-generate-chromeos-dbus-bindings -service-config= -proxy=/build/arm64-generic/var/cache/portage/chromeos-base/vtpm/out/Default/gen/include/vtpm/dbus_proxies.h ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/vtpm/dbus_bindings/org.chromium.Vtpm.xml
   description = ACTION //vtpm:vtpm_proxies(//common-mk/toolchain:toolchain)
   restat = 1
 
-build gen/include/vtpm/dbus_proxies.h: __vtpm_vtpm_proxies___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r649/work/vtpm-0.0.1/vtpm/dbus_bindings/org.chromium.Vtpm.xml
+build gen/include/vtpm/dbus_proxies.h: __vtpm_vtpm_proxies___common-mk_toolchain_toolchain__rule | ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/common-mk/file_generator_wrapper.py ../../../../../../../tmp/portage/chromeos-base/vtpm-0.0.1-r650/work/vtpm-0.0.1/vtpm/dbus_bindings/org.chromium.Vtpm.xml
 
 build obj/vtpm/vtpm_proxies.stamp: stamp gen/include/vtpm/dbus_proxies.h
 subninja obj/vtpm/vtpm_server_library.ninja

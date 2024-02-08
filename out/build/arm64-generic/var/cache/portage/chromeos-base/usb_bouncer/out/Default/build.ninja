@@ -1,7 +1,7 @@
 ninja_required_version = 1.7.2
 
 rule gn
-  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/usb_bouncer-0.0.1-r883/work/usb_bouncer-0.0.1 -q --regeneration gen .
+  command = ../../../../../../../../../usr/bin/gn --root=../../../../../../../tmp/portage/chromeos-base/usb_bouncer-0.0.1-r884/work/usb_bouncer-0.0.1 -q --regeneration gen .
   pool = console
   description = Regenerating ninja files
 

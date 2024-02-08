@@ -1105,6 +1105,7 @@ class ScannerInfo final :
     kTypeFieldNumber = 4,
     kDeviceUuidFieldNumber = 5,
     kDisplayNameFieldNumber = 9,
+    kProtocolTypeFieldNumber = 10,
     kConnectionTypeFieldNumber = 6,
     kSecureFieldNumber = 7,
   };
@@ -1258,6 +1259,26 @@ class ScannerInfo final :
   std::string* _internal_mutable_display_name();
 
   public:
+  // string protocol_type = 10;
+  void clear_protocol_type() ;
+  const std::string& protocol_type() const;
+
+
+
+
+  template <typename Arg_ = const std::string&, typename... Args_>
+  void set_protocol_type(Arg_&& arg, Args_... args);
+  std::string* mutable_protocol_type();
+  PROTOBUF_NODISCARD std::string* release_protocol_type();
+  void set_allocated_protocol_type(std::string* ptr);
+
+  private:
+  const std::string& _internal_protocol_type() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_protocol_type(
+      const std::string& value);
+  std::string* _internal_mutable_protocol_type();
+
+  public:
   // .lorgnette.ConnectionType connection_type = 6;
   void clear_connection_type() ;
   ::lorgnette::ConnectionType connection_type() const;
@@ -1293,6 +1314,7 @@ class ScannerInfo final :
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr type_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr device_uuid_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr display_name_;
+    ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr protocol_type_;
     int connection_type_;
     bool secure_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -9225,6 +9247,53 @@ inline void ScannerInfo::set_allocated_display_name(std::string* value) {
         }
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
   // @@protoc_insertion_point(field_set_allocated:lorgnette.ScannerInfo.display_name)
+}
+
+// string protocol_type = 10;
+inline void ScannerInfo::clear_protocol_type() {
+  _impl_.protocol_type_.ClearToEmpty();
+}
+inline const std::string& ScannerInfo::protocol_type() const {
+  // @@protoc_insertion_point(field_get:lorgnette.ScannerInfo.protocol_type)
+  return _internal_protocol_type();
+}
+template <typename Arg_, typename... Args_>
+inline PROTOBUF_ALWAYS_INLINE void ScannerInfo::set_protocol_type(Arg_&& arg,
+                                                     Args_... args) {
+  ;
+  _impl_.protocol_type_.Set(static_cast<Arg_&&>(arg), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:lorgnette.ScannerInfo.protocol_type)
+}
+inline std::string* ScannerInfo::mutable_protocol_type() {
+  std::string* _s = _internal_mutable_protocol_type();
+  // @@protoc_insertion_point(field_mutable:lorgnette.ScannerInfo.protocol_type)
+  return _s;
+}
+inline const std::string& ScannerInfo::_internal_protocol_type() const {
+  return _impl_.protocol_type_.Get();
+}
+inline void ScannerInfo::_internal_set_protocol_type(const std::string& value) {
+  ;
+
+
+  _impl_.protocol_type_.Set(value, GetArenaForAllocation());
+}
+inline std::string* ScannerInfo::_internal_mutable_protocol_type() {
+  ;
+  return _impl_.protocol_type_.Mutable( GetArenaForAllocation());
+}
+inline std::string* ScannerInfo::release_protocol_type() {
+  // @@protoc_insertion_point(field_release:lorgnette.ScannerInfo.protocol_type)
+  return _impl_.protocol_type_.Release();
+}
+inline void ScannerInfo::set_allocated_protocol_type(std::string* value) {
+  _impl_.protocol_type_.SetAllocated(value, GetArenaForAllocation());
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        if (_impl_.protocol_type_.IsDefault()) {
+          _impl_.protocol_type_.Set("", GetArenaForAllocation());
+        }
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  // @@protoc_insertion_point(field_set_allocated:lorgnette.ScannerInfo.protocol_type)
 }
 
 // -------------------------------------------------------------------

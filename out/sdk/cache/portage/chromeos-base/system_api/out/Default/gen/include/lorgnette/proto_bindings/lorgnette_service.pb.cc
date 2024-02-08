@@ -90,6 +90,10 @@ PROTOBUF_CONSTEXPR ScannerInfo::ScannerInfo(
     &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
   }
 
+  , /*decltype(_impl_.protocol_type_)*/ {
+    &::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized {}
+  }
+
   , /*decltype(_impl_.connection_type_)*/ 0
 
   , /*decltype(_impl_.secure_)*/ false
@@ -2455,6 +2459,8 @@ ScannerInfo::ScannerInfo(const ScannerInfo& from)
 
     , decltype(_impl_.display_name_) {}
 
+    , decltype(_impl_.protocol_type_) {}
+
     , decltype(_impl_.connection_type_) {}
 
     , decltype(_impl_.secure_) {}
@@ -2504,6 +2510,13 @@ ScannerInfo::ScannerInfo(const ScannerInfo& from)
   if (!from._internal_display_name().empty()) {
     _this->_impl_.display_name_.Set(from._internal_display_name(), _this->GetArenaForAllocation());
   }
+  _impl_.protocol_type_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.protocol_type_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  if (!from._internal_protocol_type().empty()) {
+    _this->_impl_.protocol_type_.Set(from._internal_protocol_type(), _this->GetArenaForAllocation());
+  }
   ::memcpy(&_impl_.connection_type_, &from._impl_.connection_type_,
     static_cast<::size_t>(reinterpret_cast<char*>(&_impl_.secure_) -
     reinterpret_cast<char*>(&_impl_.connection_type_)) + sizeof(_impl_.secure_));
@@ -2525,6 +2538,8 @@ inline void ScannerInfo::SharedCtor(::_pb::Arena* arena) {
     , decltype(_impl_.device_uuid_) {}
 
     , decltype(_impl_.display_name_) {}
+
+    , decltype(_impl_.protocol_type_) {}
 
     , decltype(_impl_.connection_type_) { 0 }
 
@@ -2556,6 +2571,10 @@ inline void ScannerInfo::SharedCtor(::_pb::Arena* arena) {
   #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
         _impl_.display_name_.Set("", GetArenaForAllocation());
   #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
+  _impl_.protocol_type_.InitDefault();
+  #ifdef PROTOBUF_FORCE_COPY_DEFAULT_STRING
+        _impl_.protocol_type_.Set("", GetArenaForAllocation());
+  #endif  // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
 ScannerInfo::~ScannerInfo() {
@@ -2576,6 +2595,7 @@ inline void ScannerInfo::SharedDtor() {
   _impl_.type_.Destroy();
   _impl_.device_uuid_.Destroy();
   _impl_.display_name_.Destroy();
+  _impl_.protocol_type_.Destroy();
 }
 
 void ScannerInfo::SetCachedSize(int size) const {
@@ -2595,6 +2615,7 @@ void ScannerInfo::Clear() {
   _impl_.type_.ClearToEmpty();
   _impl_.device_uuid_.ClearToEmpty();
   _impl_.display_name_.ClearToEmpty();
+  _impl_.protocol_type_.ClearToEmpty();
   ::memset(&_impl_.connection_type_, 0, static_cast<::size_t>(
       reinterpret_cast<char*>(&_impl_.secure_) -
       reinterpret_cast<char*>(&_impl_.connection_type_)) + sizeof(_impl_.secure_));
@@ -2708,6 +2729,17 @@ const char* ScannerInfo::_InternalParse(const char* ptr, ::_pbi::ParseContext* c
           goto handle_unusual;
         }
         continue;
+      // string protocol_type = 10;
+      case 10:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::uint8_t>(tag) == 82)) {
+          auto str = _internal_mutable_protocol_type();
+          ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(ptr);
+          CHK_(::_pbi::VerifyUTF8(str, nullptr));
+        } else {
+          goto handle_unusual;
+        }
+        continue;
       default:
         goto handle_unusual;
     }  // switch
@@ -2807,6 +2839,14 @@ failure:
     target = stream->WriteStringMaybeAliased(9, _s, target);
   }
 
+  // string protocol_type = 10;
+  if (!this->_internal_protocol_type().empty()) {
+    const std::string& _s = this->_internal_protocol_type();
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+        _s.data(), static_cast<int>(_s.length()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE, "lorgnette.ScannerInfo.protocol_type");
+    target = stream->WriteStringMaybeAliased(10, _s, target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = stream->WriteRaw(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).data(),
         static_cast<int>(_internal_metadata_.unknown_fields<std::string>(::PROTOBUF_NAMESPACE_ID::internal::GetEmptyString).size()), target);
@@ -2866,6 +2906,12 @@ failure:
                                     this->_internal_display_name());
   }
 
+  // string protocol_type = 10;
+  if (!this->_internal_protocol_type().empty()) {
+    total_size += 1 + ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+                                    this->_internal_protocol_type());
+  }
+
   // .lorgnette.ConnectionType connection_type = 6;
   if (this->_internal_connection_type() != 0) {
     total_size += 1 +
@@ -2917,6 +2963,9 @@ void ScannerInfo::MergeFrom(const ScannerInfo& from) {
   if (!from._internal_display_name().empty()) {
     _this->_internal_set_display_name(from._internal_display_name());
   }
+  if (!from._internal_protocol_type().empty()) {
+    _this->_internal_set_protocol_type(from._internal_protocol_type());
+  }
   if (from._internal_connection_type() != 0) {
     _this->_internal_set_connection_type(from._internal_connection_type());
   }
@@ -2956,6 +3005,8 @@ void ScannerInfo::InternalSwap(ScannerInfo* other) {
                                        &other->_impl_.device_uuid_, rhs_arena);
   ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.display_name_, lhs_arena,
                                        &other->_impl_.display_name_, rhs_arena);
+  ::_pbi::ArenaStringPtr::InternalSwap(&_impl_.protocol_type_, lhs_arena,
+                                       &other->_impl_.protocol_type_, rhs_arena);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
       PROTOBUF_FIELD_OFFSET(ScannerInfo, _impl_.secure_)
       + sizeof(ScannerInfo::_impl_.secure_)
